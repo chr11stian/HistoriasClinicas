@@ -46,7 +46,7 @@
                         <div class="field col-12">
                             <span style="padding: 0.5rem;">Patología(s) durante la gestación</span>
                             <div class="col">
-                                <p-table class="table-over" [value]="patalogias" #dt
+                                <p-table class="table-over" [value]="patologias" #dt
                                          styleClass="p-datatable-gridlines" [rows]="10"
                                          [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
                                          [showCurrentPageReport]="true"
@@ -67,10 +67,6 @@
                                             <td style="text-align: center">{{ rowData.nombre }}</td>
                                             <td style="text-align: center">{{ rowData.fecha }}</td>
                                             <td style="text-align: center">
-                                                <button pButton pRipple icon="pi pi-pencil"
-                                                        class="p-button-rounded p-button-primary m-1"
-                                                        (click)="editarAcuerdo(rowData,rowIndex)"
-                                                        pTooltip="Editar"></button>
                                                 <button pButton pRipple icon="pi pi-trash"
                                                         class="p-button-rounded p-button-danger m-1"
                                                         (click)="eliminarAcuerdo(rowIndex)" pTooltip="Eliminar">
@@ -410,11 +406,12 @@
     <div>
         <p-fieldset legend="Patológicos" [toggleable]="true">
             <div class="flex align-items-center justify-content-center">
-                <span>Patologias :</span>
+                <span>Antecedentes :</span>
                 <div class="col-3">
-                    <input formControlName="patologia" type="text"
-                           placeholder="Agregar patologias"
-                           class="inputfield w-full" pInputText>
+                    <p-autoComplete placeholder="digite el antecedente" formControlName="patologia"
+                                    [virtualScroll]="true" [suggestions]="listaAntecedentes" [itemSize]="34"
+                                    (completeMethod)="filterItems($event)" field="codigo" [dropdown]="true">
+                    </p-autoComplete>
                 </div>
                 <div class="col-2">
                     <button style="background-color: #0c3866" class="button-agregar p-button-rounded" icon="pi pi-plus"
@@ -422,19 +419,34 @@
                             (click)="Agregar()"></button>
                 </div>
             </div>
-            <ul>
-                <div class="grid">
-                    <ng-container *ngFor="let aux of listPatologias">
-                        <div class="col-3">
-                            <li> {{aux.nombre}}</li>
-                        </div>
-                    </ng-container>
-                </div>
-            </ul>
-
-
+            <div class="col">
+                <p-table class="table-over" [value]="listPatologias" #dt
+                         styleClass="p-datatable-gridlines" [rows]="10"
+                         [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
+                         [showCurrentPageReport]="true"
+                         currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="text-align: center" class="font-2">Nro</th>
+                            <th style="text-align: center" class="font-2">Antecedente</th>
+                            <th style="text-align: center" class="font-2">Accion</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                        <tr>
+                            <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+                            <td style="text-align: center">{{ rowData }}</td>
+                            <td style="text-align: center">
+                                <button pButton pRipple icon="pi pi-trash"
+                                        class="p-button-rounded p-button-danger m-1"
+                                        (click)="eliminarAntecedente(rowIndex)" pTooltip="Eliminar">
+                                </button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
             <!--<div class="grid">
-
                 <div class="col-3">
                     <div class="card justify-content-center flex flex-column">
                         <div class="field grid">
@@ -568,14 +580,16 @@
                        pInputText>
             </div>
             <div class="col-12 flex">
-                <div class="col-6 grid">
-                    <span style="padding: 0.5rem;">Fecha</span>
-                    <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"
-                                [style]="{'position': 'fixed', 'z-index': '999'}"
-                                dateFormat="yy-mm-dd" formControlName="fecha"
-                                [(ngModel)]="fecha"></p-calendar>
+                <div class="col-6 field">
+                    <span>Fecha</span>
+                    <div class="col">
+                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"
+                                    [style]="{'position': 'fixed', 'z-index': '999'}"
+                                    dateFormat="yy-mm-dd" formControlName="fecha"
+                                    [(ngModel)]="fecha"></p-calendar>
+                    </div>
                 </div>
-                <div class="col-6 grid ml-4">
+                <div class="col-6 grid">
                     <span style="padding: 0.5rem;">Cie10</span>
                     <input formControlName="cie10" type="text" class="inputfield w-full"
                            pInputText>
@@ -585,9 +599,9 @@
     </form>
     <ng-template pTemplate="footer">
         <button pButton type="button" label="Cancelar" class="button-cancelar" icon="pi pi-times"
-                (click)="cancelAcuerdo()"></button>
+                style="background-color: #0c3866" (click)="cancelAcuerdo()"></button>
         <button class="button-agregar" icon="pi pi-save" pButton type="button" label="Guardar"
-                (click)="saveAcuerdo()"></button>
+                style="background-color: #0c3866" (click)="saveAcuerdo()"></button>
 
     </ng-template>
 </p-dialog>

@@ -170,11 +170,17 @@ export interface Parto {
     atendidoPor: number;
     atendidoPorOtro: string;
 }
+
 export interface antecedentesPatologicos {
-    nombre : string,
-    fechaDiagnosticado : string,
-    edadAnio : number,
-    edadMes : number,
-    edadDia : number
+    nombre: string,
+}
+
+export interface antecedentesFamiliares {
+    nombre: string,
+    pariente: string,
+    fechaDiagnosticado: string,
+    edadAnio: number,
+    edadMes: number,
+    edadDia: number,
 }
 

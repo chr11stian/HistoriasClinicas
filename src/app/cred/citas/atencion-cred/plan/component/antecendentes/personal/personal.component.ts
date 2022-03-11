@@ -26,9 +26,10 @@ export class PersonalComponent implements OnInit {
     hayDatos: boolean = false;
     dialogAcuerdos: boolean;
 
-    patalogias: PatologiasGestacion[] = []
+    listaAntecedentes: any[] = [];
+    patologias: PatologiasGestacion[] = []
     isUpdate: boolean
-    listPatologias: antecedentesPatologicos[] = []
+    listPatologias: string[] = []
     list: boolean = false
 
     constructor(private formBuilder: FormBuilder,
@@ -41,7 +42,51 @@ export class PersonalComponent implements OnInit {
 
         this.stateOptions1 = [{label: '1m', value: 1},
             {label: '5m', value: 5}];
-
+        this.listaAntecedentes = [{codigo: 'ALERGIAS', value: 'ALERGIAS'},
+            {codigo: 'EPILEPSIA', value: 'EPILEPSIA'},
+            {codigo: 'DIABETES', value: 'DIABETES'},
+            {codigo: 'ENFERMEDADES CONGÉNITAS', value: 'ENFERMEDADES CONGÉNITAS'},
+            {codigo: 'EMBARAZO MÚLTIPLE', value: 'EMBARAZO MÚLTIPLE'},
+            {codigo: 'MALARIA', value: 'MALARIA'},
+            {codigo: 'HIPERTENSION ARTERIAL', value: 'HIPERTENSION ARTERIAL'},
+            {codigo: 'HIPOTIROIDISMO', value: 'HIPOTIROIDISMO'},
+            {codigo: 'NEOPLÁSICA', value: 'NEOPLÁSICA'},
+            {codigo: 'TBC PULMONAR', value: 'TBC PULMONAR'},
+            {codigo: 'SOBA/ASMA BRONQUIAL', value: 'SOBA/ASMA BRONQUIAL'},
+            {codigo: 'ANEMIA', value: 'ANEMIA'},
+            {codigo: 'ARTRITIS', value: 'ARTRITIS'},
+            {codigo: 'CÁNCER', value: 'CÁNCER'},
+            {codigo: 'CARDIOPATÍAS', value: 'CARDIOPATÍAS'},
+            {codigo: 'ARTERIOESCLEROSIS', value: 'ARTERIOESCLEROSIS'},
+            {codigo: 'SIFILIS', value: 'SIFILIS'},
+            {codigo: 'BLENORRAGIA', value: 'BLENORRAGIA'},
+            {codigo: 'VIH/SIDA', value: 'VIH/SIDA'},
+            {codigo: 'REUMATISMO', value: 'REUMATISMO'},
+            {codigo: 'DISLIPIDEMIAS', value: 'DISLIPIDEMIAS'},
+            {codigo: 'ALCOHOLISMO', value: 'ALCOHOLISMO'},
+            {codigo: 'ABORTO HABITUAL/RECURRENTE', value: 'ABORTO HABITUAL/RECURRENTE'},
+            {codigo: 'VIOLENCIA', value: 'VIOLENCIA'},
+            {codigo: 'CIRUGÍA PÉLVICA UTERINA', value: 'CIRUGÍA PÉLVICA UTERINA'},
+            {codigo: 'ECLAMPSIA', value: 'ECLAMPSIA'},
+            {codigo: 'PRE ECLAMPSIA', value: 'PRE ECLAMPSIA'},
+            {codigo: 'HEMORRAGIA POSTPARTO', value: 'HEMORRAGIA POSTPARTO'},
+            {codigo: 'ALERGIA A MEDICAMENTOS', value: 'ALERGIA A MEDICAMENTOS'},
+            {codigo: 'ENFERMEDADES CONGÉNITAS', value: 'ENFERMEDADES CONGÉNITAS'},
+            {codigo: 'ENFERMEDADES INFECCIOSAS', value: 'ENFERMEDADES INFECCIOSAS'},
+            {codigo: 'CONSUMO DE HOJA DE COCA', value: 'CONSUMO DE HOJA DE COCA'},
+            {codigo: 'CONSUMO DE DROGAS', value: 'CONSUMO DE DROGAS'},
+            {codigo: 'CONSUMO DE TABACO', value: 'CONSUMO DE TABACO'},
+            {codigo: 'INFERTILIDAD', value: 'INFERTILIDAD'},
+            {codigo: 'PARTO PROLONGADO', value: 'PARTO PROLONGADO'},
+            {codigo: 'PREMATURIDAD', value: 'PREMATURIDAD'},
+            {codigo: 'RETENCION DE PLACENTA', value: 'RETENCION DE PLACENTA'},
+            {codigo: 'TRANSTORNOS MENTALES', value: 'TRANSTORNOS MENTALES'},
+            {codigo: 'HOSPITALIZACIONES', value: 'HOSPITALIZACIONES'},
+            {codigo: 'TRANSFUSIONES SANGUINEAS', value: 'TRANSFUSIONES SANGUINEAS'},
+            {codigo: 'OTRAS CIRUGIAS', value: 'OTRAS CIRUGIAS'},
+            {codigo: 'CIRUGÍA PÉLVICA UTERINA', value: 'CIRUGÍA PÉLVICA UTERINA'},
+            {codigo: 'HEPATITIS B', value: 'HEPATITIS B'},
+        ]
 
     }
 
@@ -128,7 +173,7 @@ export class PersonalComponent implements OnInit {
             fecha: this.datePipe.transform(this.formAcuerdos.value.fecha, 'yyyy-MM-dd'),
             cie10: this.formAcuerdos.value.cie10
         }
-        this.patalogias.push(a)
+        this.patologias.push(a)
 
         //console.log("acuerdos", this.acuerdosComprimisos)
         Swal.fire({
@@ -146,7 +191,7 @@ export class PersonalComponent implements OnInit {
             this.antecedentes = r.object;
             if (this.antecedentes != null) {
                 this.personalFG.get('normalE').setValue(this.antecedentes.embarazo.tipoEmbarazo)
-                this.patalogias = this.antecedentes.embarazo.listaPatologiasGestacion
+                this.patologias = this.antecedentes.embarazo.listaPatologiasGestacion
                 this.personalFG.get('nroE1').setValue(this.antecedentes.embarazo.nroEmbarazo)
                 this.personalFG.get('atencionPrenaE').setValue(this.antecedentes.embarazo.atencionPrenatal)
                 this.personalFG.get('nroE2').setValue(this.antecedentes.embarazo.nroAPN)
@@ -261,7 +306,7 @@ export class PersonalComponent implements OnInit {
         let aux: AntecedentesPerinatales = {
             embarazo: {
                 tipoEmbarazo: this.getFC('normalE').value,
-                listaPatologiasGestacion: this.patalogias,
+                listaPatologiasGestacion: this.patologias,
                 nroEmbarazo: this.getFC('nroE1').value,
                 atencionPrenatal: this.getFC('atencionPrenaE').value,
                 nroAPN: this.getFC('nroE2').value,
@@ -322,8 +367,8 @@ export class PersonalComponent implements OnInit {
                 nroHcl: this.nroDoc,
                 antecedentesPersonales: this.listPatologias
             }
-            console.log('auxp',auxp)
-            this.antecedentesService.updateAntecedentesPersonalesPatologicos(auxp).subscribe((r) => {
+            console.log('auxp', auxp)
+            this.antecedentesService.addAntecedentesPersonalesPatologicos(auxp).subscribe((r) => {
                 console.log('se actualizo')
             })
         }
@@ -346,7 +391,11 @@ export class PersonalComponent implements OnInit {
     }
 
     eliminarAcuerdo(index) {
-        //this.acuerdosComprimisos.splice(index, 1)
+        this.patologias.splice(index, 1)
+    }
+
+    eliminarAntecedente(index) {
+        this.listPatologias.splice(index, 1)
     }
 
     editarAcuerdo(row, index) {
@@ -359,15 +408,21 @@ export class PersonalComponent implements OnInit {
     }
 
     Agregar() {
-        let a: antecedentesPatologicos = {
-            nombre: this.personalFG.get('patologia').value,
-            fechaDiagnosticado: '',
-            edadAnio: 0,
-            edadMes: 0,
-            edadDia: 0
-        }
-        this.listPatologias.push(a)
+        this.listPatologias.push(this.personalFG.value.patologia.value)
         this.personalFG.get('patologia').setValue('')
+    }
+
+    filterItems(event) {
+        //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
+        let filtered: any[] = [];
+        let query = event.query;
+
+        this.listaAntecedentes.map((item: any) => {
+            if (item.value.toLowerCase().indexOf(query.toLowerCase()) == 0)
+                filtered.push(item)
+        })
+
+        this.listaAntecedentes = filtered;
     }
 }
 
