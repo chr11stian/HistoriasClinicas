@@ -37,13 +37,13 @@ export class PrestacionService {
   }
   // procedimiento
   getProcedimientoPorCodigo(codigo:string) {
-    return this.http.get(`${this.base_url}/${this.bd}/sis/procedimiento/listar/por/codigo/${codigo}`);
+    return this.http.get(`${this.base_url}/${this.bd}/sis/prestacion/listar/procedimientos/${codigo}`);
   }
   postProcedimientoPorCodigo(codigo:string,inputRequest) {
     return this.http.post(`${this.base_url}/${this.bd}/sis/prestacion/guardar/procedimiento/${codigo}`,inputRequest);
   }
   putProcedimientoPorCodigo(codigo:string,codPres:string,inputRequest) {
-    return this.http.put(`${this.base_url}/${this.bd}/sis/prestacion/update/procedimiento/${codigo}/${codPres}`,inputRequest);
+    return this.http.put(`${this.base_url}/${this.bd}/sis/prestacion/update/procedimeinto/${codigo}/${codPres}`,inputRequest);
   }
 
 

@@ -300,10 +300,10 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
             //console.log('listaCrecimiento ', this.listaCrecimiento)
             this.aux = r.object
             this.dataGrafico(this.aux)
-            //this.data.anio = 0
-            //this.data.mes = 3
-            //this.data.dia = 6
-            //this.dias = 96
+            //this.data.anio = 1
+            //this.data.mes = 0
+            //this.data.dia = 0
+            //this.dias = 365
             this.returnDescription()
             //console.log('datas', this.nroControl, this.descripcionEdad)
             this.listAux = this.aux.filter(item => item.descripcionEdad === this.descripcionEdad);
