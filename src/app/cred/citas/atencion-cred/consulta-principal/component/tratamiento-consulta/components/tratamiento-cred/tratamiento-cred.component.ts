@@ -103,9 +103,7 @@ export class TratamientoCredComponent implements OnInit {
       this.renipress = res.object.renipress;
       console.log('codigo renipress'+ this.renipress);
       this.listarMedicamentosFarmacia();
-
     })
-
   }
 
   listarMedicamentosFarmacia(){
@@ -189,8 +187,6 @@ export class TratamientoCredComponent implements OnInit {
     })
   }
 
-
-
   /*****************Imprimir Receta**************/
   imprimirReceta(){
     console.log("imprimiendo receta");
@@ -226,8 +222,7 @@ export class TratamientoCredComponent implements OnInit {
        },
        nroDiagnostico: this.formTratamiento.value.nroDiagnostico
      }
-     var duplicado:boolean=false;
-     this.tratamientos.forEach(elemento=>elemento.medicamento?cadena.medicamento:duplicado=true)
+     var duplicado:boolean=this.tratamientos.some(element=>element.medicamento=cadena.medicamento)
      console.log(duplicado);
      console.log("cadena" , cadena)
     if(!duplicado){
@@ -245,6 +240,13 @@ export class TratamientoCredComponent implements OnInit {
           title: 'Tratamientos',
           text: 'Ocurrio un error al ingresar, vuelva a intentarlo!',
         })
+      })
+    }
+    else{
+      Swal.fire({
+        icon: 'error',
+        title: 'Tratamientos',
+        text: 'Ya ingreso este medicamento!',
       })
     }
     this.dialogTratamiento=false;

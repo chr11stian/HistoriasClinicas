@@ -301,7 +301,6 @@ export class IpressFarmaciaComponent implements OnInit {
       if (result.isConfirmed) {
         var AuxItem = this.items.filter(element=>element!=farmaciaMedicamento);
         console.log(AuxItem);
-        // this.items.splice(rowIndex, 1)
         let items = {items:AuxItem}
         this.items=AuxItem;
         this.farmaciaService.addMedicamentoFarmaciaXIpress(this.renipress,items).subscribe((data:any)=>{
