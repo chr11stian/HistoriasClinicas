@@ -123,3 +123,17 @@ input[type="number"] {
   font-weight: bold;
   font-size: 14px;
 }
+.titulo-1 {
+  font-size: 1.1rem;
+  color: #1769aa;
+}
+.descp-1 {
+  font-weight: 640;
+}
+.border {
+  border: 0.1rem solid #d4d4d4;
+  border-radius: 10px;
+  padding: 1rem;
+  /* margin-top: 0.25rem; */
+  margin-bottom: 1.5rem;
+}

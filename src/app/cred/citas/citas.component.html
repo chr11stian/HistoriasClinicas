@@ -116,7 +116,7 @@
                         <td style="text-align: center">{{ rowData.paciente.apellidos }}</td>
                         <td style="text-align: center">{{ rowData.paciente.nombre}}</td>
                         <td style="text-align: center">{{ rowData.horaAtencion}}</td>
-                        <td style="text-align: center">{{ rowData.fechaAtencion}}</td>
+                        <td style="text-align: center">{{ rowData.fechaAtencion | date: 'dd-MM-yyyy'}}</td>
                         <td style="text-align: center">{{ rowData.ipress.servicio}}</td>
                         <td style="text-align: center">
                             <button pButton pRipple type="button" routerLink="../lista-consulta" label="Atención"

@@ -23,7 +23,7 @@ export class DialogPacienteComponent implements OnInit {
     peruvian: boolean = true;
     dataPaciente: any;
     nacionalidad: string;
-    auxipress: string = "615b30b37194ce03d782561c";//logeo
+    auxipress: string = "616de45e0273042236434b51";//logeo
     imagePath: string = image;
     dataDepartamentos: any;
     dataProvincia: any;
@@ -421,6 +421,7 @@ export class DialogPacienteComponent implements OnInit {
                 showConfirmButton: false,
                 timer: 1500
             })
+            console.log("RESPUESTA", res)
         });
     }
 

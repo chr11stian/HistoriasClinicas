@@ -1,0 +1,42 @@
+::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  text-align: center !important;
+  border: 1px solid #b6b6b6;
+  background-color: #dddddd;
+  padding: 0.5rem;
+}
+::ng-deep .p-datatable.p-datatable-gridlines .p-datatable-header {
+  background-color: #dddddd;
+  border: 1px solid #b6b6b6;
+}
+.infoInput {
+  font-size: 0.9rem;
+  padding-top: 0.3rem;
+  font-style: italic;
+  margin-left: 2px;
+}
+.campo {
+  display: grid;
+}
+.tittle1 {
+  grid-column: 1;
+}
+.value {
+  grid-column: 2;
+}
+.sub-tittles {
+  color: #6f6f6f;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+::ng-deep .p-fieldset .p-fieldset-legend {
+  padding: 0.5rem;
+  border: 1px solid #dee2e6;
+  color: #495057;
+  background: #d8dee5;
+  font-weight: 600;
+  border-radius: 5px;
+  /* font-size: 0.9rem; */
+}
+.p-inputtext {
+  opacity: 1;
+}

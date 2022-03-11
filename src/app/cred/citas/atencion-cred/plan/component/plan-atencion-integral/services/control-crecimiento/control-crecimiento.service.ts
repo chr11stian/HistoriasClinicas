@@ -6,7 +6,6 @@ import { environment } from "src/environments/environment";
   providedIn: 'root'
 })
 export class ControlCrecimientoService {
-
   base_url = environment.baseUrl;
   bd = environment.bd;
 

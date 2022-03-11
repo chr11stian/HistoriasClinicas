@@ -120,6 +120,11 @@ const menu_geresa = [
             },
             {
                 icon: "pi pi-pw pi-file",
+                label: "Condicion Paciente Discapacidad  ",
+                routerLink: "mantenimientos/antecedentes-paciente",
+            },
+            {
+                icon: "pi pi-pw pi-file",
                 label: "Tipo Contrato",
                 routerLink: "mantenimientos/tipo-contrato",
             },
@@ -132,6 +137,11 @@ const menu_geresa = [
                 icon: "pi pi-pw pi-file",
                 label: "Prestacion",
                 routerLink: "mantenimientos/prestacion",
+            },
+            {
+                icon: "pi pi-file",
+                label: "Medicamentos",
+                routerLink: "mantenimientos/medicamentos",
             },
         ],
     },
@@ -404,7 +414,6 @@ const menu_ipress = [
                 icon: "pi pi-pw pi-file",
                 routerLink: "admision/usuarios",
             },
-
         ],
     },
 
@@ -452,6 +461,17 @@ const menu_ipress = [
                 label: "Unidad ejecutora",
                 routerLink: "mantenimientos/unidad-ejecutora",
             },
+            {
+                icon: "pi pi-file",
+                label: "Antecedentes Pacientes",
+                routerLink: "mantenimientos/antecedentes-paciente",
+            },
+            {
+                icon: "pi pi-file",
+                label: "Ipress Farmacia",
+                routerLink: "admision/ipress-farmacia",
+            },
+
         ],
     },
 ];

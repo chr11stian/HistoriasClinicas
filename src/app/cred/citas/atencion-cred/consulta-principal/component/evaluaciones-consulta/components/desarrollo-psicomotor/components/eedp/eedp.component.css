@@ -137,6 +137,9 @@ input[type="number"] {
 ::ng-deep .table-desarrollo .p-datatable .p-datatable-tbody > tr > td {
   padding: 2px;
 }
+::ng-deep .p-fieldset{
+  padding-top: 0px;
+}
 .cell_container {
   width: 100%;
   height: 100%;

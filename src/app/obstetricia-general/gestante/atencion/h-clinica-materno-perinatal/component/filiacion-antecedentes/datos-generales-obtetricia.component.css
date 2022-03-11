@@ -2,15 +2,27 @@ p-checkbox >>> .p-checkbox .p-checkbox-box .pi-check:before {
     content: url("src\assets\svg-icons\check-svgrepo-com.svg");
 }
 
+
 p-selectbutton >>> .p-selectbutton .p-button.p-highlight {
-    background: #0c3866;
-    border-color: #0c3866;
+    background: rgb(149 158 166);
+    border-color: rgb(149 158 166);
 }
 
+/*.amarillo >>> .p-selectbutton .p-button.p-highlight {*/
+/*    background: rgb(234, 187, 38);*/
+/*    border-color: rgb(234, 187, 38);*/
+/*}*/
+
 p-calendar >>> .p-button {
-    background: #0c3866;
-    border: 1px solid #0c3866;
+    background: #a4a4a4;
+    border: 1px solid #ffffff;
     align-self: center;
+}
+
+p-calendar >>> .p-button:enabled:hover {
+    background: #333232;
+    color: #ffeaf3;
+    border-color: #a4a4a4;
 }
 
 .guardar {
@@ -42,22 +54,27 @@ p-checkbox >>> .p-checkbox .p-checkbox-box {
     font-size: 3em;
 }
 
-.amarillo .p-checkbox .p-checkbox-box {
-    background: red !important;
+/*.amarillo .p-checkbox .p-checkbox-box {*/
+/*    background: rgba(197, 0, 9, 0.63) !important;*/
+/*}*/
+
+::ng-deep .default .p-checkbox .p-checkbox-box {
+    background: #ffffff;
+    border-color: rgb(206 212 218);
 }
 
 ::ng-deep .amarillo .p-checkbox .p-checkbox-box {
     background: rgb(234, 187, 38);
-    border-color: rgb(234, 187, 38);
+    border-color: rgb(206 212 218);
 }
 
 ::ng-deep .rojo .p-checkbox .p-checkbox-box {
-    background: rgb(246, 26, 26);
-    border-color: rgb(246, 26, 26);
+    background: rgba(197, 0, 9, 0.63);
+    border-color: rgb(206 212 218);
 }
 
 p-radiobutton >>> .p-radiobutton .p-radiobutton-icon {
-    content: url("src\assets\svg-icons\check-svgrepo-com.svg");
+    content: url("src/assets/svg-icons/check-svgrepo-com.svg");
 }
 
 ::ng-deep .amarillo .p-radiobutton .p-radiobutton-box,
@@ -65,22 +82,22 @@ p-radiobutton >>> .p-radiobutton .p-radiobutton-icon {
 ::ng-deep .amarillo .p-radiobutton .p-radiobutton-box.p-highlight,
 ::ng-deep .amarillo .p-radiobutton .p-radiobutton-icon {
     background: rgb(234, 187, 38);
-    border: rgb(234, 187, 38);
+    border-color: rgb(206 212 218);
 }
 
-::ng-deep .rojo .p-radiobutton .p-radiobutton-box.p-highlight,
 ::ng-deep .rojo .p-radiobutton .p-radiobutton-box,
 ::ng-deep .rojo .p-radiobutton .p-radiobutton-box.p-highlight:hover,
+::ng-deep .rojo .p-radiobutton .p-radiobutton-box.p-highlight,
 ::ng-deep .rojo .p-radiobutton .p-radiobutton-icon {
-    border-color: red;
-    background: red;
+    border-color: rgb(246, 26, 26);
+    background: rgba(197, 0, 9, 0.63);
 }
 
 ::ng-deep .default .p-radiobutton .p-radiobutton-icon,
 ::ng-deep .default .p-radiobutton .p-radiobutton-box.p-highlight,
 ::ng-deep .default .p-radiobutton .p-radiobutton-box.p-highlight:hover {
-    background: #2196f3;
-    border: #2196f3;
+    background: #ffffff;
+    border-color: rgb(206 212 218);
 }
 
 input[type="number"]::-webkit-inner-spin-button,
@@ -114,8 +131,9 @@ input[type="number"] {
 
 .border {
     border: 1px solid rgb(222 226 230);
+    /*border: 1px solid rgb(12 56 102);*/
     border-radius: 3px;
-    /*background: rgb(248 249 250)*/
+
 }
 
 .border2 {
@@ -135,6 +153,7 @@ label {
     /*font-weight: bold;*/
     color: rgb(135 135 135);
 }
+
 
 svg {
     /*text-align: center;*/
@@ -175,7 +194,7 @@ svg {
 
 
 p-toolbar >>> .p-toolbar {
-    background: rgb(248 249 250);
+    background: rgb(216 222 229);
     border: 1px solid rgb(222 226 230);
     padding: 0.5rem;
     height: auto;
@@ -183,3 +202,35 @@ p-toolbar >>> .p-toolbar {
 }
 
 
+p-checkbox >>> .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover {
+    border-color: rgb(164, 164, 164);
+}
+
+
+p-checkbox >>> .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
+    border: rgb(164, 164, 164);
+    background: rgb(164, 164, 164);
+
+}
+
+p-radiobutton >>> .p-radiobutton:not(.p-radiobutton-disabled).p-radiobutton-box.p-highlight:hover {
+    border: rgb(164, 164, 164);
+    background: rgb(164, 164, 164);
+}
+
+p-radiobutton >>> .p-radiobutton:not(.p-radiobutton-disabled) .p-radiobutton-box:hover {
+    border-color: rgb(164, 164, 164);
+}
+
+p-radiobutton >>> .p-radiobutton .p-radiobutton-box.p-highlight:not(.p-disabled):hover {
+    border: rgb(164, 164, 164);
+    background: rgb(164, 164, 164);
+}
+
+
+p-selectbutton >>> .p-selectbutton .p-button {
+    /*color: #6e6e6e;*/
+    /*font-size: xx-large;*/
+    /*background-color: "blue";*/
+    padding: 5px;
+}

@@ -3,43 +3,83 @@
         <p-fieldset legend="Antecedentes Perinatales" [toggleable]="true">
             <div class="card">
                 <p-fieldset legend="Embarazo">
+                    <div class="grid">
+                        <div class="flex col-12 align-items-center">
+                            <div class="col-4 justify-content-center">
+                                <button pButton pRipple label="Agregar Patologia" iconPos="right"
+                                        icon="pi pi-plus-circle"
+                                        class="guardar mr-2"
+                                        style="background-color: #0c3866" (click)="openAcuerdo()"></button>
+                            </div>
+                            <div class="col-2 text-right">
+                                <span>Embarazo :</span>
+                            </div>
+                            <div class="col-6 grid">
+                                <div class="md:col-4 lg:col-4 flex align-content-start justify-content-center flex-wrap ">
+                                    <div class="flex flex-column flex align-items-center justify-content-center"
+                                         style="margin-top: 7px;">
+                                        <span style="text-align: center;">Normal</span>
+                                        <p-selectButton [options]="stateOptions"
+                                                        formControlName="normalE"
+                                                        optionLabel="label"
+                                                        optionValue="value"
+                                                        (onChange)="cambio($event,'complicadoE')">
+                                        </p-selectButton>
 
-                    <div class="grid ">
+                                    </div>
 
-                        <div class="field col">
+                                </div>
+                                <div class="md:col-4 lg:col-4 flex align-content-start justify-content-center flex-wrap">
+                                    <div class=" flex flex-column flex align-items-center justify-content-center"
+                                         style="margin-top: 7px;">
+                                        <span style="text-align: center;">Complicado</span>
+                                        <p-selectButton [options]="stateOptions"
+                                                        formControlName="complicadoE"
+                                                        optionLabel="label"
+                                                        optionValue="value"
+                                                        (onChange)="cambio($event,'normalE')">
+                                        </p-selectButton>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field col-12">
                             <span style="padding: 0.5rem;">Patología(s) durante la gestación</span>
                             <div class="col">
-                                <input id="patologiasE1" formControlName="patologiasE1" type="text"
-                                       placeholder="Patologías durante la gestación" class="inputfield w-full"
-                                       pInputText>
+                                <p-table class="table-over" [value]="patalogias" #dt
+                                         styleClass="p-datatable-gridlines" [rows]="10"
+                                         [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
+                                         [showCurrentPageReport]="true"
+                                         currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+                                    <ng-template pTemplate="header">
+                                        <tr>
+                                            <th style="text-align: center" class="font-2">Nro</th>
+                                            <th style="text-align: center" class="font-2">cie10</th>
+                                            <th style="text-align: center" class="font-2">nombre</th>
+                                            <th style="text-align: center" class="font-2">fecha</th>
+                                            <th style="text-align: center" class="font-2">accion</th>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                                        <tr>
+                                            <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+                                            <td style="text-align: center">{{ rowData.cie10 }}</td>
+                                            <td style="text-align: center">{{ rowData.nombre }}</td>
+                                            <td style="text-align: center">{{ rowData.fecha }}</td>
+                                            <td style="text-align: center">
+                                                <button pButton pRipple icon="pi pi-pencil"
+                                                        class="p-button-rounded p-button-primary m-1"
+                                                        (click)="editarAcuerdo(rowData,rowIndex)"
+                                                        pTooltip="Editar"></button>
+                                                <button pButton pRipple icon="pi pi-trash"
+                                                        class="p-button-rounded p-button-danger m-1"
+                                                        (click)="eliminarAcuerdo(rowIndex)" pTooltip="Eliminar">
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                                </p-table>
                             </div>
-                        </div>
-                        <div class=" col-2 md:col-2 lg:col-2 flex align-content-start justify-content-center flex-wrap ">
-                            <div class="flex flex-column flex align-items-center justify-content-center"
-                                 style="margin-top: 7px;">
-                                <span style="text-align: center;">Normal</span>
-                                <p-selectButton [options]="stateOptions"
-                                                formControlName="normalE"
-                                                optionLabel="label"
-                                                optionValue="value"
-                                                (onChange)="cambio($event,'complicadoE')">
-                                </p-selectButton>
-
-                            </div>
-
-                        </div>
-                        <div class=" col-2 md:col-2 lg:col-2 flex align-content-start justify-content-center flex-wrap">
-                            <div class=" flex flex-column flex align-items-center justify-content-center"
-                                 style="margin-top: 7px;">
-                                <span style="text-align: center;">Complicado</span>
-                                <p-selectButton [options]="stateOptions"
-                                                formControlName="complicadoE"
-                                                optionLabel="label"
-                                                optionValue="value"
-                                                (onChange)="cambio($event,'normalE')">
-                                </p-selectButton>
-                            </div>
-
                         </div>
                     </div>
 
@@ -77,7 +117,7 @@
                     </div>
                 </p-fieldset>
             </div>
-
+            <br>
             <div class="card">
                 <p-fieldset legend="Parto">
                     <div class="card">
@@ -86,7 +126,7 @@
                                 <span style="padding: 0.5rem;">Complicaciones del parto</span>
                                 <div class="col">
                                     <input id="patologiasP" formControlName="patologiasP" type="text"
-                                           placeholder="Patologías durante la gestación" class="inputfield w-full"
+                                           placeholder="Complicaciones del parto" class="inputfield w-full"
                                            pInputText>
                                 </div>
                             </div>
@@ -117,16 +157,9 @@
                             </div>
                         </div>
                         <div class="grid">
-                            <div class="col-6">
-                                <p>Lugar del parto:</p>
-                            </div>
-                            <div class="col-6">
-                                <p>Atendido por:</p>
-                            </div>
-                        </div>
-                        <div class="grid ">
-                            <div class="col-4 flex align-content-end justify-content-center flex-wrap">
-                                <div class="col-4 flex flex-column flex align-items-center justify-content-center">
+                            <div class="col-12 flex align-items-center">
+                                <div class="col-2"><p>Lugar del parto:</p></div>
+                                <div class="col-2 flex flex-column flex align-items-center justify-content-center">
                                     <span style="text-align: center;">EE.SS.</span>
                                     <p-selectButton [options]="stateOptions"
                                                     formControlName="eessP"
@@ -135,7 +168,7 @@
                                                     (onChange)="cambio2($event,'domicilioP','consultaPP')">
                                     </p-selectButton>
                                 </div>
-                                <div class="col-4  flex flex-column flex align-items-center justify-content-center">
+                                <div class="col-2  flex flex-column flex align-items-center justify-content-center">
                                     <span style="text-align: center;">Domicilio</span>
                                     <p-selectButton [options]="stateOptions"
                                                     formControlName="domicilioP"
@@ -144,7 +177,7 @@
                                                     (onChange)="cambio2($event,'eessP','consultaPP')">
                                     </p-selectButton>
                                 </div>
-                                <div class="col-4  flex flex-column flex align-items-center justify-content-center">
+                                <div class="col-2  flex flex-column flex align-items-center justify-content-center">
                                     <span style="text-align: center;">Consulta Parti.</span>
                                     <p-selectButton [options]="stateOptions"
                                                     formControlName="consultaPP"
@@ -154,13 +187,9 @@
                                     </p-selectButton>
                                 </div>
                             </div>
-                            <div class="col-2">
-                                <p-divider layout="vertical">
-                                    <b>&</b>
-                                </p-divider>
-                            </div>
-                            <div class="col-6 flex align-content-end justify-content-center flex-wrap">
-                                <div class="col-3 flex flex-column flex align-items-center justify-content-center">
+                            <div class="col-12 flex align-items-center">
+                                <div class="col-2"><p>Atendido por:</p></div>
+                                <div class="col-2 flex flex-column flex align-items-center justify-content-center">
                                     <span style="text-align: center;">Prof. de Salud</span>
                                     <p-selectButton [options]="stateOptions"
                                                     formControlName="profSaludP"
@@ -169,7 +198,7 @@
                                                     (onChange)="cambio3($event,'tecnicoP','acsP','familiarP','otroP')">
                                     </p-selectButton>
                                 </div>
-                                <div class="col-3 flex flex-column flex align-items-center justify-content-center">
+                                <div class="col-2 flex flex-column flex align-items-center justify-content-center">
                                     <span style="text-align: center;">Técnico</span>
                                     <p-selectButton [options]="stateOptions"
                                                     formControlName="tecnicoP"
@@ -178,7 +207,7 @@
                                                     (onChange)="cambio3($event,'profSaludP','acsP','familiarP','otroP')">
                                     </p-selectButton>
                                 </div>
-                                <div class="col-3 flex flex-column flex align-items-center justify-content-center">
+                                <div class="col-2 flex flex-column flex align-items-center justify-content-center">
                                     <span style="text-align: center;">ACS</span>
                                     <p-selectButton [options]="stateOptions"
                                                     formControlName="acsP"
@@ -187,7 +216,7 @@
                                                     (onChange)="cambio3($event,'tecnicoP','profSaludP','familiarP','otroP')">
                                     </p-selectButton>
                                 </div>
-                                <div class="col-3 flex flex-column flex align-items-center justify-content-center">
+                                <div class="col-2 flex flex-column flex align-items-center justify-content-center">
                                     <span style="text-align: center;">Familiar</span>
                                     <p-selectButton [options]="stateOptions"
                                                     formControlName="familiarP"
@@ -197,39 +226,32 @@
                                     </p-selectButton>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="grid ">
-                            <div class=" col-6 col-offset-6">
-                                <div class="formgrid grid">
-                                    <div class="col-3 flex flex-column flex align-items-center justify-content-center">
-                                        <span style="text-align: center;">Otro</span>
-                                        <p-selectButton [options]="stateOptions"
-                                                        formControlName="otroP"
-                                                        optionLabel="label"
-                                                        optionValue="value"
-                                                        (onChange)="cambio3($event,'tecnicoP','acsP','familiarP','profSaludP')">
-                                        </p-selectButton>
-                                    </div>
-                                    <div class="col md:col align-self-end flex ">
-                                        <input id="otroDetalleP" formControlName="otroDetalleP" type="text"
-                                               class=" w-full" placeholder="Especifique" pInputText>
-                                    </div>
-
+                            <div class="col-12 flex align-items-center">
+                                <div class="col-2"></div>
+                                <div class="col-2  flex flex-column flex align-items-center justify-content-center">
+                                    <span style="text-align: center;">Otro</span>
+                                    <p-selectButton [options]="stateOptions"
+                                                    formControlName="otroP"
+                                                    optionLabel="label"
+                                                    optionValue="value"
+                                                    (onChange)="cambio3($event,'tecnicoP','acsP','familiarP','profSaludP')">
+                                    </p-selectButton>
+                                </div>
+                                <div class="col md:col align-self-end flex ">
+                                    <input id="otroDetalleP" formControlName="otroDetalleP" type="text"
+                                           class=" w-full" placeholder="Especifique" pInputText>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </p-fieldset>
             </div>
 
             <div class="card">
                 <p-fieldset legend="Nacimiento">
-
                     <div class="grid">
                         <div class="col flex flex-column justify-content-center flex-wrap">
-                            <span style="padding-left: 5px;">Edad Gest al nacer(sem)</span>
+                            <span style="padding-left: 5px;">Edad Get. al nacer(sem)</span>
                             <div class="col">
                                 <input id="edadN" formControlName="edadN" type="text" class="inputfield w-full"
                                        pInputText>
@@ -257,19 +279,17 @@
                             </div>
                         </div>
                         <div class="col">
-                            <span style="padding: 0.5rem;">Perímetro Torácico</span>
+                            <span style="padding: 0.5rem;">Perímetro Toráxico</span>
                             <div class="col">
                                 <input id="perimetroTorN" formControlName="perimetroTorN" type="text"
                                        class="inputfield w-full" pInputText>
                             </div>
                         </div>
                     </div>
-
-                    <p>Respiración y llanto al nacer</p>
-
                     <div class="grid ">
-                        <div class="col-6  flex align-content-end justify-content-center flex-wrap">
-                            <div class="col-3 flex flex-column flex align-items-center justify-content-center">
+                        <div class="col-12 text-center"><p>Respiración y llanto al nacer</p></div>
+                        <div class="col-12  flex align-content-end justify-content-center flex-wrap">
+                            <div class="col-2 flex flex-column flex align-items-center justify-content-center">
                                 <span>Inmediato</span>
                                 <p-selectButton [options]="stateOptions"
                                                 formControlName="inmediatoN"
@@ -277,7 +297,7 @@
                                                 optionValue="value">
                                 </p-selectButton>
                             </div>
-                            <div class="col-3 flex flex-column flex align-items-center justify-content-center">
+                            <div class="col-2 flex flex-column flex align-items-center justify-content-center">
                                 <span>APGAR</span>
                                 <p-selectButton [options]="stateOptions1"
                                                 formControlName="apgarN"
@@ -285,7 +305,7 @@
                                                 optionValue="value">
                                 </p-selectButton>
                             </div>
-                            <div class="col-3 flex flex-column flex align-items-center justify-content-center">
+                            <div class="col-2 flex flex-column flex align-items-center justify-content-center">
                                 <span>Reanimación</span>
                                 <p-selectButton [options]="stateOptions"
                                                 formControlName="reanimacionN"
@@ -293,7 +313,7 @@
                                                 optionValue="value">
                                 </p-selectButton>
                             </div>
-                            <div class="col-3 flex flex-column flex align-items-center justify-content-center">
+                            <div class="col-2 flex flex-column flex align-items-center justify-content-center">
                                 <span>Patolog neonatal</span>
                                 <p-selectButton [options]="stateOptions"
                                                 formControlName="patologiaNeoN"
@@ -302,28 +322,23 @@
                                 </p-selectButton>
                             </div>
                         </div>
-
-                        <div class="col-3">
-                            <div class="col">
-                                <span>Especifique</span>
-                                <input id="detallePatologiaN" formControlName="detallePatologiaN" type="text"
-                                       class="inputfield w-full" placeholder="Especifique" pInputText>
-                            </div>
+                    </div>
+                    <div class="col-12 flex ">
+                        <div class="col-6">
+                            <span>Especifique</span>
+                            <input id="detallePatologiaN" formControlName="detallePatologiaN" type="text"
+                                   class="inputfield w-full" placeholder="Especifique" pInputText>
                         </div>
-
-                        <div class="col-3 flex align-content-center justify-content-center flex-wrap">
-
-                            <div class="col flex flex-column flex align-items-center justify-content-center ">
+                        <div class="col-6 flex">
+                            <div class="col-3">
                                 <span>Hospitalización</span>
                                 <p-selectButton [options]="stateOptions"
                                                 formControlName="hospitalizacionN"
                                                 optionLabel="label"
                                                 optionValue="value">
                                 </p-selectButton>
-
-
                             </div>
-                            <div class="col flex flex-column ">
+                            <div class="col-3">
                                 <span>Tiempo Hospit.</span>
                                 <input id="tiempoHospN" formControlName="tiempoHospN" type="text"
                                        placeholder="tiempo en dias"
@@ -338,7 +353,7 @@
             </div>
         </p-fieldset>
     </div>
-
+    <br>
     <div class="card">
         <p-fieldset legend="Alimentación" [toggleable]="true">
 
@@ -410,7 +425,7 @@
 
         </p-fieldset>
     </div>
-
+    <br>
     <div>
         <p-fieldset legend="Patológicos" [toggleable]="true">
             <div class="grid">
@@ -540,3 +555,40 @@
         </button>-->
     </div>
 </div>
+<p-dialog header="ACUERDO" [(visible)]="dialogAcuerdos" [modal]="true" [style]="{width: '40%'}" [draggable]="false"
+          [resizable]="false">
+
+    <form [formGroup]='formAcuerdos'>
+        <div class="grid">
+            <div class="col-12 md:col-12 lg:col-12  align-self-start justify-content-center">
+                <span style="padding: 0.5rem;">Nombre</span>
+                <div class="col">
+                    <input formControlName="nombre" type="text" class="inputfield w-full"
+                           pInputText>
+                </div>
+            </div>
+            <div class="col-12 grid">
+                <div class="col-6 md:col-6 lg:col-6">
+                    <span style="padding: 0.5rem;">Fecha</span>
+                    <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"
+                                dateFormat="yy-mm-dd" formControlName="fecha"
+                                [(ngModel)]="fecha"></p-calendar>
+                </div>
+                <div class="col-6 md:col-6 lg:col-6">
+                    <span style="padding: 0.5rem;">Cie10</span>
+                    <div class="col">
+                        <input formControlName="cie10" type="text" class="inputfield w-full"
+                               pInputText>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <ng-template pTemplate="footer">
+        <button pButton type="button" label="Cancelar" class="button-cancelar" icon="pi pi-times"
+                (click)="cancelAcuerdo()"></button>
+        <button class="button-agregar" icon="pi pi-save" pButton type="button" label="Guardar"
+                (click)="saveAcuerdo()"></button>
+
+    </ng-template>
+</p-dialog>

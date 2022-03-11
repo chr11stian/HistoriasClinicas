@@ -66,7 +66,6 @@ export class GestanteComponent implements OnInit {
                 this.filiacionUltimaPosicion = this.pacientesFiliacion[index].estado;
                 console.log('ARREGLO ULTIMA POSICION', this.filiacionUltimaPosicion);
             }
-
         });
     }
 
@@ -74,16 +73,13 @@ export class GestanteComponent implements OnInit {
     gestacion(event) {
         localStorage.setItem('gestacion', JSON.stringify(event));
         localStorage.removeItem('dataPaciente');
-
+        if (this.pacientesFiliacion.length == 0) {
+            console.log("Vacio",)
+        } else {
+            console.log("Lleno",)
+        }
     }
 
-    consultas(event) {
-        this.obstetriciaGeneralService.idGestacion = event.id;
-        this.obstetriciaGeneralService.tipoDoc = event.tipoDoc;
-        this.obstetriciaGeneralService.nroDoc = event.nroDoc;
-        this.obstetriciaGeneralService.nroEmbarazo = event.nroEmbarazo;
-        this.obstetriciaGeneralService.nroHcl = event.nroHcl;
-    }
 
     pacienteByNroDoc() {
         let tipoDoc = this.tipoDocRecuperado;
@@ -103,9 +99,6 @@ export class GestanteComponent implements OnInit {
     newEmbarazo() {
         localStorage.removeItem('gestacion');
         localStorage.setItem('dataPaciente', JSON.stringify(this.dataPaciente));
-        // this.obstetriciaGeneralService.idGestacion = null;
-        // this.obstetriciaGeneralService.tipoDoc = this.tipoDoc;
-        // this.obstetriciaGeneralService.nroDoc = this.nroDoc;
     }
 
     traerDataReniec() {
