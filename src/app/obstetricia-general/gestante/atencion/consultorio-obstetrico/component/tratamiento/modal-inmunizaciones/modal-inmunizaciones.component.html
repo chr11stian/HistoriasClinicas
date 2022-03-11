@@ -34,14 +34,11 @@
                     <div class="col-6">
                         <label>Diagnostico:</label>
                         <p-dropdown [options]="diagnosticosList" formControlName="diagnostico" appendTo="body" (onChange)="onChangeDiagnostico()"
-                        optionLabel="label" optionValue="value" class="inputfield p-fluid w-full" placeholder="Seleccione diagnostico SIS"></p-dropdown>
+                        optionLabel="diagnosticoSIS" class="inputfield p-fluid w-full" placeholder="Seleccione diagnostico SIS"></p-dropdown>
                     </div>
                     <div class="col-6">
                         <label>Prestacion:</label>
-                        <p-dropdown inputId="dropdown" [options]="prestacionList" formControlName="prestacion"
-                        placeholder="Seleccionar" optionLabel="descripcion" optionValue="codigo" defaultLabel="Seleccione:" appendTo="body"
-                        class="inputfield p-fluid w-full">
-                </p-dropdown>
+                        <input type="text" pInputText formControlName='prestacion' placeholder="Prestacion" required disabled/>
                     </div>
                 </div>
             </p-fieldset>

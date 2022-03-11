@@ -37,8 +37,10 @@ export class TratamientoComponent implements OnInit {
   recomendaciones: any[] = [];
   examenesAuxiliares: any[] = [];
   /*LISTA DE LOS DROPDOWNS*/
-  intervaloList: any[];
-  viaadministracionList: any[];
+  listaIntervalos: any[];
+  listaSuplementoAcido: any[];
+  listaViaAdministracion: any[];
+  listaSuplementoCalcio: any[];
   /*Form de datos generales*/
   formRIEP: FormGroup;
   /*form de todos los arreglos dialogs*/
@@ -53,13 +55,8 @@ export class TratamientoComponent implements OnInit {
   idConsultoriObstetrico: string;
   /****** Data recuperada********/
   private planPartoReenfocada: any;
-  private tipoDocRecuperado: any;
-  private nroDocRecuperado: any;
-  private nroEmbarazo: any;
-  private nroHclRecuperado: any;
   /*****datos recuperados para actualizar consultorio**/
   private nroFetos: number = 0;
-  private idConsulta: any;
   /********datos para poder calcular EVAL. nutricional valor e indicador*************/
   private talla: number;
   private imc: number;
@@ -67,6 +64,17 @@ export class TratamientoComponent implements OnInit {
   private pesoActual: number;
   private indicador: '';
   /*****/
+  idConsulta: string;
+  tipoDocRecuperado: string;
+  nroDocRecuperado: string;
+  nroEmbarazo: string;
+  nroHcl: string;
+
+  Gestacion: any;
+  dataPaciente2: any;
+  estadoEdicion: Boolean;
+
+  nroAtencion: any;
   constructor(private formBuilder: FormBuilder,
     private obstetriciaService: ObstetriciaGeneralService,
     private dialog: DialogService,
@@ -75,39 +83,78 @@ export class TratamientoComponent implements OnInit {
     this.buildForm();
 
     /*********RECUPERAR DATOS*********/
-    this.tipoDocRecuperado = this.obstetriciaService.tipoDoc;
-    this.nroDocRecuperado = this.obstetriciaService.nroDoc;
-    this.nroEmbarazo = this.obstetriciaService.nroEmbarazo;
-    this.idConsultoriObstetrico = this.obstetriciaService.idConsultoriObstetrico;
-    this.nroHclRecuperado = this.obstetriciaService.nroHcl;
-    this.idConsulta = this.obstetriciaService.idGestacion;
+    /*usando local storage*/
+    this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
+    this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
+
+    //estado para saber que estado usar en consultas
+    this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
+
+    console.log("DATA PACIENTE 2 desde datos generales", this.dataPaciente2);
+    console.log("gestacion desde datos generales", this.Gestacion);
+
+    if (this.Gestacion == null) {
+      this.tipoDocRecuperado = this.dataPaciente2.tipoDoc;
+      this.nroDocRecuperado = this.dataPaciente2.nroDoc;
+      this.idConsulta = JSON.parse(localStorage.getItem('idGestacionRegistro'));
+      this.nroEmbarazo = this.dataPaciente2.nroEmbarazo;
+      this.nroHcl = this.dataPaciente2.nroHcl;
+
+    } else {
+      this.tipoDocRecuperado = this.Gestacion.tipoDoc;
+      this.nroDocRecuperado = this.Gestacion.nroDoc;
+      this.idConsulta = this.Gestacion.id;
+      this.nroEmbarazo = this.Gestacion.nroEmbarazo;
+      this.nroHcl = this.Gestacion.nroHcl;
+    }
+    if (!this.estadoEdicion) {
+      //guardar en el ls el nroAtencion
+      let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaNueva'));
+      this.nroAtencion = nroAtencion;
+      console.log("entre a nueva consulta", this.nroAtencion)
+    }
+    else {
+      let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaEditar'));
+      this.nroAtencion = nroAtencion;
+      console.log("entre a edicion consulta", this.nroAtencion)
+    }
+
+
     /***************DATOS DE LOS DROPDOWNS*******************/
     /*LLENADO DE LISTAS - VALORES QUE PUEDEN TOMAR EL TRATAMIENTO*/
-    this.intervaloList = [
-      { label: 'CADA 4 HORAS', value: 'CADA 4 HORAS' },
-      { label: 'CADA 5 HORAS', value: 'CADA 5 HORAS' },
-      { label: 'CADA 6 HORAS', value: 'CADA 6 HORAS' },
-      { label: 'CADA 8 HORAS', value: 'CADA 8 HORAS' },
-      { label: 'CADA 12 HORAS', value: 'CADA 12 HORAS' },
-      { label: 'CADA 24 HORAS', value: 'CADA 24 HORAS' },
-      { label: 'CONDICIONAL A FIEBRE', value: 'CONDICIONAL A FIEBRE' },
-      { label: 'DOSIS UNICA', value: 'DOSIS UNICA' },
-      { label: 'CADA 48 HORAS', value: 'CADA 48 HORAS' }
+    this.listaIntervalos = [
+      { name: 'CADA 4 HORAS', code: '4' },
+      { name: 'CADA 5 HORAS', code: '5' },
+      { name: 'CADA 6 HORAS', code: '6' },
+      { name: 'CADA 8 HORAS', code: '7' },
+      { name: 'CADA 12 HORAS', code: '8' },
+      { name: 'CADA 24 HORAS', code: '9' },
+      { name: 'CONDICIONAL A FIEBRE', code: '10' },
+      { name: 'DOSIS UNICA', code: '11' },
+      { name: 'CADA 48 HORAS', code: '12' }
     ];
 
-    this.viaadministracionList = [{ label: 'ENDOVENOSA', value: 'ENDOVENOSA' },
-    { label: 'INHALADORA', value: 'INHALADORA' },
-    { label: 'INTRADERMICO', value: 'INTRADERMICO' },
-    { label: 'INTRAMUSCULAR', value: 'INTRAMUSCULAR' },
-    { label: 'NASAL', value: 'NASAL' },
-    { label: 'OFTALMICO', value: 'OFTALMICO' },
-    { label: 'ORAL', value: 'ORAL' },
-    { label: 'OPTICO', value: 'OPTICO' },
-    { label: 'RECTAL', value: 'RECTAL' },
-    { label: 'SUBCUTANEO', value: 'SUBCUTANEO' },
-    { label: 'SUBLINGUAL', value: 'SUBLINGUAL' },
-    { label: 'TOPICO', value: 'TOPICO' },
-    { label: 'VAGINAL', value: 'VAGINAL' },
+    this.listaViaAdministracion = [
+      { name: 'ENDOVENOSA', code: "1" },
+      { name: 'INHALADORA', code: "2" },
+      { name: 'INTRADERMICO', code: "3" },
+      { name: 'INTRAMUSCULAR', code: "4" },
+      { name: 'NASAL', code: "5" },
+      { name: 'OFTALMICO', code: "6" },
+      { name: 'ORAL', code: "7" },
+      { name: 'OPTICO', code: "8" },
+      { name: 'RECTAL', code: "9" },
+      { name: 'SUBCUTANEO', code: "10" },
+      { name: 'SUBLINGUAL', code: "11" },
+      { name: 'TOPICO', code: "12" },
+      { name: 'VAGINAL', code: "13" },
+    ];
+    this.listaSuplementoAcido = [
+      { name: "ACIDO FOLICO", code: "1" },
+      { name: "ACIDO FOLICO Y HIERRO", code: "2" },
+    ];
+    this.listaSuplementoCalcio = [
+      { name: "CALCIO", code: "1" },
     ];
     this.recuperarDatos();
   }
@@ -136,11 +183,30 @@ export class TratamientoComponent implements OnInit {
       viaAdministracionf: ['', [Validators.required]],
       duracionf: ['', [Validators.required]],
       observacionesf: ['', [Validators.required]],
-      encargado: ['', [Validators.required]]
+      encargado: ['', [Validators.required]],
+
+      //suplementos
+      acidoFolicoSuplemento: new FormControl(""),
+      acidoFolicoDescripcion: new FormControl(""),
+      acidoFolicoNumero: new FormControl(""),
+      acidoFolicoDosis: new FormControl(""),
+      acidoFolicoViaAdministracion: new FormControl(""),
+      acidoFolicoIntervalo: new FormControl(""),
+      acidoFolicoDuracion: new FormControl(""),
+      acidoFolicoObservaciones: new FormControl(""),
+      calcioSuplemento: new FormControl(""),
+      calcioDescripcion: new FormControl(""),
+      calcioNumero: new FormControl(""),
+      calcioDosis: new FormControl(""),
+      calcioViaAdministracion: new FormControl(""),
+      calcioIntervalo: new FormControl(""),
+      calcioDuracion: new FormControl(""),
+      calcioObservaciones: new FormControl(""),
     })
 
   }
   ngOnInit(): void {
+    this.recuperarInmunizaciones();
   }
   recuperarNroFetos() {
     let idData = {
@@ -231,14 +297,11 @@ export class TratamientoComponent implements OnInit {
     })
     this.ref.onClose.subscribe((data: any) => {
       console.log("data de modal tratamiento", data)
-      if (data !== undefined)
-        this.tratamientoInmunizaciones.push(data);
-      console.log(this.formTratamientoInmunizacion);
+      this.recuperarInmunizaciones();
     })
   }
-  openDialogEditarTratamientoInmunizaciones(row, index) {
+  openDialogEditarTratamientoInmunizaciones(row) {
     let aux = {
-      index: index,
       row: row
     }
     this.ref = this.dialog.open(ModalInmunizacionesComponent, {
@@ -252,9 +315,7 @@ export class TratamientoComponent implements OnInit {
     })
     this.ref.onClose.subscribe((data: any) => {
       console.log('data de modal inmunizaciones ', data)
-      if (data !== undefined) {
-        this.tratamientoInmunizaciones.splice(data.index, 1, data.row);
-      };
+      this.recuperarInmunizaciones();
     })
   }
   openDialogRecomendaciones() {
@@ -368,7 +429,11 @@ export class TratamientoComponent implements OnInit {
       valor: this.pesoActual - this.pesoHabitual,
       indicador: this.indicador
     }
-
+  }
+  recuperarInmunizaciones(){
+    this.tratamientoService.listarInmunizacionesDeUnaConsulta(this.nroHcl,this.nroEmbarazo,this.nroAtencion).subscribe((res: any) => {
+      this.tratamientoInmunizaciones = res.object;
+    })
   }
   guardarEvaluacionNutricional() {
     this.recuperarDatosEvaluacion();
@@ -382,9 +447,9 @@ export class TratamientoComponent implements OnInit {
 
     const req = {
       id: this.idConsultoriObstetrico,
-      nroHcl: this.nroHclRecuperado,
+      nroHcl: this.nroHcl,
       nroEmbarazo: this.nroEmbarazo,
-      nroAtencion: 1,
+      nroAtencion: this.nroAtencion,
       // nroControlSis: 1,
       tipoDoc: this.tipoDocRecuperado,
       nroDoc: this.nroDocRecuperado,
@@ -402,9 +467,9 @@ export class TratamientoComponent implements OnInit {
     this.recuperarDatoSuplementarios();
     const req = {
       id: this.idConsultoriObstetrico,
-      nroHcl: this.nroHclRecuperado,
+      nroHcl: this.nroHcl,
       nroEmbarazo: this.nroEmbarazo,
-      nroAtencion: 1,
+      nroAtencion: this.nroAtencion,
       // nroControlSis: 1,
       tipoDoc: this.tipoDocRecuperado,
       nroDoc: this.nroDocRecuperado,
@@ -544,14 +609,14 @@ export class TratamientoComponent implements OnInit {
   recuperarDatos() {
     this.recuperarNroFetos();
     let aux = {
-      "id": this.idConsultoriObstetrico,
-      "nroHcl": this.nroHclRecuperado,
-      "nroEmbarazo": this.nroEmbarazo,
-      "nroAtencion": 1
+      id: this.idConsultoriObstetrico,
+      nroHcl: this.nroHcl,
+      nroEmbarazo: this.nroEmbarazo,
+      nroAtencion: this.nroAtencion
     }
 
     this.tratamientoService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
-      this.dataConsulta = res.object;
+      this.dataConsulta = res;
       console.log("data consulta:" + this.dataConsulta);
 
 

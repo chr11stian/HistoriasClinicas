@@ -59,15 +59,18 @@ export class ConsultasService {
         return this.http.delete(`${this.base_url}/${this.bd}/obstetricia/consulta/eliminiarDiagnostico/${nroHcl}/${nroEmbarazo}/${nroAtencion}/${cie10SIS}`)
     }
     guardarInmunizacionGestante(nroHcl,nroEmbarazo,nroAtencion,data){
-        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/agregarDiagnostico/${nroHcl}/${nroEmbarazo}/${nroAtencion}`, data)
+        return this.http.post(`${this.base_url}/${this.bd}/inmunizacion/agregar/${nroHcl}/${nroEmbarazo}/${nroAtencion}`, data)
     }
     editarInmunizacionGestante(nroHcl,nroEmbarazo,nroAtencion,data){
-        return this.http.put(`${this.base_url}/${this.bd}/obstetricia/consulta/agregarDiagnostico/${nroHcl}/${nroEmbarazo}/${nroAtencion}`, data)
+        return this.http.put(`${this.base_url}/${this.bd}/inmunizacion/actualizarPendiente/${nroHcl}/${nroEmbarazo}/${nroAtencion}`, data)
     }
     eliminarInmunizacionGestante(nroHcl,nroEmbarazo,nroAtencion){
         return this.http.delete(`${this.base_url}/${this.bd}/obstetricia/consulta/eliminiarDiagnostico/${nroHcl}/${nroEmbarazo}/${nroAtencion}`)
     }
-    listarDignosticosDeUnaConsulta(nroHcl,nroEmbarazo,nroAtencion){
+    listarDiagnosticosDeUnaConsulta(nroHcl,nroEmbarazo,nroAtencion){
         return this.http.get(`${this.base_url}/${this.bd}/obstetricia/consulta/listarDiagnostico/${nroHcl}/${nroEmbarazo}/${nroAtencion}`);
+    }
+    listarInmunizacionesDeUnaConsulta(nroHcl,nroEmbarazo,nroAtencion){
+        return this.http.get(`${this.base_url}/${this.bd}/inmunizacion/${nroHcl}/${nroEmbarazo}/${nroAtencion}`);
     }
 }

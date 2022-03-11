@@ -8,7 +8,7 @@ import { PrestacionService } from 'src/app/mantenimientos/services/prestacion/pr
 import { CieService } from 'src/app/obstetricia-general/services/cie.service';
 import { ConsultasService } from '../../../services/consultas.service';
 import { MedicamentosService } from 'src/app/mantenimientos/services/medicamentos/medicamentos.service';
-
+import { MessageService } from "primeng/api";
 @Component({
   selector: 'app-modal-inmunizaciones',
   templateUrl: './modal-inmunizaciones.component.html',
@@ -43,18 +43,21 @@ export class ModalInmunizacionesComponent implements OnInit {
 
   nroAtencion: any;
   idIpress: any;
+
+  idEdicion: any;
   constructor(private form: FormBuilder,
     private ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
     private PrestacionService: PrestacionService,
     private CieService: CieService,
     private DxService: ConsultasService,
-    private MedicamentosService: MedicamentosService) {
+    private MedicamentosService: MedicamentosService,
+    private messageService: MessageService) {
 
     //this.idObstetricia = this.obstetriciaGeneralService.idGestacion;
 
     this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
-    console.log("ipress",this.idIpress)
+    console.log("ipress", this.idIpress)
 
     /*********RECUPERAR DATOS*********/
     /*usando local storage*/
@@ -95,8 +98,12 @@ export class ModalInmunizacionesComponent implements OnInit {
 
     console.log(config.data);
     this.buildForm();
+
+    this.recuperarPrestaciones();
+    this.traerDiagnosticosDeConsulta();
+
     if (config.data) {
-      this.llenarCamposTratamientoInmunizaciones();
+      this.llenarCamposTratamientoInmunizaciones();  
     }
 
     this.viaadministracionList = [{ label: 'ENDOVENOSA', value: 'ENDOVENOSA' },
@@ -126,8 +133,7 @@ export class ModalInmunizacionesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.recuperarPrestaciones();
-    this.traerDiagnosticosDeConsulta();
+    
   }
 
   buildForm() {
@@ -151,8 +157,8 @@ export class ModalInmunizacionesComponent implements OnInit {
     this.formInmunizaciones.reset();
     this.dialogInmunizaciones = true;
   }
-  traerDiagnosticosDeConsulta(){
-    this.DxService.listarDignosticosDeUnaConsulta(this.nroHcl, this.nroEmbarazo, this.nroAtencion).subscribe((res: any) => {
+  traerDiagnosticosDeConsulta() {
+    this.DxService.listarDiagnosticosDeUnaConsulta(this.nroHcl, this.nroEmbarazo, this.nroAtencion).subscribe((res: any) => {
       this.diagnosticosList = res.object;
       console.log("diagnosticos:", this.diagnosticosList);
     })
@@ -163,9 +169,9 @@ export class ModalInmunizacionesComponent implements OnInit {
       nombreComercial: this.formInmunizaciones.value.nombreComercial,
       dosis: this.formInmunizaciones.value.dosis,
       tipoDosis: this.formInmunizaciones.value.tipoDosis,
-      codPrestacion: this.formInmunizaciones.value.prestacion,
+      codPrestacion: this.formInmunizaciones.value.diagnostico.codPrestacion,
       codProcedimientoSIS: this.formInmunizaciones.value.SISCIE.cie10,
-      nroDiagnostico: this.formInmunizaciones.value.diagnostico.nro,
+      cie10SIS: this.formInmunizaciones.value.diagnostico.cie10SIS,
       codProcedimientoHIS: this.formInmunizaciones.value.HISCIE.codigoItem,
       idIpressSolicitante: this.idIpress,
       pertenecePAICRED: false,
@@ -177,8 +183,49 @@ export class ModalInmunizacionesComponent implements OnInit {
 
     console.log(data);
 
-    this.dataInmunizaciones.push(data);
-    this.dialogInmunizaciones = false;
+    this.DxService.guardarInmunizacionGestante(this.nroHcl, this.nroEmbarazo, this.nroAtencion, data).subscribe((res: any) => {
+      this.dialogInmunizaciones = false;
+      Swal.fire({
+        icon: 'success',
+        title: 'Guardado',
+        text: 'Solicitud de inmunización guardada correctamente',
+        showConfirmButton: false,
+        timer: 1500,
+      })
+    })
+
+  }
+  enviarEdicionTratamientoInmunizacion() {
+    var data = {
+      id: this.idEdicion,
+      nombre: this.formInmunizaciones.value.nombre.nombre,
+      nombreComercial: this.formInmunizaciones.value.nombreComercial,
+      dosis: this.formInmunizaciones.value.dosis,
+      tipoDosis: this.formInmunizaciones.value.tipoDosis,
+      codPrestacion: this.formInmunizaciones.value.diagnostico.codPrestacion,
+      codProcedimientoSIS: this.formInmunizaciones.value.SISCIE.cie10,
+      cie10SIS: this.formInmunizaciones.value.diagnostico.cie10SIS,
+      codProcedimientoHIS: this.formInmunizaciones.value.HISCIE.codigoItem,
+      idIpressSolicitante: this.idIpress,
+      pertenecePAICRED: false,
+      datosPaciente: {
+        tipoDoc: this.tipoDocRecuperado,
+        nroDoc: this.nroDocRecuperado
+      }
+    }
+
+    console.log(data);
+
+    this.DxService.editarInmunizacionGestante(this.nroHcl, this.nroEmbarazo, this.nroAtencion, data).subscribe((res: any) => {
+      this.dialogInmunizaciones = false;
+      Swal.fire({
+        icon: 'success',
+        title: 'Actualizado',
+        text: 'Solicitud de inmunización guardada correctamente',
+        showConfirmButton: false,
+        timer: 1500,
+      })
+    })
   }
   canceled() {
     Swal.fire({
@@ -190,25 +237,27 @@ export class ModalInmunizacionesComponent implements OnInit {
     })
     this.dialogInmunizaciones = false;
   }
-  llenarCamposTratamientoInmunizaciones() {
+  async llenarCamposTratamientoInmunizaciones() {
+    await this.traerDiagnosticosDeConsulta();
     let configuracion = this.config.data.row;
-    this.formInmunizaciones.get("codigo").setValue(configuracion.codigo);
-    this.formInmunizaciones.get("descripcion").setValue(configuracion.descripcion);
-    this.formInmunizaciones.get("numero").setValue(configuracion.numero);
+    this.idEdicion = configuracion.id;
+    this.formInmunizaciones.patchValue({ nombre: configuracion.nombre }, { emitEvent: false });
+    this.formInmunizaciones.get("nombreComercial").setValue(configuracion.nombreComercial);
     this.formInmunizaciones.get("dosis").setValue(configuracion.dosis);
-    this.formInmunizaciones.get("viaAdministracion").setValue(configuracion.viaAdministracion);
-    this.formInmunizaciones.get("lote").setValue(configuracion.lote);
-    this.formInmunizaciones.get("fechaVenc").setValue(configuracion.fechaVenc);
-
+    this.formInmunizaciones.get("tipoDosis").setValue(configuracion.tipoDosis);
+    this.formInmunizaciones.get("prestacion").setValue(configuracion.codPrestacion);
+    console.log(configuracion)
+    this.formInmunizaciones.get("diagnostico").setValue(this.diagnosticosList.find(elemento => elemento.cie10SIS == configuracion.cie10SIS));
+    this.onChangeDiagnostico();
+    this.formInmunizaciones.get("HISCIEz").setValue(configuracion.codProcedimientoHIS);
+    //this.formInmunizaciones.get("diagnosticoHIS").setValue(configuracion.dosis);
   }
   closeDialogGuardar() {
-    this.enviarTratamientoInmunizaciones();
-    this.ref.close(
-      this.config.data ? {
-        index: this.config.data.index,
-        row: this.dataInmunizaciones[0]
-      } :
-        this.dataInmunizaciones[0]);
+    this.config.data ?
+      this.enviarEdicionTratamientoInmunizacion()
+    :
+    this.enviarTratamientoInmunizaciones()
+    this.ref.close();
   }
 
   closeDialog() {
@@ -220,9 +269,10 @@ export class ModalInmunizacionesComponent implements OnInit {
       console.log("prestaciones:", this.prestacionList);
     })
   }
-  onChangeDiagnostico(){
-    this.PrestacionService.getDiagnosticoPorCodigo(this.formInmunizaciones.value.prestacion.codigo).subscribe((res: any) => {
+  onChangeDiagnostico() {
+    this.PrestacionService.getDiagnosticoPorCodigo(this.formInmunizaciones.value.diagnostico.codPrestacion).subscribe((res: any) => {
       this.listaDeCIESIS = res.object.diagnostico;
+      this.formInmunizaciones.patchValue({ prestacion: res.object.descripcion });
       this.formInmunizaciones.patchValue({ diagnosticoSIS: "" });
       this.formInmunizaciones.patchValue({ SISCIE: "" });
     })
@@ -268,6 +318,6 @@ export class ModalInmunizacionesComponent implements OnInit {
   selectedOptionNameMedicamento(event) {
     console.log('lista de medicamentos ', this.listaMedicamentos);
     console.log('evento desde medicamentos ', event);
-    this.formInmunizaciones.patchValue({ nombreComercial: event }, { emitEvent: false });
+    this.formInmunizaciones.patchValue({ nombreComercial: event.nombreComercial }, { emitEvent: false });
   }
 }
