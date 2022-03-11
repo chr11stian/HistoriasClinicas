@@ -285,12 +285,12 @@ export class RolGuardiaComponent implements OnInit {
         //reescribimos lo necesario
         this.listaPersonal.forEach((personal,index)=>{
           // console.log(element)
-           listaRol.forEach((personalWithRol)=>{
-             if(personal.nroDoc==personalWithRol.nroDoc){
-               this.matriz[index]=personalWithRol['rol']
-               this.listaAmbiente[index]=personalWithRol['ambiente']
-             }
-           })
+          listaRol.forEach((personalWithRol)=>{
+            if(personal.nroDoc==personalWithRol.nroDoc){
+              this.matriz[index]=personalWithRol['rol']
+              this.listaAmbiente[index]=personalWithRol['ambiente']
+            }
+          })
         })
         this.calcularNroHorasGeneral();
         console.log('exito')
@@ -399,11 +399,11 @@ export class RolGuardiaComponent implements OnInit {
     });
   }
   validarHoras() {
-      if (this.listaHoras[this.indexSelected] < 150) {
-        return false;
-      }
-      else
-        return true
+    if (this.listaHoras[this.indexSelected] < 150) {
+      return false;
+    }
+    else
+      return true
   }
 
   openModal(){
