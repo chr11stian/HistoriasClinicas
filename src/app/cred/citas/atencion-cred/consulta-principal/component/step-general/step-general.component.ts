@@ -64,13 +64,13 @@ export class StepGeneralComponent implements OnInit, DoCheck {
             { label: 'Exámenes Auxiliares', styleClass: 'icon3' },
             { label: 'Diagnostico', styleClass: 'icon4' },
             { label: 'Tratamiento', styleClass: 'icon5' },
-            { label: 'Finalizar', styleClass: 'icon6' },
+            { label: 'Acuerdos', styleClass: 'icon6' },
         ]
         await this.getQueryParams()
     }
 
     getQueryParams() {
-        this.route.queryParams
+        /*this.route.queryParams
             .subscribe(params => {
                 if (params['nroDoc'] && !localStorage.getItem(this.attributeLocalS)) {
                     this.tipoDoc = params['tipoDoc']
@@ -83,7 +83,7 @@ export class StepGeneralComponent implements OnInit, DoCheck {
                 } else {
                     this.router.navigate(['/dashboard/cred/citas'])
                 }
-            })
+            })*/
     }
 
     getConsulta(idConsulta: string) {
@@ -182,7 +182,7 @@ export class StepGeneralComponent implements OnInit, DoCheck {
                 this.indiceActivo = 3;
                 break;
             case 'examenesAux':
-                // this.examenesAuxConsulta.save()
+                this.examenesAuxConsulta.saveAuxiliarsExams()
                 this.stepName = 'diagnostico';
                 this.indiceActivo = 4;
                 break;
@@ -192,7 +192,7 @@ export class StepGeneralComponent implements OnInit, DoCheck {
                 this.indiceActivo = 5;
                 break;
             case 'tratamiento':
-                this.tratamientoConsulta.save()
+                // this.tratamientoConsulta.save()
                 this.stepName = 'finalizar';
                 this.indiceActivo = 6;
                 break;
@@ -241,7 +241,7 @@ export class StepGeneralComponent implements OnInit, DoCheck {
                     this.finalizarConsulta.save()
                     break
                 case 5:
-                    this.tratamientoConsulta.save()
+                    //this.tratamientoConsulta.save()
                     break
                 case 4:
                     // this.diagnosticoConsulta.save()

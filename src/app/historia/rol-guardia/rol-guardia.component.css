@@ -6,8 +6,7 @@ p-table >>> .p-datatable table {
   font-weight:normal;
   text-align: center;
 }
-p-table >>> .p-datatable .p-datatable-thead > tr > th {
-
+::ng-deep .asignado .p-datatable .p-datatable-thead > tr > th {
   text-align: center;
   font-size: 1rem;
   word-wrap: break-word;
@@ -15,7 +14,7 @@ p-table >>> .p-datatable .p-datatable-thead > tr > th {
   font-weight: normal;
   min-width: 4rem;
 }
-p-table >>> .p-datatable .p-datatable-tbody > tr > td {
+::ng-deep .asignado .p-datatable .p-datatable-tbody > tr > td {
   text-align: center;
   font-size: 1rem;
   word-wrap: break-word;
@@ -23,9 +22,9 @@ p-table >>> .p-datatable .p-datatable-tbody > tr > td {
   padding-bottom: 0.5rem;
   padding-left: 0rem;
   padding-right: 0rem;
-  /*border: 1px solid black;*/
-
-
+}
+::ng-deep .primero .p-datatable .p-datatable-header{
+  padding: 0.5rem;
 }
 .borde {
   border: solid 1px #CDCDCD;
@@ -48,5 +47,31 @@ p-table >>> .p-datatable .p-datatable-tbody > tr > td {
 }
 span p{
   margin: 0rem;
-
+}
+/*stylos para poner frozen*/
+.frozenCol {
+  background: inherit;
+  grid-area: topright;
+  border: solid 1px black;
+  box-sizing: border-box;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+.frozenCol:after {
+  bottom: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border: solid 1px black !important;
+}
+  .frozenCol-th {
+    background: inherit;
+  position: sticky;
+  top: 0;
+}
+.frozenCol-th::after {
+  position: absolute;
+  overflow-x: auto;
 }

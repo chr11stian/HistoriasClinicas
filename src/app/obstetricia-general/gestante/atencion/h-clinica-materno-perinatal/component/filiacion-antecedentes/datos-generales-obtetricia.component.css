@@ -2,15 +2,27 @@ p-checkbox >>> .p-checkbox .p-checkbox-box .pi-check:before {
     content: url("src\assets\svg-icons\check-svgrepo-com.svg");
 }
 
+
 p-selectbutton >>> .p-selectbutton .p-button.p-highlight {
-    background: #0c3866;
-    border-color: #0c3866;
+    background: rgb(149 158 166);
+    border-color: rgb(149 158 166);
 }
 
+/*.amarillo >>> .p-selectbutton .p-button.p-highlight {*/
+/*    background: rgb(234, 187, 38);*/
+/*    border-color: rgb(234, 187, 38);*/
+/*}*/
+
 p-calendar >>> .p-button {
-    background: #0c3866;
-    border: 1px solid #0c3866;
+    background: #a4a4a4;
+    border: 1px solid #ffffff;
     align-self: center;
+}
+
+p-calendar >>> .p-button:enabled:hover {
+    background: #333232;
+    color: #ffeaf3;
+    border-color: #a4a4a4;
 }
 
 .guardar {
@@ -23,9 +35,6 @@ p-toolbar >>> * {
     align-self: center;
 }
 
-label {
-    font-weight: normal;
-}
 
 .logo_Region {
     width: 100%;
@@ -45,17 +54,27 @@ p-checkbox >>> .p-checkbox .p-checkbox-box {
     font-size: 3em;
 }
 
-.amarillo .p-checkbox .p-checkbox-box {
-    background: red !important;
+/*.amarillo .p-checkbox .p-checkbox-box {*/
+/*    background: rgba(197, 0, 9, 0.63) !important;*/
+/*}*/
+
+::ng-deep .default .p-checkbox .p-checkbox-box {
+    background: #ffffff;
+    border-color: rgb(206 212 218);
 }
 
 ::ng-deep .amarillo .p-checkbox .p-checkbox-box {
     background: rgb(234, 187, 38);
-    border-color: rgb(234, 187, 38);
+    border-color: rgb(206 212 218);
+}
+
+::ng-deep .rojo .p-checkbox .p-checkbox-box {
+    background: rgba(197, 0, 9, 0.63);
+    border-color: rgb(206 212 218);
 }
 
 p-radiobutton >>> .p-radiobutton .p-radiobutton-icon {
-    content: url("src\assets\svg-icons\check-svgrepo-com.svg");
+    content: url("src/assets/svg-icons/check-svgrepo-com.svg");
 }
 
 ::ng-deep .amarillo .p-radiobutton .p-radiobutton-box,
@@ -63,22 +82,22 @@ p-radiobutton >>> .p-radiobutton .p-radiobutton-icon {
 ::ng-deep .amarillo .p-radiobutton .p-radiobutton-box.p-highlight,
 ::ng-deep .amarillo .p-radiobutton .p-radiobutton-icon {
     background: rgb(234, 187, 38);
-    border: rgb(234, 187, 38);
+    border-color: rgb(206 212 218);
 }
 
-::ng-deep .rojo .p-radiobutton .p-radiobutton-box.p-highlight,
 ::ng-deep .rojo .p-radiobutton .p-radiobutton-box,
 ::ng-deep .rojo .p-radiobutton .p-radiobutton-box.p-highlight:hover,
+::ng-deep .rojo .p-radiobutton .p-radiobutton-box.p-highlight,
 ::ng-deep .rojo .p-radiobutton .p-radiobutton-icon {
-    border-color: red;
-    background: red;
+    border-color: rgb(246, 26, 26);
+    background: rgba(197, 0, 9, 0.63);
 }
 
 ::ng-deep .default .p-radiobutton .p-radiobutton-icon,
 ::ng-deep .default .p-radiobutton .p-radiobutton-box.p-highlight,
 ::ng-deep .default .p-radiobutton .p-radiobutton-box.p-highlight:hover {
-    background: #2196f3;
-    border: #2196f3;
+    background: #ffffff;
+    border-color: rgb(206 212 218);
 }
 
 input[type="number"]::-webkit-inner-spin-button,
@@ -93,61 +112,125 @@ input[type="number"] {
 
 input[type="number"] {
     padding-left: 0.1em;
-    text-align: left;
+    text-align: center;
+    height: 22px;
 }
+
+/*.amarilloInput {*/
+/*    background: rgb(252, 213, 90);*/
+/*    color: rgb(0, 0, 0);*/
+/*}*/
+/*.rojoInput {*/
+/*    background: rgba(197, 0, 9, 0.63);*/
+/*    color: rgb(255, 255, 255);*/
+/*}*/
 
 ::ng-deep .dialogo .p-dialog-mask .p-element {
     display: block;
 }
 
+.border {
+    border: 1px solid rgb(222 226 230);
+    /*border: 1px solid rgb(12 56 102);*/
+    border-radius: 3px;
 
-canvas {
-    border: 1px solid #b4b4b4;
-}
-
-
-/**DIBUJOS DE**/
-#content{
-    position:relative;
-}
-.mydiv{
-    border:1px solid #368ABB;
-    background-color: #ffffff;
-    position:absolute;
-}
-.mydiv:after{
-    content:no-close-quote;
-    position:absolute;
-    top:50%;
-    left:50%;
-    background-color:black;
-    width:4px;
-    height:4px;
-    border-radius:50%;
-    margin-left:-2px;
-    margin-top:-2px;
-}
-#div1{
-    left:100px;
-    top:50px;
-    width:40px;
-    height:20px;
-}
-#div2{
-    left:20px;
-    top:50px;
-    width:40px;
-    height:20px;
-}
-#line{
-    position:absolute;
-    width:1px;
-    background-color:red;
 }
 
-#div3{
-    left:150px;
-    top:50px;
-    width:40px;
-    height:20px;
+.border2 {
+    border: 1px solid rgb(222 226 230);
+    border-radius: 3px;
+    background: rgb(248 249 250)
+}
+
+.border3 {
+    border: 1px solid rgb(255 255 255);
+    border-radius: 3px;
+    /*background: rgb(248 249 250)*/
+}
+
+label {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    /*font-weight: bold;*/
+    color: rgb(135 135 135);
+}
+
+
+svg {
+    /*text-align: center;*/
+    position: relative;
+    z-index: 100;
+    display: block;
+    height: 300px;
+    width: 880px;
+    /*margin: auto;*/
+    /*background-color: rgba(250, 89, 100, .3);*/
+    margin: 0 auto;
+    fill: red;
+
+
+    /*float: right;*/
+    /*bottom: 2rem;*/
+    /*left:2rem;*/
+    /*margin-right:1rem;*/
+
+    /*max-width: 180%;*/
+    /*max-height: 100%;*/
+
+}
+
+@media screen and (min-width: 500px) {
+    svg {
+        position: relative;
+        z-index: 100;
+        display: block;
+        height: 300px;
+        width: 880px;
+        /*margin: auto;*/
+        /*background-color: rgba(250, 89, 100, .3);*/
+        margin: 0 auto;
+        fill: red;
+    }
+}
+
+
+p-toolbar >>> .p-toolbar {
+    background: rgb(216 222 229);
+    border: 1px solid rgb(222 226 230);
+    padding: 0.5rem;
+    height: auto;
+    border-radius: 3px;
+}
+
+
+p-checkbox >>> .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover {
+    border-color: rgb(164, 164, 164);
+}
+
+
+p-checkbox >>> .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
+    border: rgb(164, 164, 164);
+    background: rgb(164, 164, 164);
+
+}
+
+p-radiobutton >>> .p-radiobutton:not(.p-radiobutton-disabled).p-radiobutton-box.p-highlight:hover {
+    border: rgb(164, 164, 164);
+    background: rgb(164, 164, 164);
+}
+
+p-radiobutton >>> .p-radiobutton:not(.p-radiobutton-disabled) .p-radiobutton-box:hover {
+    border-color: rgb(164, 164, 164);
+}
+
+p-radiobutton >>> .p-radiobutton .p-radiobutton-box.p-highlight:not(.p-disabled):hover {
+    border: rgb(164, 164, 164);
+    background: rgb(164, 164, 164);
+}
+
+
+p-selectbutton >>> .p-selectbutton .p-button {
+    /*color: #6e6e6e;*/
+    /*font-size: xx-large;*/
+    /*background-color: "blue";*/
+    padding: 5px;
 }

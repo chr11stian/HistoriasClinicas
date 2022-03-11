@@ -4,6 +4,7 @@ import {Network, DataSet} from 'vis';
 import {FiliancionService} from "../../services/filiancion-atenciones/filiancion.service";
 import {ObstetriciaGeneralService} from "../../../../../services/obstetricia-general.service";
 import Swal from "sweetalert2";
+import {DatosBasalesService} from "../../services/datos-basales/datos-basales.service";
 
 @Component({
     selector: "app-datos-generales-obtetricia",
@@ -11,21 +12,6 @@ import Swal from "sweetalert2";
     styleUrls: ["./datos-generales-obtetricia.component.css"],
 })
 export class DatosGeneralesObtetriciaComponent implements OnInit {
-
-
-    // // @ViewChild('network', {static: false})
-    // @ViewChild('visNetwork', {static: false})
-    // visNetwork!: ElementRef;
-    // private networkInstance: any;
-
-    @ViewChild('canvasEl', {static: true})
-    canvasEl: ElementRef<HTMLCanvasElement>;
-
-    // @ViewChild('canvasEl') canvasEl: ElementRef<HTMLCanvasElement>;
-
-    /**Canvas 2d context*/
-    private context: CanvasRenderingContext2D;
-
 
     /**Antecedentes Personales**/
     otrosAntecedentesFamiliares: string;
@@ -93,15 +79,53 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
 
     dataAntecedentes: any;
     formAntecedentes: FormGroup;
+    formAntecedentesObstetricos: FormGroup;
+    formVacunasPrevias: FormGroup;
 
+    gestas = 0;
+    abortos: number = 0;
+    partos = 0;
+    vaginales: number = 0;
+    cesarias: number = 0;
+    nacidosMuertos: number = 0;
+    viven: number = 0;
+    muertoPrimeraSemana: number = 0;
+    despuesPrimeraSemana: number = 0;
+    nacidosVivos = 0;
+    RNmayorPeso = 0;
+
+    CeroOTres: any;
+    MayorDosMilQuinientos: any;
+    Multiple: any;
+    MayorTrentaSemanas: any;
+    dataPaciente2: any;
+    Gestacion: any;
+    idGestacion: string;
+    DetalleParto: string;
+    DetalleParto2: string;
+    DetalleParto3: string;
+    DetalleParto4: string;
 
     constructor(private form: FormBuilder,
                 private filiancionService: FiliancionService,
+                private datosBasalesService: DatosBasalesService,
                 private obstetriciaGeneralService: ObstetriciaGeneralService) {
+        this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
+        this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
 
-        this.tipoDocRecuperado = this.obstetriciaGeneralService.tipoDoc;
-        this.nroDocRecuperado = this.obstetriciaGeneralService.nroDoc;
-        this.idRecuperado = this.obstetriciaGeneralService.idGestacion;
+
+        if (this.Gestacion == null) {
+            this.tipoDocRecuperado = this.dataPaciente2.tipoDoc;
+            this.nroDocRecuperado = this.dataPaciente2.nroDoc;
+            this.idRecuperado = JSON.parse(localStorage.getItem('idGestacionRegistro'));
+            console.log("ID RESIEN", this.idRecuperado)
+
+        } else {
+            this.tipoDocRecuperado = this.Gestacion.tipoDoc;
+            this.nroDocRecuperado = this.Gestacion.nroDoc;
+            this.idRecuperado = this.Gestacion.id;
+        }
+
 
         this.opciones = [
             {booleano: true, name: "SI"},
@@ -123,17 +147,6 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
             {name: 'Combiviente', code: 'N'},
         ];
 
-        this.departamentos = [
-            {name: 'Cusco'},
-            {name: 'Lima'},
-            {name: 'Arequipa'},
-            {name: 'Puno'},
-            {name: 'Madre de Dios'},
-            {name: 'Loreto'},
-            {name: 'Cajamarca'},
-            {name: 'Ayacucho'},
-        ];
-
 
         this.familiares = [
             {nombrefamiliar: 'Padre'},
@@ -146,57 +159,240 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        // this.obstetriciaGeneralService.observable$.subscribe(id => {
-        //     this.idDocumento = id;
         console.log("ID RECUPERADo", this.idRecuperado);
         // })
         this.buildForm2();
         this.getpacienteFiiacionByID();
-        this.adjustLine(
-            document.getElementById('div1'),
-            document.getElementById('div2'),
-            document.getElementById('line')
-        );
+        this.getDatosBasalesVacunasPrevias();
+    }
 
+
+    SumaNacidosVivos() {
+        this.nacidosVivos = ((this.viven * 1) + (this.muertoPrimeraSemana * 1) + (this.despuesPrimeraSemana * 1));
+    }
+
+    SumaPatos() {
+        this.partos = ((this.vaginales * 1) + (this.cesarias * 1));
+    }
+
+    SumaGetas() {
+        this.gestas = ((this.abortos * 1) + (this.partos * 1))
+    }
+
+    async inputViven() {
+        const {value: text} = await Swal.fire({
+            input: 'number',
+            inputLabel: 'Ingrese un numero',
+            width: '300px',
+
+            inputPlaceholder: 'Viven',
+            inputAttributes: {
+                'aria-label': 'Type your message here'
+            },
+            showCancelButton: true
+        })
+
+        if (text) {
+            // await Swal.fire(text)
+            this.viven = text
+            this.SumaNacidosVivos()
+            console.log(this.SumaNacidosVivos())
+
+        }
 
     }
 
-    adjustLine(from, to, line) {
+    async inputMueroPrimeraSemana() {
+        const {value: text} = await Swal.fire({
+            input: 'number',
+            inputLabel: 'Ingrese un numero',
+            width: '300px',
 
-        var fT = from.offsetTop + from.offsetHeight / 2;
-        var tT = to.offsetTop + to.offsetHeight / 2;
-        var fL = from.offsetLeft + from.offsetWidth / 2;
-        var tL = to.offsetLeft + to.offsetWidth / 2;
+            inputPlaceholder: 'Muerto 1ra semana',
+            inputAttributes: {
+                'aria-label': 'Type your message here'
+            },
+            showCancelButton: true
+        })
 
-        var CA = Math.abs(tT - fT);
-        var CO = Math.abs(tL - fL);
-        var H = Math.sqrt(CA * CA + CO * CO);
-        var ANG = 180 / Math.PI * Math.acos(CA / H);
+        if (text) {
+            // await Swal.fire(text)
+            this.muertoPrimeraSemana = text
+            this.SumaNacidosVivos()
 
-        if (tT > fT) {
-            var top = (tT - fT) / 2 + fT;
+        }
+    }
+
+    async inputDespuesPrimeraSemana() {
+        const {value: text} = await Swal.fire({
+            input: 'number',
+            inputLabel: 'Ingrese un numero',
+            width: '300px',
+
+            inputPlaceholder: 'Después 1ra semana',
+            inputAttributes: {
+                'aria-label': 'Type your message here'
+            },
+            showCancelButton: true
+        })
+
+        if (text) {
+            // await Swal.fire(text)
+            this.despuesPrimeraSemana = text
+            this.SumaNacidosVivos()
+
+        }
+    }
+
+    async inputNacidosMuertos() {
+        const {value: text} = await Swal.fire({
+            input: 'number',
+            inputLabel: 'Ingrese un numero',
+            width: '300px',
+
+            inputPlaceholder: 'Nacidos Muertos',
+            inputAttributes: {
+                'aria-label': 'Type your message here'
+            },
+            showCancelButton: true
+        })
+
+        if (text) {
+            // await Swal.fire(text)
+            this.nacidosMuertos = text
+        }
+    }
+
+    async inputVaginales() {
+        const {value: text} = await Swal.fire({
+            input: 'number',
+            inputLabel: 'Ingrese un numero',
+            width: '300px',
+
+            inputPlaceholder: 'Vaginales',
+            inputAttributes: {
+                'aria-label': 'Type your message here'
+            },
+            showCancelButton: true
+        })
+
+        if (text) {
+            // await Swal.fire(text)
+            this.vaginales = text
+            this.SumaPatos()
+            this.SumaGetas()
+        }
+    }
+
+    async inputCesarias() {
+        const {value: text} = await Swal.fire({
+            input: 'number',
+            inputLabel: 'Ingrese un numero',
+            width: '300px',
+
+            inputPlaceholder: 'Cesarias',
+            inputAttributes: {
+                'aria-label': 'Type your message here'
+            },
+            showCancelButton: true
+        })
+
+        if (text) {
+            // await Swal.fire(text)
+            this.cesarias = text
+            this.SumaPatos()
+            this.SumaGetas()
+        }
+    }
+
+    async inputAborto() {
+        const {value: text} = await Swal.fire({
+            input: 'number',
+            inputLabel: 'Ingrese un numero',
+            width: '300px',
+
+            inputPlaceholder: 'Abortos',
+            inputAttributes: {
+                'aria-label': 'Type your message here'
+            },
+            showCancelButton: true
+        })
+
+        if (text) {
+            // await Swal.fire(text)
+            this.abortos = text
+            this.SumaGetas()
+        }
+    }
+
+    async inputRNmayorPeso() {
+        const {value: text} = await Swal.fire({
+            input: 'number',
+            inputLabel: 'Ingrese RN Mayor Peso',
+            width: '300px',
+
+            inputPlaceholder: 'RN Mayor Peso',
+            inputAttributes: {
+                'aria-label': 'Type your message here'
+            },
+            showCancelButton: true
+        })
+
+        if (text) {
+            // await Swal.fire(text)
+            this.RNmayorPeso = text
+            this.SumaGetas()
+        }
+    }
+
+    limpiarDetalleParto() {
+        this.CeroOTres = '';
+        this.MayorDosMilQuinientos = '';
+        this.Multiple = '';
+        this.MayorTrentaSemanas = '';
+    }
+
+    ceroOmmas() {
+        this.CeroOTres = '✓';
+    }
+
+    ceroMayorDosMil() {
+        this.MayorDosMilQuinientos = '✓';
+    }
+
+    Multiple1() {
+        this.Multiple = '✓';
+    }
+
+    TrentaSiete() {
+        this.MayorTrentaSemanas = '✓';
+    }
+
+    detalleParto() {
+        if (this.CeroOTres == '✓') {
+            this.DetalleParto = '0 ó + 3';
         } else {
-            var top = (fT - tT) / 2 + tT;
+            this.DetalleParto = '';
         }
-        if (tL > fL) {
-            var left = (tL - fL) / 2 + fL;
+
+        if (this.MayorDosMilQuinientos == '✓') {
+            this.DetalleParto2 = '< 2500g';
         } else {
-            var left = (fL - tL) / 2 + tL;
+            this.DetalleParto2 = '';
+        }
+        if (this.Multiple == '✓') {
+            this.DetalleParto3 = 'Múltiple';
+        } else {
+            this.DetalleParto3 = '';
+        }
+        if (this.MayorTrentaSemanas == '✓') {
+            this.DetalleParto4 = '< 37 sem';
+        } else {
+            this.DetalleParto4 = '';
+
         }
 
-        if ((fT < tT && fL < tL) || (tT < fT && tL < fL) || (fT > tT && fL > tL) || (tT > fT && tL > fL)) {
-            ANG *= -1;
-        }
-        top -= H / 2;
-
-        line.style["-webkit-transform"] = 'rotate(' + ANG + 'deg)';
-        line.style["-moz-transform"] = 'rotate(' + ANG + 'deg)';
-        line.style["-ms-transform"] = 'rotate(' + ANG + 'deg)';
-        line.style["-o-transform"] = 'rotate(' + ANG + 'deg)';
-        line.style["-transform"] = 'rotate(' + ANG + 'deg)';
-        line.style.top = top + 'px';
-        line.style.left = left + 'px';
-        line.style.height = H + 'px';
+        console.log("DETALLE PARTO", this.DetalleParto)
     }
 
     inicializarAregloAntfamiliares(): void {
@@ -335,36 +531,29 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
         // }
     }
 
-
-    // ngAfterViewInit(): void {
-    //     // create an array with nodes
-    //     const nodes = new DataSet<any>([
-    //         {id: 1, label: 'Node 1'},
-    //         {id: 2, label: 'Node 2'},
-    //         {id: 3, label: 'Node 3'},
-    //         {id: 4, label: 'Node 4'},
-    //         {id: 5, label: 'Node 5'},
-    //     ]);
-    //
-    //     // create an array with edges
-    //     const edges = new DataSet<any>([
-    //         {from: '1', to: '3'},
-    //         {from: '1', to: '2'},
-    //         {from: '2', to: '4'},
-    //         {from: '2', to: '5'},
-    //     ]);
-    //
-    //     const data = {nodes, edges};
-    //
-    //     const container = this.visNetwork;
-    //     this.networkInstance = new Network(container.nativeElement, data, {});
-    // }
-
-
     buildForm2() {
+        this.formAntecedentesObstetricos = this.form.group({
+            viven: new FormControl(''),
+            muertoPrimeraSemana: new FormControl(''),
+            despuesPrimeraSemana: new FormControl(''),
+            NacidosVivos: new FormControl(''),
+            NacidosMuertos: new FormControl(''),
+            vaginales: new FormControl(''),
+            cesarias: new FormControl(''),
+            abortos: new FormControl(''),
+            partos: new FormControl(''),
+        })
+
+        this.formVacunasPrevias = this.form.group({
+            rubeola: new FormControl(''),
+            hepatitisB: new FormControl(''),
+            papiloma: new FormControl(''),
+            influenza: new FormControl(''),
+            covid: new FormControl(''),
+        })
+
         this.formAntecedentes = this.form.group({
             antecendentesObstetricos: new FormControl(''),
-
 
             /**Gestacion anterior**/
             fecha: new FormControl(''),
@@ -389,21 +578,6 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
             nombrefamiliar12: new FormControl(''),
 
 
-            /**Antecedentes Familiares**/
-            // ninguno: new FormControl(''),
-            // alergia: new FormControl(''),
-            // EnferHepertens: new FormControl(''),
-            // epilepcia: new FormControl(''),
-            // diabetes: new FormControl(''),
-            // EnfCongenitas: new FormControl(''),
-            // EmbMultiple: new FormControl(''),
-            // malaria: new FormControl(''),
-            // HipArterial: new FormControl(''),
-            // HipoTiroidismo: new FormControl(''),
-            // neoplásica: new FormControl(''),
-            // TBCPulmonar: new FormControl(''),
-            // otros: new FormControl(''),
-
             //********************************
             captada: new FormControl(''),
             referidaporAgComuni: new FormControl(''),
@@ -422,6 +596,7 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
         console.log("ZZZZZZZz", this.Ninguno);
         console.log("ZZZZZZZz", this.Abortohabitualrecurrente);
         console.log("annnn", this.antecedentes1);
+        this.detalleParto();
         const req = {
             gestacionAnterior: {
                 fecha: this.formAntecedentes.value.fecha,
@@ -435,7 +610,6 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
             referidaAgComunal: this.formAntecedentes.value.referidaporAgComuni,
             psicoprofilaxisNroSesiones: this.formAntecedentes.value.sesiones,
             antecedentesPartosPersonales: this.formAntecedentes.value.PartosDomiciliarios,
-
             proceso: "EN GESTACION",
             antecedentesFamiliares: [
                 {
@@ -488,7 +662,7 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
                     valor: this.formAntecedentes.value.nombrefamiliar11,
                 },
             ],
-
+            rnMayorPeso: this.RNmayorPeso,
             antecedentesPersonales: [
 
                 {
@@ -607,9 +781,56 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
                     valor: " ",
                 },
             ],
-
             otroAncedentePersonal: this.otros2,
             otroAntecendeteFamiliar: this.otrosAntecedentesFamiliares,
+            antecedentesObstetricos: [
+                {
+                    nombre: 'Despues - 1ra Semanas',
+                    valor: this.despuesPrimeraSemana,
+                },
+                {
+                    nombre: 'Muerto - 1ra semana',
+                    valor: this.muertoPrimeraSemana,
+                },
+                {
+                    nombre: 'Viven',
+                    valor: this.viven,
+                },
+                {
+                    nombre: 'Nacidos Vivos',
+                    valor: this.nacidosVivos,
+                },
+                {
+                    nombre: 'Nacidos Muertos',
+                    valor: this.nacidosMuertos,
+                },
+                {
+                    nombre: 'Vaginales',
+                    valor: this.vaginales,
+                },
+                {
+                    nombre: 'Cesarias',
+                    valor: this.cesarias,
+                },
+                {
+                    nombre: 'Abortos',
+                    valor: this.abortos,
+                },
+                {
+                    nombre: 'Partos',
+                    valor: this.partos,
+                },
+                {
+                    nombre: 'Gestas',
+                    valor: this.gestas,
+                },
+            ],
+            detalleParto: [
+                this.DetalleParto,
+                this.DetalleParto2,
+                this.DetalleParto3,
+                this.DetalleParto4,
+            ]
 
         }
         console.log("DATA ANTECEDENTES", req)
@@ -617,115 +838,211 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
             result => {
                 Swal.fire({
                     icon: 'success',
-                    title: 'Actualizo con exito',
-                    text: '',
+                    title: 'Registro ',
+                    text: 'Fue creado con exito',
                     showConfirmButton: false,
                     timer: 1500,
-                }).then(
-
-                )
+                })
+                this.getpacienteFiiacionByID();
+                this.addVacunasPrevias();
             }
         )
     }
 
+    addVacunasPrevias() {
+        let vacPrev: string[] = [];
+        let aux1: boolean = this.formVacunasPrevias.value.rubeola;
+        let aux2: boolean = this.formVacunasPrevias.value.hepatitisB;
+        let aux3: boolean = this.formVacunasPrevias.value.papiloma;
+        let aux4: boolean = this.formVacunasPrevias.value.influenza;
+        let aux5: boolean = this.formVacunasPrevias.value.covid;
+
+        if (aux1)
+            vacPrev.push('rubeola');
+        if (aux2)
+            vacPrev.push('hepatitis B')
+        if (aux3)
+            vacPrev.push('papiloma')
+        if (aux4)
+            vacPrev.push('influenza')
+        if (aux5)
+            vacPrev.push('covid')
+
+        const data = {
+            vacunasPrevias: vacPrev
+        }
+        this.datosBasalesService.postDatosBasalesById(this.idRecuperado, data).subscribe((res: any) => {
+            console.log('se guardo correctamente ', res.object);
+            Swal.fire({
+                icon: 'success',
+                title: 'Registro',
+                text: 'Fue creado con exito',
+                showConfirmButton: false,
+                timer: 1500,
+            })
+            this.getDatosBasalesVacunasPrevias();
+        });
+    }
+
+    getDatosBasalesVacunasPrevias() {
+        let auxVac;
+        this.datosBasalesService.getDatosBasalesById(this.idRecuperado).subscribe((res: any) => {
+            let rptaDatosBasales = res.object;
+            console.log('datos de embarazo', rptaDatosBasales)
+            if (rptaDatosBasales == null)
+                return
+            auxVac = rptaDatosBasales.vacunasPrevias.find(item => item == "rubeola")
+            this.formVacunasPrevias.patchValue({'rubeola': auxVac == undefined ? false : true});
+            auxVac = rptaDatosBasales.vacunasPrevias.find(item => item == "hepatitis B")
+            this.formVacunasPrevias.patchValue({'hepatitisB': auxVac == undefined ? false : true});
+            auxVac = rptaDatosBasales.vacunasPrevias.find(item => item == "papiloma")
+            this.formVacunasPrevias.patchValue({'papiloma': auxVac == undefined ? false : true});
+            auxVac = rptaDatosBasales.vacunasPrevias.find(item => item == "influenza")
+            this.formVacunasPrevias.patchValue({'influenza': auxVac == undefined ? false : true});
+            auxVac = rptaDatosBasales.vacunasPrevias.find(item => item == "covid")
+            this.formVacunasPrevias.patchValue({'covid': auxVac == undefined ? false : true});
+        })
+    }
 
     getpacienteFiiacionByID() {
         this.filiancionService.getAntecedentesFiliacion(this.idRecuperado).subscribe((res: any) => {
             this.dataAntecedentes = res.object;
             console.log('Antecedentes por ID ', this.dataAntecedentes)
-            this.formAntecedentes.get('fecha').setValue(this.dataAntecedentes.gestacionAnterior.fecha);
-            this.formAntecedentes.get('intergenesico').setValue(this.dataAntecedentes.gestacionAnterior.perIntergenesicoAdecuado);
-            this.formAntecedentes.get('terminacion').setValue(this.dataAntecedentes.gestacionAnterior.terminacion);
-            this.formAntecedentes.get('tipoAborto').setValue(this.dataAntecedentes.gestacionAnterior.tipoAborto);
-            this.formAntecedentes.get('lactaciaMaterna').setValue(this.dataAntecedentes.gestacionAnterior.lactanciaMaterna);
-            this.formAntecedentes.get('lugarParto').setValue(this.dataAntecedentes.gestacionAnterior.lugarParto);
+
+            if (this.dataAntecedentes == null) {
+                return
+            } else {
+
+                this.viven = Number(this.dataAntecedentes.antecedentesObstetricos[2].valor);
+                this.muertoPrimeraSemana = Number(this.dataAntecedentes.antecedentesObstetricos[1].valor);
+                this.despuesPrimeraSemana = Number(this.dataAntecedentes.antecedentesObstetricos[0].valor);
+                this.nacidosVivos = Number(this.dataAntecedentes.antecedentesObstetricos[3].valor);
+                this.nacidosMuertos = Number(this.dataAntecedentes.antecedentesObstetricos[4].valor);
+                this.vaginales = Number(this.dataAntecedentes.antecedentesObstetricos[5].valor);
+                this.cesarias = Number(this.dataAntecedentes.antecedentesObstetricos[6].valor);
+                this.partos = Number(this.dataAntecedentes.antecedentesObstetricos[8].valor);
+                this.abortos = Number(this.dataAntecedentes.antecedentesObstetricos[7].valor);
+                this.gestas = Number(this.dataAntecedentes.antecedentesObstetricos[9].valor);
+                this.RNmayorPeso = this.dataAntecedentes.rnMayorPeso;
+
+                let detallePart1 = this.dataAntecedentes.detalleParto[0];
+                let detallePart2 = this.dataAntecedentes.detalleParto[1];
+                let detallePart3 = this.dataAntecedentes.detalleParto[2];
+                let detallePart4 = this.dataAntecedentes.detalleParto[3];
+                if (detallePart1 !== '') {
+                    this.CeroOTres = '✓';
+                } else {
+                    this.CeroOTres = '';
+                }
+                if (detallePart2 !== '') {
+                    this.MayorDosMilQuinientos = '✓';
+                } else {
+                    this.MayorDosMilQuinientos = '';
+                }
+                if (detallePart3 !== '') {
+                    this.Multiple = '✓';
+                } else {
+                    this.Multiple = '';
+                }
+                if (detallePart4 !== '') {
+                    this.MayorTrentaSemanas = '✓';
+                } else {
+                    this.MayorTrentaSemanas = '';
+                }
+
+                this.formAntecedentes.get('fecha').setValue(this.dataAntecedentes.gestacionAnterior.fecha);
+                this.formAntecedentes.get('intergenesico').setValue(this.dataAntecedentes.gestacionAnterior.perIntergenesicoAdecuado);
+                this.formAntecedentes.get('terminacion').setValue(this.dataAntecedentes.gestacionAnterior.terminacion);
+                this.formAntecedentes.get('tipoAborto').setValue(this.dataAntecedentes.gestacionAnterior.tipoAborto);
+                this.formAntecedentes.get('lactaciaMaterna').setValue(this.dataAntecedentes.gestacionAnterior.lactanciaMaterna);
+                this.formAntecedentes.get('lugarParto').setValue(this.dataAntecedentes.gestacionAnterior.lugarParto);
 
 
-            this.antecedentes1 = [this.dataAntecedentes.antecedentesFamiliares[0].nombre];
+                this.antecedentes1 = [this.dataAntecedentes.antecedentesFamiliares[0].nombre];
 
-            this.antecedentes2 = [this.dataAntecedentes.antecedentesFamiliares[1].nombre];
-            this.formAntecedentes.get('nombrefamiliar1').setValue(this.dataAntecedentes.antecedentesFamiliares[1].valor);
+                this.antecedentes2 = [this.dataAntecedentes.antecedentesFamiliares[1].nombre];
+                this.formAntecedentes.get('nombrefamiliar1').setValue(this.dataAntecedentes.antecedentesFamiliares[1].valor);
 
-            this.antecedentes3 = [this.dataAntecedentes.antecedentesFamiliares[2].nombre];
-            this.formAntecedentes.get('nombrefamiliar2').setValue(this.dataAntecedentes.antecedentesFamiliares[2].valor);
+                this.antecedentes3 = [this.dataAntecedentes.antecedentesFamiliares[2].nombre];
+                this.formAntecedentes.get('nombrefamiliar2').setValue(this.dataAntecedentes.antecedentesFamiliares[2].valor);
 
-            this.antecedentes4 = [this.dataAntecedentes.antecedentesFamiliares[3].nombre];
-            this.formAntecedentes.get('nombrefamiliar3').setValue(this.dataAntecedentes.antecedentesFamiliares[3].valor);
+                this.antecedentes4 = [this.dataAntecedentes.antecedentesFamiliares[3].nombre];
+                this.formAntecedentes.get('nombrefamiliar3').setValue(this.dataAntecedentes.antecedentesFamiliares[3].valor);
 
-            this.antecedentes5 = [this.dataAntecedentes.antecedentesFamiliares[4].nombre];
-            this.formAntecedentes.get('nombrefamiliar4').setValue(this.dataAntecedentes.antecedentesFamiliares[4].valor);
+                this.antecedentes5 = [this.dataAntecedentes.antecedentesFamiliares[4].nombre];
+                this.formAntecedentes.get('nombrefamiliar4').setValue(this.dataAntecedentes.antecedentesFamiliares[4].valor);
 
-            this.antecedentes6 = [this.dataAntecedentes.antecedentesFamiliares[5].nombre];
-            this.formAntecedentes.get('nombrefamiliar5').setValue(this.dataAntecedentes.antecedentesFamiliares[5].valor);
+                this.antecedentes6 = [this.dataAntecedentes.antecedentesFamiliares[5].nombre];
+                this.formAntecedentes.get('nombrefamiliar5').setValue(this.dataAntecedentes.antecedentesFamiliares[5].valor);
 
-            this.antecedentes7 = [this.dataAntecedentes.antecedentesFamiliares[6].nombre];
-            this.formAntecedentes.get('nombrefamiliar6').setValue(this.dataAntecedentes.antecedentesFamiliares[6].valor);
+                this.antecedentes7 = [this.dataAntecedentes.antecedentesFamiliares[6].nombre];
+                this.formAntecedentes.get('nombrefamiliar6').setValue(this.dataAntecedentes.antecedentesFamiliares[6].valor);
 
-            this.antecedentes8 = [this.dataAntecedentes.antecedentesFamiliares[7].nombre];
-            this.formAntecedentes.get('nombrefamiliar7').setValue(this.dataAntecedentes.antecedentesFamiliares[7].valor);
+                this.antecedentes8 = [this.dataAntecedentes.antecedentesFamiliares[7].nombre];
+                this.formAntecedentes.get('nombrefamiliar7').setValue(this.dataAntecedentes.antecedentesFamiliares[7].valor);
 
-            this.antecedentes9 = [this.dataAntecedentes.antecedentesFamiliares[8].nombre];
-            this.formAntecedentes.get('nombrefamiliar8').setValue(this.dataAntecedentes.antecedentesFamiliares[8].valor);
+                this.antecedentes9 = [this.dataAntecedentes.antecedentesFamiliares[8].nombre];
+                this.formAntecedentes.get('nombrefamiliar8').setValue(this.dataAntecedentes.antecedentesFamiliares[8].valor);
 
-            this.antecedentes10 = [this.dataAntecedentes.antecedentesFamiliares[9].nombre];
-            this.formAntecedentes.get('nombrefamiliar9').setValue(this.dataAntecedentes.antecedentesFamiliares[9].valor);
+                this.antecedentes10 = [this.dataAntecedentes.antecedentesFamiliares[9].nombre];
+                this.formAntecedentes.get('nombrefamiliar9').setValue(this.dataAntecedentes.antecedentesFamiliares[9].valor);
 
-            this.antecedentes11 = [this.dataAntecedentes.antecedentesFamiliares[10].nombre];
-            this.formAntecedentes.get('nombrefamiliar10').setValue(this.dataAntecedentes.antecedentesFamiliares[10].valor);
+                this.antecedentes11 = [this.dataAntecedentes.antecedentesFamiliares[10].nombre];
+                this.formAntecedentes.get('nombrefamiliar10').setValue(this.dataAntecedentes.antecedentesFamiliares[10].valor);
 
-            this.antecedentes12 = [this.dataAntecedentes.antecedentesFamiliares[11].nombre];
-            this.formAntecedentes.get('nombrefamiliar11').setValue(this.dataAntecedentes.antecedentesFamiliares[11].valor);
-            this.transtornMentales = [this.dataAntecedentes.antecedentesPersonales[27].nombre];
-            this.otrosAntecedentesFamiliares = this.dataAntecedentes.otroAntecendeteFamiliar;
-            if (this.otrosAntecedentesFamiliares !== '') {
-                this.otrosAntecedentesFamiliares2 = ["otros"]
-            } else this.otrosAntecedentesFamiliares2 = null
+                this.antecedentes12 = [this.dataAntecedentes.antecedentesFamiliares[11].nombre];
+                this.formAntecedentes.get('nombrefamiliar11').setValue(this.dataAntecedentes.antecedentesFamiliares[11].valor);
+                this.transtornMentales = [this.dataAntecedentes.antecedentesPersonales[27].nombre];
+                this.otrosAntecedentesFamiliares = this.dataAntecedentes.otroAntecendeteFamiliar;
+                if (this.otrosAntecedentesFamiliares !== '') {
+                    this.otrosAntecedentesFamiliares2 = ["otros"]
+                } else this.otrosAntecedentesFamiliares2 = null
 
-            this.inicializarAregloAntfamiliares();
-
-
-            this.formAntecedentes.get('captada').setValue(this.dataAntecedentes.captada);
-            this.formAntecedentes.get('referidaporAgComuni').setValue(this.dataAntecedentes.referidaAgComunal);
+                this.inicializarAregloAntfamiliares();
 
 
-            this.Ninguno = [this.dataAntecedentes.antecedentesPersonales[0].nombre];
-            console.log("ERRRR", this.Ninguno);
-            this.Abortohabitualrecurrente = [this.dataAntecedentes.antecedentesPersonales[1].nombre];
-            this.Violencia = [this.dataAntecedentes.antecedentesPersonales[2].nombre];
-            this.Cardiopatia = [this.dataAntecedentes.antecedentesPersonales[3].nombre];
-            this.cirugiaPelvicaUterina = [this.dataAntecedentes.antecedentesPersonales[4].nombre];
-            this.Eclampsia = [this.dataAntecedentes.antecedentesPersonales[5].nombre];
-            this.preEclampsia = [this.dataAntecedentes.antecedentesPersonales[6].nombre];
-            this.hemorraPostparto = [this.dataAntecedentes.antecedentesPersonales[7].nombre];
-            this.TBCPulmonar2 = [this.dataAntecedentes.antecedentesPersonales[8].nombre];
-            this.VIHSIDA = [this.dataAntecedentes.antecedentesPersonales[9].nombre];
-            this.Alcoholismo = [this.dataAntecedentes.antecedentesPersonales[10].nombre];
-            this.alergiaAmedicamentos = [this.dataAntecedentes.antecedentesPersonales[11].nombre];
-            this.asmaBronquial = [this.dataAntecedentes.antecedentesPersonales[12].nombre];
-            this.diabetes2 = [this.dataAntecedentes.antecedentesPersonales[13].nombre];
-            this.enfermCongenitas = [this.dataAntecedentes.antecedentesPersonales[14].nombre];
-            this.enfermInfecciosas = [this.dataAntecedentes.antecedentesPersonales[15].nombre];
-            this.epilepsia = [this.dataAntecedentes.antecedentesPersonales[16].nombre];
-            this.hipArterial = [this.dataAntecedentes.antecedentesPersonales[17].nombre];
-            this.consumoHojaDeCoca = [this.dataAntecedentes.antecedentesPersonales[18].nombre];
-            this.infertilidad = [this.dataAntecedentes.antecedentesPersonales[19].nombre];
-            this.neoplasias = [this.dataAntecedentes.antecedentesPersonales[20].nombre];
-            this.otrasDrogas = [this.dataAntecedentes.antecedentesPersonales[21].nombre];
-            this.partoProlong = [this.dataAntecedentes.antecedentesPersonales[22].nombre];
-            this.preeclampsia = [this.dataAntecedentes.antecedentesPersonales[23].nombre];
-            this.prematuridad = [this.dataAntecedentes.antecedentesPersonales[24].nombre];
-            this.retenPlacenta = [this.dataAntecedentes.antecedentesPersonales[25].nombre];
-            this.tabaco = [this.dataAntecedentes.antecedentesPersonales[26].nombre];
-            this.transtornMentales = [this.dataAntecedentes.antecedentesPersonales[27].nombre];
-            this.otros2 = this.dataAntecedentes.otroAncedentePersonal;
-            if (this.otros2 !== '') {
-                this.otros23 = ["otros"]
-            } else this.otros23 = null
+                this.formAntecedentes.get('captada').setValue(this.dataAntecedentes.captada);
+                this.formAntecedentes.get('referidaporAgComuni').setValue(this.dataAntecedentes.referidaAgComunal);
 
-            this.formAntecedentes.get('sesiones').setValue(this.dataAntecedentes.psicoprofilaxisNroSesiones);
-            this.formAntecedentes.get('PartosDomiciliarios').setValue(this.dataAntecedentes.antecedentesPartosPersonales);
-            this.inicializarArregloAntecedentes();
 
+                this.Ninguno = [this.dataAntecedentes.antecedentesPersonales[0].nombre];
+                console.log("ERRRR", this.Ninguno);
+                this.Abortohabitualrecurrente = [this.dataAntecedentes.antecedentesPersonales[1].nombre];
+                this.Violencia = [this.dataAntecedentes.antecedentesPersonales[2].nombre];
+                this.Cardiopatia = [this.dataAntecedentes.antecedentesPersonales[3].nombre];
+                this.cirugiaPelvicaUterina = [this.dataAntecedentes.antecedentesPersonales[4].nombre];
+                this.Eclampsia = [this.dataAntecedentes.antecedentesPersonales[5].nombre];
+                this.preEclampsia = [this.dataAntecedentes.antecedentesPersonales[6].nombre];
+                this.hemorraPostparto = [this.dataAntecedentes.antecedentesPersonales[7].nombre];
+                this.TBCPulmonar2 = [this.dataAntecedentes.antecedentesPersonales[8].nombre];
+                this.VIHSIDA = [this.dataAntecedentes.antecedentesPersonales[9].nombre];
+                this.Alcoholismo = [this.dataAntecedentes.antecedentesPersonales[10].nombre];
+                this.alergiaAmedicamentos = [this.dataAntecedentes.antecedentesPersonales[11].nombre];
+                this.asmaBronquial = [this.dataAntecedentes.antecedentesPersonales[12].nombre];
+                this.diabetes2 = [this.dataAntecedentes.antecedentesPersonales[13].nombre];
+                this.enfermCongenitas = [this.dataAntecedentes.antecedentesPersonales[14].nombre];
+                this.enfermInfecciosas = [this.dataAntecedentes.antecedentesPersonales[15].nombre];
+                this.epilepsia = [this.dataAntecedentes.antecedentesPersonales[16].nombre];
+                this.hipArterial = [this.dataAntecedentes.antecedentesPersonales[17].nombre];
+                this.consumoHojaDeCoca = [this.dataAntecedentes.antecedentesPersonales[18].nombre];
+                this.infertilidad = [this.dataAntecedentes.antecedentesPersonales[19].nombre];
+                this.neoplasias = [this.dataAntecedentes.antecedentesPersonales[20].nombre];
+                this.otrasDrogas = [this.dataAntecedentes.antecedentesPersonales[21].nombre];
+                this.partoProlong = [this.dataAntecedentes.antecedentesPersonales[22].nombre];
+                this.preeclampsia = [this.dataAntecedentes.antecedentesPersonales[23].nombre];
+                this.prematuridad = [this.dataAntecedentes.antecedentesPersonales[24].nombre];
+                this.retenPlacenta = [this.dataAntecedentes.antecedentesPersonales[25].nombre];
+                this.tabaco = [this.dataAntecedentes.antecedentesPersonales[26].nombre];
+                this.transtornMentales = [this.dataAntecedentes.antecedentesPersonales[27].nombre];
+                this.otros2 = this.dataAntecedentes.otroAncedentePersonal;
+                if (this.otros2 !== '') {
+                    this.otros23 = ["otros"]
+                } else this.otros23 = null
+
+                this.formAntecedentes.get('sesiones').setValue(this.dataAntecedentes.psicoprofilaxisNroSesiones);
+                this.formAntecedentes.get('PartosDomiciliarios').setValue(this.dataAntecedentes.antecedentesPartosPersonales);
+                this.inicializarArregloAntecedentes();
+            }
         });
     }
 
@@ -746,6 +1063,4 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
     fnCheckbox(value) {
         console.log(value);
     }
-
-
 }

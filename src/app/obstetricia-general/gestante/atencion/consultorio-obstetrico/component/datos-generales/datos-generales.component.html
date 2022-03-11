@@ -3,15 +3,38 @@
         <h3 class="mt-2">DATOS GENERALES</h3>
     </ng-template>
     <ng-template pTemplate="right" class="button">
-        <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
-                class="guardar mr-2" style="background-color: #0c3866" (click)="Add_updateConsultas()"></button>
+        <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right" class="guardar mr-2"
+            style="background-color: #0c3866" (click)="Add_updateConsultas()"></button>
     </ng-template>
 </p-toolbar>
 
 <br>
-<p-fieldset legend="INFORMACION PERSONAL" [toggleable]="true">
+<p-fieldset legend="DATOS DE LA CONSULTA" [toggleable]="true">
     <form [formGroup]='formDatos_Generales'>
-
+        <div class="grid">
+            <div class="col-4 md:col-3 lg:col-3 p-field">
+                <div class="">
+                    <label class="">Número de control prenatal: </label>
+                    <input type="text" pInputText class="inputfield w-full" formControlName="nroAtencion">
+                </div>
+            </div>
+            <div class="col-4 md:col-3 lg:col-3 p-field">
+                <div class="">
+                    <label class="">Nro control sis: </label>
+                    <input type="text" pInputText class="inputfield w-full" formControlName="nroControl">
+                </div>
+            </div>
+            <div class="col-4 md:col-3 lg:col-3 p-field">
+                <div class="">
+                    <label class="">Nro Hcl: </label>
+                    <input type="text" pInputText class="inputfield w-full" formControlName="nroHcl">
+                </div>
+            </div>
+        </div>
+    </form>
+</p-fieldset>
+<p-fieldset legend="INFORMACIÓN PERSONAL" [toggleable]="true">
+    <form [formGroup]='formDatos_Generales'>
         <div class="grid">
             <div class="col-12 md:col-6 lg:col-3 p-field">
                 <div class="">
@@ -47,7 +70,7 @@
             </div>
             <div class="col-12 md:col-6 lg:col-2 p-field">
                 <div class="">
-                    <label class="">Telefono:</label>
+                    <label class="">Teléfono:</label>
                     <input type="text" pInputText class="inputfield w-full" formControlName="telefono">
                 </div>
             </div>
@@ -74,9 +97,7 @@
         <div class="grid">
             <div class="col-12 md:col-6 lg:col-2 p-field">
                 <label>Fecha / Hora: </label>
-                <p-calendar formControlName="fecha"
-                            dateFormat="yy-mm-dd"
-                            [showTime]="true" [showSeconds]="true">
+                <p-calendar formControlName="fecha" dateFormat="yy-mm-dd" [showTime]="true" [showSeconds]="true">
                 </p-calendar>
             </div>
         </div>
@@ -85,7 +106,54 @@
 
 </p-fieldset>
 <br>
-
+<p-fieldset legend="INFORMACION ACOMPAÑANTE" [toggleable]="true">
+    <form [formGroup]='formDatos_Generales'>
+        <div class="grid">
+            <div class="col-12 md:col-6 lg:col-3 p-field">
+                <div class="">
+                    <label class="">Documento de identidad: </label>
+                    <input type="text" pInputText class="inputfield w-full" formControlName="nroDocAcompaniante">
+                </div>
+            </div>
+            <div class="col-12 md:col-6 lg:col-3 p-field">
+                <div class="">
+                    <label class="">Apellidos:</label>
+                    <input type="text" pInputText class="inputfield w-full" formControlName="apellidosAcompaniante">
+                </div>
+            </div>
+            <div class="col-12 md:col-6 lg:col-3 p-field">
+                <div class="">
+                    <label class="">Nombres: </label>
+                    <input type="text" pInputText class="inputfield w-full" formControlName="nombresAcompaniante">
+                </div>
+            </div>
+            <div class="col-12 md:col-6 lg:col-1 p-field">
+                <div class="">
+                    <label class="">Edad: </label>
+                    <input type="text" pInputText class="inputfield w-full" formControlName="edadAcompaniante">
+                </div>
+            </div>
+            <div class="col-12 md:col-6 lg:col-2 p-field">
+                <div class="">
+                    <label class="">Telefono:</label>
+                    <input type="text" pInputText class="inputfield w-full" formControlName="telefonoAcompaniante">
+                </div>
+            </div>
+            <div class="col-12 md:col-6 lg:col-5 p-field">
+                <div class="">
+                    <label class="">Dirección: </label>
+                    <input type="text" pInputText class="inputfield w-full" formControlName="direccionAcompaniante">
+                </div>
+            </div>
+            <div class="col-12 md:col-6 lg:col-2 p-field">
+                <div class="">
+                    <label class="">Lazo de parentesco:</label>
+                    <input type="text" pInputText class="inputfield w-full" formControlName="lazoParentesco">
+                </div>
+            </div>
+        </div>
+    </form>
+</p-fieldset>
 <fieldset class="p-fieldset">
     <div class="grid">
         <div class="col-12 md:col-6 lg:col-4 p-field" style="align-self: start">
@@ -95,26 +163,22 @@
                         <div class="grid">
                             <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
-                                            <span class="col-5"
-                                                  style="text-align: right">V. Antitetánica 1° Dosis:</span>
-                                    <p-selectButton [options]="opciones1" optionValue="decripcion" optionLabel="name"
-                                                    formControlName="vAntitetánica1Dosis"></p-selectButton>
-                                    <p-calendar formControlName="fecha1" placeholder="Fecha"
-                                                dateFormat="yy-mm-dd"
-                                                [showTime]="true" [showSeconds]="true"></p-calendar>
+                                    <span class="col-5" style="text-align: right">V. Antitetánica 1° Dosis:</span>
+                                    <p-selectButton [options]="opciones" optionValue="boleano" optionLabel="name"
+                                        formControlName="vAntitetánica1Dosis"></p-selectButton>
+                                    <!-- <p-calendar formControlName="fecha1" placeholder="Fecha" dateFormat="yy-mm-dd"
+                                        [showTime]="true" [showSeconds]="true"></p-calendar> -->
                                 </div>
                             </div>
                         </div>
                         <div class="grid">
                             <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
-                                            <span class="col-5"
-                                                  style="text-align: right">V. Antitetánica 2° Dosis:</span>
-                                    <p-selectButton [options]="opciones2" optionValue="decripcion" optionLabel="name"
-                                                    formControlName="vAntitetánica2Dosis"></p-selectButton>
-                                    <p-calendar formControlName="fecha2" placeholder="Fecha"
-                                                dateFormat="yy-mm-dd"
-                                                [showTime]="true" [showSeconds]="true"></p-calendar>
+                                    <span class="col-5" style="text-align: right">V. Antitetánica 2° Dosis:</span>
+                                    <p-selectButton [options]="opciones" optionValue="boleano" optionLabel="name"
+                                        formControlName="vAntitetánica2Dosis"></p-selectButton>
+                                    <!-- <p-calendar formControlName="fecha2" placeholder="Fecha" dateFormat="yy-mm-dd"
+                                        [showTime]="true" [showSeconds]="true"></p-calendar> -->
                                 </div>
                             </div>
                         </div>
@@ -122,23 +186,21 @@
                             <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
                                     <span class="col-5" style="text-align: right">Rubeola:</span>
-                                    <p-selectButton [options]="opciones3" optionValue="decripcion" optionLabel="name"
-                                                    formControlName="rubeola"></p-selectButton>
-                                    <p-calendar formControlName="fecha3" placeholder="Fecha"
-                                                dateFormat="yy-mm-dd"
-                                                [showTime]="true" [showSeconds]="true"></p-calendar>
+                                    <p-selectButton [options]="opciones" optionValue="boleano" optionLabel="name"
+                                        formControlName="rubeola"></p-selectButton>
+                                    <!-- <p-calendar formControlName="fecha3" placeholder="Fecha" dateFormat="yy-mm-dd"
+                                        [showTime]="true" [showSeconds]="true"></p-calendar> -->
                                 </div>
                             </div>
                         </div>
                         <div class="grid">
                             <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
-                                    <span class="col-5" style="text-align: right">Hepatites B:</span>
-                                    <p-selectButton [options]="opciones4" optionValue="decripcion" optionLabel="name"
-                                                    formControlName="HepatitesB"></p-selectButton>
-                                    <p-calendar formControlName="fecha4" placeholder="Fecha"
-                                                dateFormat="yy-mm-dd"
-                                                [showTime]="true" [showSeconds]="true"></p-calendar>
+                                    <span class="col-5" style="text-align: right">Hepatitis B:</span>
+                                    <p-selectButton [options]="opciones" optionValue="boleano" optionLabel="name"
+                                        formControlName="HepatitesB"></p-selectButton>
+                                    <!-- <p-calendar formControlName="fecha4" placeholder="Fecha" dateFormat="yy-mm-dd"
+                                        [showTime]="true" [showSeconds]="true"></p-calendar> -->
                                 </div>
                             </div>
                         </div>
@@ -146,11 +208,21 @@
                             <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
                                     <span class="col-5" style="text-align: right">Papiloma V.</span>
-                                    <p-selectButton [options]="opciones5" optionValue="decripcion" optionLabel="name"
-                                                    formControlName="PapilomaV"></p-selectButton>
-                                    <p-calendar formControlName="fecha5" placeholder="Fecha"
-                                                dateFormat="yy-mm-dd"
-                                                [showTime]="true" [showSeconds]="true"></p-calendar>
+                                    <p-selectButton [options]="opciones" optionValue="boleano" optionLabel="name"
+                                        formControlName="PapilomaV"></p-selectButton>
+                                    <!-- <p-calendar formControlName="fecha5" placeholder="Fecha" dateFormat="yy-mm-dd"
+                                        [showTime]="true" [showSeconds]="true"></p-calendar> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                    <span class="col-5" style="text-align: right">Influenza</span>
+                                    <p-selectButton [options]="opciones" optionValue="boleano" optionLabel="name"
+                                        formControlName="influenza"></p-selectButton>
+                                    <!-- <p-calendar formControlName="fecha5" placeholder="Fecha" dateFormat="yy-mm-dd"
+                                        [showTime]="true" [showSeconds]="true"></p-calendar> -->
                                 </div>
                             </div>
                         </div>
@@ -158,11 +230,10 @@
                             <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
                                     <span class="col-5" style="text-align: right">Covid-19:</span>
-                                    <p-selectButton [options]="opciones6" optionValue="decripcion" optionLabel="name"
-                                                    formControlName="Covid19"></p-selectButton>
-                                    <p-calendar formControlName="fecha6" placeholder="Fecha"
-                                                dateFormat="yy-mm-dd"
-                                                [showTime]="true" [showSeconds]="true"></p-calendar>
+                                    <p-selectButton [options]="opciones" optionValue="boleano" optionLabel="name"
+                                        formControlName="Covid19"></p-selectButton>
+                                    <!-- <p-calendar formControlName="fecha6" placeholder="Fecha" dateFormat="yy-mm-dd"
+                                        [showTime]="true" [showSeconds]="true"></p-calendar> -->
                                 </div>
                             </div>
                         </div>
@@ -177,7 +248,7 @@
                             <div class="p-inputgroup">
                                 <span class="col-4" style="text-align: right">FUR:</span>
                                 <p-calendar formControlName="FUR" dateFormat="yy-mm-dd"
-                                            placeholder="Fecha ultima regla"></p-calendar>
+                                    placeholder="Fecha ultima regla"></p-calendar>
                             </div>
                         </div>
                     </div>
@@ -186,7 +257,7 @@
                             <div class="p-inputgroup">
                                 <span class="col-4" style="text-align: right">FPP:</span>
                                 <p-calendar formControlName="FPP" dateFormat="yy-mm-dd"
-                                            placeholder="Fecha post parto  "></p-calendar>
+                                    placeholder="Fecha post parto  "></p-calendar>
                             </div>
                         </div>
                     </div>
@@ -196,13 +267,13 @@
                             <div class="p-inputgroup">
                                 <span class="col-4" style="text-align: right">R. CAT:</span>
                                 <input type="text" pInputText class="" formControlName="RCAT"
-                                       placeholder="Regimen catamenial">
+                                    placeholder="Regimen catamenial">
                             </div>
                         </div>
                     </div>
 
                     <div class="grid">
-                        <div class="col-12 md:col-6 lg:col-6 p-field">
+                        <div class="col-12 md:col-6 lg:col-3 p-field">
                             <div class="p-inputgroup">
                                 <span class="col-2" style="text-align: right">G:</span>
                                 <input type="text" pInputText formControlName="G">
@@ -225,16 +296,16 @@
                         <div class="col-12 md:col-6 lg:col-6 p-field" style="align-self: start">
                             <div class="p-inputgroup">
                                 <span class="col-6 md:col-6 lg:col-5">Parto:</span>
-                                <p-radioButton name="gesAnterior" formControlName="gesAnterior"
-                                               value="parto"></p-radioButton>
+                                <p-radioButton name="gesAnterior" formControlName="gesAnterior" value="parto">
+                                </p-radioButton>
                             </div>
 
                         </div>
                         <div class="col-12 md:col-6 lg:col-6 p-field" style="align-self: start">
                             <div class="p-inputgroup">
                                 <span class="col-6 md:col-6 lg:col-5">Aborto:</span>
-                                <p-radioButton name="gesAnterior" formControlName="gesAnterior"
-                                               value="aborto"></p-radioButton>
+                                <p-radioButton name="gesAnterior" formControlName="gesAnterior" value="aborto">
+                                </p-radioButton>
                             </div>
                         </div>
 
@@ -252,57 +323,6 @@
                     </div>
                 </form>
             </p-fieldset>
-
-            <p-fieldset legend="ANTECEDENTES" [toggleable]="true">
-                <form [formGroup]='formDatos_Generales'>
-                    <div class="grid">
-                        <div class="col-12 md:col-6 lg:col-12 p-field">
-                            <div class="">
-                                <span class="" style="text-align: right">Antecedentes Familiares:</span>
-                                <input type="text" pInputText class="inputfield w-full"
-                                       formControlName="AntecedentesFamiliares">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="grid">
-                        <div class="col-12 md:col-6 lg:col-12 p-field">
-                            <div class="">
-                                <span class="" style="text-align: right">Antecedentes Personales:</span>
-                                <input type="text" pInputText class="inputfield w-full"
-                                       formControlName="AntecedentesPersonales">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="grid">
-                        <div class="col-12 md:col-6 lg:col-12 p-field">
-                            <div class="p-inputgroup">
-                                <span class="col-6" style="text-align: right">Fuma Cigarros:</span>
-                                <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
-                                                formControlName="FumaCigarros"></p-selectButton>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="grid">
-                        <div class="col-12 md:col-6 lg:col-12 p-field">
-                            <div class="p-inputgroup">
-                                <span class="col-6" style="text-align: right">Drogas:</span>
-                                <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
-                                                formControlName="Drogas"></p-selectButton>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="grid">
-                        <div class="col-12 md:col-6 lg:col-12 p-field">
-                            <div class="p-inputgroup">
-                                <span class="col-6" style="text-align: right">Psicoprofilaxis:</span>
-                                <p-selectButton [options]="opciones" optionLabel="name" optionValue="name"
-                                                formControlName="Psicoprofilaxis"></p-selectButton>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </p-fieldset>
-
         </div>
         <div class="col-12 md:col-6 lg:col-4 p-field" style="align-self: start">
             <p-fieldset legend="DESCARTAR SIGNO DE ALARMA" [toggleable]="true">
@@ -311,11 +331,9 @@
                         <div class="grid">
                             <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
-                                            <span class="col-8"
-                                                  style="text-align: right">Dificultad respiratoria:</span>
-                                    <p-selectButton [options]="opciones" optionLabel="name"
-                                                    optionValue="boleano"
-                                                    formControlName="DificultadRespiratoria">
+                                    <span class="col-8" style="text-align: right">Dificultad respiratoria:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
+                                        formControlName="DificultadRespiratoria">
                                     </p-selectButton>
                                 </div>
                             </div>
@@ -324,9 +342,8 @@
                             <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
                                     <span class="col-8" style="text-align: right">Hipertención Arterial:</span>
-                                    <p-selectButton [options]="opciones" optionLabel="name"
-                                                    optionValue="boleano"
-                                                    formControlName="HipertenciónArterial">
+                                    <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
+                                        formControlName="HipertenciónArterial">
                                     </p-selectButton>
                                 </div>
                             </div>
@@ -335,9 +352,8 @@
                             <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
                                     <span class="col-8" style="text-align: right">Sangrado nasal:</span>
-                                    <p-selectButton [options]="opciones" optionLabel="name"
-                                                    optionValue="boleano"
-                                                    formControlName="SangradoNasal">
+                                    <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
+                                        formControlName="SangradoNasal">
                                     </p-selectButton>
                                 </div>
                             </div>
@@ -346,9 +362,8 @@
                             <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
                                     <span class="col-8" style="text-align: right">Deshidratación aguda:</span>
-                                    <p-selectButton [options]="opciones" optionLabel="name"
-                                                    optionValue="boleano"
-                                                    formControlName="DeshidrataciónAguda">
+                                    <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
+                                        formControlName="DeshidrataciónAguda">
                                     </p-selectButton>
                                 </div>
                             </div>
@@ -356,11 +371,9 @@
                         <div class="grid">
                             <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
-                                            <span class="col-8"
-                                                  style="text-align: right">Compromiso del sensorio:</span>
-                                    <p-selectButton [options]="opciones" optionLabel="name"
-                                                    optionValue="boleano"
-                                                    formControlName="CompromisoDelSensorio">
+                                    <span class="col-8" style="text-align: right">Compromiso del sensorio:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
+                                        formControlName="CompromisoDelSensorio">
                                     </p-selectButton>
                                 </div>
                             </div>
@@ -369,9 +382,8 @@
                             <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
                                     <span class="col-8" style="text-align: right">Traumatismo Quemadura</span>
-                                    <p-selectButton [options]="opciones" optionLabel="name"
-                                                    optionValue="boleano"
-                                                    formControlName="TraumatismoQuemadura">
+                                    <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
+                                        formControlName="TraumatismoQuemadura">
                                     </p-selectButton>
                                 </div>
                             </div>
@@ -380,9 +392,8 @@
                             <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
                                     <span class="col-8" style="text-align: right">Abdomen agudo:</span>
-                                    <p-selectButton [options]="opciones" optionLabel="name"
-                                                    optionValue="boleano"
-                                                    formControlName="AbdomenAgudo">
+                                    <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
+                                        formControlName="AbdomenAgudo">
                                     </p-selectButton>
                                 </div>
                             </div>
@@ -390,11 +401,9 @@
                         <div class="grid">
                             <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
-                                            <span class="col-8"
-                                                  style="text-align: right">Intoxicación Envenenamiento</span>
-                                    <p-selectButton [options]="opciones" optionLabel="name"
-                                                    optionValue="boleano"
-                                                    formControlName="IntoxicaciónEnvenenamiento">
+                                    <span class="col-8" style="text-align: right">Intoxicación Envenenamiento</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
+                                        formControlName="IntoxicaciónEnvenenamiento">
                                     </p-selectButton>
                                 </div>
                             </div>
@@ -403,9 +412,8 @@
                             <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
                                     <span class="col-8" style="text-align: right">Fiebre alta</span>
-                                    <p-selectButton [options]="opciones" optionLabel="name"
-                                                    optionValue="boleano"
-                                                    formControlName="FiebreAlta">
+                                    <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
+                                        formControlName="FiebreAlta">
                                     </p-selectButton>
                                 </div>
                             </div>
@@ -414,9 +422,8 @@
                             <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
                                     <span class="col-8" style="text-align: right">Convulciones</span>
-                                    <p-selectButton [options]="opciones" optionLabel="name"
-                                                    optionValue="boleano"
-                                                    formControlName="Convulciones">
+                                    <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
+                                        formControlName="Convulciones">
                                     </p-selectButton>
                                 </div>
                             </div>
@@ -425,9 +432,8 @@
                             <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
                                     <span class="col-8" style="text-align: right">Sangrado genital</span>
-                                    <p-selectButton [options]="opciones" optionLabel="name"
-                                                    optionValue="boleano"
-                                                    formControlName="SangradoGenital">
+                                    <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
+                                        formControlName="SangradoGenital">
                                     </p-selectButton>
                                 </div>
                             </div>
@@ -436,9 +442,8 @@
                             <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
                                     <span class="col-8" style="text-align: right">Dolor de cabeza</span>
-                                    <p-selectButton [options]="opciones" optionLabel="name"
-                                                    optionValue="boleano"
-                                                    formControlName="DolorDeCabeza">
+                                    <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
+                                        formControlName="DolorDeCabeza">
                                     </p-selectButton>
                                 </div>
                             </div>
@@ -447,9 +452,8 @@
                             <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
                                     <span class="col-8" style="text-align: right">Edema</span>
-                                    <p-selectButton [options]="opciones" optionLabel="name"
-                                                    optionValue="boleano"
-                                                    formControlName="Edema">
+                                    <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
+                                        formControlName="Edema">
                                     </p-selectButton>
                                 </div>
                             </div>
@@ -465,10 +469,10 @@
                         <div class="grid">
                             <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
-                                    <span class="col-8" style="text-align: right">Orientación y Consegería Signos de alarma:</span>
-                                    <p-selectButton [options]="opciones" optionLabel="name"
-                                                    optionValue="boleano"
-                                                    formControlName="OrientaciónConsegeríaSignosAlarma">
+                                    <span class="col-8" style="text-align: right">Orientación y Consejería Signos de
+                                        alarma:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
+                                        formControlName="OrientaciónConsejeríaSignosAlarma">
                                     </p-selectButton>
                                 </div>
                             </div>
@@ -476,11 +480,10 @@
                         <div class="grid">
                             <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
-                                    <span class="col-8"
-                                          style="text-align: right">Consejería en enfermedades comunes:</span>
-                                    <p-selectButton [options]="opciones" optionLabel="name"
-                                                    optionValue="boleano"
-                                                    formControlName="ConsejeríaEnfermedadesComunes">
+                                    <span class="col-8" style="text-align: right">Consejería en enfermedades
+                                        comunes:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
+                                        formControlName="ConsejeríaEnfermedadesComunes">
                                     </p-selectButton>
                                 </div>
                             </div>
@@ -488,11 +491,9 @@
                         <div class="grid">
                             <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
-                                            <span class="col-8"
-                                                  style="text-align: right">Sospechas de Tuberculosis:</span>
-                                    <p-selectButton [options]="opciones" optionLabel="name"
-                                                    optionValue="boleano"
-                                                    formControlName="SospechasTuberculosis">
+                                    <span class="col-8" style="text-align: right">Sospechas de Tuberculosis:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
+                                        formControlName="SospechasTuberculosis">
                                     </p-selectButton>
                                 </div>
                             </div>
@@ -500,11 +501,10 @@
                         <div class="grid">
                             <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
-                                        <span class="col-8"
-                                              style="text-align: right">Infecciones de transmisión sexual:</span>
-                                    <p-selectButton [options]="opciones" optionLabel="name"
-                                                    optionValue="boleano"
-                                                    formControlName="InfeccionesTransmisiónSexual">
+                                    <span class="col-8" style="text-align: right">Infecciones de transmisión
+                                        sexual:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
+                                        formControlName="InfeccionesTransmisiónSexual">
                                     </p-selectButton>
                                 </div>
                             </div>
@@ -512,11 +512,9 @@
                         <div class="grid">
                             <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
-                                            <span class="col-8"
-                                                  style="text-align: right">Orientación Nutricional:</span>
-                                    <p-selectButton [options]="opciones" optionLabel="name"
-                                                    optionValue="boleano"
-                                                    formControlName="OrientaciónNutricional">
+                                    <span class="col-8" style="text-align: right">Orientación Nutricional:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
+                                        formControlName="OrientaciónNutricional">
                                     </p-selectButton>
                                 </div>
                             </div>
@@ -524,11 +522,10 @@
                         <div class="grid">
                             <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
-                                    <span class="col-8"
-                                          style="text-align: right">Orientación en planificaión familiar:</span>
-                                    <p-selectButton [options]="opciones" optionLabel="name"
-                                                    optionValue="boleano"
-                                                    formControlName="OrientaciónPlanificaiónFamiliar">
+                                    <span class="col-8" style="text-align: right">Orientación en planificaión
+                                        familiar:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
+                                        formControlName="OrientaciónPlanificaiónFamiliar">
                                     </p-selectButton>
                                 </div>
                             </div>
@@ -536,10 +533,10 @@
                         <div class="grid">
                             <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
-                                    <span class="col-8" style="text-align: right">Orientación en prevención de Cancer ginecológico:</span>
-                                    <p-selectButton [options]="opciones" optionLabel="name"
-                                                    optionValue="boleano"
-                                                    formControlName="OrientaciónPrevenciónDeCancerGinecológico">
+                                    <span class="col-8" style="text-align: right">Orientación en prevención de Cancer
+                                        ginecológico:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
+                                        formControlName="OrientaciónPrevenciónDeCancerGinecológico">
                                     </p-selectButton>
                                 </div>
                             </div>
@@ -547,11 +544,10 @@
                         <div class="grid">
                             <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
-                                    <span class="col-8"
-                                          style="text-align: right">Orientación y consej. Pretest. VIH:</span>
-                                    <p-selectButton [options]="opciones" optionLabel="name"
-                                                    optionValue="boleano"
-                                                    formControlName="OrientaciónConsejeriaPretestVIH">
+                                    <span class="col-8" style="text-align: right">Orientación y consej. Pretest.
+                                        VIH:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
+                                        formControlName="OrientaciónConsejeriaPretestVIH">
                                     </p-selectButton>
                                 </div>
                             </div>
@@ -559,10 +555,10 @@
                         <div class="grid">
                             <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
-                                    <span class="col-8" style="text-align: right">Orientación en estilos de vida saludable:</span>
-                                    <p-selectButton [options]="opciones" optionLabel="name"
-                                                    optionValue="boleano"
-                                                    formControlName="OrientaciónEnEstilosDeVidaSaludable">
+                                    <span class="col-8" style="text-align: right">Orientación en estilos de vida
+                                        saludable:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
+                                        formControlName="OrientaciónEnEstilosDeVidaSaludable">
                                     </p-selectButton>
                                 </div>
                             </div>
@@ -570,11 +566,9 @@
                         <div class="grid">
                             <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
-                                            <span class="col-8"
-                                                  style="text-align: right">Orientación al acompañante:</span>
-                                    <p-selectButton [options]="opciones" optionLabel="name"
-                                                    optionValue="boleano"
-                                                    formControlName="OrientaciónAcompañante">
+                                    <span class="col-8" style="text-align: right">Orientación al acompañante:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
+                                        formControlName="OrientaciónAcompañante">
                                     </p-selectButton>
                                 </div>
                             </div>
@@ -583,9 +577,8 @@
                             <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
                                     <span class="col-8" style="text-align: right">Violencia familiar:</span>
-                                    <p-selectButton [options]="opciones" optionLabel="name"
-                                                    optionValue="boleano"
-                                                    formControlName="ViolenciaFamiliar">
+                                    <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
+                                        formControlName="ViolenciaFamiliar">
                                     </p-selectButton>
                                 </div>
                             </div>
@@ -594,9 +587,8 @@
                             <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
                                     <span class="col-8" style="text-align: right">Plan de parto</span>
-                                    <p-selectButton [options]="opciones" optionLabel="name"
-                                                    optionValue="boleano"
-                                                    formControlName="PlanDeParto">
+                                    <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
+                                        formControlName="PlanDeParto">
                                     </p-selectButton>
                                 </div>
                             </div>
@@ -604,6 +596,551 @@
                     </div>
                 </form>
             </p-fieldset>
+        </div>
+        <div class="grid">
+            <div class="col-5">
+                <p-fieldset legend="Antecedentes Familiares">
+                    <div class="grid">
+                        <div class="col-6">
+                            <div class="grid">
+                                <div class="col-6" style="text-align: center">
+                                    <label></label>
+                                </div>
+                                <div class="col-6" style="text-align: left">
+                                    <label class="colorear">Quien:</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="grid">
+                                <div class="col-6" style="text-align: center">
+                                    <label></label>
+                                </div>
+                                <div class="col-6" style="text-align: left">
+                                    <label class="colorear">Quien: </label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="grid">
+                        <div class="col" style="align-self: start">
+                            <div class="grid ">
+                                <div class="col-4" style="text-align: right">
+                                    <label>Ninguno: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox value="Ninguno" [(ngModel)]="antecedentes1" name="ninguno"
+                                        class="default"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <div class="col-4" style="text-align: right">
+                                    <label>Alergias: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox value="Alergia" [(ngModel)]="antecedentes2" name="alergia"
+                                        class="amarillo"></p-checkbox>
+                                </div>
+                                <div class="p-field col-6">
+                                    <form [formGroup]='formAntecedentes'>
+                                        <p-dropdown [options]="familiares" optionLabel="nombrefamiliar"
+                                            optionValue="nombrefamiliar" formControlName="nombrefamiliar1"
+                                            placeholder="Selec" [showClear]="false">
+                                        </p-dropdown>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-4" style="text-align: right">
+                                    <label>Enf. Hepertens. emb. </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox value="Enfer. Hepertens" [(ngModel)]="antecedentes3"
+                                        name="EnferHepertens" class="mt-1" class="amarillo">
+                                    </p-checkbox>
+                                </div>
+                                <div class="p-field col-6">
+                                    <form [formGroup]='formAntecedentes'>
+                                        <p-dropdown [options]="familiares" optionLabel="nombrefamiliar"
+                                            optionValue="nombrefamiliar" formControlName="nombrefamiliar2"
+                                            placeholder="Selec" [showClear]="false">
+                                        </p-dropdown>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-4" style="text-align: right">
+                                    <label>Epilepcia: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox value="Epilepcia" [(ngModel)]="antecedentes4" class="mt-1"
+                                        name="epilepcia" class="amarillo"></p-checkbox>
+                                </div>
+                                <div class="p-field col-6">
+                                    <form [formGroup]='formAntecedentes'>
+                                        <p-dropdown [options]="familiares" optionLabel="nombrefamiliar"
+                                            optionValue="nombrefamiliar" formControlName="nombrefamiliar3"
+                                            placeholder="Selec" [showClear]="false">
+                                        </p-dropdown>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-4" style="text-align: right">
+                                    <label>Diabetes: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox value="Diabetes" [(ngModel)]="antecedentes5" class="mt-1"
+                                        name="diabetes" class="amarillo"></p-checkbox>
+                                </div>
+                                <div class="p-field col-6">
+                                    <form [formGroup]='formAntecedentes'>
+                                        <p-dropdown [options]="familiares" optionLabel="nombrefamiliar"
+                                            optionValue="nombrefamiliar" formControlName="nombrefamiliar4"
+                                            placeholder="Selec" [showClear]="false">
+                                        </p-dropdown>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-4" style="text-align: right">
+                                    <label>Enf. Congénitas: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox value="Enf. Congenitas" [(ngModel)]="antecedentes6" name="EnfCongenitas"
+                                        class="mt-1" class="amarillo">
+                                    </p-checkbox>
+                                </div>
+                                <div class="p-field col-6">
+                                    <form [formGroup]='formAntecedentes'>
+                                        <p-dropdown [options]="familiares" optionLabel="nombrefamiliar"
+                                            optionValue="nombrefamiliar" formControlName="nombrefamiliar5"
+                                            placeholder="Selec" [showClear]="false">
+                                        </p-dropdown>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-4" style="text-align: right">
+                                    <label>Emb. Multiple: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox value="Emb. Multiple" [(ngModel)]="antecedentes7" class="mt-1"
+                                        name="EmbMultiple" class="amarillo">
+                                    </p-checkbox>
+                                </div>
+                                <div class="p-field col-6">
+                                    <form [formGroup]='formAntecedentes'>
+                                        <p-dropdown [options]="familiares" optionLabel="nombrefamiliar"
+                                            optionValue="nombrefamiliar" formControlName="nombrefamiliar6"
+                                            placeholder="Selec" [showClear]="false">
+                                        </p-dropdown>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col" style="align-self: start">
+                            <div class="field grid ">
+                                <div class="col-4" style="text-align: right">
+                                    <label>Malaria:</label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox value="Malaria" [(ngModel)]="antecedentes8" class="mt-1" name="malaria"
+                                        class="amarillo"></p-checkbox>
+                                </div>
+                                <div class="p-field col-6">
+                                    <form [formGroup]='formAntecedentes'>
+                                        <p-dropdown [options]="familiares" optionLabel="nombrefamiliar"
+                                            optionValue="nombrefamiliar" formControlName="nombrefamiliar7"
+                                            placeholder="Selec" [showClear]="false">
+                                        </p-dropdown>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="field grid ">
+                                <div class="col-4" style="text-align: right">
+                                    <label>Hip. Arterial: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox value="Hip. Arterial" [(ngModel)]="antecedentes9" name="HipArterial"
+                                        class="mt-1" class="amarillo"></p-checkbox>
+                                </div>
+                                <div class="p-field col-6">
+                                    <form [formGroup]='formAntecedentes'>
+                                        <p-dropdown [options]="familiares" optionLabel="nombrefamiliar"
+                                            optionValue="nombrefamiliar" formControlName="nombrefamiliar8"
+                                            placeholder="Selec" [showClear]="false">
+                                        </p-dropdown>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="field grid ">
+                                <div class="col-4" style="text-align: right">
+                                    <label>Hipo tiroidismo:</label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox value="Hipo tiroidismo" [(ngModel)]="antecedentes10"
+                                        name="HipoTiroidismo" class="mt-1" class="amarillo"></p-checkbox>
+                                </div>
+                                <div class="p-field col-6">
+                                    <form [formGroup]='formAntecedentes'>
+                                        <p-dropdown [options]="familiares" optionLabel="nombrefamiliar"
+                                            optionValue="nombrefamiliar" formControlName="nombrefamiliar9"
+                                            placeholder="Selec" [showClear]="false">
+                                        </p-dropdown>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="field grid ">
+                                <div class="col-4" style="text-align: right">
+                                    <label>Neoplásica: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox value="Neoplásica" [(ngModel)]="antecedentes11" name="neoplásica"
+                                        class="mt-1" class="amarillo"></p-checkbox>
+                                </div>
+                                <div class="p-field col-6">
+                                    <form [formGroup]='formAntecedentes'>
+                                        <p-dropdown [options]="familiares" optionLabel="nombrefamiliar"
+                                            optionValue="nombrefamiliar" formControlName="nombrefamiliar10"
+                                            placeholder="Selec" [showClear]="false">
+                                        </p-dropdown>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="field grid ">
+                                <div class="col-4" style="text-align: right">
+                                    <label>TBC Pulmonar: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox value="TBC Pulmonar" [(ngModel)]="antecedentes12" name="TBCPulmonar"
+                                        class="mt-1" class="amarillo"></p-checkbox>
+                                </div>
+                                <div class="p-field col-6">
+                                    <form [formGroup]='formAntecedentes'>
+                                        <p-dropdown [options]="familiares" optionLabel="nombrefamiliar"
+                                            optionValue="nombrefamiliar" formControlName="nombrefamiliar11"
+                                            placeholder="Selec" [showClear]="false">
+                                        </p-dropdown>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid">
+                        <div class="grid col-12">
+                            <div class="col-3" style="text-align: right">
+                                <label>Otros: </label>
+                            </div>
+                            <div class="col-1">
+                                <p-checkbox [(ngModel)]="otrosAntecedentesFamiliares2" value="otros" class="mt-1">
+                                </p-checkbox>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" pInputText [(ngModel)]="otrosAntecedentesFamiliares"
+                                    (keyup)="eventoKeyupAntecedentesFamiliares()" class="inputfield w-full">
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                </p-fieldset>
+            </div>
+            <div class="col-5">
+                <p-fieldset legend="Antecedentes Personales" [toggleable]="false">
+                    <div class="grid">
+                        <div class="col" style="align-self: start">
+                            <div class="grid">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Ninguno: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="Ninguno" name="Ninguno" value="Ninguno"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Aborto habitual / recurrente: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="Abortohabitualrecurrente"
+                                        value="Aborto habitual / recurrente"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Violencia: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="Violencia" value="Violencia"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Cardiopatia: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="Cardiopatia" value="Cardiopatia"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Cirugia Pélvica Uterina: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="cirugiaPelvicaUterina" value="Cirugia Pélvica Uterina">
+                                    </p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Eclampsia: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="Eclampsia" value="Eclampsia"></p-checkbox>
+                                </div>
+                            </div>
+
+
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Pre Eclampsia: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="preEclampsia" value="Pre Eclampsia"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Hemorra. Postparto: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="hemorraPostparto" value="Hemorra. Postparto">
+                                    </p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>TBC Pulmonar: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="TBCPulmonar2" value="TBC Pulmonar"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>VIH/SIDA:</label>
+                                </div>
+                                <div class="col-2">
+                                    <div class="col-2">
+                                        <p-checkbox [(ngModel)]="VIHSIDA" value="VIH/SIDA"></p-checkbox>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col" style="align-self: start">
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Alcoholismo: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="Alcoholismo" value="Alcoholismo"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Alergia a medicamentos: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="alergiaAmedicamentos" value="Alergia a medicamentos">
+                                    </p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Asma Bronquial: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="asmaBronquial" value="Asma Bronquial"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Diabetes: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="diabetes2" value="Diabetes"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Enferm. Congénitas: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="enfermCongenitas" value="Enferm. Congénitas">
+                                    </p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Enferm. Infecciosas: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="enfermInfecciosas" value="Enferm. Infecciosas">
+                                    </p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Epilepsia: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="epilepsia" value="Epilepsia"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Hip. Arterial: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="hipArterial" value="Hip. Arterial"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Consumo de hoja de coca: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="consumoHojaDeCoca" value="Consumo de hoja de coca">
+                                    </p-checkbox>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col" style="align-self: start">
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Infertilidad: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="infertilidad" value="Infertilidad"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Neoplasias: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="neoplasias" value="Neoplasias"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Otras Drogas: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="otrasDrogas" value="Otras Drogas"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Parto Prolong: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="partoProlong" value="Parto Prolong"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Preeclampsia: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="preeclampsia" value="Preeclampsia"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Prematuridad: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="prematuridad" value="Prematuridad"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Reten. Placenta: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="retenPlacenta" value="Reten. Placenta"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Tabaco: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="tabaco" value="Tabaco"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Transtorn. Mentales: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="transtornMentales" value="Transtorn. Mentales">
+                                    </p-checkbox>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="grid col-12">
+                            <div class="col-3" style="text-align: right">
+                                <label>Otros: </label>
+                            </div>
+                            <div class="col-1">
+                                <p-checkbox [(ngModel)]="otros23" value="otros" class="mt-1"></p-checkbox>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" pInputText [(ngModel)]="otros2"
+                                    (keyup)="eventoKeyupAntecedentesPersonales()" class="inputfield w-full">
+                            </div>
+                        </div>
+                    </div>
+                </p-fieldset>
+            </div>
+            <div class="col-2">
+                <p-fieldset legend="ANTECEDENTES" [toggleable]="true">
+                    <form [formGroup]='formDatos_Generales'>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <span style="text-align: center">Fuma Cigarros:</span>
+                                <br />
+                                <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
+                                    formControlName="FumaCigarros"></p-selectButton>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <span style="text-align: center">Drogas:</span>
+                                <br />
+                                <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
+                                    formControlName="Drogas"></p-selectButton>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <span style="text-align: center">Psicoprofilaxis:</span>
+                                <br />
+                                <p-selectButton [options]="opciones" optionLabel="name" optionValue="name"
+                                    formControlName="Psicoprofilaxis"></p-selectButton>
+                            </div>
+                        </div>
+                    </form>
+                </p-fieldset>
+            </div>
         </div>
     </div>
     <br>

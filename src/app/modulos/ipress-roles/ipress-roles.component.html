@@ -1,0 +1,122 @@
+<div class="p-card">
+    <p-toolbar styleClass="p-mb-4">
+
+        <ng-template pTemplate="left">
+            <h3 class="p-m-0">Lista de Roles de la IPRESS</h3>
+        </ng-template>
+
+        <ng-template pTemplate="right" class="button">
+            <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-danger p-mr-2"
+                (click)="openNew()"></button>
+            <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-primary"></button>
+        </ng-template>
+
+    </p-toolbar>
+    <p-table [value]="roles" #dt [globalFilterFields]="['nombreFuncion','fechaRegistro']" styleClass="p-datatable-gridlines"
+        [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
+        currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas" responsiveLayout="scroll">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value,'contains')"
+                        placeholder="Buscar..." />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+            <tr>
+                <th style="text-align: center">Nro</th>
+                <th style="text-align: center">UPS </th>
+                <th style="text-align: center">Nombre Función</th>
+                <th style="text-align: center">Tiempo preparacion</th>
+                <th style="text-align: center">Tiempo promedio atención</th>
+                <th style="text-align: center">Fecha Registro</th>
+                <th style="text-align: center; width:8rem">Acción</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+            <tr style="text-align: center">
+                <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                <td style="text-align: center">{{ buscarNombreUPS(rowData.codUPS) }}</td>
+                <td style="text-align: center">{{ rowData.nombreFuncion }}</td>
+                <td style="text-align: center">{{ rowData.tiempoPreparacion }}</td>
+                <td style="text-align: center">{{ rowData.tiempoPromedioAtencion }}</td>
+                <td style="text-align: center">{{ rowData.fechaRegistro | date: "dd/MM/yyyy" }}</td>
+                <td>
+                    <button pButton (click)="editarRol(rowData)" pTooltip="Editar" pRipple type="button"
+                        icon="pi pi-pencil" class="p-button-rounded m-1">
+                    </button>
+                    <button pButton (click)="eliminarRol(rowData)" pTooltip="Eliminar" pRipple type="button"
+                        icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
+                    </button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+
+<p-dialog [(visible)]="rolDialog" [style]="{width: '600px', height: '450px'}" [modal]="true" styleClass="p-fluid"
+    autoZIndex>
+    <ng-template pTemplate="header">
+        <h3 class="m-0">{{tituloRol()}}</h3>
+    </ng-template>
+
+    <ng-template pTemplate="body">
+        <form [formGroup]='formRol'>
+            <div class="p-fluid grid flex justify-content-center">
+                <div class="p-field col-12 md:col-12">
+                    <label>Nombre UPS:</label>
+                    <p-dropdown *ngIf="!isUpdateRol" placeholder="Nombre UPS" class="inputRedondo"
+                        [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" (onChange)="onChangeUPS()"
+                        inputId="dropdown" [options]="UPSList" formControlName="nombreUPS" optionLabel="nombreUPS"
+                        required>
+                    </p-dropdown>
+                    <p-dropdown *ngIf="isUpdateRol" class="inputRedondo" [showTransitionOptions]="'300ms'"
+                        dropdownIcon="pi pi-chevron-down" (onChange)="onChangeUPS()" inputId="dropdown"
+                        [options]="UPSList" formControlName="nombreUPS" optionLabel="nombreUPS" required>
+                    </p-dropdown>
+                </div>
+            </div>
+            <div class="p-fluid grid flex justify-content-center">
+                <div class="p-field col-12 md:col-12">
+                    <label id="nombreFuncion">Nombre funcion:</label>
+                    <input type="text" pInputText formControlName='nombreFuncion' placeholder="Nombre de la Función"
+                        disabled />
+                </div>
+            </div>
+            <div class="p-fluid grid flex justify-content-center">
+                <div class="p-field col-12 md:col-12">
+                    <label id="tiempoPreparacion">Tiempo preparación:</label>
+                    <p-inputNumber placeholder="Tiempo de preparación" formControlName='tiempoPreparacion'
+                        suffix=" minutos" required>
+                    </p-inputNumber>
+                </div>
+            </div>
+            <div class="p-fluid grid flex justify-content-center">
+                <div class="p-field col-12 md:col-12">
+                    <label id="tiempoPromedioAtencion">Tiempo promedio atención:</label>
+                    <p-inputNumber placeholder="Tiempo promedio de atención" formControlName='tiempoPromedioAtencion'
+                        suffix=" minutos" required>
+                    </p-inputNumber>
+                </div>
+            </div>
+            <div class="p-fluid grid flex justify-content-center">
+                <div class="p-field col-12 md:col-12">
+                    <label id="fechaRegistro">Fecha Registro:</label>
+                    <input type="date" placeholder="Fecha Registro" pInputText formControlName='fechaRegistro'
+                        required />
+                </div>
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton type="button" label="Cancelar" class="p-button-danger m-1 w-9rem" (click)="canceled()"></button>
+        <button *ngIf="!isUpdateRol" pButton type="button" label="Guardar" class="m-1 w-9rem"
+            (click)="saveRol()"></button>
+        <button *ngIf="isUpdateRol" pButton type="button" label="Guardar" class="m-1 w-9rem"
+            (click)="saveEdicionRol()"></button>
+    </ng-template>
+</p-dialog>

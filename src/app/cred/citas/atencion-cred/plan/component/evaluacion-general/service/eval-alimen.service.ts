@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Product, FechaEvaluacionAlimentacion } from '../models/EvaluacionAlimentacion';
 import { datosEEDPTabla, EscalaEEDP, escalaEval_EEDP_0_4_anios, tablaComparativa } from '../models/EscalaEEDP';
 import { environment } from 'src/environments/environment';
+import { AnswerPB } from '../../../../consulta-principal/component/evaluaciones-consulta/components/desarrollo-psicomotor/components/models/pautaBreve';
 
 
 @Injectable({
@@ -15,7 +16,14 @@ export class EvalAlimenService {
 
 
   constructor(private http: HttpClient) { }
-  /**cambios hechos por madai**/
+  /** SERVICIOS EVALUACION ALIMENTICIA**/
+  getTitulosEvaluacion() {
+    return this.http.get<any>('/assets/data/evaluacion-alimenticia.json')
+        .toPromise()
+        .then(res => <any[]>res.data)
+        .then(data => { return data; });
+  }
+
   getEvaluacionAlimenticiaCred(nroDoc) {
     return this.http.get(`${this.base_url}/${this.bd}/cred/evaluacion/alimentacion/${nroDoc}`);
   }
@@ -54,6 +62,13 @@ export class EvalAlimenService {
     return this.http.get<any>('assets/data/escalaEEDP.json')
         .toPromise()
         .then(res => <datosEEDPTabla>res.data)
+        .then(data => { return data; });
+  }
+
+  getPautaBreveArray() {
+    return this.http.get<any>('assets/data/evaluacion-pauta-breve.json')
+        .toPromise()
+        .then(res => <AnswerPB>res.data)
         .then(data => { return data; });
   }
 

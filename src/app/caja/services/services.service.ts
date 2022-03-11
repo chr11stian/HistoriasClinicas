@@ -21,4 +21,28 @@ export class ServicesService {
     UpdateCupoCAja(idCupo) {
         return this.http.get(`${this.base_url}/${this.bd}/cupo/actualizar/caja/${idCupo}`)
     }
+
+    pagarRecibo(idIpress,ambienteCaja,pago){
+        return this.http.put(`${this.base_url}/${this.bd}/caja/guardarRecibo/${idIpress}/${ambienteCaja}`,pago) 
+    }
+
+    listarAmbientesCaja(req){
+        return this.http.post(`${this.base_url}/${this.bd}/ipress/listarAmbientesXNombreUps`,req) 
+    }
+
+    getListaPendientesEcografias(idIpress){
+        return this.http.get(`${this.base_url}/${this.bd}/examenesAuxiliares/listarPendientesPago/${idIpress}`)
+    }
+
+    listarPagosRealizados(idIpress,ambienteCaja,request){
+        return this.http.post(`${this.base_url}/${this.bd}/caja/listarRecibosPeriodo/${idIpress}/${ambienteCaja}`,request)
+    }
+    anularRecibo(idIpress,ambienteCaja,nroRecibo){
+        let request={ nro: nroRecibo}
+        return this.http.put(`${this.base_url}/${this.bd}/caja/anularRecibo/${idIpress}/${ambienteCaja}`,request)
+    }
+    obtenerNumeracionCaja(idIpress,ambienteCaja){
+        return this.http.get(`${this.base_url}/${this.bd}/caja/contador/${idIpress}/${ambienteCaja}`)
+    }
+    
 }

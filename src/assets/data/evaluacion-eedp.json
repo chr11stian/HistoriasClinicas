@@ -1,0 +1,633 @@
+{
+    "data": [
+        [
+            {
+                "pregunta": 1,
+                "areEvaluacion": "S",
+                "descripcion": "Fija la mirada en el rostro del examinador",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 2,
+                "areEvaluacion": "L",
+                "descripcion": "Reacciona al sonido de la campanilla(detras)",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 3,
+                "areEvaluacion": "M",
+                "descripcion": "Aprieta el dedo indice del examinador",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 4,
+                "areEvaluacion": "C",
+                "descripcion": "Sigue con la vista la argolla (ángulo de 90°)(detras)",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 5,
+                "areEvaluacion": "M",
+                "descripcion": "Movimiento de cabeza en posición prona",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            }
+        ],
+        [
+            {
+                "pregunta": 6,
+                "areEvaluacion": "S",
+                "descripcion": "Mímica en respuesta al rostro del examinador",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 7,
+                "areEvaluacion": "S_L",
+                "descripcion": "Vocaliza en respuesta a la sonrisa y conversación del examinador",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 8,
+                "areEvaluacion": "C_S",
+                "descripcion": "Reacciona ante el desaparecimiento de la cara del examinador",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 9,
+                "areEvaluacion": "M",
+                "descripcion": "Intenta controlar la cabeza al ser llevado a posicion sentado",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 10,
+                "areEvaluacion": "L",
+                "descripcion": "vocaliza dos sonidos diferentes",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            }
+        ],
+        [
+            {
+                "pregunta": 11,
+                "areEvaluacion": "S",
+                "descripcion": "Sonrie en respuesta a la sonrisa del examinador",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 12,
+                "areEvaluacion": "S_L",
+                "descripcion": "Busca con la vista la fuente del sonido (detras)",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 13,
+                "areEvaluacion": "C",
+                "descripcion": "Sigue con la vista la argolla (ángulo de 180°)(detras)",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 14,
+                "areEvaluacion": "M",
+                "descripcion": "Mantiene cabeza erguida al ser llevado a posicion sentado",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 15,
+                "areEvaluacion": "L",
+                "descripcion": "Vocalizacion prolongada",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            }
+        ],
+        [
+            {
+                "pregunta": 16,
+                "areEvaluacion": "C",
+                "descripcion": "La cabeza sigue la cuchara que desaparece",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 17,
+                "areEvaluacion": "C_L",
+                "descripcion": "Gira la cabeza al sonido de la campanilla (detras)",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 18,
+                "areEvaluacion": "M",
+                "descripcion": "En posicion prona se levanta asi mismo",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 19,
+                "areEvaluacion": "M",
+                "descripcion": "Levanta cabeza y hombro al ser llevado a posición sentada",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 20,
+                "areEvaluacion": "S_L",
+                "descripcion": "Rie a carcajadas",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            }
+        ],
+        [
+            {
+                "pregunta": 21,
+                "areEvaluacion": "S_L",
+                "descripcion": "Vuelve la cabeza a quien le habla(detrás)",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 22,
+                "areEvaluacion": "C",
+                "descripcion": "Palpa el borde de la cama",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 23,
+                "areEvaluacion": "C",
+                "descripcion": "Intenta presión de la argolla (detrás)",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 24,
+                "areEvaluacion": "M",
+                "descripcion": "Empuja hasta lograr la posición sentada",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 25,
+                "areEvaluacion": "M",
+                "descripcion": "Se mantiene sentado con breve apoyo",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            }
+        ],
+        [
+            {
+                "pregunta": 26,
+                "areEvaluacion": "M",
+                "descripcion": "Se mantiene sentado solo momentaneamente",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 27,
+                "areEvaluacion": "C",
+                "descripcion": "Vuelve la cabeza a la cuchara caída",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 28,
+                "areEvaluacion": "C",
+                "descripcion": "Coge la argolla",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 29,
+                "areEvaluacion": "C",
+                "descripcion": "Coge el cubo",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 30,
+                "areEvaluacion": "S_L",
+                "descripcion": "Vocaliza cuando se le habla",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            }
+        ],
+        [
+            {
+                "pregunta": 31,
+                "areEvaluacion": "M",
+                "descripcion": "Se mantiene sentado solo por 30 segundos a más",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 32,
+                "areEvaluacion": "C",
+                "descripcion": "Intenta agarrar la pastilla",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 33,
+                "areEvaluacion": "L",
+                "descripcion": "Escucha selectivamente palabras familiares",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 34,
+                "areEvaluacion": "S",
+                "descripcion": "Coopera a los juegos",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 35,
+                "areEvaluacion": "C",
+                "descripcion": "Coge dos cubos, uno en cada mano",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            }
+        ],
+        [
+            {
+                "pregunta": 36,
+                "areEvaluacion": "M",
+                "descripcion": "Se sienta y se mantiene erguido",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 37,
+                "areEvaluacion": "M",
+                "descripcion": "Fracciona hasta lograr la posición de pie",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 38,
+                "areEvaluacion": "M",
+                "descripcion": "Iniciación de pasos sostenido bajo los brazos",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 39,
+                "areEvaluacion": "C",
+                "descripcion": "Coge la pastilla con movimiento de rastrillo",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 40,
+                "areEvaluacion": "C",
+                "descripcion": "Dice da-da o equivalente",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            }
+        ],
+        [
+            {
+                "pregunta": 41,
+                "areEvaluacion": "M",
+                "descripcion": "Logra llegar a posición de pie, apoyado en un mueble",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 42,
+                "areEvaluacion": "M",
+                "descripcion": "Camina sostenido bajo los brazos",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 43,
+                "areEvaluacion": "C",
+                "descripcion": "Coge la pastilla con participación del pulgar",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 44,
+                "areEvaluacion": "C",
+                "descripcion": "Encuentra el cubo bajo el pañal",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 45,
+                "areEvaluacion": "S_L",
+                "descripcion": "Reacciona a los requerimientos verbales",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            }
+        ],
+        [
+            {
+                "pregunta": 46,
+                "areEvaluacion": "C",
+                "descripcion": "Coge la pastilla con pulgar e índice",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 47,
+                "areEvaluacion": "S",
+                "descripcion": "Imita gestos simples",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 48,
+                "areEvaluacion": "C",
+                "descripcion": "Coge el tercer cubo dejando uno de los dos primeros",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 49,
+                "areEvaluacion": "C",
+                "descripcion": "Junta cubos en la línea media",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 50,
+                "areEvaluacion": "S_L",
+                "descripcion": "Reacciona al “no, no”",
+                "puntajeMaximo": "6",
+                "puntajeEEDP": false
+            }
+        ],
+        [
+            {
+                "pregunta": 51,
+                "areEvaluacion": "M",
+                "descripcion": "Coge la pastilla con pulgar e índice",
+                "puntajeMaximo": "12",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 52,
+                "areEvaluacion": "C",
+                "descripcion": "Imita gestos simples",
+                "puntajeMaximo": "12",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 53,
+                "areEvaluacion": "M",
+                "descripcion": "Coge el tercer cubo dejando uno de los dos primeros",
+                "puntajeMaximo": "12",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 54,
+                "areEvaluacion": "S_L",
+                "descripcion": "Junta cubos en la línea media",
+                "puntajeMaximo": "12",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 55,
+                "areEvaluacion": "L",
+                "descripcion": "Reacciona al “no, no”",
+                "puntajeMaximo": "12",
+                "puntajeEEDP": false
+            }
+        ],
+        [
+            {
+                "pregunta": 56,
+                "areEvaluacion": "M",
+                "descripcion": "Camina solo",
+                "puntajeMaximo": "18",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 57,
+                "areEvaluacion": "C",
+                "descripcion": "Introduce la pastilla en la botella",
+                "puntajeMaximo": "18",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 58,
+                "areEvaluacion": "C",
+                "descripcion": "Espontáneamente garabatea",
+                "puntajeMaximo": "18",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 59,
+                "areEvaluacion": "C",
+                "descripcion": "Coge el tercer cubo conservando los dos primeros",
+                "puntajeMaximo": "18",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 60,
+                "areEvaluacion": "L",
+                "descripcion": "Dice al menos tres palabras",
+                "puntajeMaximo": "18",
+                "puntajeEEDP": false
+            }
+        ],
+        [
+            {
+                "pregunta": 61,
+                "areEvaluacion": "S_L",
+                "descripcion": "Muestra sus zapatos",
+                "puntajeMaximo": "18",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 62,
+                "areEvaluacion": "M",
+                "descripcion": "Camina varios pasos hacia el lado",
+                "puntajeMaximo": "18",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 63,
+                "areEvaluacion": "M",
+                "descripcion": "Camina varios pasos hacia atrás",
+                "puntajeMaximo": "18",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 64,
+                "areEvaluacion": "C",
+                "descripcion": "Retira inmediatamente la pastilla de la botella",
+                "puntajeMaximo": "18",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 65,
+                "areEvaluacion": "C",
+                "descripcion": "Atrae el cubo con un palo",
+                "puntajeMaximo": "18",
+                "puntajeEEDP": false
+            }
+        ],
+        [
+            {
+                "pregunta": 66,
+                "areEvaluacion": "L",
+                "descripcion": "Nombra un objeto de los cuatro presentado",
+                "puntajeMaximo": "18",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 67,
+                "areEvaluacion": "L",
+                "descripcion": "Imita tres palabras en el momento del examen",
+                "puntajeMaximo": "18",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 68,
+                "areEvaluacion": "C",
+                "descripcion": "Construye una torre con tres cubos",
+                "puntajeMaximo": "18",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 69,
+                "areEvaluacion": "L",
+                "descripcion": "Dice al menos seis palabras",
+                "puntajeMaximo": "18",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 70,
+                "areEvaluacion": "S_L",
+                "descripcion": "Usa palabras para comunicar deseos",
+                "puntajeMaximo": "18",
+                "puntajeEEDP": false
+            }
+        ],
+        [
+            {
+                "pregunta": 71,
+                "areEvaluacion": "M",
+                "descripcion": "Se para en un pie con ayuda",
+                "puntajeMaximo": "18",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 72,
+                "areEvaluacion": "L",
+                "descripcion": "Nombra dos objetos de los cuatro presentados",
+                "puntajeMaximo": "18",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 73,
+                "areEvaluacion": "S",
+                "descripcion": "Ayuda en tareas simples",
+                "puntajeMaximo": "18",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 74,
+                "areEvaluacion": "L",
+                "descripcion": "Apunta 4 o más partes en el cuerpo de la muñeca",
+                "puntajeMaximo": "18",
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 75,
+                "areEvaluacion": "C",
+                "descripcion": "Construye una torre con cinco cubos",
+                "puntajeMaximo": "18",
+                "puntajeEEDP": false
+            }
+        ],
+        [
+            {
+                "pregunta": 76,
+                "areEvaluacion": "L",
+                "descripcion": "Nombra animales (de 8 menciona 6)",
+                "puntajeMaximo": null,
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 77,
+                "areEvaluacion": "L",
+                "descripcion": "Nombra colores (rojo, azul, amarillo)",
+                "puntajeMaximo": null,
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 78,
+                "areEvaluacion": "M",
+                "descripcion": "Copia una cruz",
+                "puntajeMaximo": null,
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 79,
+                "areEvaluacion": "C",
+                "descripcion": "Construye una torre de 8 cubos",
+                "puntajeMaximo": null,
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 80,
+                "areEvaluacion": "M",
+                "descripcion": "Se para con un pie (10 segundos a más)",
+                "puntajeMaximo": null,
+                "puntajeEEDP": false
+            }
+        ],
+        [
+            {
+                "pregunta": 81,
+                "areEvaluacion": "L",
+                "descripcion": "Verbaliza su nombre y apeliido",
+                "puntajeMaximo": null,
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 82,
+                "areEvaluacion": "L",
+                "descripcion": "Conoce la utilidad de los objetos (cuchara, lápiz, tijera, jabón)",
+                "puntajeMaximo": null,
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 83,
+                "areEvaluacion": "C",
+                "descripcion": "Copia un circulo",
+                "puntajeMaximo": null,
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 84,
+                "areEvaluacion": "C",
+                "descripcion": "Abotona y desabotona (usar estuche)",
+                "puntajeMaximo": null,
+                "puntajeEEDP": false
+            },
+            {
+                "pregunta": 85,
+                "areEvaluacion": "M",
+                "descripcion": "Camina en punta de pie seis pasos o más",
+                "puntajeMaximo": null,
+                "puntajeEEDP": false
+            }
+        ]
+    ]
+}

@@ -12,6 +12,7 @@ import { HistoriaConsultasModule } from "./historia-consultas/historia-consultas
 import { DialogConsultaComponent } from './gestante/consulta/dialog-consulta/dialog-consulta.component';
 import { ConsultasNoControlComponent } from './consultas-no-control/consultas-no-control.component';
 import { DialogConsultaUniversalComponent } from './consultas-no-control/dialog-consulta-universal/dialog-consulta-universal.component';
+import {ProgressSpinnerModule} from "primeng/progressspinner";
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { DialogConsultaUniversalComponent } from './consultas-no-control/dialog-
 
         AtencionModule,
         HistoriaConsultasModule,
-        ImageModule
+        ImageModule,
+        ProgressSpinnerModule
 
     ]
 })

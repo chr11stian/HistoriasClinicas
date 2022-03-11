@@ -1,0 +1,132 @@
+<div>
+    <p-toast key="myKey1"></p-toast>
+    <p-panel>
+        <ng-template pTemplate="header">
+            OFERTAS
+        </ng-template>
+        <div class="grid">
+
+            <div class="col-12 md:col-6 lg:col-5 p-field">
+                <form [formGroup]="formCuposOferta">
+                    <div class="grid">
+                        <div class="col-12 md:col-6 lg:col-3 p-field">
+                            <span class="">FECHA</span>
+                            <div class="p-inputgroup">
+                                <p-calendar dateFormat="yy-mm-dd"
+                                            formControlName="fechaOferta"
+                                            [readonlyInput]="true">
+                                </p-calendar>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-6 lg:col-6 p-field">
+                            <span class="">SERVICIO (UPS)</span>
+                            <div class="">
+                                <p-dropdown
+                                        [options]="ups"
+                                        formControlName="SelectUPSOferta"
+                                        placeholder="Seleccione un servicio"
+                                        optionLabel="nombreUPS"
+                                        optionValue="nombreUPS"
+                                        [showClear]="false"
+                                        (ngModelChange)="changeServicioSelected()">
+                                </p-dropdown>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-12 md:col-6 lg:col-5 p-field">
+                <form [formGroup]="formCuposOferta">
+                    <div class="grid">
+                        <div class="col-12 md:col-6 lg:col-5 p-field">
+                            <div class="">
+                                <h5>PERSONAL:</h5>
+                                <span>{{personalSelected}}</span>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-6 lg:col-5 p-field">
+                            <div class="">
+                                <h5>AMBIENTE:</h5>
+                                <span>{{dataSelectAmbiente}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-12 md:col-6 lg:col-2 p-field">
+                <form [formGroup]="formCuposOferta">
+                    <div class="grid">
+                        <div class="col-12 md:col-6 lg:col-12 p-field">
+                            <div class="">
+                                <button pButton type="button" label="Cancelar" class="p-button-danger"></button>
+                                <button pButton type="button" label="Siguiente" (click)="aceptarDialogCupos()"></button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <br>
+        <div class="grid">
+            <div class="p-field col-6 p-card">
+                <p-table [value]="dataOfertasCupos" selectionMode="single"
+                         [(selection)]="personalSelected"
+                         responsiveLayout="scroll" (onRowSelect)="onRowSelect($event)">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>NRO</th>
+                            <th>APELLIDOS Y NOMBRES</th>
+                            <th>TURNO</th>
+                        </tr>
+                    </ng-template>
+
+                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                        <tr [pSelectableRow]="rowData">
+                            <td>{{ rowIndex + 1 }}</td>
+                            <td>{{ rowData.personal.nombre }}</td>
+                            <td>{{ rowData.nombreTurno }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            <div class="p-field col-6 p-card">
+                <p-table [value]="dataSelectHoras" dataKey="nroCupo">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="text-align: center">NRO</th>
+                            <th style="text-align: center">HORA INICIO</th>
+                            <th style="text-align: center">HORA FIN</th>
+                            <th style="text-align: center">ESTADO</th>
+                            <th style="text-align: center">SELECCIONAR</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                        <tr>
+                            <td style="text-align: center">{{ rowIndex + 1}}</td>
+                            <td style="text-align: center">{{ rowData.horaInicio}}</td>
+                            <td style="text-align: center">{{ rowData.horaFin}}</td>
+                            <td style="text-align: center">
+                                <p-tag *ngIf="rowData.estado == 'LIBRE'" severity="info"
+                                       value="LIBRE"></p-tag>
+                                <p-tag *ngIf="rowData.estado == 'OCUPADO'" severity="danger"
+                                       value="OCUPADO"></p-tag>
+                            </td>
+
+                            <td style="text-align: center">
+                                <p-checkbox name="groupname" [value]="rowData"
+                                            *ngIf="rowData.estado == estadoHoras" [disabled]="!estadoHoras"
+                                            [(ngModel)]="selectedHorario">
+                                </p-checkbox>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </p-panel>
+</div>
+
+
+

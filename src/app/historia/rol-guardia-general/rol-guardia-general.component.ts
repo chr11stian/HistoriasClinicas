@@ -6,22 +6,24 @@ import { RolGuardiaComponent } from "../rol-guardia/rol-guardia.component";
   selector: "app-rol-guardia-general",
   templateUrl: "./rol-guardia-general.component.html",
   styleUrls: ["./rol-guardia-general.component.css"],
-  providers: [DialogService],
 })
 export class RolGuardiaGeneralComponent implements OnInit {
-  constructor(public dialogService: DialogService) {}
+  display:boolean=false;
+  constructor() {}
 
   ngOnInit(): void {}
   openModal() {
-    const ref = this.dialogService.open(RolGuardiaComponent, {
-      header: "ASIGNAR ROL DE GUARDIAS AL PERSONAL DE SALUD",
-      width: "95%",
-      contentStyle: {
-        // "max-height": "500px",
-        // 'overflow':'visible'
-      },
-      // baseZIndex: 10000,
-    });
+    this.display=true;
+
+    // const ref = this.dialogService.open(RolGuardiaComponent, {
+    //   header: "ASIGNAR ROL DE GUARDIAS AL PERSONAL DE SALUD",
+    //   width: "95%",
+    //   contentStyle: {
+    //     // "max-height": "500px",
+    //     // 'overflow':'visible'
+    //   },
+    //   // baseZIndex: 10000,
+    // });
 
     // ref.onClose.subscribe((car: Car) => {
     //     if (car) {

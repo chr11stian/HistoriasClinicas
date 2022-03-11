@@ -14,7 +14,11 @@
 
 <br>
 <div class="stepsdemo-content" *ngIf="stepName === 'datos'">
-    <app-datos-generales></app-datos-generales>
+    <p-card>
+        <ng-template pTemplate="content">
+            <app-datos-generales></app-datos-generales>
+        </ng-template>
+    </p-card>
 </div>
 <div class="stepsdemo-content" *ngIf="stepName === 'interrogatorio'">
     <p-card>

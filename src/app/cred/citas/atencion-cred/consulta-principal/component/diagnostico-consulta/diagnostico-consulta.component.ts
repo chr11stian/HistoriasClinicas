@@ -4,6 +4,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import Swal from "sweetalert2";
 import {CieService} from "../../../../../../obstetricia-general/services/cie.service";
 import {DiagnosticoConsultaService} from "../../services/diagnostico-consulta.service";
+import {dato} from "../../../../models/data";
 
 @Component({
     selector: 'app-diagnostico-consulta',
@@ -29,7 +30,11 @@ export class DiagnosticoConsultaComponent implements OnInit {
     hayError: boolean = false;
     isUpdate: boolean = false;
 
-    attributeLocalS = 'idConsulta'
+    resultadosTestEvaluaciones:Resumen[]=[];
+    tablaResumenDx:resumenDiagnosticosPrevios[]=[];
+
+    attributeLocalS = 'documento'
+    dataConsulta:dato;
     id: string = "";
 
     diagnostico: diagnosticoInterface
@@ -37,7 +42,6 @@ export class DiagnosticoConsultaComponent implements OnInit {
 
     factorDialog: boolean;
     formFactor: FormGroup;
-    hayError2: boolean = false;
     isUpdate2: boolean = false;
     data2: any[] = [];
     factoresCondicionales: any[] = [];
@@ -54,11 +58,13 @@ export class DiagnosticoConsultaComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.recuperarDiagnostico()
+        this.dataConsulta = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
+        this.recuperarDiagnostico();
+        this.recuperarResumenDxBD();
     }
 
     buildForm() {
-        this.id = localStorage.getItem(this.attributeLocalS);
+        // this.id = localStorage.getItem(this.attributeLocalS);
         this.form = this.formBuilder.group({
             diagnostico: ['', [Validators.required]],
         });
@@ -81,6 +87,60 @@ export class DiagnosticoConsultaComponent implements OnInit {
         this.formFactor = this.formBuilder.group({
             factorTexto: new FormControl("", []),
         });
+
+    }
+
+    /* funciones de tabla resultados evaluaciones - test - tamizajes*/
+    recuperarResumenDxBD(){
+        this.DiagnosticoService.getResultadosResumen(this.dataConsulta.idConsulta).subscribe((r: any) => {
+            //-- recupera informacion de diagnostico
+           console.log(r.object);
+           console.log(r.object[0].tamizajes.resultadoAuditivo.valor);
+           console.log(r.object[0].tamizajes.resultadoVisual.valor);
+           console.log(r.object[0].tamizajes.resultadoVIF.valor);
+           this.tablaResumenDx = r.object;
+           let aux1 = {
+               evaluacion:'EVALUACION ALIMENTICIA',
+               resultado:this.tablaResumenDx[0].evaluacioAlimentacion,
+           }
+           this.resultadosTestEvaluaciones.push(aux1)
+           let aux2 = {
+               evaluacion:'TAMIZAJE AUDITIVO',
+               resultado:this.tablaResumenDx[0].tamizajes.resultadoAuditivo.valor,
+           }
+           this.resultadosTestEvaluaciones.push(aux2)
+           let aux3 = {
+               evaluacion:'TAMIZAJE VISUAL',
+               resultado:this.tablaResumenDx[0].tamizajes.resultadoVisual.valor,
+           }
+           this.resultadosTestEvaluaciones.push(aux3)
+           let aux4 = {
+               evaluacion:'TAMIZAJE VIF',
+               resultado:this.tablaResumenDx[0].tamizajes.resultadoVIF.valor,
+           }
+           this.resultadosTestEvaluaciones.push(aux4)
+           let aux5 = {
+                evaluacion:'TEST PERUANO',
+                resultado:this.tablaResumenDx[0].testPeruano,
+           }
+           this.resultadosTestEvaluaciones.push(aux5)
+           let aux6 = {
+               evaluacion:'TEST EEDP',
+               resultado:this.tablaResumenDx[0].testEEDP,
+           }
+           this.resultadosTestEvaluaciones.push(aux6)
+           let aux7 = {
+               evaluacion:'TEST PAUTA BREVE',
+               resultado:this.tablaResumenDx[0].testPautaBreve,
+           }
+           this.resultadosTestEvaluaciones.push(aux7)
+           let aux8 = {
+                evaluacion:'TEST TEPSI',
+                resultado:this.tablaResumenDx[0].testTepsi,
+           }
+           this.resultadosTestEvaluaciones.push(aux8)
+           console.log(this.resultadosTestEvaluaciones);
+        })
 
     }
 
@@ -192,7 +252,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
 
     /*  objeto diagnostico */
     recuperarDiagnostico() {
-        this.DiagnosticoService.getDiagnostico(this.id).subscribe((r: any) => {
+        this.DiagnosticoService.getDiagnostico(this.dataConsulta.idConsulta).subscribe((r: any) => {
             //-- recupera informacion de diagnostico
             this.diagnostico = r.object;
             console.log('diagnostico', this.diagnostico)
@@ -224,7 +284,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
         }
         console.log('req', req)
         if (this.diagnosticoNosologico) {
-            this.DiagnosticoService.updateDiagnostico(this.id, req).subscribe(
+            this.DiagnosticoService.updateDiagnostico(this.dataConsulta.idConsulta, req).subscribe(
                 (resp) => {
                     Swal.fire({
                         icon: 'success',
@@ -313,4 +373,27 @@ interface condicionDesarrolloPsicomotorInterface {
 interface diagnosticoNosologicoInterface {
     codigoItem: string,
     descripcionItem: string
+}
+interface resumenDiagnosticosPrevios {
+    evaluacioAlimentacion?:string,
+    inmunizaciones?: any[],
+    tamizajes?: tamizajes,
+    testEEDP?:string,
+    testPautaBreve?:string,
+    testPeruano?:string,
+    testTepsi?:string,
+}
+interface tamizajes {
+    resultadoVIF?:resultado,
+    resultadoAuditivo?:resultado,
+    resultadoVisual?:resultado,
+}
+interface resultado{
+    clave?:string,
+    valor?:string,
+    descripcion?:string
+}
+interface Resumen{
+    evaluacion?:string,
+    resultado?:string
 }

@@ -36,7 +36,7 @@ export class LoginService {
                 if (user) {
                     const token = {
                         usuario: 'user',
-                        roles: user.usuario.estado,
+                        roles: user.usuario.rol,
                         token: user.token
                     }
                     console.log("token", token)

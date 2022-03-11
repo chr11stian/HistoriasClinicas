@@ -15,15 +15,17 @@ import {HeightWeightChartService} from '../../services/height-weight-chart.servi
 export class WeightChartComponent implements OnInit {
 
     data: GraphInterface
-    colorMorado = 'rgba(7,33,103,0.91)'
-    colorNaranja = 'rgba(220,90,34,0.93)'
+    colorAzul = '#0c3866'
     colorVerde = 'rgba(62,199,47,0.8)'
+    colorNaranja = 'rgba(245,93,25,0.85)'
+    colorNegro = '#0e0e0e'
+    colorRojo = 'rgba(255,0,0,0.86)'
     colors = [
-        this.colorMorado,
+        this.colorRojo,
         this.colorNaranja,
         this.colorVerde,
         this.colorNaranja,
-        this.colorMorado,
+        this.colorRojo,
     ]
     names = [
         '3',
@@ -65,7 +67,7 @@ export class WeightChartComponent implements OnInit {
 
     fillData(data): void {
         const attribute = {
-            color: '#09fff9', name: this.config.data.isBoy ? 'niño' : 'niña'
+            color: this.colorAzul, name: this.config.data.isBoy ? 'niño' : 'niña'
         }
         const valueSerie = this.fillDataGraphService.fillDataGraphV2(
             data,
@@ -78,7 +80,7 @@ export class WeightChartComponent implements OnInit {
         this.data = {
             nameAxisY: 'PESO(KG)',
             nameAxisX: 'EDAD (EN MESES Y AÑOS CUMPLIDOS)',
-            titleGraph: 'Puntuación Z ',
+            titleGraph: 'Puntuación Z - DIAGNÓSTICO ' + (this.config.data.isBoy ? 'DEL NIÑO' : 'DE LA NIÑA') + ': ' + this.config.data.diagnostic.toUpperCase(),
             subTitleGraph: '(Nacimiento a 5 años)',
             measurementUnits: ['kg', 'meses'],
             // measurementUnits: ['meses', 'kg'],

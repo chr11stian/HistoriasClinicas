@@ -1,0 +1,113 @@
+<div class="p-card">
+    <p-toolbar styleClass="p-mb-4">
+
+        <ng-template pTemplate="left">
+            <h3 class="p-m-0">Lista de Turnos de la IPRESS</h3>
+        </ng-template>
+
+        <ng-template pTemplate="right" class="button">
+            <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-danger p-mr-2"
+                (click)="openNew()"></button>
+            <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-primary"></button>
+        </ng-template>
+
+    </p-toolbar>
+    <p-table [value]="turnos" #dt [globalFilterFields]="['nombre','abreviatura']"
+        styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true"
+        [autoLayout]="true" currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
+        responsiveLayout="scroll">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value,'contains')"
+                        placeholder="Buscar..." />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+            <tr>
+                <th style="text-align: center">Nro</th>
+                            <th style="text-align: center">Nombre</th>
+                            <th style="text-align: center">Abreviatura </th>
+                            <th style="text-align: center">Nro Horas</th>
+                            <th style="text-align: center">Hora Inicio</th>
+                            <th style="text-align: center">Hora Fin</th>
+                            <th style="text-align: center; width:8rem">Acción</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+            <tr style="text-align: center">
+                <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                            <td style="text-align: center">{{ rowData.nombre }}</td>
+                            <td style="text-align: center">{{ rowData.abreviatura }}</td>
+                            <td style="text-align: center">{{ rowData.nroHoras }}</td>
+                            <td style="text-align: center">{{ rowData.horaInicio }}</td>
+                            <td style="text-align: center">{{ rowData.horaFin }}</td>
+                            <td>
+                                <button pButton (click)="editarTurno(rowData)" pTooltip="Editar" pRipple type="button"
+                                    icon="pi pi-pencil" class="p-button-rounded m-1">
+                                </button>
+                                <button pButton (click)="eliminarTurno(rowData)" pTooltip="Eliminar" pRipple
+                                    type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
+                                </button>
+                            </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+
+<p-dialog [(visible)]="turnoDialog" [style]="{width: '600px', height: '380px'}" [modal]="true" styleClass="p-fluid"
+    autoZIndex>
+    <ng-template pTemplate="header">
+        <h3 class="m-0">{{tituloTurno()}}</h3>
+    </ng-template>
+
+    <ng-template pTemplate="body">
+        <form [formGroup]='formTurno'>
+            <div class="p-fluid grid flex justify-content-center">
+                <div class="p-field col-12 md:col-12">
+                    <label id="turno">Turno:</label>
+                    <p-dropdown *ngIf="!isUpdateTurno" placeholder="Tipo de turno" class="inputRedondo"
+                        [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" inputId="dropdown"
+                        [options]="tipoTurnosList" formControlName="nombre" optionLabel="nombre"
+                        (onChange)="selectedTipoTurno()" required>
+                    </p-dropdown>
+                    <p-dropdown *ngIf="isUpdateTurno" class="inputRedondo" [showTransitionOptions]="'300ms'"
+                        dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="tipoTurnosList"
+                        formControlName="nombre" optionLabel="nombre" (onChange)="selectedTipoTurno()" required>
+                    </p-dropdown>
+                </div>
+            </div>
+            <div class="p-fluid grid flex justify-content-center">
+                <div class="p-field col-12 md:col-12">
+                    <label id="nroHoras">Nro Horas:</label>
+                    <input type="text" pInputText formControlName='nroHoras' disabled required />
+                </div>
+            </div>
+            <div class="p-fluid grid flex justify-content-center">
+                <div class="p-field col-12 md:col-12">
+                    <label id="horaInicio">Hora Inicio:</label>
+                    <p-calendar formControlName='horaInicio' showTime="true" hourFormat="24" [timeOnly]="true"
+                        (onSelect)="selectedHoraInicio()" required></p-calendar>
+                </div>
+            </div>
+            <div class="p-fluid grid flex justify-content-center">
+                <div class="p-field col-12 md:col-12">
+                    <label id="horaFin">Hora Fin:</label>
+                    <p-calendar formControlName='horaFin' [timeOnly]="true" showTime="true" hourFormat="24" required>
+                    </p-calendar>
+                </div>
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton type="button" label="Cancelar" class="p-button-danger m-1 w-9rem" (click)="canceled()"></button>
+        <button *ngIf="!isUpdateTurno" pButton type="button" label="Guardar" class="m-1 w-9rem"
+            (click)="saveTurno()"></button>
+        <button *ngIf="isUpdateTurno" pButton type="button" label="Guardar" class="m-1 w-9rem"
+            (click)="saveEdicionTurno()"></button>
+    </ng-template>
+</p-dialog>

@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import { Router } from '@angular/router';
 import {MenuItem} from "primeng/api"
 
 @Component({
@@ -13,7 +14,9 @@ export class StepGeneral_consultaComponent implements OnInit {
     indiceActivo: number = 0
     stepName = "datos"
 
-    constructor() {
+    data: any
+    constructor(
+    ) {
         this.options = [
             {name: "DNI", code: 1},
             {name: "CARNET RN", code: 2},
@@ -57,6 +60,7 @@ export class StepGeneral_consultaComponent implements OnInit {
         this.indiceActivo = event;
         this.name()
     }
+    
 }
 
 interface data {
