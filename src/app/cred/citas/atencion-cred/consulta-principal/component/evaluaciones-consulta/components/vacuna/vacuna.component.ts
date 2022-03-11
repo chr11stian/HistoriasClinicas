@@ -13,12 +13,12 @@ import {ConfirmationService, MessageService} from "primeng/api";
 })
 export class VacunaComponent implements OnInit {
   inmunizacionFC: FormGroup
-  fechaTentativaDisabled: boolean = true;
+  fechaAplicacionDisabled: boolean = true;
   inmunizacion: inmunizaciones
   fechaTentativa = new Date();
   dataDocumento: dato
   attributeLocalS = 'documento'
-
+  otraFecha:boolean=false
   constructor(public ref: DynamicDialogRef,
               public config: DynamicDialogConfig,
               public inmunizacionesService: InmunizacionesService,
@@ -49,9 +49,12 @@ export class VacunaComponent implements OnInit {
   }
 
   cambioEstado(valor) {
-    console.log('----------------')
-    const recojido = valor.value;
-    this.fechaTentativaDisabled = recojido === 'si' ? false : true
+    this.fechaAplicacionDisabled=!this.fechaAplicacionDisabled
+    if(this.fechaAplicacionDisabled){
+      this.getFC('fechaAplicacion').setValue(new Date())
+    }
+
+    console.log('cambio',valor)
   }
 
   obtenerFecha(fecha: Date) {

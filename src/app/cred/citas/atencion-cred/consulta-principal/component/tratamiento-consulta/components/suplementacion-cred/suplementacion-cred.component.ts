@@ -5,7 +5,7 @@ import {SuplementacionesMicronutrientesService} from "../../../../../plan/compon
 import {MessageService} from "primeng/api";
 import {SuplementoComponent} from "../suplemento/suplemento.component";
 import { DialogService } from "primeng/dynamicdialog";
-
+import {dato} from "../../../../../../models/data";
 @Component({
   selector: 'app-suplementacion-cred',
   templateUrl: './suplementacion-cred.component.html',
@@ -13,57 +13,52 @@ import { DialogService } from "primeng/dynamicdialog";
   providers: [DialogService],
 })
 export class SuplementacionCredComponent implements OnInit {
-
+  isSuplementacion:boolean
+  dni:string
   stateOptions: any[];
   expandir: boolean = true;
   listaMicronutrientes: SuplementacionMicronutrientes[] = []
   SF: SuplementacionMicronutrientes[] = []
   MNM: SuplementacionMicronutrientes[] = []
-  valueO: boolean = true;
-  datePipe = new DatePipe('en-US');
-
+  vitaminaA:SuplementacionMicronutrientes[]=[]
+  edadMes:number;
+  dataDocumento:dato
   constructor(private servicio: SuplementacionesMicronutrientesService,
               private messageService: MessageService,
               public dialogService: DialogService) {
+    this.dataDocumento=JSON.parse(localStorage.getItem('documento'))
+    this.edadMes=this.dataDocumento.anio*12+this.dataDocumento.mes
+    this.dni=this.dataDocumento.nroDocumento
+
     this.stateOptions = [
       { label: 'SI', optionValue: true },
       { label: 'NO', optionValue: false }
     ];
-
   }
 
   ngOnInit(): void {
     this.getLista()
-
-    console.log('data SF ', this.SF);
   }
   getLista() {
-    this.servicio.getListaMicronutrientes('14141414')
-      .toPromise().then((result) => {
+    this.servicio.getListaMicronutrientes(this.dni).toPromise().then((result) => {
       this.listaMicronutrientes = result.object
       this.transform()
     }).catch((err) => {
       console.log(err)
     })
+    this.servicio.getVitaminaA(this.dni).toPromise().then((result)=>{
+      this.vitaminaA=result.object;
+      console.log(this.vitaminaA)
+      this.transformVitaA()
+    })
+  }
+  transformVitaA() {
+    this.vitaminaA.forEach((element) => {
+      element.fechaTentativa = new Date(`${element.fechaTentativa} 00:00:00`);
+      element.fecha = element.fecha != null ? new Date(`${element.fecha} 00:00:00`) : null;
+    });
   }
   transform() {
-    //transformacion a un solo formato que se usará
-    // console.log('data to transform ', this.listaMicronutrientes);
-    // this.listaMicronutrientes.forEach(i => {
-    //
-    //   if (i.fecha === null) {
-    //     i.fecha = '';
-    //   }
-    //   if (i.fechaTentativa === null) {
-    //     i.fechaTentativa = '';
-    //   }
-    //   else {
-    //     i.fecha = i.fecha.split(' ')[0];
-    //     i.fechaTentativa = this.datePipe.transform(i.fechaTentativa, 'yyyy-MM-dd HH:mm:ss');
-    //   }
-    // })
-    // console.log("lista conversa", this.listaMicronutrientes);
-
     this.listaMicronutrientes.forEach((element) => {
       element.fechaTentativa = new Date(`${element.fechaTentativa} 00:00:00`);
       element.fecha = element.fecha != null ? new Date(`${element.fecha} 00:00:00`) : null;
@@ -76,10 +71,9 @@ export class SuplementacionCredComponent implements OnInit {
     this.MNM = this.listaMicronutrientes.filter(item => item.nombre === 'MNM')
     console.log('lista MMN', this.MNM);
   }
-
   agregarSuplementacion(inmunizacion:SuplementacionMicronutrientes) {
     const ref = this.dialogService.open(SuplementoComponent, {
-      data: inmunizacion,
+      data: {isSuplementacion:this.isSuplementacion,"suplementacion":inmunizacion},
       header: `Agregar Suplementacion ${inmunizacion.descripcion} Dosis numero (${inmunizacion.dosis})`,
       width: "50%",
       contentStyle: { "max-height": "500px", overflow: "auto" },

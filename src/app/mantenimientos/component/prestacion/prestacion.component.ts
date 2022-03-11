@@ -4,6 +4,7 @@ import {DialogService} from "primeng/dynamicdialog";
 import {DiagnosticoComponent} from "../diagnostico/diagnostico.component";
 import {PrestacionService} from "../../services/prestacion/prestacion.service";
 import {MessageService} from "primeng/api";
+import {ProcedimientoComponent} from "../procedimiento/procedimiento.component";
 
 @Component({
   selector: 'app-prestacion',
@@ -117,8 +118,6 @@ export class PrestacionComponent implements OnInit {
 
     }
 
-
-
   }
   cancelar(){
     this.openDialog=false;
@@ -127,6 +126,13 @@ export class PrestacionComponent implements OnInit {
   abrirComponenteDiagnostico(rowData){
     // console.log(codigo)
     const ref = this.dialogService.open(DiagnosticoComponent, {
+      data:{codigo:rowData.codigo,descripcion:rowData.descripcion},
+      header: 'Agregar Procedimiento',
+      width: '70%',
+    });
+  }
+  abrirComponenteProcedimiento(rowData){
+    const ref = this.dialogService.open(ProcedimientoComponent, {
       data:{codigo:rowData.codigo,descripcion:rowData.descripcion},
       header: 'Agregar Diagnostico',
       width: '70%',
