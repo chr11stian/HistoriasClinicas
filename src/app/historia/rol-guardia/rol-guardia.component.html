@@ -1,8 +1,99 @@
 <div #calendarWrapper></div>
 <div #dropdown></div>
+<!--<button-->
+<!--        pButton-->
+<!--        type="button"-->
+<!--        label="Abrir Modal"-->
+<!--        (click)="openModal()"-->
+<!--&gt;</button>-->
 
 <p-table
 
+        [value]="listaPersonalEstado"
+        #dt
+        styleClass="p-datatable-gridlines   "
+        [rows]="10"
+        [rowsPerPageOptions]="[10, 25, 50]"
+        [paginator]="true"
+        [autoLayout]="true"
+        currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
+>
+    <ng-template pTemplate="caption" style="background-color:#D9D9D9" class="primero">
+        <div class="flex justify-content-center">
+            <h5  style="font-size: 1rem;margin: 0.2rem">ROL DE GUARDIAS</h5>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+        <tr>
+            <th  colSpan="6" style="padding: 0.2rem">
+                <div class="flex align-items-center text-center justify-content-center">
+                    <button
+                            pButton
+                            type="button"
+                            label=""
+                            icon="pi pi-chevron-left"
+                            class="p-button-text p-button-secondary"
+                            (click)="isAdelante1=false;cambiarFecha1();"
+                    ></button>
+                    <span class="">
+                             {{ mesLetras1() }} {{ fecha1.getFullYear() }}</span>
+                    <button
+                            pButton
+                            type="button"
+                            label=""
+                            icon="pi pi-chevron-right"
+                            class="p-button-text p-button-secondary"
+                            (click)="isAdelante1=true;cambiarFecha1();"
+                    ></button>
+                </div>
+            </th>
+
+        </tr>
+        <tr >
+            <th class="text-center">Nro</th>
+            <th class="text-center">DNI</th>
+            <th class="text-center">APELLIDOS Y NOMBRES</th>
+            <th class="text-center">SERVICIO</th>
+            <th class="text-center">ESTADO</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+        <tr>
+            <td class="text-center text-800 m-2">{{ rowIndex + 1 }}</td>
+            <td class="text-center text-800 m-2">{{ rowData.nroDoc }}</td>
+            <td class="text-center text-800 m-2">{{ rowData.nombre }}</td>
+            <td class="text-center text-800 m-2">{{ rowData.servicio }}</td>
+            <td class="text-center text-800 m-2">
+                <p-tag *ngIf="rowData.estadoRol=='ASIGNADDO';else noAsignado" styleClass="mr-2" severity="success" value="Asignado" [rounded]="true"></p-tag>
+                <ng-template #noAsignado>
+                    <p-tag styleClass="mr-2" severity="danger" value="No Asignado" [rounded]="true"></p-tag>
+                </ng-template>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+<div class="flex justify-content-end ">
+    <button
+            pButton
+            type="button"
+            label="Agregar"
+            class="bg-blue-700 p-button px-5 text-center mt-3 mr-3"
+            icon="pi pi-plus"
+            (click)="openModal()"
+            style="border-radius: 0.5rem"
+    ></button>
+</div>
+<!--inicio de dialogo-->
+<p-dialog [(visible)]="displayAsignadoRol"
+          [breakpoints]="{'960px': '75vw', '640px': '100vw'}"
+          [style]="{width: '95vw',height:'auto'}"
+          [modal]="true"
+
+          [resizable]="false"
+          [maximizable]="true"
+>
+<p-table
+        class="asignado"
         responsiveLayout="scroll"
         rowExpandMode="single"
         scrollDirection="both"
@@ -31,7 +122,7 @@
 
                 style="min-width: 250px ;border-bottom:1px solid #CDCDCD" >
                 <strong>
-                    <label class="line-height-4" for="username2" class="text-base" style="font-weight:normal">
+                    <label class="line-height-4" class="text-base" style="font-weight:normal">
                         Servicio:</label
                     >
                 </strong>
@@ -46,6 +137,7 @@
                             styleClass="my-2 py-1"
                             (onChange)="changeUps1($event)"
                             [(ngModel)]="upsSeleccionada"
+
                     ></p-dropdown>
                 </div>
             </th>
@@ -144,11 +236,13 @@
                 <p-dropdown
                         #dd
                         class="bordeDropTurno"
-                        [inline]="false"
                         [appendTo]="dropdown"
                         [options]="listaAmbienteXipres"
                         [virtualScroll]="true"
+                        optionLabel="ambiente"
+                        optionValue="ambiente"
                         [(ngModel)]="listaAmbiente[i]"
+
                 ></p-dropdown>
             </td>
             <td *ngFor="let dia of cabeceraMes; let j = index" class="" >
@@ -157,7 +251,6 @@
                 <p-dropdown
                     #dd
                     class="bordeDropTurno"
-                    [inline]="false"
                     [appendTo]="dropdown"
                     [options]="listaTurno"
                     [virtualScroll]="true"
@@ -173,10 +266,10 @@
         </tr>
     </ng-template>
 </p-table>
-<div style="font-weight:normal;color:#BF0D21;font-size:1.5rem">
+<div style="font-weight:normal;color:#BF0D21;font-size:1.5rem" class="mt-2">
     leyenda:
 </div>
-<div class="grid mt-1 mb-8">
+<div class="flex justify-content-between">
     <div class="col-9">
         <div class="grid borde">
             <div class="col-2">
@@ -214,34 +307,33 @@
         </div>
     </div>
     <!-- Botones -->
-    <div class="col-3 grid">
-        <div class="col-6 flex align-content-center flex-wrap card-container">
+    <div class="col-3 flex justify-content-around">
+        <div class="col-6">
             <button
                     pButton
                     type="button"
                     label="Guardar"
-                    class="bg-blue-700 p-button px-5 mx-1 text-center"
+                    class="bg-blue-700 p-button px-5 text-center"
                     icon="pi pi-save"
                     (click)="designar()"
                     [disabled]="!isSelected"
                     style="border-radius: 0.5rem"
-                    de
             ></button>
         </div>
-<!--                    [disabled]="upsSeleccionada == ''"-->
-        <div class="col-6 flex align-content-center flex-wrap card-container">
-<!--            <button-->
-<!--                    pButton-->
-<!--                    type="button"-->
-<!--                    label="Cerrar"-->
-<!--                    class="p-button-danger p-button px-5 mx-1 text-center p-button-danger "-->
-<!--                    icon="pi pi-times-circle"-->
-<!--                    (click)="close()"-->
-<!--                    style="border-radius: 0.5rem"-->
-<!--            ></button>-->
+        <div class="col-6">
+            <button
+                    pButton
+                    type="button"
+                    label="Cerrar"
+                    class="p-button-danger p-button px-5 text-center "
+                    icon="pi pi-times-circle"
+                    (click)="close()"
+                    style="border-radius: 0.5rem"
+            ></button>
         </div>
     </div>
 </div>
+</p-dialog>
 <!-- </p-card> -->
 <p-confirmDialog
         [breakpoints]="{ '960px': '25vw', '640px': '100vw' }"

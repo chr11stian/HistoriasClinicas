@@ -111,6 +111,7 @@ interface medicamentos{
   concentracion?:string,
   viaAdministracion?:string
 }
+
 interface viaAdministracion{
   label?:string,
   value?:string,

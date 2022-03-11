@@ -8,6 +8,8 @@ import {
   Validators,
 } from "@angular/forms";
 import { SuplementacionesMicronutrientesService } from "../../../../../plan/component/plan-atencion-integral/services/suplementaciones-micronutrientes/suplementaciones-micronutrientes.service";
+import {dato} from "../../../../../../models/data";
+import {ConfirmationService} from "primeng/api";
 
 @Component({
   selector: "app-suplemento",
@@ -15,6 +17,8 @@ import { SuplementacionesMicronutrientesService } from "../../../../../plan/comp
   styleUrls: ["./suplemento.component.css"],
 })
 export class SuplementoComponent implements OnInit {
+  idConsulta:string
+  dataDocumento:dato;
   suplemento: SuplementacionMicronutrientes;
   suplemetancionFG: FormGroup;
   repositorioSF: any[] = [
@@ -34,17 +38,22 @@ export class SuplementoComponent implements OnInit {
     {name:'Micronutriente 1 gramo en Polvo',code:'Micronutriente 1 gramo en Polvo'},
   ]
   // dosis: string = " 2mg/kg/dia";
+  isSuplementacion:boolean
   consumoDiario: string = "Consumo diario";
   constructor(
+    public confirmationService:ConfirmationService,
     public ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
-    private SuplementacionService: SuplementacionesMicronutrientesService
-  ) {
+    private SuplementacionService: SuplementacionesMicronutrientesService) {
+    this.dataDocumento=JSON.parse(localStorage.getItem('documento'))
     this.build();
-    this.suplemento = this.config.data;
+    this.suplemento = this.config.data.suplementacion;
+    this.isSuplementacion = this.config.data.isSuplementacion;
     this.getSuplemtancion();
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.idConsulta=this.dataDocumento.idConsulta;
+  }
   build() {
     this.suplemetancionFG = new FormGroup({
       fechaTentativa: new FormControl("", Validators.required),
@@ -62,13 +71,12 @@ export class SuplementoComponent implements OnInit {
   }
   save() {
     const requestInput = {
-      suplementacionMes: {
         codPrestacion: "21312", //duro
         codSISMED: "123322", //duro
         nroDiagnostico: 0, //duro
         codProcedimientoHIS: "32323", //duro
         codUPS: "324231", //duro
-        tipoSuplementacion: "Preventiva",
+        // tipoSuplementacion: "Preventiva",
         nombre: this.suplemento.nombre,
         descripcion: this.suplemento.descripcion,
         dosisIndicacion: this.getFC('tipo').value,//para el tipo
@@ -80,13 +88,32 @@ export class SuplementoComponent implements OnInit {
         fecha: this.obtenerFecha(this.getFC("fechaAplicacion").value),
         estadoAdministrado: true,
         edadMes: this.suplemento.edadMes,
-      },
+        fechaTentativa: "2021-10-25"
     };
-    this.SuplementacionService.PostSuplementacion(
-      "6220faa7de66de66da819c08",
-      requestInput
-    ).subscribe(() => {
-      this.ref.close("agregado");
+    this.confirmationService.confirm({
+      header: "Confirmación",
+      message: "Esta Seguro que desea guardar suplementacion",
+      icon: "pi  pi-exclamation-triangle ",
+      acceptLabel: "Si",
+      rejectLabel: "No",
+      key:'claveDialog',
+      accept: () => {
+        if (this.isSuplementacion){
+          this.SuplementacionService.PostSuplementacion(this.idConsulta,requestInput
+          ).subscribe(() => {
+            this.ref.close("agregado");
+          });
+        }
+        else{
+          this.SuplementacionService.PostVitaminaA(this.idConsulta,requestInput
+          ).subscribe(() => {
+            this.ref.close("agregado");
+          });
+        }
+      },
+      reject: () => {
+        // console.log("no se borro");
+      },
     });
   }
   obtenerFecha(fecha: Date) {

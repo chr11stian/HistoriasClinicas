@@ -226,3 +226,11 @@ p-radiobutton >>> .p-radiobutton .p-radiobutton-box.p-highlight:not(.p-disabled)
     border: rgb(164, 164, 164);
     background: rgb(164, 164, 164);
 }
+
+
+p-selectbutton >>> .p-selectbutton .p-button {
+    /*color: #6e6e6e;*/
+    /*font-size: xx-large;*/
+    /*background-color: "blue";*/
+    padding: 5px;
+}

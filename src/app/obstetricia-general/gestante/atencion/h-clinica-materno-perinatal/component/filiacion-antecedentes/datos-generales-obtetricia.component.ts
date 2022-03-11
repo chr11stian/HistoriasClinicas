@@ -4,6 +4,7 @@ import {Network, DataSet} from 'vis';
 import {FiliancionService} from "../../services/filiancion-atenciones/filiancion.service";
 import {ObstetriciaGeneralService} from "../../../../../services/obstetricia-general.service";
 import Swal from "sweetalert2";
+import {DatosBasalesService} from "../../services/datos-basales/datos-basales.service";
 
 @Component({
     selector: "app-datos-generales-obtetricia",
@@ -79,6 +80,7 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
     dataAntecedentes: any;
     formAntecedentes: FormGroup;
     formAntecedentesObstetricos: FormGroup;
+    formVacunasPrevias: FormGroup;
 
     gestas = 0;
     abortos: number = 0;
@@ -106,6 +108,7 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
 
     constructor(private form: FormBuilder,
                 private filiancionService: FiliancionService,
+                private datosBasalesService: DatosBasalesService,
                 private obstetriciaGeneralService: ObstetriciaGeneralService) {
         this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
         this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
@@ -144,17 +147,6 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
             {name: 'Combiviente', code: 'N'},
         ];
 
-        this.departamentos = [
-            {name: 'Cusco'},
-            {name: 'Lima'},
-            {name: 'Arequipa'},
-            {name: 'Puno'},
-            {name: 'Madre de Dios'},
-            {name: 'Loreto'},
-            {name: 'Cajamarca'},
-            {name: 'Ayacucho'},
-        ];
-
 
         this.familiares = [
             {nombrefamiliar: 'Padre'},
@@ -171,6 +163,7 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
         // })
         this.buildForm2();
         this.getpacienteFiiacionByID();
+        this.getDatosBasalesVacunasPrevias();
     }
 
 
@@ -551,6 +544,14 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
             partos: new FormControl(''),
         })
 
+        this.formVacunasPrevias = this.form.group({
+            rubeola: new FormControl(''),
+            hepatitisB: new FormControl(''),
+            papiloma: new FormControl(''),
+            influenza: new FormControl(''),
+            covid: new FormControl(''),
+        })
+
         this.formAntecedentes = this.form.group({
             antecendentesObstetricos: new FormControl(''),
 
@@ -843,10 +844,65 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
                     timer: 1500,
                 })
                 this.getpacienteFiiacionByID();
+                this.addVacunasPrevias();
             }
         )
     }
 
+    addVacunasPrevias() {
+        let vacPrev: string[] = [];
+        let aux1: boolean = this.formVacunasPrevias.value.rubeola;
+        let aux2: boolean = this.formVacunasPrevias.value.hepatitisB;
+        let aux3: boolean = this.formVacunasPrevias.value.papiloma;
+        let aux4: boolean = this.formVacunasPrevias.value.influenza;
+        let aux5: boolean = this.formVacunasPrevias.value.covid;
+
+        if (aux1)
+            vacPrev.push('rubeola');
+        if (aux2)
+            vacPrev.push('hepatitis B')
+        if (aux3)
+            vacPrev.push('papiloma')
+        if (aux4)
+            vacPrev.push('influenza')
+        if (aux5)
+            vacPrev.push('covid')
+
+        const data = {
+            vacunasPrevias: vacPrev
+        }
+        this.datosBasalesService.postDatosBasalesById(this.idRecuperado, data).subscribe((res: any) => {
+            console.log('se guardo correctamente ', res.object);
+            Swal.fire({
+                icon: 'success',
+                title: 'Registro',
+                text: 'Fue creado con exito',
+                showConfirmButton: false,
+                timer: 1500,
+            })
+            this.getDatosBasalesVacunasPrevias();
+        });
+    }
+
+    getDatosBasalesVacunasPrevias() {
+        let auxVac;
+        this.datosBasalesService.getDatosBasalesById(this.idRecuperado).subscribe((res: any) => {
+            let rptaDatosBasales = res.object;
+            console.log('datos de embarazo', rptaDatosBasales)
+            if (rptaDatosBasales == null)
+                return
+            auxVac = rptaDatosBasales.vacunasPrevias.find(item => item == "rubeola")
+            this.formVacunasPrevias.patchValue({'rubeola': auxVac == undefined ? false : true});
+            auxVac = rptaDatosBasales.vacunasPrevias.find(item => item == "hepatitis B")
+            this.formVacunasPrevias.patchValue({'hepatitisB': auxVac == undefined ? false : true});
+            auxVac = rptaDatosBasales.vacunasPrevias.find(item => item == "papiloma")
+            this.formVacunasPrevias.patchValue({'papiloma': auxVac == undefined ? false : true});
+            auxVac = rptaDatosBasales.vacunasPrevias.find(item => item == "influenza")
+            this.formVacunasPrevias.patchValue({'influenza': auxVac == undefined ? false : true});
+            auxVac = rptaDatosBasales.vacunasPrevias.find(item => item == "covid")
+            this.formVacunasPrevias.patchValue({'covid': auxVac == undefined ? false : true});
+        })
+    }
 
     getpacienteFiiacionByID() {
         this.filiancionService.getAntecedentesFiliacion(this.idRecuperado).subscribe((res: any) => {

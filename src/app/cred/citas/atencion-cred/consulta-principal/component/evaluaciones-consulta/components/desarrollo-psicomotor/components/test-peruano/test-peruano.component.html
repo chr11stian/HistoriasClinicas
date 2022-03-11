@@ -1,7 +1,14 @@
 <div>
     <div class="tabla">
-        <p-card header="DESARROLLO PSICOMOTOR PERUANO"></p-card>
+        <p-card header="DESARROLLO PSICOMOTOR PERUANO">
+            <label class="">Ingrese mes a evaluar: </label>
+            <p-inputNumber [(ngModel)]="edadMeses" mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="1" [max]="edadMax">
+            </p-inputNumber>
+<!--            <p-inputNumber [(ngModel)]="edadMeses" [min]="1" [max]="edadMax"></p-inputNumber>-->
+<!--            <input type="number" pInputTextarea  [(ngModel)]="edadMeses" >-->
+        </p-card>
     </div>
+
     <p-toolbar>
         <ng-template pTemplate="left">
             <span class="p-m-0">RESULTADOS DE TEST DESARROLLO PSICOMOTOR PERUANO</span>
@@ -47,6 +54,7 @@
 </div>
 
 <p-dialog header="TEST DE DESARROLLO PSICOMOTOR PERUANO" [(visible)]="displayMaximizable" [modal]="true" [style]="{width: '80vw'}" [maximizable]="true" [draggable]="false" [resizable]="false">
+
     <div class="tabla">
         <form [formGroup]='formDatos_TestPeruano'>
             <p-table responsiveLayout="scroll"
@@ -155,11 +163,11 @@
                         <td  style="border: 1px solid black; cursor: pointer" [ngClass]="{'fondorojo':edadMeses==10}"><img *ngIf="sale.img_10 != ''"  class="button-menu" src={{sale.img_10}}><p-checkbox [formControl]="formDatos_TestPeruano.controls['B_10']" [binary]="true" [ngClass]="'diagnostico10'" (onChange)="cambiarEstado('B_10')"></p-checkbox></td> <!--[disabled]="edadMeses<10"-->
                         <td  style="border: 1px solid black; cursor: pointer" [ngClass]="{'fondorojo':edadMeses==11}"><img *ngIf="sale.img_11 != ''"  class="button-menu" src={{sale.img_11}}><p-checkbox [formControl]="formDatos_TestPeruano.controls['B_11']" [binary]="true" [ngClass]="'diagnostico11'" (onChange)="cambiarEstado('B_11')"></p-checkbox></td> <!--[disabled]="edadMeses<11"-->
                         <td  style="border: 1px solid black; cursor: pointer" [ngClass]="{'fondorojo':edadMeses==12}"><img *ngIf="sale.img_12 != ''"  class="button-menu" src={{sale.img_12}}><p-checkbox [formControl]="formDatos_TestPeruano.controls['B_12']" [binary]="true" [ngClass]="'diagnostico12'" (onChange)="cambiarEstado('B_12')"></p-checkbox></td> <!--[disabled]="edadMeses<12"-->
-                        <td  style="border: 1px solid black; cursor: pointer" [ngClass]="{'fondorojo':edadMeses==13}"><img *ngIf="sale.img_15 != ''"  class="button-menu" src={{sale.img_15}}><p-checkbox [formControl]="formDatos_TestPeruano.controls['B_15']" [binary]="true" [ngClass]="'diagnostico15'" (onChange)="cambiarEstado('B_15')"></p-checkbox></td> <!--[disabled]="edadMeses<15"-->
-                        <td  style="border: 1px solid black; cursor: pointer" [ngClass]="{'fondorojo':edadMeses==14}"><img *ngIf="sale.img_18 != ''"  class="button-menu" src={{sale.img_18}}><p-checkbox [formControl]="formDatos_TestPeruano.controls['B_18']" [binary]="true" [ngClass]="'diagnostico18'" (onChange)="cambiarEstado('B_18')"></p-checkbox></td> <!--[disabled]="edadMeses<18"-->
-                        <td  style="border: 1px solid black; cursor: pointer" [ngClass]="{'fondorojo':edadMeses==15}"><img *ngIf="sale.img_21 != ''"  class="button-menu" src={{sale.img_21}}><p-checkbox [formControl]="formDatos_TestPeruano.controls['B_21']" [binary]="true" [ngClass]="'diagnostico21'" (onChange)="cambiarEstado('B_21')"></p-checkbox></td> <!--[disabled]="edadMeses<21"-->
-                        <td  style="border: 1px solid black; cursor: pointer" [ngClass]="{'fondorojo':edadMeses==16}"><img *ngIf="sale.img_24 != ''"  class="button-menu" src={{sale.img_24}}><p-checkbox [formControl]="formDatos_TestPeruano.controls['B_24']" [binary]="true" [ngClass]="'diagnostico24'" (onChange)="cambiarEstado('B_24')"></p-checkbox></td> <!--[disabled]="edadMeses<24"-->
-                        <td  style="border: 1px solid black; cursor: pointer" [ngClass]="{'fondorojo':edadMeses==17}"><img *ngIf="sale.img_30 != ''"  class="button-menu" src={{sale.img_30}}><p-checkbox [formControl]="formDatos_TestPeruano.controls['B_30']" [binary]="true" [ngClass]="'diagnostico30'" (onChange)="cambiarEstado('B_30')"></p-checkbox></td> <!--[disabled]="edadMeses<30"-->
+                        <td  style="border: 1px solid black; cursor: pointer" [ngClass]="{'fondorojo':edadMeses==15}"><img *ngIf="sale.img_15 != ''"  class="button-menu" src={{sale.img_15}}><p-checkbox [formControl]="formDatos_TestPeruano.controls['B_15']" [binary]="true" [ngClass]="'diagnostico15'" (onChange)="cambiarEstado('B_15')"></p-checkbox></td> <!--[disabled]="edadMeses<15"-->
+                        <td  style="border: 1px solid black; cursor: pointer" [ngClass]="{'fondorojo':edadMeses==18}"><img *ngIf="sale.img_18 != ''"  class="button-menu" src={{sale.img_18}}><p-checkbox [formControl]="formDatos_TestPeruano.controls['B_18']" [binary]="true" [ngClass]="'diagnostico18'" (onChange)="cambiarEstado('B_18')"></p-checkbox></td> <!--[disabled]="edadMeses<18"-->
+                        <td  style="border: 1px solid black; cursor: pointer" [ngClass]="{'fondorojo':edadMeses==21}"><img *ngIf="sale.img_21 != ''"  class="button-menu" src={{sale.img_21}}><p-checkbox [formControl]="formDatos_TestPeruano.controls['B_21']" [binary]="true" [ngClass]="'diagnostico21'" (onChange)="cambiarEstado('B_21')"></p-checkbox></td> <!--[disabled]="edadMeses<21"-->
+                        <td  style="border: 1px solid black; cursor: pointer" [ngClass]="{'fondorojo':edadMeses==24}"><img *ngIf="sale.img_24 != ''"  class="button-menu" src={{sale.img_24}}><p-checkbox [formControl]="formDatos_TestPeruano.controls['B_24']" [binary]="true" [ngClass]="'diagnostico24'" (onChange)="cambiarEstado('B_24')"></p-checkbox></td> <!--[disabled]="edadMeses<24"-->
+                        <td  style="border: 1px solid black; cursor: pointer" [ngClass]="{'fondorojo':edadMeses==30}"><img *ngIf="sale.img_30 != ''"  class="button-menu" src={{sale.img_30}}><p-checkbox [formControl]="formDatos_TestPeruano.controls['B_30']" [binary]="true" [ngClass]="'diagnostico30'" (onChange)="cambiarEstado('B_30')"></p-checkbox></td> <!--[disabled]="edadMeses<30"-->
                     </tr>
                     <tr *ngIf="rowIndex == 2">
                         <td  style="padding: 0px;" pFrozenColumn class="flex">
@@ -518,7 +526,7 @@
 
 <p-dialog header="RECUERDA QUE:" [(visible)]="displayPosition" [position]="position" [modal]="true" [style]="{width: '50vw'}"
           [draggable]="false" [resizable]="false">
-    <h3> EL NIÑO(A) TIENE: {{edadMeses}} MESES. </h3>
+    <h3> EL NIÑO(A) TIENE: {{edadEvaluar}} MESES. </h3>
     <h4>
         DEBES DE  REGISTRAR LA EVALUACIÓN DE LA ALIMENTACION DEL NIÑO(A)
         CORRESPONDIENTE A SU EDAD, RECUERDE QUE SOLO PUEDE GUARDAR Y EDITAR MIENTRAS ESTE EN ESTA EDAD.</h4>

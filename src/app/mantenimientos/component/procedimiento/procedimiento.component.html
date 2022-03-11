@@ -1,0 +1,110 @@
+
+<div class="grid">
+  <div class="col-4">
+    <p-card >
+      <h2>Diagnostico para codigo: {{codigo}}</h2>
+      <form [formGroup]="procedimientoFC" >
+        <div class="grid">
+          <div class="col-2">Codigo:</div>
+          <div class="col-10 p-fluid">
+            <input type="text" pInputText formControlName="codigo" >
+          </div>
+          <div class="col-4">Procedimiento:</div>
+          <div class="col-8 p-fluid">
+            <input type="text" pInputText formControlName="procedimiento" >
+          </div>
+          <div class="col-3">
+            Ind:
+          </div>
+          <div class="col-9 p-fluid">
+            <input type="text" pInputText formControlName="ind" >
+          </div>
+          <div class="col-3">
+            Eje:
+          </div>
+          <div class="col-9 p-fluid">
+            <input type="text" pInputText formControlName="eje" >
+          </div>
+          <div class="col-3">
+            dx:
+          </div>
+          <div class="col-9 p-fluid" >
+            <input type="text" pInputText formControlName="dx" >
+          </div>
+          <div class="col-3">
+            res:
+          </div>
+          <div class="col-9 p-fluid" >
+            <input type="text" pInputText formControlName="res" >
+          </div>
+        </div>
+      </form>
+
+      <ng-template pTemplate="footer">
+        <div class="flex justify-content-end">
+          <button pButton type="button"
+                  label="Guardar" class="m-1 w-9rem" (click)="saveProcedimiento()"></button>
+          <button pButton type="button" label="Cancelar" icon="pi pi-plus" (click)="cancelar()"
+                  pTooltip="cancerlar" tooltipPosition="right" class="p-button-danger m-1 w-9rem"
+                  pRipple></button>
+        </div>
+      </ng-template>
+
+
+    </p-card>
+  </div>
+  <div class="col-8">
+    <p-table [value]="data" #dt styleClass="p-datatable-gridlines" [rows]="5"
+             [rowsPerPageOptions]="[5, 10, 25, 50]" [paginator]="true" [autoLayout]="true"
+             currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+             [showCurrentPageReport]="true" responsiveLayout="scroll">
+      <ng-template pTemplate="caption">
+        <div class="flex justify-content-between">
+          <h3>Lista diagnosticos para {{descripcion}}</h3>
+          <!--                <button-->
+          <!--                        pButton-->
+          <!--                        type="button"-->
+          <!--                        label="Agregar"-->
+          <!--                        icon="pi pi-plus"-->
+          <!--                        (click)="isUpdate = false;inputDisabled=true;agregarActualizar()"-->
+          <!--                        pTooltip="Agregar tipo de personal"-->
+          <!--                        tooltipPosition="bottom"-->
+          <!--                        class="p-button-danger p-button-sm"-->
+          <!--                        pRipple-->
+          <!--                ></button>-->
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+        <tr>
+          <th style="text-align: center">Codigo</th>
+          <th style="text-align: center">Procedimieto</th>
+          <th style="text-align: center">Ind</th>
+          <th style="text-align: center">Eje</th>
+          <th style="text-align: center">Dx</th>
+          <th style="text-align: center">Res</th>
+          <th style="text-align: center; width:8rem">Accion</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+        <tr style="text-align: center">
+          <td style="text-align: center">{{ rowIndex + 1 }}</td>
+          <td style="text-align: center">{{ rowData.codigo }}</td>
+          <td style="text-align: center">{{ rowData.procedimiento }}</td>
+          <td style="text-align: center">{{ rowData.ind }}</td>
+          <td style="text-align: center">{{ rowData.eje }}</td>
+          <td class="text-center">
+            <button  pButton pTooltip="Editar Procedimiento" pRipple (click)="botonActualizar(rowIndex)"
+                     type="button" icon="pi pi-pencil" class="p-button-rounded p-button-help">
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+<p-toast key="myKey2"></p-toast>
+<p-toast key="myKey1"></p-toast>
+<p-confirmDialog [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '30vw'} " key="siNoDesactivar">
+  Content
+</p-confirmDialog>
+

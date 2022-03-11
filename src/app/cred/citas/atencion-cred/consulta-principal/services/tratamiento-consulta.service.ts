@@ -14,12 +14,15 @@ export class TratamientoConsultaService {
   constructor(private http: HttpClient) {
   }
   addTratamiento(id,data) {
-    return this.http.put(`${this.urlServer}/${this.bd}/cred/consulta/tratamiento/${id}`, data)
+    return this.http.post(`${this.urlServer}/${this.bd}/consulta/tratamiento/${id}`, data)
   }
+
   updateTratamiento(id,data) {
-    return this.http.post(`${this.urlServer}/${this.bd}/cred/consulta/tratamiento/${id}`, data)
+    return this.http.put(`${this.urlServer}/${this.bd}/consulta/tratamiento/${id}`, data)
   }
+
   getTratamiento(id) {
-    return this.http.get(`${this.urlServer}/${this.bd}/cred/consulta/tratamiento/${id}`)
+    return this.http.get(`${this.urlServer}/${this.bd}/consulta/tratamiento/${id}`)
   }
+
 }
