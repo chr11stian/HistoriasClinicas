@@ -2,6 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {PersonalService} from "src/app/core/services/personal-services/personal.service";
 import {ConfirmationService, MessageService} from "primeng/api";
 import {RolGuardiaService} from "src/app/core/services/rol-guardia/rol-guardia.service";
+import {number} from "echarts";
 interface personalEstado{
   nroDoc:string,
   nombre:string,
@@ -82,13 +83,13 @@ export class RolGuardiaComponent implements OnInit {
       mes:this.fecha1.getMonth()+1,
     }
     this.rolGuardiaService.getListaPrimeraPantalla(this.idIpressZarzuela,inputRequest).subscribe((resp)=>{
-      if (resp['cod']!=null){
+      if (resp['cod']!='2004'){
         this.listaPersonalEstado=resp['object']['personal']
       }
       else{
         this.listaPersonalEstado=[];
       }
-      console.log('--------------------------------',resp)
+
     })
   }
   getListaTurnoXipress() {
@@ -185,13 +186,49 @@ export class RolGuardiaComponent implements OnInit {
       }
     });
   }
+  adelante:boolean=false
+  atraz:boolean=false
+  fechaActual=new Date();
+  evaluarDisabledAtraz(){
+    const mayor:number=this.fechaActual.getFullYear()*12+this.fechaActual.getMonth()
+    const menor:number=this.fecha1.getFullYear()*12+this.fecha1.getMonth()
+    console.log('atras',mayor,menor)
+    if(mayor-menor<=1)
+      return false
+    else
+      return true
+  }
+  evaluarDisabledAdelante(){
+    const mayor:number=this.fecha1.getFullYear()*12+this.fecha1.getMonth()
+    const menor:number=this.fechaActual.getFullYear()*12 +this.fechaActual.getMonth()
+    console.log('adelante',mayor,menor)
+    if(mayor-menor<=1)
+      return false
+    else
+      return true
+  }
+  // evaluarDisabled(){
+  //   const mayor:number=this.fecha1.getFullYear()*12+this.fecha1.getMonth()
+  //   const menor:number=this.fechaActual.getFullYear()*12 +this.fechaActual.getMonth()
+  //   console.log('adelante',mayor,menor)
+  //   if(Math.abs(mayor-menor)<=1)
+  //     return false
+  //   else
+  //     return true
+  // }
   cambiarFecha1() {
     if(this.isAdelante1){
-      console.log(this.fecha)
       this.fecha1=new Date(this.fecha1.setMonth(this.fecha1.getMonth()+1))
+      // if(this.fecha1.getMonth()-this.fechaActual.getMonth()>=3) {
+      //   this.adelante=true
+      // }
     }
     else{
       this.fecha1=new Date(this.fecha1.setMonth(this.fecha1.getMonth()-1))
+      // if(this.fechaActual.getMonth()-this.fecha1.getMonth()>=2) {
+      //   this.atraz=true
+      // }
+
     }
     this.getPrimeraPantalla();
   }
@@ -292,65 +329,63 @@ export class RolGuardiaComponent implements OnInit {
 
 
   }
-
-  changeUps(codUps) {
-    let requestInput: any = {
-      anio: this.fecha.getFullYear(),
-      mes: this.fecha.getMonth() + 1,
-      idIpress: this.idIpressZarzuela,
-      servicio: this.upsSeleccionada["nombreUPS"],
-    };
-    this.rolGuardiaService.getRolGuardiaPorServicio(requestInput).subscribe(
-      (resp: any) => {
-        if (resp["cod"] === "2002") {
-          this.listaPersonal = [];
-          this.matriz = [];
-          let lista = resp["object"];
-          lista.forEach((element) => {
-            this.listaPersonal.push(element.personal);
-            this.matriz.push(element.turnos);
-          });
-          this.IniciarHoras();
-          this.calcularNroHorasGeneral();
-          this.confirmationService.confirm({
-            message:
-              "Ya existe una asignacion de guardia para este mes ,desea modificar? ",
-            accept: () => {
-              this.isEditable = true;
-            },
-            reject: () => {
-              this.isEditable = false;
-            },
-            key: "positionDialog",
-          });
-        } else {
-          this.messageService.add({
-            severity: "info",
-            summary: "Agregar",
-            detail: "Ingrese rol para para el presente mes",
-            key: "toast1",
-          });
-          let ipressUpsInput: any = {
-            codUps: codUps.value.id,
-            idIpress: this.idIpressZarzuela,
-          };
-          this.listaPersonal = [];
-          this.personalService
-            .getPorIpressUps(ipressUpsInput)
-            .subscribe((resp: any) => {
-              this.listaPersonal = resp["object"];
-              this.crearMatriz();
-              this.IniciarHoras();
-              this.calcularNroHorasGeneral();
-            });
-        }
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
-
+  // changeUps(codUps) {
+  //   let requestInput: any = {
+  //     anio: this.fecha.getFullYear(),
+  //     mes: this.fecha.getMonth() + 1,
+  //     idIpress: this.idIpressZarzuela,
+  //     servicio: this.upsSeleccionada["nombreUPS"],
+  //   };
+  //   this.rolGuardiaService.getRolGuardiaPorServicio(requestInput).subscribe(
+  //     (resp: any) => {
+  //       if (resp["cod"] === "2002") {
+  //         this.listaPersonal = [];
+  //         this.matriz = [];
+  //         let lista = resp["object"];
+  //         lista.forEach((element) => {
+  //           this.listaPersonal.push(element.personal);
+  //           this.matriz.push(element.turnos);
+  //         });
+  //         this.IniciarHoras();
+  //         this.calcularNroHorasGeneral();
+  //         this.confirmationService.confirm({
+  //           message:
+  //             "Ya existe una asignacion de guardia para este mes ,desea modificar? ",
+  //           accept: () => {
+  //             this.isEditable = true;
+  //           },
+  //           reject: () => {
+  //             this.isEditable = false;
+  //           },
+  //           key: "positionDialog",
+  //         });
+  //       } else {
+  //         this.messageService.add({
+  //           severity: "info",
+  //           summary: "Agregar",
+  //           detail: "Ingrese rol para para el presente mes",
+  //           key: "toast1",
+  //         });
+  //         let ipressUpsInput: any = {
+  //           codUps: codUps.value.id,
+  //           idIpress: this.idIpressZarzuela,
+  //         };
+  //         this.listaPersonal = [];
+  //         this.personalService
+  //           .getPorIpressUps(ipressUpsInput)
+  //           .subscribe((resp: any) => {
+  //             this.listaPersonal = resp["object"];
+  //             this.crearMatriz();
+  //             this.IniciarHoras();
+  //             this.calcularNroHorasGeneral();
+  //           });
+  //       }
+  //     },
+  //     (error) => {
+  //       console.log(error);
+  //     }
+  //   );
+  // }
   calcularNroHorasGeneral() {
     for (let i = 0; i < this.matriz.length; i++) {
       let contadorAuxiliar = 0;
@@ -417,7 +452,7 @@ export class RolGuardiaComponent implements OnInit {
                 summary: "Modificar",
                 detail: `Se asigno rol 
                 para el personal ${this.listaPersonal[this.indexSelected]['nombreCompleto']} `,
-                key: "toast2",
+                key: "toastSecundario",
               });
 
             },
@@ -428,9 +463,10 @@ export class RolGuardiaComponent implements OnInit {
 
         } else {
           this.messageService.add({
-            severity: "warn",
+            severity: "error",
             summary: "denegado",
-            detail: `el personal ${this.listaPersonal[this.indexSelected]['nombreCompleto']} no cumple con las 150 horas requeridas`
+            detail: `el personal ${this.listaPersonal[this.indexSelected]['nombreCompleto']} no cumple con el minimo de 150 horas`,
+            key: "toastSecundario",
           });
         }
 
@@ -439,7 +475,8 @@ export class RolGuardiaComponent implements OnInit {
         this.messageService.add({
           severity: "warn",
           summary: "denegado",
-          detail: `no se asigno rol a dicho personal`
+          detail: `No se asigno rol a dicho personal`,
+          key: "toastSecundario",
         });
       },
     });
@@ -464,6 +501,7 @@ export class RolGuardiaComponent implements OnInit {
   }
   close() {
     this.displayAsignadoRol=false;
+    console.log('cerramos el modal')
   }
   isSelected:boolean=false;
   indexSelected:number;

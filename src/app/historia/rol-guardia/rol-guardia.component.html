@@ -26,7 +26,7 @@
     <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
         <tr>
             <th  colSpan="6" style="padding: 0.2rem">
-                <div class="flex align-items-center text-center justify-content-center">
+                <div class="flex align-items-center text-center justify-content-around">
                     <button
                             pButton
                             type="button"
@@ -34,6 +34,7 @@
                             icon="pi pi-chevron-left"
                             class="p-button-text p-button-secondary"
                             (click)="isAdelante1=false;cambiarFecha1();"
+                            [disabled]="evaluarDisabledAtraz()"
                     ></button>
                     <span class="">
                              {{ mesLetras1() }} {{ fecha1.getFullYear() }}</span>
@@ -43,7 +44,8 @@
                             label=""
                             icon="pi pi-chevron-right"
                             class="p-button-text p-button-secondary"
-                            (click)="isAdelante1=true;cambiarFecha1();"
+                            (click)="isAdelante1=true;cambiarFecha1(); "
+                            [disabled]="evaluarDisabledAdelante()"
                     ></button>
                 </div>
             </th>
@@ -64,7 +66,7 @@
             <td class="text-center text-800 m-2">{{ rowData.nombre }}</td>
             <td class="text-center text-800 m-2">{{ rowData.servicio }}</td>
             <td class="text-center text-800 m-2">
-                <p-tag *ngIf="rowData.estadoRol=='ASIGNADDO';else noAsignado" styleClass="mr-2" severity="success" value="Asignado" [rounded]="true"></p-tag>
+                <p-tag *ngIf="rowData.estadoRol=='ASIGNADO';else noAsignado" styleClass="mr-2" severity="success" value="Asignado" [rounded]="true"></p-tag>
                 <ng-template #noAsignado>
                     <p-tag styleClass="mr-2" severity="danger" value="No Asignado" [rounded]="true"></p-tag>
                 </ng-template>
@@ -333,14 +335,14 @@
         </div>
     </div>
 </div>
+    <p-confirmDialog
+            [breakpoints]="{ '960px': '25vw', '640px': '100vw' }"
+            [style]="{ width: '45vw' }"
+            key="positionDialog"
+            [baseZIndex]="10000"
+            position="top"
+    ></p-confirmDialog>
+    <p-toast [style]="{ marginTop: '80px' }" key="toastSecundario"></p-toast>
 </p-dialog>
-<!-- </p-card> -->
-<p-confirmDialog
-        [breakpoints]="{ '960px': '25vw', '640px': '100vw' }"
-        [style]="{ width: '45vw' }"
-        key="positionDialog"
-        [baseZIndex]="10000"
-        position="top"
-></p-confirmDialog>
-<p-toast [style]="{ marginTop: '80px' }" key="toast1"></p-toast>
-<p-toast [style]="{ marginTop: '80px' }" key="toast2"></p-toast>
+
+    <p-toast [style]="{ marginTop: '80px' }" key="toast"></p-toast>
