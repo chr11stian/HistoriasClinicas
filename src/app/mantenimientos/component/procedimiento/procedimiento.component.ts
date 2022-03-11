@@ -44,26 +44,26 @@ export class ProcedimientoComponent implements OnInit {
   }
   buildForm() {
     this.procedimientoFC = new FormGroup({
-      codigo: new FormControl(''),
+      codigo: new FormControl('',Validators.required),
       procedimiento: new FormControl('', Validators.required),
-      ind: new FormControl('', Validators.required),
+      ind: new FormControl(''),
       eje: new FormControl(''),
       dx: new FormControl(''),
       res: new FormControl(''),
     })
   }
   getProcedimiento() {
-    // this.prestacionService.getProcedimientoPorCodigo(this.codigo).subscribe((resp) => {
-    //   console.log(this.data)
-    //   this.data = resp['object']['procedimiento'];
-    // })
+    this.prestacionService.getProcedimientoPorCodigo(this.codigo).subscribe((resp) => {
+      console.log(this.data)
+      this.data = resp['object']['procedimientos'];
+    })
   }
   procedimiento: Procedimiento
   botonActualizar(index) {
     this.isUpdate = true;
     this.procedimiento = this.data[index];
     this.getFC('codigo').setValue(this.procedimiento.codigo)
-    this.getFC('prodecimiento').setValue(this.procedimiento.procedimiento)
+    this.getFC('procedimiento').setValue(this.procedimiento.procedimiento)
     this.getFC('ind').setValue(this.procedimiento.ind)
     this.getFC('eje').setValue(this.procedimiento.eje)
     this.getFC('dx').setValue(this.procedimiento.dx)
@@ -79,12 +79,12 @@ export class ProcedimientoComponent implements OnInit {
       res: this.getFC('res').value,
     }
     if (this.isUpdate) {
-      // this.prestacionService.putProcedimientoPorCodigo(this.codigo, this.diagnostico.codigo, inputRequest).subscribe(() => {
-      //   this.messageService.add({ key: 'myKey2', severity: 'info', summary: 'Exitoso', detail: 'Registro Actualizado' });
-      //   this.procedimientoFC.reset();
-      //   this.isUpdate = false;
-      //   this.getProcedimiento();
-      // })
+      this.prestacionService.putProcedimientoPorCodigo(this.codigo, this.procedimiento.codigo, inputRequest).subscribe(() => {
+        this.messageService.add({ key: 'myKey2', severity: 'info', summary: 'Exitoso', detail: 'Registro Actualizado' });
+        this.procedimientoFC.reset();
+        this.isUpdate = false;
+        this.getProcedimiento();
+      })
     }
     else {
       this.prestacionService.postProcedimientoPorCodigo(this.codigo, inputRequest).subscribe((resp) => {
