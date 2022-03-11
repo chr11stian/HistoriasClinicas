@@ -84,7 +84,13 @@
         <label *ngIf="!estadoEditar">Seleccione un Medicamento:</label>
       </div>
       <div class="col-12 p-fluid">
-        <p-autoComplete  formControlName="medicamento" *ngIf="!estadoEditar" [virtualScroll]="true" [suggestions]="medicamentosConDatos" [itemSize]="34" (completeMethod)="filterItems($event)" field="stringMedicamento" [dropdown]="true">
+        <p-autoComplete  formControlName="medicamento"
+                         *ngIf="!estadoEditar" [virtualScroll]="true"
+                         [suggestions]="aux"
+                         [itemSize]="34" (completeMethod)="filterItems($event)"
+                         field="stringMedicamento" [dropdown]="true"
+                         (onSelect)="selectedMedicamento($event)"
+        >
         </p-autoComplete>
       </div>
     </div>

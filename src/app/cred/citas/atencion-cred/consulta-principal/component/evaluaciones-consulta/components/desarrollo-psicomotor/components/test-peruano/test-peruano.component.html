@@ -2,7 +2,10 @@
     <div class="tabla">
         <p-card header="DESARROLLO PSICOMOTOR PERUANO">
             <label class="">Ingrese mes a evaluar: </label>
-            <input type="number" pInputTextarea  [(ngModel)]="edadMeses" >
+            <p-inputNumber [(ngModel)]="edadMeses" mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="1" [max]="edadMax">
+            </p-inputNumber>
+<!--            <p-inputNumber [(ngModel)]="edadMeses" [min]="1" [max]="edadMax"></p-inputNumber>-->
+<!--            <input type="number" pInputTextarea  [(ngModel)]="edadMeses" >-->
         </p-card>
     </div>
 

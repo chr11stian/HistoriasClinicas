@@ -28,6 +28,7 @@ export class TratamientoCredComponent implements OnInit {
   listaMedicamentos:any;
   viaadministracionList:viaAdministracion[]=[];
   tratamientoEditar:any;
+  aux:any[]=[];
 
   constructor(private tratamientoService: TratamientoConsultaService,
               private farmaciaService: IpressFarmaciaService,
@@ -141,39 +142,42 @@ export class TratamientoCredComponent implements OnInit {
     let filtered : any[] = [];
     let query = event.query;
     console.log(this.medicamentosConDatos);
-    for(let i = 0; i < this.medicamentosConDatos.length; i++) {
-      let item = this.medicamentosConDatos[i];
+    this.aux = this.medicamentosConDatos;
+    for(let i = 0; i < this.aux.length; i++) {
+      let item = this.aux[i];
       if (item.stringMedicamento.toLowerCase().indexOf(query.toLowerCase()) == 0) {
         filtered.push(item);
       }
     }
 
-    this.medicamentosConDatos = filtered;
-    if(filtered===null || filtered===undefined || filtered===[]){
+    this.aux = filtered;
+    if(this.aux===[]){
       console.log('no encontrado');
-    }
-    else{
-      console.log(filtered[0])
-      this.AutoCompleteDatos(filtered[0]);
+      this.formTratamiento.patchValue({ medicamento: ""});
+      this.aux = this.medicamentosConDatos;
+
     }
 
   }
 
-  private AutoCompleteDatos(medicamento){
-    console.log(medicamento);
-      console.log(medicamento);
-      this.formTratamiento.get("id").setValue(medicamento.medicamento.id);
-      this.formTratamiento.get("nombre").setValue(medicamento.medicamento.nombre);
-      this.formTratamiento.get("codigo").setValue(medicamento.medicamento.codigo);
-      this.formTratamiento.get("concentracion").setValue(medicamento.medicamento.concentracion);
-      this.formTratamiento.get("viaAdministracion").setValue(medicamento.medicamento.viaAdministracion);
-      this.formTratamiento.get("ff").setValue(medicamento.medicamento.ff);
-      this.formTratamiento.get("stock").setValue(medicamento.stock);
-      let date: Date = new Date(medicamento.fechaVenc);
-      date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
-      console.log(date)
-      this.formTratamiento.get("fechaVenc").setValue(date);
-      this.tratamientoEditar=medicamento;
+  selectedMedicamento(event: any) {
+    console.log('lista de medicamentos ', this.medicamentosConDatos);
+    console.log(event);
+    this.tratamientoEditar = event;
+    this.formTratamiento.patchValue({ medicamento: ""});
+    this.formTratamiento.patchValue({ nombre: event.medicamento.nombre });
+    this.formTratamiento.patchValue({ codigo: event.medicamento.codigo });
+    this.formTratamiento.patchValue({ concentracion: event.medicamento.concentracion });
+    this.formTratamiento.patchValue({ viaAdministracion: event.medicamento.viaAdministracion });
+    this.formTratamiento.patchValue({ ff: event.medicamento.ff });
+    this.formTratamiento.patchValue({id:event.medicamento.id});
+    let date: Date = new Date(event.fechaVenc);
+    date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
+    console.log(date)
+    this.formTratamiento.patchValue({fechaVenc:date});
+    this.formTratamiento.patchValue({lote:event.lote});
+    this.formTratamiento.patchValue({stock:event.stock});
+
   }
 
   listarTratamientos(){
@@ -204,7 +208,7 @@ export class TratamientoCredComponent implements OnInit {
          id:this.formTratamiento.value.id,
          codigo:this.formTratamiento.value.codigo,
          nombre:this.formTratamiento.value.nombre,
-         ff:this.formTratamiento.value.nombre,
+         ff:this.formTratamiento.value.ff,
          concentracion:this.formTratamiento.value.concentracion,
          viaAdministracion:this.formTratamiento.value.viaAdministracion
        },
@@ -360,6 +364,7 @@ export class TratamientoCredComponent implements OnInit {
     })
 
   }
+
 
 }
 

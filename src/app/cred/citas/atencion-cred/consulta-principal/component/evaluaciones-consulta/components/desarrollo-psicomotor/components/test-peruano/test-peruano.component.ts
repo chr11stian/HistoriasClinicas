@@ -34,6 +34,7 @@ export class TestPeruanoComponent implements OnInit {
   data: dato;
   edadMeses:number;
   color: string = "";
+  edadMax:number;
   preguntas: pregunta[] = [{
     codigo: 'A', descripcion: 'CONTROL DE CABEZA Y TRONCO SENTADO'
   },
@@ -65,6 +66,7 @@ export class TestPeruanoComponent implements OnInit {
     this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
     // this.encontrarDiagnostico();
     this.recuperarEdadNinio();
+    this.calcularRangoPost();
     this.showDialogEdad('top');
     if(isNaN(this.edadMeses)){
       this.showMessageErrorEdadNaN();
@@ -109,7 +111,7 @@ export class TestPeruanoComponent implements OnInit {
     this.formDatos_TestPeruano = this.form.group({
       /**Datos personales**/
       /*************LETTER A*************/
-      A_1: new FormControl({value: false, disabled: this.edadMeses < 1}),
+      A_1: new FormControl({value: false, disabled: this.edadMeses <1}),
       A_2: new FormControl({value: false, disabled: this.edadMeses < 2}),
       A_3: new FormControl({value: false, disabled: this.edadMeses < 3}),
       A_4: new FormControl({value: false, disabled: this.edadMeses < 4}),
@@ -345,6 +347,27 @@ export class TestPeruanoComponent implements OnInit {
     })
   }
 
+  calcularRangoPost(){
+    if(this.edadEvaluar>24){
+      this.edadMax=30
+      console.log(this.edadMax);
+    }
+
+    if(this.edadEvaluar<=24){
+      this.edadMax=24
+      console.log(this.edadMax);
+    }
+
+    if(this.edadEvaluar<=21){
+      this.edadMax=this.edadEvaluar+3
+      console.log(this.edadMax);
+    }
+
+    if(this.edadEvaluar<=11) {
+      this.edadMax = this.edadEvaluar + 1;
+      console.log(this.edadMax);
+    }
+  }
   getTestPerunoBDTestPorConsulta() {
     this.testDesarrollo.getTestPeruano(this.data.idConsulta).subscribe((res: any) => {
       console.log('se RECUPERO correctamente ', res.object);
@@ -693,7 +716,7 @@ export class TestPeruanoComponent implements OnInit {
   // }
 
   guardarActualizar() {
-    this.formDatos_TestPeruano.enabled;
+    // this.formDatos_TestPeruano.enabled;
     if (this.listaTestPeruano[0] != null) {
       this.enableAgregar = true;
       this.displayMaximizable = false;
@@ -719,9 +742,8 @@ export class TestPeruanoComponent implements OnInit {
     });
   }
   cambiarEstado(codigo) {
-    let cadenaAux = {}
+
     console.log("item seleccionado:", codigo);
-    // this.codigosArr:any[]=[];
     if(this.formDatos_TestPeruano.value[codigo]==true){ this.codigosArr.push(codigo);}
   }
   openNuevoTestPeruano(){
