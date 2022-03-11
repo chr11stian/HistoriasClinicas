@@ -33,25 +33,26 @@
                     <th pSortableColumn="stock">Stock <p-sortIcon field="stock"></p-sortIcon></th>
                     <th pSortableColumn="fechaVenc">Fecha de Vencimiento <p-sortIcon field="fechaVenc"></p-sortIcon></th>
                     <th pSortableColumn="lote">Lote <p-sortIcon field="lote"></p-sortIcon></th>
+                    <th>Acción</th>
                 </tr>
                 <tr>
                     <th>
                         <input pInputText type="text" (input)="dt1.filter($event.target.value, 'medicamento.nombre', 'contains')" [value]="dt1.filters['medicamento.nombre']?.value" placeholder="Buscar por nombre" class="p-column-filter">
                     </th>
                     <th>
-                        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'medicamento.ff', 'contains')" [value]="dt1.filters['medicamento.ff']?.value" placeholder="Buscar por presentacion" class="p-column-filter">
+                        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'medicamento.ff', 'contains')" [value]="dt1.filters['medicamento.ff']?.value" placeholder="Buscar por presentación" class="p-column-filter">
                     </th>
                     <th>
                         <input pInputText type="text" (input)="dt1.filter($event.target.value, 'medicamento.concentracion', 'contains')" [value]="dt1.filters['medicamento.concentracion']?.value" placeholder="Buscar por concentracion" class="p-column-filter">
                     </th>
                     <th>
-                        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'medicamento.viaAdministracion', 'contains')" [value]="dt1.filters['medicamento.viaAdministracion']?.value" placeholder="Buscar por viaAdministracion" class="p-column-filter">
+                        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'medicamento.viaAdministracion', 'contains')" [value]="dt1.filters['medicamento.viaAdministracion']?.value" placeholder="Buscar por via Adminis." class="p-column-filter">
                     </th>
                     <th>
                         <input pInputText type="text" (input)="dt1.filter($event.target.value, 'stock', 'contains')" [value]="dt1.filters['stock']?.value" placeholder="Buscar por stock" class="p-column-filter">
                     </th>
                     <th>
-                        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'fechaVenc', 'contains')" [value]="dt1.filters['fechaVenc']?.value" placeholder="Buscar por fecha de vencimiento" class="p-column-filter">
+                        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'fechaVenc', 'contains')" [value]="dt1.filters['fechaVenc']?.value" placeholder="Buscar por fecha Venc." class="p-column-filter">
                     </th>
                     <th>
                         <input pInputText type="text" (input)="dt1.filter($event.target.value, 'lote', 'contains')" [value]="dt1.filters['lote']?.value" placeholder="Buscar por lote" class="p-column-filter">
@@ -117,7 +118,13 @@
                 <label *ngIf="!estadoEditar">Seleccione un Medicamento:</label>
             </div>
             <div class="col-12 p-fluid">
-                <p-autoComplete  formControlName="medicamento" *ngIf="!estadoEditar" [virtualScroll]="true" [suggestions]="medicamentosConDatos" [itemSize]="34" (completeMethod)="filterItems($event)" field="medicamento" [dropdown]="true">
+                <p-autoComplete  formControlName="medicamento"
+                                 *ngIf="!estadoEditar" [virtualScroll]="true"
+                                 [suggestions]="aux"
+                                 [minLength]="1"
+                                 (completeMethod)="filterItems($event)"
+                                 field="cadena" [dropdown]="true"
+                                 (onSelect)="selectedMedicamento($event)">
                 </p-autoComplete>
             </div>
         </div>

@@ -1,259 +1,76 @@
 <div [formGroup]="familiarFG">
     <p-fieldset legend="Antecedentes Familiares" [toggleable]="true">
-        <div class="col-12 flex align-items-center justify-content-center">
-            <label>Padre (P), Madre (M),Hermano (H), Abuelo (A), Otro (O)</label>
-        </div>
-        <div class="grid" style="padding-bottom: 0;">
-            <div class="col-4 ">
-                <div class="card">
-                    <div class="col">
-                        <div class="field grid" style="margin-bottom: 0.2rem;">
-                            <span class="col-fixed" style="width:80px">Tuberculosis</span>
-                            <p-selectButton [options]="stateOptions"
-                                            formControlName="tuberculosis"
-                                            optionLabel="label"
-                                            optionValue="value">
-                            </p-selectButton>
-                        </div>
-                        <div class="field grid">
-                            <span class="col-fixed" style="width:80px">Quien</span>
-                            <p-dropdown
-                                inputId="tuberculosisQuien"
-                                [autoDisplayFirst]="false"
-                                [options]="familiares"
-                                formControlName="tuberculosisQuien"
-                                optionValue="code"
-                                optionLabel="name">
-                            </p-dropdown>  
-                        </div>
-                    </div>
-                    
-                    <div class="col">
-                        <div class="field grid" style="margin-bottom: 0.2rem;">
-                            <span class="col-fixed" style="width:80px">Asma</span>
-                            <p-selectButton [options]="stateOptions"
-                                            formControlName="asma"
-                                            optionLabel="label"
-                                            optionValue="value">
-                            </p-selectButton>
-                        </div>
-                        <div class="field grid">
-                            <span class="col-fixed" style="width:80px">Quien</span>
-                            <p-dropdown
-                                inputId="asmaQuien"
-                                [autoDisplayFirst]="false"
-                                [options]="familiares"
-                                formControlName="asmaQuien"
-                                optionValue="code"
-                                optionLabel="name">
-                            </p-dropdown>  
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="field grid" style="margin-bottom: 0.2rem;">
-                            <span class="col-fixed" style="width:80px">VIH / SIDA</span>
-                            <p-selectButton [options]="stateOptions"
-                                            formControlName="sida"
-                                            optionLabel="label"
-                                            optionValue="value">
-                            </p-selectButton>
-                        </div>
-                        <div class="field grid">
-                            <span class="col-fixed" style="width:80px">Quien</span>
-                            <p-dropdown
-                                inputId="sidaQuien"
-                                [autoDisplayFirst]="false"
-                                [options]="familiares"
-                                formControlName="sidaQuien"
-                                optionValue="code"
-                                optionLabel="name">
-                            </p-dropdown>  
-                        </div>
-                    </div>
-                </div>
+        <div class="flex align-items-center justify-content-center">
+            <span>Antecedentes :</span>
+            <div class="col-3">
+                <p-autoComplete placeholder="digite el antecedente" formControlName="patologia" [virtualScroll]="true" [suggestions]="listaAntecedentes"
+                                [itemSize]="34" (completeMethod)="filterItems($event)" field="codigo" [dropdown]="true">
+                </p-autoComplete>
             </div>
-            <div class="col-4">
-                <div class="card">
-                    <div class="col">
-                        <div class="field grid" style="margin-bottom: 0.2rem;">
-                            <span class="col-fixed" style="width:80px">Diabetes</span>
-                            <p-selectButton [options]="stateOptions"
-                                            formControlName="diabetes"
-                                            optionLabel="label"
-                                            optionValue="value">
-                            </p-selectButton>
-                        </div>
-                        <div class="field grid">
-                            <span class="col-fixed" style="width:80px">Quien</span>
-                            <p-dropdown
-                                inputId="dropdown-depart"
-                                [autoDisplayFirst]="false"
-                                [options]="familiares"
-                                formControlName="diabetesQuien"
-                                optionValue="code"
-                                optionLabel="name">
-                            </p-dropdown>  
-                        </div>
-                    </div>
-                    
-                    <div class="col">
-                        <div class="field grid" style="margin-bottom: 0.2rem;">
-                            <span class="col-fixed" style="width:80px">Epilepsia</span>
-                            <p-selectButton [options]="stateOptions"
-                                            formControlName="epilepsia"
-                                            optionLabel="label"
-                                            optionValue="value">
-                            </p-selectButton>
-                        </div>
-                        <div class="field grid">
-                            <span class="col-fixed" style="width:80px">Quien</span>
-                            <p-dropdown
-                                inputId="epilepsiaQuien"
-                                [autoDisplayFirst]="false"
-                                [options]="familiares"
-                                formControlName="epilepsiaQuien"
-                                optionValue="code"
-                                optionLabel="name">
-                            </p-dropdown>  
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="field grid" style="margin-bottom: 0.2rem;">
-                            <span class="col-fixed" style="width:80px">Alergia a medicinas</span>
-                            <p-selectButton [options]="stateOptions"
-                                            formControlName="alergiam"
-                                            optionLabel="label"
-                                            optionValue="value">
-                            </p-selectButton>
-                        </div>
-                        <div class="field grid">
-                            <span class="col-fixed" style="width:80px">Quien</span>
-                            <p-dropdown
-                                inputId="alergiamQuien"
-                                [autoDisplayFirst]="false"
-                                [options]="familiares"
-                                formControlName="alergiamQuien"
-                                optionValue="code"
-                                optionLabel="name">
-                            </p-dropdown>  
-                        </div>
-                    </div>
-                </div>
+            <div class="col-2">
+                <p-dropdown
+                        [autoDisplayFirst]="false"
+                        [options]="familiares"
+                        formControlName="quien"
+                        optionValue="code"
+                        optionLabel="name">
+                </p-dropdown>
             </div>
-            <div class="col-4" style="padding-bottom: 0;">
-                <div class="card">
-                    <div class="col">
-                        <div class="field grid" style="margin-bottom: 0.2rem;">
-                            <span class="col-fixed" style="width:80px">Violencia Familiar</span>
-                            <p-selectButton [options]="stateOptions"
-                                            formControlName="violenciaF"
-                                            optionLabel="label"
-                                            optionValue="value">
-                            </p-selectButton>
-                        </div>
-                        <div class="field grid">
-                            <span class="col-fixed" style="width:80px">Quien</span>
-                            <p-dropdown
-                                inputId="dropdown-depart"
-                                [autoDisplayFirst]="false"
-                                [options]="familiares"
-                                formControlName="violenciaFQuien"
-                                optionValue="code"
-                                optionLabel="name">
-                            </p-dropdown>  
-                        </div>
-                    </div>
-                    
-                    <div class="col">
-                        <div class="field grid" style="margin-bottom: 0.2rem;">
-                            <span class="col-fixed" style="width:80px">Alcoholismo</span>
-                            <p-selectButton [options]="stateOptions"
-                                            formControlName="alcoholismo"
-                                            optionLabel="label"
-                                            optionValue="value">
-                            </p-selectButton>
-                        </div>
-                        <div class="field grid">
-                            <span class="col-fixed" style="width:80px">Quien</span>
-                            <p-dropdown
-                                inputId="alcoholismoQuien"
-                                [autoDisplayFirst]="false"
-                                [options]="familiares"
-                                formControlName="alcoholismoQuien"
-                                optionValue="code"
-                                optionLabel="name">
-                            </p-dropdown>  
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="field grid" style="margin-bottom: 0.2rem;">
-                            <span class="col-fixed" style="width:80px">Drogadicción</span>
-                            <p-selectButton [options]="stateOptions"
-                                            formControlName="droga"
-                                            optionLabel="label"
-                                            optionValue="value">
-                            </p-selectButton>
-                        </div>
-                        <div class="field grid">
-                            <span class="col-fixed" style="width:80px">Quien</span>
-                            <p-dropdown
-                                inputId="drogaQuien"
-                                [autoDisplayFirst]="false"
-                                [options]="familiares"
-                                formControlName="drogaQuien"
-                                optionValue="code"
-                                optionLabel="name">
-                            </p-dropdown>  
-                        </div>
-                    </div>
-                    
-                </div>
-            </div>
-            <div class="col-4 col-offset-8" style="padding-top: 0; padding-bottom: 0;">
-                <div class="col">
-                    <div class="field grid" style="margin-bottom: 0.2rem;">
-                        <span class="col-fixed" style="width:80px">Hepatitis B</span>
-                        <p-selectButton [options]="stateOptions"
-                                        formControlName="hepatitisB"
-                                        optionLabel="label"
-                                        optionValue="value">
-                        </p-selectButton>
-                    </div>
-                    <div class="field grid">
-                        <span class="col-fixed" style="width:80px">Quien</span>
-                        <p-dropdown
-                            inputId="hepatitisBQuien"
-                            [autoDisplayFirst]="false"
-                            [options]="familiares"
-                            formControlName="hepatitisBQuien"
-                            optionValue="code"
-                            optionLabel="name">
-                        </p-dropdown>  
-                    </div>
-                </div>
+            <div class="col-1">
+                <button style="background-color: #0c3866" class="button-agregar p-button-rounded" icon="pi pi-plus"
+                        pButton type="button"
+                        (click)="Agregar()"></button>
             </div>
         </div>
+
+        <div class="col">
+            <p-table class="table-over" [value]="listPatologias" #dt
+                     styleClass="p-datatable-gridlines" [rows]="10"
+                     [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
+                     [showCurrentPageReport]="true"
+                     currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="text-align: center" class="font-2">Nro</th>
+                        <th style="text-align: center" class="font-2">Antecedente</th>
+                        <th style="text-align: center" class="font-2">Familiar</th>
+                        <th style="text-align: center" class="font-2">Accion</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                    <tr>
+                        <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+                        <td style="text-align: center">{{ rowData.nombre }}</td>
+                        <td style="text-align: center">{{ rowData.pariente }}</td>
+                        <td style="text-align: center">
+                            <button pButton pRipple icon="pi pi-trash"
+                                    class="p-button-rounded p-button-danger m-1"
+                                    (click)="eliminarAntecedente(rowIndex)" pTooltip="Eliminar">
+                            </button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
     </p-fieldset>
-    <div class="col col-offset-9">
+    <div class="col col-offset-10">
         <button type="submit"
-                pButton 
-                pRipple 
-                icon="pi pi-save" 
-                label="Guardar" 
-                (click)="save()"
-                class="p-button-raised p-button-info"></button>
-        <button type="submit"
-                icon="pi pi-times-circle"            
                 pButton
                 pRipple
+                icon="pi pi-save"
+                label="Guardar"
+                (click)="save()"
+                style="background-color: #0c3866"
+                class="p-button-raised p-button-info"></button>
+        <!--<button type="submit"
+                icon="pi pi-times-circle"
+                pButton
+                pRipple
+                label="Cancelar"
                 (click)="limpiar()"
-                label="Cancelar"          
                 class="p-button-raised p-button-danger"
-                >
-        </button>
-        
-        </div>
+        >
+        </button>-->
+    </div>
 </div>
