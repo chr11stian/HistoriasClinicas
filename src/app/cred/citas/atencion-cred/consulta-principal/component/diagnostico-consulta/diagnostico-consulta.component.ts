@@ -77,7 +77,6 @@ export class DiagnosticoConsultaComponent implements OnInit {
             sobrepeso: new FormControl(''),
             Obesidad: new FormControl(''),
             Otros: new FormControl(''),
-            Otros2: new FormControl(''),
             condicionNormal: new FormControl(''),
             condicionDeficit: new FormControl(''),
             condicionTranstorno: new FormControl(''),
