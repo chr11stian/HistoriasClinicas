@@ -50,7 +50,9 @@ export class ListaConsultaComponent implements OnInit {
                 anio: r.object.anioEdad,
                 mes: r.object.mesEdad,
                 dia: r.object.diaEdad,
-                sexo: this.sexo
+                sexo: this.sexo,
+                fechaNacimiento: this.fechaNacimiento,
+                hidden: true
             }
             localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
         })
@@ -62,7 +64,9 @@ export class ListaConsultaComponent implements OnInit {
             nroDocumento: this.data.nroDocumento,
             tipoDoc: this.data.tipoDoc,
             idConsulta: '',
-            sexo: this.sexo
+            sexo: this.sexo,
+            fechaNacimiento: this.fechaNacimiento,
+            hidden: true
         }
         localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
     }

@@ -13,8 +13,14 @@ export class SuplementacionesMicronutrientesService {
   getListaMicronutrientes(dni: string) {
     return this.http.get<any>(`${this.base_url}/${this.bd}/cred/suplementacion/${dni}`);
   }
+  getVitaminaA(dni: string) {
+    return this.http.get<any>(`${this.base_url}/${this.bd}/cred/suplementacion/vitamina_a/${dni}`);
+  }
 
-  putSuplementacionMicronutrientes(dni: string, data) {
-    return this.http.put<any>(`${this.base_url}/${this.bd}/cred/update_suplementacion/${dni}`, data);
+  PostSuplementacion(idConsulta: string, inputRequest) {
+    return this.http.post<any>(`${this.base_url}/${this.bd}/cred/consulta/evaluacion/suplementacion/${idConsulta}`,inputRequest);
+  }
+  PostVitaminaA(idConsulta: string, inputRequest) {
+    return this.http.post<any>(`${this.base_url}/${this.bd}/cred/consulta/evaluacion/suplementacion/vitamina_a/${idConsulta}`,inputRequest);
   }
 }

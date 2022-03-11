@@ -1,11 +1,14 @@
 export interface dato {
+    hidden?: boolean,
     nroDocumento?: string,
     tipoDoc?: string,
-    idConsulta: string,
+    idConsulta?: string,
     dia?: number,
     mes?: number,
     anio?: number
-    sexo: string
+    sexo?: string,
+    fechaNacimiento?: string,
+
 }
 
 export interface outputTriajeInterface {
@@ -110,5 +113,61 @@ export interface interfaceCrecimiento {
     estadoAplicado: boolean;
     fechaTentativa: string | Date;
     fecha: string | Date;
+    dias?: number,
+    diagnosticoPE: string,
+    diagnosticoTE: string,
+    diagnosticoPT: string,
+    diagnosticoPC: string
+}
+
+export interface AntecedentesPerinatales {
+    embarazo: Embarazo;
+    parto: Parto;
+    nacimiento: Nacimiento;
+    alimentacion: Alimentacion;
+}
+
+export interface Alimentacion {
+    alimentacion: number;
+    inicioAlimentacionComplementaria: string;
+    suplementoFe: boolean;
+}
+
+export interface Embarazo {
+    tipoEmbarazo: boolean;
+    listaPatologiasGestacion: PatologiasGestacion[];
+    nroEmbarazo: number;
+    atencionPrenatal: boolean;
+    nroAPN: number;
+    lugarAPN: string;
+}
+
+export interface PatologiasGestacion {
+    nombre: string;
+    fecha: Date | string;
+    cie10: string;
+}
+
+export interface Nacimiento {
+    edadGestacionalAlNacer: number;
+    pesoAlNacer: number;
+    tallaAlNacer: number;
+    perimetroCefalico: number;
+    perimetroToracico: number;
+    respiracionLlantoNacerInmediato: boolean;
+    apgar: boolean;
+    reanimacion: boolean;
+    patologiaNeonatal: boolean;
+    especifique: string;
+    hospitalizacion: boolean;
+    tiempoHospitalizacion: number;
+}
+
+export interface Parto {
+    tipoParto: boolean;
+    complicacionesDelParto: string;
+    lugarParto: number;
+    atendidoPor: number;
+    atendidoPorOtro: string;
 }
 

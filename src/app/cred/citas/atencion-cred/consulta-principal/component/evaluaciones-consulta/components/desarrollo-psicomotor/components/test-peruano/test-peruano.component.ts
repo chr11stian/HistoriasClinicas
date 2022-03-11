@@ -22,7 +22,7 @@ export class TestPeruanoComponent implements OnInit {
   displayMaximizable: boolean;
   attributeLocalS = 'documento';
   evaluacionDesarrollo: any;
-  edadMeses: number = 2;
+  edadEvaluar: number;
   displayPosition: boolean;
   position: string;
   datePipe = new DatePipe('en-US');
@@ -32,7 +32,9 @@ export class TestPeruanoComponent implements OnInit {
   enableAgregar: boolean = false;
   estadoHayDatosPlan: boolean = false;
   data: dato;
+  edadMeses:number;
   color: string = "";
+  edadMax:number;
   preguntas: pregunta[] = [{
     codigo: 'A', descripcion: 'CONTROL DE CABEZA Y TRONCO SENTADO'
   },
@@ -64,6 +66,7 @@ export class TestPeruanoComponent implements OnInit {
     this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
     // this.encontrarDiagnostico();
     this.recuperarEdadNinio();
+    this.calcularRangoPost();
     this.showDialogEdad('top');
     if(isNaN(this.edadMeses)){
       this.showMessageErrorEdadNaN();
@@ -93,17 +96,13 @@ export class TestPeruanoComponent implements OnInit {
   }
   recuperarEdadNinio() {
 
-    this.edadMeses = this.data.anio * 12 + this.data.mes
-    if(isNaN(this.edadMeses)){
+    this.edadEvaluar = this.data.anio * 12 + this.data.mes
+    this.edadMeses=this.edadEvaluar;
+    if(isNaN(this.edadEvaluar)){
       this.enableAgregar = true;
     }
     if (
-        this.edadMeses === 0||
-        this.edadMeses == 13 || this.edadMeses == 14 || this.edadMeses == 16 ||
-        this.edadMeses == 17 || this.edadMeses == 19 || this.edadMeses == 22 ||
-        this.edadMeses == 23 || this.edadMeses == 25 || this.edadMeses == 26 ||
-        this.edadMeses == 27 || this.edadMeses == 28 || this.edadMeses == 29 ||
-        this.edadMeses >= 31) {
+        this.edadMeses === 0) {
         this.enableAgregar = true;
     }
   }
@@ -112,7 +111,7 @@ export class TestPeruanoComponent implements OnInit {
     this.formDatos_TestPeruano = this.form.group({
       /**Datos personales**/
       /*************LETTER A*************/
-      A_1: new FormControl({value: false, disabled: this.edadMeses < 1}),
+      A_1: new FormControl({value: false, disabled: this.edadMeses <1}),
       A_2: new FormControl({value: false, disabled: this.edadMeses < 2}),
       A_3: new FormControl({value: false, disabled: this.edadMeses < 3}),
       A_4: new FormControl({value: false, disabled: this.edadMeses < 4}),
@@ -348,6 +347,27 @@ export class TestPeruanoComponent implements OnInit {
     })
   }
 
+  calcularRangoPost(){
+    if(this.edadEvaluar>24){
+      this.edadMax=30
+      console.log(this.edadMax);
+    }
+
+    if(this.edadEvaluar<=24){
+      this.edadMax=24
+      console.log(this.edadMax);
+    }
+
+    if(this.edadEvaluar<=21){
+      this.edadMax=this.edadEvaluar+3
+      console.log(this.edadMax);
+    }
+
+    if(this.edadEvaluar<=11) {
+      this.edadMax = this.edadEvaluar + 1;
+      console.log(this.edadMax);
+    }
+  }
   getTestPerunoBDTestPorConsulta() {
     this.testDesarrollo.getTestPeruano(this.data.idConsulta).subscribe((res: any) => {
       console.log('se RECUPERO correctamente ', res.object);
@@ -430,7 +450,6 @@ export class TestPeruanoComponent implements OnInit {
     this.estadoVisualizar = true;
     this.displayMaximizable = true;
     this.formDatos_TestPeruano.disable();
-
   }
   // openEditar(row,data){
   //   this.formDatos_TestPeruano.enable();
@@ -632,6 +651,7 @@ export class TestPeruanoComponent implements OnInit {
       codigoPrestacion: '0001',
       estadoEvaluacion:"",
       evaluacionDesarrolloMes: {
+        docExaminador:'24242424',
         edad: this.edadMeses,
         diagnostico: diagnostico,
         fecha: fecha,
@@ -696,6 +716,7 @@ export class TestPeruanoComponent implements OnInit {
   // }
 
   guardarActualizar() {
+    // this.formDatos_TestPeruano.enabled;
     if (this.listaTestPeruano[0] != null) {
       this.enableAgregar = true;
       this.displayMaximizable = false;
@@ -721,13 +742,12 @@ export class TestPeruanoComponent implements OnInit {
     });
   }
   cambiarEstado(codigo) {
-    let cadenaAux = {}
+
     console.log("item seleccionado:", codigo);
-    // this.codigosArr:any[]=[];
     if(this.formDatos_TestPeruano.value[codigo]==true){ this.codigosArr.push(codigo);}
   }
   openNuevoTestPeruano(){
-    // this.formDatos_TestPeruano.enable();
+    this.formDatos_TestPeruano.enable();
     this.builForm();
     this.formDatos_TestPeruano.reset();
     this.recuperarTestPlanCred();

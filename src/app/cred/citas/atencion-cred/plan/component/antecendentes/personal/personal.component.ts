@@ -4,6 +4,8 @@ import {AntecedentesService} from '../../../services/antecedentes/antecedentes.s
 import {AntecedentesPersonalesFormType} from '../../models/antecedentes.interface';
 import Swal from "sweetalert2";
 import {ActivatedRoute, Router} from "@angular/router";
+import {dato, PatologiasGestacion} from "../../../../../models/data";
+import {DatePipe} from "@angular/common";
 
 @Component({
     selector: 'app-personal',
@@ -12,13 +14,20 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class PersonalComponent implements OnInit {
     @Output() personalEmit: EventEmitter<AntecedentesPersonalesFormType> = new EventEmitter<AntecedentesPersonalesFormType>();
-
+    datePipe=new DatePipe('en-US');
     stateOptions: any[];
     stateOptions1: any[];
-
     personalFG: FormGroup;
+    formAcuerdos: FormGroup
     nroDoc: string = ''
+    attributeLocalS = 'documento'
+    data: dato
     antecedentes: Antecedentes;
+    hayDatos: boolean = false;
+    dialogAcuerdos: boolean;
+
+    patalogias: PatologiasGestacion[] = []
+    isUpdate: boolean
 
     constructor(private formBuilder: FormBuilder,
                 private antecedentesService: AntecedentesService,
@@ -31,13 +40,23 @@ export class PersonalComponent implements OnInit {
         this.stateOptions1 = [{label: '1m', value: 1},
             {label: '5m', value: 5}];
 
+
     }
 
     getFC(control: string): AbstractControl {
         return this.personalFG.get(control)
     }
 
+    nombre: string;
+    fecha: Date;
+    cie10: string;
+
     buildForm(): void {
+        this.formAcuerdos = this.formBuilder.group({
+            nombre: new FormControl("", []),
+            fecha: new FormControl("", []),
+            cie10: new FormControl("", []),
+        });
         this.personalFG = this.formBuilder.group({
             patologiasE1: [''],
             patologiasE2: [''],
@@ -92,19 +111,51 @@ export class PersonalComponent implements OnInit {
         })
     }
 
+    openAcuerdo() {
+        this.formAcuerdos.reset();
+        this.formAcuerdos.get('nombre').setValue("");
+        this.formAcuerdos.get('cie10').setValue("");
+        this.dialogAcuerdos = true;
+    }
+
+    saveAcuerdo() {
+        //this.isUpdate = false;
+        let a: PatologiasGestacion = {
+            nombre: this.formAcuerdos.value.nombre,
+            fecha:  this.datePipe.transform(this.formAcuerdos.value.fecha, 'yyyy-MM-dd'),
+            cie10: this.formAcuerdos.value.cie10
+        }
+        this.patalogias.push(a)
+
+        //console.log("acuerdos", this.acuerdosComprimisos)
+        Swal.fire({
+            icon: 'success',
+            title: 'Agregado correctamente',
+            text: '',
+            showConfirmButton: false,
+            timer: 1500,
+        })
+        this.dialogAcuerdos = false;
+    }
+
     recuperarDatos() {
         this.antecedentesService.getAntecedentesPersonales(this.nroDoc).subscribe((r: any) => {
             this.antecedentes = r.object;
             console.log('object', r.object);
             console.log('antecedentes', this.antecedentes)
+            if (this.antecedentes != null) {
+                this.hayDatos = true
+            }
         })
     }
 
     getQueryParams(): void {
-        this.route.queryParams
-            .subscribe(params => {
-                this.nroDoc = params['nroDoc']
-            })
+        this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
+        this.nroDoc = this.data.nroDocumento
+        // this.route.queryParams
+        //     .subscribe(params => {
+        //         this.nroDoc = params['nroDoc']
+        //     })
     }
 
     ngOnInit(): void {
@@ -240,21 +291,60 @@ export class PersonalComponent implements OnInit {
             ],
             otroAntecedentes: this.getFC('detalleOtrosAntP').value
         }
-        this.antecedentesService.updateAntecedentesPersonales(this.nroDoc, aux).subscribe(
-            (resp) => {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Actualizado correctamente',
-                    text: '',
-                    showConfirmButton: false,
-                    timer: 1500,
-                })
-            }
-        )
+        if (this.hayDatos == false) {
+            this.antecedentesService.addAntecedentesPersonales(this.nroDoc, aux).subscribe(
+                (resp) => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Guardo el registro con correctamente',
+                        text: '',
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
+                }
+            )
+        } else {
+            this.antecedentesService.updateAntecedentesPersonales(this.nroDoc, aux).subscribe(
+                (resp) => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Actualizado correctamente',
+                        text: '',
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
+                }
+            )
+        }
     }
 
     limpiar() {
         this.personalFG.reset();
+    }
+
+
+    cancelAcuerdo() {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Cancelado...',
+            text: '',
+            showConfirmButton: false,
+            timer: 1000
+        })
+        this.dialogAcuerdos = false;
+    }
+
+    eliminarAcuerdo(index) {
+        //this.acuerdosComprimisos.splice(index, 1)
+    }
+
+    editarAcuerdo(row, index) {
+        //this.isUpdate3 = false;
+        //this.bool3 = true;
+        //this.index3 = index
+        this.formAcuerdos.reset();
+        this.formAcuerdos.get('descripcionAcuerdo').setValue(row.descripcionAcuerdo);
+        this.dialogAcuerdos = true;
     }
 }
 

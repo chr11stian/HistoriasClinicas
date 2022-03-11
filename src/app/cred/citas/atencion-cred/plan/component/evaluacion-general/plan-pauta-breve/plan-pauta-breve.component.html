@@ -1,0 +1,86 @@
+<p-card>
+    <div class="container_resultados mb-5">
+        <label class="label_titulo">RESULTADOS DE PAUTA BREVE</label>
+        <div class="div_line_Separate_card"></div>
+    </div>
+    <p-table class="table-over" [value]="resultListEEDP" #dt styleClass="p-datatable-gridlines" [rows]="10"
+        [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+        currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="text-align: center">Nro</th>
+                <th style="text-align: center">Fecha</th>
+                <th style="text-align: center">Edad(Mes)</th>
+                <th style="text-align: center">Diagnostico</th>
+                <th style="text-align: center">Nombre del Examinador</th>
+                <th style="text-align: center">Acciones</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-i="rowIndex">
+            <tr style="text-align: center">
+                <td style="text-align: center">{{ i + 1 }}</td>
+                <td style="text-align: center">{{ rowData.fechaAtencion | date:'dd/MM/yyyy'}}</td>
+                <td style="text-align: center">{{rowData.mesEdad}}</td>
+                <td style="text-align: center">{{rowData.diagnostico}}</td>
+                <td style="text-align: center">{{rowData.docExaminador}}</td>
+                <td style="text-align: center">
+                    <button pButton pRipple type="button" icon="pi pi-eye
+                    " class="p-button-rounded p-button-text p-button-lg"
+                        (click)="openShowPautaBreveDialog(i)"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-card>
+
+<p-dialog class="dialogo m-4" [(visible)]="pautaBreveDialog" [style]="{width: '70%'}" [modal]="true"
+    styleClass="p-fluid">
+    <div>
+        <p-fieldset legend="{{edadNroSelected + ' ' + varMes}}">
+            <div style="margin-top: 20px;">
+                <p-table dataKey="id" [value]="arrayPautaBreve" responsiveLayout="scroll" class="tablePautaB">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th rowspan="2" colspan="8">ITEM</th>
+                            <th colspan="4">PAUTA BREVE</th>
+                        </tr>
+                        <tr>
+                            <th colspan="2">N</th>
+                            <th colspan="2">D</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-datos>
+                        <tr>
+                            <td colspan="2">{{datos.descripcion}}</td>
+                            <td colspan="6" pEditableColumn>{{datos.areaEvaluacion}}</td>
+                            <td colspan="2">
+                                <p-cellEditor>
+                                    <ng-template pTemplate="input">
+                                        <p-checkbox [(ngModel)]="datos.estadoN" binary="true" inputId="binary">
+                                        </p-checkbox>
+                                    </ng-template>
+                                    <ng-template pTemplate="output">
+                                        <p-checkbox [(ngModel)]="datos.estadoN" binary="true" inputId="binary">
+                                        </p-checkbox>
+                                    </ng-template>
+                                </p-cellEditor>
+                            </td>
+                            <td colspan="2">
+                                <p-cellEditor>
+                                    <ng-template pTemplate="input">
+                                        <p-checkbox [(ngModel)]="datos.estadoD" binary="true" inputId="binary">
+                                        </p-checkbox>
+                                    </ng-template>
+                                    <ng-template pTemplate="output">
+                                        <p-checkbox [(ngModel)]="datos.estadoD" binary="true" inputId="binary">
+                                        </p-checkbox>
+                                    </ng-template>
+                                </p-cellEditor>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </p-fieldset>
+    </div>
+</p-dialog>

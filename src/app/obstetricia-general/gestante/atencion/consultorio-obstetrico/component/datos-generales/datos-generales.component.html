@@ -164,7 +164,7 @@
                             <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
                                     <span class="col-5" style="text-align: right">V. Antitetánica 1° Dosis:</span>
-                                    <p-selectButton [options]="opciones1" optionValue="decripcion" optionLabel="name"
+                                    <p-selectButton [options]="opciones" optionValue="boleano" optionLabel="name"
                                         formControlName="vAntitetánica1Dosis"></p-selectButton>
                                     <!-- <p-calendar formControlName="fecha1" placeholder="Fecha" dateFormat="yy-mm-dd"
                                         [showTime]="true" [showSeconds]="true"></p-calendar> -->
@@ -273,7 +273,7 @@
                     </div>
 
                     <div class="grid">
-                        <div class="col-12 md:col-6 lg:col-6 p-field">
+                        <div class="col-12 md:col-6 lg:col-3 p-field">
                             <div class="p-inputgroup">
                                 <span class="col-2" style="text-align: right">G:</span>
                                 <input type="text" pInputText formControlName="G">

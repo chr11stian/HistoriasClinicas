@@ -42,7 +42,6 @@ export class DiagnosticoConsultaComponent implements OnInit {
 
     factorDialog: boolean;
     formFactor: FormGroup;
-    hayError2: boolean = false;
     isUpdate2: boolean = false;
     data2: any[] = [];
     factoresCondicionales: any[] = [];

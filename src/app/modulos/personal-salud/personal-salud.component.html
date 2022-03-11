@@ -386,7 +386,14 @@
             <div class="p-fluid grid flex justify-content-center">
               <div class="p-field col-12 md:col-12">
                 <label id="nroEspe">Nombre Funcion:</label>
-                <input type="text" pInputText formControlName="nombreFuncion" required />
+                <p-dropdown *ngIf="!isUpdatRol" class="inputRedondo" [showTransitionOptions]="'300ms'"
+                  dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="nombreRolOpciones"
+                  formControlName="nombreFuncion" placeholder="Seleccione nombre funcion">
+                </p-dropdown>
+                <p-dropdown *ngIf="isUpdateRol" class="inputRedondo" [showTransitionOptions]="'300ms'"
+                  dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="nombreRolOpciones"
+                  formControlName="nombreFuncion">
+                </p-dropdown>
               </div>
             </div>
             <div class="p-fluid grid flex justify-content-center">
@@ -394,7 +401,7 @@
                 <label id="nombre">Ups:</label>
                 <p-dropdown *ngIf="!isUpdatRol" class="inputRedondo" [showTransitionOptions]="'300ms'"
                   dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="listaUpsX" formControlName="ups"
-                  optionLabel="nombreUPS" optionValue="id" id="tipoid" placeholder="Selecciones Especialidad">
+                  optionLabel="nombreUPS" optionValue="id" id="tipoid" placeholder="Seleccione especialidad">
                 </p-dropdown>
                 <p-dropdown *ngIf="isUpdateRol" class="inputRedondo" [showTransitionOptions]="'300ms'"
                   dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="listaUpsX" formControlName="ups"
@@ -435,8 +442,7 @@
               </div>
               <div class="p-field col-6">
                 <label>Leer:</label>
-                <p-selectButton [options]="stateOptions" formControlName="read" optionLabel="label"
-                  optionValue="value">
+                <p-selectButton [options]="stateOptions" formControlName="read" optionLabel="label" optionValue="value">
                 </p-selectButton>
               </div>
             </div>

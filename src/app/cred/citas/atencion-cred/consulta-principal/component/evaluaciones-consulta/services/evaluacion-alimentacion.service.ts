@@ -35,6 +35,10 @@ export class EvaluacionAlimentacionService {
         return this.http.post(`${this.base_url}/${this.bd}/cred/consulta/evaluacion/alimentacion/${id}`, data);
     }
 
+    esUltimaEvaluacionAlimenticiaCred(mes,nroHcl){
+        return this.http.get(`${this.base_url}/${this.bd}/cred/consulta/evaluacion/alimentacion/valido/${mes}/${nroHcl}`);
+    }
+
     updateEvaluacionAlimenticiaCred(id, data) {
         return this.http.put(`${this.base_url}/${this.bd}/cred/consulta/evaluacion/alimentacion/${id}`, data);
     }

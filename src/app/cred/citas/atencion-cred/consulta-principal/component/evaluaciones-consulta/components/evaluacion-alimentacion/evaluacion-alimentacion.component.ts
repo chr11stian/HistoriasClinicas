@@ -5,7 +5,6 @@ import {EvaluacionAlimentacionService} from "../../services/evaluacion-alimentac
 import Swal from "sweetalert2";
 import {dato} from "../../../../../../models/data";
 import {MessageService} from "primeng/api";
-import {catchError} from "rxjs/operators";
 
 @Component({
   selector: 'app-evaluacion-alimentacion',
@@ -19,13 +18,13 @@ export class EvaluacionAlimentacionComponent implements OnInit {
   Evaluaciones:EvaluacionAlimenticia[]=[];
   datePipe=new DatePipe('en-US');
   attributeLocalS = 'documento'
-  edadMeses:number=0;
+  edadMeses:number;
   displayPosition: boolean;
   position: string;
   diagnostico:string;
   data:dato;
   listaTitulosPreguntas:TipoPregunta[]=[];
-
+  encontro:boolean=true;
   constructor(private evalAlimenService: EvaluacionAlimentacionService,
               private messageService: MessageService) {
     this.listaTitulosPreguntas=[{codigo:'FECHA',titulo:'FECHA'},
@@ -54,6 +53,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
     this.recuperarEdadNinio(); /*cuando recupere datos en consulta*/
     this.recuperarDataPlanAlimentaciaBD();
+
     // this.VerificarRegistroExistenteEnEsteMes(this.edadMeses);
     this.showDialogEdad('top');
   }
@@ -107,6 +107,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     this.evalAlimenService.getEvaluacionAlimenticiaCredPlan(this.data.nroDocumento).subscribe((res: any) => {
       this.Evaluaciones = (res.object);
       if(res.object!=null){
+        this.esUltimoRegistroParaEstaEdad();
         let aux:any;
         let i = 0;
         while(this.Evaluaciones[i]!=undefined){
@@ -379,12 +380,17 @@ export class EvaluacionAlimentacionComponent implements OnInit {
       codigoPrestacion:'0001',
       evaluacionAlimentacionMes:
           {
+            docExaminador:'24242424',
             fechaRegistro: this.convertirFecha(this.evaluacionAlimenticia[0][prefijo]),
             edad:indice,
             listaPreguntas:listaAux,
             diagnostico:dx
           }
     }
+    setTimeout(() => {
+      this.esUltimoRegistroParaEstaEdad();
+    }, 1500);
+
     Swal.fire({
       title: 'Esta seguro que desea guardar este registro?',
       showDenyButton: true,
@@ -394,50 +400,59 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
+        if(this.encontro==true){
           this.evalAlimenService.addEvaluacionAlimenticiaCred(this.data.idConsulta,cadena).subscribe((res: any) => {
             console.log('se guardo correctamente ', res.object);
-            Swal.fire({
-              icon: 'success',
-              title: 'Evaluacion Alimenticia',
-              text: 'Se guardo existosamente la evaluacion para la edad ' + this.edadMeses,
-              showConfirmButton: false,
-              timer: 2000,
-            })
             this.mostrarMensajeDiagnostico(dx);
-            Swal.fire('Guardado!', '', 'success')
-          },error => {
-            Swal.fire({
-              icon: 'error',
-              title: 'Evaluacion Alimenticia',
-              text: '¡¡Error, ya existe un registro en esta edad en alguna consulta actual o previa. No puede ingresar otro!!',
-              showConfirmButton: false,
-              timer: 2000,
-            })
-          });
+          })
+        }
+        else{
+          Swal.fire({
+            icon: 'error',
+            title: 'NO SE GUARDO EL REGISTRO',
+            text: '¡¡Error, ya existe un registro en esta edad en alguna consulta actual o previa. No puede ingresar otro!!',
+            showConfirmButton: false,
+            timer: 3000,
+          })
+        }
 
       } else if (result.isDenied) {
         Swal.fire('No se guardo este registro', '', 'info')
       }
     })
   }
-  calcularCie10(dx){
-    if(dx == 'NINO CON LACTANCIA MATERNA CONTINUADA'){
-      return 'Z0016'
-    }else{
-      if(dx == 'PROBLEMA NO ESPECIFICADO DE LA ALIMENTACION DEL RECIEN NACIDO'){
-        return 'P929'
-      }
-      else{
-        if(dx == 'NINO CON ALIMENTACION COMPLEMENTARIA ADECUADA') {
-          return 'Z0017'
+
+  async  esUltimoRegistroParaEstaEdad() {
+    await this.evalAlimenService.esUltimaEvaluacionAlimenticiaCred(this.edadMeses,this.data.nroDocumento).toPromise().then(res => <boolean>res['object'])
+        .then(data => {
+          console.log(data);
+          this.encontro=data;
+        })
+        .catch(error => {
+          return error;
+        });
+  }
+
+
+    calcularCie10(dx){
+
+      if(dx == 'NINO CON LACTANCIA MATERNA CONTINUADA'){
+        return 'Z0016'
+      }else{
+        if(dx == 'PROBLEMA NO ESPECIFICADO DE LA ALIMENTACION DEL RECIEN NACIDO'){
+          return 'P929'
         }
         else{
-          return 'SINCIE'
+          if(dx == 'NINO CON ALIMENTACION COMPLEMENTARIA ADECUADA') {
+            return 'Z0017'
+          }
+          else{
+            return 'SINCIE'
+          }
         }
       }
-    }
-
   }
+
   calcularDiagnostico(preguntas:boolean[]){
     console.log(preguntas);
     if(this.edadMeses<=6)
@@ -464,6 +479,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     }
 
   }
+
   convertirFecha(fecha){
     const fecha2 = fecha.replace("T"," ");
     return fecha2+":00";
@@ -488,7 +504,14 @@ export class EvaluacionAlimentacionComponent implements OnInit {
       /* Read more about handling dismissals below */
       if (result.dismiss === Swal.DismissReason.timer) {
         console.log('dx')
-        Swal.fire(Dx)
+        Swal.fire({
+          icon: 'success',
+          title: 'Se guardo con éxito',
+          text: 'Para el Diagnóstico: ===> ' + Dx + ' para la edad: ' + this.edadMeses + ' (meses)',
+          showConfirmButton: false,
+          timer: 3000,
+        })
+        // Swal.fire(Dx)
       }
     })
   }
@@ -560,6 +583,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
   }
 }
 export interface Evaluacion{
+  docExaminador?:string,
   fechaRegistro?: string;
   edad?:number;
   listaPreguntas?:Preguntas[];

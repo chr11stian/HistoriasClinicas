@@ -15,13 +15,22 @@ export class RecienNacidoComponent implements OnInit {
     todosRN: any[] = [];
     ref: DynamicDialogRef;
     idObstetricia: string;
+    Gestacion: any;
 
     constructor(
         public dialog: DialogService,
         public recienNacidoService: RecienNacidoService,
         private obstetriciaGeneralService: ObstetriciaGeneralService
     ) {
-        this.idObstetricia = this.obstetriciaGeneralService.idGestacion;
+        this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
+
+        if (this.Gestacion == null) {
+            this.idObstetricia = JSON.parse(localStorage.getItem('idGestacionRegistro'));
+        } else {
+            this.idObstetricia = this.Gestacion.id;
+        }
+
+        // this.idObstetricia = this.obstetriciaGeneralService.idGestacion;
         this.recuperarRecienNacidos();
     }
 
@@ -66,7 +75,10 @@ export class RecienNacidoComponent implements OnInit {
 
     guardarRecienNacidos() {
         console.log('data to save ', this.todosRN);
-        this.recienNacidoService.postRecienNacido(this.idObstetricia, {recienNacido: this.todosRN, proceso:"RECIEN NACIDO"}).subscribe((res: any) => {
+        this.recienNacidoService.postRecienNacido(this.idObstetricia, {
+            recienNacido: this.todosRN,
+            proceso: "RECIEN NACIDO"
+        }).subscribe((res: any) => {
             console.log('se guardo con exito ', res)
         })
     }
@@ -75,7 +87,7 @@ export class RecienNacidoComponent implements OnInit {
         console.log('data to save ', this.todosRN);
         this.recienNacidoService.getRecienNacidoById(this.idObstetricia).subscribe((res: any) => {
             console.log('trajo datos exito ', res)
-            this.todosRN = res.object===null ?[] : res.object.recienNacido;
+            this.todosRN = res.object === null ? [] : res.object.recienNacido;
         })
     }
 

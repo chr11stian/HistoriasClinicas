@@ -45,7 +45,8 @@ export class DatosBasalesComponent implements OnInit {
     tipoGananciaPeso: string;
     listaPatologiasMaternas: any[] = [];
     Gestacion: any;
-    dataPaciente2: any;
+    // dataPaciente2: any;
+    DataCupos: any;
 
     constructor(private filiancionService: FiliancionService,
                 private fb: FormBuilder,
@@ -58,15 +59,19 @@ export class DatosBasalesComponent implements OnInit {
     ) {
         this.inicalizarForm();
         this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
-        this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
+        /**Data cupos nos permite visualizar funciones vitales del paciente**/
+        this.DataCupos = JSON.parse(localStorage.getItem('datacupos'));
 
-        console.log("DATA PACIENTE 2", this.dataPaciente2);
+        console.log("DATA PACIENTE cupos", this.DataCupos);
 
         if (this.Gestacion == null) {
             this.idGestante = JSON.parse(localStorage.getItem('idGestacionRegistro'));
         } else {
             this.idGestante = this.Gestacion.id;
         }
+
+        this.form.get('pesoActual').setValue(this.DataCupos.funcionesVitales.peso);
+        this.form.get('talla').setValue(this.DataCupos.funcionesVitales.talla);
     }
 
     ngOnInit(): void {
@@ -494,6 +499,17 @@ export class DatosBasalesComponent implements OnInit {
             console.log('datos de embarazo', this.rptaDatosBasales)
             if (this.rptaDatosBasales == null)
                 return
+            auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "rubeola")
+            this.form.patchValue({'rubeola': auxVac == undefined ? false : true});
+            auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "hepatitis B")
+            this.form.patchValue({'hepatitisB': auxVac == undefined ? false : true});
+            auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "papiloma")
+            this.form.patchValue({'papiloma': auxVac == undefined ? false : true});
+            auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "influenza")
+            this.form.patchValue({'influenza': auxVac == undefined ? false : true});
+            auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "covid")
+            this.form.patchValue({'covid': auxVac == undefined ? false : true});
+
             this.form.patchValue({'imc': this.rptaDatosBasales.pesoTalla.imc});
             this.form.patchValue({'pesoHabitual': this.rptaDatosBasales.pesoTalla.pesoHabitual});
             this.form.patchValue({'talla': this.rptaDatosBasales.pesoTalla.talla});
@@ -546,16 +562,7 @@ export class DatosBasalesComponent implements OnInit {
             this.CieService.getCIEByCod(this.rptaDatosBasales.emergencia.cie10).subscribe((resCIE: any) => {
                 this.form.patchValue({'emergenciaCIE': resCIE.object});
             });
-            auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "rubeola")
-            this.form.patchValue({'rubeola': auxVac == undefined ? false : true});
-            auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "hepatitis B")
-            this.form.patchValue({'hepatitisB': auxVac == undefined ? false : true});
-            auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "papiloma")
-            this.form.patchValue({'papiloma': auxVac == undefined ? false : true});
-            auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "influenza")
-            this.form.patchValue({'influenza': auxVac == undefined ? false : true});
-            auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "covid")
-            this.form.patchValue({'covid': auxVac == undefined ? false : true});
+
             this.form.patchValue({'tamizaje': this.rptaDatosBasales.violenciaGenero.fichaTamizaje});
             this.form.patchValue({'violencia': this.rptaDatosBasales.violenciaGenero.violencia});
             this.form.patchValue({'dateViolencia': this.rptaDatosBasales.violenciaGenero.fecha});
@@ -656,21 +663,24 @@ export class DatosBasalesComponent implements OnInit {
     }
 
     calcularIMC() {
+        // this.fecha = this.datePipe.transform(this.formCuposListar.value.fechaBusqueda, 'yyyy-MM-dd')
         let today = new Date().getTime();
         let auxFUM = new Date(this.form.value.dateFUM).getTime();
+        console.log("FECHA", auxFUM);
         auxFUM = auxFUM + 0;
         console.log('auxFUM ', auxFUM, 'today ', today);
         let auxWeek = today - auxFUM;
         this.edadGestacional = auxWeek / (1000 * 60 * 60 * 24);
         let semanasGestacional = Math.trunc(this.edadGestacional / 7);
-        let alturaMetros = (this.form.value.talla) / 100;
+        let redondearDecimal = Math.round(this.form.value.talla)
+        let alturaMetros = redondearDecimal / 100;
         let diasGestacional = Math.trunc(this.edadGestacional % 7);
         let rptaClasific: any;
         let pesoActual = this.form.value.pesoActual;
         let rptaRecomendaciones: any;
         let pesoHabitual;
         let imcAux;
-
+        console.log("METROS", alturaMetros)
         if (semanasGestacional < 13) {
             this.imcService.getClasificacionEstadoNutricionalByTalla(alturaMetros).subscribe((res: any) => {
                 // rptaClasific = res;
@@ -740,6 +750,8 @@ export class DatosBasalesComponent implements OnInit {
             console.log('es mayor a 13 semanas ', semanasGestacional);
             this.imcService.getClasificacionEstadoNutricionalByTallaSemanas(semanasGestacional, alturaMetros * 100).subscribe((res: any) => {
                 rptaClasific = res.object.edadGestacionalP10P90[0];
+                console.log('es mddsdsds ', rptaClasific);
+
                 if (pesoActual < rptaClasific.p10) {
 
                     this.imcService.getGananciaBajoPeso(semanasGestacional).subscribe((res: any) => {

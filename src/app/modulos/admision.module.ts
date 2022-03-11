@@ -27,6 +27,7 @@ import { IpressTurnosComponent } from './ipress-turnos/ipress-turnos.component';
 import { IpressAmbientesComponent } from './ipress-ambientes/ipress-ambientes.component';
 import { DialogPacienteComponent } from './paciente/dialog-paciente/dialog-paciente.component';
 import { IpressTarifarioComponent } from './ipress-tarifario/ipress-tarifario.component';
+import { IpressFarmaciaComponent } from './ipress-farmacia/component/ipress-farmacia.component';
 
 @NgModule({
     declarations: [
@@ -42,6 +43,7 @@ import { IpressTarifarioComponent } from './ipress-tarifario/ipress-tarifario.co
         IpressHorariosComponent,
         DialogPacienteComponent,
         IpressTarifarioComponent,
+        IpressFarmaciaComponent,
     ],
     exports: [
         PersonalSaludComponent,
