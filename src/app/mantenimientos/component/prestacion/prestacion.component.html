@@ -35,6 +35,7 @@
       <th class="text-center">Edad Maxima</th>
       <th class="text-center">Denominacion</th>
       <th class="text-center">Diagnostico</th>
+      <th class="text-center">Procedimiento</th>
       <th class="text-center">Acciones</th>
 
 
@@ -67,6 +68,19 @@
                 pTooltip="Agregar Diagnostico"
                 tooltipPosition="bottom"
                 class="p-button-raised p-button-success p-button-rounded"
+        ></button>
+      </td>
+      <td class="text-center">
+        <span class="p-column-title">Prodedimiento</span>
+        <button
+                pButton
+                pRipple
+                type="button"
+                icon="pi pi-sitemap"
+                (click)="abrirComponenteProcedimiento(rowData)"
+                pTooltip="Agregar Procedimiento"
+                tooltipPosition="bottom"
+                class="p-button-raised p-button-info p-button-rounded"
         ></button>
       </td>
       <td class="flex justify-content-around">

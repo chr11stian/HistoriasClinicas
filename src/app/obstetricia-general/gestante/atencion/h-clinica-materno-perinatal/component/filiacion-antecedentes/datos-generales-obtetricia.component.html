@@ -1,6 +1,6 @@
 <p-toolbar>
     <ng-template pTemplate="left">
-        <span class="mt-2">ANTECEDENTES</span>
+        <span>ANTECEDENTES</span>
     </ng-template>
     <ng-template pTemplate="right" class="button">
         <button pButton pRipple label="Atras" icon="pi pi-angle-left" class="p-button-secondary mr-2"></button>
@@ -1009,7 +1009,7 @@
     <br>
 
     <div class="grid">
-        <div class="col-12 md:col-6 lg:col-12 p-field">
+        <div class="col-12 md:col-6 lg:col-9 p-field">
             <p-toolbar>
                 <ng-template pTemplate="left">
                     <label class="labelBlanco">ANTECEDENTES PERSONALES</label>
@@ -1290,6 +1290,69 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="col-12 md:col-6 lg:col-3 p-field">
+            <p-toolbar>
+                <ng-template pTemplate="left">
+                    <label class="labelBlanco">VACUNAS PREVIAS</label>
+                </ng-template>
+            </p-toolbar>
+            <div class="border">
+                <form [formGroup]='formVacunasPrevias' class="m-2">
+                    <div class="flex">
+                        <div class="col-6 text-right">
+                            <label class=" mr-1 ">Rubeola: </label>
+                        </div>
+                        <div class="col-6">
+                            <p-selectButton [options]="opciones" formControlName="rubeola"
+                                            optionValue="booleano"
+                                            optionLabel="name"
+                                            class="inputfield w-full p-inputtext-sm"></p-selectButton>
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <div class="col-6 text-right">
+                            <label class=" mr-1 ">Hepatitis B: </label>
+                        </div>
+                        <div class="col-6">
+                            <p-selectButton [options]="opciones" formControlName="hepatitisB"
+                                            optionValue="booleano"
+                                            optionLabel="name"
+                                            class="inputfield w-full p-inputtext-sm"></p-selectButton>
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <div class="col-6 text-right">
+                            <label class=" mr-1 ">Papiloma Virus: </label>
+                        </div>
+                        <div class="col-6">
+                            <p-selectButton [options]="opciones" formControlName="papiloma"
+                                            optionValue="booleano"
+                                            optionLabel="name"></p-selectButton>
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <div class="col-6 text-right">
+                            <label class=" mr-1 ">Influenza: </label>
+                        </div>
+                        <div class="col-6">
+                            <p-selectButton [options]="opciones" formControlName="influenza"
+                                            optionValue="booleano"
+                                            optionLabel="name"></p-selectButton>
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <div class="col-6 text-right">
+                            <label class=" mr-1 ">Covid 19: </label>
+                        </div>
+                        <div class="col-6">
+                            <p-selectButton [options]="opciones" formControlName="covid"
+                                            optionValue="booleano"
+                                            optionLabel="name"></p-selectButton>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

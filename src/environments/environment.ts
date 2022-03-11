@@ -14,8 +14,8 @@ export const environment = {
     // base_uri: "http://190.108.93.145:3012/api/hce/login/user",
 
     /**ACCESO A LOS DATOS DEL PIDE Y SIS**/
-    // base_url_pide: "http://192.168.5.3:3011/pide/datos-sis",
-    base_url_pide: "http://190.108.93.145:3011/pide/datos-sis",
+    base_url_pide: "http://192.168.5.3:3011/pide/datos-sis",
+    // base_url_pide: "http://190.108.93.145:3011/pide/datos-sis",
 };
 
 /*

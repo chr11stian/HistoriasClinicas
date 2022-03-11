@@ -32,8 +32,8 @@
                     dateFormat="dd/mm/yy"
                     [(ngModel)]="inmunizacion.fechaTentativa"
                     [ngClass]="{
-                        vacunado: inmunizacion.fecha,
-                        noVacunado: !inmunizacion.fecha
+                        vacunado: inmunizacion.fechaAdministracion,
+                        noVacunado: !inmunizacion.fechaAdministracion
                       }"
             ></p-calendar>
           </div>
@@ -43,10 +43,10 @@
                     placeholder="Fecha"
                     [disabled]="true"
                     dateFormat="dd/mm/yy"
-                    [(ngModel)]="inmunizacion.fecha"
+                    [(ngModel)]="inmunizacion.fechaAdministracion"
                     [ngClass]="{
-                        vacunado: inmunizacion.fecha,
-                        noVacunado: !inmunizacion.fecha
+                        vacunado: inmunizacion.fechaAdministracion,
+                        noVacunado: !inmunizacion.fechaAdministracion
                       }"
             ></p-calendar>
           </div>
