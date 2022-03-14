@@ -430,8 +430,8 @@ export class TratamientoComponent implements OnInit {
       indicador: this.indicador
     }
   }
-  recuperarInmunizaciones(){
-    this.tratamientoService.listarInmunizacionesDeUnaConsulta(this.nroHcl,this.nroEmbarazo,this.nroAtencion).subscribe((res: any) => {
+  async recuperarInmunizaciones() {
+    await this.tratamientoService.listarInmunizacionesDeUnaConsulta(this.nroHcl, this.nroEmbarazo, this.nroAtencion).then((res: any) => {
       this.tratamientoInmunizaciones = res.object;
     })
   }
@@ -529,14 +529,19 @@ export class TratamientoComponent implements OnInit {
       showConfirmButton: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        this.tratamientoInmunizaciones.splice(index, 1)
-        Swal.fire({
-          icon: 'success',
-          title: 'Eliminado correctamente',
-          text: '',
-          showConfirmButton: false,
-          timer: 1500
-        })
+        this.tratamientoService.eliminarInmunizacionGestante(index).subscribe(
+          (resp) => {
+            this.recuperarInmunizaciones();
+            Swal.fire({
+              icon: 'success',
+              title: 'Eliminado correctamente',
+              text: '',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          }
+        );
+
       }
     })
 

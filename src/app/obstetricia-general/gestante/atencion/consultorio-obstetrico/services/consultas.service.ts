@@ -60,17 +60,29 @@ export class ConsultasService {
     }
     guardarInmunizacionGestante(nroHcl,nroEmbarazo,nroAtencion,data){
         return this.http.post(`${this.base_url}/${this.bd}/inmunizacion/agregar/${nroHcl}/${nroEmbarazo}/${nroAtencion}`, data)
+        .toPromise()
+        .then(res => <any[]>res)
+        .then(data => { return data; });
     }
     editarInmunizacionGestante(nroHcl,nroEmbarazo,nroAtencion,data){
         return this.http.put(`${this.base_url}/${this.bd}/inmunizacion/actualizarPendiente/${nroHcl}/${nroEmbarazo}/${nroAtencion}`, data)
+        .toPromise()
+        .then(res => <any[]>res)
+        .then(data => { return data; });
     }
-    eliminarInmunizacionGestante(nroHcl,nroEmbarazo,nroAtencion){
-        return this.http.delete(`${this.base_url}/${this.bd}/obstetricia/consulta/eliminiarDiagnostico/${nroHcl}/${nroEmbarazo}/${nroAtencion}`)
+    eliminarInmunizacionGestante(idInmu){
+        return this.http.delete(`${this.base_url}/${this.bd}/inmunizacion/${idInmu}`)
     }
     listarDiagnosticosDeUnaConsulta(nroHcl,nroEmbarazo,nroAtencion){
-        return this.http.get(`${this.base_url}/${this.bd}/obstetricia/consulta/listarDiagnostico/${nroHcl}/${nroEmbarazo}/${nroAtencion}`);
+        return this.http.get(`${this.base_url}/${this.bd}/obstetricia/consulta/listarDiagnostico/${nroHcl}/${nroEmbarazo}/${nroAtencion}`)
+        .toPromise()
+        .then(res => <any[]>res)
+        .then(data => { return data; });
     }
     listarInmunizacionesDeUnaConsulta(nroHcl,nroEmbarazo,nroAtencion){
-        return this.http.get(`${this.base_url}/${this.bd}/inmunizacion/${nroHcl}/${nroEmbarazo}/${nroAtencion}`);
+        return this.http.get(`${this.base_url}/${this.bd}/inmunizacion/${nroHcl}/${nroEmbarazo}/${nroAtencion}`)
+        .toPromise()
+        .then(res => <any[]>res)
+        .then(data => { return data; });
     }
 }

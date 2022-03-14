@@ -7,9 +7,9 @@
                     <div class="col-4">
                         <label>Nombre:</label>
                         <p-autoComplete [suggestions]="listaMedicamentos" (completeMethod)="filterMedicamento($event)" appendTo="body"
-                        field="nombre" [minLength]="1" class="areaText" class="inputfield p-fluid w-full"
+                        field="nombre" [minLength]="1" class="inputfield p-fluid w-full"
                         formControlName="nombre" (onSelect)="selectedOptionNameMedicamento($event)">
-                    </p-autoComplete>
+                        </p-autoComplete>
                     </div>
                     <div class="col-3">
                         <label>Nombre comercial:</label>
@@ -48,14 +48,14 @@
                 <div class="grid mt-2">
                     <label>Procedimiento: </label>
                     <p-dropdown [options]="listaDeCIESIS" formControlName="autocompleteSIS" appendTo="body"
-                        optionLabel="diagnostico" class="inputfield p-fluid w-full" placeholder="Seleccione"
+                        optionLabel="procedimiento" class="inputfield p-fluid w-full" placeholder="Seleccione"
                         (onChange)="selectedOptionNameCIE($event,0)"></p-dropdown>
                     <textarea [rows]="3" class="inputfield w-full mt-2" formControlName="diagnosticoSIS" pInputTextarea
                         disabled></textarea>
                 </div>
                 <div class="grid mt-2 ">
                     <label class="mr-2">CIE 10: </label>
-                    <p-dropdown [options]="listaDeCIESIS" formControlName="SISCIE" appendTo="body" optionLabel="cie10"
+                    <p-dropdown [options]="listaDeCIESIS" formControlName="SISCIE" appendTo="body" optionLabel="codigo"
                         class="inputfield p-fluid w-full" placeholder="Seleccione"
                         (onChange)="selectedOption($event,0)"></p-dropdown>
                 </div>

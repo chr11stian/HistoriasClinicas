@@ -5,6 +5,13 @@ export interface Laboratorio {
     examenesAuxiliares?: ExamenAuxiliar[],
     observaciones: string
 }
+export interface Laboratorio {
+    servicio: string,
+    nroCama: string,
+    dxPresuntivo: string,
+    examenAuxiliar?: ExamenAuxiliar,
+    observaciones: string
+}
 export interface ExamenAuxiliar {
     tipoLaboratorio: string,
     subTipo: string,
