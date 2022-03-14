@@ -35,8 +35,10 @@ import {TimelineModule} from "primeng/timeline";
 import { SuplementacionCredComponent } from './component/tratamiento-consulta/components/suplementacion-cred/suplementacion-cred.component';
 import { TratamientoCredComponent } from './component/tratamiento-consulta/components/tratamiento-cred/tratamiento-cred.component';
 import { SuplementoComponent } from './component/tratamiento-consulta/components/suplemento/suplemento.component';
+import { ModalReferenciaComponent } from './component/finalizar-consulta/modal-referencia/modal-referencia.component';
 @NgModule({
     declarations: [
+        ModalReferenciaComponent,
         DatosGeneralesConsultaComponent,
         MotivoConsultaComponent,
         DiagnosticoConsultaComponent,
