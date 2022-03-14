@@ -1,31 +1,46 @@
 <div class="grid">
     <div class="col-12">
-        <p-table [value]="resultadosTestEvaluaciones" styleClass="p-datatable-gridlines" responsiveLayout="scroll">
+        <p-table [value]="tablaResumenDx" styleClass="p-datatable-gridlines"  responsiveLayout="scroll">
             <ng-template pTemplate="caption">
                 <div class="flex justify-content-between">
                     <div class="table-header mt-2">
-                        RESUMEN DE RESULTADOS DE EVALUACIONES - TEST - TAMIZAJES
+                        RESUMEN DE RESULTADOS DE EVALUACIONES - TESTS - TAMIZAJES - INMUNIZACIONES - LABORATORIO
                     </div>
                 </div>
             </ng-template>
             <ng-template pTemplate="header">
                 <tr>
                     <th style="text-align: center" class="font-2">Nro</th>
-                    <th style="text-align: center" class="font-2">TITULO TEST O EVALUACION</th>
-                    <th style="text-align: center" class="font-2">DIAGNOSTICO</th>
-<!--                    <th style="text-align: center" class="font-2">ACCIÓN</th>-->
+                    <th style="text-align: center" class="font-2">NOMBRE</th>
+                    <th style="text-align: center" class="font-2">EVALUACION</th>
+                    <th style="text-align: center" class="font-2">RESULTADO</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-                <tr [ngClass]="{'rojofondo': rowData.resultado === 'POSITIVO' || rowData.resultado =='RETRASO' || rowData.resultado =='NINO CON ALIMENTACION COMPLEMENTARIA INADECUADA'}">
-                    <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                    <td style="text-align: center" [ngClass]="{'rojo': rowData.resultado === 'POSITIVO' || rowData.resultado =='RETRASO' || rowData.resultado =='NINO CON ALIMENTACION COMPLEMENTARIA INADECUADA'}">{{ rowData.evaluacion }}</td>
-                    <td style="text-align: center" [ngClass]="{'rojo': rowData.resultado === 'POSITIVO' || rowData.resultado =='RETRASO' || rowData.resultado =='NINO CON ALIMENTACION COMPLEMENTARIA INADECUADA'}">{{ rowData.resultado}}</td>
+
+            <ng-template pTemplate="body" let-listaResumen let-rowIndex="rowIndex" let-rowgroup="rowgroup" let-rowspan="rowspan">
+                <tr [ngClass]="{'fondoamarillo': listaResumen.nombre === 'INMUNIZACIONES','fondoverde':listaResumen.nombre === 'TAMIZAJES','fondoceleste':listaResumen.nombre === 'EVALUACIONES O TEST','fondogris':listaResumen.nombre === 'LABORATORIO'}">
+                    <td style="text-align: center" [ngClass]="{'rojo': listaResumen.resultado === 'POSITIVO' || listaResumen.resultado =='RETRASO' || listaResumen.resultado =='NINO CON ALIMENTACION COMPLEMENTARIA INADECUADA' || listaResumen.resultado =='Sobrepeso' }">
+                        {{rowIndex+1}}
+                    </td>
+                    <td style="text-align: center" [ngClass]="{'rojo': listaResumen.resultado === 'POSITIVO' || listaResumen.resultado =='RETRASO' || listaResumen.resultado =='NINO CON ALIMENTACION COMPLEMENTARIA INADECUADA' || listaResumen.resultado =='Sobrepeso' }">
+                        {{listaResumen.nombre}}
+                    </td>
+                    <td style="text-align: center" [ngClass]="{'rojo': listaResumen.resultado === 'POSITIVO' || listaResumen.resultado =='RETRASO' || listaResumen.resultado =='NINO CON ALIMENTACION COMPLEMENTARIA INADECUADA' || listaResumen.resultado =='Sobrepeso' }">
+                        {{listaResumen.evaluacion}}
+                    </td >
+                    <td style="text-align: center" [ngClass]="{'rojo': listaResumen.resultado === 'POSITIVO' || listaResumen.resultado =='RETRASO' || listaResumen.resultado =='NINO CON ALIMENTACION COMPLEMENTARIA INADECUADA' || listaResumen.resultado =='Sobrepeso' }">
+                        {{listaResumen.resultado}}
+                    </td>
+
                 </tr>
             </ng-template>
+
         </p-table>
+
+
     </div>
-    <div class="col-12 lg:col-6 md:col-6 col-fixed">
+
+    <div class="col-12 lg:col-12 md:col-12 col-fixed">
         <p-table [value]="diagnosticoNosologico" [rowHover]="true"
                  [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,15]"
                  [paginator]="true" currentPageReportTemplate="Mostrando {first} al {last} de {totalRecords} entradas"
@@ -64,7 +79,7 @@
             </ng-template>
         </p-table>
     </div>
-    <div class="col-12 lg:col-6 md:col-6 col-fixed">
+    <div class="col-12 lg:col-12 md:col-12 col-fixed">
         <p-table [value]="diagnosticoNosologico" [rowHover]="true"
                  [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,15]"
                  [paginator]="true" currentPageReportTemplate="Mostrando {first} al {last} de {totalRecords} entradas"
@@ -103,153 +118,7 @@
             </ng-template>
         </p-table>
     </div>
-    <div class="col-12 lg:col-12 md:col-12 col-fixed">
-        <p-table [value]="factoresCondicionales" [rowHover]="true"
-                 [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,15]"
-                 [paginator]="true" currentPageReportTemplate="Mostrando {first} al {last} de {totalRecords} entradas"
-                 [filterDelay]="0">
-            <ng-template pTemplate="caption">
-                <div class="flex justify-content-between">
-                    <div class="table-header mt-2">
-                        2. Factores condicionales de la salud, nutrición y desarrollo
-                    </div>
-                    <div>
-                        <button pButton pRipple label="Agregar" icon="pi pi-plus-circle" class="guardar mr-2"
-                                style="background-color: #0c3866" (click)="openFactor()"></button>
-                    </div>
-                </div>
-            </ng-template>
-            <ng-template pTemplate="header">
-                <tr>
-                    <th style="text-align: center" class="font-2">Nro</th>
-                    <th style="text-align: center" class="font-2">FACTORES</th>
-                    <th style="text-align: center" class="font-2">ACCIÓN</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-                <tr>
-                    <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                    <td style="text-align: center">{{ rowData }}</td>
-                    <td style="text-align: center">
-                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
-                                (click)="editarFactor(rowData,rowIndex)" pTooltip="Editar"></button>
-                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                                (click)="eliminarFactor(rowIndex)" pTooltip="Eliminar">
-                        </button>
 
-                    </td>
-                </tr>
-            </ng-template>
-        </p-table>
-    </div>
-
-
-    <div class="lg:col-6 md:col-6 col-fixed">
-        <form [formGroup]=formG>
-            <div class="card flex flex-row">
-                <div class="col-6 col-fixed">
-                    <p-card>
-                        <p-toolbar>
-                            <ng-template pTemplate="left">
-                                <div class="font-semibold"> 2. Condición de Crecimiento y Estado Nutricional</div>
-                            </ng-template>
-                        </p-toolbar>
-                        <br>
-                        <div class="field grid">
-                            <span class="col-fixed text-right mr-2" style="width:180px">Crecimiento adecuado:</span>
-                            <p-radioButton class="mr-2" name="crecimiento" value="val1"
-                                           formControlName="crecimiento"></p-radioButton>
-                        </div>
-                        <div class="field grid">
-                            <span class="col-fixed text-right mr-2" style="width:180px">Crecimiento inadecuado:</span>
-                            <p-radioButton class="mr-2" name="crecimiento" value="val2"
-                                           formControlName="crecimiento"></p-radioButton>
-                        </div>
-
-                        <div class="field grid">
-                            <span class="col-fixed ml-2 font-bold text-sm" style="width:167px">RIESGO NUTRICIONAL</span>
-                            <span class="col-fixed text-right font-bold text-sm">RESULTADO</span>
-                        </div>
-                        <div class="field grid">
-                        <span class="col-fixed text-right mr-2"
-                              style="width:180px">Ganancia inadecuada de peso y talla</span>
-                            <p-radioButton class="mr-2" name="ganancia" value="val3"
-                                           formControlName="ganancia"></p-radioButton>
-                        </div>
-
-                        <div class="field grid">
-                            <span class="col-fixed text-right mr-2" style="width:180px">Desnutrición</span>
-                            <p-radioButton class="mr-2" name="desnutricion" value="val1"
-                                           formControlName="ganancia"></p-radioButton>
-
-                        </div>
-                        <div class="field grid">
-                            <span class="col-fixed text-right mr-2" style="width:180px">Sobrepeso</span>
-                            <p-radioButton class="mr-2" name="sobrepeso" value="val1"
-                                           formControlName="ganancia"></p-radioButton>
-
-                        </div>
-                        <div class="field grid">
-                            <span class="col-fixed text-right mr-2" style="width:180px">Obesidad</span>
-                            <p-radioButton class="mr-2" name="Obesidad" value="val1"
-                                           formControlName="ganancia"></p-radioButton>
-
-                        </div>
-                    </p-card>
-
-                </div>
-                <div class="col-6 col-fixed">
-                    <p-card>
-                        <p-toolbar>
-                            <ng-template pTemplate="left">
-                                <div class="font-semibold"> 3. Condición de Desarrollo Psicomotor</div>
-                            </ng-template>
-                        </p-toolbar>
-                        <br>
-                        <div class="field grid">
-                            <span class="col-fixed text-right mr-2"
-                                  style="width:180px">Normal:</span>
-                            <p-checkbox class="mt-1" name="condicionNormal" value="val1"
-                                        formControlName="condicionNormal"></p-checkbox>
-                        </div>
-                        <div class="field grid">
-                            <span class="col-fixed text-right mr-2"
-                                  style="width:180px">Riesgo de desarrollo:</span>
-                            <p-checkbox class="mt-1" name="condicionRiesgo" value="val1"
-                                        formControlName="condicionRiesgo"></p-checkbox>
-                        </div>
-                        <div class="field grid">
-                            <span class="col-fixed text-right mr-2"
-                                  style="width:180px">Deficit del desarrollo según PB:</span>
-                            <p-checkbox class="mt-1" name="condicionDeficit" value="val1"
-                                        formControlName="condicionDeficit"></p-checkbox>
-                        </div>
-                        <div class="field grid">
-                            <span class="col-fixed text-right mr-2"
-                                  style="width:180px">Transtorno del desarrollo:</span>
-                            <p-checkbox class="mt-1" name="condicionTranstorno" value="val1"
-                                        formControlName="condicionTranstorno"></p-checkbox>
-                        </div>
-                    </p-card>
-                </div>
-            </div>
-            <div class="col-12 col-fixed">
-                <p-card>
-                    <p-toolbar>
-                        <ng-template pTemplate="left">
-                            <div class="font-semibold"> OBSERVACIONES</div>
-                        </ng-template>
-                    </p-toolbar>
-                    <div class="field col-12">
-                        <textarea formControlName="observacion" rows="4" pInputTextarea
-                                  style="width: inherit;"
-                                  placeholder="Ingrese sus observaciones..."></textarea>
-
-                    </div>
-                </p-card>
-            </div>
-        </form>
-    </div>
 
 </div>
 
@@ -327,28 +196,3 @@
 
     </ng-template>
 </p-dialog>
-<!--Fin de Diagnóstico-->
-
-
-<!-- Factor Dialog --->
-<p-dialog header="FACTORES" [(visible)]="factorDialog" [modal]="true" [style]="{width: '40%'}"
-          [draggable]="false" [resizable]="false">
-
-    <form [formGroup]='formFactor'>
-        <div class="grid">
-            <div class="col-12 justify-content-center">
-                <textarea style="border-radius: 10px" id="indAdicional" rows="5" cols="30" pInputTextarea
-                          formControlName="factorTexto"> </textarea>
-
-            </div>
-        </div>
-    </form>
-    <ng-template pTemplate="footer">
-        <button pButton type="button" label="Cancelar" class="button-cancelar"
-                icon="pi pi-times" (click)="cancelFactor()"></button>
-        <button class="button-agregar" icon="pi pi-save" pButton type="button"
-                label="Guardar" (click)="saveFactor()"></button>
-
-    </ng-template>
-</p-dialog>
-<!--Fin de Factor-->

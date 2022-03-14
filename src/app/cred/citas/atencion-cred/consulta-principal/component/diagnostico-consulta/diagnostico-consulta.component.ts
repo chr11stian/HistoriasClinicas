@@ -14,11 +14,7 @@ import {dato} from "../../../../models/data";
 })
 
 export class DiagnosticoConsultaComponent implements OnInit {
-    customers: string[] = [];
-    selectedValue: string;
-    val1: boolean = false;
-    tratamientosComunes: any[] = [];
-    ref: DynamicDialogRef;
+
 
     form: FormGroup
     diagnosticoDialog: boolean;
@@ -31,7 +27,9 @@ export class DiagnosticoConsultaComponent implements OnInit {
     isUpdate: boolean = false;
 
     resultadosTestEvaluaciones:Resumen[]=[];
-    tablaResumenDx:resumenDiagnosticosPrevios[]=[];
+    // tablaResumenDx:resumenDiagnosticosPrevios[]=[];
+
+    tablaResumenDx:resultados[]=[];
 
     attributeLocalS = 'documento'
     dataConsulta:dato;
@@ -40,27 +38,23 @@ export class DiagnosticoConsultaComponent implements OnInit {
     diagnostico: diagnosticoInterface
     formG: FormGroup;
 
-    factorDialog: boolean;
-    formFactor: FormGroup;
-    isUpdate2: boolean = false;
-    data2: any[] = [];
-    factoresCondicionales: any[] = [];
 
-    observacion: string = "";
-    bool: boolean = false;
-    index: number
-    condicionDesarrolloPsicomotor: condicionDesarrolloPsicomotorInterface[] = []
+
 
     constructor(private DiagnosticoService: DiagnosticoConsultaService,
                 private cieService: CieService,
                 private formBuilder: FormBuilder) {
         this.buildForm();
+        this.dataConsulta = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
+
     }
 
     ngOnInit(): void {
-        this.dataConsulta = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
-        this.recuperarDiagnostico();
-        this.recuperarResumenDxBD();
+        this.recuperarResumenDxBDLaboratorio();
+        this.recuperarResumenDxBDInmunizaciones();
+        this.recuperarResumenDxBDTamizajes();
+        this.recuperarResumenDxBDEvaluaciones();
+
     }
 
     buildForm() {
@@ -69,79 +63,210 @@ export class DiagnosticoConsultaComponent implements OnInit {
             diagnostico: ['', [Validators.required]],
         });
 
-        this.formG = this.formBuilder.group({
-            crecimiento: new FormControl(''),
-            observacion: new FormControl(''),
-            ganancia: new FormControl(''),
-            desnutricion: new FormControl(''),
-            sobrepeso: new FormControl(''),
-            Obesidad: new FormControl(''),
-            Otros: new FormControl(''),
-            condicionNormal: new FormControl(''),
-            condicionDeficit: new FormControl(''),
-            condicionTranstorno: new FormControl(''),
-            condicionRiesgo: new FormControl(''),
-        });
-
-        this.formFactor = this.formBuilder.group({
-            factorTexto: new FormControl("", []),
-        });
 
     }
 
     /* funciones de tabla resultados evaluaciones - test - tamizajes*/
-    recuperarResumenDxBD(){
-        this.DiagnosticoService.getResultadosResumen(this.dataConsulta.idConsulta).subscribe((r: any) => {
-            //-- recupera informacion de diagnostico
-           console.log(r.object);
-           console.log(r.object[0].tamizajes.resultadoAuditivo.valor);
-           console.log(r.object[0].tamizajes.resultadoVisual.valor);
-           console.log(r.object[0].tamizajes.resultadoVIF.valor);
-           this.tablaResumenDx = r.object;
-           let aux1 = {
-               evaluacion:'EVALUACION ALIMENTICIA',
-               resultado:this.tablaResumenDx[0].evaluacioAlimentacion,
-           }
-           this.resultadosTestEvaluaciones.push(aux1)
-           let aux2 = {
-               evaluacion:'TAMIZAJE AUDITIVO',
-               resultado:this.tablaResumenDx[0].tamizajes.resultadoAuditivo.valor,
-           }
-           this.resultadosTestEvaluaciones.push(aux2)
-           let aux3 = {
-               evaluacion:'TAMIZAJE VISUAL',
-               resultado:this.tablaResumenDx[0].tamizajes.resultadoVisual.valor,
-           }
-           this.resultadosTestEvaluaciones.push(aux3)
-           let aux4 = {
-               evaluacion:'TAMIZAJE VIF',
-               resultado:this.tablaResumenDx[0].tamizajes.resultadoVIF.valor,
-           }
-           this.resultadosTestEvaluaciones.push(aux4)
-           let aux5 = {
-                evaluacion:'TEST PERUANO',
-                resultado:this.tablaResumenDx[0].testPeruano,
-           }
-           this.resultadosTestEvaluaciones.push(aux5)
-           let aux6 = {
-               evaluacion:'TEST EEDP',
-               resultado:this.tablaResumenDx[0].testEEDP,
-           }
-           this.resultadosTestEvaluaciones.push(aux6)
-           let aux7 = {
-               evaluacion:'TEST PAUTA BREVE',
-               resultado:this.tablaResumenDx[0].testPautaBreve,
-           }
-           this.resultadosTestEvaluaciones.push(aux7)
-           let aux8 = {
-                evaluacion:'TEST TEPSI',
-                resultado:this.tablaResumenDx[0].testTepsi,
-           }
-           this.resultadosTestEvaluaciones.push(aux8)
-           console.log(this.resultadosTestEvaluaciones);
-        })
+    // recuperarResumenDxBD(){
+    //     this.DiagnosticoService.getResultadosResumen(this.dataConsulta.idConsulta).subscribe((r: any) => {
+    //         //-- recupera informacion de diagnostico
+    //        console.log(r.object);
+    //        console.log(r.object[0].tamizajes.resultadoAuditivo.valor);
+    //        console.log(r.object[0].tamizajes.resultadoVisual.valor);
+    //        console.log(r.object[0].tamizajes.resultadoVIF.valor);
+    //        this.tablaResumenDx = r.object;
+    //        let aux1 = {
+    //            evaluacion:'EVALUACION ALIMENTICIA',
+    //            resultado:this.tablaResumenDx[0].evaluacioAlimentacion,
+    //        }
+    //        this.resultadosTestEvaluaciones.push(aux1)
+    //        let aux2 = {
+    //            evaluacion:'TAMIZAJE AUDITIVO',
+    //            resultado:this.tablaResumenDx[0].tamizajes.resultadoAuditivo.valor,
+    //        }
+    //        this.resultadosTestEvaluaciones.push(aux2)
+    //        let aux3 = {
+    //            evaluacion:'TAMIZAJE VISUAL',
+    //            resultado:this.tablaResumenDx[0].tamizajes.resultadoVisual.valor,
+    //        }
+    //        this.resultadosTestEvaluaciones.push(aux3)
+    //        let aux4 = {
+    //            evaluacion:'TAMIZAJE VIF',
+    //            resultado:this.tablaResumenDx[0].tamizajes.resultadoVIF.valor,
+    //        }
+    //        this.resultadosTestEvaluaciones.push(aux4)
+    //        let aux5 = {
+    //             evaluacion:'TEST PERUANO',
+    //             resultado:this.tablaResumenDx[0].testPeruano,
+    //        }
+    //        this.resultadosTestEvaluaciones.push(aux5)
+    //        let aux6 = {
+    //            evaluacion:'TEST EEDP',
+    //            resultado:this.tablaResumenDx[0].testEEDP,
+    //        }
+    //        this.resultadosTestEvaluaciones.push(aux6)
+    //        let aux7 = {
+    //            evaluacion:'TEST PAUTA BREVE',
+    //            resultado:this.tablaResumenDx[0].testPautaBreve,
+    //        }
+    //        this.resultadosTestEvaluaciones.push(aux7)
+    //        let aux8 = {
+    //             evaluacion:'TEST TEPSI',
+    //             resultado:this.tablaResumenDx[0].testTepsi,
+    //        }
+    //        this.resultadosTestEvaluaciones.push(aux8)
+    //        console.log(this.resultadosTestEvaluaciones);
+    //     })
+    //
+    // }
 
+    recuperarResumenDxBDLaboratorio(){
+        this.DiagnosticoService.getLaboratorioResumen(this.dataConsulta.idConsulta).subscribe((r: any) => {
+            //-- recupera laboratorios resumen
+           if(r.object!=null || r.object!=[]){
+               for(let i =0 ;i<r.object.length;i++){
+                  if(r.object[i].hemoglobina) {
+                      let aux = {
+                          nombre:'LABORATORIO',
+                          evaluacion: 'HEMOGLOBINA',
+                          resultado:r.object[i].hemoglobina
+                      }
+                      this.tablaResumenDx.push(aux);
+                  }
+               }
+           }
+
+        })
     }
+
+    recuperarResumenDxBDInmunizaciones(){
+        this.DiagnosticoService.getInmunizacionesResumen(this.dataConsulta.idConsulta).subscribe((r: any) => {
+            //-- recupera laboratorios resumen
+            if(r.object!=null || r.object!=[]){
+                for(let i =0 ;i<r.object.length;i++){
+                    let aux = {
+                        nombre:'INMUNIZACIONES',
+                        evaluacion: r.object[i].nombre + "- Dosis:"+r.object[i].dosis + "- Tipo Dosis:"+ r.object[i].tipoDosis,
+                        resultado:" "
+                    }
+                    this.tablaResumenDx.push(aux);
+
+                }
+            }
+        })
+    }
+
+    recuperarResumenDxBDTamizajes(){
+        this.DiagnosticoService.getTamizajesResumen(this.dataConsulta.idConsulta).subscribe((r: any) => {
+            //-- recupera laboratorios resumen
+            if(r.object!=null || r.object!=[]){
+                for(let i =0 ;i<r.object.length;i++){
+                    let aux = {
+                        nombre:'TAMIZAJES',
+                        evaluacion:'TAMIZAJE AUDITIVO',
+                        resultado:  r.object[i].resultadoAuditivo.valor
+                    }
+                    this.tablaResumenDx.push(aux);
+                    let aux1 = {
+                        nombre:'TAMIZAJES',
+                        evaluacion:'TAMIZAJE VIF',
+                        resultado:  r.object[i].resultadoVIF.valor
+                    }
+                    this.tablaResumenDx.push(aux1);
+                    let aux2 = {
+                        nombre:'TAMIZAJES',
+                        evaluacion: 'TAMIZAJE VISUAL',
+                        resultado:  r.object[i].resultadoVisual.valor
+                    }
+                    this.tablaResumenDx.push(aux2);
+                }
+            }
+        })
+    }
+
+    recuperarResumenDxBDEvaluaciones(){
+        this.DiagnosticoService.getEvaluacionesResumen(this.dataConsulta.idConsulta).subscribe((r: any) => {
+            //-- recupera laboratorios resumen
+            if(r.object!=null || r.object!=[]){
+                for(let i =0 ;i<r.object.length;i++){
+                    if(r.object[i].evaluacioAlimentacion){
+                        let aux = {
+                            nombre:'EVALUACIONES O TEST',
+                            evaluacion: 'EVALUACION DE ALIMENTACION',
+                            resultado: r.object[i].evaluacioAlimentacion
+                        }
+                        this.tablaResumenDx.push(aux);
+                    }
+                    if(r.object[i].testPeruano){
+                        let aux = {
+                            nombre:'EVALUACIONES O TEST',
+                            evaluacion: 'TEST PERUANO',
+                            resultado: r.object[i].testPeruano
+                        }
+                        this.tablaResumenDx.push(aux);
+                    }
+                    if(r.object[i].testEEDP){
+                        let aux = {
+                            nombre:'EVALUACIONES O TEST',
+                            evaluacion: 'TEST EDDP',
+                            resultado: r.object[i].testEEDP
+                        }
+                        this.tablaResumenDx.push(aux);
+                    }
+                    if(r.object[i].testTepsi){
+                        let aux = {
+                            nombre:'EVALUACIONES O TEST',
+                            evaluacion: 'TEST TEPSI',
+                            resultado: r.object[i].testTepsi
+                        }
+                        this.tablaResumenDx.push(aux);
+                    }
+                    if(r.object[i].testPautaBreve){
+                        let aux = {
+                            nombre:'EVALUACIONES O TEST',
+                            evaluacion: 'TEST PAUTA BREVE',
+                            resultado: r.object[i].testPautaBreve
+                        }
+                        this.tablaResumenDx.push(aux);
+                    }
+                    if(r.object[i].resultadoControlPE){
+                        let aux = {
+                            nombre:'EVALUACIONES O TEST',
+                            evaluacion: 'CONTROL PESO - EDAD',
+                            resultado: r.object[i].resultadoControlPE
+                        }
+                        this.tablaResumenDx.push(aux);
+                    }
+                    if(r.object[i].resultadoControlTE){
+                        let aux = {
+                            nombre:'EVALUACIONES O TEST',
+                            evaluacion: 'CONTROL TALLA - EDAD',
+                            resultado: r.object[i].resultadoControlTE
+                        }
+                        this.tablaResumenDx.push(aux);
+                    }
+                    if(r.object[i].resultadoControlPT){
+                        let aux = {
+                            nombre:'EVALUACIONES O TEST',
+                            evaluacion: 'CONTROL PESO - TALLA',
+                            resultado: r.object[i].resultadoControlPT
+                        }
+                        this.tablaResumenDx.push(aux);
+                    }
+                    if(r.object[i].resultadoControlPC){
+                        let aux = {
+                            nombre:'EVALUACIONES O TEST',
+                            evaluacion: 'CONTROL PERIMETRO CEFÁLICO',
+                            resultado: r.object[i].resultadoControlPC
+                        }
+                        this.tablaResumenDx.push(aux);
+                    }
+
+                }
+            }
+        })
+    }
+
 
     /* funciones tabla diagnostico */
     openDiagnostico() {
@@ -198,152 +323,16 @@ export class DiagnosticoConsultaComponent implements OnInit {
 
     }
 
-    /* funciones tabla factor */
-    openFactor() {
-        this.isUpdate2 = false;
-        this.formFactor.reset();
-        this.formFactor.get('factorTexto').setValue("");
-        this.factorDialog = true;
-    }
-    cancelFactor(){
-        this.factorDialog = false;
+
+    save() {
         Swal.fire({
             icon: 'warning',
-            title: 'Cancelado...',
-            text: '',
+            title: 'DIAGNOSTICOS...',
+            text: 'GUARDADO',
             showConfirmButton: false,
             timer: 1000
         })
     }
-    saveFactor() {
-        let aux = true
-        if (this.bool === false) {
-            aux = false
-            this.isUpdate2 = false;
-            this.factoresCondicionales.push(this.formFactor.value.factorTexto);
-        } else {
-            this.factoresCondicionales[this.index] = this.formFactor.value.factorTexto
-            this.bool = false;
-        }
-
-        Swal.fire({
-            icon: 'success',
-            title: aux !== true ? 'Agregado correctamente' : 'Actualizado correctamente',
-            text: '',
-            showConfirmButton: false,
-            timer: 1500,
-        })
-        this.factorDialog = false;
-    }
-
-    eliminarFactor(index) {
-        this.factoresCondicionales.splice(index, 1)
-    }
-
-    editarFactor(row, index) {
-        this.isUpdate2 = false;
-        this.bool = true;
-        this.index = index
-        this.formFactor.reset();
-        this.formFactor.get('factorTexto').setValue(row);
-        this.factorDialog = true;
-    }
-
-    /*  objeto diagnostico */
-    recuperarDiagnostico() {
-        this.DiagnosticoService.getDiagnostico(this.dataConsulta.idConsulta).subscribe((r: any) => {
-            //-- recupera informacion de diagnostico
-            this.diagnostico = r.object;
-            console.log('diagnostico', this.diagnostico)
-            this.diagnosticoNosologico = this.diagnostico.diagnosticoNosologico
-            this.factoresCondicionales = this.diagnostico.factoresCondicionales
-            this.formG.get('observacion').setValue(this.diagnostico.observacion)
-            this.diagnostico.crecimientoestadoNutricional.condicionCrecimiento === true ? this.formG.get('crecimiento').setValue('val1') : this.formG.get('crecimiento').setValue('val2')
-            this.recuperarcondicionDesarrolloPsicomotor();
-        })
-    }
-
-    save() {
-        this.guardarcondicionDesarrolloPsicomotor()
-        let riesgoNutricional = {
-            p_e: this.formG.value.ganancia.value === 'val1' ? 'Ganancia' : 'Desnutricion',
-            t_e: this.formG.value.ganancia.value === 'val2' ? 'Ganancia' : 'Desnutricion',
-            p_t: this.formG.value.ganancia.value === 'val3' ? 'Ganancia' : 'Desnutricion',
-        }
-        let crecimientoestadoNutricional = {
-            condicionCrecimiento: this.formG.value.crecimiento === 'val1',
-            riesgoNutricional: riesgoNutricional
-        }
-        const req = {
-            diagnosticoNosologico: this.diagnosticoNosologico,
-            factoresCondicionales: this.factoresCondicionales,
-            observacion: this.formG.value.observacion,
-            crecimientoestadoNutricional: crecimientoestadoNutricional,
-            condicionDesarrolloPsicomotor: this.condicionDesarrolloPsicomotor
-        }
-        console.log('req', req)
-        if (this.diagnosticoNosologico) {
-            this.DiagnosticoService.updateDiagnostico(this.dataConsulta.idConsulta, req).subscribe(
-                (resp) => {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Actualizado correctamente',
-                        text: '',
-                        showConfirmButton: false,
-                        timer: 1500,
-                    })
-                }
-            )
-        }
-    }
-
-    recuperarcondicionDesarrolloPsicomotor() {
-        for (let i = 0; i < this.diagnostico.condicionDesarrolloPsicomotor.length; i++) {
-            if (this.diagnostico.condicionDesarrolloPsicomotor[i].descripcionCondicion === 'normal')
-                this.formG.get('condicionNormal').setValue(['val1'])
-            if (this.diagnostico.condicionDesarrolloPsicomotor[i].descripcionCondicion === 'riesgo')
-                this.formG.get('condicionRiesgo').setValue(['val1'])
-            if (this.diagnostico.condicionDesarrolloPsicomotor[i].descripcionCondicion === 'deficit')
-                this.formG.get('condicionDeficit').setValue(['val1'])
-            if (this.diagnostico.condicionDesarrolloPsicomotor[i].descripcionCondicion === 'transtorno')
-                this.formG.get('condicionTranstorno').setValue(['val1'])
-        }
-    }
-
-    guardarcondicionDesarrolloPsicomotor() {
-        this.condicionDesarrolloPsicomotor = []
-        console.log("con", this.formG.value.condicionNormal[0] !== '')
-        if (this.formG.value.condicionNormal[0] === 'val1') {
-            let aux = {
-                tipoCondicion: "1",
-                descripcionCondicion: "normal"
-            }
-            this.condicionDesarrolloPsicomotor.push(aux)
-        }
-        if (this.formG.value.condicionRiesgo[0] === 'val1') {
-            let aux = {
-                tipoCondicion: "1",
-                descripcionCondicion: "riesgo"
-            }
-            this.condicionDesarrolloPsicomotor.push(aux)
-        }
-        if (this.formG.value.condicionDeficit[0] === 'val1') {
-            let aux = {
-                tipoCondicion: "1",
-                descripcionCondicion: "deficit"
-            }
-            this.condicionDesarrolloPsicomotor.push(aux)
-        }
-        if (this.formG.value.condicionTranstorno[0] === 'val1') {
-            let aux = {
-                tipoCondicion: "1",
-                descripcionCondicion: "transtorno"
-            }
-            this.condicionDesarrolloPsicomotor.push(aux)
-        }
-    }
-
-
 }
 
 interface diagnosticoInterface {
@@ -381,6 +370,11 @@ interface resumenDiagnosticosPrevios {
     testPautaBreve?:string,
     testPeruano?:string,
     testTepsi?:string,
+}
+interface resultados{
+    nombre?:string,
+    evaluacion?:string,
+    resultado?:string
 }
 interface tamizajes {
     resultadoVIF?:resultado,
