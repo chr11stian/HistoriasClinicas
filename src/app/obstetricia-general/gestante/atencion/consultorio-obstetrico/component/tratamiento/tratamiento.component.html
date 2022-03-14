@@ -75,40 +75,31 @@
             <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
                 <tr>
                     <th style="text-align: center" class="font-2">Nro </th>
-                    <th style="text-align: center" class="font-1">CODIGO</th>
-                    <th style="text-align: center" class="font-2">DESCRIPCION</th>
-                    <th style="text-align: center" class="font-2">NUMERO</th>
+                    <th style="text-align: center" class="font-1">COD. PRESTACION</th>
+                    <th style="text-align: center" class="font-2">COD. PROCEDIMIENTO SIS</th>
+                    <th style="text-align: center" class="font-2">COD. PROCEDIMIENTO HIS</th>
+                    <th style="text-align: center" class="font-2">TIPO DOSIS</th>
                     <th style="text-align: center" class="font-2">DOSIS</th>
-                    <th style="text-align: center" class="font-2">VIA ADMIN.</th>
-                    <th style="text-align: center" class="font-2">LOTE</th>
-                    <th style="text-align: center" class="font-2">FECHA VENCIMIENTO</th>
+                    <th style="text-align: center" class="font-2">ESTADO</th>
                     <th style="text-align: center" class="font-2">Acciones</th>
-
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                 <tr>
                     <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                    <td style="text-align: center">{{ rowData.codigo }}</td>
-                    <td style="text-align: center">{{ rowData.descripcion }}</td>
-                    <td style="text-align: center">{{ rowData.numero }}</td>
+                    <td style="text-align: center">{{ rowData.codPrestacion }}</td>
+                    <td style="text-align: center">{{ rowData.codProcedimientoSIS }}</td>
+                    <td style="text-align: center">{{ rowData.codProcedimientoHIS }}</td>
+                    <td style="text-align: center">{{ rowData.tipoDosis }}</td>
                     <td style="text-align: center">{{ rowData.dosis }}</td>
-                    <td style="text-align: center">{{ rowData.viaAdministracion }}</td>
-                    <td style="text-align: center">{{ rowData.lote }}</td>
-                    <td style="text-align: center">{{ rowData.fechaVenc }}</td>
-
+                    <td style="text-align: center">{{ rowData.estado }}</td>
                     <td style="text-align: center">
                         <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
-                            (click)="openDialogEditarTratamientoInmunizaciones(rowData,rowIndex)" pTooltip="Editar">
+                            (click)="openDialogEditarTratamientoInmunizaciones(rowData)" pTooltip="Editar">
                         </button>
                         <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
                             (click)="eliminarInmunizaciones(rowIndex)" pTooltip="Eliminar">
                         </button>
-                        <button pButton (click)="openDialogEditarTratamientoInmunizaciones(rowData,rowIndex)"
-                            pTooltip="Visualizar" pRipple type="button" icon="pi pi-eye"
-                            class="p-button-rounded p-button-help m-1">
-                        </button>
-
                     </td>
                 </tr>
             </ng-template>
@@ -124,7 +115,125 @@
     </div>
     <br>
     <form [formGroup]='formRIEP'>
-        <p-fieldset legend="ACIDO FOLICO">
+        <div class="grid">
+            <div class="col-6">
+                <p-fieldset legend="ÁCIDO FOLICO">
+                    <div class="grid">
+                        <div class="col-4">
+                            <label>Suplemento:</label>
+                            <p-dropdown [options]="listaSuplementoAcido"
+                                placeholder="Suplemento" formControlName="acidoFolicoSuplemento"
+                                optionLabel="name" optionValue="name"
+                                class="inputfield p-fluid w-full">
+                            </p-dropdown>
+                        </div>
+                        <div class="col-6">
+                            <label>Descripcion:</label>
+                            <input type="text" pInputText
+                                formControlName='acidoFolicoDescripcion'
+                                placeholder="Descripcion"
+                                class="p-inputtext-sm inputfield w-full">
+                        </div>
+                        <div class="col-2">
+                            <label>Numero:</label>
+                            <input type="number" pInputText formControlName='acidoFolicoNumero'
+                                placeholder="Numero" class="p-inputtext-sm inputfield w-full">
+                        </div>
+                        <div class="col-3">
+                            <label>Dosis:</label>
+                            <input type="text" pInputText formControlName='acidoFolicoDosis'
+                                placeholder="Dosis" class="p-inputtext-sm inputfield w-full">
+                        </div>
+                        <div class="col-3">
+                            <label>Via de Admin:</label>
+                            <p-dropdown [options]="listaViaAdministracion"
+                                placeholder="Via de adminis."
+                                formControlName="acidoFolicoViaAdministracion"
+                                optionLabel="name" optionValue="name"
+                                class="inputfield p-fluid w-full">
+                            </p-dropdown>
+                        </div>
+                        <div class="col-3">
+                            <label>Intervalo:</label>
+                            <p-dropdown [options]="listaIntervalos" placeholder="Intervalo"
+                                formControlName="acidoFolicoIntervalo" optionLabel="name"
+                                optionValue="name" class="inputfield p-fluid w-full">
+                            </p-dropdown>
+                        </div>
+                        <div class="col-3">
+                            <label>Duracion:</label>
+                            <input type="text" pInputText formControlName='acidoFolicoDuracion'
+                                placeholder="Duracion" class="p-inputtext-sm inputfield w-full">
+                        </div>
+                        <div class="col-12">
+                            <label>Observaciones:</label>
+                            <input type="text" pInputText
+                                formControlName='acidoFolicoObservaciones'
+                                placeholder="Observaciones"
+                                class="p-inputtext-sm inputfield w-full">
+                        </div>
+                    </div>
+                </p-fieldset>
+            </div>
+            <div class="col-6">
+                <p-fieldset legend="CALCIO">
+                    <div class="grid">
+                        <div class="col-4">
+                            <label>Suplemento:</label>
+                            <p-dropdown [options]="listaSuplementoCalcio"
+                                placeholder="Suplemento" formControlName="calcioSuplemento"
+                                optionLabel="name" optionValue="name"
+                                class="inputfield p-fluid w-full">
+                            </p-dropdown>
+                        </div>
+                        <div class="col-6">
+                            <label>Descripcion:</label>
+                            <input type="text" pInputText formControlName='calcioDescripcion'
+                                placeholder="Descripcion"
+                                class="p-inputtext-sm inputfield w-full">
+                        </div>
+                        <div class="col-2">
+                            <label>Numero:</label>
+                            <input type="number" pInputText formControlName='calcioNumero'
+                                placeholder="Numero" class="p-inputtext-sm inputfield w-full">
+                        </div>
+                        <div class="col-3">
+                            <label>Dosis:</label>
+                            <input type="text" pInputText formControlName='calcioDosis'
+                                placeholder="Dosis" class="p-inputtext-sm inputfield w-full">
+                        </div>
+                        <div class="col-3">
+                            <label>Via de Admin:</label>
+                            <p-dropdown [options]="listaViaAdministracion"
+                                placeholder="Via de admin."
+                                formControlName="calcioViaAdministracion" optionLabel="name"
+                                optionValue="name" class="inputfield p-fluid w-full">
+                            </p-dropdown>
+                        </div>
+                        <div class="col-3">
+                            <label>Intervalo:</label>
+                            <p-dropdown [options]="listaIntervalos" placeholder="Intervalo"
+                                formControlName="calcioIntervalo" optionLabel="name"
+                                optionValue="name" class="inputfield p-fluid w-full">
+                            </p-dropdown>
+                        </div>
+                        <div class="col-3">
+                            <label>Duracion:</label>
+                            <input type="text" pInputText formControlName='calcioDuracion'
+                                placeholder="Duracion" class="p-inputtext-sm inputfield w-full">
+                        </div>
+                        <div class="col-12">
+                            <label>Observaciones:</label>
+                            <input type="text" pInputText formControlName='calcioObservaciones'
+                                placeholder="Observaciones"
+                                class="p-inputtext-sm inputfield w-full">
+                        </div>
+                    </div>
+                </p-fieldset>
+            </div>
+        </div>
+
+        <!-- <p-fieldset legend="ACIDO FOLICO">
             <div class="grid p-fluid">
                 <div class="lg:col-2 md:col:4 col-12 p-field">
                     <label>Medicamentos:</label>
@@ -251,7 +360,7 @@
                     <input type="text" pInputText formControlName='observacionesc' placeholder="Ind. Adicional" />
                 </div>
             </div>
-        </p-fieldset>
+        </p-fieldset> -->
         <br>
         <div class="grid">
             <div class="col-6 p-fluid">
@@ -259,9 +368,6 @@
                     <div class=" grid p-fluid">
                         <div class="lg:col-6 md:col:6 col-12 p-field">
                             <label>Valor:</label>
-                            <!--                            <p-inputNumber [(ngModel)]="valor" inputId="kg"&ndash;&gt;-->
-                            <!--                                           suffix=" kg" mode="decimal" [minFractionDigits]="2">-->
-                            <!--                            </p-inputNumber>-->
                             <p-inputNumber formControlName="valor" inputId="kg" suffix=" kg" mode="decimal"
                                 [minFractionDigits]="2">
                             </p-inputNumber>
