@@ -42,7 +42,7 @@ export class PautaBreveComponent implements OnInit {
     this.dataConsulta = JSON.parse(localStorage.getItem('documento'));
     this.dataExaminador = JSON.parse(localStorage.getItem('usuario'));
     this.idConsulta = JSON.parse(localStorage.getItem('documento')).idConsulta;
-    this.mesesTotal = this.dataConsulta.anio*12 + this.dataConsulta.mes
+    this.mesesTotal = this.dataConsulta.anio * 12 + this.dataConsulta.mes
     this.fechaEvaluacion = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
     this.examinador = this.dataExaminador.apellidos + ', ' + this.dataExaminador.nombres;
     console.log('data de la consulta desde pauta breve ', this.dataConsulta);
@@ -83,6 +83,7 @@ export class PautaBreveComponent implements OnInit {
   }
 
   saveTest() {
+    let rpta: string = 'DEFICIT';
     let ansMonth = this.arrayEdadPautaBreveSelected.map(item => {
       let auxAns = {
         pregunta: item.pregunta,
@@ -90,9 +91,13 @@ export class PautaBreveComponent implements OnInit {
         estadoN: item.estadoN,
         estadoD: item.estadoD
       }
+      if (item.estadoD) {
+        rpta += ' Nro pregunta:' + item.pregunta + '- Area: ' + item.areaEvaluacion + ',';
+      }
+
       return auxAns;
     });
-
+    // console.log('deficit ', rpta);
     this.dataPB = {
       codigoCIE10: '',
       codigoHIS: '',
@@ -100,19 +105,20 @@ export class PautaBreveComponent implements OnInit {
       evaluacionPautaBreveMes: {
         fechaAtencion: this.datePipe.transform(this.fechaEvaluacion, 'yyyy-MM-dd HH:mm:ss'),
         mesEdad: this.edadNroSelected,
-        diagnostico: '',
+        diagnostico: rpta == 'DEFICIT' ? 'NORMAL' : rpta,
         docExaminador: "89685545",
         listaItemPB: ansMonth
       }
     }
-    this.pautaBreveService.postAgregarPB(this.idConsulta, this.dataPB).subscribe((res: any) => {
-      Swal.fire({
-        icon: 'success',
-        title: 'Se Guardo la Pauta Breve Correctamente',
-        showConfirmButton: false,
-        timer: 1500
-      })
-    });
+    console.log('data to save ', this.dataPB);
+    // this.pautaBreveService.postAgregarPB(this.idConsulta, this.dataPB).subscribe((res: any) => {
+    //   Swal.fire({
+    //     icon: 'success',
+    //     title: 'Se Guardo la Pauta Breve Correctamente',
+    //     showConfirmButton: false,
+    //     timer: 1500
+    //   })
+    // });
   }
 
   confirmSaveTest() {
