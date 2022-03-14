@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import Swal from 'sweetalert2';
-import { ExamenAuxiliar, Hematologia, Laboratorio, Parasitologia, ResultadoLaboratorio } from '../../models/examenesAuxiliares';
+import { AddLaboratorio, ExamenAuxiliar, Hematologia, Laboratorio, Parasitologia, ResultadoLaboratorio } from '../../models/examenesAuxiliares';
 import { ExamenesAuxiliaresService } from '../../services/examenes-auxiliares.service';
 
 @Component({
@@ -40,7 +40,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   ref: DynamicDialogRef;
   toShow: boolean = false;
   indexEdit: number;
-  toEdit:boolean = false;
+  toEdit: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -141,8 +141,8 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   }
 
   agreeAddExamDialog() {
-    let auxDataExam: any;
-    if (this.formHematologia.valid) {
+    let auxDataExam: ExamenAuxiliar;
+    if (this.examLab.tipoExam == 2) {
       this.recoverDataHematologia();
       auxDataExam = {
         tipoLaboratorio: 'EXAMEN_LABORATORIO',
@@ -152,13 +152,14 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
         codPrestacion: '',
         cie10: '',
         codigoHIS: '',
+        lugarExamen: this.lugarLab.lugarLab,
         resultado: {
           hematologia: this.dataHematologia
         },
         labExterno: 'false'
       }
     }
-    if (this.formParasitario.valid) {
+    if (this.examLab.tipoExam == 1) {
       this.recoverDataParasitologia();
       auxDataExam = {
         tipoLaboratorio: 'EXAMEN_LABORATORIO',
@@ -168,6 +169,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
         codPrestacion: '',
         cie10: '',
         codigoHIS: '',
+        lugarExamen: this.lugarLab.lugarLab,
         resultado: {
           parasitologia: this.dataParasitologia
         },
@@ -259,10 +261,27 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   }
   saveAuxiliarsExams() {
     if (this.listaExamenesAux.length == 0) {
-      // console.log('no hay datos para guardar');
       return
     }
-    if (!this.toShow) {
+    if (this.toEdit) {
+      for (let i = 0; i < this.listaExamenesAux.length; i++) {
+        let dataAddExamenesAuxiliares: AddLaboratorio = {
+          servicio: 'SERVICIO',
+          nroCama: '',
+          dxPresuntivo: '',
+          examenAuxiliar: this.listaExamenesAux[i],
+          observaciones: ''
+        }
+        this.auxExamService.putAddExamenesAuxiliares(this.idConsulta, dataAddExamenesAuxiliares).subscribe((res: any) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Se añadio correctamente el examen',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        })
+      }
+    } else {
       this.dataExamenesAuxiliares = {
         servicio: 'SERVICIO',
         nroCama: '',
@@ -270,7 +289,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
         examenesAuxiliares: this.listaExamenesAux,
         observaciones: ''
       }
-      // console.log('data to send ', this.dataExamenesAuxiliares);
+      console.log('data to dave de verdad ', this.dataExamenesAuxiliares)
       this.auxExamService.postExamenesAuxiliares(this.idConsulta, this.dataExamenesAuxiliares).subscribe((res: any) => {
         Swal.fire({
           icon: 'success',
@@ -280,6 +299,8 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
         });
       });
     }
+
+
   }
   showDataAuxiliarsExams(data, index) {
     console.log('data del ver ', data);
