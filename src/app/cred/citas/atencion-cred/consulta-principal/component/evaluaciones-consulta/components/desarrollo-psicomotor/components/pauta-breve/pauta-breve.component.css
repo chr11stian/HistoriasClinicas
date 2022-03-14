@@ -137,3 +137,8 @@ input[type="number"] {
   /* margin-top: 0.25rem; */
   margin-bottom: 1.5rem;
 }
+.container_steps .ng-star-inserted,
+.div-titulo-nro .steps-titulo-edadNro,
+.div-titulo-mes .steps-titulo-edadMes {
+  cursor: pointer;
+}
