@@ -86,10 +86,10 @@ export interface ExamenMicroscopico {
     bacterias?: string,
     cocosBacilos?: string,
     formasParasitarias?: string,
-    huevosDe?: ValueLab,
-    quistesDe?: ValueLab,
-    trofozoitosDe?: ValueLab,
-    larvasDe?: ValueLab
+    huevosDe?: ValueLab[],
+    quistesDe?: ValueLab[],
+    trofozoitosDe?: ValueLab[],
+    larvasDe?: ValueLab[]
 }
 export interface ValueLab {
     valor1?: string,

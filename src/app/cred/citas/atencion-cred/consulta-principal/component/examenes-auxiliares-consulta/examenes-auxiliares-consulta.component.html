@@ -42,7 +42,7 @@
         <p-table #dt [value]="listaDataLaboRes" [rows]="3" [paginator]="true" [rowHover]="true"
             styleClass="p-datatable-gridlines" dataKey="id"
             currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} Entradas"
-            [showCurrentPageReport]="true">
+            [showCurrentPageReport]="true" *ngIf="toEdit">
             <ng-template pTemplate="caption">
                 <div class="grid">
                     <div class="col-8">
@@ -71,7 +71,7 @@
                     <td style="text-align: center; padding: 0.7rem;">{{ rowData.datosLaboratorio.subTipo }}</td>
                     <td style="text-align: center; padding: 0.7rem;">
                         <button pButton pRipple type="button" icon="pi pi-eye"
-                            (click)="showDataAuxiliarsExams(rowData, i)"
+                            (click)="openShowDataAuxiliarsExams(rowData, i)"
                             class="p-button-rounded p-button-text"></button>
                         <!-- <button pButton pRipple type="button" icon="pi pi-pencil"
                             (click)="openDialogEditarMedicacionFrecuente(rowData, i)"
@@ -88,7 +88,7 @@
     </div>
 </div>
 
-<p-dialog class="dialogo m-4" [(visible)]="addExamDialog" [style]="{width: '70%'}" [modal]="true" styleClass="p-fluid">
+<p-dialog class="dialogo m-4" [(visible)]="addExamDialog" [style]="{width: '70%'}" [modal]="true" styleClass="p-fluid" (onHide)="closeExamDialog()">
     <ng-template pTemplate="header">
         <h3>NUEVO EXAMEN AUXILIAR</h3>
     </ng-template>
@@ -487,7 +487,7 @@
                 </div>
                 <div class="grid">
                     <div class="p-fluid col-2">
-                        <label>Reaccón Inflamatorio:</label>
+                        <label>Reacción Inflamatorio:</label>
                         <div class="col-11 p-0">
                             <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
                                 class="inputfield w-full" formControlName="reaccionInflamatorio">

@@ -12,7 +12,7 @@ import { ExamenesAuxiliaresService } from '../../services/examenes-auxiliares.se
   providers: [DialogService],
 })
 export class ExamenesAuxiliaresConsultaComponent implements OnInit {
-  listaExamenesAux: any[] = [];
+  listaExamenesAux: ExamenAuxiliar[] = [];
   addExamDialog: boolean = false;
   formHematologia: FormGroup;
   formParasitario: FormGroup;
@@ -28,8 +28,8 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   ]
   dataExamenesAuxiliares: Laboratorio;
   isLabo: boolean = false;
-  dataHematologia: any;
-  dataParasitologia: any;
+  dataHematologia: Hematologia;
+  dataParasitologia: Parasitologia;
   examFFF: string;
   /**ngModels */
   resultado: string;
@@ -190,6 +190,8 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   }
 
   closeExamDialog() {
+    console.log('data only to show');
+    this.toShow = false;
     this.addExamDialog = false;
   }
 
@@ -302,8 +304,9 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
 
 
   }
-  showDataAuxiliarsExams(data, index) {
-    console.log('data del ver ', data);
+  openShowDataAuxiliarsExams(data, index) {
+    this.toShow = true;
+    this.inicializarForm();
     this.addExamDialog = true;
     if (data.datosLaboratorio.subTipo == 'HEMATOLOGIA') {
       this.examLab.tipoExam = 2;
