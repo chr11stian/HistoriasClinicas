@@ -137,7 +137,7 @@ input[type="number"] {
 ::ng-deep .table-desarrollo .p-datatable .p-datatable-tbody > tr > td {
   padding: 2px;
 }
-::ng-deep .p-fieldset{
+::ng-deep .p-fieldset {
   padding-top: 0px;
 }
 .cell_container {
@@ -175,4 +175,9 @@ input[type="number"] {
   padding: 1rem;
   /* margin-top: 0.25rem; */
   margin-bottom: 1.5rem;
+}
+.container_steps .ng-star-inserted,
+.div-titulo-nro .steps-titulo-edadNro,
+.div-titulo-mes .steps-titulo-edadMes {
+  cursor: pointer;
 }

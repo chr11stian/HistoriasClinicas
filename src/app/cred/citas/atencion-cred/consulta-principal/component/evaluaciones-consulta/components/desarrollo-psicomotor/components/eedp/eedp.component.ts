@@ -61,7 +61,7 @@ export class EedpComponent implements OnInit {
     this.idConsulta = this.dataConsulta.idConsulta;
     this.fechaEvaluacion = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
     this.dataTableEEDP();
-    this.examinador = this.dataExaminador.apellidos + this.dataExaminador.nombres;
+    this.examinador = this.dataExaminador.apellidos + ', ' + this.dataExaminador.nombres;
     this.chronologicalAge = this.dataConsulta.anio * 360 + this.dataConsulta.mes * 30 + this.dataConsulta.dia;
     this.mesesTotal = this.dataConsulta.anio * 12 + this.dataConsulta.mes;
     this.arrayRptas = [
@@ -160,12 +160,14 @@ export class EedpComponent implements OnInit {
         }
       })
     });
+    /**CALCULAR RESULTADO */
     if (this.coeficienteDesarrollo >= 0.85)
       this.diagnostico = 'NORMAL'
     if (this.coeficienteDesarrollo <= 0.84 && this.coeficienteDesarrollo >= 0.70)
       this.diagnostico = 'RIESGO'
     if (this.coeficienteDesarrollo <= 0.69)
       this.diagnostico = 'RETRASO'
+      /**ARMANDO OBJETO PARA ENVIAR */
     this.dataTestEEDP = {
       codigoCIE10: "",
       codigoHIS: "",
@@ -300,5 +302,8 @@ export class EedpComponent implements OnInit {
       this.dataTabla = res;
       console.log('data de tabla res eedp ', this.dataTabla);
     });
+  }
+  dataConsoleToPerderTiempo(){
+    this.mesesTotal.toFixed(2)
   }
 }
