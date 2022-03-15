@@ -88,19 +88,19 @@
     </div>
 </div>
 
-<p-dialog class="dialogo m-4" [(visible)]="addExamDialog" [style]="{width: '70%'}" [modal]="true" styleClass="p-fluid" (onHide)="closeExamDialog()">
+<p-dialog class="dialogo m-4" [(visible)]="addExamDialog" [style]="{width: '60%'}" [modal]="true" styleClass="p-fluid" (onHide)="closeExamDialog()">
     <ng-template pTemplate="header">
         <h3>NUEVO EXAMEN AUXILIAR</h3>
     </ng-template>
     <ng-template pTemplate="body">
-        <div class="grid">
-            <div class="p-fluid col-5">
+        <div class="grid mt-2">
+            <div class="p-fluid col-4">
                 <label>Nombre Examen:</label>
                 <p-dropdown [options]="listaExamenes" [(ngModel)]="examLab" placeholder="SELECCIONA UN EXAMEN"
                     [showClear]="false" appendTo="body" optionLabel="nombreExam">
                 </p-dropdown>
             </div>
-            <div class="p-fluid col-5">
+            <div class="p-fluid col-3">
                 <label>Lugar:</label>
                 <p-dropdown [options]="listaLugares" [(ngModel)]="lugarLab" placeholder="SELECCIONA UN LUGAR"
                     [showClear]="false" appendTo="body" optionLabel="lugarLab">
@@ -187,19 +187,19 @@
                                 class="inputfield w-full" formControlName="tiempoCoagulacion">
                         </div>
                     </div>
-                    <div class="p-fluid col-2 mt-3">
+                    <div class="p-fluid col-2">
                         <label>Tiempo Protrombina:</label>
                         <div class="col-11 p-0">
                             <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
                                 class="inputfield w-full" formControlName="tiempoProtrombina">
                         </div>
                     </div>
-                    <div class="p-fluid col-2 p-1">
+                    <div class="p-fluid col-2">
                         <label>Tiempo Tromboplastina:</label>
                         <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
                             class="inputfield w-full" formControlName="tiempoTromboplastina">
                     </div>
-                    <div class="p-fluid col-2 mt-3">
+                    <div class="p-fluid col-2 mt-3 pt-3">
                         <label>Reticulocitos:</label>
                         <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
                             class="inputfield w-full" formControlName="reticulocitos">
@@ -209,7 +209,7 @@
                         <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
                             class="inputfield w-full" formControlName="compatibilidadSanguinea">
                     </div>
-                    <div class="p-fluid col-2 mt-3">
+                    <div class="p-fluid col-2">
                         <label>Rcto. Globulos Rojos:</label>
                         <div class="flex flex-row">
                             <div class="col-9 p-0">
@@ -424,14 +424,13 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </form>
         <!-- FORM PARACITARIO -->
         <form [formGroup]="formParasitario">
             <div class="grid" *ngIf="examLab.tipoExam == 1 && lugarLab.index == 2">
                 <div class="p-fluid col-12">
-                    <h3>RESULTADOS:</h3>
+                    <h2>RESULTADOS PARASITOLOGÍA:</h2>
                     <p-divider></p-divider>
                 </div>
                 <div class="grid">

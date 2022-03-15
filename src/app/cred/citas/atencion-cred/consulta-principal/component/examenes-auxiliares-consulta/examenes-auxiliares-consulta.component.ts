@@ -213,8 +213,8 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
       blastos: this.formHematologia.value.blastos,
       juveniles: this.formHematologia.value.juveniles,
       neutrofilos: this.formHematologia.value.neutrofilos,
-      nAbastonados: this.formHematologia.value.nAbastonados,
-      nSegmentados: this.formHematologia.value.nSegmentados,
+      nabastonados: this.formHematologia.value.nAbastonados,
+      nsegmentados: this.formHematologia.value.nSegmentados,
       linfocitos: this.formHematologia.value.linfocitos,
       monocitos: this.formHematologia.value.monocitos,
       eosinofilos: this.formHematologia.value.eosinofilos,
@@ -262,6 +262,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
 
   }
   saveAuxiliarsExams() {
+    console.log('save data de examenes auxiliares ');
     if (this.listaExamenesAux.length == 0) {
       return
     }
@@ -275,6 +276,15 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
           observaciones: ''
         }
         this.auxExamService.putAddExamenesAuxiliares(this.idConsulta, dataAddExamenesAuxiliares).subscribe((res: any) => {
+          if (res.cod == "5122") {
+            Swal.fire({
+              icon: 'warning',
+              title: 'No se añadio el Examen ya que fue agregado previamente',
+              showConfirmButton: false,
+              timer: 2000
+            });
+            return
+          }
           Swal.fire({
             icon: 'success',
             title: 'Se añadio correctamente el examen',
@@ -301,10 +311,9 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
         });
       });
     }
-
-
   }
   openShowDataAuxiliarsExams(data, index) {
+    console.log('data to show ', data);
     this.toShow = true;
     this.inicializarForm();
     this.addExamDialog = true;
@@ -363,8 +372,8 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
     this.formHematologia.patchValue({ blastos: data.blastos });
     this.formHematologia.patchValue({ juveniles: data.juveniles });
     this.formHematologia.patchValue({ neutrofilos: data.neutrofilos });
-    this.formHematologia.patchValue({ nAbastonados: data.nAbastonados });
-    this.formHematologia.patchValue({ nSegmentados: data.nSegmentados });
+    this.formHematologia.patchValue({ nAbastonados: data.nabastonados });
+    this.formHematologia.patchValue({ nSegmentados: data.nsegmentados });
     this.formHematologia.patchValue({ linfocitos: data.linfocitos });
     this.formHematologia.patchValue({ monocitos: data.monocitos });
     this.formHematologia.patchValue({ eosinofilos: data.eosinofilos });
@@ -386,6 +395,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
     this.formParasitario.patchValue({ mucus: data.examenMacroscopico.mucus });
     this.formParasitario.patchValue({ sangre: data.examenMacroscopico.sangre });
     this.formParasitario.patchValue({ restosAlimenticios: data.examenMacroscopico.restosAlimenticios });
+    this.formParasitario.patchValue({ reaccionInflamatorio: data.examenMicroscopico.reaccionInflamatorio });
     this.formParasitario.patchValue({ filamentosMucoides: data.examenMicroscopico.filamentosMucoides });
     this.formParasitario.patchValue({ leucocitos: data.examenMicroscopico.leucocitos });
     this.formParasitario.patchValue({ hematies: data.examenMicroscopico.hematies });
