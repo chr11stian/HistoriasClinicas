@@ -88,7 +88,8 @@
     </div>
 </div>
 
-<p-dialog class="dialogo m-4" [(visible)]="addExamDialog" [style]="{width: '60%'}" [modal]="true" styleClass="p-fluid" (onHide)="closeExamDialog()">
+<p-dialog class="dialogo m-4" [(visible)]="addExamDialog" [style]="{width: '60%'}" [modal]="true" styleClass="p-fluid"
+    (onHide)="closeExamDialog()">
     <ng-template pTemplate="header">
         <h3>NUEVO EXAMEN AUXILIAR</h3>
     </ng-template>
@@ -106,26 +107,85 @@
                     [showClear]="false" appendTo="body" optionLabel="lugarLab">
                 </p-dropdown>
             </div>
+            <!-- CAMPOS DE HEMOGLOBINA EN CONSULTORIO -->
+            <div class="p-fluid" *ngIf="lugarLab.index == 1 && examLab.tipoExam == 2">
+                <form [formGroup]="formHematologia">
+                    <div class="grid">
+                        <div class="col-3 mt-3">
+                            <label>Hemoglobina:</label>
+                            <div class="flex flex-row">
+                                <div class="col-9 p-0">
+                                    <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                        placeholder="" class="inputfield w-full" formControlName="hemoglobina">
+                                </div>
+                                <div class="infoInput">
+                                    g/dl
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <label>Hemoglobina con factor de correción:</label>
+                            <div class="flex flex-row">
+                                <div class="col-9 p-0">
+                                    <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                        placeholder="" class="inputfield w-full"
+                                        formControlName="hemoglobinaFactorCorrec">
+                                </div>
+                                <div class="infoInput">
+                                    g/dl
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3 mt-3">
+                            <label>Hematocritos:</label>
+                            <div class="flex flex-row">
+                                <div class="col-9 p-0">
+                                    <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                        placeholder="" class="inputfield w-full" formControlName="hematocritos">
+                                </div>
+                                <div class="infoInput">
+                                    g/dl
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="p-fluid" *ngIf="lugarLab.index == 2 && examLab.tipoExam == 2"></div>
+            <form [formGroup]="formHematologia">
+                <div class="grid">
+                    <div class="p-fluid col-3 campo">
+                        <div class="tittle1 mt-5 mr-2">
+                            <label>Huevos De:</label>
+                        </div>
+                        <div class="col-11 p-0 value">
+                            <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                                class="inputfield w-full" formControlName="huevosDeValor1">
+                            <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                                class="inputfield w-full" formControlName="huevosDeValor2">
+                        </div>
+                    </div>
+                    <div class="p-fluid col-3 campo">
+                        <div class="tittle1 mt-5 mr-1">
+                            <label>Quistes De:</label>
+                        </div>
+                        <div class="col-11 p-0 value">
+                            <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                                class="inputfield w-full" formControlName="quistesDeValor1">
+                            <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                                class="inputfield w-full" formControlName="quistesDeValor2">
+                        </div>
+                    </div>
+                </div>
+            </form>
+
             <div class="col-12" *ngIf="lugarLab.index == 1">
                 <label>Resultados:</label>
                 <textarea [rows]="3" class="inputfield w-full mt-2" [(ngModel)]="resultado" pInputTextarea
                     oninput="this.value=this.value.toUpperCase()"></textarea>
             </div>
 
-            <div class="p-fluid col-2" *ngIf="lugarLab.index == 1 && examLab.tipoExam == 2">
-                <form [formGroup]="formHematologia">
-                    <label>Hemoglobina:</label>
-                    <div class="flex flex-row">
-                        <div class="col-9 p-0">
-                            <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
-                                class="inputfield w-full" formControlName="hemoglobina">
-                        </div>
-                        <div class="infoInput">
-                            g/dl
-                        </div>
-                    </div>
-                </form>
-            </div>
+
         </div>
         <!-- FORM HEMATOLOGIA -->
         <form [formGroup]="formHematologia">

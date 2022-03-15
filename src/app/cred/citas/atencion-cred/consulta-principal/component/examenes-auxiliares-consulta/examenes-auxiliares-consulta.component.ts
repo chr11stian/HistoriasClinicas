@@ -58,6 +58,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   inicializarForm() {
     this.formHematologia = new FormGroup({
       hemoglobina: new FormControl({ value: '', disabled: this.toShow }, { validators: [Validators.required] }),
+      hemoglobinaFactorCorrec: new FormControl({ value: '', disabled: this.toShow }, { validators: [Validators.required] }),
       hematocrito: new FormControl({ value: '', disabled: this.toShow }),
       grupoSanguineo: new FormControl({ value: '', disabled: this.toShow }),
       factorRH: new FormControl({ value: '', disabled: this.toShow }),
