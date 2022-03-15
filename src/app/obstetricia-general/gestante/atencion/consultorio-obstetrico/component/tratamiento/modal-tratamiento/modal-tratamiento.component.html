@@ -1,57 +1,103 @@
-
-<!-------------INICIO DIALOG TRATAMIENTO COMUN--->
-    <form [formGroup]='formTratamientoComun'>
-
-        <div class="p-grid p-fluid">
-            <div class="p-col-6 p-md-4 p-lg-3">
-                <label>Medicamentos:</label>
-                <input type="text" style="border-radius: 10px" pInputText formControlName='descripcion' placeholder="medicamentos"
-                       required/>
-            </div>
-            <div class="p-col-6 p-md-4 p-lg-3">
-                <label>Cantidad:</label>
-                <input type="number"  style="border-radius: 10px" pInputText formControlName='numero' placeholder="cantidad"
-                       required />
-            </div>
-            <div class="p-col-6 p-md-4 p-lg-3">
-                <label>Dosis:</label>
-                <input type="text" style="border-radius: 10px" pInputText formControlName='dosis' placeholder="dosis"
-                       required />
-            </div>
-            <div class="p-col-6 p-md-4 p-lg-3">
-                <label>Intervalo</label>
-                <div class="p-field">
-                    <p-dropdown  inputId="dropdown" [options]="intervaloList" formControlName="intervalo"
-                                 placeholder="seleccionar" optionLabel="label" optionValue="value"
-                                 defaultLabel="Seleccione:" >
-                    </p-dropdown>
+<!-------------INICIO DIALOG TRATAMIENTOS------------>
+<form [formGroup]='formTratamientoComun'>
+    <div class="grid p- mb-4 mt-2">
+        <div class="col-12">
+            <p-fieldset legend="PRESTACIÓN">
+                <div class="grid p-fluid">
+                    <div class="col-6">
+                        <label>Diagnostico:</label>
+                        <p-dropdown [options]="diagnosticosList" formControlName="diagnostico" appendTo="body"
+                            (onChange)="onChangeDiagnostico()" optionLabel="diagnosticoSIS"
+                            class="inputfield p-fluid w-full" placeholder="Seleccione diagnostico SIS"></p-dropdown>
+                    </div>
+                    <div class="col-6">
+                        <label>Prestacion:</label>
+                        <input type="text" pInputText formControlName='prestacion' placeholder="Prestacion" required
+                            disabled />
+                    </div>
                 </div>
-            </div>
-            <div class="p-col-6 p-md-4 p-lg-3">
-                <label>Via Admin.</label>
-                <div class="p-field">
-                    <p-dropdown  inputId="dropdown" [options]="viaadministracionList" formControlName="viaAdministracion"
-                                 placeholder="seleccionar" optionLabel="label" optionValue="value"
-                                 defaultLabel="Seleccione:" >
-                    </p-dropdown>
-                </div>
-            </div>
-            <div class="p-col-6 p-md-4 p-lg-3">
-                <label>Duración:</label>
-                <input type="text" style="border-radius: 10px" pInputText formControlName='duracion' placeholder="duración"
-                       required />
-            </div>
-            <br>
-            <div class="p-col-6 p-md-4 p-lg-3">
-                 <span class="p-float-label">
-<!--                 <label>Ind. Adicional:</label>-->
-                <textarea style="border-radius: 10px" id="indAdicional" rows="5" cols="30" pInputTextarea formControlName="observaciones"> </textarea>
-                <label for="indAdicional">Ind. Adicional:</label>
-                </span>
-            </div>
+            </p-fieldset>
         </div>
-    </form>
-    <div class="footer">
-        <button pButton type="button" label="Guardar" (click)="closeDialogGuardar()" class="p-button-danger mt-4"></button>
-        <button pButton type="button" label="Cancelar" (click)="closeDialog()"  class="p-button-danger mt-4"></button>
+        <div class="col-12">
+            <p-fieldset legend="MEDICACIÓN">
+                <div class="grid p-fluid">
+                    <div class="col-8">
+                        <label>Nombre:</label>
+                        <p-autoComplete [suggestions]="listaMedicamentos" (completeMethod)="filterMedicamento($event)"
+                            appendTo="body" field="nombre" [minLength]="1" class="inputfield p-fluid w-full"
+                            formControlName="nombre" (onSelect)="selectedOptionNameMedicamento($event)">
+                        </p-autoComplete>
+                    </div>
+                    <div class="col-4">
+                        <label>Stock:</label>
+                        <input type="number" pInputText formControlName='stock' placeholder="Stock" required />
+                    </div>
+                    <div class="col-3">
+                        <label>Cantidad:</label>
+                        <input type="number" pInputText formControlName='cantidad' placeholder="Cantidad" required />
+                    </div>
+                    <div class="col-3">
+                        <label>Dosis:</label>
+                        <input type="text" pInputText formControlName='dosis' placeholder="Dosis" required />
+                    </div>
+                    <div class="col-3">
+                        <label>Intervalo</label>
+                        <div class="p-field">
+                            <p-dropdown inputId="dropdown" [options]="intervaloList" formControlName="intervalo"
+                                placeholder="seleccionar" optionLabel="label" optionValue="value"
+                                defaultLabel="Seleccione:">
+                            </p-dropdown>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <label>Duración:</label>
+                        <input type="text" pInputText formControlName='duracion'
+                            placeholder="Duración" required />
+                    </div>
+                    <div class="col-3">
+                        <label>Fecha vencimiento:</label>
+                        <input type="text" pInputText formControlName='duracion'
+                            placeholder="Fecha vencimiento" required />
+                    </div>
+                    <div class="col-3">
+                        <label>Observaciones:</label>
+                        <input type="text" pInputText formControlName='observaciones'
+                            placeholder="Observaciones" required />
+                    </div>
+                </div>
+            </p-fieldset>
+        </div>
+
+        <div class="col-12">
+            <p-fieldset legend="INDICACIONES">
+                <div class="grid p-fluid">
+                    <div class="col-4">
+                        <label>Efectos medicamento:</label>
+                        <input type="text" pInputText formControlName='efectosMedicamento'
+                            placeholder="Efectos med." required />
+                    </div>
+                    <div class="col-4">
+                        <label>Instrucciones:</label>
+                        <input type="text" pInputText formControlName='instrucciones'
+                            placeholder="Instrucciones" required />
+                    </div>
+                    <div class="col-4">
+                        <label>Advertencias:</label>
+                        <input type="text" pInputText formControlName='advertencias'
+                            placeholder="Advertencias" required />
+                    </div>
+                    <div class="col-4">
+                        <label>Otras indicaciones</label>
+                        <input type="text" pInputText formControlName='otrasIndicaciones'
+                            placeholder="Otras indicaciones" required />
+                    </div>
+                </div>
+            </p-fieldset>
+        </div>
     </div>
+</form>
+<br>
+<div class="footer">
+    <button pButton type="button" label="Cancelar" (click)="closeDialog()" class="button-cancelar mt-4 mr-2"></button>
+    <button pButton type="button" label="Guardar" (click)="closeDialogGuardar()" class="button-agregar mt-4 "></button>
+</div>
