@@ -87,25 +87,6 @@ export class SuplementoComponent implements OnInit {
         estadoAdministrado: true,
         edadMes: this.suplemento.edadMes,
         fechaTentativa: "2021-10-25"
-     //nuevo
-     //    codPrestacion: "21312",
-     //    codSISMED:this.getFC('medicamento').value.code,
-     //    nroDiagnostico: 0,
-     //    codProcedimientoHIS: "32323",
-     //    codUPS: "32423",
-     //
-     //    nombre: this.suplemento.nombre,
-     //    descripcion:this.suplemento.descripcion,
-     //    dosisIndicacion: "1 sobre",
-     //    viaAdministracion: "oral",
-     //    frecuencia: "cada dia",
-     //    duracion: "1 mes",
-     //    indicacion: "tomar con citrico",
-     //    dosis: 1,
-     //    fecha: "2021-01-24",
-     //    estadoAdministrado: true,
-     //    edadMes: 4,
-     //    fechaTentativa: "2021-01-24"
     };
     console.log('mi request',requestInput)
     this.confirmationService.confirm({
