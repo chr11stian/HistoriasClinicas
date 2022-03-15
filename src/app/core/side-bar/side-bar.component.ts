@@ -120,7 +120,7 @@ const menu_geresa = [
             },
             {
                 icon: "pi pi-pw pi-file",
-                label: "Condicion Paciente Discapacidad  ",
+                label: "Antecedentes Pacientes",
                 routerLink: "mantenimientos/antecedentes-paciente",
             },
             {
