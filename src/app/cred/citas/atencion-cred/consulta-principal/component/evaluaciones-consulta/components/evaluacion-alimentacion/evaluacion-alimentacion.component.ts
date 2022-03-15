@@ -18,7 +18,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
   Evaluaciones:EvaluacionAlimenticia[]=[];
   datePipe=new DatePipe('en-US');
   attributeLocalS = 'documento'
-  edadMeses:number=0;
+  edadMeses:number;
   displayPosition: boolean;
   position: string;
   diagnostico:string;

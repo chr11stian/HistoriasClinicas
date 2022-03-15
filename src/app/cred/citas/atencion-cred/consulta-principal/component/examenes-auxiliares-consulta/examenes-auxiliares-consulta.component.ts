@@ -4,7 +4,6 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import Swal from 'sweetalert2';
 import { ExamenAuxiliar, Hematologia, Laboratorio, Parasitologia, ResultadoLaboratorio } from '../../models/examenesAuxiliares';
 import { ExamenesAuxiliaresService } from '../../services/examenes-auxiliares.service';
-import { DialogVerExamenesAuxiliaresComponent } from './dialog-ver-examenes-auxiliares/dialog-ver-examenes-auxiliares.component';
 
 @Component({
   selector: 'app-examenes-auxiliares-consulta',
@@ -41,6 +40,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   ref: DynamicDialogRef;
   toShow: boolean = false;
   indexEdit: number;
+  toEdit:boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -49,15 +49,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   ) {
 
     this.idConsulta = JSON.parse(localStorage.getItem('documento')).idConsulta;
-    // this.auxExamService.getPromiseListarResultadosLaboratorioByIdConsulta(this.idConsulta).then(data => {
-    //   console.log('data de examenes auxiliares de consulta ', data);
-    //   this.listaDataLaboRes = data;
-    //   if (data.length > 0) {
-    //     this.toShow = true;
-    //   }
-    // })
     this.recoverDataAuxialsExams();
-
   }
 
   ngOnInit(): void {
@@ -131,13 +123,13 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   }
   async recoverDataAuxialsExams() {
     await this.auxExamService.getPromiseListarResultadosLaboratorioByIdConsulta(this.idConsulta).then(data => {
-      console.log('data de examenes auxiliares de consulta ', data);
+      // console.log('data de examenes auxiliares de consulta ', data);
       this.listaDataLaboRes = data;
       if (data.length > 0) {
-        this.toShow = true;
+        this.toEdit = true;
       }
     })
-    console.log('to show ', this.toShow)
+    // console.log('to show ', this.toShow)
     this.inicializarForm();
   }
   openAddExamDialog() {
@@ -146,11 +138,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
     this.lugarLab = {};
     this.inicializarForm();
     this.addExamDialog = true;
-    // this.examLab.tipoExam = 2;
-    // this.lugarLab.index = 2
-    // this.formHematologia.get('hemoglobina').setValue('datada');
   }
-
 
   agreeAddExamDialog() {
     let auxDataExam: any;
@@ -189,7 +177,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
     if (auxDataExam != undefined) {
       this.listaExamenesAux.push(auxDataExam);
     }
-    console.log('lista de examenes ', this.listaExamenesAux);
+    // console.log('lista de examenes ', this.listaExamenesAux);
     this.listaExamenesAux = [...this.listaExamenesAux];
     this.addExamDialog = false;
   }
@@ -271,7 +259,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   }
   saveAuxiliarsExams() {
     if (this.listaExamenesAux.length == 0) {
-      console.log('no hay datos para guardar');
+      // console.log('no hay datos para guardar');
       return
     }
     if (!this.toShow) {
@@ -282,9 +270,8 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
         examenesAuxiliares: this.listaExamenesAux,
         observaciones: ''
       }
-      console.log('data to send ', this.dataExamenesAuxiliares);
+      // console.log('data to send ', this.dataExamenesAuxiliares);
       this.auxExamService.postExamenesAuxiliares(this.idConsulta, this.dataExamenesAuxiliares).subscribe((res: any) => {
-        console.log('se guardo la wea ', res)
         Swal.fire({
           icon: 'success',
           title: 'Se guardo correctamente el examen',
@@ -293,17 +280,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
         });
       });
     }
-
   }
-  // openDialogShowAuxiliarExam(data, index) {
-  //   this.ref = this.dialog.open(DialogVerExamenesAuxiliaresComponent, {
-  //     header: "Ver Exámenes auxiliares",
-  //     width: "70%",
-  //     data: data
-  //   });
-  //   console.log('data del ver ', data, 'index del ver ', index);
-  // }
-
   showDataAuxiliarsExams(data, index) {
     console.log('data del ver ', data);
     this.addExamDialog = true;

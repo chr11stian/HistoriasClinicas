@@ -1,52 +1,91 @@
 <!-------------INICIO DIALOG TRATAMIENTO INMUNIZACIONES--->
 <form [formGroup]='formInmunizaciones'>
-
-    <div class="p-grid p-fluid">
-        <div class="p-col-6 p-md-4 p-lg-3">
-            <label>Codigo:</label>
-            <input type="text" style="border-radius: 10px" pInputText formControlName='codigo' placeholder="codigo"
-                required />
+    <div class="grid p- mb-4 mt-2">
+        <div class="col-12">
+            <p-fieldset legend="INMUNIZACION">
+                <div class="grid p-fluid">
+                    <div class="col-4">
+                        <label>Nombre:</label>
+                        <p-autoComplete [suggestions]="listaMedicamentos" (completeMethod)="filterMedicamento($event)" appendTo="body"
+                        field="nombre" [minLength]="1" class="inputfield p-fluid w-full"
+                        formControlName="nombre" (onSelect)="selectedOptionNameMedicamento($event)">
+                        </p-autoComplete>
+                    </div>
+                    <div class="col-3">
+                        <label>Nombre comercial:</label>
+                        <input type="text" pInputText formControlName='nombreComercial' placeholder="Nombre comercial"
+                            required/>
+                    </div>
+                    <div class="col-2">
+                        <label>Dosis:</label>
+                        <input type="number" pInputText formControlName='dosis' placeholder="Dosis" required />
+                    </div>
+                    <div class="col-3">
+                        <label>Tipo dosis:</label>
+                        <p-dropdown [options]="tiposDosis" formControlName="tipoDosis" appendTo="body"
+                        optionLabel="label" optionValue="value" class="inputfield p-fluid w-full" placeholder="Seleccione"></p-dropdown>
+                    </div>
+                </div>
+            </p-fieldset>
         </div>
-        <div class="p-col-6 p-md-4 p-lg-3">
-            <label>Descripcion:</label>
-            <input type="text" style="border-radius: 10px" pInputText formControlName='descripcion'
-                placeholder="descripcion" required />
+        <div class="col-12">
+            <p-fieldset legend="PRESTACIÓN">
+                <div class="grid p-fluid">
+                    <div class="col-6">
+                        <label>Diagnostico:</label>
+                        <p-dropdown [options]="diagnosticosList" formControlName="diagnostico" appendTo="body" (onChange)="onChangeDiagnostico()"
+                        optionLabel="diagnosticoSIS" class="inputfield p-fluid w-full" placeholder="Seleccione diagnostico SIS"></p-dropdown>
+                    </div>
+                    <div class="col-6">
+                        <label>Prestacion:</label>
+                        <input type="text" pInputText formControlName='prestacion' placeholder="Prestacion" required disabled/>
+                    </div>
+                </div>
+            </p-fieldset>
         </div>
-        <div class="p-col-6 p-md-4 p-lg-3">
-            <label>Cantidad:</label>
-            <input type="number" style="border-radius: 10px" pInputText formControlName='numero' placeholder="cantidad"
-                required />
+        <div class="col-6 ">
+            <p-fieldset legend="PROCEDIMIENTO SIS">
+                <div class="grid mt-2">
+                    <label>Procedimiento: </label>
+                    <p-dropdown [options]="listaDeCIESIS" formControlName="autocompleteSIS" appendTo="body"
+                        optionLabel="procedimiento" class="inputfield p-fluid w-full" placeholder="Seleccione"
+                        (onChange)="selectedOptionNameCIE($event,0)"></p-dropdown>
+                    <textarea [rows]="3" class="inputfield w-full mt-2" formControlName="diagnosticoSIS" pInputTextarea
+                        disabled></textarea>
+                </div>
+                <div class="grid mt-2 ">
+                    <label class="mr-2">CIE 10: </label>
+                    <p-dropdown [options]="listaDeCIESIS" formControlName="SISCIE" appendTo="body" optionLabel="codigo"
+                        class="inputfield p-fluid w-full" placeholder="Seleccione"
+                        (onChange)="selectedOption($event,0)"></p-dropdown>
+                </div>
+            </p-fieldset>
         </div>
-        <div class="p-col-6 p-md-4 p-lg-3">
-            <label>Dosis:</label>
-            <input type="number" style="border-radius: 10px" pInputText formControlName='dosis' placeholder="dosis"
-                required />
-        </div>
-
-        <div class="p-col-6 p-md-4 p-lg-3">
-            <label>Via Admin.</label>
-            <div class="p-field">
-                <p-dropdown inputId="dropdown" [options]="viaadministracionList" formControlName="viaAdministracion"
-                    placeholder="seleccionar" optionLabel="label" optionValue="value" defaultLabel="Seleccione:">
-                </p-dropdown>
-            </div>
-        </div>
-        <div class="p-col-6 p-md-4 p-lg-3">
-            <label>Lote:</label>
-            <input type="text" style="border-radius: 10px" pInputText formControlName='lote' placeholder="Lote"
-                required />
-        </div>
-        <div class="p-col-6 p-md-4 p-lg-3">
-            <label>Fecha Vencimiento:</label><br>
-            <p-calendar type="Date" showIcon="true" formControlName='fechaVenc' dateFormat="yy-mm-dd" [showTime]="true"
-                [showSeconds]="true" inputId="time" required>
-            </p-calendar>
-
+        <div class="col-6">
+            <p-fieldset legend="PROCEDIMIENTO HIS">
+                <div class="grid mt-2">`
+                    <label>Procedimiento: </label>
+                    <p-autoComplete [suggestions]="listaDeCIE" (completeMethod)="filterCIE10($event)" appendTo="body"
+                        field="descripcionItem" [minLength]="1" class="areaText " class="inputfield p-fluid w-full"
+                        formControlName="autocompleteHIS" (onSelect)="selectedOptionNameCIE($event,1)">
+                    </p-autoComplete>
+                    <textarea [rows]="3" class="inputfield w-full mt-2" formControlName="diagnosticoHIS" pInputTextarea
+                        disabled></textarea>
+                </div>
+                <div class="grid mt-2">
+                    <label class="mr-2">CIE 10: </label>
+                    <p-autoComplete formControlName="HISCIE" [suggestions]="listaDeCIE"
+                        (completeMethod)="filterCIE10($event)" field="codigoItem" [minLength]="1"
+                        class="inputfield p-fluid w-full" (onSelect)="selectedOption($event,1)" [forceSelection]="true"
+                        dataKey="codigoItem">
+                    </p-autoComplete>
+                </div>
+            </p-fieldset>
         </div>
     </div>
 </form>
 <br>
 <div class="footer">
-    <button pButton type="button" label="Guardar" (click)="closeDialogGuardar()" class="p-button-danger mt-4"></button>
-    <button pButton type="button" label="Cancelar" (click)="closeDialog()" class="p-button-danger mt-4"></button>
+    <button pButton type="button" label="Cancelar" (click)="closeDialog()" class="button-cancelar mt-4 mr-2"></button>
+    <button pButton type="button" label="Guardar" (click)="closeDialogGuardar()" class="button-agregar mt-4 "></button>
 </div>

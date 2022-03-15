@@ -8,7 +8,7 @@
               <div class="col-2">Grupo:</div>
               <div class="col-10 p-fluid">
 <!--                <input type="text" pInputText formControlName="grupo" >-->
-                <p-dropdown [options]="grupo2" formControlName="grupo" optionLabel="name" optionValue="code"></p-dropdown>
+                <p-dropdown [options]="grupo2" formControlName="grupo" optionLabel="name" optionValue="code" ></p-dropdown>
 
               </div>
               <div class="col-3">
@@ -21,7 +21,7 @@
                 Criterio:
               </div>
               <div class="col-10 p-fluid">
-                <p-dropdown [options]="grupo3" formControlName="criterio" optionLabel="name" optionValue="code"></p-dropdown>
+                <p-dropdown [options]="grupo3" formControlName="criterio" optionLabel="name" optionValue="code" ></p-dropdown>
               </div>
               <div class="col-3">
                 cie10:
@@ -35,7 +35,7 @@
           <ng-template pTemplate="footer">
             <div class="flex justify-content-end">
               <button pButton type="button"
-                      label="Guardar" class="m-1 w-9rem" (click)="saveDiagnostico()"></button>
+                      label="Guardar" class="m-1 w-9rem" (click)="saveDiagnostico()" [disabled]="diagnosticoFC.invalid"></button>
               <button pButton type="button" label="Cancelar" icon="pi pi-plus" (click)="cancelar()"
                       pTooltip="cancerlar" tooltipPosition="right" class="p-button-danger m-1 w-9rem"
                       pRipple></button>

@@ -16,7 +16,7 @@ export interface inmunizaciones {
   tipoDosis:number,
   estadoAdministrado:boolean,
   fechaTentativa:Date,
-  fecha:Date,
+  fechaAdministracion:Date,
 }
 export interface ControlCrecimiento {
   edadMes: number;

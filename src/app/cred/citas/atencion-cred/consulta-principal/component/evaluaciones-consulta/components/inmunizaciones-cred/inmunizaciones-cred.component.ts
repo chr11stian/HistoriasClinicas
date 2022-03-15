@@ -66,8 +66,8 @@ export class InmunizacionesCredComponent implements OnInit {
     });
     this.listaInmunizaciones.forEach((element) => {
       element.fechaTentativa = new Date(`${element.fechaTentativa} 00:00:00`);
-      element.fecha =
-        element.fecha != null ? new Date(`${element.fecha} 00:00:00`) : null;
+      element.fechaAdministracion =
+        element.fechaAdministracion != null ? new Date(`${element.fechaAdministracion} 00:00:00`) : null;
     });
   }
   nombreVacuna(nombre: string) {

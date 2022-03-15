@@ -6,6 +6,7 @@ import { CieService } from "../../../../../services/cie.service";
 import { ConsultasService } from "../../services/consultas.service";
 import { DatePipe } from "@angular/common";
 import { MessageService } from "primeng/api";
+import { PrestacionService } from 'src/app/mantenimientos/services/prestacion/prestacion.service';
 @Component({
     selector: 'app-giagnosticos',
     templateUrl: './giagnosticos.component.html',
@@ -55,6 +56,7 @@ export class GiagnosticosComponent implements OnInit {
 
     hoy: any = (new Date()).getTime();
     listaDeCIE: any;
+    listaDeCIESIS: any;
 
     prestacionList: any[];
     upsList: any[];
@@ -75,11 +77,12 @@ export class GiagnosticosComponent implements OnInit {
     constructor(private formBuilder: FormBuilder,
         //private obstetriciaService: ObstetriciaGeneralService,
         //private cieService: CieService,
+        private PrestacionService: PrestacionService,
         private CieService: CieService,
         private messageService: MessageService,
         private DxService: ConsultasService) {
         this.buildForm();
-        
+
         /*********RECUPERAR DATOS*********/
         /*usando local storage*/
         this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
@@ -182,9 +185,9 @@ export class GiagnosticosComponent implements OnInit {
     }
     buildForm() {
         this.form = this.formBuilder.group({
-            diagnostico: ['', [Validators.required]],
             tipo: ['', [Validators.required]],
             prestacion: ['', [Validators.required]],
+            subtitulo: ['', [Validators.required]],
             autocompleteSIS: [''],
             diagnosticoSIS: ['', [Validators.required]],
             SISCIE: ['', [Validators.required]],
@@ -205,42 +208,39 @@ export class GiagnosticosComponent implements OnInit {
             fechaVisita: ['', [Validators.required]]
         });
     }
+
     /*guardar datos de diagnosticos*/
     save1(form: any) {
+        // this.messageService.add({ severity: 'info', summary: 'Recuperado', detail: 'Diagnostico no válido vuelva a ingresar.' });
         this.isUpdate = false;
         let bandera: boolean = false;
-        let dx = this.form.value.diagnostico.descripcionItem;
-        let cie = this.form.value.diagnostico.codigoItem;
-        if (dx == " " || dx == null || dx == undefined) {
-            this.messageService.add({ severity: 'info', summary: 'Recuperado', detail: 'Diagnostico no válido vuelva a ingresar.' });
-        } else {
-            /***verificar si ya ingreso este dx************/
-            for (let i = 0; i < this.diagnosticos.length; i++) {
-                if (this.diagnosticos[i].cie10SIS === cie) {
-                    bandera = true;
-                    console.log(bandera)
-                }
-            }
-            /***si el dx es repetido -> mensaje si no ingresar al sistema***/
-            if (bandera === true) {
-                this.messageService.add({ severity: 'info', summary: 'Recuperado', detail: 'Diagnostico ya ingresado, ingrese otro porfavor.' });
-            }
-            else {
-                this.diagnosticos.push({
-                    diagnosticoSIS: dx,
-                    cie10SIS: cie,
-                    tipo: this.form.value.tipo
-                }
-                )
-            }
+        let data = {
+            nro: this.diagnosticos.length + 1,
+            diagnosticoHIS: this.form.value.diagnosticoHIS,
+            cie10HIS: this.form.value.HISCIE.codigoItem,
+            diagnosticoSIS: this.form.value.diagnosticoSIS,
+            cie10SIS: this.form.value.SISCIE.cie10,
+            tipo: this.form.value.tipo,
+            codPrestacion: this.form.value.prestacion.codigo,
+            nombreUPS: this.form.value.subtitulo,
+            factorCondicional: null
         }
-        this.diagnosticoDialog = false;
+        console.log(data)
+        //enviar una consulta para guardar diagnostico
+        this.DxService.guardarDiagnosticoDeGestante(this.nroHcl, this.nroEmbarazo, this.nroAtencion, data).subscribe(
+            (resp) => {
+                console.log(resp);
+                this.diagnosticoDialog = false;
+                this.recuperarDatosGuardados();
+            })
     }
     /******ABRIR DIALOGS DX****/
     openDiagnostico() {
         this.isUpdate = false;
         this.form.reset();
-        this.form.get('diagnostico').setValue("");
+        this.form.get('diagnosticoSIS').setValue("");
+        this.form.get('diagnosticoHIS').setValue("");
+        this.form.get('subtitulo').setValue("MATERNO");
         this.diagnosticoDialog = true;
     }
     canceled1() {
@@ -285,14 +285,18 @@ export class GiagnosticosComponent implements OnInit {
             showConfirmButton: true,
         }).then((result) => {
             if (result.isConfirmed) {
-                this.diagnosticos.splice(index, 1)
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Eliminado correctamente',
-                    text: '',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
+                this.DxService.guardarDiagnosticoDeGestante(this.nroHcl, this.nroEmbarazo, this.nroAtencion, index.cie10SIS).subscribe(
+                    (resp) => {
+                        console.log(resp);
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Eliminado correctamente',
+                            text: '',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                        this.recuperarDatosGuardados();
+                    })
             }
         })
     }
@@ -381,14 +385,14 @@ export class GiagnosticosComponent implements OnInit {
             visitaDomiciliaria: this.visitaDomiciliaria,
             planParto: this.planPartoReenfocada,
             diagnosticos: this.diagnosticos,
-            proxCita: 
-                {
-                    fecha: this.datePipe.transform(this.formOtrosDatos.value.proxCita, 'yyyy-MM-dd'),
-                    motivo: "próxima cita",
-                    servicio: "OBSTETRICIA",
-                    estado: "TENTATIVO",
-                    nivelUrgencia: "4"
-                },
+            proxCita:
+            {
+                fecha: this.datePipe.transform(this.formOtrosDatos.value.proxCita, 'yyyy-MM-dd'),
+                motivo: "próxima cita",
+                servicio: "OBSTETRICIA",
+                estado: "TENTATIVO",
+                nivelUrgencia: "4"
+            },
 
         }
 
@@ -440,11 +444,11 @@ export class GiagnosticosComponent implements OnInit {
                             y++;
                         }
                     }
-                    if (this.dataAux.referencia != null) {
+                    /*if (this.dataAux.referencia != null) {
                         this.formOtrosDatos.patchValue({ 'consultorio': this.dataAux.referencia.consultorio });
                         this.formOtrosDatos.patchValue({ 'motivo': this.dataAux.referencia.motivoReferencia });
                         this.formOtrosDatos.patchValue({ 'codRENAES': this.dataAux.referencia.renipress });
-                    }
+                    }*/
                     /****************RECUPERAR EDAD GESTACIONAL********************/
                     console.log("edad gestacional:", this.dataAux.edadGestacionalSemanas);
                     if (this.dataAux.edadGestacionalSemanas === null || this.dataAux.edadGestacionalSemanas === undefined) {
@@ -468,6 +472,7 @@ export class GiagnosticosComponent implements OnInit {
                     }
                     /************************RECUPERAR DATOS DE DIAGNOSTICOS***************/
                     if (this.dataAux.diagnosticos != null) {
+                        this.diagnosticos=[];
                         let x: number = 0;
                         while (x < this.dataAux.diagnosticos.length) {
 
@@ -489,6 +494,14 @@ export class GiagnosticosComponent implements OnInit {
         this.cronogramaDialog = false;
     }
 
+    onChangePrestacion() {
+        this.PrestacionService.getDiagnosticoPorCodigo(this.form.value.prestacion.codigo).subscribe((res: any) => {
+            this.listaDeCIESIS = res.object.diagnostico;
+            this.form.patchValue({ diagnosticoSIS: "" });
+            this.form.patchValue({ SISCIE: "" });
+        })
+    }
+
     filterCIE10(event) {
         this.CieService.getCIEByDescripcion(event.query).subscribe((res: any) => {
             this.listaDeCIE = res.object
@@ -497,7 +510,7 @@ export class GiagnosticosComponent implements OnInit {
 
     selectedOption(event, cieType) {
         if (cieType == 0) {
-            this.form.patchValue({ diagnosticoSIS: event.descripcionItem });
+            this.form.patchValue({ diagnosticoSIS: event.value.diagnostico });
         }
         if (cieType == 1) {
             this.form.patchValue({ diagnosticoHIS: event.descripcionItem });
@@ -506,10 +519,12 @@ export class GiagnosticosComponent implements OnInit {
 
     selectedOptionNameCIE(event, cieType) {
         console.log('lista de cie ', this.listaDeCIE);
+        console.log('evento desde diagnos ', event);
         if (cieType == 0) {
-            this.form.patchValue({ diagnosticoSIS: event.descripcionItem });
+            this.form.patchValue({ diagnosticoSIS: event.value.diagnostico });
             this.form.patchValue({ autocompleteSIS: "" });
-            this.form.patchValue({ SISCIE: event }, { emitEvent: false });
+            this.form.patchValue({ SISCIE: event.value }, { emitEvent: false });
+            console.log(event.value)
         }
         if (cieType == 1) {
             this.form.patchValue({ diagnosticoHIS: event.descripcionItem });
