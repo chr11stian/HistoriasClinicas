@@ -1,10 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {ObstetriciaGeneralService} from "../../../services/obstetricia-general.service";
-import {FiliancionService} from "../h-clinica-materno-perinatal/services/filiancion-atenciones/filiancion.service";
 import Swal from "sweetalert2";
-import {TamizajeViolenciaService} from "../../../services/tamizaje-violencia.service";
 import {DatePipe} from "@angular/common";
+import {
+    FiliancionService
+} from "../../../h-clinica-materno-perinatal/services/filiancion-atenciones/filiancion.service";
+import {TamizajeViolenciaService} from "../../../../../services/tamizaje-violencia.service";
+import {ObstetriciaGeneralService} from "../../../../../services/obstetricia-general.service";
 
 @Component({
     selector: 'app-tamizaje-violencia',
@@ -41,6 +43,7 @@ export class TamizajeViolenciaComponent implements OnInit {
     resultadoTamizaje: string = "Resultado";
 
     tabIndex = 0;
+    IDConsulta: string;
 
     constructor(private form: FormBuilder,
                 private filiancionService: FiliancionService,
@@ -60,6 +63,7 @@ export class TamizajeViolenciaComponent implements OnInit {
             {name: 'POSITIVO (+)', diagnostico: 'POSITIVO'},
             {name: 'NEGATIVO (-)', diagnostico: 'NEGATIVO'}
         ];
+        this.IDConsulta = JSON.parse(localStorage.getItem('dataConsultasID'));
 
         this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
         this.DataCupos = JSON.parse(localStorage.getItem('datacupos'));
@@ -90,6 +94,7 @@ export class TamizajeViolenciaComponent implements OnInit {
         console.log("NroDocRecuparado", this.nroDocRecuperado);
         console.log("Nro de embarazo", this.nroEmbarazo);
         console.log("ESTADO", this.estadoEmbarazo);
+        console.log("idConsulta", this.IDConsulta);
         this.getpacienteByNroDoc();
         this.obternerFechaActual();
         this.getTamizajeNroDoc();

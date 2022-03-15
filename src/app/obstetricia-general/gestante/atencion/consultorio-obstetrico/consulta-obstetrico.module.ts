@@ -16,12 +16,13 @@ import { ModalInmunizacionesComponent } from "./component/tratamiento/modal-inmu
 import { ModalInterconsultaComponent } from './component/tratamiento/modal-interconsulta/modal-interconsulta.component';
 import { ModalRecomendacionesComponent } from './component/tratamiento/modal-recomendaciones/modal-recomendaciones.component';
 import { ModalExamenesAuxiliaresComponent } from './component/tratamiento/modal-examenes-auxiliares/modal-examenes-auxiliares.component';
+import {TamizajeViolenciaComponent} from "./component/tamizaje-violencia/tamizaje-violencia.component";
 
 @NgModule({
     declarations: [
         ModalTratamientoComponent,
         ModalInmunizacionesComponent,
-
+        TamizajeViolenciaComponent,
         DatosGeneralesComponent,
         StepGeneral_consultaComponent,
         InterrogatorioComponent,

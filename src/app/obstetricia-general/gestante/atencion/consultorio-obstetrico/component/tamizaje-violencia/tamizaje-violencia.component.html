@@ -1,13 +1,4 @@
 <div>
-    <p-card>
-        <div class="grid">
-            <div class="col-12 md:col-6 lg:col-12 p-field" style="text-align:center;">
-                <label style="font-size: 16px;">PREGUNTAS PARA LA DETECCIÓN DE VIOLENCIA CONTRA LA MUJER OCACIONADA POR
-                    LA PAREJA O EXPAREJA</label>
-            </div>
-        </div>
-    </p-card>
-    <br>
     <p-toolbar>
         <ng-template pTemplate="left">
             <form [formGroup]='formDatos_Tamisaje'>
@@ -31,75 +22,82 @@
         </ng-template>
     </p-toolbar>
     <br>
+    <div class="grid">
+        <div class="col-12 md:col-6 lg:col-12 p-field" style="text-align:center;">
+            <span style="font-size: 16px;">PREGUNTAS PARA LA DETECCIÓN DE VIOLENCIA CONTRA LA MUJER OCACIONADA POR
+                LA PAREJA O EXPAREJA</span>
+        </div>
+    </div>
+    <br>
     <form [formGroup]='formDatos_Tamisaje'>
-        <p-fieldset class="infor1" legend="INFORMACION PERSONAL" [toggleable]="true">
-            <div class="grid">
-                <div class="col-12 md:col-6 lg:col-3 p-field">
-                    <div class="">
-                        <label class="">Documento de identidad: </label>
-                        <input type="text" pInputText class="inputfield w-full"
-                               formControlName="nroDoc" placeholder="Nro documento">
+        <div class="border2">
+            <div class="col-12 md:col-6 lg:col-12 p-field">
+                <div class="grid m-2">
+                    <div class="col-12 md:col-6 lg:col-3 p-field">
+                        <div class="">
+                            <label class="">Documento de identidad: </label>
+                            <input type="text" pInputText class="inputfield w-full"
+                                   formControlName="nroDoc" placeholder="Nro documento">
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-3 p-field">
+                        <div class="">
+                            <label class="">Número de historia Clinica: </label>
+                            <input type="text" pInputText class="inputfield w-full"
+                                   formControlName="nroHcl" placeholder="Nro historia clínica">
+                        </div>
                     </div>
                 </div>
-                <div class="col-12 md:col-6 lg:col-3 p-field">
-                    <div class="">
-                        <label class="">Número de historia Clinica: </label>
-                        <input type="text" pInputText class="inputfield w-full"
-                               formControlName="nroHcl" placeholder="Nro historia clínica">
+                <div class="grid m-2">
+                    <div class="col-12 md:col-6 lg:col-4 p-field">
+                        <div class="">
+                            <label class="">Apellido Paterno:</label>
+                            <input type="text" pInputText class="inputfield w-full"
+                                   formControlName="apePaterno" placeholder="Apellido Paterno">
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-4 p-field">
+                        <div class="">
+                            <label class="">Apellido Materno: </label>
+                            <input type="text" pInputText class="inputfield w-full"
+                                   formControlName="apeMaterno" placeholder="Apellido Materno">
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-4 p-field">
+                        <div class="">
+                            <label class="">Nombres: </label>
+                            <input type="text" pInputText class="inputfield w-full"
+                                   formControlName="nombres" placeholder="Nombres">
+                        </div>
+                    </div>
+                </div>
+                <div class="grid m-2">
+                    <div class="col-12 md:col-6 lg:col-3 p-field">
+                        <div class="">
+                            <label class="">Edad: </label>
+                            <input type="text" pInputText class="inputfield w-full"
+                                   formControlName="Edad" placeholder="Edad">
+                        </div>
+                    </div>
+
+                    <div class="col-12 md:col-6 lg:col-6 p-field">
+                        <div class="">
+                            <label class="">Dirección:</label>
+                            <input type="text" pInputText class="inputfield w-full"
+                                   formControlName="Direccion"
+                                   placeholder="Direccion / Departamento / Provincia / Distrito">
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-3 p-field">
+                        <div class="">
+                            <label class="">Telefono:</label>
+                            <input type="text" pInputText class="inputfield w-full"
+                                   formControlName="Telefono" placeholder="Telefono">
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="grid">
-                <div class="col-12 md:col-6 lg:col-4 p-field">
-                    <div class="">
-                        <label class="">Apellido Paterno:</label>
-                        <input type="text" pInputText class="inputfield w-full"
-                               formControlName="apePaterno" placeholder="Apellido Paterno">
-                    </div>
-                </div>
-                <div class="col-12 md:col-6 lg:col-4 p-field">
-                    <div class="">
-                        <label class="">Apellido Materno: </label>
-                        <input type="text" pInputText class="inputfield w-full"
-                               formControlName="apeMaterno" placeholder="Apellido Materno">
-                    </div>
-                </div>
-                <div class="col-12 md:col-6 lg:col-4 p-field">
-                    <div class="">
-                        <label class="">Nombres: </label>
-                        <input type="text" pInputText class="inputfield w-full"
-                               formControlName="nombres" placeholder="Nombres">
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid">
-                <div class="col-12 md:col-6 lg:col-3 p-field">
-                    <div class="">
-                        <label class="">Edad: </label>
-                        <input type="text" pInputText class="inputfield w-full"
-                               formControlName="Edad" placeholder="Edad">
-                    </div>
-                </div>
-
-                <div class="col-12 md:col-6 lg:col-6 p-field">
-                    <div class="">
-                        <label class="">Dirección:</label>
-                        <input type="text" pInputText class="inputfield w-full"
-                               formControlName="Direccion"
-                               placeholder="Direccion / Departamento / Provincia / Distrito">
-                    </div>
-                </div>
-                <div class="col-12 md:col-6 lg:col-3 p-field">
-                    <div class="">
-                        <label class="">Telefono:</label>
-                        <input type="text" pInputText class="inputfield w-full"
-                               formControlName="Telefono" placeholder="Telefono">
-                    </div>
-                </div>
-            </div>
-
-        </p-fieldset>
+        </div>
     </form>
     <br>
     <p-tabView (onChange)="tab($event)" styleClass="tabview-custom" class="tab">
@@ -1008,7 +1006,6 @@
             </div>
             <br>
         </p-card>
-
 
         <p-accordion>
             <p-accordionTab header="LISTA DE PACIENTES CON CUPOS PARA EL DIA DE HOY" [selected]="true">

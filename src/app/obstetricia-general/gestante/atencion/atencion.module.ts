@@ -14,7 +14,6 @@ import {SharedModule} from '../../../shared/shared.module';
 import {ConsultaObstetricoModule} from "./consultorio-obstetrico/consulta-obstetrico.module";
 import {HClinicaMaternoPerinatalModule} from "./h-clinica-materno-perinatal/h-clinica-materno-perinatal.module";
 import { AlturaUterinaComponent } from './modals/altura-uterina/altura-uterina.component';
-import { TamizajeViolenciaComponent } from './tamizaje-violencia/tamizaje-violencia.component';
 
 
 
@@ -24,8 +23,6 @@ import { TamizajeViolenciaComponent } from './tamizaje-violencia/tamizaje-violen
         AtencionComponent,
         PesoEmbarazoUnicoMultipleComponent,
         AlturaUterinaComponent,
-        TamizajeViolenciaComponent
-
     ],
     exports: [AtencionComponent],
     imports: [
