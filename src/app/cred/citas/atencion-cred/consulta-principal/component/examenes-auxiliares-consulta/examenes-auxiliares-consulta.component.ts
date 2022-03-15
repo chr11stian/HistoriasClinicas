@@ -32,9 +32,10 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   dataParasitologia: Parasitologia;
   examFFF: string;
   /**ngModels */
-  resultado: string;
+  observaciones: string;
   examLab: Examen = {};
   lugarLab: Lugar = {};
+  /**fin ngModels */
   idConsulta: string;
   listaDataLaboRes: any;
   ref: DynamicDialogRef;
@@ -47,7 +48,6 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
     private auxExamService: ExamenesAuxiliaresService,
     private dialog: DialogService,
   ) {
-
     this.idConsulta = JSON.parse(localStorage.getItem('documento')).idConsulta;
     this.recoverDataAuxialsExams();
   }
