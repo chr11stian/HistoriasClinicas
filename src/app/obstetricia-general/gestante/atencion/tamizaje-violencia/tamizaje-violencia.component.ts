@@ -13,7 +13,9 @@ import {DatePipe} from "@angular/common";
 })
 export class TamizajeViolenciaComponent implements OnInit {
     opciones: any;
+    opciones2: any;
     diagnostico2: any;
+    preguntasTamizaje: any;
     formDatos_Tamisaje: FormGroup;
     dataPacientes: any;
     fechaConvertido: string;//fecha convertido
@@ -24,6 +26,9 @@ export class TamizajeViolenciaComponent implements OnInit {
     datafecha: Date = new Date();
     ListaTamizajeDialog: boolean;
     ListaTamizajes: any;
+    DataCupos: any;
+    DataCupos2: any;
+    Gestacion: any;
     Recupera_un_Tamizaje: any;
 
     /**Datos que se recupera**/
@@ -32,6 +37,10 @@ export class TamizajeViolenciaComponent implements OnInit {
     nroEmbarazo: string;
     estadoEmbarazo: string;
 
+    PuntajeTotal: any = 0;
+    resultadoTamizaje: string = "Resultado";
+
+    tabIndex = 0;
 
     constructor(private form: FormBuilder,
                 private filiancionService: FiliancionService,
@@ -42,17 +51,36 @@ export class TamizajeViolenciaComponent implements OnInit {
             {name: 'NO', boleano: false}
         ];
 
+        this.opciones2 = [
+            {name: 'SI', label: 'SI'},
+            {name: 'NO', label: 'NO'}
+        ];
+
         this.diagnostico2 = [
             {name: 'POSITIVO (+)', diagnostico: 'POSITIVO'},
             {name: 'NEGATIVO (-)', diagnostico: 'NEGATIVO'}
         ];
 
-        this.tipoDocRecuperado = this.obstetriciaGeneralService.tipoDoc;
-        this.nroDocRecuperado = this.obstetriciaGeneralService.nroDoc;
-        this.nroEmbarazo = this.obstetriciaGeneralService.nroEmbarazo;
+        this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
+        this.DataCupos = JSON.parse(localStorage.getItem('datacupos'));
+        this.DataCupos2 = JSON.parse(localStorage.getItem('PacienteSinCupo'));
+
+        if (this.DataCupos2 == null) {
+            this.tipoDocRecuperado = this.DataCupos.paciente.tipoDoc
+            this.nroDocRecuperado = this.DataCupos.paciente.nroDoc
+        } else {
+            this.tipoDocRecuperado = this.DataCupos2.tipoDoc
+            this.nroDocRecuperado = this.DataCupos2.nroDoc
+        }
+
+        // this.tipoDocRecuperado = this.obstetriciaGeneralService.tipoDoc;
+        // this.nroDocRecuperado = this.obstetriciaGeneralService.nroDoc;
+        // this.nroEmbarazo = this.obstetriciaGeneralService.nroEmbarazo;
         // this.tipoDocRecuperado = "DNI";
         // this.nroDocRecuperado = "10101099";
-        this.estadoEmbarazo = this.obstetriciaGeneralService.estadoEmbarazo;
+        this.estadoEmbarazo = this.Gestacion.estado;
+        this.nroEmbarazo = this.Gestacion.nroEmbarazo;
+
     }
 
     ngOnInit(): void {
@@ -65,6 +93,12 @@ export class TamizajeViolenciaComponent implements OnInit {
         this.getpacienteByNroDoc();
         this.obternerFechaActual();
         this.getTamizajeNroDoc();
+        // this.calcularPuntaje();
+    }
+
+    tab(event) {
+        this.tabIndex = event.index;
+        console.log("evento tab", this.tabIndex)
     }
 
     /**Recupera un solo tamizaje al hacer un clic en el event**/
@@ -92,15 +126,14 @@ export class TamizajeViolenciaComponent implements OnInit {
         this.formDatos_Tamisaje.get('Respuesta7').setValue(this.Recupera_un_Tamizaje.preguntasRelacionesPareja[3].respuesta);
         this.formDatos_Tamisaje.get('Respuesta8').setValue(this.Recupera_un_Tamizaje.preguntasRelacionesPareja[4].respuesta);
 
-        this.formDatos_Tamisaje.get('Respuesta9').setValue(this.Recupera_un_Tamizaje.preguntasPosibleMaltrato[0].respuesta);
-        this.formDatos_Tamisaje.get('Respuesta10').setValue(this.Recupera_un_Tamizaje.preguntasPosibleMaltrato[1].respuesta);
-        this.formDatos_Tamisaje.get('Respuesta11').setValue(this.Recupera_un_Tamizaje.preguntasPosibleMaltrato[2].respuesta);
-        this.formDatos_Tamisaje.get('Respuesta12').setValue(this.Recupera_un_Tamizaje.preguntasPosibleMaltrato[3].respuesta);
-        this.formDatos_Tamisaje.get('Respuesta13').setValue(this.Recupera_un_Tamizaje.preguntasPosibleMaltrato[4].respuesta);
-        this.formDatos_Tamisaje.get('Respuesta14').setValue(this.Recupera_un_Tamizaje.preguntasPosibleMaltrato[5].respuesta);
-        this.formDatos_Tamisaje.get('Respuesta15').setValue(this.Recupera_un_Tamizaje.preguntasPosibleMaltrato[6].respuesta);
+        // this.formDatos_Tamisaje.get('Respuesta9').setValue(this.Recupera_un_Tamizaje.preguntasPosibleMaltrato[0].respuesta);
+        // this.formDatos_Tamisaje.get('Respuesta10').setValue(this.Recupera_un_Tamizaje.preguntasPosibleMaltrato[1].respuesta);
+        // this.formDatos_Tamisaje.get('Respuesta11').setValue(this.Recupera_un_Tamizaje.preguntasPosibleMaltrato[2].respuesta);
+        // this.formDatos_Tamisaje.get('Respuesta12').setValue(this.Recupera_un_Tamizaje.preguntasPosibleMaltrato[3].respuesta);
+        // this.formDatos_Tamisaje.get('Respuesta13').setValue(this.Recupera_un_Tamizaje.preguntasPosibleMaltrato[4].respuesta);
+        // this.formDatos_Tamisaje.get('Respuesta14').setValue(this.Recupera_un_Tamizaje.preguntasPosibleMaltrato[5].respuesta);
+        // this.formDatos_Tamisaje.get('Respuesta15').setValue(this.Recupera_un_Tamizaje.preguntasPosibleMaltrato[6].respuesta);
 
-        this.formDatos_Tamisaje.get('diagnostico').setValue(this.Recupera_un_Tamizaje.diagnostico);
         this.formDatos_Tamisaje.get('nroDodResponsable').setValue(this.Recupera_un_Tamizaje.nroDocResponsable);
         this.formDatos_Tamisaje.get('ApellidosResponsable').setValue(this.Recupera_un_Tamizaje.nombreResponsableAtencion);
 
@@ -187,6 +220,7 @@ export class TamizajeViolenciaComponent implements OnInit {
             Respuesta6: new FormControl(''),
             Respuesta7: new FormControl(''),
             Respuesta8: new FormControl(''),
+
             Respuesta9: new FormControl(''),
             Respuesta10: new FormControl(''),
             Respuesta11: new FormControl(''),
@@ -194,12 +228,63 @@ export class TamizajeViolenciaComponent implements OnInit {
             Respuesta13: new FormControl(''),
             Respuesta14: new FormControl(''),
             Respuesta15: new FormControl(''),
+            Respuesta16: new FormControl(''),
+            PuntajeTotal: new FormControl(''),
 
             /**Diagnostico y responsable**/
             diagnostico: new FormControl(''),
             nroDodResponsable: new FormControl(''),
             ApellidosResponsable: new FormControl(''),
+
+            respuestaValoracion1: new FormControl(''),
+            respuestaValoracion2: new FormControl(''),
+            respuestaValoracion2A: new FormControl(''),
+            respuestaValoracion3: new FormControl(''),
+            respuestaValoracion4: new FormControl(''),
+            respuestaValoracion5: new FormControl(''),
+            respuestaValoracion5A: new FormControl(''),
+            respuestaValoracion6: new FormControl(''),
+            respuestaValoracion7: new FormControl(''),
+            respuestaValoracion8: new FormControl(''),
+            respuestaValoracion9: new FormControl(''),
+            respuestaValoracion10: new FormControl(''),
+            respuestaValoracion11: new FormControl(''),
+            respuestaValoracion12: new FormControl(''),
+            respuestaValoracion12A: new FormControl(''),
+            respuestaValoracion13: new FormControl(''),
+            respuestaValoracion14: new FormControl(''),
+            respuestaValoracion15: new FormControl(''),
+            respuestaValoracion16: new FormControl(''),
+            respuestaValoracion17: new FormControl(''),
+            respuestaValoracion18: new FormControl(''),
+            respuestaValoracion19: new FormControl(''),
         })
+    }
+
+    calcularPuntaje() {
+        let R9 = this.formDatos_Tamisaje.value.Respuesta9
+        let R10 = this.formDatos_Tamisaje.value.Respuesta10
+        let R11 = this.formDatos_Tamisaje.value.Respuesta11
+        let R12 = this.formDatos_Tamisaje.value.Respuesta12//
+        let R13 = this.formDatos_Tamisaje.value.Respuesta13
+        let R14 = this.formDatos_Tamisaje.value.Respuesta14
+        let R15 = this.formDatos_Tamisaje.value.Respuesta15//
+        let R16 = this.formDatos_Tamisaje.value.Respuesta16
+
+        this.PuntajeTotal = Number(R9) + Number(R10) + Number(R11) + Number(R12) + Number(R13) + Number(R14) + Number(R15) + Number(R16)
+        this.formDatos_Tamisaje.get('PuntajeTotal').setValue(this.PuntajeTotal);
+
+        if ((Number(R12) == 2) || (Number(R12) == 3) || (Number(R15) == 2) || (Number(R15) == 3) || (this.PuntajeTotal > 15)) {
+            this.resultadoTamizaje = "POSITIVO";
+            console.log("RESULTADO:", this.resultadoTamizaje)
+        } else {
+            if ((Number(R12 == 1)) || (Number(R15 == 1)) || (this.PuntajeTotal <= 15)) {
+                this.resultadoTamizaje = "NEGATIVO";
+                console.log("RESULTADO:", this.resultadoTamizaje)
+            } else {
+                return
+            }
+        }
     }
 
     limpiarFormulario() {
@@ -211,7 +296,17 @@ export class TamizajeViolenciaComponent implements OnInit {
 
     save() {
         if (this.Recupera_un_Tamizaje != null) {
-            this.UpdateTamizaje();
+            switch (this.tabIndex) {
+                case 0:
+                    this.UpdateTamizaje();
+                    break;
+                case 1:
+                    this.UpdateTamizaje2();
+                    break;
+                case 2:
+                    this.UpdateTamizajeValoracion();
+                    break;
+            }
         } else {
             this.saveTamizaje();
         }
@@ -226,6 +321,7 @@ export class TamizajeViolenciaComponent implements OnInit {
         }
         console.log("estado", this.gestante);
         const data = {
+            // idConsulta:
             tipoDoc: this.dataPacientes.tipoDoc,
             nroDoc: this.formDatos_Tamisaje.value.nroDoc,
             nroHcl: this.formDatos_Tamisaje.value.nroHcl,
@@ -275,40 +371,7 @@ export class TamizajeViolenciaComponent implements OnInit {
                     respuesta: this.formDatos_Tamisaje.value.Respuesta8,
                 }
             ],
-            preguntasPosibleMaltrato: [
-                {
-                    pregunta: "¿Con que frecuencia su pareja o expareja le dice cosas que a usted le hacen sentir mal?",
-                    respuesta: this.formDatos_Tamisaje.value.Respuesta9,
-                },
-                {
-                    pregunta: "¿Con que frecuencia su pareja o expareja le dice cosas que a usted le hacen sentir mal?",
-                    respuesta: this.formDatos_Tamisaje.value.Respuesta10,
-                },
-                {
-                    pregunta: "¿Tiene miedo a su pareja o expareja?",
-                    respuesta: this.formDatos_Tamisaje.value.Respuesta11,
-                },
-                {
-                    pregunta: "¿Alguna vez a recibido golpes, empujones, bofetadas o cualquier otra agresión?",
-                    respuesta: this.formDatos_Tamisaje.value.Respuesta12,
-                },
-                {
-                    pregunta: "¿Alguna vez a recibido golpes, empujones, bofetadas o cualquier otra agresión?",
-                    respuesta: this.formDatos_Tamisaje.value.Respuesta13,
-                },
-                {
-                    pregunta: "¿Ha realiado alguna denuncia contra su pareja o expareja por algún tipo de maltrato o violencia?",
-                    respuesta: this.formDatos_Tamisaje.value.Respuesta14,
-                },
-                {
-                    pregunta: "Alguna vez, ¿Ha pensado en abandonar a su pareja o expareja por su mala forma de tratar?",
-                    respuesta: this.formDatos_Tamisaje.value.Respuesta15,
-                },
 
-
-            ],
-
-            diagnostico: this.formDatos_Tamisaje.value.diagnostico,
             tipoDocResponsable: "DNI",
             nroDocResponsable: this.formDatos_Tamisaje.value.nroDodResponsable,
             nombreResponsableAtencion: this.formDatos_Tamisaje.value.ApellidosResponsable,
@@ -316,27 +379,37 @@ export class TamizajeViolenciaComponent implements OnInit {
 
         console.log("DATA", data);
 
-        this.tamizajeViolenciaService.addTamizajeViolencia(data).subscribe(result => {
+        this.tamizajeViolenciaService.addTamizajeViolencia(data).subscribe((result: any) => {
                 console.log("DATA", result);
                 this.getTamizajeNroDoc();
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Se guardo con exito',
-                    text: '',
-                    showConfirmButton: false,
-                    timer: 1500,
-                })
+                if (result.object == null) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Registro',
+                        text: result.mensaje,
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
+                } else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Registro',
+                        text: result.mensaje,
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
+                }
+
             }
         )
     }
 
     UpdateTamizaje() {
         const data2 = {
-            id: this.Recupera_un_Tamizaje.id,
             tipoDoc: this.dataPacientes.tipoDoc,
             nroDoc: this.formDatos_Tamisaje.value.nroDoc,
             nroHcl: this.formDatos_Tamisaje.value.nroHcl,
-            gestante: this.gestante,
+            gestante: this.Recupera_un_Tamizaje.gestante,
             nombres: this.formDatos_Tamisaje.value.nombres,
             apePaterno: this.formDatos_Tamisaje.value.apePaterno,
             apeMaterno: this.formDatos_Tamisaje.value.apeMaterno,
@@ -381,47 +454,15 @@ export class TamizajeViolenciaComponent implements OnInit {
                     respuesta: this.formDatos_Tamisaje.value.Respuesta8,
                 }
             ],
-            preguntasPosibleMaltrato: [
-                {
-                    pregunta: "¿Con que frecuencia su pareja o expareja le dice cosas que a usted le hacen sentir mal?",
-                    respuesta: this.formDatos_Tamisaje.value.Respuesta9,
-                },
-                {
-                    pregunta: "¿Con que frecuencia su pareja o expareja le dice cosas que a usted le hacen sentir mal?",
-                    respuesta: this.formDatos_Tamisaje.value.Respuesta10,
-                },
-                {
-                    pregunta: "¿Tiene miedo a su pareja o expareja?",
-                    respuesta: this.formDatos_Tamisaje.value.Respuesta11,
-                },
-                {
-                    pregunta: "¿Alguna vez a recibido golpes, empujones, bofetadas o cualquier otra agresión?",
-                    respuesta: this.formDatos_Tamisaje.value.Respuesta12,
-                },
-                {
-                    pregunta: "¿Alguna vez a recibido golpes, empujones, bofetadas o cualquier otra agresión?",
-                    respuesta: this.formDatos_Tamisaje.value.Respuesta13,
-                },
-                {
-                    pregunta: "¿Ha realiado alguna denuncia contra su pareja o expareja por algún tipo de maltrato o violencia?",
-                    respuesta: this.formDatos_Tamisaje.value.Respuesta14,
-                },
-                {
-                    pregunta: "Alguna vez, ¿Ha pensado en abandonar a su pareja o expareja por su mala forma de tratar?",
-                    respuesta: this.formDatos_Tamisaje.value.Respuesta15,
-                },
 
-
-            ],
-            diagnostico: this.formDatos_Tamisaje.value.diagnostico,
-            tipoDocResponsable: "DNI",
-            nroDocResponsable: this.formDatos_Tamisaje.value.nroDodResponsable,
-            nombreResponsableAtencion: this.formDatos_Tamisaje.value.ApellidosResponsable,
+            // tipoDocResponsable: "DNI",
+            // nroDocResponsable: this.formDatos_Tamisaje.value.nroDodResponsable,
+            // nombreResponsableAtencion: this.formDatos_Tamisaje.value.ApellidosResponsable,
 
         }
         console.log("DATA UPDATE", data2);
 
-        this.tamizajeViolenciaService.UpdateTamizajeViolencia(data2).subscribe(result => {
+        this.tamizajeViolenciaService.UpdateTamizajeViolencia(this.Recupera_un_Tamizaje.id, data2).subscribe(result => {
                 console.log("DATA UPDATE", result);
                 this.getTamizajeNroDoc();
                 Swal.fire({
@@ -434,4 +475,164 @@ export class TamizajeViolenciaComponent implements OnInit {
             }
         )
     }
+
+    UpdateTamizaje2() {
+        const data2 = {
+            cuestionario: [
+                {
+                    pregunta: "En general ¿Cómo describiría su relación de pareja?",
+                    respuesta: this.formDatos_Tamisaje.value.Respuesta9,
+
+                },
+                {
+                    pregunta: "Usted y su pareja resuelven las discusiones con:",
+                    respuesta: this.formDatos_Tamisaje.value.Respuesta10,
+                },
+                {
+                    pregunta: "Al terminar las discusiones usted ¿Se siente decaída o mal con usted misma?",
+                    respuesta: this.formDatos_Tamisaje.value.Respuesta11,
+                },
+                {
+                    pregunta: "Las discusiones ¿terminan en golpes, patadas o empujones?",
+                    respuesta: this.formDatos_Tamisaje.value.Respuesta12,
+                },
+                {
+                    pregunta: "¿Hay situaciones en las cuales ha sentido miedo de las reacciones de su pareja?",
+                    respuesta: this.formDatos_Tamisaje.value.Respuesta13,
+                },
+                {
+                    pregunta: "Su pareja ¿controla el dinero que usted gasta, o la obliga a realizar trabajo en exceso?",
+                    respuesta: this.formDatos_Tamisaje.value.Respuesta14,
+                },
+                {
+                    pregunta: " Su pareja ¿la insulta, grita, humilla o descalifica verbalmente?",
+                    respuesta: this.formDatos_Tamisaje.value.Respuesta15,
+                },
+                {
+                    pregunta: "¿Se ha sentido obligada a tener relaciones sexuales con su pareja para evitar problemas?",
+                    respuesta: this.formDatos_Tamisaje.value.Respuesta16,
+                },
+
+            ],
+            puntajeTotal: this.formDatos_Tamisaje.value.PuntajeTotal,
+            diagnostico: this.resultadoTamizaje
+
+        }
+        console.log("DATA UPDATE", data2);
+        console.log("ID", this.Recupera_un_Tamizaje.id);
+
+        this.tamizajeViolenciaService.UpdateTamizajeCuestionario(this.Recupera_un_Tamizaje.id, data2).subscribe(result => {
+                console.log("DATA UPDATE", result);
+                this.getTamizajeNroDoc();
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Se Actualizo con exito',
+                    text: '',
+                    showConfirmButton: false,
+                    timer: 1500,
+                })
+            }
+        )
+    }
+
+    UpdateTamizajeValoracion() {
+        const data2 = {
+            id: this.Recupera_un_Tamizaje.id,
+            fichaValoracion: [
+                {
+                    pregunta: "¿En el último año, la violencia física contra usted ha aumentado en gravedad o frecuencia?",
+                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion1,
+                },
+                {
+                    pregunta: "¿Él tiene algún arma o podría conseguir un arma con facilidad? (pistola, cuchillo, machete, u otros)",
+                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion2,
+                },
+                {
+                    pregunta: "2a.- ¿Han vivido juntos durante el último año? [si dice NO, pasar a pregunta 4]",
+                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion2A,
+                },
+                {
+                    pregunta: "Usted me dice que han vivido juntos en el último año. ¿Siguen viviendo juntos o lo ha dejado? [Si siguen viviendo juntos marcar SI; si lo ha dejado marcar NO]",
+                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion3,
+                },
+                {
+                    pregunta: "¿Actualmente, él tiene trabajo estable? [si ella no sabe, no marcar nada]",
+                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion4,
+                },
+                {
+                    pregunta: "¿Alguna vez él ha usado o la ha amenazado con un arma (pistola, cuchillo, machete u otros)?",
+                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion5,
+                },
+                {
+                    pregunta: "5a.- Si su respuesta fue “SI”, ¿fue con una pistola o cuchillo?",
+                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion5A,
+                },
+                {
+                    pregunta: "¿La ha amenazado con matarla?",
+                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion6,
+                },
+                {
+                    pregunta: "¿Alguna vez usted lo denunció por violencia familiar (porque él le pegó) ante la comisaría, fiscalía, juzgado o ante alguna autoridad comunal?",
+                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion7,
+                },
+                {
+                    pregunta: "¿Él la ha obligado alguna vez a tener relaciones sexuales?",
+                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion8,
+                },
+                {
+                    pregunta: "¿Él ha intentado ahorcarla?",
+                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion9,
+                },
+                {
+                    pregunta: "¿Él consume drogas? Por ejemplo, como la marihuana, pasta básica, cocaína u otras",
+                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion10,
+                },
+                {
+                    pregunta: "¿Él es alcohólico o tiene problemas con el alcohol (trago o licor)?",
+                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion11,
+                },
+                {
+                    pregunta: "¿Le controla la mayoría o todas sus actividades diarias? Por ejemplo, no le deja que vea a sus familiares o amistades, le controla cuánto dinero puede gastar, etc.",
+                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion12,
+                },
+                {
+                    pregunta: "12a.- Si él trata de controlarla, pero ella no lo permite, márquelo aquí:",
+                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion12A,
+                },
+                {
+                    pregunta: "¿Él se pone celoso de forma constante y violenta? Por ejemplo, le dice: “si no eres mía, no serás de nadie” u otras similares.",
+                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion13,
+                },
+                {
+                    pregunta: "¿Cuándo usted estuvo embarazada, alguna vez él la golpeó?",
+                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion14,
+                },
+                {
+                    pregunta: "¿Alguna vez él ha amenazado o ha intentado suicidarse?",
+                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion15,
+                },
+                {
+                    pregunta: "¿Él la ha amenazado con hacerle daño a sus hijos?",
+                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion16,
+                },
+                {
+                    pregunta: "¿Cree que él es capaz de matarla?",
+                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion17,
+                },
+                {
+                    pregunta: "¿Él realiza alguna de las siguientes acciones?: La llama insistentemente, le deja mensajes en su teléfono o en redes sociales o destruye sus cosas (celular, ropa u otro)",
+                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion18,
+                },
+                {
+                    pregunta: "¿Alguna vez usted ha intentado o ha amenazado con quitarse la vida?",
+                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion19,
+                },
+            ],
+            puntajeTotal: "",
+            nivelRiesgo: "",
+            observaciones: "",
+
+        }
+    }
+
 }

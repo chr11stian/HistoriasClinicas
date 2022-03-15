@@ -20,6 +20,9 @@ export class ExamenesAuxiliaresService {
   getListarResultadosLaboratorioByIdConsulta(idConsulta) {
     return this.http.get(`${this.urlServer}/${this.bd}/examenesAuxiliares/buscar/id/consulta/${idConsulta}`);
   }
+  putAddExamenesAuxiliares(idConsulta: string, data) {
+    return this.http.put(`${this.urlServer}/${this.bd}/examenesAuxiliares/crear-Laboratorios-resultados/${idConsulta}`, data);
+  }
   /**PROMISES */
   getPromiseListaServiciosLaboratorio() {
     return this.http.get<any>(`${this.urlServer}/${this.bd}/tools/laboratorios-resultados`)
@@ -30,6 +33,13 @@ export class ExamenesAuxiliaresService {
   }
   getPromiseListarResultadosLaboratorioByIdConsulta(idConsulta) {
     return this.http.get<any>(`${this.urlServer}/${this.bd}/examenesAuxiliares/buscar/id/consulta/${idConsulta}`)
+      .toPromise()
+      .then(res => <any>res.object)
+      .then(data => { return data; })
+      .catch(error => { return error.error });
+  }
+  putPromiseAddAuxiliarExam(idConsulta: string, data) {
+    return this.http.put<any>(`${this.urlServer}/${this.bd}/examenesAuxiliares/buscar/id/consulta/${idConsulta}`, data)
       .toPromise()
       .then(res => <any>res.object)
       .then(data => { return data; })

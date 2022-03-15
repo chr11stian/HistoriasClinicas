@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import Swal from 'sweetalert2';
-import { ExamenAuxiliar, Hematologia, Laboratorio, Parasitologia, ResultadoLaboratorio } from '../../models/examenesAuxiliares';
+import { AddLaboratorio, ExamenAuxiliar, Hematologia, Laboratorio, Parasitologia, ResultadoLaboratorio } from '../../models/examenesAuxiliares';
 import { ExamenesAuxiliaresService } from '../../services/examenes-auxiliares.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { ExamenesAuxiliaresService } from '../../services/examenes-auxiliares.se
   providers: [DialogService],
 })
 export class ExamenesAuxiliaresConsultaComponent implements OnInit {
-  listaExamenesAux: any[] = [];
+  listaExamenesAux: ExamenAuxiliar[] = [];
   addExamDialog: boolean = false;
   formHematologia: FormGroup;
   formParasitario: FormGroup;
@@ -28,25 +28,26 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   ]
   dataExamenesAuxiliares: Laboratorio;
   isLabo: boolean = false;
-  dataHematologia: any;
-  dataParasitologia: any;
+  dataHematologia: Hematologia;
+  dataParasitologia: Parasitologia;
   examFFF: string;
   /**ngModels */
-  resultado: string;
+  observaciones: string;
   examLab: Examen = {};
   lugarLab: Lugar = {};
+  /**fin ngModels */
   idConsulta: string;
   listaDataLaboRes: any;
   ref: DynamicDialogRef;
   toShow: boolean = false;
   indexEdit: number;
+  toEdit: boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private auxExamService: ExamenesAuxiliaresService,
     private dialog: DialogService,
   ) {
-
     this.idConsulta = JSON.parse(localStorage.getItem('documento')).idConsulta;
     this.recoverDataAuxialsExams();
   }
@@ -57,6 +58,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   inicializarForm() {
     this.formHematologia = new FormGroup({
       hemoglobina: new FormControl({ value: '', disabled: this.toShow }, { validators: [Validators.required] }),
+      hemoglobinaFactorCorrec: new FormControl({ value: '', disabled: this.toShow }, { validators: [Validators.required] }),
       hematocrito: new FormControl({ value: '', disabled: this.toShow }),
       grupoSanguineo: new FormControl({ value: '', disabled: this.toShow }),
       factorRH: new FormControl({ value: '', disabled: this.toShow }),
@@ -125,10 +127,10 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
       // console.log('data de examenes auxiliares de consulta ', data);
       this.listaDataLaboRes = data;
       if (data.length > 0) {
-        this.toShow = true;
+        this.toEdit = true;
       }
     })
-    console.log('to show ', this.toShow)
+    // console.log('to show ', this.toShow)
     this.inicializarForm();
   }
   openAddExamDialog() {
@@ -140,8 +142,8 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   }
 
   agreeAddExamDialog() {
-    let auxDataExam: any;
-    if (this.formHematologia.valid) {
+    let auxDataExam: ExamenAuxiliar;
+    if (this.examLab.tipoExam == 2) {
       this.recoverDataHematologia();
       auxDataExam = {
         tipoLaboratorio: 'EXAMEN_LABORATORIO',
@@ -151,13 +153,14 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
         codPrestacion: '',
         cie10: '',
         codigoHIS: '',
+        lugarExamen: this.lugarLab.lugarLab,
         resultado: {
           hematologia: this.dataHematologia
         },
         labExterno: 'false'
       }
     }
-    if (this.formParasitario.valid) {
+    if (this.examLab.tipoExam == 1) {
       this.recoverDataParasitologia();
       auxDataExam = {
         tipoLaboratorio: 'EXAMEN_LABORATORIO',
@@ -167,6 +170,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
         codPrestacion: '',
         cie10: '',
         codigoHIS: '',
+        lugarExamen: this.lugarLab.lugarLab,
         resultado: {
           parasitologia: this.dataParasitologia
         },
@@ -187,6 +191,8 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   }
 
   closeExamDialog() {
+    console.log('data only to show');
+    this.toShow = false;
     this.addExamDialog = false;
   }
 
@@ -208,8 +214,8 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
       blastos: this.formHematologia.value.blastos,
       juveniles: this.formHematologia.value.juveniles,
       neutrofilos: this.formHematologia.value.neutrofilos,
-      nAbastonados: this.formHematologia.value.nAbastonados,
-      nSegmentados: this.formHematologia.value.nSegmentados,
+      nabastonados: this.formHematologia.value.nAbastonados,
+      nsegmentados: this.formHematologia.value.nSegmentados,
       linfocitos: this.formHematologia.value.linfocitos,
       monocitos: this.formHematologia.value.monocitos,
       eosinofilos: this.formHematologia.value.eosinofilos,
@@ -257,11 +263,38 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
 
   }
   saveAuxiliarsExams() {
+    console.log('save data de examenes auxiliares ');
     if (this.listaExamenesAux.length == 0) {
-      // console.log('no hay datos para guardar');
       return
     }
-    if (!this.toShow) {
+    if (this.toEdit) {
+      for (let i = 0; i < this.listaExamenesAux.length; i++) {
+        let dataAddExamenesAuxiliares: AddLaboratorio = {
+          servicio: 'SERVICIO',
+          nroCama: '',
+          dxPresuntivo: '',
+          examenAuxiliar: this.listaExamenesAux[i],
+          observaciones: ''
+        }
+        this.auxExamService.putAddExamenesAuxiliares(this.idConsulta, dataAddExamenesAuxiliares).subscribe((res: any) => {
+          if (res.cod == "5122") {
+            Swal.fire({
+              icon: 'warning',
+              title: 'No se añadio el Examen ya que fue agregado previamente',
+              showConfirmButton: false,
+              timer: 2000
+            });
+            return
+          }
+          Swal.fire({
+            icon: 'success',
+            title: 'Se añadio correctamente el examen',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        })
+      }
+    } else {
       this.dataExamenesAuxiliares = {
         servicio: 'SERVICIO',
         nroCama: '',
@@ -269,7 +302,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
         examenesAuxiliares: this.listaExamenesAux,
         observaciones: ''
       }
-      // console.log('data to send ', this.dataExamenesAuxiliares);
+      console.log('data to dave de verdad ', this.dataExamenesAuxiliares)
       this.auxExamService.postExamenesAuxiliares(this.idConsulta, this.dataExamenesAuxiliares).subscribe((res: any) => {
         Swal.fire({
           icon: 'success',
@@ -280,8 +313,10 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
       });
     }
   }
-  showDataAuxiliarsExams(data, index) {
-    console.log('data del ver ', data);
+  openShowDataAuxiliarsExams(data, index) {
+    console.log('data to show ', data);
+    this.toShow = true;
+    this.inicializarForm();
     this.addExamDialog = true;
     if (data.datosLaboratorio.subTipo == 'HEMATOLOGIA') {
       this.examLab.tipoExam = 2;
@@ -338,8 +373,8 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
     this.formHematologia.patchValue({ blastos: data.blastos });
     this.formHematologia.patchValue({ juveniles: data.juveniles });
     this.formHematologia.patchValue({ neutrofilos: data.neutrofilos });
-    this.formHematologia.patchValue({ nAbastonados: data.nAbastonados });
-    this.formHematologia.patchValue({ nSegmentados: data.nSegmentados });
+    this.formHematologia.patchValue({ nAbastonados: data.nabastonados });
+    this.formHematologia.patchValue({ nSegmentados: data.nsegmentados });
     this.formHematologia.patchValue({ linfocitos: data.linfocitos });
     this.formHematologia.patchValue({ monocitos: data.monocitos });
     this.formHematologia.patchValue({ eosinofilos: data.eosinofilos });
@@ -361,6 +396,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
     this.formParasitario.patchValue({ mucus: data.examenMacroscopico.mucus });
     this.formParasitario.patchValue({ sangre: data.examenMacroscopico.sangre });
     this.formParasitario.patchValue({ restosAlimenticios: data.examenMacroscopico.restosAlimenticios });
+    this.formParasitario.patchValue({ reaccionInflamatorio: data.examenMicroscopico.reaccionInflamatorio });
     this.formParasitario.patchValue({ filamentosMucoides: data.examenMicroscopico.filamentosMucoides });
     this.formParasitario.patchValue({ leucocitos: data.examenMicroscopico.leucocitos });
     this.formParasitario.patchValue({ hematies: data.examenMicroscopico.hematies });
