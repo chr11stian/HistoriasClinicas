@@ -10,6 +10,7 @@ import { ModalInterconsultaComponent } from "./modal-interconsulta/modal-interco
 import { ModalRecomendacionesComponent } from "./modal-recomendaciones/modal-recomendaciones.component";
 import { ModalExamenesAuxiliaresComponent } from "./modal-examenes-auxiliares/modal-examenes-auxiliares.component";
 import { MessageService } from "primeng/api";
+import { ModalProcedimientosComponent } from './modal-procedimientos/modal-procedimientos.component';
 
 @Component({
   selector: 'app-tratamiento',
@@ -32,6 +33,9 @@ export class TratamientoComponent implements OnInit {
   /*campos para el tratamiento inmunizaciones*/
   tratamientoInmunizaciones: any[] = [];
   dataTratamientoInmunizaciones: any;
+  /*campos para procedimientos*/
+  procedimientos: any[] = [];
+  dataProcedimientos: any;
   /*INTERCONSULTAS*/
   interconsultas: any[] = [];
   recomendaciones: any[] = [];
@@ -219,11 +223,51 @@ export class TratamientoComponent implements OnInit {
       this.imc = parseFloat(res.object.imc);
     })
   }
+  /*DATOS RECIBIDOS DE PROCEDIMIENTOS*/
+  openDialogProcedimiento() {
+    this.ref = this.dialog.open(ModalProcedimientosComponent, {
+      header: "PROCEDIMIENTOS",
+      contentStyle: {
+        heigth: "700px",
+        width: "980px",
+        overflow: "auto",
+      },
+    })
+    this.ref.onClose.subscribe((data: any) => {
+      console.log("data de modal PROCEDIMIENTOS", data)
+      if (data !== undefined)
+        this.procedimientos.push(data);
+      console.log(this.formTratamiento);
+    })
+  }
+  openDialogEditarProcedimiento(row, index) {
+    let aux = {
+      index: index,
+      row: row
+    }
+    this.ref = this.dialog.open(ModalProcedimientosComponent, {
+      header: "PROCEDIMIENTOS",
+      contentStyle: {
+        heigth: "700px",
+        width: "980px",
+        overflow: "auto",
+      },
+      data: aux
+    })
+    this.ref.onClose.subscribe((data: any) => {
+      console.log('data de modal PROCEDIMIENTOS ', data)
+      if (data !== undefined) {
+        this.procedimientos.splice(data.index, 1, data.row);
+      };
+    })
+  }
   /*DATOS RECIBIDOS DE LOS MODALES*/
   openDialogTratamientoComun() {
     this.ref = this.dialog.open(ModalTratamientoComponent, {
       header: "TRATAMIENTOS",
       contentStyle: {
+        heigth: "700px",
+        width: "980px",
         overflow: "auto",
       },
     })
@@ -242,6 +286,8 @@ export class TratamientoComponent implements OnInit {
     this.ref = this.dialog.open(ModalTratamientoComponent, {
       header: "TRATAMIENTO",
       contentStyle: {
+        heigth: "700px",
+        width: "980px",
         overflow: "auto",
       },
       data: aux
@@ -497,6 +543,28 @@ export class TratamientoComponent implements OnInit {
     )
   }
   /* ELIMINAR ITEMS DE CADA TABLA */
+  eliminarProcedimiento(index) {
+    Swal.fire({
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      icon: 'warning',
+      title: 'Estas seguro de eliminar este registro?',
+      text: '',
+      showConfirmButton: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.procedimientos.splice(index, 1)
+        Swal.fire({
+          icon: 'success',
+          title: 'Eliminado correctamente',
+          text: '',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
+    })
+
+  }
   eliminarTratamientoComun(index) {
     Swal.fire({
       showCancelButton: true,
