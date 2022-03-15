@@ -40,6 +40,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   ref: DynamicDialogRef;
   toShow: boolean = false;
   indexEdit: number;
+  toEdit:boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -125,10 +126,10 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
       // console.log('data de examenes auxiliares de consulta ', data);
       this.listaDataLaboRes = data;
       if (data.length > 0) {
-        this.toShow = true;
+        this.toEdit = true;
       }
     })
-    console.log('to show ', this.toShow)
+    // console.log('to show ', this.toShow)
     this.inicializarForm();
   }
   openAddExamDialog() {
