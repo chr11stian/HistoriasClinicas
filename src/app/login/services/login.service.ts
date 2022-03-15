@@ -45,8 +45,6 @@ export class LoginService {
                     localStorage.setItem('user', JSON.stringify(token))
                     localStorage.setItem('usuario', JSON.stringify(user.usuario))
                     localStorage.setItem('token', JSON.stringify(token))
-
-
                 }
                 return user;
             }))

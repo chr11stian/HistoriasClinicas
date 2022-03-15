@@ -18,70 +18,73 @@
         [autoLayout]="true"
         currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
 >
-    <ng-template pTemplate="caption" style="background-color:#D9D9D9" class="primero">
-        <div class="flex justify-content-center">
-            <h5  style="font-size: 1rem;margin: 0.2rem">ROL DE GUARDIAS</h5>
+  <ng-template pTemplate="caption" style="background-color:#D9D9D9" class="primero">
+    <div class="flex justify-content-center">
+      <h5  style="font-size: 1rem;margin: 0.2rem">ROL DE GUARDIAS primera modificacione</h5>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+    <tr>
+      <th  colSpan="6" style="padding: 0.2rem">
+        <div class="flex align-items-center text-center justify-content-around">
+          <button
+                  pButton
+                  type="button"
+                  label=""
+                  icon="pi pi-chevron-left"
+                  class="p-button-text p-button-secondary"
+                  (click)="isAdelante=false;pivotearMes();"
+                  [disabled]="evaluarBotonDisabledAtraz()"
+          ></button>
+          <span class="">
+                             {{ mesLetras() }} {{ fechaPivot.getFullYear() }}</span>
+          <button
+                  pButton
+                  type="button"
+                  label=""
+                  icon="pi pi-chevron-right"
+                  class="p-button-text p-button-secondary"
+                  (click)="isAdelante=true;pivotearMes(); "
+                  [disabled]="evaluarBotonDisabledAdelante()"
+          ></button>
         </div>
-    </ng-template>
-    <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
-        <tr>
-            <th  colSpan="6" style="padding: 0.2rem">
-                <div class="flex align-items-center text-center justify-content-center">
-                    <button
-                            pButton
-                            type="button"
-                            label=""
-                            icon="pi pi-chevron-left"
-                            class="p-button-text p-button-secondary"
-                            (click)="isAdelante1=false;cambiarFecha1();"
-                    ></button>
-                    <span class="">
-                             {{ mesLetras1() }} {{ fecha1.getFullYear() }}</span>
-                    <button
-                            pButton
-                            type="button"
-                            label=""
-                            icon="pi pi-chevron-right"
-                            class="p-button-text p-button-secondary"
-                            (click)="isAdelante1=true;cambiarFecha1();"
-                    ></button>
-                </div>
-            </th>
+      </th>
 
-        </tr>
-        <tr >
-            <th class="text-center">Nro</th>
-            <th class="text-center">DNI</th>
-            <th class="text-center">APELLIDOS Y NOMBRES</th>
-            <th class="text-center">SERVICIO</th>
-            <th class="text-center">ESTADO</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-        <tr>
-            <td class="text-center text-800 m-2">{{ rowIndex + 1 }}</td>
-            <td class="text-center text-800 m-2">{{ rowData.nroDoc }}</td>
-            <td class="text-center text-800 m-2">{{ rowData.nombre }}</td>
-            <td class="text-center text-800 m-2">{{ rowData.servicio }}</td>
-            <td class="text-center text-800 m-2">
-                <p-tag *ngIf="rowData.estadoRol=='ASIGNADDO';else noAsignado" styleClass="mr-2" severity="success" value="Asignado" [rounded]="true"></p-tag>
-                <ng-template #noAsignado>
-                    <p-tag styleClass="mr-2" severity="danger" value="No Asignado" [rounded]="true"></p-tag>
-                </ng-template>
-            </td>
-        </tr>
-    </ng-template>
+    </tr>
+    <tr >
+      <th class="text-center">Nro</th>
+      <th class="text-center">DNI</th>
+      <th class="text-center">APELLIDOS Y NOMBRES</th>
+      <th class="text-center">SERVICIO</th>
+      <th class="text-center">ESTADO</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+    <tr>
+      <td class="text-center text-800 m-2">{{ rowIndex + 1 }}</td>
+      <td class="text-center text-800 m-2">{{ rowData.nroDoc }}</td>
+      <td class="text-center text-800 m-2">{{ rowData.nombre }}</td>
+      <td class="text-center text-800 m-2">{{ rowData.servicio }}</td>
+      <td class="text-center text-800 m-2">
+        <p-tag *ngIf="rowData.estadoRol=='ASIGNADO';else noAsignado" styleClass="mr-2" severity="success" value="Asignado" [rounded]="true"></p-tag>
+        <ng-template #noAsignado>
+          <p-tag styleClass="mr-2" severity="danger" value="No Asignado" [rounded]="true"></p-tag>
+        </ng-template>
+      </td>
+    </tr>
+  </ng-template>
 </p-table>
 <div class="flex justify-content-end ">
-    <button
-            pButton
-            type="button"
-            label="Agregar"
-            class="bg-blue-700 p-button px-5 text-center mt-3 mr-3"
-            icon="pi pi-plus"
-            (click)="openModal()"
-            style="border-radius: 0.5rem"
-    ></button>
+  <button
+          pButton
+          type="button"
+          label="Agregar"
+          class="bg-blue-700 p-button px-5 text-center mt-3 mr-3"
+          icon="pi pi-plus"
+          (click)="openModal()"
+          style="border-radius: 0.5rem"
+          [disabled]="evaluarDisabledGuardaMes()"
+  ></button>
 </div>
 <!--inicio de dialogo-->
 <p-dialog [(visible)]="displayAsignadoRol"
@@ -92,255 +95,255 @@
           [resizable]="false"
           [maximizable]="true"
 >
-<p-table
-        class="asignado"
-        responsiveLayout="scroll"
-        rowExpandMode="single"
-        scrollDirection="both"
-        sortMode="single"
-        selectionMode="single"
-        [resizableColumns]="true"
-        #dt
-        styleClass="p-datatable p-mt-3"
-        [value]="listaPersonal"
-        [rowHover]="true"
-        [loading]="loading || loadingUps"
->
+  <p-table
+          class="asignado"
+          responsiveLayout="scroll"
+          rowExpandMode="single"
+          scrollDirection="both"
+          sortMode="single"
+          selectionMode="single"
+          [resizableColumns]="true"
+          #dt
+          styleClass="p-datatable p-mt-3"
+          [value]="listaPersonal"
+          [rowHover]="true"
+          [loading]="loading || loadingUps"
+  >
     <ng-template pTemplate="caption">
-        <div class="table-header" >
-            ASIGNAR ROL DE GUARDIAS AL PERSONAL DE SALUD
-        </div>
+      <div class="table-header" >
+        ASIGNAR ROL DE GUARDIAS AL PERSONAL DE SALUD
+      </div>
     </ng-template>
 
     <ng-template pTemplate="header">
-        <tr >
-            <th class="frozenCol text-center"
-                pFrozenColumn
-                [frozen]="true"
-                rowSpan="2"
-                colSpan="3"
+      <tr >
+        <th class="frozenCol text-center"
+            pFrozenColumn
+            [frozen]="true"
+            rowSpan="2"
+            colSpan="3"
 
-                style="min-width: 250px ;border-bottom:1px solid #CDCDCD" >
-                <strong>
-                    <label class="line-height-4" class="text-base" style="font-weight:normal">
-                        Servicio:</label
-                    >
-                </strong>
-                <div class="p-fluid mx-5">
-                    <p-dropdown
-                            class="servicio"
-                            panelStyleClass="minWidthOverride"
-                            [options]="listaUps"
-                            [appendTo]="dropdown"
-                            optionLabel="nombreUPS"
-                            placeholder="Seleccionar"
-                            styleClass="my-2 py-1"
-                            (onChange)="changeUps1($event)"
-                            [(ngModel)]="upsSeleccionada"
+            style="min-width: 250px ;border-bottom:1px solid #CDCDCD" >
+          <strong>
+            <label class="line-height-4" class="text-base" style="font-weight:normal">
+              Servicio:</label
+            >
+          </strong>
+          <div class="p-fluid mx-5">
+            <p-dropdown
+                    class="servicio"
+                    panelStyleClass="minWidthOverride"
+                    [options]="listaUps"
+                    [appendTo]="dropdown"
+                    optionLabel="nombreUPS"
+                    placeholder="Seleccionar"
+                    styleClass="my-2 py-1"
+                    (onChange)="changeUps1($event)"
+                    [(ngModel)]="upsSeleccionada"
 
-                    ></p-dropdown>
-                </div>
-            </th>
-            <th
-                    [colSpan]="cabeceraMes.length + 2"
-                    style="background-color:#D9D9D9;border-bottom: 1px solid #CDCDCD"
+            ></p-dropdown>
+          </div>
+        </th>
+        <th
+                [colSpan]="cabeceraMes.length + 2"
+                style="background-color:#D9D9D9;border-bottom: 1px solid #CDCDCD"
+        >
+          <div >
+            <!--                    <p-calendar-->
+            <!--                            [appendTo]="calendarWrapper"-->
+            <!--                            [(ngModel)]="dateValue"-->
+            <!--                            (onSelect)="cambiarFecha($event)"-->
+            <!--                            view="month"-->
+            <!--                            dateFormat="mm/yy"-->
+            <!--                            [yearNavigator]="true"-->
+            <!--                            yearRange="2020:2030"-->
+            <!--                    ></p-calendar>-->
+            <div
+                    class="flex align-items-center text-center justify-content-center"
             >
-                <div >
-<!--                    <p-calendar-->
-<!--                            [appendTo]="calendarWrapper"-->
-<!--                            [(ngModel)]="dateValue"-->
-<!--                            (onSelect)="cambiarFecha($event)"-->
-<!--                            view="month"-->
-<!--                            dateFormat="mm/yy"-->
-<!--                            [yearNavigator]="true"-->
-<!--                            yearRange="2020:2030"-->
-<!--                    ></p-calendar>-->
-                    <div
-                            class="flex align-items-center text-center justify-content-center"
-                    >
-                        <button
-                          pButton
-                          type="button"
-                          label=""
-                          icon="pi pi-chevron-left"
-                          class="p-button-text p-button-secondary"
-                          (click)="isAdelante=false;cambiarFecha();"
-                        ></button>
-                        <span class="m-3">
-                         {{ mesLetras() }} {{ fecha.getFullYear() }}</span>
-                        <button
-                          pButton
-                          type="button"
-                          label=""
-                          icon="pi pi-chevron-right"
-                          class="p-button-text p-button-secondary"
-                          (click)="isAdelante=true;cambiarFecha();"
-                        ></button>
-                    </div>
-                </div>
-            </th>
-        </tr>
-        <tr >
-            <th class="ml-3" rowspan="2" style="background-color:#D9D9D9">Ambiente</th>
-            <th
-                    *ngFor="let dia of cabeceraMes"
-                    [style]="dia.bg"
-                    style="padding: 0.7em;background-color:#D9D9D9;border-bottom: 1px solid #D9D9D9"
-            >
-                {{ dia.abreviatura }}
-            </th>
-            <th  class="frozenCol"
-                 pFrozenColumn
-                 [frozen]="true" rowspan="2" style="background-color:#D9D9D9">Horas</th>
-        </tr>
-        <tr>
-            <th  class="frozenCol"
-                 pFrozenColumn
-                 [frozen]="true" colspan="3" >
-                PERSONAL DE SALUD
-            </th>
-<!--            <th >-->
-<!--                Apellidos-->
-<!--            </th>-->
-<!--            <th >-->
-<!--                Nombres-->
-<!--            </th>-->
-            <th
-                    *ngFor="let dia of cabeceraMes"
-                    [style]="dia.bg"
-                    style="padding:0.7em;background-color:#D9D9D9"
-            >
-                {{ dia.dia }}
-            </th>
-        </tr>
+              <!--                        <button-->
+              <!--                          pButton-->
+              <!--                          type="button"-->
+              <!--                          label=""-->
+              <!--                          icon="pi pi-chevron-left"-->
+              <!--                          class="p-button-text p-button-secondary"-->
+              <!--                          (click)="isAdelante=false;cambiarFecha();"-->
+              <!--                        ></button>-->
+              <span class="m-3">
+                         {{ mesLetras() }} {{ fechaPivot.getFullYear() }}</span>
+              <!--                        <button-->
+              <!--                          pButton-->
+              <!--                          type="button"-->
+              <!--                          label=""-->
+              <!--                          icon="pi pi-chevron-right"-->
+              <!--                          class="p-button-text p-button-secondary"-->
+              <!--                          (click)="isAdelante=true;cambiarFecha();"-->
+              <!--                        ></button>-->
+            </div>
+          </div>
+        </th>
+      </tr>
+      <tr >
+        <th class="ml-3" rowspan="2" style="background-color:#D9D9D9">Ambiente</th>
+        <th
+                *ngFor="let dia of cabeceraMes"
+                [style]="dia.bg"
+                style="padding: 0.7em;background-color:#D9D9D9;border-bottom: 1px solid #D9D9D9"
+        >
+          {{ dia.abreviatura }}
+        </th>
+        <th  class="frozenCol"
+             pFrozenColumn
+             [frozen]="true" rowspan="2" style="background-color:#D9D9D9">Horas</th>
+      </tr>
+      <tr>
+        <th  class="frozenCol"
+             pFrozenColumn
+             [frozen]="true" colspan="3" >
+          PERSONAL DE SALUD
+        </th>
+        <!--            <th >-->
+        <!--                Apellidos-->
+        <!--            </th>-->
+        <!--            <th >-->
+        <!--                Nombres-->
+        <!--            </th>-->
+        <th
+                *ngFor="let dia of cabeceraMes"
+                [style]="dia.bg"
+                style="padding:0.7em;background-color:#D9D9D9"
+        >
+          {{ dia.dia }}
+        </th>
+      </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rowData let-i="rowIndex;">
-        <tr  [pSelectableRow]="rowData" (click)="modal(rowData,i)">
-            <td  class="frozenCol"
-                 pFrozenColumn
-                 [frozen]="true" style="min-width: 3rem">
-                {{ i + 1 }}
-            </td>
-<!--            <td class="">-->
-<!--                {{ rowData.apePaterno }} {{ rowData.apeMaterno }}-->
-<!--            </td>-->
-<!--            <td class="" >-->
-<!--                {{ rowData.nombre }}-->
-<!--            </td>-->
-            <td  class="frozenCol"
-                 pFrozenColumn
-                 [frozen]="true" colspan="2">
-                {{rowData.nombreCompleto}}
-            </td>
-            <td>
-                <p-dropdown
-                        #dd
-                        class="bordeDropTurno"
-                        [appendTo]="dropdown"
-                        [options]="listaAmbienteXipres"
-                        [virtualScroll]="true"
-                        optionLabel="ambiente"
-                        optionValue="ambiente"
-                        [(ngModel)]="listaAmbiente[i]"
+      <tr  [pSelectableRow]="rowData" (click)="modal(rowData,i)">
+        <td  class="frozenCol"
+             pFrozenColumn
+             [frozen]="true" style="min-width: 3rem">
+          {{ i + 1 }}
+        </td>
+        <!--            <td class="">-->
+        <!--                {{ rowData.apePaterno }} {{ rowData.apeMaterno }}-->
+        <!--            </td>-->
+        <!--            <td class="" >-->
+        <!--                {{ rowData.nombre }}-->
+        <!--            </td>-->
+        <td  class="frozenCol"
+             pFrozenColumn
+             [frozen]="true" colspan="2">
+          {{rowData.nombreCompleto}}
+        </td>
+        <td>
+          <p-dropdown
+              #dd
+              class="bordeDropTurno"
+              [appendTo]="dropdown"
+              [options]="listaAmbienteXipres"
+              [virtualScroll]="true"
+              optionLabel="ambiente"
+              optionValue="ambiente"
+              [(ngModel)]="listaAmbiente[i]"
 
-                ></p-dropdown>
-            </td>
-            <td *ngFor="let dia of cabeceraMes; let j = index" class="" >
-                <!-- {{ i }} -{{ j }} -->
-<!--                    placeholder="NA"-->
-                <p-dropdown
-                    #dd
-                    class="bordeDropTurno"
-                    [appendTo]="dropdown"
-                    [options]="listaTurno"
-                    [virtualScroll]="true"
-                    dataKey="abreviatura"
-                    optionLabel="abreviatura"
-                    [(ngModel)]="matriz[i][j]"
-                    (onChange)="changeTurno(i, j)"
-                ></p-dropdown>
-            </td>
-            <td  class="frozenCol"
-                 pFrozenColumn
-                 [frozen]="true" >{{ listaHoras[i] }}</td>
-        </tr>
+          ></p-dropdown>
+        </td>
+        <td *ngFor="let dia of cabeceraMes; let j = index" class="" >
+          <!-- {{ i }} -{{ j }} -->
+          <!--                    placeholder="NA"-->
+          <p-dropdown
+              #dd
+              class="bordeDropTurno"
+              [appendTo]="dropdown"
+              [options]="listaTurno"
+              [virtualScroll]="true"
+              dataKey="abreviatura"
+              optionLabel="abreviatura"
+              [(ngModel)]="matriz[i][j]"
+              (onChange)="changeTurno(i, j)"
+          ></p-dropdown>
+        </td>
+        <td  class="frozenCol"
+             pFrozenColumn
+             [frozen]="true" >{{ listaHoras[i] }}</td>
+      </tr>
     </ng-template>
-</p-table>
-<div style="font-weight:normal;color:#BF0D21;font-size:1.5rem" class="mt-2">
+  </p-table>
+  <div style="font-weight:normal;color:#BF0D21;font-size:1.5rem" class="mt-2">
     leyenda:
-</div>
-<div class="flex justify-content-between">
+  </div>
+  <div class="flex justify-content-between">
     <div class="col-9">
-        <div class="grid borde">
-            <div class="col-2">
+      <div class="grid borde">
+        <div class="col-2">
         <span
         ><p>M-Mañana</p>
           <p>T-Tarde</p>
           <p>M/T-Mañana Tarde</p></span
         >
-            </div>
-            <div class="col-3">
+        </div>
+        <div class="col-3">
         <span
         ><p>GD-Guardia diurna</p>
           <p>GN-Guardia Nocturna</p>
           <p>T/GN-Tarde Guardia Nocturna</p></span
         >
-            </div>
-            <div class="col-2">
+        </div>
+        <div class="col-2">
         <span
         ><p>N-Noche</p>
           <p>R-Reten</p>
           <p style="color:#BF0D21">L-Libre</p></span
         >
-            </div>
-            <div class="col-3">
+        </div>
+        <div class="col-3">
         <span
         ><p>V-Vacaciones</p>
           <p>O-Onomastico</p>
           <p>GD(GN)-Guardia Diurna y Nocturna</p></span
         >
-            </div>
-            <div class="col-2">
-                <span><p>F-Feriado</p> </span>
-<!--                <span><p style="color:#BF0D21">NA-No Asignado</p> </span>-->
-            </div>
         </div>
+        <div class="col-2">
+          <span><p>F-Feriado</p> </span>
+          <!--                <span><p style="color:#BF0D21">NA-No Asignado</p> </span>-->
+        </div>
+      </div>
     </div>
     <!-- Botones -->
     <div class="col-3 flex justify-content-around">
-        <div class="col-6">
-            <button
-                    pButton
-                    type="button"
-                    label="Guardar"
-                    class="bg-blue-700 p-button px-5 text-center"
-                    icon="pi pi-save"
-                    (click)="designar()"
-                    [disabled]="!isSelected"
-                    style="border-radius: 0.5rem"
-            ></button>
-        </div>
-        <div class="col-6">
-            <button
-                    pButton
-                    type="button"
-                    label="Cerrar"
-                    class="p-button-danger p-button px-5 text-center "
-                    icon="pi pi-times-circle"
-                    (click)="close()"
-                    style="border-radius: 0.5rem"
-            ></button>
-        </div>
+      <div class="col-6">
+        <button
+                pButton
+                type="button"
+                label="Guardar"
+                class="bg-blue-700 p-button px-5 text-center"
+                icon="pi pi-save"
+                (click)="designar()"
+                [disabled]="!isSelected"
+                style="border-radius: 0.5rem"
+        ></button>
+      </div>
+      <div class="col-6">
+        <button
+                pButton
+                type="button"
+                label="Cerrar"
+                class="p-button-danger p-button px-5 text-center "
+                icon="pi pi-times-circle"
+                (click)="close()"
+                style="border-radius: 0.5rem"
+        ></button>
+      </div>
     </div>
-</div>
+  </div>
+  <p-confirmDialog
+          [breakpoints]="{ '960px': '25vw', '640px': '100vw' }"
+          [style]="{ width: '45vw' }"
+          key="positionDialog"
+          [baseZIndex]="10000"
+          position="top"
+  ></p-confirmDialog>
+  <p-toast [style]="{ marginTop: '80px' }" key="toastSecundario"></p-toast>
 </p-dialog>
-<!-- </p-card> -->
-<p-confirmDialog
-        [breakpoints]="{ '960px': '25vw', '640px': '100vw' }"
-        [style]="{ width: '45vw' }"
-        key="positionDialog"
-        [baseZIndex]="10000"
-        position="top"
-></p-confirmDialog>
-<p-toast [style]="{ marginTop: '80px' }" key="toast1"></p-toast>
-<p-toast [style]="{ marginTop: '80px' }" key="toast2"></p-toast>
+
+<p-toast [style]="{ marginTop: '80px' }" key="toast"></p-toast>

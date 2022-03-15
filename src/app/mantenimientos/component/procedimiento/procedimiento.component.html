@@ -43,7 +43,7 @@
       <ng-template pTemplate="footer">
         <div class="flex justify-content-end">
           <button pButton type="button"
-                  label="Guardar" class="m-1 w-9rem" (click)="saveProcedimiento()"></button>
+                  label="Guardar" class="m-1 w-9rem" [disabled]="procedimientoFC.invalid"  (click)="saveProcedimiento()"></button>
           <button pButton type="button" label="Cancelar" icon="pi pi-plus" (click)="cancelar()"
                   pTooltip="cancerlar" tooltipPosition="right" class="p-button-danger m-1 w-9rem"
                   pRipple></button>
@@ -76,6 +76,7 @@
       </ng-template>
       <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
         <tr>
+          <th style="text-align: center">Nro</th>
           <th style="text-align: center">Codigo</th>
           <th style="text-align: center">Procedimieto</th>
           <th style="text-align: center">Ind</th>
@@ -92,6 +93,8 @@
           <td style="text-align: center">{{ rowData.procedimiento }}</td>
           <td style="text-align: center">{{ rowData.ind }}</td>
           <td style="text-align: center">{{ rowData.eje }}</td>
+          <td style="text-align: center">{{ rowData.dx }}</td>
+          <td style="text-align: center">{{ rowData.res }}</td>
           <td class="text-center">
             <button  pButton pTooltip="Editar Procedimiento" pRipple (click)="botonActualizar(rowIndex)"
                      type="button" icon="pi pi-pencil" class="p-button-rounded p-button-help">

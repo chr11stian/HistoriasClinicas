@@ -4,7 +4,7 @@
         <p-table #dt [value]="listaExamenesAux" [rows]="3" [paginator]="true" [rowHover]="true"
             styleClass="p-datatable-gridlines" dataKey="id"
             currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} Entradas"
-            [showCurrentPageReport]="true" *ngIf="!toShow">
+            [showCurrentPageReport]="true">
             <ng-template pTemplate="caption">
                 <div class="grid">
                     <div class="col-8">
@@ -42,7 +42,7 @@
         <p-table #dt [value]="listaDataLaboRes" [rows]="3" [paginator]="true" [rowHover]="true"
             styleClass="p-datatable-gridlines" dataKey="id"
             currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} Entradas"
-            [showCurrentPageReport]="true" *ngIf="toShow">
+            [showCurrentPageReport]="true">
             <ng-template pTemplate="caption">
                 <div class="grid">
                     <div class="col-8">
@@ -94,19 +94,19 @@
     </ng-template>
     <ng-template pTemplate="body">
         <div class="grid">
-            <div class="p-fluid col-5" *ngIf="!toShow">
+            <div class="p-fluid col-5">
                 <label>Nombre Examen:</label>
                 <p-dropdown [options]="listaExamenes" [(ngModel)]="examLab" placeholder="SELECCIONA UN EXAMEN"
                     [showClear]="false" appendTo="body" optionLabel="nombreExam">
                 </p-dropdown>
             </div>
-            <div class="p-fluid col-5" *ngIf="!toShow">
+            <div class="p-fluid col-5">
                 <label>Lugar:</label>
                 <p-dropdown [options]="listaLugares" [(ngModel)]="lugarLab" placeholder="SELECCIONA UN LUGAR"
                     [showClear]="false" appendTo="body" optionLabel="lugarLab">
                 </p-dropdown>
             </div>
-            <div class="col-12" *ngIf="lugarLab.index == 1 && !toShow">
+            <div class="col-12" *ngIf="lugarLab.index == 1">
                 <label>Resultados:</label>
                 <textarea [rows]="3" class="inputfield w-full mt-2" [(ngModel)]="resultado" pInputTextarea
                     oninput="this.value=this.value.toUpperCase()"></textarea>

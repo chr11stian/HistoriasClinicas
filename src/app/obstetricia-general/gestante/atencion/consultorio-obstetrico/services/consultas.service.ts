@@ -33,11 +33,6 @@ export class ConsultasService {
     }
     getLastConsulById(idConsulta) {
         const promise = this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/numeroUltimaConsultaxid`, idConsulta).toPromise();
-        promise.then((data) => {
-            console.log("Promise resolved with: " + JSON.stringify(data));
-        }).catch((error) => {
-            console.log("Promise rejected with " + JSON.stringify(error));
-        })
         return promise;
     }
 
@@ -56,5 +51,38 @@ export class ConsultasService {
     }
     getServiciosPorIpress(idIpress) {
         return this.http.get(`${this.base_url}/${this.bd}/ipress/listarServicios/${idIpress}`);
+    }
+    guardarDiagnosticoDeGestante(nroHcl,nroEmbarazo,nroAtencion,data){
+        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/agregarDiagnostico/${nroHcl}/${nroEmbarazo}/${nroAtencion}`, data)
+    }
+    eliminarDiagnosticoGestante(nroHcl,nroEmbarazo,nroAtencion,cie10SIS){
+        return this.http.delete(`${this.base_url}/${this.bd}/obstetricia/consulta/eliminiarDiagnostico/${nroHcl}/${nroEmbarazo}/${nroAtencion}/${cie10SIS}`)
+    }
+    guardarInmunizacionGestante(nroHcl,nroEmbarazo,nroAtencion,data){
+        return this.http.post(`${this.base_url}/${this.bd}/inmunizacion/agregar/${nroHcl}/${nroEmbarazo}/${nroAtencion}`, data)
+        .toPromise()
+        .then(res => <any[]>res)
+        .then(data => { return data; });
+    }
+    editarInmunizacionGestante(nroHcl,nroEmbarazo,nroAtencion,data){
+        return this.http.put(`${this.base_url}/${this.bd}/inmunizacion/actualizarPendiente/${nroHcl}/${nroEmbarazo}/${nroAtencion}`, data)
+        .toPromise()
+        .then(res => <any[]>res)
+        .then(data => { return data; });
+    }
+    eliminarInmunizacionGestante(idInmu){
+        return this.http.delete(`${this.base_url}/${this.bd}/inmunizacion/${idInmu}`)
+    }
+    listarDiagnosticosDeUnaConsulta(nroHcl,nroEmbarazo,nroAtencion){
+        return this.http.get(`${this.base_url}/${this.bd}/obstetricia/consulta/listarDiagnostico/${nroHcl}/${nroEmbarazo}/${nroAtencion}`)
+        .toPromise()
+        .then(res => <any[]>res)
+        .then(data => { return data; });
+    }
+    listarInmunizacionesDeUnaConsulta(nroHcl,nroEmbarazo,nroAtencion){
+        return this.http.get(`${this.base_url}/${this.bd}/inmunizacion/${nroHcl}/${nroEmbarazo}/${nroAtencion}`)
+        .toPromise()
+        .then(res => <any[]>res)
+        .then(data => { return data; });
     }
 }
