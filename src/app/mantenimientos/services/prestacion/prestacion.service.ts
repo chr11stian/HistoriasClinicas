@@ -19,6 +19,7 @@ export class PrestacionService {
   putPrestacion(codigo,inputRequest) {
     return this.http.put(`${this.base_url}/${this.bd}/sis/prestacion/update/${codigo}`,inputRequest);
   }
+
   getDiagnosticoPorCodigo(codigo:string) {
     return this.http.get(`${this.base_url}/${this.bd}/sis/prestacion/listar/por/codigo/${codigo}`);
   }
@@ -34,6 +35,17 @@ export class PrestacionService {
   activarDiagnostico(codigo:string,cie10:string){
     return this.http.get(`${this.base_url}/${this.bd}/sis/activar/diagnostico/${codigo}/${cie10}`);
   }
+  // procedimiento
+  getProcedimientoPorCodigo(codigo:string) {
+    return this.http.get(`${this.base_url}/${this.bd}/sis/prestacion/listar/procedimientos/${codigo}`);
+  }
+  postProcedimientoPorCodigo(codigo:string,inputRequest) {
+    return this.http.post(`${this.base_url}/${this.bd}/sis/prestacion/guardar/procedimiento/${codigo}`,inputRequest);
+  }
+  putProcedimientoPorCodigo(codigo:string,codPres:string,inputRequest) {
+    return this.http.put(`${this.base_url}/${this.bd}/sis/prestacion/update/procedimeinto/${codigo}/${codPres}`,inputRequest);
+  }
+
 
 
 }

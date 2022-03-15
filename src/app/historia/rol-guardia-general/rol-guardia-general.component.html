@@ -1,7 +1,10 @@
-<!--<button-->
-<!--  pButton-->
-<!--  type="button"-->
-<!--  label="Abrir Modal"-->
-<!--  (click)="openModal()"-->
-<!--&gt;</button>-->
-<app-rol-guardia></app-rol-guardia>
+<button
+  pButton
+  type="button"
+  label="Abrir Modal"
+  (click)="openModal()"
+></button>
+<p-dialog header="Title" [(visible)]="display" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '95vw'}">
+  <app-rol-guardia></app-rol-guardia>
+</p-dialog>
+

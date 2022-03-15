@@ -46,4 +46,10 @@ export class RolGuardiaService {
             `${this.base_url}/${this.bd}/ipress/listarTurnos/${idIpress}`
         );
     }
+    getAmbientesPorIpres(inputRequest){
+        return this.http.post(`${this.base_url}/${this.bd}/ipress/listarAmbientesXIpress`,inputRequest);
+    }
+    getListaPrimeraPantalla(codIpress:string,inputRequest:any){
+        return this.http.post(`${this.base_url}/${this.bd}/rolguardia/personal/asignado/${codIpress}`,inputRequest);
+    }
 }

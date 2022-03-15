@@ -35,6 +35,7 @@
       <th class="text-center">Edad Maxima</th>
       <th class="text-center">Denominacion</th>
       <th class="text-center">Diagnostico</th>
+      <th class="text-center">Procedimiento</th>
       <th class="text-center">Acciones</th>
 
 
@@ -67,6 +68,19 @@
                 pTooltip="Agregar Diagnostico"
                 tooltipPosition="bottom"
                 class="p-button-raised p-button-success p-button-rounded"
+        ></button>
+      </td>
+      <td class="text-center">
+        <span class="p-column-title">Prodedimiento</span>
+        <button
+                pButton
+                pRipple
+                type="button"
+                icon="pi pi-sitemap"
+                (click)="abrirComponenteProcedimiento(rowData)"
+                pTooltip="Agregar Procedimiento"
+                tooltipPosition="bottom"
+                class="p-button-raised p-button-info p-button-rounded"
         ></button>
       </td>
       <td class="flex justify-content-around">
@@ -136,12 +150,12 @@
         </div>
         <div class="col-1">Edad Minima:</div>
         <div class="col-1 p-fluid">
-          <p-inputNumber mode="decimal" [useGrouping]="false" formControlName="edadMin" >
+          <p-inputNumber mode="decimal"  formControlName="edadMin" >
           </p-inputNumber>
         </div>
         <div class="col-1">Edad Maxima:</div>
         <div class="col-1 p-fluid">
-          <p-inputNumber mode="decimal" [useGrouping]="false" formControlName="edadMax" >
+          <p-inputNumber mode="decimal"  formControlName="edadMax" >
           </p-inputNumber>
         </div>
       </div>

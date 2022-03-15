@@ -1,33 +1,6 @@
-<!-------------INICIO DIALOG TRATAMIENTO INMUNIZACIONES--->
-<form [formGroup]='formInmunizaciones'>
+<!-------------INICIO DIALOG PROCEDIMIENTO------->
+<form [formGroup]='formProcedimientos'>
     <div class="grid p- mb-4 mt-2">
-        <div class="col-12">
-            <p-fieldset legend="INMUNIZACION">
-                <div class="grid p-fluid">
-                    <div class="col-4">
-                        <label>Nombre:</label>
-                        <p-autoComplete [suggestions]="listaMedicamentos" (completeMethod)="filterMedicamento($event)" appendTo="body"
-                        field="nombre" [minLength]="1" class="inputfield p-fluid w-full"
-                        formControlName="nombre" (onSelect)="selectedOptionNameMedicamento($event)">
-                        </p-autoComplete>
-                    </div>
-                    <div class="col-3">
-                        <label>Nombre comercial:</label>
-                        <input type="text" pInputText formControlName='nombreComercial' placeholder="Nombre comercial"
-                            required/>
-                    </div>
-                    <div class="col-2">
-                        <label>Dosis:</label>
-                        <input type="number" pInputText formControlName='dosis' placeholder="Dosis" required />
-                    </div>
-                    <div class="col-3">
-                        <label>Tipo dosis:</label>
-                        <p-dropdown [options]="tiposDosis" formControlName="tipoDosis" appendTo="body"
-                        optionLabel="label" optionValue="value" class="inputfield p-fluid w-full" placeholder="Seleccione"></p-dropdown>
-                    </div>
-                </div>
-            </p-fieldset>
-        </div>
         <div class="col-12">
             <p-fieldset legend="PRESTACIÓN">
                 <div class="grid p-fluid">

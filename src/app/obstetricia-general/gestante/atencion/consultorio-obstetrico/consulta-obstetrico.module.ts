@@ -17,6 +17,7 @@ import { ModalInterconsultaComponent } from './component/tratamiento/modal-inter
 import { ModalRecomendacionesComponent } from './component/tratamiento/modal-recomendaciones/modal-recomendaciones.component';
 import { ModalExamenesAuxiliaresComponent } from './component/tratamiento/modal-examenes-auxiliares/modal-examenes-auxiliares.component';
 import {TamizajeViolenciaComponent} from "./component/tamizaje-violencia/tamizaje-violencia.component";
+import { ModalProcedimientosComponent } from './component/tratamiento/modal-procedimientos/modal-procedimientos.component';
 
 @NgModule({
     declarations: [
@@ -32,6 +33,7 @@ import {TamizajeViolenciaComponent} from "./component/tamizaje-violencia/tamizaj
         ModalInterconsultaComponent,
         ModalRecomendacionesComponent,
         ModalExamenesAuxiliaresComponent,
+        ModalProcedimientosComponent,
 
 
     ],
