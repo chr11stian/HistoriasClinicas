@@ -38,6 +38,11 @@ export class ModalReferenciaComponent implements OnInit {
         {pro: 'imc', label: 'imc(kg/m2)', nameFC: 'imcFC'},
         {pro: 'perimetroCefalico', label: 'PC (cm)', nameFC: 'PCFC'}
     ]
+    Destino = [
+        {name: 'Emergencia', code: 'Emergencia'},
+        {name: 'Consulta Externa', code: 'Consulta Externa'},
+        {name: 'Apoyo al diagnóstico', code: 'Apoyo al diagnóstico'}
+    ];
 
     constructor(private formBuilder: FormBuilder,) {
     }
@@ -63,6 +68,8 @@ export class ModalReferenciaComponent implements OnInit {
         this.formReferencia = this.formBuilder.group({
             fecha: new FormControl("", []),
             hour: new FormControl("", []),
+            fechaAtencion: new FormControl("", []),
+            hourAtencion: new FormControl("", []),
             subsidiado: new FormControl("", []),
             semisubsidiado: new FormControl("", []),
             otros: new FormControl("", []),
@@ -70,7 +77,10 @@ export class ModalReferenciaComponent implements OnInit {
             destino: new FormControl("", []),
             sis: new FormControl("", []),
             historia: new FormControl("", []),
-            nombre: new FormControl("", [])
+            nombre: new FormControl("", []),
+            quien: new FormControl("", []),
+            nombreAtendera: new FormControl("", []),
+            nombreCoordino: new FormControl("", [])
         });
     }
 

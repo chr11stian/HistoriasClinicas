@@ -179,6 +179,88 @@
         </p-tabView>
     </p-fieldset>
     <p-fieldset legend="Datos de Referencia" [toggleable]="true">
-
+        <div class="col flex align-items-center justify-content-center" style="padding:0; margin: 0">
+            <span>Referencia:</span>
+            <div class="col-3">
+                <p-dropdown
+                        class="w-full"
+                        [autoDisplayFirst]="false"
+                        [options]="Destino"
+                        formControlName="quien"
+                        optionValue="code"
+                        optionLabel="name">
+                </p-dropdown>
+            </div>
+        </div>
+        <div class="col flex" style="padding:0; margin: 0">
+            <div class="col-8 flex align-items-center">
+                <span>
+                    Nombre de quien lo atenderá:
+                </span>
+                <div class="col-8 ml-4">
+                    <input type="text" class="w-full" pInputText formControlName="nombreAtendera">
+                </div>
+            </div>
+            <div class="col-4 flex align-items-center">
+                <span>
+                    Fecha en que será atendido:
+                </span>
+                <div class="col-6">
+                    <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"
+                                dateFormat="yy-mm-dd" formControlName="fechaAtencion"
+                    ></p-calendar>
+                </div>
+            </div>
+        </div>
+        <div class="col flex" style="padding:0; margin: 0">
+            <div class="col-8 flex align-items-center">
+                <span>
+                    Nombre con quien se coordino la atención:
+                </span>
+                <div class="col-7 justify-content-end">
+                    <input type="text" class="w-full" pInputText formControlName="nombreCoordino">
+                </div>
+            </div>
+            <div class="col-4 flex align-items-center">
+                <span>
+                    Hora en que será atendido:
+                </span>
+                <div class="col-6">
+                    <p-calendar [timeOnly]="true"
+                                class="text-center"
+                                formControlName="hourAtencion"
+                                inputId="timeonly">
+                    </p-calendar>
+                </div>
+            </div>
+        </div>
+        <div class="col flex" style="padding:0; margin: 0">
+            <div class="col-6 flex align-items-center">
+                <span>Especialidad del destino:</span>
+                <div class="col-8">
+                    <p-dropdown
+                            class="w-full"
+                            [autoDisplayFirst]="false"
+                            [options]="Destino"
+                            formControlName="quien"
+                            optionValue="code"
+                            optionLabel="name">
+                    </p-dropdown>
+                </div>
+            </div>
+            <div class="col-6 flex align-items-center">
+                <span>Condición del paciente al inicio del traslado:</span>
+                <div class="col-5">
+                    <p-dropdown
+                            class="w-full"
+                            [autoDisplayFirst]="false"
+                            [options]="Destino"
+                            formControlName="quien"
+                            optionValue="code"
+                            optionLabel="name">
+                    </p-dropdown>
+                </div>
+            </div>
+        </div>
     </p-fieldset>
 </form>
