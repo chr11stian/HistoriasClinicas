@@ -211,6 +211,7 @@ export class TratamientoComponent implements OnInit {
   }
   ngOnInit(): void {
     this.recuperarInmunizaciones();
+    this.recuperarTratamientos();
   }
   recuperarNroFetos() {
     let idData = {
@@ -273,9 +274,7 @@ export class TratamientoComponent implements OnInit {
     })
     this.ref.onClose.subscribe((data: any) => {
       console.log("data de modal tratamiento", data)
-      if (data !== undefined)
-        this.tratamientosComunes.push(data);
-      console.log(this.formTratamiento);
+      this.recuperarTratamientos();
     })
   }
   openDialogEditarTratamientoComun(row, index) {
@@ -293,10 +292,8 @@ export class TratamientoComponent implements OnInit {
       data: aux
     })
     this.ref.onClose.subscribe((data: any) => {
-      console.log('data de modal tratamiento ', data)
-      if (data !== undefined) {
-        this.tratamientosComunes.splice(data.index, 1, data.row);
-      };
+      console.log("data de modal tratamiento", data)
+      this.recuperarTratamientos();
     })
   }
   openDialogInterconsultas() {
@@ -481,6 +478,11 @@ export class TratamientoComponent implements OnInit {
       this.tratamientoInmunizaciones = res.object;
     })
   }
+  async recuperarTratamientos() {
+    await this.tratamientoService.listarTratamientosDeUnaConsulta(this.nroHcl, this.nroEmbarazo, this.nroAtencion).then((res: any) => {
+      this.tratamientosComunes = res.object;
+    })
+  }
   guardarEvaluacionNutricional() {
     this.recuperarDatosEvaluacion();
     console.log("peso hab:" + this.pesoHabitual);
@@ -575,14 +577,18 @@ export class TratamientoComponent implements OnInit {
       showConfirmButton: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        this.tratamientosComunes.splice(index, 1)
-        Swal.fire({
-          icon: 'success',
-          title: 'Eliminado correctamente',
-          text: '',
-          showConfirmButton: false,
-          timer: 1500
-        })
+        this.tratamientoService.eliminarTratamientoGestante(this.nroHcl,this.nroEmbarazo,this.nroAtencion,index).subscribe(
+          (resp) => {
+            this.recuperarTratamientos();
+            Swal.fire({
+              icon: 'success',
+              title: 'Eliminado correctamente',
+              text: '',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          }
+        );
       }
     })
 

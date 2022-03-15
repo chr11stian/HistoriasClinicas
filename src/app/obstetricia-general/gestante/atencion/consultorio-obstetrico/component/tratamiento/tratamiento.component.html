@@ -73,24 +73,22 @@
         <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
             <tr>
                 <th style="text-align: center" class="font-2">Nro </th>
-                <th style="text-align: center" class="font-1">DESCRIPCIÓN</th>
+                <th style="text-align: center" class="font-1">MEDICAMENTO</th>
                 <th style="text-align: center" class="font-2">CANTIDAD</th>
                 <th style="text-align: center" class="font-2">DOSIS</th>
                 <th style="text-align: center" class="font-2">INTERVALO</th>
-                <th style="text-align: center" class="font-2">VIA ADMIN.</th>
                 <th style="text-align: center" class="font-2">DURACION</th>
-                <th style="text-align: center" class="font-2">IND. ADICIONAL</th>
-                <th style="text-align: center" class="font-2">Acciones</th>
+                <th style="text-align: center" class="font-2">OBSERVACIONES</th>
+                <th style="text-align: center" class="font-2">ACCIONES</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
             <tr>
                 <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                <td style="text-align: center">{{ rowData.descripcion }}</td>
-                <td style="text-align: center">{{ rowData.numero }}</td>
+                <td style="text-align: center">{{ rowData.medicamento.nombre }}</td>
+                <td style="text-align: center">{{ rowData.cantidad }}</td>
                 <td style="text-align: center">{{ rowData.dosis }}</td>
                 <td style="text-align: center">{{ rowData.intervalo }}</td>
-                <td style="text-align: center">{{ rowData.viaAdministracion }}</td>
                 <td style="text-align: center">{{ rowData.duracion }}</td>
                 <td style="text-align: center">{{ rowData.observaciones }}</td>
 
@@ -99,12 +97,8 @@
                         (click)="openDialogEditarTratamientoComun(rowData,rowIndex)" pTooltip="Editar">
                     </button>
                     <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                        (click)="eliminarTratamientoComun(rowIndex)" pTooltip="Eliminar">
+                        (click)="eliminarTratamientoComun(rowData.medicamento.id)" pTooltip="Eliminar">
                     </button>
-                    <button pButton (click)="openDialogEditarTratamientoComun(rowData,rowIndex)" pTooltip="Visualizar"
-                        pRipple type="button" icon="pi pi-eye" class="p-button-rounded p-button-help m-1">
-                    </button>
-
                 </td>
             </tr>
         </ng-template>
