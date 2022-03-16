@@ -300,6 +300,8 @@ export class TratamientoComponent implements OnInit {
     this.ref = this.dialog.open(ModalInterconsultaComponent, {
       header: "INTERCONSULTA",
       contentStyle: {
+        heigth: "400px",
+        width: "680px",
         overflow: "auto",
       },
     })
@@ -318,6 +320,8 @@ export class TratamientoComponent implements OnInit {
     this.ref = this.dialog.open(ModalInterconsultaComponent, {
       header: "INTERCONSULTA",
       contentStyle: {
+        heigth: "400px",
+        width: "680px",
         overflow: "auto",
       },
       data: aux
@@ -518,22 +522,20 @@ export class TratamientoComponent implements OnInit {
       nroHcl: this.nroHcl,
       nroEmbarazo: this.nroEmbarazo,
       nroAtencion: this.nroAtencion,
-      // nroControlSis: 1,
       tipoDoc: this.tipoDocRecuperado,
       nroDoc: this.nroDocRecuperado,
-      inmunizaciones: this.tratamientoInmunizaciones,
-      tratamientos: this.tratamientosComunes,
-      tratamientosSuplementos: this.suplementarios,
+      procedimientos:this.procedimientos,
+      //inmunizaciones: this.tratamientoInmunizaciones,
+      //tratamientos: this.tratamientosComunes,
+      //tratamientosSuplementos: this.suplementarios,
       interconsultas: this.interconsultas,
-      examenesAuxiliares: this.examenesAuxiliares,
+      //examenesAuxiliares: this.examenesAuxiliares,
       recomendaciones: this.recomendaciones,
     }
     this.tratamientoService.updateConsultas(this.nroFetos, req).subscribe(
-
       (resp) => {
         console.log(resp);
         console.log(req);
-
         Swal.fire({
           icon: 'success',
           title: 'Actualizado correctamente',
@@ -695,7 +697,7 @@ export class TratamientoComponent implements OnInit {
     }
 
     this.tratamientoService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
-      this.dataConsulta = res;
+      this.dataConsulta = res.object;
       console.log("data consulta:" + this.dataConsulta);
 
 
@@ -712,14 +714,14 @@ export class TratamientoComponent implements OnInit {
             this.pesoActual = parseFloat(this.dataConsulta.funcionesVitales.peso)
             this.guardarEvaluacionNutricional();
           }
-          if (this.dataConsulta.evaluacionNutricional != null) {
+          /*if (this.dataConsulta.evaluacionNutricional != null) {
             //    this.formRIEP.patchValue({'valor': parseFloat(this.dataConsulta.funcionesVitales.peso) - this.pesoHabitual});
             this.formRIEP.patchValue({ 'valor': this.dataConsulta.evaluacionNutricional.valor });
             this.formRIEP.patchValue({ 'indicador': this.dataConsulta.evaluacionNutricional.indicador });
-          }
+          }*/
 
           /*recuperar tratamientos comunes*/
-          if (this.dataConsulta.tratamientos != null) {
+          /*if (this.dataConsulta.tratamientos != null) {
             let i: number = 0;
             while (i < this.dataConsulta.tratamientos.length) {
               this.tratamientosComunes.push(this.dataConsulta.tratamientos[i]);
@@ -732,7 +734,7 @@ export class TratamientoComponent implements OnInit {
               this.tratamientoInmunizaciones.push(this.dataConsulta.inmunizaciones[a]);
               a++;
             }
-          }
+          }*/
           if (this.dataConsulta.tratamientosSuplementos != null) {
             /*reuperar datos: tratamientos suplementarios - evaluacion suplmentaria - exam auxiliares*/
             /* recuperar suplementario acido folico*/
@@ -768,19 +770,24 @@ export class TratamientoComponent implements OnInit {
 
           }
           /*recuperar evaluacion Nutricional*/
-          // this.formRIEP.patchValue({ 'valor': this.dataConsulta.funcionesVitales.peso - this.pesoHabitual });
           if (this.dataConsulta.encargado != null) {
             /**Recuperar responsable de la atencion**/
             this.formRIEP.patchValue({ 'encargado': this.dataConsulta.encargado.tipoDoc + " " + this.dataConsulta.encargado.nroDoc });
           }
 
+          if (this.dataConsulta.procedimientos != null) {
+            /* recuperar procedimientos*/
+            let p: number = 0;
+            while (p < this.dataConsulta.procedimientos.length) {
+              this.procedimientos.push(this.dataConsulta.procedimientos[p]);
+              p++;
+            }
+          }
           /* recuperar interconsultas*/
 
           if (this.dataConsulta.interconsultas != null) {
             let y: number = 0;
             while (y < this.dataConsulta.interconsultas.length) {
-              // console.log("interconsultas nro: " ,i);
-              // console.log("interconsultas consta de: ", this.dataConsulta.interconsultas[i]);
               this.interconsultas.push(this.dataConsulta.interconsultas[y]);
               y++;
             }
@@ -789,8 +796,6 @@ export class TratamientoComponent implements OnInit {
             /* recuperar recomendaciones*/
             let w: number = 0;
             while (w < this.dataConsulta.recomendaciones.length) {
-              // console.log("interconsultas nro: " ,i);
-              // console.log("interconsultas consta de: ", this.dataConsulta.recomendaciones[i]);
               this.recomendaciones.push(this.dataConsulta.recomendaciones[w]);
               w++;
             }
