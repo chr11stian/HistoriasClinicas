@@ -106,21 +106,6 @@ export class ModalInmunizacionesComponent implements OnInit {
       this.llenarCamposTratamientoInmunizaciones();
     }
 
-    this.viaadministracionList = [{ label: 'ENDOVENOSA', value: 'ENDOVENOSA' },
-    { label: 'INHALADORA', value: 'INHALADORA' },
-    { label: 'INTRADERMICO', value: 'INTRADERMICO' },
-    { label: 'INTRAMUSCULAR', value: 'INTRAMUSCULAR' },
-    { label: 'NASAL', value: 'NASAL' },
-    { label: 'OFTALMICO', value: 'OFTALMICO' },
-    { label: 'ORAL', value: 'ORAL' },
-    { label: 'OPTICO', value: 'OPTICO' },
-    { label: 'RECTAL', value: 'RECTAL' },
-    { label: 'SUBCUTANEO', value: 'SUBCUTANEO' },
-    { label: 'SUBLINGUAL', value: 'SUBLINGUAL' },
-    { label: 'TOPICO', value: 'TOPICO' },
-    { label: 'VAGINAL', value: 'VAGINAL' },
-    ];
-
     this.tiposDosis = [{ label: 'DOSIS UNICA', value: 'DU' },
     { label: '1RA DOSIS', value: '1' },
     { label: '2DA DOSIS', value: '2' },

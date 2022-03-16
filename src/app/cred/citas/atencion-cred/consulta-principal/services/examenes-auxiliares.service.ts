@@ -38,4 +38,11 @@ export class ExamenesAuxiliaresService {
       .then(data => { return data; })
       .catch(error => { return error.error });
   }
+  putPromiseAddAuxiliarExam(idConsulta: string, data) {
+    return this.http.put<any>(`${this.urlServer}/${this.bd}/examenesAuxiliares/buscar/id/consulta/${idConsulta}`, data)
+      .toPromise()
+      .then(res => <any>res.object)
+      .then(data => { return data; })
+      .catch(error => { return error.error });
+  }
 }

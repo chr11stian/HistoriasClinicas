@@ -38,6 +38,8 @@ import { SuplementoComponent } from './component/tratamiento-consulta/components
 import { TratamientoSeguimientoAnemiaConsultaComponent } from './component/tratamiento-consulta/components/tratamiento-seguimiento-anemia-consulta/tratamiento-seguimiento-anemia-consulta.component';
 import { DosajeComponent } from './component/tratamiento-consulta/components/dosaje/dosaje.component';
 
+import {ListboxModule} from "primeng/listbox";
+import {MultiSelectModule} from "primeng/multiselect";
 @NgModule({
     declarations: [
         DatosGeneralesConsultaComponent,
@@ -79,7 +81,9 @@ import { DosajeComponent } from './component/tratamiento-consulta/components/dos
         DividerModule,
         PlanAtencionIntegralModule,
         ToggleButtonModule,
-        TimelineModule
+        TimelineModule,
+        ListboxModule,
+        MultiSelectModule
     ]
 })
 export class ConsultaPrincipalModule {

@@ -36,13 +36,14 @@
         </ng-template>
         <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
             <tr>
-                <th style="text-align: center">Nro</th>
-                <th style="text-align: center">Codigo</th>
-                <th style="text-align: center">Descripción</th>
-                <th style="text-align: center">Presentación</th>
-                <th style="text-align: center">Concentración</th>
-                <th style="text-align: center">Via de Administración</th>
-                <th style="text-align: center; width:8rem">Acción</th>
+                <th style="text-align: center">N°</th>
+                <th style="text-align: center">CÓDIGO</th>
+                <th style="text-align: center">NOMBRE DEL MEDICAMENTO</th>
+                <th style="text-align: center">FORMA FARMACÉUTICA</th>
+                <th style="text-align: center">CONCENTRACIÓN</th>
+                <th style="text-align: center">VIA DE ADMINISTRACIÓN</th>
+                <th style="text-align: center">NOMBRE COMERCIAL</th>
+                <th style="text-align: center; width:8rem">ACCIÓN</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
@@ -53,6 +54,7 @@
                 <td style="text-align: center">{{ rowData.ff}}</td>
                 <td style="text-align: center">{{ rowData.concentracion}}</td>
                 <td style="text-align: center">{{ rowData.viaAdministracion}}</td>
+                <td style="text-align: center">{{ rowData.nombreComercial}}</td>
                 <td>
                     <button pButton
                             (click)="editarMedicamento(rowData,rowIndex)"
