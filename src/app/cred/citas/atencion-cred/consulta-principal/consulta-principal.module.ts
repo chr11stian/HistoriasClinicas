@@ -37,7 +37,7 @@ import { TratamientoCredComponent } from './component/tratamiento-consulta/compo
 import { SuplementoComponent } from './component/tratamiento-consulta/components/suplemento/suplemento.component';
 import { TratamientoSeguimientoAnemiaConsultaComponent } from './component/tratamiento-consulta/components/tratamiento-seguimiento-anemia-consulta/tratamiento-seguimiento-anemia-consulta.component';
 import { DosajeComponent } from './component/tratamiento-consulta/components/dosaje/dosaje.component';
-
+//mover al share
 import {ListboxModule} from "primeng/listbox";
 import {MultiSelectModule} from "primeng/multiselect";
 @NgModule({
