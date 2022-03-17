@@ -17,18 +17,28 @@ import {ConfirmationService, MessageService} from "primeng/api";
 
 export class DiagnosticoConsultaComponent implements OnInit {
 
-    formDiagnostico: FormGroup
-    diagnosticoDialog: boolean;
     tablaResumenDx:resultados[]=[];
-    attributeLocalS = 'documento'
+    attributeLocalS = 'documento';
     dataConsulta:dato;
     id: string = "";
+
+    formDiagnostico: FormGroup;
+    diagnosticoDialog: boolean;
     diagnosticos: diagnosticoInterface[]=[];
+
+    formProcedimiento:FormGroup;
+    procedimientoDialog:boolean;
+    procedimientos: procedimiento[]=[];
+
+
     ListaPrestacion:any[]=[];
     listaDeCIEHIS: any[]=[];
     listaDeCIESIS: any[]=[];
-    tipoList:any[]=[];
+    listaDeProcedimientos:any[]=[];
+    tipoList:lista[]=[];
     descripcionItem: string;
+    hayDatos:boolean=false;
+
     constructor(private DiagnosticoService: DiagnosticoConsultaService,
                 private PrestacionService: PrestacionService,
                 private cieService: CieService,
@@ -58,14 +68,25 @@ export class DiagnosticoConsultaComponent implements OnInit {
            buscarDxHIS:  new FormControl({value:'',disabled:false}),
            tipoDiagnostico:  new FormControl({value:'',disabled:false}),
            prestacion: new FormControl({value:'',disabled:false}),
-           nombreUPS: new FormControl({value:'CRED',disabled:true}),
+           nombreUPS: ['', [Validators.required]],
            diagnosticoSIS: new FormControl({value:'',disabled:false}),
            cie10SIS: new FormControl({value:'',disabled:false}),
-           diagnosticoHIS: new FormControl({value:'',disabled:false}),
-           cie10HIS:  new FormControl({value:'',disabled:false}),
+           diagnosticoHIS: new FormControl({value:'',disabled:false},[Validators.required]),
+           cie10HIS:  new FormControl({value:'',disabled:false},[Validators.required]),
            factorCondicional:  new FormControl({value:'',disabled:false}),
         });
-
+        // this.formProcedimiento = this.formBuilder.group({
+        //     buscarPDxSIS:  new FormControl({value:'',disabled:false}),
+        //     buscarPDxHIS:  new FormControl({value:'',disabled:false}),
+        //     prestacion: new FormControl({value:'',disabled:false}),
+        //     procedimientoSIS:  new FormControl({value:'',disabled:false}),
+        //     procedimientoHIS: new FormControl({value:'',disabled:false}),
+        //     codProcedimientoSIS: new FormControl({value:'',disabled:false}),
+        //     codProcedimientoHIS: new FormControl({value:'',disabled:false}),
+        //     codPrestacion: ['', [Validators.required]],
+        //     cie10SIS: new FormControl({value:'',disabled:false}),
+        //
+        // });
 
     }
     /** Servicios para recuperar Resumen DX ***/
@@ -217,9 +238,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
     }
 
 
-    /*** funciones tabla diagnostico ***/
-
-
+    /*** Servicio para recuperar Prestaciones ***/
     recuperarPrestaciones() {
         this.PrestacionService.getPrestacion().subscribe((res: any) => {
             this.ListaPrestacion = res.object;
@@ -227,44 +246,53 @@ export class DiagnosticoConsultaComponent implements OnInit {
         })
     }
 
-    /**Funciones de Diagnostico*/
+    /****funciones para recuperar Dx y Procedimientos**/
     recuperarDxBD(){
-        this.DiagnosticoService.getDiagnostico("621cf4e20dd932074024a099").subscribe((res: any) => {
-            if(res.object!=null){
-                console.log(res.object);
-                this.diagnosticos = res.object.diagnosticos;
-            }
-            else{
+        this.DiagnosticoService.getDiagnostico(this.dataConsulta.idConsulta).subscribe((res: any) => {
+             console.log(res.cod);
+                if(res.cod=2121){
+                    console.log(res.object);
+                    this.hayDatos=true;
+                    if(res.object!=null){
+                        this.diagnosticos = res.object.diagnosticos;
+                    }
+                    else{
+                        this.diagnosticos = [];
+                    }
+                    // this.procedimientos=res.object.procedimientos;
+                }
+                else{
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'INFORMACION',
+                        text: 'Aún no hay registros guardados en Diagnósticos',
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
+                }
+
+            },error => {
                 Swal.fire({
-                    icon: 'info',
-                    title: 'INFORMACION',
-                    text: 'Aún no hay registros guardados en Diagnósticos',
+                    icon: 'error',
+                    title: 'ERROR',
+                    text: 'Ocurrio un error al recuperar datos registrados anteriormente en esta consulta.',
                     showConfirmButton: false,
                     timer: 1500,
                 })
             }
-
-        },error => {
-            Swal.fire({
-                icon: 'error',
-                title: 'ERROR',
-                text: 'Ocurrio un error al recuperar datos registrados anteriormente en esta consulta.',
-                showConfirmButton: false,
-                timer: 1500,
-            })
-            }
         );
-
-
     }
+    /**Funciones de Diagnostico*/
 
     openDiagnostico() {
+        this.diagnosticoDialog = true;
         // this.isUpdate = false;
         this.formDiagnostico.reset();
-         this.formDiagnostico.get('nombreUPS').setValue("CRED");
+        this.formDiagnostico.get('nombreUPS').setValue("CRED");
+        this.formDiagnostico.get('cie10HIS').setValue("");
+        this.formDiagnostico.get('cie10SIS').setValue("");
         this.diagnosticoDialog = true;
     }
-
 
     cancelDiagnostico() {
         this.diagnosticoDialog = false;
@@ -287,17 +315,25 @@ export class DiagnosticoConsultaComponent implements OnInit {
             timer: 1000
         })
     }
-
+    /*** funciones Procedimientos****/
     onChangePrestacion() {
+        let codigoPrestacion:any;
+
+            codigoPrestacion=this.formDiagnostico.value.prestacion.codigo;
+
+        // else{
+        //     codigoPrestacion=this.formProcedimiento.value.prestacion.codigo;
+        // }
         this.formDiagnostico.patchValue({ diagnosticoSIS: ""})
         this.formDiagnostico.patchValue({ cie10SIS: ""})
-        this.PrestacionService.getDiagnosticoPorCodigo(this.formDiagnostico.value.prestacion.codigo).subscribe((res: any) => {
+        this.PrestacionService.getDiagnosticoPorCodigo(codigoPrestacion).subscribe((res: any) => {
             // this.listaDeCIE = res.object.diagnostico;
             console.log(res.object);
             if(res.object.denominacion=='ANIOS')
             {
                 if(this.dataConsulta.anio>=res.object.edadMin && this.dataConsulta.anio<=res.object.edadMax){
                     this.listaDeCIEHIS = res.object.diagnostico.filter(element=>element.estado=='ACTIVADO');
+                    // this.listaDeProcedimientos = res.object.procedimientos;
                 }
                 else{
                     this.messageService.add({severity:'error', summary: 'warn', detail:'No hay diagnosticos disponibles para la edad del niño(a) en esta Prestación.'});
@@ -308,6 +344,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
                 let meses = this.dataConsulta.anio*12 + this.dataConsulta.mes + this.dataConsulta.dia/30;
                 if(meses>=res.object.edadMin && meses <=res.object.edadMax){
                     this.listaDeCIEHIS = res.object.diagnostico.filter(element=>element.estado=='ACTIVADO');
+                    // this.listaDeProcedimientos = res.object.procedimientos;
                 }
                 else{
                     this.messageService.add({severity:'error', summary: 'warn', detail:'No hay diagnosticos disponibles para la edad del niño(a) en esta Prestación.'});
@@ -319,6 +356,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
                 if(this.dataConsulta.anio==0 && this.dataConsulta.mes==0){
                     if(this.dataConsulta.dia>=res.object.edadMin && this.dataConsulta.dia<=res.object.edadMax){
                         this.listaDeCIEHIS = res.object.diagnostico.filter(element=>element.estado=='ACTIVADO');
+                        // this.listaDeProcedimientos = res.object.procedimientos;
                     }
                     else{
                         this.messageService.add({severity:'error', summary: 'warn', detail:'No hay diagnosticos disponibles para la edad del niño(a) en esta Prestación.'});
@@ -337,7 +375,35 @@ export class DiagnosticoConsultaComponent implements OnInit {
         this.formDiagnostico.patchValue({ diagnosticoSIS: this.formDiagnostico.value.buscarDxSIS.diagnostico})
         this.formDiagnostico.patchValue({ cie10SIS: this.formDiagnostico.value.buscarDxSIS.cie10});
         this.formDiagnostico.patchValue({ buscarDxSIS: ""})
+
+        // else{
+        //     console.log(this.formProcedimiento.value.buscarPDxSIS);
+        //     this.formProcedimiento.patchValue({ procedimientoSIS: this.formProcedimiento.value.buscarPDxSIS.procedimiento})
+        //     this.formProcedimiento.patchValue({ codProcedimientoSIS: this.formProcedimiento.value.buscarPDxSIS.codigo});
+        //     this.formProcedimiento.patchValue({ buscarPDxSIS: ""})
+        // }
+
     }
+    // SaveProcedimiento() {
+    //     this.procedimientoDialog = true;
+    //     // this.isUpdate = false;
+    //     this.formProcedimiento.reset();
+    //     this.formProcedimiento.get('nombreUPS').setValue("CRED");
+    //     this.formProcedimiento.get('codProcedimientoHIS').setValue("");
+    //     this.formProcedimiento.get('codProcedimientoSIS').setValue("");
+    //     this.procedimientoDialog = true;
+    // }
+    //
+    // cancelProcedimiento() {
+    //     this.procedimientoDialog = false;
+    //     Swal.fire({
+    //         icon: 'warning',
+    //         title: 'Cancelado...',
+    //         text: '',
+    //         showConfirmButton: false,
+    //         timer: 1000
+    //     })
+    // }
 
     selectedDxHIS(event: any) {
         console.log('lista de cie ', this.listaDeCIEHIS);
@@ -346,6 +412,15 @@ export class DiagnosticoConsultaComponent implements OnInit {
         this.formDiagnostico.patchValue({ diagnosticoHIS: event.descripcionItem});
         this.formDiagnostico.patchValue({ buscarDxHIS: ""})
         this.formDiagnostico.patchValue({ cie10HIS: event});
+
+        // else{
+        //     console.log('lista de cie ', this.listaDeCIEHIS);
+        //     console.log('evento desde diagnos ', event);
+        //     this.formProcedimiento.patchValue({ procedimientoHIS: event.descripcionItem});
+        //     this.formProcedimiento.patchValue({ buscarPDxHIS: ""})
+        //     this.formProcedimiento.patchValue({ codProcedimientoHIS: event});
+        // }
+
     }
 
     filterCIE10(event: any) {
@@ -354,13 +429,20 @@ export class DiagnosticoConsultaComponent implements OnInit {
         })
     }
 
-
     eliminarDiagnostico(rowIndex: any) {
 
     }
 
+    /**funciones para procedimientos***/
 
-    SaveDiagnostico() {
+    // openProcedimiento() {
+    //     this.formProcedimiento.reset();
+    //     // this.formProcedimiento.get('nombreUPS').setValue("CRED");
+    //     this.procedimientoDialog = true;
+    // }
+    /***funciones para guardar datos****/
+    getDatatoSaveDx(){
+        console.log(this.formDiagnostico.value.nombreUPS)
         let aux = {
             nro:this.diagnosticos.length +1,
             diagnosticoHIS:this.formDiagnostico.value.diagnosticoHIS,
@@ -371,24 +453,74 @@ export class DiagnosticoConsultaComponent implements OnInit {
             codPrestacion:this.formDiagnostico.value.prestacion.codigo,
             nombreUPS:this.formDiagnostico.value.nombreUPS,
             factorCondicional: this.formDiagnostico.value.factorCondicional
-
         }
-        console.log(aux);
-        this.diagnosticos.push(aux);
-        let data = {diagnosticos:[aux],procedimientos:[]}
-        this.DiagnosticoService.addDiagnostico(this.dataConsulta.idConsulta, data).subscribe(
-            (resp) => {
-                console.log(resp);
-                this.diagnosticoDialog = false;
-                this.diagnosticos.push(aux);
-                Swal.fire({
-                    icon: 'success',
-                    title: 'DIAGNOSTICOS...',
-                    text: 'GUARDADO',
-                    showConfirmButton: false,
-                    timer: 1000
+        this.diagnosticos.push(aux)
+        this.diagnosticoDialog = false;
+    }
+    // getDatatoSavePx(){
+    //     // console.log(this.formProcedimiento.value.nombreUPS)
+    //     let aux = {
+    //         procedimientoSIS:this.formProcedimiento.value.procedimientoSIS,
+    //         procedimientoHIS:this.formDiagnostico.value.procedimientoHIS,
+    //         codProcedimientoSIS:this.formDiagnostico.value.cie10HIS.codProcedimientoSIS,
+    //         codProcedimientoHIS:this.formDiagnostico.value.codProcedimientoHIS,
+    //         codPrestacion:this.formDiagnostico.value.prestacion.codigo,
+    //         cie10SIS:this.formDiagnostico.value.cie10SIS,
+    //
+    //     }
+    //     console.log("aux",aux)
+    //     this.procedimientos.push(aux)
+    //     this.procedimientoDialog = false;
+    // }
+
+    SaveDiagnostico() {
+       // this.getDatatoSaveDx();
+       //  this.getDatatoSaveDx();
+       const data={
+           diagnosticos:this.diagnosticos
+       }
+        if(!this.hayDatos){
+            this.DiagnosticoService.addDiagnostico(this.dataConsulta.idConsulta, data).subscribe(
+                (resp) => {
+                    console.log(resp);
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'DIAGNOSTICOS...',
+                        text: 'Guardado correctamente',
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                },error => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'DIAGNOSTICOS...',
+                        text: 'Hubo un error, vuelva a intentarlo',
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
                 })
-            })
+        }
+        else{
+            this.DiagnosticoService.updateDiagnostico(this.dataConsulta.idConsulta, data).subscribe(
+                (resp) => {
+                    console.log(resp);
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'DIAGNOSTICOS...',
+                        text: 'Actualizado correctamente',
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                },error => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'DIAGNOSTICOS...',
+                        text: 'Hubo un error, vuelva a intentarlo',
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                })
+        }
     }
 }
 
@@ -405,9 +537,11 @@ interface diagnosticoInterface {
 }
 
 interface procedimiento {
-    procedimiento?:string,
-    codProcedimientoSIS?:string,
+    procedimientoHIS?:string,
     codProcedimientoHIS?:string,
+    codProcedimientoSIS?:string,
+    procedimientoSIS?:string,
+    cie10SIS?:string,
     codPrestacion?:string
 
 }
@@ -416,4 +550,9 @@ interface resultados{
     nombre?:string,
     evaluacion?:string,
     resultado?:string
+}
+interface lista{
+    label?:string,
+    value?:string,
+
 }
