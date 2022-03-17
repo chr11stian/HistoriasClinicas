@@ -159,8 +159,9 @@ export class TratamientoCredComponent implements OnInit {
 
   listarDiagnosticos(){
     this.DiagnosticoService.getDiagnostico(this.data.idConsulta).subscribe((data:any)=>{
-      if(data.object!=undefined || data.object!=null){
+      if(data.object.diagnosticos!=undefined || data.object.diagnosticos!=null){
         console.log(data.object.diagnosticos);
+
         for(let i =0;i<data.object.diagnosticos.length;i++){
           this.listaDiagnosticos.push(data.object.diagnosticos[i].cie10SIS)
         }
@@ -168,7 +169,7 @@ export class TratamientoCredComponent implements OnInit {
       else{
         Swal.fire({
           icon: 'info',
-          title: 'Tratamientos',
+          title: 'DIAGNOSTICOS',
           text: 'No tiene Diagnosticos registrados!',
         })
       }

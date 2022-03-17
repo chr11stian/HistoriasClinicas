@@ -6,7 +6,7 @@ import {CieService} from "../../../../../../obstetricia-general/services/cie.ser
 import {DiagnosticoConsultaService} from "../../services/diagnostico-consulta.service";
 import { PrestacionService } from 'src/app/mantenimientos/services/prestacion/prestacion.service';
 import {dato} from "../../../../models/data";
-import {ConfirmationService, MessageService} from "primeng/api";
+import { MessageService} from "primeng/api";
 
 @Component({
     selector: 'app-diagnostico-consulta',
@@ -27,7 +27,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
     diagnosticos: diagnosticoInterface[]=[];
 
     formProcedimiento:FormGroup;
-    procedimientoDialog:boolean;
+    // procedimientoDialog:boolean;
     procedimientos: procedimiento[]=[];
 
 
@@ -38,9 +38,6 @@ export class DiagnosticoConsultaComponent implements OnInit {
     tipoList:lista[]=[];
     descripcionItem: string;
     private hayDatos:boolean=false;
-    private estadoEditar:boolean=false;
-    private diagnosticosEditar:diagnosticoInterface;
-    private indiceEditar: number;
 
     constructor(private DiagnosticoService: DiagnosticoConsultaService,
                 private PrestacionService: PrestacionService,
@@ -78,18 +75,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
            cie10HIS:  new FormControl({value:'',disabled:false},[Validators.required]),
            factorCondicional:  new FormControl({value:'',disabled:false}),
         });
-        // this.formProcedimiento = this.formBuilder.group({
-        //     buscarPDxSIS:  new FormControl({value:'',disabled:false}),
-        //     buscarPDxHIS:  new FormControl({value:'',disabled:false}),
-        //     prestacion: new FormControl({value:'',disabled:false}),
-        //     procedimientoSIS:  new FormControl({value:'',disabled:false}),
-        //     procedimientoHIS: new FormControl({value:'',disabled:false}),
-        //     codProcedimientoSIS: new FormControl({value:'',disabled:false}),
-        //     codProcedimientoHIS: new FormControl({value:'',disabled:false}),
-        //     codPrestacion: ['', [Validators.required]],
-        //     cie10SIS: new FormControl({value:'',disabled:false}),
-        //
-        // });
+
 
     }
     /** Servicios para recuperar Resumen DX ***/
@@ -253,18 +239,13 @@ export class DiagnosticoConsultaComponent implements OnInit {
     recuperarDxBD(){
         this.DiagnosticoService.getDiagnostico(this.dataConsulta.idConsulta).subscribe((res: any) => {
              console.log(res.cod);
-                if(res.cod=2121){
+                if(res!=null){
                     console.log(res.object);
                     this.hayDatos=true;
-                    if(res.object!=null){
-                        this.diagnosticos = res.object.diagnosticos;
-                    }
-                    else{
-                        this.diagnosticos = [];
-                    }
-                    // this.procedimientos=res.object.procedimientos;
+                    this.diagnosticos = res.object;
                 }
                 else{
+                    this.diagnosticos = [];
                     Swal.fire({
                         icon: 'info',
                         title: 'INFORMACION',
@@ -324,9 +305,6 @@ export class DiagnosticoConsultaComponent implements OnInit {
 
             codigoPrestacion=this.formDiagnostico.value.prestacion.codigo;
 
-        // else{
-        //     codigoPrestacion=this.formProcedimiento.value.prestacion.codigo;
-        // }
         this.formDiagnostico.patchValue({ diagnosticoSIS: ""})
         this.formDiagnostico.patchValue({ cie10SIS: ""})
         this.PrestacionService.getDiagnosticoPorCodigo(codigoPrestacion).subscribe((res: any) => {
@@ -336,7 +314,6 @@ export class DiagnosticoConsultaComponent implements OnInit {
             {
                 if(this.dataConsulta.anio>=res.object.edadMin && this.dataConsulta.anio<=res.object.edadMax){
                     this.listaDeCIEHIS = res.object.diagnostico.filter(element=>element.estado=='ACTIVADO');
-                    // this.listaDeProcedimientos = res.object.procedimientos;
                 }
                 else{
                     this.messageService.add({severity:'error', summary: 'warn', detail:'No hay diagnosticos disponibles para la edad del niño(a) en esta Prestación.'});
@@ -347,7 +324,6 @@ export class DiagnosticoConsultaComponent implements OnInit {
                 let meses = this.dataConsulta.anio*12 + this.dataConsulta.mes + this.dataConsulta.dia/30;
                 if(meses>=res.object.edadMin && meses <=res.object.edadMax){
                     this.listaDeCIEHIS = res.object.diagnostico.filter(element=>element.estado=='ACTIVADO');
-                    // this.listaDeProcedimientos = res.object.procedimientos;
                 }
                 else{
                     this.messageService.add({severity:'error', summary: 'warn', detail:'No hay diagnosticos disponibles para la edad del niño(a) en esta Prestación.'});
@@ -359,7 +335,6 @@ export class DiagnosticoConsultaComponent implements OnInit {
                 if(this.dataConsulta.anio==0 && this.dataConsulta.mes==0){
                     if(this.dataConsulta.dia>=res.object.edadMin && this.dataConsulta.dia<=res.object.edadMax){
                         this.listaDeCIEHIS = res.object.diagnostico.filter(element=>element.estado=='ACTIVADO');
-                        // this.listaDeProcedimientos = res.object.procedimientos;
                     }
                     else{
                         this.messageService.add({severity:'error', summary: 'warn', detail:'No hay diagnosticos disponibles para la edad del niño(a) en esta Prestación.'});
@@ -379,34 +354,8 @@ export class DiagnosticoConsultaComponent implements OnInit {
         this.formDiagnostico.patchValue({ cie10SIS: this.formDiagnostico.value.buscarDxSIS.cie10});
         this.formDiagnostico.patchValue({ buscarDxSIS: ""})
 
-        // else{
-        //     console.log(this.formProcedimiento.value.buscarPDxSIS);
-        //     this.formProcedimiento.patchValue({ procedimientoSIS: this.formProcedimiento.value.buscarPDxSIS.procedimiento})
-        //     this.formProcedimiento.patchValue({ codProcedimientoSIS: this.formProcedimiento.value.buscarPDxSIS.codigo});
-        //     this.formProcedimiento.patchValue({ buscarPDxSIS: ""})
-        // }
-
     }
-    // SaveProcedimiento() {
-    //     this.procedimientoDialog = true;
-    //     // this.isUpdate = false;
-    //     this.formProcedimiento.reset();
-    //     this.formProcedimiento.get('nombreUPS').setValue("CRED");
-    //     this.formProcedimiento.get('codProcedimientoHIS').setValue("");
-    //     this.formProcedimiento.get('codProcedimientoSIS').setValue("");
-    //     this.procedimientoDialog = true;
-    // }
-    //
-    // cancelProcedimiento() {
-    //     this.procedimientoDialog = false;
-    //     Swal.fire({
-    //         icon: 'warning',
-    //         title: 'Cancelado...',
-    //         text: '',
-    //         showConfirmButton: false,
-    //         timer: 1000
-    //     })
-    // }
+
 
     selectedDxHIS(event: any) {
         console.log('lista de cie ', this.listaDeCIEHIS);
@@ -415,14 +364,6 @@ export class DiagnosticoConsultaComponent implements OnInit {
         this.formDiagnostico.patchValue({ diagnosticoHIS: event.descripcionItem});
         this.formDiagnostico.patchValue({ buscarDxHIS: ""})
         this.formDiagnostico.patchValue({ cie10HIS: event});
-
-        // else{
-        //     console.log('lista de cie ', this.listaDeCIEHIS);
-        //     console.log('evento desde diagnos ', event);
-        //     this.formProcedimiento.patchValue({ procedimientoHIS: event.descripcionItem});
-        //     this.formProcedimiento.patchValue({ buscarPDxHIS: ""})
-        //     this.formProcedimiento.patchValue({ codProcedimientoHIS: event});
-        // }
 
     }
 
@@ -456,13 +397,6 @@ export class DiagnosticoConsultaComponent implements OnInit {
     }
 
 
-    /**funciones para procedimientos***/
-
-    // openProcedimiento() {
-    //     this.formProcedimiento.reset();
-    //     // this.formProcedimiento.get('nombreUPS').setValue("CRED");
-    //     this.procedimientoDialog = true;
-    // }
     /***funciones para guardar datos****/
     getDatatoSaveDx(){
         console.log(this.formDiagnostico.value.nombreUPS)
@@ -479,7 +413,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
             nombreUPSaux:"CRED",
             patologiaMaterna:null
         }
-        var duplicado :boolean = this.diagnosticos.some(element=>element==aux)
+        var duplicado :boolean = this.diagnosticos.some(element=>element.diagnosticoHIS==aux.diagnosticoHIS)
         console.log(duplicado)
         this.diagnosticoDialog = false;
         if(!duplicado){
@@ -491,30 +425,12 @@ export class DiagnosticoConsultaComponent implements OnInit {
 
 
     }
-    // getDatatoSavePx(){
-    //     // console.log(this.formProcedimiento.value.nombreUPS)
-    //     let aux = {
-    //         procedimientoSIS:this.formProcedimiento.value.procedimientoSIS,
-    //         procedimientoHIS:this.formDiagnostico.value.procedimientoHIS,
-    //         codProcedimientoSIS:this.formDiagnostico.value.cie10HIS.codProcedimientoSIS,
-    //         codProcedimientoHIS:this.formDiagnostico.value.codProcedimientoHIS,
-    //         codPrestacion:this.formDiagnostico.value.prestacion.codigo,
-    //         cie10SIS:this.formDiagnostico.value.cie10SIS,
-    //
-    //     }
-    //     console.log("aux",aux)
-    //     this.procedimientos.push(aux)
-    //     this.procedimientoDialog = false;
-    // }
+
 
     SaveDiagnostico() {
-       // this.getDatatoSaveDx();
-       //  this.getDatatoSaveDx();
-       const data={
-           diagnosticos:this.diagnosticos
-       }
+
         if(!this.hayDatos){
-            this.DiagnosticoService.addDiagnostico(this.dataConsulta.idConsulta, data).subscribe(
+            this.DiagnosticoService.addDiagnostico(this.dataConsulta.idConsulta, this.diagnosticos).subscribe(
                 (resp) => {
                     console.log(resp);
                     Swal.fire({
@@ -535,7 +451,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
                 })
         }
         else{
-            this.DiagnosticoService.updateDiagnostico(this.dataConsulta.idConsulta, data).subscribe(
+            this.DiagnosticoService.updateDiagnostico(this.dataConsulta.idConsulta, this.diagnosticos).subscribe(
                 (resp) => {
                     console.log(resp);
                     Swal.fire({
