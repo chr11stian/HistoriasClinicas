@@ -37,7 +37,10 @@ export class DiagnosticoConsultaComponent implements OnInit {
     listaDeProcedimientos:any[]=[];
     tipoList:lista[]=[];
     descripcionItem: string;
-    hayDatos:boolean=false;
+    private hayDatos:boolean=false;
+    private estadoEditar:boolean=false;
+    private diagnosticosEditar:diagnosticoInterface;
+    private indiceEditar: number;
 
     constructor(private DiagnosticoService: DiagnosticoConsultaService,
                 private PrestacionService: PrestacionService,
@@ -430,8 +433,28 @@ export class DiagnosticoConsultaComponent implements OnInit {
     }
 
     eliminarDiagnostico(rowIndex: any) {
-
+        console.log("entrando a editar diagnosticos",rowIndex);
+        Swal.fire({
+            showCancelButton: true,
+            confirmButtonText: 'Eliminar',
+            icon: 'warning',
+            title: 'Estas seguro de eliminar este registro?',
+            text: '',
+            showConfirmButton: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.diagnosticos.splice(rowIndex, 1)
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Eliminado correctamente',
+                        text: '',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+            }
+        })
     }
+
 
     /**funciones para procedimientos***/
 
@@ -452,10 +475,21 @@ export class DiagnosticoConsultaComponent implements OnInit {
             tipo:this.formDiagnostico.value.tipoDiagnostico,
             codPrestacion:this.formDiagnostico.value.prestacion.codigo,
             nombreUPS:this.formDiagnostico.value.nombreUPS,
-            factorCondicional: this.formDiagnostico.value.factorCondicional
+            factorCondicional: this.formDiagnostico.value.factorCondicional,
+            nombreUPSaux:"CRED",
+            patologiaMaterna:null
         }
-        this.diagnosticos.push(aux)
+        var duplicado :boolean = this.diagnosticos.some(element=>element==aux)
+        console.log(duplicado)
         this.diagnosticoDialog = false;
+        if(!duplicado){
+            this.diagnosticos.push(aux);
+        }
+        else{
+            this.messageService.add({severity:'error', summary: 'Cuidado!', detail:'Ya ingreso este diagnóstico, vuelva a intentar.'});
+        }
+
+
     }
     // getDatatoSavePx(){
     //     // console.log(this.formProcedimiento.value.nombreUPS)

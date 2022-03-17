@@ -6,6 +6,7 @@ import {IpressFarmaciaService} from "../../../../../../../../modulos/ipress-farm
 import {IpressService} from "../../../../../../../../core/services/ipress/ipress.service";
 import {dato} from "../../../../../../models/data";
 import {MedicamentosService} from "../../../../../../../../mantenimientos/services/medicamentos/medicamentos.service";
+import {DiagnosticoConsultaService} from "../../../../services/diagnostico-consulta.service";
 
 @Component({
   selector: 'app-tratamiento-cred',
@@ -19,20 +20,26 @@ export class TratamientoCredComponent implements OnInit {
   dialogTratamiento:boolean=false;
   formTratamiento:FormGroup;
   formIndicaciones:FormGroup;
+
   renipress: "";
   idIpress:string="616de45e0273042236434b51";
   attributeLocalS = 'documento'
   data:dato;
+
   estadoEditar:boolean=false;
+
   intervaloList: any[];
   medicamentosConDatos: any[]=[];
   listaMedicamentos:any;
   viaadministracionList:viaAdministracion[]=[];
+  listaDiagnosticos:any[]=[];
+
   tratamientoEditar:any;
   aux:any[]=[];
   dialogIndicaciones: boolean=false;
 
   constructor(private tratamientoService: TratamientoConsultaService,
+              private DiagnosticoService: DiagnosticoConsultaService,
               private farmaciaService: IpressFarmaciaService,
               private medicamentosService:MedicamentosService,
               private ipressServices: IpressService,
@@ -72,6 +79,7 @@ export class TratamientoCredComponent implements OnInit {
     this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
     this.listarTratamientos();
     this.buscarCodigoIpress();
+    this.listarDiagnosticos();
   }
 
   buildForm() {
@@ -145,6 +153,24 @@ export class TratamientoCredComponent implements OnInit {
           this.medicamentosConDatos.push(cadena);
           console.log(this.medicamentosConDatos);
         }
+      }
+    })
+  }
+
+  listarDiagnosticos(){
+    this.DiagnosticoService.getDiagnostico(this.data.idConsulta).subscribe((data:any)=>{
+      if(data.object!=undefined || data.object!=null){
+        console.log(data.object.diagnosticos);
+        for(let i =0;i<data.object.diagnosticos.length;i++){
+          this.listaDiagnosticos.push(data.object.diagnosticos[i].cie10SIS)
+        }
+      }
+      else{
+        Swal.fire({
+          icon: 'info',
+          title: 'Tratamientos',
+          text: 'No tiene Diagnosticos registrados!',
+        })
       }
     })
   }

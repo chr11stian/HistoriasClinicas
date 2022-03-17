@@ -91,7 +91,7 @@
                     <td style="text-align: center">{{ rowData.factorCondicional }}</td>
                     <td style="text-align: center">
                         <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-danger m-1"
-                                (click)="eliminarDiagnostico(rowIndex)" pTooltip="Eliminar">
+                                (click)="editarDiagnostico(rowData,rowIndex)" pTooltip="Eliminar">
                         </button>
                         <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
                                 (click)="eliminarDiagnostico(rowIndex)" pTooltip="Eliminar">
@@ -264,10 +264,12 @@
     </div>
     </form>
     <ng-template pTemplate="footer">
+
+        <button *ngIf="!estadoEditar" class="button-agregar" icon="pi pi-save" pButton type="button"
+                label="Guardar" (click)="getDatatoSaveDx()"></button>
         <button pButton type="button" label="Cancelar" class="button-cancelar"
                 icon="pi pi-times" (click)="cancelDiagnostico()"></button>
-        <button class="button-agregar" icon="pi pi-save" pButton type="button"
-                label="Guardar" (click)="getDatatoSaveDx()"></button>
+
 
     </ng-template>
 
