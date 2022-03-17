@@ -30,8 +30,8 @@ export class StepGeneral_consultaComponent implements OnInit {
         this.items = [
             { label: "Datos Generales" },
             { label: "Interrogatorio" },
-            { label: "Evaluaciones" },
             { label: "Diagnosticos" },
+            { label: "Evaluaciones" },
             { label: "Tratamientos" },
             { label: "Procedimientos" },
             { label: "Finalizar" },
@@ -50,10 +50,10 @@ export class StepGeneral_consultaComponent implements OnInit {
                 this.stepName = "tratamiento"
                 break
             case 3:
-                this.stepName = "diagnostico"
+                this.stepName = "evaluaciones"
                 break
             case 2:
-                this.stepName = "evaluaciones"
+                this.stepName = "diagnostico"
                 break
             case 1:
                 this.stepName = "interrogatorio"

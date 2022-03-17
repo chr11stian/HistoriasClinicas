@@ -17,6 +17,8 @@ import { ModalInterconsultaComponent } from './component/tratamiento/modal-inter
 import { ModalRecomendacionesComponent } from './component/tratamiento/modal-recomendaciones/modal-recomendaciones.component';
 import { ModalExamenesAuxiliaresComponent } from './component/tratamiento/modal-examenes-auxiliares/modal-examenes-auxiliares.component';
 import { ModalProcedimientosComponent } from './component/tratamiento/modal-procedimientos/modal-procedimientos.component';
+import { ProcedimientosComponent } from './component/procedimientos/procedimientos.component';
+import { EvaluacionesComponent } from './component/evaluaciones/evaluaciones.component';
 
 @NgModule({
     declarations: [
@@ -33,6 +35,8 @@ import { ModalProcedimientosComponent } from './component/tratamiento/modal-proc
         ModalRecomendacionesComponent,
         ModalExamenesAuxiliaresComponent,
         ModalProcedimientosComponent,
+        ProcedimientosComponent,
+        EvaluacionesComponent,
 
 
     ],
