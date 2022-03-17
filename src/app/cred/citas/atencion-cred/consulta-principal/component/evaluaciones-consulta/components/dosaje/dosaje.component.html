@@ -51,14 +51,28 @@
             </div>
         </div>
         <div class="col-6 grid ">
-            <div class="col-4">Valor Hemoglobina con factor:</div>
+            <div class="col-4">Valor Hemoglobina con factor de correpcion:</div>
             <div class="col-8 p-fluid ">
-                <input type="text" pInputText placeholder="12.5" formControlName="valorHb">
+                <input type="text" pInputText placeholder="10.5" formControlName="valorHbFactor">
+            </div>
+        </div>
+        <div class="col-6 grid ">
+            <div class="col-4">Nivel de anemia:</div>
+            <div class="col-8 p-fluid ">
+<!--                <input type="text" pInputText placeholder="12.5" formControlName="nivelAnemia">-->
+                <p-dropdown [options]="nivelAnemia" formControlName="nivelAnemia" optionLabel="name"></p-dropdown>
+            </div>
+        </div>
+        <div class="col-6 grid ">
+            <div class="col-4">Positivo a Anemia?:</div>
+            <div class="col-8 p-fluid ">
+<!--                <input type="text" pInputText placeholder="12.5" formControlName="positivoAnemia">-->
+                <p-selectButton [options]="positivoAnemia" FormControlName="positivoAnemia" optionLabel="name"></p-selectButton>
             </div>
         </div>
 
     </div>
-    <div class="flex justify-content-end mt-5">
+    <div class="flex justify-contentd mt-5">
         <button
                 pButton
                 type="button"
