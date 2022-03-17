@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {dato} from "../../../../../../models/data";
 import {
   SuplementacionesMicronutrientesService
 } from "../../../../../plan/component/plan-atencion-integral/services/suplementaciones-micronutrientes/suplementaciones-micronutrientes.service";
-import {dato} from "../../../../../../models/data";
 import {DialogService} from "primeng/dynamicdialog";
 import {DosajeComponent} from "../dosaje/dosaje.component";
 interface DosajeHemoglobina{
@@ -15,14 +15,14 @@ interface DosajeHemoglobina{
   fecha:Date,
   fechaTentativa: Date
 }
-
 @Component({
-  selector: 'app-tratamiento-seguimiento-anemia-consulta',
-  templateUrl: './tratamiento-seguimiento-anemia-consulta.component.html',
-  styleUrls: ['./tratamiento-seguimiento-anemia-consulta.component.css'],
+  selector: 'app-procedimiento-dosaje-hemoglobina',
+  templateUrl: './procedimiento-dosaje-hemoglobina.component.html',
+  styleUrls: ['./procedimiento-dosaje-hemoglobina.component.css'],
   providers: [DialogService]
 })
-export class TratamientoSeguimientoAnemiaConsultaComponent implements OnInit {
+
+export class ProcedimientoDosajeHemoglobinaComponent implements OnInit {
   data:DosajeHemoglobina[]=[]
   dataDocumento:dato=JSON.parse(localStorage.getItem('documento'))
   anio:number=this.dataDocumento.anio
@@ -36,8 +36,8 @@ export class TratamientoSeguimientoAnemiaConsultaComponent implements OnInit {
     // this.nroMes=this.dataDocumento.anio*12+this.dataDocumento.mes
   }
   get edad(){
-    return this.dataDocumento.anio*12+this.dataDocumento.mes;
-    // return 12;
+    // return this.dataDocumento.anio*12+this.dataDocumento.mes;
+    return 12;
   }
   ngOnInit(): void {
     this.getDosaje()
@@ -50,7 +50,7 @@ export class TratamientoSeguimientoAnemiaConsultaComponent implements OnInit {
   }
   determinarMostrar(mesEvaluado){
     if(this.edad>=mesEvaluado && this.edad-mesEvaluado<6 ) {
-    // if (true){
+      // if (true){
       return true;
     }
     else
