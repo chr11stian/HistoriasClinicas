@@ -1,145 +1,151 @@
 <p-toolbar styleClass="mb-4">
     <ng-template pTemplate="left">
-        <h3 class="text-base">Del la Institución prestadora de servicion de Salud</h3>
+        <h3 class="text-base">DATOS GENERALES</h3>
     </ng-template>
     <ng-template pTemplate="right" class="button">
-
-        <button
-                pButton
-                pRipple
-                label="Guardar"
-                icon="pi pi-save"
-                class="p-button-primary"
-                style="background-color: #003c71"
-        ></button>
+        <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-primary"
+            style="background-color: #003c71" (click)="abrir()"></button>
     </ng-template>
 </p-toolbar>
 <div class="m-1">
-<!--    primera fila-->
-    <div class="flex flex-wrap justify-content-between">
-        <div class="col-12 md:col-5">
-            <div>CODIGO RENAES DE LA IPRESS</div>
-            <div class="p-fluid mt-2">
-                <input type="text" pInputText />
+    <p-fieldset legend="De la institución prestadora de servicios de salud">
+        <div class="grid">
+            <div class="col-3 md:col-2">
+                <label>Cod RENAES de la IPRESS</label>
+                <div class="p-fluid mt-2">
+                    <input type="text" pInputText />
+                </div>
+            </div>
+            <div class="col-3 md:col-10 mt-3">
+                <label>Nombre de la IPRESS que realiza la atención</label>
+                <div class="p-fluid mt-2">
+                    <input type="text" pInputText />
+                </div>
             </div>
         </div>
-        <div class="col-12 md:col-6">
-            <div>NOMBRE DE LA IPRESS QUE REALIZA LA ATENCION</div>
-            <div class="p-fluid mt-2">
-                <input type="text" pInputText />
-            </div>
-        </div>
-
-    </div>
-<!--    segunda fila-->
+    </p-fieldset>
     <div class="grid">
-        <div class="col-8 lg:col-4">
+        <!-- <form [formGroup]="formDatosGenerales"> -->
+        <div class="col-6 lg:col-4">
             <p-fieldset legend="Personal que atiende">
                 <div class="grid">
-                    <div class="col-4">
-                        <div>De la Ipress</div>
-                        <div>
-                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
-
+                    <div class="col-7">
+                        <div *ngFor="let atend of listPersonalAte" class="p-field-checkbox grid pb-2">
+                            <div class="col-9">
+                                <span [for]="atend.value">{{ atend.name }}</span>
+                            </div>
+                            <div class="col-3 text-left">
+                                <p-radioButton [inputId]="atend.value" name="atend" [value]="atend.value"
+                                    [(ngModel)]="personal" (ngModelChange)="ngmodelChange()"></p-radioButton>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-4">
-                        <div>Itinerante</div>
-                        <div>
-                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
-
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div>Oferta flexible</div>
-                        <div>
-                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
-
-                        </div>
-                    </div>
-
-                </div>
-                <div>
-                    <div>Código de la Oferta Flexible</div>
-                    <div class="p-fluid">
-                        <input type="text" pInputText />
-                    </div>
-                </div>
-
-            </p-fieldset>
-        </div>
-        <div class="col-4 lg:col-2">
-            <p-fieldset legend="Personal que atiende">
-                <div class="text-center">
-                    <div>Intramural</div>
-                    <div>
-                        <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
-
-                    </div>
-                </div>
-                <div class="text-center mt-3" >
-                    <div>Extramural</div>
-                    <div>
-                        <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
-
-                    </div>
-
-                </div>
-            </p-fieldset>
-        </div>
-        <div class="col-4 lg:col-2">
-            <p-fieldset legend="Atención">
-                <div class="text-center mt-3">
-                    <div>Intramural</div>
-                    <div>
-                        <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
-
-                    </div>
-                </div>
-                <div class="text-center mt-3">
-                    <div>Intramural</div>
-                    <div>
-                        <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
-
-                    </div>
-                </div>
-                <div class="text-center mt-3">
-                    <div>Intramural</div>
-                    <div>
-                        <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
-
-                    </div>
-                </div>
-
-            </p-fieldset>
-        </div>
-        <div class="col-8 lg:col-4">
-            <p-fieldset legend="Atención">
-                <div class="grid">
-                    <div class="col-5 ">
-                        <div>Código RENAES</div>
+                    <div class="col-5">
+                        <div>Código de la Oferta Flexible</div>
                         <div class="p-fluid">
                             <input type="text" pInputText />
                         </div>
                     </div>
-                    <div class="col-7 ">
-                        <div>N°Hoja de Referencia</div>
+                </div>
+            </p-fieldset>
+        </div>
+        <div class="col-4 lg:col-2">
+            <p-fieldset legend="Lugar de atención" class="atencion">
+                <div class="p-field-radiobutton pb-2 subAtencion">
+                    <span class="pr-1">INTRAMURAL</span>
+                    <p-radioButton name="lugarAtencion" value="INTRAMURAL" [(ngModel)]="lugarAtencion"
+                        inputId="lAtencion1">
+                    </p-radioButton>
+                </div>
+                <div class="p-field-radiobutton subAtencion">
+                    <span class="pr-1">EXTRAMURAL</span>
+                    <p-radioButton name="lugarAtencion" value="EXTRAMURAL" [(ngModel)]="lugarAtencion"
+                        inputId="lAtencion2">
+                    </p-radioButton>
+                </div>
+            </p-fieldset>
+        </div>
+        <div class="col-4 lg:col-2">
+            <p-fieldset legend="Lugar de atención" class="atencion">
+                <div *ngFor="let atencion of listAtencion" class="p-field-checkbox grid pb-2">
+                    <div class="col-9">
+                        <span [for]="atencion">{{ atencion }}</span>
+                    </div>
+                    <div class="col-3 text-left">
+                        <p-radioButton [inputId]="atencion" name="atencion" [value]="atencion" [(ngModel)]="attention"
+                            (ngModelChange)="ngmodelChange()">
+                        </p-radioButton>
+                    </div>
+                </div>
+            </p-fieldset>
+        </div>
+        <div class="col-4 lg:col-4">
+            <p-fieldset legend="Referencia Realizada por">
+                <div class="grid">
+                    <div class="col-3 md:col-3 mt-4 p-0">
+                        <span class="text-xs">Cod. RENAES</span>
                         <div class="p-fluid">
                             <input type="text" pInputText />
                         </div>
                     </div>
-
-                </div>
-                <div>
-                    <div>Nombre de la IPRESS u Oferta flexible</div>
-                    <div class="p-fluid">
-                        <input type="text" pInputText />
+                    <div class="col-3 md:col-6">
+                        <span class="text-xs">Nombre de la IPRESS u oferta flexible</span>
+                        <div class="p-fluid">
+                            <input type="text" pInputText />
+                        </div>
                     </div>
-
+                    <div class="col-3 md:col-3">
+                        <span class="text-xs">Nro. Hoja de referencia</span>
+                        <div class="p-fluid ">
+                            <input type="text" pInputText />
+                        </div>
+                    </div>
                 </div>
-
             </p-fieldset>
         </div>
-
+    </div>
+    <div class="grid">
+        <div class="col-12">
+            <p-fieldset legend="DEL ASEGURADO / USUARIO">
+                <div class="grid">
+                    <div class="col-4 lg:col-3">
+                        <p-fieldset legend="Identificación">
+                            <div class="grid">
+                                <div class="col-3 md:col-3 mt-3 p-0">
+                                    <span>TDI</span>
+                                    <div class="p-fluid">
+                                        <input type="text" pInputText />
+                                    </div>
+                                </div>
+                                <div class="col-3 md:col-9">
+                                    <span>N° documento identidad</span>
+                                    <div class="p-fluid">
+                                        <input type="text" pInputText />
+                                    </div>
+                                </div>
+                            </div>
+                        </p-fieldset>
+                    </div>
+                    <div class="col-4 lg:col-3">
+                        <p-fieldset legend="Cod del asegurado SIS">
+                            <div class="grid">
+                                <div class="col-3 md:col-3">
+                                    <span>DIRESA / otros</span>
+                                    <div class="p-fluid">
+                                        <input type="text" pInputText />
+                                    </div>
+                                </div>
+                                <div class="col-3 md:col-3 mt-3 p-0">
+                                    <span>Número</span>
+                                    <div class="p-fluid">
+                                        <input type="text" pInputText />
+                                    </div>
+                                </div>
+                            </div>
+                        </p-fieldset>
+                    </div>
+                </div>
+            </p-fieldset>
+        </div>
     </div>
 </div>
