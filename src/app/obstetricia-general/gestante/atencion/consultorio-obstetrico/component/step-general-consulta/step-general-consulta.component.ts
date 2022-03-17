@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {MenuItem} from "primeng/api"
+import { MenuItem } from "primeng/api"
 
 @Component({
     selector: 'app-step-general-consulta',
@@ -18,34 +18,42 @@ export class StepGeneral_consultaComponent implements OnInit {
     constructor(
     ) {
         this.options = [
-            {name: "DNI", code: 1},
-            {name: "CARNET RN", code: 2},
-            {name: "C EXTRANJERIA", code: 3},
-            {name: "OTROS", code: 4},
+            { name: "DNI", code: 1 },
+            { name: "CARNET RN", code: 2 },
+            { name: "C EXTRANJERIA", code: 3 },
+            { name: "OTROS", code: 4 },
         ]
     }
 
 
     ngOnInit(): void {
         this.items = [
-            {label: "Datos Generales"},
-            {label: "Interrogatorio"},
-            {label: "Diagnosticos"},
-            {label: "Tratamiendo"},
-            {label: "Resultados"},
+            { label: "Datos Generales" },
+            { label: "Interrogatorio" },
+            { label: "Evaluaciones" },
+            { label: "Diagnosticos" },
+            { label: "Tratamientos" },
+            { label: "Procedimientos" },
+            { label: "Finalizar" },
         ]
     }
 
     name() {
         switch (this.indiceActivo) {
-            case 4:
-                this.stepName = "resultados"
+            case 6:
+                this.stepName = "finalizar"
                 break
-            case 3:
+            case 5:
+                this.stepName = "procedimientos"
+                break
+            case 4:
                 this.stepName = "tratamiento"
                 break
-            case 2:
+            case 3:
                 this.stepName = "diagnostico"
+                break
+            case 2:
+                this.stepName = "evaluaciones"
                 break
             case 1:
                 this.stepName = "interrogatorio"
@@ -60,7 +68,7 @@ export class StepGeneral_consultaComponent implements OnInit {
         this.indiceActivo = event;
         this.name()
     }
-    
+
 }
 
 interface data {

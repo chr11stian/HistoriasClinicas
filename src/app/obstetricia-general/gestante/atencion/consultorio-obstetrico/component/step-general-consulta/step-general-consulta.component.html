@@ -27,6 +27,13 @@
         </ng-template>
     </p-card>
 </div>
+<div class="stepsdemo-content" *ngIf="stepName === 'evaluaciones'">
+    <p-card>
+        <ng-template pTemplate="content">
+            <app-giagnosticos></app-giagnosticos>
+        </ng-template>
+    </p-card>
+</div>
 <div class="stepsdemo-content" *ngIf="stepName === 'diagnostico'">
     <p-card>
         <ng-template pTemplate="content">
@@ -35,7 +42,6 @@
     </p-card>
 </div>
 
-
 <div class="stepsdemo-content" *ngIf="stepName === 'tratamiento'">
     <p-card>
         <ng-template pTemplate="content">
@@ -43,9 +49,15 @@
         </ng-template>
     </p-card>
 </div>
+<div class="stepsdemo-content" *ngIf="stepName === 'procedimientos'">
+    <p-card>
+        <ng-template pTemplate="content">
+            <app-giagnosticos></app-giagnosticos>
+        </ng-template>
+    </p-card>
+</div>
 
-
-<div class="stepsdemo-content" *ngIf="stepName === 'resultados'">
+<div class="stepsdemo-content" *ngIf="stepName === 'finalizar'">
     <p-card>
         <ng-template pTemplate="content">
             <app-resultados></app-resultados>

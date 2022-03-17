@@ -48,6 +48,11 @@ export class InterrogatorioComponent implements OnInit {
     { name: "Conservado" },
     { name: "Alterado" }
   ];
+  listaIndicadores = [
+    { name: "GANANCIA INADECUADA DE PESO", code: "GIP" },
+    { name: "GANANCIA ADECUADA DE PESO", code: "GAP" },
+    { name: "GANANCIA ELEVADA DE PESO", code: "GEP" },
+  ];
   interrogatorioData: any;
   ref: DynamicDialogRef;
   fetalesExamDialog: boolean = false;
@@ -152,7 +157,7 @@ export class InterrogatorioComponent implements OnInit {
     console.log('ultima consulta', this.ultimaConsulta);
     this.form.get("imc").setValue(this.ultimaConsulta.imc);
 
-    
+
   }
 
   inicializarForm() {
@@ -165,6 +170,9 @@ export class InterrogatorioComponent implements OnInit {
       peso: new FormControl(""),
       talla: new FormControl(""),
       imc: new FormControl(""),
+
+      evalNutricionalValor: new FormControl(""),
+      evalNutricionalIndicador: new FormControl(""),
 
       apetito: new FormControl(""),
       sed: new FormControl(""),
