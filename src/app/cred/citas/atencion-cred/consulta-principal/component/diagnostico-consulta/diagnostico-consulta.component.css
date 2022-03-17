@@ -15,6 +15,18 @@ p-calendar >>> .p-button {
 :host ::ng-deep .rojofondo {
     background-color: #fcbfba !important;
 }
+:host ::ng-deep .fondoamarillo {
+    background-color: #ffff9e !important;
+}
+:host ::ng-deep .fondoverde {
+    background-color: #d3ffaa !important;
+}
+:host ::ng-deep .fondoceleste {
+    background-color: #d9e5ff !important;
+}
+:host ::ng-deep .fondogris {
+    background-color: #d5d5d5 !important;
+}
 .guardar {
     background: #0c3866;
     border-color: #0c3866;
@@ -66,6 +78,22 @@ p {
     background: #FFFFFF;
 }
 
+p-dialog >>> .p-dialog .p-dialog-header {
+    border-bottom: 0 none;
+    background: #0c3866;
+    color: #495057;
+    padding: 1.5rem;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+    z-index:89999;
+}
+p-dialog >>> .p-dialog .p-dialog-header .p-dialog-title {
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: #ffffff;
+    z-index:89999;
+}
+
 .p-table >>> .p-table {
     overflow-x: auto;
 }
@@ -106,3 +134,4 @@ p-panel >>> .p-panel .p-panel-content {
 p-checkbox >>> .p-checkbox .p-checkbox-box {
     border-radius: 10px;
 }
+

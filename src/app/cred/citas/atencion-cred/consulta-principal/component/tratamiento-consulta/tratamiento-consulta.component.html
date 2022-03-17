@@ -1,6 +1,11 @@
 <div class="">
   <p-tabView class="">
-    <p-tabPanel header="SUPLEMENTACION" leftIcon="pi pi-calendar" [selected]="true" >
+    <p-tabPanel header="INMUNIZACION" leftIcon="pi pi-user" [selected]="true">
+      <ng-template pTemplate="content">
+        <app-tratamiento-inmunizacion></app-tratamiento-inmunizacion>
+      </ng-template>
+    </p-tabPanel>
+    <p-tabPanel header="SUPLEMENTACION" leftIcon="pi pi-calendar"  >
       <ng-template pTemplate="content">
         <app-suplementacion-cred></app-suplementacion-cred>
       </ng-template>
