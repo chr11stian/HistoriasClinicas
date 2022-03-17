@@ -107,43 +107,109 @@
     <div class="grid">
         <div class="col-12">
             <p-fieldset legend="DEL ASEGURADO / USUARIO">
-                <div class="grid">
-                    <div class="col-4 lg:col-3">
-                        <p-fieldset legend="Identificación">
-                            <div class="grid">
-                                <div class="col-3 md:col-3 mt-3 p-0">
-                                    <span>TDI</span>
-                                    <div class="p-fluid">
-                                        <input type="text" pInputText />
+                <form [formGroup]="formDatosGenerales">
+                    <div class="grid">
+                        <div class="col-4 lg:col-3">
+                            <p-fieldset legend="Identificación">
+                                <div class="grid">
+                                    <div class="col-3 md:col-3 mt-3 p-0">
+                                        <span>TDI</span>
+                                        <div class="p-fluid">
+                                            <input type="text" pInputText />
+                                        </div>
+                                    </div>
+                                    <div class="col-3 md:col-9">
+                                        <span>N° documento identidad</span>
+                                        <div class="p-fluid">
+                                            <input type="text" pInputText />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-3 md:col-9">
-                                    <span>N° documento identidad</span>
-                                    <div class="p-fluid">
-                                        <input type="text" pInputText />
+                            </p-fieldset>
+                        </div>
+                        <div class="col-4 lg:col-3">
+                            <p-fieldset legend="Cod del asegurado SIS">
+                                <div class="grid">
+                                    <div class="col-3 md:col-4">
+                                        <span>DIRESA / otros</span>
+                                        <div class="p-fluid">
+                                            <input type="text" pInputText />
+                                        </div>
+                                    </div>
+                                    <div class="col-3 md:col-8 mt-3 p-0">
+                                        <span>Número</span>
+                                        <div class="flex flex-row">
+                                            <div class="p-fluid">
+                                                <input type="text" pInputText />
+                                            </div>
+                                            <div class="p-fluid">
+                                                <input type="text" pInputText />
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </p-fieldset>
+                            </p-fieldset>
+                        </div>
+                        <div class="col-4 lg:col-6">
+                            <p-fieldset legend="Asegurado de otra IAFAS">
+                                <div class="grid">
+                                    <div class="col-3">
+                                        <span>Institución</span>
+                                    </div>
+                                    <div class="col-9 p-fluid">
+                                        <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                            placeholder="" class="inputfield w-full" formControlName="ipress">
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div class="col-3">
+                                        <span>Cod. Seguro</span>
+                                    </div>
+                                    <div class="col-9 p-fluid">
+                                        <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                            placeholder="" class="inputfield w-full" formControlName="ipress">
+                                    </div>
+                                </div>
+                            </p-fieldset>
+                        </div>
                     </div>
-                    <div class="col-4 lg:col-3">
-                        <p-fieldset legend="Cod del asegurado SIS">
-                            <div class="grid">
-                                <div class="col-3 md:col-3">
-                                    <span>DIRESA / otros</span>
-                                    <div class="p-fluid">
-                                        <input type="text" pInputText />
-                                    </div>
-                                </div>
-                                <div class="col-3 md:col-3 mt-3 p-0">
-                                    <span>Número</span>
-                                    <div class="p-fluid">
-                                        <input type="text" pInputText />
-                                    </div>
-                                </div>
-                            </div>
-                        </p-fieldset>
+                    <div class="grid">
+                        <div class="col-4 lg:col-3">
+                            <span>Apellido Paterno</span>
+                            <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                                class="inputfield w-full" formControlName="ipress">
+                        </div>
+                        <div class="col-4 lg:col-3">
+                            <span>Apellido Materno</span>
+                            <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                                class="inputfield w-full" formControlName="ipress">
+                        </div>
+                        <div class="col-4 lg:col-3">
+                            <span>Primer Nombre</span>
+                            <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                                class="inputfield w-full" formControlName="ipress">
+                        </div>
+                        <div class="col-4 lg:col-3">
+                            <span>Otros Nombres</span>
+                            <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                                class="inputfield w-full" formControlName="ipress">
+                        </div>
                     </div>
+                </form>
+                <div class="col-4 lg:col-2">
+                    <div class="col-9">
+                    </div>
+                    <p-fieldset legend="Sexo">
+                        <div *ngFor="let sexo of listSexo" class="p-field-checkbox grid pb-2">
+                            <div class="col-9">
+                                <span [for]="sexo">{{ sexo }}</span>
+                            </div>
+                            <div class="col-3">
+                                <p-radioButton [inputId]="sexo" name="sexo" [value]="sexo" [(ngModel)]="gender"
+                            (ngModelChange)="ngmodelChange()"></p-radioButton>
+                            </div>
+                        </div>
+                    </p-fieldset>
                 </div>
             </p-fieldset>
         </div>

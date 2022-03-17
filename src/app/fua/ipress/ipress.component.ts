@@ -15,11 +15,14 @@ export class IpressComponent implements OnInit {
     { name: "OFERTA FLEXIBLE", value: "OFERTAFLEXIBLE" },
   ];
   listAtencion = ["AMBULATORIA", "REFERENCIA", "EMERGENCIA"];
+  listSexo = ["MASCULINO", "FEMENINO"];
+  listSaludMental = ["GESTANTE", "PUERPERA"];
   /**ngModels */
   personal: string;
   lugarAtencion: string;
   renaes: string;
   attention: string;
+  gender: string;
   /**fin ngModels */
   constructor() {
     this.twoOptions = [

@@ -17,19 +17,19 @@ export class InterceptorService implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         let cloned = req
-        const idToken = localStorage.getItem("token1");
+        const idToken = JSON.parse(localStorage.getItem("token")).token;
         if (idToken) {
-            console.log('entro token')
-            //cloned = req.clone({
-            //setHeaders: {
-            //authorization: idToken
-            //}
-            //});
+            console.log('entro token', idToken)
+            cloned = req.clone({
+            setHeaders: {
+            authorization: idToken
+            }
+            });
             cloned = req.clone({
                 headers: req.headers.set("Authorization", "Bearer " + idToken)
             });
         }
-        console.log('cloned ', cloned)
+        console.log('cloneddd ', cloned)
         return next.handle(cloned).pipe(
             catchError(response => {
                 console.log('response', response)

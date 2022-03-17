@@ -1,98 +1,7 @@
-<div class="grid">
-    <div class="col-12 md:col-12 mt-2">
-        <!-- TABLA PARA LSITAR DATOS A GUARDAR -->
-        <p-table #dt [value]="listaExamenesAux" [rows]="3" [paginator]="true" [rowHover]="true"
-            styleClass="p-datatable-gridlines" dataKey="id"
-            currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} Entradas"
-            [showCurrentPageReport]="true">
-            <ng-template pTemplate="caption">
-                <div class="grid">
-                    <div class="col-8">
-                        <h3>Lista de Exámenes</h3>
-                    </div>
-                    <div class="col-4 text-right">
-                        <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
-                            class="p-button-raised mt-3" (click)="openAddExamDialog()"></button>
-                        <!-- <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar New"
-                            class="p-button-raised mt-3" (click)="openDialogAddAuxiliarExam()"></button> -->
-                    </div>
-                </div>
-            </ng-template>
-            <ng-template pTemplate="header">
-                <tr>
-                    <th style="text-align: center; width: 10%;">Nro</th>
-                    <th style="text-align: center; width: 40%;">Examen</th>
-                    <th style="text-align: center; width: 40%;">Sub Tipo</th>
-                    <th style="text-align: center; width: 10%;">Acción</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-rowData let-i="rowIndex">
-                <tr style="text-align: center">
-                    <td style="text-align: center;">{{ i + 1 }}</td>
-                    <td style="text-align: center;">{{ rowData.nombreExamen }}</td>
-                    <td style="text-align: center;">{{ rowData.subTipo }}</td>
-                    <td style="text-align: center;">
-                        <button pButton pRipple type="button" icon="pi pi-pencil"
-                            (click)="openEditAuxiliarExam(rowData, i)" class="p-button-rounded p-button-text"></button>
-                        <button pButton pRipple type="button" icon="pi pi-trash" (click)="deleteExamItem(i)"
-                            class="p-button-rounded p-button-danger p-button-text"></button>
-                    </td>
-                </tr>
-            </ng-template>
-        </p-table>
-        <!-- TABLA PARA LISTAR DATOS RECUPERADOS -->
-        <p-table #dt [value]="listaDataLaboRes" [rows]="3" [paginator]="true" [rowHover]="true"
-            styleClass="p-datatable-gridlines" dataKey="id"
-            currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} Entradas"
-            [showCurrentPageReport]="true" *ngIf="toEdit">
-            <ng-template pTemplate="caption">
-                <div class="grid">
-                    <div class="col-8">
-                        <h3>Lista de Exámenes Pasados</h3>
-                    </div>
-                    <!-- <div class="col-4 text-right">
-                        <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
-                            class="p-button-raised mt-3" (click)="openAddExamDialog()"></button>
-                    </div> -->
-                </div>
-            </ng-template>
-            <ng-template pTemplate="header">
-                <tr>
-                    <th style="text-align: center; width: 10%;">Nro</th>
-                    <th style="text-align: center; width: 25%;">Fecha Examen</th>
-                    <th style="text-align: center; width: 25%;">Examen</th>
-                    <th style="text-align: center; width: 25%;">Sub Tipo</th>
-                    <th style="text-align: center; width: 15%;">Acción</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-rowData let-i="rowIndex">
-                <tr style="text-align: center">
-                    <td style="text-align: center; padding: 0.7rem;">{{ i + 1 }}</td>
-                    <td style="text-align: center; padding: 0.7rem;">{{ rowData.fechaRegistro }}</td>
-                    <td style="text-align: center; padding: 0.7rem;">{{ rowData.datosLaboratorio.nombreExamen }}</td>
-                    <td style="text-align: center; padding: 0.7rem;">{{ rowData.datosLaboratorio.subTipo }}</td>
-                    <td style="text-align: center; padding: 0.7rem;">
-                        <button pButton pRipple type="button" icon="pi pi-eye"
-                            (click)="openShowDataAuxiliarsExams(rowData)"
-                            class="p-button-rounded p-button-text"></button>
-                        <!-- <button pButton pRipple type="button" icon="pi pi-eye"
-                            (click)="openShowDataAuxiliarsExams(rowData)"
-                            class="p-button-rounded p-button-text"></button> -->
-                    </td>
-                </tr>
-            </ng-template>
-        </p-table>
-        <!-- BOTON PARA GUARDAR TEMPO -->
-        <button pButton pRipple type="button" icon="pi pi-chevron-circle-right" (click)="saveAuxiliarsExams()"
-            class="p-button-rounded p-button-text"></button>
-    </div>
-</div>
-
-<p-dialog class="dialogo m-4" [(visible)]="addExamDialog" [style]="{width: '65%'}" [modal]="true" styleClass="p-fluid"
-    (onHide)="closeExamDialog()">
-    <ng-template pTemplate="header">
+<p-card>
+    <!-- <ng-template pTemplate="header">
         <h3>NUEVO EXAMEN AUXILIAR</h3>
-    </ng-template>
+    </ng-template> -->
     <ng-template pTemplate="body">
         <div class="grid mt-2">
             <div class="p-fluid col-4">
@@ -700,11 +609,18 @@
                 </div>
             </div>
         </form>
+        <div class="col-12 mt-5"></div>
     </ng-template>
-    <ng-template pTemplate="footer" class="text-right">
+    <!-- <div class="footer">
+        <button pButton type="button" label="Guardar" (click)="save()" class="p-button-danger mt-4"></button>
+        <button pButton type="button" label="Cancelar" (click)="canceled()"  class="p-button-danger mt-4"></button>
+    </div> -->
+
+
+    <div class="footer">
         <button *ngIf="isUpdate" pButton type="button" label="Actualizar" (click)="agreeExamEdit()"></button>
-        <button *ngIf="!isUpdate && !toShow" pButton type="button" label="Guardar"
+        <button *ngIf="!isUpdate && !toShow" pButton type="button" label="Guardar" class="pr-2"
             (click)="agreeAddExamDialog()"></button>
         <button pButton type=" button" label="Cancelar" class="p-button-danger" (click)="closeExamDialog()"></button>
-    </ng-template>
-</p-dialog>
+    </div>
+</p-card>

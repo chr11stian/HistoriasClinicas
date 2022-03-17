@@ -1,12 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from "@angular/forms";
-import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
-import Swal from "sweetalert2";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { ExamenesAuxiliaresService } from "../../../services/examenes-auxiliares.service";
 import {
   AddLaboratorio,
   ExamenAuxiliar,
@@ -14,22 +8,26 @@ import {
   Laboratorio,
   Parasitologia,
   ResultadoLaboratorio,
-} from "../../models/examenesAuxiliares";
-import { ExamenesAuxiliaresService } from "../../services/examenes-auxiliares.service";
-import { DialogAddExamenesAuxiliaresComponent } from "./dialog-add-examenes-auxiliares/dialog-add-examenes-auxiliares.component";
+} from "../../../models/examenesAuxiliares";
+import { DynamicDialogConfig, DynamicDialogRef } from "primeng/dynamicdialog";
 
 @Component({
-  selector: "app-examenes-auxiliares-consulta",
-  templateUrl: "./examenes-auxiliares-consulta.component.html",
-  styleUrls: ["./examenes-auxiliares-consulta.component.css"],
-  providers: [DialogService],
+  selector: "app-dialog-add-examenes-auxiliares",
+  templateUrl: "./dialog-add-examenes-auxiliares.component.html",
+  styleUrls: ["./dialog-add-examenes-auxiliares.component.css"],
 })
-export class ExamenesAuxiliaresConsultaComponent implements OnInit {
-  listaExamenesAux: ExamenAuxiliar[] = [];
-  addExamDialog: boolean = false;
+export class DialogAddExamenesAuxiliaresComponent implements OnInit {
   formHematologia: FormGroup;
   formParasitario: FormGroup;
+  toShow: boolean = false;
+  toEdit: boolean = false;
   isUpdate: boolean = false;
+  dataHematologia: Hematologia;
+  dataParasitologia: Parasitologia;
+  idConsulta: string;
+  listaDataLaboRes: any;
+  listaExamenesAux: ExamenAuxiliar[] = [];
+  auxDataExam: ExamenAuxiliar;
   listaExamenes: Examen[] = [
     { tipoExam: 1, nombreExam: "TEST DE GRAHAM" },
     { tipoExam: 2, nombreExam: "DOSAJE DE HEMOGLOBINA" },
@@ -39,33 +37,56 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
     { index: 1, lugarLab: "CONSULTORIO" },
     { index: 2, lugarLab: "LABORATORIO" },
   ];
-  dataExamenesAuxiliares: Laboratorio;
-  isLabo: boolean = false;
-  dataHematologia: Hematologia;
-  dataParasitologia: Parasitologia;
-  examFFF: string;
   /**ngModels */
   observaciones: string;
   examLab: Examen = {};
   lugarLab: Lugar = {};
-  /**fin ngModels */
-  idConsulta: string;
-  listaDataLaboRes: any;
-  ref: DynamicDialogRef;
-  toShow: boolean = false;
-  indexEdit: number;
-  toEdit: boolean = false;
-
+  /**Fin ngModels */
+  dataDialog: any;
   constructor(
-    private fb: FormBuilder,
     private auxExamService: ExamenesAuxiliaresService,
-    private dialog: DialogService
+    public ref: DynamicDialogRef,
+    public config: DynamicDialogConfig
   ) {
     this.idConsulta = JSON.parse(localStorage.getItem("documento")).idConsulta;
     this.recoverDataAuxialsExams();
+    console.log("click en auxiliars exam");
+
+    this.dataDialog = this.config.data.data;
+    console.log("data del otro dialog ", this.dataDialog.hemoglobina);
+    if (this.config.data.index == 2) {
+      console.log('opcion de ver ');
+      this.toShow = true;
+      this.inicializarForm();
+      if (this.dataDialog.datosLaboratorio.subTipo == "HEMATOLOGIA") {
+        this.examLab.tipoExam = 2;
+        this.lugarLab.index = 2;
+        // this.setdataHematologia(this.dataDialog);
+        this.formHematologia.patchValue({ hemoglobina: this.dataDialog.hemoglobina });
+      }
+      if (this.dataDialog.datosLaboratorio.subTipo == "PARASITOLOGIA") {
+        this.examLab.tipoExam = 1;
+        this.lugarLab.index = 2;
+        this.setDataParasitologia(this.dataDialog);
+      }
+    }
   }
 
   ngOnInit(): void {}
+  async recoverDataAuxialsExams() {
+    await this.auxExamService
+      .getPromiseListarResultadosLaboratorioByIdConsulta(this.idConsulta)
+      .then((data) => {
+        // console.log('data de examenes auxiliares de consulta ', data);
+        this.listaDataLaboRes = data;
+        if (data.length > 0) {
+          this.toEdit = true;
+        }
+      });
+    // console.log('to show ', this.toShow)
+    this.inicializarForm();
+  }
+
   inicializarForm() {
     this.formHematologia = new FormGroup({
       hemoglobina: new FormControl(
@@ -115,7 +136,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
       vsg1hora: new FormControl({ value: "", disabled: this.toShow }),
       vsg2hora: new FormControl({ value: "", disabled: this.toShow }),
     });
-    this.formParasitario = this.fb.group({
+    this.formParasitario = new FormGroup({
       /**EXAMEN MACROSCOPICO */
       color: new FormControl(
         { value: "", disabled: this.toShow },
@@ -166,82 +187,6 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
       frotisLesion: new FormControl({ value: "", disabled: this.toShow }),
     });
   }
-  async recoverDataAuxialsExams() {
-    await this.auxExamService
-      .getPromiseListarResultadosLaboratorioByIdConsulta(this.idConsulta)
-      .then((data) => {
-        // console.log('data de examenes auxiliares de consulta ', data);
-        this.listaDataLaboRes = data;
-        if (data.length > 0) {
-          this.toEdit = true;
-        }
-      });
-    // console.log('to show ', this.toShow)
-    this.inicializarForm();
-  }
-  openAddExamDialog() {
-    this.isUpdate = false;
-    this.examLab = {};
-    this.lugarLab = {};
-    this.inicializarForm();
-    this.addExamDialog = true;
-  }
-
-  agreeAddExamDialog() {
-    let auxDataExam: ExamenAuxiliar;
-    if (this.examLab.tipoExam == 2) {
-      this.recoverDataHematologia();
-      auxDataExam = {
-        tipoLaboratorio: "EXAMEN_LABORATORIO",
-        subTipo: "HEMATOLOGIA",
-        nombreExamen: "HEMOGLOBINA",
-        codigo: "",
-        codPrestacion: "",
-        cie10: "",
-        codigoHIS: "",
-        lugarExamen: this.lugarLab.lugarLab,
-        resultado: {
-          hematologia: this.dataHematologia,
-        },
-        labExterno: "false",
-      };
-    }
-    if (this.examLab.tipoExam == 1) {
-      this.recoverDataParasitologia();
-      auxDataExam = {
-        tipoLaboratorio: "EXAMEN_LABORATORIO",
-        subTipo: "PARASITOLOGIA",
-        nombreExamen: this.examLab.nombreExam,
-        codigo: "",
-        codPrestacion: "",
-        cie10: "",
-        codigoHIS: "",
-        lugarExamen: this.lugarLab.lugarLab,
-        resultado: {
-          parasitologia: this.dataParasitologia,
-        },
-        labExterno: "false",
-      };
-    }
-    if (auxDataExam != undefined) {
-      this.listaExamenesAux.push(auxDataExam);
-    }
-    // console.log('lista de examenes ', this.listaExamenesAux);
-    this.listaExamenesAux = [...this.listaExamenesAux];
-    this.addExamDialog = false;
-  }
-
-  deleteExamItem(index) {
-    this.listaExamenesAux.splice(index, 1);
-    this.listaExamenesAux = [...this.listaExamenesAux];
-  }
-
-  closeExamDialog() {
-    console.log("data only to show");
-    this.toShow = false;
-    this.addExamDialog = false;
-  }
-
   recoverDataHematologia() {
     this.dataHematologia = {
       hemoglobina: this.formHematologia.value.hemoglobina,
@@ -320,105 +265,49 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
       frotisLesion: this.formParasitario.value.frotisLesion,
     };
   }
-  saveAuxiliarsExams() {
-    console.log("save data de examenes auxiliares ");
-    if (this.listaExamenesAux.length == 0) {
-      return;
-    }
-    if (this.toEdit) {
-      for (let i = 0; i < this.listaExamenesAux.length; i++) {
-        let dataAddExamenesAuxiliares: AddLaboratorio = {
-          servicio: "SERVICIO",
-          nroCama: "",
-          dxPresuntivo: "",
-          examenAuxiliar: this.listaExamenesAux[i],
-          observaciones: "",
-        };
-        this.auxExamService
-          .putAddExamenesAuxiliares(this.idConsulta, dataAddExamenesAuxiliares)
-          .subscribe((res: any) => {
-            if (res.cod == "5122") {
-              Swal.fire({
-                icon: "warning",
-                title: "No se añadio el Examen ya que fue agregado previamente",
-                showConfirmButton: false,
-                timer: 2000,
-              });
-              return;
-            }
-            Swal.fire({
-              icon: "success",
-              title: "Se añadio correctamente el examen",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-          });
-      }
-    } else {
-      this.dataExamenesAuxiliares = {
-        servicio: "SERVICIO",
-        nroCama: "",
-        dxPresuntivo: "",
-        examenesAuxiliares: this.listaExamenesAux,
-        observaciones: "",
-      };
-      console.log("data to dave de verdad ", this.dataExamenesAuxiliares);
-      this.auxExamService
-        .postExamenesAuxiliares(this.idConsulta, this.dataExamenesAuxiliares)
-        .subscribe((res: any) => {
-          Swal.fire({
-            icon: "success",
-            title: "Se guardo correctamente el examen",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        });
-    }
-  }
-  openShowDataAuxiliarsExams(data, index) {
-    console.log("data to show ", data);
-    this.toShow = true;
-    this.inicializarForm();
-    this.addExamDialog = true;
-    if (data.datosLaboratorio.subTipo == "HEMATOLOGIA") {
-      this.examLab.tipoExam = 2;
-      this.lugarLab.index = 2;
-      this.setdataHematologia(data);
-    }
-    if (data.datosLaboratorio.subTipo == "PARASITOLOGIA") {
-      this.examLab.tipoExam = 1;
-      this.lugarLab.index = 2;
-      this.setDataParasitologia(data);
-    }
-  }
-
-  openEditAuxiliarExam(data, index) {
-    this.isUpdate = true;
-    this.indexEdit = index;
-    this.addExamDialog = true;
-    if (data.subTipo == "HEMATOLOGIA") {
-      this.examLab.tipoExam = 2;
-      this.lugarLab.index = 2;
-      this.setdataHematologia(data.resultado.hematologia);
-    }
-    if (data.subTipo == "PARASITOLOGIA") {
-      this.examLab.tipoExam = 1;
-      this.lugarLab.index = 2;
-      this.setDataParasitologia(data.resultado.parasitologia);
-    }
-  }
-  agreeExamEdit() {
+  agreeAddExamDialog() {
+    // let auxDataExam: ExamenAuxiliar;
     if (this.examLab.tipoExam == 2) {
       this.recoverDataHematologia();
-      this.listaExamenesAux[this.indexEdit].resultado.hematologia =
-        this.dataHematologia;
+      this.auxDataExam = {
+        tipoLaboratorio: "EXAMEN_LABORATORIO",
+        subTipo: "HEMATOLOGIA",
+        nombreExamen: "HEMOGLOBINA",
+        codigo: "",
+        codPrestacion: "",
+        cie10: "",
+        codigoHIS: "",
+        lugarExamen: this.lugarLab.lugarLab,
+        resultado: {
+          hematologia: this.dataHematologia,
+        },
+        labExterno: "false",
+      };
     }
     if (this.examLab.tipoExam == 1) {
       this.recoverDataParasitologia();
-      this.listaExamenesAux[this.indexEdit].resultado.parasitologia =
-        this.dataParasitologia;
+      this.auxDataExam = {
+        tipoLaboratorio: "EXAMEN_LABORATORIO",
+        subTipo: "PARASITOLOGIA",
+        nombreExamen: this.examLab.nombreExam,
+        codigo: "",
+        codPrestacion: "",
+        cie10: "",
+        codigoHIS: "",
+        lugarExamen: this.lugarLab.lugarLab,
+        resultado: {
+          parasitologia: this.dataParasitologia,
+        },
+        labExterno: "false",
+      };
     }
-    this.addExamDialog = false;
+    console.log("data de examens auxiliares ", this.auxDataExam);
+    this.ref.close(this.auxDataExam);
+    // if (this.auxDataExam != undefined) {
+    //   this.listaExamenesAux.push(this.auxDataExam);
+    // }
+    // // console.log('lista de examenes ', this.listaExamenesAux);
+    // this.listaExamenesAux = [...this.listaExamenesAux];
   }
   setdataHematologia(data) {
     this.formHematologia.patchValue({ hemoglobina: data.hemoglobina });
@@ -535,34 +424,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
     this.formParasitario.patchValue({ gotaGruesa: data.gotaGruesa });
     this.formParasitario.patchValue({ frotisLesion: data.frotisLesion });
   }
-  openDialogAddAuxiliarExam() {
-    let dataDialog = {
-      index: 1,
-    };
-    this.ref = this.dialog.open(DialogAddExamenesAuxiliaresComponent, {
-      header: "NUEVO EXAMEN AUXILIAR",
-      width: "65%",
-      data: dataDialog,
-    });
-    this.ref.onClose.subscribe((data: any) => {
-      console.log("data recibido desde el dialog ", data);
-      if (data != undefined) {
-        this.listaExamenesAux.push(data);
-      }
-      this.listaExamenesAux = [...this.listaExamenesAux];
-    });
-  }
-  openDialogShowAuxialExam(data) {
-    let dataDialog = {
-      index: 2,
-      data: data,
-    };
-    this.ref = this.dialog.open(DialogAddExamenesAuxiliaresComponent, {
-      header: "NUEVO EXAMEN AUXILIAR",
-      width: "65%",
-      data: dataDialog,
-    });
-  }
+  closeExamDialog() {}
 }
 interface Examen {
   tipoExam?: number;
