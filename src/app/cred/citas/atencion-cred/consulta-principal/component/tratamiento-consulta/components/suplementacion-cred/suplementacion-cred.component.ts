@@ -35,7 +35,7 @@ export class SuplementacionCredComponent implements OnInit {
       { label: 'NO', optionValue: false }
     ];
   }
-
+s
   ngOnInit(): void {
     this.getLista()
   }
