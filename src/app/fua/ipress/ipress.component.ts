@@ -16,13 +16,20 @@ export class IpressComponent implements OnInit {
   ];
   listAtencion = ["AMBULATORIA", "REFERENCIA", "EMERGENCIA"];
   listSexo = ["MASCULINO", "FEMENINO"];
-  listSaludMental = ["GESTANTE", "PUERPERA"];
+  listSaludMaterna = ["GESTANTE", "PUERPERA"];
+  listLugarAtencion = [
+    { name: "Intramural", value: "INTRAMURAL" },
+    { name: "Extramural", value: "EXTRAMURAL" },
+  ];
+  lista;
   /**ngModels */
   personal: string;
   lugarAtencion: string;
   renaes: string;
   attention: string;
   gender: string;
+  maternalHealth: string;
+  attencionPlace: string;
   /**fin ngModels */
   constructor() {
     this.twoOptions = [
@@ -30,12 +37,14 @@ export class IpressComponent implements OnInit {
       { name: "no", code: "no" },
     ];
     this.inicializarForm();
+    this.attencionPlace = "EXTRAMURAL";
   }
 
   ngOnInit(): void {}
   inicializarForm() {
     this.formDatosGenerales = new FormGroup({
-      ipress: new FormControl(""),
+      ipress: new FormControl({ value: "" }),
+      fecha: new FormControl({ value: "" }),
     });
   }
   abrir() {

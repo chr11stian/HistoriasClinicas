@@ -22,7 +22,7 @@ export class InterceptorService implements HttpInterceptor {
             // console.log('entro token', idToken)
             cloned = req.clone({
             setHeaders: {
-            authorization: idToken
+            Authorization: idToken
             }
             });
             // cloned = req.clone({
