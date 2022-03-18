@@ -41,7 +41,7 @@
             </ng-template>
         </p-toolbar>
         <p-table [value]="data" #dt [globalFilterFields]="['fecha','personal.nombre','ipress.servicio']"
-                 styleClass="p-datatable-gridlines" [rows]="10"
+                 styleClass="p-datatable-gridlines" [rows]="10" responsiveLayout="scroll"
                  [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
                  currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
             <ng-template pTemplate="header">
@@ -114,7 +114,7 @@
             </div>
             <div class="card ml-3 mb-1">
                 <h5>Ofertas</h5>
-                <p-table [value]="horas" [scrollable]="true" scrollHeight="160px">
+                <p-table [value]="horas" [scrollable]="true" responsiveLayout="scroll" scrollHeight="160px">
                     <ng-template pTemplate="header">
                         <tr>
                             <th style="min-width:150px">Nro</th>
@@ -149,7 +149,7 @@
           [draggable]="false" [resizable]="false">
 
     <p-toast key="myKey1"></p-toast>
-    <div class="col-12 md:col-6 lg:col-12 p-field">
+    <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
         <div class="grid">
             <div class="col-12 md:col-6 lg:col-12 p-field" style="text-align:center">
                 <p class="text-blue-700 text-2xl text-center font-semibold">TRANSFERIR CUPOS</p>
@@ -224,7 +224,8 @@
                                                 [disabled]="activarInput!='Transferencia Parcial'"></p-calendar>
                                 </div>
                             </div>
-                            <div class="col-12 md:col-6 lg:col-4 p-field"><span
+                            <div class="col-12 md:col-6 lg:col-4 p-field">
+                                <span
                                     class="color-span">HORA FIN</span>
                                 <div class="p-inputgroup">
                                     <p-calendar [timeOnly]="true" [hourFormat]="24" inputId="timeonly"
@@ -340,7 +341,7 @@
                     <br>
 
                     <div class="grid m-2">
-                        <div class="col-12 md:col-6 lg:col-6 p-field">
+                        <div class="col-12 md:col-12 md:col-6 lg:col-6 p-field">
                             <div class="m-1 p-inputgroup">
                                 <p-radioButton class="default" name="transferir" value="Transferencia Total"
                                                formControlName="transferir" (click)="SelectHorarios()"
@@ -348,7 +349,7 @@
                                 <span class="color-span">TRANSFERIR TODO</span>
                             </div>
                         </div>
-                        <div class="col-12 md:col-6 lg:col-6 p-field">
+                        <div class="col-12 md:col-12 md:col-6 lg:col-6 p-field">
                             <div class="m-1 p-inputgroup">
                                 <p-radioButton class="default" name="transferir" value="Transferencia Parcial"
                                                formControlName="transferir" (click)="SelectHorarios()"
@@ -359,7 +360,7 @@
                     </div>
 
                     <div class="grid m-2">
-                        <div class="col-12 md:col-6 lg:col-12 p-field">
+                        <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
                             <div class="p-inputgroup lg:text-center">
                                 <button pButton type="button" label="Transferir cupos"
                                         icon="pi pi-angle-double-right"
