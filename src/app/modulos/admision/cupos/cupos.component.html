@@ -84,7 +84,7 @@
             </ng-template>
         </p-toolbar>
         <p-table [value]="DataCupos" #dt [globalFilterFields]="['fecha']" styleClass="p-datatable-gridlines "
-                 [rows]="10"
+                 [rows]="10" responsiveLayout="scroll"
                  [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
                  currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
 

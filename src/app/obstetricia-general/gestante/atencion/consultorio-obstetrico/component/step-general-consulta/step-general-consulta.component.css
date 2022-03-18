@@ -69,6 +69,8 @@ p-tabview >>> .p-tabview .p-tabview-panels {
     background: white;
     border: 1px solid green;
     border-radius: 10px;
+    overflow: auto;
+    white-space: nowrap;
 }
 
 :host >>> .p-steps .p-steps-item .p-menuitem-link .p-steps-number:hover {
@@ -103,4 +105,11 @@ p-tabview >>> .p-tabview .p-tabview-panels {
 
 :host >>> .p-steps .p-steps-item:before {
     margin-top: -4px;
+}
+
+
+.scrollmenu {
+    background-color: #333;
+    overflow: auto;
+    white-space: nowrap;
 }
