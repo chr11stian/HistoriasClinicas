@@ -20,10 +20,10 @@ export class StepGeneral_consultaComponent implements OnInit {
 
     constructor() {
         this.options = [
-            {name: "DNI", code: 1},
-            {name: "CARNET RN", code: 2},
-            {name: "C EXTRANJERIA", code: 3},
-            {name: "OTROS", code: 4},
+            { name: "DNI", code: 1 },
+            { name: "CARNET RN", code: 2 },
+            { name: "C EXTRANJERIA", code: 3 },
+            { name: "OTROS", code: 4 },
         ]
         this.IDConsulta = JSON.parse(localStorage.getItem('IDConsulta'));
     }
@@ -31,22 +31,30 @@ export class StepGeneral_consultaComponent implements OnInit {
 
     ngOnInit(): void {
         this.items = [
-            {label: "Datos Generales"},
-            {label: "Interrogatorio"},
-            {label: "Tamizaje"},
-            {label: "Diagnosticos"},
-            {label: "Tratamiendo"},
-            {label: "Resultados"},
+            { label: "Datos Generales" },
+            { label: "Interrogatorio" },
+            { label: "Tamizaje"},
+            { label: "Diagnosticos" },
+            { label: "Evaluaciones" },
+            { label: "Tratamientos" },
+            { label: "Procedimientos" },
+            { label: "Finalizar" },
         ]
     }
 
     name() {
         switch (this.indiceActivo) {
+            case 7:
+                this.stepName = "finalizar"
+                break
+            case 6:
+                this.stepName = "procedimientos"
+                break
             case 5:
-                this.stepName = "resultados"
+                this.stepName = "tratamiento"
                 break
             case 4:
-                this.stepName = "tratamiento"
+                this.stepName = "evaluaciones"
                 break
             case 3:
                 this.stepName = "diagnostico"

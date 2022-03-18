@@ -108,8 +108,8 @@ export class DatosGeneralesComponent implements OnInit {
     dataPaciente2: any;
     estadoEdicion: Boolean;
 
-    nroAtencion: any;
-
+    nroAtencion:any;
+    antecedentesDialog: boolean;
     constructor(private form: FormBuilder,
                 private obstetriciaGeneralService: ObstetriciaGeneralService,
                 private consultasService: ConsultasService,
@@ -912,5 +912,24 @@ export class DatosGeneralesComponent implements OnInit {
             summary: 'Consulta',
             detail: 'Recupero con exito'
         });
+    }
+
+    openAntecedentes() {
+        //this.isUpdate = false;
+        /*this.formAntecedentes.reset();
+        this.formAntecedentes.get('diagnosticoSIS').setValue("");
+        this.formAntecedentes.get('diagnosticoHIS').setValue("");
+        this.formAntecedentes.get('subtitulo').setValue("MATERNO");*/
+        this.antecedentesDialog = true;
+    }
+    canceled1() {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Cancelado...',
+            text: '',
+            showConfirmButton: false,
+            timer: 1000
+        })
+        this.antecedentesDialog = false;
     }
 }
