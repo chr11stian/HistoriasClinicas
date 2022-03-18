@@ -70,6 +70,7 @@ input[type="number"] {
     padding-left: 0.1em;
     text-align: left;
 }
+
 p-selectbutton >>> .p-selectbutton .p-button {
     /*color: #6e6e6e;*/
     /*font-size: xx-large;*/
