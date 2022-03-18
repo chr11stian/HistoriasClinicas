@@ -110,6 +110,8 @@ export class DatosGeneralesComponent implements OnInit {
 
     nroAtencion:any;
     antecedentesDialog: boolean;
+    
+    familiares2:any;
     constructor(private form: FormBuilder,
                 private obstetriciaGeneralService: ObstetriciaGeneralService,
                 private consultasService: ConsultasService,
@@ -156,6 +158,16 @@ export class DatosGeneralesComponent implements OnInit {
             {nombrefamiliar: 'Abuelo'},
             {nombrefamiliar: 'Otros'},
         ];
+
+        this.familiares2 = [
+            {nombrefamiliar: 'PADRE'},
+            {nombrefamiliar: 'MADRE'},
+            {nombrefamiliar: 'HERMANO'},
+            {nombrefamiliar: 'HERMANA'},
+            {nombrefamiliar: 'ABUELO'},
+            {nombrefamiliar: 'OTROS'},
+        ];
+
     }
 
     buildForm() {

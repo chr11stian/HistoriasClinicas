@@ -439,7 +439,7 @@ export class InterrogatorioComponent implements OnInit {
     this.interrogatorioData = {
       nroHcl: this.nroHcl,
       nroAtencion: this.nroAtencion,
-      nroControlSis: this.ultimaConsulta.nroMayorControlSis,
+      nroControlSis: this.nroAtencion,
       nroEmbarazo: this.nroEmbarazo,
       tipoDoc: this.tipoDocRecuperado,
       nroDoc: this.nroDocRecuperado,

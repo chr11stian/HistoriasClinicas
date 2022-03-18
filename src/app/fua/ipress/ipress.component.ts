@@ -10,19 +10,26 @@ export class IpressComponent implements OnInit {
   twoOptions: any[];
   formDatosGenerales: FormGroup;
   listPersonalAte = [
-    { name: "DE LA IPRESS", value: "DELAIPRESS" },
-    { name: "ITINERANTE", value: "ITINERANTE" },
-    { name: "OFERTA FLEXIBLE", value: "OFERTAFLEXIBLE" },
+    { name: "De la IPRESS", value: "DELAIPRESS" },
+    { name: "Itinerante", value: "ITINERANTE" },
+    { name: "Oferta Flexible", value: "OFERTAFLEXIBLE" },
   ];
-  listAtencion = ["AMBULATORIA", "REFERENCIA", "EMERGENCIA"];
+  listAtencion = [{name:"Ambulatoria",value:"AMBULATORIA"}, {name:"Referencia",value:"REFERENCIA"}, "EMERGENCIA"];
   listSexo = ["MASCULINO", "FEMENINO"];
-  listSaludMental = ["GESTANTE", "PUERPERA"];
+  listSaludMaterna = ["GESTANTE", "PUERPERA"];
+  listLugarAtencion = [
+    { name: "Intramural", value: "INTRAMURAL" },
+    { name: "Extramural", value: "EXTRAMURAL" },
+  ];
+  lista;
   /**ngModels */
   personal: string;
   lugarAtencion: string;
   renaes: string;
   attention: string;
   gender: string;
+  maternalHealth: string;
+  attencionPlace: string;
   /**fin ngModels */
   constructor() {
     this.twoOptions = [
@@ -30,12 +37,14 @@ export class IpressComponent implements OnInit {
       { name: "no", code: "no" },
     ];
     this.inicializarForm();
+    this.attencionPlace = "EXTRAMURAL";
   }
 
   ngOnInit(): void {}
   inicializarForm() {
     this.formDatosGenerales = new FormGroup({
-      ipress: new FormControl(""),
+      ipress: new FormControl({ value: "" }),
+      fecha: new FormControl({ value: "" }),
     });
   }
   abrir() {
