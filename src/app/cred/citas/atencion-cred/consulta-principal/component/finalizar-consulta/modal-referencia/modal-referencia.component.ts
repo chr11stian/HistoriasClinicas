@@ -1,5 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {FinalizarConsultaService} from '../../../services/finalizar-consulta.service';
+import {
+    Coordinacion,
+    dato,
+    Personal,
+    ReferenciaInterface,
+    laboratorio,
+    datosLaboratorio,
+    ExamenesAuxiliares
+} from "../../../../../models/data";
+import {DatePipe} from "@angular/common";
 
 interface formControlInterface {
     pro: string,
@@ -13,6 +24,10 @@ interface formControlInterface {
     styleUrls: ['./modal-referencia.component.css']
 })
 export class ModalReferenciaComponent implements OnInit {
+    fecha: Date = new Date()
+    datePipe = new DatePipe('en-US');
+    data: dato
+    attributeLocalS = 'documento'
     formReferencia: FormGroup
     examFG: FormGroup
     sis: string = 'CUZ-234234235'
@@ -38,17 +53,52 @@ export class ModalReferenciaComponent implements OnInit {
         {pro: 'imc', label: 'imc(kg/m2)', nameFC: 'imcFC'},
         {pro: 'perimetroCefalico', label: 'PC (cm)', nameFC: 'PCFC'}
     ]
-    Destino = [
+    selectedDestino = []
+    selectedEspecialidad = []
+    destino = [
         {name: 'Emergencia', code: 'Emergencia'},
         {name: 'Consulta Externa', code: 'Consulta Externa'},
         {name: 'Apoyo al diagnóstico', code: 'Apoyo al diagnóstico'}
     ];
+    especialidad = [
+        {name: 'Pediatria', code: 'Pediatria'},
+        {name: 'Cirugía', code: 'Cirugía'},
+        {name: 'Gineco Obstetra', code: 'Gineco Obstetra'},
+        {name: 'Laboratorio', code: 'Laboratorio'},
+        {name: 'Dx. Imagen', code: 'Dx. Imagen'},
+        {name: 'Otros', code: 'Otros'},
+    ];
+    condicion = [
+        {name: 'Estable', code: 'Estable'},
+        {name: 'Mal estado', code: 'Mal estado'}
+    ];
 
-    constructor(private formBuilder: FormBuilder,) {
+    examenAux: ExamenesAuxiliares[] = []
+
+    constructor(private formBuilder: FormBuilder,
+                private referenceService: FinalizarConsultaService) {
     }
 
     ngOnInit(): void {
+        this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
         this.buildForm()
+        this.inicializar()
+    }
+
+    inicializar() {
+        this.referenceService.searchLaboratorio(this.data.idConsulta).subscribe((r: any) => {
+            let aux: laboratorio[] = r.object;
+            aux.map((obj: laboratorio) => {
+                    let aux_: ExamenesAuxiliares =
+                        {
+                            tipoExamAux: obj.datosLaboratorio.tipoLaboratorio,
+                            subTipo: obj.datosLaboratorio.subTipo,
+                            nombreExamen: obj.datosLaboratorio.nombreExamen
+                        }
+                    this.examenAux.push(aux_)
+                }
+            )
+        })
     }
 
     buildForm(): void {
@@ -66,10 +116,13 @@ export class ModalReferenciaComponent implements OnInit {
             detailFC: new FormControl({value: null, disabled: false}, []),
         })
         this.formReferencia = this.formBuilder.group({
+            asegurado: new FormControl(true),
+            sex: new FormControl(true),
             fecha: new FormControl("", []),
             hour: new FormControl("", []),
             fechaAtencion: new FormControl("", []),
             hourAtencion: new FormControl("", []),
+            tipoSub: new FormControl("", []),
             subsidiado: new FormControl("", []),
             semisubsidiado: new FormControl("", []),
             otros: new FormControl("", []),
@@ -78,7 +131,9 @@ export class ModalReferenciaComponent implements OnInit {
             sis: new FormControl("", []),
             historia: new FormControl("", []),
             nombre: new FormControl("", []),
-            quien: new FormControl("", []),
+            referencia: new FormControl("", []),
+            especialidad: new FormControl("", []),
+            condicion: new FormControl("", []),
             nombreAtendera: new FormControl("", []),
             nombreCoordino: new FormControl("", [])
         });
@@ -89,4 +144,34 @@ export class ModalReferenciaComponent implements OnInit {
         let talla = this.examFG.value.TallaFC
         this.examFG.get('imcFC').setValue(peso / (talla * talla))
     }
+
+    save() {
+
+        let aux: ReferenciaInterface = {
+            fecha: this.datePipe.transform(this.formReferencia.value.fecha, 'yyyy-MM-dd HH:mm:ss'),
+            tipoSubsidio: this.formReferencia.value.tipoSub,
+            coordinacion: {
+                fechaAtendera: this.datePipe.transform(this.formReferencia.value.fechaAtencion, 'yyyy-MM-dd'),
+                horaAtendera: this.datePipe.transform(this.formReferencia.value.hourAtencion, 'HH:mm'),
+                personalAtendera: {
+                    primerNombre: this.formReferencia.value.nombreAtendera
+                },
+                personalCoordino: {
+                    primerNombre: this.formReferencia.value.nombreCoordino
+                },
+                tipoReferencia: this.formReferencia.value.referencia,
+                especialidad: this.formReferencia.value.especialidad,
+                condicionPacienteSalida: this.formReferencia.value.condicion,
+                motivo: '',
+                examenesAuxiliares: this.examenAux
+            }
+        }
+        console.log('aux', aux)
+        this.referenceService.addReference(this.data.idConsulta, aux).subscribe((r: any) => {
+            console.log(r)
+        })
+
+        console.log(this.selectedDestino, this.selectedEspecialidad)
+    }
 }
+

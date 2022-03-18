@@ -36,6 +36,20 @@ import { SuplementacionCredComponent } from './component/tratamiento-consulta/co
 import { TratamientoCredComponent } from './component/tratamiento-consulta/components/tratamiento-cred/tratamiento-cred.component';
 import { SuplementoComponent } from './component/tratamiento-consulta/components/suplemento/suplemento.component';
 import { ModalReferenciaComponent } from './component/finalizar-consulta/modal-referencia/modal-referencia.component';
+import { CalendarComponent } from './component/finalizar-consulta/calendar/calendar.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import listPlugin from '@fullcalendar/list';
+import interactionPlugin from '@fullcalendar/interaction';
+
+FullCalendarModule.registerPlugins([
+    dayGridPlugin,
+    timeGridPlugin,
+    listPlugin,
+    interactionPlugin
+])
+
 @NgModule({
     declarations: [
         ModalReferenciaComponent,
@@ -61,8 +75,10 @@ import { ModalReferenciaComponent } from './component/finalizar-consulta/modal-r
         SuplementacionCredComponent,
         TratamientoCredComponent,
         SuplementoComponent,
+        CalendarComponent,
     ],
     imports: [
+        FullCalendarModule,
         EvaluacionGeneralModule,
         PlanModule,
         CommonModule,

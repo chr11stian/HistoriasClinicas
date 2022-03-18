@@ -8,7 +8,7 @@
                     </div>
                     <div class="col-12">
                         <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"
-                                    dateFormat="yy-mm-dd" formControlName="fecha"
+                                    dateFormat="dd-mm-yy" formControlName="fecha" [ngModel]="fecha"
                         ></p-calendar>
                     </div>
                 </div>
@@ -18,6 +18,7 @@
                     </div>
                     <div class="col-12">
                         <p-calendar [timeOnly]="true"
+                                    [ngModel]="fecha"
                                     formControlName="hour"
                                     inputId="timeonly">
                         </p-calendar>
@@ -31,26 +32,29 @@
                         <p-selectButton [options]="stateOptions"
                                         class="inputfield w-full"
                                         optionLabel="label"
-                                        formControlName="presentSigns"
+                                        formControlName="asegurado"
                                         optionValue="value">
                         </p-selectButton>
                     </div>
                 </div>
                 <div class="col-12 align-items-center justify-content-center flex" style="padding:0;margin: 0">
                     <span>TIPO: </span>
-                    <div class="col-3 flex align-items-center">
+                    <div class="col-2 flex align-items-center">
+                        <div class="col-3">
+                            <p-radioButton formControlName="tipoSub" name="tipoSub" value="subsidiado"></p-radioButton>
+                        </div>
                         <span>SUBSIDIADO</span>
-                        <div class="col-3">
-                            <p-radioButton formControlName="subsidiado" value="SUBSIDIADO"></p-radioButton>
-                        </div>
                     </div>
                     <div class="col-3 flex align-items-center">
+                        <div class="col-3">
+                            <p-radioButton formControlName="tipoSub" name="tipoSub" value="semi"></p-radioButton>
+                        </div>
                         <span>SEMI-SUBSIDIADO</span>
-                        <div class="col-3">
-                            <p-radioButton formControlName="semisubsidiado" value="SEMI-SUBSIDIADO"></p-radioButton>
-                        </div>
                     </div>
                     <div class="col-3 flex align-items-center">
+                        <div class="col-3">
+                            <p-radioButton formControlName="tipoSub" name="tipoSub" value="otros"></p-radioButton>
+                        </div>
                         <span>OTROS :</span>
                         <div class="col-3">
                             <input formControlName="otros" pInputText type="text" placeholder="Otros">
@@ -103,7 +107,7 @@
                     <p-selectButton [options]="sexOptions"
                                     class="inputfield w-full justify-content-end"
                                     optionLabel="label"
-                                    formControlName="presentSigns"
+                                    formControlName="sex"
                                     optionValue="value">
                     </p-selectButton>
                 </div>
@@ -168,7 +172,35 @@
                 </form>
             </p-tabPanel>
             <p-tabPanel header="EXAMENES AUXILIARES" leftIcon="pi pi-calendar">
-
+                <p-table class="table-over" [value]="examenAux" #dt
+                         styleClass="p-datatable-gridlines" [rows]="10"
+                         [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
+                         [showCurrentPageReport]="true"
+                         currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="text-align: center" class="font-2">Nro</th>
+                            <th style="text-align: center" class="font-2">Lugar</th>
+                            <th style="text-align: center" class="font-2">Tipo</th>
+                            <th style="text-align: center" class="font-2">Examen</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                        <tr>
+                            <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+                            <td *ngIf="rowData.tipoExamAux=='EXAMEN_LABORATORIO'; else otro" style="text-align: center">
+                                LABORATORIO
+                            </td>
+                            <ng-template #otro>
+                                <td style="text-align: center">
+                                    CONSULTORIO
+                                </td>
+                            </ng-template>
+                            <td style="text-align: center">{{ rowData.subTipo }}</td>
+                            <td style="text-align: center">{{ rowData.nombreExamen }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
             </p-tabPanel>
             <p-tabPanel header="DIAGNÓSTICO" leftIcon="pi pi-calendar">
 
@@ -183,16 +215,25 @@
             <span>Referencia:</span>
             <div class="col-3">
                 <p-dropdown
-                        class="w-full"
-                        [autoDisplayFirst]="false"
-                        [options]="Destino"
-                        formControlName="quien"
+                        [options]="destino"
+                        [(ngModel)]="selectedDestino"
+                        formControlName="referencia"
+                        optionLabel="name"
                         optionValue="code"
-                        optionLabel="name">
-                </p-dropdown>
+                ></p-dropdown>
             </div>
         </div>
         <div class="col flex" style="padding:0; margin: 0">
+            <div class="col-4 flex align-items-center">
+                <span>
+                    Fecha en que será atendido:
+                </span>
+                <div class="col-6">
+                    <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha" [ngModel]="fecha"
+                                dateFormat="dd-mm-yy" formControlName="fechaAtencion"
+                    ></p-calendar>
+                </div>
+            </div>
             <div class="col-8 flex align-items-center">
                 <span>
                     Nombre de quien lo atenderá:
@@ -201,18 +242,21 @@
                     <input type="text" class="w-full" pInputText formControlName="nombreAtendera">
                 </div>
             </div>
-            <div class="col-4 flex align-items-center">
-                <span>
-                    Fecha en que será atendido:
-                </span>
-                <div class="col-6">
-                    <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"
-                                dateFormat="yy-mm-dd" formControlName="fechaAtencion"
-                    ></p-calendar>
-                </div>
-            </div>
         </div>
         <div class="col flex" style="padding:0; margin: 0">
+            <div class="col-4 flex align-items-center">
+                <span>
+                    Hora en que será atendido:
+                </span>
+                <div class="col-6">
+                    <p-calendar [timeOnly]="true"
+                                class="text-center"
+                                [ngModel]="fecha"
+                                formControlName="hourAtencion"
+                                inputId="timeonly">
+                    </p-calendar>
+                </div>
+            </div>
             <div class="col-8 flex align-items-center">
                 <span>
                     Nombre con quien se coordino la atención:
@@ -221,41 +265,28 @@
                     <input type="text" class="w-full" pInputText formControlName="nombreCoordino">
                 </div>
             </div>
-            <div class="col-4 flex align-items-center">
-                <span>
-                    Hora en que será atendido:
-                </span>
-                <div class="col-6">
-                    <p-calendar [timeOnly]="true"
-                                class="text-center"
-                                formControlName="hourAtencion"
-                                inputId="timeonly">
-                    </p-calendar>
-                </div>
-            </div>
         </div>
         <div class="col flex" style="padding:0; margin: 0">
-            <div class="col-6 flex align-items-center">
+            <div class="col-7 flex align-items-center">
                 <span>Especialidad del destino:</span>
                 <div class="col-8">
                     <p-dropdown
-                            class="w-full"
-                            [autoDisplayFirst]="false"
-                            [options]="Destino"
-                            formControlName="quien"
+                            [options]="especialidad"
+                            [(ngModel)]="selectedEspecialidad"
+                            formControlName="especialidad"
+                            optionLabel="name"
                             optionValue="code"
-                            optionLabel="name">
-                    </p-dropdown>
+                    ></p-dropdown>
                 </div>
             </div>
-            <div class="col-6 flex align-items-center">
+            <div class="col-5 flex align-items-center ">
                 <span>Condición del paciente al inicio del traslado:</span>
-                <div class="col-5">
+                <div class="col-2">
                     <p-dropdown
                             class="w-full"
                             [autoDisplayFirst]="false"
-                            [options]="Destino"
-                            formControlName="quien"
+                            [options]="condicion"
+                            formControlName="condicion"
                             optionValue="code"
                             optionLabel="name">
                     </p-dropdown>
@@ -263,4 +294,8 @@
             </div>
         </div>
     </p-fieldset>
+    <div class="col col-offset-11">
+        <button class="button-agregar" icon="pi pi-save" pButton type="button" label="Guardar"
+                style="background-color: #0c3866" (click)="save()"></button>
+    </div>
 </form>

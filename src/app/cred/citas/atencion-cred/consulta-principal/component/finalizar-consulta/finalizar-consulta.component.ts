@@ -4,20 +4,21 @@ import Swal from "sweetalert2";
 import {CieService} from "../../../../../../obstetricia-general/services/cie.service";
 import {FinalizarConsultaService} from "../../services/finalizar-consulta.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {
-    ModalAntecedentesComponent
-} from "../../../../../../mantenimientos/component/antecedentes-paciente/modal-antecedentes/modal-antecedentes.component";
 import {ModalReferenciaComponent} from "./modal-referencia/modal-referencia.component";
 import {DatePipe} from "@angular/common";
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
+import {CalendarComponent} from "./calendar/calendar.component";
+import {dato} from "../../../../models/data";
 
 @Component({
     selector: 'app-finalizar-consulta',
     templateUrl: './finalizar-consulta.component.html',
     styleUrls: ['./finalizar-consulta.component.css'],
-    providers:[DialogService]
+    providers: [DialogService]
 })
 export class FinalizarConsultaComponent implements OnInit {
+    attributeLocalS = 'documento'
+    data: dato
     acuerdosFG: FormGroup
     finalizar: finalizarAtencionInterface;
     acuerdosComprimisos: acuerdosComprimisosInterface[] = [];
@@ -25,7 +26,6 @@ export class FinalizarConsultaComponent implements OnInit {
     referencia: referenciaInterface[] = [];
 
     id: string;
-    attributeLocalS = 'idConsulta'
     formExamen: FormGroup;
     formAcuerdos: FormGroup;
     formReferencia: FormGroup;
@@ -125,6 +125,8 @@ export class FinalizarConsultaComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
+        this.agenda()
         /*this.route.queryParams
             .subscribe(params => {
                 console.log('params', params)
@@ -137,6 +139,46 @@ export class FinalizarConsultaComponent implements OnInit {
     }
 
     /* funciones tabla acuerdo*/
+    agenda() {
+        this.finalizarService.listPlan(this.data.nroDocumento).subscribe((r: any) => {
+            let aux = r.object.planAtencion
+            aux.controlCrecimientoDesa.map((r_: any) => {
+                this.finalizarService.list.push({
+                    title: r_.nroControl + '° control de crecimiento de ' + this.descripcion(r_.descripcionEdad),
+                    start: r_.fechaTentativa
+                })
+            })
+            aux.suplementacionSFMicronutrientes.map((r_: any) => {
+                this.finalizarService.list.push({
+                    title: r_.dosis + '° dosis de ' + r_.descripcion.toLowerCase() + ' de ' + this.descripcion(r_.descripcionEdad),
+                    start: r_.fechaTentativa
+                })
+            })
+            aux.suplementacionVitaminaA.map((r_: any) => {
+                this.finalizarService.list.push({
+                    title: r_.dosis + '° dosis de ' + r_.descripcion.toLowerCase() + ' de ' + this.descripcion(r_.descripcionEdad),
+                    start: r_.fechaTentativa
+                })
+            })
+            aux.tratamientoDosajeHemoglobina.map((r_: any) => {
+                this.finalizarService.list.push({
+                    title: r_.nroControl + '° control de ' + (r_.nombre === 'Dosaje_Hb' ? 'dosaje de hemoglobina' : '') + ' de ' + this.descripcion(r_.descripcionEdad),
+                    start: r_.fechaTentativa
+                })
+            })
+            aux.inmunizacionesCred.map((r_: any) => {
+                this.finalizarService.list.push({
+                    title: r_.dosis + '° dosis de ' + r_.descripcion.toLowerCase() + ' de ' + this.descripcion(r_.descripcionEdad),
+                    start: r_.fechaTentativa
+                })
+            })
+        })
+    }
+
+    descripcion(s: string) {
+        return s == 'RN' ? 'recien nacido' : (s == 'Menor_1A' ? 'menor de un año' : (s == '1A' ? 'un año' : (s == '2A' ? 'dos años' : (s == '3A' ? 'tres años' : (s == '4A' ? 'cuatro años' : (s == '5A' ? 'cinco años' : (s == '6A' ? 'seis años' : (s == '7A' ? 'siete años' : (s == '8A' ? 'ocho años' : 'nueve años')))))))))
+    }
+
     openAcuerdo() {
         this.isUpdate3 = false;
         this.formAcuerdos.reset();
@@ -394,6 +436,18 @@ export class FinalizarConsultaComponent implements OnInit {
                     'nroDoc': this.nroDoc,
                 }
             })
+    }
+
+    openCalendar() {
+        this.ref = this.dialog.open(CalendarComponent, {
+            header: "CALENDARIO DE ACTIIVIDADES",
+            height: '100%',
+            width: '90%',
+            style: {
+                position: 'absolute',
+                top: '17px',
+            },
+        })
     }
 
     openRefe() {
