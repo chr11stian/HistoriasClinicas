@@ -3,6 +3,10 @@
         <h3 class="mt-2">DATOS GENERALES</h3>
     </ng-template>
     <ng-template pTemplate="right" class="button">
+        <div class=" mr-8">
+            <button pButton pRipple label="Ver Antecedentes" class="m-2" icon="pi pi-list"
+                style="background-color: #3970b8" (click)="openAntecedentes()"></button>
+        </div>
         <button pButton pRipple label="Guardar" icon="pi pi-save" class="guardar mr-2" style="background-color: #0c3866"
             (click)="Add_updateConsultas()"></button>
     </ng-template>
@@ -12,7 +16,7 @@
 <div class="grid">
     <div class="col-3">
         <div class="grid">
-            <div class="col-4 image1 m-1">
+            <div class="col-4 image1">
             </div>
             <div class="col-7 text-center">
                 <p class="text-4xl w-10">CONSULTA PERINATAL</p>
@@ -49,10 +53,7 @@
                 </div>
             </form>
         </p-fieldset>
-        <div class="p-2">
-            <button pButton pRipple label="Ver Antecedentes" class="m-2" icon="pi pi-check"
-                style="background-color: #0c3866" (click)="openAntecedentes()"></button>
-        </div>
+        
     </div>
     <div class="col-9">
         <p-fieldset legend="INFORMACIÓN PERSONAL">
@@ -172,9 +173,9 @@
                     <div class="col-12 md:col-6 lg:col-3 p-fluid">
                         <div class="">
                             <label class="">Lazo de parentesco:</label>
-                            <p-dropdown [options]="familiares2" optionLabel="nombrefamiliar" optionValue="nombrefamiliar"
-                                formControlName="lazoParentesco" placeholder="Selecciona" [showClear]="false"
-                                class="inputfield w-full">
+                            <p-dropdown [options]="familiares2" optionLabel="nombrefamiliar"
+                                optionValue="nombrefamiliar" formControlName="lazoParentesco" placeholder="Selecciona"
+                                [showClear]="false" class="inputfield w-full">
                             </p-dropdown>
                         </div>
                     </div>
@@ -510,7 +511,7 @@
 </div>
 
 <!--*************************DIALOGO ANTECEDENTES **********************************-->
-<p-dialog [(visible)]="antecedentesDialog" [modal]="true" [style]="{width: '980px',heigth:'400px'}">
+<p-dialog [(visible)]="antecedentesDialog" [modal]="true" [style]="{width: '1280px'}">
     <ng-template pTemplate="header">
         <h3>ANTECEDENTES</h3>
     </ng-template>
@@ -543,10 +544,10 @@
                     </div>
 
                 </div>
-                <div class="grid">
-                    <div class="col" style="align-self: start">
+                <div class="grid p-fluid">
+                    <div class="col-6" style="align-self: start">
                         <div class="grid ">
-                            <div class="col-4" style="text-align: right">
+                            <div class="col-6" style="text-align: right">
                                 <label>Ninguno: </label>
                             </div>
                             <div class="col-2">
@@ -555,14 +556,14 @@
                             </div>
                         </div>
                         <div class="grid">
-                            <div class="col-4" style="text-align: right">
+                            <div class="col-6" style="text-align: right">
                                 <label>Alergias: </label>
                             </div>
                             <div class="col-2">
                                 <p-checkbox value="Alergia" [(ngModel)]="antecedentes2" name="alergia" class="amarillo">
                                 </p-checkbox>
                             </div>
-                            <div class="p-field col-6">
+                            <div class="p-field col-4">
                                 <form [formGroup]='formAntecedentes'>
                                     <p-dropdown [options]="familiares" optionLabel="nombrefamiliar"
                                         optionValue="nombrefamiliar" formControlName="nombrefamiliar1"
@@ -572,7 +573,7 @@
                             </div>
                         </div>
                         <div class="grid ">
-                            <div class="col-4" style="text-align: right">
+                            <div class="col-6" style="text-align: right">
                                 <label>Enf. Hepertens. emb. </label>
                             </div>
                             <div class="col-2">
@@ -580,7 +581,7 @@
                                     class="mt-1" class="amarillo">
                                 </p-checkbox>
                             </div>
-                            <div class="p-field col-6">
+                            <div class="p-field col-4">
                                 <form [formGroup]='formAntecedentes'>
                                     <p-dropdown [options]="familiares" optionLabel="nombrefamiliar"
                                         optionValue="nombrefamiliar" formControlName="nombrefamiliar2"
@@ -590,14 +591,14 @@
                             </div>
                         </div>
                         <div class="grid ">
-                            <div class="col-4" style="text-align: right">
+                            <div class="col-6" style="text-align: right">
                                 <label>Epilepcia: </label>
                             </div>
                             <div class="col-2">
                                 <p-checkbox value="Epilepcia" [(ngModel)]="antecedentes4" class="mt-1" name="epilepcia"
                                     class="amarillo"></p-checkbox>
                             </div>
-                            <div class="p-field col-6">
+                            <div class="p-field col-4">
                                 <form [formGroup]='formAntecedentes'>
                                     <p-dropdown [options]="familiares" optionLabel="nombrefamiliar"
                                         optionValue="nombrefamiliar" formControlName="nombrefamiliar3"
@@ -607,14 +608,14 @@
                             </div>
                         </div>
                         <div class="grid ">
-                            <div class="col-4" style="text-align: right">
+                            <div class="col-6" style="text-align: right">
                                 <label>Diabetes: </label>
                             </div>
                             <div class="col-2">
                                 <p-checkbox value="Diabetes" [(ngModel)]="antecedentes5" class="mt-1" name="diabetes"
                                     class="amarillo"></p-checkbox>
                             </div>
-                            <div class="p-field col-6">
+                            <div class="p-field col-4">
                                 <form [formGroup]='formAntecedentes'>
                                     <p-dropdown [options]="familiares" optionLabel="nombrefamiliar"
                                         optionValue="nombrefamiliar" formControlName="nombrefamiliar4"
@@ -624,7 +625,7 @@
                             </div>
                         </div>
                         <div class="grid ">
-                            <div class="col-4" style="text-align: right">
+                            <div class="col-6" style="text-align: right">
                                 <label>Enf. Congénitas: </label>
                             </div>
                             <div class="col-2">
@@ -632,7 +633,7 @@
                                     class="mt-1" class="amarillo">
                                 </p-checkbox>
                             </div>
-                            <div class="p-field col-6">
+                            <div class="p-field col-4">
                                 <form [formGroup]='formAntecedentes'>
                                     <p-dropdown [options]="familiares" optionLabel="nombrefamiliar"
                                         optionValue="nombrefamiliar" formControlName="nombrefamiliar5"
@@ -642,7 +643,7 @@
                             </div>
                         </div>
                         <div class="grid ">
-                            <div class="col-4" style="text-align: right">
+                            <div class="col-6" style="text-align: right">
                                 <label>Emb. Multiple: </label>
                             </div>
                             <div class="col-2">
@@ -650,7 +651,7 @@
                                     name="EmbMultiple" class="amarillo">
                                 </p-checkbox>
                             </div>
-                            <div class="p-field col-6">
+                            <div class="p-field col-4">
                                 <form [formGroup]='formAntecedentes'>
                                     <p-dropdown [options]="familiares" optionLabel="nombrefamiliar"
                                         optionValue="nombrefamiliar" formControlName="nombrefamiliar6"
@@ -660,16 +661,16 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col" style="align-self: start">
+                    <div class="col-6 p-fluid" style="align-self: start">
                         <div class="field grid ">
-                            <div class="col-4" style="text-align: right">
+                            <div class="col-6" style="text-align: right">
                                 <label>Malaria:</label>
                             </div>
                             <div class="col-2">
                                 <p-checkbox value="Malaria" [(ngModel)]="antecedentes8" class="mt-1" name="malaria"
                                     class="amarillo"></p-checkbox>
                             </div>
-                            <div class="p-field col-6">
+                            <div class="p-field col-4">
                                 <form [formGroup]='formAntecedentes'>
                                     <p-dropdown [options]="familiares" optionLabel="nombrefamiliar"
                                         optionValue="nombrefamiliar" formControlName="nombrefamiliar7"
@@ -679,14 +680,14 @@
                             </div>
                         </div>
                         <div class="field grid ">
-                            <div class="col-4" style="text-align: right">
+                            <div class="col-6" style="text-align: right">
                                 <label>Hip. Arterial: </label>
                             </div>
                             <div class="col-2">
                                 <p-checkbox value="Hip. Arterial" [(ngModel)]="antecedentes9" name="HipArterial"
                                     class="mt-1" class="amarillo"></p-checkbox>
                             </div>
-                            <div class="p-field col-6">
+                            <div class="p-field col-4">
                                 <form [formGroup]='formAntecedentes'>
                                     <p-dropdown [options]="familiares" optionLabel="nombrefamiliar"
                                         optionValue="nombrefamiliar" formControlName="nombrefamiliar8"
@@ -696,14 +697,14 @@
                             </div>
                         </div>
                         <div class="field grid ">
-                            <div class="col-4" style="text-align: right">
+                            <div class="col-6" style="text-align: right">
                                 <label>Hipo tiroidismo:</label>
                             </div>
                             <div class="col-2">
                                 <p-checkbox value="Hipo tiroidismo" [(ngModel)]="antecedentes10" name="HipoTiroidismo"
                                     class="mt-1" class="amarillo"></p-checkbox>
                             </div>
-                            <div class="p-field col-6">
+                            <div class="p-field col-4">
                                 <form [formGroup]='formAntecedentes'>
                                     <p-dropdown [options]="familiares" optionLabel="nombrefamiliar"
                                         optionValue="nombrefamiliar" formControlName="nombrefamiliar9"
@@ -713,14 +714,14 @@
                             </div>
                         </div>
                         <div class="field grid ">
-                            <div class="col-4" style="text-align: right">
+                            <div class="col-6" style="text-align: right">
                                 <label>Neoplásica: </label>
                             </div>
                             <div class="col-2">
                                 <p-checkbox value="Neoplásica" [(ngModel)]="antecedentes11" name="neoplásica"
                                     class="mt-1" class="amarillo"></p-checkbox>
                             </div>
-                            <div class="p-field col-6">
+                            <div class="p-field col-4">
                                 <form [formGroup]='formAntecedentes'>
                                     <p-dropdown [options]="familiares" optionLabel="nombrefamiliar"
                                         optionValue="nombrefamiliar" formControlName="nombrefamiliar10"
@@ -730,14 +731,14 @@
                             </div>
                         </div>
                         <div class="field grid ">
-                            <div class="col-4" style="text-align: right">
+                            <div class="col-6" style="text-align: right">
                                 <label>TBC Pulmonar: </label>
                             </div>
                             <div class="col-2">
                                 <p-checkbox value="TBC Pulmonar" [(ngModel)]="antecedentes12" name="TBCPulmonar"
                                     class="mt-1" class="amarillo"></p-checkbox>
                             </div>
-                            <div class="p-field col-6">
+                            <div class="p-field col-4">
                                 <form [formGroup]='formAntecedentes'>
                                     <p-dropdown [options]="familiares" optionLabel="nombrefamiliar"
                                         optionValue="nombrefamiliar" formControlName="nombrefamiliar11"
@@ -748,7 +749,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="grid">
                     <div class="grid col-12">
                         <div class="col-3" style="text-align: right">
@@ -765,7 +765,6 @@
                         </div>
                     </div>
                 </div>
-                <br>
             </p-fieldset>
         </div>
         <div class="col-6">
@@ -854,9 +853,7 @@
                                 <label>VIH/SIDA:</label>
                             </div>
                             <div class="col-2">
-                                <div class="col-2">
-                                    <p-checkbox [(ngModel)]="VIHSIDA" value="VIH/SIDA"></p-checkbox>
-                                </div>
+                                <p-checkbox [(ngModel)]="VIHSIDA" value="VIH/SIDA"></p-checkbox>
                             </div>
                         </div>
                     </div>
@@ -1015,7 +1012,6 @@
                     </div>
                 </div>
                 <div class="grid">
-                    <div class="grid col-12">
                         <div class="col-3" style="text-align: right">
                             <label>Otros: </label>
                         </div>
@@ -1026,15 +1022,12 @@
                             <input type="text" pInputText [(ngModel)]="otros2" style="text-transform:uppercase"
                                 (keyup)="eventoKeyupAntecedentesPersonales()" class="inputfield w-full">
                         </div>
-                    </div>
                 </div>
             </p-fieldset>
         </div>
     </div>
     <ng-template pTemplate="footer">
-        <button pButton type="button" label="Cancelar" class="button-cancelar" icon="pi pi-times"
-            (click)="canceled1()"></button>
-        <button class="button-agregar" icon="pi pi-save" pButton type="button" label="Guardar"></button>
+        <button pButton type="button" label="Salir" class="button-agregar" (click)="canceled1()"></button>
     </ng-template>
 
 </p-dialog>

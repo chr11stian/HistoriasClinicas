@@ -935,13 +935,6 @@ export class DatosGeneralesComponent implements OnInit {
         this.antecedentesDialog = true;
     }
     canceled1() {
-        Swal.fire({
-            icon: 'warning',
-            title: 'Cancelado...',
-            text: '',
-            showConfirmButton: false,
-            timer: 1000
-        })
         this.antecedentesDialog = false;
     }
 }

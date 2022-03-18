@@ -234,5 +234,5 @@ p-fieldset >>> .p-fieldset .p-fieldset-legend {
     background-size: contain;
     height: 105px;
     background-position: 50% 50%;
-    margin-top: auto;
+    margin: auto;
 }
