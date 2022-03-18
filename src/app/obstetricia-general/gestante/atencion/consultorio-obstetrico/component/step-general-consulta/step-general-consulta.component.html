@@ -27,6 +27,15 @@
         </ng-template>
     </p-card>
 </div>
+
+<div class="stepsdemo-content" *ngIf="stepName === 'tamizaje'">
+    <p-card>
+        <ng-template pTemplate="content">
+            <app-tamizaje-violencia></app-tamizaje-violencia>
+        </ng-template>
+    </p-card>
+</div>
+
 <div class="stepsdemo-content" *ngIf="stepName === 'diagnostico'">
     <p-card>
         <ng-template pTemplate="content">

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
 import {MenuItem} from "primeng/api"
+import Swal from "sweetalert2";
 
 @Component({
     selector: 'app-step-general-consulta',
@@ -15,14 +16,16 @@ export class StepGeneral_consultaComponent implements OnInit {
     stepName = "datos"
 
     data: any
-    constructor(
-    ) {
+    IDConsulta: string = null;
+
+    constructor() {
         this.options = [
             {name: "DNI", code: 1},
             {name: "CARNET RN", code: 2},
             {name: "C EXTRANJERIA", code: 3},
             {name: "OTROS", code: 4},
         ]
+        this.IDConsulta = JSON.parse(localStorage.getItem('IDConsulta'));
     }
 
 
@@ -30,6 +33,7 @@ export class StepGeneral_consultaComponent implements OnInit {
         this.items = [
             {label: "Datos Generales"},
             {label: "Interrogatorio"},
+            {label: "Tamizaje"},
             {label: "Diagnosticos"},
             {label: "Tratamiendo"},
             {label: "Resultados"},
@@ -38,15 +42,32 @@ export class StepGeneral_consultaComponent implements OnInit {
 
     name() {
         switch (this.indiceActivo) {
-            case 4:
+            case 5:
                 this.stepName = "resultados"
                 break
-            case 3:
+            case 4:
                 this.stepName = "tratamiento"
                 break
-            case 2:
+            case 3:
                 this.stepName = "diagnostico"
                 break
+            case 2: {
+                if (this.IDConsulta == null) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Consulta',
+                        text: 'No resgistrada',
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
+                    return
+                } else {
+                    this.stepName = "tamizaje"
+                }
+
+            }
+                break
+
             case 1:
                 this.stepName = "interrogatorio"
                 break
@@ -58,9 +79,10 @@ export class StepGeneral_consultaComponent implements OnInit {
 
     ChangeStep(event: number) {
         this.indiceActivo = event;
+        console.log("INDEX", this.indiceActivo)
         this.name()
     }
-    
+
 }
 
 interface data {
