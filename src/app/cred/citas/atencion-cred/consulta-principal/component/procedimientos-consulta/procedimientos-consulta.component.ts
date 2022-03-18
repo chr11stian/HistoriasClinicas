@@ -71,13 +71,13 @@ export class ProcedimientosConsultaComponent implements OnInit {
 
   recuperarDxBD(){
     this.DiagnosticoService.getProcedimiento(this.dataConsulta.idConsulta).subscribe((res: any) => {
-          console.log(res.cod);
-          if(res!=null){
+          if(res.object!=null){
             console.log(res.object);
             this.hayDatos=true;
-              this.procedimientos = res;
+              this.procedimientos = res.object;
           }
           else{
+            this.procedimientos=[];
             Swal.fire({
               icon: 'info',
               title: 'INFORMACION',
@@ -313,7 +313,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
             codProcedimientoSIS:this.formProcedimiento.value.codProcedimientoSIS,
             codProcedimientoHIS:this.formProcedimiento.value.codProcedimientoHIS.codigoItem,
             codPrestacion:this.formProcedimiento.value.prestacion.codigo,
-            cie10SIS:this.formProcedimiento.value.cie10SIS,
+            cie10SIS:this.formProcedimiento.value.diagnostico.cie10SIS,
 
         }
         console.log("aux",aux)
@@ -332,8 +332,9 @@ export class ProcedimientosConsultaComponent implements OnInit {
 
   onChangeDiagnostico() {
     this.PrestacionService.getProcedimientoPorCodigo(this.formProcedimiento.value.diagnostico.codPrestacion).subscribe((res: any) => {
+      console.log(res.object);
       this.listaDeCIESIS = res.object.procedimientos;
-      this.formProcedimiento.patchValue({ prestacion: res.object.descripcion });
+      this.formProcedimiento.patchValue({ prestacion: res.object});
       this.formProcedimiento.patchValue({ diagnosticoSIS: "" });
       this.formProcedimiento.patchValue({ cie10SIS: "" });
     })
@@ -346,45 +347,42 @@ export class ProcedimientosConsultaComponent implements OnInit {
     this.formProcedimiento.patchValue({ codigoSIS: ""})
     this.PrestacionService.getDiagnosticoPorCodigo(codigoPrestacion).subscribe((res: any) => {
       this.listaDeProcedimientos = res.object.procedimientos;
-      // this.listaDeCIE = res.object.diagnostico;
-      // console.log(res.object);
-      // if(res.object.denominacion=='ANIOS')
-      // {
-      //   if(this.dataConsulta.anio>=res.object.edadMin && this.dataConsulta.anio<=res.object.edadMax){
-      //     // this.listaDeCIEHIS = res.object.diagnostico.filter(element=>element.estado=='ACTIVADO');
-      //     this.listaDeProcedimientos = res.object.procedimientos;
-      //   }
-      //   else{
-      //     this.messageService.add({severity:'error', summary: 'warn', detail:'No hay diagnosticos disponibles para la edad del niño(a) en esta Prestación.'});
-      //   }
-      // }
-      // if(res.object.denominacion=='MESES')
-      // {
-      //   let meses = this.dataConsulta.anio*12 + this.dataConsulta.mes + this.dataConsulta.dia/30;
-      //   if(meses>=res.object.edadMin && meses <=res.object.edadMax){
-      //     // this.listaDeCIEHIS = res.object.diagnostico.filter(element=>element.estado=='ACTIVADO');
-      //     this.listaDeProcedimientos = res.object.procedimientos;
-      //   }
-      //   else{
-      //     this.messageService.add({severity:'error', summary: 'warn', detail:'No hay diagnosticos disponibles para la edad del niño(a) en esta Prestación.'});
-      //   }
-      //
-      // }
-      // if(res.object.denominacion=='DIAS')
-      // {
-      //   if(this.dataConsulta.anio==0 && this.dataConsulta.mes==0){
-      //     if(this.dataConsulta.dia>=res.object.edadMin && this.dataConsulta.dia<=res.object.edadMax){
-      //       // this.listaDeCIEHIS = res.object.diagnostico.filter(element=>element.estado=='ACTIVADO');
-      //       this.listaDeProcedimientos = res.object.procedimientos;
-      //     }
-      //     else{
-      //       this.messageService.add({severity:'error', summary: 'warn', detail:'No hay diagnosticos disponibles para la edad del niño(a) en esta Prestación.'});
-      //     }
-      //   }
-      //   else{
-      //     this.messageService.add({severity:'error', summary: 'warn', detail:'No hay diagnosticos disponibles para la edad del niño(a) en esta Prestación.'});
-      //   }
-      // }
+
+      console.log(res.object);
+      if(res.object.denominacion=='ANIOS')
+      {
+        if(this.dataConsulta.anio>=res.object.edadMin && this.dataConsulta.anio<=res.object.edadMax){
+          this.listaDeProcedimientos = res.object.procedimientos;
+        }
+        else{
+          this.messageService.add({severity:'error', summary: 'Cuidado', detail:'No hay diagnosticos disponibles para la edad del niño(a) en esta Prestación.'});
+        }
+      }
+      if(res.object.denominacion=='MESES')
+      {
+        let meses = this.dataConsulta.anio*12 + this.dataConsulta.mes + this.dataConsulta.dia/30;
+        if(meses>=res.object.edadMin && meses <=res.object.edadMax){
+          this.listaDeProcedimientos = res.object.procedimientos;
+        }
+        else{
+          this.messageService.add({severity:'error', summary: 'Cuidado!', detail:'No hay diagnosticos disponibles para la edad del niño(a) en esta Prestación.'});
+        }
+
+      }
+      if(res.object.denominacion=='DIAS')
+      {
+        if(this.dataConsulta.anio==0 && this.dataConsulta.mes==0){
+          if(this.dataConsulta.dia>=res.object.edadMin && this.dataConsulta.dia<=res.object.edadMax){
+            this.listaDeProcedimientos = res.object.procedimientos;
+          }
+          else{
+            this.messageService.add({severity:'error', summary: 'Cuidado!', detail:'No hay diagnosticos disponibles para la edad del niño(a) en esta Prestación.'});
+          }
+        }
+        else{
+          this.messageService.add({severity:'error', summary: 'Cuidado!', detail:'No hay diagnosticos disponibles para la edad del niño(a) en esta Prestación.'});
+        }
+      }
 
     })
   }
@@ -396,9 +394,9 @@ export class ProcedimientosConsultaComponent implements OnInit {
     this.formProcedimiento.patchValue({ buscarPDxSIS: ""})
   }
 
-  saveProcedimiento(){
+  async saveProcedimiento(){
     if(!this.hayDatos){
-      this.DiagnosticoService.addProcedimiento(this.dataConsulta.idConsulta, this.procedimientos).subscribe(
+     await this.DiagnosticoService.addProcedimiento(this.dataConsulta.idConsulta, this.procedimientos).subscribe(
           (resp) => {
             console.log(resp);
             Swal.fire({
@@ -419,6 +417,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
           })
     }
     else{
+
       this.DiagnosticoService.updateProcedimiento(this.dataConsulta.idConsulta, this.procedimientos).subscribe(
           (resp) => {
             console.log(resp);
@@ -430,16 +429,50 @@ export class ProcedimientosConsultaComponent implements OnInit {
               timer: 1000
             })
           },error => {
-            Swal.fire({
-              icon: 'error',
-              title: 'PROCEDIMIENTOS...',
-              text: 'Hubo un error, vuelva a intentarlo',
-              showConfirmButton: false,
-              timer: 1000
-            })
+            console.log(error);
+            if(error.status==406){
+              Swal.fire({
+                icon: 'warning',
+                title: 'PROCEDIMIENTOS...',
+                text: "No hubo ningun cambio",
+                showConfirmButton: false,
+                timer: 1000
+              })
+            }
+            else{
+              Swal.fire({
+                icon: 'error',
+                title: 'PROCEDIMIENTOS...',
+                text: 'Hubo un error, vuelva a intentarlo',
+                showConfirmButton: false,
+                timer: 1000
+              })
+            }
+
           })
     }
+  }
 
+  elimininarProcedimiento(rowIndex: any) {
+    Swal.fire({
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      icon: 'warning',
+      title: 'Estas seguro de eliminar este registro?',
+      text: '',
+      showConfirmButton: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.procedimientos.splice(rowIndex, 1)
+        Swal.fire({
+          icon: 'success',
+          title: 'Eliminado correctamente',
+          text: '',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
+    })
   }
 }
 interface resultados{

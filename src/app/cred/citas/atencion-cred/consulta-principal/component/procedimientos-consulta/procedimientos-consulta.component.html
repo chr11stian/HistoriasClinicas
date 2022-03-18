@@ -83,9 +83,9 @@
                     <td style="text-align: center">{{ rowData.codPrestacion }}</td>
                     <td style="text-align: center">{{ rowData.cie10SIS }}</td>
                     <td style="text-align: center">
-    <!--                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"-->
-    <!--                                    (click)="eliminarDiagnostico(rowIndex)" pTooltip="Eliminar">-->
-    <!--                            </button>-->
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
+                                    (click)="elimininarProcedimiento(rowIndex)" pTooltip="Eliminar">
+                            </button>
 
                     </td>
                 </tr>
@@ -96,7 +96,7 @@
 </div>
 
 
-<!-- Procedimiento --->
+<!-- Procedimiento - -->
 <p-dialog header="INGRESAR UN PROCEDIMIENTO" [(visible)]="procedimientoDialog" [modal]="true" [style]="{width: '80%', height: '50%'}"
           [draggable]="false" [resizable]="false">
     <form [formGroup]='formProcedimiento'>
@@ -104,25 +104,18 @@
             <div class="col-12 p-fluid">
                 <label class="">CIE 10 HIS: </label>
                 <p-dropdown  inputId="dropdown" [options]="listaDiagnosticos"
-                             formControlName="diagnostico" (onChange)="onChangeDiagnostico()"
+                             formControlName="diagnostico"
+                             (onChange)="onChangeDiagnostico()"
                              optionLabel="diagnosticoSIS" placeholder="seleccionar"
                              defaultLabel="Seleccione:" >
                 </p-dropdown>
             </div>
             <div class="col-12 p-fluid">
                 <label>Prestacion:</label>
-                <input style="text-transform:uppercase"   pInputText formControlName="codProcedimientoSIS">
-                <p-dropdown [options]="ListaPrestacion" formControlName="prestacion" placeholder="Seleccionar un Diagnostico"  optionLabel="descripcion" (onChange)="onChangePrestacion()" >
-                    <ng-template let-prestaciones pTemplate="item">
-                        <div class="flex align-items-center">
-                            <div>{{prestaciones.codigo}}-{{prestaciones.descripcion}}</div>
-                        </div>
-                    </ng-template>
+                <p-dropdown inputId="dropdown" [options]="ListaPrestacion" formControlName="prestacion"
+                            placeholder="Seleccionar" optionLabel="descripcion" defaultLabel="Seleccione:" appendTo="body"
+                            class="inputfield p-fluid w-full" (onChange)="onChangePrestacion()">
                 </p-dropdown>
-                <!--                <p-dropdown inputId="dropdown" [options]="ListaPrestacion" formControlName="prestacion"-->
-                <!--                            placeholder="Seleccionar" optionLabel="descripcion" defaultLabel="Seleccione:" appendTo="body"-->
-                <!--                            class="inputfield p-fluid w-full" (onChange)="onChangePrestacion()">-->
-                <!--                </p-dropdown>-->
             </div>
 
 

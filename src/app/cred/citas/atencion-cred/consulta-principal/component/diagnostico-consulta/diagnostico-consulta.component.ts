@@ -239,7 +239,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
     recuperarDxBD(){
         this.DiagnosticoService.getDiagnostico(this.dataConsulta.idConsulta).subscribe((res: any) => {
              console.log(res.cod);
-                if(res!=null){
+                if(res.object!=null){
                     console.log(res.object);
                     this.hayDatos=true;
                     this.diagnosticos = res.object;
@@ -272,7 +272,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
         this.diagnosticoDialog = true;
         // this.isUpdate = false;
         this.formDiagnostico.reset();
-        this.formDiagnostico.get('nombreUPS').setValue("CRED");
+        this.formDiagnostico.get('nombreUPS').setValue("ATENCION INTEGRAL DEL NINO");
         this.formDiagnostico.get('cie10HIS').setValue("");
         this.formDiagnostico.get('cie10SIS').setValue("");
         this.diagnosticoDialog = true;
