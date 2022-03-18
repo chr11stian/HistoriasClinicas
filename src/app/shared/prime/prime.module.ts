@@ -40,7 +40,7 @@ import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 import {InputMaskModule} from 'primeng/inputmask';
 import {FullCalendarModule} from "primeng/fullcalendar";
-
+import { FormsModule } from '@angular/forms';
 
 const importsApi = [
     FullCalendarModule,
@@ -95,7 +95,8 @@ const importsApi = [
     DynamicDialogModule,
     DividerModule,
     SplitterModule,
-    InputMaskModule
+    InputMaskModule,
+    FormsModule
 ];
 
 @NgModule({

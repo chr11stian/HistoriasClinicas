@@ -1,17 +1,20 @@
-import {Component, OnInit} from '@angular/core';
-import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
-import {inmunizaciones} from "../../../../../plan/component/plan-atencion-integral/models/plan-atencion-integral.model";
+import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
-import {InmunizacionesService} from "../../../../../plan/component/plan-atencion-integral/services/inmunizaciones/inmunizaciones.service";
+import {inmunizaciones} from "../../../../../plan/component/plan-atencion-integral/models/plan-atencion-integral.model";
 import {dato} from "../../../../../../models/data";
+import {DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
+import {
+  InmunizacionesService
+} from "../../../../../plan/component/plan-atencion-integral/services/inmunizaciones/inmunizaciones.service";
 import {ConfirmationService, MessageService} from "primeng/api";
 
 @Component({
-  selector: 'app-vacuna',
-  templateUrl: './vacuna.component.html',
-  styleUrls: ['./vacuna.component.css']
+  selector: 'app-tratamiento-inmunizacion-modal',
+  templateUrl: './tratamiento-inmunizacion-modal.component.html',
+  styleUrls: ['./tratamiento-inmunizacion-modal.component.css']
 })
-export class VacunaComponent implements OnInit {
+export class TratamientoInmunizacionModalComponent implements OnInit {
+
   inmunizacionFC: FormGroup
   fechaAplicacionDisabled: boolean = true;
   inmunizacion: inmunizaciones
@@ -109,5 +112,6 @@ export class VacunaComponent implements OnInit {
     // console.log('estado invalido',this.getFC('administracion').valid)
 
   }
+
 
 }

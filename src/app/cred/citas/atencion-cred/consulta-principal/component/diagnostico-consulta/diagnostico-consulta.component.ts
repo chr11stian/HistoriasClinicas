@@ -1,10 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
+import {DialogService} from "primeng/dynamicdialog";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import Swal from "sweetalert2";
 import {CieService} from "../../../../../../obstetricia-general/services/cie.service";
 import {DiagnosticoConsultaService} from "../../services/diagnostico-consulta.service";
+import { PrestacionService } from 'src/app/mantenimientos/services/prestacion/prestacion.service';
 import {dato} from "../../../../models/data";
+import { MessageService} from "primeng/api";
 
 @Component({
     selector: 'app-diagnostico-consulta',
@@ -14,177 +16,266 @@ import {dato} from "../../../../models/data";
 })
 
 export class DiagnosticoConsultaComponent implements OnInit {
-    customers: string[] = [];
-    selectedValue: string;
-    val1: boolean = false;
-    tratamientosComunes: any[] = [];
-    ref: DynamicDialogRef;
 
-    form: FormGroup
-    diagnosticoDialog: boolean;
-    opcionBusqueda: string;
-    formDiag: FormGroup;
-    data: any[] = [];
-    diagnosticoNosologico: diagnosticoNosologicoInterface[] = [];
-    Cie10: any;
-    hayError: boolean = false;
-    isUpdate: boolean = false;
-
-    resultadosTestEvaluaciones:Resumen[]=[];
-    tablaResumenDx:resumenDiagnosticosPrevios[]=[];
-
-    attributeLocalS = 'documento'
+    tablaResumenDx:resultados[]=[];
+    attributeLocalS = 'documento';
     dataConsulta:dato;
     id: string = "";
 
-    diagnostico: diagnosticoInterface
-    formG: FormGroup;
+    formDiagnostico: FormGroup;
+    diagnosticoDialog: boolean;
+    diagnosticos: diagnosticoInterface[]=[];
 
-    factorDialog: boolean;
-    formFactor: FormGroup;
-    isUpdate2: boolean = false;
-    data2: any[] = [];
-    factoresCondicionales: any[] = [];
+    formProcedimiento:FormGroup;
+    // procedimientoDialog:boolean;
+    procedimientos: procedimiento[]=[];
 
-    observacion: string = "";
-    bool: boolean = false;
-    index: number
-    condicionDesarrolloPsicomotor: condicionDesarrolloPsicomotorInterface[] = []
+
+    ListaPrestacion:any[]=[];
+    listaDeCIEHIS: any[]=[];
+    listaDeCIESIS: any[]=[];
+    listaDeProcedimientos:any[]=[];
+    tipoList:lista[]=[];
+    descripcionItem: string;
+    private hayDatos:boolean=false;
 
     constructor(private DiagnosticoService: DiagnosticoConsultaService,
+                private PrestacionService: PrestacionService,
                 private cieService: CieService,
-                private formBuilder: FormBuilder) {
+                private formBuilder: FormBuilder,
+                private messageService: MessageService) {
         this.buildForm();
+        this.dataConsulta = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
+        this.tipoList = [{ label: 'DEFINITIVO', value: 'D' },
+            { label: 'PRESUNTIVO', value: 'P' },
+            { label: 'REPETITIVO', value: 'R' },
+        ];
     }
 
     ngOnInit(): void {
-        this.dataConsulta = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
-        this.recuperarDiagnostico();
-        this.recuperarResumenDxBD();
+        this.recuperarResumenDxBDLaboratorio();
+        this.recuperarResumenDxBDInmunizaciones();
+        this.recuperarResumenDxBDTamizajes();
+        this.recuperarResumenDxBDEvaluaciones();
+        this.recuperarPrestaciones();
+        this.recuperarDxBD();
+
     }
 
     buildForm() {
-        // this.id = localStorage.getItem(this.attributeLocalS);
-        this.form = this.formBuilder.group({
-            diagnostico: ['', [Validators.required]],
+       this.formDiagnostico = this.formBuilder.group({
+           buscarDxSIS:  new FormControl({value:'',disabled:false}),
+           buscarDxHIS:  new FormControl({value:'',disabled:false}),
+           tipoDiagnostico:  new FormControl({value:'',disabled:false}),
+           prestacion: new FormControl({value:'',disabled:false}),
+           nombreUPS: ['', [Validators.required]],
+           diagnosticoSIS: new FormControl({value:'',disabled:false}),
+           cie10SIS: new FormControl({value:'',disabled:false}),
+           diagnosticoHIS: new FormControl({value:'',disabled:false},[Validators.required]),
+           cie10HIS:  new FormControl({value:'',disabled:false},[Validators.required]),
+           factorCondicional:  new FormControl({value:'',disabled:false}),
         });
 
-        this.formG = this.formBuilder.group({
-            crecimiento: new FormControl(''),
-            observacion: new FormControl(''),
-            ganancia: new FormControl(''),
-            desnutricion: new FormControl(''),
-            sobrepeso: new FormControl(''),
-            Obesidad: new FormControl(''),
-            Otros: new FormControl(''),
-            Otros2: new FormControl(''),
-            condicionNormal: new FormControl(''),
-            condicionDeficit: new FormControl(''),
-            condicionTranstorno: new FormControl(''),
-            condicionRiesgo: new FormControl(''),
-        });
-
-        this.formFactor = this.formBuilder.group({
-            factorTexto: new FormControl("", []),
-        });
 
     }
+    /** Servicios para recuperar Resumen DX ***/
+    recuperarResumenDxBDLaboratorio(){
+        this.DiagnosticoService.getLaboratorioResumen(this.dataConsulta.idConsulta).subscribe((r: any) => {
+            //-- recupera laboratorios resumen
+           if(r.object!=null || r.object!=[]){
+               for(let i =0 ;i<r.object.length;i++){
+                  if(r.object[i].hemoglobina) {
+                      let aux = {
+                          nombre:'LABORATORIO',
+                          evaluacion: 'HEMOGLOBINA',
+                          resultado:r.object[i].hemoglobina
+                      }
+                      this.tablaResumenDx.push(aux);
+                  }
+               }
+           }
 
-    /* funciones de tabla resultados evaluaciones - test - tamizajes*/
-    recuperarResumenDxBD(){
-        this.DiagnosticoService.getResultadosResumen(this.dataConsulta.idConsulta).subscribe((r: any) => {
-            //-- recupera informacion de diagnostico
-           console.log(r.object);
-           console.log(r.object[0].tamizajes.resultadoAuditivo.valor);
-           console.log(r.object[0].tamizajes.resultadoVisual.valor);
-           console.log(r.object[0].tamizajes.resultadoVIF.valor);
-           this.tablaResumenDx = r.object;
-           let aux1 = {
-               evaluacion:'EVALUACION ALIMENTICIA',
-               resultado:this.tablaResumenDx[0].evaluacioAlimentacion,
-           }
-           this.resultadosTestEvaluaciones.push(aux1)
-           let aux2 = {
-               evaluacion:'TAMIZAJE AUDITIVO',
-               resultado:this.tablaResumenDx[0].tamizajes.resultadoAuditivo.valor,
-           }
-           this.resultadosTestEvaluaciones.push(aux2)
-           let aux3 = {
-               evaluacion:'TAMIZAJE VISUAL',
-               resultado:this.tablaResumenDx[0].tamizajes.resultadoVisual.valor,
-           }
-           this.resultadosTestEvaluaciones.push(aux3)
-           let aux4 = {
-               evaluacion:'TAMIZAJE VIF',
-               resultado:this.tablaResumenDx[0].tamizajes.resultadoVIF.valor,
-           }
-           this.resultadosTestEvaluaciones.push(aux4)
-           let aux5 = {
-                evaluacion:'TEST PERUANO',
-                resultado:this.tablaResumenDx[0].testPeruano,
-           }
-           this.resultadosTestEvaluaciones.push(aux5)
-           let aux6 = {
-               evaluacion:'TEST EEDP',
-               resultado:this.tablaResumenDx[0].testEEDP,
-           }
-           this.resultadosTestEvaluaciones.push(aux6)
-           let aux7 = {
-               evaluacion:'TEST PAUTA BREVE',
-               resultado:this.tablaResumenDx[0].testPautaBreve,
-           }
-           this.resultadosTestEvaluaciones.push(aux7)
-           let aux8 = {
-                evaluacion:'TEST TEPSI',
-                resultado:this.tablaResumenDx[0].testTepsi,
-           }
-           this.resultadosTestEvaluaciones.push(aux8)
-           console.log(this.resultadosTestEvaluaciones);
         })
-
     }
 
-    /* funciones tabla diagnostico */
+    recuperarResumenDxBDInmunizaciones(){
+        this.DiagnosticoService.getInmunizacionesResumen(this.dataConsulta.idConsulta).subscribe((r: any) => {
+            //-- recupera laboratorios resumen
+            if(r.object!=null || r.object!=[]){
+                for(let i =0 ;i<r.object.length;i++){
+                    let aux = {
+                        nombre:'INMUNIZACIONES',
+                        evaluacion: r.object[i].nombre + "- Dosis:"+r.object[i].dosis + "- Tipo Dosis:"+ r.object[i].tipoDosis,
+                        resultado:" "
+                    }
+                    this.tablaResumenDx.push(aux);
+
+                }
+            }
+        })
+    }
+
+    recuperarResumenDxBDTamizajes(){
+        this.DiagnosticoService.getTamizajesResumen(this.dataConsulta.idConsulta).subscribe((r: any) => {
+            //-- recupera laboratorios resumen
+            if(r.object!=null || r.object!=[]){
+                for(let i =0 ;i<r.object.length;i++){
+                    let aux = {
+                        nombre:'TAMIZAJES',
+                        evaluacion:'TAMIZAJE AUDITIVO',
+                        resultado:  r.object[i].resultadoAuditivo.valor
+                    }
+                    this.tablaResumenDx.push(aux);
+                    let aux1 = {
+                        nombre:'TAMIZAJES',
+                        evaluacion:'TAMIZAJE VIF',
+                        resultado:  r.object[i].resultadoVIF.valor
+                    }
+                    this.tablaResumenDx.push(aux1);
+                    let aux2 = {
+                        nombre:'TAMIZAJES',
+                        evaluacion: 'TAMIZAJE VISUAL',
+                        resultado:  r.object[i].resultadoVisual.valor
+                    }
+                    this.tablaResumenDx.push(aux2);
+                }
+            }
+        })
+    }
+
+    recuperarResumenDxBDEvaluaciones(){
+        this.DiagnosticoService.getEvaluacionesResumen(this.dataConsulta.idConsulta).subscribe((r: any) => {
+            //-- recupera laboratorios resumen
+            if(r.object!=null || r.object!=[]){
+                for(let i =0 ;i<r.object.length;i++){
+                    if(r.object[i].evaluacioAlimentacion){
+                        let aux = {
+                            nombre:'EVALUACIONES O TEST',
+                            evaluacion: 'EVALUACION DE ALIMENTACION',
+                            resultado: r.object[i].evaluacioAlimentacion
+                        }
+                        this.tablaResumenDx.push(aux);
+                    }
+                    if(r.object[i].testPeruano){
+                        let aux = {
+                            nombre:'EVALUACIONES O TEST',
+                            evaluacion: 'TEST PERUANO',
+                            resultado: r.object[i].testPeruano
+                        }
+                        this.tablaResumenDx.push(aux);
+                    }
+                    if(r.object[i].testEEDP){
+                        let aux = {
+                            nombre:'EVALUACIONES O TEST',
+                            evaluacion: 'TEST EDDP',
+                            resultado: r.object[i].testEEDP
+                        }
+                        this.tablaResumenDx.push(aux);
+                    }
+                    if(r.object[i].testTepsi){
+                        let aux = {
+                            nombre:'EVALUACIONES O TEST',
+                            evaluacion: 'TEST TEPSI',
+                            resultado: r.object[i].testTepsi
+                        }
+                        this.tablaResumenDx.push(aux);
+                    }
+                    if(r.object[i].testPautaBreve){
+                        let aux = {
+                            nombre:'EVALUACIONES O TEST',
+                            evaluacion: 'TEST PAUTA BREVE',
+                            resultado: r.object[i].testPautaBreve
+                        }
+                        this.tablaResumenDx.push(aux);
+                    }
+                    if(r.object[i].resultadoControlPE){
+                        let aux = {
+                            nombre:'EVALUACIONES O TEST',
+                            evaluacion: 'CONTROL PESO - EDAD',
+                            resultado: r.object[i].resultadoControlPE
+                        }
+                        this.tablaResumenDx.push(aux);
+                    }
+                    if(r.object[i].resultadoControlTE){
+                        let aux = {
+                            nombre:'EVALUACIONES O TEST',
+                            evaluacion: 'CONTROL TALLA - EDAD',
+                            resultado: r.object[i].resultadoControlTE
+                        }
+                        this.tablaResumenDx.push(aux);
+                    }
+                    if(r.object[i].resultadoControlPT){
+                        let aux = {
+                            nombre:'EVALUACIONES O TEST',
+                            evaluacion: 'CONTROL PESO - TALLA',
+                            resultado: r.object[i].resultadoControlPT
+                        }
+                        this.tablaResumenDx.push(aux);
+                    }
+                    if(r.object[i].resultadoControlPC){
+                        let aux = {
+                            nombre:'EVALUACIONES O TEST',
+                            evaluacion: 'CONTROL PERIMETRO CEFÁLICO',
+                            resultado: r.object[i].resultadoControlPC
+                        }
+                        this.tablaResumenDx.push(aux);
+                    }
+
+                }
+            }
+        })
+    }
+
+
+    /*** Servicio para recuperar Prestaciones ***/
+    recuperarPrestaciones() {
+        this.PrestacionService.getPrestacion().subscribe((res: any) => {
+            this.ListaPrestacion = res.object;
+            console.log("prestaciones:", this.ListaPrestacion);
+        })
+    }
+
+    /****funciones para recuperar Dx y Procedimientos**/
+    recuperarDxBD(){
+        this.DiagnosticoService.getDiagnostico(this.dataConsulta.idConsulta).subscribe((res: any) => {
+             console.log(res.cod);
+                if(res.object!=null){
+                    console.log(res.object);
+                    this.hayDatos=true;
+                    this.diagnosticos = res.object;
+                }
+                else{
+                    this.diagnosticos = [];
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'INFORMACION',
+                        text: 'Aún no hay registros guardados en Diagnósticos',
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
+                }
+
+            },error => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'ERROR',
+                    text: 'Ocurrio un error al recuperar datos registrados anteriormente en esta consulta.',
+                    showConfirmButton: false,
+                    timer: 1500,
+                })
+            }
+        );
+    }
+    /**Funciones de Diagnostico*/
+
     openDiagnostico() {
-        this.isUpdate = false;
-        this.form.reset();
-        this.form.get('diagnostico').setValue("");
         this.diagnosticoDialog = true;
-    }
-
-    filterDiagnostico(event) {
-        console.log('event ', event.query);
-        this.cieService.getCIEByDescripcion(event.query).subscribe((res: any) => {
-            this.Cie10 = res.object;
-        })
-    }
-
-    eliminarDiagnostico(index) {
-        this.diagnosticoNosologico.splice(index, 1)
-    }
-
-    saveDiagnostico(form: any) {
-        this.isUpdate = false;
-        this.data.push(form.value);
-        console.log(this.data);
-        this.diagnosticoNosologico.push({
-            descripcionItem: this.data[this.data.length - 1]['diagnostico']['descripcionItem'],
-            codigoItem: this.data[this.data.length - 1]['diagnostico']['codigoItem']
-        });
-
-        Swal.fire({
-            icon: 'success',
-            title: 'Agregado correctamente',
-            text: '',
-            showConfirmButton: false,
-            timer: 1500,
-        })
-        this.diagnosticoDialog = false;
-    }
-
-    titulo() {
-        if (this.isUpdate) return "EDITE DIAGNOSTICO";
-        else return "INGRESAR UN DIAGNOSTICO";
+        // this.isUpdate = false;
+        this.formDiagnostico.reset();
+        this.formDiagnostico.get('nombreUPS').setValue("ATENCION INTEGRAL DEL NINO");
+        this.formDiagnostico.get('cie10HIS').setValue("");
+        this.formDiagnostico.get('cie10SIS').setValue("");
+        this.diagnosticoDialog = true;
     }
 
     cancelDiagnostico() {
@@ -196,204 +287,222 @@ export class DiagnosticoConsultaComponent implements OnInit {
             showConfirmButton: false,
             timer: 1000
         })
-
     }
 
-    /* funciones tabla factor */
-    openFactor() {
-        this.isUpdate2 = false;
-        this.formFactor.reset();
-        this.formFactor.get('factorTexto').setValue("");
-        this.factorDialog = true;
-    }
-    cancelFactor(){
-        this.factorDialog = false;
+
+    save() {
         Swal.fire({
-            icon: 'warning',
-            title: 'Cancelado...',
-            text: '',
+            icon: 'success',
+            title: 'DIAGNOSTICOS...',
+            text: 'GUARDADO',
             showConfirmButton: false,
             timer: 1000
         })
     }
-    saveFactor() {
-        let aux = true
-        if (this.bool === false) {
-            aux = false
-            this.isUpdate2 = false;
-            this.factoresCondicionales.push(this.formFactor.value.factorTexto);
-        } else {
-            this.factoresCondicionales[this.index] = this.formFactor.value.factorTexto
-            this.bool = false;
-        }
+    /*** funciones Procedimientos****/
+    onChangePrestacion() {
+        let codigoPrestacion:any;
 
+            codigoPrestacion=this.formDiagnostico.value.prestacion.codigo;
+
+        this.formDiagnostico.patchValue({ diagnosticoSIS: ""})
+        this.formDiagnostico.patchValue({ cie10SIS: ""})
+        this.PrestacionService.getDiagnosticoPorCodigo(codigoPrestacion).subscribe((res: any) => {
+            // this.listaDeCIE = res.object.diagnostico;
+            console.log(res.object);
+            if(res.object.denominacion=='ANIOS')
+            {
+                if(this.dataConsulta.anio>=res.object.edadMin && this.dataConsulta.anio<=res.object.edadMax){
+                    this.listaDeCIEHIS = res.object.diagnostico.filter(element=>element.estado=='ACTIVADO');
+                }
+                else{
+                    this.messageService.add({severity:'error', summary: 'warn', detail:'No hay diagnosticos disponibles para la edad del niño(a) en esta Prestación.'});
+                }
+            }
+            if(res.object.denominacion=='MESES')
+            {
+                let meses = this.dataConsulta.anio*12 + this.dataConsulta.mes + this.dataConsulta.dia/30;
+                if(meses>=res.object.edadMin && meses <=res.object.edadMax){
+                    this.listaDeCIEHIS = res.object.diagnostico.filter(element=>element.estado=='ACTIVADO');
+                }
+                else{
+                    this.messageService.add({severity:'error', summary: 'warn', detail:'No hay diagnosticos disponibles para la edad del niño(a) en esta Prestación.'});
+                }
+
+            }
+            if(res.object.denominacion=='DIAS')
+            {
+                if(this.dataConsulta.anio==0 && this.dataConsulta.mes==0){
+                    if(this.dataConsulta.dia>=res.object.edadMin && this.dataConsulta.dia<=res.object.edadMax){
+                        this.listaDeCIEHIS = res.object.diagnostico.filter(element=>element.estado=='ACTIVADO');
+                    }
+                    else{
+                        this.messageService.add({severity:'error', summary: 'warn', detail:'No hay diagnosticos disponibles para la edad del niño(a) en esta Prestación.'});
+                    }
+                }
+                else{
+                    this.messageService.add({severity:'error', summary: 'warn', detail:'No hay diagnosticos disponibles para la edad del niño(a) en esta Prestación.'});
+                }
+            }
+
+        })
+    }
+
+    selectDxSIS() {
+        console.log(this.formDiagnostico.value.buscarDxSIS);
+        this.formDiagnostico.patchValue({ diagnosticoSIS: this.formDiagnostico.value.buscarDxSIS.diagnostico})
+        this.formDiagnostico.patchValue({ cie10SIS: this.formDiagnostico.value.buscarDxSIS.cie10});
+        this.formDiagnostico.patchValue({ buscarDxSIS: ""})
+
+    }
+
+
+    selectedDxHIS(event: any) {
+        console.log('lista de cie ', this.listaDeCIEHIS);
+        console.log('evento desde diagnos ', event);
+        console.log('evento desde diagnos ', this.formDiagnostico.value.buscarDxHIS);
+        this.formDiagnostico.patchValue({ diagnosticoHIS: event.descripcionItem});
+        this.formDiagnostico.patchValue({ buscarDxHIS: ""})
+        this.formDiagnostico.patchValue({ cie10HIS: event});
+
+    }
+
+    filterCIE10(event: any) {
+        this.cieService.getCIEByDescripcion(event.query).subscribe((res: any) => {
+            this.listaDeCIEHIS = res.object
+        })
+    }
+
+    eliminarDiagnostico(rowIndex: any) {
+        console.log("entrando a editar diagnosticos",rowIndex);
         Swal.fire({
-            icon: 'success',
-            title: aux !== true ? 'Agregado correctamente' : 'Actualizado correctamente',
+            showCancelButton: true,
+            confirmButtonText: 'Eliminar',
+            icon: 'warning',
+            title: 'Estas seguro de eliminar este registro?',
             text: '',
-            showConfirmButton: false,
-            timer: 1500,
-        })
-        this.factorDialog = false;
-    }
-
-    eliminarFactor(index) {
-        this.factoresCondicionales.splice(index, 1)
-    }
-
-    editarFactor(row, index) {
-        this.isUpdate2 = false;
-        this.bool = true;
-        this.index = index
-        this.formFactor.reset();
-        this.formFactor.get('factorTexto').setValue(row);
-        this.factorDialog = true;
-    }
-
-    /*  objeto diagnostico */
-    recuperarDiagnostico() {
-        this.DiagnosticoService.getDiagnostico(this.dataConsulta.idConsulta).subscribe((r: any) => {
-            //-- recupera informacion de diagnostico
-            this.diagnostico = r.object;
-            console.log('diagnostico', this.diagnostico)
-            this.diagnosticoNosologico = this.diagnostico.diagnosticoNosologico
-            this.factoresCondicionales = this.diagnostico.factoresCondicionales
-            this.formG.get('observacion').setValue(this.diagnostico.observacion)
-            this.diagnostico.crecimientoestadoNutricional.condicionCrecimiento === true ? this.formG.get('crecimiento').setValue('val1') : this.formG.get('crecimiento').setValue('val2')
-            this.recuperarcondicionDesarrolloPsicomotor();
-        })
-    }
-
-    save() {
-        this.guardarcondicionDesarrolloPsicomotor()
-        let riesgoNutricional = {
-            p_e: this.formG.value.ganancia.value === 'val1' ? 'Ganancia' : 'Desnutricion',
-            t_e: this.formG.value.ganancia.value === 'val2' ? 'Ganancia' : 'Desnutricion',
-            p_t: this.formG.value.ganancia.value === 'val3' ? 'Ganancia' : 'Desnutricion',
-        }
-        let crecimientoestadoNutricional = {
-            condicionCrecimiento: this.formG.value.crecimiento === 'val1',
-            riesgoNutricional: riesgoNutricional
-        }
-        const req = {
-            diagnosticoNosologico: this.diagnosticoNosologico,
-            factoresCondicionales: this.factoresCondicionales,
-            observacion: this.formG.value.observacion,
-            crecimientoestadoNutricional: crecimientoestadoNutricional,
-            condicionDesarrolloPsicomotor: this.condicionDesarrolloPsicomotor
-        }
-        console.log('req', req)
-        if (this.diagnosticoNosologico) {
-            this.DiagnosticoService.updateDiagnostico(this.dataConsulta.idConsulta, req).subscribe(
-                (resp) => {
+            showConfirmButton: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.diagnosticos.splice(rowIndex, 1)
                     Swal.fire({
                         icon: 'success',
-                        title: 'Actualizado correctamente',
+                        title: 'Eliminado correctamente',
                         text: '',
                         showConfirmButton: false,
-                        timer: 1500,
+                        timer: 1500
                     })
-                }
-            )
-        }
-    }
-
-    recuperarcondicionDesarrolloPsicomotor() {
-        for (let i = 0; i < this.diagnostico.condicionDesarrolloPsicomotor.length; i++) {
-            if (this.diagnostico.condicionDesarrolloPsicomotor[i].descripcionCondicion === 'normal')
-                this.formG.get('condicionNormal').setValue(['val1'])
-            if (this.diagnostico.condicionDesarrolloPsicomotor[i].descripcionCondicion === 'riesgo')
-                this.formG.get('condicionRiesgo').setValue(['val1'])
-            if (this.diagnostico.condicionDesarrolloPsicomotor[i].descripcionCondicion === 'deficit')
-                this.formG.get('condicionDeficit').setValue(['val1'])
-            if (this.diagnostico.condicionDesarrolloPsicomotor[i].descripcionCondicion === 'transtorno')
-                this.formG.get('condicionTranstorno').setValue(['val1'])
-        }
-    }
-
-    guardarcondicionDesarrolloPsicomotor() {
-        this.condicionDesarrolloPsicomotor = []
-        console.log("con", this.formG.value.condicionNormal[0] !== '')
-        if (this.formG.value.condicionNormal[0] === 'val1') {
-            let aux = {
-                tipoCondicion: "1",
-                descripcionCondicion: "normal"
             }
-            this.condicionDesarrolloPsicomotor.push(aux)
-        }
-        if (this.formG.value.condicionRiesgo[0] === 'val1') {
-            let aux = {
-                tipoCondicion: "1",
-                descripcionCondicion: "riesgo"
-            }
-            this.condicionDesarrolloPsicomotor.push(aux)
-        }
-        if (this.formG.value.condicionDeficit[0] === 'val1') {
-            let aux = {
-                tipoCondicion: "1",
-                descripcionCondicion: "deficit"
-            }
-            this.condicionDesarrolloPsicomotor.push(aux)
-        }
-        if (this.formG.value.condicionTranstorno[0] === 'val1') {
-            let aux = {
-                tipoCondicion: "1",
-                descripcionCondicion: "transtorno"
-            }
-            this.condicionDesarrolloPsicomotor.push(aux)
-        }
+        })
     }
 
 
+    /***funciones para guardar datos****/
+    getDatatoSaveDx(){
+        console.log(this.formDiagnostico.value.nombreUPS)
+        let aux = {
+            nro:this.diagnosticos.length +1,
+            diagnosticoHIS:this.formDiagnostico.value.diagnosticoHIS,
+            cie10HIS:this.formDiagnostico.value.cie10HIS.codigoItem,
+            diagnosticoSIS:this.formDiagnostico.value.diagnosticoSIS,
+            cie10SIS:this.formDiagnostico.value.cie10SIS,
+            tipo:this.formDiagnostico.value.tipoDiagnostico,
+            codPrestacion:this.formDiagnostico.value.prestacion.codigo,
+            nombreUPS:this.formDiagnostico.value.nombreUPS,
+            factorCondicional: this.formDiagnostico.value.factorCondicional,
+            nombreUPSaux:"CRED",
+            patologiaMaterna:null
+        }
+        var duplicado :boolean = this.diagnosticos.some(element=>element.diagnosticoHIS==aux.diagnosticoHIS)
+        console.log(duplicado)
+        this.diagnosticoDialog = false;
+        if(!duplicado){
+            this.diagnosticos.push(aux);
+        }
+        else{
+            this.messageService.add({severity:'error', summary: 'Cuidado!', detail:'Ya ingreso este diagnóstico, vuelva a intentar.'});
+        }
+
+
+    }
+
+
+    SaveDiagnostico() {
+
+        if(!this.hayDatos){
+            this.DiagnosticoService.addDiagnostico(this.dataConsulta.idConsulta, this.diagnosticos).subscribe(
+                (resp) => {
+                    console.log(resp);
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'DIAGNOSTICOS...',
+                        text: 'Guardado correctamente',
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                },error => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'DIAGNOSTICOS...',
+                        text: 'Hubo un error, vuelva a intentarlo',
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                })
+        }
+        else{
+            this.DiagnosticoService.updateDiagnostico(this.dataConsulta.idConsulta, this.diagnosticos).subscribe(
+                (resp) => {
+                    console.log(resp);
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'DIAGNOSTICOS...',
+                        text: 'Actualizado correctamente',
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                },error => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'DIAGNOSTICOS...',
+                        text: 'Hubo un error, vuelva a intentarlo',
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                })
+        }
+    }
 }
 
 interface diagnosticoInterface {
-    diagnosticoNosologico: diagnosticoNosologicoInterface[],
-    condicionDesarrolloPsicomotor: condicionDesarrolloPsicomotorInterface[],
-    crecimientoestadoNutricional: crecimientoestadoNutricionalInteface,
-    factoresCondicionales: string[],
-    observacion: string,
+    nro?:number,
+    diagnosticoHIS?:string,
+    cie10HIS?:string,
+    diagnosticoSIS?:string,
+    cie10SIS?:string,
+    tipo?:string,
+    codPrestacion?:string,
+    nombreUPS?:string,
+    factorCondicional?:string
+}
+
+interface procedimiento {
+    procedimientoHIS?:string,
+    codProcedimientoHIS?:string,
+    codProcedimientoSIS?:string,
+    procedimientoSIS?:string,
+    cie10SIS?:string,
+    codPrestacion?:string
 
 }
 
-interface crecimientoestadoNutricionalInteface {
-    condicionCrecimiento: boolean
-    riesgoNutricional: {
-        p_e: string,
-        t_e: string,
-        p_t: string
-    }
-}
-
-interface condicionDesarrolloPsicomotorInterface {
-    tipoCondicion: string,
-    descripcionCondicion: string
-}
-
-interface diagnosticoNosologicoInterface {
-    codigoItem: string,
-    descripcionItem: string
-}
-interface resumenDiagnosticosPrevios {
-    evaluacioAlimentacion?:string,
-    inmunizaciones?: any[],
-    tamizajes?: tamizajes,
-    testEEDP?:string,
-    testPautaBreve?:string,
-    testPeruano?:string,
-    testTepsi?:string,
-}
-interface tamizajes {
-    resultadoVIF?:resultado,
-    resultadoAuditivo?:resultado,
-    resultadoVisual?:resultado,
-}
-interface resultado{
-    clave?:string,
-    valor?:string,
-    descripcion?:string
-}
-interface Resumen{
+interface resultados{
+    nombre?:string,
     evaluacion?:string,
     resultado?:string
+}
+interface lista{
+    label?:string,
+    value?:string,
+
 }

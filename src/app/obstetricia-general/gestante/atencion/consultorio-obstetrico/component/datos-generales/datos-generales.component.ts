@@ -1,11 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
-import { ObstetriciaGeneralService } from "../../../../../services/obstetricia-general.service";
-import { ConsultasService } from "../../services/consultas.service";
+import {Component, Input, OnInit} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {ObstetriciaGeneralService} from "../../../../../services/obstetricia-general.service";
+import {ConsultasService} from "../../services/consultas.service";
 import Swal from "sweetalert2";
-import { FiliancionService } from "../../../h-clinica-materno-perinatal/services/filiancion-atenciones/filiancion.service";
-import { DatePipe } from "@angular/common";
-import { MessageService } from "primeng/api";
+import {
+    FiliancionService
+} from "../../../h-clinica-materno-perinatal/services/filiancion-atenciones/filiancion.service";
+import {DatePipe} from "@angular/common";
+import {MessageService} from "primeng/api";
 
 @Component({
     selector: 'app-datos-generales',
@@ -107,18 +109,20 @@ export class DatosGeneralesComponent implements OnInit {
     estadoEdicion: Boolean;
 
     nroAtencion:any;
-
+    antecedentesDialog: boolean;
+    
+    familiares2:any;
     constructor(private form: FormBuilder,
-        private obstetriciaGeneralService: ObstetriciaGeneralService,
-        private consultasService: ConsultasService,
-        private filiancionService: FiliancionService,
-        private messageService: MessageService,) {
+                private obstetriciaGeneralService: ObstetriciaGeneralService,
+                private consultasService: ConsultasService,
+                private filiancionService: FiliancionService,
+                private messageService: MessageService,) {
 
         this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
         this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
 
         //estado para saber que estado usar en consultas
-        this.estadoEdicion=JSON.parse(localStorage.getItem('consultaEditarEstado'));
+        this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
 
         console.log("DATA PACIENTE 2 desde datos generales", this.dataPaciente2);
         console.log("gestacion desde datos generales", this.Gestacion);
@@ -140,20 +144,30 @@ export class DatosGeneralesComponent implements OnInit {
 
         /** OTRAS OPCIONES**/
         this.opciones = [
-            { name: 'SI', boleano: true },
-            { name: 'NO', boleano: false }
+            {name: 'SI', boleano: true},
+            {name: 'NO', boleano: false}
         ];
 
         //opciones de vacunas previas///
 
         this.familiares = [
-            { nombrefamiliar: 'Padre' },
-            { nombrefamiliar: 'Madre' },
-            { nombrefamiliar: 'Hermano' },
-            { nombrefamiliar: 'Hermana' },
-            { nombrefamiliar: 'Abuelo' },
-            { nombrefamiliar: 'Otros' },
+            {nombrefamiliar: 'Padre'},
+            {nombrefamiliar: 'Madre'},
+            {nombrefamiliar: 'Hermano'},
+            {nombrefamiliar: 'Hermana'},
+            {nombrefamiliar: 'Abuelo'},
+            {nombrefamiliar: 'Otros'},
         ];
+
+        this.familiares2 = [
+            {nombrefamiliar: 'PADRE'},
+            {nombrefamiliar: 'MADRE'},
+            {nombrefamiliar: 'HERMANO'},
+            {nombrefamiliar: 'HERMANA'},
+            {nombrefamiliar: 'ABUELO'},
+            {nombrefamiliar: 'OTROS'},
+        ];
+
     }
 
     buildForm() {
@@ -267,6 +281,7 @@ export class DatosGeneralesComponent implements OnInit {
             nombrefamiliar12: new FormControl(''),
         });
     }
+
     ngOnInit(): void {
         this.buildForm();
         this.obternerFechaActual();
@@ -280,8 +295,22 @@ export class DatosGeneralesComponent implements OnInit {
         /**Caso contrario recupera los datos de Consultorio***/
         if (this.dataConsultas == null) {
             this.getpacienteByNroDoc();
-            
+
         }
+    }
+
+    getConsultasID() {
+        let data = {
+            nroHcl: this.dataPacientes.nroHcl,
+            nroEmbarazo: this.nroEmbarazo,
+            nroAtencion: this.nroAtencion
+        }
+        console.log(data)
+        this.consultasService.getConsultas(data).subscribe((res: any) => {
+            this.dataConsultas = res.object
+            localStorage.removeItem('IDConsulta');
+            localStorage.setItem('IDConsulta', JSON.stringify(this.dataConsultas.id));
+        })
     }
 
     /***Recupera la consulta por HCL y Numero de embarazo***/
@@ -293,8 +322,9 @@ export class DatosGeneralesComponent implements OnInit {
         }
         this.consultasService.getConsultas(data).subscribe((res: any) => {
             this.dataConsultas = res.object
-
             if (this.dataConsultas !== null) {
+                localStorage.removeItem('dataConsultasID');
+                localStorage.setItem('dataConsultasID', JSON.stringify(this.dataConsultas.id));
                 this.showSuccess();
                 this.formDatos_Generales.get('nroDoc').setValue(this.dataPacientes.nroDoc);
                 this.formDatos_Generales.get('ocupacion').setValue(this.dataConsultas.ocupacion);
@@ -513,15 +543,15 @@ export class DatosGeneralesComponent implements OnInit {
         this.formDatos_Generales.get('G').setValue(this.sumagestas);
     }
 
-    determinarUltimaGesta(cadena){
-        if (cadena=="aborto" || cadena=="abortoMolar" || cadena=="ectopico"){
+    determinarUltimaGesta(cadena) {
+        if (cadena == "aborto" || cadena == "abortoMolar" || cadena == "ectopico") {
             return "aborto";
         }
-        if (cadena=="cesaria" || cadena=="partoVaginal"){
+        if (cadena == "cesaria" || cadena == "partoVaginal") {
             return "parto";
-        }
-        else return "";
+        } else return "";
     }
+
     //Recuperar datos de un paciendo por su documento de identidad
     getpacienteByNroDoc() {
         this.filiancionService.getPacienteNroDocFiliacion(this.tipoDocRecuperado, this.nroDocRecuperado).subscribe((res: any) => {
@@ -544,31 +574,30 @@ export class DatosGeneralesComponent implements OnInit {
             this.consultasService.getUltimaConsultaControl(data).subscribe((res: any) => {
                 let informacion = res.object;
 
-                if (!this.estadoEdicion){
+                if (!this.estadoEdicion) {
                     //guardar en el ls el nroAtencion
                     let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaNueva'));
                     this.formDatos_Generales.get('nroAtencion').setValue(nroAtencion);
                     this.formDatos_Generales.get('nroControl').setValue(nroAtencion);
-                    this.nroAtencion=nroAtencion;
-                }
-                else{
+                    this.nroAtencion = nroAtencion;
+                } else {
                     let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaEditar'));
                     this.formDatos_Generales.get('nroAtencion').setValue(nroAtencion);
                     this.formDatos_Generales.get('nroControl').setValue(nroAtencion);
-                    this.nroAtencion=nroAtencion;
+                    this.nroAtencion = nroAtencion;
                 }
                 this.getConsultas();
-                
+
                 this.formDatos_Generales.get('ocupacion').setValue(informacion.ocupacion);
-                
+
                 this.formDatos_Generales.get('nroHcl').setValue(informacion.nroHcl);
                 this.formDatos_Generales.get('FUR').setValue(informacion.fum);
                 this.formDatos_Generales.get('FPP').setValue(informacion.fechaProbableParto);
-                this.formDatos_Generales.get('P1').setValue(informacion.antecedentesObstetricos?informacion.antecedentesObstetricos[8].valor:null);
+                this.formDatos_Generales.get('P1').setValue(informacion.antecedentesObstetricos ? informacion.antecedentesObstetricos[8].valor : null);
                 this.formDatos_Generales.get('P2').setValue(informacion.nroPartosPrematuros);
-                this.formDatos_Generales.get('P3').setValue(informacion.antecedentesObstetricos?informacion.antecedentesObstetricos[7].valor:null);
-                this.formDatos_Generales.get('P4').setValue(informacion.antecedentesObstetricos?informacion.antecedentesObstetricos[3].valor:null);
-                this.formDatos_Generales.get('G').setValue(informacion.antecedentesObstetricos?informacion.antecedentesObstetricos[9].valor:null);
+                this.formDatos_Generales.get('P3').setValue(informacion.antecedentesObstetricos ? informacion.antecedentesObstetricos[7].valor : null);
+                this.formDatos_Generales.get('P4').setValue(informacion.antecedentesObstetricos ? informacion.antecedentesObstetricos[3].valor : null);
+                this.formDatos_Generales.get('G').setValue(informacion.antecedentesObstetricos ? informacion.antecedentesObstetricos[9].valor : null);
                 this.formDatos_Generales.get('RNpesoMayor').setValue(informacion.rnMayorPeso);
                 this.formDatos_Generales.get('gesAnterior').setValue(this.determinarUltimaGesta(informacion.terminacion));
                 this.formDatos_Generales.get('RCAT').setValue(informacion.rcat);
@@ -576,8 +605,8 @@ export class DatosGeneralesComponent implements OnInit {
                 this.formDatos_Generales.get('Drogas').setValue(informacion.drogas !== true ? false : true);
 
                 //vacunas previas
-                this.formDatos_Generales.get('vAntitetánica1Dosis').setValue(informacion.antitetanica.nroDosisPrevia>0||informacion.antitetanica.dosis[0].dosis!==null? true : false);
-                this.formDatos_Generales.get('vAntitetánica2Dosis').setValue(informacion.antitetanica.nroDosisPrevia>1||informacion.antitetanica.dosis[1].dosis!==null? true : false);
+                this.formDatos_Generales.get('vAntitetánica1Dosis').setValue(informacion.antitetanica.nroDosisPrevia > 0 || informacion.antitetanica.dosis[0].dosis !== null ? true : false);
+                this.formDatos_Generales.get('vAntitetánica2Dosis').setValue(informacion.antitetanica.nroDosisPrevia > 1 || informacion.antitetanica.dosis[1].dosis !== null ? true : false);
                 this.formDatos_Generales.get('rubeola').setValue(informacion.vacunasPrevias.find(item => item == "rubeola") ? true : false);
                 this.formDatos_Generales.get('HepatitesB').setValue(informacion.vacunasPrevias.find(item => item == "hepatitis B") ? true : false);
                 this.formDatos_Generales.get('PapilomaV').setValue(informacion.vacunasPrevias.find(item => item == "papiloma") ? true : false);
@@ -667,7 +696,6 @@ export class DatosGeneralesComponent implements OnInit {
 
 
     }
-
 
 
     eventoKeyupAntecedentesPersonales() {
@@ -855,27 +883,29 @@ export class DatosGeneralesComponent implements OnInit {
             //     colegiatura:"456789"
             // },
         }
+
         if (this.dataConsultas == null) {
             this.consultasService.addConsultas(this.nroFetos, this.data).subscribe(result => {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Se guardo con exito',
-                    text: '',
-                    showConfirmButton: false,
-                    timer: 1500,
-                })
-            }
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Se guardo con exito',
+                        text: '',
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
+                    this.getConsultasID();
+                }
             )
         } else {
             this.consultasService.updateConsultas(this.nroFetos, this.data).subscribe((result: any) => {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Actualizo con exito',
-                    text: '',
-                    showConfirmButton: false,
-                    timer: 1500,
-                });
-            }
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Actualizo con exito',
+                        text: '',
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                }
             );
         }
     }
@@ -894,5 +924,24 @@ export class DatosGeneralesComponent implements OnInit {
             summary: 'Consulta',
             detail: 'Recupero con exito'
         });
+    }
+
+    openAntecedentes() {
+        //this.isUpdate = false;
+        /*this.formAntecedentes.reset();
+        this.formAntecedentes.get('diagnosticoSIS').setValue("");
+        this.formAntecedentes.get('diagnosticoHIS').setValue("");
+        this.formAntecedentes.get('subtitulo').setValue("MATERNO");*/
+        this.antecedentesDialog = true;
+    }
+    canceled1() {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Cancelado...',
+            text: '',
+            showConfirmButton: false,
+            timer: 1000
+        })
+        this.antecedentesDialog = false;
     }
 }

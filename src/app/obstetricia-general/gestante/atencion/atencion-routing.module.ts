@@ -1,8 +1,10 @@
 import {NgModule} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
-import { StepFuaComponent } from "src/app/fua/step-fua/step-fua.component";
+import {StepFuaComponent} from "src/app/fua/step-fua/step-fua.component";
 import {AtencionComponent} from "./atencion.component";
-import {TamizajeViolenciaComponent} from "./tamizaje-violencia/tamizaje-violencia.component";
+import {
+    TamizajeViolenciaComponent
+} from "./consultorio-obstetrico/component/tamizaje-violencia/tamizaje-violencia.component";
 
 
 const routes: Routes = [

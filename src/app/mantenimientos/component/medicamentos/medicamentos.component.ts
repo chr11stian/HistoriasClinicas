@@ -33,6 +33,7 @@ export class MedicamentosComponent implements OnInit {
       ff: new FormControl(''),
       concentracion: new FormControl(''),
       viaAdministracion: new FormControl(''),
+      nombreComercial:new FormControl('')
     })
   }
   /*DATOS RECIBIDOS DE LOS MODALES*/
@@ -52,24 +53,36 @@ export class MedicamentosComponent implements OnInit {
   }
 
   async agregarMedicamentos(data){
-    await this.medicamentosService.addMedicamentos(data).subscribe((res: any) => {
-      console.log(res)
-      if(res.object!=null){
-        this.medicamentos.push(res['object']);
-        Swal.fire({
-          icon: 'success',
-          title: 'Medicamento',
-          text: 'Se agrego con éxito un medicamento!',
-        })
-      }
-      else{
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'No se agrego Medicamentos!',
-        })
-      }
-    });
+
+    var duplicado:boolean=this.medicamentos.some(element=>element.codigo==data.codigo)
+    if(!duplicado){
+      await this.medicamentosService.addMedicamentos(data).subscribe((res: any) => {
+        console.log(res)
+        if(res.object!=null){
+          this.medicamentos.push(res['object']);
+          Swal.fire({
+            icon: 'success',
+            title: 'Medicamento',
+            text: 'Se agrego con éxito un medicamento!',
+          })
+        }
+        else{
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'No se agrego Medicamentos!',
+          })
+        }
+      });
+
+    }
+    else{
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Medicamento ya ingresado para este código!',
+      })
+    }
 
   }
 
@@ -92,11 +105,11 @@ export class MedicamentosComponent implements OnInit {
   async editarMedicamento(row,index){
     let aux={
       index: index,
-      row: row
+      row: row,
+      isUpdate:true
     }
     this.ref = this.dialog.open(ModalMedicamentosComponent, {
       header: " EDITAR MEDICAMENTOS",
-      // height:'50%',
       data: aux
     })
     this.ref.onClose.subscribe((data: any) => {
@@ -110,7 +123,8 @@ export class MedicamentosComponent implements OnInit {
           nombre: data.row.nombre,
           ff: data.row.ff,
           concentracion: data.row.concentracion,
-          viaAdministracion: data.row.viaAdministracion
+          viaAdministracion: data.row.viaAdministracion,
+          nombreComercial:data.row.nombreComercial
         }
         console.log(aux);
         this.medicamentosService.updateMedicamentos(codigo,aux).subscribe((res: any) => {
@@ -159,11 +173,13 @@ export class MedicamentosComponent implements OnInit {
     });
   }
 }
+
 interface medicamentos{
   id?:string,
   codigo?:string,
   nombre?:string,
   ff?:string,
   concentracion?:string,
-  viaAdministracion?:string
+  viaAdministracion?:string,
+  nombreComercial?:string
 }
