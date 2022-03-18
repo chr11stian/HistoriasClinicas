@@ -53,7 +53,7 @@
                 </div>
             </form>
         </p-fieldset>
-        
+
     </div>
     <div class="col-9">
         <p-fieldset legend="INFORMACIÓN PERSONAL">
@@ -221,8 +221,8 @@
                         <div class="grid">
                             <div class="col-12 md:col-6 lg:col-3 p-field">
                                 <div class="p-inputgroup">
-                                    <span class="col-3" style="text-align: right">G:</span>
-                                    <input type="text" pInputText formControlName="G">
+                                    <span class="col-4" style="text-align: right">G:</span>
+                                    <input class="col-8"  type="text" pInputText formControlName="G">
                                 </div>
                             </div>
 
@@ -262,104 +262,119 @@
                         <br>
                         <div class="grid ">
                             <div class="col-12 md:col-6 lg:col-12 p-field" style="align-self: start">
-                                <span class="col-12" style="text-align: center">R.N. DE MAYOR PESO:</span>
+                                <div class="p-inputgroup p-fluid">
+                                    <span class="col-6" style="text-align: left">R.N. DE MAYOR PESO:</span>
+                                    <input class="col-5" type="text" pInputText formControlName="RNpesoMayor">
+                                    <span class="col-1" >GR.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </p-fieldset>
+                <br/>
+                <p-fieldset legend="PSICOPROFILAXIS">
+                    <form [formGroup]='formDatos_Generales'>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
-                                    <input type="text" pInputText formControlName="RNpesoMayor">
-                                    <span>GR.</span>
+                                    <span class="col-7" style="text-align: right">Psicoprofilaxis:</span>
+                                <p-selectButton [options]=" opciones" optionLabel="name" optionValue="name"
+                                        formControlName="Psicoprofilaxis"></p-selectButton>
                                 </div>
                             </div>
                         </div>
                     </form>
                 </p-fieldset>
             </div>
-            <div class="col-12 md:col-6 lg:col-2 p-field" style="align-self: start">
+            <div class="col-12 md:col-6 lg:col-4 p-field" style="align-self: start">
+                
                 <p-fieldset legend="ANTECEDENTES">
                     <form [formGroup]='formDatos_Generales'>
                         <div class="grid">
                             <div class="col-12 md:col-6 lg:col-12 p-field">
-                                <span style="text-align: center">Fuma Cigarros:</span>
-                                <br />
-                                <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
-                                    formControlName="FumaCigarros"></p-selectButton>
+                                <div class="p-inputgroup">
+                                    <span class="col-7" style="text-align: right">Fuma Cigarros:</span>
+                                <p-selectButton [options]=" opciones" optionLabel="name" optionValue="boleano"
+                                        formControlName="FumaCigarros"></p-selectButton>
+                                </div>
                             </div>
                         </div>
                         <div class="grid">
                             <div class="col-12 md:col-6 lg:col-12 p-field">
-                                <span style="text-align: center">Drogas:</span>
-                                <br />
-                                <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
-                                    formControlName="Drogas"></p-selectButton>
-                            </div>
-                        </div>
-                        <div class="grid">
-                            <div class="col-12 md:col-6 lg:col-12 p-field">
-                                <span style="text-align: center">Psicoprofilaxis:</span>
-                                <br />
-                                <p-selectButton [options]="opciones" optionLabel="name" optionValue="name"
-                                    formControlName="Psicoprofilaxis"></p-selectButton>
+                                <div class="p-inputgroup">
+                                    <span class="col-7" style="text-align: right">Drogas:</span>
+                                <p-selectButton [options]=" opciones" optionLabel="name" optionValue="boleano"
+                                        formControlName="Drogas"></p-selectButton>
+                                </div>
                             </div>
                         </div>
                     </form>
                 </p-fieldset>
-            </div>
-            <div class="col-12 md:col-6 lg:col-2 p-field" style="align-self: start">
+                <br/>
                 <p-fieldset legend="VACUNAS PREVIAS">
                     <form [formGroup]='formDatos_Generales'>
                         <div class="text-center">
                             <div class="grid">
                                 <div class="col-12 md:col-6 lg:col-12 p-field">
-                                    <span class="col-5" style="text-align: right">V. Antitetánica 1° Dosis:</span>
-                                    <br />
-                                    <p-selectButton [options]="opciones" optionValue="boleano" optionLabel="name"
-                                        formControlName="vAntitetánica1Dosis"></p-selectButton>
+                                    <div class="p-inputgroup">
+                                        <span class="col-7" style="text-align: right">V. Antitetánica 1° Dosis:</span>
+                                        <p-selectButton [options]="opciones" optionValue="boleano" optionLabel="name"
+                                            formControlName="vAntitetánica1Dosis"></p-selectButton>
+                                    </div>
                                 </div>
                             </div>
                             <div class="grid">
                                 <div class="col-12 md:col-6 lg:col-12 p-field">
-                                    <span class="col-5" style="text-align: right">V. Antitetánica 2° Dosis:</span>
-                                    <br />
-                                    <p-selectButton [options]="opciones" optionValue="boleano" optionLabel="name"
-                                        formControlName="vAntitetánica2Dosis"></p-selectButton>
+                                    <div class="p-inputgroup">
+                                        <span class="col-7" style="text-align: right">V. Antitetánica 2° Dosis:</span>
+                                        <p-selectButton [options]="opciones" optionValue="boleano" optionLabel="name"
+                                            formControlName="vAntitetánica2Dosis"></p-selectButton>
+                                    </div>
                                 </div>
                             </div>
                             <div class="grid">
                                 <div class="col-12 md:col-6 lg:col-12 p-field">
-                                    <span class="col-5" style="text-align: right">Rubeola:</span>
-                                    <br />
-                                    <p-selectButton [options]="opciones" optionValue="boleano" optionLabel="name"
-                                        formControlName="rubeola"></p-selectButton>
+                                    <div class="p-inputgroup">
+                                        <span class="col-7" style="text-align: right">Rubeola:</span>
+                                        <p-selectButton [options]="opciones" optionValue="boleano" optionLabel="name"
+                                            formControlName="rubeola"></p-selectButton>
+                                    </div>
                                 </div>
                             </div>
                             <div class="grid">
                                 <div class="col-12 md:col-6 lg:col-12 p-field">
-                                    <span class="col-5" style="text-align: right">Hepatitis B:</span>
-                                    <br />
-                                    <p-selectButton [options]="opciones" optionValue="boleano" optionLabel="name"
-                                        formControlName="HepatitesB"></p-selectButton>
+                                    <div class="p-inputgroup">
+                                        <span class="col-7" style="text-align: right">Hepatitis B:</span>
+                                        <p-selectButton [options]="opciones" optionValue="boleano" optionLabel="name"
+                                            formControlName="HepatitesB"></p-selectButton>
+                                    </div>
                                 </div>
                             </div>
                             <div class="grid">
                                 <div class="col-12 md:col-6 lg:col-12 p-field">
-                                    <span class="col-5" style="text-align: right">Papiloma V:</span>
-                                    <br />
-                                    <p-selectButton [options]="opciones" optionValue="boleano" optionLabel="name"
-                                        formControlName="PapilomaV"></p-selectButton>
+                                    <div class="p-inputgroup">
+                                        <span class="col-7" style="text-align: right">Papiloma V:</span>
+                                        <p-selectButton [options]="opciones" optionValue="boleano" optionLabel="name"
+                                            formControlName="PapilomaV"></p-selectButton>
+                                    </div>
                                 </div>
                             </div>
                             <div class="grid">
                                 <div class="col-12 md:col-6 lg:col-12 p-field">
-                                    <span class="col-5" style="text-align: right">Influenza:</span>
-                                    <br />
-                                    <p-selectButton [options]="opciones" optionValue="boleano" optionLabel="name"
-                                        formControlName="influenza"></p-selectButton>
+                                    <div class="p-inputgroup">
+                                        <span class="col-7" style="text-align: right">Influenza:</span>
+                                        <p-selectButton [options]="opciones" optionValue="boleano" optionLabel="name"
+                                            formControlName="influenza"></p-selectButton>
+                                    </div>
                                 </div>
                             </div>
                             <div class="grid">
                                 <div class="col-12 md:col-6 lg:col-12 p-field">
-                                    <span class="col-5" style="text-align: right">Covid-19:</span>
-                                    <br />
-                                    <p-selectButton [options]="opciones" optionValue="boleano" optionLabel="name"
-                                        formControlName="Covid19"></p-selectButton>
+                                    <div class="p-inputgroup">
+                                        <span class="col-7" style="text-align: right">Covid-19:</span>
+                                        <p-selectButton [options]="opciones" optionValue="boleano" optionLabel="name"
+                                            formControlName="Covid19"></p-selectButton>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1012,16 +1027,16 @@
                     </div>
                 </div>
                 <div class="grid">
-                        <div class="col-3" style="text-align: right">
-                            <label>Otros: </label>
-                        </div>
-                        <div class="col-1">
-                            <p-checkbox [(ngModel)]="otros23" value="otros" class="mt-1"></p-checkbox>
-                        </div>
-                        <div class="col-8">
-                            <input type="text" pInputText [(ngModel)]="otros2" style="text-transform:uppercase"
-                                (keyup)="eventoKeyupAntecedentesPersonales()" class="inputfield w-full">
-                        </div>
+                    <div class="col-3" style="text-align: right">
+                        <label>Otros: </label>
+                    </div>
+                    <div class="col-1">
+                        <p-checkbox [(ngModel)]="otros23" value="otros" class="mt-1"></p-checkbox>
+                    </div>
+                    <div class="col-8">
+                        <input type="text" pInputText [(ngModel)]="otros2" style="text-transform:uppercase"
+                            (keyup)="eventoKeyupAntecedentesPersonales()" class="inputfield w-full">
+                    </div>
                 </div>
             </p-fieldset>
         </div>
