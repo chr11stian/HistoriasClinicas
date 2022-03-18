@@ -185,7 +185,7 @@ export class StepGeneralComponent implements OnInit, DoCheck {
                 break;
 
             case 'diagnostico':
-                this.diagnosticoConsulta.save()
+                this.diagnosticoConsulta.SaveDiagnostico()
                 this.stepName = 'examenesAux';
                 this.indiceActivo = 4;
                 break;

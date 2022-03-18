@@ -3,28 +3,32 @@
     <form [formGroup]='formMedicamento'>
         <div class="p-grid p-fluid">
             <div class="grid m-2">
-                <div class="col-12">
-                    <label>Codigo:</label>
-                    <input type="text" pInputText formControlName='codigo' placeholder="Codigo del medicamento"
+                <div *ngIf="!isUpdate" class="col-12 p-fluid">
+                    <label >Codigo:</label>
+                    <input  type="text" pInputText formControlName='codigo' placeholder="Codigo del medicamento"
                            required/>
                 </div>
-                <div class="col-12">
-                    <label>Nombre:</label>
+                <div class="col-12 p-fluid">
+                    <label>Nombre del Medicamento:</label>
                     <textarea rows="5" cols="15" pInputTextarea autoResize="autoResize" formControlName='nombre' placeholder="Nombre del medicamento" required></textarea>
+                </div>
+                <div class="col-12 p-fluid">
+                    <label>Nombre Comercial:</label>
+                    <textarea rows="2" cols="15" pInputTextarea autoResize="autoResize" formControlName='nombreComercial' placeholder="Nombre Comercial del medicamento" required></textarea>
                 </div>
             </div>
             <div class="grid m-2">
-                <div class="col-12 md:col-4 mb-2">
-                    <label>Presentación:</label>
+                <div class="col-12 md:col-4 mb-2 p-fluid">
+                    <label>Forma farmacéutica:</label>
                     <input type="text" pInputText formControlName='ff' placeholder="Presentacion"
                            required/>
                 </div>
-                <div class="col-12 md:col-4 mb-2">
+                <div class="col-12 md:col-4 mb-2 p-fluid">
                     <label>Concentración:</label>
                     <input type="text" pInputText formControlName='concentracion' placeholder="Concentracion" required/>
 
                 </div>
-                <div class="col-12 md:col-4 mb-2">
+                <div class="col-12 md:col-4 mb-2 p-fluid">
                     <label>Vía de Administración:</label>
                     <br>
                     <p-dropdown  inputId="dropdown" [options]="viaadministracionList"

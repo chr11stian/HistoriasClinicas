@@ -6,6 +6,7 @@ import {IpressFarmaciaService} from "../../../../../../../../modulos/ipress-farm
 import {IpressService} from "../../../../../../../../core/services/ipress/ipress.service";
 import {dato} from "../../../../../../models/data";
 import {MedicamentosService} from "../../../../../../../../mantenimientos/services/medicamentos/medicamentos.service";
+import {DiagnosticoConsultaService} from "../../../../services/diagnostico-consulta.service";
 
 @Component({
   selector: 'app-tratamiento-cred',
@@ -18,19 +19,27 @@ export class TratamientoCredComponent implements OnInit {
   tratamientos: any[] = [];
   dialogTratamiento:boolean=false;
   formTratamiento:FormGroup;
+  formIndicaciones:FormGroup;
+
   renipress: "";
   idIpress:string="616de45e0273042236434b51";
   attributeLocalS = 'documento'
   data:dato;
+
   estadoEditar:boolean=false;
+
   intervaloList: any[];
   medicamentosConDatos: any[]=[];
   listaMedicamentos:any;
   viaadministracionList:viaAdministracion[]=[];
+  listaDiagnosticos:any[]=[];
+
   tratamientoEditar:any;
   aux:any[]=[];
+  dialogIndicaciones: boolean=false;
 
   constructor(private tratamientoService: TratamientoConsultaService,
+              private DiagnosticoService: DiagnosticoConsultaService,
               private farmaciaService: IpressFarmaciaService,
               private medicamentosService:MedicamentosService,
               private ipressServices: IpressService,
@@ -70,6 +79,7 @@ export class TratamientoCredComponent implements OnInit {
     this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
     this.listarTratamientos();
     this.buscarCodigoIpress();
+    this.listarDiagnosticos();
   }
 
   buildForm() {
@@ -78,6 +88,7 @@ export class TratamientoCredComponent implements OnInit {
       id: new FormControl(''),
       codigo: new FormControl({value:'',disabled:false}),
       nombre: new FormControl({value:'',disabled:false}),
+      nombreComercial: new FormControl({value:'',disabled:false}),
       ff: new FormControl({value:'',disabled:false}),
       stock:new FormControl({value:'',disabled:true}),
       concentracion: new FormControl({value:'',disabled:false}),
@@ -92,9 +103,18 @@ export class TratamientoCredComponent implements OnInit {
       instrucciones:new FormControl({value:'',disabled:false}),
       advertencias:new FormControl({value:'',disabled:false}),
       otrasIndicaciones:new FormControl({value:'',disabled:false}),
-      nroDiagnostico:new FormControl({value:'',disabled:false}),
+      cie10SIS:new FormControl({value:'',disabled:false}),
+
+    }),
+    this.formIndicaciones = this.formBuilder.group({
+      efectosMedicamento:new FormControl({value:'',disabled:true}),
+      instrucciones:new FormControl({value:'',disabled:true}),
+      advertencias:new FormControl({value:'',disabled:true}),
+      otrasIndicaciones:new FormControl({value:'',disabled:true}),
+
 
     })
+
   }
   buscarCodigoIpress(){
     console.log('codigo renipress'+ this.renipress);//// ejecuta
@@ -122,6 +142,7 @@ export class TratamientoCredComponent implements OnInit {
               ff:this.listaMedicamentos[i].medicamento.ff,
               concentracion:this.listaMedicamentos[i].medicamento.concentracion,
               viaAdministracion:this.listaMedicamentos[i].medicamento.viaAdministracion,
+              nombreComercial: this.listaMedicamentos[i].medicamento.nombreComercial
             },
             lote:this.listaMedicamentos[i].lote,
             fechaVenc:this.listaMedicamentos[i].fechaVenc,
@@ -132,6 +153,24 @@ export class TratamientoCredComponent implements OnInit {
           this.medicamentosConDatos.push(cadena);
           console.log(this.medicamentosConDatos);
         }
+      }
+    })
+  }
+
+  listarDiagnosticos(){
+    this.DiagnosticoService.getDiagnostico(this.data.idConsulta).subscribe((data:any)=>{
+      if(data.object!=undefined || data.object!=null){
+        console.log(data.object.diagnosticos);
+        for(let i =0;i<data.object.diagnosticos.length;i++){
+          this.listaDiagnosticos.push(data.object.diagnosticos[i].cie10SIS)
+        }
+      }
+      else{
+        Swal.fire({
+          icon: 'info',
+          title: 'Tratamientos',
+          text: 'No tiene Diagnosticos registrados!',
+        })
       }
     })
   }
@@ -169,6 +208,7 @@ export class TratamientoCredComponent implements OnInit {
     this.formTratamiento.patchValue({ viaAdministracion: event.medicamento.viaAdministracion });
     this.formTratamiento.patchValue({ ff: event.medicamento.ff });
     this.formTratamiento.patchValue({id:event.medicamento.id});
+    this.formTratamiento.patchValue({nombreComercial:event.medicamento.nombreComercial});
     let date: Date = new Date(event.fechaVenc);
     date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
     console.log(date)
@@ -206,7 +246,8 @@ export class TratamientoCredComponent implements OnInit {
          nombre:this.formTratamiento.value.nombre,
          ff:this.formTratamiento.value.ff,
          concentracion:this.formTratamiento.value.concentracion,
-         viaAdministracion:this.formTratamiento.value.viaAdministracion
+         viaAdministracion:this.formTratamiento.value.viaAdministracion,
+         nombreComercial:this.formTratamiento.value.nombreComercial
        },
        cantidad:this.formTratamiento.value.cantidad,
        dosis:this.formTratamiento.value.dosis,
@@ -220,7 +261,7 @@ export class TratamientoCredComponent implements OnInit {
          advertencias:this.formTratamiento.value.advertencias,
          otrasIndicaciones:this.formTratamiento.value.otrasIndicaciones,
        },
-       nroDiagnostico: this.formTratamiento.value.nroDiagnostico
+       cie10SIS: this.formTratamiento.value.cie10SIS
      }
      var duplicado:boolean=this.tratamientos.some(element=>element.medicamento=cadena.medicamento)
      console.log(duplicado);
@@ -262,7 +303,8 @@ export class TratamientoCredComponent implements OnInit {
         nombre:this.formTratamiento.value.nombre,
         ff:this.formTratamiento.value.ff,
         concentracion:this.formTratamiento.value.concentracion,
-        viaAdministracion:this.formTratamiento.value.viaAdministracion
+        viaAdministracion:this.formTratamiento.value.viaAdministracion,
+        nombreComercial:this.formTratamiento.value.nombreComercial,
       },
       cantidad:this.formTratamiento.value.cantidad,
       dosis:this.formTratamiento.value.dosis,
@@ -276,7 +318,7 @@ export class TratamientoCredComponent implements OnInit {
         advertencias:this.formTratamiento.value.advertencias,
         otrasIndicaciones:this.formTratamiento.value.otrasIndicaciones,
       },
-      nroDiagnostico: this.formTratamiento.value.nroDiagnostico
+      cie10SIS: this.formTratamiento.value.cie10SIS
     }
     var AuxItem = this.tratamientos.filter(element=>element!=this.tratamientoEditar);
     console.log(AuxItem);
@@ -306,6 +348,7 @@ export class TratamientoCredComponent implements OnInit {
     this.estadoEditar=true;
     this.dialogTratamiento=true;
     this.formTratamiento.get("nombre").setValue(rowData.medicamento.nombre);
+    this.formTratamiento.get("nombreComercial").setValue(rowData.medicamento.nombreComercial);
     this.formTratamiento.get("codigo").setValue(rowData.medicamento.codigo);
     this.formTratamiento.get("concentracion").setValue(rowData.medicamento.concentracion);
     this.formTratamiento.get("viaAdministracion").setValue(rowData.medicamento.viaAdministracion);
@@ -315,7 +358,7 @@ export class TratamientoCredComponent implements OnInit {
     this.formTratamiento.get("intervalo").setValue(rowData.intervalo);
     this.formTratamiento.get("duracion").setValue(rowData.duracion);
     this.formTratamiento.get("cantidad").setValue(rowData.cantidad);
-    this.formTratamiento.get("nroDiagnostico").setValue(rowData.nroDiagnostico);
+    this.formTratamiento.get("cie10SIS").setValue(rowData.cie10SIS);
     this.formTratamiento.get("observaciones").setValue(rowData.observaciones);
     this.formTratamiento.get("efectosMedicamento").setValue(rowData.indicaciones.efectosMedicamento);
     this.formTratamiento.get("advertencias").setValue(rowData.indicaciones.advertencias);
@@ -367,7 +410,13 @@ export class TratamientoCredComponent implements OnInit {
 
   }
 
-
+  verIndicaciones(indicaciones: any) {
+    this.dialogIndicaciones=true;
+    this.formIndicaciones.get("efectosMedicamento").setValue(indicaciones.efectosMedicamento);
+    this.formIndicaciones.get("advertencias").setValue(indicaciones.advertencias);
+    this.formIndicaciones.get("instrucciones").setValue(indicaciones.instrucciones);
+    this.formIndicaciones.get("otrasIndicaciones").setValue(indicaciones.otrasIndicaciones);
+  }
 }
 
 interface viaAdministracion{
