@@ -10,11 +10,11 @@ export class IpressComponent implements OnInit {
   twoOptions: any[];
   formDatosGenerales: FormGroup;
   listPersonalAte = [
-    { name: "DE LA IPRESS", value: "DELAIPRESS" },
-    { name: "ITINERANTE", value: "ITINERANTE" },
-    { name: "OFERTA FLEXIBLE", value: "OFERTAFLEXIBLE" },
+    { name: "De la IPRESS", value: "DELAIPRESS" },
+    { name: "Itinerante", value: "ITINERANTE" },
+    { name: "Oferta Flexible", value: "OFERTAFLEXIBLE" },
   ];
-  listAtencion = ["AMBULATORIA", "REFERENCIA", "EMERGENCIA"];
+  listAtencion = [{name:"Ambulatoria",value:"AMBULATORIA"}, {name:"Referencia",value:"REFERENCIA"}, "EMERGENCIA"];
   listSexo = ["MASCULINO", "FEMENINO"];
   listSaludMaterna = ["GESTANTE", "PUERPERA"];
   listLugarAtencion = [
