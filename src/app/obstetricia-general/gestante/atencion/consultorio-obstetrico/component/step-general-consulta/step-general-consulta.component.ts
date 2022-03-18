@@ -33,7 +33,7 @@ export class StepGeneral_consultaComponent implements OnInit {
         this.items = [
             { label: "Datos Generales" },
             { label: "Interrogatorio" },
-            {label: "Tamizaje"},
+            { label: "Tamizaje"},
             { label: "Diagnosticos" },
             { label: "Evaluaciones" },
             { label: "Tratamientos" },
