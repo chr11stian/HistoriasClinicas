@@ -43,6 +43,7 @@ import {MultiSelectModule} from "primeng/multiselect";
 import { ProcedimientoDosajeHemoglobinaComponent } from './component/evaluaciones-consulta/components/procedimiento-dosaje-hemoglobina/procedimiento-dosaje-hemoglobina.component';
 import { TratamientoInmunizacionComponent } from './component/tratamiento-consulta/components/tratamiento-inmunizacion/tratamiento-inmunizacion.component';
 import { TratamientoInmunizacionModalComponent } from './component/tratamiento-consulta/components/tratamiento-inmunizacion-modal/tratamiento-inmunizacion-modal.component';
+import { LaboratorioModalComponent } from './component/evaluaciones-consulta/components/laboratorio-modal/laboratorio-modal.component';
 @NgModule({
     declarations: [
         DatosGeneralesConsultaComponent,
@@ -71,6 +72,7 @@ import { TratamientoInmunizacionModalComponent } from './component/tratamiento-c
         ProcedimientoDosajeHemoglobinaComponent,
         TratamientoInmunizacionComponent,
         TratamientoInmunizacionModalComponent,
+        LaboratorioModalComponent,
 
     ],
     imports: [

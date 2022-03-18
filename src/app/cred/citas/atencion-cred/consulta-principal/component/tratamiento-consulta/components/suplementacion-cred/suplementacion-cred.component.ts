@@ -21,6 +21,7 @@ export class SuplementacionCredComponent implements OnInit {
   SF: SuplementacionMicronutrientes[] = []
   MNM: SuplementacionMicronutrientes[] = []
   vitaminaA:SuplementacionMicronutrientes[]=[]
+  suplementacionTerapeutica:SuplementacionMicronutrientes[]=[]
   edadMes:number;
   dia:number;
   mes:number;

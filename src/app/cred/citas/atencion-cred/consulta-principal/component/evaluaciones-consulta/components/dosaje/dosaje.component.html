@@ -24,7 +24,6 @@
             <div class="col-4">Fecha Programada:</div>
             <div class="col-6 p-fluid">
                 <p-calendar
-                        disabled="true"
                         formControlName="fechaTentativa"
                         [showIcon]="true"
                         inputId="icon"
@@ -36,7 +35,6 @@
             <div class="col-4">Fecha Toma de prueba:</div>
             <div class="col-6 p-fluid">
                 <p-calendar
-                        disabled="true"
                         formControlName="fechaAdministrada"
                         [showIcon]="true"
                         inputId="icon"
@@ -46,33 +44,42 @@
         </div>
         <div class="col-6 grid ">
             <div class="col-4">Valor Hemoglobina:</div>
-            <div class="col-8 p-fluid ">
-                <input type="text" pInputText placeholder="12.5" formControlName="valorHb">
+            <div class="col-6 p-fluid ">
+<!--                <p-inputNumber formControlName="valorHb" (ngModelChange)="valorCorrejido($event)" inputId="minmaxfraction" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="5">-->
+<!--                </p-inputNumber>-->
+<!--                <input type=""  (ngModelChange)="valorCorrejido($event)" pInputText placeholder="12.5" formControlName="valorHb">-->
+                <input (ngModelChange)="valorCorrejido($event)" type="number" pInputText formControlName="valorHb"
+                       class="inputfield w-full text-center"
+                />
             </div>
         </div>
         <div class="col-6 grid ">
-            <div class="col-4">Valor Hemoglobina con factor de correpcion:</div>
-            <div class="col-8 p-fluid ">
-                <input type="text" pInputText placeholder="10.5" formControlName="valorHbFactor">
+            <div class="col-4">Factor de Ajuste por Altitud:</div>
+            <div class="col-6 p-fluid ">
+                <input type="text" pInputText disabled="true" [(ngModel)]="factorAjuste" [ngModelOptions]="{standalone: true}">
             </div>
         </div>
         <div class="col-6 grid ">
+            <div class="col-4">Valor Hemoglobina ajustada:</div>
+            <div class="col-6 p-fluid ">
+                <input type="text" pInputText placeholder="10.5" formControlName="valorHbRestado" class="text-center">
+            </div>
+        </div>
+        <div class="col-6 grid ">
+            <div class="col-4">resultado:</div>
+            <div class="col-8 p-fluid ">
+                <p-selectButton [options]="positivoNegativo" formControlName="positivoAnemia" optionLabel="name" optionValue="code" (click)="cambiamosResultado($event)" ></p-selectButton>
+            </div>
+        </div>
+        <div class="col-6 grid" *ngIf="!isDisabledNivelAnemia">
             <div class="col-4">Nivel de anemia:</div>
             <div class="col-8 p-fluid ">
-<!--                <input type="text" pInputText placeholder="12.5" formControlName="nivelAnemia">-->
-                <p-dropdown [options]="nivelAnemia" formControlName="nivelAnemia" optionLabel="name"></p-dropdown>
-            </div>
-        </div>
-        <div class="col-6 grid ">
-            <div class="col-4">Positivo a Anemia?:</div>
-            <div class="col-8 p-fluid ">
-<!--                <input type="text" pInputText placeholder="12.5" formControlName="positivoAnemia">-->
-                <p-selectButton [options]="positivoAnemia" FormControlName="positivoAnemia" optionLabel="name"></p-selectButton>
+                <p-dropdown [options]="nivelAnemia" [(ngModel)]="nivelAnemiaSelected" [disabled]="isDisabledNivelAnemia" optionLabel="name" optionValue="code" placeholder="Selecciones nivel"  [ngModelOptions]="{standalone: true}"   ></p-dropdown>
             </div>
         </div>
 
     </div>
-    <div class="flex justify-contentd mt-5">
+    <div class="flex justify-content-end mt-5">
         <button
                 pButton
                 type="button"
