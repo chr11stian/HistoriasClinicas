@@ -13,6 +13,8 @@
                     <div class="col-4 text-right">
                         <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
                             class="p-button-raised mt-3" (click)="openAddExamDialog()"></button>
+                        <!-- <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar New"
+                            class="p-button-raised mt-3" (click)="openDialogAddAuxiliarExam()"></button> -->
                     </div>
                 </div>
             </ng-template>
@@ -71,13 +73,11 @@
                     <td style="text-align: center; padding: 0.7rem;">{{ rowData.datosLaboratorio.subTipo }}</td>
                     <td style="text-align: center; padding: 0.7rem;">
                         <button pButton pRipple type="button" icon="pi pi-eye"
-                            (click)="openShowDataAuxiliarsExams(rowData, i)"
+                            (click)="openShowDataAuxiliarsExams(rowData)"
                             class="p-button-rounded p-button-text"></button>
-                        <!-- <button pButton pRipple type="button" icon="pi pi-pencil"
-                            (click)="openDialogEditarMedicacionFrecuente(rowData, i)"
-                            class="p-button-rounded p-button-text"></button>
-                        <button pButton pRipple type="button" icon="pi pi-trash" (click)="deleteExamItem(i)"
-                            class="p-button-rounded p-button-danger p-button-text"></button> -->
+                        <!-- <button pButton pRipple type="button" icon="pi pi-eye"
+                            (click)="openShowDataAuxiliarsExams(rowData)"
+                            class="p-button-rounded p-button-text"></button> -->
                     </td>
                 </tr>
             </ng-template>
@@ -88,7 +88,7 @@
     </div>
 </div>
 
-<p-dialog class="dialogo m-4" [(visible)]="addExamDialog" [style]="{width: '60%'}" [modal]="true" styleClass="p-fluid"
+<p-dialog class="dialogo m-4" [(visible)]="addExamDialog" [style]="{width: '65%'}" [modal]="true" styleClass="p-fluid"
     (onHide)="closeExamDialog()">
     <ng-template pTemplate="header">
         <h3>NUEVO EXAMEN AUXILIAR</h3>
@@ -169,7 +169,7 @@
                             </div>
                         </div>
                         <div class="p-fluid col-6 campo">
-                            <div class="tittle1 mt-5 mr-1">
+                            <div class="tittle1 mt-5 mr-2">
                                 <label>Quistes De:</label>
                             </div>
                             <div class="col-11 p-0 value">
@@ -636,7 +636,7 @@
                         </div>
                     </div>
                     <div class="p-fluid col-3 campo">
-                        <div class="tittle1 mt-5 mr-1">
+                        <div class="tittle1 mt-5 mr-2">
                             <label>Quistes De:</label>
                         </div>
                         <div class="col-11 p-0 value">
@@ -647,7 +647,7 @@
                         </div>
                     </div>
                     <div class="p-fluid col-3 campo">
-                        <div class="tittle1 mt-5">
+                        <div class="tittle1 mt-5 mr-2">
                             <label>Trofozoitos De:</label>
                         </div>
                         <div class="col-11 p-0 value">
@@ -658,7 +658,7 @@
                         </div>
                     </div>
                     <div class="p-fluid col-3 campo">
-                        <div class="tittle1 mt-5">
+                        <div class="tittle1 mt-5 mr-2">
                             <label>Larvas De:</label>
                         </div>
                         <div class="col-11 p-0 value">
@@ -671,7 +671,7 @@
                 </div>
                 <div class="grid border">
                     <div class="p-fluid col-3">
-                        <div class="tittle1 mt-4">
+                        <div class="tittle1 mt-4 mr-2">
                             <label>Sangre oculta en heces:</label>
                         </div>
                         <div class="col-11 p-0 value">

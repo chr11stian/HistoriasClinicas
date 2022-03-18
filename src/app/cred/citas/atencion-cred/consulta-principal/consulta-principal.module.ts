@@ -35,6 +35,7 @@ import {TimelineModule} from "primeng/timeline";
 import { SuplementacionCredComponent } from './component/tratamiento-consulta/components/suplementacion-cred/suplementacion-cred.component';
 import { TratamientoCredComponent } from './component/tratamiento-consulta/components/tratamiento-cred/tratamiento-cred.component';
 import { SuplementoComponent } from './component/tratamiento-consulta/components/suplemento/suplemento.component';
+import { DialogAddExamenesAuxiliaresComponent } from './component/examenes-auxiliares-consulta/dialog-add-examenes-auxiliares/dialog-add-examenes-auxiliares.component';
 import { DosajeComponent } from './component/evaluaciones-consulta/components/dosaje/dosaje.component';
 //mover al share
 import {ListboxModule} from "primeng/listbox";
@@ -67,6 +68,7 @@ import { ProcedimientosConsultaComponent } from './component/procedimientos-cons
         SuplementacionCredComponent,
         TratamientoCredComponent,
         SuplementoComponent,
+        DialogAddExamenesAuxiliaresComponent,
         DosajeComponent,
         ProcedimientoDosajeHemoglobinaComponent,
         TratamientoInmunizacionComponent,

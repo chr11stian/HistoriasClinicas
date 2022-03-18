@@ -1,23 +1,25 @@
-import {Component, OnInit} from "@angular/core";
-import {PersonalService} from "../../core/services/personal-services/personal.service";
-import {FormBuilder, Validators, FormGroup} from "@angular/forms";
+import { Component, OnInit } from "@angular/core";
+import { PersonalService } from "../../core/services/personal-services/personal.service";
+import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 import Swal from "sweetalert2";
-import {Personal} from "src/app/core/models/personal.models";
-import {DocumentoIdentidadService} from "src/app/mantenimientos/services/documento-identidad/documento-identidad.service";
+import { Personal } from "src/app/core/models/personal.models";
+import { DocumentoIdentidadService } from "src/app/mantenimientos/services/documento-identidad/documento-identidad.service";
 import {
     ColegioProfesional,
     DocumentoIdentidad,
     Especialidad,
     TipoPersonal,
 } from "src/app/core/models/mantenimiento.models";
-import {TipoPersonalService} from "src/app/mantenimientos/services/tipo-personal/tipo-personal.service";
-import {EspecialidadService} from "src/app/mantenimientos/services/especialidad/especialidad.service";
-import {ColegioProfesionalService} from "src/app/mantenimientos/services/colegio-profesional/colegio-profesional.service";
-import {DatePipe, getLocaleDateFormat} from "@angular/common";
-import {TipoContratoService} from "src/app/mantenimientos/services/tipo-contrato/tipo-contrato.service";
-import {IpressService} from "src/app/core/services/ipress/ipress.service";
-import {RolGuardiaService} from "src/app/core/services/rol-guardia/rol-guardia.service";
-import {image} from '../../../assets/images/image.const';
+import { TipoPersonalService } from "src/app/mantenimientos/services/tipo-personal/tipo-personal.service";
+import { EspecialidadService } from "src/app/mantenimientos/services/especialidad/especialidad.service";
+import { ColegioProfesionalService } from "src/app/mantenimientos/services/colegio-profesional/colegio-profesional.service";
+import { DatePipe, getLocaleDateFormat } from "@angular/common";
+import { TipoContratoService } from "src/app/mantenimientos/services/tipo-contrato/tipo-contrato.service";
+import { IpressService } from "src/app/core/services/ipress/ipress.service";
+import { RolGuardiaService } from "src/app/core/services/rol-guardia/rol-guardia.service";
+import { image } from '../../../assets/images/image.const';
+import { TipoUpsService } from "src/app/mantenimientos/services/tipo-ups.service";
+import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 
 @Component({
     selector: "app-personal-salud",
@@ -65,8 +67,8 @@ export class PersonalSaludComponent implements OnInit {
     iprees: string = "la posta medica";
 
     nombreRolOpciones: any[] = [
-        "ASISTENCIAL",
-        "ADMINISTRATIVO"
+        //"ASISTENCIAL",
+        //"ADMINISTRATIVO"
     ]
     constructor(
         private personalservice: PersonalService,
@@ -78,6 +80,7 @@ export class PersonalSaludComponent implements OnInit {
         private ipressservice: IpressService,
         private formBuilder: FormBuilder,
         private rolGuardiaService: RolGuardiaService,
+        private tipoUpsService: TipoUpsService
     ) {
         this.buildForm();
         this.getPersonal();
@@ -89,10 +92,11 @@ export class PersonalSaludComponent implements OnInit {
         this.getIpress();
         this.getListaUps();
         this.getSexos();
+        this.getNombreRoles();
 
         this.stateOptions = [
-            {label: "Activo", value: true},
-            {label: "Inactivo", value: false},
+            { label: "Activo", value: true },
+            { label: "Inactivo", value: false },
         ];
         this.domicilioList = [
             {
@@ -112,6 +116,11 @@ export class PersonalSaludComponent implements OnInit {
         this.datosPersonales = [];
     }
 
+    getNombreRoles() {
+        this.tipoUpsService.getTipoUPSs().subscribe((res: any) => {
+            this.nombreRolOpciones = res.object;
+        });
+    }
     getDocumentos() {
         this.documentoservice.getDocumentosIdentidad().subscribe((res: any) => {
             this.docList = res.object;
@@ -203,11 +212,11 @@ export class PersonalSaludComponent implements OnInit {
             nombreFuncion: ["", [Validators.required]],
             ups: ["", [Validators.required]],
             rolGuardia: ["", [Validators.required]],
-            delete: ["", [Validators.required]],
-            update: ["", [Validators.required]],
-            create: ["", [Validators.required]],
-            insert: ["", [Validators.required]],
-            read: ["", [Validators.required]],
+            // delete: ["", [Validators.required]],
+            // update: ["", [Validators.required]],
+            // create: ["", [Validators.required]],
+            // insert: ["", [Validators.required]],
+            // read: ["", [Validators.required]],
         });
     }
 
@@ -226,7 +235,9 @@ export class PersonalSaludComponent implements OnInit {
                 console.log('ups-->', this.listaUpsX)
             });
     }
-
+    buscarNombre(id){
+        return this.listaUpsX.find(elemento => elemento.id == id).nombreUPS;
+    }
     saveForm() {
         this.isUpdate = false;
         let otrosNombres = this.form.value.nombres.split(" ", 2);
@@ -511,9 +522,9 @@ export class PersonalSaludComponent implements OnInit {
     }
 
     newRolX(rowData) {
-        if (rowData.roles != null) {
+        //if (rowData.roles !== null) {
             this.rolesX = rowData.roles;
-        }
+        //}
         console.log(this.rolesX);
         this.nombrePersonal = `${rowData.apePaterno} ${rowData.apeMaterno}, ${rowData.primerNombre}`;
         this.idRolX = rowData.id;
@@ -552,11 +563,11 @@ export class PersonalSaludComponent implements OnInit {
         this.formRol.get("nombreFuncion").setValue(rowData.nombreFuncion);
         this.formRol.get("ups").setValue(rowData.codUPS);
         this.formRol.get("rolGuardia").setValue(rowData.rolGuardia);
-        this.formRol.get("delete").setValue(rowData.delete);
-        this.formRol.get("update").setValue(rowData.update);
-        this.formRol.get("create").setValue(rowData.create);
-        this.formRol.get("insert").setValue(rowData.insert);
-        this.formRol.get("read").setValue(rowData.read);
+        // this.formRol.get("delete").setValue(rowData.delete);
+        // this.formRol.get("update").setValue(rowData.update);
+        // this.formRol.get("create").setValue(rowData.create);
+        // this.formRol.get("insert").setValue(rowData.insert);
+        // this.formRol.get("read").setValue(rowData.read);
         // this.estadoUpdateRol = rowData.estado;
 
     }
@@ -651,6 +662,7 @@ export class PersonalSaludComponent implements OnInit {
 
     saveRol() {
         var isRepeat;
+        if (this.rolesX==null) this.rolesX=[];
         if (this.rolesX.length !== 0)
             isRepeat = this.rolesX.find((rol) => rol.codUPS === this.formRol.value.ups) ? true : false;
         if (!isRepeat) {
@@ -658,11 +670,11 @@ export class PersonalSaludComponent implements OnInit {
                 nombreFuncion: this.formRol.value.nombreFuncion,
                 codUPS: this.formRol.value.ups,
                 rolGuardia: this.formRol.value.rolGuardia,
-                delete: this.formRol.value.delete,
-                update: this.formRol.value.update,
-                create: this.formRol.value.create,
-                insert: this.formRol.value.insert,
-                read: this.formRol.value.read,
+                // delete: this.formRol.value.delete,
+                // update: this.formRol.value.update,
+                // create: this.formRol.value.create,
+                // insert: this.formRol.value.insert,
+                // read: this.formRol.value.read,
             }
             this.personalservice
                 .addRolesPersonal(this.idRolX, req)
@@ -726,11 +738,11 @@ export class PersonalSaludComponent implements OnInit {
             nombreFuncion: this.formRol.value.nombreFuncion,
             codUPS: this.formRol.value.ups,
             rolGuardia: this.formRol.value.rolGuardia,
-            delete: this.formRol.value.delete,
-            update: this.formRol.value.update,
-            create: this.formRol.value.create,
-            insert: this.formRol.value.insert,
-            read: this.formRol.value.read,
+            // delete: this.formRol.value.delete,
+            // update: this.formRol.value.update,
+            // create: this.formRol.value.create,
+            // insert: this.formRol.value.insert,
+            // read: this.formRol.value.read,
         }
         console.log(req);
 

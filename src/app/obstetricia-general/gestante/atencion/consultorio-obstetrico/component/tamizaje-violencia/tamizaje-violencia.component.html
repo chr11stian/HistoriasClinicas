@@ -1,13 +1,4 @@
 <div>
-    <p-card>
-        <div class="grid">
-            <div class="col-12 md:col-6 lg:col-12 p-field" style="text-align:center;">
-                <label style="font-size: 16px;">PREGUNTAS PARA LA DETECCIÓN DE VIOLENCIA CONTRA LA MUJER OCACIONADA POR
-                    LA PAREJA O EXPAREJA</label>
-            </div>
-        </div>
-    </p-card>
-    <br>
     <p-toolbar>
         <ng-template pTemplate="left">
             <form [formGroup]='formDatos_Tamisaje'>
@@ -31,75 +22,82 @@
         </ng-template>
     </p-toolbar>
     <br>
+    <div class="grid">
+        <div class="col-12 md:col-6 lg:col-12 p-field" style="text-align:center;">
+            <span style="font-size: 16px;">PREGUNTAS PARA LA DETECCIÓN DE VIOLENCIA CONTRA LA MUJER OCACIONADA POR
+                LA PAREJA O EXPAREJA</span>
+        </div>
+    </div>
+    <br>
     <form [formGroup]='formDatos_Tamisaje'>
-        <p-fieldset class="infor1" legend="INFORMACION PERSONAL" [toggleable]="true">
-            <div class="grid">
-                <div class="col-12 md:col-6 lg:col-3 p-field">
-                    <div class="">
-                        <label class="">Documento de identidad: </label>
-                        <input type="text" pInputText class="inputfield w-full"
-                               formControlName="nroDoc" placeholder="Nro documento">
+        <div class="border">
+            <div class="col-12 md:col-6 lg:col-12 p-field">
+                <div class="grid m-2">
+                    <div class="col-12 md:col-6 lg:col-3 p-field">
+                        <div class="">
+                            <label class="">Documento de identidad: </label>
+                            <input type="text" pInputText class="inputfield w-full"
+                                   formControlName="nroDoc" placeholder="Nro documento">
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-3 p-field">
+                        <div class="">
+                            <label class="">Número de historia Clinica: </label>
+                            <input type="text" pInputText class="inputfield w-full"
+                                   formControlName="nroHcl" placeholder="Nro historia clínica">
+                        </div>
                     </div>
                 </div>
-                <div class="col-12 md:col-6 lg:col-3 p-field">
-                    <div class="">
-                        <label class="">Número de historia Clinica: </label>
-                        <input type="text" pInputText class="inputfield w-full"
-                               formControlName="nroHcl" placeholder="Nro historia clínica">
+                <div class="grid m-2">
+                    <div class="col-12 md:col-6 lg:col-4 p-field">
+                        <div class="">
+                            <label class="">Apellido Paterno:</label>
+                            <input type="text" pInputText class="inputfield w-full"
+                                   formControlName="apePaterno" placeholder="Apellido Paterno">
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-4 p-field">
+                        <div class="">
+                            <label class="">Apellido Materno: </label>
+                            <input type="text" pInputText class="inputfield w-full"
+                                   formControlName="apeMaterno" placeholder="Apellido Materno">
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-4 p-field">
+                        <div class="">
+                            <label class="">Nombres: </label>
+                            <input type="text" pInputText class="inputfield w-full"
+                                   formControlName="nombres" placeholder="Nombres">
+                        </div>
+                    </div>
+                </div>
+                <div class="grid m-2">
+                    <div class="col-12 md:col-6 lg:col-3 p-field">
+                        <div class="">
+                            <label class="">Edad: </label>
+                            <input type="text" pInputText class="inputfield w-full"
+                                   formControlName="Edad" placeholder="Edad">
+                        </div>
+                    </div>
+
+                    <div class="col-12 md:col-6 lg:col-6 p-field">
+                        <div class="">
+                            <label class="">Dirección:</label>
+                            <input type="text" pInputText class="inputfield w-full"
+                                   formControlName="Direccion"
+                                   placeholder="Direccion / Departamento / Provincia / Distrito">
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-3 p-field">
+                        <div class="">
+                            <label class="">Telefono:</label>
+                            <input type="text" pInputText class="inputfield w-full"
+                                   formControlName="Telefono" placeholder="Telefono">
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="grid">
-                <div class="col-12 md:col-6 lg:col-4 p-field">
-                    <div class="">
-                        <label class="">Apellido Paterno:</label>
-                        <input type="text" pInputText class="inputfield w-full"
-                               formControlName="apePaterno" placeholder="Apellido Paterno">
-                    </div>
-                </div>
-                <div class="col-12 md:col-6 lg:col-4 p-field">
-                    <div class="">
-                        <label class="">Apellido Materno: </label>
-                        <input type="text" pInputText class="inputfield w-full"
-                               formControlName="apeMaterno" placeholder="Apellido Materno">
-                    </div>
-                </div>
-                <div class="col-12 md:col-6 lg:col-4 p-field">
-                    <div class="">
-                        <label class="">Nombres: </label>
-                        <input type="text" pInputText class="inputfield w-full"
-                               formControlName="nombres" placeholder="Nombres">
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid">
-                <div class="col-12 md:col-6 lg:col-3 p-field">
-                    <div class="">
-                        <label class="">Edad: </label>
-                        <input type="text" pInputText class="inputfield w-full"
-                               formControlName="Edad" placeholder="Edad">
-                    </div>
-                </div>
-
-                <div class="col-12 md:col-6 lg:col-6 p-field">
-                    <div class="">
-                        <label class="">Dirección:</label>
-                        <input type="text" pInputText class="inputfield w-full"
-                               formControlName="Direccion"
-                               placeholder="Direccion / Departamento / Provincia / Distrito">
-                    </div>
-                </div>
-                <div class="col-12 md:col-6 lg:col-3 p-field">
-                    <div class="">
-                        <label class="">Telefono:</label>
-                        <input type="text" pInputText class="inputfield w-full"
-                               formControlName="Telefono" placeholder="Telefono">
-                    </div>
-                </div>
-            </div>
-
-        </p-fieldset>
+        </div>
     </form>
     <br>
     <p-tabView (onChange)="tab($event)" styleClass="tabview-custom" class="tab">
@@ -686,185 +684,206 @@
 
         </p-tabPanel>
         <p-tabPanel header="Ficha de Valoración" leftIcon="pi pi-file" tooltip="Ficha de valoración">
-            <div class="border">
+            <div class="border2">
                 <p class="texto-justificado m-3">Para preguntar directamente a las usuarias sobre una posible violencia,
                     el profesional de la salud realiza las siguientes preguntas:</p>
                 <form [formGroup]='formDatos_Tamisaje'>
-                    <div class="grid m-3">
-                        <div class="border2">
-                            <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
-                                <div class="grid">
+                    <div class="grid m-2">
+                        <div class="col-12 md:col-12 md:col-6 lg:col-12">
+                            <div class="">
+                                <div class="grid m-2">
                                     <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
-                                        <div class="p-inputgroup">
+                                        <div class="p-inputgroup inputgroupValor">
                                             <span class="col-11" style="text-align: left">1.- ¿En el último año, la
                                                 violencia
                                                 física contra usted ha aumentado en gravedad o frecuencia?</span>
-                                            <p-selectButton [options]="opciones2" optionLabel="name"
+                                            <p-selectButton [options]="opcionesA" optionLabel="name"
                                                             optionValue="label"
-                                                            formControlName="respuestaValoracion1"></p-selectButton>
+                                                            formControlName="respuestaValoracion1"
+                                                            (onChange)="calcularValoracion()"></p-selectButton>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="grid">
+                                <div class="grid m-2">
                                     <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
-                                        <div class="p-inputgroup">
+                                        <div class="p-inputgroup inputgroupValor">
                                             <span class="col-11" style="text-align: left">2.- ¿Él tiene algún arma o
                                                 podría
                                                 conseguir un arma con facilidad? (pistola, cuchillo, machete, u
                                                 otros)</span>
-                                            <p-selectButton [options]="opciones2" optionLabel="name"
+                                            <p-selectButton [options]="opcionesE" optionLabel="name"
                                                             optionValue="label"
-                                                            formControlName="respuestaValoracion2"></p-selectButton>
+                                                            formControlName="respuestaValoracion2"
+                                                            (onChange)="calcularValoracion()"></p-selectButton>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="grid">
+                                <div class="grid m-2">
                                     <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
-                                        <div class="p-inputgroup">
+                                        <div class="p-inputgroup inputgroupValor">
                                             <span class="col-11" style="text-align: center">2a.- ¿Han vivido juntos
                                                 durante
                                                 el último año? [si dice NO, pasar a pregunta 4]</span>
-                                            <p-selectButton [options]="opciones2" optionLabel="name"
-                                                            optionValue="label"
-                                                            formControlName="respuestaValoracion2A"></p-selectButton>
+                                            <p-selectButton [options]="opciones" optionLabel="name"
+                                                            optionValue="name"
+                                                            formControlName="respuestaValoracion2A"
+                                                            (onChange)="calcularValoracion()"></p-selectButton>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="grid">
+                                <div class="grid m-2">
                                     <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
-                                        <div class="p-inputgroup">
+                                        <div class="p-inputgroup inputgroupValor">
                                             <span class="col-11" style="text-align: left">3.- Usted me dice que han
                                                 vivido
                                                 juntos en el último año. ¿Siguen viviendo juntos o lo ha dejado?
                                                 [Si siguen viviendo juntos marcar SI; si lo ha dejado marcar NO]
                                             </span>
-                                            <p-selectButton [options]="opciones2" optionLabel="name"
+
+                                            <p-selectButton [options]="opcionesD" optionLabel="name"
                                                             optionValue="label"
-                                                            formControlName="respuestaValoracion3"></p-selectButton>
+                                                            formControlName="respuestaValoracion3"
+                                                            (onChange)="calcularValoracion()"
+                                                            [disabled]="p2A!='SI'"></p-selectButton>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="grid">
+                                <div class="grid m-2">
                                     <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
-                                        <div class="p-inputgroup">
+                                        <div class="p-inputgroup inputgroupValor">
                                             <span class="col-11" style="text-align: left">4.- ¿Actualmente, él tiene
                                                 trabajo
                                                 estable? [si ella no sabe, no marcar nada]
                                             </span>
-                                            <p-selectButton [options]="opciones2" optionLabel="name"
+                                            <p-selectButton [options]="opcionesD" optionLabel="name"
                                                             optionValue="label"
-                                                            formControlName="respuestaValoracion4"></p-selectButton>
+                                                            formControlName="respuestaValoracion4"
+                                                            (onChange)="calcularValoracion()"></p-selectButton>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="grid">
+                                <div class="grid m-2">
                                     <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
-                                        <div class="p-inputgroup">
+                                        <div class="p-inputgroup inputgroupValor">
                                             <span class="col-11" style="text-align: left">5.- ¿Alguna vez él ha usado o
                                                 la
                                                 ha
                                                 amenazado con un arma (pistola, cuchillo, machete u otros)?
                                             </span>
-                                            <p-selectButton [options]="opciones2" optionLabel="name"
+                                            <p-selectButton [options]="opcionesC" optionLabel="name"
                                                             optionValue="label"
-                                                            formControlName="respuestaValoracion5"></p-selectButton>
+                                                            formControlName="respuestaValoracion5"
+                                                            (onChange)="calcularValoracion()"></p-selectButton>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="grid">
-                                    <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
-                                        <div class="p-inputgroup">
-                                            <span class="col-11" style="text-align: center">5a.- Si su respuesta fue
-                                                “SI”,
-                                                ¿fue con una pistola o cuchillo?:
-                                            </span>
-                                            <p-selectButton [options]="opciones2" optionLabel="name"
-                                                            optionValue="label"
-                                                            formControlName="respuestaValoracion5A"></p-selectButton>
+                                <div class="grid m-2">
+                                    <div class="col-12 md:col-12 md:col-6 lg:col-12">
+                                        <div class="p-inputgroup inputgroupValor">
+                                            <div class="col-11 p-fluid" style="text-align: center">
+                                                <span>5a.- Si su respuesta fue “SI”, ¿fue con una pistola o cuchillo?:</span>
+                                                <input class="p-inputtext-sm" style="width: 20%; border-color: #9c0116"
+                                                       type="text" pInputText
+                                                       placeholder="Pistola o cuchillo"
+                                                       formControlName="arma"
+                                                       *ngIf="p5A == 'SI'"/>
+                                            </div>
+                                            <p-selectButton [options]="opciones" optionLabel="name"
+                                                            optionValue="name"
+                                                            formControlName="respuestaValoracion5A"
+                                                            (onChange)="calcularValoracion()"></p-selectButton>
                                         </div>
+
+
                                     </div>
                                 </div>
-                                <div class="grid">
+                                <div class="grid m-2">
                                     <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
-                                        <div class="p-inputgroup">
+                                        <div class="p-inputgroup inputgroupValor">
                                             <span class="col-11" style="text-align: left">6.- ¿La ha amenazado con
                                                 matarla?
                                             </span>
-                                            <p-selectButton [options]="opciones2" optionLabel="name"
+                                            <p-selectButton [options]="opcionesC" optionLabel="name"
                                                             optionValue="label"
-                                                            formControlName="respuestaValoracion6"></p-selectButton>
+                                                            formControlName="respuestaValoracion6"
+                                                            (onChange)="calcularValoracion()"></p-selectButton>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="grid">
+                                <div class="grid m-2">
                                     <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
-                                        <div class="p-inputgroup">
+                                        <div class="p-inputgroup inputgroupValor">
                                             <span class="col-11" style="text-align: left">7.- ¿Alguna vez usted lo
                                                 denunció
                                                 por violencia familiar (porque él le pegó) ante la comisaría, fiscalía,
                                                 juzgado o ante alguna autoridad comunal?
                                             </span>
-                                            <p-selectButton [options]="opciones2" optionLabel="name"
+                                            <p-selectButton [options]="opcionesC" optionLabel="name"
                                                             optionValue="label"
-                                                            formControlName="respuestaValoracion7"></p-selectButton>
+                                                            formControlName="respuestaValoracion7"
+                                                            (onChange)="calcularValoracion()"></p-selectButton>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="grid">
+                                <div class="grid m-2">
                                     <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
-                                        <div class="p-inputgroup">
+                                        <div class="p-inputgroup inputgroupValor">
                                             <span class="col-11" style="text-align: left">8.- ¿Él la ha obligado alguna
                                                 vez
                                                 a
                                                 tener relaciones sexuales?
                                             </span>
-                                            <p-selectButton [options]="opciones2" optionLabel="name"
+                                            <p-selectButton [options]="opcionesB" optionLabel="name"
                                                             optionValue="label"
-                                                            formControlName="respuestaValoracion8"></p-selectButton>
+                                                            formControlName="respuestaValoracion8"
+                                                            (onChange)="calcularValoracion()"></p-selectButton>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="grid">
+                                <div class="grid m-2">
                                     <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
-                                        <div class="p-inputgroup">
+                                        <div class="p-inputgroup inputgroupValor">
                                             <span class="col-11" style="text-align: left">9.- ¿Él ha intentado
                                                 ahorcarla?
                                             </span>
-                                            <p-selectButton [options]="opciones2" optionLabel="name"
+                                            <p-selectButton [options]="opcionesB" optionLabel="name"
                                                             optionValue="label"
-                                                            formControlName="respuestaValoracion9"></p-selectButton>
+                                                            formControlName="respuestaValoracion9"
+                                                            (onChange)="calcularValoracion()"></p-selectButton>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="grid">
+                                <div class="grid m-2">
                                     <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
-                                        <div class="p-inputgroup">
+                                        <div class="p-inputgroup inputgroupValor">
                                             <span class="col-11" style="text-align: left">10- ¿Él consume drogas? Por
                                                 ejemplo,
                                                 como la marihuana, pasta básica, cocaína u otras.
                                             </span>
-                                            <p-selectButton [options]="opciones2" optionLabel="name"
+                                            <p-selectButton [options]="opcionesA" optionLabel="name"
                                                             optionValue="label"
-                                                            formControlName="respuestaValoracion10"></p-selectButton>
+                                                            formControlName="respuestaValoracion10"
+                                                            (onChange)="calcularValoracion()"></p-selectButton>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="grid">
+                                <div class="grid m-2">
                                     <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
-                                        <div class="p-inputgroup">
+                                        <div class="p-inputgroup inputgroupValor">
                                             <span class="col-11" style="text-align: left">11.- ¿Él es alcohólico o
                                                 tiene
                                                 problemas con el alcohol (trago o licor)?
                                             </span>
-                                            <p-selectButton [options]="opciones2" optionLabel="name"
+                                            <p-selectButton [options]="opcionesA" optionLabel="name"
                                                             optionValue="label"
-                                                            formControlName="respuestaValoracion11"></p-selectButton>
+                                                            formControlName="respuestaValoracion11"
+                                                            (onChange)="calcularValoracion()"></p-selectButton>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="grid">
+                                <div class="grid m-2">
                                     <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
-                                        <div class="p-inputgroup">
+                                        <div class="p-inputgroup inputgroupValor">
                                             <span class="col-11" style="text-align: left">12.- ¿Le controla la mayoría
                                                 o
                                                 todas
@@ -872,117 +891,157 @@
                                                 familiares o
                                                 amistades, le controla cuánto dinero puede gastar, etc.
                                             </span>
-                                            <p-selectButton [options]="opciones2" optionLabel="name"
+                                            <p-selectButton [options]="opcionesA" optionLabel="name"
                                                             optionValue="label"
-                                                            formControlName="respuestaValoracion12"></p-selectButton>
+                                                            formControlName="respuestaValoracion12"
+                                                            (onChange)="calcularValoracion()"></p-selectButton>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="grid">
+                                <div class="grid m-2">
                                     <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
-                                        <div class="p-inputgroup">
+                                        <div class="p-inputgroup inputgroupValor">
                                             <span class="col-11" style="text-align: center">12a.- Si él trata de
                                                 controlarla,
                                                 pero ella no lo permite, márquelo aquí:
                                             </span>
-                                            <p-selectButton [options]="opciones2" optionLabel="name"
-                                                            optionValue="label"
-                                                            formControlName="respuestaValoracion12A"></p-selectButton>
+                                            <p-selectButton [options]="opciones" optionLabel="name"
+                                                            optionValue="name"
+                                                            formControlName="respuestaValoracion12A"
+                                                            (onChange)="calcularValoracion()"></p-selectButton>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="grid">
+                                <div class="grid m-2">
                                     <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
-                                        <div class="p-inputgroup">
+                                        <div class="p-inputgroup inputgroupValor">
                                             <span class="col-11" style="text-align: left">13.- ¿Él se pone celoso de
                                                 forma
                                                 constante y violenta? Por ejemplo, le dice: “si no eres mía, no serás de
                                                 nadie” u otras similares.
                                             </span>
-                                            <p-selectButton [options]="opciones2" optionLabel="name"
+                                            <p-selectButton [options]="opcionesA" optionLabel="name"
                                                             optionValue="label"
-                                                            formControlName="respuestaValoracion13"></p-selectButton>
+                                                            formControlName="respuestaValoracion13"
+                                                            (onChange)="calcularValoracion()"></p-selectButton>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="grid">
+                                <div class="grid m-2">
                                     <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
-                                        <div class="p-inputgroup">
+                                        <div class="p-inputgroup inputgroupValor">
                                             <span class="col-11" style="text-align: left">14.- ¿Cuándo usted estuvo
                                                 embarazada,
                                                 alguna vez él la golpeó?
                                             </span>
-                                            <p-selectButton [options]="opciones2" optionLabel="name"
+                                            <p-selectButton [options]="opcionesA" optionLabel="name"
                                                             optionValue="label"
-                                                            formControlName="respuestaValoracion14"></p-selectButton>
+                                                            formControlName="respuestaValoracion14"
+                                                            (onChange)="calcularValoracion()"></p-selectButton>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="grid">
+                                <div class="grid m-2">
                                     <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
-                                        <div class="p-inputgroup">
+                                        <div class="p-inputgroup inputgroupValor">
                                             <span class="col-11" style="text-align: left">15.- ¿Alguna vez él ha
                                                 amenazado
                                                 o ha
                                                 intentado suicidarse?
                                             </span>
-                                            <p-selectButton [options]="opciones2" optionLabel="name"
+                                            <p-selectButton [options]="opcionesA" optionLabel="name"
                                                             optionValue="label"
-                                                            formControlName="respuestaValoracion15"></p-selectButton>
+                                                            formControlName="respuestaValoracion15"
+                                                            (onChange)="calcularValoracion()"></p-selectButton>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="grid">
+                                <div class="grid m-2">
                                     <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
-                                        <div class="p-inputgroup">
+                                        <div class="p-inputgroup inputgroupValor">
                                             <span class="col-11" style="text-align: left">16.- ¿Él la ha amenazado con
                                                 hacerle
                                                 daño a sus hijos?
                                             </span>
-                                            <p-selectButton [options]="opciones2" optionLabel="name"
+                                            <p-selectButton [options]="opcionesA" optionLabel="name"
                                                             optionValue="label"
-                                                            formControlName="respuestaValoracion16"></p-selectButton>
+                                                            formControlName="respuestaValoracion16"
+                                                            (onChange)="calcularValoracion()"></p-selectButton>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="grid">
+                                <div class="grid m-2">
                                     <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
-                                        <div class="p-inputgroup">
+                                        <div class="p-inputgroup inputgroupValor">
                                             <span class="col-11" style="text-align: left">17.- ¿Cree que él es capaz de
                                                 matarla?
                                             </span>
-                                            <p-selectButton [options]="opciones2" optionLabel="name"
+                                            <p-selectButton [options]="opcionesA" optionLabel="name"
                                                             optionValue="label"
-                                                            formControlName="respuestaValoracion17"></p-selectButton>
+                                                            formControlName="respuestaValoracion17"
+                                                            (onChange)="calcularValoracion()"></p-selectButton>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="grid">
+                                <div class="grid m-2">
                                     <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
-                                        <div class="p-inputgroup">
+                                        <div class="p-inputgroup inputgroupValor">
                                             <span class="col-11" style="text-align: left">18.- ¿Él realiza alguna de
                                                 las
                                                 siguientes acciones?: La llama insistentemente, le deja mensajes en su
                                                 teléfono o en redes sociales o destruye sus cosas (celular, ropa u
                                                 otro).
                                             </span>
-                                            <p-selectButton [options]="opciones2" optionLabel="name"
+                                            <p-selectButton [options]="opcionesA" optionLabel="name"
                                                             optionValue="label"
-                                                            formControlName="respuestaValoracion18"></p-selectButton>
+                                                            formControlName="respuestaValoracion18"
+                                                            (onChange)="calcularValoracion()"></p-selectButton>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="grid">
+                                <div class="grid m-2">
                                     <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
-                                        <div class="p-inputgroup">
+                                        <div class="p-inputgroup inputgroupValor">
                                             <span class="col-11" style="text-align: left">19.- ¿Alguna vez usted ha
                                                 intentado o
                                                 ha amenazado con quitarse la vida?
                                             </span>
-                                            <p-selectButton [options]="opciones2" optionLabel="name"
+                                            <p-selectButton [options]="opcionesA" optionLabel="name"
                                                             optionValue="label"
-                                                            formControlName="respuestaValoracion19"></p-selectButton>
+                                                            formControlName="respuestaValoracion19"
+                                                            (onChange)="calcularValoracion()"></p-selectButton>
                                         </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="grid m-2">
+                                    <div class="col-12 md:col-12 md:col-6 lg:col-5 p-field">
+                                        <label>OBSERVACIONES:</label>
+                                        <div class="">
+                                            <input type="text" pInputText formControlName="observaciones"
+                                                   class="w-full"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 md:col-12 md:col-6 lg:col-4 p-field text-center">
+                                        <label>NIVEL DE RIESGO:</label>
+                                        <div class="">
+                                            <input type="text" pInputText formControlName="NivelRiesgo"
+                                                   style="text-align: center" class="w-full"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 md:col-12 md:col-6 lg:col-3 p-field text-center">
+                                        <label>SUMATORIA DE PUNTAJE:</label>
+                                        <div class="">
+                                            <input type="text" pInputText formControlName="SumaTotalvalor"
+                                                   style="text-align: center"/>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="grid m-2">
+                                    <div class="col-12 md:col-12 md:col-6 lg:col-8 p-field">
+                                    </div>
+                                    <div class="col-12 md:col-12 md:col-6 lg:col-4 p-field">
                                     </div>
                                 </div>
                             </div>
@@ -997,7 +1056,7 @@
 
 
 <p-dialog [(visible)]="ListaTamizajeDialog" [style]="{width: '1200px', height: '600px'}" [modal]="true"
-          styleClass="p-fluid" autoZIndex class="dialogOfertas">
+          [draggable]="false" [resizable]="false">
 
     <div class="p-card">
         <p-card>
@@ -1008,7 +1067,6 @@
             </div>
             <br>
         </p-card>
-
 
         <p-accordion>
             <p-accordionTab header="LISTA DE PACIENTES CON CUPOS PARA EL DIA DE HOY" [selected]="true">

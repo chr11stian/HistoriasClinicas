@@ -32,4 +32,17 @@ p-panel >>> .p-panel .p-panel-content {
     border: 1px solid #0c3866;
 }
 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+input[type="number"] {
+    padding-left: 0.1em;
+    text-align: left;
+}
