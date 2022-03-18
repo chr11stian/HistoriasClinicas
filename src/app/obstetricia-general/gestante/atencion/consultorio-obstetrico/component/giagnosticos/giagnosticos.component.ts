@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import Swal from "sweetalert2";
 import { ObstetriciaGeneralService } from "../../../../../services/obstetricia-general.service";
 import { CieService } from "../../../../../services/cie.service";
@@ -61,7 +61,7 @@ export class GiagnosticosComponent implements OnInit {
     prestacionList: any[];
     upsList: any[];
 
-    idIpress: String = "616de45e0273042236434b51";
+    //idIpress: String = "616de45e0273042236434b51";
 
     idConsulta: string;
     tipoDocRecuperado: string;
@@ -74,9 +74,8 @@ export class GiagnosticosComponent implements OnInit {
     estadoEdicion: Boolean;
 
     nroAtencion: any;
+    opciones: any;
     constructor(private formBuilder: FormBuilder,
-        //private obstetriciaService: ObstetriciaGeneralService,
-        //private cieService: CieService,
         private PrestacionService: PrestacionService,
         private CieService: CieService,
         private messageService: MessageService,
@@ -136,6 +135,10 @@ export class GiagnosticosComponent implements OnInit {
             { label: 'NO', value: 'NO' },
             { label: 'NO APLICA', value: 'NO APLICA' }
         ];
+        this.opciones = [
+            { name: 'SI', boleano: true },
+            { name: 'NO', boleano: false }
+        ];
         this.recuperarCronograma();
     }
     ngOnInit() {
@@ -147,15 +150,7 @@ export class GiagnosticosComponent implements OnInit {
         this.recuperarPrestaciones();
         this.recuperarNroFetos();
         this.recuperarDatosGuardados();
-        // this.recuperarUPS();
-
     }
-    // recuperarUPS(){
-    //     this.DxService.getServiciosPorIpress(this.idIpress).subscribe((res: any)=>{
-    //         this.upsList=res.object;
-    //         console.log("ups:",this.upsList);
-    //     })
-    // }
     recuperarPrestaciones() {
         this.DxService.getPrestaciones().subscribe((res: any) => {
             this.prestacionList = res.object;
@@ -194,9 +189,23 @@ export class GiagnosticosComponent implements OnInit {
             autocompleteHIS: [''],
             diagnosticoHIS: ['', [Validators.required]],
             HISCIE: ['', [Validators.required]],
+
         });
         this.form2 = this.formBuilder.group({
             orientaciones: ['', [Validators.required]],
+            /****ATENCION INTEGRAL******/
+            OrientaciónConsejeríaSignosAlarma: new FormControl(''),
+            ConsejeríaEnfermedadesComunes: new FormControl(''),
+            SospechasTuberculosis: new FormControl(''),
+            InfeccionesTransmisiónSexual: new FormControl(''),
+            OrientaciónNutricional: new FormControl(''),
+            OrientaciónPlanificaiónFamiliar: new FormControl(''),
+            OrientaciónPrevenciónDeCancerGinecológico: new FormControl(''),
+            OrientaciónConsejeriaPretestVIH: new FormControl(''),
+            OrientaciónEnEstilosDeVidaSaludable: new FormControl(''),
+            OrientaciónAcompañante: new FormControl(''),
+            ViolenciaFamiliar: new FormControl(''),
+            PlanDeParto: new FormControl(''),
         });
         this.formOtrosDatos = this.formBuilder.group({
             consultorio: ['', [Validators.required]],
