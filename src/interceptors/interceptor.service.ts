@@ -29,7 +29,7 @@ export class InterceptorService implements HttpInterceptor {
                 headers: req.headers.set("Authorization", "Bearer " + idToken)
             });
         }
-        console.log('cloneddd ', cloned)
+        console.log('cloned ', cloned)
         return next.handle(cloned).pipe(
             catchError(response => {
                 console.log('response', response)
