@@ -21,47 +21,51 @@
         <div class="col-12">
             <p-fieldset legend="MEDICACIÓN">
                 <div class="grid p-fluid">
-                    <div class="col-8">
-                        <label>Nombre:</label>
-                        <p-autoComplete [suggestions]="listaMedicamentos" (completeMethod)="filterMedicamento($event)"
-                            appendTo="body" field="nombre" [minLength]="1" class="inputfield p-fluid w-full"
-                            formControlName="nombre" (onSelect)="selectedOptionNameMedicamento($event)">
+                    <div class="col-11">
+                        <label>Medicamento:</label>
+                        <p-autoComplete [suggestions]="aux" (completeMethod)="filterItems($event)" [itemSize]="34"
+                            appendTo="body" field="stringMedicamento" [minLength]="1" class="inputfield p-fluid w-full"
+                            formControlName="nombre" (onSelect)="selectedOptionNameMedicamento($event)" [dropdown]="true">
                         </p-autoComplete>
                     </div>
-                    <div class="col-4">
+                    <div class="col-1">
                         <label>Stock:</label>
                         <input type="number" pInputText formControlName='stock' placeholder="Stock" required />
                     </div>
-                    <div class="col-3">
+                    <div class="col-4">
+                        <label>Nombre:</label>
+                        <input type="text" pInputText formControlName='nombreMed' placeholder="Nombre" required />
+                    </div>
+                    <div class="col-2">
                         <label>Cantidad:</label>
                         <input type="number" pInputText formControlName='cantidad' placeholder="Cantidad" required />
                     </div>
-                    <div class="col-3">
+                    <div class="col-2">
                         <label>Dosis:</label>
                         <input type="text" pInputText formControlName='dosis' placeholder="Dosis" required />
                     </div>
-                    <div class="col-3">
+                    <div class="col-2">
                         <label>Intervalo</label>
                         <div class="p-field">
                             <p-dropdown inputId="dropdown" [options]="intervaloList" formControlName="intervalo"
-                                placeholder="seleccionar" optionLabel="label" optionValue="value"
+                                placeholder="Seleccionar" optionLabel="label" optionValue="value"
                                 defaultLabel="Seleccione:">
                             </p-dropdown>
                         </div>
                     </div>
-                    <div class="col-3">
+                    <div class="col-2">
                         <label>Duración:</label>
-                        <input type="text" pInputText formControlName='duracion'
+                        <input type="text" pInputText formControlName='duracion' style="text-transform:uppercase"
                             placeholder="Duración" required />
                     </div>
-                    <div class="col-3">
+                    <div class="col-2">
                         <label>Fecha vencimiento:</label>
-                        <input type="text" pInputText formControlName='duracion'
+                        <input type="text" pInputText formControlName='fechaVencimiento'
                             placeholder="Fecha vencimiento" required />
                     </div>
-                    <div class="col-3">
+                    <div class="col-10">
                         <label>Observaciones:</label>
-                        <input type="text" pInputText formControlName='observaciones'
+                        <input type="text" pInputText formControlName='observaciones' style="text-transform:uppercase"
                             placeholder="Observaciones" required />
                     </div>
                 </div>
@@ -71,24 +75,24 @@
         <div class="col-12">
             <p-fieldset legend="INDICACIONES">
                 <div class="grid p-fluid">
-                    <div class="col-4">
-                        <label>Efectos medicamento:</label>
-                        <input type="text" pInputText formControlName='efectosMedicamento'
-                            placeholder="Efectos med." required />
+                    <div class="col-6">
+                        <label>Efectos medicamento</label>
+                        <input type="text" pInputText formControlName='efectosMedicamento' style="text-transform:uppercase"
+                            placeholder="Efecto medicamento" required />
                     </div>
-                    <div class="col-4">
+                    <div class="col-6">
                         <label>Instrucciones:</label>
-                        <input type="text" pInputText formControlName='instrucciones'
+                        <input type="text" pInputText formControlName='instrucciones' style="text-transform:uppercase"
                             placeholder="Instrucciones" required />
                     </div>
-                    <div class="col-4">
+                    <div class="col-6">
                         <label>Advertencias:</label>
-                        <input type="text" pInputText formControlName='advertencias'
+                        <input type="text" pInputText formControlName='advertencias' style="text-transform:uppercase"
                             placeholder="Advertencias" required />
                     </div>
-                    <div class="col-4">
+                    <div class="col-6">
                         <label>Otras indicaciones</label>
-                        <input type="text" pInputText formControlName='otrasIndicaciones'
+                        <input type="text" pInputText formControlName='otrasIndicaciones' style="text-transform:uppercase"
                             placeholder="Otras indicaciones" required />
                     </div>
                 </div>

@@ -183,9 +183,14 @@
                      style="text-transform:uppercase">
             </div>
             <div class="col-2 p-fluid">
-              <label class="">NRO. DIAGNÓSTICO: </label>
-              <input type="number" pInputText placeholder="Nro. Diagnóstico" class="inputfield w-full " formControlName="cie10SIS"
-                     style="text-transform:uppercase">
+              <label class="">CIE 10 HIS: </label>
+              <p-dropdown  inputId="dropdown" [options]="listaDiagnosticos"
+                           formControlName="cie10SIS"
+                           placeholder="seleccionar"
+                           defaultLabel="Seleccione:" >
+              </p-dropdown>
+<!--              <input type="number" pInputText placeholder="Nro. Diagnóstico" class="inputfield w-full " formControlName="cie10SIS"-->
+<!--                     style="text-transform:uppercase">-->
             </div>
           </div>
         </div>
