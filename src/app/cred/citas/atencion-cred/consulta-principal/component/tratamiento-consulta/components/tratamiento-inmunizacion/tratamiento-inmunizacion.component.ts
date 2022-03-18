@@ -1,19 +1,22 @@
-import { Component, OnInit } from "@angular/core";
-import { inmunizaciones } from "../../../../../plan/component/plan-atencion-integral/models/plan-atencion-integral.model";
-import { InmunizacionesService } from "../../../../../plan/component/plan-atencion-integral/services/inmunizaciones/inmunizaciones.service";
-import { MessageService } from "primeng/api";
-import { ActivatedRoute } from "@angular/router";
-import { DialogService } from "primeng/dynamicdialog";
-import { VacunaComponent } from "../vacuna/vacuna.component";
-import { dato } from "../../../../../../models/data";
-
+import { Component, OnInit } from '@angular/core';
+import {dato} from "../../../../../../models/data";
+import {inmunizaciones} from "../../../../../plan/component/plan-atencion-integral/models/plan-atencion-integral.model";
+import {
+  InmunizacionesService
+} from "../../../../../plan/component/plan-atencion-integral/services/inmunizaciones/inmunizaciones.service";
+import {MessageService} from "primeng/api";
+import {ActivatedRoute} from "@angular/router";
+import {DialogService} from "primeng/dynamicdialog";
+import {
+  TratamientoInmunizacionModalComponent
+} from "../tratamiento-inmunizacion-modal/tratamiento-inmunizacion-modal.component";
 @Component({
-  selector: "app-inmunizaciones-cred",
-  templateUrl: "./inmunizaciones-cred.component.html",
-  styleUrls: ["./inmunizaciones-cred.component.css"],
+  selector: 'app-tratamiento-inmunizacion',
+  templateUrl: './tratamiento-inmunizacion.component.html',
+  styleUrls: ['./tratamiento-inmunizacion.component.css'],
   providers: [DialogService],
 })
-export class InmunizacionesCredComponent implements OnInit {
+export class TratamientoInmunizacionComponent implements OnInit {
   valor: string = "";
   tipoDNI: string;
   data: dato;
@@ -41,17 +44,21 @@ export class InmunizacionesCredComponent implements OnInit {
     { abreviado: "4A", completo: "Cuatro Años" },
   ];
   mesActual: number;
+  mes:number;
+  dia:number;
+  anio:number;
 
   constructor(
-    private inmunizacionesService: InmunizacionesService,
-    private messageService: MessageService,
-    private rutaActiva: ActivatedRoute,
-    public dialogService: DialogService
+      private inmunizacionesService: InmunizacionesService,
+      private messageService: MessageService,
+      private rutaActiva: ActivatedRoute,
+      public dialogService: DialogService
   ) {
     this.data = <dato>JSON.parse(localStorage.getItem("documento"));
     this.mesActual = this.data.anio * 12 + this.data.mes;
-    // this.mesActual=96;
-    // console.log(this.mesActual)
+    this.mes=this.data.mes;
+    this.dia=this.data.dia;
+    this.anio=this.data.anio;
   }
 
   ngOnInit() {
@@ -67,7 +74,7 @@ export class InmunizacionesCredComponent implements OnInit {
     this.listaInmunizaciones.forEach((element) => {
       element.fechaTentativa = new Date(`${element.fechaTentativa} 00:00:00`);
       element.fechaAdministracion =
-        element.fechaAdministracion != null ? new Date(`${element.fechaAdministracion} 00:00:00`) : null;
+          element.fechaAdministracion != null ? new Date(`${element.fechaAdministracion} 00:00:00`) : null;
     });
   }
   nombreVacuna(nombre: string) {
@@ -94,17 +101,17 @@ export class InmunizacionesCredComponent implements OnInit {
   }
   getListaInmunizaciones() {
     this.inmunizacionesService
-      .getListaInmunizaciones(this.nroDNI)
-      .subscribe((resp) => {
-        this.inmunizacionesAgrupadas = [[], [], [], [], [], [], [], [], [], []];
-        this.listaInmunizaciones = resp["object"];
-        this.toDate();
-        this.clasificamos();
-      });
+        .getListaInmunizaciones(this.nroDNI)
+        .subscribe((resp) => {
+          this.inmunizacionesAgrupadas = [[], [], [], [], [], [], [], [], [], []];
+          this.listaInmunizaciones = resp["object"];
+          this.toDate();
+          this.clasificamos();
+        });
   }
 
   agregarVacuna(vacuna: inmunizaciones, nombre) {
-    const ref = this.dialogService.open(VacunaComponent, {
+    const ref = this.dialogService.open(TratamientoInmunizacionModalComponent, {
       data: vacuna,
       header: `Agregar Vacuna ${nombre} Dosis numero (${vacuna.dosis})`,
       width: "50%",
@@ -124,4 +131,5 @@ export class InmunizacionesCredComponent implements OnInit {
       }
     });
   }
+
 }

@@ -1,13 +1,13 @@
 <div class="">
   <p-tabView class="">
-    <p-tabPanel header="SUPLEMENTACION" leftIcon="pi pi-calendar" [selected]="true" >
+    <p-tabPanel header="INMUNIZACION" leftIcon="pi pi-user" [selected]="true">
       <ng-template pTemplate="content">
-        <app-suplementacion-cred></app-suplementacion-cred>
+        <app-tratamiento-inmunizacion></app-tratamiento-inmunizacion>
       </ng-template>
     </p-tabPanel>
-    <p-tabPanel header="TRATAMIENTO Y SEGUIMIENTO DE ANEMIA" leftIcon="pi pi-user">
+    <p-tabPanel header="SUPLEMENTACION" leftIcon="pi pi-calendar"  >
       <ng-template pTemplate="content">
-        <app-tratamiento-seguimiento-anemia-consulta></app-tratamiento-seguimiento-anemia-consulta>
+        <app-suplementacion-cred></app-suplementacion-cred>
       </ng-template>
     </p-tabPanel>
     <p-tabPanel header="TRATAMIENTO" leftIcon="pi pi-user">

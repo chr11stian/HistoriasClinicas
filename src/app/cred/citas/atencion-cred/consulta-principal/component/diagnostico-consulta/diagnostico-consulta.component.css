@@ -78,6 +78,22 @@ p {
     background: #FFFFFF;
 }
 
+p-dialog >>> .p-dialog .p-dialog-header {
+    border-bottom: 0 none;
+    background: #0c3866;
+    color: #495057;
+    padding: 1.5rem;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+    z-index:89999;
+}
+p-dialog >>> .p-dialog .p-dialog-header .p-dialog-title {
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: #ffffff;
+    z-index:89999;
+}
+
 .p-table >>> .p-table {
     overflow-x: auto;
 }

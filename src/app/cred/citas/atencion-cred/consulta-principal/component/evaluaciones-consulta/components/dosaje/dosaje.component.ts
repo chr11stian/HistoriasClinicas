@@ -20,6 +20,15 @@ interface DosajeHemoglobina{
   styleUrls: ['./dosaje.component.css']
 })
 export class DosajeComponent implements OnInit {
+  nivelAnemia=[
+      {name:'Anemia Leve',code:'ANEMIA LEVE'},
+      {name:'Anemia Moderada',code:'ANEMIA MODERADA'},
+      {name:'Anemia Severa',code:'ANEMIA SEVERA'}
+  ]
+  positivoAnemia=[
+    {name:'Positivo',code:'POSITIVO'},
+    {name:'Negativo',code:'NEGATIVO'},
+  ]
   dosajeFG:FormGroup;
   dosaje:DosajeHemoglobina= this.config.data;
   documento=JSON.parse(localStorage.getItem('documento'))
@@ -42,6 +51,10 @@ export class DosajeComponent implements OnInit {
         fechaTentativa:new FormControl('',Validators.required),
         fechaAdministrada:new FormControl('',Validators.required),
         valorHb:new FormControl('',Validators.required),
+        valorHbFactor:new FormControl('',Validators.required),
+        nivelAnemia:new FormControl('',Validators.required),
+        positivoAnemia:new FormControl('',Validators.required),
+
     })
   }
   getDosaje(){

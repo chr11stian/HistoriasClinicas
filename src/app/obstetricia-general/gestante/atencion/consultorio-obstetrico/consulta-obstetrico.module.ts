@@ -16,6 +16,7 @@ import { ModalInmunizacionesComponent } from "./component/tratamiento/modal-inmu
 import { ModalInterconsultaComponent } from './component/tratamiento/modal-interconsulta/modal-interconsulta.component';
 import { ModalRecomendacionesComponent } from './component/tratamiento/modal-recomendaciones/modal-recomendaciones.component';
 import { ModalExamenesAuxiliaresComponent } from './component/tratamiento/modal-examenes-auxiliares/modal-examenes-auxiliares.component';
+import {TamizajeViolenciaComponent} from "./component/tamizaje-violencia/tamizaje-violencia.component";
 import { ModalProcedimientosComponent } from './component/tratamiento/modal-procedimientos/modal-procedimientos.component';
 import { ProcedimientosComponent } from './component/procedimientos/procedimientos.component';
 import { EvaluacionesComponent } from './component/evaluaciones/evaluaciones.component';
@@ -24,7 +25,7 @@ import { EvaluacionesComponent } from './component/evaluaciones/evaluaciones.com
     declarations: [
         ModalTratamientoComponent,
         ModalInmunizacionesComponent,
-
+        TamizajeViolenciaComponent,
         DatosGeneralesComponent,
         StepGeneral_consultaComponent,
         InterrogatorioComponent,
