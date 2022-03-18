@@ -38,6 +38,7 @@ import { SplitterModule } from 'primeng/splitter';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 import {InputMaskModule} from 'primeng/inputmask';
+import { FormsModule } from '@angular/forms';
 
 
 const importsApi = [
@@ -91,7 +92,8 @@ const importsApi = [
   DynamicDialogModule,
   DividerModule,
   SplitterModule,
-  InputMaskModule
+  InputMaskModule,
+  FormsModule,
 ];
 
 @NgModule({

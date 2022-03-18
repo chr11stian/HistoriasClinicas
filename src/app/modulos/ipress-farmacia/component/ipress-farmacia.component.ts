@@ -51,6 +51,7 @@ export class IpressFarmaciaComponent implements OnInit {
       nombre: new FormControl({value:'',disabled:true}),
       ff: new FormControl({value:'',disabled:true}),
       concentracion: new FormControl({value:'',disabled:true}),
+      nombreComercial: new FormControl({value:'',disabled:true}),
       viaAdministracion: new FormControl({value:'',disabled:true}),
       stock: new FormControl({value:'',disabled:false}),
       fechaVenc: new FormControl({value:'',disabled:false}),
@@ -103,6 +104,7 @@ export class IpressFarmaciaComponent implements OnInit {
             medicamento:{
                 id                :this.listaMedicamentos[i].id,
                 nombre            : this.listaMedicamentos[i].nombre,
+                nombreComercial   : this.listaMedicamentos[i].nombreComercial,
                 ff                : this.listaMedicamentos[i].ff,
                 concentracion     :this.listaMedicamentos[i].concentracion,
                 codigo            :this.listaMedicamentos[i].codigo,
@@ -146,6 +148,7 @@ export class IpressFarmaciaComponent implements OnInit {
             id: this.medicamento.id,
             codigo: this.medicamento.codigo,
             nombre: this.medicamento.nombre,
+            nombreComercial: this.medicamento.nombreComercial,
             ff: this.medicamento.ff,
             concentracion: this.medicamento.concentracion,
             viaAdministracion: this.medicamento.viaAdministracion,
@@ -156,40 +159,50 @@ export class IpressFarmaciaComponent implements OnInit {
         }]
       }
 
-      this.items.push(cadena.items[0]);
+
       console.log(this.items);
       if(this.hayMedicamento==true){
-      await this.farmaciaService.updateMedicamentoFarmaciaXIpress(this.renipress,cadena).subscribe((data:any)=>{
-        this.recuperarMedicamentosFarmacia();
-        Swal.fire({
-          icon: 'success',
-          title: 'Medicamentos a Farmacia',
-          text: 'Se agrego con éxito un medicamento!',
-        })
-      },error => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Medicamentos a Farmacia',
-          text: 'Ocurrio un error al ingresar, vuelva a intentarlo!',
-        })
-      })
-    }
-    else{
+        var duplicado:boolean=this.items.some(element=>element==cadena.items[0])
+        if(!duplicado){
+          await this.farmaciaService.updateMedicamentoFarmaciaXIpress(this.renipress,cadena).subscribe((data:any)=>{
+            this.items.push(cadena.items[0]);
+            this.recuperarMedicamentosFarmacia();
+            Swal.fire({
+              icon: 'success',
+              title: 'Medicamentos a Farmacia',
+              text: 'Se agrego con éxito un medicamento!',
+            })
+          },error => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Medicamentos a Farmacia',
+              text: 'Ocurrio un error al ingresar, vuelva a intentarlo!',
+            })
+          })
+        }else{
+          Swal.fire({
+            icon: 'error',
+            title: 'Medicamentos a Farmacia',
+            text: 'Medicamento ya ingresado, vuelva a intentarlo!',
+          })
+        }
+      }
+      else{
 
-      await this.farmaciaService.addMedicamentoFarmaciaXIpress(this.renipress,cadena).subscribe((data:any)=>{
-        this.recuperarMedicamentosFarmacia();
-        Swal.fire({
-          icon: 'success',
-          title: 'Medicamentos a Farmacia',
-          text: 'Se agrego con éxito un medicamento!',
+        await this.farmaciaService.addMedicamentoFarmaciaXIpress(this.renipress,cadena).subscribe((data:any)=>{
+          this.recuperarMedicamentosFarmacia();
+          Swal.fire({
+            icon: 'success',
+            title: 'Medicamentos a Farmacia',
+            text: 'Se agrego con éxito un medicamento!',
+          })
+        },error => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Medicamentos a Farmacia',
+            text: 'Ocurrio un error al ingresar, vuelva a intentarlo!',
+          })
         })
-      },error => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Medicamentos a Farmacia',
-          text: 'Ocurrio un error al ingresar, vuelva a intentarlo!',
-        })
-      })
     }
 
     this.dialogFarmaciaAdd=false;
@@ -225,6 +238,7 @@ export class IpressFarmaciaComponent implements OnInit {
     this.medicamento = event.medicamento;
     this.formDatos.patchValue({ medicamento: ""});
     this.formDatos.patchValue({ nombre: event.medicamento.nombre });
+    this.formDatos.patchValue({ nombreComercial: event.medicamento.nombreComercial });
     this.formDatos.patchValue({ codigo: event.medicamento.codigo });
     this.formDatos.patchValue({ concentracion: event.medicamento.concentracion });
     this.formDatos.patchValue({ viaAdministracion: event.medicamento.viaAdministracion });
@@ -276,6 +290,7 @@ export class IpressFarmaciaComponent implements OnInit {
   llenarDatosForm(rowData){
     console.log(rowData);
     this.formDatos.get("nombre").setValue(rowData.medicamento.nombre);
+    this.formDatos.get("nombreComercial").setValue(rowData.medicamento.nombreComercial);
     this.formDatos.get("codigo").setValue(rowData.medicamento.codigo);
     this.formDatos.get("concentracion").setValue(rowData.medicamento.concentracion);
     this.formDatos.get("viaAdministracion").setValue(rowData.medicamento.viaAdministracion);
@@ -323,6 +338,7 @@ interface medicamento{
   id?:string,
   codigo?:string,
   nombre?:string,
+  nombreComercial?:string,
   ff?:string,
   concentracion?:string,
   viaAdministracion?:string

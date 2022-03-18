@@ -5,7 +5,7 @@ export interface Laboratorio {
     examenesAuxiliares?: ExamenAuxiliar[],
     observaciones: string
 }
-export interface Laboratorio {
+export interface AddLaboratorio {
     servicio: string,
     nroCama: string,
     dxPresuntivo: string,
@@ -20,6 +20,7 @@ export interface ExamenAuxiliar {
     codPrestacion: string,
     cie10: string,
     codigoHIS: string,
+    lugarExamen: string,
     resultado: ResultadoLaboratorio,
     labExterno: string
 }
@@ -44,8 +45,8 @@ export interface Hematologia {
     blastos?: string,
     juveniles?: string,
     neutrofilos?: string,
-    nAbastonados?: string,
-    nSegmentados?: string,
+    nabastonados?: string,
+    nsegmentados?: string,
     linfocitos?: string,
     monocitos?: string,
     eosinofilos?: string,
@@ -69,7 +70,7 @@ export interface Parasitologia {
 export interface ExamenMacroscopico {
     color?: string,
     consistencia?: string,
-    pH?: string,
+    ph?: string,
     reaccion?: string,
     mucus?: string,
     sangre?: string,
@@ -85,10 +86,10 @@ export interface ExamenMicroscopico {
     bacterias?: string,
     cocosBacilos?: string,
     formasParasitarias?: string,
-    huevosDe?: ValueLab,
-    quistesDe?: ValueLab,
-    trofozoitosDe?: ValueLab,
-    larvasDe?: ValueLab
+    huevosDe?: ValueLab[],
+    quistesDe?: ValueLab[],
+    trofozoitosDe?: ValueLab[],
+    larvasDe?: ValueLab[]
 }
 export interface ValueLab {
     valor1?: string,

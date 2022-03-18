@@ -1,0 +1,101 @@
+
+<!--    <p-card class="mb-2">-->
+<!--        <div>-->
+<!--      <span style="font-weight: bold;font-size: 1.2rem">-->
+<!--        Descripcion :-->
+<!--      </span>-->
+<!--            <span>{{ suplemento.descripcion }}</span>-->
+<!--        </div>-->
+<!--        &lt;!&ndash;    <div>&ndash;&gt;-->
+<!--        &lt;!&ndash;      <span style="font-weight: bold;font-size: 1.2rem">&ndash;&gt;-->
+<!--        &lt;!&ndash;        Dosis:&ndash;&gt;-->
+<!--        &lt;!&ndash;      </span>&ndash;&gt;-->
+<!--        &lt;!&ndash;      <span>{{suplemento.nombre=='SF'?'2mg/kg/dia':suplemento.nombre=='MNM'?'1 Sobre Diario':'100,000UI'}}</span>&ndash;&gt;-->
+<!--        &lt;!&ndash;    </div>&ndash;&gt;-->
+<!--        <div>-->
+<!--      <span style="font-weight: bold;font-size: 1.2rem">-->
+<!--       Frecuencia :-->
+<!--      </span>-->
+<!--            <span>{{ consumoDiario }}</span>-->
+<!--        </div>-->
+<!--    </p-card>-->
+    <div class="grid mt-2" [formGroup]="dosajeFG">
+        <div class="col-6 grid">
+            <div class="col-4">Fecha Programada:</div>
+            <div class="col-6 p-fluid">
+                <p-calendar
+                        disabled="true"
+                        formControlName="fechaTentativa"
+                        [showIcon]="true"
+                        inputId="icon"
+                        dateFormat="dd/mm/yy"
+                ></p-calendar>
+            </div>
+        </div>
+        <div class="col-6 grid">
+            <div class="col-4">Fecha Toma de prueba:</div>
+            <div class="col-6 p-fluid">
+                <p-calendar
+                        disabled="true"
+                        formControlName="fechaAdministrada"
+                        [showIcon]="true"
+                        inputId="icon"
+                        dateFormat="dd/mm/yy"
+                ></p-calendar>
+            </div>
+        </div>
+        <div class="col-6 grid ">
+            <div class="col-4">Valor Hemoglobina:</div>
+            <div class="col-8 p-fluid ">
+                <input type="text" pInputText placeholder="12.5" formControlName="valorHb">
+            </div>
+        </div>
+        <div class="col-6 grid ">
+            <div class="col-4">Valor Hemoglobina con factor de correpcion:</div>
+            <div class="col-8 p-fluid ">
+                <input type="text" pInputText placeholder="10.5" formControlName="valorHbFactor">
+            </div>
+        </div>
+        <div class="col-6 grid ">
+            <div class="col-4">Nivel de anemia:</div>
+            <div class="col-8 p-fluid ">
+<!--                <input type="text" pInputText placeholder="12.5" formControlName="nivelAnemia">-->
+                <p-dropdown [options]="nivelAnemia" formControlName="nivelAnemia" optionLabel="name"></p-dropdown>
+            </div>
+        </div>
+        <div class="col-6 grid ">
+            <div class="col-4">Positivo a Anemia?:</div>
+            <div class="col-8 p-fluid ">
+<!--                <input type="text" pInputText placeholder="12.5" formControlName="positivoAnemia">-->
+                <p-selectButton [options]="positivoAnemia" FormControlName="positivoAnemia" optionLabel="name"></p-selectButton>
+            </div>
+        </div>
+
+    </div>
+    <div class="flex justify-contentd mt-5">
+        <button
+                pButton
+                type="button"
+                label="Cerrar"
+                class="p-button-danger p-button px-5 mx-1 text-center p-button-danger"
+                icon="pi pi-times-circle"
+                style="border-radius: 0.5rem"
+                (click)="cancel()"
+        ></button>
+        <button
+                pButton
+                [disabled]="dosajeFG.invalid"
+                type="button"
+                label="Guardar"
+                class="p-button-info p-button px-5 mx-1 text-center"
+                icon="pi pi-save"
+                style="border-radius: 0.5rem"
+                (click)="save()"
+        ></button>
+    </div>
+
+<p-confirmDialog
+        [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
+        [style]="{ width: '25vw'}"
+        key="claveDialog">
+</p-confirmDialog>

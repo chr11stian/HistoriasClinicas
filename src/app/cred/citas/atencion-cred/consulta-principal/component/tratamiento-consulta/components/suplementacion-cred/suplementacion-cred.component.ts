@@ -22,6 +22,9 @@ export class SuplementacionCredComponent implements OnInit {
   MNM: SuplementacionMicronutrientes[] = []
   vitaminaA:SuplementacionMicronutrientes[]=[]
   edadMes:number;
+  dia:number;
+  mes:number;
+  anio:number
   dataDocumento:dato
   constructor(private servicio: SuplementacionesMicronutrientesService,
               private messageService: MessageService,
@@ -29,13 +32,16 @@ export class SuplementacionCredComponent implements OnInit {
     this.dataDocumento=JSON.parse(localStorage.getItem('documento'))
     this.edadMes=this.dataDocumento.anio*12+this.dataDocumento.mes
     this.dni=this.dataDocumento.nroDocumento
+    this.mes=this.dataDocumento.mes;
+    this.dia=this.dataDocumento.dia;
+    this.anio=this.dataDocumento.anio;
 
     this.stateOptions = [
       { label: 'SI', optionValue: true },
       { label: 'NO', optionValue: false }
     ];
   }
-
+s
   ngOnInit(): void {
     this.getLista()
   }

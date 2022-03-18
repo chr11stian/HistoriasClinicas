@@ -10,6 +10,7 @@ p-dialog >>> .p-toolbar {
     border-color: #0C3866;
     color: #0C3866;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    padding:2px;
 
 }
 p-dialog >>> .p-dialog .p-dialog-header {
@@ -29,3 +30,8 @@ p-dialog{
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #0C3866;
 }
+.p-inputtext:enabled:hover {
+    border-color: salmon;
+
+}
+

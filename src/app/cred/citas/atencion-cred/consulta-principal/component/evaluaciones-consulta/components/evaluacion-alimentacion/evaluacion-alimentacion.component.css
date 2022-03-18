@@ -84,3 +84,19 @@ p-calendar >>> .p-button {
     border: 1px solid #0c3866;
     align-self: center;
 }
+/****/
+::ng-deep  .p-datatable table {
+    width: auto;
+}
+
+::ng-deep  .p-datatable .p-datatable-thead > tr > th {
+    text-align: center !important;
+    border: 1px solid #b6b6b6;
+    background-color: #dddddd;
+    /*padding: 0.3rem;*/
+}
+::ng-deep .p-datatable .p-datatable-tbody > tr > td {
+    text-align: center;
+    /*font-size: medium;*/
+    word-wrap: break-word;
+}

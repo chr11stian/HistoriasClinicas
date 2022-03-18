@@ -21,23 +21,21 @@ export class SuplementoComponent implements OnInit {
   dataDocumento:dato;
   suplemento: SuplementacionMicronutrientes;
   suplemetancionFG: FormGroup;
-  repositorioSF: any[] = [
-    {name:'Gotas',code:'Gotas'},
-    {name:'Jarabe',code:'Jarabe'},
-    {name:'Tabletas',code:'Tabletas'},
-
-  ];
-  repositorioMNM: any[] = [
-    {name:'Sobre',code:'Sobre'}
-  ];
+  // repositorioMNM: any[] = [
+  //   {name:'Sobre',code:'Sobre'}
+  // ];
   presentacionSF=[
-    {name:'Sulfato Ferroso',code:'Gotas Sulfato Ferroso'},
-    {name:'Complejo Polimaltosado Ferrico',code:'Gotas de Complejo Polimaltosado Ferrico'},
+    {name:'HIERRO POLIMALTOSADO-(SOL 50mg/ml 20ml)',code:'28551'},
+    {name:'FERROSO SULFATO(SAL FERROSA)-(TAB 300MG)',code:'03552'},
+    {name:'FERROSO SULFATO HEPTAHIDRATO-(FCO 15mg/5ml-180ml)',code:'03519'},
   ]
   presentacionMNM=[
-    {name:'Micronutriente 1 gramo en Polvo',code:'Micronutriente 1 gramo en Polvo'},
+    {name:'Micronutriente 1 gramo en Polvo',code:'sin codificacion'},
   ]
-  // dosis: string = " 2mg/kg/dia";
+  presentacionVitaminaA=[
+    {name:'RETINOL VITAMINA A (CAP-100.000 UI (30mg))',code:'08152'},
+    {name:'RETINOL VITAMINA A (CAP-200.000 UI (30mg))',code:'08153'},
+  ]
   isSuplementacion:boolean
   consumoDiario: string = "Consumo diario";
   constructor(
@@ -58,8 +56,8 @@ export class SuplementoComponent implements OnInit {
     this.suplemetancionFG = new FormGroup({
       fechaTentativa: new FormControl("", Validators.required),
       fechaAplicacion: new FormControl("", Validators.required),
-      tipo: new FormControl("", Validators.required),
-      presentacion: new FormControl("", Validators.required),
+      medicamento: new FormControl("", Validators.required),
+      dosis: new FormControl("", Validators.required),
     });
   }
   getFC(control: string): AbstractControl {
@@ -72,24 +70,25 @@ export class SuplementoComponent implements OnInit {
   save() {
     const requestInput = {
         codPrestacion: "21312", //duro
-        codSISMED: "123322", //duro
+        codSISMED: this.getFC('medicamento').value.code,
         nroDiagnostico: 0, //duro
         codProcedimientoHIS: "32323", //duro
         codUPS: "324231", //duro
-        // tipoSuplementacion: "Preventiva",
-        nombre: this.suplemento.nombre,
-        descripcion: this.suplemento.descripcion,
-        dosisIndicacion: this.getFC('tipo').value,//para el tipo
-        viaAdministracion: this.getFC('presentacion').value,//para la presentacion
+
+        nombre: this.suplemento.nombre,//SF
+        descripcion: this.getFC('medicamento').value.name,//(mas conocido como el medicamento)aun por definir,//SF-SULFATO-FERROSO
+        dosisIndicacion: this.getFC('dosis').value,//dosis campo abierto deberia se calculado 1/2cucharadita
+        viaAdministracion: 'oral',//par
         frecuencia: "cada dia",
-        duracion: "1 mes",
-        indicacion: "temor con citricos",
-        dosis: this.suplemento.dosis,
+        duracion: "6 mes",
+        indicacion: "temor con citricos",//?evaluar campo
+        dosis: this.suplemento.dosis,//nro de la dosis
         fecha: this.obtenerFecha(this.getFC("fechaAplicacion").value),
         estadoAdministrado: true,
         edadMes: this.suplemento.edadMes,
         fechaTentativa: "2021-10-25"
     };
+    console.log('mi request',requestInput)
     this.confirmationService.confirm({
       header: "Confirmación",
       message: "Esta Seguro que desea guardar suplementacion",
