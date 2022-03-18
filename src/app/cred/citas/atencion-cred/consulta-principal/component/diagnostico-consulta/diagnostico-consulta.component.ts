@@ -83,18 +83,24 @@ export class DiagnosticoConsultaComponent implements OnInit {
         this.DiagnosticoService.getLaboratorioResumen(this.dataConsulta.idConsulta).subscribe((r: any) => {
             //-- recupera laboratorios resumen
            if(r.object!=null || r.object!=[]){
-               for(let i =0 ;i<r.object.length;i++){
-                  if(r.object[i].hemoglobina) {
+                  if(r.object.hemoglobina) {
                       let aux = {
                           nombre:'LABORATORIO',
                           evaluacion: 'HEMOGLOBINA',
-                          resultado:r.object[i].hemoglobina
+                          resultado:r.object.hemoglobina
                       }
                       this.tablaResumenDx.push(aux);
                   }
+                  if(r.object.testGraham) {
+                       let aux = {
+                           nombre:'LABORATORIO',
+                           evaluacion: 'TEST GRAHAM',
+                           resultado:"Huevos de: " +r.object.testGraham.huevosDe[0] + " - " +r.object.testGraham.huevosDe[1] +
+                                      " Quistes de: "+r.object.testGraham.quistesDe[0] +" - " + r.object.testGraham.quistesDe[1]
+                       }
+                       this.tablaResumenDx.push(aux);
+                  }
                }
-           }
-
         })
     }
 
