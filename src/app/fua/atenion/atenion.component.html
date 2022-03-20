@@ -1,111 +1,228 @@
+<p-toolbar>
+    <div class="p-toolbar-group-left">
+        <h1 class="p-m-0">De la Atención</h1>
+    </div>
+    <ng-template pTemplate="right" class="button" style="text-align: right">
 
-    <p-toolbar>
-            <div class="p-toolbar-group-left">
-                <h1 class="p-m-0">De la Atención</h1>
+        <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-danger mr-2"
+            style="background: #C50009; border: 1px">
+        </button>
+    </ng-template>
+</p-toolbar>
+<!-- <form [formGroup]="formDeLaAtencion"> -->
+<div class="col-12">
+    <p-fieldset legend="DE LA ATENCION">
+        <form [formGroup]="formAtencion">
+            <div class="grid">
+                <div class="col-3 md:col-2 border">
+                    <div class="col-12">
+                        <span>Fecha de Atención</span>
+                        <input type="date" pInputText formControlName='fechaAtencion'
+                            class="p-inputtext inputfield w-full" placeholder="Fecha">
+                    </div>
+                    <div class="col-12">
+                        <span>Hora</span>
+                        <input type="text" pInputText formControlName='fechaAtencion'
+                            class="p-inputtext inputfield w-full" placeholder="Fecha">
+                    </div>
+                </div>
+                <div class="col-3 md:col-3 static border">
+                    <div class="grid">
+                        <div class="col-5">
+                            <div class="col-12">
+                                <span>UPS</span>
+                                <input type="text" pInputText formControlName='fechaAtencion'
+                                    class="p-inputtext inputfield w-full" placeholder="">
+                            </div>
+                            <div class="col-12">
+                                <span>Cod Prestación</span>
+                                <input type="text" pInputText formControlName='fechaAtencion'
+                                    class="p-inputtext inputfield w-full" placeholder="">
+                            </div>
+                        </div>
+                        <div class="col-7 pt-0">
+                            <div class="col-12 pt-8">
+                                <span>cod Prestacion(es) adicional(es)</span>
+                                <input type="text" pInputText formControlName='fechaAtencion'
+                                    class="p-inputtext inputfield w-full" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3 md:col-2 px-2 border">
+                    <div class="grid">
+                        <div class="col-5">
+                            <label>Reporte Vinculado</label>
+                        </div>
+                        <div class="col-7">
+                            <span>Cod Autorización</span>
+                            <input type="text" pInputText formControlName='fechaAtencion'
+                                class="p-inputtext inputfield w-full" placeholder="">
+                        </div>
+                    </div>
+                    <span>N° FUA a Vincular</span>
+                    <input type="text" pInputText formControlName='fechaAtencion' class="p-inputtext inputfield w-full"
+                        placeholder="">
+                </div>
+                <div class="col-3 md:col-4 px-2">
+                    <p-fieldset legend="Hospitalización">
+                        <div class="grid">
+                            <div class="col-6">
+                                <span>Fecha de Ingreso</span>
+                            </div>
+                            <div class="col-6">
+                                <input type="date" pInputText formControlName='fecha'
+                                    class="p-inputtext inputfield w-full" placeholder="Fecha">
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-6">
+                                <span>Fecha de Alta</span>
+                            </div>
+                            <div class="col-6">
+                                <input type="date" pInputText formControlName='fecha'
+                                    class="p-inputtext inputfield w-full" placeholder="Fecha">
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-6">
+                                <span>Fecha Corte Administrativo</span>
+                            </div>
+                            <div class="col-6">
+                                <input type="date" pInputText formControlName='fecha'
+                                    class="p-inputtext inputfield w-full" placeholder="Fecha">
+                            </div>
+                        </div>
+                    </p-fieldset>
+                </div>
             </div>
-            <ng-template pTemplate="right" class="button" style="text-align: right">
-
-            <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-danger mr-2"
-                    style= "background: #C50009; border: 1px">
-            </button>
-        </ng-template>
-    </p-toolbar>
-    <form [formGroup]="formDeLaAtencion">
+        </form>
+    </p-fieldset>
+    <p-fieldset legend="CONCEPTO PRESTACIONAL">
         <div class="grid">
-                <div class="col-12 md:col-6 xs:col-12 lg:col-4">
-                    <div class="grid">
+            <div class="col-2">
+                <span for="atencionDirecta">Atencion Directa</span>
+                <p-radioButton name="atencionDirecta" value="true" [(ngModel)]="atencionDirecta" inputId="city1">
+                </p-radioButton>
+            </div>
+            <div class="col-3">
+                <form [formGroup]="formPrestacional">
+                    <p-fieldset legend="Cob Extraordinario">
                         <div class="col-12">
-                            <p-fieldset legend="Fecha de Atención">
-                                    <div class="p-field">
-                                        <div class="col-12 p-fluid">
-                                            <label>Fecha de Atención:</label>
-                                        </div>
-                                        <div class="col-12 p-fluid">
-                                             <p-calendar  [showIcon]="true" inputId="icon"></p-calendar>
-                                        </div>
-                                    </div>
-                                    <div class="p-field">
-                                        <div class="col-12 p-fluid">
-                                             <label>Hora de Atención:</label>
-                                        </div>
-                                        <div class="col-12 p-fluid">
-                                            <p-calendar [timeOnly]="true" inputId="timeonly"></p-calendar>
-                                        </div>
-                                    </div>
-                            </p-fieldset>
+                            <span>N° Autorización</span>
+                            <input type="text" pInputText formControlName='nroAutorizacion'
+                                class="p-inputtext inputfield w-full" placeholder="">
+                            <span>Monto</span>
+                            <input type="text" pInputText formControlName='nroAutorizacion'
+                                class="p-inputtext inputfield w-full" placeholder="">
                         </div>
+                    </p-fieldset>
+                </form>
+            </div>
+            <div class="col-3">
+                <form [formGroup]="formPrestacional">
+                    <p-fieldset legend="Carta de Garantia">
                         <div class="col-12">
-                            <p-fieldset legend="Reporte Vinculado">
-                                <div class="col-12 p-fluid">
-                                    <label>Cod. Autorización</label>
-                                </div>
-                                <div class="col-12 p-fluid">
-                                    <input type="text"  pInputText placeholder="Ingrese código de autorización">
-                                </div>
-                            </p-fieldset>
+                            <span>N° Autorización</span>
+                            <input type="text" pInputText formControlName='nroAutorizacion'
+                                class="p-inputtext inputfield w-full" placeholder="">
+                            <span>Monto</span>
+                            <input type="text" pInputText formControlName='nroAutorizacion'
+                                class="p-inputtext inputfield w-full" placeholder="">
+                        </div>
+                    </p-fieldset>
+                </form>
+            </div>
+            <div class="col-1">
+                <div class="grid">
+                    <span for="atencionDirecta pr-2">Traslado</span>
+                    <p-radioButton name="atencionDirecta" value="true" [(ngModel)]="atencionDirecta" inputId="city1">
+                    </p-radioButton>
+                </div>
+            </div>
+            <div class="col-3">
+                <form [formGroup]="formPrestacional">
+                    <p-fieldset legend="Sepelio">
+                        <div class="grid">
+                            <div class="col-8">
+                                <span>Trasladado</span>
+                            </div>
+                            <div class="col-4">
+                                <input type="text" pInputText formControlName='nroAutorizacion'
+                                    class="p-inputtext inputfield w-full" placeholder="">
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-8">
+                                <span>Natimuerto</span>
+                            </div>
+                            <div class="col-4">
+                                <input type="text" pInputText formControlName='nroAutorizacion'
+                                    class="p-inputtext inputfield w-full" placeholder="">
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-8">
+                                <span>Obito</span>
+                            </div>
+                            <div class="col-4">
+                                <input type="text" pInputText formControlName='nroAutorizacion'
+                                    class="p-inputtext inputfield w-full" placeholder="">
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-8">
+                                <span>Otro</span>
+                            </div>
+                            <div class="col-4">
+                                <input type="text" pInputText formControlName='nroAutorizacion'
+                                    class="p-inputtext inputfield w-full" placeholder="">
+                            </div>
+                        </div>
+                    </p-fieldset>
+                </form>
+            </div>
+        </div>
+    </p-fieldset>
+    <p-fieldset legend="DEL DESTINO DEL ASEGURADO/USUARIO">
+        <div class="grid">
+            <div class="col-1">
+                <span class="mr-2">Alta</span>
+                <p-checkbox [(ngModel)]="alta" binary="true" inputId="binary" class="pr-2"></p-checkbox>
+            </div>
+            <div class="col-1">
+                <span class="mr-2">Cita</span>
+                <p-checkbox [(ngModel)]="cita" binary="true" inputId="binary"></p-checkbox>
+            </div>
+            <div class="col-2">
+                <span class="mr-2">Hospitalización</span>
+                <p-checkbox [(ngModel)]="hospitalizacion" binary="true" inputId="binary"></p-checkbox>
+            </div>
+            <div class="col-5">
+                <p-fieldset legend="Referido">
+                    <div class="grid">
+                        <div class="p-field-checkbox grid mr-2" *ngFor="let item of listReferido">
+                            <span [for]="item.value" class="pr-1">{{ item.name }}</span>
+                            <p-radioButton [inputId]="item.value" name="item" [value]="item.value"
+                                [(ngModel)]="referido">
+                            </p-radioButton>
                         </div>
                     </div>
-                </div>
-                <div class="col-12 md:col-6 xs:col-12 lg:col-4">
-                    <div class="grid">
-                        <p-card class="col-12 margin">
-                                    <div class="col-12 p-fluid">
-                                        <label>UPS:</label>
-                                    </div>
-                                    <div class="col-12 p-fluid">
-                                            <input type="text"  pInputText placeholder="Ingrese UPS">
-                                        </div>
-                                    <div class="col-12 p-fluid">
-                                        <label>Cod. Prestación:</label>
-                                    </div>
-                                    <div class="col-12 p-fluid">
-                                        <input type="text" pInputText placeholder="Ingrese código de prestación">
-                                    </div>
-                                    <div class="col-12 p-fluid">
-                                    </div>
-                                        <label>Cod. Prestación(es) Adicional(es):</label>
-                                    <div class="col-12 p-fluid">
-                                        <input type="text"   pInputText placeholder="Ingrese código de prestación adicional">
-                                    </div>
-
-                        </p-card>
-                        <div class="col-12">
-                            <p-fieldset legend="N° FUA a vincular">
-                                <div class="col-12 p-fluid">
-                                <label>Cod. Prestación(es) Adicional(es)</label>
-                                </div>
-                                <div class="col-12 p-fluid">
-                                <input type="text"  pInputText  placeholder="Ingrese N° de FUA a vincular">
-                                </div>
-                            </p-fieldset>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 md:col-12 xs:col-12 lg:col-4">
-                    <div class="grid">
-                        <div class="col-12">
-                            <p-fieldset legend="Hospitalización">
-                                <div class="col-12">
-                                    <label>Fecha de Ingreso</label>
-                                </div>
-                                <div class="col-12 p-fluid">
-                                    <p-calendar  [showIcon]="true" inputId="icon"></p-calendar>
-                                </div>
-                                <div class="col-12"l>
-                                    <label>Fecha de Alta</label>
-                                </div>
-                                <div class="col-12 p-fluid">
-                                    <p-calendar  [showIcon]="true" inputId="icon"></p-calendar>
-                                </div>
-                                <div class="col-12">
-                                    <label>Fecha de Corte Administrativo</label>
-                                </div>
-                                <div class="col-12 p-fluid">
-                                    <p-calendar  [showIcon]="true" inputId="icon"></p-calendar>
-                                </div>
-                            </p-fieldset>
-                        </div>
-                    </div>
-                </div>
-      </div>
-    </form>
+                </p-fieldset>
+            </div>
+            <div class="col-1">
+                <span class="mr-2">Contra- rreferido</span>
+                <p-checkbox [(ngModel)]="alta" binary="true" inputId="binary" class="pr-2"></p-checkbox>
+            </div>
+            <div class="col-1">
+                <span class="mr-2">Fallecido</span>
+                <p-checkbox [(ngModel)]="alta" binary="true" inputId="binary" class="pr-2"></p-checkbox>
+            </div>
+            <div class="col-1">
+                <span class="mr-2">Corte Administ</span>
+                <p-checkbox [(ngModel)]="alta" binary="true" inputId="binary" class="pr-2"></p-checkbox>
+            </div>
+        </div>
+    </p-fieldset>
+</div>
+<!-- </form> -->

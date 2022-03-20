@@ -52,39 +52,21 @@
             <div class="col-4 lg:col-2">
                 <p-fieldset legend="Lugar de atención">
 
-                    <div *ngFor="let item of listLugarAtencion" >
+                    <div *ngFor="let item of listLugarAtencion" class="pb-2">
+                        <span [for]="item.value" class="pr-2">{{ item.name }}</span>
+                        <p-radioButton [inputId]="item.value" name="item" [value]="item.value"
+                            [(ngModel)]="attentionPlace" (ngModelChange)="ngmodelChange()"></p-radioButton>
+                    </div>
+                </p-fieldset>
+            </div>
+            <div class="col-4 lg:col-2">
+                <p-fieldset legend="Atención" class="atencion">
+                    <div *ngFor="let item of listAtencion" class="p-field-checkbox grid pb-2">
                         <div class="col-9">
                             <span [for]="item.value">{{ item.name }}</span>
                         </div>
                         <div class="col-3 text-left">
                             <p-radioButton [inputId]="item.value" name="item" [value]="item.value"
-                                [(ngModel)]="attentionPlace" (ngModelChange)="ngmodelChange()"></p-radioButton>
-                        </div>
-                    </div>
-
-
-                    <div class="p-field-radiobutton pb-2 subAtencion">
-                        <span class="pr-1">INTRAMURAL</span>
-                        <p-radioButton name="lugarAtencion" value="INTRAMURAL" [(ngModel)]="lugarAtencion"
-                            inputId="lAtencion1">
-                        </p-radioButton>
-                    </div>
-                    <div class="p-field-radiobutton subAtencion">
-                        <span class="pr-1">EXTRAMURAL</span>
-                        <p-radioButton name="lugarAtencion" value="EXTRAMURAL" [(ngModel)]="lugarAtencion"
-                            inputId="lAtencion2">
-                        </p-radioButton>
-                    </div>
-                </p-fieldset>
-            </div>
-            <div class="col-4 lg:col-2">
-                <p-fieldset legend="Lugar de atención" class="atencion">
-                    <div *ngFor="let atencion of listAtencion" class="p-field-checkbox grid pb-2">
-                        <div class="col-9">
-                            <span [for]="atencion">{{ atencion }}</span>
-                        </div>
-                        <div class="col-3 text-left">
-                            <p-radioButton [inputId]="atencion" name="atencion" [value]="atencion"
                                 [(ngModel)]="attention" (ngModelChange)="ngmodelChange()">
                             </p-radioButton>
                         </div>
@@ -171,7 +153,7 @@
                                     </div>
                                     <div class="col-9 p-fluid">
                                         <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
-                                            placeholder="" class="inputfield w-full" formControlName="ipress">
+                                            placeholder="" class="inputfield w-full" formControlName="institucion">
                                     </div>
                                 </div>
                                 <div class="grid">
@@ -214,23 +196,23 @@
                         <div class="col-9">
                         </div>
                         <p-fieldset legend="Sexo">
-                            <div *ngFor="let sexo of listSexo" class="p-field-checkbox grid pb-2">
+                            <div *ngFor="let item of listSexo" class="p-field-checkbox grid pb-2">
                                 <div class="col-9">
-                                    <span [for]="sexo">{{ sexo }}</span>
+                                    <span [for]="item.value">{{ item.name }}</span>
                                 </div>
                                 <div class="col-3">
-                                    <p-radioButton [inputId]="sexo" name="sexo" [value]="sexo" [(ngModel)]="gender"
+                                    <p-radioButton [inputId]="item.value" name="item" [value]="item.value" [(ngModel)]="gender"
                                         (ngModelChange)="ngmodelChange()"></p-radioButton>
                                 </div>
                             </div>
                         </p-fieldset>
                         <p-fieldset legend="Salud Materna">
-                            <div *ngFor="let saludMaterna of listSaludMaterna" class="p-field-checkbox grid pb-2">
+                            <div *ngFor="let item of listSaludMaterna" class="p-field-checkbox grid pb-2">
                                 <div class="col-9">
-                                    <span [for]="saludMaterna">{{ saludMaterna }}</span>
+                                    <span [for]="item.value">{{ item.name }}</span>
                                 </div>
                                 <div class="col-3">
-                                    <p-radioButton [inputId]="saludMaterna" name="saludMaterna" [value]="saludMaterna"
+                                    <p-radioButton [inputId]="item.value" name="item" [value]="item.value"
                                         [(ngModel)]="maternalHealth"></p-radioButton>
                                 </div>
                             </div>
