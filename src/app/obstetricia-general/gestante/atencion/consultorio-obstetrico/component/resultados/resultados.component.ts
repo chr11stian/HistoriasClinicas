@@ -3,6 +3,7 @@ import { AbstractControl, FormControl, FormGroup, Validators } from "@angular/fo
 import { ResultadosService } from "../../services/resultados/resultados.service";
 import { MessageService } from "primeng/api";
 import { ObstetriciaGeneralService } from "../../../../../services/obstetricia-general.service";
+import { ConsultasService } from '../../services/consultas.service';
 interface Employee {
     name: string;
     department: string;
@@ -44,9 +45,6 @@ export class ResultadosComponent implements OnInit {
         { name: 'no aplica', code: 'no aplica' },
     ]
 
-    tipoDocRecuperado: string;
-    nroDocRecuperado: string
-    nroEmbarazo: string
     idConsultoriObstetrico: string;
     examenes = [
         { display: "Grupo Sanguineo", name: 'grupoSanguineo', code: 1, tipoInput: 1, codeDrop: this.ABO },
@@ -100,12 +98,63 @@ export class ResultadosComponent implements OnInit {
     form: FormGroup;
     isUpdate: boolean = false;
     index = 0;
+
     cronogramaDialog: any;
     cronograma: any;
+
+    idConsulta: string;
+    tipoDocRecuperado: string;
+    nroDocRecuperado: string;
+    nroEmbarazo: string;
+    nroHcl: string;
+
+    Gestacion: any;
+    dataPaciente2: any;
+    estadoEdicion: Boolean;
+
+    nroAtencion: any;
+
     constructor(private resultadosService: ResultadosService,
         private messageService: MessageService,
-        private obstetriciaGeneralService: ObstetriciaGeneralService) {
+        private consultasService: ConsultasService) {
         this.buildForm();
+        /*********RECUPERAR DATOS*********/
+        /*usando local storage*/
+        this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
+        this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
+
+        //estado para saber que estado usar en consultas
+        this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
+
+        console.log("DATA PACIENTE 2 desde datos generales", this.dataPaciente2);
+        console.log("gestacion desde datos generales", this.Gestacion);
+
+        if (this.Gestacion == null) {
+            this.tipoDocRecuperado = this.dataPaciente2.tipoDoc;
+            this.nroDocRecuperado = this.dataPaciente2.nroDoc;
+            this.idConsulta = JSON.parse(localStorage.getItem('idGestacionRegistro'));
+            this.nroEmbarazo = this.dataPaciente2.nroEmbarazo;
+            this.nroHcl = this.dataPaciente2.nroHcl;
+
+        } else {
+            this.tipoDocRecuperado = this.Gestacion.tipoDoc;
+            this.nroDocRecuperado = this.Gestacion.nroDoc;
+            this.idConsulta = this.Gestacion.id;
+            this.nroEmbarazo = this.Gestacion.nroEmbarazo;
+            this.nroHcl = this.Gestacion.nroHcl;
+        }
+        if (!this.estadoEdicion) {
+            //guardar en el ls el nroAtencion
+            let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaNueva'));
+            this.nroAtencion = nroAtencion;
+            console.log("entre a nueva consulta", this.nroAtencion)
+        }
+        else {
+            let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaEditar'));
+            this.nroAtencion = nroAtencion;
+            console.log("entre a edicion consulta", this.nroAtencion)
+        }
+        this.recuperarCronograma() 
     }
 
     buildForm() {
@@ -125,11 +174,6 @@ export class ResultadosComponent implements OnInit {
     }
     ngOnInit(): void {
         this.examenFG.get('fechaExamen').setValue(new Date());
-        this.tipoDocRecuperado = this.obstetriciaGeneralService.tipoDoc;
-        this.nroDocRecuperado = this.obstetriciaGeneralService.nroDoc;
-        this.nroEmbarazo = this.obstetriciaGeneralService.nroEmbarazo;
-        this.idConsultoriObstetrico = this.obstetriciaGeneralService.idConsultoriObstetrico;
-        // console.log(`NroDoc:${this.nroDocRecuperado},nroEmbarazo:${this.nroEmbarazo}`)
         this.getResultados();
     }
 
@@ -305,6 +349,15 @@ export class ResultadosComponent implements OnInit {
     }
     salirCronograma() {
         this.cronogramaDialog = false;
+    }
+    recuperarCronograma() {
+        this.consultasService.getCronogramaGestante(this.nroHcl).subscribe((res: any) => {
+            this.cronograma = res.object;
+            console.log("cronograma:", this.cronograma)
+        })
+    }
+    funcionAuxiliar(fecha) {
+        return new Date(fecha).getTime();
     }
     
 }

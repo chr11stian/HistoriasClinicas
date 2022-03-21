@@ -5,11 +5,11 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json",
+    "ngh": "node --max_old_space_size=8192 ./node_modules/@angular/cli/bin/ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "ngh": "node --max_old_space_size=8192 ./node_modules/@angular/cli/bin/ng serve"
+    "e2e": "ng e2e"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,12 @@
     "@angular/platform-browser": "~12.0.0",
     "@angular/platform-browser-dynamic": "~12.0.0",
     "@angular/router": "~12.0.0",
+    "@fullcalendar/angular": "^5.10.2",
+    "@fullcalendar/core": "^5.10.1",
+    "@fullcalendar/daygrid": "^5.10.1",
+    "@fullcalendar/interaction": "^5.10.1",
+    "@fullcalendar/list": "^5.10.1",
+    "@fullcalendar/timegrid": "^5.10.1",
     "@types/echarts": "^4.9.12",
     "canvas": "^2.8.0",
     "chart.js": "^3.5.0",

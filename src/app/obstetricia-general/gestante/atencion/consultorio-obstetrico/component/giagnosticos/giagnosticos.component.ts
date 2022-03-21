@@ -61,8 +61,6 @@ export class GiagnosticosComponent implements OnInit {
     prestacionList: any[];
     upsList: any[];
 
-    //idIpress: String = "616de45e0273042236434b51";
-
     idConsulta: string;
     tipoDocRecuperado: string;
     nroDocRecuperado: string;
@@ -75,6 +73,11 @@ export class GiagnosticosComponent implements OnInit {
 
     nroAtencion: any;
     opciones: any;
+
+    listaUpsHis: any;
+    idIpress: any;
+    edadPaciente: any;
+    sexoPaciente: any;
     constructor(private formBuilder: FormBuilder,
         private PrestacionService: PrestacionService,
         private CieService: CieService,
@@ -83,10 +86,15 @@ export class GiagnosticosComponent implements OnInit {
         this.buildForm();
 
         /*********RECUPERAR DATOS*********/
+        this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
+        console.log("ipress", this.idIpress)
+
         /*usando local storage*/
         this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
         this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
-
+        this.edadPaciente = JSON.parse(localStorage.getItem('datacupos')).paciente.edadAnio;
+        this.sexoPaciente = JSON.parse(localStorage.getItem('datacupos')).paciente.sexo;
+        this.recuperarUpsHis();
         //estado para saber que estado usar en consultas
         this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
 
@@ -139,7 +147,6 @@ export class GiagnosticosComponent implements OnInit {
             { name: 'SI', boleano: true },
             { name: 'NO', boleano: false }
         ];
-        this.recuperarCronograma();
     }
     ngOnInit() {
         console.log("TipoDocRecuperado desde diagnostico", this.tipoDocRecuperado);
@@ -157,14 +164,14 @@ export class GiagnosticosComponent implements OnInit {
             console.log("prestaciones:", this.prestacionList);
         })
     }
-    funcionAuxiliar(fecha) {
-        return new Date(fecha).getTime();
-    }
-    recuperarCronograma() {
-        this.DxService.getCronogramaGestante(this.nroHcl).subscribe((res: any) => {
-            this.cronograma = res.object;
-            console.log("cronograma:", this.cronograma)
-        })
+    recuperarUpsHis() {
+        let Data = {
+            idIpress: this.idIpress,
+            edad: this.edadPaciente,
+            sexo: this.sexoPaciente
+        }
+        console.log("DATA PARA UPS HIS", Data)
+        this.DxService.listaUpsHis(Data).then((res: any) => this.listaUpsHis = res.object);
     }
     recuperarNroFetos() {
         let idData = {
@@ -189,6 +196,7 @@ export class GiagnosticosComponent implements OnInit {
             autocompleteHIS: [''],
             diagnosticoHIS: ['', [Validators.required]],
             HISCIE: ['', [Validators.required]],
+            patologiaMaterna: ['', [Validators.required]],
 
         });
         this.form2 = this.formBuilder.group({
@@ -202,6 +210,7 @@ export class GiagnosticosComponent implements OnInit {
             OrientaciónPlanificaiónFamiliar: new FormControl(''),
             OrientaciónPrevenciónDeCancerGinecológico: new FormControl(''),
             OrientaciónConsejeriaPretestVIH: new FormControl(''),
+            OrientaciónConsejeriaPostestVIH: new FormControl(''),
             OrientaciónEnEstilosDeVidaSaludable: new FormControl(''),
             OrientaciónAcompañante: new FormControl(''),
             ViolenciaFamiliar: new FormControl(''),
@@ -224,7 +233,7 @@ export class GiagnosticosComponent implements OnInit {
         this.isUpdate = false;
         let bandera: boolean = false;
         let data = {
-            nro: this.diagnosticos.length + 1,
+            //nro: this.diagnosticos.length + 1,
             diagnosticoHIS: this.form.value.diagnosticoHIS,
             cie10HIS: this.form.value.HISCIE.codigoItem,
             diagnosticoSIS: this.form.value.diagnosticoSIS,
@@ -232,7 +241,8 @@ export class GiagnosticosComponent implements OnInit {
             tipo: this.form.value.tipo,
             codPrestacion: this.form.value.prestacion.codigo,
             nombreUPS: this.form.value.subtitulo,
-            factorCondicional: null
+            factorCondicional: null,
+            patologiaMaterna: this.form.value.patologiaMaterna,
         }
         console.log(data)
         //enviar una consulta para guardar diagnostico
@@ -243,13 +253,42 @@ export class GiagnosticosComponent implements OnInit {
                 this.recuperarDatosGuardados();
             })
     }
+    
+    saveActualizarDiagnostico(form: any) {
+        // this.messageService.add({ severity: 'info', summary: 'Recuperado', detail: 'Diagnostico no válido vuelva a ingresar.' });
+        this.isUpdate = false;
+        let data = {
+            //nro: this.diagnosticos.length + 1,
+            diagnosticoHIS: this.form.value.diagnosticoHIS,
+            cie10HIS: this.form.value.HISCIE.codigoItem,
+            diagnosticoSIS: this.form.value.diagnosticoSIS,
+            cie10SIS: this.form.getRawValue().SISCIE.cie10,
+            tipo: this.form.value.tipo,
+            codPrestacion: this.form.getRawValue().prestacion.codigo,
+            nombreUPS: this.form.value.subtitulo,
+            factorCondicional: null,
+            patologiaMaterna: this.form.value.patologiaMaterna,
+        }
+        console.log(data)
+        //enviar una consulta para guardar diagnostico
+        this.DxService.actualizarDiagnosticoDeGestante(this.nroHcl, this.nroEmbarazo, this.nroAtencion, data).subscribe(
+            (resp) => {
+                console.log(resp);
+                this.diagnosticoDialog = false;
+                this.recuperarDatosGuardados();
+            })
+    }
     /******ABRIR DIALOGS DX****/
     openDiagnostico() {
         this.isUpdate = false;
         this.form.reset();
+        this.form.get('prestacion').enable();
+        this.form.get('autocompleteSIS').enable();
+        this.form.get('SISCIE').enable();
         this.form.get('diagnosticoSIS').setValue("");
         this.form.get('diagnosticoHIS').setValue("");
-        this.form.get('subtitulo').setValue("MATERNO");
+        this.form.get('subtitulo').setValue("MATERNO PERINATAL");
+        this.listaDeCIESIS=[];
         this.diagnosticoDialog = true;
     }
     canceled1() {
@@ -262,26 +301,33 @@ export class GiagnosticosComponent implements OnInit {
         })
         this.diagnosticoDialog = false;
     }
-    /******EVENTO PARA BUSQUEDA SEGUN FILTRO*****/
-    /*filterDiagnostico(event) {
-
-        console.log('event ', event.query);
-        this.cieService.getCIEByDescripcion(event.query).subscribe((res: any) => {
-            this.Cie10 = res.object;
-            // console.log('seleccion de autocomplete ', this.Cie10)
-
-        })
-    }
-    selectedOption(event) {
-        console.log('seleccion de autocomplete ', this.Cie10)
-    }*/
-    /*****FIN PARA BUSQUEDA SEGUN FILTRO*******/
     titulo() {
         if (this.isUpdate) return "EDITE DIAGNOSTICO";
         else return "INGRESAR UN DIAGNOSTICO";
     }
-    editar(rowData: any) {
-        console.log("modificando" + rowData)
+    editarDx(rowData) {
+        this.isUpdate = true;
+        this.form.reset();
+        this.form.get('prestacion').setValue(this.prestacionList.find(element => element.codigo == rowData.codPrestacion));
+        this.form.get('tipo').setValue(rowData.tipo);
+        this.form.get('diagnosticoSIS').setValue(rowData.diagnosticoSIS);
+        this.form.get('diagnosticoHIS').setValue(rowData.diagnosticoHIS);
+        this.form.get('subtitulo').setValue(rowData.nombreUPS);
+        this.form.get('patologiaMaterna').setValue(rowData.patologiaMaterna);
+        this.PrestacionService.getDiagnosticoPorCodigo(rowData.codPrestacion).subscribe((res: any) => {
+            this.listaDeCIESIS = res.object.diagnostico;
+            console.log(this.listaDeCIESIS)
+            this.form.patchValue({ SISCIE: this.listaDeCIESIS.find(elemento => elemento.cie10 == rowData.cie10SIS) });
+        })
+        this.CieService.getCIEByDescripcion(rowData.cie10HIS).subscribe((res: any) => {
+            this.listaDeCIE = res.object;
+            this.form.patchValue({ HISCIE: this.listaDeCIE.find(elemento => elemento.codigoItem == rowData.cie10HIS) });
+        })
+        this.form.get('prestacion').disable();
+        this.form.get('autocompleteSIS').disable();
+        this.form.get('SISCIE').disable();
+        this.diagnosticoDialog = true;
+        console.log("modificando", rowData);
     }
     /*ELIMINAR DATOS DE LAS TABLAS*/
     eliminarDx(index) {
@@ -294,7 +340,7 @@ export class GiagnosticosComponent implements OnInit {
             showConfirmButton: true,
         }).then((result) => {
             if (result.isConfirmed) {
-                this.DxService.guardarDiagnosticoDeGestante(this.nroHcl, this.nroEmbarazo, this.nroAtencion, index.cie10SIS).subscribe(
+                this.DxService.eliminarDiagnosticoGestante(this.nroHcl, this.nroEmbarazo, this.nroAtencion, index).subscribe(
                     (resp) => {
                         console.log(resp);
                         Swal.fire({
@@ -310,77 +356,14 @@ export class GiagnosticosComponent implements OnInit {
         })
     }
     enviarDatosRefProxCita() {
-        // this.referencia = {
-        //     consultorio: this.formOtrosDatos.value.consultorio,
-        //     motivoReferencia: this.formOtrosDatos.value.motivo,
-        //     renipress: this.formOtrosDatos.value.codRENAES,
-        //     nombreIPRESS: null,
-        //     idRef: null,
-        //     DISA: null,
-        //     lote: null,
-        //     nroFormato: null
-        // }
-        this.proxCita = { fecha: this.datePipe.transform(this.formOtrosDatos.value.proxCita, 'yyyy-MM-dd') }
+        //this.proxCita = { fecha: this.datePipe.transform(this.formOtrosDatos.value.proxCita, 'yyyy-MM-dd') }
         this.visitaDomiciliaria = {
             estado: this.formOtrosDatos.value.visita,
             fecha: this.datePipe.transform(this.formOtrosDatos.value.fechaVisita, 'yyyy-MM-dd HH:mm:ss')
         }
         this.planPartoReenfocada = this.formOtrosDatos.value.planPartoReenfocada
     }
-    guardarDiagnosticosEmbarazo() {
-        let diagnosticosPorConsejeria: any[] = [];
-        let encontradoDxTuberculosis: boolean = false;
-        let buscado = '2232';
-        for (let i = 0; i <= this.orientaciones.length; i++) {
-            if (this.orientaciones[i] != undefined || this.orientaciones[i] != null) {
-                console.log(this.orientaciones[i]);
-                console.log(this.orientaciones[i].cie10);
-                console.log('buscado:', buscado);
-                if (this.orientaciones[i].cie10 === "2232") {
-                    encontradoDxTuberculosis = true;
-                    console.log('bandera es ', this.encontradoDxTuberculosis);
-                }
 
-            }
-        }
-        console.log('bandera es ', this.encontradoDxTuberculosis);
-        console.log(this.edadGestacional);
-        let dx: any;
-        let cie10SIS: any;
-        if (this.edadGestacional <= 50) { dx = "GESTANTE CON FACTOR DE RIESGO CONTROL 3ER. TRIMESTRE (36 SEMANAS)", cie10SIS = "Z3593" }
-        if (this.edadGestacional <= 27) { dx = "GESTANTE CON FACTOR DE RIESGO CONTROL 2DO. TRIMESTRE (24 SEMANAS)", cie10SIS = "Z3592" }
-        if (this.edadGestacional <= 13) { dx = "GESTANTE CON FACTOR DE RIESGO CONTROL 1ER. TRIMESTRE (12 SEMANAS)", cie10SIS = "Z3591" }
-        diagnosticosPorConsejeria.push({
-            diagnosticoSIS: dx,
-            cie10SIS: cie10SIS,
-            tipo: 'D'
-
-        })
-        console.log(encontradoDxTuberculosis);
-        if (encontradoDxTuberculosis) {
-            diagnosticosPorConsejeria.push({
-                diagnosticoSIS: 'TBC PULMONAR BK (+)',
-                cie10SIS: 'A150',
-                tipo: 'P'
-            })
-        }
-
-        const req = {
-            id: this.idConsultoriObstetrico,
-            nroHcl: this.nroHcl,
-            nroEmbarazo: this.nroEmbarazo,
-            nroAtencion: this.nroAtencion,
-            // nroControlSis: 1,
-            tipoDoc: this.tipoDocRecuperado,
-            nroDoc: this.nroDocRecuperado,
-            diagnosticos: diagnosticosPorConsejeria
-        }
-        this.DxService.updateConsultas(this.nroFetos, req).subscribe(
-            (resp) => {
-                console.log(resp);
-                console.log(req);
-            })
-    }
     guardarTodosDatos() {
         this.enviarDatosRefProxCita();
         const req = {
@@ -394,14 +377,81 @@ export class GiagnosticosComponent implements OnInit {
             visitaDomiciliaria: this.visitaDomiciliaria,
             planParto: this.planPartoReenfocada,
             diagnosticos: this.diagnosticos,
-            proxCita:
-            {
-                fecha: this.datePipe.transform(this.formOtrosDatos.value.proxCita, 'yyyy-MM-dd'),
-                motivo: "próxima cita",
-                servicio: "OBSTETRICIA",
-                estado: "TENTATIVO",
-                nivelUrgencia: "4"
-            },
+            // proxCita:
+            // {
+            //     fecha: this.datePipe.transform(this.formOtrosDatos.value.proxCita, 'yyyy-MM-dd'),
+            //     motivo: "PRÓXIMA CITA",
+            //     servicio: "OBSTETRICIA",
+            //     estado: "TENTATIVO",
+            //     nivelUrgencia: "NORMAL"
+            // },
+            orientaciones: [
+                {
+                    consejeria: "Orientación y Consejería Signos de alarma",
+                    valor: this.form2.value.OrientaciónConsejeríaSignosAlarma,
+                    cie10: "3232"
+                },
+                {
+                    consejeria: "Consejería en enfermedades comunes",
+                    valor: this.form2.value.ConsejeríaEnfermedadesComunes,
+                    cie10: "1212"
+                },
+                {
+                    consejeria: "Sospechas de Tuberculosis",
+                    valor: this.form2.value.SospechasTuberculosis,
+                    cie10: "2232"
+                },
+                {
+                    consejeria: "Infecciones de transmisión sexual",
+                    valor: this.form2.value.InfeccionesTransmisiónSexual,
+                    cie10: "4866"
+                },
+                {
+                    consejeria: "Orientación Nutricional",
+                    valor: this.form2.value.OrientaciónNutricional,
+                    cie10: "3233"
+                },
+                {
+                    consejeria: "Orientación en planificaión familiar",
+                    valor: this.form2.value.OrientaciónPlanificaiónFamiliar,
+                    cie10: "7779"
+                },
+                {
+                    consejeria: "Orientación en prevención de Cancer ginecológico",
+                    valor: this.form2.value.OrientaciónPrevenciónDeCancerGinecológico,
+                    cie10: "8889"
+                },
+                {
+                    consejeria: "Orientación y consej. Pretest. VIH",
+                    valor: this.form2.value.OrientaciónConsejeriaPretestVIH,
+                    cie10: "7777"
+                },
+                {
+                    consejeria: "Orientación y consej. Postest. VIH",
+                    valor: this.form2.value.OrientaciónConsejeriaPostestVIH,
+                    cie10: "7777"
+                },
+                {
+                    consejeria: "Orientación en estilos de vida saludable",
+                    valor: this.form2.value.OrientaciónEnEstilosDeVidaSaludable,
+                    cie10: "44545"
+                },
+                {
+                    consejeria: "Orientación al acompañante",
+                    valor: this.form2.value.OrientaciónAcompañante,
+                    cie10: "21212"
+                },
+                {
+                    consejeria: "Violencia familiar",
+                    valor: this.form2.value.ViolenciaFamiliar,
+                    cie10: "Z6381"
+                },
+                {
+                    consejeria: "Plan de parto",
+                    valor: this.form2.value.PlanDeParto,
+                    cie10: "U1692"
+                },
+            ],
 
         }
 
@@ -453,11 +503,7 @@ export class GiagnosticosComponent implements OnInit {
                             y++;
                         }
                     }
-                    /*if (this.dataAux.referencia != null) {
-                        this.formOtrosDatos.patchValue({ 'consultorio': this.dataAux.referencia.consultorio });
-                        this.formOtrosDatos.patchValue({ 'motivo': this.dataAux.referencia.motivoReferencia });
-                        this.formOtrosDatos.patchValue({ 'codRENAES': this.dataAux.referencia.renipress });
-                    }*/
+
                     /****************RECUPERAR EDAD GESTACIONAL********************/
                     console.log("edad gestacional:", this.dataAux.edadGestacionalSemanas);
                     if (this.dataAux.edadGestacionalSemanas === null || this.dataAux.edadGestacionalSemanas === undefined) {
@@ -477,11 +523,24 @@ export class GiagnosticosComponent implements OnInit {
                     }
                     if (this.dataAux.planParto) {
                         this.formOtrosDatos.patchValue({ 'planPartoReenfocada': this.dataAux.planParto });
-
                     }
+                    //RECUPERA DESCARTE ATENCION INTEGRAL
+                    this.form2.get('OrientaciónConsejeríaSignosAlarma').setValue(this.dataAux.orientaciones ? this.dataAux.orientaciones[0].valor : null);
+                    this.form2.get('ConsejeríaEnfermedadesComunes').setValue(this.dataAux.orientaciones ? this.dataAux.orientaciones[1].valor : null);
+                    this.form2.get('SospechasTuberculosis').setValue(this.dataAux.orientaciones ? this.dataAux.orientaciones[2].valor : null);
+                    this.form2.get('InfeccionesTransmisiónSexual').setValue(this.dataAux.orientaciones ? this.dataAux.orientaciones[3].valor : null);
+                    this.form2.get('OrientaciónNutricional').setValue(this.dataAux.orientaciones ? this.dataAux.orientaciones[4].valor : null);
+                    this.form2.get('OrientaciónPlanificaiónFamiliar').setValue(this.dataAux.orientaciones ? this.dataAux.orientaciones[5].valor : null);
+                    this.form2.get('OrientaciónPrevenciónDeCancerGinecológico').setValue(this.dataAux.orientaciones ? this.dataAux.orientaciones[6].valor : null);
+                    this.form2.get('OrientaciónConsejeriaPretestVIH').setValue(this.dataAux.orientaciones ? this.dataAux.orientaciones[7].valor : null);
+                    this.form2.get('OrientaciónConsejeriaPostestVIH').setValue(this.dataAux.orientaciones ? this.dataAux.orientaciones[8].valor : null);
+                    this.form2.get('OrientaciónEnEstilosDeVidaSaludable').setValue(this.dataAux.orientaciones ? this.dataAux.orientaciones[9].valor : null);
+                    this.form2.get('OrientaciónAcompañante').setValue(this.dataAux.orientaciones ? this.dataAux.orientaciones[10].valor : null);
+                    this.form2.get('ViolenciaFamiliar').setValue(this.dataAux.orientaciones ? this.dataAux.orientaciones[11].valor : null);
+                    this.form2.get('PlanDeParto').setValue(this.dataAux.orientaciones ? this.dataAux.orientaciones[12].valor : null);
                     /************************RECUPERAR DATOS DE DIAGNOSTICOS***************/
                     if (this.dataAux.diagnosticos != null) {
-                        this.diagnosticos=[];
+                        this.diagnosticos = [];
                         let x: number = 0;
                         while (x < this.dataAux.diagnosticos.length) {
 

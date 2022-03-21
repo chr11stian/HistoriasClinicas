@@ -45,8 +45,25 @@ import { TratamientoInmunizacionComponent } from './component/tratamiento-consul
 import { TratamientoInmunizacionModalComponent } from './component/tratamiento-consulta/components/tratamiento-inmunizacion-modal/tratamiento-inmunizacion-modal.component';
 import { ProcedimientosConsultaComponent } from './component/procedimientos-consulta/procedimientos-consulta.component';
 import {InputSwitchModule} from "primeng/inputswitch";
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { ModalReferenciaComponent } from './component/finalizar-consulta/modal-referencia/modal-referencia.component';
+import { CalendarComponent } from './component/finalizar-consulta/calendar/calendar.component';
+
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import listPlugin from '@fullcalendar/list';
+import interactionPlugin from '@fullcalendar/interaction';
+
+FullCalendarModule.registerPlugins([
+    dayGridPlugin,
+    timeGridPlugin,
+    listPlugin,
+    interactionPlugin
+])
+
 @NgModule({
     declarations: [
+        ModalReferenciaComponent,
         DatosGeneralesConsultaComponent,
         MotivoConsultaComponent,
         DiagnosticoConsultaComponent,
@@ -69,6 +86,7 @@ import {InputSwitchModule} from "primeng/inputswitch";
         SuplementacionCredComponent,
         TratamientoCredComponent,
         SuplementoComponent,
+        CalendarComponent,
         DialogAddExamenesAuxiliaresComponent,
         DosajeComponent,
         ProcedimientoDosajeHemoglobinaComponent,
@@ -78,6 +96,7 @@ import {InputSwitchModule} from "primeng/inputswitch";
 
     ],
     imports: [
+        FullCalendarModule,
         EvaluacionGeneralModule,
         PlanModule,
         CommonModule,

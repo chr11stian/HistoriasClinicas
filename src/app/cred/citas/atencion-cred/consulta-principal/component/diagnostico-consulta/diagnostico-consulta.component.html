@@ -1,21 +1,25 @@
 <div class="card">
-    <p-toolbar styleClass="mb-4">
-        <ng-template pTemplate="left">
-            <h4>Seleccionar los items que desea agregar a Diagnósticos:</h4>
-        </ng-template>
-        <ng-template pTemplate="right">
-            <button pButton pRipple label="Agregar a Diagnósticos" icon="pi pi-plus" class="p-button-danger" (click)="agregarToDx()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
-        </ng-template>
-    </p-toolbar>
+<!--    <p-toolbar styleClass="mb-4">-->
+<!--        <ng-template pTemplate="left">-->
+<!--            <h4>Seleccionar los items que desea agregar a Diagnósticos:</h4>-->
+<!--        </ng-template>-->
+<!--        <ng-template pTemplate="right">-->
+<!--            <button pButton pRipple label="Agregar a Diagnósticos" icon="pi pi-plus" class="p-button-danger" (click)="agregarToDx()" [disabled]="!selectedProducts || !selectedProducts.length"></button>-->
+<!--        </ng-template>-->
+<!--    </p-toolbar>-->
 
     <div class="col-12">
         <p-table [value]="tablaResumenDx" [rows]="10" [paginator]="true" responsiveLayout="scroll"
-                 [(selection)]="selectedProducts" [rowHover]="true"
-                 currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" [showCurrentPageReport]="true">
+                 [(selection)]="selectedProducts" [rowHover]="true" styleClass="p-datatable-gridlines">
+
             <ng-template pTemplate="caption">
                 <div class="flex justify-content-between">
                     <div class="table-header mt-2">
                         RESUMEN DE RESULTADOS DE EVALUACIONES - TESTS - TAMIZAJES - INMUNIZACIONES - LABORATORIO
+                    </div>
+                    <div>
+                        <button pButton pRipple label="Agregar a Diagnósticos" icon="pi pi-plus" class="p-button-danger"
+                                (click)="agregarToDx()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
                     </div>
                 </div>
             </ng-template>
@@ -26,7 +30,7 @@
                     <th style="text-align: center" class="font-2">NOMBRE</th>
                     <th style="text-align: center" class="font-2">EVALUACION</th>
                     <th style="text-align: center" class="font-2">RESULTADO</th>
-                    <th style="width: 3rem">ESTADO</th>
+<!--                    <th style="width: 3rem">ESTADO</th>-->
                     <th style="width: 3rem">
                         <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                     </th>
@@ -51,9 +55,9 @@
                     <td style="text-transform:uppercase;text-align: center"  [ngClass]="{'rojo': listaResumen.resultado === 'POSITIVO' || listaResumen.resultado =='RETRASO' || listaResumen.resultado =='NINO CON ALIMENTACION COMPLEMENTARIA INADECUADA' || listaResumen.resultado =='Sobrepeso' || listaResumen.resultado =='Riesgo microcefalia' || listaResumen.resultado =='Desnutrición' }">
                         {{listaResumen.resultado}}
                     </td>
-                    <td>
-                        <p-inputSwitch>{{listaResumen.estado}}</p-inputSwitch>
-                    </td>
+<!--                    <td>-->
+<!--                        <p-inputSwitch>{{checked[rowIndex]}}</p-inputSwitch>-->
+<!--                    </td>-->
                     <td>
                         <p-tableCheckbox [value]="listaResumen"></p-tableCheckbox>
                     </td>
@@ -94,6 +98,7 @@
                     <th style="text-align: center" class="font-2">CIE 10 HIS</th>
                     <th style="text-align: center" class="font-2">TIPO</th>
                     <th style="text-align: center" class="font-2">FACTOR CONDICIONAL</th>
+<!--                    <th style="text-align: center" class="font-2">DX</th>-->
                     <th style="text-align: center" class="font-2">ACCIÓN</th>
                 </tr>
             </ng-template>
@@ -107,7 +112,8 @@
                     <td style="text-align: center">{{ rowData.diagnosticoHIS }}</td>
                     <td style="text-align: center">{{ rowData.cie10HIS }}</td>
                     <td style="text-align: center">{{ rowData.tipo }}</td>
-                    <td style="text-align: center">{{ rowData.factorCondicional }}</td>
+                    <td style="text-align: center">{{ rowData.factorCondicional }}
+<!--                    <td style="text-align: center">{{ checked }}</td>-->
                     <td style="text-align: center">
                         <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
                                 (click)="eliminarDiagnostico(rowIndex)" pTooltip="Eliminar">
@@ -118,66 +124,13 @@
             </ng-template>
         </p-table>
     </div>
-<!--     Procedimientos-->
-<!--    <div class="col-12 lg:col-12 md:col-12 col-fixed">-->
-<!--        <p-table [value]="procedimientos" [rowHover]="true" styleClass="p-datatable-gridlines"-->
-<!--                 [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,15]"-->
-<!--                 [paginator]="true" currentPageReportTemplate="Mostrando {first} al {last} de {totalRecords} entradas"-->
-<!--                 [filterDelay]="0">-->
-<!--            <ng-template pTemplate="caption">-->
-<!--                <div class="flex justify-content-between">-->
-<!--                    <div class="table-header mt-2">-->
-<!--                        2. PROCEDIMIENTOS-->
-<!--                    </div>-->
-<!--                    <div>-->
-<!--                        <button pButton pRipple label="Agregar" icon="pi pi-plus-circle" class="guardar mr-2"-->
-<!--                                style="background-color: #0c3866" (click)="openProcedimiento()"></button>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </ng-template>-->
-<!--            <ng-template pTemplate="header">-->
-<!--                <tr>-->
-<!--                    <th style="text-align: center" class="font-2">Nro</th>-->
-<!--                    <th style="text-align: center" class="font-2">COD. PROCEDIMIENTO SIS</th>-->
-<!--                    <th style="text-align: center" class="font-2">PROCEDIMIENTO SIS</th>-->
-<!--                    <th style="text-align: center" class="font-1">COD. PROCEDIMIENTO HIS</th>-->
-<!--                    <th style="text-align: center" class="font-2">PROCEDIMIENTO SIS</th>-->
-<!--                    <th style="text-align: center" class="font-1">COD. PRESTACIÓN</th>-->
-<!--                    <th style="text-align: center" class="font-2">CIE 10 SIS</th>-->
-<!--                    <th style="text-align: center" class="font-2">ACCIÓN</th>-->
-<!--                </tr>-->
-<!--            </ng-template>-->
-<!--            <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">-->
-<!--                <tr>-->
-<!--                    <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>-->
-<!--                    <td style="text-align: center">{{ rowData.codProcedimientoSIS }}</td>-->
-<!--                    <td style="text-align: center">{{ rowData.procedimientoSIS }}</td>-->
-<!--                    <td style="text-align: center">{{ rowData.codProcedimientoHIS }}</td>-->
-<!--                    <td style="text-align: center">{{ rowData.procedimientoHIS }}</td>-->
-<!--                    <td style="text-align: center">{{ rowData.codPrestacion }}</td>-->
-<!--                    <td style="text-align: center">{{ rowData.cie10SIS }}</td>-->
-<!--                    <td style="text-align: center">-->
-<!--                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-danger m-1"-->
-<!--                                (click)="eliminarDiagnostico(rowIndex)" pTooltip="Eliminar">-->
-<!--                        </button>-->
-<!--                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"-->
-<!--                                (click)="eliminarDiagnostico(rowIndex)" pTooltip="Eliminar">-->
-<!--                        </button>-->
-
-<!--                    </td>-->
-<!--                </tr>-->
-<!--            </ng-template>-->
-<!--        </p-table>-->
-<!--    </div>-->
-
-
 
 </div>
 
 <!-- Diagnóstico --->
 <p-dialog header="INGRESAR UN DIAGNOSTICO" [(visible)]="diagnosticoDialog" [modal]="true" [style]="{width: '80%', height: '70%'}"
           [draggable]="false" [resizable]="false">
-    <div class="card m-2">
+    <div class="card m-2" *ngIf="checked">
         <p-toolbar>
             <div class="p-toolbar-group-left">
                  <h3>RESUMEN DE EVALUACIONES, EXAMENES AUXILIARES Y TEST SELECCIONADOS</h3>

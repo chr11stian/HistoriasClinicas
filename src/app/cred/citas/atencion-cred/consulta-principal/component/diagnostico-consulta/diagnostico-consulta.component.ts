@@ -36,7 +36,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
     listaDeProcedimientos:any[]=[];
     tipoList:lista[]=[];
 
-    checked: boolean;
+    checked: boolean=false;
 
     descripcionItem: string;
     private hayDatos:boolean=false;
@@ -56,10 +56,11 @@ export class DiagnosticoConsultaComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.recuperarResumenDxBDLaboratorio();
+
         this.recuperarResumenDxBDInmunizaciones();
         this.recuperarResumenDxBDTamizajes();
         this.recuperarResumenDxBDEvaluaciones();
+        this.recuperarResumenDxBDLaboratorio();
         this.recuperarPrestaciones();
         this.recuperarDxBD();
 
@@ -292,6 +293,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
     openDiagnostico() {
         this.diagnosticoDialog = true;
         // this.isUpdate = false;
+        this.checked=false;
         this.formDiagnostico.reset();
         this.formDiagnostico.get('nombreUPS').setValue("ATENCION INTEGRAL DEL NINO");
         this.formDiagnostico.get('cie10HIS').setValue("");
@@ -421,6 +423,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
     /***funciones para guardar datos****/
     getDatatoSaveDx(){
         console.log(this.formDiagnostico.value.nombreUPS)
+
         let aux = {
             nro:this.diagnosticos.length +1,
             diagnosticoHIS:this.formDiagnostico.value.diagnosticoHIS,
@@ -438,12 +441,20 @@ export class DiagnosticoConsultaComponent implements OnInit {
         console.log(duplicado)
         this.diagnosticoDialog = false;
         if(!duplicado){
+            if(this.selectedProducts)
+            {
+                this.tablaResumenDx = this.tablaResumenDx.filter(val => !this.selectedProducts.includes(val));
+                this.selectedProducts = null;
+            }
             this.diagnosticos.push(aux);
+
         }
         else{
             this.messageService.add({severity:'error', summary: 'Cuidado!', detail:'Ya ingreso este diagnóstico, vuelva a intentar.'});
         }
-
+        if(this.tablaResumenDx!=null){
+            this.messageService.add({severity:'warn', summary: 'Cuidado!', detail:'Aún tiene evaluaciones realizadas sin diagnósticar'});
+        }
 
     }
 
@@ -494,8 +505,16 @@ export class DiagnosticoConsultaComponent implements OnInit {
     }
 
     agregarToDx() {
+        this.checked = true;
         console.log(this.selectedProducts);
-        this.openDiagnostico();
+        this.diagnosticoDialog = true;
+        // this.isUpdate = false;
+        this.formDiagnostico.reset();
+        this.formDiagnostico.get('nombreUPS').setValue("ATENCION INTEGRAL DEL NINO");
+        this.formDiagnostico.get('cie10HIS').setValue("");
+        this.formDiagnostico.get('cie10SIS').setValue("");
+        this.diagnosticoDialog = true;
+        this.selectedProducts.forEach(element=>console.log(element));
 
     }
 }

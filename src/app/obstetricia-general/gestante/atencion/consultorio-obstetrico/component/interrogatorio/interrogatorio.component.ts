@@ -148,7 +148,7 @@ export class InterrogatorioComponent implements OnInit {
     console.log("Nro de embarazo desde interrogatorio", this.nroEmbarazo);
     console.log("Id Consultorio Obstetrico desde interrogatorio", this.idConsulta);
     this.loadData();
-    
+
   }
 
   async getUltimaConsulta() {
@@ -167,7 +167,47 @@ export class InterrogatorioComponent implements OnInit {
     if (!this.estadoEditar) {
       this.calcularEdadGestacional(this.ultimaConsulta.fum);
       this.calcularGanancia();
+
+      //funciones biologicas
+      this.form.patchValue({ apetito: this.ultimaConsulta.funcionesBiologicas[0].valor });
+      this.form.patchValue({ sed: this.ultimaConsulta.funcionesBiologicas[1].valor });
+      this.form.patchValue({ suenos: this.ultimaConsulta.funcionesBiologicas[2].valor });
+      this.form.patchValue({ estadoAnimo: this.ultimaConsulta.funcionesBiologicas[3].valor });
+      this.form.patchValue({ orina: this.ultimaConsulta.funcionesBiologicas[4].valor });
+      this.form.patchValue({ deposiciones: this.ultimaConsulta.funcionesBiologicas[5].valor });
+
+      this.form.patchValue({ apetitoDetalle: this.ultimaConsulta.funcionesBiologicas[0].detalle });
+      this.form.patchValue({ sedDetalle: this.ultimaConsulta.funcionesBiologicas[1].detalle });
+      this.form.patchValue({ suenosDetalle: this.ultimaConsulta.funcionesBiologicas[2].detalle });
+      this.form.patchValue({ estadoAnimoDetalle: this.ultimaConsulta.funcionesBiologicas[3].detalle });
+      this.form.patchValue({ orinaDetalle: this.ultimaConsulta.funcionesBiologicas[4].detalle });
+      this.form.patchValue({ deposicionesDetalle: this.ultimaConsulta.funcionesBiologicas[5].detalle });
+
+      //examenes fisicos
+      this.form.patchValue({ piel: this.ultimaConsulta.examenesFisicos[0].valor });
+      this.form.patchValue({ mucosas: this.ultimaConsulta.examenesFisicos[1].valor });
+      this.form.patchValue({ cabeza: this.ultimaConsulta.examenesFisicos[2].valor });
+      this.form.patchValue({ cuello: this.ultimaConsulta.examenesFisicos[3].valor });
+      this.form.patchValue({ cardioVasc: this.ultimaConsulta.examenesFisicos[4].valor });
+      this.form.patchValue({ pulmones: this.ultimaConsulta.examenesFisicos[5].valor });
+      this.form.patchValue({ mamas: this.ultimaConsulta.examenesFisicos[6].valor });
+      this.form.patchValue({ pezones: this.ultimaConsulta.examenesFisicos[7].valor });
+      this.form.patchValue({ abdomen: this.ultimaConsulta.examenesFisicos[8].valor });
+
+      this.form.patchValue({ pielDetalle: this.ultimaConsulta.examenesFisicos[0].detalle });
+      this.form.patchValue({ mucosasDetalle: this.ultimaConsulta.examenesFisicos[1].detalle });
+      this.form.patchValue({ cabezaDetalle: this.ultimaConsulta.examenesFisicos[2].detalle });
+      this.form.patchValue({ cuelloDetalle: this.ultimaConsulta.examenesFisicos[3].detalle });
+      this.form.patchValue({ cardioVascDetalle: this.ultimaConsulta.examenesFisicos[4].detalle });
+      this.form.patchValue({ pulmonesDetalle: this.ultimaConsulta.examenesFisicos[5].detalle });
+      this.form.patchValue({ mamasDetalle: this.ultimaConsulta.examenesFisicos[6].detalle });
+      this.form.patchValue({ pezonesDetalle: this.ultimaConsulta.examenesFisicos[7].detalle });
+      this.form.patchValue({ abdomenDetalle: this.ultimaConsulta.examenesFisicos[8].detalle });
+      if (this.ultimaConsulta.examenesFisicos.length > 9) {
+        this.form.patchValue({ examenFisicoOtro: this.ultimaConsulta.examenesFisicos[9].valor });
+      }
     }
+
 
   }
 
@@ -186,6 +226,7 @@ export class InterrogatorioComponent implements OnInit {
   }
   calcularGanancia() {
     let gananciaPeso = Math.round(((this.form.value.peso - this.form.value.pesoHabitual) + Number.EPSILON) * 100) / 100;
+    console.log("ganancia de peso", gananciaPeso);
     let imc = this.form.value.imc;
     let indicador = "";
     let semanas = this.form.value.semanas;
@@ -455,12 +496,12 @@ export class InterrogatorioComponent implements OnInit {
         perimetroCefalico: null,
       },
       funcionesBiologicas: [
-        { funcion: 'Apetito', valor: this.form.value.apetito, detalle: this.form.value.apetitoDetalle },
-        { funcion: 'Sed', valor: this.form.value.sed, detalle: this.form.value.sedDetalle },
-        { funcion: 'Sueños', valor: this.form.value.suenos, detalle: this.form.value.suenosDetalle },
-        { funcion: 'Estado Animo', valor: this.form.value.estadoAnimo, detalle: this.form.value.estadoAnimoDetalle },
-        { funcion: 'Orina', valor: this.form.value.orina, detalle: this.form.value.orinaDetalle },
-        { funcion: 'Deposiciones', valor: this.form.value.deposiciones, detalle: this.form.value.deposicionesDetalle },
+        { funcion: 'APETITO', valor: this.form.value.apetito, detalle: this.form.value.apetitoDetalle },
+        { funcion: 'SED', valor: this.form.value.sed, detalle: this.form.value.sedDetalle },
+        { funcion: 'SUEÑOS', valor: this.form.value.suenos, detalle: this.form.value.suenosDetalle },
+        { funcion: 'ESTADO ANIMO', valor: this.form.value.estadoAnimo, detalle: this.form.value.estadoAnimoDetalle },
+        { funcion: 'ORINA', valor: this.form.value.orina, detalle: this.form.value.orinaDetalle },
+        { funcion: 'DEPOSICIONES', valor: this.form.value.deposiciones, detalle: this.form.value.deposicionesDetalle },
       ],
       anamnesis: this.form.value.anamnesis,
       motivoConsulta: this.form.value.motivoConsulta,
@@ -640,7 +681,6 @@ export class InterrogatorioComponent implements OnInit {
       for (let i = 9; i < Rpta.examenesFisicos.length; i++) {
         this.listaOtrosPruebasFisicas.push(Rpta.examenesFisicos[i]);
       }
-      //this.calcularGanancia();
     });
   }
 
@@ -686,4 +726,6 @@ export interface ultimaConsulta {
   fum?: string,
   imc?: string,
   nroFetos?: string,
+  funcionesBiologicas?: any[],
+  examenesFisicos?: any[],
 }

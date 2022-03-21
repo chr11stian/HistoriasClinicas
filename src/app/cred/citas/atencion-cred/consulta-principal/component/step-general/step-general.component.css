@@ -37,7 +37,7 @@ p-tabview >>> .p-tabview .p-tabview-panels {
 
 :host >>> .p-steps .p-steps-item .p-menuitem-link .p-steps-number {
     border-radius: 0;
-    width: 140px;
+    width: 110px;
     height: 50px;
     color: transparent;
     background: white;
@@ -49,14 +49,32 @@ p-tabview >>> .p-tabview .p-tabview-panels {
 }
 
 :host >>> .p-steps .p-steps-item .p-menuitem-link .p-steps-title {
-    margin-top: -35px;
+
     z-index: 2;
-    margin-bottom: 19px;
+
     color: green;
+    width: 80px;
+    white-space: normal;
+    text-align: center;
+    align-items: center;
+
+    position: absolute;
+    left: 50%;
+    top: 35%;
+    transform: translate(-50%, -50%);
 }
 
 :host >>> .p-steps .p-steps-item.p-highlight .p-steps-title {
     color: rgb(10, 79, 163);
+    width: 80px;
+    white-space: normal;
+    text-align: center;
+    align-items: center;
+
+    position: absolute;
+    left: 50%;
+    top: 35%;
+    transform: translate(-50%, -50%);
 }
 
 :host >>> .p-steps .p-steps-item:before {
