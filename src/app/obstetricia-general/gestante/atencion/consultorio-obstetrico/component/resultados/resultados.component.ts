@@ -7,6 +7,7 @@ import { ConsultasService } from '../../services/consultas.service';
 import { ModalInterconsultaComponent } from "./modal-interconsulta/modal-interconsulta.component";
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import Swal from "sweetalert2";
+import { DatePipe } from '@angular/common';
 interface Employee {
     name: string;
     department: string;
@@ -106,6 +107,7 @@ export class ResultadosComponent implements OnInit {
     isUpdate: boolean = false;
     index = 0;
 
+    datePipe = new DatePipe('en-US');
     /*INTERCONSULTAS*/
     interconsultas: any[] = [];
 
@@ -125,12 +127,19 @@ export class ResultadosComponent implements OnInit {
 
     nroAtencion: any;
 
+    nombreResponsable: any;
+    nroDocResponsable: any;
+
     constructor(private resultadosService: ResultadosService,
         private consultaService: ConsultasService,
         private messageService: MessageService,
         private consultasService: ConsultasService,
         private dialog: DialogService) {
         this.buildForm();
+
+        this.nombreResponsable= JSON.parse(localStorage.getItem('usuario')).nombres.split("-")[0]+"-"+JSON.parse(localStorage.getItem('usuario')).apellidos;
+        this.nroDocResponsable= JSON.parse(localStorage.getItem('usuario')).nroDocumento;
+
         /*********RECUPERAR DATOS*********/
         /*usando local storage*/
         this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
@@ -172,7 +181,9 @@ export class ResultadosComponent implements OnInit {
 
     buildForm() {
         this.form = new FormGroup({
-            proxCita: new FormControl('', [Validators.required])
+            proxCita: new FormControl('', [Validators.required]),
+            nombreResponsable: new FormControl('', [Validators.required]),
+            docResponsable: new FormControl('', [Validators.required])
         })
         this.examenFG = new FormGroup({
             resultado: new FormControl('', [Validators.required]),
@@ -188,6 +199,8 @@ export class ResultadosComponent implements OnInit {
     ngOnInit(): void {
         this.examenFG.get('fechaExamen').setValue(new Date());
         this.recuperarDatos();
+        this.form.get("nombreResponsable").setValue(this.nombreResponsable);
+        this.form.get("docResponsable").setValue(this.nroDocResponsable);
     }
 
     openDialogInterconsultas() {
@@ -226,141 +239,7 @@ export class ResultadosComponent implements OnInit {
             };
         })
     }
-    getFC(control: string): AbstractControl {
-        return this.resultadoEcografiaFG.get(control);
-    }
-
-    getFecha(date: Date) {
-        if (date.toString() !== '') {
-            let hora = date.toLocaleTimeString();
-            let dd = date.getDate();
-            let dd1;
-            if (dd < 10) {
-                dd1 = '0' + dd;
-                dd = dd1
-            }
-            let mm = date.getMonth() + 1; //January is 0!
-            let yyyy = date.getFullYear();
-            return yyyy + '-' + mm + '-' + dd;
-        } else {
-            return '';
-        }
-    }
-    getFechaHora(date: Date) {
-        if (date.toString() !== '') {
-            let hora = date.toLocaleTimeString();
-            let dd = date.getDate();
-            let dd1;
-            if (dd < 10) {
-                dd1 = '0' + dd;
-                dd = dd1
-            }
-            let mm = date.getMonth() + 1;
-            let yyyy = date.getFullYear();
-            return yyyy + '-' + mm + '-' + dd + ' ' + hora
-        } else {
-            return '';
-        }
-    }
-    resultadosList = [];
-    recuperarData(data) {
-        let examen
-        for (const key in data) {
-            if (data[key] != null && data[key]['valor'] != "" && data[key]['valor'] != null && data[key]['fecha'] != null) {
-                const found = this.examenes.find(element => element.name == key);
-                this.resultadosList.push({ display: found.display, prueba: key, valor: data[key]['valor'], fecha: data[key]['fecha'] })
-            }
-        }
-        // console.log('lista:',this.resultadosList)
-    }
-
-    getResultados() {
-        const input = {
-            "nroHcl": this.nroDocRecuperado,
-            "nroEmbarazo": this.nroEmbarazo,
-            "nroAtencion": 1
-        }
-        this.resultadosService.getResultado(input).subscribe((resp) => {
-            if (resp['cod'] = '2401') {
-                if (resp['object'][0]['laboratorios'] != null) {
-                    this.isUpdate = true;
-                    const resultado = resp['object'][0]
-                    this.recuperarData(resultado['laboratorios']);
-                    if (resultado.ecografia.fecha != null) {
-                        this.getFC('fechaEcografia1').setValue(new Date(resultado.ecografia.fecha));
-                    }
-                    this.getFC('resultado1').setValue(resultado.ecografia.observaciones);
-                    this.getFC('semana1').setValue(resultado.ecografia.semanas);
-                    this.getFC('dia1').setValue(resultado.ecografia.dias);
-                    this.messageService.add({
-                        severity: 'info',
-                        summary: 'Recuperado',
-                        detail: 'registro recuperado satisfactoriamente'
-                    });
-                } else {
-                    this.isUpdate = false;
-                    this.messageService.add({ severity: 'success', summary: 'Ingresar', detail: 'Registro vacio' });
-                }
-            }
-        })
-    }
-    desabilitado = true;
-    updateIndex = 0;
-    guardarExamen() {
-        let input = {
-            display: this.displaySeleccionado,
-            prueba: this.pruebaSeleccionada,
-            valor: this.examenFG.get('resultado').value,
-            fecha: this.getFecha(this.examenFG.get('fechaExamen').value)
-        }
-        if (this.isUpdate) {
-            this.resultadosList.splice(this.updateIndex, 1, input)
-        }
-        else {
-            this.resultadosList.push(input);
-        }
-        this.tipoInput1 = 0;
-        this.desabilitado = true;
-        this.isUpdate = false;
-
-    }
-    generarCadena() {
-        let cadena = '';
-        this.resultadosList.forEach((examen) => {
-            cadena += `"${examen.prueba}":{"valor":"${examen.valor}","fecha":"${examen.fecha}"},`
-            // examen.prueba+":{valor:'"+examen.valor+"',fecha:'"+examen.fecha+"'},
-        })
-        const nueva = cadena.slice(0, cadena.length - 1);
-        return `{${nueva}}`
-    }
-    agregar() {
-        // console.log('hola desde agregar')
-        const input = {
-            nroHcl: this.nroDocRecuperado,
-            nroAtencion: 1,
-            nroControlSis: 1,
-            nroEmbarazo: this.nroEmbarazo,
-            tipoDoc: this.tipoDocRecuperado,
-            nroDoc: this.nroDocRecuperado,
-            laboratorios: JSON.parse(this.generarCadena()),
-            ecografia: {
-                fecha: this.getFechaHora(this.getFC("fechaEcografia1").value),
-                // descripcion: this.getFC('resultado1').value,
-                observaciones: this.getFC('resultado1').value,
-                semanas: this.getFC('semana1').value,
-                dias: this.getFC('dia1').value
-            },
-        }
-        this.resultadosService.addresultado(input).subscribe((resp) => {
-
-            console.log('--->', resp)
-            this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Resultados agregados satisfactoriamente' });
-        },
-            (error) => {
-                console.log('->>>', error)
-            }
-        )
-    }
+    
     guardarTodosDatos() {
         const req = {
             id: this.idConsulta,
@@ -370,6 +249,15 @@ export class ResultadosComponent implements OnInit {
             tipoDoc: this.tipoDocRecuperado,
             nroDoc: this.nroDocRecuperado,
             interconsultas: this.interconsultas,
+            proxCita:
+            {
+            fecha: this.datePipe.transform(this.form.value.proxCita, 'yyyy-MM-dd'),
+            motivo: "PRÓXIMA CITA",
+            servicio: "OBSTETRICIA",
+            estado: "TENTATIVO",
+            nivelUrgencia: "NORMAL"
+            },
+            
         }
         this.consultaService.updateConsultas(this.nroFetos, req).subscribe(
             (resp) => {
@@ -412,7 +300,9 @@ export class ResultadosComponent implements OnInit {
                         summary: 'Recuperado',
                         detail: 'Registro recuperado satisfactoriamente'
                     });
-
+                    if (this.dataConsulta.proxCita != null) {
+                        this.form.patchValue({ 'proxCita': this.dataConsulta.proxCita.fecha });
+                    }
                     /* recuperar interconsultas*/
 
                     if (this.dataConsulta.interconsultas != null) {
@@ -422,8 +312,6 @@ export class ResultadosComponent implements OnInit {
                             y++;
                         }
                     }
-
-
                 } else { this.messageService.add({ severity: 'success', summary: 'Registros', detail: 'No hay datos ingresados todavía' }); }
             }
         });
@@ -450,37 +338,7 @@ export class ResultadosComponent implements OnInit {
         })
 
     }
-    deleteExamen(index) {
-        this.resultadosList.splice(index, 1)
-    }
-    examenSelect = {};
-    actualizarExamen(index, rowData) {
-        this.updateIndex = index;
-        // console.log(rowData)
-        const prueba = rowData['prueba'];
-        const found = this.examenes.find(element => element.name == prueba);
-        // console.log('foound 1',found)
-        this.examenSelect = found
-        this.examenFG.get('resultado').reset();
-        this.examenFG.get('fechaExamen').reset();
-        console.log('estadofg', this.examenFG)
-        this.pruebaSeleccionada = found.name
-        this.displaySeleccionado = found.display;
-        this.tipoInput1 = found.tipoInput;
-        this.examenFG.get('fechaExamen').setValue(new Date(rowData['fecha']));
-        if (this.tipoInput1 == 1) {
-            this.opcionesInput = []
-            this.opcionesInput = found.codeDrop;
-            const found2 = found.codeDrop.find(element => element.name == rowData['valor'])
-            this.examenFG.get('resultado').setValue(found2['code']);
-        }
-        else {
-            this.examenFG.get('resultado').setValue(rowData['valor'])
-        }
-    }
-    // openDialog(){
-    //     this.visible=true;
-    // }
+
     mostrarCronograma() {
         this.cronogramaDialog = true;
     }

@@ -492,10 +492,7 @@ export class TratamientoComponent implements OnInit {
             this.formRIEP.value.calcioObservaciones : "",
         }
       },
-      //inmunizaciones: this.tratamientoInmunizaciones,
-      //tratamientos: this.tratamientosComunes,
-      //tratamientosSuplementos: this.suplementarios,
-      //examenesAuxiliares: this.examenesAuxiliares,
+      
       recomendaciones: this.recomendaciones,
     }
     this.tratamientoService.updateConsultas(this.nroFetos, req).subscribe(
