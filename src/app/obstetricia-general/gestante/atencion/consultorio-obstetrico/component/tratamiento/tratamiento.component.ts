@@ -6,11 +6,9 @@ import { ModalTratamientoComponent } from "./modal-tratamiento/modal-tratamiento
 import { ModalInmunizacionesComponent } from "./modal-inmunizaciones/modal-inmunizaciones.component";
 import { ConsultasService } from "../../services/consultas.service";
 import Swal from "sweetalert2";
-import { ModalInterconsultaComponent } from "./modal-interconsulta/modal-interconsulta.component";
 import { ModalRecomendacionesComponent } from "./modal-recomendaciones/modal-recomendaciones.component";
 import { ModalExamenesAuxiliaresComponent } from "./modal-examenes-auxiliares/modal-examenes-auxiliares.component";
 import { MessageService } from "primeng/api";
-import { ModalProcedimientosComponent } from './modal-procedimientos/modal-procedimientos.component';
 import { MedicamentosService } from 'src/app/mantenimientos/services/medicamentos/medicamentos.service';
 import { IpressFarmaciaService } from 'src/app/modulos/ipress-farmacia/services/ipress-farmacia.service';
 
@@ -35,11 +33,7 @@ export class TratamientoComponent implements OnInit {
   /*campos para el tratamiento inmunizaciones*/
   tratamientoInmunizaciones: any[] = [];
   dataTratamientoInmunizaciones: any;
-  /*campos para procedimientos*/
-  procedimientos: any[] = [];
-  dataProcedimientos: any;
-  /*INTERCONSULTAS*/
-  interconsultas: any[] = [];
+
   recomendaciones: any[] = [];
   examenesAuxiliares: any[] = [];
   /*LISTA DE LOS DROPDOWNS*/
@@ -52,13 +46,11 @@ export class TratamientoComponent implements OnInit {
   /*form de todos los arreglos dialogs*/
   formTratamientoInmunizacion: FormGroup;
   formTratamiento: FormGroup;
-  formInterconsultas: FormGroup;
+  
   formRecomendaciones: FormGroup;
   formExamenesAuxiliares: FormGroup;
   /*CAMPOS PARA RECUPERAR LA DATA PRINCIPAL*/
   dataConsulta: any;
-  /**Recupera el Id del Consultorio Obstetrico**/
-  idConsultoriObstetrico: string;
   /****** Data recuperada********/
   private planPartoReenfocada: any;
   /*****datos recuperados para actualizar consultorio**/
@@ -224,44 +216,7 @@ export class TratamientoComponent implements OnInit {
       this.imc = parseFloat(res.object.imc);
     })
   }
-  /*DATOS RECIBIDOS DE PROCEDIMIENTOS*/
-  openDialogProcedimiento() {
-    this.ref = this.dialog.open(ModalProcedimientosComponent, {
-      header: "PROCEDIMIENTOS",
-      contentStyle: {
-        heigth: "700px",
-        width: "980px",
-        overflow: "auto",
-      },
-    })
-    this.ref.onClose.subscribe((data: any) => {
-      console.log("data de modal PROCEDIMIENTOS", data)
-      if (data !== undefined)
-        this.procedimientos.push(data);
-      console.log(this.formTratamiento);
-    })
-  }
-  openDialogEditarProcedimiento(row, index) {
-    let aux = {
-      index: index,
-      row: row
-    }
-    this.ref = this.dialog.open(ModalProcedimientosComponent, {
-      header: "PROCEDIMIENTOS",
-      contentStyle: {
-        heigth: "700px",
-        width: "980px",
-        overflow: "auto",
-      },
-      data: aux
-    })
-    this.ref.onClose.subscribe((data: any) => {
-      console.log('data de modal PROCEDIMIENTOS ', data)
-      if (data !== undefined) {
-        this.procedimientos.splice(data.index, 1, data.row);
-      };
-    })
-  }
+  
   /*DATOS RECIBIDOS DE LOS MODALES*/
   openDialogTratamientoComun() {
     this.ref = this.dialog.open(ModalTratamientoComponent, {
@@ -296,43 +251,7 @@ export class TratamientoComponent implements OnInit {
       this.recuperarTratamientos();
     })
   }
-  openDialogInterconsultas() {
-    this.ref = this.dialog.open(ModalInterconsultaComponent, {
-      header: "INTERCONSULTA",
-      contentStyle: {
-        heigth: "400px",
-        width: "680px",
-        overflow: "auto",
-      },
-    })
-    this.ref.onClose.subscribe((data: any) => {
-      console.log("data de modal interconsultas", data)
-      if (data !== undefined)
-        this.interconsultas.push(data);
-      console.log(this.formInterconsultas);
-    })
-  }
-  openDialogEditarinterconsultas(row, index) {
-    let aux = {
-      index: index,
-      row: row
-    }
-    this.ref = this.dialog.open(ModalInterconsultaComponent, {
-      header: "INTERCONSULTA",
-      contentStyle: {
-        heigth: "400px",
-        width: "680px",
-        overflow: "auto",
-      },
-      data: aux
-    })
-    this.ref.onClose.subscribe((data: any) => {
-      console.log('data de modal interconsulta ', data)
-      if (data !== undefined) {
-        this.interconsultas.splice(data.index, 1, data.row);
-      };
-    })
-  }
+  
   openDialogTratamientoInmunizaciones() {
     this.ref = this.dialog.open(ModalInmunizacionesComponent, {
       header: "INMUNIZACIONES",
@@ -497,7 +416,7 @@ export class TratamientoComponent implements OnInit {
     }
 
     const req = {
-      id: this.idConsultoriObstetrico,
+      id: this.idConsulta,
       nroHcl: this.nroHcl,
       nroEmbarazo: this.nroEmbarazo,
       nroAtencion: this.nroAtencion,
@@ -517,13 +436,12 @@ export class TratamientoComponent implements OnInit {
   guardarTodosDatos() {
     this.recuperarDatoSuplementarios();
     const req = {
-      id: this.idConsultoriObstetrico,
+      id: this.idConsulta,
       nroHcl: this.nroHcl,
       nroEmbarazo: this.nroEmbarazo,
       nroAtencion: this.nroAtencion,
       tipoDoc: this.tipoDocRecuperado,
       nroDoc: this.nroDocRecuperado,
-      procedimientos: this.procedimientos,
       tratamientosSuplementos: {
         acidoFolico: {
           descripcion: this.formRIEP.value.acidoFolicoSuplemento === "ACIDO FOLICO" ?
@@ -577,7 +495,6 @@ export class TratamientoComponent implements OnInit {
       //inmunizaciones: this.tratamientoInmunizaciones,
       //tratamientos: this.tratamientosComunes,
       //tratamientosSuplementos: this.suplementarios,
-      interconsultas: this.interconsultas,
       //examenesAuxiliares: this.examenesAuxiliares,
       recomendaciones: this.recomendaciones,
     }
@@ -596,28 +513,6 @@ export class TratamientoComponent implements OnInit {
     )
   }
   /* ELIMINAR ITEMS DE CADA TABLA */
-  eliminarProcedimiento(index) {
-    Swal.fire({
-      showCancelButton: true,
-      confirmButtonText: 'Eliminar',
-      icon: 'warning',
-      title: 'Estas seguro de eliminar este registro?',
-      text: '',
-      showConfirmButton: true,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.procedimientos.splice(index, 1)
-        Swal.fire({
-          icon: 'success',
-          title: 'Eliminado correctamente',
-          text: '',
-          showConfirmButton: false,
-          timer: 1500
-        })
-      }
-    })
-
-  }
   eliminarTratamientoComun(index) {
     Swal.fire({
       showCancelButton: true,
@@ -693,28 +588,6 @@ export class TratamientoComponent implements OnInit {
     })
 
   }
-  eliminarInterconsulta(index) {
-    Swal.fire({
-      showCancelButton: true,
-      confirmButtonText: 'Eliminar',
-      icon: 'warning',
-      title: 'Estas seguro de eliminar este registro?',
-      text: '',
-      showConfirmButton: true,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.interconsultas.splice(index, 1)
-        Swal.fire({
-          icon: 'success',
-          title: 'Eliminado correctamente',
-          text: '',
-          showConfirmButton: false,
-          timer: 1500
-        })
-      }
-    })
-
-  }
   eliminarExamenesAuxiliares(index) {
     Swal.fire({
       showCancelButton: true,
@@ -739,7 +612,7 @@ export class TratamientoComponent implements OnInit {
   recuperarDatos() {
     this.recuperarNroFetos();
     let aux = {
-      id: this.idConsultoriObstetrico,
+      id: this.idConsulta,
       nroHcl: this.nroHcl,
       nroEmbarazo: this.nroEmbarazo,
       nroAtencion: this.nroAtencion
@@ -762,11 +635,6 @@ export class TratamientoComponent implements OnInit {
             this.pesoActual = parseFloat(this.dataConsulta.funcionesVitales.peso)
             this.guardarEvaluacionNutricional();
           }
-          /*if (this.dataConsulta.evaluacionNutricional != null) {
-            //    this.formRIEP.patchValue({'valor': parseFloat(this.dataConsulta.funcionesVitales.peso) - this.pesoHabitual});
-            this.formRIEP.patchValue({ 'valor': this.dataConsulta.evaluacionNutricional.valor });
-            this.formRIEP.patchValue({ 'indicador': this.dataConsulta.evaluacionNutricional.indicador });
-          }*/
 
           if (this.dataConsulta.tratamientosSuplementos != null) {
             this.formRIEP.get('acidoFolicoSuplemento').setValue(
@@ -818,23 +686,6 @@ export class TratamientoComponent implements OnInit {
             this.formRIEP.patchValue({ 'encargado': this.dataConsulta.encargado.tipoDoc + " " + this.dataConsulta.encargado.nroDoc });
           }
 
-          if (this.dataConsulta.procedimientos != null) {
-            /* recuperar procedimientos*/
-            let p: number = 0;
-            while (p < this.dataConsulta.procedimientos.length) {
-              this.procedimientos.push(this.dataConsulta.procedimientos[p]);
-              p++;
-            }
-          }
-          /* recuperar interconsultas*/
-
-          if (this.dataConsulta.interconsultas != null) {
-            let y: number = 0;
-            while (y < this.dataConsulta.interconsultas.length) {
-              this.interconsultas.push(this.dataConsulta.interconsultas[y]);
-              y++;
-            }
-          }
           if (this.dataConsulta.recomendaciones != null) {
             /* recuperar recomendaciones*/
             let w: number = 0;

@@ -4,6 +4,9 @@ import { ResultadosService } from "../../services/resultados/resultados.service"
 import { MessageService } from "primeng/api";
 import { ObstetriciaGeneralService } from "../../../../../services/obstetricia-general.service";
 import { ConsultasService } from '../../services/consultas.service';
+import { ModalInterconsultaComponent } from "./modal-interconsulta/modal-interconsulta.component";
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import Swal from "sweetalert2";
 interface Employee {
     name: string;
     department: string;
@@ -13,9 +16,11 @@ interface Employee {
 @Component({
     selector: 'app-resultados',
     templateUrl: './resultados.component.html',
-    styleUrls: ['./resultados.component.css']
+    styleUrls: ['./resultados.component.css'],
+    providers: [DialogService]
 })
 export class ResultadosComponent implements OnInit {
+    ref: DynamicDialogRef;
     ABO = [
         { name: 'A', code: 'A' },
         { name: 'B', code: 'B' },
@@ -45,6 +50,8 @@ export class ResultadosComponent implements OnInit {
         { name: 'no aplica', code: 'no aplica' },
     ]
 
+    /*CAMPOS PARA RECUPERAR LA DATA PRINCIPAL*/
+    dataConsulta: any;
     idConsultoriObstetrico: string;
     examenes = [
         { display: "Grupo Sanguineo", name: 'grupoSanguineo', code: 1, tipoInput: 1, codeDrop: this.ABO },
@@ -99,9 +106,13 @@ export class ResultadosComponent implements OnInit {
     isUpdate: boolean = false;
     index = 0;
 
+    /*INTERCONSULTAS*/
+    interconsultas: any[] = [];
+
     cronogramaDialog: any;
     cronograma: any;
 
+    private nroFetos: number = 0;
     idConsulta: string;
     tipoDocRecuperado: string;
     nroDocRecuperado: string;
@@ -115,8 +126,10 @@ export class ResultadosComponent implements OnInit {
     nroAtencion: any;
 
     constructor(private resultadosService: ResultadosService,
+        private consultaService: ConsultasService,
         private messageService: MessageService,
-        private consultasService: ConsultasService) {
+        private consultasService: ConsultasService,
+        private dialog: DialogService) {
         this.buildForm();
         /*********RECUPERAR DATOS*********/
         /*usando local storage*/
@@ -154,7 +167,7 @@ export class ResultadosComponent implements OnInit {
             this.nroAtencion = nroAtencion;
             console.log("entre a edicion consulta", this.nroAtencion)
         }
-        this.recuperarCronograma() 
+        this.recuperarCronograma()
     }
 
     buildForm() {
@@ -174,10 +187,45 @@ export class ResultadosComponent implements OnInit {
     }
     ngOnInit(): void {
         this.examenFG.get('fechaExamen').setValue(new Date());
-        this.getResultados();
+        this.recuperarDatos();
     }
 
-
+    openDialogInterconsultas() {
+        this.ref = this.dialog.open(ModalInterconsultaComponent, {
+            header: "INTERCONSULTA",
+            contentStyle: {
+                heigth: "400px",
+                width: "680px",
+                overflow: "auto",
+            },
+        })
+        this.ref.onClose.subscribe((data: any) => {
+            console.log("data de modal interconsultas", data)
+            if (data !== undefined)
+                this.interconsultas.push(data);
+        })
+    }
+    openDialogEditarinterconsultas(row, index) {
+        let aux = {
+            index: index,
+            row: row
+        }
+        this.ref = this.dialog.open(ModalInterconsultaComponent, {
+            header: "INTERCONSULTA",
+            contentStyle: {
+                heigth: "400px",
+                width: "680px",
+                overflow: "auto",
+            },
+            data: aux
+        })
+        this.ref.onClose.subscribe((data: any) => {
+            console.log('data de modal interconsulta ', data)
+            if (data !== undefined) {
+                this.interconsultas.splice(data.index, 1, data.row);
+            };
+        })
+    }
     getFC(control: string): AbstractControl {
         return this.resultadoEcografiaFG.get(control);
     }
@@ -313,6 +361,95 @@ export class ResultadosComponent implements OnInit {
             }
         )
     }
+    guardarTodosDatos() {
+        const req = {
+            id: this.idConsulta,
+            nroHcl: this.nroHcl,
+            nroEmbarazo: this.nroEmbarazo,
+            nroAtencion: this.nroAtencion,
+            tipoDoc: this.tipoDocRecuperado,
+            nroDoc: this.nroDocRecuperado,
+            interconsultas: this.interconsultas,
+        }
+        this.consultaService.updateConsultas(this.nroFetos, req).subscribe(
+            (resp) => {
+                console.log(resp);
+                console.log(req);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Actualizado correctamente',
+                    text: '',
+                    showConfirmButton: false,
+                    timer: 1500,
+                })
+            }
+        )
+    }
+    recuperarNroFetos() {
+        let idData = {
+            id: this.idConsulta
+        }
+        this.consultaService.getUltimaConsultaById(idData).subscribe((res: any) => {
+            this.nroFetos = res.object.nroFetos;
+        })
+    }
+    recuperarDatos() {
+        this.recuperarNroFetos();
+        let aux = {
+            id: this.idConsulta,
+            nroHcl: this.nroHcl,
+            nroEmbarazo: this.nroEmbarazo,
+            nroAtencion: this.nroAtencion
+        }
+        this.consultaService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
+            this.dataConsulta = res.object;
+            console.log("data consulta:" + this.dataConsulta);
+
+            if (res['cod'] = '2401') {
+                if (this.dataConsulta != null) {
+                    this.messageService.add({
+                        severity: 'info',
+                        summary: 'Recuperado',
+                        detail: 'Registro recuperado satisfactoriamente'
+                    });
+
+                    /* recuperar interconsultas*/
+
+                    if (this.dataConsulta.interconsultas != null) {
+                        let y: number = 0;
+                        while (y < this.dataConsulta.interconsultas.length) {
+                            this.interconsultas.push(this.dataConsulta.interconsultas[y]);
+                            y++;
+                        }
+                    }
+
+
+                } else { this.messageService.add({ severity: 'success', summary: 'Registros', detail: 'No hay datos ingresados todavía' }); }
+            }
+        });
+    }
+    eliminarInterconsulta(index) {
+        Swal.fire({
+            showCancelButton: true,
+            confirmButtonText: 'Eliminar',
+            icon: 'warning',
+            title: 'Estas seguro de eliminar este registro?',
+            text: '',
+            showConfirmButton: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.interconsultas.splice(index, 1)
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Eliminado correctamente',
+                    text: '',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+        })
+
+    }
     deleteExamen(index) {
         this.resultadosList.splice(index, 1)
     }
@@ -359,5 +496,5 @@ export class ResultadosComponent implements OnInit {
     funcionAuxiliar(fecha) {
         return new Date(fecha).getTime();
     }
-    
+
 }
