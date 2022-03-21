@@ -22,7 +22,7 @@ import {InterceptorService} from "../interceptors/interceptor.service";
     declarations: [
         AppComponent,
         LoginComponent,
-        NotFoundComponent
+        NotFoundComponent,
     ],
     imports: [
         BrowserModule,
