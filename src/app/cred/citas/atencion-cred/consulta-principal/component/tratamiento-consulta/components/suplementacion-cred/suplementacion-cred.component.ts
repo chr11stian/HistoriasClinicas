@@ -13,6 +13,7 @@ import {dato} from "../../../../../../models/data";
   providers: [DialogService],
 })
 export class SuplementacionCredComponent implements OnInit {
+
   isSuplementacion:boolean
   dni:string
   stateOptions: any[];
@@ -98,6 +99,21 @@ s
         // this.messageService.add({severity:'error', summary: 'warn', detail:'NO SE registro ninguna inmunizacion'});
       }
     });
+  }
+  contador:any={
+    sulfato:0,
+    micronutrientes:0,
+    vitaminaA:0
+  };
+  correspondeMes(mesPivot,suplemento){
+    if(mesPivot==this.edadMes)
+    {
+      this.contador[suplemento]+=1;
+      return true;
+    }
+    else
+      return false
+
   }
 
 
