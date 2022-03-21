@@ -41,23 +41,4 @@ export class ListarFuaComponent implements OnInit {
     localStorage.setItem('dataFUA', JSON.stringify(dataFUA));
   }
 
-  // validateFUA() {
-  //   Swal.fire({
-  //     title: 'Esta Seguro de Generar FUA?, se dara como finalizado la consulta',
-  //     showDenyButton: true,
-  //     confirmButtonText: 'CREAR FUA',
-  //     denyButtonText: `CANCELAR`,
-  //     confirmButtonColor: '#3085d6',
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       Swal.fire('Se creo FUA!', '', 'success')
-
-  //       console.log('data of before view ', this.data);
-  //     } else if (result.isDenied) {
-  //       Swal.fire('No se genero FUA', '', 'warning')
-  //       this.location.back();
-  //     }
-  //   })
-  // }
-
 }

@@ -1,126 +1,194 @@
-<p-fieldset>
-  <ng-template pTemplate="header">
-    <div>
-      Suplementacion con SULFATO FERROSO
+<p-fieldset styleClass="mb-3">
+    <ng-template pTemplate="header">
+        <div>
+            Suplementacion con SULFATO FERROSO
+        </div>
+    </ng-template>
+    <div class="grid">
+        <div class="col-1 text-center" style="font-weight: bold">Edad Mes</div>
+        <div class="col-2 text-center" style="font-weight: bold">Nombre</div>
+        <div class="col-1 text-center" style="font-weight: bold">Nro Dosis</div>
+        <div class="col text-center" style="font-weight: bold">Fecha Tentativa</div>
+        <div class="col text-center" style="font-weight: bold">Fecha Administracion</div>
+        <div class="col-2 text-center" style="font-weight: bold">Estado</div>
     </div>
-  </ng-template>
-  <div class="grid">
-    <div class="col-1 text-center" style="font-weight: bold">Edad Mes</div>
-    <div class="col-2 text-center" style="font-weight: bold">Nombre</div>
-    <div class="col-1 text-center" style="font-weight: bold">Nro Dosis</div>
-    <div class="col text-center" style="font-weight: bold">Fecha Tentativa</div>
-    <div class="col text-center" style="font-weight: bold">Fecha Administracion</div>
-    <div class="col-2 text-center" style="font-weight: bold">Estado</div>
-  </div>
-  <div class="grid" *ngFor="let sf of SF">
-    <div class="col-1 text-center">
-      {{sf.edadMes}}
-    </div>
-    <div class="col-2 text-center">
-      {{sf.descripcion}}
-    </div>
-    <div class="col-1 text-center">
-      {{sf.dosis}}
-    </div>
-    <div class="col text-center">
-      <p-calendar
-              [showIcon]="true"
-              placeholder="Fecha"
-              [disabled]="true"
-              dateFormat="dd/mm/yy"
-              [(ngModel)]="sf.fechaTentativa"
-              [ngClass]="{
+    <div class="grid" *ngFor="let sf of SF">
+        <div class="col-1 text-center">
+            {{sf.edadMes}}
+        </div>
+        <div class="col-2 text-center">
+            {{sf.descripcion}}
+        </div>
+        <div class="col-1 text-center">
+            {{sf.dosis}}
+        </div>
+        <div class="col text-center">
+            <p-calendar
+                    [showIcon]="true"
+                    placeholder="Fecha"
+                    [disabled]="true"
+                    dateFormat="dd/mm/yy"
+                    [(ngModel)]="sf.fechaTentativa"
+                    [ngClass]="{
                         vacunado: sf.estadoAdministrado,
                         noVacunado: !sf.estadoAdministrado
                       }"
-      ></p-calendar>
-    </div>
-    <div class="col text-center">
-      <p-calendar
-              [showIcon]="true"
-              placeholder="Fecha"
-              [disabled]="true"
-              dateFormat="dd/mm/yy"
-              [(ngModel)]="sf.fecha"
-              [ngClass]="{
+            ></p-calendar>
+        </div>
+        <div class="col text-center">
+            <p-calendar
+                    [showIcon]="true"
+                    placeholder="Fecha"
+                    [disabled]="true"
+                    dateFormat="dd/mm/yy"
+                    [(ngModel)]="sf.fecha"
+                    [ngClass]="{
                         vacunado: sf.estadoAdministrado,
                         noVacunado: !sf.estadoAdministrado
                       }"
-      ></p-calendar>
-    </div>
-    <div class="col-2 text-center">
+            ></p-calendar>
+        </div>
+        <div class="col-2 text-center">
             <span *ngIf="sf.estadoAdministrado;else noVacunado;">
               <p-tag severity="success" value="Administrado" [rounded]="true"></p-tag>
             </span>
-      <ng-template #noVacunado>
+            <ng-template #noVacunado>
               <span>
                 <p-tag severity="warning" value="No Administrado" [rounded]="true"></p-tag>
               </span>
-      </ng-template>
+            </ng-template>
+        </div>
     </div>
-  </div>
 </p-fieldset>
-<p-fieldset>
-  <ng-template pTemplate="header">
-    <div>
-      Suplementacion con MICRONUTRIENTES
+<p-fieldset styleClass="mb-3">
+    <ng-template pTemplate="header">
+        <div>
+            Suplementacion con MICRONUTRIENTES
+        </div>
+    </ng-template>
+    <div class="grid">
+        <div class="col-1 text-center" style="font-weight: bold">Edad Mes</div>
+        <div class="col-2 text-center" style="font-weight: bold">Nombre</div>
+        <div class="col-1 text-center" style="font-weight: bold">Nro Dosis</div>
+        <div class="col text-center" style="font-weight: bold">Fecha Tentativa</div>
+        <div class="col text-center" style="font-weight: bold">Fecha Administracion</div>
+        <div class="col-2 text-center" style="font-weight: bold">Estado</div>
     </div>
-  </ng-template>
-  <div class="grid">
-    <div class="col-1 text-center" style="font-weight: bold">Edad Mes</div>
-    <div class="col-2 text-center" style="font-weight: bold">Nombre</div>
-    <div class="col-1 text-center" style="font-weight: bold">Nro Dosis</div>
-    <div class="col text-center" style="font-weight: bold">Fecha Tentativa</div>
-    <div class="col text-center" style="font-weight: bold">Fecha Administracion</div>
-    <div class="col-2 text-center" style="font-weight: bold">Estado</div>
-  </div>
-  <div class="grid" *ngFor="let mnm of MNM">
-    <div class="col-1 text-center">
-      {{mnm.edadMes}}
-    </div>
-    <div class="col-2 text-center">
-      {{mnm.descripcion}}
-    </div>
-    <div class="col-1 text-center">
-      {{mnm.dosis}}
-    </div>
-    <div class="col text-center">
-      <p-calendar
-              [showIcon]="true"
-              placeholder="Fecha"
-              [disabled]="true"
-              dateFormat="dd/mm/yy"
-              [(ngModel)]="mnm.fechaTentativa"
-              [ngClass]="{
+    <div class="grid" *ngFor="let mnm of MNM">
+        <div class="col-1 text-center">
+            {{mnm.edadMes}}
+        </div>
+        <div class="col-2 text-center">
+            {{mnm.descripcion}}
+        </div>
+        <div class="col-1 text-center">
+            {{mnm.dosis}}
+        </div>
+        <div class="col text-center">
+            <p-calendar
+                    [showIcon]="true"
+                    placeholder="Fecha"
+                    [disabled]="true"
+                    dateFormat="dd/mm/yy"
+                    [(ngModel)]="mnm.fechaTentativa"
+                    [ngClass]="{
                         vacunado: mnm.estadoAdministrado,
                         noVacunado: !mnm.estadoAdministrado
                       }"
-      ></p-calendar>
-    </div>
-    <div class="col text-center">
-      <p-calendar
-              [showIcon]="true"
-              placeholder="Fecha"
-              [disabled]="true"
-              dateFormat="dd/mm/yy"
-              [(ngModel)]="mnm.fecha"
-              [ngClass]="{
+            ></p-calendar>
+        </div>
+        <div class="col text-center">
+            <p-calendar
+                    [showIcon]="true"
+                    placeholder="Fecha"
+                    [disabled]="true"
+                    dateFormat="dd/mm/yy"
+                    [(ngModel)]="mnm.fecha"
+                    [ngClass]="{
                         vacunado: mnm.estadoAdministrado,
                         noVacunado: !mnm.estadoAdministrado
                       }"
-      ></p-calendar>
-    </div>
-    <div class="col-2 text-center">
+            ></p-calendar>
+        </div>
+        <div class="col-2 text-center">
             <span *ngIf="mnm.estadoAdministrado;else noVacunado;">
               <p-tag severity="success" value="Administrado" [rounded]="true"></p-tag>
             </span>
-      <ng-template #noVacunado>
+            <ng-template #noVacunado>
               <span>
                 <p-tag severity="warning" value="No Administrado" [rounded]="true"></p-tag>
               </span>
-      </ng-template>
+            </ng-template>
+        </div>
     </div>
-  </div>
 </p-fieldset>
+<p-fieldset styleClass="mb-3">
+    <ng-template pTemplate="header">
+        <div>
+            Suplementacion Vitamina A
+        </div>
+    </ng-template>
+    <div class="grid">
+        <div class="col-1 text-center" style="font-weight: bold">Edad Mes</div>
+        <div class="col-2 text-center" style="font-weight: bold">Nombre</div>
+        <div class="col-1 text-center" style="font-weight: bold">Nro Dosis</div>
+        <div class="col text-center" style="font-weight: bold">Fecha Tentativa</div>
+        <div class="col text-center" style="font-weight: bold">Fecha Administracion</div>
+        <div class="col-2 text-center" style="font-weight: bold">Estado</div>
+
+    </div>
+    <div class="grid" *ngFor="let va of VA">
+
+        <div class="col-1 text-center">
+            {{va.edadMes}}
+        </div>
+        <div class="col-2 text-center">
+            {{va.descripcion}}
+        </div>
+        <div class="col-1 text-center">
+            {{va.dosis}}
+        </div>
+        <div class="col text-center">
+            <p-calendar
+                    [showIcon]="true"
+                    placeholder="Fecha"
+                    [disabled]="true"
+                    dateFormat="dd/mm/yy"
+                    [(ngModel)]="va.fechaTentativa"
+                    [ngClass]="{
+                        vacunado: va.estadoAdministrado,
+                        noVacunado: !va.estadoAdministrado
+                      }"
+            ></p-calendar>
+        </div>
+        <div class="col text-center">
+            <p-calendar
+                    [showIcon]="true"
+                    placeholder="Fecha"
+                    [disabled]="true"
+                    dateFormat="dd/mm/yy"
+                    [(ngModel)]="va.fecha"
+                    [ngClass]="{
+                        vacunado: va.fecha,
+                        noVacunado: !va.fecha
+                      }"
+            ></p-calendar>
+        </div>
+        <div class="col-2 text-center">
+            <span *ngIf="va.estadoAdministrado;else noVacunado;">
+              <p-tag severity="success" value="Administrado" [rounded]="true"></p-tag>
+            </span>
+            <ng-template #noVacunado>
+              <span>
+                <p-tag severity="warning" value="No Administrado" [rounded]="true"></p-tag>
+              </span>
+            </ng-template>
+        </div>
+
+
+    </div>
+</p-fieldset>
+
+
 
 
