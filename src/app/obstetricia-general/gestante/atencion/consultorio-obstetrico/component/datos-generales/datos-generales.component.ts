@@ -361,19 +361,6 @@ export class DatosGeneralesComponent implements OnInit {
                 this.formDatos_Generales.get('DolorDeCabeza').setValue(this.dataConsultas.listaSignosAlarma ? this.dataConsultas.listaSignosAlarma[11].valorSigno : null);
                 this.formDatos_Generales.get('Edema').setValue(this.dataConsultas.listaSignosAlarma ? this.dataConsultas.listaSignosAlarma[12].valorSigno : null);
 
-                //RECUPERA DESCARTE ATENCION INTEGRAL
-                this.formDatos_Generales.get('OrientaciónConsejeríaSignosAlarma').setValue(this.dataConsultas.orientaciones ? this.dataConsultas.orientaciones[0].valor : null);
-                this.formDatos_Generales.get('ConsejeríaEnfermedadesComunes').setValue(this.dataConsultas.orientaciones ? this.dataConsultas.orientaciones[1].valor : null);
-                this.formDatos_Generales.get('SospechasTuberculosis').setValue(this.dataConsultas.orientaciones ? this.dataConsultas.orientaciones[2].valor : null);
-                this.formDatos_Generales.get('InfeccionesTransmisiónSexual').setValue(this.dataConsultas.orientaciones ? this.dataConsultas.orientaciones[3].valor : null);
-                this.formDatos_Generales.get('OrientaciónNutricional').setValue(this.dataConsultas.orientaciones ? this.dataConsultas.orientaciones[4].valor : null);
-                this.formDatos_Generales.get('OrientaciónPlanificaiónFamiliar').setValue(this.dataConsultas.orientaciones ? this.dataConsultas.orientaciones[5].valor : null);
-                this.formDatos_Generales.get('OrientaciónPrevenciónDeCancerGinecológico').setValue(this.dataConsultas.orientaciones ? this.dataConsultas.orientaciones[6].valor : null);
-                this.formDatos_Generales.get('OrientaciónConsejeriaPretestVIH').setValue(this.dataConsultas.orientaciones ? this.dataConsultas.orientaciones[7].valor : null);
-                this.formDatos_Generales.get('OrientaciónEnEstilosDeVidaSaludable').setValue(this.dataConsultas.orientaciones ? this.dataConsultas.orientaciones[8].valor : null);
-                this.formDatos_Generales.get('OrientaciónAcompañante').setValue(this.dataConsultas.orientaciones ? this.dataConsultas.orientaciones[9].valor : null);
-                this.formDatos_Generales.get('ViolenciaFamiliar').setValue(this.dataConsultas.orientaciones ? this.dataConsultas.orientaciones[10].valor : null);
-                this.formDatos_Generales.get('PlanDeParto').setValue(this.dataConsultas.orientaciones ? this.dataConsultas.orientaciones[11].valor : null);
             } else {
                 this.showInfo();
             }
@@ -812,76 +799,7 @@ export class DatosGeneralesComponent implements OnInit {
                     nombreSigno: "Edema",
                     valorSigno: this.formDatos_Generales.value.Edema,
                 },
-
             ],
-            orientaciones: [
-                {
-                    consejeria: "Orientación y Consejería Signos de alarma",
-                    valor: this.formDatos_Generales.value.OrientaciónConsejeríaSignosAlarma,
-                    cie10: "3232"
-                },
-                {
-                    consejeria: "Consejería en enfermedades comunes",
-                    valor: this.formDatos_Generales.value.ConsejeríaEnfermedadesComunes,
-                    cie10: "1212"
-                },
-                {
-                    consejeria: "Sospechas de Tuberculosis",
-                    valor: this.formDatos_Generales.value.SospechasTuberculosis,
-                    cie10: "2232"
-                },
-                {
-                    consejeria: "Infecciones de transmisión sexual",
-                    valor: this.formDatos_Generales.value.InfeccionesTransmisiónSexual,
-                    cie10: "4866"
-                },
-                {
-                    consejeria: "Orientación Nutricional",
-                    valor: this.formDatos_Generales.value.OrientaciónNutricional,
-                    cie10: "3233"
-                },
-                {
-                    consejeria: "Orientación en planificaión familiar",
-                    valor: this.formDatos_Generales.value.OrientaciónPlanificaiónFamiliar,
-                    cie10: "7779"
-                },
-                {
-                    consejeria: "Orientación en prevención de Cancer ginecológico",
-                    valor: this.formDatos_Generales.value.OrientaciónPrevenciónDeCancerGinecológico,
-                    cie10: "8889"
-                },
-                {
-                    consejeria: "Orientación y consej. Pretest. VIH",
-                    valor: this.formDatos_Generales.value.OrientaciónConsejeriaPretestVIH,
-                    cie10: "7777"
-                },
-                {
-                    consejeria: "Orientación en estilos de vida saludable",
-                    valor: this.formDatos_Generales.value.OrientaciónEnEstilosDeVidaSaludable,
-                    cie10: "44545"
-                },
-                {
-                    consejeria: "Orientación al acompañante",
-                    valor: this.formDatos_Generales.value.OrientaciónAcompañante,
-                    cie10: "21212"
-                },
-                {
-                    consejeria: "Violencia familiar",
-                    valor: this.formDatos_Generales.value.ViolenciaFamiliar,
-                    cie10: "Z6381"
-                },
-                {
-                    consejeria: "Plan de parto",
-                    valor: this.formDatos_Generales.value.PlanDeParto,
-                    cie10: "U1692"
-                },
-            ],
-            // profesionalACargo:{
-            //     tipoDoc:"DNI",
-            //     nroDoc:"73145986",
-            //     profesion:"ENFERMERA",
-            //     colegiatura:"456789"
-            // },
         }
 
         if (this.dataConsultas == null) {
