@@ -7,6 +7,7 @@ import {DialogService} from "primeng/dynamicdialog";
 import {DosajeComponent} from "../dosaje/dosaje.component";
 import {LaboratorioModalComponent} from "../laboratorio-modal/laboratorio-modal.component";
 import {DosajeHemoglobina} from "../../../../models/dosaje.interface";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-procedimiento-dosaje-hemoglobina',
@@ -26,12 +27,13 @@ export class ProcedimientoDosajeHemoglobinaComponent implements OnInit {
   nroDni=this.documento.nroDocumento
 
   constructor(private suplementacionesMicronutrientesService:SuplementacionesMicronutrientesService,
+              private messageService: MessageService,
               public dialogService: DialogService) {
     // this.nroMes=this.dataDocumento.anio*12+this.dataDocumento.mes
   }
   get edadMes(){
-    return this.dataDocumento.anio*12+this.dataDocumento.mes;
-    // return 12; //todo descomentar
+    // return this.dataDocumento.anio*12+this.dataDocumento.mes;
+    return 12; //todo descomentar
   }
   ngOnInit(): void {
 
@@ -70,6 +72,13 @@ export class ProcedimientoDosajeHemoglobinaComponent implements OnInit {
       width: '50%'
     });
     ref.onClose.subscribe((mensaje:string)=>{
+      if (mensaje=='agregado'){
+        this.messageService.add({
+          severity: "success",
+          summary: "Exito",
+          detail: "Dosaje Registrado satisfactoriamente",
+        });
+      }
       console.log('mensaje',mensaje)
       this.getDosaje();
     })

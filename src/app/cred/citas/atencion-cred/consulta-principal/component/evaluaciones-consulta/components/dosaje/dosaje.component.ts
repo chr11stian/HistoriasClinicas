@@ -6,6 +6,7 @@ import {
 } from "../../../../../plan/component/plan-atencion-integral/services/suplementaciones-micronutrientes/suplementaciones-micronutrientes.service";
 import {DosajeHemoglobina} from "../../../../models/dosaje.interface";
 import {delayWhen} from "rxjs/operators";
+import {ConfirmationService} from "primeng/api";
 
 @Component({
     selector: 'app-dosaje',
@@ -29,7 +30,8 @@ export class DosajeComponent implements OnInit {
     idConsulta = this.documento.idConsulta;
 
     constructor(private ref: DynamicDialogRef, public config: DynamicDialogConfig
-        , private dosajeService: SuplementacionesMicronutrientesService
+        , private dosajeService: SuplementacionesMicronutrientesService,
+                public confirmationService:ConfirmationService,
     ) {
     }
 
@@ -154,10 +156,23 @@ export class DosajeComponent implements OnInit {
         }
 
 
-        // console.log('input reques:->>>>>>>>>>>', inputRequest)
-        this.dosajeService.PostDosajeHemoglobinaLaboratorio(this.idConsulta, inputRequest).subscribe((resp) => {
-            this.ref.close('guardar')
-        })
+        // console.log('input reques:->>>>>>>>>>>', inputRequest.tsa)
+        this.confirmationService.confirm({
+            header: "Confirmación",
+            message: "Esta Seguro que desea guardar el Dosaje de Hemoglobina",
+            icon: "pi  pi-exclamation-triangle ",
+            acceptLabel: "Si",
+            rejectLabel: "No",
+            key:'claveDialog',
+            accept: () => {
+                this.dosajeService.PostDosajeHemoglobinaLaboratorio(this.idConsulta, inputRequest).subscribe((resp) => {
+                    this.ref.close('agregado')
+                })
+            },
+            reject: () => {
+                // console.log("no se borro");
+            },
+        });
     }
 
     obtenerFecha(fecha: Date) {
