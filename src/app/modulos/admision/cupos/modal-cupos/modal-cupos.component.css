@@ -41,3 +41,11 @@ p-toast >>> .p-toast .p-toast-message.p-toast-message-warn {
     border-width: 0 0 0 6px;
     color: rgb(109 81 0);
 }
+
+
+.horasrx >>> .p-datatable .p-datatable-tbody > tr > td {
+    text-align: left;
+    border: 1px solid #e9ecef;
+    border-width: 0 0 1px 0;
+    padding: 0.2rem 1rem;
+}
