@@ -44,6 +44,7 @@ import { ProcedimientoDosajeHemoglobinaComponent } from './component/evaluacione
 import { TratamientoInmunizacionComponent } from './component/tratamiento-consulta/components/tratamiento-inmunizacion/tratamiento-inmunizacion.component';
 import { TratamientoInmunizacionModalComponent } from './component/tratamiento-consulta/components/tratamiento-inmunizacion-modal/tratamiento-inmunizacion-modal.component';
 import { ProcedimientosConsultaComponent } from './component/procedimientos-consulta/procedimientos-consulta.component';
+import {InputSwitchModule} from "primeng/inputswitch";
 @NgModule({
     declarations: [
         DatosGeneralesConsultaComponent,
@@ -91,7 +92,8 @@ import { ProcedimientosConsultaComponent } from './component/procedimientos-cons
         ToggleButtonModule,
         TimelineModule,
         ListboxModule,
-        MultiSelectModule
+        MultiSelectModule,
+        InputSwitchModule
     ]
 })
 export class ConsultaPrincipalModule {

@@ -20,8 +20,9 @@ export class ProcedimientosConsultaComponent implements OnInit {
 
   formProcedimiento:FormGroup;
   procedimientoDialog:boolean;
-  procedimientos:any[]=[];
+  procedimientos:procedimiento[]=[];
 
+  contador:number = 0;
   hayDatos:boolean=false;
 
   ListaPrestacion:any[]=[];
@@ -333,7 +334,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
   onChangeDiagnostico() {
     this.PrestacionService.getProcedimientoPorCodigo(this.formProcedimiento.value.diagnostico.codPrestacion).subscribe((res: any) => {
       console.log(res.object);
-      this.listaDeCIESIS = res.object.procedimientos;
+      this.listaDeProcedimientos = res.object.procedimientos;
       this.formProcedimiento.patchValue({ prestacion: res.object});
       this.formProcedimiento.patchValue({ diagnosticoSIS: "" });
       this.formProcedimiento.patchValue({ cie10SIS: "" });
@@ -479,4 +480,13 @@ interface resultados{
   nombre?:string,
   evaluacion?:string,
   resultado?:string
+}
+interface procedimiento {
+  procedimientoHIS?:string,
+  codProcedimientoHIS?:string,
+  codProcedimientoSIS?:string,
+  procedimientoSIS?:string,
+  cie10SIS?:string,
+  codPrestacion?:string
+
 }
