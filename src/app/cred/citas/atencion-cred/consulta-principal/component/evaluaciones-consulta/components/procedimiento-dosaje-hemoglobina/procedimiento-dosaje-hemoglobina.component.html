@@ -27,7 +27,7 @@
             <div class="col text-center" style="font-weight: bold">Fecha Prueba</div>
             <div class="col-2 text-center" style="font-weight: bold">Accion</div>
         </div>
-        <div *ngIf="dataPreventivo.length>=1;else noCorresponde">
+<!--        <div *ngIf="dataPreventivo.length>=1;else noCorresponde">-->
 
             <div class="" *ngFor="let dosaje of dataPreventivo">
                 <div class="grid" *ngIf="determinarMostrar(dosaje.edadMes)">
@@ -87,12 +87,12 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <ng-template #noCorresponde>
+<!--        </div>-->
+<!--        <ng-template #noCorresponde>-->
 
 
-            <h1>no corresponde</h1>
-        </ng-template>
+<!--            <h1>no corresponde</h1>-->
+<!--        </ng-template>-->
     </p-fieldset>
 </div>
 <div class="mt-3">

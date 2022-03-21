@@ -5,7 +5,6 @@ import {
 } from "../../../../../plan/component/plan-atencion-integral/services/suplementaciones-micronutrientes/suplementaciones-micronutrientes.service";
 import {DialogService} from "primeng/dynamicdialog";
 import {DosajeComponent} from "../dosaje/dosaje.component";
-import {LaboratorioModalComponent} from "../laboratorio-modal/laboratorio-modal.component";
 import {DosajeHemoglobina} from "../../../../models/dosaje.interface";
 import {MessageService} from "primeng/api";
 

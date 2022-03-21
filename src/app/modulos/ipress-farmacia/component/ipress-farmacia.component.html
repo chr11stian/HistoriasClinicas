@@ -23,7 +23,7 @@
     </p-toolbar>
     <div class="card">
         <p-table #dt1 [value]="items" selectionMode="single" [(selection)]="selectedCustomer1" dataKey="id" styleClass="p-datatable-customers" responsiveLayout="scroll"
-                 [rows]="10" [paginator]="true" stateStorage="session" stateKey="statedemo-session">
+                 [rows]="7" [paginator]="true"  [rowsPerPageOptions]="[7, 15 ,25 , 50,]" stateStorage="session" stateKey="statedemo-session">
             <ng-template pTemplate="header">
                 <tr>
                     <th pSortableColumn="medicamento.nombre">Nombre <p-sortIcon field="medicamento.nombre"></p-sortIcon></th>

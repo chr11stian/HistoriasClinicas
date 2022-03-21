@@ -40,13 +40,30 @@ import { DosajeComponent } from './component/evaluaciones-consulta/components/do
 //mover al share
 import {ListboxModule} from "primeng/listbox";
 import {MultiSelectModule} from "primeng/multiselect";
-
 import { ProcedimientoDosajeHemoglobinaComponent } from './component/evaluaciones-consulta/components/procedimiento-dosaje-hemoglobina/procedimiento-dosaje-hemoglobina.component';
 import { TratamientoInmunizacionComponent } from './component/tratamiento-consulta/components/tratamiento-inmunizacion/tratamiento-inmunizacion.component';
 import { TratamientoInmunizacionModalComponent } from './component/tratamiento-consulta/components/tratamiento-inmunizacion-modal/tratamiento-inmunizacion-modal.component';
-import { LaboratorioModalComponent } from './component/evaluaciones-consulta/components/laboratorio-modal/laboratorio-modal.component';
+
+import { ProcedimientosConsultaComponent } from './component/procedimientos-consulta/procedimientos-consulta.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { ModalReferenciaComponent } from './component/finalizar-consulta/modal-referencia/modal-referencia.component';
+import { CalendarComponent } from './component/finalizar-consulta/calendar/calendar.component';
+
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import listPlugin from '@fullcalendar/list';
+import interactionPlugin from '@fullcalendar/interaction';
+
+FullCalendarModule.registerPlugins([
+    dayGridPlugin,
+    timeGridPlugin,
+    listPlugin,
+    interactionPlugin
+])
+
 @NgModule({
     declarations: [
+        ModalReferenciaComponent,
         DatosGeneralesConsultaComponent,
         MotivoConsultaComponent,
         DiagnosticoConsultaComponent,
@@ -69,15 +86,17 @@ import { LaboratorioModalComponent } from './component/evaluaciones-consulta/com
         SuplementacionCredComponent,
         TratamientoCredComponent,
         SuplementoComponent,
+        CalendarComponent,
         DialogAddExamenesAuxiliaresComponent,
         DosajeComponent,
         ProcedimientoDosajeHemoglobinaComponent,
         TratamientoInmunizacionComponent,
         TratamientoInmunizacionModalComponent,
-        LaboratorioModalComponent,
+        ProcedimientosConsultaComponent,
 
     ],
     imports: [
+        FullCalendarModule,
         EvaluacionGeneralModule,
         PlanModule,
         CommonModule,
