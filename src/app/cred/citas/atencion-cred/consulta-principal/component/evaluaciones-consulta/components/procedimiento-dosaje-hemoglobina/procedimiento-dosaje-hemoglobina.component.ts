@@ -30,8 +30,8 @@ export class ProcedimientoDosajeHemoglobinaComponent implements OnInit {
     // this.nroMes=this.dataDocumento.anio*12+this.dataDocumento.mes
   }
   get edadMes(){
-    // return this.dataDocumento.anio*12+this.dataDocumento.mes;
-    return 12; //todo descomentar
+    return this.dataDocumento.anio*12+this.dataDocumento.mes;
+    // return 12; //todo descomentar
   }
   ngOnInit(): void {
 
@@ -46,8 +46,8 @@ export class ProcedimientoDosajeHemoglobinaComponent implements OnInit {
     })
   }
   determinarMostrar(mesEvaluado){
-    // if(this.edadMes>=mesEvaluado && this.edadMes-mesEvaluado<6 ) {
-      if (this.edadMes==mesEvaluado){
+    if(this.edadMes>=mesEvaluado && this.edadMes-mesEvaluado<6 ) {
+      // if (this.edadMes==mesEvaluado){
       return true;
     }
     else

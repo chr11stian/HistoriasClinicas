@@ -1,0 +1,23 @@
+.border {
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    margin-top: 0.4rem;
+    margin-left: 0.4rem;
+    /* height: 2rem; */
+    /* background: red; */
+}
+.infoInput {
+    font-size: 0.9rem;
+    padding-top: 0.3rem;
+    font-style: italic;
+    margin-left: 2px;
+}
+:host::ng-deep .p-dialog .p-dialog-header {
+    border-bottom: 0 none;
+    background: #0c3866;
+    color: #ffffff;
+    padding: 0.3rem;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+    height: 4rem;
+}

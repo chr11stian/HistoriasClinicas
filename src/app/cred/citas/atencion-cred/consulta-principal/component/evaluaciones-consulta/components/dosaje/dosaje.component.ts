@@ -5,6 +5,7 @@ import {
     SuplementacionesMicronutrientesService
 } from "../../../../../plan/component/plan-atencion-integral/services/suplementaciones-micronutrientes/suplementaciones-micronutrientes.service";
 import {DosajeHemoglobina} from "../../../../models/dosaje.interface";
+import {delayWhen} from "rxjs/operators";
 
 @Component({
     selector: 'app-dosaje',
@@ -37,10 +38,11 @@ export class DosajeComponent implements OnInit {
         this.buildForm()
         this.getDosaje()
     }
-    getFactor(){
-        this.dosajeService.getFactorCorrepcionXipress('616de45e0273042236434b51').subscribe((resp)=>{
-            this.factorAjuste=resp['object']['factorAjuste']
-            console.log('factor ajuste:',this.factorAjuste)
+
+    getFactor() {
+        this.dosajeService.getFactorCorrepcionXipress('616de45e0273042236434b51').subscribe((resp) => {
+            this.factorAjuste = resp['object']['factorAjuste']
+            console.log('factor ajuste:', this.factorAjuste)
         })
     }
 
@@ -71,13 +73,13 @@ export class DosajeComponent implements OnInit {
         console.log(this.getFC('fechaAdministrada').value)
 
     }
-    valorCorrejido(valor:number){
+
+    valorCorrejido(valor: number) {
         // console.log(valor)
-        if (valor<=0){
+        if (valor <= 0) {
             this.getFC('valorHbRestado').setValue(0);
-        }
-        else{
-            this.getFC('valorHbRestado').setValue(valor-this.factorAjuste)
+        } else {
+            this.getFC('valorHbRestado').setValue(valor - this.factorAjuste)
         }
 
     }
@@ -168,10 +170,24 @@ export class DosajeComponent implements OnInit {
         const evaluado = this.getFC('positivoAnemia').value
         if (evaluado == 'POSITIVO') {
             this.isDisabledNivelAnemia = false;
+            this.vistoBuenoDrop=false //todo borrar
         } else {
             this.isDisabledNivelAnemia = true;
             this.nivelAnemiaSelected = '';
         }
     }
 
+    botonGuardar() {
+       if (this.dosajeFG.valid && this.vistoBuenoDrop){
+           return true
+       }
+       else
+           return false
+    }
+    vistoBuenoDrop:boolean=true
+    yaEstoyHabilidado(){
+        if(this.nivelAnemiaSelected!=''){
+            this.vistoBuenoDrop=true
+        }
+    }
 }
