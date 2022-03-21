@@ -39,4 +39,14 @@ export class DiagnosticoConsultaService {
     getDiagnostico(id) {
         return this.http.get(`${this.urlServer}/${this.bd}/cred/consulta/diagnostico/${id}`)
     }
+    /***procedimientos**/
+    addProcedimiento(id,data) {
+        return this.http.post(`${this.urlServer}/${this.bd}/cred/consulta/procedimiento/${id}`, data)
+    }
+    updateProcedimiento(id,data) {
+        return this.http.put(`${this.urlServer}/${this.bd}/cred/consulta/procedimiento/${id}`, data)
+    }
+    getProcedimiento(id) {
+        return this.http.get(`${this.urlServer}/${this.bd}/cred/consulta/procedimiento/${id}`)
+    }
 }
