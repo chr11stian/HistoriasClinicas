@@ -38,7 +38,7 @@
                                 </div>
                                 <div class="col-3 text-left">
                                     <p-radioButton [inputId]="atend.value" name="atend" [value]="atend.value"
-                                        [(ngModel)]="personal" (ngModelChange)="ngmodelChange()"></p-radioButton>
+                                        [(ngModel)]="personal"></p-radioButton>
                                 </div>
                             </div>
                         </div>
@@ -57,7 +57,7 @@
                     <div *ngFor="let item of listLugarAtencion" class="pb-2">
                         <span [for]="item.value" class="pr-2">{{ item.name }}</span>
                         <p-radioButton [inputId]="item.value" name="item" [value]="item.value"
-                            [(ngModel)]="attentionPlace" (ngModelChange)="ngmodelChange()"></p-radioButton>
+                            [(ngModel)]="attentionPlace"></p-radioButton>
                     </div>
                 </p-fieldset>
             </div>
@@ -69,7 +69,7 @@
                         </div>
                         <div class="col-3 text-left">
                             <p-radioButton [inputId]="item.value" name="item" [value]="item.value"
-                                [(ngModel)]="attention" (ngModelChange)="ngmodelChange()">
+                                [(ngModel)]="attention">
                             </p-radioButton>
                         </div>
                     </div>
@@ -139,10 +139,10 @@
                                         <span>Número</span>
                                         <div class="flex flex-row">
                                             <div class="p-fluid">
-                                                <input type="text" pInputText formControlName="nro1Diresa" />
+                                                <input type="text" pInputText formControlName="afiliacion" />
                                             </div>
                                             <div class="p-fluid">
-                                                <input type="text" pInputText formControlName="nro2Diresa" />
+                                                <input type="text" pInputText formControlName="nro" />
                                             </div>
                                         </div>
                                     </div>
@@ -206,7 +206,7 @@
                                 </div>
                                 <div class="col-3">
                                     <p-radioButton [inputId]="item.value" name="item" [value]="item.value"
-                                        [(ngModel)]="gender" (ngModelChange)="ngmodelChange()"></p-radioButton>
+                                        [(ngModel)]="gender"></p-radioButton>
                                 </div>
                             </div>
                         </p-fieldset>

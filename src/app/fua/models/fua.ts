@@ -1,7 +1,7 @@
 export interface DatosGeneralesFUA {
-  codPrestacion: string;
-  idFUA: string;
-  idConsulta: string;
+  codPrestacion?: string;
+  idFUA?: string;
+  idConsulta?: string;
   deLaIpress: IPRESS;
   delAsegurado: Asegurado;
 }
@@ -18,7 +18,7 @@ export interface IPRESS {
   nroFormato: {
     anio: string;
     codEESS: string;
-    correlativo: string;
+    correlativo: number;
   };
 }
 export interface Asegurado {
@@ -29,7 +29,7 @@ export interface Asegurado {
   primerNombre: string;
   otrosNombres: string;
   nroHistoriaClinica: string;
-  saludMaterna?: string;
+  saludMaterna: string;
   aseguradoDeOtrasIAFAS: {
     codAsegurado: string,
     institucion: string,

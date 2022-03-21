@@ -20,6 +20,9 @@ export class FuaService {
   postCrearFUAxCodPrestacion(idConsulta: string, codPrestacion: string) {
     return this.http.get(`${this.urlServer}/${this.bd}/fua/crear-codprestacion/${idConsulta}/${codPrestacion}`);
   }
+  postDatosIpressAsegurado(idFUA: string, dataFUA) {
+    return this.http.post(`${this.urlServer}/${this.bd}/fua/guardar-ipressasegurado/${idFUA}`, dataFUA);
+  }
   /**PROMISES */
   getPromiseCrearRecuperarFUAxIdConsulta(idConsulta: string) {
     return this.http.get<any>(`${this.urlServer}/${this.bd}/fua/crear/${idConsulta}`)

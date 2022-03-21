@@ -10,7 +10,6 @@ import { FuaService } from "../services/fua.service";
 })
 export class IpressComponent implements OnInit {
   twoOptions: any[];
-  formDatosGenerales: FormGroup;
   formIpress: FormGroup;
   formAsegurado: FormGroup;
   listPersonalAte = [
@@ -43,11 +42,9 @@ export class IpressComponent implements OnInit {
   attention: string;
   gender: string;
   maternalHealth: string;
-  attencionPlace: string;
+  attentionPlace: string;
   codOfertaFlexible: string;
   /**fin ngModels */
-  dataIpress: IPRESS;
-  dataAsegurado: Asegurado;
   dataFUA: DatosGeneralesFUA;
   constructor(private fuaService: FuaService) {
     this.twoOptions = [
@@ -56,7 +53,7 @@ export class IpressComponent implements OnInit {
     ];
     this.inicializarForm();
     this.idFUA = JSON.parse(localStorage.getItem("dataFUA")).idFUA;
-    this.attencionPlace = "EXTRAMURAL";
+    // this.attentionPlace = "EXTRAMURAL";
     console.log("id de FUA ", this.idFUA);
     this.getDataFUA(this.idFUA);
   }
@@ -70,17 +67,12 @@ export class IpressComponent implements OnInit {
       ipressRef: new FormControl(""),
       nroHojaRef: new FormControl(""),
     });
-    this.formDatosGenerales = new FormGroup({
-      institucion: new FormControl(""),
-      fecha: new FormControl(""),
-      ipress: new FormControl(""),
-    });
     this.formAsegurado = new FormGroup({
       tdi: new FormControl(""),
       nroDoc: new FormControl(""),
       diresa: new FormControl(""),
-      nro1Diresa: new FormControl(""),
-      nro2Diresa: new FormControl(""),
+      afiliacion: new FormControl(""),
+      nro: new FormControl(""),
       institucion: new FormControl(""),
       codSeguro: new FormControl(""),
       apePaterno: new FormControl(""),
@@ -98,20 +90,18 @@ export class IpressComponent implements OnInit {
     });
   }
   abrir() {
-    console.log("data de lugar de atencion ", this.lugarAtencion);
+    this.recoverDataFUA();
+    console.log("data de FUA ", this.dataFUA);
   }
-  ngmodelChange() {
-    console.log("ngmodel ", this.personal);
-    console.log("atencion ", this.attention);
-  }
+
   getDataFUA(idFUA) {
     this.fuaService.getFUAxIdFUA(idFUA).subscribe((res: any) => {
-      // console.log("data de fua ", res);
       this.dataFUA = res.object;
       console.log("data de fua con model ", this.dataFUA);
       this.setDataFUA();
     });
   }
+
   setDataFUA() {
     /**de la ipress */
     this.formIpress.patchValue({ codRenaes: this.dataFUA.deLaIpress.eessInformacion.codRenaes });
@@ -145,5 +135,55 @@ export class IpressComponent implements OnInit {
     this.formAsegurado.patchValue({ cnv1: this.dataFUA.delAsegurado.rn01 });
     this.formAsegurado.patchValue({ cnv2: this.dataFUA.delAsegurado.nr02 });
     this.formAsegurado.patchValue({ cnv3: this.dataFUA.delAsegurado.nr03 });
+  }
+
+  recoverDataFUA() {
+    this.dataFUA = {
+      deLaIpress: {
+        nroFormato: {
+          codEESS: '',
+          anio: '',
+          correlativo: 0
+        },
+        eessInformacion: {
+          codRenaes: this.formIpress.value.codRenaes,
+          nombreEESS: this.formIpress.value.nombreIpress,
+          codOfertaFlexible: this.codOfertaFlexible,
+          personalQueAtiende: this.personal,
+          lugarAtencion: this.attentionPlace,
+          atencion: this.attention,
+          referenciaRealizadaPor: this.formIpress.value.ipressRef
+        }
+      },
+      delAsegurado: {
+        tdi: this.formAsegurado.value.tdi,
+        nroDoc: this.formAsegurado.value.nroDoc,
+        codAseguradoSis: {
+          diresaOtros: this.formAsegurado.value.diresa,
+          afiliacion: this.formAsegurado.value.afiliacion,
+          nro: this.formAsegurado.value.nro
+        },
+        aseguradoDeOtrasIAFAS: {
+          institucion: this.formAsegurado.value.institucion,
+          codAsegurado: this.formAsegurado.value.codSeguro
+        },
+        apellidoPaterno: this.formAsegurado.value.apePaterno,
+        apellidoMaterno: this.formAsegurado.value.apeMaterno,
+        primerNombre: this.formAsegurado.value.primerNombre,
+        otrosNombres: this.formAsegurado.value.otrosNombres,
+        sexo: this.gender,
+        saludMaterna: this.maternalHealth,
+        fecha: {
+          fechaParto: this.formAsegurado.value.fechaParto,
+          fechaNacimiento: this.formAsegurado.value.fechaNacimiento,
+          fechaFallecimiento: this.formAsegurado.value.fechaFallecimiento
+        },
+        nroHistoriaClinica: this.formAsegurado.value.nroHistoriaClinica,
+        etnia: this.formAsegurado.value.etnia,
+        rn01: this.formAsegurado.value.cnv1,
+        nr02: this.formAsegurado.value.cnv2,
+        nr03: this.formAsegurado.value.cnv3,
+      }
+    }
   }
 }
