@@ -12,6 +12,7 @@ import Swal from "sweetalert2";
 import {RegistrarTriajeComponent} from "../modulos/triaje/registrar-triaje/registrar-triaje.component";
 import {CuposTriajeService} from "../modulos/triaje/services/cupos-triaje/cupos-triaje.service";
 import {Router} from '@angular/router';
+import {Observable} from "rxjs";
 
 
 @Component({
@@ -21,6 +22,8 @@ import {Router} from '@angular/router';
     providers: [DialogService],
 })
 export class CitasComponent implements OnInit {
+    productObservable$: Observable<number>;
+
     idIpressLapostaMedica = "616de45e0273042236434b51";
     iprees: string = "la posta medica";
     options: data[]
@@ -79,7 +82,9 @@ export class CitasComponent implements OnInit {
 
 
     ngOnInit(): void {
+
         this.buildForm();
+
         this.formCitas.get('tipoDoc').setValue(this.TipoDoc);
         this.formCitas.get('fechaBusqueda').setValue(this.fechaActual);
         this.getDocumentosIdentidad();

@@ -1,16 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import Swal from "sweetalert2";
-import { CieService } from "../../../../../../obstetricia-general/services/cie.service";
-import { FinalizarConsultaService } from "../../services/finalizar-consulta.service";
-import { ActivatedRoute, Router } from "@angular/router";
+import {CieService} from "../../../../../../obstetricia-general/services/cie.service";
+import {FinalizarConsultaService} from "../../services/finalizar-consulta.service";
+import {ActivatedRoute, Router} from "@angular/router";
+import {ModalReferenciaComponent} from "./modal-referencia/modal-referencia.component";
+import {DatePipe} from "@angular/common";
+import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
+import {CalendarComponent} from "./calendar/calendar.component";
+import {dato} from "../../../../models/data";
 
 @Component({
     selector: 'app-finalizar-consulta',
     templateUrl: './finalizar-consulta.component.html',
-    styleUrls: ['./finalizar-consulta.component.css']
+    styleUrls: ['./finalizar-consulta.component.css'],
+    providers: [DialogService]
 })
 export class FinalizarConsultaComponent implements OnInit {
+    attributeLocalS = 'documento'
+    data: dato
     acuerdosFG: FormGroup
     finalizar: finalizarAtencionInterface;
     acuerdosComprimisos: acuerdosComprimisosInterface[] = [];
@@ -18,7 +26,6 @@ export class FinalizarConsultaComponent implements OnInit {
     referencia: referenciaInterface[] = [];
 
     id: string;
-    attributeLocalS = 'idConsulta'
     formExamen: FormGroup;
     formAcuerdos: FormGroup;
     formReferencia: FormGroup;
@@ -45,45 +52,48 @@ export class FinalizarConsultaComponent implements OnInit {
     tipoDoc: string = ''
     nroDoc: string = ''
 
+    datePipe = new DatePipe('en-US');
+    ref: DynamicDialogRef;
 
     constructor(private finalizarService: FinalizarConsultaService,
-        private cieService: CieService,
-        private formBuilder: FormBuilder,
-        private router: Router,
-        private route: ActivatedRoute) {
+                private cieService: CieService,
+                private formBuilder: FormBuilder,
+                private router: Router,
+                private route: ActivatedRoute,
+                private dialog: DialogService) {
         this.buildFG();
 
         this.nombreEspecialidad =
             [
-                { label: 'ENDOVENOSA', value: 'ENDOVENOSA' },
-                { label: 'INHALADORA', value: 'INHALADORA' },
-                { label: 'INTRADERMICO', value: 'INTRADERMICO' },
-                { label: 'INTRAMUSCULAR', value: 'INTRAMUSCULAR' },
-                { label: 'NASAL', value: 'NASAL' },
-                { label: 'OFTALMICO', value: 'OFTALMICO' },
-                { label: 'ORAL', value: 'ORAL' },
-                { label: 'OPTICO', value: 'OPTICO' },
-                { label: 'RECTAL', value: 'RECTAL' },
-                { label: 'SUBCUTANEO', value: 'SUBCUTANEO' },
-                { label: 'SUBLINGUAL', value: 'SUBLINGUAL' },
-                { label: 'TOPICO', value: 'TOPICO' },
-                { label: 'VAGINAL', value: 'VAGINAL' },
+                {label: 'ENDOVENOSA', value: 'ENDOVENOSA'},
+                {label: 'INHALADORA', value: 'INHALADORA'},
+                {label: 'INTRADERMICO', value: 'INTRADERMICO'},
+                {label: 'INTRAMUSCULAR', value: 'INTRAMUSCULAR'},
+                {label: 'NASAL', value: 'NASAL'},
+                {label: 'OFTALMICO', value: 'OFTALMICO'},
+                {label: 'ORAL', value: 'ORAL'},
+                {label: 'OPTICO', value: 'OPTICO'},
+                {label: 'RECTAL', value: 'RECTAL'},
+                {label: 'SUBCUTANEO', value: 'SUBCUTANEO'},
+                {label: 'SUBLINGUAL', value: 'SUBLINGUAL'},
+                {label: 'TOPICO', value: 'TOPICO'},
+                {label: 'VAGINAL', value: 'VAGINAL'},
             ];
         this.examen =
             [
-                { label: 'ENDOVENOSA', value: 'ENDOVENOSA' },
-                { label: 'INHALADORA', value: 'INHALADORA' },
-                { label: 'INTRADERMICO', value: 'INTRADERMICO' },
-                { label: 'INTRAMUSCULAR', value: 'INTRAMUSCULAR' },
-                { label: 'NASAL', value: 'NASAL' },
-                { label: 'OFTALMICO', value: 'OFTALMICO' },
-                { label: 'ORAL', value: 'ORAL' },
-                { label: 'OPTICO', value: 'OPTICO' },
-                { label: 'RECTAL', value: 'RECTAL' },
-                { label: 'SUBCUTANEO', value: 'SUBCUTANEO' },
-                { label: 'SUBLINGUAL', value: 'SUBLINGUAL' },
-                { label: 'TOPICO', value: 'TOPICO' },
-                { label: 'VAGINAL', value: 'VAGINAL' },
+                {label: 'ENDOVENOSA', value: 'ENDOVENOSA'},
+                {label: 'INHALADORA', value: 'INHALADORA'},
+                {label: 'INTRADERMICO', value: 'INTRADERMICO'},
+                {label: 'INTRAMUSCULAR', value: 'INTRAMUSCULAR'},
+                {label: 'NASAL', value: 'NASAL'},
+                {label: 'OFTALMICO', value: 'OFTALMICO'},
+                {label: 'ORAL', value: 'ORAL'},
+                {label: 'OPTICO', value: 'OPTICO'},
+                {label: 'RECTAL', value: 'RECTAL'},
+                {label: 'SUBCUTANEO', value: 'SUBCUTANEO'},
+                {label: 'SUBLINGUAL', value: 'SUBLINGUAL'},
+                {label: 'TOPICO', value: 'TOPICO'},
+                {label: 'VAGINAL', value: 'VAGINAL'},
             ];
     }
 
@@ -91,11 +101,11 @@ export class FinalizarConsultaComponent implements OnInit {
     buildFG(): void {
         this.id = localStorage.getItem(this.attributeLocalS);
         this.acuerdosFG = new FormGroup({
-            detailAcuerdoFC: new FormControl({ value: '', disabled: false }, []),
-            proximaCitaFC: new FormControl({ value: null, disabled: false }, []),
-            atendidoFC: new FormControl({ value: '', disabled: false }, []),
-            dniFC: new FormControl({ value: '', disabled: false }, []),
-            observacionFC: new FormControl({ value: '', disabled: false }, []),
+            detailAcuerdoFC: new FormControl({value: '', disabled: false}, []),
+            proximaCitaFC: new FormControl({value: null, disabled: false}, []),
+            atendidoFC: new FormControl({value: '', disabled: false}, []),
+            dniFC: new FormControl({value: '', disabled: false}, []),
+            observacionFC: new FormControl({value: '', disabled: false}, []),
         })
         this.formAcuerdos = this.formBuilder.group({
             descripcionAcuerdo: new FormControl("", []),
@@ -115,6 +125,8 @@ export class FinalizarConsultaComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
+        this.agenda()
         /*this.route.queryParams
             .subscribe(params => {
                 console.log('params', params)
@@ -127,6 +139,46 @@ export class FinalizarConsultaComponent implements OnInit {
     }
 
     /* funciones tabla acuerdo*/
+    agenda() {
+        this.finalizarService.listPlan(this.data.nroDocumento).subscribe((r: any) => {
+            let aux = r.object.planAtencion
+            aux.controlCrecimientoDesa.map((r_: any) => {
+                this.finalizarService.list.push({
+                    title: r_.nroControl + '° control de crecimiento de ' + this.descripcion(r_.descripcionEdad),
+                    start: r_.fechaTentativa
+                })
+            })
+            aux.suplementacionSFMicronutrientes.map((r_: any) => {
+                this.finalizarService.list.push({
+                    title: r_.dosis + '° dosis de ' + r_.descripcion.toLowerCase() + ' de ' + this.descripcion(r_.descripcionEdad),
+                    start: r_.fechaTentativa
+                })
+            })
+            aux.suplementacionVitaminaA.map((r_: any) => {
+                this.finalizarService.list.push({
+                    title: r_.dosis + '° dosis de ' + r_.descripcion.toLowerCase() + ' de ' + this.descripcion(r_.descripcionEdad),
+                    start: r_.fechaTentativa
+                })
+            })
+            aux.tratamientoDosajeHemoglobina.map((r_: any) => {
+                this.finalizarService.list.push({
+                    title: r_.nroControl + '° control de ' + (r_.nombre === 'Dosaje_Hb' ? 'dosaje de hemoglobina' : '') + ' de ' + this.descripcion(r_.descripcionEdad),
+                    start: r_.fechaTentativa
+                })
+            })
+            aux.inmunizacionesCred.map((r_: any) => {
+                this.finalizarService.list.push({
+                    title: r_.dosis + '° dosis de ' + r_.descripcion.toLowerCase() + ' de ' + this.descripcion(r_.descripcionEdad),
+                    start: r_.fechaTentativa
+                })
+            })
+        })
+    }
+
+    descripcion(s: string) {
+        return s == 'RN' ? 'recien nacido' : (s == 'Menor_1A' ? 'menor de un año' : (s == '1A' ? 'un año' : (s == '2A' ? 'dos años' : (s == '3A' ? 'tres años' : (s == '4A' ? 'cuatro años' : (s == '5A' ? 'cinco años' : (s == '6A' ? 'seis años' : (s == '7A' ? 'siete años' : (s == '8A' ? 'ocho años' : 'nueve años')))))))))
+    }
+
     openAcuerdo() {
         this.isUpdate3 = false;
         this.formAcuerdos.reset();
@@ -365,6 +417,7 @@ export class FinalizarConsultaComponent implements OnInit {
             )
         }*/
     }
+
     irEvaluaciones() {
         /** redirigir a atencion de usuario */
         this.router.navigate(['/dashboard/cred/citas/atencion/evaluaciones-consulta'], {
@@ -374,6 +427,7 @@ export class FinalizarConsultaComponent implements OnInit {
             }
         })
     }
+
     irInterconsulta() {
         this.router.navigate(['/dashboard/cred/citas/atencion/examenes'],
             {
@@ -384,7 +438,42 @@ export class FinalizarConsultaComponent implements OnInit {
             })
     }
 
+    openCalendar() {
+        this.ref = this.dialog.open(CalendarComponent, {
+            header: "CALENDARIO DE ACTIIVIDADES",
+            height: '100%',
+            width: '90%',
+            style: {
+                position: 'absolute',
+                top: '17px',
+            },
+        })
+    }
 
+    openRefe() {
+        this.ref = this.dialog.open(ModalReferenciaComponent, {
+            header: "HOJA DE REFERENCIA",
+            height: '100%',
+            width: '90%',
+            style: {
+                position: 'absolute',
+                top: '17px',
+            },
+        })
+        this.ref.onClose.subscribe((data: any) => {
+            console.log("data de modal antecedentes", data)
+            if (data !== undefined) {
+                console.log(data);
+                let cadena = {
+                    nombre: data.row.nombre,
+                    fechaDiagnosticado: this.datePipe.transform(data.row.fechaDiagnosticado, 'yyyy-MM-dd'),
+                    edadAnio: data.row.edadAnio,
+                    edadMes: data.row.edadMes,
+                    edadDia: data.row.edadDia,
+                }
+            }
+        })
+    }
 }
 
 interface finalizarAtencionInterface {
