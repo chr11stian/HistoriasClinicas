@@ -1,0 +1,152 @@
+
+p-fieldset >>> .p-fieldset .p-fieldset-legend {
+    background: #0c3866;
+}
+
+p-fieldset >>> .p-fieldset.p-fieldset-toggleable .p-fieldset-legend a {
+    color: #ffffff;
+}
+
+p-toolbar >>> .p-toolbar {
+    background: rgb(248 249 250);
+    border: 1px solid rgba(12, 56, 102, 0.21);
+    padding: 1rem;
+    border-radius: 3px;
+    color: #0c3866;
+}
+
+p-fieldset >>> .p-fieldset {
+    background: rgb(248 249 250);
+    color: #0c3866;
+    border: 1px solid rgba(12, 56, 102, 0.21);
+}
+
+/*p-panel >>> .p-panel .p-panel-header {*/
+/*    color: #0c3866;*/
+/*}*/
+
+::ng-deep.colorearPanel .p-panel .p-panel-header {
+    color: rgb(246, 26, 26);
+}
+
+.p-button.p-button-danger,
+.p-buttonset.p-button-danger >
+.p-button, .p-splitbutton
+.p-button-danger > .p-button {
+    color: #ffffff;
+    background: #0c3866;
+    border: #0c3866;
+}
+
+p-button.p-button.p-button-danger, .p-buttonset.p-button-danger > .p-button, .p-splitbutton.p-button-danger > .p-button:hover {
+    color: #ffffff;
+    background: #0c3866;
+    border: #0c3866;
+}
+
+p-fieldset >>> .p-fieldset.p-fieldset-toggleable .p-fieldset-legend:hover {
+    background: rgba(12, 56, 102, 0.76);
+    border-color: rgba(12, 56, 102, 0.76);
+    color: #ffffff;
+}
+
+.p-button.p-button-danger:enabled:hover,
+.p-buttonset.p-button-danger >
+.p-button:enabled:hover,
+.p-splitbutton.p-button-danger > .p-button:enabled:hover {
+    color: rgb(255 255 255);
+    background: rgba(12, 56, 102, 0.76);
+    border-color: rgba(12, 56, 102, 0.76);
+}
+
+.p-button.p-button-danger, .p-buttonset.p-button-danger > .p-button, .p-splitbutton.p-button-danger > .p-button {
+    border: 1px solid rgb(13 137 236);
+}
+
+
+p-card >>> .p-card {
+    background: rgb(248 249 250);
+    color: #0c3866;
+    box-shadow: 1px 0 0 0 rgb(222 226 230), 0 1px 0 0 rgb(222 226 230), 0 0 1px 0 rgb(222 226 230), 0 0 0 1px rgb(222 226 230);
+    border-radius: 3px;
+}
+
+.infor1 >>> .p-fieldset-legend a {
+    padding-right: 7rem;
+    padding-left: 1rem;
+}
+
+.infor2 >>> .p-fieldset-legend a {
+    padding-right: 7.5rem;
+    padding-left: 1rem;
+}
+
+.infor3 >>> .p-fieldset-legend a {
+    padding-right: 4.9rem;
+    padding-left: 1rem;
+}
+
+::ng-deep.p-tabview .p-tabview-panels {
+    background: #ffffff;
+    padding: 0rem;
+    border: 0 none;
+    color: #495057;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.texto-justificado {
+    text-align: justify;
+}
+
+.border {
+    border: 1px solid rgb(222 226 230);
+    background: rgb(248 249 250);
+    border-radius: 3px;
+
+}
+
+.border2 {
+    border: 1px solid rgb(222 226 230);
+    background: #FFFFFF;
+    border-radius: 3px;
+
+}
+
+label {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    /*font-weight: bold;*/
+    color: rgb(135 135 135);
+}
+
+p-selectbutton >>> .p-selectbutton .p-button.p-highlight {
+    background: rgb(149 158 166);
+    border-color: rgb(149 158 166);
+}
+
+p-selectbutton >>> .p-selectbutton .p-button {
+    /*color: #6e6e6e;*/
+    /*font-size: xx-large;*/
+    /*background-color: "blue";*/
+    padding: 5px;
+}
+
+::ng-deep .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+    border: solid rgb(222 226 230);
+    border-width: 0 0 2px 0;
+    border-color: rgb(0 0 0 / 0%) rgb(0 0 0 / 0%) rgb(222 226 230) rgb(0 0 0 / 0%);
+    background: rgb(255 255 255);
+    color: rgb(12 56 102);
+    padding: 1rem;
+    font-weight: 600;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+    transition: box-shadow 0.2s;
+    margin: 0 0 -2px 0;
+}
+
+::ng-deep.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+    background: rgb(12 56 102);
+    border-color: rgb(33 150 243);
+    color: rgb(255 255 255);
+}

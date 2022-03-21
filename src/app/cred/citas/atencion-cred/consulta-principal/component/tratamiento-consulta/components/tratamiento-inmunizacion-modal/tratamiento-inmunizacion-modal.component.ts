@@ -37,8 +37,10 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
   }
   buildForm() {
     this.inmunizacionFC = new FormGroup({
-      fechaTentativa: new FormControl('', Validators.required),
-      fechaAplicacion: new FormControl('', Validators.required),
+      fechaTentativa:new FormControl({value:'',disabled:true},Validators.required),
+      fechaAplicacion:new FormControl({value:'',disabled:true},Validators.required),
+      // fechaTentativa: new FormControl(, Validators.required),
+      // fechaAplicacion: new FormControl('', Validators.required),
       lote: new FormControl(null, [Validators.required]),
       fechaVencimiento: new FormControl('', [Validators.required]),
     })

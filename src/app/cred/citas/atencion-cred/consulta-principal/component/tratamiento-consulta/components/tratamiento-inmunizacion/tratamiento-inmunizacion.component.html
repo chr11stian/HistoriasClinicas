@@ -1,3 +1,17 @@
+<div class="mb-3">
+    <p-card>
+        <div>
+      <span style="font-weight: bold;font-size: 1.2rem">
+        Edad(mes):
+      </span>
+            <span>{{ edadMes }}</span>
+            <span style="font-weight: bold;font-size: 1.2rem">
+       Edad:
+      </span>
+            <span>{{anio}} Años {{mes}} Meses {{dia}} Dias</span>
+        </div>
+    </p-card>
+</div>
 <div class="grid">
     <div *ngFor="let mes of inmunizacionesAgrupadas;let i=index" class="col-12">
         <div>
