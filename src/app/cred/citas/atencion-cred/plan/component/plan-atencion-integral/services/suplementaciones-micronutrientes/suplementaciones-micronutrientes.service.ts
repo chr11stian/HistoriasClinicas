@@ -30,5 +30,12 @@ export class SuplementacionesMicronutrientesService {
   PostDosajeHemoglobina(idConsulta: string, inputRequest) {
     return this.http.post<any>(`${this.base_url}/${this.bd}/cred/consulta/evaluacion/dosajehb/${idConsulta}`,inputRequest);
   }
-
+  // guardar dosaje
+  PostDosajeHemoglobinaLaboratorio(idConsulta: string, inputRequest) {
+    return this.http.post<any>(`${this.base_url}/${this.bd}/examenesAuxiliares/crear-Laboratorios-resultados/${idConsulta}`,inputRequest);
+  }
+  // obtenemos el factor de correccion segun al ipress
+  getFactorCorrepcionXipress(idIpress: string) {
+    return this.http.get<any>(`${this.base_url}/${this.bd}/ajusteHemoglobina/buscar/${idIpress}`);
+  }
 }
