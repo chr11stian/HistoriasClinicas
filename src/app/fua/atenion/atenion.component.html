@@ -5,11 +5,10 @@
     <ng-template pTemplate="right" class="button" style="text-align: right">
 
         <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-danger mr-2"
-            style="background: #C50009; border: 1px">
+            style="background: #C50009; border: 1px" (click)="save()">
         </button>
     </ng-template>
 </p-toolbar>
-<!-- <form [formGroup]="formDeLaAtencion"> -->
 <div class="col-12">
     <p-fieldset legend="DE LA ATENCION">
         <form [formGroup]="formAtencion">
@@ -224,5 +223,244 @@
             </div>
         </div>
     </p-fieldset>
+    <p-fieldset legend="SE REFIERE / CONTRARREFIERE A">
+        <form [formGroup]="formReferencia">
+            <div class="grid">
+                <div class="col-2 mt-4">
+                    <span>Cod RENAES de la IPRESS</span>
+                    <input type="text" pInputText formControlName='codRenaes' class="p-inputtext inputfield w-full"
+                        placeholder="">
+                </div>
+                <div class="col-8 mt-4">
+                    <span>Nombre de la IPRESS a la que se refiere/contrarrefiere</span>
+                    <input type="text" pInputText formControlName='nombreIpress' class="p-inputtext inputfield w-full"
+                        placeholder="">
+                </div>
+                <div class="col-2">
+                    <span>N° Hoja de Referencia/Contrarreferencia</span>
+                    <input type="text" pInputText formControlName='nroHojaReferencia'
+                        class="p-inputtext inputfield w-full" placeholder="">
+                </div>
+            </div>
+        </form>
+    </p-fieldset>
 </div>
-<!-- </form> -->
+<div class="col-12">
+    <p-fieldset legend="ACTIVIDADES PREVENTIVAS Y OTROS">
+        <form [formGroup]="formActiPreventivas">
+            <div class="grid">
+                <div class="col-4">
+                    <div class="grid">
+                        <div class="col-4">
+                            <span>Peso(Kg)</span>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" pInputText formControlName='peso' class="p-inputtext inputfield w-full"
+                                placeholder="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="grid">
+                        <div class="col-4">
+                            <span>Talla(cm)</span>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" pInputText formControlName='talla' class="p-inputtext inputfield w-full"
+                                placeholder="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="grid">
+                        <div class="col-4">
+                            <span>P.A.(mmHg)</span>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" pInputText formControlName='pa' class="p-inputtext inputfield w-full"
+                                placeholder="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid">
+                <div class="col-2">
+                    <label>De la Gestante</label>
+                    <div class="grid">
+                        <div class="col-6">
+                            <span>CPN(N°)</span>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" pInputText formControlName='pa' class="p-inputtext inputfield w-full"
+                                placeholder="">
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col-6">
+                            <span>Edad Gestacional</span>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" pInputText formControlName='pa' class="p-inputtext inputfield w-full"
+                                placeholder="">
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col-6">
+                            <span>Altura Uterina</span>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" pInputText formControlName='pa' class="p-inputtext inputfield w-full"
+                                placeholder="">
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col-6">
+                            <span>Parto Vertical</span>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" pInputText formControlName='pa' class="p-inputtext inputfield w-full"
+                                placeholder="">
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col-6">
+                            <span>Control Puerperio (N°)</span>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" pInputText formControlName='pa' class="p-inputtext inputfield w-full"
+                                placeholder="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 pb-8">
+                    <label>Del Recien Nacido</label>
+                    <div class="grid">
+                        <div class="col-9">
+                            <span>Edad Gestacional RN (SEM)</span>
+                        </div>
+                        <div class="col-3">
+                            <input type="text" pInputText formControlName='pa' class="p-inputtext inputfield w-full"
+                                placeholder="">
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col-4">
+                            <span>APGAR</span>
+                        </div>
+                        <div class="col-2">
+                            <span>1°</span>
+                        </div>
+                        <div class="col-2">
+                            <input type="text" pInputText formControlName='pa' class="p-inputtext inputfield w-full"
+                                placeholder="">
+                        </div>
+                        <div class="col-2">
+                            <span>5°</span>
+                        </div>
+                        <div class="col-2">
+                            <input type="text" pInputText formControlName='pa' class="p-inputtext inputfield w-full"
+                                placeholder="">
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col-9">
+                            <span>Corte Tardio de Cordon (2 a 3 min)</span>
+                        </div>
+                        <div class="col-3">
+                            <input type="text" pInputText formControlName='corteTardio'
+                                class="p-inputtext inputfield w-full" placeholder="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <label>Gestante/RN/Niño/Adolescente/Joven y Adulto/Adulto Mayor</label>
+                    <div class="grid">
+                        <div class="col-3">
+                            <div>CRED N°</div>
+                        </div>
+                        <div class="col-3">
+                            <input type="text" pInputText formControlName='corteTardio'
+                                class="p-inputtext inputfield w-full" placeholder="">
+                        </div>
+                        <div class="col-3">
+                            <div>PAB(cm)</div>
+                        </div>
+                        <div class="col-3">
+                            <input type="text" pInputText formControlName='corteTardio'
+                                class="p-inputtext inputfield w-full" placeholder="">
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <!-- SEGUNDA FILA -->
+                        <div class="col-6">
+                            <div>R.N. Prematuro:</div>
+                            <p-selectButton [options]="sino" optionValue="value" optionLabel="label"></p-selectButton>
+                        </div>
+                        <div class="col-6">
+                            <div>APGAR:</div>
+                            <input type="text" pInputText>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <!-- TERCERA FILA -->
+                        <!--                                <div class="col-3">-->
+                        <!--                                    <div>Bajo de peso al nacer</div>-->
+                        <!--                                </div>-->
+                        <div class="col-6">
+                            <div>Bajo de peso al nacer:</div>
+                            <p-selectButton [options]="sino" optionValue="value" optionLabel="label"></p-selectButton>
+                        </div>
+                        <!--                                <div class="col-3">-->
+                        <!--                                    <div>Consejería Nutricional</div>-->
+                        <!--                                </div>-->
+                        <div class="col-6">
+                            <div>Consejería Nutricional:</div>
+                            <p-selectButton [options]="sino" optionValue="value" optionLabel="label"></p-selectButton>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <!-- CUARTA FILA -->
+                        <!--                                <div class="col-3">-->
+                        <!--                                    <div>Enfermedad Congenita/Secuela al nacer</div>-->
+                        <!--                                </div>-->
+                        <div class="col-7">
+                            <div>Enfer. congenita/Secuela al nacer</div>
+                            <p-selectButton [options]="sino" optionValue="value" optionLabel="label"></p-selectButton>
+                        </div>
+                        <!--                                <div class="col-3">-->
+                        <!--                                    <div>Consejería Integral</div>-->
+                        <!--                                </div>-->
+                        <div class="col-5">
+                            <div>Consejería Integral</div>
+                            <p-selectButton [options]="sino" optionValue="value" optionLabel="label"></p-selectButton>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <!-- QUINTA FILA -->
+                        <!--                                <div class="col-3">-->
+                        <!--                                    <div>N° Familiares de Gestante/Puerpera Casa Materna</div>-->
+                        <!--                                </div>-->
+                        <div class="col-8">
+                            <div>N° Familiares de Gestante/Puerpera Casa Materna</div>
+                            <input type="text" pInputText>
+                        </div>
+                        <!--                                <div class="col-3">-->
+                        <!--                                    <div>IMC (Kg/m2)</div>-->
+                        <!--                                </div>-->
+                        <div class="col-4">
+                            <div>IMC (Kg/m2)</div>
+                            <br>
+                            <input type="text" pInputText>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <label>Joven y Adulto</label>
+                </div>
+            </div>
+        </form>
+    </p-fieldset>
+</div>
+<div class="col-5">
+
+</div>

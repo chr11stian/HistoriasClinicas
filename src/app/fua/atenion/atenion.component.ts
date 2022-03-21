@@ -10,6 +10,8 @@ export class AtenionComponent implements OnInit {
   formDeLaAtencion: FormGroup;
   formAtencion: FormGroup;
   formPrestacional: FormGroup;
+  formReferencia: FormGroup;
+  formActiPreventivas: FormGroup;
   data: any[] = [];
   /**ngModels */
   atencionDirecta: string;
@@ -22,6 +24,10 @@ export class AtenionComponent implements OnInit {
     { name: "Emergencia", value: "EMERGENCIA" },
     { name: "Consulta Externa", value: "CONSULTA_EXTERNA" },
     { name: "Apoyo al Diagnostico", value: "APOYO_AL_DIAGNOSTICO" },
+  ];
+  sino = [
+    { label: "Si", value: "SI" },
+    { label: "No", value: "NO" },
   ];
 
   constructor(private form: FormBuilder) {}
@@ -45,5 +51,20 @@ export class AtenionComponent implements OnInit {
     this.formPrestacional = new FormGroup({
       nroAutorizacion: new FormControl(""),
     });
+    this.formReferencia = new FormGroup({
+      codRenaes: new FormControl(""),
+      nombreIpress: new FormControl(""),
+      nroHojaReferencia: new FormControl(""),
+    });
+    this.formActiPreventivas = new FormGroup({
+      peso: new FormControl(""),
+      talla: new FormControl(""),
+      pa: new FormControl(""),
+      corteTardio: new FormControl(""),
+    });
+  }
+
+  save() {
+    console.log("recuperar campo", this.formActiPreventivas.value.corteTardio);
   }
 }
