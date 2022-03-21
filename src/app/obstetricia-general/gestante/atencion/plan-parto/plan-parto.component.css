@@ -46,3 +46,18 @@ p-toolbar >>> .p-toolbar {
     margin: 0;
     height: 23px;
 }
+
+p-fieldset >>> .p-fieldset .p-fieldset-legend {
+    padding: 0.5rem;
+    border: 1px solid #dee2e6;
+    color: #495057;
+    font-weight: 600;
+    border-radius: 5px;
+}
+
+p-selectbutton >>> .p-selectbutton .p-button.p-highlight {
+    background-color: #0c3866;
+}
+p-selectbutton >>> .p-selectbutton .p-button {
+    padding: 5px;
+}
