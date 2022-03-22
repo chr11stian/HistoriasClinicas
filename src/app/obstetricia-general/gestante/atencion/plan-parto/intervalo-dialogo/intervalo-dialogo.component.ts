@@ -4,6 +4,7 @@ import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {ObstetriciaGeneralService} from 'src/app/obstetricia-general/services/obstetricia-general.service';
 import {DatePipe} from '@angular/common';
 import {IntervaloPartoService} from "../services/intervalo-parto/intervalo-parto.service";
+import Swal from "sweetalert2";
 
 @Component({
     selector: 'app-intervalo-dialogo',
@@ -15,6 +16,7 @@ export class IntervaloDialogoComponent implements OnInit {
     stateOptions: any[];
     idObstetricia: string;
     datePipe = new DatePipe('en-US');
+    fechaActual = new Date();
     estadoEdicion: boolean;
     gestacion: any;
 
@@ -28,6 +30,8 @@ export class IntervaloDialogoComponent implements OnInit {
         this.idObstetricia = this.gestacion.id;
         this.stateOptions = [{label: 'Si', value: 'Si'}, {label: 'No', value: 'No'}];
         this.buildForm();
+        this.form.get('fecha').setValue(this.fechaActual);
+
         this.estadoEdicion = false;
         if (config.data) {
             this.llenarCamposEdicionIntervalo();
@@ -61,7 +65,7 @@ export class IntervaloDialogoComponent implements OnInit {
         })
     }
 
-    closeDialogGuardar() {
+    async closeDialogGuardar() {
         var atencion = {
             fecha: this.datePipe.transform(this.form.value.fecha, 'dd-MM-yyyy'),
             items: [{
@@ -145,12 +149,28 @@ export class IntervaloDialogoComponent implements OnInit {
         console.log('data to save ', atencion);
         if (!this.estadoEdicion) {
             this.obstetriciaIntervalos.postIntervalosParto(this.idObstetricia, atencion).subscribe((res: any) => {
-                console.log('se guardo con exito ', res)
+                // console.log('se guardo con exito ', res)
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Intervalo Plan de Parto',
+                    text: 'Su registro fue creado con exito',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
                 this.ref.close(res);
             })
         } else {
-            this.obstetriciaIntervalos.editarIntervalosParto(this.idObstetricia, atencion).subscribe((res: any) => {
-                console.log('se guardo con exito ', res)
+            await this.obstetriciaIntervalos.editarIntervalosParto(this.idObstetricia, atencion).then((res: any) => {
+                // console.log('se guardo con exito ', res)
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Actualizo',
+                    text: 'Su registro fue actualizado con exito',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
                 this.ref.close(res);
             })
         }

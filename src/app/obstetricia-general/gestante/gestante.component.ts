@@ -2,7 +2,9 @@ import {Component, OnInit, Input} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {ObstetriciaGeneralService} from "../services/obstetricia-general.service";
 import {Route, Router, RouterLink} from "@angular/router";
-import {FiliancionService} from "./atencion/h-clinica-materno-perinatal/services/filiancion-atenciones/filiancion.service";
+import {
+    FiliancionService
+} from "./atencion/h-clinica-materno-perinatal/services/filiancion-atenciones/filiancion.service";
 import {image} from "../../../assets/images/image.const";
 
 @Component({
@@ -18,6 +20,7 @@ export class GestanteComponent implements OnInit {
     FormPaciente: FormGroup;
     tipoDoc: any;
     nroDoc: any;
+    spacio: ":";
     nroHcl: any;
     apellidosNombres: any;
 

@@ -107,3 +107,11 @@ label {
     border-radius: 3px;
 
 }
+
+p-toolbar >>> .p-toolbar {
+    background: rgb(216 222 229);
+    border: 1px solid rgb(222 226 230);
+    padding: 0.5rem;
+    height: auto;
+    border-radius: 3px;
+}
