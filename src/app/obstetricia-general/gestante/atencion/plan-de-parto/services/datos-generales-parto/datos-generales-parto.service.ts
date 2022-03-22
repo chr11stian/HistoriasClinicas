@@ -14,8 +14,8 @@ export class DatosGeneralesPartoService {
   getDatosGeneralesById(id) {
     return this.http.get(`${this.base_url}/${this.bd}/obstetricia/planparto/obtener/datosGenerales/${id}`)
   }
-  postDatosGenerales(id, data) {
-    return this.http.post(`${this.base_url}/${this.bd}/obstetricia/planparto/guardar/datosGenerales/${id}`, data)
+  postDatosGenerales(nroDoc, data) {
+    return this.http.post(`${this.base_url}/${this.bd}/obstetricia/planparto/guardar/datosGenerales/${nroDoc}`, data)
   }
   getConsultaExistePlanParto(id) {
     return this.http.get(`${this.base_url}/${this.bd}/obstetricia/planparto/existe/${id}`)

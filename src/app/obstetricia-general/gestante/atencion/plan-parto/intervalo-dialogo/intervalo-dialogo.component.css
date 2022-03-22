@@ -1,0 +1,109 @@
+.inputfield{
+    border-radius: 10px;
+}
+p-dropdown>>>.p-dropdown{
+    border-radius: 10px;
+}
+.imagenVomitos{
+    content: url("src/assets/images/seniales_peligro_parto/vomitos.svg");
+    width: 70px;
+    display:block;
+    margin:auto;
+}
+.imagenPalidez{
+    content: url("src/assets/images/seniales_peligro_parto/palidez.svg");
+    width: 50px;
+    display:block;
+    margin:auto;
+}
+.imagenFiebre{
+    content: url("src/assets/images/seniales_peligro_parto/fiebre.svg");
+    width: 60px;
+    display:block;
+    margin:auto;
+}
+.imagenDolorCabeza{
+    content: url("src/assets/images/seniales_peligro_parto/dolor_cabeza.svg");
+    width: 100px;
+    display:block;
+    margin:auto;
+}
+.imagenHinchazon{
+    content: url("src/assets/images/seniales_peligro_parto/hinchazon.svg");
+    width: 100px;
+    display:block;
+    margin:auto;
+}
+.imagenDolores{
+    content: url("src/assets/images/seniales_peligro_parto/dolores.svg");
+    width: 100px;
+    display:block;
+    margin:auto;
+}
+.imagenMovimientoBebe{
+    content: url("src/assets/images/seniales_peligro_parto/movimiento_bebe.svg");
+    width: 50px;
+    display:block;
+    margin:auto;
+}
+.imagenMalAcomodado{
+    content: url("src/assets/images/seniales_peligro_parto/mal_acomodado.svg");
+    width: 50px;
+    display:block;
+    margin:auto;
+}
+.imagenPerdidaLiquidos{
+    content: url("src/assets/images/seniales_peligro_parto/perdida_liquidos.svg");
+    width: 35px;
+    display:block;
+    margin:auto;
+}
+p-radiobutton>>> .p-radiobutton .p-radiobutton-icon{
+    content: url("src/assets/svg-icons/check-svgrepo-com.svg");
+}
+/*clase radio button azul default*/
+::ng-deep .azul .p-radiobutton .p-radiobutton-icon{
+    background:  #2196F3;
+    border:  #2196F3;
+}
+
+p-calendar >>> .p-calendar .p-component {
+    border-radius: 10px;
+}
+.footer {
+    text-align: right;
+    background: white;
+    position: absolute;
+    bottom: 0;
+    width: 97%;
+    height: 5em;
+    color: white;
+    bottom: 0;
+    z-index: 50;
+}
+p-checkbox >>> .p-checkbox .p-checkbox-box .p-checkbox-icon{
+    font-size: 70px;
+    width: 70px;
+    height: 70px;
+}
+p-checkbox >>> .p-checkbox .p-checkbox-box{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: 20px;
+    margin-left: 20px;
+    width: 70px;
+    height: 70px;
+}
+
+label {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    /*font-weight: bold;*/
+    color: rgb(135 135 135);
+    font-size: 11px;
+}
+.border {
+    border: 1px solid rgb(222 226 230);
+    background: #ffffff;
+    border-radius: 3px;
+
+}

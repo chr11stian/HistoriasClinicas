@@ -14,6 +14,8 @@ import {SharedModule} from '../../../shared/shared.module';
 import {ConsultaObstetricoModule} from "./consultorio-obstetrico/consulta-obstetrico.module";
 import {HClinicaMaternoPerinatalModule} from "./h-clinica-materno-perinatal/h-clinica-materno-perinatal.module";
 import { AlturaUterinaComponent } from './modals/altura-uterina/altura-uterina.component';
+import { PlanPartoComponent } from './plan-parto/plan-parto.component';
+import { IntervaloDialogoComponent } from './plan-parto/intervalo-dialogo/intervalo-dialogo.component';
 
 
 
@@ -23,6 +25,8 @@ import { AlturaUterinaComponent } from './modals/altura-uterina/altura-uterina.c
         AtencionComponent,
         PesoEmbarazoUnicoMultipleComponent,
         AlturaUterinaComponent,
+        PlanPartoComponent,
+        IntervaloDialogoComponent,
     ],
     exports: [AtencionComponent],
     imports: [
