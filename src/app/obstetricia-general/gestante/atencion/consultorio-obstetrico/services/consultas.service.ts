@@ -125,4 +125,10 @@ export class ConsultasService {
         .then(res => <any[]>res)
         .then(data => { return data; });
     }
+    listaUps(id){
+        return this.http.get(`${this.base_url}/${this.bd}/ipress/listarServicios/${id}`)
+        .toPromise()
+        .then(res => <any[]>res)
+        .then(data => { return data; });
+    }
 }
