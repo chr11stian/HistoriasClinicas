@@ -31,12 +31,22 @@ export class DiagnosticoConsultaService {
         return this.http.get(`${this.urlServer}/${this.bd}/cred/consulta/diagnostico/resumen/test/${id}`)
     }
     addDiagnostico(id,data) {
-        return this.http.put(`${this.urlServer}/${this.bd}/cred/consulta/diagnostico/${id}`, data)
+        return this.http.post(`${this.urlServer}/${this.bd}/cred/consulta/diagnostico/${id}`, data)
     }
     updateDiagnostico(id,data) {
-        return this.http.post(`${this.urlServer}/${this.bd}/cred/consulta/diagnostico/${id}`, data)
+        return this.http.put(`${this.urlServer}/${this.bd}/cred/consulta/diagnostico/${id}`, data)
     }
     getDiagnostico(id) {
         return this.http.get(`${this.urlServer}/${this.bd}/cred/consulta/diagnostico/${id}`)
+    }
+    /***procedimientos**/
+    addProcedimiento(id,data) {
+        return this.http.post(`${this.urlServer}/${this.bd}/cred/consulta/procedimiento/${id}`, data)
+    }
+    updateProcedimiento(id,data) {
+        return this.http.put(`${this.urlServer}/${this.bd}/cred/consulta/procedimiento/${id}`, data)
+    }
+    getProcedimiento(id) {
+        return this.http.get(`${this.urlServer}/${this.bd}/cred/consulta/procedimiento/${id}`)
     }
 }

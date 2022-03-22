@@ -1,8 +1,8 @@
 <p-panel>
     <ng-template pTemplate="header">
-        <h3 class="m-1">COSULTAS OBSTETRICAS</h3>
+        <h3 class="m-1">FORMATO ÚNICO DE ATENCIÓN - FUA</h3>
     </ng-template>
-    <div class="grid">
+    <!-- <div class="grid">
         <div class="col-12 md:col-6 lg:col-3 p-field">
             <div class="">
                 <span class="">TIPO DOCUMENTO</span>
@@ -26,7 +26,7 @@
             </div>
         </div>
 
-    </div>
+    </div> -->
     <p-steps [model]="items" [readonly]="false" [(activeIndex)]="indiceActivo"
              (activeIndexChange)="ChangeStep($event)" class="col-12 md:col-6 lg:col-12 p-field">
     </p-steps>
@@ -44,13 +44,13 @@
     </p-card>
 </div>
 
-<div class="stepsdemo-content" *ngIf="stepName === 'asegurado-usuario'">
+<!-- <div class="stepsdemo-content" *ngIf="stepName === 'asegurado-usuario'">
     <p-card>
         <ng-template pTemplate="content">
             <app-asegurado-usuario></app-asegurado-usuario>
         </ng-template>
     </p-card>
-</div>
+</div> -->
 <div class="stepsdemo-content" *ngIf="stepName === 'atencion'">
     <p-card>
         <ng-template pTemplate="content">

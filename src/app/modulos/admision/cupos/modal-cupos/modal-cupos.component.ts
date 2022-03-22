@@ -87,7 +87,9 @@ export class ModalCuposComponent implements OnInit {
             servicio: this.formCuposOferta.value.SelectUPSOferta,
             fechaOferta: this.datePipe.transform(this.formCuposOferta.value.fechaOferta, 'yyyy-MM-dd')
         }
+        this.dataSelectHoras = null;
         this.getOfertascuposListar(data);
+
         console.log("Datos del servico Selecionado", data)
     }
 

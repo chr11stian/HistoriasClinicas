@@ -9,6 +9,7 @@ import { CieService } from 'src/app/obstetricia-general/services/cie.service';
 import { ConsultasService } from '../../../services/consultas.service';
 import { MedicamentosService } from 'src/app/mantenimientos/services/medicamentos/medicamentos.service';
 import { MessageService } from "primeng/api";
+import { IpressFarmaciaService } from 'src/app/modulos/ipress-farmacia/services/ipress-farmacia.service';
 
 @Component({
   selector: 'app-modal-tratamiento',
@@ -17,7 +18,7 @@ import { MessageService } from "primeng/api";
 })
 export class ModalTratamientoComponent implements OnInit {
   formTratamientoComun: FormGroup;
-  dataTratamientosComunes:any[]=[];
+  dataTratamientosComunes: any[] = [];
   viaadministracionList: any[];
   dialogInmunizaciones = false;
   dataInmunizaciones: any[] = [];
@@ -30,6 +31,7 @@ export class ModalTratamientoComponent implements OnInit {
   listaDeCIESIS: any;
   prestacionList: any[];
 
+  medicamentosConDatos: any[] = [];
   listaMedicamentos: any;
   tiposDosis: any[];
 
@@ -47,8 +49,12 @@ export class ModalTratamientoComponent implements OnInit {
 
   nroAtencion: any;
   idIpress: any;
+  renIpress: any;
 
   idEdicion: any;
+  aux: any;
+
+  idMedicamento: any;
   constructor(private form: FormBuilder,
     private ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
@@ -56,12 +62,15 @@ export class ModalTratamientoComponent implements OnInit {
     private CieService: CieService,
     private DxService: ConsultasService,
     private MedicamentosService: MedicamentosService,
+    private farmaciaService: IpressFarmaciaService,
     private messageService: MessageService) {
 
     //this.idObstetricia = this.obstetriciaGeneralService.idGestacion;
 
     this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
     console.log("ipress", this.idIpress)
+    this.renIpress = JSON.parse(localStorage.getItem('usuario')).ipress.renipress;
+    console.log("renipress", this.renIpress)
 
     /*********RECUPERAR DATOS*********/
     /*usando local storage*/
@@ -89,7 +98,6 @@ export class ModalTratamientoComponent implements OnInit {
       this.nroHcl = this.Gestacion.nroHcl;
     }
     if (!this.estadoEdicion) {
-      //guardar en el ls el nroAtencion
       let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaNueva'));
       this.nroAtencion = nroAtencion;
       console.log("entre a nueva consulta", this.nroAtencion)
@@ -105,26 +113,27 @@ export class ModalTratamientoComponent implements OnInit {
 
     this.recuperarPrestaciones();
     this.traerDiagnosticosDeConsulta();
+    this.listarMedicamentosFarmacia();
 
     if (config.data) {
-      this.llenarCamposTratamientoInmunizaciones();
+      this.llenarCamposTratamiento();
     }
 
     this.intervaloList = [
-      {label: 'CADA 4 HORAS', value: 'CADA 4 HORAS'},
-      {label: 'CADA 5 HORAS', value: 'CADA 5 HORAS'},
-      {label: 'CADA 6 HORAS', value: 'CADA 6 HORAS'},
-      {label: 'CADA 8 HORAS', value: 'CADA 8 HORAS'},
-      {label: 'CADA 12 HORAS', value: 'CADA 12 HORAS'},
-      {label: 'CADA 24 HORAS', value: 'CADA 24 HORAS'},
-      {label: 'CONDICIONAL A FIEBRE', value: 'CONDICIONAL A FIEBRE'},
-      {label: 'DOSIS UNICA', value: 'DOSIS UNICA'},
-      {label: 'CADA 48 HORAS', value: 'CADA 48 HORAS'}
+      { label: 'CADA 4 HORAS', value: 'CADA 4 HORAS' },
+      { label: 'CADA 5 HORAS', value: 'CADA 5 HORAS' },
+      { label: 'CADA 6 HORAS', value: 'CADA 6 HORAS' },
+      { label: 'CADA 8 HORAS', value: 'CADA 8 HORAS' },
+      { label: 'CADA 12 HORAS', value: 'CADA 12 HORAS' },
+      { label: 'CADA 24 HORAS', value: 'CADA 24 HORAS' },
+      { label: 'CONDICIONAL A FIEBRE', value: 'CONDICIONAL A FIEBRE' },
+      { label: 'DOSIS UNICA', value: 'DOSIS UNICA' },
+      { label: 'CADA 48 HORAS', value: 'CADA 48 HORAS' }
     ];
   }
 
   ngOnInit(): void {
-
+    
   }
 
   buildForm() {
@@ -133,6 +142,7 @@ export class ModalTratamientoComponent implements OnInit {
       prestacion: new FormControl("", [Validators.required]),
 
       nombre: new FormControl("", [Validators.required]),
+      nombreMed: new FormControl("", [Validators.required]),
       stock: new FormControl("", [Validators.required]),
       cantidad: new FormControl("", [Validators.required]),
       dosis: new FormControl("", [Validators.required]),
@@ -145,12 +155,11 @@ export class ModalTratamientoComponent implements OnInit {
       instrucciones: new FormControl("", [Validators.required]),
       advertencias: new FormControl("", [Validators.required]),
       otrasIndicaciones: new FormControl("", [Validators.required]),
+
+      ff: new FormControl("", [Validators.required]),
     })
   }
-  openNew() {
-    this.formTratamientoComun.reset();
-    this.dialogInmunizaciones = true;
-  }
+
   traerDiagnosticosDeConsulta() {
     this.DxService.listarDiagnosticosDeUnaConsulta(this.nroHcl, this.nroEmbarazo, this.nroAtencion).then((res: any) => {
       this.diagnosticosList = res.object;
@@ -163,65 +172,66 @@ export class ModalTratamientoComponent implements OnInit {
       this.formTratamientoComun.patchValue({ prestacion: res.object.descripcion });
     })
   }
-  async enviarTratamientoInmunizaciones() {
+  async enviarTratamiento() {
     var data = {
-      nombre: this.formTratamientoComun.value.nombre.nombre,
-      nombreComercial: this.formTratamientoComun.value.nombreComercial,
-      dosis: this.formTratamientoComun.value.dosis,
-      tipoDosis: this.formTratamientoComun.value.tipoDosis,
+      medicamento: {
+        id: this.formTratamientoComun.value.nombre.medicamento.id,
+      },
       codPrestacion: this.formTratamientoComun.value.diagnostico.codPrestacion,
-      codProcedimientoSIS: this.formTratamientoComun.value.SISCIE.codigo,
+      cantidad: this.formTratamientoComun.value.cantidad,
+      dosis: this.formTratamientoComun.value.dosis,
+      intervalo: this.formTratamientoComun.value.intervalo,
+      duracion: this.formTratamientoComun.value.duracion,
+      fechaVenc: this.formTratamientoComun.value.fechaVencimiento,
+      observaciones: this.formTratamientoComun.value.observaciones,
       cie10SIS: this.formTratamientoComun.value.diagnostico.cie10SIS,
-      codProcedimientoHIS: this.formTratamientoComun.value.HISCIE.codigoItem,
-      idIpressSolicitante: this.idIpress,
-      pertenecePAICRED: false,
-      datosPaciente: {
-        tipoDoc: this.tipoDocRecuperado,
-        nroDoc: this.nroDocRecuperado
+      indicaciones: {
+        instrucciones: this.formTratamientoComun.value.instrucciones,
+        advertencias: this.formTratamientoComun.value.advertencias,
+        efectosMedicamento: this.formTratamientoComun.value.efectosMedicamento,
+        otrasIndicaciones: this.formTratamientoComun.value.otrasIndicaciones,
       }
     }
-
     console.log(data);
 
-    await this.DxService.guardarInmunizacionGestante(this.nroHcl, this.nroEmbarazo, this.nroAtencion, data).then((res: any) => {
-      this.dialogInmunizaciones = false;
+    await this.DxService.guardarTratamientoGestante(this.nroHcl, this.nroEmbarazo, this.nroAtencion, data).then((res: any) => {
       Swal.fire({
         icon: 'success',
         title: 'Guardado',
-        text: 'Solicitud de inmunización guardada correctamente',
+        text: 'Tratamiento guardado correctamente',
         showConfirmButton: false,
         timer: 1500,
       })
     })
 
   }
-  async enviarEdicionTratamientoInmunizacion() {
+  async enviarEdicionTratamiento() {
     var data = {
-      id: this.idEdicion,
-      nombre: this.formTratamientoComun.value.nombre.nombre,
-      nombreComercial: this.formTratamientoComun.value.nombreComercial,
-      dosis: this.formTratamientoComun.value.dosis,
-      tipoDosis: this.formTratamientoComun.value.tipoDosis,
+      medicamento: {
+        id: this.idMedicamento,
+      },
       codPrestacion: this.formTratamientoComun.value.diagnostico.codPrestacion,
-      codProcedimientoSIS: this.formTratamientoComun.value.SISCIE.codigo,
+      cantidad: this.formTratamientoComun.value.cantidad,
+      dosis: this.formTratamientoComun.value.dosis,
+      intervalo: this.formTratamientoComun.value.intervalo,
+      duracion: this.formTratamientoComun.value.duracion,
+      fechaVenc: this.formTratamientoComun.value.fechaVencimiento,
+      observaciones: this.formTratamientoComun.value.observaciones,
       cie10SIS: this.formTratamientoComun.value.diagnostico.cie10SIS,
-      codProcedimientoHIS: this.formTratamientoComun.value.HISCIE.codigoItem,
-      idIpressSolicitante: this.idIpress,
-      pertenecePAICRED: false,
-      datosPaciente: {
-        tipoDoc: this.tipoDocRecuperado,
-        nroDoc: this.nroDocRecuperado
+      indicaciones: {
+        instrucciones: this.formTratamientoComun.value.instrucciones,
+        advertencias: this.formTratamientoComun.value.advertencias,
+        efectosMedicamento: this.formTratamientoComun.value.efectosMedicamento,
+        otrasIndicaciones: this.formTratamientoComun.value.otrasIndicaciones,
       }
     }
-
     console.log(data);
 
-    await this.DxService.editarInmunizacionGestante(this.nroHcl, this.nroEmbarazo, this.nroAtencion, data).then((res: any) => {
-      this.dialogInmunizaciones = false;
+    await this.DxService.editarTratamientoGestante(this.nroHcl, this.nroEmbarazo, this.nroAtencion, data).then((res: any) => {
       Swal.fire({
         icon: 'success',
         title: 'Actualizado',
-        text: 'Solicitud de inmunización guardada correctamente',
+        text:  'Tratamiento guardado correctamente',
         showConfirmButton: false,
         timer: 1500,
       })
@@ -237,41 +247,37 @@ export class ModalTratamientoComponent implements OnInit {
     })
     this.dialogInmunizaciones = false;
   }
-  llenarCamposTratamientoInmunizaciones() {
+  llenarCamposTratamiento() {
     this.DxService.listarDiagnosticosDeUnaConsulta(this.nroHcl, this.nroEmbarazo, this.nroAtencion).then((res: any) => {
       this.diagnosticosList = res.object;
       let configuracion = this.config.data.row;
       this.idEdicion = configuracion.id;
-      this.filterMedicamento(configuracion)
-      this.MedicamentosService.searchMedicamento(configuracion.nombre.slice(0, 6)).subscribe((res: any) => {
-        this.formTratamientoComun.patchValue({ "nombre": res.object[0] });
-      })
-      this.formTratamientoComun.get("nombreComercial").setValue(configuracion.nombreComercial);
-      this.formTratamientoComun.get("dosis").setValue(configuracion.dosis);
-      this.formTratamientoComun.get("tipoDosis").setValue(configuracion.tipoDosis);
+      this.formTratamientoComun.patchValue({ cantidad: configuracion.cantidad });
+      this.formTratamientoComun.patchValue({ dosis: configuracion.dosis });
+      this.formTratamientoComun.patchValue({ duracion: configuracion.duracion });
+      this.formTratamientoComun.patchValue({ fechaVencimiento: configuracion.fechaVenc });
+      this.formTratamientoComun.patchValue({ intervalo: configuracion.intervalo });
+      this.formTratamientoComun.patchValue({ observaciones: configuracion.observaciones });
+      this.formTratamientoComun.patchValue({ efectosMedicamento: configuracion.indicaciones.efectosMedicamento });
+      this.formTratamientoComun.patchValue({ advertencias: configuracion.indicaciones.advertencias });
+      this.formTratamientoComun.patchValue({ instrucciones: configuracion.indicaciones.instrucciones });
+      this.formTratamientoComun.patchValue({ otrasIndicaciones: configuracion.indicaciones.otrasIndicaciones });
       this.formTratamientoComun.get("diagnostico").setValue(this.diagnosticosList.find(elemento => elemento.cie10SIS == configuracion.cie10SIS));
       this.PrestacionService.getProcedimientoPorCodigo(this.formTratamientoComun.value.diagnostico.codPrestacion).subscribe((res: any) => {
-        this.listaDeCIESIS = res.object.procedimientos;
         this.formTratamientoComun.patchValue({ prestacion: res.object.descripcion });
-        this.formTratamientoComun.patchValue({ diagnosticoSIS: this.listaDeCIESIS.find(elemento => elemento.codigo == configuracion.codProcedimientoSIS).procedimiento });
-        this.formTratamientoComun.patchValue({ SISCIE: this.listaDeCIESIS.find(elemento => elemento.codigo == configuracion.codProcedimientoSIS) });
-        this.formTratamientoComun.patchValue({ autocompleteSIS: "" });
       })
-      this.CieService.getCIEByDescripcion(configuracion.codProcedimientoHIS).subscribe((res: any) => {
-        this.listaDeCIE = res.object;
-        this.formTratamientoComun.patchValue({ HISCIE: this.listaDeCIE.find(elemento=> elemento.codigoItem == configuracion.codProcedimientoHIS) });
-        this.formTratamientoComun.get("diagnosticoHIS").setValue(this.listaDeCIE.find(elemento=> elemento.codigoItem == configuracion.codProcedimientoHIS).descripcionItem);
-      })
-      
+      this.filterItemsMed(configuracion.medicamento.nombre);
+      this.formTratamientoComun.patchValue({ nombre: this.aux.find(elemento => elemento.medicamento.id == configuracion.medicamento.id) });
+      this.selectedOptionNameMedicamento(this.aux.find(elemento => elemento.medicamento.id == configuracion.medicamento.id));
     })
 
   }
   async closeDialogGuardar() {
     await this.config.data ?
-      this.enviarEdicionTratamientoInmunizacion().then((res)=>this.ref.close())
+      this.enviarEdicionTratamiento().then((res) => this.ref.close())
       :
-      this.enviarTratamientoInmunizaciones().then((res)=>this.ref.close())
-    
+      this.enviarTratamiento().then((res) => this.ref.close())
+
   }
 
   closeDialog() {
@@ -291,9 +297,77 @@ export class ModalTratamientoComponent implements OnInit {
   }
 
   selectedOptionNameMedicamento(event) {
-    console.log('lista de medicamentos ', this.listaMedicamentos);
-    console.log('evento desde medicamentos ', event);
-    this.formTratamientoComun.patchValue({ nombreComercial: event.nombreComercial }, { emitEvent: false });
+    console.log('lista de medicamentos ', this.medicamentosConDatos);
+    this.idMedicamento = event.medicamento.id;
+    this.formTratamientoComun.patchValue({ nombreMed: event.medicamento.nombre });
+    this.formTratamientoComun.patchValue({ fechaVencimiento: event.fechaVenc });
+    this.formTratamientoComun.patchValue({ stock: event.stock });
+  }
+
+  listarMedicamentosFarmacia() {
+    console.log("entrando a recuperar medicamentos de la farmacia");
+    this.farmaciaService.getListaMedicamentosFarmaciaXIpress(this.renIpress).subscribe((data: any) => {
+      if (data != undefined) {
+        console.log(data.object);
+        this.listaMedicamentos = (data.object);
+        let cadena
+        for (let i = 0; i < this.listaMedicamentos.length; i++) {
+          cadena = {
+            medicamento: {
+              id: this.listaMedicamentos[i].medicamento.id,
+              codigo: this.listaMedicamentos[i].medicamento.codigo,
+              nombre: this.listaMedicamentos[i].medicamento.nombre,
+              ff: this.listaMedicamentos[i].medicamento.ff,
+              concentracion: this.listaMedicamentos[i].medicamento.concentracion,
+              viaAdministracion: this.listaMedicamentos[i].medicamento.viaAdministracion,
+            },
+            lote: this.listaMedicamentos[i].lote,
+            fechaVenc: this.listaMedicamentos[i].fechaVenc,
+            viaAdministracion: this.listaMedicamentos[i].viaAdministracion,
+            stock: this.listaMedicamentos[i].stock,
+            stringMedicamento: this.listaMedicamentos[i].medicamento.nombre + " " + this.listaMedicamentos[i].medicamento.ff + " " + this.listaMedicamentos[i].medicamento.concentracion + " " + this.listaMedicamentos[i].medicamento.viaAdministracion + " Fecha Venc. " + this.listaMedicamentos[i].fechaVenc + " stock: " + this.listaMedicamentos[i].stock
+          }
+          this.medicamentosConDatos.push(cadena);
+          console.log(this.medicamentosConDatos);
+        }
+      }
+    })
+  }
+  filterItems(event: any) {
+    let filtered: any[] = [];
+    let query = event.query;
+    console.log(this.medicamentosConDatos);
+    this.aux = this.medicamentosConDatos;
+    for (let i = 0; i < this.aux.length; i++) {
+      let item = this.aux[i];
+      if (item.stringMedicamento.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        filtered.push(item);
+      }
+    }
+    this.aux = filtered;
+    if (this.aux === []) {
+      console.log('no encontrado');
+      this.aux = this.medicamentosConDatos;
+
+    }
+  }
+  filterItemsMed(str) {
+    let filtered: any[] = [];
+    let query = str;
+    console.log(this.medicamentosConDatos);
+    this.aux = this.medicamentosConDatos;
+    for (let i = 0; i < this.aux.length; i++) {
+      let item = this.aux[i];
+      if (item.stringMedicamento.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        filtered.push(item);
+      }
+    }
+    this.aux = filtered;
+    if (this.aux === []) {
+      console.log('no encontrado');
+      this.aux = this.medicamentosConDatos;
+
+    }
   }
 
 }

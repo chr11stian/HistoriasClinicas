@@ -1,8 +1,0 @@
-p-calendar{
-    position: absolute;
-}
-p-calendar >>> .p-button {
-    background: #0c3866;
-    border: 1px solid #0c3866;
-    align-self: center;
-}

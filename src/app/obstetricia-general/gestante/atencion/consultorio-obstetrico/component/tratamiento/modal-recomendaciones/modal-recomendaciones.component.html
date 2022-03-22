@@ -1,7 +1,7 @@
 <form [formGroup]='formRecomendaciones'>
 
-    <div class="p-grid p-fluid">
-        <div class="p-col-12">
+    <div class="grid mb-7 mt-2">
+        <div class="col-12 p-fluid">
             <label>Recomendación:</label>
             <input type="text"  pInputText formControlName='recomendaciones' placeholder="recomendaciones"
                    required/>
@@ -10,6 +10,6 @@
     </div>
 </form>
 <div class="footer">
-    <button pButton type="button" label="Guardar" (click)="closeDialogGuardar()" class="p-button-danger mt-4"></button>
-    <button pButton type="button" label="Cancelar" (click)="closeDialog()"  class="p-button-danger mt-4"></button>
+    <button pButton type="button" label="Cancelar" (click)="closeDialog()"  class="button-cancelar mt-4 pr-2"></button>
+    <button pButton type="button" label="Guardar" (click)="closeDialogGuardar()" class="button-agregar mt-4 ml-2 "></button>
 </div>

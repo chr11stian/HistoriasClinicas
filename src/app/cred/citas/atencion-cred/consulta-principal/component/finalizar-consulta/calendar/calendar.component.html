@@ -1,0 +1,43 @@
+<full-calendar
+        *ngIf='calendarVisible'
+        [options]='calendarOptions'
+></full-calendar>
+<p-dialog header="Evento" [(visible)]="dialogAcuerdos" [modal]="true"
+          [style]="{width: '50%', height: '40%'}"
+          style="{z-index:9999}"
+          [draggable]="false"
+          [resizable]="false">
+
+    <form [formGroup]='formAcuerdos'>
+        <div class="grid">
+            <div class="flex col-12 justify-content-center" style="margin: 0; padding: 0">
+                <div class="col-12 md:col-1 text-center mt-2" >
+                    Hora:
+                </div>
+                <div class="col-12 md:col-4">
+                    <p-calendar [timeOnly]="true"
+                                [ngModel]="fecha"
+                                formControlName="hour"
+                                inputId="timeonly">
+                    </p-calendar>
+                </div>
+            </div>
+            <div class="justify-content-center col-12 md:col-1 text-center mt-2">
+                Descripción:
+            </div>
+            <div class="col-12 justify-content-center" style="margin: 0; padding: 0">
+                <textarea style="height: 60px" class="w-full" pInputTextarea
+                          formControlName="descripcionAcuerdo">
+                </textarea>
+            </div>
+
+        </div>
+    </form>
+    <ng-template pTemplate="footer">
+        <button pButton type="button" label="Cancelar" class="button-cancelar" icon="pi pi-times"
+                (click)="cancel()"></button>
+        <button class="button-agregar" icon="pi pi-save" pButton type="button" label="Guardar"
+                (click)="save()"></button>
+
+    </ng-template>
+</p-dialog>

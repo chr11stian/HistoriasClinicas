@@ -13,6 +13,7 @@ import {dato} from "../../../../../../models/data";
   providers: [DialogService],
 })
 export class SuplementacionCredComponent implements OnInit {
+
   isSuplementacion:boolean
   dni:string
   stateOptions: any[];
@@ -21,7 +22,11 @@ export class SuplementacionCredComponent implements OnInit {
   SF: SuplementacionMicronutrientes[] = []
   MNM: SuplementacionMicronutrientes[] = []
   vitaminaA:SuplementacionMicronutrientes[]=[]
+  suplementacionTerapeutica:SuplementacionMicronutrientes[]=[]
   edadMes:number;
+  dia:number;
+  mes:number;
+  anio:number
   dataDocumento:dato
   constructor(private servicio: SuplementacionesMicronutrientesService,
               private messageService: MessageService,
@@ -29,6 +34,9 @@ export class SuplementacionCredComponent implements OnInit {
     this.dataDocumento=JSON.parse(localStorage.getItem('documento'))
     this.edadMes=this.dataDocumento.anio*12+this.dataDocumento.mes
     this.dni=this.dataDocumento.nroDocumento
+    this.mes=this.dataDocumento.mes;
+    this.dia=this.dataDocumento.dia;
+    this.anio=this.dataDocumento.anio;
 
     this.stateOptions = [
       { label: 'SI', optionValue: true },
@@ -91,6 +99,21 @@ s
         // this.messageService.add({severity:'error', summary: 'warn', detail:'NO SE registro ninguna inmunizacion'});
       }
     });
+  }
+  contador:any={
+    sulfato:0,
+    micronutrientes:0,
+    vitaminaA:0
+  };
+  correspondeMes(mesPivot,suplemento){
+    if(mesPivot==this.edadMes)
+    {
+      this.contador[suplemento]+=1;
+      return true;
+    }
+    else
+      return false
+
   }
 
 

@@ -155,7 +155,7 @@ export class DatosGeneralesPartoComponent implements OnInit {
       nombrePromotorSalud: this.form.value.nombrePromotor,
       tiempoLlegarEess: this.form.value.tiempoLlegarEess,
     }
-    this.datosGeneralesPartoService.postDatosGenerales(this.idRecuperado, data).subscribe((res: any) => {
+    this.datosGeneralesPartoService.postDatosGenerales(this.nroDocRecuperado, data).subscribe((res: any) => {
       console.log("Guardado correctamente", res.object);
     })
   }

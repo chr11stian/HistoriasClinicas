@@ -10,6 +10,7 @@ import { TratamientoConsultaComponent } from "../tratamiento-consulta/tratamient
 import { FinalizarConsultaComponent } from "../finalizar-consulta/finalizar-consulta.component";
 import { EvaluacionesConsultaComponent } from '../evaluaciones-consulta/evaluaciones-consulta.component'
 import { ExamenesAuxiliaresConsultaComponent } from '../examenes-auxiliares-consulta/examenes-auxiliares-consulta.component'
+import {ProcedimientosConsultaComponent} from "../procedimientos-consulta/procedimientos-consulta.component";
 
 
 @Component({
@@ -40,6 +41,7 @@ export class StepGeneralComponent implements OnInit, DoCheck {
     @ViewChild(FinalizarConsultaComponent) finalizarConsulta: FinalizarConsultaComponent
     @ViewChild(EvaluacionesConsultaComponent) evaluacionesConsulta: EvaluacionesConsultaComponent
     @ViewChild(ExamenesAuxiliaresConsultaComponent) examenesAuxConsulta: ExamenesAuxiliaresConsultaComponent
+    @ViewChild(ProcedimientosConsultaComponent) procedimientosConsulta: ProcedimientosConsultaComponent
 
     constructor(private consultaGeneralService: ConsultaGeneralService,
         private route: ActivatedRoute,
@@ -61,10 +63,11 @@ export class StepGeneralComponent implements OnInit, DoCheck {
             { label: 'Datos Generales', styleClass: 'icon' },
             { label: 'Motivo de Consulta', styleClass: 'icon1' },
             { label: 'Evaluaciones', styleClass: 'icon2' },
-            { label: 'Diagnostico', styleClass: 'icon3' },
+            { label: 'Diagnóstico', styleClass: 'icon3' },
             { label: 'Exámenes Auxiliares', styleClass: 'icon4' },
             { label: 'Tratamiento', styleClass: 'icon5' },
-            { label: 'Acuerdos', styleClass: 'icon6' },
+            { label: 'Procedimientos', styleClass: 'icon6' },
+            { label: 'Acuerdos', styleClass: 'icon7' },
         ]
         await this.getQueryParams()
     }
@@ -133,8 +136,11 @@ export class StepGeneralComponent implements OnInit, DoCheck {
     //--cambia los nombres de los steps según el indice
     name() {
         switch (this.indiceActivo) {
-            case 6:
+            case 7:
                 this.stepName = 'finalizar'
+                break
+            case 6:
+                this.stepName = 'procedimientos'
                 break
             case 5:
                 this.stepName = 'tratamiento'
@@ -185,7 +191,7 @@ export class StepGeneralComponent implements OnInit, DoCheck {
                 break;
 
             case 'diagnostico':
-                this.diagnosticoConsulta.save()
+                this.diagnosticoConsulta.SaveDiagnostico()
                 this.stepName = 'examenesAux';
                 this.indiceActivo = 4;
                 break;
@@ -195,11 +201,19 @@ export class StepGeneralComponent implements OnInit, DoCheck {
                 this.stepName = 'tratamiento';
                 this.indiceActivo = 5;
                 break;
+
             case 'tratamiento':
                 // this.tratamientoConsulta.save()
-                this.stepName = 'finalizar';
+                this.stepName = 'procedimientos';
                 this.indiceActivo = 6;
                 break;
+
+            case 'procedimientos':
+                this.procedimientosConsulta.saveProcedimiento();
+                this.stepName = 'finalizar';
+                this.indiceActivo = 7;
+                break;
+
             case 'finalizar':
                 this.finalizarConsulta.save()
                 break;
@@ -210,6 +224,11 @@ export class StepGeneralComponent implements OnInit, DoCheck {
     prevPage() {
         switch (this.stepName) {
             case 'finalizar':
+                console.log('fi ', this.stepName)
+                this.stepName = 'procedimientos';
+                this.indiceActivo = 6;
+                break;
+            case 'procedimientos':
                 console.log('fi ', this.stepName)
                 this.stepName = 'tratamiento';
                 this.indiceActivo = 5;
@@ -241,8 +260,11 @@ export class StepGeneralComponent implements OnInit, DoCheck {
         if (this.indiceActivo !== this.j) {
             console.log('j ', this.indiceActivo, this.j)
             switch (this.j) {
-                case 6:
+                case 7:
                     this.finalizarConsulta.save()
+                    break
+                case 6:
+                    // this.finalizarConsulta.save()
                     break
                 case 5:
                     //this.tratamientoConsulta.save()

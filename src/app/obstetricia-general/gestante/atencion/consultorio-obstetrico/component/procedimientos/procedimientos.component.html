@@ -1,0 +1,55 @@
+<div class="p-card">
+    <div class="evaluaciones">
+        <p-toolbar>
+            <ng-template pTemplate="left">
+                <h3 class="mt-2">PROCEDIMIENTOS</h3>
+            </ng-template>
+
+            <ng-template pTemplate="right" class="button">
+                <button class="button-agregar" icon="pi pi-save" pButton type="button" label="Guardar"
+                (click)="guardarTodosDatos()"></button>
+            </ng-template>
+        </p-toolbar>
+        <!--PROCEDIMIENTOS -->
+        <div class="PROCEDIMIENTOS">
+            <p-table class="table-over" [value]="procedimientos" #dt styleClass="p-datatable-gridlines" [rows]="10"
+                [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
+                [showCurrentPageReport]="true"
+                currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+
+                <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                    <tr>
+                        <th style="text-align: center" class="font-2">Nro </th>
+                        <th style="text-align: center" class="font-1">COD. PRESTACION</th>
+                        <th style="text-align: center" class="font-2">PROCEDIMIENTO SIS</th>
+                        <th style="text-align: center" class="font-2">PROCEDIMIENTO HIS</th>
+                        <th style="text-align: center" class="font-2">Acciones</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                    <tr>
+                        <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+                        <td style="text-align: center">{{ rowData.codPrestacion }}</td>
+                        <td style="text-align: center">{{ rowData.procedimientoSIS }}</td>
+                        <td style="text-align: center">{{ rowData.procedimientoHIS }}</td>
+                        <td style="text-align: center">
+                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                (click)="openDialogEditarProcedimiento(rowData)" pTooltip="Editar">
+                            </button>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
+                                (click)="eliminarProcedimiento(rowIndex)" pTooltip="Eliminar">
+                            </button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            <p-toolbar>
+                <div class="p-toolbar-group-right">
+                    <button pButton pRipple label="Agregar Procedimiento" icon="pi pi-plus" pButton type="button"
+                        class="button-agregar" (click)="openDialogProcedimiento()"></button>
+                </div>
+            </p-toolbar>
+        </div>
+        <br>
+    </div>
+</div>

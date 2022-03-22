@@ -38,8 +38,8 @@ export class UpsComponent implements OnInit {
     selectedValue: string;
     selectedTipoUPS: any;
     stateOptions = [
-        { label: 'Activo', value: 'true' },
-        { label: 'Inactivo', value: 'false' }
+        { label: 'Activo', value: true },
+        { label: 'Inactivo', value: false }
     ];
     SISHISOption = [
         { label: 'HIS', value: 'his' },
