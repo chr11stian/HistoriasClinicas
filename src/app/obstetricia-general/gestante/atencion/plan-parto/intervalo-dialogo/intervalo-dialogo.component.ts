@@ -22,12 +22,10 @@ export class IntervaloDialogoComponent implements OnInit {
         private formBuilder: FormBuilder,
         public obstetriciaIntervalos: IntervaloPartoService,
         private ref: DynamicDialogRef,
-        private obstetriciaGeneralService: ObstetriciaGeneralService,
         public config: DynamicDialogConfig
     ) {
         this.gestacion = JSON.parse(localStorage.getItem('gestacion'));
         this.idObstetricia = this.gestacion.id;
-        // this.idObstetricia = this.obstetriciaGeneralService.idGestacion;
         this.stateOptions = [{label: 'Si', value: 'Si'}, {label: 'No', value: 'No'}];
         this.buildForm();
         this.estadoEdicion = false;
