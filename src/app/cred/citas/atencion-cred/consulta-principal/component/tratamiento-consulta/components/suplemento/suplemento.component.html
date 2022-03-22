@@ -46,19 +46,28 @@
     </div>
     <div class="col-12 grid ">
       <div class="col-2">Medicamento:</div>
-      <div class="col-10 p-fluid ">
+      <div class="col-4 p-fluid ">
         <p-dropdown
-          [options]="suplemento.nombre=='SF'?presentacionSF:suplemento.nombre=='MNM'?presentacionMNM:presentacionVitaminaA"
+          [options]="suplemento.nombre=='SF'?presentacionSFaTermino:suplemento.nombre=='MNM'?presentacionMNM:presentacionVitaminaA"
           formControlName="medicamento"
           optionLabel="name"
           placeholder="Seleccione"
         ></p-dropdown>
       </div>
+      <div class="col-6 flex">
+          <span>
+            Contenido de<br> Hierro Elemental:
+          </span>
+          <span>
+            {{this.getFC('medicamento').value.contenidoHierroElemental}}
+          </span>
+      </div>
+
     </div>
     <div class="col-6 grid ">
-      <div class="col-4">Dosis:</div>
+      <div class="col-4">Dosis(Via oral):</div>
       <div class="col-8 p-fluid">
-        <input type="text" pInputText formControlName="dosis" placeholder="cantidad">
+        <input type="text" pInputText formControlName="dosis" placeholder="2mg/kg/dia">
 <!--        <p-dropdown-->
 <!--                [options]="suplemento.nombre=='SF'?repositorioSF:repositorioMNM"-->
 <!--                formControlName="presentacion"-->

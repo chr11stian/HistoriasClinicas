@@ -21,20 +21,22 @@ export class SuplementoComponent implements OnInit {
   dataDocumento:dato;
   suplemento: SuplementacionMicronutrientes;
   suplemetancionFG: FormGroup;
-  // repositorioMNM: any[] = [
-  //   {name:'Sobre',code:'Sobre'}
-  // ];
-  presentacionSF=[
-    {name:'HIERRO POLIMALTOSADO-(SOL 50mg/ml 20ml)',code:'28551'},
-    {name:'FERROSO SULFATO(SAL FERROSA)-(TAB 300MG)',code:'03552'},
-    {name:'FERROSO SULFATO HEPTAHIDRATO-(FCO 15mg/5ml-180ml)',code:'03519'},
+
+  // presentacionSFaTermino=[
+  //   {name:'HIERRO POLIMALTOSADO-(SOL 50mg/ml 20ml)',code:'28551'},
+  //   {name:'FERROSO SULFATO(SAL FERROSA)-(TAB 300MG)',code:'03552'},
+  //   {name:'FERROSO SULFATO HEPTAHIDRATO-(FCO 15mg/5ml-180ml)',code:'03519'},
+  // ]
+  presentacionSFaTermino=[
+    {name:'Gotas Sulfato Ferroso-(SOL 50mg/ml 20ml)',codeSISMED:'28551',contenidoHierroElemental:'1 gota=1,25mg de Hierro elemental'},
+    {name:'Gotas Complejo Polimaltosado-(TAB 300MG)',codeSISMED:'03552',contenidoHierroElemental:'1 gota=2,5mg de Hierro elemental'},
   ]
   presentacionMNM=[
-    {name:'Micronutriente 1 gramo en Polvo',code:'sin codificacion'},
+    {name:'Micronutrientes:Sobre de 1 gramo en Polvo',codeSISMED:'sin codificacion',contenidoHierroElemental:'Hierro (12.5 mg de Hierro elemental)'},
   ]
   presentacionVitaminaA=[
-    {name:'RETINOL VITAMINA A (CAP-100.000 UI (30mg))',code:'08152'},
-    {name:'RETINOL VITAMINA A (CAP-200.000 UI (30mg))',code:'08153'},
+    {name:'RETINOL VITAMINA A (CAP-100.000 UI (30mg))',codeSISMED:'08152',contenidoHierroElemental:''},
+    {name:'RETINOL VITAMINA A (CAP-200.000 UI (30mg))',codeSISMED:'08153',contenidoHierroElemental:''},
   ]
   isSuplementacion:boolean
   consumoDiario: string = "Consumo diario";
