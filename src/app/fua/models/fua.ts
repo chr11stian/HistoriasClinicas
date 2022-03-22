@@ -50,3 +50,8 @@ export interface Asegurado {
     fechaFallecimiento: string;
   };
 }
+export interface KeyData {
+  idConsulta: string,
+  id: string,
+  codPrestacion: string
+}

@@ -23,6 +23,9 @@ export class FuaService {
   postDatosIpressAsegurado(idFUA: string, dataFUA) {
     return this.http.post(`${this.urlServer}/${this.bd}/fua/guardar-ipressasegurado/${idFUA}`, dataFUA);
   }
+  getSegundaParteFUA(idConsulta: string, idFUA: string, codPrestacion: string) {
+    return this.http.get(`${this.urlServer}/${this.bd}/fua/datos2/${idConsulta}/${idFUA}/${codPrestacion}`);
+  }
   /**PROMISES */
   getPromiseCrearRecuperarFUAxIdConsulta(idConsulta: string) {
     return this.http.get<any>(`${this.urlServer}/${this.bd}/fua/crear/${idConsulta}`)
@@ -31,8 +34,15 @@ export class FuaService {
       .then(data => { return data; })
       .catch(error => { return error.error });
   }
-  getPromiseFUAxidFUA(idFUA: string) {
+  getPromiseIpressAseguradoxidFUA(idFUA: string) {
     return this.http.get<any>(`${this.urlServer}/${this.bd}/fua/ipress-asegurado/${idFUA}`)
+      .toPromise()
+      .then(res => <any>res.object)
+      .then(data => { return data; })
+      .catch(error => { return error.error });
+  }
+  getPromiseSegundaParteFUA(idConsulta: string, idFUA: string, codPrestacion: string) {
+    return this.http.get<any>(`${this.urlServer}/${this.bd}/fua/datos2/${idConsulta}/${idFUA}/${codPrestacion}`)
       .toPromise()
       .then(res => <any>res.object)
       .then(data => { return data; })

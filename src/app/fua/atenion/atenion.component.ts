@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import { KeyData } from "../models/fua";
+import { FuaService } from "../services/fua.service";
 
 @Component({
   selector: "app-atenion",
@@ -19,6 +21,7 @@ export class AtenionComponent implements OnInit {
   cita: boolean;
   hospitalizacion: boolean;
   referido: string;
+  keyData: KeyData;
   /**Fin ngModels */
   listReferido = [
     { name: "Emergencia", value: "EMERGENCIA" },
@@ -29,8 +32,16 @@ export class AtenionComponent implements OnInit {
     { label: "Si", value: "SI" },
     { label: "No", value: "NO" },
   ];
+  idFUA: string;
 
-  constructor(private form: FormBuilder) {}
+  constructor(
+    private form: FormBuilder,
+    private fuaService: FuaService
+  ) {
+    this.idFUA = JSON.parse(localStorage.getItem("dataFUA")).idFUA;
+    console.log('id de FUA ', this.idFUA);
+    this.getDataFUA();
+  }
 
   ngOnInit(): void {
     this.buildForm();
@@ -66,5 +77,16 @@ export class AtenionComponent implements OnInit {
 
   save() {
     console.log("recuperar campo", this.formActiPreventivas.value.corteTardio);
+  }
+
+  async getDataFUA() {
+    await this.fuaService.getPromiseIpressAseguradoxidFUA(this.idFUA).then((data) => {
+      console.log('data ', data);
+      this.keyData = data;
+    });
+    // console.log('idConsulta ', this.keyData.idConsulta, 'codPrestacion ', this.keyData.codPrestacion, 'idFUA ', this.keyData.id);
+    await this.fuaService.getPromiseSegundaParteFUA(this.keyData.idConsulta, this.keyData.id, this.keyData.codPrestacion).then((data)=>{
+      
+    })
   }
 }
