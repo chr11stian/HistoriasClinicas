@@ -71,9 +71,9 @@ export class SuplementoComponent implements OnInit {
   }
   save() {
     const requestInput = {
-        codPrestacion: "21312", //duro
+        codPrestacion: "007", //duro no existe codprodedimiento para sis pero si como diagnostico
         codSISMED: this.getFC('medicamento').value.code,
-        nroDiagnostico: 0, //duro
+        nroDiagnostico: 0, //deberia ir el codDiagnosticos sis incluido su sie(otras medidas profilacticas especificadas z29.8)
         codProcedimientoHIS: "32323", //duro
         codUPS: "324231", //duro
 
@@ -81,7 +81,6 @@ export class SuplementoComponent implements OnInit {
         descripcion: this.getFC('medicamento').value.name,//(mas conocido como el medicamento)aun por definir,//SF-SULFATO-FERROSO
         dosisIndicacion: this.getFC('dosis').value,//dosis campo abierto deberia se calculado 1/2cucharadita
         viaAdministracion: 'oral',//par
-        frecuencia: "cada dia",
         duracion: "6 mes",
         indicacion: "temor con citricos",//?evaluar campo
         dosis: this.suplemento.dosis,//nro de la dosis
