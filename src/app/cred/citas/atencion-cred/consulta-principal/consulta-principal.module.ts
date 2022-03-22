@@ -45,6 +45,7 @@ import { TratamientoInmunizacionComponent } from './component/tratamiento-consul
 import { TratamientoInmunizacionModalComponent } from './component/tratamiento-consulta/components/tratamiento-inmunizacion-modal/tratamiento-inmunizacion-modal.component';
 
 import { ProcedimientosConsultaComponent } from './component/procedimientos-consulta/procedimientos-consulta.component';
+import {InputSwitchModule} from "primeng/inputswitch";
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { ModalReferenciaComponent } from './component/finalizar-consulta/modal-referencia/modal-referencia.component';
 import { CalendarComponent } from './component/finalizar-consulta/calendar/calendar.component';
@@ -111,7 +112,8 @@ FullCalendarModule.registerPlugins([
         ToggleButtonModule,
         TimelineModule,
         ListboxModule,
-        MultiSelectModule
+        MultiSelectModule,
+        InputSwitchModule
     ]
 })
 export class ConsultaPrincipalModule {
