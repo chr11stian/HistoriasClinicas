@@ -50,7 +50,7 @@ export class ProcedimientosComponent implements OnInit {
   aux: any;
 
   diagnosticosList: any[] = [];
-
+  resumen: any[] = [];
   constructor(private formBuilder: FormBuilder,
     private dialog: DialogService,
     private messageService: MessageService,
@@ -98,12 +98,23 @@ export class ProcedimientosComponent implements OnInit {
     }
     this.recuperarDatos();
     this.traerDiagnosticosDeConsulta();
+    this.traerListaResumen();
   }
 
   ngOnInit(): void {
   }
 
-  
+  traerListaResumen(){
+    let data={
+      nroHcl: this.nroHcl,
+      nroEmbarazo: this.nroEmbarazo,
+      nroAtencion: this.nroAtencion
+    }
+    this.tratamientoService.listarResumen(data).then((res: any) => {
+      this.resumen = res.object;
+      console.log("resumen:", this.resumen);
+    })
+  }
   traerDiagnosticosDeConsulta() {
     this.tratamientoService.listarDiagnosticosDeUnaConsulta(this.nroHcl, this.nroEmbarazo, this.nroAtencion).then((res: any) => {
       this.diagnosticosList = res.object;

@@ -131,4 +131,11 @@ export class ConsultasService {
         .then(res => <any[]>res)
         .then(data => { return data; });
     }
+
+    listarResumen(data){
+        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/listaprocedimientos`,data)
+        .toPromise()
+        .then(res => <any[]>res)
+        .then(data => { return data; });
+    }
 }

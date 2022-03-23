@@ -1,17 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { PrestacionService } from 'src/app/mantenimientos/services/prestacion/prestacion.service';
 import { CieService } from 'src/app/obstetricia-general/services/cie.service';
 import { ConsultasService } from '../../services/consultas.service';
+import { EcografiaSolicitudComponent } from './ecografia-solicitud/ecografia-solicitud.component';
 
 @Component({
   selector: 'app-evaluaciones',
   templateUrl: './evaluaciones.component.html',
-  styleUrls: ['./evaluaciones.component.css']
+  styleUrls: ['./evaluaciones.component.css'],
+  providers: [DialogService]
 })
 export class EvaluacionesComponent implements OnInit {
 
+  ref: DynamicDialogRef;
   solicitudesEco: any[] = []
   resultadosEco: any[] = []
 
@@ -48,6 +52,7 @@ export class EvaluacionesComponent implements OnInit {
   edadPaciente: any;
   sexoPaciente: any;
   constructor(private formBuilder: FormBuilder,
+    private dialog: DialogService,
     private PrestacionService: PrestacionService,
     private CieService: CieService,
     private messageService: MessageService,
@@ -161,17 +166,40 @@ export class EvaluacionesComponent implements OnInit {
     });
   }
   openSolicitudEco() {
-    this.formSolicitudEco.reset();
-    this.formSolicitudEco.get('prestacion');
-    //this.diagnosticoDialog = true;
+    this.ref = this.dialog.open(EcografiaSolicitudComponent, {
+      header: "SOLICITUD",
+      contentStyle: {
+        heigth: "700px",
+        width: "980px",
+        overflow: "auto",
+      },
+    })
+    this.ref.onClose.subscribe((data: any) => {
+      console.log("data de modal tratamiento", data)
+      //this.recuperarTratamientos();
+    })
+  }
+  editarSolicitudEco(rowData) {
+    let aux = {
+      //index: index,
+      row: rowData
+    }
+    this.ref = this.dialog.open(EcografiaSolicitudComponent, {
+      header: "SOLICITUD",
+      contentStyle: {
+        heigth: "700px",
+        width: "980px",
+        overflow: "auto",
+      },
+      data: aux
+    })
+    this.ref.onClose.subscribe((data: any) => {
+      console.log("data de modal tratamiento", data)
+      //this.recuperarTratamientos();
+    })
   }
   openResultadoEco() {
     this.formResultadoEco.reset();
-    this.formResultadoEco.get('prestacion');
-    //this.diagnosticoDialog = true;
-  }
-  editarSolicitudEco(rowData){
-    this.formSolicitudEco.reset();
   }
   editarResultadoEco(rowData){
     this.formResultadoEco.reset();
