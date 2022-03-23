@@ -5,7 +5,6 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { PrestacionService } from 'src/app/mantenimientos/services/prestacion/prestacion.service';
 import { CieService } from 'src/app/obstetricia-general/services/cie.service';
 import { ConsultasService } from '../../services/consultas.service';
-import { EcografiaSolicitudComponent } from './ecografia-solicitud/ecografia-solicitud.component';
 
 @Component({
   selector: 'app-evaluaciones',
@@ -14,25 +13,6 @@ import { EcografiaSolicitudComponent } from './ecografia-solicitud/ecografia-sol
   providers: [DialogService]
 })
 export class EvaluacionesComponent implements OnInit {
-
-  ref: DynamicDialogRef;
-  solicitudesEco: any[] = []
-  resultadosEco: any[] = []
-
-  formSolicitudEco: FormGroup;
-  formResultadoEco: FormGroup;
-
-  tipoList: any[] = [];
-
-  private nroFetos = 0;
-  private encontradoDxTuberculosis: boolean = false;
-
-  hoy: any = (new Date()).getTime();
-  listaDeCIE: any;
-  listaDeCIESIS: any;
-
-  prestacionList: any[];
-  upsList: any[];
 
   idConsulta: string;
   tipoDocRecuperado: string;
@@ -57,7 +37,6 @@ export class EvaluacionesComponent implements OnInit {
     private CieService: CieService,
     private messageService: MessageService,
     private DxService: ConsultasService) {
-    this.buildForm();
 
     /*********RECUPERAR DATOS*********/
     this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
@@ -68,7 +47,6 @@ export class EvaluacionesComponent implements OnInit {
     this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
     this.edadPaciente = JSON.parse(localStorage.getItem('datacupos')).paciente.edadAnio;
     this.sexoPaciente = JSON.parse(localStorage.getItem('datacupos')).paciente.sexo;
-    this.recuperarUpsHis();
     //estado para saber que estado usar en consultas
     this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
 
@@ -101,111 +79,7 @@ export class EvaluacionesComponent implements OnInit {
       console.log("entre a edicion consulta", this.nroAtencion)
     }
 
-    /***************DATOS DE LOS DROPDOWNS*******************/
-    /*LLENADO DE LISTAS - VALORES QUE PUEDEN TOMAR TIPO DX*/
-    this.tipoList = [{ label: 'DEFINITIVO', value: 'D' },
-    { label: 'PRESUNTIVO', value: 'P' },
-    { label: 'REPETITIVO', value: 'R' },
-    ];
-    this.opciones = [
-      { name: 'SI', boleano: true },
-      { name: 'NO', boleano: false }
-    ];
   }
   ngOnInit(): void {
-  }
-  recuperarPrestaciones() {
-    this.DxService.getPrestaciones().subscribe((res: any) => {
-      this.prestacionList = res.object;
-      console.log("prestaciones:", this.prestacionList);
-    })
-  }
-  recuperarUpsHis() {
-    let Data = {
-      idIpress: this.idIpress,
-      edad: this.edadPaciente,
-      sexo: this.sexoPaciente
-    }
-    console.log("DATA PARA UPS HIS", Data)
-    this.DxService.listaUpsHis(Data).then((res: any) => this.listaUpsHis = res.object);
-  }
-  recuperarNroFetos() {
-    let idData = {
-      id: this.idConsulta
-    }
-    this.DxService.getUltimaConsultaById(idData).subscribe((res: any) => {
-      this.nroFetos = res.object.nroFetos;
-      console.log("nroFetos:", this.nroFetos)
-    })
-  }
-  buildForm() {
-    this.formSolicitudEco = this.formBuilder.group({
-      tipo: ['', [Validators.required]],
-      prestacion: ['', [Validators.required]],
-      subtitulo: ['', [Validators.required]],
-      autocompleteSIS: [''],
-      diagnosticoSIS: ['', [Validators.required]],
-      SISCIE: ['', [Validators.required]],
-      autocompleteHIS: [''],
-      diagnosticoHIS: ['', [Validators.required]],
-      HISCIE: ['', [Validators.required]],
-      patologiaMaterna: ['', [Validators.required]],
-
-    });
-    this.formResultadoEco = this.formBuilder.group({
-      tipo: ['', [Validators.required]],
-      prestacion: ['', [Validators.required]],
-      subtitulo: ['', [Validators.required]],
-      autocompleteSIS: [''],
-      diagnosticoSIS: ['', [Validators.required]],
-      SISCIE: ['', [Validators.required]],
-      autocompleteHIS: [''],
-      diagnosticoHIS: ['', [Validators.required]],
-      HISCIE: ['', [Validators.required]],
-      patologiaMaterna: ['', [Validators.required]],
-    });
-  }
-  openSolicitudEco() {
-    this.ref = this.dialog.open(EcografiaSolicitudComponent, {
-      header: "SOLICITUD",
-      contentStyle: {
-        heigth: "700px",
-        width: "980px",
-        overflow: "auto",
-      },
-    })
-    this.ref.onClose.subscribe((data: any) => {
-      console.log("data de modal tratamiento", data)
-      //this.recuperarTratamientos();
-    })
-  }
-  editarSolicitudEco(rowData) {
-    let aux = {
-      //index: index,
-      row: rowData
-    }
-    this.ref = this.dialog.open(EcografiaSolicitudComponent, {
-      header: "SOLICITUD",
-      contentStyle: {
-        heigth: "700px",
-        width: "980px",
-        overflow: "auto",
-      },
-      data: aux
-    })
-    this.ref.onClose.subscribe((data: any) => {
-      console.log("data de modal tratamiento", data)
-      //this.recuperarTratamientos();
-    })
-  }
-  openResultadoEco() {
-    this.formResultadoEco.reset();
-  }
-  editarResultadoEco(rowData){
-    this.formResultadoEco.reset();
-  }
-  eliminarSolicitudEco(rowData){
-  }
-  eliminarResultadoEco(rowData){
   }
 }

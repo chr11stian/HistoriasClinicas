@@ -5,7 +5,7 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { PrestacionService } from 'src/app/mantenimientos/services/prestacion/prestacion.service';
 import { CieService } from 'src/app/obstetricia-general/services/cie.service';
 import Swal from 'sweetalert2';
-import { ConsultasService } from '../../../services/consultas.service';
+import { ConsultasService } from '../../../../services/consultas.service';
 
 @Component({
   selector: 'app-ecografia-solicitud',
@@ -123,7 +123,6 @@ export class EcografiaSolicitudComponent implements OnInit {
       diagnostico: new FormControl("", [Validators.required]),
       subtipo: new FormControl("", [Validators.required]),
       lab: new FormControl("", [Validators.required]),
-      
       autocompleteSIS: [''],
       diagnosticoSIS: new FormControl("", [Validators.required]),
       SISCIE: new FormControl("", [Validators.required]),
@@ -315,3 +314,4 @@ export class EcografiaSolicitudComponent implements OnInit {
 
 
 }
+

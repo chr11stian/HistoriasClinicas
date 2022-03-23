@@ -20,8 +20,10 @@ import {TamizajeViolenciaComponent} from "./component/tamizaje-violencia/tamizaj
 import { ModalProcedimientosComponent } from './component/procedimientos/modal-procedimientos/modal-procedimientos.component';
 import { ProcedimientosComponent } from './component/procedimientos/procedimientos.component';
 import { EvaluacionesComponent } from './component/evaluaciones/evaluaciones.component';
-import { EcografiaSolicitudComponent } from './component/evaluaciones/ecografia-solicitud/ecografia-solicitud.component';
-import { EcografiaResultadoComponent } from './component/evaluaciones/ecografia-resultado/ecografia-resultado.component';
+import { EcografiaSolicitudComponent } from './component/evaluaciones/ecografias/ecografia-solicitud/ecografia-solicitud.component';
+import { EcografiaResultadoComponent } from './component/evaluaciones/ecografias/ecografia-resultado/ecografia-resultado.component';
+import { EcografiasComponent } from './component/evaluaciones/ecografias/ecografias.component';
+import { LaboratorioComponent } from './component/evaluaciones/laboratorio/laboratorio.component';
 
 @NgModule({
     declarations: [
@@ -41,7 +43,9 @@ import { EcografiaResultadoComponent } from './component/evaluaciones/ecografia-
         EvaluacionesComponent,
         ModalProcedimientosComponent,
         EcografiaSolicitudComponent,
-        EcografiaResultadoComponent
+        EcografiaResultadoComponent,
+        EcografiasComponent,
+        LaboratorioComponent
     ],
     imports: [
         ConsultaObstetricoRoutingModule,
