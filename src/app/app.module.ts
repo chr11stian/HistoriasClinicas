@@ -24,7 +24,7 @@ import {FullCalendarModule} from "primeng/fullcalendar";
     declarations: [
         AppComponent,
         LoginComponent,
-        NotFoundComponent
+        NotFoundComponent,
     ],
     imports: [
         FullCalendarModule,

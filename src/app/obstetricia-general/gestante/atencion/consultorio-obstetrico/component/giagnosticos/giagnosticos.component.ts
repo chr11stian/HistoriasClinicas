@@ -514,9 +514,7 @@ export class GiagnosticosComponent implements OnInit {
                     console.log(this.edadGestacional);
                     //this.guardarDiagnosticosEmbarazo();
                     /************************RECUPERAR DATOS EXTRA**************************/
-                    if (this.dataAux.proxCita != null) {
-                        this.formOtrosDatos.patchValue({ 'proxCita': this.dataAux.proxCita.fecha });
-                    }
+
                     if (this.dataAux.visitaDomiciliaria != null) {
                         this.formOtrosDatos.patchValue({ 'visita': this.dataAux.visitaDomiciliaria.estado });
                         this.formOtrosDatos.patchValue({ 'fechaVisita': this.dataAux.visitaDomiciliaria.fecha });

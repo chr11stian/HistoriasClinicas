@@ -1,13 +1,16 @@
 <div class="grid">
     <div class="col-12">
-        <p-table [value]="tablaResumenDx" [rowHover]="true" styleClass="p-datatable-gridlines"
-                 [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,15]"
-                 [paginator]="true" currentPageReportTemplate="Mostrando {first} al {last} de {totalRecords} entradas"
-                 [filterDelay]="0" [responsive]="true" >
-            <ng-template pTemplate="caption">
+        <p-table [value]="tablaResumenDx" [rows]="10" [paginator]="true" responsiveLayout="scroll"
+                 [(selection)]="selectedProducts" [rowHover]="true" styleClass="p-datatable-gridlines">
+
+        <ng-template pTemplate="caption">
                 <div class="flex justify-content-between">
                     <div class="table-header mt-2">
                         RESUMEN DE RESULTADOS DE EVALUACIONES - TESTS - TAMIZAJES - INMUNIZACIONES - LABORATORIO
+                    </div>
+                    <div>
+                        <button pButton pRipple label="Agregar a Diagnósticos" icon="pi pi-plus" class="p-button-danger"
+                                (click)="agregarToPx()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
                     </div>
                 </div>
             </ng-template>
@@ -18,6 +21,9 @@
                     <th style="text-align: center" class="font-2">NOMBRE</th>
                     <th style="text-align: center" class="font-2">EVALUACION</th>
                     <th style="text-align: center" class="font-2">RESULTADO</th>
+                    <th style="width: 3rem">
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
                 </tr>
             </ng-template>
 
@@ -37,6 +43,9 @@
                     </td >
                     <td style="text-transform:uppercase;text-align: center"  [ngClass]="{'rojo': listaResumen.resultado === 'POSITIVO' || listaResumen.resultado =='RETRASO' || listaResumen.resultado =='NINO CON ALIMENTACION COMPLEMENTARIA INADECUADA' || listaResumen.resultado =='Sobrepeso' || listaResumen.resultado =='Riesgo microcefalia'  }">
                         {{listaResumen.resultado}}
+                    </td>
+                    <td>
+                        <p-tableCheckbox [value]="listaResumen"></p-tableCheckbox>
                     </td>
                 </tr>
             </ng-template>
@@ -97,8 +106,33 @@
 
 
 <!-- Procedimiento - -->
-<p-dialog header="INGRESAR UN PROCEDIMIENTO" [(visible)]="procedimientoDialog" [modal]="true" [style]="{width: '80%', height: '50%'}"
+<p-dialog header="INGRESAR UN PROCEDIMIENTO" [(visible)]="procedimientoDialog" [modal]="true" [style]="{width: '80%', height: '70%'}"
           [draggable]="false" [resizable]="false">
+    <div class="card m-2" *ngIf="checked">
+        <p-toolbar>
+            <div class="p-toolbar-group-left">
+                <h3>RESUMEN DE EVALUACIONES, EXAMENES AUXILIARES Y TEST SELECCIONADOS</h3>
+            </div>
+        </p-toolbar>
+
+        <p-table [value]="selectedProducts">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>NOMBRE</th>
+                    <th>EVALUACION</th>
+                    <th>RESULTADO</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-dxs>
+                <tr style="text-transform:uppercase;text-align: center">
+                    <td>{{dxs.nombre}}</td>
+                    <td>{{dxs.evaluacion}}</td>
+                    <td>{{dxs.resultado}}</td>
+
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
     <form [formGroup]='formProcedimiento'>
         <div class="grid mt-2 ">
             <div class="col-12 p-fluid">
@@ -106,7 +140,7 @@
                 <p-dropdown  inputId="dropdown" [options]="listaDiagnosticos"
                              formControlName="diagnostico"
                              (onChange)="onChangeDiagnostico()"
-                             optionLabel="diagnosticoSIS" placeholder="seleccionar"
+                             optionLabel="diagnosticoHIS" placeholder="seleccionar"
                              defaultLabel="Seleccione:" >
                 </p-dropdown>
             </div>
@@ -117,7 +151,6 @@
                             class="inputfield p-fluid w-full" (onChange)="onChangePrestacion()">
                 </p-dropdown>
             </div>
-
 
             <div class="col-12 md:col-6 lg:col-6">
                 <p-fieldset legend="PROCEDIMIENTO SIS">

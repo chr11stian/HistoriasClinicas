@@ -5,6 +5,7 @@ import {AtencionComponent} from "./atencion.component";
 import {
     TamizajeViolenciaComponent
 } from "./consultorio-obstetrico/component/tamizaje-violencia/tamizaje-violencia.component";
+import {PlanPartoComponent} from "./plan-parto/plan-parto.component";
 
 
 const routes: Routes = [
@@ -19,6 +20,10 @@ const routes: Routes = [
     {
         path: "fua",
         component: StepFuaComponent
+    },
+    {
+        path: "planParto",
+        component: PlanPartoComponent
     },
 ];
 

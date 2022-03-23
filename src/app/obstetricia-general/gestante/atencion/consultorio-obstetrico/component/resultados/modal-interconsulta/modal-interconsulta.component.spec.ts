@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { IntervaloPartoComponent } from './intervalo-parto.component';
+import { ModalInterconsultaComponent } from './modal-interconsulta.component';
 
-describe('IntervaloPartoComponent', () => {
-  let component: IntervaloPartoComponent;
-  let fixture: ComponentFixture<IntervaloPartoComponent>;
+describe('ModalInterconsultaComponent', () => {
+  let component: ModalInterconsultaComponent;
+  let fixture: ComponentFixture<ModalInterconsultaComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ IntervaloPartoComponent ]
+      declarations: [ ModalInterconsultaComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(IntervaloPartoComponent);
+    fixture = TestBed.createComponent(ModalInterconsultaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

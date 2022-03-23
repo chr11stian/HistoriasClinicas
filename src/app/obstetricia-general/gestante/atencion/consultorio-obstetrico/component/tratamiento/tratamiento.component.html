@@ -15,102 +15,6 @@
             style="background-color: #0c3866" (click)="guardarTodosDatos()"></button>
     </ng-template>
     <br>
-    <!--PROCEDIMIENTOS -->
-    <div class="PROCEDIMIENTOS">
-        <p-toolbar>
-            <ng-template pTemplate="left">
-                <h3 class="p-m-0">PROCEDIMIENTOS</h3>
-            </ng-template>
-        </p-toolbar>
-        <p-table class="table-over" [value]="procedimientos" #dt styleClass="p-datatable-gridlines" [rows]="10"
-            [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
-            currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
-
-            <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
-                <tr>
-                    <th style="text-align: center" class="font-2">Nro </th>
-                    <th style="text-align: center" class="font-1">COD. PRESTACION</th>
-                    <th style="text-align: center" class="font-2">PROCEDIMIENTO SIS</th>
-                    <th style="text-align: center" class="font-2">PROCEDIMIENTO HIS</th>
-                    <th style="text-align: center" class="font-2">Acciones</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-                <tr>
-                    <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                    <td style="text-align: center">{{ rowData.codPrestacion }}</td>
-                    <td style="text-align: center">{{ rowData.procedimientoSIS }}</td>
-                    <td style="text-align: center">{{ rowData.procedimientoHIS }}</td>
-                    <td style="text-align: center">
-                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
-                            (click)="openDialogEditarProcedimiento(rowData)" pTooltip="Editar">
-                        </button>
-                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                            (click)="eliminarProcedimiento(rowIndex)" pTooltip="Eliminar">
-                        </button>
-                    </td>
-                </tr>
-            </ng-template>
-        </p-table>
-        <p-toolbar>
-            <div class="p-toolbar-group-right">
-                <button pButton pRipple label="Agregar Procedimiento" icon="pi pi-plus" pButton type="button"
-                    class="button-agregar" (click)="openDialogProcedimiento()"></button>
-            </div>
-
-        </p-toolbar>
-    </div>
-    <br>
-    <p-toolbar>
-        <ng-template pTemplate="left">
-            <h3 class="mt-2">TRATAMIENTOS</h3>
-        </ng-template>
-    </p-toolbar>
-    <p-table class="table-over" [value]="tratamientosComunes" #dt styleClass="p-datatable-gridlines" [rows]="10"
-        [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
-        currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
-
-        <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
-            <tr>
-                <th style="text-align: center" class="font-2">Nro </th>
-                <th style="text-align: center" class="font-1">MEDICAMENTO</th>
-                <th style="text-align: center" class="font-2">CANTIDAD</th>
-                <th style="text-align: center" class="font-2">DOSIS</th>
-                <th style="text-align: center" class="font-2">INTERVALO</th>
-                <th style="text-align: center" class="font-2">DURACION</th>
-                <th style="text-align: center" class="font-2">OBSERVACIONES</th>
-                <th style="text-align: center" class="font-2">ACCIONES</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-            <tr>
-                <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                <td style="text-align: center">{{ rowData.medicamento.nombre }}</td>
-                <td style="text-align: center">{{ rowData.cantidad }}</td>
-                <td style="text-align: center">{{ rowData.dosis }}</td>
-                <td style="text-align: center">{{ rowData.intervalo }}</td>
-                <td style="text-align: center">{{ rowData.duracion }}</td>
-                <td style="text-align: center">{{ rowData.observaciones }}</td>
-
-                <td style="text-align: center">
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
-                        (click)="openDialogEditarTratamientoComun(rowData,rowIndex)" pTooltip="Editar">
-                    </button>
-                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                        (click)="eliminarTratamientoComun(rowData.medicamento.id)" pTooltip="Eliminar">
-                    </button>
-                </td>
-            </tr>
-        </ng-template>
-
-    </p-table>
-    <p-toolbar>
-        <div class="p-toolbar-group-right">
-            <button pButton pRipple label="Agregar Tratamiento" icon="pi pi-plus" pButton type="button"
-                class="button-agregar" (click)="openDialogTratamientoComun()"></button>
-        </div>
-    </p-toolbar>
-    <br>
     <!--INMUNIZACIONES -->
     <div class="INMUNIZACIONES">
         <p-toolbar>
@@ -165,6 +69,55 @@
         </p-toolbar>
     </div>
     <br>
+    <p-toolbar>
+        <ng-template pTemplate="left">
+            <h3 class="mt-2">TRATAMIENTOS</h3>
+        </ng-template>
+    </p-toolbar>
+    <p-table class="table-over" [value]="tratamientosComunes" #dt styleClass="p-datatable-gridlines" [rows]="10"
+        [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+        currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+
+        <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+            <tr>
+                <th style="text-align: center" class="font-2">Nro </th>
+                <th style="text-align: center" class="font-1">MEDICAMENTO</th>
+                <th style="text-align: center" class="font-2">CANTIDAD</th>
+                <th style="text-align: center" class="font-2">DOSIS</th>
+                <th style="text-align: center" class="font-2">INTERVALO</th>
+                <th style="text-align: center" class="font-2">DURACION</th>
+                <th style="text-align: center" class="font-2">OBSERVACIONES</th>
+                <th style="text-align: center" class="font-2">ACCIONES</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+            <tr>
+                <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+                <td style="text-align: center">{{ rowData.medicamento.nombre }}</td>
+                <td style="text-align: center">{{ rowData.cantidad }}</td>
+                <td style="text-align: center">{{ rowData.dosis }}</td>
+                <td style="text-align: center">{{ rowData.intervalo }}</td>
+                <td style="text-align: center">{{ rowData.duracion }}</td>
+                <td style="text-align: center">{{ rowData.observaciones }}</td>
+
+                <td style="text-align: center">
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                        (click)="openDialogEditarTratamientoComun(rowData,rowIndex)" pTooltip="Editar">
+                    </button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
+                        (click)="eliminarTratamientoComun(rowData.medicamento.id)" pTooltip="Eliminar">
+                    </button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <p-toolbar>
+        <div class="p-toolbar-group-right">
+            <button pButton pRipple label="Agregar Tratamiento" icon="pi pi-plus" pButton type="button"
+                class="button-agregar" (click)="openDialogTratamientoComun()"></button>
+        </div>
+    </p-toolbar>    
+    <br>
     <form [formGroup]='formRIEP'>
         <div class="grid">
             <div class="col-6">
@@ -173,18 +126,21 @@
                         <div class="col-12">
                             <label>Diagnostico:</label>
                             <p-dropdown [options]="diagnosticosList" formControlName="diagnostico" appendTo="body"
-                                optionLabel="diagnosticoSIS" class="inputfield p-fluid w-full" placeholder="Seleccione diagnostico SIS"></p-dropdown>
+                                optionLabel="diagnosticoSIS" class="inputfield p-fluid w-full"
+                                placeholder="Seleccione diagnostico SIS"></p-dropdown>
                         </div>
                         <div class="col-10">
                             <label>Medicamento:</label>
                             <p-autoComplete [suggestions]="aux" (completeMethod)="filterItems($event)" [itemSize]="34"
-                                appendTo="body" field="stringMedicamento" [minLength]="1" class="inputfield p-fluid w-full"
-                                formControlName="nombre" (onSelect)="selectedOptionNameMedicamento($event,1)" [dropdown]="true">
+                                appendTo="body" field="stringMedicamento" [minLength]="1"
+                                class="inputfield p-fluid w-full" formControlName="nombre"
+                                (onSelect)="selectedOptionNameMedicamento($event,1)" [dropdown]="true">
                             </p-autoComplete>
                         </div>
                         <div class="col-2">
                             <label>Stock:</label>
-                            <input type="number" pInputText formControlName='stock' placeholder="Stock" class="inputfield p-fluid w-full" required />
+                            <input type="number" pInputText formControlName='stock' placeholder="Stock"
+                                class="inputfield p-fluid w-full" required />
                         </div>
                         <div class="col-7">
                             <label>Descripcion:</label>
@@ -234,18 +190,21 @@
                         <div class="col-12">
                             <label>Diagnostico:</label>
                             <p-dropdown [options]="diagnosticosList" formControlName="diagnostico2" appendTo="body"
-                                optionLabel="diagnosticoSIS" class="inputfield p-fluid w-full" placeholder="Seleccione diagnostico SIS"></p-dropdown>
+                                optionLabel="diagnosticoSIS" class="inputfield p-fluid w-full"
+                                placeholder="Seleccione diagnostico SIS"></p-dropdown>
                         </div>
                         <div class="col-10">
                             <label>Medicamento:</label>
                             <p-autoComplete [suggestions]="aux" (completeMethod)="filterItems($event)" [itemSize]="34"
-                                appendTo="body" field="stringMedicamento" [minLength]="1" class="inputfield p-fluid w-full"
-                                formControlName="nombre2" (onSelect)="selectedOptionNameMedicamento($event,2)" [dropdown]="true">
+                                appendTo="body" field="stringMedicamento" [minLength]="1"
+                                class="inputfield p-fluid w-full" formControlName="nombre2"
+                                (onSelect)="selectedOptionNameMedicamento($event,2)" [dropdown]="true">
                             </p-autoComplete>
                         </div>
                         <div class="col-2">
                             <label>Stock:</label>
-                            <input type="number" pInputText formControlName='stock2' placeholder="Stock" class="inputfield p-fluid w-full" required />
+                            <input type="number" pInputText formControlName='stock2' placeholder="Stock"
+                                class="inputfield p-fluid w-full" required />
                         </div>
                         <div class="col-7">
                             <label>Descripcion:</label>
@@ -291,89 +250,10 @@
             </div>
         </div>
         <br>
-        <div class="grid">
-            <!-- <div class="col-6 p-fluid">
-                <p-fieldset legend="EVALUACION NUTRICIONAL">
-                    <div class=" grid p-fluid">
-                        <div class="lg:col-6 md:col:6 col-12 p-field">
-                            <label>Valor:</label>
-                            <p-inputNumber formControlName="valor" inputId="kg" suffix=" kg" mode="decimal"
-                                [minFractionDigits]="2">
-                            </p-inputNumber>
-                        </div>
-                        <div class="lg:col-6 md:col:6 col-12 p-field">
-                            <label>Indicador:</label>
-                            <input type="text" pInputText formControlName='indicador' placeholder="indicador"
-                                required />
-                        </div>
-                    </div>
-                </p-fieldset>
-            </div> -->
-
-            <!-- <div class="col-6 p-fluid">
-                <p-fieldset legend="PERSONAL RESPONSABLE DE LA ATENCION">
-                    <div class="p-fluid">
-                        <input type="text" pInputText style="border-radius: 10px" class="mt-3"
-                            formControlName="encargado" />
-                    </div>
-                </p-fieldset>
-            </div> -->
-            <br>
-        </div>
-
     </form>
+    
     <div class="grid">
-        <div class="col-12">
-            <p-toolbar>
-                <ng-template pTemplate="left">
-                    <h3 class="p-m-0">INTERCONSULTAS</h3>
-                </ng-template>
-            </p-toolbar>
-            <p-table class="table-over" [value]="interconsultas" #dt styleClass="p-datatable-gridlines" [rows]="10"
-                [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
-                [showCurrentPageReport]="true"
-                currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
-
-                <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
-                    <tr>
-                        <th style="text-align: center" class="font-2">Nro </th>
-                        <th style="text-align: center" class="font-1">SERVICIO</th>
-                        <th style="text-align: center" class="font-2">MOTIVO</th>
-                        <th style="text-align: center" class="font-2">FECHA</th>
-                        <th style="text-align: center" class="font-2">NIVEL URGENCIA</th>
-                        <th style="text-align: center" class="font-2">ACCIONES</th>
-
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-                    <tr>
-                        <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                        <td style="text-align: center">{{ rowData.servicio }}</td>
-                        <td style="text-align: center">{{ rowData.motivo }}</td>
-                        <td style="text-align: center">{{ rowData.fecha }}</td>
-                        <td style="text-align: center">{{ rowData.nivelUrgencia }}</td>
-                        <td style="text-align: center">
-                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
-                                (click)="openDialogEditarinterconsultas(rowData,rowIndex)" pTooltip="Editar">
-                            </button>
-                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                                (click)="eliminarInterconsulta(rowIndex)" pTooltip="Eliminar">
-                            </button>
-                        </td>
-                    </tr>
-                </ng-template>
-
-            </p-table>
-            <p-toolbar>
-                <div class="p-toolbar-group-right">
-                    <button pButton pRipple label="Agregar Interconsulta" icon="pi pi-plus" pButton type="button"
-                        class="button-agregar" (click)="openDialogInterconsultas()"></button>
-                </div>
-            </p-toolbar>
-        </div>
-    </div>
-    <div class="grid">
-        <div class="lg:col-6  col-12">
+        <div class="lg:col-12  col-12">
             <p-fieldset legend="RECOMENDACIONES">
                 <p-table class="table-over" [value]="recomendaciones" #dt styleClass="p-datatable-gridlines" [rows]="10"
                     [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
@@ -414,48 +294,5 @@
                 </p-toolbar>
             </p-fieldset>
         </div>
-        <div class="lg:col-6 col-12">
-            <p-fieldset legend="EXAMENES AUXLIARES">
-                <p-table class="table-over" [value]="examenesAuxiliares" #dt styleClass="p-datatable-gridlines"
-                    [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
-                    [showCurrentPageReport]="true"
-                    currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
-
-                    <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
-                        <tr>
-                            <th style="text-align: center" class="font-2">Nro </th>
-                            <th style="text-align: center" class="font-1">EXAMENES AUXILIARES</th>
-                            <th style="text-align: center" class="font-2">Acciones</th>
-
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-                        <tr>
-                            <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                            <td style="text-align: center">{{ rowData}}</td>
-
-                            <td style="text-align: center">
-                                <button pButton pRipple icon="pi pi-pencil"
-                                    class="p-button-rounded p-button-primary m-1"
-                                    (click)="openDialogEditarAuxiliares(rowData,rowIndex)" pTooltip="Editar">
-                                </button>
-                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                                    (click)="eliminarExamenesAuxiliares(rowIndex)" pTooltip="Eliminar">
-                                </button>
-                            </td>
-                        </tr>
-                    </ng-template>
-
-                </p-table>
-                <p-toolbar>
-                    <div class="p-toolbar-group-right">
-                        <button pButton pRipple label="Agregar Examenes" icon="pi pi-plus" pButton type="button"
-                            class="button-agregar" (click)="openDialogExamenesAuxiliares()"></button>
-                    </div>
-                </p-toolbar>
-            </p-fieldset>
-        </div>
-
-
     </div>
 </div>

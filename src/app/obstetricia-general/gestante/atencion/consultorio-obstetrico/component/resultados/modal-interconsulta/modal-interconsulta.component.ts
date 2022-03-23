@@ -103,5 +103,4 @@ export class ModalInterconsultaComponent implements OnInit {
     this.ref.close();
   }
 
-
 }
