@@ -1,7 +1,7 @@
 <div class="grid">
     <div class="col-12">
-        <p-table [value]="tablaResumenDx" [rows]="10" [paginator]="true" responsiveLayout="scroll"
-                 [(selection)]="selectedProducts" [rowHover]="true" styleClass="p-datatable-gridlines">
+        <p-table [value]="tablaResumenDx"  responsiveLayout="scroll"
+                 [(selection)]="selectedProducts" [loading]="loading" [rowHover]="true" styleClass="p-datatable-gridlines">
 
         <ng-template pTemplate="caption">
                 <div class="flex justify-content-between">
@@ -9,7 +9,7 @@
                         RESUMEN DE RESULTADOS DE EVALUACIONES - TESTS - TAMIZAJES - INMUNIZACIONES - LABORATORIO
                     </div>
                     <div>
-                        <button pButton pRipple label="Agregar a Diagnósticos" icon="pi pi-plus" class="p-button-danger"
+                        <button pButton pRipple label="Agregar a Procedimientos" icon="pi pi-plus" class="p-button-danger"
                                 (click)="agregarToPx()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
                     </div>
                 </div>
@@ -28,17 +28,17 @@
             </ng-template>
 
             <ng-template pTemplate="body" let-listaResumen let-rowIndex="rowIndex" >
-                <tr [ngClass]="{'fondoamarillo': listaResumen.nombre === 'INMUNIZACIONES','fondoverde':listaResumen.nombre === 'TAMIZAJES','fondoceleste':listaResumen.nombre === 'EVALUACIONES O TEST','fondogris':listaResumen.nombre === 'LABORATORIO'}">
-                    <td style="text-transform:uppercase;text-align: center" [ngClass]="{'rojo': listaResumen.resultado === 'POSITIVO' || listaResumen.resultado =='RETRASO' || listaResumen.resultado =='NINO CON ALIMENTACION COMPLEMENTARIA INADECUADA' || listaResumen.resultado =='Sobrepeso' || listaResumen.resultado =='Riesgo microcefalia' }">
+                <tr class="p-selectable-row" [ngClass]="{'fondoamarillo': listaResumen.nombre === 'INMUNIZACIONES','fondoverde':listaResumen.nombre === 'TAMIZAJES','fondoceleste':listaResumen.nombre === 'EVALUACIONES O TEST','fondogris':listaResumen.nombre === 'LABORATORIO','fondoSuplementacion':listaResumen.nombre === 'MNM'}">
+                    <td>
                         {{rowIndex+1}}
                     </td>
-                    <td style="text-transform:uppercase;text-align: center" [ngClass]="{'rojo': listaResumen.resultado === 'POSITIVO' || listaResumen.resultado =='RETRASO' || listaResumen.resultado =='NINO CON ALIMENTACION COMPLEMENTARIA INADECUADA' || listaResumen.resultado =='Sobrepeso' || listaResumen.resultado =='Riesgo microcefalia' }">
-                        {{this.dataConsulta.anio }} (años)    {{this.dataConsulta.mes }} (meses)    {{this.dataConsulta.dia }} (dias)
+                    <td>
+                        {{this.dataConsulta.anio }} (años) {{this.dataConsulta.mes }} (meses)    {{this.dataConsulta.dia }} (dias)
                     </td>
-                    <td style="text-transform:uppercase;text-align: center"  [ngClass]="{'rojo': listaResumen.resultado === 'POSITIVO' || listaResumen.resultado =='RETRASO' || listaResumen.resultado =='NINO CON ALIMENTACION COMPLEMENTARIA INADECUADA' || listaResumen.resultado =='Sobrepeso' || listaResumen.resultado =='Riesgo microcefalia'  }">
+                    <td>
                         {{listaResumen.nombre}}
                     </td>
-                    <td style="text-transform:uppercase;text-align: center"  [ngClass]="{'rojo': listaResumen.resultado === 'POSITIVO' || listaResumen.resultado =='RETRASO' || listaResumen.resultado =='NINO CON ALIMENTACION COMPLEMENTARIA INADECUADA' || listaResumen.resultado =='Sobrepeso' || listaResumen.resultado =='Riesgo microcefalia'  }">
+                    <td>
                         {{listaResumen.evaluacion}}
                     </td >
                     <td style="text-transform:uppercase;text-align: center"  [ngClass]="{'rojo': listaResumen.resultado === 'POSITIVO' || listaResumen.resultado =='RETRASO' || listaResumen.resultado =='NINO CON ALIMENTACION COMPLEMENTARIA INADECUADA' || listaResumen.resultado =='Sobrepeso' || listaResumen.resultado =='Riesgo microcefalia'  }">
@@ -76,9 +76,12 @@
                     <th style="text-align: center" class="font-2">COD. PROCEDIMIENTO SIS</th>
                     <th style="text-align: center" class="font-2">PROCEDIMIENTO SIS</th>
                     <th style="text-align: center" class="font-1">COD. PROCEDIMIENTO HIS</th>
-                    <th style="text-align: center" class="font-2">PROCEDIMIENTO SIS</th>
+                    <th style="text-align: center" class="font-2">PROCEDIMIENTO HIS</th>
                     <th style="text-align: center" class="font-1">COD. PRESTACIÓN</th>
                     <th style="text-align: center" class="font-2">CIE 10 SIS</th>
+                    <th style="text-align: center" class="font-2">SUBTITULO UPS</th>
+                    <th style="text-align: center" class="font-2">TIPO</th>
+                    <th style="text-align: center" class="font-2">LAB.</th>
                     <th style="text-align: center" class="font-2">ACCIÓN</th>
                 </tr>
             </ng-template>
@@ -91,6 +94,9 @@
                     <td style="text-align: center">{{ rowData.procedimientoHIS }}</td>
                     <td style="text-align: center">{{ rowData.codPrestacion }}</td>
                     <td style="text-align: center">{{ rowData.cie10SIS }}</td>
+                    <td style="text-align: center">{{ rowData.nombreUPSaux }}</td>
+                    <td style="text-align: center">{{ rowData.tipo }}</td>
+                    <td style="text-align: center">{{ rowData.lab }}</td>
                     <td style="text-align: center">
                             <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
                                     (click)="elimininarProcedimiento(rowIndex)" pTooltip="Eliminar">
@@ -135,20 +141,52 @@
     </div>
     <form [formGroup]='formProcedimiento'>
         <div class="grid mt-2 ">
-            <div class="col-12 p-fluid">
+            <div class="col-6 p-fluid">
                 <label class="">CIE 10 HIS: </label>
-                <p-dropdown  inputId="dropdown" [options]="listaDiagnosticos"
-                             formControlName="diagnostico"
-                             (onChange)="onChangeDiagnostico()"
-                             optionLabel="diagnosticoHIS" placeholder="seleccionar"
-                             defaultLabel="Seleccione:" >
+                <p-dropdown [options]="listaDiagnosticos" formControlName="diagnostico"
+                            placeholder="Seleccionar un Diagnostico"
+                            (onChange)="onChangeDiagnostico()"
+                            optionLabel="diagnosticoSIS">
+                    <ng-template let-diagnostico pTemplate="item">
+                        <div class="flex align-items-center">
+                            <div>{{diagnostico.cie10SIS}}-{{diagnostico.diagnosticoSIS}}</div>
+                        </div>
+                    </ng-template>
                 </p-dropdown>
+<!--                <p-dropdown  inputId="dropdown" [options]="listaDiagnosticos"-->
+<!--                             formControlName="diagnostico"-->
+<!--                             (onChange)="onChangeDiagnostico()"-->
+<!--                             optionLabel="diagnosticoSIS" placeholder="seleccionar"-->
+<!--                             defaultLabel="Seleccione:" >-->
+<!--                </p-dropdown>-->
             </div>
-            <div class="col-12 p-fluid">
+            <div class="col-6 p-fluid">
                 <label>Prestacion:</label>
                 <p-dropdown inputId="dropdown" [options]="ListaPrestacion" formControlName="prestacion"
                             placeholder="Seleccionar" optionLabel="descripcion" defaultLabel="Seleccione:" appendTo="body"
                             class="inputfield p-fluid w-full" (onChange)="onChangePrestacion()">
+                </p-dropdown>
+            </div>
+
+            <div class="col-4 p-fluid">
+                <label>SUBTITULO UPS:</label>
+                <p-dropdown inputId="dropdown" [options]="listaUpsHis" formControlName="nombreUPSaux" optionLabel="nombreUPS"
+                            placeholder="Seleccionar" defaultLabel="Seleccione:" appendTo="body"
+                            class="inputfield p-fluid w-full">
+                </p-dropdown>
+
+            </div>
+
+            <div class="col-4 p-fluid">
+                <label>LAB:</label>
+                <input type="text" style="text-transform:uppercase"  pInputText class="inputfield p-fluid w-full" formControlName="lab"/>
+            </div>
+
+            <div class="col-4 p-fluid">
+                <label>Tipo diagnostico:</label>
+                <p-dropdown inputId="dropdown" [options]="tipoList" formControlName="tipoDiagnostico" placeholder="Seleccione"
+                            optionLabel="label" optionValue="value" defaultLabel="Seleccione:" appendTo="body"
+                            class="inputfield p-fluid w-full">
                 </p-dropdown>
             </div>
 

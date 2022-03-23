@@ -21,8 +21,10 @@ export class DiagnosticoConsultaComponent implements OnInit {
     dxs:any[]=[];
 
     loading: boolean = true;
+    submitted: boolean = false;
 
     attributeLocalS = 'documento';
+    idIpress:string="";
     dataConsulta:dato;
     id: string = "";
 
@@ -35,6 +37,8 @@ export class DiagnosticoConsultaComponent implements OnInit {
     listaDeCIESIS: any[]=[];
     listaDeProcedimientos:any[]=[];
     tipoList:lista[]=[];
+    listaUpsHis:any[]=[];
+    listaUpsAuxHis:any[]=[];
 
     checked: boolean=false;
 
@@ -48,6 +52,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
                 private formBuilder: FormBuilder,
                 private messageService: MessageService) {
         this.buildForm();
+        this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
         this.dataConsulta = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
         this.tipoList = [{ label: 'DEFINITIVO', value: 'D' },
             { label: 'PRESUNTIVO', value: 'P' },
@@ -56,11 +61,14 @@ export class DiagnosticoConsultaComponent implements OnInit {
     }
 
     ngOnInit(): void {
-
+        this.recuperarUpsHis();
         this.recuperarResumenDxBDInmunizaciones();
+        this.recuperarResumenDxBDSuplementaciones();
         this.recuperarResumenDxBDTamizajes();
         this.recuperarResumenDxBDEvaluaciones();
+
         this.recuperarResumenDxBDLaboratorio();
+
         this.recuperarPrestaciones();
         this.recuperarDxBD();
 
@@ -73,16 +81,47 @@ export class DiagnosticoConsultaComponent implements OnInit {
            tipoDiagnostico:  new FormControl({value:'',disabled:false}),
            prestacion: new FormControl({value:'',disabled:false}),
            nombreUPS: ['', [Validators.required]],
+           nombreUPSaux:['', [Validators.required]],
            diagnosticoSIS: new FormControl({value:'',disabled:false}),
            cie10SIS: new FormControl({value:'',disabled:false}),
            diagnosticoHIS: new FormControl({value:'',disabled:false},[Validators.required]),
            cie10HIS:  new FormControl({value:'',disabled:false},[Validators.required]),
            factorCondicional:  new FormControl({value:'',disabled:false}),
+           lab:  new FormControl({value:'',disabled:false})
         });
 
 
     }
+
+    recuperarUpsHis() {
+        let data = {
+            idIpress: this.idIpress,
+            edad: this.dataConsulta.anio,
+            sexo: this.dataConsulta.sexo
+        }
+        this.DiagnosticoService.listaUpsHis(data).then((res: any) => this.listaUpsHis = res.object);
+    }
+
     /** Servicios para recuperar Resumen DX ***/
+    recuperarResumenDxBDSuplementaciones(){
+        this.DiagnosticoService.getSuplementacionResumen(this.dataConsulta.idConsulta).subscribe((r: any) => {
+            //-- recupera laboratorios resumen
+
+            if(r.object.suplementaciones!=null){
+                this.loading = false;
+                for(let i =0 ;i < r.object.suplementaciones.length;i++){
+                    let aux = {
+                        nombre:r.object.suplementaciones[i].nombre,
+                        evaluacion: r.object.suplementaciones[i].descripcion,
+                        resultado:'ADMINISTRADO'
+                    }
+                    this.tablaResumenDx.push(aux);
+                }
+
+            }
+        })
+    }
+
     recuperarResumenDxBDLaboratorio(){
         this.DiagnosticoService.getLaboratorioResumen(this.dataConsulta.idConsulta).subscribe((r: any) => {
             //-- recupera laboratorios resumen
@@ -113,12 +152,13 @@ export class DiagnosticoConsultaComponent implements OnInit {
     recuperarResumenDxBDInmunizaciones(){
         this.DiagnosticoService.getInmunizacionesResumen(this.dataConsulta.idConsulta).subscribe((r: any) => {
             //-- recupera laboratorios resumen
-            this.loading = false;
             if(r.object!=null || r.object!=[]){
+                this.loading = false;
                 for(let i =0 ;i<r.object.length;i++){
                     let aux = {
                         nombre:'INMUNIZACIONES',
                         evaluacion: r.object[i].nombre + "- Dosis:"+r.object[i].dosis + "- Tipo Dosis:"+ r.object[i].tipoDosis,
+                        resultado:""
                     }
                     this.tablaResumenDx.push(aux);
                 }
@@ -129,8 +169,8 @@ export class DiagnosticoConsultaComponent implements OnInit {
     recuperarResumenDxBDTamizajes(){
         this.DiagnosticoService.getTamizajesResumen(this.dataConsulta.idConsulta).subscribe((r: any) => {
             //-- recupera laboratorios resumen
-            this.loading = false;
             if(r.object!=null || r.object!=[]){
+                this.loading = false;
                 for(let i =0 ;i<r.object.length;i++){
                     let aux = {
                         nombre:'TAMIZAJES',
@@ -158,8 +198,8 @@ export class DiagnosticoConsultaComponent implements OnInit {
     recuperarResumenDxBDEvaluaciones(){
         this.DiagnosticoService.getEvaluacionesResumen(this.dataConsulta.idConsulta).subscribe((r: any) => {
             //-- recupera laboratorios resumen
-            this.loading = false;
             if(r.object!=null || r.object!=[]){
+                this.loading = false;
                 for(let i =0 ;i<r.object.length;i++){
                     if(r.object[i].evaluacioAlimentacion){
                         let aux = {
@@ -432,29 +472,43 @@ export class DiagnosticoConsultaComponent implements OnInit {
             cie10SIS:this.formDiagnostico.value.cie10SIS,
             tipo:this.formDiagnostico.value.tipoDiagnostico,
             codPrestacion:this.formDiagnostico.value.prestacion.codigo,
-            nombreUPS:this.formDiagnostico.value.nombreUPS,
+            nombreUPS:"ATENCION INTEGRAL DE NINO",
             factorCondicional: this.formDiagnostico.value.factorCondicional,
-            nombreUPSaux:"CRED",
+            nombreUPSaux:this.formDiagnostico.value.nombreUPSaux.nombreUPS,
+            lab:this.formDiagnostico.value.lab,
             patologiaMaterna:null
         }
         var duplicado :boolean = this.diagnosticos.some(element=>element.diagnosticoHIS==aux.diagnosticoHIS)
         console.log(duplicado)
         this.diagnosticoDialog = false;
         if(!duplicado){
-            if(this.selectedProducts)
-            {
+            this.diagnosticos.push(aux);
+            if(this.selectedProducts) {
                 this.tablaResumenDx = this.tablaResumenDx.filter(val => !this.selectedProducts.includes(val));
                 this.selectedProducts = null;
-            }
-            this.diagnosticos.push(aux);
+                console.log(this.tablaResumenDx);
 
+                if (this.tablaResumenDx.length == 0) {
+                    console.log(this.tablaResumenDx);
+                    this.messageService.add({
+                        severity: 'success',
+                        summary: 'Exito!',
+                        detail: 'No hay Diagnósticos pendientes'
+                    });
+                } else {
+                    console.log(this.tablaResumenDx);
+                    this.messageService.add({
+                        severity: 'warn',
+                        summary: 'Cuidado!',
+                        detail: 'Aún tiene evaluaciones realizadas sin diagnósticar'
+                    });
+                }
+            }
         }
         else{
             this.messageService.add({severity:'error', summary: 'Cuidado!', detail:'Ya ingreso este diagnóstico, vuelva a intentar.'});
         }
-        if(this.tablaResumenDx!=null){
-            this.messageService.add({severity:'warn', summary: 'Cuidado!', detail:'Aún tiene evaluaciones realizadas sin diagnósticar'});
-        }
+
 
     }
 
@@ -508,7 +562,6 @@ export class DiagnosticoConsultaComponent implements OnInit {
         this.checked = true;
         console.log(this.selectedProducts);
         this.diagnosticoDialog = true;
-        // this.isUpdate = false;
         this.formDiagnostico.reset();
         this.formDiagnostico.get('nombreUPS').setValue("ATENCION INTEGRAL DEL NINO");
         this.formDiagnostico.get('cie10HIS').setValue("");
@@ -517,6 +570,8 @@ export class DiagnosticoConsultaComponent implements OnInit {
         this.selectedProducts.forEach(element=>console.log(element));
 
     }
+
+
 }
 
 interface diagnosticoInterface {
@@ -528,7 +583,9 @@ interface diagnosticoInterface {
     tipo?:string,
     codPrestacion?:string,
     nombreUPS?:string,
-    factorCondicional?:string
+    factorCondicional?:string,
+    nombreUPSaux?:string,
+    lab?:string
 }
 
 interface resultados{

@@ -17,13 +17,13 @@ import { PrestacionService } from 'src/app/mantenimientos/services/prestacion/pr
 export class TratamientoCredComponent implements OnInit {
 
 
-  tratamientos: any[] = [];
+  tratamientos: tratamiento[] = [];
   dialogTratamiento:boolean=false;
   formTratamiento:FormGroup;
   formIndicaciones:FormGroup;
 
   renipress: "";
-  idIpress:string="616de45e0273042236434b51";
+  idIpress:string="";
   attributeLocalS = 'documento'
   data:dato;
 
@@ -82,6 +82,8 @@ export class TratamientoCredComponent implements OnInit {
   ngOnInit(): void {
 
     this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
+    this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
+
     this.listarTratamientos();
     this.buscarCodigoIpress();
     this.listarDiagnosticos();
@@ -283,7 +285,8 @@ export class TratamientoCredComponent implements OnInit {
        }
      }
      console.log(this.tratamientos);
-     var duplicado:boolean=this.tratamientos.some(element=>element.medicamento==cadena.medicamento)
+     var duplicado:boolean=this.tratamientos.some(element=>element.medicamento.id===cadena.medicamento.id)
+    // var duplicado:boolean=this.tratamientos.includes(cadena)
      console.log(duplicado);
      console.log("cadena" , cadena)
       if(!duplicado){
@@ -478,4 +481,30 @@ interface viaAdministracion{
   label?:string,
   value?:string,
 }
+interface tratamiento{
+  medicamento?:medicamento,
+  cantidad?:string,
+  dosis?:string,
+  intervalo?:string,
+  duracion?:string,
+  fechaVenc?:string,
+  observaciones?:string,
+  cie10SIS?:string,
+  codPrestacion?:string,
 
+}
+interface medicamento{
+  id?:string,
+  codigo?:string,
+  nombre?:string,
+  ff?:string,
+  concentracion?:string,
+  viaAdministracion?:string,
+  nombreComercial?:string,
+}
+interface indicaciones{
+  efectosMedicamento?:string,
+  instrucciones?:string,
+  advertencias?:string,
+  otrasIndicaciones?:string,
+}

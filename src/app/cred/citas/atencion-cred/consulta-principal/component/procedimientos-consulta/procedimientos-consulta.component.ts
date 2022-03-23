@@ -21,6 +21,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
   id: string = "";
 
   loading: boolean = true;
+  idIpress:string="";
 
   formProcedimiento:FormGroup;
   procedimientoDialog:boolean;
@@ -34,7 +35,9 @@ export class ProcedimientosConsultaComponent implements OnInit {
   listaDeCIEHIS: any[]=[];
   listaDeCIESIS: any[]=[];
   listaDeProcedimientos:any[]=[];
+  listaUpsHis:any[]=[];
   listaDiagnosticos:any[]=[];
+  tipoList: any[]=[];
 
   constructor(private PrestacionService: PrestacionService,
               private DiagnosticoService: DiagnosticoConsultaService,
@@ -43,14 +46,21 @@ export class ProcedimientosConsultaComponent implements OnInit {
               private messageService: MessageService) {
     this.buildForm();
     this.dataConsulta = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
-    this.recuperarResumenDxBDLaboratorio();
+    this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
+    this.tipoList = [{ label: 'DEFINITIVO', value: 'D' },
+      { label: 'PRESUNTIVO', value: 'P' },
+      { label: 'REPETITIVO', value: 'R' },
+    ];
+
     this.recuperarResumenDxBDInmunizaciones();
+    this.recuperarResumenDxBDSuplementaciones();
     this.recuperarResumenDxBDTamizajes();
     this.recuperarResumenDxBDEvaluaciones();
+    this.recuperarResumenDxBDLaboratorio();
   }
 
   ngOnInit(): void {
-
+    this.recuperarUpsHis();
     this.recuperarPrestaciones();
     this.recuperarDxBD();
     this.listarDiagnosticos();
@@ -58,7 +68,6 @@ export class ProcedimientosConsultaComponent implements OnInit {
 
 
   buildForm() {
-
     this.formProcedimiento = this.formBuilder.group({
         buscarPDxSIS:  new FormControl({value:'',disabled:false}),
         buscarPDxHIS:  new FormControl({value:'',disabled:false}),
@@ -69,10 +78,21 @@ export class ProcedimientosConsultaComponent implements OnInit {
         codProcedimientoSIS: new FormControl({value:'',disabled:false}),
         codProcedimientoHIS: new FormControl({value:'',disabled:false}),
         codPrestacion: ['', [Validators.required]],
+        nombreUPS: ['', [Validators.required]],
+        nombreUPSaux:['', [Validators.required]],
+        lab:  new FormControl({value:'',disabled:false}),
+        tipoDiagnostico:  new FormControl({value:'',disabled:false}),
         cie10SIS: new FormControl({value:'',disabled:false}),
-
     });
 
+  }
+  recuperarUpsHis() {
+    let data = {
+      idIpress: this.idIpress,
+      edad: this.dataConsulta.anio,
+      sexo: this.dataConsulta.sexo
+    }
+    this.DiagnosticoService.listaUpsHis(data).then((res: any) => this.listaUpsHis = res.object);
   }
 
   recuperarDxBD(){
@@ -122,22 +142,48 @@ export class ProcedimientosConsultaComponent implements OnInit {
     })
   }
   /** Servicios para recuperar Resumen DX ***/
+  recuperarResumenDxBDSuplementaciones(){
+    this.DiagnosticoService.getSuplementacionResumen(this.dataConsulta.idConsulta).subscribe((r: any) => {
+      //-- recupera laboratorios resumen
+      if(r.object.suplementaciones!=null){
+        this.loading = false;
+        for(let i =0 ;i < r.object.suplementaciones.length;i++){
+          let aux = {
+            nombre:r.object.suplementaciones[i].nombre,
+            evaluacion: r.object.suplementaciones[i].descripcion,
+            resultado:'ADMINISTRADO'
+          }
+          this.tablaResumenDx.push(aux);
+        }
+
+      }
+    })
+  }
+
   recuperarResumenDxBDLaboratorio(){
     this.DiagnosticoService.getLaboratorioResumen(this.dataConsulta.idConsulta).subscribe((r: any) => {
       //-- recupera laboratorios resumen
       if(r.object!=null || r.object!=[]){
-        for(let i =0 ;i<r.object.length;i++){
-          if(r.object[i].hemoglobina) {
-            let aux = {
-              nombre:'LABORATORIO',
-              evaluacion: 'HEMOGLOBINA',
-              resultado:r.object[i].hemoglobina
-            }
-            this.tablaResumenDx.push(aux);
+        this.loading = false;
+        if(r.object.hemoglobina) {
+          let aux = {
+            nombre:'LABORATORIO',
+            evaluacion: 'HEMOGLOBINA',
+            resultado:r.object.hemoglobina
           }
+          this.tablaResumenDx.push(aux);
+        }
+        if(r.object.testGraham) {
+          let aux = {
+            nombre:'LABORATORIO',
+            evaluacion: 'TEST GRAHAM',
+            resultado:"Huevos de: " +r.object.testGraham.huevosDe[0] + " - " +r.object.testGraham.huevosDe[1] +
+                " Quistes de: "+r.object.testGraham.quistesDe[0] +" - " + r.object.testGraham.quistesDe[1]
+
+          }
+          this.tablaResumenDx.push(aux);
         }
       }
-
     })
   }
 
@@ -145,6 +191,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
     this.DiagnosticoService.getInmunizacionesResumen(this.dataConsulta.idConsulta).subscribe((r: any) => {
       //-- recupera laboratorios resumen
       if(r.object!=null || r.object!=[]){
+        this.loading=false;
         for(let i =0 ;i<r.object.length;i++){
           let aux = {
             nombre:'INMUNIZACIONES',
@@ -160,8 +207,8 @@ export class ProcedimientosConsultaComponent implements OnInit {
 
   recuperarResumenDxBDTamizajes(){
     this.DiagnosticoService.getTamizajesResumen(this.dataConsulta.idConsulta).subscribe((r: any) => {
-      //-- recupera laboratorios resumen
       if(r.object!=null || r.object!=[]){
+        this.loading=false;
         for(let i =0 ;i<r.object.length;i++){
           let aux = {
             nombre:'TAMIZAJES',
@@ -190,6 +237,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
     this.DiagnosticoService.getEvaluacionesResumen(this.dataConsulta.idConsulta).subscribe((r: any) => {
       //-- recupera laboratorios resumen
       if(r.object!=null || r.object!=[]){
+        this.loading=false;
         for(let i =0 ;i<r.object.length;i++){
           if(r.object[i].evaluacioAlimentacion){
             let aux = {
@@ -282,7 +330,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
   openProcedimiento() {
       this.formProcedimiento.reset();
       this.checked = false;
-      // this.formProcedimiento.get('nombreUPS').setValue("CRED");
+      this.formProcedimiento.get('nombreUPS').setValue("ATENCION INTEGRAL DE NINO");
       this.procedimientoDialog = true;
   }
 
@@ -322,6 +370,10 @@ export class ProcedimientosConsultaComponent implements OnInit {
             codProcedimientoHIS:this.formProcedimiento.value.codProcedimientoHIS.codigoItem,
             codPrestacion:this.formProcedimiento.value.prestacion.codigo,
             cie10SIS:this.formProcedimiento.value.diagnostico.cie10SIS,
+            nombreUPS:"ATENCION INTEGRAL DE NINO",
+            nombreUPSaux:this.formProcedimiento.value.nombreUPSaux.nombreUPS,
+            lab:this.formProcedimiento.value.lab,
+            tipo:this.formProcedimiento.value.tipoDiagnostico,
 
         }
         console.log("aux",aux)
@@ -331,22 +383,33 @@ export class ProcedimientosConsultaComponent implements OnInit {
         console.log(duplicado)
         this.procedimientoDialog = false;
         if(!duplicado){
-          if(this.selectedProducts)
-          {
+          this.procedimientos.push(aux);
+          if(this.selectedProducts) {
             this.tablaResumenDx = this.tablaResumenDx.filter(val => !this.selectedProducts.includes(val));
             this.selectedProducts = null;
+            console.log(this.tablaResumenDx);
+
+            if (this.tablaResumenDx.length == 0) {
+              console.log(this.tablaResumenDx);
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Exito!',
+                detail: 'No hay Procedimientos pendientes'
+              });
+            } else {
+              console.log(this.tablaResumenDx);
+              this.messageService.add({
+                severity: 'warn',
+                summary: 'Cuidado!',
+                detail: 'Aún tiene evaluaciones realizadas sin ingresar a procedimientos'
+              });
+            }
           }
-          this.procedimientos.push(aux);
-
-
         }
         else{
           this.messageService.add({severity:'error', summary: 'Cuidado!', detail:'Ya ingreso este procedimiento, vuelva a intentar.'});
         }
 
-    if(this.tablaResumenDx!=null){
-      this.messageService.add({severity:'warn', summary: 'Cuidado!', detail:'Aún tiene evaluaciones realizadas sin diagnósticar'});
-    }
   }
 
   onChangeDiagnostico() {
