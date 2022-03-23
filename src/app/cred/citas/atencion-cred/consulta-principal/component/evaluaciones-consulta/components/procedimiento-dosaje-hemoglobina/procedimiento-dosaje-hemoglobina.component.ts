@@ -72,7 +72,9 @@ export class ProcedimientoDosajeHemoglobinaComponent implements OnInit {
     const ref = this.dialogService.open(DosajeComponent, {
       data:dosaje,
       header: 'Agregar Dosaje',
-      width: '50%'
+      width: '50%',
+      contentStyle: {"max-height": "500px", "overflow": "auto"},
+      baseZIndex: 10000
     });
     ref.onClose.subscribe((mensaje:string)=>{
       if (mensaje=='agregado'){
@@ -85,7 +87,7 @@ export class ProcedimientoDosajeHemoglobinaComponent implements OnInit {
       console.log('mensaje',mensaje)
       this.getDosajePreventivo();
       // this.getDosajeTerapeutico();
-    })
+    });
   }
   abrirModalLaboratorio(dosaje){
     // const {edadMes,nroControl}=dosaje
