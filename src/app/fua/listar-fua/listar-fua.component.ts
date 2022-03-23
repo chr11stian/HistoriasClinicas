@@ -21,7 +21,8 @@ export class ListarFuaComponent implements OnInit {
     private fuaService: FuaService,
   ) {
     // this.validateFUA();
-    let auxIdConsulta = "621cf4e20dd932074024a099"
+    let auxIdConsulta = "621e909a96750255eedf01d4"
+    // let auxIdConsulta = JSON.parse(localStorage.getItem("documento")).idConsulta;
     this.data = this.router.getCurrentNavigation().extras;
     console.log('data del otro componente ', this.data);
     this.fuaService.getCrearRecuperarFUAxIdConsulta(auxIdConsulta).subscribe((res: any) => {
@@ -40,5 +41,7 @@ export class ListarFuaComponent implements OnInit {
     }
     localStorage.setItem('dataFUA', JSON.stringify(dataFUA));
   }
-
+  dataDos(){
+    
+  }
 }

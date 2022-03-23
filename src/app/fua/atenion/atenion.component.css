@@ -1,6 +1,3 @@
-.margin {
-  margin-top: 20px;
-}
 .border {
   border: 1px solid #dee2e6;
   border-radius: 5px;
@@ -11,3 +8,19 @@
 /* ::ng-deep .p-checkbox .p-checkbox-box {
     width: 5rem;
 } */
+::ng-deep .diagnostico .p-datatable table {
+  width: auto;
+}
+
+::ng-deep .diagnostico .p-datatable .p-datatable-thead > tr > th {
+  text-align: center !important;
+  border: 1px solid #b6b6b6;
+  background-color: #dddddd;
+  padding: 0.3rem;
+}
+::ng-deep .diagnostico .p-datatable .p-datatable-tbody > tr > td {
+  text-align: center;
+  font-size: medium;
+  word-wrap: break-word;
+  font-size: 1rem;
+}
