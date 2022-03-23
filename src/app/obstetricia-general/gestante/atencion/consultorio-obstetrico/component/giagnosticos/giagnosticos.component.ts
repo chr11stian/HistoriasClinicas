@@ -75,6 +75,7 @@ export class GiagnosticosComponent implements OnInit {
     opciones: any;
 
     listaUpsHis: any;
+    listaUps: any;
     idIpress: any;
     edadPaciente: any;
     sexoPaciente: any;
@@ -95,6 +96,7 @@ export class GiagnosticosComponent implements OnInit {
         this.edadPaciente = JSON.parse(localStorage.getItem('datacupos')).paciente.edadAnio;
         this.sexoPaciente = JSON.parse(localStorage.getItem('datacupos')).paciente.sexo;
         this.recuperarUpsHis();
+        this.recuperarUPS();
         //estado para saber que estado usar en consultas
         this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
 
@@ -173,6 +175,10 @@ export class GiagnosticosComponent implements OnInit {
         console.log("DATA PARA UPS HIS", Data)
         this.DxService.listaUpsHis(Data).then((res: any) => this.listaUpsHis = res.object);
     }
+    recuperarUPS() {
+        this.DxService.listaUps(this.idIpress).then((res: any) => this.listaUps = res.object);
+        console.log("DATA PARA UPS", this.listaUps)
+    }
     recuperarNroFetos() {
         let idData = {
             id: this.idConsulta
@@ -189,6 +195,7 @@ export class GiagnosticosComponent implements OnInit {
         this.form = this.formBuilder.group({
             tipo: ['', [Validators.required]],
             prestacion: ['', [Validators.required]],
+            ups: ['', [Validators.required]],
             subtitulo: ['', [Validators.required]],
             autocompleteSIS: [''],
             diagnosticoSIS: ['', [Validators.required]],
@@ -197,6 +204,7 @@ export class GiagnosticosComponent implements OnInit {
             diagnosticoHIS: ['', [Validators.required]],
             HISCIE: ['', [Validators.required]],
             patologiaMaterna: ['', [Validators.required]],
+            lab: [''],
 
         });
         this.form2 = this.formBuilder.group({
@@ -240,7 +248,9 @@ export class GiagnosticosComponent implements OnInit {
             cie10SIS: this.form.value.SISCIE.cie10,
             tipo: this.form.value.tipo,
             codPrestacion: this.form.value.prestacion.codigo,
-            nombreUPS: this.form.value.subtitulo,
+            nombreUPS: this.form.value.ups,
+            nombreUPSaux: this.form.value.subtitulo,
+            lab: this.form.value.lab,
             factorCondicional: null,
             patologiaMaterna: this.form.value.patologiaMaterna,
         }
@@ -253,7 +263,7 @@ export class GiagnosticosComponent implements OnInit {
                 this.recuperarDatosGuardados();
             })
     }
-    
+
     saveActualizarDiagnostico(form: any) {
         // this.messageService.add({ severity: 'info', summary: 'Recuperado', detail: 'Diagnostico no válido vuelva a ingresar.' });
         this.isUpdate = false;
@@ -265,7 +275,9 @@ export class GiagnosticosComponent implements OnInit {
             cie10SIS: this.form.getRawValue().SISCIE.cie10,
             tipo: this.form.value.tipo,
             codPrestacion: this.form.getRawValue().prestacion.codigo,
-            nombreUPS: this.form.value.subtitulo,
+            nombreUPS: this.form.value.ups,
+            nombreUPSaux: this.form.value.subtitulo,
+            lab: this.form.value.lab,
             factorCondicional: null,
             patologiaMaterna: this.form.value.patologiaMaterna,
         }
@@ -287,8 +299,9 @@ export class GiagnosticosComponent implements OnInit {
         this.form.get('SISCIE').enable();
         this.form.get('diagnosticoSIS').setValue("");
         this.form.get('diagnosticoHIS').setValue("");
+        this.form.get('ups').setValue("OBSTETRICIA");
         this.form.get('subtitulo').setValue("MATERNO PERINATAL");
-        this.listaDeCIESIS=[];
+        this.listaDeCIESIS = [];
         this.diagnosticoDialog = true;
     }
     canceled1() {
@@ -312,7 +325,9 @@ export class GiagnosticosComponent implements OnInit {
         this.form.get('tipo').setValue(rowData.tipo);
         this.form.get('diagnosticoSIS').setValue(rowData.diagnosticoSIS);
         this.form.get('diagnosticoHIS').setValue(rowData.diagnosticoHIS);
-        this.form.get('subtitulo').setValue(rowData.nombreUPS);
+        this.form.get('ups').setValue(rowData.nombreUPS);
+        this.form.get('subtitulo').setValue(rowData.nombreUPSaux);
+        this.form.get('lab').setValue(rowData.lab);
         this.form.get('patologiaMaterna').setValue(rowData.patologiaMaterna);
         this.PrestacionService.getDiagnosticoPorCodigo(rowData.codPrestacion).subscribe((res: any) => {
             this.listaDeCIESIS = res.object.diagnostico;
@@ -376,7 +391,7 @@ export class GiagnosticosComponent implements OnInit {
             // referencia: this.referencia,
             visitaDomiciliaria: this.visitaDomiciliaria,
             planParto: this.planPartoReenfocada,
-            diagnosticos: this.diagnosticos,
+            //diagnosticos: this.diagnosticos,
             // proxCita:
             // {
             //     fecha: this.datePipe.transform(this.formOtrosDatos.value.proxCita, 'yyyy-MM-dd'),

@@ -45,6 +45,11 @@ export class ModalInmunizacionesComponent implements OnInit {
   idIpress: any;
 
   idEdicion: any;
+  listaUpsHis: any;
+  listaUps: any;
+  tipoList: any;
+  edadPaciente: any;
+  sexoPaciente: any;
   constructor(private form: FormBuilder,
     private ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
@@ -63,7 +68,10 @@ export class ModalInmunizacionesComponent implements OnInit {
     /*usando local storage*/
     this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
     this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
-
+    this.edadPaciente = JSON.parse(localStorage.getItem('datacupos')).paciente.edadAnio;
+    this.sexoPaciente = JSON.parse(localStorage.getItem('datacupos')).paciente.sexo;
+    this.recuperarUpsHis();
+    this.recuperarUPS();
     //estado para saber que estado usar en consultas
     this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
 
@@ -104,8 +112,17 @@ export class ModalInmunizacionesComponent implements OnInit {
 
     if (config.data) {
       this.llenarCamposTratamientoInmunizaciones();
+    }else{
+      this.formInmunizaciones.get('ups').setValue("OBSTETRICIA");
+      this.formInmunizaciones.get('subtitulo').setValue("MATERNO PERINATAL");
+      this.formInmunizaciones.get("tipo").setValue("D");
     }
 
+    /*LLENADO DE LISTAS - VALORES QUE PUEDEN TOMAR TIPO DX*/
+    this.tipoList = [{ label: 'DEFINITIVO', value: 'D' },
+    { label: 'PRESUNTIVO', value: 'P' },
+    { label: 'REPETITIVO', value: 'R' },
+    ];
     this.tiposDosis = [{ label: 'DOSIS UNICA', value: 'DU' },
     { label: '1RA DOSIS', value: '1' },
     { label: '2DA DOSIS', value: '2' },
@@ -135,8 +152,23 @@ export class ModalInmunizacionesComponent implements OnInit {
       autocompleteHIS: [''],
       diagnosticoHIS: new FormControl("", [Validators.required]),
       HISCIE: new FormControl("", [Validators.required]),
-
+      ups: new FormControl("", [Validators.required]),
+      subtitulo: new FormControl("", [Validators.required]),
+      tipo: new FormControl("", [Validators.required]),
     })
+  }
+  recuperarUpsHis() {
+    let Data = {
+      idIpress: this.idIpress,
+      edad: this.edadPaciente,
+      sexo: this.sexoPaciente
+    }
+    console.log("DATA PARA UPS HIS", Data)
+    this.DxService.listaUpsHis(Data).then((res: any) => this.listaUpsHis = res.object);
+  }
+  recuperarUPS() {
+    this.DxService.listaUps(this.idIpress).then((res: any) => this.listaUps = res.object);
+    console.log("DATA PARA UPS", this.listaUps)
   }
   openNew() {
     this.formInmunizaciones.reset();
@@ -158,6 +190,9 @@ export class ModalInmunizacionesComponent implements OnInit {
       codProcedimientoSIS: this.formInmunizaciones.value.SISCIE.codigo,
       cie10SIS: this.formInmunizaciones.value.diagnostico.cie10SIS,
       codProcedimientoHIS: this.formInmunizaciones.value.HISCIE.codigoItem,
+      nombreUPS: this.formInmunizaciones.value.ups,
+      nombreUPSaux: this.formInmunizaciones.value.subtitulo,
+      tipoDx: this.formInmunizaciones.value.tipo,
       idIpressSolicitante: this.idIpress,
       pertenecePAICRED: false,
       datosPaciente: {
@@ -191,6 +226,9 @@ export class ModalInmunizacionesComponent implements OnInit {
       codProcedimientoSIS: this.formInmunizaciones.value.SISCIE.codigo,
       cie10SIS: this.formInmunizaciones.value.diagnostico.cie10SIS,
       codProcedimientoHIS: this.formInmunizaciones.value.HISCIE.codigoItem,
+      nombreUPS: this.formInmunizaciones.value.ups,
+      nombreUPSaux: this.formInmunizaciones.value.subtitulo,
+      tipoDx: this.formInmunizaciones.value.tipo,
       idIpressSolicitante: this.idIpress,
       pertenecePAICRED: false,
       datosPaciente: {
@@ -231,7 +269,9 @@ export class ModalInmunizacionesComponent implements OnInit {
       this.MedicamentosService.searchMedicamento(configuracion.nombre.slice(0, 6)).subscribe((res: any) => {
         this.formInmunizaciones.patchValue({ "nombre": res.object[0] });
       })
-      this.formInmunizaciones.get("nombreComercial").setValue(configuracion.nombreComercial);
+      this.formInmunizaciones.get("ups").setValue(configuracion.nombreUPS);
+      this.formInmunizaciones.get("subtitulo").setValue(configuracion.nombreUPSaux);
+      this.formInmunizaciones.get("tipo").setValue(configuracion.tipoDx);
       this.formInmunizaciones.get("dosis").setValue(configuracion.dosis);
       this.formInmunizaciones.get("tipoDosis").setValue(configuracion.tipoDosis);
       this.formInmunizaciones.get("diagnostico").setValue(this.diagnosticosList.find(elemento => elemento.cie10SIS == configuracion.cie10SIS));
@@ -244,19 +284,19 @@ export class ModalInmunizacionesComponent implements OnInit {
       })
       this.CieService.getCIEByDescripcion(configuracion.codProcedimientoHIS).subscribe((res: any) => {
         this.listaDeCIE = res.object;
-        this.formInmunizaciones.patchValue({ HISCIE: this.listaDeCIE.find(elemento=> elemento.codigoItem == configuracion.codProcedimientoHIS) });
-        this.formInmunizaciones.get("diagnosticoHIS").setValue(this.listaDeCIE.find(elemento=> elemento.codigoItem == configuracion.codProcedimientoHIS).descripcionItem);
+        this.formInmunizaciones.patchValue({ HISCIE: this.listaDeCIE.find(elemento => elemento.codigoItem == configuracion.codProcedimientoHIS) });
+        this.formInmunizaciones.get("diagnosticoHIS").setValue(this.listaDeCIE.find(elemento => elemento.codigoItem == configuracion.codProcedimientoHIS).descripcionItem);
       })
-      
+
     })
 
   }
   async closeDialogGuardar() {
     await this.config.data ?
-      this.enviarEdicionTratamientoInmunizacion().then((res)=>this.ref.close())
+      this.enviarEdicionTratamientoInmunizacion().then((res) => this.ref.close())
       :
-      this.enviarTratamientoInmunizaciones().then((res)=>this.ref.close())
-    
+      this.enviarTratamientoInmunizaciones().then((res) => this.ref.close())
+
   }
 
   closeDialog() {

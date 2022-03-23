@@ -50,6 +50,7 @@ export class ProcedimientosComponent implements OnInit {
   aux: any;
 
   diagnosticosList: any[] = [];
+
   constructor(private formBuilder: FormBuilder,
     private dialog: DialogService,
     private messageService: MessageService,
@@ -63,7 +64,7 @@ export class ProcedimientosComponent implements OnInit {
     /*usando local storage*/
     this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
     this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
-
+    
     //estado para saber que estado usar en consultas
     this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
 
@@ -102,13 +103,14 @@ export class ProcedimientosComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  
   traerDiagnosticosDeConsulta() {
     this.tratamientoService.listarDiagnosticosDeUnaConsulta(this.nroHcl, this.nroEmbarazo, this.nroAtencion).then((res: any) => {
       this.diagnosticosList = res.object;
       console.log("diagnosticos:", this.diagnosticosList);
     })
   }
-  
+
   recuperarDatos() {
     this.recuperarNroFetos();
     let aux = {
