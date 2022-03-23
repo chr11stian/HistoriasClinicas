@@ -168,21 +168,29 @@
                 </p-dropdown>
             </div>
 
-            <div class="col-4 p-fluid">
+            <div class="col-3 p-fluid">
+                <label>NOMBRE UPS:</label>
+                <p-dropdown inputId="dropdown"  [options]="listaUpsHis" id="nombreUPS" formControlName="nombreUPS" optionLabel="nombreUPS"
+                            placeholder="Seleccionar" defaultLabel="Seleccione:" appendTo="body" (onChange)="recuperarUpsAuxHis()"
+                            class="inputfield p-fluid w-full">
+                </p-dropdown>
+
+            </div>
+            <div class="col-3 p-fluid">
                 <label>SUBTITULO UPS:</label>
-                <p-dropdown inputId="dropdown" [options]="listaUpsHis" formControlName="nombreUPSaux" optionLabel="nombreUPS"
+                <p-dropdown inputId="dropdown"  [options]="listaUpsAuxHis" id="nombreUPSaux" formControlName="nombreUPSaux" optionLabel="nombreSubTipo"
                             placeholder="Seleccionar" defaultLabel="Seleccione:" appendTo="body"
                             class="inputfield p-fluid w-full">
                 </p-dropdown>
 
             </div>
 
-            <div class="col-4 p-fluid">
+            <div class="col-3 p-fluid">
                 <label>LAB:</label>
                 <input type="text" style="text-transform:uppercase"  pInputText class="inputfield p-fluid w-full" formControlName="lab"/>
             </div>
 
-            <div class="col-4 p-fluid">
+            <div class="col-3 p-fluid">
                 <label>Tipo diagnostico:</label>
                 <p-dropdown inputId="dropdown" [options]="tipoList" formControlName="tipoDiagnostico" placeholder="Seleccione"
                             optionLabel="label" optionValue="value" defaultLabel="Seleccione:" appendTo="body"

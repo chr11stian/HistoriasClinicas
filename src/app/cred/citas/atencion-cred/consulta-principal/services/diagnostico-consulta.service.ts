@@ -71,4 +71,10 @@ export class DiagnosticoConsultaService {
             .then(res => <any[]>res)
             .then(data => { return data;});
     }
+    listaUpsAuxHis(data){
+        return this.http.post(`${this.urlServer}/${this.bd}/ups/codUPS`,data)
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data;});
+    }
 }

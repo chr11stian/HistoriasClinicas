@@ -66,9 +66,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
         this.recuperarResumenDxBDSuplementaciones();
         this.recuperarResumenDxBDTamizajes();
         this.recuperarResumenDxBDEvaluaciones();
-
         this.recuperarResumenDxBDLaboratorio();
-
         this.recuperarPrestaciones();
         this.recuperarDxBD();
 
@@ -102,6 +100,12 @@ export class DiagnosticoConsultaComponent implements OnInit {
         this.DiagnosticoService.listaUpsHis(data).then((res: any) => this.listaUpsHis = res.object);
     }
 
+    recuperarUpsAuxHis() {
+        let data = {
+            codUPS: this.formDiagnostico.value.nombreUPS.codUPS
+        }
+        this.DiagnosticoService.listaUpsAuxHis(data).then((res: any) => this.listaUpsAuxHis = res.object.subTituloUPS);
+    }
     /** Servicios para recuperar Resumen DX ***/
     recuperarResumenDxBDSuplementaciones(){
         this.DiagnosticoService.getSuplementacionResumen(this.dataConsulta.idConsulta).subscribe((r: any) => {
@@ -335,7 +339,6 @@ export class DiagnosticoConsultaComponent implements OnInit {
         // this.isUpdate = false;
         this.checked=false;
         this.formDiagnostico.reset();
-        this.formDiagnostico.get('nombreUPS').setValue("ATENCION INTEGRAL DEL NINO");
         this.formDiagnostico.get('cie10HIS').setValue("");
         this.formDiagnostico.get('cie10SIS').setValue("");
         this.diagnosticoDialog = true;
@@ -472,9 +475,9 @@ export class DiagnosticoConsultaComponent implements OnInit {
             cie10SIS:this.formDiagnostico.value.cie10SIS,
             tipo:this.formDiagnostico.value.tipoDiagnostico,
             codPrestacion:this.formDiagnostico.value.prestacion.codigo,
-            nombreUPS:"ATENCION INTEGRAL DE NINO",
+            nombreUPS:this.formDiagnostico.value.nombreUPS.nombreUPS,
             factorCondicional: this.formDiagnostico.value.factorCondicional,
-            nombreUPSaux:this.formDiagnostico.value.nombreUPSaux.nombreUPS,
+            nombreUPSaux:this.formDiagnostico.value.nombreUPSaux.nombreSubTipo,
             lab:this.formDiagnostico.value.lab,
             patologiaMaterna:null
         }

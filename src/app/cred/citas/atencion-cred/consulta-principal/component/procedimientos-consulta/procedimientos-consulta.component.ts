@@ -36,6 +36,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
   listaDeCIESIS: any[]=[];
   listaDeProcedimientos:any[]=[];
   listaUpsHis:any[]=[];
+  listaUpsAuxHis:any[]=[];
   listaDiagnosticos:any[]=[];
   tipoList: any[]=[];
 
@@ -61,6 +62,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
 
   ngOnInit(): void {
     this.recuperarUpsHis();
+    // this.recuperarUpsAuxHis();
     this.recuperarPrestaciones();
     this.recuperarDxBD();
     this.listarDiagnosticos();
@@ -93,6 +95,12 @@ export class ProcedimientosConsultaComponent implements OnInit {
       sexo: this.dataConsulta.sexo
     }
     this.DiagnosticoService.listaUpsHis(data).then((res: any) => this.listaUpsHis = res.object);
+  }
+  recuperarUpsAuxHis() {
+    let data = {
+      codUPS: this.formProcedimiento.value.nombreUPS.codUPS
+    }
+    this.DiagnosticoService.listaUpsAuxHis(data).then((res: any) => this.listaUpsAuxHis = res.object.subTituloUPS);
   }
 
   recuperarDxBD(){
@@ -330,7 +338,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
   openProcedimiento() {
       this.formProcedimiento.reset();
       this.checked = false;
-      this.formProcedimiento.get('nombreUPS').setValue("ATENCION INTEGRAL DE NINO");
+      // this.formProcedimiento.get('nombreUPS').setValue("ATENCION INTEGRAL DE NINO");
       this.procedimientoDialog = true;
   }
 
@@ -370,8 +378,8 @@ export class ProcedimientosConsultaComponent implements OnInit {
             codProcedimientoHIS:this.formProcedimiento.value.codProcedimientoHIS.codigoItem,
             codPrestacion:this.formProcedimiento.value.prestacion.codigo,
             cie10SIS:this.formProcedimiento.value.diagnostico.cie10SIS,
-            nombreUPS:"ATENCION INTEGRAL DE NINO",
-            nombreUPSaux:this.formProcedimiento.value.nombreUPSaux.nombreUPS,
+            nombreUPS:this.formProcedimiento.value.nombreUPS.nombreUPS,
+            nombreUPSaux:this.formProcedimiento.value.nombreUPSaux.nombreSubTipo,
             lab:this.formProcedimiento.value.lab,
             tipo:this.formProcedimiento.value.tipoDiagnostico,
 
