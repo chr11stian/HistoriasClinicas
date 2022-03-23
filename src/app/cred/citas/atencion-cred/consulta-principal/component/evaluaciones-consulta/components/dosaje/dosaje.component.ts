@@ -106,8 +106,8 @@ export class DosajeComponent implements OnInit {
                     tipoLaboratorio: "EXAMEN_LABORATORIO",
                     subTipo: "HEMATOLOGIA",
                     nombreExamen: "HEMOGLOBINA",
-                    codigo: "",
-                    codPrestacion: "",
+                    codigo: "85018",//cod procedimiento
+                    codPrestacion: "001",
                     cie10: "",
                     codigoHIS: "",
                     lugarExamen: "CONSULTORIO",

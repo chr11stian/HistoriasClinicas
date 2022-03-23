@@ -21,20 +21,22 @@ export class SuplementoComponent implements OnInit {
   dataDocumento:dato;
   suplemento: SuplementacionMicronutrientes;
   suplemetancionFG: FormGroup;
-  // repositorioMNM: any[] = [
-  //   {name:'Sobre',code:'Sobre'}
-  // ];
-  presentacionSF=[
-    {name:'HIERRO POLIMALTOSADO-(SOL 50mg/ml 20ml)',code:'28551'},
-    {name:'FERROSO SULFATO(SAL FERROSA)-(TAB 300MG)',code:'03552'},
-    {name:'FERROSO SULFATO HEPTAHIDRATO-(FCO 15mg/5ml-180ml)',code:'03519'},
+
+  // presentacionSFaTermino=[
+  //   {name:'HIERRO POLIMALTOSADO-(SOL 50mg/ml 20ml)',code:'28551'},
+  //   {name:'FERROSO SULFATO(SAL FERROSA)-(TAB 300MG)',code:'03552'},
+  //   {name:'FERROSO SULFATO HEPTAHIDRATO-(FCO 15mg/5ml-180ml)',code:'03519'},
+  // ]
+  presentacionSFaTermino=[
+    {name:'Gotas Sulfato Ferroso-(SOL 50mg/ml 20ml)',codeSISMED:'28551',contenidoHierroElemental:'1 gota=1,25mg de Hierro elemental'},
+    {name:'Gotas Complejo Polimaltosado-(TAB 300MG)',codeSISMED:'03552',contenidoHierroElemental:'1 gota=2,5mg de Hierro elemental'},
   ]
   presentacionMNM=[
-    {name:'Micronutriente 1 gramo en Polvo',code:'sin codificacion'},
+    {name:'Micronutrientes:Sobre de 1 gramo en Polvo',codeSISMED:'sin codificacion',contenidoHierroElemental:'Hierro (12.5 mg de Hierro elemental)'},
   ]
   presentacionVitaminaA=[
-    {name:'RETINOL VITAMINA A (CAP-100.000 UI (30mg))',code:'08152'},
-    {name:'RETINOL VITAMINA A (CAP-200.000 UI (30mg))',code:'08153'},
+    {name:'RETINOL VITAMINA A (CAP-100.000 UI (30mg))',codeSISMED:'08152',contenidoHierroElemental:''},
+    {name:'RETINOL VITAMINA A (CAP-200.000 UI (30mg))',codeSISMED:'08153',contenidoHierroElemental:''},
   ]
   isSuplementacion:boolean
   consumoDiario: string = "Consumo diario";
@@ -47,15 +49,15 @@ export class SuplementoComponent implements OnInit {
     this.build();
     this.suplemento = this.config.data.suplementacion;
     this.isSuplementacion = this.config.data.isSuplementacion;
-    this.getSuplemtancion();
+    this.getSuplementancion();
   }
   ngOnInit(): void {
     this.idConsulta=this.dataDocumento.idConsulta;
   }
   build() {
     this.suplemetancionFG = new FormGroup({
-      fechaTentativa: new FormControl("", Validators.required),
-      fechaAplicacion: new FormControl("", Validators.required),
+      fechaTentativa: new FormControl({value:'',disabled:true}, Validators.required),
+      fechaAplicacion: new FormControl({value:'',disabled:true}, Validators.required),
       medicamento: new FormControl("", Validators.required),
       dosis: new FormControl("", Validators.required),
     });
@@ -63,15 +65,15 @@ export class SuplementoComponent implements OnInit {
   getFC(control: string): AbstractControl {
     return this.suplemetancionFG.get(control);
   }
-  getSuplemtancion() {
+  getSuplementancion() {
     this.getFC("fechaTentativa").setValue(this.suplemento.fechaTentativa);
     this.getFC("fechaAplicacion").setValue(new Date());
   }
   save() {
     const requestInput = {
-        codPrestacion: "21312", //duro
+        codPrestacion: "007", //duro no existe codprodedimiento para sis pero si como diagnostico
         codSISMED: this.getFC('medicamento').value.code,
-        nroDiagnostico: 0, //duro
+        nroDiagnostico: 0, //deberia ir el codDiagnosticos sis incluido su sie(otras medidas profilacticas especificadas z29.8)
         codProcedimientoHIS: "32323", //duro
         codUPS: "324231", //duro
 
@@ -79,7 +81,6 @@ export class SuplementoComponent implements OnInit {
         descripcion: this.getFC('medicamento').value.name,//(mas conocido como el medicamento)aun por definir,//SF-SULFATO-FERROSO
         dosisIndicacion: this.getFC('dosis').value,//dosis campo abierto deberia se calculado 1/2cucharadita
         viaAdministracion: 'oral',//par
-        frecuencia: "cada dia",
         duracion: "6 mes",
         indicacion: "temor con citricos",//?evaluar campo
         dosis: this.suplemento.dosis,//nro de la dosis

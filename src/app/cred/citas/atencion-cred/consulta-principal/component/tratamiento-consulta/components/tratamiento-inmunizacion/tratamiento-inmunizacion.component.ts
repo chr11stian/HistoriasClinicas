@@ -18,12 +18,10 @@ import {
 })
 export class TratamientoInmunizacionComponent implements OnInit {
   valor: string = "";
-  tipoDNI: string;
   data: dato;
   nroDNI: string;
   stateOptions: any[];
   listaInmunizaciones: inmunizaciones[] = [];
-  // listaMeses: number[] = [1, 2, 3, 4, 5, 6, 12, 18, 24, 48];
   inmunizacionesAgrupadas = [[], [], [], [], [], [], [], [], [], []];
   collapse: boolean[] = [
     true,
@@ -36,12 +34,6 @@ export class TratamientoInmunizacionComponent implements OnInit {
     true,
     true,
     true,
-  ];
-  agrupaciones: any[] = [
-    { abreviado: "RN", completo: "Recien Nacido" },
-    { abreviado: "Menor_1A", completo: "Menor de un Año" },
-    { abreviado: "1A", completo: "Un Año" },
-    { abreviado: "4A", completo: "Cuatro Años" },
   ];
   mesActual: number;
   mes:number;
@@ -67,8 +59,8 @@ export class TratamientoInmunizacionComponent implements OnInit {
   }
   toDate() {
     this.listaInmunizaciones.sort((a, b) => {
-      if (a.fechaTentativa > b.fechaTentativa) return 1;
-      if (a.fechaTentativa < b.fechaTentativa) return -1;
+      if (a.fechaTentativa < b.fechaTentativa) return 1;
+      if (a.fechaTentativa > b.fechaTentativa) return -1;
       return 0;
     });
     this.listaInmunizaciones.forEach((element) => {
@@ -83,7 +75,7 @@ export class TratamientoInmunizacionComponent implements OnInit {
   edadMes: number[] = [];
   clasificamos() {
     console.log("toda la lista ordenada", this.listaInmunizaciones);
-    //['RN', 'Menor_1A', '1A', '4A'][0,1,2,4,6,7,12,15,18,96]
+    //[0,1,2,4,6,7,12,15,18,96]
     this.listaInmunizaciones.forEach((element) => {
       let isInclude = this.edadMes.find((elemento) => {
         return elemento == element.edadMes;
