@@ -61,3 +61,7 @@ p-selectbutton >>> .p-selectbutton .p-button.p-highlight {
 p-selectbutton >>> .p-selectbutton .p-button {
     padding: 5px;
 }
+
+html{
+    background: #7e7e7e;
+}

@@ -202,7 +202,7 @@ export class PlanPartoComponent implements OnInit {
     openDialogIntervaloNuevo() {
         this.ref = this.dialog.open(IntervaloDialogoComponent, {
             header: "INTERVALOS DEL PLAN DE PARTO",
-            width: "95%",
+            width: "80%",
             contentStyle: {
                 "max-height": "800px",
                 overflow: "auto",
@@ -222,7 +222,7 @@ export class PlanPartoComponent implements OnInit {
         }
         this.ref = this.dialog.open(IntervaloDialogoComponent, {
             header: "INTERVALOS DEL PLAN DE PARTO",
-            width: "95%",
+            width: "80%",
             contentStyle: {
                 "max-height": "800px",
                 overflow: "auto",

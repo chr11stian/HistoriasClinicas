@@ -4,7 +4,6 @@ import {CommonModule} from '@angular/common';
 import { AutoCompleteModule } from 'primeng/autocomplete'
 import {PaginatorModule} from "primeng/paginator";
 
-import {PlanDePartoModule} from "./plan-de-parto/plan-de-parto.module";
 import {ExamenesModule} from "./examenes/examenes.module";
 import {AtencionComponent} from "./atencion.component";
 import {AtencionRoutingModule} from "./atencion-routing.module";
@@ -21,7 +20,6 @@ import { IntervaloDialogoComponent } from './plan-parto/intervalo-dialogo/interv
 
 @NgModule({
     declarations: [
-
         AtencionComponent,
         PesoEmbarazoUnicoMultipleComponent,
         AlturaUterinaComponent,
@@ -40,7 +38,6 @@ import { IntervaloDialogoComponent } from './plan-parto/intervalo-dialogo/interv
 
         ConsultaObstetricoModule,
         HClinicaMaternoPerinatalModule,
-        PlanDePartoModule,
         ExamenesModule,
         SharedModule,
 

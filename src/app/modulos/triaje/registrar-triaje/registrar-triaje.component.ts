@@ -10,6 +10,7 @@ import {imageNina} from '../../../../assets/images/imageNina.const';
 import {imageNino} from '../../../../assets/images/imageNino.const';
 import {PersonalService} from 'src/app/core/services/personal-services/personal.service';
 import Swal from "sweetalert2";
+import {DatePipe} from "@angular/common";
 
 @Component({
     selector: 'app-registrar-triaje',
@@ -27,6 +28,7 @@ export class RegistrarTriajeComponent implements OnInit {
     dataPIDE: any;
     imc: any;
     ver = false;
+    datePipe = new DatePipe('en-US');
 
     constructor(
         private fb: FormBuilder,
@@ -127,7 +129,6 @@ export class RegistrarTriajeComponent implements OnInit {
                 timer: 1500,
             })
             this.ref.close(this.triaje);
-
         });
 
     }
