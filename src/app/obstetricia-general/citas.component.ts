@@ -255,13 +255,12 @@ export class CitasComponent implements OnInit {
         this.ref = this.dialog.open(RegistrarTriajeComponent, {
             header: " Registrar Triaje",
             width: '70%',
-            data: dataAux
+            data: dataAux,
         });
         console.log("DATA TRIAJE", data)
-        // this.ref.onClose.subscribe((data: any) => {
-        //     // this.DataCupos();
-        //     // this.listCuposTriados();
-        // });
+        this.ref.onClose.subscribe((data: any) => {
+            this.buscarCuposPorPersonal();
+        });
     }
 }
 
