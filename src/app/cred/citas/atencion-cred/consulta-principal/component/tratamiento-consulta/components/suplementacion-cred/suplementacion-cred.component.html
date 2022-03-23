@@ -258,90 +258,91 @@
         </div>
     </p-fieldset>
 </div>
-<!--<div>-->
+<div>
 
-<!--    <p-divider align="left">-->
-<!--        <div class="p-d-inline-flex p-ai-center">-->
-<!--            <i class="pi pi-angle-double-right p-mr-2"></i>-->
-<!--            <b>Suplementacion Terapeutica</b>-->
-<!--        </div>-->
-<!--    </p-divider>-->
-<!--</div>-->
-<!--<div>-->
-<!--    <p-fieldset styleClass="mt-3">-->
-<!--        <ng-template pTemplate="header">-->
-<!--            <div>-->
-<!--                Suplementacion-->
-<!--            </div>-->
-<!--        </ng-template>-->
-<!--        <div class="grid">-->
-<!--            <div class="col-1 text-center" style="font-weight: bold">Edad Mes</div>-->
-<!--            <div class="col-2 text-center" style="font-weight: bold">Nombre</div>-->
-<!--            <div class="col-1 text-center" style="font-weight: bold">Nro Dosis</div>-->
-<!--            <div class="col text-center" style="font-weight: bold">Fecha Tentativa</div>-->
-<!--            <div class="col text-center" style="font-weight: bold">Fecha Administracion</div>-->
-<!--            <div class="col-2 text-center" style="font-weight: bold">Estado</div>-->
-<!--            <div class="col-1 text-center" style="font-weight: bold">Accion</div>-->
-<!--        </div>-->
-<!--        <div class="grid" *ngFor="let va of suplementacionTerapeutica">-->
-<!--            &lt;!&ndash;         [ngStyle]="{'background-color':va.edadMes==edadMes? 'rgba(175,0,23,0.4)' : 'white' }">&ndash;&gt;-->
-<!--            <div class="grid" *ngIf="va.edadMes==edadMes">-->
+    <p-divider align="left">
+        <div class="p-d-inline-flex p-ai-center">
+            <i class="pi pi-angle-double-right p-mr-2"></i>
+            <b>Suplementacion Terapeutica</b>
 
-<!--                <div class="col-1 text-center">-->
-<!--                    {{va.edadMes}}-->
-<!--                </div>-->
-<!--                <div class="col-2 text-center">-->
-<!--                    {{va.descripcion}}-->
-<!--                </div>-->
-<!--                <div class="col-1 text-center">-->
-<!--                    {{va.dosis}}-->
-<!--                </div>-->
-<!--                <div class="col text-center">-->
-<!--                    <p-calendar-->
-<!--                            [showIcon]="true"-->
-<!--                            placeholder="Fecha"-->
-<!--                            [disabled]="true"-->
-<!--                            dateFormat="dd/mm/yy"-->
-<!--                            [(ngModel)]="va.fechaTentativa"-->
-<!--                            [ngClass]="{-->
-<!--                        vacunado: va.estadoAdministrado,-->
-<!--                        noVacunado: !va.estadoAdministrado-->
-<!--                      }"-->
-<!--                    ></p-calendar>-->
-<!--                </div>-->
-<!--                <div class="col text-center">-->
-<!--                    <p-calendar-->
-<!--                            [showIcon]="true"-->
-<!--                            placeholder="Fecha"-->
-<!--                            [disabled]="true"-->
-<!--                            dateFormat="dd/mm/yy"-->
-<!--                            [(ngModel)]="va.fecha"-->
-<!--                            [ngClass]="{-->
-<!--                        vacunado: va.fecha,-->
-<!--                        noVacunado: !va.fecha-->
-<!--                      }"-->
-<!--                    ></p-calendar>-->
-<!--                </div>-->
-<!--                <div class="col-2 text-center">-->
-<!--            <span *ngIf="va.estadoAdministrado;else noVacunado;">-->
-<!--              <p-tag severity="success" value="Administrado" [rounded]="true"></p-tag>-->
-<!--            </span>-->
-<!--                    <ng-template #noVacunado>-->
-<!--              <span>-->
-<!--                <p-tag severity="warning" value="No Administrado" [rounded]="true"></p-tag>-->
-<!--              </span>-->
-<!--                    </ng-template>-->
-<!--                </div>-->
-<!--                <div class="col-1 text-center">-->
-<!--                    <button *ngIf="!va.estadoAdministrado;" (click)="isSuplementacion=false;agregarSuplementacion(va)"-->
-<!--                            pButton-->
-<!--                            pRipple-->
-<!--                            type="button" icon="pi pi-pencil"-->
-<!--                            pTooltip="Agregar Suplementacion"-->
-<!--                            tooltipPosition="bottom"-->
-<!--                            class="p-button-rounded p-button-warning p-button-outlined"></button>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </p-fieldset>-->
-<!--</div>-->
+        </div>
+    </p-divider>
+</div>
+<div>
+    <p-fieldset styleClass="mt-3">
+        <ng-template pTemplate="header">
+            <div>
+                Suplementacion
+            </div>
+        </ng-template>
+        <div class="grid">
+            <div class="col-1 text-center" style="font-weight: bold">Edad Mes</div>
+            <div class="col-2 text-center" style="font-weight: bold">Nombre</div>
+            <div class="col-1 text-center" style="font-weight: bold">Nro Dosis</div>
+            <div class="col text-center" style="font-weight: bold">Fecha Tentativa</div>
+            <div class="col text-center" style="font-weight: bold">Fecha Administracion</div>
+            <div class="col-2 text-center" style="font-weight: bold">Estado</div>
+            <div class="col-1 text-center" style="font-weight: bold">Accion</div>
+        </div>
+        <div *ngFor="let tera of suplementacionTerapeutica">
+            <!--         [ngStyle]="{'background-color':va.edadMes==edadMes? 'rgba(175,0,23,0.4)' : 'white' }">-->
+            <div class="grid" *ngIf="correspondeMes(tera.edadMes,'terapeutico')">
+
+                <div class="col-1 text-center">
+                    {{tera.edadMes}}
+                </div>
+                <div class="col-2 text-center">
+                    {{tera.descripcion}}
+                </div>
+                <div class="col-1 text-center">
+                    {{tera.dosis}}
+                </div>
+                <div class="col text-center">
+                    <p-calendar
+                            [showIcon]="true"
+                            placeholder="Fecha"
+                            [disabled]="true"
+                            dateFormat="dd/mm/yy"
+                            [(ngModel)]="tera.fechaTentativa"
+                            [ngClass]="{
+                        vacunado: tera.estadoAdministrado,
+                        noVacunado: !tera.estadoAdministrado
+                      }"
+                    ></p-calendar>
+                </div>
+                <div class="col text-center">
+                    <p-calendar
+                            [showIcon]="true"
+                            placeholder="Fecha"
+                            [disabled]="true"
+                            dateFormat="dd/mm/yy"
+                            [(ngModel)]="tera.fecha"
+                            [ngClass]="{
+                        vacunado: tera.fecha,
+                        noVacunado: !tera.fecha
+                      }"
+                    ></p-calendar>
+                </div>
+                <div class="col-2 text-center">
+            <span *ngIf="tera.estadoAdministrado;else noVacunado;">
+              <p-tag severity="success" value="Administrado" [rounded]="true"></p-tag>
+            </span>
+                    <ng-template #noVacunado>
+              <span>
+                <p-tag severity="warning" value="No Administrado" [rounded]="true"></p-tag>
+              </span>
+                    </ng-template>
+                </div>
+                <div class="col-1 text-center">
+                    <button *ngIf="!tera.estadoAdministrado;" (click)="isSuplementacion=false;agregarSuplementacion(tera)"
+                            pButton
+                            pRipple
+                            type="button" icon="pi pi-pencil"
+                            pTooltip="Agregar Suplementacion"
+                            tooltipPosition="bottom"
+                            class="p-button-rounded p-button-warning p-button-outlined"></button>
+                </div>
+            </div>
+        </div>
+    </p-fieldset>
+</div>

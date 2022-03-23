@@ -10,6 +10,19 @@ export class SuplementacionesMicronutrientesService {
   base_url = environment.baseUrl;
   bd = environment.bd;
   constructor(private http: HttpClient) { }
+  getListaMicronutrientesPro(dni:string) {
+    return this.http.get<any>(`${this.base_url}/${this.bd}/cred/suplementacion/${dni}`)
+        .toPromise()
+        .then(data => { return data })
+        .catch(error => { return error })
+  }
+  getListaVitaminaAPro(dni:string) {
+    return this.http.get<any>(`${this.base_url}/${this.bd}cred/suplementacion/vitamina_a/${dni}`)
+        .toPromise()
+        .then(data => { return data })
+        .catch(error => { return error })
+  }
+  // susbribibles
   getListaMicronutrientes(dni: string) {
     return this.http.get<any>(`${this.base_url}/${this.bd}/cred/suplementacion/${dni}`);
   }
@@ -26,6 +39,9 @@ export class SuplementacionesMicronutrientesService {
   //dosaje de hemoglobina
   getDosajeHemoglobina(dni: string) {
     return this.http.get<any>(`${this.base_url}/${this.bd}/cred/dosaje_hemoglobina/${dni}`);
+  }
+  getDosajeHemoglobinaTerapeutico(dni: string) {
+    return this.http.get<any>(`${this.base_url}/${this.bd}/cred/dosaje_hemoglobina???/${dni}`);
   }
   PostDosajeHemoglobina(idConsulta: string, inputRequest) {
     return this.http.post<any>(`${this.base_url}/${this.bd}/cred/consulta/evaluacion/dosajehb/${idConsulta}`,inputRequest);

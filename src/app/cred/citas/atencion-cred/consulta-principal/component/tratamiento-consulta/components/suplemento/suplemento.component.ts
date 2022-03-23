@@ -49,15 +49,15 @@ export class SuplementoComponent implements OnInit {
     this.build();
     this.suplemento = this.config.data.suplementacion;
     this.isSuplementacion = this.config.data.isSuplementacion;
-    this.getSuplemtancion();
+    this.getSuplementancion();
   }
   ngOnInit(): void {
     this.idConsulta=this.dataDocumento.idConsulta;
   }
   build() {
     this.suplemetancionFG = new FormGroup({
-      fechaTentativa: new FormControl("", Validators.required),
-      fechaAplicacion: new FormControl("", Validators.required),
+      fechaTentativa: new FormControl({value:'',disabled:true}, Validators.required),
+      fechaAplicacion: new FormControl({value:'',disabled:true}, Validators.required),
       medicamento: new FormControl("", Validators.required),
       dosis: new FormControl("", Validators.required),
     });
@@ -65,7 +65,7 @@ export class SuplementoComponent implements OnInit {
   getFC(control: string): AbstractControl {
     return this.suplemetancionFG.get(control);
   }
-  getSuplemtancion() {
+  getSuplementancion() {
     this.getFC("fechaTentativa").setValue(this.suplemento.fechaTentativa);
     this.getFC("fechaAplicacion").setValue(new Date());
   }
