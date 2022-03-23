@@ -42,9 +42,10 @@ p-toolbar >>> .p-toolbar {
     margin: auto;
 }
 
-::ng-deep.p-inputtext {
+.p-inputtext {
     margin: 0;
     height: 23px;
+    font-size: 11px;
 }
 
 p-fieldset >>> .p-fieldset .p-fieldset-legend {
@@ -58,10 +59,11 @@ p-fieldset >>> .p-fieldset .p-fieldset-legend {
 p-selectbutton >>> .p-selectbutton .p-button.p-highlight {
     background-color: #0c3866;
 }
+
 p-selectbutton >>> .p-selectbutton .p-button {
     padding: 5px;
 }
 
-html{
+html {
     background: #7e7e7e;
 }
