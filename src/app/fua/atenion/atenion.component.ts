@@ -23,15 +23,21 @@ export class AtenionComponent implements OnInit {
     { name: "Obito", value: "OBITO" },
     { name: "Otro", value: "OTRO" }
   ];
-  listDiagnosticoDX: [
-    { name: "P", value: "PARCIAL" },
-    { name: "D", value: "NATIMUERTO" },
+  listDiagnosticoDXIngreso = [
+    { label: "P", value: "PARCIAL" },
+    { label: "D", value: "NATIMUERTO" },
+    { label: "R", value: "REGULAR" },
+  ];
+  listDiagnosticoDXEgreso = [
+    { label: "D", value: "NATIMUERTO" },
+    { label: "R", value: "REGULAR" },
   ]
   formdeLaAtencion: FormGroup;
   formAtencion: FormGroup;
   formPrestacional: FormGroup;
   formReferencia: FormGroup;
   formActiPreventivas: FormGroup;
+  formRespAtencion: FormGroup;
   /**ngModels */
   atencionDirecta: boolean = false;
   alta: boolean;
@@ -44,7 +50,8 @@ export class AtenionComponent implements OnInit {
   contraReferido: boolean;
   fallecido: boolean;
   corteAdministrado: boolean;
-  tipeDX: string;
+  tipeDXIn: string;
+  ipeDXEg: string;
   /**Fin ngModels */
   listDiagnostico: Diagnostico;
 
@@ -116,6 +123,15 @@ export class AtenionComponent implements OnInit {
       vacam: new FormControl(""),
       tamizajeSaludMental: new FormControl("")
     });
+    this.formRespAtencion = new FormGroup({
+      dniResponsable: new FormControl(""),
+      nombreResponsable: new FormControl(""),
+      nroColegiaturaResponsable: new FormControl(""),
+      responsableAtencion: new FormControl(""),
+      especialidad: new FormControl(""),
+      nroRne: new FormControl(""),
+      egresado: new FormControl("")
+    })
   }
 
   async getDataFUA() {
@@ -221,22 +237,22 @@ export class AtenionComponent implements OnInit {
         }
       },
       conceptoPrestacional: {
-        atencionDirecta: this.atencionDirecta == true ? 'TRUE' : 'FALSE',
+        atencionDirecta: this.atencionDirecta == true ? 'ATENCION DIRECTA' : '',
         cobExtraOrdinario: {
           nroAutorizacion: this.formPrestacional.value.nroAutorizacion,
           monto: this.formPrestacional.value.monto
         },
-        traslado: this.traslado == true ? 'TRUE' : 'FALSE',
+        traslado: this.traslado == true ? 'TRASLADO' : '',
         sepelio: this.sepelio
       },
       destinoAsegurado: {
-        alta: this.alta == true ? 'TRUE' : 'FALSE',
-        cita: this.cita == true ? 'TRUE' : 'FALSE',
-        hospitalizacion: this.hospitalizacion == true ? 'TRUE' : 'FALSE',
+        alta: this.alta == true ? 'ALTA' : '',
+        cita: this.cita == true ? 'CITA' : '',
+        hospitalizacion: this.hospitalizacion == true ? 'HOSPITALIZACION' : '',
         referido: this.referido,
-        contraReferido: this.contraReferido == true ? 'TRUE' : 'FALSE',
-        fallecido: this.fallecido == true ? 'TRUE' : 'FALSE',
-        corteAdministrado: this.corteAdministrado == true ? 'TRUE' : 'FALSE',
+        contraReferido: this.contraReferido == true ? 'CONTRARREFERIDO' : '',
+        fallecido: this.fallecido == true ? 'FALLECIDO' : '',
+        corteAdministrado: this.corteAdministrado == true ? 'CORTE ADMINISTRATICO' : '',
       },
       refiereContrarefiere: {
         codigoRenaesIpress: this.formReferencia.value.codRenaes,
@@ -263,19 +279,19 @@ export class AtenionComponent implements OnInit {
         etapaDeVida: {
           nroCred: this.formActiPreventivas.value.nroCred,
           pab: this.formActiPreventivas.value.pab,
-          rnPrematuro: this.formActiPreventivas.value.rnPrematuro,
+          rnPrematuro: this.formActiPreventivas.value.rnPrematuro == "SI" ? "RN PREMATURO" : '',
           tapEedpTepsi: this.formActiPreventivas.value.tapEedpTepsi,
-          bajoPesoNacer: this.formActiPreventivas.value.bajoPesoNacer,
-          consejeriaNutricional: this.formActiPreventivas.value.consejeriaNutricional,
-          enfermedadCongenitaAlNacer: this.formActiPreventivas.value.enfermedadCongenitaAlNacer,
-          consejeriaIntegral: this.formActiPreventivas.value.consejeriaIntegral,
+          bajoPesoNacer: this.formActiPreventivas.value.bajoPesoNacer == "SI" ? "BAJO PESO NACER" : '',
+          consejeriaNutricional: this.formActiPreventivas.value.consejeriaNutricional == "SI" ? "CONSEJERIA  NUTRICIONAL" : '',
+          enfermedadCongenitaAlNacer: this.formActiPreventivas.value.enfermedadCongenitaAlNacer == "SI" ? "ENFERMEDAD CONGENITA AL NACER" : '',
+          consejeriaIntegral: this.formActiPreventivas.value.consejeriaIntegral == "SI" ? "CONSEJERIA INTEGRAL" : '',
           nroFamiliaresGestante: this.formActiPreventivas.value.nroFamiliaresGestante,
           imc: this.formActiPreventivas.value.imc
         },
-        jovenAdultoEvaluacionIntegral: this.formActiPreventivas.value.jovenAdultoEvaluacionIntegral,
+        jovenAdultoEvaluacionIntegral: this.formActiPreventivas.value.jovenAdultoEvaluacionIntegral == "SI" ? "EVALUACION INTEGRAL" : '',
         adultoMayor: {
-          vacam: this.formActiPreventivas.value.vacam,
-          tamizajeSaludMental: this.formActiPreventivas.value.tamizajeSaludMental
+          vacam: this.formActiPreventivas.value.vacam == "SI" ? "VACAM" : '',
+          tamizajeSaludMental: this.formActiPreventivas.value.tamizajeSaludMental == "SI" ? "TAMIZAJE" : ''
         }
       }
     }
@@ -283,5 +299,8 @@ export class AtenionComponent implements OnInit {
   save() {
     this.recoverData();
     console.log('second data to save ', this.secondDataFUA);
+  }
+  changeNgModel() {
+    console.log('dx value ', this.tipeDXIn);
   }
 }

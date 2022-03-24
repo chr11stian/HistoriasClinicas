@@ -24,3 +24,11 @@
   word-wrap: break-word;
   font-size: 1rem;
 }
+::ng-deep .p-selectbutton .p-button.p-highlight,
+::ng-deep .p-selectbutton .p-button.p-highlight:hover {
+  background: #0c3866;
+  border-color: #0c3866;
+}
+.gestante{
+  height: auto;
+}

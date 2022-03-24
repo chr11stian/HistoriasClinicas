@@ -26,6 +26,9 @@ export class FuaService {
   getSegundaParteFUA(idConsulta: string, idFUA: string, codPrestacion: string) {
     return this.http.get(`${this.urlServer}/${this.bd}/fua/datos2/${idConsulta}/${idFUA}/${codPrestacion}`);
   }
+  postSegundaParteFUA(idFUA: string, codPrestacion: string, dataFUA) {
+    return this.http.post(`${this.urlServer}/${this.bd}/fua/guardar/datos/${idFUA}/${codPrestacion}`, dataFUA);
+  }
   /**PROMISES */
   getPromiseCrearRecuperarFUAxIdConsulta(idConsulta: string) {
     return this.http.get<any>(`${this.urlServer}/${this.bd}/fua/crear/${idConsulta}`)
