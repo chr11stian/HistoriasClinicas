@@ -60,3 +60,12 @@ input[type="number"] {
   padding-left: -20px;
   text-align: left;
 }
+
+p-dialog>>> .p-dialog .p-dialog-header {
+  border-bottom: 0 none;
+  background: #0c3866;
+  color: #ffffff;
+  padding: 1rem;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+}

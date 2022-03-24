@@ -2,24 +2,16 @@
     <br>
     <div class="grid">
         <div class="col-12 md:col-6 lg:col-12 p-field" style="text-align:center;">
-            <span style="font-size: 16px;">LISTA DE PACIENTES EN OBSTETRICIA</span>
+            <label style="font-size: 16px;">LISTA DE PACIENTES EN OBSTETRICIA</label>
         </div>
     </div>
     <br>
     <p-toolbar styleClass="p-mb-4">
         <ng-template pTemplate="left">
-        </ng-template>
-
-        <ng-template pTemplate="right">
-            <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-success"></button>
-        </ng-template>
-    </p-toolbar>
-    <form [formGroup]="formCitas">
-        <div class="grid">
-            <div class="col-12 md:col-6 lg:col-6">
+            <form [formGroup]="formCitas">
                 <div class="grid">
-                    <div class="col-12 md:col-6 lg:col-2 p-fluid">
-                        <span class="">TIPO DOC</span>
+                    <div class="col-12 md:col-4 lg:col-3 p-fluid">
+                        <label class="">TIPO DOC</label>
                         <p-dropdown [options]="listaDocumentosIdentidad"
                                     formControlName="tipoDoc"
                                     placeholder="Tipo Documento"
@@ -28,19 +20,15 @@
                                     [showClear]="false">
                         </p-dropdown>
                     </div>
-                    <div class="col-12 md:col-6 lg:col-4 p-field">
-                        <span class="">DOCUMENTO DEL PACIENTE</span>
+                    <div class="col-12 md:col-4 lg:col-5 p-field">
+                        <label class="">DOCUMENTO DEL PACIENTE</label>
                         <div class="p-inputgroup">
                             <input type="text" pInputText formControlName="nroDoc"/>
                             <p-button icon="pi pi-search" (click)="buscarCupoXdniFecha()"></p-button>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-12 md:col-6 lg:col-6 p-field">
-                <div class="grid">
-                    <div class="col-12 md:col-6 lg:col-4 p-field">
-                        <span class="">FILTRAR POR FECHA</span>
+                    <div class="col-12 md:col-4 lg:col-4 p-field">
+                        <label class="">FILTRAR POR FECHA</label>
                         <div class="p-inputgroup">
                             <p-calendar dateFormat="yy-mm-dd"
                                         formControlName="fechaBusqueda"
@@ -50,7 +38,49 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
+        </ng-template>
+        <ng-template pTemplate="right">
+            <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-success"></button>
+        </ng-template>
+    </p-toolbar>
+    <form [formGroup]="formCitas">
+        <div class="grid">
+            <!--            <div class="col-12 md:col-6 lg:col-6">-->
+            <!--                <div class="grid">-->
+            <!--                    <div class="col-12 md:col-6 lg:col-2 p-fluid">-->
+            <!--                        <span class="">TIPO DOC</span>-->
+            <!--                        <p-dropdown [options]="listaDocumentosIdentidad"-->
+            <!--                                    formControlName="tipoDoc"-->
+            <!--                                    placeholder="Tipo Documento"-->
+            <!--                                    optionLabel="abreviatura"-->
+            <!--                                    optionValue="abreviatura"-->
+            <!--                                    [showClear]="false">-->
+            <!--                        </p-dropdown>-->
+            <!--                    </div>-->
+            <!--                    <div class="col-12 md:col-6 lg:col-4 p-field">-->
+            <!--                        <span class="">DOCUMENTO DEL PACIENTE</span>-->
+            <!--                        <div class="p-inputgroup">-->
+            <!--                            <input type="text" pInputText formControlName="nroDoc"/>-->
+            <!--                            <p-button icon="pi pi-search" (click)="buscarCupoXdniFecha()"></p-button>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </div>-->
+            <!--            <div class="col-12 md:col-6 lg:col-6 p-field">-->
+            <!--                <div class="grid">-->
+            <!--                    <div class="col-12 md:col-6 lg:col-4 p-field">-->
+            <!--                        <span class="">FILTRAR POR FECHA</span>-->
+            <!--                        <div class="p-inputgroup">-->
+            <!--                            <p-calendar dateFormat="yy-mm-dd"-->
+            <!--                                        formControlName="fechaBusqueda"-->
+            <!--                                        [readonlyInput]="true"-->
+            <!--                                        (onSelect)="getCuposXservicio()">-->
+            <!--                            </p-calendar>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </div>-->
         </div>
     </form>
 </div>
@@ -69,7 +99,7 @@
                     <button pButton pRipple routerLink="gestante" (click)="enviarData2(rowData)"
                             class="boton-azul" label="Atender"
                             icon="pi pi-check"></button>
-                    <button pButton pRipple  class="boton-mostaza" label="No Control"
+                    <button pButton pRipple class="boton-mostaza" label="No Control"
                             icon="pi pi-book" (click)="irConsultaNoControl(rowData)"></button>
                 </td>
             </tr>
@@ -82,43 +112,44 @@
     <p-accordion>
         <p-accordionTab header="LISTA DE PACIENTES CON CUPOS PARA EL DIA DE HOY" [selected]="true">
             <p-table [value]="DataCupos" #dt [globalFilterFields]="['fecha']" styleClass="p-datatable-gridlines "
-                     [rows]="10" [loading]="loading"
+                     [rows]="10" [loading]="loading" responsiveLayout="scroll" class="CitasList"
                      [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
                      currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
 
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="text-align: center">Nro</th>
-                        <th style="text-align: center">DNI</th>
-                        <th style="text-align: center">APELLIDOS</th>
-                        <th style="text-align: center">NOMBRES</th>
-                        <th style="text-align: center">HORA ATENCION</th>
-                        <th style="text-align: center">FECHA ATENCION</th>
-                        <th style="text-align: center">SERVICIO</th>
-                        <th style="text-align: center">TELEFONO</th>
-                        <th style="text-align: center">ACCION</th>
+                        <th style="text-align: center; font-size: 11px">Nro</th>
+                        <th style="text-align: center; font-size: 11px">DNI</th>
+                        <th style="text-align: center; font-size: 11px">APELLIDOS</th>
+                        <th style="text-align: center; font-size: 11px">NOMBRES</th>
+                        <th style="text-align: center; font-size: 11px">HORA ATENCION</th>
+                        <th style="text-align: center; font-size: 11px">FECHA ATENCION</th>
+                        <!--                        <th style="text-align: center; font-size: 11px">SERVICIO</th>-->
+                        <th style="text-align: center; font-size: 11px">TELEFONO</th>
+                        <th style="text-align: center; font-size: 11px">ACCION</th>
 
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                     <tr>
-                        <td style="text-align: center">{{ rowIndex + 1 }}</td>
-                        <td style="text-align: center">{{ rowData.paciente.nroDoc }}</td>
-                        <td style="text-align: center">{{ rowData.paciente.apellidos }}</td>
-                        <td style="text-align: center">{{ rowData.paciente.nombre}}</td>
-                        <td style="text-align: center">{{ rowData.horaAtencion}}</td>
-                        <td style="text-align: center">{{ rowData.fechaAtencion}}</td>
-                        <td style="text-align: center">{{ rowData.ipress.servicio}}</td>
-                        <td style="text-align: center">{{ rowData.paciente.nroTelefono}}</td>
+                        <td style="text-align: center; font-size: 11px">{{ rowIndex + 1 }}</td>
+                        <td style="text-align: center; font-size: 11px">{{ rowData.paciente.nroDoc }}</td>
+                        <td style="text-align: center; font-size: 11px">{{ rowData.paciente.apellidos }}</td>
+                        <td style="text-align: center; font-size: 11px">{{ rowData.paciente.nombre}}</td>
+                        <td style="text-align: center; font-size: 11px">{{ rowData.horaAtencion}}</td>
+                        <td style="text-align: center; font-size: 11px">{{ rowData.fechaAtencion}}</td>
+                        <!--                        <td style="text-align: center; font-size: 11px">{{ rowData.ipress.servicio}}</td>-->
+                        <td style="text-align: center; font-size: 11px">{{ rowData.paciente.nroTelefono}}</td>
 
                         <td style="text-align: center">
-                            <button pButton pRipple type="button"  label="Gestante"
+                            <button pButton pRipple type="button" label="Gestante"
                                     class="p-button-secondary"
-                                    (click)="enviarData(rowData)"></button>
+                                    (click)="enviarData(rowData)" style="; font-size: 11px"></button>
                             <button pButton pRipple type="button" (click)="openDialogTriaje(rowData)" label="Triaje"
-                                    class="p-button-help"></button>
-                            <button pButton pRipple  class="boton-mostaza" label="Consulta externa"
-                                    icon="pi pi-book" (click)="irConsultaNoControl(rowData)"></button>
+                                    class="p-button-help" style="; font-size: 11px"></button>
+                            <button pButton pRipple class="boton-mostaza" label="Consulta externa"
+                                    icon="pi pi-book" (click)="irConsultaNoControl(rowData)"
+                                    style="; font-size: 11px"></button>
                         </td>
                     </tr>
                 </ng-template>

@@ -16,8 +16,12 @@ import { MessageService} from "primeng/api";
 })
 
 export class DiagnosticoConsultaComponent implements OnInit {
-
+    selectedProducts: resultados[];
     tablaResumenDx:resultados[]=[];
+    dxs:any[]=[];
+
+    loading: boolean = true;
+
     attributeLocalS = 'documento';
     dataConsulta:dato;
     id: string = "";
@@ -26,18 +30,17 @@ export class DiagnosticoConsultaComponent implements OnInit {
     diagnosticoDialog: boolean;
     diagnosticos: diagnosticoInterface[]=[];
 
-    formProcedimiento:FormGroup;
-    // procedimientoDialog:boolean;
-    procedimientos: procedimiento[]=[];
-
-
     ListaPrestacion:any[]=[];
     listaDeCIEHIS: any[]=[];
     listaDeCIESIS: any[]=[];
     listaDeProcedimientos:any[]=[];
     tipoList:lista[]=[];
+
+    checked: boolean=false;
+
     descripcionItem: string;
     private hayDatos:boolean=false;
+
 
     constructor(private DiagnosticoService: DiagnosticoConsultaService,
                 private PrestacionService: PrestacionService,
@@ -53,10 +56,11 @@ export class DiagnosticoConsultaComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.recuperarResumenDxBDLaboratorio();
+
         this.recuperarResumenDxBDInmunizaciones();
         this.recuperarResumenDxBDTamizajes();
         this.recuperarResumenDxBDEvaluaciones();
+        this.recuperarResumenDxBDLaboratorio();
         this.recuperarPrestaciones();
         this.recuperarDxBD();
 
@@ -82,34 +86,41 @@ export class DiagnosticoConsultaComponent implements OnInit {
     recuperarResumenDxBDLaboratorio(){
         this.DiagnosticoService.getLaboratorioResumen(this.dataConsulta.idConsulta).subscribe((r: any) => {
             //-- recupera laboratorios resumen
+           this.loading = false;
            if(r.object!=null || r.object!=[]){
-               for(let i =0 ;i<r.object.length;i++){
-                  if(r.object[i].hemoglobina) {
+                  if(r.object.hemoglobina) {
                       let aux = {
                           nombre:'LABORATORIO',
                           evaluacion: 'HEMOGLOBINA',
-                          resultado:r.object[i].hemoglobina
+                          resultado:r.object.hemoglobina
                       }
                       this.tablaResumenDx.push(aux);
                   }
-               }
-           }
+                  if(r.object.testGraham) {
+                       let aux = {
+                           nombre:'LABORATORIO',
+                           evaluacion: 'TEST GRAHAM',
+                           resultado:"Huevos de: " +r.object.testGraham.huevosDe[0] + " - " +r.object.testGraham.huevosDe[1] +
+                                      " Quistes de: "+r.object.testGraham.quistesDe[0] +" - " + r.object.testGraham.quistesDe[1]
 
+                       }
+                       this.tablaResumenDx.push(aux);
+                  }
+               }
         })
     }
 
     recuperarResumenDxBDInmunizaciones(){
         this.DiagnosticoService.getInmunizacionesResumen(this.dataConsulta.idConsulta).subscribe((r: any) => {
             //-- recupera laboratorios resumen
+            this.loading = false;
             if(r.object!=null || r.object!=[]){
                 for(let i =0 ;i<r.object.length;i++){
                     let aux = {
                         nombre:'INMUNIZACIONES',
                         evaluacion: r.object[i].nombre + "- Dosis:"+r.object[i].dosis + "- Tipo Dosis:"+ r.object[i].tipoDosis,
-                        resultado:" "
                     }
                     this.tablaResumenDx.push(aux);
-
                 }
             }
         })
@@ -118,6 +129,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
     recuperarResumenDxBDTamizajes(){
         this.DiagnosticoService.getTamizajesResumen(this.dataConsulta.idConsulta).subscribe((r: any) => {
             //-- recupera laboratorios resumen
+            this.loading = false;
             if(r.object!=null || r.object!=[]){
                 for(let i =0 ;i<r.object.length;i++){
                     let aux = {
@@ -146,13 +158,15 @@ export class DiagnosticoConsultaComponent implements OnInit {
     recuperarResumenDxBDEvaluaciones(){
         this.DiagnosticoService.getEvaluacionesResumen(this.dataConsulta.idConsulta).subscribe((r: any) => {
             //-- recupera laboratorios resumen
+            this.loading = false;
             if(r.object!=null || r.object!=[]){
                 for(let i =0 ;i<r.object.length;i++){
                     if(r.object[i].evaluacioAlimentacion){
                         let aux = {
                             nombre:'EVALUACIONES O TEST',
                             evaluacion: 'EVALUACION DE ALIMENTACION',
-                            resultado: r.object[i].evaluacioAlimentacion
+                            resultado: r.object[i].evaluacioAlimentacion,
+                            estado:false
                         }
                         this.tablaResumenDx.push(aux);
                     }
@@ -160,7 +174,8 @@ export class DiagnosticoConsultaComponent implements OnInit {
                         let aux = {
                             nombre:'EVALUACIONES O TEST',
                             evaluacion: 'TEST PERUANO',
-                            resultado: r.object[i].testPeruano
+                            resultado: r.object[i].testPeruano,
+                            estado:false
                         }
                         this.tablaResumenDx.push(aux);
                     }
@@ -168,7 +183,8 @@ export class DiagnosticoConsultaComponent implements OnInit {
                         let aux = {
                             nombre:'EVALUACIONES O TEST',
                             evaluacion: 'TEST EDDP',
-                            resultado: r.object[i].testEEDP
+                            resultado: r.object[i].testEEDP,
+                            estado:false
                         }
                         this.tablaResumenDx.push(aux);
                     }
@@ -176,7 +192,8 @@ export class DiagnosticoConsultaComponent implements OnInit {
                         let aux = {
                             nombre:'EVALUACIONES O TEST',
                             evaluacion: 'TEST TEPSI',
-                            resultado: r.object[i].testTepsi
+                            resultado: r.object[i].testTepsi,
+                            estado:false
                         }
                         this.tablaResumenDx.push(aux);
                     }
@@ -184,7 +201,8 @@ export class DiagnosticoConsultaComponent implements OnInit {
                         let aux = {
                             nombre:'EVALUACIONES O TEST',
                             evaluacion: 'TEST PAUTA BREVE',
-                            resultado: r.object[i].testPautaBreve
+                            resultado: r.object[i].testPautaBreve,
+                            estado:false
                         }
                         this.tablaResumenDx.push(aux);
                     }
@@ -192,7 +210,8 @@ export class DiagnosticoConsultaComponent implements OnInit {
                         let aux = {
                             nombre:'EVALUACIONES O TEST',
                             evaluacion: 'CONTROL PESO - EDAD',
-                            resultado: r.object[i].resultadoControlPE
+                            resultado: r.object[i].resultadoControlPE,
+                            estado:false
                         }
                         this.tablaResumenDx.push(aux);
                     }
@@ -200,7 +219,8 @@ export class DiagnosticoConsultaComponent implements OnInit {
                         let aux = {
                             nombre:'EVALUACIONES O TEST',
                             evaluacion: 'CONTROL TALLA - EDAD',
-                            resultado: r.object[i].resultadoControlTE
+                            resultado: r.object[i].resultadoControlTE,
+                            estado:false
                         }
                         this.tablaResumenDx.push(aux);
                     }
@@ -208,7 +228,8 @@ export class DiagnosticoConsultaComponent implements OnInit {
                         let aux = {
                             nombre:'EVALUACIONES O TEST',
                             evaluacion: 'CONTROL PESO - TALLA',
-                            resultado: r.object[i].resultadoControlPT
+                            resultado: r.object[i].resultadoControlPT,
+                            estado:false
                         }
                         this.tablaResumenDx.push(aux);
                     }
@@ -216,7 +237,8 @@ export class DiagnosticoConsultaComponent implements OnInit {
                         let aux = {
                             nombre:'EVALUACIONES O TEST',
                             evaluacion: 'CONTROL PERIMETRO CEFÁLICO',
-                            resultado: r.object[i].resultadoControlPC
+                            resultado: r.object[i].resultadoControlPC,
+                            estado:false
                         }
                         this.tablaResumenDx.push(aux);
                     }
@@ -271,6 +293,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
     openDiagnostico() {
         this.diagnosticoDialog = true;
         // this.isUpdate = false;
+        this.checked=false;
         this.formDiagnostico.reset();
         this.formDiagnostico.get('nombreUPS').setValue("ATENCION INTEGRAL DEL NINO");
         this.formDiagnostico.get('cie10HIS').setValue("");
@@ -299,6 +322,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
             timer: 1000
         })
     }
+
     /*** funciones Procedimientos****/
     onChangePrestacion() {
         let codigoPrestacion:any;
@@ -356,7 +380,6 @@ export class DiagnosticoConsultaComponent implements OnInit {
 
     }
 
-
     selectedDxHIS(event: any) {
         console.log('lista de cie ', this.listaDeCIEHIS);
         console.log('evento desde diagnos ', event);
@@ -401,6 +424,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
     /***funciones para guardar datos****/
     getDatatoSaveDx(){
         console.log(this.formDiagnostico.value.nombreUPS)
+
         let aux = {
             nro:this.diagnosticos.length +1,
             diagnosticoHIS:this.formDiagnostico.value.diagnosticoHIS,
@@ -418,15 +442,22 @@ export class DiagnosticoConsultaComponent implements OnInit {
         console.log(duplicado)
         this.diagnosticoDialog = false;
         if(!duplicado){
+            if(this.selectedProducts)
+            {
+                this.tablaResumenDx = this.tablaResumenDx.filter(val => !this.selectedProducts.includes(val));
+                this.selectedProducts = null;
+            }
             this.diagnosticos.push(aux);
+
         }
         else{
             this.messageService.add({severity:'error', summary: 'Cuidado!', detail:'Ya ingreso este diagnóstico, vuelva a intentar.'});
         }
-
+        if(this.tablaResumenDx!=null){
+            this.messageService.add({severity:'warn', summary: 'Cuidado!', detail:'Aún tiene evaluaciones realizadas sin diagnósticar'});
+        }
 
     }
-
 
     SaveDiagnostico() {
 
@@ -473,6 +504,20 @@ export class DiagnosticoConsultaComponent implements OnInit {
                 })
         }
     }
+
+    agregarToDx() {
+        this.checked = true;
+        console.log(this.selectedProducts);
+        this.diagnosticoDialog = true;
+        // this.isUpdate = false;
+        this.formDiagnostico.reset();
+        this.formDiagnostico.get('nombreUPS').setValue("ATENCION INTEGRAL DEL NINO");
+        this.formDiagnostico.get('cie10HIS').setValue("");
+        this.formDiagnostico.get('cie10SIS').setValue("");
+        this.diagnosticoDialog = true;
+        this.selectedProducts.forEach(element=>console.log(element));
+
+    }
 }
 
 interface diagnosticoInterface {
@@ -487,20 +532,11 @@ interface diagnosticoInterface {
     factorCondicional?:string
 }
 
-interface procedimiento {
-    procedimientoHIS?:string,
-    codProcedimientoHIS?:string,
-    codProcedimientoSIS?:string,
-    procedimientoSIS?:string,
-    cie10SIS?:string,
-    codPrestacion?:string
-
-}
-
 interface resultados{
     nombre?:string,
     evaluacion?:string,
-    resultado?:string
+    resultado?:string,
+    estado?:boolean
 }
 interface lista{
     label?:string,

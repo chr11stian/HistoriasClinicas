@@ -361,10 +361,9 @@ export class ModalCupos2Component implements OnInit {
                     }
 
                 } else {
-
                     let timerInterval
                     Swal.fire({
-                        icon:'info',
+                        icon: 'info',
                         title: 'Paciente',
                         html: 'No existe en la Base de Datos,<b>' +
                             '<br>' +

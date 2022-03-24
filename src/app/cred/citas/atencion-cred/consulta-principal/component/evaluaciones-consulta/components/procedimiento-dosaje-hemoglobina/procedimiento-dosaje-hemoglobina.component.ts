@@ -5,16 +5,9 @@ import {
 } from "../../../../../plan/component/plan-atencion-integral/services/suplementaciones-micronutrientes/suplementaciones-micronutrientes.service";
 import {DialogService} from "primeng/dynamicdialog";
 import {DosajeComponent} from "../dosaje/dosaje.component";
-interface DosajeHemoglobina{
-  descripcionEdad: string,
-  edadMes: number,
-  nombre: string,
-  nroControl: number,
-  estadoControlado: boolean,
-  valorHb: number,
-  fecha:Date,
-  fechaTentativa: Date
-}
+import {DosajeHemoglobina} from "../../../../models/dosaje.interface";
+import {MessageService} from "primeng/api";
+
 @Component({
   selector: 'app-procedimiento-dosaje-hemoglobina',
   templateUrl: './procedimiento-dosaje-hemoglobina.component.html',
@@ -23,34 +16,43 @@ interface DosajeHemoglobina{
 })
 
 export class ProcedimientoDosajeHemoglobinaComponent implements OnInit {
-  data:DosajeHemoglobina[]=[]
+  dataPreventivo:DosajeHemoglobina[]=[]
+  dataTerapeutico:DosajeHemoglobina[]=[]
   dataDocumento:dato=JSON.parse(localStorage.getItem('documento'))
-  anio:number=this.dataDocumento.anio
-  mes:number=this.dataDocumento.mes
-  dia:number=this.dataDocumento.dia
-  documento:dato=JSON.parse(localStorage.getItem('documento'))
-  nroDni=this.documento.nroDocumento
-
-  constructor(private suplementacionesMicronutrientesService:SuplementacionesMicronutrientesService,
-              public dialogService: DialogService) {
-    // this.nroMes=this.dataDocumento.anio*12+this.dataDocumento.mes
+  nroDni=this.dataDocumento.nroDocumento
+  amd:any={
+    anio:this.dataDocumento.anio,
+    mes:this.dataDocumento.mes,
+    dia:this.dataDocumento.dia
   }
-  get edad(){
-    // return this.dataDocumento.anio*12+this.dataDocumento.mes;
-    return 12;
+  constructor(private suplementacionesMicronutrientesService:SuplementacionesMicronutrientesService,
+              private messageService: MessageService,
+              public dialogService: DialogService) {
+  }
+  get edadMes(){
+    return this.dataDocumento.anio*12+this.dataDocumento.mes;
+    // return 12; //todo para manipula la edad del niño
   }
   ngOnInit(): void {
-    this.getDosaje()
+    this.getDosajePreventivo()
   }
-  getDosaje(){
+  getDosajePreventivo(){
     this.suplementacionesMicronutrientesService.getDosajeHemoglobina(this.nroDni).subscribe((resp)=>{
-      this.data=resp.object
+      this.dataPreventivo=resp.object
+      console.log('respuesta del servidor->>>>',this.dataPreventivo)
+      this.transform();
+    })
+  }
+  getDosajeTerapeutico(){
+    this.suplementacionesMicronutrientesService.getDosajeHemoglobinaTerapeutico(this.nroDni).subscribe((resp)=>{
+      this.dataTerapeutico=resp.object
+      console.log('respuesta del servidor->>>>',this.dataPreventivo)
       this.transform();
     })
   }
   determinarMostrar(mesEvaluado){
-    if(this.edad>=mesEvaluado && this.edad-mesEvaluado<6 ) {
-      // if (true){
+    if(this.edadMes>=mesEvaluado && this.edadMes-mesEvaluado<6 ) {
+      // if (this.edadMes==mesEvaluado){
       return true;
     }
     else
@@ -58,24 +60,51 @@ export class ProcedimientoDosajeHemoglobinaComponent implements OnInit {
   }
   agregarSuplementacion(dosaje){
     console.log('heyy con el dosaje', dosaje)
-    console.log('nro mes',this.edad)
+    console.log('nro mes',this.edadMes)
   }
   transform() {
-    this.data.forEach((element) => {
+    this.dataPreventivo.forEach((element) => {
       element.fechaTentativa = new Date(`${element.fechaTentativa} 00:00:00`);
       element.fecha = element.fecha != null ? new Date(`${element.fecha} 00:00:00`) : null;
     });
   }
-  agregarDosaje(dosaje){
+  agregarDosaje(dosaje:DosajeHemoglobina){
     const ref = this.dialogService.open(DosajeComponent, {
       data:dosaje,
       header: 'Agregar Dosaje',
-      width: '50%'
+      width: '50%',
+      contentStyle: {"max-height": "500px", "overflow": "auto"},
+      baseZIndex: 10000
     });
     ref.onClose.subscribe((mensaje:string)=>{
+      if (mensaje=='agregado'){
+        this.messageService.add({
+          severity: "success",
+          summary: "Exito",
+          detail: "Dosaje Registrado satisfactoriamente",
+        });
+      }
       console.log('mensaje',mensaje)
-      this.getDosaje();
-    })
+      this.getDosajePreventivo();
+      // this.getDosajeTerapeutico();
+    });
+  }
+  abrirModalLaboratorio(dosaje){
+    // const {edadMes,nroControl}=dosaje
+    // const inputRequest={
+    //   edadMes,
+    //   nroControl
+    // }
+    // console.log(inputRequest)
+    // const ref = this.dialogService.open(LaboratorioModalComponent, {
+    //   data:inputRequest,
+    //   header: 'Agregar prueba',
+    //   width: '50%'
+    // });
+    // ref.onClose.subscribe((mensaje:string)=>{
+    //   console.log('mensaje',mensaje)
+    //   this.getDosaje();
+    // })
   }
 
 }

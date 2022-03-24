@@ -13,13 +13,17 @@ import { ConsultaObstetricoRoutingModule } from "./consulta-obstetrico-routing.m
 import { PaginatorModule } from "primeng/paginator";
 import { ModalTratamientoComponent } from "./component/tratamiento/modal-tratamiento/modal-tratamiento.component";
 import { ModalInmunizacionesComponent } from "./component/tratamiento/modal-inmunizaciones/modal-inmunizaciones.component";
-import { ModalInterconsultaComponent } from './component/tratamiento/modal-interconsulta/modal-interconsulta.component';
+import { ModalInterconsultaComponent } from './component/resultados/modal-interconsulta/modal-interconsulta.component';
 import { ModalRecomendacionesComponent } from './component/tratamiento/modal-recomendaciones/modal-recomendaciones.component';
 import { ModalExamenesAuxiliaresComponent } from './component/tratamiento/modal-examenes-auxiliares/modal-examenes-auxiliares.component';
 import {TamizajeViolenciaComponent} from "./component/tamizaje-violencia/tamizaje-violencia.component";
-import { ModalProcedimientosComponent } from './component/tratamiento/modal-procedimientos/modal-procedimientos.component';
+import { ModalProcedimientosComponent } from './component/procedimientos/modal-procedimientos/modal-procedimientos.component';
 import { ProcedimientosComponent } from './component/procedimientos/procedimientos.component';
 import { EvaluacionesComponent } from './component/evaluaciones/evaluaciones.component';
+import { EcografiaSolicitudComponent } from './component/evaluaciones/ecografias/ecografia-solicitud/ecografia-solicitud.component';
+import { EcografiaResultadoComponent } from './component/evaluaciones/ecografias/ecografia-resultado/ecografia-resultado.component';
+import { EcografiasComponent } from './component/evaluaciones/ecografias/ecografias.component';
+import { LaboratorioComponent } from './component/evaluaciones/laboratorio/laboratorio.component';
 
 @NgModule({
     declarations: [
@@ -35,11 +39,13 @@ import { EvaluacionesComponent } from './component/evaluaciones/evaluaciones.com
         ModalInterconsultaComponent,
         ModalRecomendacionesComponent,
         ModalExamenesAuxiliaresComponent,
-        ModalProcedimientosComponent,
         ProcedimientosComponent,
         EvaluacionesComponent,
-
-
+        ModalProcedimientosComponent,
+        EcografiaSolicitudComponent,
+        EcografiaResultadoComponent,
+        EcografiasComponent,
+        LaboratorioComponent
     ],
     imports: [
         ConsultaObstetricoRoutingModule,

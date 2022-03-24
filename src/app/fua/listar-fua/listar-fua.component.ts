@@ -21,7 +21,8 @@ export class ListarFuaComponent implements OnInit {
     private fuaService: FuaService,
   ) {
     // this.validateFUA();
-    let auxIdConsulta = "621cf4e20dd932074024a099"
+    let auxIdConsulta = "621e909a96750255eedf01d4"
+    // let auxIdConsulta = JSON.parse(localStorage.getItem("documento")).idConsulta;
     this.data = this.router.getCurrentNavigation().extras;
     console.log('data del otro componente ', this.data);
     this.fuaService.getCrearRecuperarFUAxIdConsulta(auxIdConsulta).subscribe((res: any) => {
@@ -40,24 +41,7 @@ export class ListarFuaComponent implements OnInit {
     }
     localStorage.setItem('dataFUA', JSON.stringify(dataFUA));
   }
-
-  // validateFUA() {
-  //   Swal.fire({
-  //     title: 'Esta Seguro de Generar FUA?, se dara como finalizado la consulta',
-  //     showDenyButton: true,
-  //     confirmButtonText: 'CREAR FUA',
-  //     denyButtonText: `CANCELAR`,
-  //     confirmButtonColor: '#3085d6',
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       Swal.fire('Se creo FUA!', '', 'success')
-
-  //       console.log('data of before view ', this.data);
-  //     } else if (result.isDenied) {
-  //       Swal.fire('No se genero FUA', '', 'warning')
-  //       this.location.back();
-  //     }
-  //   })
-  // }
-
+  dataDos(){
+    
+  }
 }

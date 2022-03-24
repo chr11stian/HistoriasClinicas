@@ -58,8 +58,11 @@ export class ConsultasService {
     guardarDiagnosticoDeGestante(nroHcl,nroEmbarazo,nroAtencion,data){
         return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/agregarDiagnostico/${nroHcl}/${nroEmbarazo}/${nroAtencion}`, data)
     }
+    actualizarDiagnosticoDeGestante(nroHcl,nroEmbarazo,nroAtencion,data){
+        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/actualizarDiagnostico/${nroHcl}/${nroEmbarazo}/${nroAtencion}`, data)
+    }
     eliminarDiagnosticoGestante(nroHcl,nroEmbarazo,nroAtencion,cie10SIS){
-        return this.http.delete(`${this.base_url}/${this.bd}/obstetricia/consulta/eliminiarDiagnostico/${nroHcl}/${nroEmbarazo}/${nroAtencion}/${cie10SIS}`)
+        return this.http.delete(`${this.base_url}/${this.bd}/obstetricia/consulta/eliminarDiagnostico/${nroHcl}/${nroEmbarazo}/${nroAtencion}/${cie10SIS}`)
     }
 
      //inmunizaciones
@@ -111,6 +114,26 @@ export class ConsultasService {
     }
     listarTratamientosDeUnaConsulta(nroHcl,nroEmbarazo,nroAtencion){
         return this.http.get(`${this.base_url}/${this.bd}/obstetricia/consulta/listarTratamiento/${nroHcl}/${nroEmbarazo}/${nroAtencion}`)
+        .toPromise()
+        .then(res => <any[]>res)
+        .then(data => { return data; });
+    }
+
+    listaUpsHis(data){
+        return this.http.post(`${this.base_url}/${this.bd}/ipress/listarups_his`,data)
+        .toPromise()
+        .then(res => <any[]>res)
+        .then(data => { return data; });
+    }
+    listaUps(id){
+        return this.http.get(`${this.base_url}/${this.bd}/ipress/listarServicios/${id}`)
+        .toPromise()
+        .then(res => <any[]>res)
+        .then(data => { return data; });
+    }
+
+    listarResumen(data){
+        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/listaprocedimientos`,data)
         .toPromise()
         .then(res => <any[]>res)
         .then(data => { return data; });

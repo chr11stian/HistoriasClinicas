@@ -13,16 +13,22 @@ import {MessageService} from "primeng/api";
   styleUrls: ['./procedimientos-consulta.component.css']
 })
 export class ProcedimientosConsultaComponent implements OnInit {
+
+  selectedProducts: resultados[];
   tablaResumenDx:resultados[]=[];
   attributeLocalS = 'documento';
   dataConsulta:dato;
   id: string = "";
 
+  loading: boolean = true;
+
   formProcedimiento:FormGroup;
   procedimientoDialog:boolean;
-  procedimientos:any[]=[];
+  procedimientos:procedimiento[]=[];
 
+  contador:number = 0;
   hayDatos:boolean=false;
+  checked:boolean;
 
   ListaPrestacion:any[]=[];
   listaDeCIEHIS: any[]=[];
@@ -275,6 +281,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
   /**funciones para procedimientos***/
   openProcedimiento() {
       this.formProcedimiento.reset();
+      this.checked = false;
       // this.formProcedimiento.get('nombreUPS').setValue("CRED");
       this.procedimientoDialog = true;
   }
@@ -306,6 +313,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
   }
 
   getDatatoSavePx() {
+
         console.log(this.formProcedimiento.value.codProcedimientoHIS)
         let aux = {
             procedimientoSIS:this.formProcedimiento.value.procedimientoSIS,
@@ -323,17 +331,28 @@ export class ProcedimientosConsultaComponent implements OnInit {
         console.log(duplicado)
         this.procedimientoDialog = false;
         if(!duplicado){
+          if(this.selectedProducts)
+          {
+            this.tablaResumenDx = this.tablaResumenDx.filter(val => !this.selectedProducts.includes(val));
+            this.selectedProducts = null;
+          }
           this.procedimientos.push(aux);
+
+
         }
         else{
           this.messageService.add({severity:'error', summary: 'Cuidado!', detail:'Ya ingreso este procedimiento, vuelva a intentar.'});
         }
+
+    if(this.tablaResumenDx!=null){
+      this.messageService.add({severity:'warn', summary: 'Cuidado!', detail:'Aún tiene evaluaciones realizadas sin diagnósticar'});
+    }
   }
 
   onChangeDiagnostico() {
     this.PrestacionService.getProcedimientoPorCodigo(this.formProcedimiento.value.diagnostico.codPrestacion).subscribe((res: any) => {
       console.log(res.object);
-      this.listaDeCIESIS = res.object.procedimientos;
+      this.listaDeProcedimientos = res.object.procedimientos;
       this.formProcedimiento.patchValue({ prestacion: res.object});
       this.formProcedimiento.patchValue({ diagnosticoSIS: "" });
       this.formProcedimiento.patchValue({ cie10SIS: "" });
@@ -453,6 +472,18 @@ export class ProcedimientosConsultaComponent implements OnInit {
     }
   }
 
+  agregarToPx() {
+    this.checked = true;
+    console.log(this.selectedProducts);
+    this.procedimientoDialog = true;
+    // this.isUpdate = false;
+    this.formProcedimiento.reset();
+    this.procedimientoDialog = true;
+    this.selectedProducts.forEach(element=>console.log(element));
+
+  }
+
+
   elimininarProcedimiento(rowIndex: any) {
     Swal.fire({
       showCancelButton: true,
@@ -479,4 +510,13 @@ interface resultados{
   nombre?:string,
   evaluacion?:string,
   resultado?:string
+}
+interface procedimiento {
+  procedimientoHIS?:string,
+  codProcedimientoHIS?:string,
+  codProcedimientoSIS?:string,
+  procedimientoSIS?:string,
+  cie10SIS?:string,
+  codPrestacion?:string
+
 }
