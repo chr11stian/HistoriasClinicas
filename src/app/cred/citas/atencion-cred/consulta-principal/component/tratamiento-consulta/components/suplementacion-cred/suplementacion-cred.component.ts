@@ -27,28 +27,7 @@ export class SuplementacionCredComponent implements OnInit {
     SF: SuplementacionMicronutrientes[] = []
     MNM: SuplementacionMicronutrientes[] = []
     vitaminaA: SuplementacionMicronutrientes[] = []
-    suplementacionTerapeutica: SuplementacionMicronutrientes[] = [
-        {
-            descripcionEdad: '1a',
-            edadMes: '7',
-            nombre: 'SULFATO-FERROSO',
-            descripcion: 'SULFATO-FERROSO',
-            dosis: 1,
-            estadoAdministrado: false,
-            fechaTentativa: new Date(),
-            fecha: null
-        },
-        {
-            descripcionEdad: '1a',
-            edadMes: '7',
-            nombre: 'SULFATO-FERROSO2',
-            descripcion: 'SULFATO-FERROSO2',
-            dosis: 2,
-            estadoAdministrado: true,
-            fechaTentativa: new Date(),
-            fecha: new Date()
-        }
-    ]
+    suplementacionTerapeutica: SuplementacionMicronutrientes[] = []
     dataDocumento: dato
     edadMes: number;
     anio: number
@@ -69,25 +48,11 @@ export class SuplementacionCredComponent implements OnInit {
             {label: 'NO', optionValue: false}
         ];
     }
-
-    s
-
     ngOnInit(): void {
         this.getLista()
     }
 
     getLista() {
-        // this.servicio.getListaMicronutrientesPro(this.dni)
-        //     .then((resultado1)=>{
-        //         this.listaMicronutrientes = resultado1.object
-        //         return this.servicio.getVitaminaA(this.dni)
-        //     })
-        //     .then((resultado2:any)=>{
-        //         this.vitaminaA=resultado2.then()
-        //     })
-        //     .catch((error)=>{
-        //         console.log(error)
-        //     })
         this.servicio.getListaMicronutrientes(this.dni).toPromise()
             .then((result) => {
             this.listaMicronutrientes = result.object
@@ -100,6 +65,16 @@ export class SuplementacionCredComponent implements OnInit {
             console.log(this.vitaminaA)
             this.transformVitaA()
         })
+        this.servicio.getListaSuplementacionAnemia(this.dni).toPromise().then((result) => {
+            this.suplementacionTerapeutica = result.object;
+            this.transformSA()
+        })
+    }
+    transformSA() {
+        this.suplementacionTerapeutica.forEach((element) => {
+            element.fechaTentativa = new Date(`${element.fechaTentativa} 00:00:00`);
+            element.fecha = element.fecha != null ? new Date(`${element.fecha} 00:00:00`) : null;
+        });
     }
 
     transformVitaA() {
