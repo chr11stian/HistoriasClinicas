@@ -16,13 +16,13 @@ import {ConfirmationService} from "primeng/api";
 export class DosajeComponent implements OnInit {
     factorAjuste: number = 0;
     nivelAnemia = [
-        {name: 'Anemia Leve', code: 'ANEMIA LEVE'},
-        {name: 'Anemia Moderada', code: 'ANEMIA MODERADA'},
-        {name: 'Anemia Severa', code: 'ANEMIA SEVERA'}
+        {name: 'Anemia Leve', code: 'LEVE'},
+        {name: 'Anemia Moderada', code: 'MODERADA'},
+        {name: 'Anemia Severa', code: 'SEVERA'}
     ]
     positivoNegativo = [
-        {name: 'Sin Anemia', code: 'NEGATIVO'},
-        {name: 'Con Anemia', code: 'POSITIVO'},
+        {name: 'Negativo', code: 'NO'},
+        {name: 'Positivo', code: 'SI'},
     ]
     dosajeFG: FormGroup;
     dosaje: DosajeHemoglobina = this.config.data;
@@ -105,7 +105,8 @@ export class DosajeComponent implements OnInit {
                 {
                     tipoLaboratorio: "EXAMEN_LABORATORIO",
                     subTipo: "HEMATOLOGIA",
-                    nombreExamen: "HEMOGLOBINA",
+                    // nombreExamen: "HEMOGLOBINA",
+                    nombreExamen: "DOSAJE DE HEMOGLOBINA",
                     codigo: "85018",//cod procedimiento
                     codPrestacion: "001",
                     cie10: "",
@@ -132,8 +133,15 @@ export class DosajeComponent implements OnInit {
                             nAbastonados: " ",
                             nSegmentados: " ",
                             vsg1hora: " ",
-                            vsg2hora: " "
-                        }
+                            vsg2hora: " ",
+                            // adiccionales
+                            resultados:{
+                                clave:'ANEMIA',
+                                valor:this.nivelAnemiaSelected,
+                                resultado:this.getFC('positivoAnemia').value
+                            },
+                            observacionesLab:"",
+                        },
                     },
                     labExterno: "false"
                 }
@@ -148,7 +156,7 @@ export class DosajeComponent implements OnInit {
                 valorHb: this.getFC('valorHbRestado').value,
                 factorCorreccion: this.factorAjuste,
                 estadoControlado: true,
-                estadoAnemia: this.getFC('positivoAnemia').value,//positivo negativo
+                tieneAnemia: this.getFC('positivoAnemia').value,//positivo negativo
                 nivelAnemia: this.nivelAnemiaSelected,
                 fecha: this.obtenerFecha(this.getFC('fechaAdministrada').value),
                 fechaTentativa: this.obtenerFecha(this.getFC('fechaTentativa').value),
@@ -183,9 +191,9 @@ export class DosajeComponent implements OnInit {
 
     cambiamosResultado(rescatado) {
         const evaluado = this.getFC('positivoAnemia').value
-        if (evaluado == 'POSITIVO') {
+        if (evaluado == 'SI') {
             this.isDisabledNivelAnemia = false;
-            this.vistoBuenoDrop=false //todo borrar
+            this.vistoBuenoDrop=false
         } else {
             this.isDisabledNivelAnemia = true;
             this.nivelAnemiaSelected = '';

@@ -35,6 +35,7 @@ export class ProcedimientoDosajeHemoglobinaComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getDosajePreventivo()
+    this.getDosajeTerapeutico()
   }
   getDosajePreventivo(){
     this.suplementacionesMicronutrientesService.getDosajeHemoglobina(this.nroDni).subscribe((resp)=>{
@@ -46,7 +47,7 @@ export class ProcedimientoDosajeHemoglobinaComponent implements OnInit {
   getDosajeTerapeutico(){
     this.suplementacionesMicronutrientesService.getDosajeHemoglobinaTerapeutico(this.nroDni).subscribe((resp)=>{
       this.dataTerapeutico=resp.object
-      console.log('respuesta del servidor->>>>',this.dataPreventivo)
+      console.log('respuesta terapeutica->>>>',this.dataPreventivo)
       this.transform();
     })
   }

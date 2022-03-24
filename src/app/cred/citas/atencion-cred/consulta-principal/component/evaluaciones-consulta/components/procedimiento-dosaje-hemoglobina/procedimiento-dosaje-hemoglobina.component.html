@@ -79,12 +79,12 @@
                     {{dosaje.valorHb}}
                 </div>
                 <div class="col text-center">
-                     <span *ngIf="dosaje.estadoAnemia=='POSITIVO';else negativo">
+                     <span *ngIf="dosaje.tieneAnemia=='SI';else negativo">
                         <p-tag severity="danger" value="Positivo" [rounded]="true">
                         </p-tag>
                     </span>
                     <ng-template #negativo>
-                        <span *ngIf="dosaje.estadoAnemia=='NEGATVO';else noTomado">
+                        <span *ngIf="dosaje.tieneAnemia=='NO';else noTomado">
                             <p-tag severity="warning" value="Negativo" [rounded]="true">
                             </p-tag>
 
@@ -138,7 +138,7 @@
         <!--        <div *ngIf="dataPreventivo.length>=1;else noCorresponde">-->
 
         <div class="" *ngFor="let dosaje of dataTerapeutico">
-            <div class="grid" *ngIf="determinarMostrar(dosaje.edadMes)">
+            <div class="grid" *ngIf="edadMes==dosaje.edadMes">
                 <div class="col-1 text-center">
                     {{dosaje.edadMes}}
                 </div>
@@ -185,12 +185,12 @@
                     {{dosaje.valorHb}}
                 </div>
                 <div class="col text-center">
-                     <span *ngIf="dosaje.estadoAnemia=='POSITIVO';else negativo">
+                     <span *ngIf="dosaje.tieneAnemia=='POSITIVO';else negativo">
                         <p-tag severity="danger" value="Positivo" [rounded]="true">
                         </p-tag>
                     </span>
                     <ng-template #negativo>
-                        <span *ngIf="dosaje.estadoAnemia=='NEGATVO';else noTomado">
+                        <span *ngIf="dosaje.tieneAnemia=='NEGATIVO';else noTomado">
                             <p-tag severity="warning" value="Negativo" [rounded]="true">
                             </p-tag>
 
