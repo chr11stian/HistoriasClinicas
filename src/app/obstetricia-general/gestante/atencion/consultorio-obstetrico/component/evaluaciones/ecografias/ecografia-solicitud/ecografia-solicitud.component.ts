@@ -50,6 +50,8 @@ export class EcografiaSolicitudComponent implements OnInit {
   sexoPaciente: any;
 
   nroConsultaGuardada: any;
+  listaSubTipos: any;
+
   constructor(private form: FormBuilder,
     private ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
@@ -69,7 +71,7 @@ export class EcografiaSolicitudComponent implements OnInit {
     this.recuperarUpsHis();
     this.recuperarUPS();
     this.recuperarConsulta();
-
+    this.recuperarListaSubTipos();
     //estado para saber que estado usar en consultas
     this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
 
@@ -116,12 +118,17 @@ export class EcografiaSolicitudComponent implements OnInit {
     if (config.data) {
       this.llenarCamposTratamientoInmunizaciones();
     }
+    else{
+      this.formEcografiaSolicitud.get('ups').setValue("OBSTETRICIA");
+      this.formEcografiaSolicitud.get('subtitulo').setValue("MATERNO PERINATAL");
+      this.formEcografiaSolicitud.get("tipo").setValue("D");
+    }
   }
   buildForm() {
     this.formEcografiaSolicitud = this.form.group({
       prestacion: new FormControl("", [Validators.required]),
       diagnostico: new FormControl("", [Validators.required]),
-      subtipo: new FormControl("", [Validators.required]),
+      subTipo: new FormControl("", [Validators.required]),
       lab: new FormControl("", [Validators.required]),
       autocompleteSIS: [''],
       diagnosticoSIS: new FormControl("", [Validators.required]),
@@ -158,62 +165,78 @@ export class EcografiaSolicitudComponent implements OnInit {
     this.DxService.listaUps(this.idIpress).then((res: any) => this.listaUps = res.object);
     console.log("DATA PARA UPS", this.listaUps)
   }
+  recuperarListaSubTipos(){
+    this.DxService.listarSubTipoImagenes().then((res: any) => this.listaSubTipos = res.procImgSubtipos);
+    console.log("DATA SUBTIPOS", this.listaSubTipos)
+  }
   traerDiagnosticosDeConsulta() {
     this.DxService.listarDiagnosticosDeUnaConsulta(this.nroHcl, this.nroEmbarazo, this.nroAtencion).then((res: any) => {
       this.diagnosticosList = res.object;
       console.log("diagnosticos:", this.diagnosticosList);
     })
   }
-  async enviarTratamientoInmunizaciones() {
+  async enviarSolicitudEcografia() {
     var data = {
-      subTipo: "ECOGRAFIA",
-      nombreExamen: "ECOGRAFIA OBSTETRICA ABDOMINAL Y EVALUACION FETA",
-      codPrestacion: "009",
-      codigoSIS: "76811",
-      codigoHIS: "76811",
-      nombreUPS: "MATERNO PERINATAL",
-      nombreUPSAux: "MATERNO PERINATAL",
-      tipoDX: "D",			//definitivo
-      lab: "1",			//numero de ecografia, tipo string
-      cie10SIS: "U4564"
+      subTipo:this.formEcografiaSolicitud.value.subTipo,
+      codPrestacion:this.formEcografiaSolicitud.value.diagnostico.codPrestacion,
+      codigoSIS:this.formEcografiaSolicitud.value.SISCIE.codigo,
+      nombreExamenSIS:this.formEcografiaSolicitud.value.diagnosticoSIS,
+      codigoHIS:this.formEcografiaSolicitud.value.HISCIE.codigoItem,
+      nombreExamenHIS:this.formEcografiaSolicitud.value.diagnosticoHIS,
+      nombreUPS:this.formEcografiaSolicitud.value.ups,
+      nombreUPSAux:this.formEcografiaSolicitud.value.subtitulo,
+      tipoDX:this.formEcografiaSolicitud.value.tipo,
+      lab:this.formEcografiaSolicitud.value.lab,
+      agregarafiliacion:true,	
+      cie10SIS:this.formEcografiaSolicitud.value.diagnostico.cie10SIS,
     }
 
     console.log(data);
 
-    await this.DxService.guardarInmunizacionGestante(this.nroHcl, this.nroEmbarazo, this.nroAtencion, data).then((res: any) => {
-      this.dialogInmunizaciones = false;
-      Swal.fire({
-        icon: 'success',
-        title: 'Guardado',
-        text: 'Solicitud de inmunización guardada correctamente',
-        showConfirmButton: false,
-        timer: 1500,
+    let aux = {
+      id: this.idConsulta,
+      nroHcl: this.nroHcl,
+      nroEmbarazo: this.nroEmbarazo,
+      nroAtencion: this.nroAtencion
+    }
+    this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
+      this.nroConsultaGuardada = res.object.id;
+      this.DxService.guardarEcografiasGestante(this.nroConsultaGuardada, data).then((res: any) => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Guardado',
+          text: 'Solicitud de ecografia guardada correctamente',
+          showConfirmButton: false,
+          timer: 1500,
+        })
       })
     })
+    
 
   }
-  async enviarEdicionTratamientoInmunizacion() {
+  async enviarEdicionSolicitudEcografia() {
     var data = {
-      subTipo: "ECOGRAFIA",
-      nombreExamen: "ECOGRAFIA OBSTETRICA ABDOMINAL Y EVALUACION FETA",
-      codPrestacion: "009",
-      codigoSIS: "76811",
-      codigoHIS: "76811",
-      nombreUPS: "MATERNO PERINATAL",
-      nombreUPSAux: "MATERNO PERINATAL",
-      tipoDX: "D",			//definitivo
-      lab: "1",			//numero de ecografia, tipo string
-      cie10SIS: "U4564"
+      subTipo:this.formEcografiaSolicitud.value.subTipo,
+      codPrestacion:this.formEcografiaSolicitud.value.diagnostico.codPrestacion,
+      codigoSIS:this.formEcografiaSolicitud.value.SISCIE.codigo,
+      nombreExamenSIS:this.formEcografiaSolicitud.value.diagnosticoSIS,
+      codigoHIS:this.formEcografiaSolicitud.value.HISCIE.codigoItem,
+      nombreExamenHIS:this.formEcografiaSolicitud.value.diagnosticoHIS,
+      nombreUPS:this.formEcografiaSolicitud.value.ups,
+      nombreUPSAux:this.formEcografiaSolicitud.value.subtitulo,
+      tipoDX:this.formEcografiaSolicitud.value.tipo,
+      lab:this.formEcografiaSolicitud.value.lab,
+      agregarafiliacion:true,	
+      cie10SIS:this.formEcografiaSolicitud.value.diagnostico.cie10SIS,
     }
 
     console.log(data);
 
-    await this.DxService.editarInmunizacionGestante(this.nroHcl, this.nroEmbarazo, this.nroAtencion, data).then((res: any) => {
-      this.dialogInmunizaciones = false;
+    await this.DxService.guardarEcografiasGestante(this.nroConsultaGuardada, data).then((res: any) => {
       Swal.fire({
         icon: 'success',
         title: 'Actualizado',
-        text: 'Solicitud de inmunización guardada correctamente',
+        text: 'Solicitud de ecografia guardada correctamente',
         showConfirmButton: false,
         timer: 1500,
       })
@@ -247,7 +270,7 @@ export class EcografiaSolicitudComponent implements OnInit {
         this.formEcografiaSolicitud.patchValue({ SISCIE: this.listaDeCIESIS.find(elemento => elemento.codigo == configuracion.codProcedimientoSIS) });
         this.formEcografiaSolicitud.patchValue({ autocompleteSIS: "" });
       })
-      this.CieService.getCIEByDescripcion(configuracion.codProcedimientoHIS).subscribe((res: any) => {
+      this.CieService.getCIEByDescripcionTipo("EX",configuracion.codProcedimientoHIS).subscribe((res: any) => {
         this.listaDeCIE = res.object;
         this.formEcografiaSolicitud.patchValue({ HISCIE: this.listaDeCIE.find(elemento => elemento.codigoItem == configuracion.codProcedimientoHIS) });
         this.formEcografiaSolicitud.get("diagnosticoHIS").setValue(this.listaDeCIE.find(elemento => elemento.codigoItem == configuracion.codProcedimientoHIS).descripcionItem);
@@ -263,9 +286,9 @@ export class EcografiaSolicitudComponent implements OnInit {
   }
   async closeDialogGuardar() {
     await this.config.data ?
-      this.enviarEdicionTratamientoInmunizacion().then((res) => this.ref.close())
+      this.enviarEdicionSolicitudEcografia().then((res) => this.ref.close())
       :
-      this.enviarTratamientoInmunizaciones().then((res) => this.ref.close())
+      this.enviarSolicitudEcografia().then((res) => this.ref.close())
 
   }
   closeDialog() {
@@ -280,7 +303,7 @@ export class EcografiaSolicitudComponent implements OnInit {
     })
   }
   filterCIE10(event) {
-    this.CieService.getCIEByDescripcion(event.query).subscribe((res: any) => {
+    this.CieService.getCIEByDescripcionTipo("EX",event.query).subscribe((res: any) => {
       this.listaDeCIE = res.object
     })
   }

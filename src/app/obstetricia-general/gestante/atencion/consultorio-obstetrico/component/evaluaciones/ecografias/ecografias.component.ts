@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MessageService } from 'primeng/api';
-import { DialogService } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { PrestacionService } from 'src/app/mantenimientos/services/prestacion/prestacion.service';
 import { CieService } from 'src/app/obstetricia-general/services/cie.service';
 import { ConsultasService } from '../../../services/consultas.service';
+import { EcografiaSolicitudComponent } from './ecografia-solicitud/ecografia-solicitud.component';
 
 @Component({
   selector: 'app-ecografias',
@@ -13,7 +14,10 @@ import { ConsultasService } from '../../../services/consultas.service';
 })
 export class EcografiasComponent implements OnInit {
 
-  solicitudesEco:any;
+  ref: DynamicDialogRef;
+  solicitudesEco: any[] = []
+  resultadosEco: any[] = []
+
   idConsulta: string;
   tipoDocRecuperado: string;
   nroDocRecuperado: string;
@@ -31,6 +35,8 @@ export class EcografiasComponent implements OnInit {
   idIpress: any;
   edadPaciente: any;
   sexoPaciente: any;
+
+  nroConsultaGuardada: any;
   constructor(private formBuilder: FormBuilder,
     private dialog: DialogService,
     private PrestacionService: PrestacionService,
@@ -78,9 +84,59 @@ export class EcografiasComponent implements OnInit {
       this.nroAtencion = nroAtencion;
       console.log("entre a edicion consulta", this.nroAtencion)
     }
-
   }
+  async recuperarEcografias() {
+    let aux = {
+      id: this.idConsulta,
+      nroHcl: this.nroHcl,
+      nroEmbarazo: this.nroEmbarazo,
+      nroAtencion: this.nroAtencion
+    }
+    this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
+      this.nroConsultaGuardada = res.object.id;
+      this.DxService.listarSolicitudesEco(this.nroConsultaGuardada).then((res: any) => {
+        this.solicitudesEco = res.object;
+      })
+    })
+  }
+  openSolicitudEco() {
+    //this.diagnosticoDialog = true;
+    this.ref = this.dialog.open(EcografiaSolicitudComponent, {
+      header: "SOLICITUD",
+      contentStyle: {
+        heigth: "700px",
+        width: "980px",
+        overflow: "auto",
+      },
+    })
+    this.ref.onClose.subscribe((data: any) => {
+      console.log("data de modal eco", data)
+      this.recuperarEcografias();
+    })
+  }
+  editarSolicitudEco(rowData) {
+    let aux = {
+      //index: index,
+      row: rowData
+    }
+    this.ref = this.dialog.open(EcografiaSolicitudComponent, {
+      header: "SOLICITUD",
+      contentStyle: {
+        heigth: "700px",
+        width: "980px",
+        overflow: "auto",
+      },
+      data: aux
+    })
+    this.ref.onClose.subscribe((data: any) => {
+      console.log("data de modal eco", data)
+      this.recuperarEcografias();
+    })
+  }
+
+
   ngOnInit(): void {
+    this.recuperarEcografias();
   }
 
 }

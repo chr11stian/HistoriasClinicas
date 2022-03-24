@@ -98,6 +98,14 @@ export class ConsultasService {
     eliminarTratamientoGestante(nroHcl,nroEmbarazo,nroAtencion,id){
         return this.http.delete(`${this.base_url}/${this.bd}/obstetricia/consulta/eliminarTratamiento/${nroHcl}/${nroEmbarazo}/${nroAtencion}/${id}`)
     }
+    //procesamiento de imagenes
+    guardarEcografiasGestante(id,data){
+        return this.http.post(`${this.base_url}/${this.bd}/examenesAuxiliares/agregar-ProcImg/${id}`, data)
+        .toPromise()
+        .then(res => <any[]>res)
+        .then(data => { return data; });
+    }
+    
 
      //listar
     listarDiagnosticosDeUnaConsulta(nroHcl,nroEmbarazo,nroAtencion){
@@ -118,6 +126,12 @@ export class ConsultasService {
         .then(res => <any[]>res)
         .then(data => { return data; });
     }
+    listarSolicitudesEco(idConsulta){
+        return this.http.get(`${this.base_url}/${this.bd}/examenesAuxiliares/listarProcImg/${idConsulta}`)
+        .toPromise()
+        .then(res => <any[]>res)
+        .then(data => { return data; });
+    }
 
     listaUpsHis(data){
         return this.http.post(`${this.base_url}/${this.bd}/ipress/listarups_his`,data)
@@ -134,6 +148,13 @@ export class ConsultasService {
 
     listarResumen(data){
         return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/listaprocedimientos`,data)
+        .toPromise()
+        .then(res => <any[]>res)
+        .then(data => { return data; });
+    }
+
+    listarSubTipoImagenes(){
+        return this.http.get(`${this.base_url}/${this.bd}/tools/procImagenes/subtipo`)
         .toPromise()
         .then(res => <any[]>res)
         .then(data => { return data; });

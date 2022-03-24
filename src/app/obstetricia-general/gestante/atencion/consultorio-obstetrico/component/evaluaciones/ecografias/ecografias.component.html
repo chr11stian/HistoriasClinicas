@@ -1,4 +1,3 @@
-<p>ecografias works!</p>
 <div>
     <p-toolbar class="mt-3">
         <ng-template pTemplate="left">
@@ -43,7 +42,7 @@
     <p-toolbar>
         <ng-template pTemplate="right" class="button">
             <button pButton pRipple label="Agregar Solicitud" icon="pi pi-plus" pButton type="button"
-                class="button-agregar" ></button>
+                class="button-agregar" (click)="openSolicitudEco()" ></button>
         </ng-template>
     </p-toolbar>
     <br/>
