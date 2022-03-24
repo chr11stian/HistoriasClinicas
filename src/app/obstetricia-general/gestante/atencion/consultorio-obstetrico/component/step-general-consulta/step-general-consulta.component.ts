@@ -13,7 +13,7 @@ export class StepGeneral_consultaComponent implements OnInit {
     selectedOption: data
     items: MenuItem[]
     indiceActivo: number = 0
-    stepName = "datos"
+    stepName = "evaluaciones"
 
     data: any
     IDConsulta: string = null;
