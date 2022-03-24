@@ -41,7 +41,7 @@ export class SuplementacionesMicronutrientesService {
     return this.http.get<any>(`${this.base_url}/${this.bd}/cred/dosaje_hemoglobina/${dni}`);
   }
   getDosajeHemoglobinaTerapeutico(dni: string) {
-    return this.http.get<any>(`${this.base_url}/${this.bd}/cred/dosaje_hemoglobina_terapeutico/${dni}`);
+    return this.http.get<any>(`${this.base_url}/${this.bd}/cred/tratamiento_anemia/${dni}`);
   }
   PostDosajeHemoglobina(idConsulta: string, inputRequest) {
     return this.http.post<any>(`${this.base_url}/${this.bd}/cred/consulta/evaluacion/dosajehb/${idConsulta}`,inputRequest);

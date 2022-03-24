@@ -36,11 +36,11 @@ import { SuplementacionCredComponent } from './component/tratamiento-consulta/co
 import { TratamientoCredComponent } from './component/tratamiento-consulta/components/tratamiento-cred/tratamiento-cred.component';
 import { SuplementoComponent } from './component/tratamiento-consulta/components/suplemento/suplemento.component';
 import { DialogAddExamenesAuxiliaresComponent } from './component/examenes-auxiliares-consulta/dialog-add-examenes-auxiliares/dialog-add-examenes-auxiliares.component';
-import { DosajeComponent } from './component/evaluaciones-consulta/components/dosaje/dosaje.component';
+import { DosajeComponent } from './component/evaluaciones-consulta/components/dosaje-modal/dosaje.component';
 //mover al share
 import {ListboxModule} from "primeng/listbox";
 import {MultiSelectModule} from "primeng/multiselect";
-import { ProcedimientoDosajeHemoglobinaComponent } from './component/evaluaciones-consulta/components/procedimiento-dosaje-hemoglobina/procedimiento-dosaje-hemoglobina.component';
+import { ProcedimientoDosajeHemoglobinaComponent } from './component/evaluaciones-consulta/components/dosaje/procedimiento-dosaje-hemoglobina.component';
 import { TratamientoInmunizacionComponent } from './component/tratamiento-consulta/components/tratamiento-inmunizacion/tratamiento-inmunizacion.component';
 import { TratamientoInmunizacionModalComponent } from './component/tratamiento-consulta/components/tratamiento-inmunizacion-modal/tratamiento-inmunizacion-modal.component';
 
@@ -94,6 +94,7 @@ FullCalendarModule.registerPlugins([
         TratamientoInmunizacionComponent,
         TratamientoInmunizacionModalComponent,
         ProcedimientosConsultaComponent,
+        ProcedimientoDosajeHemoglobinaComponent,
 
     ],
     imports: [
