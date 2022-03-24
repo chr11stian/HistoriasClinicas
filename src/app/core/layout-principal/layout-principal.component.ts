@@ -15,5 +15,6 @@ export class LayoutPrincipalComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  anchoSidebart:number=2
 
 }

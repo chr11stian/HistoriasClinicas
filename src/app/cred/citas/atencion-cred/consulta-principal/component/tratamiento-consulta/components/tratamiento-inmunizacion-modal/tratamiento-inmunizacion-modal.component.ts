@@ -20,14 +20,34 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
   inmunizacion: inmunizaciones
   fechaTentativa = new Date();
   dataDocumento: dato
-  attributeLocalS = 'documento'
+  dataUsuario:any;
+  idIpress:string
+  viaAdministracionList=[
+      {name:'Intradermica',code:'INTRADERMICA' },
+      {name:'Intramuscular',code:'INTRAMUSCULAR' },
+      {name:'Via Oral',code:'VIA ORAL' },
+      {name:'Via Subcutanea',code:'VIA SUBCUTANEA' }
+  ]
+  dosisList=[
+    {name:'0.1 CC',code:'0.1 CC'},
+    {name:'0.25 CC',code:'0.25 CC'},
+    {name:'0.5 CC',code:'0.5 CC'},
+    {name:'1 CC',code:'1 CC'},
+    {name:'2 gotas',code:'0.1 CC'},
+  ]
+  // attributeLocalS = 'documento'
   otraFecha:boolean=false
   constructor(public ref: DynamicDialogRef,
               public config: DynamicDialogConfig,
               public inmunizacionesService: InmunizacionesService,
               private messageService: MessageService,
               private confirmationService: ConfirmationService) {
-    this.dataDocumento = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
+    this.dataDocumento = <dato>JSON.parse(localStorage.getItem('documento'));
+    this.dataUsuario = <dato>JSON.parse(localStorage.getItem('usuario'));
+    this.idIpress=this.dataUsuario.ipress.idIpress;
+
+
+
     this.inmunizacion = this.config.data;
   }
 
@@ -39,8 +59,8 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
     this.inmunizacionFC = new FormGroup({
       fechaTentativa:new FormControl({value:'',disabled:true},Validators.required),
       fechaAplicacion:new FormControl({value:'',disabled:true},Validators.required),
-      // fechaTentativa: new FormControl(, Validators.required),
-      // fechaAplicacion: new FormControl('', Validators.required),
+      viaAdministracion:new FormControl('INTRAVENOSA',Validators.required),
+      cantidad:new FormControl('',Validators.required),
       lote: new FormControl(null, [Validators.required]),
       fechaVencimiento: new FormControl('', [Validators.required]),
     })
@@ -74,12 +94,12 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
       nombreComercial:this.inmunizacion.nombre,
       dosis: this.inmunizacion.dosis,
       tipoDosis: this.inmunizacion.tipoDosis,
-      codPrestacion: "099",
-      codProcedimientoHIS: "16546",
-      codProcedimientoSIS: "16546",
-      idIpressSolicitante: "616de45e0273042236434b51",//defecto posta medica 616de45e0273042236434b51
-      viaAdministracion: "intravenosa",
-      cantidad: "0.5cc",
+      codPrestacion: "001",//todo
+      codProcedimientoHIS: "16546",//todo ??no hay info
+      codProcedimientoSIS: "90471",//todo
+      idIpressSolicitante: this.idIpress,//ya es dinamico recuperamos del usuario en le localStorage
+      viaAdministracion: this.getFC('viaAdministracion').value,
+      cantidad: this.getFC('cantidad').value,
       lote: this.getFC('lote').value,
       fechaVencimiento: this.obtenerFecha(this.getFC('fechaVencimiento').value),
       fechaAdministracion: this.obtenerFecha(this.getFC('fechaAplicacion').value),

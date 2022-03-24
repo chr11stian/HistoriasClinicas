@@ -10,6 +10,36 @@
                 (click)="guardarTodosDatos()"></button>
             </ng-template>
         </p-toolbar>
+        <p-toolbar>
+            <ng-template pTemplate="left">
+                <h3 class="mt-2">RESUMEN DE TODOS LOS PROCEDIMIENTOS REALIZADOS</h3>
+            </ng-template>
+        </p-toolbar>
+        <div class="RESUMEN">
+            <p-table class="table-over" [value]="resumen" #dt styleClass="p-datatable-gridlines" [rows]="10"
+                [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
+                [showCurrentPageReport]="true"
+                currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+
+                <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                    <tr>
+                        <th style="text-align: center" class="font-2">Nro </th>
+                        <th style="text-align: center" class="font-2">COD. HIS</th>
+                        <th style="text-align: center" class="font-2">PROCEDIMIENTO HIS</th>
+                        <th style="text-align: center" class="font-1">TIPO</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                    <tr>
+                        <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+                        <td style="text-align: center">{{ rowData.codProcedimientoHIS }}</td>
+                        <td style="text-align: center">{{ rowData.procedimientoHIS }}</td>
+                        <td style="text-align: center">{{ rowData.tipo }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <br>
         <!--PROCEDIMIENTOS -->
         <div class="PROCEDIMIENTOS">
             <p-table class="table-over" [value]="procedimientos" #dt styleClass="p-datatable-gridlines" [rows]="10"

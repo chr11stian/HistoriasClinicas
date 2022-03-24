@@ -19,29 +19,33 @@ export class ProcedimientoDosajeHemoglobinaComponent implements OnInit {
   dataPreventivo:DosajeHemoglobina[]=[]
   dataTerapeutico:DosajeHemoglobina[]=[]
   dataDocumento:dato=JSON.parse(localStorage.getItem('documento'))
-  anio:number=this.dataDocumento.anio
-  mes:number=this.dataDocumento.mes
-  dia:number=this.dataDocumento.dia
-  documento:dato=JSON.parse(localStorage.getItem('documento'))
-  nroDni=this.documento.nroDocumento
-
+  nroDni=this.dataDocumento.nroDocumento
+  amd:any={
+    anio:this.dataDocumento.anio,
+    mes:this.dataDocumento.mes,
+    dia:this.dataDocumento.dia
+  }
   constructor(private suplementacionesMicronutrientesService:SuplementacionesMicronutrientesService,
               private messageService: MessageService,
               public dialogService: DialogService) {
-    // this.nroMes=this.dataDocumento.anio*12+this.dataDocumento.mes
   }
   get edadMes(){
-    // return this.dataDocumento.anio*12+this.dataDocumento.mes;
-    return 12; //todo descomentar
+    return this.dataDocumento.anio*12+this.dataDocumento.mes;
+    // return 12; //todo para manipula la edad del niño
   }
   ngOnInit(): void {
-
-    this.getDosaje()
-
+    this.getDosajePreventivo()
   }
-  getDosaje(){
+  getDosajePreventivo(){
     this.suplementacionesMicronutrientesService.getDosajeHemoglobina(this.nroDni).subscribe((resp)=>{
       this.dataPreventivo=resp.object
+      console.log('respuesta del servidor->>>>',this.dataPreventivo)
+      this.transform();
+    })
+  }
+  getDosajeTerapeutico(){
+    this.suplementacionesMicronutrientesService.getDosajeHemoglobinaTerapeutico(this.nroDni).subscribe((resp)=>{
+      this.dataTerapeutico=resp.object
       console.log('respuesta del servidor->>>>',this.dataPreventivo)
       this.transform();
     })
@@ -68,7 +72,9 @@ export class ProcedimientoDosajeHemoglobinaComponent implements OnInit {
     const ref = this.dialogService.open(DosajeComponent, {
       data:dosaje,
       header: 'Agregar Dosaje',
-      width: '50%'
+      width: '50%',
+      contentStyle: {"max-height": "500px", "overflow": "auto"},
+      baseZIndex: 10000
     });
     ref.onClose.subscribe((mensaje:string)=>{
       if (mensaje=='agregado'){
@@ -79,8 +85,9 @@ export class ProcedimientoDosajeHemoglobinaComponent implements OnInit {
         });
       }
       console.log('mensaje',mensaje)
-      this.getDosaje();
-    })
+      this.getDosajePreventivo();
+      // this.getDosajeTerapeutico();
+    });
   }
   abrirModalLaboratorio(dosaje){
     // const {edadMes,nroControl}=dosaje

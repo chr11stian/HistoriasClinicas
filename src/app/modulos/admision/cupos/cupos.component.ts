@@ -140,6 +140,7 @@ export class CuposComponent implements OnInit, OnDestroy {
     /**abre el dialog para cupos**/
     openDialogCuposNuevo() {
         this.cuposService.modal1 = this.dialog.open(ModalCuposComponent, {
+            header:'CUPOS',
             width: '1200px',
             modal: true,
             height: '750px',
