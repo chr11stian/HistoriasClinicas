@@ -293,14 +293,23 @@ export class AtenionComponent implements OnInit {
           vacam: this.formActiPreventivas.value.vacam == "SI" ? "VACAM" : '',
           tamizajeSaludMental: this.formActiPreventivas.value.tamizajeSaludMental == "SI" ? "TAMIZAJE" : ''
         }
-      }
+      },
+      // diagnostico:{
+      //   nro: this.da
+      // }
     }
   }
   save() {
     this.recoverData();
     console.log('second data to save ', this.secondDataFUA);
   }
-  changeNgModel() {
-    console.log('dx value ', this.tipeDXIn);
+  changeNgModel(rowData, index) {
+    console.log('dx value ', this.tipeDXIn, 'index ', index, 'lista de dx ', this.listDiagnostico, 'row data ', rowData);
+    // let auxDx: Diagnostico = {
+    //   nro: this.
+    // }
+    // this.listDiagnostico={
+    //   tipo:
+    // }
   }
 }

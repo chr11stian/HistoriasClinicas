@@ -654,12 +654,9 @@
                     <tr>
                         <th rowspan="3">#</th>
                         <th rowspan="3" style="width: 30em; text-align: center;">Descripción</th>
-                        <!-- <th colspan="1"></th> -->
                     </tr>
                     <tr>
-                        <!-- <th colspan="1"></th> -->
                         <th colspan="2" style="text-align: center;">INGRESO</th>
-                        <!-- <th colspan="1"></th> -->
                         <th colspan="2" style="text-align: center;">EGRESOS</th>
                     </tr>
                     <tr>
@@ -675,7 +672,7 @@
                         <td>{{ rowData.diagnosticoHIS }}%</td>
                         <td>
                             <p-selectButton [options]="listDiagnosticoDXIngreso" [(ngModel)]="tipeDXIn"
-                                optionLabel="label" (ngModelChange)="changeNgModel()" optionValue="value">
+                                optionLabel="label" (ngModelChange)="changeNgModel(rowData, i)" optionValue="value">
                             </p-selectButton>
                         </td>
                         <td>{{ rowData.cie10SIS }}</td>
