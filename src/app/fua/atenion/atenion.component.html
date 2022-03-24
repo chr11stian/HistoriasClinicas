@@ -729,5 +729,35 @@
                 </div>
             </form>
         </p-fieldset>
+        <p-fieldset legend="DATOS DEL APODERADO">
+            <div class="grid">
+                <div class="col-2">
+                    <p-fieldset legend="Firma">
+                        <div *ngFor="let item of listFirma">
+                            <div class="grid">
+                                <div class="col-9">
+                                    <span [for]="item.value" class="pr-1">{{ item.name }}</span>
+                                </div>
+                                <div class="col-3">
+                                    <p-radioButton [inputId]="item.value" name="item" [value]="item.value"
+                                        [(ngModel)]="firma">
+                                    </p-radioButton>
+                                </div>
+                            </div>
+                        </div>
+                    </p-fieldset>
+                </div>
+                <div class="col-2">
+                    <span>Apoderado</span>
+                    <input type="text" pInputText [(ngModel)]="nameApoderado" class="p-inputtext inputfield w-full"
+                        placeholder="">
+                </div>
+                <div class="col-2">
+                    <span>DNI o CE del Apoderado</span>
+                    <input type="text" pInputText [(ngModel)]="nroDocApoderado" class="p-inputtext inputfield w-full"
+                        placeholder="">
+                </div>
+            </div>
+        </p-fieldset>
     </div>
 </div>
