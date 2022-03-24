@@ -7,7 +7,7 @@ import {
     SuplementacionesMicronutrientesService
 } from "../../../../../plan/component/plan-atencion-integral/services/suplementaciones-micronutrientes/suplementaciones-micronutrientes.service";
 import {MessageService} from "primeng/api";
-import {SuplementoComponent} from "../suplemento/suplemento.component";
+import {SuplementoComponent} from "../suplemento-modal/suplemento.component";
 import {DialogService} from "primeng/dynamicdialog";
 import {dato} from "../../../../../../models/data";
 

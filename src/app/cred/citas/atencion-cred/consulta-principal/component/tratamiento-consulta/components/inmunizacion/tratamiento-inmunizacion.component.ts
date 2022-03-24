@@ -9,7 +9,7 @@ import {ActivatedRoute} from "@angular/router";
 import {DialogService} from "primeng/dynamicdialog";
 import {
   TratamientoInmunizacionModalComponent
-} from "../tratamiento-inmunizacion-modal/tratamiento-inmunizacion-modal.component";
+} from "../inmunizacion-modal/tratamiento-inmunizacion-modal.component";
 @Component({
   selector: 'app-tratamiento-inmunizacion',
   templateUrl: './tratamiento-inmunizacion.component.html',

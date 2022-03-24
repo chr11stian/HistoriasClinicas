@@ -32,17 +32,17 @@ import {ToggleButtonModule} from "primeng/togglebutton";
 
 import { PautaBreveComponent } from './component/evaluaciones-consulta/components/desarrollo-psicomotor/components/pauta-breve/pauta-breve.component';
 import {TimelineModule} from "primeng/timeline";
-import { SuplementacionCredComponent } from './component/tratamiento-consulta/components/suplementacion-cred/suplementacion-cred.component';
+import { SuplementacionCredComponent } from './component/tratamiento-consulta/components/suplemento/suplementacion-cred.component';
 import { TratamientoCredComponent } from './component/tratamiento-consulta/components/tratamiento-cred/tratamiento-cred.component';
-import { SuplementoComponent } from './component/tratamiento-consulta/components/suplemento/suplemento.component';
+import { SuplementoComponent } from './component/tratamiento-consulta/components/suplemento-modal/suplemento.component';
 import { DialogAddExamenesAuxiliaresComponent } from './component/examenes-auxiliares-consulta/dialog-add-examenes-auxiliares/dialog-add-examenes-auxiliares.component';
 import { DosajeComponent } from './component/evaluaciones-consulta/components/dosaje-modal/dosaje.component';
 //mover al share
 import {ListboxModule} from "primeng/listbox";
 import {MultiSelectModule} from "primeng/multiselect";
 import { ProcedimientoDosajeHemoglobinaComponent } from './component/evaluaciones-consulta/components/dosaje/procedimiento-dosaje-hemoglobina.component';
-import { TratamientoInmunizacionComponent } from './component/tratamiento-consulta/components/tratamiento-inmunizacion/tratamiento-inmunizacion.component';
-import { TratamientoInmunizacionModalComponent } from './component/tratamiento-consulta/components/tratamiento-inmunizacion-modal/tratamiento-inmunizacion-modal.component';
+import { TratamientoInmunizacionComponent } from './component/tratamiento-consulta/components/inmunizacion/tratamiento-inmunizacion.component';
+import { TratamientoInmunizacionModalComponent } from './component/tratamiento-consulta/components/inmunizacion-modal/tratamiento-inmunizacion-modal.component';
 
 import { ProcedimientosConsultaComponent } from './component/procedimientos-consulta/procedimientos-consulta.component';
 import {InputSwitchModule} from "primeng/inputswitch";
