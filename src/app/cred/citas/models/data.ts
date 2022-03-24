@@ -8,7 +8,7 @@ export interface dato {
     anio?: number
     sexo?: string,
     fechaNacimiento?: string,
-
+    see?: boolean
 }
 
 export interface outputTriajeInterface {
@@ -227,4 +227,45 @@ export interface ExamenesAuxiliares {
     tipoExamAux: string;
     subTipo: string;
     nombreExamen: string;
+}
+
+export interface acuerdosInterface {
+    listaAcuerdosConMadre: listaAcuerdosConMadre[];
+    referencia: referencia;
+    proxCita: proxCita;
+    observacionesConsulta: string;
+    interconsultas: proxCita[];
+}
+
+export interface proxCita {
+    fecha: Date | string;
+    motivo?: string;
+    servicio?: string;
+    estado?: string;
+    nivelUrgencia?: string;
+}
+
+export interface listaAcuerdosConMadre {
+    nroAcuerdo: string;
+    descripcion: string;
+    edadMes?: string;
+}
+
+export interface referencia {
+    motivoReferencia?: string;
+    nombreIPRESS?: string;
+    idRef?: string;
+    emitida?: boolean;
+    disa?: string;
+    lote?: string;
+    nroFormato?: string;
+    renipress?: string;
+}
+export interface redInterface {
+    disa: string;
+    idMicroRed: string;
+    idRed: string;
+    nombreDisa: string;
+    nombreMicroRed: string;
+    nombreRed: string;
 }
