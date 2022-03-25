@@ -203,7 +203,64 @@ export class EcografiasComponent implements OnInit {
       this.recuperarEcografiasConcluidos();
     })
   }
+  editarResultadoEco(rowData) {
+    let aux = {
+      //index: index,
+      row: rowData
+    }
+    this.ref = this.dialog.open(EcografiaSolicitudComponent, {
+      header: "EDITAR SOLICITUD DE ECOGRAFIA",
+      contentStyle: {
+        heigth: "700px",
+        width: "980px",
+        overflow: "auto",
+      },
+      data: aux
+    })
+    this.ref.onClose.subscribe((data: any) => {
+      console.log("data de modal eco", data)
+      this.recuperarEcografiasPendientes();
+    })
+  }
+  eliminarResutadoEcografia(index) {
+    let data = {
+      codigoHIS: index
+    }
+    Swal.fire({
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      icon: 'warning',
+      title: 'Estas seguro de eliminar este registro?',
+      text: '',
+      showConfirmButton: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let aux = {
+          id: this.idConsulta,
+          nroHcl: this.nroHcl,
+          nroEmbarazo: this.nroEmbarazo,
+          nroAtencion: this.nroAtencion
+        }
+        this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
+          this.nroConsultaGuardada = res.object.id;
+          this.DxService.eliminarSolicitudEcografiasGestante(this.nroConsultaGuardada, data).subscribe(
+            (resp) => {
+              this.recuperarEcografiasPendientes();
+              Swal.fire({
+                icon: 'success',
+                title: 'Eliminado correctamente',
+                text: '',
+                showConfirmButton: false,
+                timer: 1500
+              })
+            }
+          );
+        })
+      }
+    })
 
+
+  }
   ngOnInit(): void {
     this.recuperarEcografiasPendientes();
     this.recuperarEcografiasConcluidos();

@@ -235,7 +235,7 @@ export class PersonalSaludComponent implements OnInit {
                 console.log('ups-->', this.listaUpsX)
             });
     }
-    buscarNombre(id){
+    buscarNombre(id) {
         return this.listaUpsX.find(elemento => elemento.id == id).nombreUPS;
     }
     saveForm() {
@@ -272,12 +272,11 @@ export class PersonalSaludComponent implements OnInit {
                 esProfesional: tipoPersonalSelected.esProfesional,
                 abreviatura: tipoPersonalSelected.abreviatura,
             },
-            colegioProfesional: [
-                {
-                    codigo: colegioSelected.codigo,
-                    nombre: colegioSelected.nombre,
-                },
-            ],
+            colegioProfesional:
+            {
+                codigo: colegioSelected.codigo,
+                nombre: colegioSelected.nombre,
+            },
             colegiatura: this.form.value.colegiatura,
             estado: this.form.value.estado,
             detalleIpress: {
@@ -348,7 +347,7 @@ export class PersonalSaludComponent implements OnInit {
         this.form.get("nombres").setValue(rowData.primerNombre + " " + rowData.otrosNombres);
         this.form.get("fechaNacimiento").setValue(rowData.fechaNacimiento);
         this.form.get("tipoPersonal").setValue(rowData.tipoPersonal ? rowData.tipoPersonal.nombre : "");
-        this.form.get("colegioProfesional").setValue(rowData.colegioProfesional ? rowData.colegioProfesional[0].codigo : "");
+        this.form.get("colegioProfesional").setValue(rowData.colegioProfesional ? rowData.colegioProfesional.codigo : "");
         this.form.get("colegiatura").setValue(rowData.colegiatura);
         this.form.get("estado").setValue(rowData.estado);
         this.form.get("contratoAbreviatura").setValue(rowData.contratoAbreviatura);
@@ -400,12 +399,11 @@ export class PersonalSaludComponent implements OnInit {
                 esProfesional: tipoPersonalSelected.esProfesional,
                 abreviatura: tipoPersonalSelected.abreviatura,
             },
-            colegioProfesional: [
-                {
-                    codigo: colegioSelected.codigo,
-                    nombre: colegioSelected.nombre,
-                },
-            ],
+            colegioProfesional:
+            {
+                codigo: colegioSelected.codigo,
+                nombre: colegioSelected.nombre,
+            },
             colegiatura: this.form.value.colegiatura,
             estado: this.form.value.estado,
             detalleIpress: {
@@ -523,7 +521,7 @@ export class PersonalSaludComponent implements OnInit {
 
     newRolX(rowData) {
         //if (rowData.roles !== null) {
-            this.rolesX = rowData.roles;
+        this.rolesX = rowData.roles;
         //}
         console.log(this.rolesX);
         this.nombrePersonal = `${rowData.apePaterno} ${rowData.apeMaterno}, ${rowData.primerNombre}`;
@@ -662,7 +660,7 @@ export class PersonalSaludComponent implements OnInit {
 
     saveRol() {
         var isRepeat;
-        if (this.rolesX==null) this.rolesX=[];
+        if (this.rolesX == null) this.rolesX = [];
         if (this.rolesX.length !== 0)
             isRepeat = this.rolesX.find((rol) => rol.codUPS === this.formRol.value.ups) ? true : false;
         if (!isRepeat) {

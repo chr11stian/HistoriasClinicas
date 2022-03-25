@@ -223,6 +223,8 @@ export class EcografiaSolicitudComponent implements OnInit {
       codPrestacion: this.formEcografiaSolicitud.value.diagnostico.codPrestacion,
       codigoSIS: this.formEcografiaSolicitud.value.SISCIE.codigo,
       nombreExamenSIS: this.formEcografiaSolicitud.value.diagnosticoSIS,
+      codigoHIS: this.formEcografiaSolicitud.getRawValue().HISCIE.codigoItem,
+      nombreExamen: this.formEcografiaSolicitud.getRawValue().diagnosticoHIS,
       nombreUPS: this.formEcografiaSolicitud.value.ups,
       nombreUPSaux: this.formEcografiaSolicitud.value.subtitulo,
       tipoDX: this.formEcografiaSolicitud.value.tipo,
