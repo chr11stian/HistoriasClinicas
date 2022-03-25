@@ -25,6 +25,7 @@ p-panel >>> .p-panel .p-panel-header {
     background: #0c3866;
     border: 1px solid #0c3866;
     color: #FFFFFF;
+    height: 35px;
 }
 
 p-panel >>> .p-panel .p-panel-content {
@@ -40,4 +41,68 @@ p-toast >>> .p-toast .p-toast-message.p-toast-message-warn {
     border: solid rgb(217 163 0);
     border-width: 0 0 0 6px;
     color: rgb(109 81 0);
+}
+
+
+.horasrx >>> .p-datatable .p-datatable-tbody > tr > td {
+    text-align: left;
+    border: 1px solid #e9ecef;
+    border-width: 0 0 1px 0;
+    padding: 0.2rem 1rem;
+}
+
+::ng-deep.p-dialog .p-dialog-header {
+    border-bottom: 0 none;
+    background: #0c3866;
+    color: #ffffff;
+    height: 40px;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+}
+
+::ng-deep >>> .p-dialog .p-dialog-header .p-dialog-header-icon {
+    width: 2rem;
+    height: 2rem;
+    color: #f8f9fa;
+    border: 0 none;
+    background: transparent;
+    border-radius: 50%;
+    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+    margin-right: 0.5rem;
+}
+
+
+::ng-deep >>> .p-dialog .p-dialog-header .p-dialog-title {
+    font-size: 12px;
+    text-align: center;
+}
+
+.footer {
+    text-align: right;
+    background: transparent;
+    position: absolute;
+    bottom: 0;
+    width: 97%;
+    height: 5em;
+    color: white;
+    bottom: 0;
+    z-index: 50;
+}
+
+.border2 {
+    border: 1px solid #d0d1d2;
+    border-radius: 10px;
+    background: #f8f9fa;
+}
+
+.border {
+    border: 1px solid #2570c4;
+    border-radius: 10px;
+}
+
+label {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    /*font-weight: bold;*/
+    color: rgb(135 135 135);
+    font-size: 11px;
 }

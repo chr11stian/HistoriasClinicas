@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
 import { MessageService } from "primeng/api";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
+import { ImcService } from "src/app/obstetricia-general/services/imc.service";
 import { ObstetriciaGeneralService } from "src/app/obstetricia-general/services/obstetricia-general.service";
 import { ConsultasService } from "../../services/consultas.service";
 
@@ -48,6 +49,11 @@ export class InterrogatorioComponent implements OnInit {
     { name: "Conservado" },
     { name: "Alterado" }
   ];
+  listaIndicadores = [
+    { name: "GANANCIA INADECUADA DE PESO", code: "GIP" },
+    { name: "GANANCIA ADECUADA DE PESO", code: "GAP" },
+    { name: "GANANCIA ELEVADA DE PESO", code: "GEP" },
+  ];
   interrogatorioData: any;
   ref: DynamicDialogRef;
   fetalesExamDialog: boolean = false;
@@ -71,7 +77,9 @@ export class InterrogatorioComponent implements OnInit {
   estadoEdicion: Boolean;
 
   nroAtencion: any;
+  nroFetos: any;
 
+  estadoEditar: boolean;
   constructor(
     private fb: FormBuilder,
     public dialog: DialogService,
@@ -79,6 +87,7 @@ export class InterrogatorioComponent implements OnInit {
     private messageService: MessageService,
     private obstetriciaService: ObstetriciaGeneralService,
     private router: Router,
+    private imcService: ImcService
   ) {
     this.inicializarForm();
 
@@ -110,6 +119,7 @@ export class InterrogatorioComponent implements OnInit {
       this.nroEmbarazo = this.Gestacion.nroEmbarazo;
       this.nroHcl = this.Gestacion.nroHcl;
     }
+    this.estadoEditar = JSON.parse(localStorage.getItem('consultaEditarEstado'));
     if (!this.estadoEdicion) {
       //guardar en el ls el nroAtencion
       let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaNueva'));
@@ -138,6 +148,7 @@ export class InterrogatorioComponent implements OnInit {
     console.log("Nro de embarazo desde interrogatorio", this.nroEmbarazo);
     console.log("Id Consultorio Obstetrico desde interrogatorio", this.idConsulta);
     this.loadData();
+
   }
 
   async getUltimaConsulta() {
@@ -149,12 +160,215 @@ export class InterrogatorioComponent implements OnInit {
     console.log('object data ', idData);
     const response: any = await this.consultaObstetricaService.getLastConsulById(idData);
     this.ultimaConsulta = response.object;
+    this.nroFetos = this.ultimaConsulta.nroFetos;
     console.log('ultima consulta', this.ultimaConsulta);
     this.form.get("imc").setValue(this.ultimaConsulta.imc);
+    this.form.get("pesoHabitual").setValue(this.ultimaConsulta.pesoHabitual);
+    if (!this.estadoEditar) {
+      this.calcularEdadGestacional(this.ultimaConsulta.fum);
+      this.calcularGanancia();
 
-    
+      //funciones biologicas
+      this.form.patchValue({ apetito: this.ultimaConsulta.funcionesBiologicas[0].valor });
+      this.form.patchValue({ sed: this.ultimaConsulta.funcionesBiologicas[1].valor });
+      this.form.patchValue({ suenos: this.ultimaConsulta.funcionesBiologicas[2].valor });
+      this.form.patchValue({ estadoAnimo: this.ultimaConsulta.funcionesBiologicas[3].valor });
+      this.form.patchValue({ orina: this.ultimaConsulta.funcionesBiologicas[4].valor });
+      this.form.patchValue({ deposiciones: this.ultimaConsulta.funcionesBiologicas[5].valor });
+
+      this.form.patchValue({ apetitoDetalle: this.ultimaConsulta.funcionesBiologicas[0].detalle });
+      this.form.patchValue({ sedDetalle: this.ultimaConsulta.funcionesBiologicas[1].detalle });
+      this.form.patchValue({ suenosDetalle: this.ultimaConsulta.funcionesBiologicas[2].detalle });
+      this.form.patchValue({ estadoAnimoDetalle: this.ultimaConsulta.funcionesBiologicas[3].detalle });
+      this.form.patchValue({ orinaDetalle: this.ultimaConsulta.funcionesBiologicas[4].detalle });
+      this.form.patchValue({ deposicionesDetalle: this.ultimaConsulta.funcionesBiologicas[5].detalle });
+
+      //examenes fisicos
+      this.form.patchValue({ piel: this.ultimaConsulta.examenesFisicos[0].valor });
+      this.form.patchValue({ mucosas: this.ultimaConsulta.examenesFisicos[1].valor });
+      this.form.patchValue({ cabeza: this.ultimaConsulta.examenesFisicos[2].valor });
+      this.form.patchValue({ cuello: this.ultimaConsulta.examenesFisicos[3].valor });
+      this.form.patchValue({ cardioVasc: this.ultimaConsulta.examenesFisicos[4].valor });
+      this.form.patchValue({ pulmones: this.ultimaConsulta.examenesFisicos[5].valor });
+      this.form.patchValue({ mamas: this.ultimaConsulta.examenesFisicos[6].valor });
+      this.form.patchValue({ pezones: this.ultimaConsulta.examenesFisicos[7].valor });
+      this.form.patchValue({ abdomen: this.ultimaConsulta.examenesFisicos[8].valor });
+
+      this.form.patchValue({ pielDetalle: this.ultimaConsulta.examenesFisicos[0].detalle });
+      this.form.patchValue({ mucosasDetalle: this.ultimaConsulta.examenesFisicos[1].detalle });
+      this.form.patchValue({ cabezaDetalle: this.ultimaConsulta.examenesFisicos[2].detalle });
+      this.form.patchValue({ cuelloDetalle: this.ultimaConsulta.examenesFisicos[3].detalle });
+      this.form.patchValue({ cardioVascDetalle: this.ultimaConsulta.examenesFisicos[4].detalle });
+      this.form.patchValue({ pulmonesDetalle: this.ultimaConsulta.examenesFisicos[5].detalle });
+      this.form.patchValue({ mamasDetalle: this.ultimaConsulta.examenesFisicos[6].detalle });
+      this.form.patchValue({ pezonesDetalle: this.ultimaConsulta.examenesFisicos[7].detalle });
+      this.form.patchValue({ abdomenDetalle: this.ultimaConsulta.examenesFisicos[8].detalle });
+      if (this.ultimaConsulta.examenesFisicos.length > 9) {
+        this.form.patchValue({ examenFisicoOtro: this.ultimaConsulta.examenesFisicos[9].valor });
+      }
+    }
+
+
   }
 
+  calcularEdadGestacional(fum) {
+    if (fum) {
+      let today = new Date().getTime();
+      let auxFUM = new Date(fum).getTime();
+      auxFUM = auxFUM + 0;
+      let auxWeek = today - auxFUM;
+      let edadGestacional = Math.trunc(auxWeek / (1000 * 60 * 60 * 24));
+
+      this.form.get("semanas").setValue(Math.trunc(edadGestacional / 7));
+      this.form.get("dias").setValue(edadGestacional % 7);
+      console.log('edad gestacional ', edadGestacional);
+    }
+  }
+  calcularGanancia() {
+    let gananciaPeso = Math.round(((this.form.value.peso - this.form.value.pesoHabitual) + Number.EPSILON) * 100) / 100;
+    console.log("ganancia de peso", gananciaPeso);
+    let imc = this.form.value.imc;
+    let indicador = "";
+    let semanas = this.form.value.semanas;
+    this.form.get("evalNutricionalValor").setValue(gananciaPeso);
+    if (parseFloat(imc) < 18.5) {//bajo peso
+      this.imcService.getGananciaBajoPeso(semanas).subscribe((res: any) => {
+        console.log('datos ', res.object);
+        let auxiliar = res.object.recomendacionGananciaBajoPeso[0]
+
+        if (parseFloat(this.form.value.talla) < 157) {
+          if (gananciaPeso < auxiliar.min) {
+            indicador = "GIP"
+          }
+          else {
+            (gananciaPeso > auxiliar.min && gananciaPeso < res.object.med) ? indicador = "GAP" : indicador = "GEP"
+          }
+        }
+        else {
+          if (gananciaPeso < auxiliar.med) {
+            indicador = "GIP"
+          }
+          else {
+            (gananciaPeso > auxiliar.med && gananciaPeso < auxiliar.max) ? indicador = "GAP" : indicador = "GEP"
+          }
+        }
+        this.form.get("evalNutricionalIndicador").setValue(indicador);
+      });
+    }
+    else {
+      if (parseFloat(imc) < 25) {//normal
+        this.imcService.getGananciaPesoRegular(semanas).subscribe((res: any) => {
+          let auxiliar = res.object.recomendacionGananciaPesoRegular[0];
+          console.log('datos ', auxiliar);
+          if (this.nroFetos < 2) {
+            if (parseFloat(this.form.value.talla) < 157) {
+              if (gananciaPeso < auxiliar.min) {
+                indicador = "GIP"
+              }
+              else {
+                (gananciaPeso > auxiliar.min && gananciaPeso < auxiliar.med) ? indicador = "GAP" : indicador = "GEP"
+              }
+            }
+            else {
+              if (gananciaPeso < auxiliar.med) {
+                indicador = "GIP"
+              }
+              else {
+                (gananciaPeso > auxiliar.med && gananciaPeso < auxiliar.max) ? indicador = "GAP" : indicador = "GEP"
+              }
+            }
+          }
+          else {
+            if (parseFloat(this.form.value.talla) < 157) {
+              if (gananciaPeso < auxiliar.minMult) {
+                indicador = "GIP"
+              }
+              else {
+                (gananciaPeso > auxiliar.minMult && gananciaPeso < auxiliar.medMult) ? indicador = "GAP" : indicador = "GEP"
+              }
+            }
+            else {
+              if (gananciaPeso < auxiliar.medMult) {
+                indicador = "GIP"
+              }
+              else {
+                (gananciaPeso > auxiliar.medMult && gananciaPeso < auxiliar.maxMult) ? indicador = "GAP" : indicador = "GEP"
+              }
+            }
+          }
+          this.form.get("evalNutricionalIndicador").setValue(indicador);
+        });
+      }
+      else {
+        if (parseFloat(imc) < 30) {//sobrepeso
+          this.imcService.getGananciaSobrePeso(semanas).subscribe((res: any) => {
+            let auxiliar = res.object.recomendacionGananciaSobrePeso[0];
+            console.log('datos ', res.object);
+            if (parseFloat(this.form.value.talla) < 157) {
+              if (gananciaPeso < auxiliar.min) {
+                indicador = "GIP"
+              }
+              else {
+                (gananciaPeso > auxiliar.min && gananciaPeso < res.auxiliar.med) ? indicador = "GAP" : indicador = "GEP"
+              }
+            }
+            else {
+              if (gananciaPeso < auxiliar.med) {
+                indicador = "GIP"
+              }
+              else {
+                (gananciaPeso > auxiliar.med && gananciaPeso < auxiliar.max) ? indicador = "GAP" : indicador = "GEP"
+              }
+            }
+            this.form.get("evalNutricionalIndicador").setValue(indicador);
+          });
+        }
+        else {//obesidad
+          this.imcService.getGananciaObesa(semanas).subscribe((res: any) => {
+            console.log('datos ', res.object);
+            let auxiliar = res.object.recomendacionGananciaObesa[0];
+            if (this.nroFetos < 2) {
+              if (parseFloat(this.form.value.talla) < 157) {
+                if (gananciaPeso < auxiliar.min) {
+                  indicador = "GIP"
+                }
+                else {
+                  (gananciaPeso > auxiliar.min && gananciaPeso < auxiliar.med) ? indicador = "GAP" : indicador = "GEP"
+                }
+              }
+              else {
+                if (gananciaPeso < auxiliar.med) {
+                  indicador = "GIP"
+                }
+                else {
+                  (gananciaPeso > auxiliar.med && gananciaPeso < auxiliar.max) ? indicador = "GAP" : indicador = "GEP"
+                }
+              }
+            }
+            else {
+              if (parseFloat(this.form.value.talla) < 157) {
+                if (gananciaPeso < auxiliar.minMult) {
+                  indicador = "GIP"
+                }
+                else {
+                  (gananciaPeso > auxiliar.minMult && gananciaPeso < auxiliar.medMult) ? indicador = "GAP" : indicador = "GEP"
+                }
+              }
+              else {
+                if (gananciaPeso < auxiliar.medMult) {
+                  indicador = "GIP"
+                }
+                else {
+                  (gananciaPeso > auxiliar.medMult && gananciaPeso < auxiliar.maxMult) ? indicador = "GAP" : indicador = "GEP"
+                }
+              }
+            }
+            this.form.get("evalNutricionalIndicador").setValue(indicador);
+          });
+        }
+      }
+    }
+  }
   inicializarForm() {
     this.form = this.fb.group({
       temperatura: new FormControl(""),
@@ -165,6 +379,10 @@ export class InterrogatorioComponent implements OnInit {
       peso: new FormControl(""),
       talla: new FormControl(""),
       imc: new FormControl(""),
+
+      evalNutricionalValor: new FormControl(""),
+      evalNutricionalIndicador: new FormControl(""),
+      pesoHabitual: new FormControl(""),
 
       apetito: new FormControl(""),
       sed: new FormControl(""),
@@ -262,7 +480,7 @@ export class InterrogatorioComponent implements OnInit {
     this.interrogatorioData = {
       nroHcl: this.nroHcl,
       nroAtencion: this.nroAtencion,
-      nroControlSis: this.ultimaConsulta.nroMayorControlSis,
+      nroControlSis: this.nroAtencion,
       nroEmbarazo: this.nroEmbarazo,
       tipoDoc: this.tipoDocRecuperado,
       nroDoc: this.nroDocRecuperado,
@@ -278,12 +496,12 @@ export class InterrogatorioComponent implements OnInit {
         perimetroCefalico: null,
       },
       funcionesBiologicas: [
-        { funcion: 'Apetito', valor: this.form.value.apetito, detalle: this.form.value.apetitoDetalle },
-        { funcion: 'Sed', valor: this.form.value.sed, detalle: this.form.value.sedDetalle },
-        { funcion: 'Sueños', valor: this.form.value.suenos, detalle: this.form.value.suenosDetalle },
-        { funcion: 'Estado Animo', valor: this.form.value.estadoAnimo, detalle: this.form.value.estadoAnimoDetalle },
-        { funcion: 'Orina', valor: this.form.value.orina, detalle: this.form.value.orinaDetalle },
-        { funcion: 'Deposiciones', valor: this.form.value.deposiciones, detalle: this.form.value.deposicionesDetalle },
+        { funcion: 'APETITO', valor: this.form.value.apetito, detalle: this.form.value.apetitoDetalle },
+        { funcion: 'SED', valor: this.form.value.sed, detalle: this.form.value.sedDetalle },
+        { funcion: 'SUEÑOS', valor: this.form.value.suenos, detalle: this.form.value.suenosDetalle },
+        { funcion: 'ESTADO ANIMO', valor: this.form.value.estadoAnimo, detalle: this.form.value.estadoAnimoDetalle },
+        { funcion: 'ORINA', valor: this.form.value.orina, detalle: this.form.value.orinaDetalle },
+        { funcion: 'DEPOSICIONES', valor: this.form.value.deposiciones, detalle: this.form.value.deposicionesDetalle },
       ],
       anamnesis: this.form.value.anamnesis,
       motivoConsulta: this.form.value.motivoConsulta,
@@ -308,7 +526,10 @@ export class InterrogatorioComponent implements OnInit {
         dias: this.form.value.dias,
       },
       examenesFetos: this.listaExamenesFetos,
-
+      evaluacionNutricional: {
+        valor: this.form.value.evalNutricionalValor,
+        indicador: this.form.value.evalNutricionalIndicador
+      },
     }
 
     // FIN RECUPERAR DATOS
@@ -316,8 +537,7 @@ export class InterrogatorioComponent implements OnInit {
 
   guardarDatos() {
     this.recuperarDatos();
-    let auxNroFetos = this.interrogatorioData.examenesFetos.length;
-    this.consultaObstetricaService.updateConsultas(auxNroFetos, this.interrogatorioData).subscribe((res: any) => {
+    this.consultaObstetricaService.updateConsultas(this.nroFetos, this.interrogatorioData).subscribe((res: any) => {
       this.messageService.add({
         severity: "success",
         summary: "Exito",
@@ -396,6 +616,10 @@ export class InterrogatorioComponent implements OnInit {
       this.form.patchValue({ peso: Rpta.signosVitales.peso });
       this.form.patchValue({ talla: Rpta.signosVitales.talla });
       this.form.patchValue({ imc: Rpta.signosVitales.imc });
+
+      this.form.patchValue({ evalNutricionalValor: Rpta.evaluacionNutricional.valor });
+      this.form.patchValue({ evalNutricionalIndicador: Rpta.evaluacionNutricional.indicador });
+
       //funciones biologicas
       this.form.patchValue({ apetito: Rpta.funcionesBiologicas[0].valor });
       this.form.patchValue({ sed: Rpta.funcionesBiologicas[1].valor });
@@ -486,31 +710,6 @@ export class InterrogatorioComponent implements OnInit {
     this.listaOtrosPruebasFisicas.splice(index, 1);
   }
 
-  calcularEdadGestacional() {
-    // let auxFUM: any = new DatePipe('en-CO').transform(this.form.value.dateFUM, 'yyyy/MM/dd')   + (3600000 * 5)
-    let pesoActual = this.form.value.pesoHabitual;
-    let altura = this.form.value.talla;
-
-    let today = new Date().getTime();
-    let auxFUM = new Date(this.form.value.dateFUM).getTime();
-    auxFUM = auxFUM + 0;
-    console.log('auxFUM ', auxFUM, 'today ', today);
-    let auxWeek = today - auxFUM;
-    console.log('fecha actual ', auxWeek);
-    if (auxWeek < 0) {
-      this.messageService.add({
-        severity: "warn",
-        summary: "Alerta",
-        detail: 'La fecha de FUM es incorrecta'
-      });
-      this.form.patchValue({ dateFUM: '' });
-      return;
-    }
-
-    this.edadGestacional = auxWeek / (1000 * 60 * 60 * 24);
-    let semanasGetacional = Math.trunc(this.edadGestacional / 7);
-    let diasGestacional = Math.trunc(this.edadGestacional % 7);
-  }
 }
 
 export interface ultimaConsulta {
@@ -525,5 +724,8 @@ export interface ultimaConsulta {
   nroHcl?: string,
   pesoHabitual?: number,
   fum?: string,
-  imc?: string
+  imc?: string,
+  nroFetos?: string,
+  funcionesBiologicas?: any[],
+  examenesFisicos?: any[],
 }

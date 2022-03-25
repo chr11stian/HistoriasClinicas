@@ -8,7 +8,7 @@ export interface dato {
     anio?: number
     sexo?: string,
     fechaNacimiento?: string,
-
+    see?: boolean
 }
 
 export interface outputTriajeInterface {
@@ -184,3 +184,88 @@ export interface antecedentesFamiliares {
     edadDia: number,
 }
 
+export interface ReferenciaInterface {
+    fecha: Date | string;
+    tipoSubsidio: string;
+    coordinacion: Coordinacion;
+}
+
+export interface Coordinacion {
+    fechaAtendera: Date | string;
+    horaAtendera: string;
+    personalAtendera: Personal;
+    personalCoordino: Personal;
+    tipoReferencia: string;
+    especialidad: string;
+    condicionPacienteSalida: string;
+    motivo: string;
+    examenesAuxiliares: ExamenesAuxiliares[];
+}
+
+export interface Personal {
+    tipoDoc?: string;
+    nroDoc?: string;
+    profesion?: string;
+    colegiatura?: string;
+    primerNombre?: string;
+    otrosNombres?: string;
+    apePaterno?: string;
+    apeMaterno?: string;
+}
+
+export interface laboratorio {
+    datosLaboratorio: datosLaboratorio
+}
+
+export interface datosLaboratorio {
+    tipoLaboratorio: string,
+    subTipo: string,
+    nombreExamen: string
+}
+
+export interface ExamenesAuxiliares {
+    tipoExamAux: string;
+    subTipo: string;
+    nombreExamen: string;
+}
+
+export interface acuerdosInterface {
+    listaAcuerdosConMadre: listaAcuerdosConMadre[];
+    referencia: referencia;
+    proxCita: proxCita;
+    observacionesConsulta: string;
+    interconsultas: proxCita[];
+}
+
+export interface proxCita {
+    fecha: Date | string;
+    motivo?: string;
+    servicio?: string;
+    estado?: string;
+    nivelUrgencia?: string;
+}
+
+export interface listaAcuerdosConMadre {
+    nroAcuerdo: string;
+    descripcion: string;
+    edadMes?: string;
+}
+
+export interface referencia {
+    motivoReferencia?: string;
+    nombreIPRESS?: string;
+    idRef?: string;
+    emitida?: boolean;
+    disa?: string;
+    lote?: string;
+    nroFormato?: string;
+    renipress?: string;
+}
+export interface redInterface {
+    disa: string;
+    idMicroRed: string;
+    idRed: string;
+    nombreDisa: string;
+    nombreMicroRed: string;
+    nombreRed: string;
+}

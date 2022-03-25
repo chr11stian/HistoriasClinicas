@@ -16,7 +16,7 @@
         <div class="grid">
             <div class="col-12">
 
-                <p-table [value]="consultas" responsiveLayout="scroll" styleClass="p-datatable-gridlines" [rows]="5"
+                <p-table [value]="consultas" responsiveLayout="scroll" styleClass="p-datatable-sm" [rows]="10"
                     [paginator]="true" [autoLayout]="true"
                     currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
                     [showCurrentPageReport]="true">
@@ -24,6 +24,7 @@
                         <tr>
                             <th class="text-center">Nro</th>
                             <th class="text-center">DNI</th>
+                            <th class="text-center">PACIENTE</th>
                             <th class="text-center">FECHA</th>
                             <th class="text-center">NRO ATENCION</th>
                             <th class="text-center">ACCIONES</th>
@@ -33,11 +34,12 @@
                         <tr>
                             <td class="text-center">{{i+1}}</td>
                             <td class="text-center">{{row.nroDoc}}</td>
+                            <td class="text-center">{{row.datosPaciente.primerNombre+" "+row.datosPaciente.apePaterno+" "+row.datosPaciente.apeMaterno}}</td>
                             <td class="text-center">{{row.fecha}}</td>
                             <td class="text-center">{{row.nroAtencion}}</td>
                             <td class="text-center">
                                 <button pButton pTooltip="Editar" icon="pi pi-pencil" pRipple type="button"
-                                    label="Editar" class="p-button-rounded p-button-info" (click)="irConsultaVisualizar(row.nroAtencion,true)"
+                                    label="Editar" class="p-button-rounded p-button-warm" (click)="irConsultaVisualizar(row,true)"
                                 ></button>
                             </td>
                         </tr>

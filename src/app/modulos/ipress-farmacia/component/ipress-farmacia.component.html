@@ -23,11 +23,12 @@
     </p-toolbar>
     <div class="card">
         <p-table #dt1 [value]="items" selectionMode="single" [(selection)]="selectedCustomer1" dataKey="id" styleClass="p-datatable-customers" responsiveLayout="scroll"
-                 [rows]="10" [paginator]="true" stateStorage="session" stateKey="statedemo-session">
+                 [rows]="7" [paginator]="true"  [rowsPerPageOptions]="[7, 15 ,25 , 50,]" stateStorage="session" stateKey="statedemo-session">
             <ng-template pTemplate="header">
                 <tr>
                     <th pSortableColumn="medicamento.nombre">Nombre <p-sortIcon field="medicamento.nombre"></p-sortIcon></th>
-                    <th pSortableColumn="medicamento.ff">Presentación <p-sortIcon field="medicamento.ff"></p-sortIcon></th>
+                    <th pSortableColumn="medicamento.nombre">Nombre Comercial<p-sortIcon field="medicamento.nombreComercial"></p-sortIcon></th>
+                    <th pSortableColumn="medicamento.ff">Forma Farmaceútica <p-sortIcon field="medicamento.ff"></p-sortIcon></th>
                     <th pSortableColumn="medicamento.concentracion">Concentración <p-sortIcon field="medicamento.concentracion"></p-sortIcon></th>
                     <th pSortableColumn="medicamento.viaAdministracion">Via de Administracion <p-sortIcon field="medicamento.viaAdministracion"></p-sortIcon></th>
                     <th pSortableColumn="stock">Stock <p-sortIcon field="stock"></p-sortIcon></th>
@@ -38,6 +39,9 @@
                 <tr>
                     <th>
                         <input pInputText type="text" (input)="dt1.filter($event.target.value, 'medicamento.nombre', 'contains')" [value]="dt1.filters['medicamento.nombre']?.value" placeholder="Buscar por nombre" class="p-column-filter">
+                    </th>
+                    <th>
+                        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'medicamento.nombreComercial', 'contains')" [value]="dt1.filters['medicamento.nombreComercial']?.value" placeholder="Buscar por nombre comercial" class="p-column-filter">
                     </th>
                     <th>
                         <input pInputText type="text" (input)="dt1.filter($event.target.value, 'medicamento.ff', 'contains')" [value]="dt1.filters['medicamento.ff']?.value" placeholder="Buscar por presentación" class="p-column-filter">
@@ -65,6 +69,10 @@
                     <td>
                         <span class="p-column-title">Nombre</span>
                         {{farmaciaMedicamento.medicamento.nombre}}
+                    </td>
+                    <td>
+                        <span class="p-column-title">Nombre</span>
+                        {{farmaciaMedicamento.medicamento.nombreComercial}}
                     </td>
                     <td>
                         <span class="p-column-title">Name</span>
@@ -135,12 +143,17 @@
                        style="text-transform:uppercase">
             </div>
             <div class="col-6">
-                <label class="">Nombre: </label>
+                <label class="">Nombre Comercial: </label>
+                <input type="text" pInputText class="inputfield w-full " formControlName="nombreComercial"
+                       style="text-transform:uppercase">
+            </div>
+            <div class="col-12">
+                <label class="">Nombre del Medicamento: </label>
                 <input type="text" pInputText class="inputfield w-full " formControlName="nombre"
                        style="text-transform:uppercase">
             </div>
             <div class="col-6">
-                <label class="">Presentación: </label>
+                <label class="">Forma farmaceútica: </label>
                 <input type="text" pInputText class="inputfield w-full " formControlName="ff"
                        style="text-transform:uppercase">
             </div>

@@ -15,18 +15,26 @@ export class ModalMedicamentosComponent implements OnInit {
   dataMedicamentos:medicamentos[]=[];
   dataPipe = new DatePipe('en-US');
   viaadministracionList:viaAdministracion[]=[];
+  isUpdate:boolean=false;
   constructor(private form:FormBuilder,
               private ref:DynamicDialogRef,
               private config:DynamicDialogConfig) {
-    console.log(config.data);
     this.buildForm();
-    if(config.data){
+    if(this.config.data){
+      console.log(this.config.data);
+      this.isUpdate=this.config.data.isUpdate;
       this.llenarCamposMedicamentos();
     }
+
+
     this.viaadministracionList = [{label: 'ENDOVENOSA', value: 'ENDOVENOSA'},
       {label: 'INHALADORA', value: 'INHALADORA'},
       {label: 'INTRADERMICO', value: 'INTRADERMICO'},
+      {label: 'INTRAPERITONEAL', value: 'INTRAPERITONEAL'},
       {label: 'INTRAMUSCULAR', value: 'INTRAMUSCULAR'},
+      {label: 'INTRATECAL O ESPINAL', value: 'INTRATECAL O ESPINAL'},
+      {label: 'ANESTECIA DENTAL', value: 'ANESTECIA DENTAL'},
+      {label: 'ENDOTRAQUEAL', value: 'ENDOTRAQUEAL'},
       {label: 'NASAL', value: 'NASAL'},
       {label: 'OFTALMICO', value: 'OFTALMICO'},
       {label: 'ORAL', value: 'ORAL'},
@@ -46,6 +54,7 @@ export class ModalMedicamentosComponent implements OnInit {
       viaAdministracion: new FormControl("", [Validators.required]),
       ff: new FormControl("", [Validators.required]),
       concentracion: new FormControl("", [Validators.required]),
+      nombreComercial:new FormControl("",[Validators.required]),
     })
   }
   openNew(){
@@ -72,6 +81,7 @@ export class ModalMedicamentosComponent implements OnInit {
       ff:this.formMedicamento.value.ff,
       concentracion:this.formMedicamento.value.concentracion,
       viaAdministracion:this.formMedicamento.value.viaAdministracion,
+      nombreComercial:this.formMedicamento.value.nombreComercial
     }
     console.log(medicamentos);
     this.dataMedicamentos.push(medicamentos);
@@ -85,6 +95,7 @@ export class ModalMedicamentosComponent implements OnInit {
     this.formMedicamento.get("ff").setValue(configuracion.ff);
     this.formMedicamento.get("concentracion").setValue(configuracion.concentracion);
     this.formMedicamento.get("viaAdministracion").setValue(configuracion.viaAdministracion);
+    this.formMedicamento.get("nombreComercial").setValue(configuracion.nombreComercial);
   }
   closeDialogGuardar() {
     this.enviarMedicamentos();
@@ -100,6 +111,7 @@ export class ModalMedicamentosComponent implements OnInit {
     this.ref.close();
   }
   ngOnInit(): void {
+
   }
 
 }
@@ -109,7 +121,8 @@ interface medicamentos{
   nombre?:string,
   ff?:string,
   concentracion?:string,
-  viaAdministracion?:string
+  viaAdministracion?:string,
+  nombreComercial?:string
 }
 
 interface viaAdministracion{

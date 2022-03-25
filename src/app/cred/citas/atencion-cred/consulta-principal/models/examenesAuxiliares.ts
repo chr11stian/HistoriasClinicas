@@ -5,7 +5,7 @@ export interface Laboratorio {
     examenesAuxiliares?: ExamenAuxiliar[],
     observaciones: string
 }
-export interface Laboratorio {
+export interface AddLaboratorio {
     servicio: string,
     nroCama: string,
     dxPresuntivo: string,
@@ -20,6 +20,7 @@ export interface ExamenAuxiliar {
     codPrestacion: string,
     cie10: string,
     codigoHIS: string,
+    lugarExamen: string,
     resultado: ResultadoLaboratorio,
     labExterno: string
 }
@@ -44,8 +45,8 @@ export interface Hematologia {
     blastos?: string,
     juveniles?: string,
     neutrofilos?: string,
-    nAbastonados?: string,
-    nSegmentados?: string,
+    nabastonados?: string,
+    nsegmentados?: string,
     linfocitos?: string,
     monocitos?: string,
     eosinofilos?: string,
@@ -58,6 +59,14 @@ export interface Hematologia {
     vrChcm?: string,
     hcm?: string,
     vrHcm?: string,
+
+    /**DATOS NUEVOS */
+    resultado?: {
+        clave: string,//anemia
+        valor: string,//leve, moderado, severo
+        resultado: string//positivo, negativo
+    }
+    observacionesLaboratorio?: string
 }
 export interface Parasitologia {
     examenMacroscopico: ExamenMacroscopico,
@@ -65,11 +74,17 @@ export interface Parasitologia {
     sangreOcultaHeces: string,
     gotaGruesa: string,
     frotisLesion: string,
+
+    /**DATOS NUEVOS */
+    resultado?: {
+        resultado: string//positivo, negativo
+    }
+    observacionesLaboratorio?: string
 }
 export interface ExamenMacroscopico {
     color?: string,
     consistencia?: string,
-    pH?: string,
+    ph?: string,
     reaccion?: string,
     mucus?: string,
     sangre?: string,
@@ -85,10 +100,10 @@ export interface ExamenMicroscopico {
     bacterias?: string,
     cocosBacilos?: string,
     formasParasitarias?: string,
-    huevosDe?: ValueLab,
-    quistesDe?: ValueLab,
-    trofozoitosDe?: ValueLab,
-    larvasDe?: ValueLab
+    huevosDe?: ValueLab[],
+    quistesDe?: ValueLab[],
+    trofozoitosDe?: ValueLab[],
+    larvasDe?: ValueLab[]
 }
 export interface ValueLab {
     valor1?: string,

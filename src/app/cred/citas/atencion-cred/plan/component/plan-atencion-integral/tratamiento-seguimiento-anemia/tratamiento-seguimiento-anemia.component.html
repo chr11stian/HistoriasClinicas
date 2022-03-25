@@ -1,60 +1,67 @@
-<div class="grid mb-2">
-    <div class="col flex justify-content-start">
-        <div>
-            <button pButton pRipple label="Save" class="mr-2 p-button-info" icon="pi pi-save" (click)="save()"
-                    styleClass="p-button"></button>
-            <button pButton pRipple label="Expandir" class="mr-2 p-button-success" icon="pi pi-window-maximize" (click)="expandir=false" styleClass="p-button"></button>
-            <button pButton pRipple label="Comprimir" class="mr-2 p-button-secondary" icon="pi pi-window-minimize" (click)="expandir=true" styleClass="p-button"></button>
+<div class="mt-3">
+    <p-fieldset>
+        <ng-template pTemplate="header">
+            <div>
+                DOSAJE DE HEMOGLOBINA PREVENTIVO
+            </div>
+        </ng-template>
+        <div class="grid">
+            <div class="col-1 text-center" style="font-weight: bold">Edad Mes</div>
+            <div class="col-1 text-center" style="font-weight: bold">Nro Control</div>
+            <div class="col text-center" style="font-weight: bold">Fecha Tentativa</div>
+            <div class="col text-center" style="font-weight: bold">Fecha Prueba</div>
+            <div class="col-2 text-center" style="font-weight: bold">Resultado Hemoglobina Ajustado</div>
+            <div class="col-2 text-center" style="font-weight: bold">Estado Controlado</div>
         </div>
-    </div>
-</div>
-<div class="grid">
-    <!-- TRATAMIENTO ANEMIA -->
-    <div class="lg:col-6 col-fixed">
-        <p-fieldset legend="Tratamiento Anemia" [toggleable]="true" [collapsed]="expandir">
-            <div class="card flex flex-column">
-                <div class="field grid">
-                    <div class="mr-2 text-right" style="width:235px">Fecha</div>
-                    <div class="text-right" style="width:140px">Fecha Tentativa</div>
-                    <div class="text-right" style="width:75px">(Edad)</div>
-                </div>
-                <div class="field grid" *ngFor="let item1 of tratamiento_Anemia">
-                    <span class="col-fixed text-right mr-2" style="width:30px">{{item1.nroControl}}°:</span>
-                    <input type="number" class="mr-2" pInputText style="width:120px" placeholder="Dosaje Hb." [(ngModel)]="item1.valorHb">
-                    <div class="mr-2" style="width:113px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item1.fecha"></p-calendar>
-                    </div>
-                    <div style="width:113px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item1.fechaTentativa"></p-calendar>
-                    </div>
-                    <span class="col-fixed text-center text-sm" style="width:90px">({{item1.descripcionEdad}})</span>
-                </div>
-            </div> 
-        </p-fieldset>
-    </div>
-    <!-- FIN - TRATAMIENTO ANEMIA -->
-    <!-- DOSAJE HB -->
-    <div class="lg:col-6 col-fixed">
-        <p-fieldset legend="Dosaje Hb." [toggleable]="true" [collapsed]="expandir">
-            <div class="card flex flex-column">
-                <div class="field grid">
-                    <div class="mr-2 text-right" style="width:230px">Fecha</div>
-                    <div class="text-right" style="width:140px">Fecha Tentativa</div>
-                    <div class="text-right" style="width:75px">(Edad)</div>
-                </div>
-                <div class="field grid" *ngFor="let item2 of dosaje_Hb">
-                    <span class="col-fixed text-right mr-2" style="width:30px">{{item2.nroControl}}°:</span>
-                    <input type="number" class="mr-2" pInputText style="width:120px" placeholder="Dosaje Hb." [(ngModel)]="item2.valorHb">
-                    <div class="mr-2" style="width:113px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item2.fecha"></p-calendar>
-                    </div>
-                    <div style="width:113px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item2.fechaTentativa"></p-calendar>
-                    </div>
-                    <span class="col-fixed text-center text-sm" style="width:90px">({{item2.descripcionEdad}})</span>
-                </div>
-            </div> 
-        </p-fieldset>
-    </div>
-    <!-- FIN - DOSAJE HB -->
+        <!--        <div *ngIf="dataPreventivo.length>=1;else noCorresponde">-->
+
+        <div class="grid" *ngFor="let dosaje of dataDosajePreventivo">
+
+            <div class="col-1 text-center">
+                {{dosaje.edadMes}}
+            </div>
+            <div class="col-1 text-center">
+                {{dosaje.nroControl}}
+            </div>
+            <div class="col text-center">
+                <p-calendar
+                        [showIcon]="true"
+                        placeholder="Fecha"
+                        [disabled]="true"
+                        dateFormat="dd/mm/yy"
+                        [(ngModel)]="dosaje.fechaTentativa"
+                        [ngClass]="{
+                        vacunado: dosaje.estadoControlado,
+                        noVacunado: !dosaje.estadoControlado
+                      }"
+                ></p-calendar>
+            </div>
+            <div class="col text-center">
+                <p-calendar
+                        [showIcon]="true"
+                        placeholder="Fecha"
+                        [disabled]="true"
+                        dateFormat="dd/mm/yy"
+                        [(ngModel)]="dosaje.fecha"
+                        [ngClass]="{
+                        vacunado: dosaje.estadoControlado,
+                        noVacunado: !dosaje.estadoControlado
+                      }"
+                ></p-calendar>
+            </div>
+            <div class="col-2 text-center">
+                {{dosaje.valorHb}}
+            </div>
+            <div class="col-2 text-center">
+                <span *ngIf="dosaje.estadoControlado;else noControlado">
+                    <p-tag severity="success" value="prueba Tomada" [rounded]="true">
+                    </p-tag>
+                </span>
+                <ng-template #noControlado>
+                    <p-tag severity="warning" value="prueba no Tomada" [rounded]="true">
+                    </p-tag>
+                </ng-template>
+            </div>
+        </div>
+    </p-fieldset>
 </div>

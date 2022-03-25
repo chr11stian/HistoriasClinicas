@@ -49,7 +49,7 @@
             </span>
         </ng-template>
         <ng-template pTemplate="right">
-            <button pButton pRipple class="p-button-info" label="Nueva Consulta" routerLink="../citas/atencion"
+            <button pButton pRipple class="p-button-info" label="Nueva Consulta"
                     (click)="nuevaConsulta()" style="background-color: #0c3866" icon="pi pi-book"></button>
         </ng-template>
     </p-toolbar>
@@ -60,10 +60,10 @@
              currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
         <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
             <tr>
-                <th style="text-align: center">NRO</th>
-                <th style="text-align: center">FECHA DE CONSULTA</th>
-                <th style="text-align: center">ESTADO</th>
-                <th style="text-align: center">ACCIONES</th>
+                <th style="text-align: center; width: 10%;">NRO</th>
+                <th style="text-align: center; width: 35%;">FECHA DE CONSULTA</th>
+                <th style="text-align: center; width: 35%;">ESTADO</th>
+                <th style="text-align: center;width: 20%;">ACCIONES</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
@@ -87,10 +87,14 @@
 
                 <td style="text-align: center">
                     <span class="p-buttonset">
-                        <button pButton pRipple class="p-button-info" label="Consulta #"
-                                routerLink="../citas/atencion"
+                        <button pButton pRipple class="p-button-info" label="Consulta"
                                 icon="pi pi-book" style="background-color: #0c3866"
                                 (click)="atencion(rowData)"></button>
+                    </span>
+                    <span class="p-buttonset pl-1">
+                        <button pButton pRipple class="p-button-info" label="FUA"
+                                style="background-color: #0c3866"
+                                (click)="irFUA(rowData)"></button>
                     </span>
                 </td>
             </tr>

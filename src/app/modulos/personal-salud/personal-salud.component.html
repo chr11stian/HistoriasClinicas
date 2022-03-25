@@ -60,7 +60,7 @@
         <td style="text-align: center">
           {{
           rowData.colegioProfesional
-          ? rowData.colegioProfesional[0].nombre
+          ? rowData.colegioProfesional.nombre
           : ""
           }}
         </td>
@@ -388,11 +388,12 @@
                 <label id="nroEspe">Nombre Funcion:</label>
                 <p-dropdown *ngIf="!isUpdatRol" class="inputRedondo" [showTransitionOptions]="'300ms'"
                   dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="nombreRolOpciones"
-                  formControlName="nombreFuncion" placeholder="Seleccione nombre funcion">
+                  formControlName="nombreFuncion" optionLabel="nombre" optionValue="nombre"
+                  placeholder="Seleccione nombre funcion">
                 </p-dropdown>
                 <p-dropdown *ngIf="isUpdateRol" class="inputRedondo" [showTransitionOptions]="'300ms'"
                   dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="nombreRolOpciones"
-                  formControlName="nombreFuncion">
+                  optionValue="nombre" optionLabel="nombre" formControlName="nombreFuncion">
                 </p-dropdown>
               </div>
             </div>
@@ -416,7 +417,7 @@
                   optionValue="value">
                 </p-selectButton>
               </div>
-              <div class="p-field col-6">
+              <!-- <div class="p-field col-6">
                 <label>Borrar:</label>
                 <p-selectButton [options]="stateOptions" formControlName="delete" optionLabel="label"
                   optionValue="value">
@@ -444,7 +445,7 @@
                 <label>Leer:</label>
                 <p-selectButton [options]="stateOptions" formControlName="read" optionLabel="label" optionValue="value">
                 </p-selectButton>
-              </div>
+              </div> -->
             </div>
           </form>
           <br />
@@ -482,10 +483,7 @@
             <tr style="text-align: center">
               <td style="text-align: center">{{ rowIndex + 1 }}</td>
               <td style="text-align: center">{{ rowData.nombreFuncion }}</td>
-              <td *ngIf="rowData.codUPS=='300101'" style="text-align: center">ANESTESIOLOGIA</td>
-              <td *ngIf="rowData.codUPS=='303203'" style="text-align: center">OBSTETRICIA</td>
-              <td *ngIf="rowData.codUPS=='302303'" style="text-align: center">MEDICINA GENERAL</td>
-              <td *ngIf="rowData.codUPS=='206908'" style="text-align: center">ENFERMERIA</td>
+              <td style="text-align: center">{{ buscarNombre(rowData.codUPS) }}</td>
               <td style="text-align: center">
                 <p-tag *ngIf="rowData.rolGuardia" styleClass="p-mr-2" severity="success" value="Activo"
                   [rounded]="true">

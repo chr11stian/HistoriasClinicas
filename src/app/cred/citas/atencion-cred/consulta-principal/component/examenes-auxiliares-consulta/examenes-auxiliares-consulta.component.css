@@ -40,3 +40,19 @@
 .p-inputtext {
   opacity: 1;
 }
+
+::ng-deep .auxExamCred .p-dialog .p-dialog-header {
+  border-bottom: 0 none;
+  background: #0c3866;
+  color: #ffffff;
+  padding: 0.3rem;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+}
+.border {
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  margin-top: 0.3rem;
+  margin-left: 0.4rem;
+  /* background: red; */
+}

@@ -16,6 +16,8 @@ export class SuplementacionesMicronutrientesComponent implements OnInit {
   listaMicronutrientes: SuplementacionMicronutrientes[] = []
   SF: SuplementacionMicronutrientes[] = []
   MNM: SuplementacionMicronutrientes[] = []
+  VA: SuplementacionMicronutrientes[] = []
+
   valueO: boolean = true;
   datePipe = new DatePipe('en-US');
   dataDocumento:dato
@@ -37,6 +39,10 @@ export class SuplementacionesMicronutrientesComponent implements OnInit {
     console.log('data SF ', this.SF);
   }
   getLista() {
+    // console.log('-->',
+    //     this.servicio.getListaMicronutrientesPro(this.nroDni)
+    // )
+
     this.servicio.getListaMicronutrientes(this.nroDni)
       .toPromise().then((result) => {
         this.listaMicronutrientes = result.object
@@ -44,6 +50,17 @@ export class SuplementacionesMicronutrientesComponent implements OnInit {
       }).catch((err) => {
         console.log(err)
       })
+    this.servicio.getVitaminaA(this.nroDni).toPromise().then((result)=>{
+      this.VA=result.object;
+      console.log(this.VA)
+      this.transformVitaA()
+    })
+  }
+  transformVitaA() {
+    this.VA.forEach((element) => {
+      element.fechaTentativa = new Date(`${element.fechaTentativa} 00:00:00`);
+      element.fecha = element.fecha != null ? new Date(`${element.fecha} 00:00:00`) : null;
+    });
   }
   transform() {
     //transformacion a un solo formato que se usará

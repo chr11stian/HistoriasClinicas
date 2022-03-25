@@ -1,0 +1,32 @@
+<form [formGroup]='formInterconsultas'>
+    <div class="grid p-fluid mb-6 mt-2">
+        <div class="col-6">
+            <label>Servicio:</label>
+            <p-dropdown [options]="listaDeServicios" formControlName="servicio" placeholder="Seleccione un servicio"
+                optionLabel="nombreUPS" optionValue="nombreUPS" [showClear]="false" appendTo="body">
+            </p-dropdown>
+        </div>
+        <div class="col-6">
+            <label>Fecha de Cita:</label>
+            <p-calendar class="fecha" type="Date" showIcon="true" formControlName='fecha' dateFormat="yy-mm-dd"
+                inputId="time" appendTo="body" required>
+            </p-calendar>
+        </div>
+        <div class="col-2">
+            <label>Nivel Urgencia:</label>
+            <p-dropdown [options]="listaDeNiveles" formControlName="nivelUrgencia" appendTo="body"
+                class="inputfield p-fluid w-full" placeholder="Seleccione"></p-dropdown>
+        </div>
+        <div class="col-10">
+            <label>Motivo:</label>
+            <input type="text" pInputText formControlName='motivo' placeholder="Motivo" style="text-transform:uppercase"
+                required />
+        </div>
+        <br>
+    </div>
+</form>
+<div class="footer">
+    <button pButton type="button" label="Cancelar" (click)="closeDialog()" class="button-cancelar mt-4 mr-2"></button>
+    <button pButton type="button" label="Guardar" (click)="closeDialogGuardar()"
+        class="button-agregar mt-4 mr-2 "></button>
+</div>

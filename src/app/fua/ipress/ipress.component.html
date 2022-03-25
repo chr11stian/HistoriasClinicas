@@ -1,145 +1,304 @@
 <p-toolbar styleClass="mb-4">
     <ng-template pTemplate="left">
-        <h3 class="text-base">Del la Institución prestadora de servicion de Salud</h3>
+        <h3 class="text-base">DATOS GENERALES</h3>
     </ng-template>
     <ng-template pTemplate="right" class="button">
-
-        <button
-                pButton
-                pRipple
-                label="Guardar"
-                icon="pi pi-save"
-                class="p-button-primary"
-                style="background-color: #003c71"
-        ></button>
+        <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-primary"
+            style="background-color: #003c71" (click)="save()"></button>
     </ng-template>
 </p-toolbar>
 <div class="m-1">
-<!--    primera fila-->
-    <div class="flex flex-wrap justify-content-between">
-        <div class="col-12 md:col-5">
-            <div>CODIGO RENAES DE LA IPRESS</div>
-            <div class="p-fluid mt-2">
-                <input type="text" pInputText />
+    <p-fieldset legend="DE LA INSTITUCIÓN PRESTADORA DE SERVICIOS DE SALUD" class="mb-3">
+        <form [formGroup]="formIpress">
+            <div class="grid">
+                <div class="col-3 md:col-2">
+                    <span>Cod RENAES de la IPRESS</span>
+                    <div class="p-fluid mt-2">
+                        <input type="text" pInputText formControlName="codRenaes" />
+                    </div>
+                </div>
+                <div class="col-3 md:col-10 mt-3">
+                    <span>Nombre de la IPRESS que realiza la atención</span>
+                    <div class="p-fluid mt-2">
+                        <input type="text" pInputText formControlName="nombreIpress" />
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="col-12 md:col-6">
-            <div>NOMBRE DE LA IPRESS QUE REALIZA LA ATENCION</div>
-            <div class="p-fluid mt-2">
-                <input type="text" pInputText />
+        </form>
+        <div class="grid">
+            <!-- <form [formGroup]="formDatosGenerales"> -->
+            <div class="col-6 lg:col-4">
+                <p-fieldset legend="Personal que atiende">
+                    <div class="grid">
+                        <div class="col-7">
+                            <div *ngFor="let atend of listPersonalAte" class="p-field-checkbox grid pb-2">
+                                <div class="col-9">
+                                    <span [for]="atend.value">{{ atend.name }}</span>
+                                </div>
+                                <div class="col-3 text-left">
+                                    <p-radioButton [inputId]="atend.value" name="atend" [value]="atend.value"
+                                        [(ngModel)]="personal"></p-radioButton>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <div>Código de la Oferta Flexible</div>
+                            <div class="p-fluid">
+                                <input type="text" pInputText [(ngModel)]="codOfertaFlexible" />
+                            </div>
+                        </div>
+                    </div>
+                </p-fieldset>
             </div>
-        </div>
+            <div class="col-4 lg:col-2">
+                <p-fieldset legend="Lugar de atención">
 
-    </div>
-<!--    segunda fila-->
+                    <div *ngFor="let item of listLugarAtencion" class="pb-2">
+                        <span [for]="item.value" class="pr-2">{{ item.name }}</span>
+                        <p-radioButton [inputId]="item.value" name="item" [value]="item.value"
+                            [(ngModel)]="attentionPlace"></p-radioButton>
+                    </div>
+                </p-fieldset>
+            </div>
+            <div class="col-4 lg:col-2">
+                <p-fieldset legend="Atención" class="atencion">
+                    <div *ngFor="let item of listAtencion" class="p-field-checkbox grid pb-2">
+                        <div class="col-9">
+                            <span [for]="item.value">{{ item.name }}</span>
+                        </div>
+                        <div class="col-3 text-left">
+                            <p-radioButton [inputId]="item.value" name="item" [value]="item.value"
+                                [(ngModel)]="attention">
+                            </p-radioButton>
+                        </div>
+                    </div>
+                </p-fieldset>
+            </div>
+            <div class="col-4 lg:col-4">
+                <form [formGroup]="formIpress">
+                    <p-fieldset legend="Referencia Realizada por">
+                        <div class="grid">
+                            <div class="col-3 md:col-3 mt-4 p-0">
+                                <span class="text-xs">Cod. RENAES</span>
+                                <div class="p-fluid">
+                                    <input type="text" pInputText formControlName="codRenaesRef" />
+                                </div>
+                            </div>
+                            <div class="col-3 md:col-6">
+                                <span class="text-xs">Nombre de la IPRESS u oferta flexible</span>
+                                <div class="p-fluid">
+                                    <input type="text" pInputText formControlName="ipressRef" />
+                                </div>
+                            </div>
+                            <div class="col-3 md:col-3">
+                                <span class="text-xs">Nro. Hoja de referencia</span>
+                                <div class="p-fluid ">
+                                    <input type="text" pInputText formControlName="nroHojaRef" />
+                                </div>
+                            </div>
+                        </div>
+                    </p-fieldset>
+                </form>
+            </div>
+        </div>
+    </p-fieldset>
     <div class="grid">
-        <div class="col-8 lg:col-4">
-            <p-fieldset legend="Personal que atiende">
+        <div class="col-12">
+            <p-fieldset legend="DEL ASEGURADO / USUARIO">
+                <form [formGroup]="formAsegurado">
+                    <div class="grid">
+                        <div class="col-4 lg:col-3">
+                            <p-fieldset legend="Identificación">
+                                <div class="grid">
+                                    <div class="col-3 md:col-3 mt-3 p-0">
+                                        <span>TDI</span>
+                                        <div class="p-fluid">
+                                            <input type="text" pInputText formControlName="tdi" />
+                                        </div>
+                                    </div>
+                                    <div class="col-3 md:col-9">
+                                        <span>N° documento identidad</span>
+                                        <div class="p-fluid">
+                                            <input type="text" pInputText formControlName="nroDoc" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </p-fieldset>
+                        </div>
+                        <div class="col-4 lg:col-3">
+                            <p-fieldset legend="Cod del asegurado SIS">
+                                <div class="grid">
+                                    <div class="col-3 md:col-4">
+                                        <span>DIRESA / otros</span>
+                                        <div class="p-fluid">
+                                            <input type="text" pInputText formControlName="diresa" />
+                                        </div>
+                                    </div>
+                                    <div class="col-3 md:col-8 mt-3 p-0">
+                                        <span>Número</span>
+                                        <div class="flex flex-row">
+                                            <div class="p-fluid">
+                                                <input type="text" pInputText formControlName="afiliacion" />
+                                            </div>
+                                            <div class="p-fluid">
+                                                <input type="text" pInputText formControlName="nro" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p-fieldset>
+                        </div>
+                        <div class="col-4 lg:col-6">
+                            <p-fieldset legend="Asegurado de otra IAFAS">
+                                <div class="grid">
+                                    <div class="col-3">
+                                        <span>Institución</span>
+                                    </div>
+                                    <div class="col-9 p-fluid">
+                                        <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                            placeholder="" class="inputfield w-full" formControlName="institucion">
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div class="col-3">
+                                        <span>Cod. Seguro</span>
+                                    </div>
+                                    <div class="col-9 p-fluid">
+                                        <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                            placeholder="" class="inputfield w-full" formControlName="codSeguro">
+                                    </div>
+                                </div>
+                            </p-fieldset>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col-4 lg:col-3">
+                            <span>Apellido Paterno</span>
+                            <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                                class="inputfield w-full" formControlName="apePaterno">
+                        </div>
+                        <div class="col-4 lg:col-3">
+                            <span>Apellido Materno</span>
+                            <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                                class="inputfield w-full" formControlName="apeMaterno">
+                        </div>
+                        <div class="col-4 lg:col-3">
+                            <span>Primer Nombre</span>
+                            <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                                class="inputfield w-full" formControlName="primerNombre">
+                        </div>
+                        <div class="col-4 lg:col-3">
+                            <span>Otros Nombres</span>
+                            <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                                class="inputfield w-full" formControlName="otrosNombres">
+                        </div>
+                    </div>
+                </form>
                 <div class="grid">
-                    <div class="col-4">
-                        <div>De la Ipress</div>
-                        <div>
-                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
-
+                    <div class="col-4 lg:col-2">
+                        <div class="col-9">
                         </div>
+                        <p-fieldset legend="Sexo">
+                            <div *ngFor="let item of listSexo" class="p-field-checkbox grid pb-2">
+                                <div class="col-9">
+                                    <span [for]="item.value">{{ item.name }}</span>
+                                </div>
+                                <div class="col-3">
+                                    <p-radioButton [inputId]="item.value" name="item" [value]="item.value"
+                                        [(ngModel)]="gender"></p-radioButton>
+                                </div>
+                            </div>
+                        </p-fieldset>
+                        <p-fieldset legend="Salud Materna">
+                            <div *ngFor="let item of listSaludMaterna" class="p-field-checkbox grid pb-2">
+                                <div class="col-9">
+                                    <span [for]="item.value">{{ item.name }}</span>
+                                </div>
+                                <div class="col-3">
+                                    <p-radioButton [inputId]="item.value" name="item" [value]="item.value"
+                                        [(ngModel)]="maternalHealth"></p-radioButton>
+                                </div>
+                            </div>
+                        </p-fieldset>
                     </div>
-                    <div class="col-4">
-                        <div>Itinerante</div>
-                        <div>
-                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
-
-                        </div>
+                    <div class="col-4 lg:col-5">
+                        <form [formGroup]="formAsegurado">
+                            <p-fieldset legend="Fechas (dd/mm/aaaa)">
+                                <div class="grid">
+                                    <div class="col-4">
+                                        <span>Fecha Probable de parto/ fecha de parto</span>
+                                    </div>
+                                    <div class="col-8">
+                                        <input type="date" pInputText formControlName='fechaParto'
+                                            class="p-inputtext inputfield w-full" placeholder="FechaParto">
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div class="col-4">
+                                        <span>Fecha de Nacimiento</span>
+                                    </div>
+                                    <div class="col-8">
+                                        <input type="date" pInputText formControlName='fechaNacimiento'
+                                            class="p-inputtext inputfield w-full" placeholder="FechaNacimiento">
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div class="col-4">
+                                        <span>Fecha de Fallecimiento</span>
+                                    </div>
+                                    <div class="col-8">
+                                        <input type="date" pInputText formControlName='fechaFallecimiento'
+                                            class="p-inputtext inputfield w-full" placeholder="FechaFallecimiento">
+                                    </div>
+                                </div>
+                            </p-fieldset>
+                        </form>
                     </div>
-                    <div class="col-4">
-                        <div>Oferta flexible</div>
-                        <div>
-                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
-
-                        </div>
+                    <div class="col-4 lg:col-5">
+                        <form [formGroup]="formAsegurado">
+                            <div class="grid">
+                                <div class="col-6">
+                                    <span>Nro Historia Clinica</span>
+                                    <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                        placeholder="" class="inputfield w-full" formControlName="nroHistoriaClinica">
+                                </div>
+                                <div class="col-6">
+                                    <span>Etnia</span>
+                                    <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                        placeholder="" class="inputfield w-full" formControlName="etnia">
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <div class="col-5">
+                                    <span>DNI/CNV/Afiliacion del RN 1</span>
+                                </div>
+                                <div class="col-7">
+                                    <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                        placeholder="" class="inputfield w-full" formControlName="cnv1">
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <div class="col-5">
+                                    <span>DNI/CNV/Afiliacion del RN 2</span>
+                                </div>
+                                <div class="col-7">
+                                    <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                        placeholder="" class="inputfield w-full" formControlName="cnv2">
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <div class="col-5">
+                                    <span>DNI/CNV/Afiliacion del RN 3</span>
+                                </div>
+                                <div class="col-7">
+                                    <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                        placeholder="" class="inputfield w-full" formControlName="cnv3">
+                                </div>
+                            </div>
+                        </form>
                     </div>
-
                 </div>
-                <div>
-                    <div>Código de la Oferta Flexible</div>
-                    <div class="p-fluid">
-                        <input type="text" pInputText />
-                    </div>
-                </div>
-
             </p-fieldset>
         </div>
-        <div class="col-4 lg:col-2">
-            <p-fieldset legend="Personal que atiende">
-                <div class="text-center">
-                    <div>Intramural</div>
-                    <div>
-                        <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
-
-                    </div>
-                </div>
-                <div class="text-center mt-3" >
-                    <div>Extramural</div>
-                    <div>
-                        <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
-
-                    </div>
-
-                </div>
-            </p-fieldset>
-        </div>
-        <div class="col-4 lg:col-2">
-            <p-fieldset legend="Atención">
-                <div class="text-center mt-3">
-                    <div>Intramural</div>
-                    <div>
-                        <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
-
-                    </div>
-                </div>
-                <div class="text-center mt-3">
-                    <div>Intramural</div>
-                    <div>
-                        <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
-
-                    </div>
-                </div>
-                <div class="text-center mt-3">
-                    <div>Intramural</div>
-                    <div>
-                        <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
-
-                    </div>
-                </div>
-
-            </p-fieldset>
-        </div>
-        <div class="col-8 lg:col-4">
-            <p-fieldset legend="Atención">
-                <div class="grid">
-                    <div class="col-5 ">
-                        <div>Código RENAES</div>
-                        <div class="p-fluid">
-                            <input type="text" pInputText />
-                        </div>
-                    </div>
-                    <div class="col-7 ">
-                        <div>N°Hoja de Referencia</div>
-                        <div class="p-fluid">
-                            <input type="text" pInputText />
-                        </div>
-                    </div>
-
-                </div>
-                <div>
-                    <div>Nombre de la IPRESS u Oferta flexible</div>
-                    <div class="p-fluid">
-                        <input type="text" pInputText />
-                    </div>
-
-                </div>
-
-            </p-fieldset>
-        </div>
-
     </div>
 </div>

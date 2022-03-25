@@ -1,0 +1,364 @@
+<form [formGroup]='form'>
+    <div class=" col-12md:col-6 lg:col-12 p-field">
+        <div class="grid">
+            <div class=" col-12md:col-6 lg:col-12 p-field">
+                <p-toolbar>
+                    <ng-template pTemplate="left">
+                        <label>PREGUNTAS</label>
+                    </ng-template>
+                </p-toolbar>
+                <div class="border">
+                    <div class="grid m-2">
+                        <div class=" col-12md:col-6 lg:col-6 p-field">
+                            <div class="grid">
+                                <div class="col-3 text-right">
+                                    <label>Fecha:</label>
+                                </div>
+                                <div class="col-9">
+                                    <p-calendar dateFormat="yy-mm-dd"
+                                                [readonlyInput]="true"
+                                                formControlName="fecha" [disabled]="estadoEdicion!=false">
+                                    </p-calendar>
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <div class="col-3 text-right">
+                                    <label>Edad Gestacional:</label>
+                                </div>
+                                <div class="col-9">
+                                    <input class="inputfield" type="text" pInputText
+                                           formControlName='edadGestacional' required/>
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <div class="col-5 text-right">
+                                    <label>Donde atenderá su parto:</label>
+                                </div>
+                                <div class="col-2">
+                                    <div class="grid">
+                                        <div class="col-10 text-right">
+                                            <label>Hospital.</label></div>
+                                        <div class="col-2">
+                                            <p-radioButton name="dondeParto" formControlName="dondeParto"
+                                                           value="Hospital" inputId="dondeParto" class="azul">
+                                            </p-radioButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="grid">
+                                        <div class="col-10 text-right">
+                                            <label>C.S.</label>
+                                        </div>
+                                        <div class="col-2">
+                                            <p-radioButton name="dondeParto" formControlName="dondeParto" value="CS"
+                                                           inputId="dondeParto" class="azul">
+                                            </p-radioButton>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <div class="col-5 text-right">
+                                    <label class="">¿Quién desea que le atienda su parto?: </label>
+                                </div>
+                                <div class="col-5">
+                                    <input class="inputfield w-full" type="text" pInputText
+                                           formControlName='quienAtenderaParto'/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" col-12md:col-6 lg:col-6 p-field">
+                            <div class="grid">
+                                <div class="col-6 text-right">
+                                    <label>¿En que posición prefiere dar su parto?:</label>
+                                </div>
+                                <div class="col-2">
+                                    <div class="grid">
+                                        <div class="col-10 text-right">
+                                            <label>Vertical</label>
+                                        </div>
+                                        <div class="col-2">
+                                            <p-radioButton name="posicionParto" formControlName="posicionParto"
+                                                           value="Vertical" inputId="posicionParto"
+                                                           class="azul pb-0">
+                                            </p-radioButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="grid">
+                                        <div class="col-10 text-right">
+                                            <label>Horizontal</label>
+                                        </div>
+                                        <div class="col-2">
+                                            <p-radioButton name="posicionParto" formControlName="posicionParto"
+                                                           value="Horizontal" inputId="posicionParto"
+                                                           class="azul pb-0">
+                                            </p-radioButton>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <div class="col-6 text-right ">
+                                    <label class="text-sm">¿Cómo se va a transportar en el momento del parto o en
+                                        caso de emergencia?:</label>
+                                </div>
+                                <div class="col-2">
+                                    <div class="grid">
+                                        <div class="col-10 text-right">
+                                            <label>Carro</label>
+                                        </div>
+                                        <div class="col-2">
+                                            <p-radioButton name="transporteParto" formControlName="transporteParto"
+                                                           value="Carro" inputId="transporteParto"
+                                                           class="azul pb-0">
+                                            </p-radioButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="grid">
+                                        <div class="col-10 text-right">
+                                            <label>Otro</label>
+                                        </div>
+                                        <div class="col-2">
+                                            <p-radioButton name="transporteParto" formControlName="transporteParto"
+                                                           value="Otro" inputId="transporteParto" class="azul pb-0">
+                                            </p-radioButton>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <div class="col text-center">
+                                    <label class="text-center">¿Quién le acompañara o avisara al establecimiento de
+                                        salud en el momento del parto o presencia de señales de peligro durante el
+                                        embarazo?:</label>
+                                    <div class="col-12">
+                                        <input class="inputfield" type="text" pInputText
+                                               formControlName='quienAcompaniaraEess'/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="grid">
+            <div class=" col-12md:col-6 lg:col-12 p-field">
+                <p-toolbar>
+                    <ng-template pTemplate="left">
+                        <label>SEÑALES DE PELIGRO</label>
+                    </ng-template>
+                </p-toolbar>
+                <div class="border">
+                    <div class="grid m-2">
+                        <div class="col-12 text-center">
+                            <label>Aquí te acompañamos como reconocer LAS SEÑALES DE PELIGRO EN EL EMBARAZO, para
+                                acudir INMEDIATAMENTE AL HOSPITAL</label>
+                        </div>
+                        <br/>
+                        <div class="field col-12 md:col-4 border">
+                            <div class="grid ">
+                                <div class="col-12 text-center">
+                                    <label>Si tienes vómitos frecuentes:</label>
+                                </div>
+                                <div class="col-4 py-5">
+                                    <div class="imagenVomitos"></div>
+                                </div>
+                                <div class="col-8">
+                                    <p-checkbox formControlName="vomitosFrecuentes" value="true"
+                                                inputId="vomitosFrecuentes"></p-checkbox>
+                                    <!-- <textarea rows="6"  cols="20" pInputTextarea></textarea> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field col-12 md:col-4 border">
+                            <div class="grid">
+                                <div class="col-12 text-center">
+                                    <label>Si hay palidez de la cara y cansancio:</label>
+                                </div>
+                                <div class="col-4 py-5">
+                                    <div class="imagenPalidez"></div>
+                                </div>
+                                <div class="col-8">
+                                    <p-checkbox formControlName="palidez" value="true"
+                                                inputId="palidez"></p-checkbox>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field col-12 md:col-4 border">
+                            <div class="grid">
+                                <div class="col-12 text-center">
+                                    <label>Si tienes Calentura (Fiebre):</label>
+                                </div>
+                                <div class="col-4 py-5">
+                                    <div class="imagenFiebre"></div>
+                                </div>
+                                <div class="col-8">
+                                    <p-checkbox formControlName="calentura" value="true"
+                                                inputId="calentura"></p-checkbox>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field col-12 md:col-4 border">
+                            <div class="grid">
+                                <div class="col-12 text-center">
+                                    <label>Si tienes dolor de cabeza, visión borrosa (si ves lucecitas) Zumbido de
+                                        oídos:</label>
+                                </div>
+                                <div class="col-4 py-5">
+                                    <div class="imagenDolorCabeza"></div>
+                                </div>
+                                <div class="col-8">
+                                    <p-checkbox formControlName="dolorCabeza" value="true"
+                                                inputId="dolorCabeza"></p-checkbox>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field col-12 md:col-4 border">
+                            <div class="grid">
+                                <div class="col-12 text-center">
+                                    <label>Si tienes hinchazón de pies, manos o cara:</label>
+                                </div>
+                                <div class="col-4 py-5">
+                                    <div class="imagenHinchazon"></div>
+                                </div>
+                                <div class="col-8">
+                                    <p-checkbox formControlName="hinchazon" value="true"
+                                                inputId="hinchazon"></p-checkbox>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field col-12 md:col-4 border">
+                            <div class="grid">
+                                <div class="col-12 text-center">
+                                    <label>Si tienes dolores antes de la fecha de parto y endurecimiento del
+                                        vientre:</label>
+                                </div>
+                                <div class="col-4 py-5">
+                                    <div class="imagenDolores"></div>
+                                </div>
+                                <div class="col-8">
+                                    <p-checkbox formControlName="dolores" value="true"
+                                                inputId="dolores"></p-checkbox>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field col-12 md:col-4 border">
+                            <div class="grid">
+                                <div class="col-12 text-center">
+                                    <label>Si tienes poco o falta de movimiento del bebe:</label>
+                                </div>
+                                <div class="col-4 py-5">
+                                    <div class="imagenMovimientoBebe"></div>
+                                </div>
+                                <div class="col-8">
+                                    <p-checkbox formControlName="movimientoBebe" value="true"
+                                                inputId="movimientoBebe"></p-checkbox>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field col-12 md:col-4 border">
+                            <div class="grid">
+                                <div class="col-12 text-center">
+                                    <label>Si el bebe esta mal acomodado:</label>
+                                </div>
+                                <div class="col-4 py-5">
+                                    <div class="imagenMalAcomodado"></div>
+                                </div>
+                                <div class="col-8">
+                                    <p-checkbox formControlName="malAcomodado" value="true"
+                                                inputId="malAcomodado"></p-checkbox>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field col-12 md:col-4 border">
+                            <div class="grid">
+                                <div class="col-12 text-center">
+                                    <label>Si tienes perdida de sangre o de liquido por la vagina:</label>
+                                </div>
+                                <div class="col-4 py-5">
+                                    <div class="imagenPerdidaLiquidos"></div>
+                                </div>
+                                <div class="col-8">
+                                    <p-checkbox formControlName="perdidaLiquidos" value="true"
+                                                inputId="perdidaLiquidos"></p-checkbox>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field col-12">
+                            <div class="grid">
+                                <div class="col-6 text-right">
+                                    <label>Otras infecciones: tos, diarreas, infecciones urinarias (Ardor al
+                                        orinar),
+                                        etc.</label>
+                                </div>
+                                <div class="col-5 mt-2">
+                                    <textarea class="p-fluid w-full" formControlName="otras" rows="2" cols="85"
+                                              pInputTextarea></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid">
+            <div class=" col-12md:col-6 lg:col-12 p-field">
+                <p-toolbar>
+                    <ng-template pTemplate="left">
+                        <label>PREGUNTAS</label>
+                    </ng-template>
+                </p-toolbar>
+                <div class="border">
+                    <div class="grid m-2">
+                        <div class="field col-12 md:col-6">
+                            <div class="grid">
+                                <div class="col-6 text-right">
+                                    <label>¿Quién cuidara sus hijos, su casa y animales durante su ausencia?</label>
+                                </div>
+                                <div class="col-6">
+                                    <input class="inputfield w-full" type="text" pInputText
+                                           formControlName='quienCuidaraHijos'/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field col-12 md:col-6">
+                            <div class="grid ">
+                                <div class="col-6 text-right">
+                                    <label>¿Aceptaría ir a la casa materna u otro cerca del establecimiento?</label>
+                                </div>
+                                <div class="col-6">
+                                    <input class="inputfield w-full" type="text" pInputText
+                                           formControlName='aceptariaCasaMaterna'/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field col-12 md:col-6">
+                            <div class="grid ">
+                                <div class="col-6 text-right">
+                                    <label>¿Sabe cuando debe ir a la casa materna?</label>
+                                </div>
+                                <div class="col-3">
+                                    <p-selectButton [options]="stateOptions" formControlName="cuandoIrCasaMaterna"
+                                                    optionLabel="label" optionValue="value"></p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="footer">
+    <button pButton type="button" (click)="closeDialogGuardar()" label="Guardar"
+            class="p-button-primary mt-4 mr-2"></button>
+    <button pButton type="button" (click)="closeDialog()" label="Cancelar" class="p-button-danger mt-4"></button>
+</div>

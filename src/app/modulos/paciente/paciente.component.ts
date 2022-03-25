@@ -71,6 +71,9 @@ export class PacienteComponent implements OnInit {
             width: "90%",
             height: "100%"
         })
+        this.ref.onClose.subscribe((data: any) => {
+            this.cargarPacientes();
+        });
     }
 
     openDialogPacienteComp() {
@@ -81,5 +84,8 @@ export class PacienteComponent implements OnInit {
         })
         localStorage.removeItem('pacienteDepartamento');
         localStorage.removeItem('pacienteLocalStorage');
+        this.ref.onClose.subscribe((data: any) => {
+            this.cargarPacientes();
+        });
     }
 }
