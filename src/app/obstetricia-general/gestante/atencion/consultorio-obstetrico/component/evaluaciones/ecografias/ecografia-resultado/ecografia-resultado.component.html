@@ -1,47 +1,44 @@
 <form [formGroup]='formEcografiaResultado'>
     <div class="grid p-mb-6 pb-4 mt-2">
         <div class="col-12">
-            <div class="grid">
-                <div class="col-10"></div>
-                <div class="col-2 p-fluid">
-                    <label>Fecha:</label>
-                    <br>
-                    <p-calendar formControlName="fecha" [showIcon]="true" inputId="icon"></p-calendar>
-                </div>
-            </div>
             <p-fieldset legend="PRESTACIÓN">
                 <div class="grid p-fluid">
                     <div class="col-4">
                         <label>Nombre UPS:</label>
                         <p-dropdown [options]="listaUps" formControlName="ups" appendTo="body" optionLabel="nombreUPS"
-                            optionValue="nombreUPS" class="inputfield p-fluid w-full" placeholder="Seleccione"></p-dropdown>
+                            optionValue="nombreUPS" class="inputfield p-fluid w-full" placeholder="Seleccione">
+                        </p-dropdown>
                     </div>
                     <div class="col-4">
                         <label>Nombre UPS aux:</label>
-                        <p-dropdown [options]="listaUpsHis" formControlName="subtitulo" appendTo="body" optionLabel="nombreUPS"
-                            optionValue="nombreUPS" class="inputfield p-fluid w-full" placeholder="Seleccione"></p-dropdown>
+                        <p-dropdown [options]="listaUpsHis" formControlName="subtitulo" appendTo="body"
+                            optionLabel="nombreUPS" optionValue="nombreUPS" class="inputfield p-fluid w-full"
+                            placeholder="Seleccione"></p-dropdown>
                     </div>
                     <div class="col-2">
                         <label>Tipo diagnostico:</label>
-                        <p-dropdown inputId="dropdown" [options]="tipoList" formControlName="tipo" placeholder="Seleccione"
-                            optionLabel="label" optionValue="value" defaultLabel="Seleccione:" appendTo="body"
-                            class="inputfield p-fluid w-full">
+                        <p-dropdown inputId="dropdown" [options]="tipoList" formControlName="tipo"
+                            placeholder="Seleccione" optionLabel="label" optionValue="value" defaultLabel="Seleccione:"
+                            appendTo="body" class="inputfield p-fluid w-full">
                         </p-dropdown>
                     </div>
                     <div class="col-2">
                         <label>Sub tipo:</label>
-                        <p-dropdown [options]="listaSubTipos" formControlName="subTipo" appendTo="body" class="inputfield p-fluid w-full" placeholder="Seleccione"></p-dropdown>
+                        <p-dropdown [options]="listaSubTipos" formControlName="subTipo" appendTo="body"
+                            class="inputfield p-fluid w-full" placeholder="Seleccione"></p-dropdown>
                     </div>
                     <div class="col-7">
                         <label>Diagnostico:</label>
-                        <p-dropdown [options]="diagnosticosList" formControlName="diagnostico" appendTo="body" (onChange)="onChangeDiagnostico()"
-                        optionLabel="diagnosticoSIS" class="inputfield p-fluid w-full" placeholder="Seleccione diagnostico SIS"></p-dropdown>
+                        <p-dropdown [options]="diagnosticosList" formControlName="diagnostico" appendTo="body"
+                            (onChange)="onChangeDiagnostico()" optionLabel="diagnosticoSIS"
+                            class="inputfield p-fluid w-full" placeholder="Seleccione diagnostico SIS"></p-dropdown>
                     </div>
                     <div class="col-4">
                         <label>Prestacion:</label>
-                        <input type="text" pInputText formControlName='prestacion' placeholder="Prestacion" required disabled/>
+                        <input type="text" pInputText formControlName='prestacion' placeholder="Prestacion" required
+                            disabled />
                     </div>
-                    
+
                     <div class="col-1">
                         <label>Lab:</label>
                         <input type="text" pInputText formControlName='lab' placeholder="Lab"
@@ -91,52 +88,82 @@
         </div>
         <div class="col-12">
             <p-fieldset legend="DATOS ECOGRAFIA">
-                <div class="grid p-fluid">
+                <div class="grid">
+                    <div class="col-2 p-fluid">
+                        <label class="mr-1">Fecha:</label>
+                        <p-calendar class="ml-2" formControlName="fecha" [showIcon]="true" inputId="icon"></p-calendar>
+                    </div>                    
                     <div class="col-2 p-fluid">
                         <label>Lab. externo:</label>
                         <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
                             formControlName="labExterno">
                         </p-selectButton>
                     </div>
-                    <div class="col-4">
+                    <div class="col-2 p-fluid">
                         <label>Edad gestacional:</label>
-                        <p-dropdown [options]="listaUps" formControlName="ups" appendTo="body" optionLabel="nombreUPS"
-                            optionValue="nombreUPS" class="inputfield p-fluid w-full" placeholder="Seleccione"></p-dropdown>
+                        <div class="grid">
+                            <div class="col-8">
+                                <input type="number" pInputText formControlName='dias' placeholder="Dias"
+                                    class="inputfield w-full">
+                            </div>
+                            <div class="mt-2 col-2 text-left">
+                                <span class="font-italic">dias.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2 p-fluid">
+                        <br>
+                        <div class="grid">
+                            <div class="col-8">
+                                <input type="number" pInputText formControlName='semanas' placeholder="Semanas"
+                                    class="inputfield w-full">
+                            </div>
+                            <div class="mt-2 col-2 text-left">
+                                <span class="font-italic">sem.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2 p-fluid">
+                        <label >Fecha prob. parto:</label>
+                        <p-calendar class="inputfield w-full" formControlName="fechaProbableParto" [showIcon]="true" inputId="icon">
+                        </p-calendar>
+                    </div>
+                    <div class="col-2">
+                        <label>Latidos cardio fetales:</label>
+                        <div class="grid">
+                            <div class="col-7">
+                                <input type="number" pInputText formControlName='lcf' placeholder="Latidos"
+                                    class="inputfield w-full">
+                            </div>
+                            <div class="mt-2 col-5 text-left">
+                                <span class="font-italic">x min.</span>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-4">
-                        <label>Fecha prob. parto:</label>
-                        <p-dropdown [options]="listaUpsHis" formControlName="subtitulo" appendTo="body" optionLabel="nombreUPS"
-                            optionValue="nombreUPS" class="inputfield p-fluid w-full" placeholder="Seleccione"></p-dropdown>
-                    </div>
-                    <div class="col-2">
                         <label>Liquido cefalorraquideo:</label>
-                        <p-dropdown inputId="dropdown" [options]="tipoList" formControlName="tipo" placeholder="Seleccione"
-                            optionLabel="label" optionValue="value" defaultLabel="Seleccione:" appendTo="body"
-                            class="inputfield p-fluid w-full">
-                        </p-dropdown>
+                        <input type="text" pInputText formControlName='lcr' placeholder="Liquido cefalorraquideo"
+                            class="inputfield w-full">
                     </div>
-                    <div class="col-2">
-                        <label>Latidos cardio fetal:</label>
-                        <p-dropdown [options]="listaSubTipos" formControlName="subTipo" appendTo="body" class="inputfield p-fluid w-full" placeholder="Seleccione"></p-dropdown>
-                    </div>
-                    <div class="col-7">
-                        <label>Palacenta:</label>
-                        <p-dropdown [options]="diagnosticosList" formControlName="diagnostico" appendTo="body" (onChange)="onChangeDiagnostico()"
-                        optionLabel="diagnosticoSIS" class="inputfield p-fluid w-full" placeholder="Seleccione diagnostico SIS"></p-dropdown>
+                    <div class="col-4">
+                        <label>Placenta:</label>
+                        <input type="text" pInputText formControlName='placenta' placeholder="Placenta"
+                            class="inputfield w-full">
                     </div>
                     <div class="col-4">
                         <label>Saco gestacional:</label>
-                        <input type="text" pInputText formControlName='prestacion' placeholder="Prestacion" required disabled/>
+                        <input type="text" pInputText formControlName='sacoGestacional' placeholder="Saco gestacional"
+                            class="inputfield w-full">
                     </div>
-                    <div class="col-1">
+                    <div class="col-4">
                         <label>Morfologia fetal:</label>
-                        <input type="text" pInputText formControlName='lab' placeholder="Lab"
+                        <input type="text" pInputText formControlName='morfologiaFetal' placeholder="Morfologia fetal"
                             class="p-fluid inputfield w-full">
                     </div>
-                    <div class="col-1">
+                    <div class="col-8">
                         <label>Resultados:</label>
-                        <input type="text" pInputText formControlName='lab' placeholder="Lab"
-                            class="p-fluid inputfield w-full">
+                        <textarea [rows]="2" class="inputfield w-full" autoResize="autoResize"
+                            formControlName="resultados" pInputTextarea></textarea>
                     </div>
                 </div>
             </p-fieldset>

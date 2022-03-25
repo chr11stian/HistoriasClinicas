@@ -4,6 +4,7 @@ import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { PrestacionService } from 'src/app/mantenimientos/services/prestacion/prestacion.service';
 import { CieService } from 'src/app/obstetricia-general/services/cie.service';
+import Swal from 'sweetalert2';
 import { ConsultasService } from '../../../services/consultas.service';
 import { EcografiaResultadoComponent } from './ecografia-resultado/ecografia-resultado.component';
 import { EcografiaSolicitudComponent } from './ecografia-solicitud/ecografia-solicitud.component';
@@ -86,7 +87,7 @@ export class EcografiasComponent implements OnInit {
       console.log("entre a edicion consulta", this.nroAtencion)
     }
   }
-  async recuperarEcografias() {
+  async recuperarEcografiasPendientes() {
     let aux = {
       id: this.idConsulta,
       nroHcl: this.nroHcl,
@@ -96,6 +97,20 @@ export class EcografiasComponent implements OnInit {
     this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
       this.nroConsultaGuardada = res.object.id;
       this.DxService.listarSolicitudesEco(this.nroConsultaGuardada).then((res: any) => {
+        this.solicitudesEco = res.object;
+      })
+    })
+  }
+  async recuperarEcografiasConcluidos() {
+    let aux = {
+      id: this.idConsulta,
+      nroHcl: this.nroHcl,
+      nroEmbarazo: this.nroEmbarazo,
+      nroAtencion: this.nroAtencion
+    }
+    this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
+      this.nroConsultaGuardada = res.object.id;
+      this.DxService.listaConcluidosEco(this.nroConsultaGuardada).then((res: any) => {
         this.solicitudesEco = res.object;
       })
     })
@@ -112,7 +127,7 @@ export class EcografiasComponent implements OnInit {
     })
     this.ref.onClose.subscribe((data: any) => {
       console.log("data de modal eco", data)
-      this.recuperarEcografias();
+      this.recuperarEcografiasPendientes();
     })
   }
   editarSolicitudEco(rowData) {
@@ -131,13 +146,52 @@ export class EcografiasComponent implements OnInit {
     })
     this.ref.onClose.subscribe((data: any) => {
       console.log("data de modal eco", data)
-      this.recuperarEcografias();
+      this.recuperarEcografiasPendientes();
     })
+  }
+  eliminarSolicitudEcografia(index) {
+    let data = {
+      codigoHIS: index
+    }
+    Swal.fire({
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      icon: 'warning',
+      title: 'Estas seguro de eliminar este registro?',
+      text: '',
+      showConfirmButton: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let aux = {
+          id: this.idConsulta,
+          nroHcl: this.nroHcl,
+          nroEmbarazo: this.nroEmbarazo,
+          nroAtencion: this.nroAtencion
+        }
+        this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
+          this.nroConsultaGuardada = res.object.id;
+          this.DxService.eliminarSolicitudEcografiasGestante(this.nroConsultaGuardada, data).subscribe(
+            (resp) => {
+              this.recuperarEcografiasPendientes();
+              Swal.fire({
+                icon: 'success',
+                title: 'Eliminado correctamente',
+                text: '',
+                showConfirmButton: false,
+                timer: 1500
+              })
+            }
+          );
+        })
+      }
+    })
+
+
   }
   openResultadoEco() {
     //this.diagnosticoDialog = true;
     this.ref = this.dialog.open(EcografiaResultadoComponent, {
-      header: "RESULTADO DE ECOGRAFAIA",
+      header: "RESULTADO DE ECOGRAFIA",
       contentStyle: {
         heigth: "700px",
         width: "980px",
@@ -146,12 +200,13 @@ export class EcografiasComponent implements OnInit {
     })
     this.ref.onClose.subscribe((data: any) => {
       console.log("data de modal eco", data)
-      this.recuperarEcografias();
+      this.recuperarEcografiasConcluidos();
     })
   }
 
   ngOnInit(): void {
-    this.recuperarEcografias();
+    this.recuperarEcografiasPendientes();
+    this.recuperarEcografiasConcluidos();
   }
 
 }

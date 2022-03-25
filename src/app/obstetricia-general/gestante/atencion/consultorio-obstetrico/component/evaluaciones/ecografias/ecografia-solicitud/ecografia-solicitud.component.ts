@@ -224,7 +224,7 @@ export class EcografiaSolicitudComponent implements OnInit {
       codigoSIS: this.formEcografiaSolicitud.value.SISCIE.codigo,
       nombreExamenSIS: this.formEcografiaSolicitud.value.diagnosticoSIS,
       nombreUPS: this.formEcografiaSolicitud.value.ups,
-      nombreUPSAux: this.formEcografiaSolicitud.value.subtitulo,
+      nombreUPSaux: this.formEcografiaSolicitud.value.subtitulo,
       tipoDX: this.formEcografiaSolicitud.value.tipo,
       lab: this.formEcografiaSolicitud.value.lab,
       agregarafiliacion: true,
@@ -316,7 +316,6 @@ export class EcografiaSolicitudComponent implements OnInit {
       this.listaDeCIE = res.object
     })
   }
-
   selectedOption(event, cieType) {
     if (cieType == 0) {
       this.formEcografiaSolicitud.patchValue({ diagnosticoSIS: event.value.procedimiento });
@@ -325,7 +324,6 @@ export class EcografiaSolicitudComponent implements OnInit {
       this.formEcografiaSolicitud.patchValue({ diagnosticoHIS: event.descripcionItem });
     }
   }
-
   selectedOptionNameCIE(event, cieType) {
     console.log('lista de cie ', this.listaDeCIE);
     console.log('evento desde diagnos ', event);

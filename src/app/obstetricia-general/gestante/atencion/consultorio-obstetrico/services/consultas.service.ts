@@ -98,7 +98,7 @@ export class ConsultasService {
     eliminarTratamientoGestante(nroHcl,nroEmbarazo,nroAtencion,id){
         return this.http.delete(`${this.base_url}/${this.bd}/obstetricia/consulta/eliminarTratamiento/${nroHcl}/${nroEmbarazo}/${nroAtencion}/${id}`)
     }
-    //procesamiento de imagenes
+    //procedimiento de imagenes
     guardarSolicitudEcografiasGestante(id,data){
         return this.http.post(`${this.base_url}/${this.bd}/examenesAuxiliares/agregar-ProcImg/${id}`, data)
         .toPromise()
@@ -112,9 +112,23 @@ export class ConsultasService {
         .then(data => { return data; });
     }
     eliminarSolicitudEcografiasGestante(id,data){
-        return this.http.put(`${this.base_url}/${this.bd}//examenesAuxiliares/eliminarProcImgPendiente/${id}`,data)
+        return this.http.delete(`${this.base_url}/${this.bd}/examenesAuxiliares/eliminarProcImgPendiente/${id}`,data)
     }
-
+    guardarResultadoEcografiasGestante(data){
+        return this.http.post(`${this.base_url}/${this.bd}/examenesAuxiliares/ecografiaObsAbdominal_EF`, data)
+        .toPromise()
+        .then(res => <any[]>res)
+        .then(data => { return data; });
+    }
+    editarResultadoEcografiasGestante(data){
+        return this.http.put(`${this.base_url}/${this.bd}/examenesAuxiliares/ecografiaObsAbdominal_EF`, data)
+        .toPromise()
+        .then(res => <any[]>res)
+        .then(data => { return data; });
+    }
+    eliminarResultadoEcografiasGestante(id,data){
+        return this.http.put(`${this.base_url}/${this.bd}/examenesAuxiliares/eliminarProcImgPendiente/${id}`,data)
+    }
      //listar
     listarDiagnosticosDeUnaConsulta(nroHcl,nroEmbarazo,nroAtencion){
         return this.http.get(`${this.base_url}/${this.bd}/obstetricia/consulta/listarDiagnostico/${nroHcl}/${nroEmbarazo}/${nroAtencion}`)
@@ -140,7 +154,18 @@ export class ConsultasService {
         .then(res => <any[]>res)
         .then(data => { return data; });
     }
-
+    listaConcluidosEco(idConsulta){
+        return this.http.get(`${this.base_url}/${this.bd}/examenesAuxiliares/listarProcImgConcluido/${idConsulta}`)
+        .toPromise()
+        .then(res => <any[]>res)
+        .then(data => { return data; });
+    }
+    listaHistorialEco(data){
+        return this.http.post(`${this.base_url}/${this.bd}/examenesAuxiliares/listarProcImgConcluidoHcl`,data)
+        .toPromise()
+        .then(res => <any[]>res)
+        .then(data => { return data; });
+    }
     listaUpsHis(data){
         return this.http.post(`${this.base_url}/${this.bd}/ipress/listarups_his`,data)
         .toPromise()
@@ -167,6 +192,7 @@ export class ConsultasService {
         .then(res => <any[]>res)
         .then(data => { return data; });
     }
+    
 
     listarSubTipoImagenes(){
         return this.http.get(`${this.base_url}/${this.bd}/tools/procImagenes/subtipo`)

@@ -366,7 +366,6 @@ export class TratamientoComponent implements OnInit {
       this.tratamientosComunes = res.object;
     })
   }
-
   guardarTodosDatos() {
     console.log(this.formRIEP.value);
     const req = {
