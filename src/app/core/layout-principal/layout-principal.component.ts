@@ -12,7 +12,6 @@ export class LayoutPrincipalComponent implements OnInit {
   hidden: boolean = true;
   number: number = 9;
   constructor() { }
-
   ngOnInit(): void {
   }
   anchoSidebart:number=2

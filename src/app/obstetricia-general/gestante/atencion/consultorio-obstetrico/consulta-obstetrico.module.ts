@@ -24,6 +24,7 @@ import { EcografiaSolicitudComponent } from './component/evaluaciones/ecografias
 import { EcografiaResultadoComponent } from './component/evaluaciones/ecografias/ecografia-resultado/ecografia-resultado.component';
 import { EcografiasComponent } from './component/evaluaciones/ecografias/ecografias.component';
 import { LaboratorioComponent } from './component/evaluaciones/laboratorio/laboratorio.component';
+import { LabSolicitudComponent } from './component/evaluaciones/laboratorio/lab-solicitud/lab-solicitud.component';
 
 @NgModule({
     declarations: [
@@ -45,7 +46,8 @@ import { LaboratorioComponent } from './component/evaluaciones/laboratorio/labor
         EcografiaSolicitudComponent,
         EcografiaResultadoComponent,
         EcografiasComponent,
-        LaboratorioComponent
+        LaboratorioComponent,
+        LabSolicitudComponent
     ],
     imports: [
         ConsultaObstetricoRoutingModule,

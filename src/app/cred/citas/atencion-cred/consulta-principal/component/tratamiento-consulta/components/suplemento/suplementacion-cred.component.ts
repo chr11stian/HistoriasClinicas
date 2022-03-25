@@ -7,7 +7,7 @@ import {
     SuplementacionesMicronutrientesService
 } from "../../../../../plan/component/plan-atencion-integral/services/suplementaciones-micronutrientes/suplementaciones-micronutrientes.service";
 import {MessageService} from "primeng/api";
-import {SuplementoComponent} from "../suplemento/suplemento.component";
+import {SuplementoComponent} from "../suplemento-modal/suplemento.component";
 import {DialogService} from "primeng/dynamicdialog";
 import {dato} from "../../../../../../models/data";
 
@@ -27,28 +27,7 @@ export class SuplementacionCredComponent implements OnInit {
     SF: SuplementacionMicronutrientes[] = []
     MNM: SuplementacionMicronutrientes[] = []
     vitaminaA: SuplementacionMicronutrientes[] = []
-    suplementacionTerapeutica: SuplementacionMicronutrientes[] = [
-        {
-            descripcionEdad: '1a',
-            edadMes: '7',
-            nombre: 'SULFATO-FERROSO',
-            descripcion: 'SULFATO-FERROSO',
-            dosis: 1,
-            estadoAdministrado: false,
-            fechaTentativa: new Date(),
-            fecha: null
-        },
-        {
-            descripcionEdad: '1a',
-            edadMes: '7',
-            nombre: 'SULFATO-FERROSO2',
-            descripcion: 'SULFATO-FERROSO2',
-            dosis: 2,
-            estadoAdministrado: true,
-            fechaTentativa: new Date(),
-            fecha: new Date()
-        }
-    ]
+    suplementacionTerapeutica: SuplementacionMicronutrientes[] = []
     dataDocumento: dato
     edadMes: number;
     anio: number
@@ -69,25 +48,11 @@ export class SuplementacionCredComponent implements OnInit {
             {label: 'NO', optionValue: false}
         ];
     }
-
-    s
-
     ngOnInit(): void {
         this.getLista()
     }
 
     getLista() {
-        // this.servicio.getListaMicronutrientesPro(this.dni)
-        //     .then((resultado1)=>{
-        //         this.listaMicronutrientes = resultado1.object
-        //         return this.servicio.getVitaminaA(this.dni)
-        //     })
-        //     .then((resultado2:any)=>{
-        //         this.vitaminaA=resultado2.then()
-        //     })
-        //     .catch((error)=>{
-        //         console.log(error)
-        //     })
         this.servicio.getListaMicronutrientes(this.dni).toPromise()
             .then((result) => {
             this.listaMicronutrientes = result.object
@@ -97,9 +62,20 @@ export class SuplementacionCredComponent implements OnInit {
         })
         this.servicio.getVitaminaA(this.dni).toPromise().then((result) => {
             this.vitaminaA = result.object;
-            console.log(this.vitaminaA)
+            // console.log(this.vitaminaA)
             this.transformVitaA()
         })
+        this.servicio.getListaSuplementacionAnemia(this.dni).toPromise().then((result) => {
+            this.suplementacionTerapeutica = result.object;
+            // console.log('tipo suplementacion',this.suplementacionTerapeutica)
+            this.transformSA()
+        })
+    }
+    transformSA() {
+        this.suplementacionTerapeutica.forEach((element) => {
+            element.fechaTentativa = new Date(`${element.fechaTentativa} 00:00:00`);
+            element.fecha = element.fecha != null ? new Date(`${element.fecha} 00:00:00`) : null;
+        });
     }
 
     transformVitaA() {
@@ -119,15 +95,15 @@ export class SuplementacionCredComponent implements OnInit {
 
     separacion() {
         this.SF = this.listaMicronutrientes.filter(item => item.nombre === 'SF');
-        console.log('lista SF', this.SF);
+        // console.log('lista SF', this.SF);
         this.MNM = this.listaMicronutrientes.filter(item => item.nombre === 'MNM')
-        console.log('lista MMN', this.MNM);
+        // console.log('lista MMN', this.MNM);
     }
 
-    agregarSuplementacion(inmunizacion: SuplementacionMicronutrientes) {
+    agregarSuplementacion(suplementacion: SuplementacionMicronutrientes) {
         const ref = this.dialogService.open(SuplementoComponent, {
-            data: {isSuplementacion: this.isSuplementacion, "suplementacion": inmunizacion},
-            header: `Agregar Suplementacion ${inmunizacion.descripcion} Dosis numero (${inmunizacion.dosis})`,
+            data: {isSuplementacion: this.isSuplementacion, "suplementacion": suplementacion},
+            header: `Agregar Suplementacion ${suplementacion.descripcion} Dosis numero (${suplementacion.dosis})`,
             width: "50%",
             contentStyle: {"max-height": "500px", overflow: "auto"},
             baseZIndex: 10000,
@@ -155,7 +131,7 @@ export class SuplementacionCredComponent implements OnInit {
 
     correspondeMes(mesPivot, suplemento) {
         if (mesPivot == this.edadMes) {
-            this.contador[suplemento] += 1;
+            // this.contador[suplemento] += 1;
             return true;
         } else
             return false
