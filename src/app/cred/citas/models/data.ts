@@ -185,6 +185,7 @@ export interface antecedentesFamiliares {
 }
 
 export interface ReferenciaInterface {
+    id?: string
     fecha: Date | string;
     tipoSubsidio: string;
     coordinacion: Coordinacion;

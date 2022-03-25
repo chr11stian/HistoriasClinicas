@@ -30,6 +30,10 @@ export class FinalizarConsultaService {
         return this.http.get(`${this.urlServer}/${this.bd}/ipress/filtro/${item}`)
     }
 
+    updateReferencia( data) {
+        return this.http.put(`${this.urlServer}/${this.bd}/referencia/`, data)
+    }
+
     consultaReferencia(idConsulta: string) {
         return this.http.get(`${this.urlServer}/${this.bd}/referencia/datosConsulta/${idConsulta}`)
     }
