@@ -391,18 +391,9 @@ export class GiagnosticosComponent implements OnInit {
             // referencia: this.referencia,
             visitaDomiciliaria: this.visitaDomiciliaria,
             planParto: this.planPartoReenfocada,
-            //diagnosticos: this.diagnosticos,
-            // proxCita:
-            // {
-            //     fecha: this.datePipe.transform(this.formOtrosDatos.value.proxCita, 'yyyy-MM-dd'),
-            //     motivo: "PRÓXIMA CITA",
-            //     servicio: "OBSTETRICIA",
-            //     estado: "TENTATIVO",
-            //     nivelUrgencia: "NORMAL"
-            // },
             orientaciones: [
                 {
-                    consejeria: "Orientación y Consejería Signos de alarma",
+                    consejeria: "Orientación y consejería signos de alarma",
                     valor: this.form2.value.OrientaciónConsejeríaSignosAlarma,
                     cie10: "3232"
                 },
@@ -412,7 +403,7 @@ export class GiagnosticosComponent implements OnInit {
                     cie10: "1212"
                 },
                 {
-                    consejeria: "Sospechas de Tuberculosis",
+                    consejeria: "Sospechas de tuberculosis",
                     valor: this.form2.value.SospechasTuberculosis,
                     cie10: "2232"
                 },
@@ -422,17 +413,17 @@ export class GiagnosticosComponent implements OnInit {
                     cie10: "4866"
                 },
                 {
-                    consejeria: "Orientación Nutricional",
+                    consejeria: "Orientación nutricional",
                     valor: this.form2.value.OrientaciónNutricional,
                     cie10: "3233"
                 },
                 {
-                    consejeria: "Orientación en planificaión familiar",
+                    consejeria: "Orientación en planificación familiar",
                     valor: this.form2.value.OrientaciónPlanificaiónFamiliar,
                     cie10: "7779"
                 },
                 {
-                    consejeria: "Orientación en prevención de Cancer ginecológico",
+                    consejeria: "Orientación en prevención de cáncer ginecológico",
                     valor: this.form2.value.OrientaciónPrevenciónDeCancerGinecológico,
                     cie10: "8889"
                 },
@@ -447,7 +438,7 @@ export class GiagnosticosComponent implements OnInit {
                     cie10: "7777"
                 },
                 {
-                    consejeria: "Orientación en estilos de vida saludable",
+                    consejeria: "Consejería en estilos de vida saludable",
                     valor: this.form2.value.OrientaciónEnEstilosDeVidaSaludable,
                     cie10: "44545"
                 },
@@ -457,7 +448,7 @@ export class GiagnosticosComponent implements OnInit {
                     cie10: "21212"
                 },
                 {
-                    consejeria: "Violencia familiar",
+                    consejeria: "Violencia intrafamiliar",
                     valor: this.form2.value.ViolenciaFamiliar,
                     cie10: "Z6381"
                 },

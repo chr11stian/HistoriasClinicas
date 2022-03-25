@@ -51,6 +51,7 @@ export class ProcedimientosComponent implements OnInit {
 
   diagnosticosList: any[] = [];
   resumen: any[] = [];
+  resumenPendientes: any[] = [];
   constructor(private formBuilder: FormBuilder,
     private dialog: DialogService,
     private messageService: MessageService,
@@ -99,6 +100,7 @@ export class ProcedimientosComponent implements OnInit {
     this.recuperarDatos();
     this.traerDiagnosticosDeConsulta();
     this.traerListaResumen();
+    this.traerListaResumenPendientes();
   }
 
   ngOnInit(): void {
@@ -113,6 +115,17 @@ export class ProcedimientosComponent implements OnInit {
     this.tratamientoService.listarResumen(data).then((res: any) => {
       this.resumen = res.object;
       console.log("resumen:", this.resumen);
+    })
+  }
+  traerListaResumenPendientes(){
+    let data={
+      nroHcl: this.nroHcl,
+      nroEmbarazo: this.nroEmbarazo,
+      nroAtencion: this.nroAtencion
+    }
+    this.tratamientoService.listaResumenPendientes(data).then((res: any) => {
+      this.resumenPendientes = res.object;
+      console.log("resumenPendientes:", this.resumenPendientes);
     })
   }
   traerDiagnosticosDeConsulta() {
