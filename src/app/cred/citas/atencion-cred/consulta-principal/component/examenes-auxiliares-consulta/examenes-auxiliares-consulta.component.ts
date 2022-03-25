@@ -39,6 +39,15 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
     { index: 1, lugarLab: "CONSULTORIO" },
     { index: 2, lugarLab: "LABORATORIO" },
   ];
+  listValueResult: any[] = [
+    { name: "Leve", value: "LEVE" },
+    { name: "Moderado", value: "MODERADO" },
+    { name: "Severo", value: "SEVERO" },
+  ];
+  listResults: any[] = [
+    { name: "Positivo", value: "POSITIVO" },
+    { name: "Negativo", value: "NEGATIVO" },
+  ]
   dataExamenesAuxiliares: Laboratorio;
   isLabo: boolean = false;
   dataHematologia: Hematologia;
@@ -48,6 +57,10 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   observaciones: string;
   examLab: Examen = {};
   lugarLab: Lugar = {};
+
+  resultKey: boolean = false;
+  resultValue: boolean = false;
+  result: boolean = false;
   /**fin ngModels */
   idConsulta: string;
   listaDataLaboRes: any;
@@ -562,6 +575,9 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
       width: "65%",
       data: dataDialog,
     });
+  }
+  ngmodelXg() {
+    console.log('data de ngmodel ', this.resultValue);
   }
 }
 interface Examen {

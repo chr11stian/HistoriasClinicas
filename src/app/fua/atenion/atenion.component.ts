@@ -24,20 +24,25 @@ export class AtenionComponent implements OnInit {
     { name: "Otro", value: "OTRO" }
   ];
   listDiagnosticoDXIngreso = [
-    { label: "P", value: "PARCIAL" },
-    { label: "D", value: "NATIMUERTO" },
-    { label: "R", value: "REGULAR" },
+    { label: "P", value: "P" },
+    { label: "D", value: "D" },
+    { label: "R", value: "R" },
   ];
   listDiagnosticoDXEgreso = [
-    { label: "D", value: "NATIMUERTO" },
-    { label: "R", value: "REGULAR" },
-  ]
+    { label: "D", value: "D" },
+    { label: "R", value: "R" },
+  ];
+  listFirma = [
+    { name: "Asegurado", value: "ASEGURADO" },
+    { name: "Apoderado", value: "APODERADO" },
+  ];
   formdeLaAtencion: FormGroup;
   formAtencion: FormGroup;
   formPrestacional: FormGroup;
   formReferencia: FormGroup;
   formActiPreventivas: FormGroup;
   formRespAtencion: FormGroup;
+  formApoderado: FormGroup;
   /**ngModels */
   atencionDirecta: boolean = false;
   alta: boolean;
@@ -52,6 +57,9 @@ export class AtenionComponent implements OnInit {
   corteAdministrado: boolean;
   tipeDXIn: string;
   ipeDXEg: string;
+  firma: string;
+  nameApoderado: string;
+  nroDocApoderado: string;
   /**Fin ngModels */
   listDiagnostico: Diagnostico;
 
@@ -131,7 +139,16 @@ export class AtenionComponent implements OnInit {
       especialidad: new FormControl(""),
       nroRne: new FormControl(""),
       egresado: new FormControl("")
-    })
+    });
+    this.formApoderado = new FormGroup({
+      aseguradoApoderado: new FormControl(""),
+      firma: new FormControl(""),
+      apoderado: new FormControl(""),
+      nroDocCeApoderado: new FormControl(""),
+      firmaSelloResponsableAtencion: new FormControl(""),
+      huellaDigital: new FormControl(""),
+      estado: new FormControl("")
+    });
   }
 
   async getDataFUA() {
@@ -219,6 +236,18 @@ export class AtenionComponent implements OnInit {
       this.formActiPreventivas.patchValue({ tamizajeSaludMental: data.actividadesPreventivas.adultoMayor.tamizajeSaludMental });
     }
     /**vacunacion */
+    /**diagnostico */
+    /**responsable de la atencion*/
+    this.formRespAtencion.patchValue({ dniResponsable: data.responsableAtencion.nroDoc });
+    this.formRespAtencion.patchValue({ nombreResponsable: data.responsableAtencion.nombreResponsableAtencion });
+    this.formRespAtencion.patchValue({ nroColegiaturaResponsable: data.responsableAtencion.nroColegiatura });
+    this.formRespAtencion.patchValue({ responsableAtencion: data.responsableAtencion.responsableAtencion });
+    this.formRespAtencion.patchValue({ nroRne: data.responsableAtencion.nroRNE });
+    this.formRespAtencion.patchValue({ egresado: data.responsableAtencion.egresado });
+    /**apoderado */
+    this.firma = data.firma;
+    this.nameApoderado = data.apoderado;
+    this.nroDocApoderado = data.nroDocCeApoderado;
 
   }
   recoverData() {
@@ -293,14 +322,43 @@ export class AtenionComponent implements OnInit {
           vacam: this.formActiPreventivas.value.vacam == "SI" ? "VACAM" : '',
           tamizajeSaludMental: this.formActiPreventivas.value.tamizajeSaludMental == "SI" ? "TAMIZAJE" : ''
         }
-      }
+      },
+      /**vacunas */
+      diagnostico: this.listDiagnostico,
+      responsableAtencion: {
+        nroDoc: this.formRespAtencion.value.dniResponsable,
+        nombreResponsableAtencion: this.formRespAtencion.value.nombreResponsable,
+        nroColegiatura: this.formRespAtencion.value.nroColegiaturaResponsable,
+        responsableAtencion: this.formRespAtencion.value.responsableAtencion,
+        especialidad: this.formRespAtencion.value.especialidad,
+        nroRNE: this.formRespAtencion.value.nroRne,
+        egresado: this.formRespAtencion.value.egresado
+      },
+      /**apoderado */
+      firma: this.firma,
+      apoderado: this.nameApoderado,
+      nroDocCeApoderado: this.nroDocApoderado,
     }
   }
   save() {
     this.recoverData();
     console.log('second data to save ', this.secondDataFUA);
   }
-  changeNgModel() {
-    console.log('dx value ', this.tipeDXIn);
+  changeNgModel(rowData: Diagnostico, index: number) {
+    let auxDx: Diagnostico = {
+      nro: rowData.nro,
+      diagnosticoHIS: rowData.diagnosticoHIS,
+      cie10HIS: rowData.cie10HIS,
+      diagnosticoSIS: rowData.diagnosticoSIS,
+      cie10SIS: rowData.cie10SIS,
+      tipo: this.tipeDXIn,
+      codPrestacion: rowData.codPrestacion,
+      nombreUPS: rowData.nombreUPS,
+      factorCondicional: rowData.factorCondicional,
+      lab: rowData.lab,
+      nombreUPSaux: rowData.nombreUPSaux,
+      patologiaMaterna: rowData.patologiaMaterna
+    }
+    this.listDiagnostico[index] = auxDx;
   }
 }

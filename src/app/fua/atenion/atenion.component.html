@@ -654,12 +654,9 @@
                     <tr>
                         <th rowspan="3">#</th>
                         <th rowspan="3" style="width: 30em; text-align: center;">Descripción</th>
-                        <!-- <th colspan="1"></th> -->
                     </tr>
                     <tr>
-                        <!-- <th colspan="1"></th> -->
                         <th colspan="2" style="text-align: center;">INGRESO</th>
-                        <!-- <th colspan="1"></th> -->
                         <th colspan="2" style="text-align: center;">EGRESOS</th>
                     </tr>
                     <tr>
@@ -675,7 +672,7 @@
                         <td>{{ rowData.diagnosticoHIS }}%</td>
                         <td>
                             <p-selectButton [options]="listDiagnosticoDXIngreso" [(ngModel)]="tipeDXIn"
-                                optionLabel="label" (ngModelChange)="changeNgModel()" optionValue="value">
+                                optionLabel="label" (ngModelChange)="changeNgModel(rowData, i)" optionValue="value">
                             </p-selectButton>
                         </td>
                         <td>{{ rowData.cie10SIS }}</td>
@@ -731,6 +728,36 @@
                     </div>
                 </div>
             </form>
+        </p-fieldset>
+        <p-fieldset legend="DATOS DEL APODERADO">
+            <div class="grid">
+                <div class="col-2">
+                    <p-fieldset legend="Firma">
+                        <div *ngFor="let item of listFirma">
+                            <div class="grid">
+                                <div class="col-9">
+                                    <span [for]="item.value" class="pr-1">{{ item.name }}</span>
+                                </div>
+                                <div class="col-3">
+                                    <p-radioButton [inputId]="item.value" name="item" [value]="item.value"
+                                        [(ngModel)]="firma">
+                                    </p-radioButton>
+                                </div>
+                            </div>
+                        </div>
+                    </p-fieldset>
+                </div>
+                <div class="col-2">
+                    <span>Apoderado</span>
+                    <input type="text" pInputText [(ngModel)]="nameApoderado" class="p-inputtext inputfield w-full"
+                        placeholder="">
+                </div>
+                <div class="col-2">
+                    <span>DNI o CE del Apoderado</span>
+                    <input type="text" pInputText [(ngModel)]="nroDocApoderado" class="p-inputtext inputfield w-full"
+                        placeholder="">
+                </div>
+            </div>
         </p-fieldset>
     </div>
 </div>
