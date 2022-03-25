@@ -117,8 +117,8 @@ export class IpressComponent implements OnInit {
     this.formAsegurado.patchValue({ tdi: this.dataFUA.delAsegurado.tdi });
     this.formAsegurado.patchValue({ nroDoc: this.dataFUA.delAsegurado.nroDoc });
     this.formAsegurado.patchValue({ diresa: this.dataFUA.delAsegurado.codAseguradoSis.diresaOtros });
-    this.formAsegurado.patchValue({ nro1Diresa: this.dataFUA.delAsegurado.codAseguradoSis.afiliacion });
-    this.formAsegurado.patchValue({ nro2Diresa: this.dataFUA.delAsegurado.codAseguradoSis.nro });
+    this.formAsegurado.patchValue({ afiliacion: this.dataFUA.delAsegurado.codAseguradoSis.afiliacion });
+    this.formAsegurado.patchValue({ nro: this.dataFUA.delAsegurado.codAseguradoSis.nro });
     this.formAsegurado.patchValue({ institucion: this.dataFUA.delAsegurado.aseguradoDeOtrasIAFAS.institucion });
     this.formAsegurado.patchValue({ codSeguro: this.dataFUA.delAsegurado.aseguradoDeOtrasIAFAS.codAsegurado });
     this.formAsegurado.patchValue({ apePaterno: this.dataFUA.delAsegurado.apellidoPaterno });
@@ -138,6 +138,7 @@ export class IpressComponent implements OnInit {
   }
 
   recoverDataFUA() {
+    this.dataFUA = null;
     this.dataFUA = {
       deLaIpress: {
         nroFormato: {
@@ -185,5 +186,12 @@ export class IpressComponent implements OnInit {
         nr03: this.formAsegurado.value.cnv3,
       }
     }
+  }
+  save() {
+    this.recoverDataFUA();
+    console.log('data to save ', this.dataFUA);
+    this.fuaService.postDatosIpressAsegurado(this.idFUA, this.dataFUA).subscribe((res: any) => {
+      console.log('se guardo la data correctamente ', res);
+    });
   }
 }

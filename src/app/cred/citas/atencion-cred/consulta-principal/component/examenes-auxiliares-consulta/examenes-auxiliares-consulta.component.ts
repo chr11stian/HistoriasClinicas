@@ -65,7 +65,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
     this.recoverDataAuxialsExams();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
   inicializarForm() {
     this.formHematologia = new FormGroup({
       hemoglobina: new FormControl(

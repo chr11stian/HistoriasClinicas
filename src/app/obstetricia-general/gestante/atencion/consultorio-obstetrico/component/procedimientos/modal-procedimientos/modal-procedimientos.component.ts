@@ -22,7 +22,7 @@ export class ModalProcedimientosComponent implements OnInit {
   dataProcedimientos: any[] = [];
   idObstetricia: string;
   datePipe = new DatePipe('en-US');
-  estadoEditar:boolean=false;
+  estadoEditar: boolean = false;
 
   listaDeCIE: any;
   listaDeCIESIS: any;
@@ -44,6 +44,11 @@ export class ModalProcedimientosComponent implements OnInit {
   idIpress: any;
 
   idEdicion: any;
+  listaUpsHis: any;
+  listaUps: any;
+  tipoList: any;
+  edadPaciente: any;
+  sexoPaciente: any;
   constructor(private form: FormBuilder,
     private ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
@@ -59,7 +64,10 @@ export class ModalProcedimientosComponent implements OnInit {
     /*usando local storage*/
     this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
     this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
-
+    this.edadPaciente = JSON.parse(localStorage.getItem('datacupos')).paciente.edadAnio;
+    this.sexoPaciente = JSON.parse(localStorage.getItem('datacupos')).paciente.sexo;
+    this.recuperarUpsHis();
+    this.recuperarUPS();
     //estado para saber que estado usar en consultas
     this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
 
@@ -91,7 +99,11 @@ export class ModalProcedimientosComponent implements OnInit {
       this.nroAtencion = nroAtencion;
       console.log("entre a edicion consulta", this.nroAtencion)
     }
-
+    /*LLENADO DE LISTAS - VALORES QUE PUEDEN TOMAR TIPO DX*/
+    this.tipoList = [{ label: 'DEFINITIVO', value: 'D' },
+    { label: 'PRESUNTIVO', value: 'P' },
+    { label: 'REPETITIVO', value: 'R' },
+    ];
     console.log(config.data);
     this.buildForm();
 
@@ -101,10 +113,15 @@ export class ModalProcedimientosComponent implements OnInit {
     if (config.data) {
       this.llenarCamposTratamientoProcedimientos();
     }
+    else{
+      this.formProcedimientos.get('ups').setValue("OBSTETRICIA");
+      this.formProcedimientos.get('subtitulo').setValue("MATERNO PERINATAL");
+      this.formProcedimientos.get("tipo").setValue("D");
+    }
 
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   buildForm() {
     this.formProcedimientos = this.form.group({
@@ -116,11 +133,28 @@ export class ModalProcedimientosComponent implements OnInit {
       autocompleteHIS: [''],
       diagnosticoHIS: new FormControl("", [Validators.required]),
       HISCIE: new FormControl("", [Validators.required]),
-
+      ups: new FormControl("", [Validators.required]),
+      subtitulo: new FormControl("", [Validators.required]),
+      lab: new FormControl("", [Validators.required]),
+      tipo: new FormControl("", [Validators.required]),
     })
+  }
+  recuperarUpsHis() {
+    let Data = {
+      idIpress: this.idIpress,
+      edad: this.edadPaciente,
+      sexo: this.sexoPaciente
+    }
+    console.log("DATA PARA UPS HIS", Data)
+    this.DxService.listaUpsHis(Data).then((res: any) => this.listaUpsHis = res.object);
+  }
+  recuperarUPS() {
+    this.DxService.listaUps(this.idIpress).then((res: any) => this.listaUps = res.object);
+    console.log("DATA PARA UPS", this.listaUps)
   }
   openNew() {
     this.formProcedimientos.reset();
+
     this.dialogProcedimientos = true;
   }
   traerDiagnosticosDeConsulta() {
@@ -136,7 +170,11 @@ export class ModalProcedimientosComponent implements OnInit {
       codProcedimientoSIS: this.formProcedimientos.value.SISCIE.codigo,
       cie10SIS: this.formProcedimientos.value.diagnostico.cie10SIS,
       procedimientoHIS: this.formProcedimientos.value.diagnosticoHIS,
-      codProcedimientoHIS: this.formProcedimientos.value.HISCIE.codigoItem,  
+      codProcedimientoHIS: this.formProcedimientos.value.HISCIE.codigoItem,
+      nombreUPS: this.formProcedimientos.value.ups,
+      nombreUPSaux: this.formProcedimientos.value.subtitulo,
+      lab: this.formProcedimientos.value.lab,
+      tipo: this.formProcedimientos.value.tipo,
     }
 
     console.log(data);
@@ -149,6 +187,10 @@ export class ModalProcedimientosComponent implements OnInit {
       this.diagnosticosList = res.object;
       let configuracion = this.config.data.row;
       this.idEdicion = configuracion.id;
+      this.formProcedimientos.get("ups").setValue(configuracion.nombreUPS);
+      this.formProcedimientos.get("subtitulo").setValue(configuracion.nombreUPSaux);
+      this.formProcedimientos.get("lab").setValue(configuracion.lab);
+      this.formProcedimientos.get("tipo").setValue(configuracion.tipo);
       this.formProcedimientos.get("diagnostico").setValue(this.diagnosticosList.find(elemento => elemento.cie10SIS == configuracion.cie10SIS));
       this.PrestacionService.getProcedimientoPorCodigo(this.formProcedimientos.value.diagnostico.codPrestacion).subscribe((res: any) => {
         this.listaDeCIESIS = res.object.procedimientos;
@@ -166,14 +208,14 @@ export class ModalProcedimientosComponent implements OnInit {
     })
 
   }
-  closeDialogGuardar(){
+  closeDialogGuardar() {
     this.enviarProcedimientos();
     this.ref.close(
-        this.config.data?{
-              index: this.config.data.index,
-              row: this.dataProcedimientos[0]
-            }:
-            this.dataProcedimientos[0]);
+      this.config.data ? {
+        index: this.config.data.index,
+        row: this.dataProcedimientos[0]
+      } :
+        this.dataProcedimientos[0]);
   }
 
   closeDialog() {
