@@ -1,0 +1,122 @@
+p-calendar{
+    position: absolute;
+}
+p-calendar >>> .p-button {
+    background: #0c3866;
+    border: 1px solid #0c3866;
+    align-self: center;
+}
+.button-toolbar{
+    margin: 5px;
+}
+.button-cancelar{
+    background: #d31329;
+    border: #d31329;
+}
+.button-agregar{
+    background: #0c3866;
+    border: #0c3866;
+}
+p-calendar >>> .p-button.p-button-icon-only {
+    background-color: #0c3866;
+
+}
+p-calendar{
+    position: absolute;
+}
+p-dialog>>> .p-autocomplete{
+    width:100%;
+}
+p-dialog>>> .p-dialog .p-dialog-header {
+    border-bottom: 0 none;
+    background: #0c3866;
+    color: #ffffff;
+    padding: 1.5rem;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+}
+.p-dialog .p-dialog-header .p-dialog-title {
+    font-weight: 600;
+    font-size: 1.25rem;
+    color:#ffffff;
+}
+.table-over{
+    overflow-x: auto;
+}
+.confirmation-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.p-d-inline{
+    width: auto;
+    z-index: 5;
+}
+:host >>> .p-dialog  {
+    z-index: 5;
+    width: auto;
+    background: #FFFFFF;
+}
+.p-table >>> .p-table{
+    overflow-x: auto;
+}
+p-panel>>>.p-panel .p-panel-header{
+    background: #D32F2F;
+    border: 1px solid #D32F2F;
+    color: #FFFFFF;
+
+}
+p-panel>>>.p-panel .p-panel-content{
+    border: 1px solid #D32F2F;
+
+}
+
+@media (min-width: 300px){
+}
+
+@media (min-width: 500px){
+
+}
+@media (min-width: 900px){
+
+}
+:host ::ng-deep .row-faltantes {
+    background-color: rgba(208, 255, 206, 0.801) !important;
+}
+
+p-fieldset >>> .p-fieldset .p-fieldset-legend {
+    padding: 0.5rem;
+    border: 1px solid #dee2e6;
+    color: #495057;
+    background: #d8dee5;
+    font-weight: 600;
+    border-radius: 5px;
+    font-size: small;
+}
+::ng-deep .dialogo .p-dialog-mask .p-element {
+    display: block;
+}
+
+.p-inputtextarea:disabled{
+    opacity: 1;
+}
+
+.footer {
+    text-align: right;
+    background: white;
+    position: absolute;
+    bottom: 0;
+    width: 97%;
+    height: 5em;
+    color: white;
+    bottom: 0;
+    z-index: 50;
+}
+::ng-deep .p-dialog .p-dialog-header {
+    background: #0c3866;
+    color: rgb(255, 255, 255);
+}
+p-selectbutton >>> .p-selectbutton .p-button.p-highlight {
+    background: #0c3866;
+    border-color: #0c3866;
+}

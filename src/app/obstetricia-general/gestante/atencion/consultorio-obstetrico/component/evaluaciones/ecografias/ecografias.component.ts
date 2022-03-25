@@ -5,6 +5,7 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { PrestacionService } from 'src/app/mantenimientos/services/prestacion/prestacion.service';
 import { CieService } from 'src/app/obstetricia-general/services/cie.service';
 import { ConsultasService } from '../../../services/consultas.service';
+import { EcografiaResultadoComponent } from './ecografia-resultado/ecografia-resultado.component';
 import { EcografiaSolicitudComponent } from './ecografia-solicitud/ecografia-solicitud.component';
 
 @Component({
@@ -102,7 +103,7 @@ export class EcografiasComponent implements OnInit {
   openSolicitudEco() {
     //this.diagnosticoDialog = true;
     this.ref = this.dialog.open(EcografiaSolicitudComponent, {
-      header: "SOLICITUD",
+      header: "SOLICITUD DE ECOGRAFIA",
       contentStyle: {
         heigth: "700px",
         width: "980px",
@@ -120,7 +121,7 @@ export class EcografiasComponent implements OnInit {
       row: rowData
     }
     this.ref = this.dialog.open(EcografiaSolicitudComponent, {
-      header: "SOLICITUD",
+      header: "EDITAR SOLICITUD DE ECOGRAFIA",
       contentStyle: {
         heigth: "700px",
         width: "980px",
@@ -133,7 +134,21 @@ export class EcografiasComponent implements OnInit {
       this.recuperarEcografias();
     })
   }
-
+  openResultadoEco() {
+    //this.diagnosticoDialog = true;
+    this.ref = this.dialog.open(EcografiaResultadoComponent, {
+      header: "RESULTADO DE ECOGRAFAIA",
+      contentStyle: {
+        heigth: "700px",
+        width: "980px",
+        overflow: "auto",
+      },
+    })
+    this.ref.onClose.subscribe((data: any) => {
+      console.log("data de modal eco", data)
+      this.recuperarEcografias();
+    })
+  }
 
   ngOnInit(): void {
     this.recuperarEcografias();

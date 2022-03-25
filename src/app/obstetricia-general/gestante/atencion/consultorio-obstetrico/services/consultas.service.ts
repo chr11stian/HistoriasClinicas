@@ -99,13 +99,21 @@ export class ConsultasService {
         return this.http.delete(`${this.base_url}/${this.bd}/obstetricia/consulta/eliminarTratamiento/${nroHcl}/${nroEmbarazo}/${nroAtencion}/${id}`)
     }
     //procesamiento de imagenes
-    guardarEcografiasGestante(id,data){
+    guardarSolicitudEcografiasGestante(id,data){
         return this.http.post(`${this.base_url}/${this.bd}/examenesAuxiliares/agregar-ProcImg/${id}`, data)
         .toPromise()
         .then(res => <any[]>res)
         .then(data => { return data; });
     }
-    
+    editarSolicitudEcografiasGestante(id,data){
+        return this.http.put(`${this.base_url}/${this.bd}/examenesAuxiliares/actualizarProcImgPendiente/${id}`, data)
+        .toPromise()
+        .then(res => <any[]>res)
+        .then(data => { return data; });
+    }
+    eliminarSolicitudEcografiasGestante(id,data){
+        return this.http.put(`${this.base_url}/${this.bd}//examenesAuxiliares/eliminarProcImgPendiente/${id}`,data)
+    }
 
      //listar
     listarDiagnosticosDeUnaConsulta(nroHcl,nroEmbarazo,nroAtencion){
@@ -148,6 +156,13 @@ export class ConsultasService {
 
     listarResumen(data){
         return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/listaprocedimientos`,data)
+        .toPromise()
+        .then(res => <any[]>res)
+        .then(data => { return data; });
+    }
+    
+    listaResumenPendientes(data){
+        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/listarProcedimientosFaltantes`,data)
         .toPromise()
         .then(res => <any[]>res)
         .then(data => { return data; });

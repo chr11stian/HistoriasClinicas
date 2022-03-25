@@ -116,12 +116,14 @@ export class EcografiaSolicitudComponent implements OnInit {
     this.traerDiagnosticosDeConsulta();
 
     if (config.data) {
-      this.llenarCamposTratamientoInmunizaciones();
+      this.llenarCamposSolicitudEcografia();
     }
-    else{
+    else {
       this.formEcografiaSolicitud.get('ups').setValue("OBSTETRICIA");
       this.formEcografiaSolicitud.get('subtitulo').setValue("MATERNO PERINATAL");
       this.formEcografiaSolicitud.get("tipo").setValue("D");
+      this.formEcografiaSolicitud.get('autocompleteHIS').enable();
+      this.formEcografiaSolicitud.get('HISCIE').enable();
     }
   }
   buildForm() {
@@ -165,7 +167,7 @@ export class EcografiaSolicitudComponent implements OnInit {
     this.DxService.listaUps(this.idIpress).then((res: any) => this.listaUps = res.object);
     console.log("DATA PARA UPS", this.listaUps)
   }
-  recuperarListaSubTipos(){
+  recuperarListaSubTipos() {
     this.DxService.listarSubTipoImagenes().then((res: any) => this.listaSubTipos = res.procImgSubtipos);
     console.log("DATA SUBTIPOS", this.listaSubTipos)
   }
@@ -177,18 +179,19 @@ export class EcografiaSolicitudComponent implements OnInit {
   }
   async enviarSolicitudEcografia() {
     var data = {
-      subTipo:this.formEcografiaSolicitud.value.subTipo,
-      codPrestacion:this.formEcografiaSolicitud.value.diagnostico.codPrestacion,
-      codigoSIS:this.formEcografiaSolicitud.value.SISCIE.codigo,
-      nombreExamenSIS:this.formEcografiaSolicitud.value.diagnosticoSIS,
-      codigoHIS:this.formEcografiaSolicitud.value.HISCIE.codigoItem,
-      nombreExamenHIS:this.formEcografiaSolicitud.value.diagnosticoHIS,
-      nombreUPS:this.formEcografiaSolicitud.value.ups,
-      nombreUPSAux:this.formEcografiaSolicitud.value.subtitulo,
-      tipoDX:this.formEcografiaSolicitud.value.tipo,
-      lab:this.formEcografiaSolicitud.value.lab,
-      agregarafiliacion:true,	
-      cie10SIS:this.formEcografiaSolicitud.value.diagnostico.cie10SIS,
+      subTipo: this.formEcografiaSolicitud.value.subTipo,
+      codPrestacion: this.formEcografiaSolicitud.value.diagnostico.codPrestacion,
+      codigoSIS: this.formEcografiaSolicitud.value.SISCIE.codigo,
+      nombreExamenSIS: this.formEcografiaSolicitud.value.diagnosticoSIS,
+      codigoHIS: this.formEcografiaSolicitud.value.HISCIE.codigoItem,
+      nombreExamen: this.formEcografiaSolicitud.value.diagnosticoHIS,
+      nombreUPS: this.formEcografiaSolicitud.value.ups,
+      nombreUPSaux: this.formEcografiaSolicitud.value.subtitulo,
+      tipoDX: this.formEcografiaSolicitud.value.tipo,
+      lab: this.formEcografiaSolicitud.value.lab,
+      agregarafiliacion: true,
+      cie10SIS: this.formEcografiaSolicitud.value.diagnostico.cie10SIS,
+      estadoPago:"PAGADO"
     }
 
     console.log(data);
@@ -201,7 +204,7 @@ export class EcografiaSolicitudComponent implements OnInit {
     }
     this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
       this.nroConsultaGuardada = res.object.id;
-      this.DxService.guardarEcografiasGestante(this.nroConsultaGuardada, data).then((res: any) => {
+      this.DxService.guardarSolicitudEcografiasGestante(this.nroConsultaGuardada, data).then((res: any) => {
         Swal.fire({
           icon: 'success',
           title: 'Guardado',
@@ -211,34 +214,39 @@ export class EcografiaSolicitudComponent implements OnInit {
         })
       })
     })
-    
+
 
   }
   async enviarEdicionSolicitudEcografia() {
     var data = {
-      subTipo:this.formEcografiaSolicitud.value.subTipo,
-      codPrestacion:this.formEcografiaSolicitud.value.diagnostico.codPrestacion,
-      codigoSIS:this.formEcografiaSolicitud.value.SISCIE.codigo,
-      nombreExamenSIS:this.formEcografiaSolicitud.value.diagnosticoSIS,
-      codigoHIS:this.formEcografiaSolicitud.value.HISCIE.codigoItem,
-      nombreExamenHIS:this.formEcografiaSolicitud.value.diagnosticoHIS,
-      nombreUPS:this.formEcografiaSolicitud.value.ups,
-      nombreUPSAux:this.formEcografiaSolicitud.value.subtitulo,
-      tipoDX:this.formEcografiaSolicitud.value.tipo,
-      lab:this.formEcografiaSolicitud.value.lab,
-      agregarafiliacion:true,	
-      cie10SIS:this.formEcografiaSolicitud.value.diagnostico.cie10SIS,
+      subTipo: this.formEcografiaSolicitud.value.subTipo,
+      codPrestacion: this.formEcografiaSolicitud.value.diagnostico.codPrestacion,
+      codigoSIS: this.formEcografiaSolicitud.value.SISCIE.codigo,
+      nombreExamenSIS: this.formEcografiaSolicitud.value.diagnosticoSIS,
+      nombreUPS: this.formEcografiaSolicitud.value.ups,
+      nombreUPSAux: this.formEcografiaSolicitud.value.subtitulo,
+      tipoDX: this.formEcografiaSolicitud.value.tipo,
+      lab: this.formEcografiaSolicitud.value.lab,
+      agregarafiliacion: true,
+      cie10SIS: this.formEcografiaSolicitud.value.diagnostico.cie10SIS,
     }
-
     console.log(data);
-
-    await this.DxService.guardarEcografiasGestante(this.nroConsultaGuardada, data).then((res: any) => {
-      Swal.fire({
-        icon: 'success',
-        title: 'Actualizado',
-        text: 'Solicitud de ecografia guardada correctamente',
-        showConfirmButton: false,
-        timer: 1500,
+    let aux = {
+      id: this.idConsulta,
+      nroHcl: this.nroHcl,
+      nroEmbarazo: this.nroEmbarazo,
+      nroAtencion: this.nroAtencion
+    }
+    this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
+      this.nroConsultaGuardada = res.object.id;
+      this.DxService.editarSolicitudEcografiasGestante(this.nroConsultaGuardada, data).then((res: any) => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Actualizado',
+          text: 'Solicitud de ecografia guardada correctamente',
+          showConfirmButton: false,
+          timer: 1500,
+        })
       })
     })
   }
@@ -252,30 +260,31 @@ export class EcografiaSolicitudComponent implements OnInit {
     })
     this.dialogInmunizaciones = false;
   }
-  llenarCamposTratamientoInmunizaciones() {
+  llenarCamposSolicitudEcografia() {
     this.DxService.listarDiagnosticosDeUnaConsulta(this.nroHcl, this.nroEmbarazo, this.nroAtencion).then((res: any) => {
       this.diagnosticosList = res.object;
       let configuracion = this.config.data.row;
       this.idEdicion = configuracion.id;
       this.formEcografiaSolicitud.get("ups").setValue(configuracion.nombreUPS);
       this.formEcografiaSolicitud.get("subtitulo").setValue(configuracion.nombreUPSaux);
-      this.formEcografiaSolicitud.get("tipo").setValue(configuracion.tipoDx);
-      this.formEcografiaSolicitud.get("dosis").setValue(configuracion.dosis);
-      this.formEcografiaSolicitud.get("tipoDosis").setValue(configuracion.tipoDosis);
+      this.formEcografiaSolicitud.get("tipo").setValue(configuracion.tipoDX);
+      this.formEcografiaSolicitud.get("subTipo").setValue(configuracion.subTipo);
+      this.formEcografiaSolicitud.get("lab").setValue(configuracion.lab);
       this.formEcografiaSolicitud.get("diagnostico").setValue(this.diagnosticosList.find(elemento => elemento.cie10SIS == configuracion.cie10SIS));
       this.PrestacionService.getProcedimientoPorCodigo(this.formEcografiaSolicitud.value.diagnostico.codPrestacion).subscribe((res: any) => {
         this.listaDeCIESIS = res.object.procedimientos;
         this.formEcografiaSolicitud.patchValue({ prestacion: res.object.descripcion });
-        this.formEcografiaSolicitud.patchValue({ diagnosticoSIS: this.listaDeCIESIS.find(elemento => elemento.codigo == configuracion.codProcedimientoSIS).procedimiento });
-        this.formEcografiaSolicitud.patchValue({ SISCIE: this.listaDeCIESIS.find(elemento => elemento.codigo == configuracion.codProcedimientoSIS) });
+        this.formEcografiaSolicitud.patchValue({ diagnosticoSIS: this.listaDeCIESIS.find(elemento => elemento.codigo == configuracion.codigoSIS).procedimiento });
+        this.formEcografiaSolicitud.patchValue({ SISCIE: this.listaDeCIESIS.find(elemento => elemento.codigo == configuracion.codigoSIS) });
         this.formEcografiaSolicitud.patchValue({ autocompleteSIS: "" });
       })
-      this.CieService.getCIEByDescripcionTipo("EX",configuracion.codProcedimientoHIS).subscribe((res: any) => {
+      this.CieService.getCIEByDescripcionTipo("EX", configuracion.codigoHIS).subscribe((res: any) => {
         this.listaDeCIE = res.object;
-        this.formEcografiaSolicitud.patchValue({ HISCIE: this.listaDeCIE.find(elemento => elemento.codigoItem == configuracion.codProcedimientoHIS) });
-        this.formEcografiaSolicitud.get("diagnosticoHIS").setValue(this.listaDeCIE.find(elemento => elemento.codigoItem == configuracion.codProcedimientoHIS).descripcionItem);
+        this.formEcografiaSolicitud.patchValue({ HISCIE: this.listaDeCIE.find(elemento => elemento.codigoItem == configuracion.codigoHIS) });
+        this.formEcografiaSolicitud.get("diagnosticoHIS").setValue(this.listaDeCIE.find(elemento => elemento.codigoItem == configuracion.codigoHIS).descripcionItem);
       })
-
+      this.formEcografiaSolicitud.get('autocompleteHIS').disable();
+      this.formEcografiaSolicitud.get('HISCIE').disable();
     })
   }
   recuperarPrestaciones() {
@@ -303,7 +312,7 @@ export class EcografiaSolicitudComponent implements OnInit {
     })
   }
   filterCIE10(event) {
-    this.CieService.getCIEByDescripcionTipo("EX",event.query).subscribe((res: any) => {
+    this.CieService.getCIEByDescripcionTipo("EX", event.query).subscribe((res: any) => {
       this.listaDeCIE = res.object
     })
   }
