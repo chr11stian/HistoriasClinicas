@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, DoCheck} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import Swal from "sweetalert2";
 import {CieService} from "../../../../../../obstetricia-general/services/cie.service";
@@ -8,7 +8,7 @@ import {ModalReferenciaComponent} from "./modal-referencia/modal-referencia.comp
 import {DatePipe} from "@angular/common";
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {CalendarComponent} from "./calendar/calendar.component";
-import {dato} from "../../../../models/data";
+import {dato, listaAcuerdosConMadre, acuerdosInterface} from "../../../../models/data";
 
 @Component({
     selector: 'app-finalizar-consulta',
@@ -16,12 +16,13 @@ import {dato} from "../../../../models/data";
     styleUrls: ['./finalizar-consulta.component.css'],
     providers: [DialogService]
 })
-export class FinalizarConsultaComponent implements OnInit {
+export class FinalizarConsultaComponent implements OnInit, DoCheck {
     attributeLocalS = 'documento'
     data: dato
+    fecha: Date
     acuerdosFG: FormGroup
     finalizar: finalizarAtencionInterface;
-    acuerdosComprimisos: acuerdosComprimisosInterface[] = [];
+    acuerdos: listaAcuerdosConMadre[] = [];
     examenesAux: examenesAuxInteface[] = [];
     referencia: referenciaInterface[] = [];
 
@@ -55,7 +56,13 @@ export class FinalizarConsultaComponent implements OnInit {
     datePipe = new DatePipe('en-US');
     ref: DynamicDialogRef;
 
-    constructor(private finalizarService: FinalizarConsultaService,
+    ngDoCheck() {
+        if (this.acuerdosService.proxCita !== '') {
+            this.fecha = new Date(this.acuerdosService.proxCita)
+        }
+    }
+
+    constructor(private acuerdosService: FinalizarConsultaService,
                 private cieService: CieService,
                 private formBuilder: FormBuilder,
                 private router: Router,
@@ -97,6 +104,27 @@ export class FinalizarConsultaComponent implements OnInit {
             ];
     }
 
+    save() {
+        let aux: acuerdosInterface = {
+            listaAcuerdosConMadre: this.acuerdos,
+            referencia: this.acuerdosService.referencia,
+            proxCita: {
+                fecha: this.datePipe.transform(this.acuerdosFG.get('proximaCitaFC').value, 'yyyy-MM-dd'),
+            },
+            observacionesConsulta: this.acuerdosFG.get('observacionFC').value,
+            interconsultas: null
+        }
+        console.log('aux', aux)
+        this.acuerdosService.addAcuerdo(this.data.idConsulta, aux).subscribe((r: any) => {
+            Swal.fire({
+                icon: 'success',
+                title: 'Agregado correctamente',
+                text: '',
+                showConfirmButton: false,
+                timer: 1500,
+            })
+        })
+    }
 
     buildFG(): void {
         this.id = localStorage.getItem(this.attributeLocalS);
@@ -108,7 +136,7 @@ export class FinalizarConsultaComponent implements OnInit {
             observacionFC: new FormControl({value: '', disabled: false}, []),
         })
         this.formAcuerdos = this.formBuilder.group({
-            descripcionAcuerdo: new FormControl("", []),
+            descripcion: new FormControl("", []),
         });
 
         this.formExamen = this.formBuilder.group({
@@ -127,47 +155,38 @@ export class FinalizarConsultaComponent implements OnInit {
     ngOnInit(): void {
         this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
         this.agenda()
-        /*this.route.queryParams
-            .subscribe(params => {
-                console.log('params', params)
-                if (params['nroDoc']) {
-                    this.tipoDoc = params['tipoDoc']
-                    this.nroDoc = params['nroDoc']
-                }
-            })
-        this.recuperarFinalizar()*/
     }
 
-    /* funciones tabla acuerdo*/
+    /* mostrar el plan en el calendario */
     agenda() {
-        this.finalizarService.listPlan(this.data.nroDocumento).subscribe((r: any) => {
+        this.acuerdosService.listPlan(this.data.nroDocumento).subscribe((r: any) => {
             let aux = r.object.planAtencion
             aux.controlCrecimientoDesa.map((r_: any) => {
-                this.finalizarService.list.push({
+                this.acuerdosService.list.push({
                     title: r_.nroControl + '° control de crecimiento de ' + this.descripcion(r_.descripcionEdad),
                     start: r_.fechaTentativa
                 })
             })
             aux.suplementacionSFMicronutrientes.map((r_: any) => {
-                this.finalizarService.list.push({
+                this.acuerdosService.list.push({
                     title: r_.dosis + '° dosis de ' + r_.descripcion.toLowerCase() + ' de ' + this.descripcion(r_.descripcionEdad),
                     start: r_.fechaTentativa
                 })
             })
             aux.suplementacionVitaminaA.map((r_: any) => {
-                this.finalizarService.list.push({
+                this.acuerdosService.list.push({
                     title: r_.dosis + '° dosis de ' + r_.descripcion.toLowerCase() + ' de ' + this.descripcion(r_.descripcionEdad),
                     start: r_.fechaTentativa
                 })
             })
             aux.tratamientoDosajeHemoglobina.map((r_: any) => {
-                this.finalizarService.list.push({
+                this.acuerdosService.list.push({
                     title: r_.nroControl + '° control de ' + (r_.nombre === 'Dosaje_Hb' ? 'dosaje de hemoglobina' : '') + ' de ' + this.descripcion(r_.descripcionEdad),
                     start: r_.fechaTentativa
                 })
             })
             aux.inmunizacionesCred.map((r_: any) => {
-                this.finalizarService.list.push({
+                this.acuerdosService.list.push({
                     title: r_.dosis + '° dosis de ' + r_.descripcion.toLowerCase() + ' de ' + this.descripcion(r_.descripcionEdad),
                     start: r_.fechaTentativa
                 })
@@ -182,7 +201,7 @@ export class FinalizarConsultaComponent implements OnInit {
     openAcuerdo() {
         this.isUpdate3 = false;
         this.formAcuerdos.reset();
-        this.formAcuerdos.get('descripcionAcuerdo').setValue("");
+        this.formAcuerdos.get('descripcion').setValue("");
         this.dialogAcuerdos = true;
     }
 
@@ -202,16 +221,17 @@ export class FinalizarConsultaComponent implements OnInit {
         if (this.bool3 === false) {
             aux = false
             this.isUpdate3 = false;
-            let a: acuerdosComprimisosInterface = {
-                codigoAcuerdo: "string",
-                descripcionAcuerdo: this.formAcuerdos.value.descripcionAcuerdo
+            let a: listaAcuerdosConMadre = {
+                nroAcuerdo: 'nro',
+                descripcion: this.formAcuerdos.value.descripcion,
+                edadMes: 'edad'
             }
-            this.acuerdosComprimisos.push(a);
+            this.acuerdos.push(a);
         } else {
-            this.acuerdosComprimisos[this.index3].descripcionAcuerdo = this.formAcuerdos.value.descripcionAcuerdo
+            this.acuerdos[this.index3].descripcion = this.formAcuerdos.value.descripcion
             this.bool3 = false;
         }
-        console.log("acuerdos", this.acuerdosComprimisos)
+        //console.log("acuerdos", this.acuerdosComprimisos)
         Swal.fire({
             icon: 'success',
             title: aux !== true ? 'Agregado correctamente' : 'Actualizado correctamente',
@@ -223,7 +243,7 @@ export class FinalizarConsultaComponent implements OnInit {
     }
 
     eliminarAcuerdo(index) {
-        this.acuerdosComprimisos.splice(index, 1)
+        this.acuerdos.splice(index, 1)
     }
 
     editarAcuerdo(row, index) {
@@ -364,12 +384,12 @@ export class FinalizarConsultaComponent implements OnInit {
 
     /*  objeto finalizar */
     recuperarFinalizar() {
-        this.finalizarService.getFinalizar(this.id).subscribe((r: any) => {
+        /*this.finalizarService.getFinalizar(this.id).subscribe((r: any) => {
             //-- recupera informacion de finalizar
             if (r.object) {
                 this.finalizar = r.object;
                 console.log('finalizar', r)
-                this.acuerdosComprimisos = (this.finalizar.acuerdosComprimisos === null) ? [] : this.finalizar.acuerdosComprimisos
+                //this.acuerdosComprimisos = (this.finalizar.acuerdosComprimisos === null) ? [] : this.finalizar.acuerdosComprimisos
                 this.examenesAux = (this.finalizar.examenesAux === null) ? [] : this.finalizar.examenesAux
                 let re: referenciaInterface = {
                     consultorio: this.finalizar.referencia.consultorio === null ? '' : this.finalizar.referencia.consultorio,
@@ -384,39 +404,38 @@ export class FinalizarConsultaComponent implements OnInit {
                 this.acuerdosFG.get('dniFC').setValue(this.finalizar.dniPersonal);
                 this.acuerdosFG.get('observacionFC').setValue(this.finalizar.observacion);
             }
-        })
+        })*/
     }
 
-    save() {
-        /*let r: referenciaInterface = {
-            consultorio: this.referencia[0].consultorio === null ? 'consultorio' : this.referencia[0].consultorio,
-            motivo: this.referencia[0].motivo === null ? 'motivo' : this.referencia[0].motivo,
-            codRENAES: this.referencia[0].codRENAES === null ? 'codRENAES' : this.referencia[0].codRENAES
-        }
-        const req = {
-            acuerdosComprimisos: this.acuerdosComprimisos,
-            examenesAux: this.examenesAux,
-            referencia: r,
-            proximaCita: this.acuerdosFG.value.proximaCitaFC,
-            atendidoPor: this.acuerdosFG.value.atendidoFC,
-            dniPersonal: this.acuerdosFG.value.dniFC,
-            observacion: this.acuerdosFG.value.observacionFC,
-        }
-        console.log('req', req)
-        if (this.finalizar) {
-            this.finalizarService.updateFinalizar(this.id, req).subscribe(
-                (resp) => {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Actualizado correctamente',
-                        text: '',
-                        showConfirmButton: false,
-                        timer: 1500,
-                    })
-                }
-            )
-        }*/
+    /*let r: referenciaInterface = {
+        consultorio: this.referencia[0].consultorio === null ? 'consultorio' : this.referencia[0].consultorio,
+        motivo: this.referencia[0].motivo === null ? 'motivo' : this.referencia[0].motivo,
+        codRENAES: this.referencia[0].codRENAES === null ? 'codRENAES' : this.referencia[0].codRENAES
     }
+    const req = {
+        acuerdosComprimisos: this.acuerdosComprimisos,
+        examenesAux: this.examenesAux,
+        referencia: r,
+        proximaCita: this.acuerdosFG.value.proximaCitaFC,
+        atendidoPor: this.acuerdosFG.value.atendidoFC,
+        dniPersonal: this.acuerdosFG.value.dniFC,
+        observacion: this.acuerdosFG.value.observacionFC,
+    }
+    console.log('req', req)
+    if (this.finalizar) {
+        this.finalizarService.updateFinalizar(this.id, req).subscribe(
+            (resp) => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Actualizado correctamente',
+                    text: '',
+                    showConfirmButton: false,
+                    timer: 1500,
+                })
+            }
+        )
+    }*/
+
 
     irEvaluaciones() {
         /** redirigir a atencion de usuario */

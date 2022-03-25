@@ -29,6 +29,10 @@ export class SuplementacionesMicronutrientesService {
   getVitaminaA(dni: string) {
     return this.http.get<any>(`${this.base_url}/${this.bd}/cred/suplementacion/vitamina_a/${dni}`);
   }
+  //getListaSuplementacionAnemia
+  getListaSuplementacionAnemia(dni: string) {
+    return this.http.get<any>(`${this.base_url}/${this.bd}/cred/suplementacion/anemia/${dni}`);
+  }
 
   PostSuplementacion(idConsulta: string, inputRequest) {
     return this.http.post<any>(`${this.base_url}/${this.bd}/cred/consulta/evaluacion/suplementacion/${idConsulta}`,inputRequest);
@@ -36,12 +40,17 @@ export class SuplementacionesMicronutrientesService {
   PostVitaminaA(idConsulta: string, inputRequest) {
     return this.http.post<any>(`${this.base_url}/${this.bd}/cred/consulta/evaluacion/suplementacion/vitamina_a/${idConsulta}`,inputRequest);
   }
+  PostSuplementacionXanemia(idConsulta: string, inputRequest) {
+    return this.http.post<any>(`${this.base_url}/${this.bd}/cred/consulta/tratamiento/suplementacion/${idConsulta}`,inputRequest);
+  }
+
+
   //dosaje de hemoglobina
   getDosajeHemoglobina(dni: string) {
     return this.http.get<any>(`${this.base_url}/${this.bd}/cred/dosaje_hemoglobina/${dni}`);
   }
   getDosajeHemoglobinaTerapeutico(dni: string) {
-    return this.http.get<any>(`${this.base_url}/${this.bd}/cred/dosaje_hemoglobina???/${dni}`);
+    return this.http.get<any>(`${this.base_url}/${this.bd}/cred/tratamiento_anemia/${dni}`);
   }
   PostDosajeHemoglobina(idConsulta: string, inputRequest) {
     return this.http.post<any>(`${this.base_url}/${this.bd}/cred/consulta/evaluacion/dosajehb/${idConsulta}`,inputRequest);

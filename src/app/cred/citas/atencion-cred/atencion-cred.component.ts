@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core'
 import {ActivatedRoute, Router} from '@angular/router'
+import {dato} from "../models/data";
 
 // interface queryParams {
 //     nroDoc: string
@@ -12,16 +13,21 @@ import {ActivatedRoute, Router} from '@angular/router'
     styleUrls: ['./atencion-cred.component.css']
 })
 export class AtencionCredComponent implements OnInit {
+    attributeLocalS = 'documento'
     tipoDoc: string = ''
     nroDoc: string = ''
+    hidden: boolean
+    data: dato
 
     constructor(private route: ActivatedRoute,
                 private router: Router) {
     }
 
     ngOnInit(): void {
+        this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
+        this.hidden = this.data.see
         /**this.route.queryParams
-            .subscribe(params => {
+         .subscribe(params => {
                 console.log('params', params)
                 if (params['nroDoc']) {
                     this.tipoDoc = params['tipoDoc']
@@ -31,6 +37,7 @@ export class AtencionCredComponent implements OnInit {
                 }
             })**/
     }
+
     getTriaje(): void {
         this.router.navigate(['/dashboard/cred/citas/atencion/triaje'],
             {
@@ -40,6 +47,7 @@ export class AtencionCredComponent implements OnInit {
                 }**/
             })
     }
+
     getConsultaPrincipal(): void {
         this.router.navigate(['/dashboard/cred/citas/atencion/consulta-principal'],
             {
@@ -49,6 +57,7 @@ export class AtencionCredComponent implements OnInit {
                 }**/
             })
     }
+
     getPlanAtencionIntegralPrincipal(): void {
         this.router.navigate(['/dashboard/cred/citas/atencion/plan-atencion-integral'],
             {
