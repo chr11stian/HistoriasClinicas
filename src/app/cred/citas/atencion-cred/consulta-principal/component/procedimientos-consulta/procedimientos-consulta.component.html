@@ -17,7 +17,7 @@
             <ng-template pTemplate="header">
                 <tr>
                     <th style="text-align: center" class="font-2">Nro</th>
-                    <th style="text-align: center" class="font-2">EDAD</th>
+<!--                    <th style="text-align: center" class="font-2">EDAD</th>-->
                     <th style="text-align: center" class="font-2">NOMBRE</th>
                     <th style="text-align: center" class="font-2">EVALUACION</th>
                     <th style="text-align: center" class="font-2">RESULTADO</th>
@@ -32,9 +32,9 @@
                     <td>
                         {{rowIndex+1}}
                     </td>
-                    <td>
-                        {{this.dataConsulta.anio }} (años) {{this.dataConsulta.mes }} (meses)    {{this.dataConsulta.dia }} (dias)
-                    </td>
+<!--                    <td>-->
+<!--                        {{this.dataConsulta.anio }} (años) {{this.dataConsulta.mes }} (meses)    {{this.dataConsulta.dia }} (dias)-->
+<!--                    </td>-->
                     <td>
                         {{listaResumen.nombre}}
                     </td>
@@ -73,9 +73,9 @@
             <ng-template pTemplate="header">
                 <tr>
                     <th style="text-align: center" class="font-2">Nro</th>
-                    <th style="text-align: center" class="font-2">COD. PROCEDIMIENTO SIS</th>
+<!--                    <th style="text-align: center" class="font-2">COD. PROCEDIMIENTO SIS</th>-->
                     <th style="text-align: center" class="font-2">PROCEDIMIENTO SIS</th>
-                    <th style="text-align: center" class="font-1">COD. PROCEDIMIENTO HIS</th>
+<!--                    <th style="text-align: center" class="font-1">COD. PROCEDIMIENTO HIS</th>-->
                     <th style="text-align: center" class="font-2">PROCEDIMIENTO HIS</th>
                     <th style="text-align: center" class="font-1">COD. PRESTACIÓN</th>
                     <th style="text-align: center" class="font-2">CIE 10 SIS</th>
@@ -88,9 +88,9 @@
             <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                 <tr>
                     <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                    <td style="text-align: center">{{ rowData.codProcedimientoSIS }}</td>
+<!--                    <td style="text-align: center">{{ rowData.codProcedimientoSIS }}</td>-->
                     <td style="text-align: center">{{ rowData.procedimientoSIS }}</td>
-                    <td style="text-align: center">{{ rowData.codProcedimientoHIS }}</td>
+<!--                    <td style="text-align: center">{{ rowData.codProcedimientoHIS }}</td>-->
                     <td style="text-align: center">{{ rowData.procedimientoHIS }}</td>
                     <td style="text-align: center">{{ rowData.codPrestacion }}</td>
                     <td style="text-align: center">{{ rowData.cie10SIS }}</td>
@@ -98,9 +98,12 @@
                     <td style="text-align: center">{{ rowData.tipo }}</td>
                     <td style="text-align: center">{{ rowData.lab }}</td>
                     <td style="text-align: center">
-                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                                    (click)="elimininarProcedimiento(rowIndex)" pTooltip="Eliminar">
-                            </button>
+                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded m-1"
+                                (click)="editarDx(rowData,rowIndex)" pTooltip="Editar">
+                        </button>
+                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
+                                (click)="elimininarProcedimiento(rowIndex)" pTooltip="Eliminar">
+                        </button>
 
                     </td>
                 </tr>
@@ -202,7 +205,7 @@
                 <p-fieldset legend="PROCEDIMIENTO SIS">
                     <div class="grid mt-2">
                         <div class="col-12 p-fluid">
-                            <p-dropdown [options]="listaDeProcedimientos" formControlName="buscarPDxSIS" placeholder="Seleccionar un Diagnostico" optionLabel="procedimiento" (onChange)="selectDxSIS()" >
+                            <p-dropdown [options]="listaDeProcedimientos" formControlName="buscarPDxSIS" placeholder="Seleccionar un Diagnostico" optionLabel="procedimiento" (onChange)="selectDxSIS($event)" >
                                 <ng-template let-procedimientos pTemplate="item">
                                     <div class="flex align-items-center">
                                         <div>{{procedimientos.codigo}}-{{procedimientos.procedimiento}}</div>
@@ -221,7 +224,13 @@
                             <label>CIE 10: </label>
                         </div>
                         <div class="col-12 p-fluid">
-                            <input style="text-transform:uppercase"   pInputText formControlName="codProcedimientoSIS">
+                            <div class="col-12 p-fluid">
+                                <p-dropdown   [options]="listaDeProcedimientos" formControlName="codProcedimientoSIS" appendTo="body"
+                                              optionLabel="codigo" class="inputfield p-fluid w-full" placeholder="Seleccione"
+                                              (onChange)="selectedOption($event)"></p-dropdown>
+                                <!--                            <input style="text-transform:uppercase"   pInputText formControlName="cie10SIS">-->
+                            </div>
+<!--                            <input style="text-transform:uppercase"   pInputText formControlName="codProcedimientoSIS">-->
                         </div>
                     </div>
                 </p-fieldset>
@@ -263,10 +272,13 @@
         </div>
     </form>
     <ng-template pTemplate="footer">
+
+        <button *ngIf="isUpdate" class="button-agregar" icon="pi pi-pencil" pButton type="button"
+                label="Editar" (click)="getDatatoEditPx()"></button>
+        <button *ngIf="!isUpdate" class="button-agregar" icon="pi pi-save" pButton type="button"
+                label="Guardar" (click)="getDatatoSavePx()"></button>
         <button pButton type="button" label="Cancelar" class="button-cancelar"
                 icon="pi pi-times" (click)="cancelProcedimiento()"></button>
-        <button class="button-agregar" icon="pi pi-save" pButton type="button"
-                label="Guardar" (click)="getDatatoSavePx()"></button>
 
     </ng-template>
 

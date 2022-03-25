@@ -427,6 +427,11 @@ const menu_ipress = [
                 routerLink: "admision/ipress",
             },
             {
+                label: "Ups Auxiliar",
+                icon: "pi pi-pw pi-file",
+                routerLink: "mantenimientos/ups-aux",
+            },
+            {
                 label: "Ipress Turnos",
                 icon: "pi pi-pw pi-file",
                 routerLink: "admision/ipress-turnos",
