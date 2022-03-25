@@ -111,7 +111,7 @@ export class EcografiasComponent implements OnInit {
     this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
       this.nroConsultaGuardada = res.object.id;
       this.DxService.listaConcluidosEco(this.nroConsultaGuardada).then((res: any) => {
-        this.solicitudesEco = res.object;
+        this.resultadosEco = res.object;
       })
     })
   }
@@ -208,8 +208,8 @@ export class EcografiasComponent implements OnInit {
       //index: index,
       row: rowData
     }
-    this.ref = this.dialog.open(EcografiaSolicitudComponent, {
-      header: "EDITAR SOLICITUD DE ECOGRAFIA",
+    this.ref = this.dialog.open(EcografiaResultadoComponent, {
+      header: "EDITAR RESULTADO DE ECOGRAFIA",
       contentStyle: {
         heigth: "700px",
         width: "980px",
@@ -219,7 +219,7 @@ export class EcografiasComponent implements OnInit {
     })
     this.ref.onClose.subscribe((data: any) => {
       console.log("data de modal eco", data)
-      this.recuperarEcografiasPendientes();
+      this.recuperarEcografiasConcluidos();
     })
   }
   eliminarResutadoEcografia(index) {
@@ -243,9 +243,9 @@ export class EcografiasComponent implements OnInit {
         }
         this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
           this.nroConsultaGuardada = res.object.id;
-          this.DxService.eliminarSolicitudEcografiasGestante(this.nroConsultaGuardada, data).subscribe(
+          this.DxService.eliminarResultadoEcografiasGestante(this.nroConsultaGuardada, data).subscribe(
             (resp) => {
-              this.recuperarEcografiasPendientes();
+              this.recuperarEcografiasConcluidos();
               Swal.fire({
                 icon: 'success',
                 title: 'Eliminado correctamente',
