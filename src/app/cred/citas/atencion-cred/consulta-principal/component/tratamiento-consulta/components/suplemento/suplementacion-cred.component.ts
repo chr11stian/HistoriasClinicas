@@ -62,11 +62,12 @@ export class SuplementacionCredComponent implements OnInit {
         })
         this.servicio.getVitaminaA(this.dni).toPromise().then((result) => {
             this.vitaminaA = result.object;
-            console.log(this.vitaminaA)
+            // console.log(this.vitaminaA)
             this.transformVitaA()
         })
         this.servicio.getListaSuplementacionAnemia(this.dni).toPromise().then((result) => {
             this.suplementacionTerapeutica = result.object;
+            // console.log('tipo suplementacion',this.suplementacionTerapeutica)
             this.transformSA()
         })
     }
@@ -94,15 +95,15 @@ export class SuplementacionCredComponent implements OnInit {
 
     separacion() {
         this.SF = this.listaMicronutrientes.filter(item => item.nombre === 'SF');
-        console.log('lista SF', this.SF);
+        // console.log('lista SF', this.SF);
         this.MNM = this.listaMicronutrientes.filter(item => item.nombre === 'MNM')
-        console.log('lista MMN', this.MNM);
+        // console.log('lista MMN', this.MNM);
     }
 
-    agregarSuplementacion(inmunizacion: SuplementacionMicronutrientes) {
+    agregarSuplementacion(suplementacion: SuplementacionMicronutrientes) {
         const ref = this.dialogService.open(SuplementoComponent, {
-            data: {isSuplementacion: this.isSuplementacion, "suplementacion": inmunizacion},
-            header: `Agregar Suplementacion ${inmunizacion.descripcion} Dosis numero (${inmunizacion.dosis})`,
+            data: {isSuplementacion: this.isSuplementacion, "suplementacion": suplementacion},
+            header: `Agregar Suplementacion ${suplementacion.descripcion} Dosis numero (${suplementacion.dosis})`,
             width: "50%",
             contentStyle: {"max-height": "500px", overflow: "auto"},
             baseZIndex: 10000,
@@ -130,7 +131,7 @@ export class SuplementacionCredComponent implements OnInit {
 
     correspondeMes(mesPivot, suplemento) {
         if (mesPivot == this.edadMes) {
-            this.contador[suplemento] += 1;
+            // this.contador[suplemento] += 1;
             return true;
         } else
             return false

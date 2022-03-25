@@ -148,7 +148,7 @@ export class DosajeComponent implements OnInit {
             ],
             observaciones: "ALGUNA OBSERVACION",
             tsa: {
-                tipoTratamiento: this.dosaje.tipoTratamiento,
+                tipoTratamiento: this.dosaje.tipoTratamiento,//preventivo o terapeutico
                 descripcionEdad: this.dosaje.descripcionEdad,
                 nombre: this.dosaje.nombre,
                 edadMes: this.dosaje.edadMes,
@@ -164,7 +164,7 @@ export class DosajeComponent implements OnInit {
         }
 
 
-        // console.log('input reques:->>>>>>>>>>>', inputRequest.tsa)
+        console.log('input reques:->>>>>>>>>>>', inputRequest.tsa)
         this.confirmationService.confirm({
             header: "Confirmación",
             message: "Esta Seguro que desea guardar el Dosaje de Hemoglobina",

@@ -52,8 +52,8 @@ export class ProcedimientoDosajeHemoglobinaComponent implements OnInit {
     })
   }
   determinarMostrar(mesEvaluado){
-    if(this.edadMes>=mesEvaluado && this.edadMes-mesEvaluado<6 ) {
-      // if (this.edadMes==mesEvaluado){
+   // w if(this.edadMes>=mesEvaluado && this.edadMes-mesEvaluado<6 ) {
+      if (this.edadMes==mesEvaluado){
       return true;
     }
     else
