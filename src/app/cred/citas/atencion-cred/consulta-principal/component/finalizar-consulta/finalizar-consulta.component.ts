@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, DoCheck} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import Swal from "sweetalert2";
 import {CieService} from "../../../../../../obstetricia-general/services/cie.service";
@@ -16,9 +16,10 @@ import {dato, listaAcuerdosConMadre, acuerdosInterface} from "../../../../models
     styleUrls: ['./finalizar-consulta.component.css'],
     providers: [DialogService]
 })
-export class FinalizarConsultaComponent implements OnInit {
+export class FinalizarConsultaComponent implements OnInit, DoCheck {
     attributeLocalS = 'documento'
     data: dato
+    fecha: Date
     acuerdosFG: FormGroup
     finalizar: finalizarAtencionInterface;
     acuerdos: listaAcuerdosConMadre[] = [];
@@ -54,6 +55,12 @@ export class FinalizarConsultaComponent implements OnInit {
 
     datePipe = new DatePipe('en-US');
     ref: DynamicDialogRef;
+
+    ngDoCheck() {
+        if (this.acuerdosService.proxCita !== '') {
+            this.fecha = new Date(this.acuerdosService.proxCita)
+        }
+    }
 
     constructor(private acuerdosService: FinalizarConsultaService,
                 private cieService: CieService,

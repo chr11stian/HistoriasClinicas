@@ -17,6 +17,7 @@ export class FinalizarConsultaService {
     bd = environment.bd
     list: event[] = []
     referencia: referencia
+    proxCita = ''
 
     constructor(private http: HttpClient) {
     }
