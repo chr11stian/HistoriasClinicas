@@ -107,24 +107,18 @@
                     [showClear]="false" appendTo="body" optionLabel="lugarLab">
                 </p-dropdown>
             </div>
-            <div class="col-12" *ngIf="lugarLab.index == 1">
-                <label>Observaciones:</label>
-                <textarea [rows]="3" class="inputfield w-full mt-2" [(ngModel)]="observaciones" pInputTextarea
-                    oninput="this.value=this.value.toUpperCase()"></textarea>
-            </div>
+            
             <div class="col-12">
-                <div class="grid ml-4 mt-2">
-                    <div class="col-2 ">
-                        <span class="mr-2">Resultado</span>
+                <div class="grid text-center ml-4 mt-2">
+                    <div class="col-3 ">
                         <div class="grid">
-                            <div class="col-12 text-left" *ngFor="let item of listResults">
-                                <div class="grid">
-                                    <div class="col-6 text-right">
+                            <span class="mr-2 mt-2">Resultado:</span>
+                            <div *ngFor="let item of listResults">
+                                <div class="grid ">
+                                    <div class="col-6 flex flex-column ">
                                         <span [for]="item.value" class="pr-1">{{ item.name }}</span>
-                                    </div>
-                                    <div class="col-4">
                                         <p-radioButton [inputId]="item.value" name="item" [value]="item.value"
-                                            [(ngModel)]="firma">
+                                            [(ngModel)]="result">
                                         </p-radioButton>
                                     </div>
                                 </div>
@@ -137,13 +131,13 @@
                     <div class="col-2" *ngIf="examLab.tipoExam == 2">
                         <div class="grid">
                             <span class="mr-2">Anemia</span>
-                            <p-checkbox [(ngModel)]="resultValue" binary="true" inputId="binary" class="pr-2"
+                            <p-checkbox [(ngModel)]="resultKey" binary="true" inputId="binary" class="pr-2"
                                 (ngModelChange)="ngmodelXg()">
                             </p-checkbox>
                         </div>
                     </div>
                 </div>
-                <div class="grid mt-3" *ngIf="resultValue && examLab.tipoExam == 2">
+                <div class="grid mt-3" *ngIf="resultKey && examLab.tipoExam == 2">
                     <div class="col-2 text-left" *ngFor="let item of listValueResult">
                         <div class="grid">
                             <div class="col-6 text-right">
@@ -151,12 +145,18 @@
                             </div>
                             <div class="col-4">
                                 <p-radioButton [inputId]="item.value" name="item" [value]="item.value"
-                                    [(ngModel)]="firma">
+                                    [(ngModel)]="resultValue">
                                 </p-radioButton>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            <!-- Observaciones -->
+            <div class="col-12" *ngIf="lugarLab.index == 1">
+                <label>Observaciones:</label>
+                <textarea [rows]="3" class="inputfield w-full mt-2" [(ngModel)]="observaciones" pInputTextarea
+                    oninput="this.value=this.value.toUpperCase()"></textarea>
             </div>
             <!-- CAMPOS DE HEMOGLOBINA EN CONSULTORIO -->
             <div class="p-fluid col-9" *ngIf="lugarLab.index == 1 && examLab.tipoExam == 2">

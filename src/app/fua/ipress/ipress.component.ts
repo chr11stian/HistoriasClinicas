@@ -110,9 +110,9 @@ export class IpressComponent implements OnInit {
     // console.log('lugar atencion ', this.dataFUA.deLaIpress.eessInformacion.lugarDeAtencion);
     this.attentionPlace = this.dataFUA.deLaIpress.eessInformacion.lugarDeAtencion;
     this.attention = this.dataFUA.deLaIpress.eessInformacion.atencion;
-    this.formIpress.patchValue({ codRenaesRef: this.dataFUA.deLaIpress.eessInformacion.referenciaRealizadaPor });
-    this.formIpress.patchValue({ ipressRef: this.dataFUA.deLaIpress.eessInformacion.referenciaRealizadaPor });
-    this.formIpress.patchValue({ nroHojaRef: this.dataFUA.deLaIpress.eessInformacion.referenciaRealizadaPor });
+    this.formIpress.patchValue({ codRenaesRef: this.dataFUA.deLaIpress.eessInformacion.referenciaRealizadaPor.codRenaes });
+    this.formIpress.patchValue({ ipressRef: this.dataFUA.deLaIpress.eessInformacion.referenciaRealizadaPor.nombreIpress });
+    this.formIpress.patchValue({ nroHojaRef: this.dataFUA.deLaIpress.eessInformacion.referenciaRealizadaPor.nroHojaReferencia });
     /**del asegurado */
     this.formAsegurado.patchValue({ tdi: this.dataFUA.delAsegurado.tdi });
     this.formAsegurado.patchValue({ nroDoc: this.dataFUA.delAsegurado.nroDoc });
@@ -153,7 +153,11 @@ export class IpressComponent implements OnInit {
           personalQueAtiende: this.personal,
           lugarDeAtencion: this.attentionPlace,
           atencion: this.attention,
-          // referenciaRealizadaPor: this.formIpress.value.ipressRef
+          referenciaRealizadaPor: {
+            codRenaes: this.formIpress.value.codRenaesRef,
+            nombreIpress: this.formIpress.value.ipressRef,
+            nroHojaReferencia: this.formIpress.value.nroHojaRef
+          }
         }
       },
       delAsegurado: {

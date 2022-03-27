@@ -13,7 +13,11 @@ export interface IPRESS {
     lugarDeAtencion: string;
     nombreEESS: string;
     personalQueAtiende: string;
-    referenciaRealizadaPor?: string;
+    referenciaRealizadaPor?: {
+      codRenaes: string,
+      nombreIpress: string,
+      nroHojaReferencia: string,
+    }
   };
   nroFormato: {
     anio: string;

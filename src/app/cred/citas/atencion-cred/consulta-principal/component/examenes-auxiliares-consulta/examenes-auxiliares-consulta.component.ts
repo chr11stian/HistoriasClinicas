@@ -59,8 +59,8 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   lugarLab: Lugar = {};
 
   resultKey: boolean = false;
-  resultValue: boolean = false;
-  result: boolean = false;
+  resultValue: string;
+  result: string;
   /**fin ngModels */
   idConsulta: string;
   listaDataLaboRes: any;
@@ -198,6 +198,9 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
     this.lugarLab = {};
     this.inicializarForm();
     this.addExamDialog = true;
+    this.resultKey = false;
+    this.resultValue = "";
+    this.result = "";
   }
 
   agreeAddExamDialog() {
@@ -242,6 +245,8 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
     // console.log('lista de examenes ', this.listaExamenesAux);
     this.listaExamenesAux = [...this.listaExamenesAux];
     this.addExamDialog = false;
+
+    console.log('lista de examenes ', this.listaExamenesAux);
   }
 
   deleteExamItem(index) {
@@ -288,6 +293,13 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
       vrHcm: this.formHematologia.value.vrHcm,
       vsg1hora: this.formHematologia.value.vsg1hora,
       vsg2hora: this.formHematologia.value.vsg2hora,
+
+      resultado: {
+        clave: this.resultKey == true ? "ANEMIA" : "",
+        valor: this.resultValue,
+        resultado: this.result,
+      },
+      observacionesLaboratorio: this.observaciones
     };
   }
   recoverDataParasitologia() {
@@ -331,6 +343,11 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
       sangreOcultaHeces: this.formParasitario.value.sangreOcultaHeces,
       gotaGruesa: this.formParasitario.value.gotaGruesa,
       frotisLesion: this.formParasitario.value.frotisLesion,
+
+      resultado: {
+        resultado: this.result
+      },
+      observacionesLaboratorio: this.observaciones
     };
   }
   saveAuxiliarsExams() {
@@ -376,16 +393,14 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
         observaciones: "",
       };
       console.log("data to dave de verdad ", this.dataExamenesAuxiliares);
-      this.auxExamService
-        .postExamenesAuxiliares(this.idConsulta, this.dataExamenesAuxiliares)
-        .subscribe((res: any) => {
-          Swal.fire({
-            icon: "success",
-            title: "Se guardo correctamente el examen",
-            showConfirmButton: false,
-            timer: 1500,
-          });
+      this.auxExamService.postExamenesAuxiliares(this.idConsulta, this.dataExamenesAuxiliares).subscribe((res: any) => {
+        Swal.fire({
+          icon: "success",
+          title: "Se guardo correctamente el examen",
+          showConfirmButton: false,
+          timer: 1500,
         });
+      });
     }
   }
   openShowDataAuxiliarsExams(data, index) {
@@ -434,6 +449,9 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
     this.addExamDialog = false;
   }
   setdataHematologia(data) {
+    this.resultKey = data.resultado.clave == "ANEMIA" ? true : false;
+    this.resultValue = data.resultado.valor;
+    this.result = data.resultado.resultado;
     this.formHematologia.patchValue({ hemoglobina: data.hemoglobina });
     this.formHematologia.patchValue({ hematocrito: data.hematocrito });
     this.formHematologia.patchValue({ grupoSanguineo: data.grupoSanguineo });
@@ -478,6 +496,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
     this.formHematologia.patchValue({ vrHcm: data.vrHcm });
   }
   setDataParasitologia(data) {
+    this.result = data.resultado.resultado
     this.formParasitario.patchValue({ color: data.examenMacroscopico.color });
     this.formParasitario.patchValue({
       consistencia: data.examenMacroscopico.consistencia,
