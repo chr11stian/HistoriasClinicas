@@ -19,4 +19,8 @@ export class CieService {
   getCIEByCod(codCIE) {
     return this.http.get(`${this.base_url}/${this.bd}/cie10his/buscar/${codCIE}`)
   }
+
+  getCIEByDescripcionTipo(tipo,text){
+    return this.http.get(`${this.base_url}/${this.bd}/cie10his/filtro/tipo/${tipo}/${text}`)
+  }
 }

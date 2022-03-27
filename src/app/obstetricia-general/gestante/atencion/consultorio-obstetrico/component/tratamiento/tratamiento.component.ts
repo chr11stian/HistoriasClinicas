@@ -12,8 +12,7 @@ import { MessageService } from "primeng/api";
 import { MedicamentosService } from 'src/app/mantenimientos/services/medicamentos/medicamentos.service';
 import { IpressFarmaciaService } from 'src/app/modulos/ipress-farmacia/services/ipress-farmacia.service';
 import { CieService } from 'src/app/obstetricia-general/services/cie.service';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-
+import {PrimeIcons} from 'primeng/api';
 @Component({
   selector: 'app-tratamiento',
   templateUrl: './tratamiento.component.html',
@@ -90,6 +89,7 @@ export class TratamientoComponent implements OnInit {
   idIpress: any;
   edadPaciente: any;
   sexoPaciente: any;
+  events1: any[] = [];
   constructor(private formBuilder: FormBuilder,
     private obstetriciaService: ObstetriciaGeneralService,
     private dialog: DialogService,
@@ -165,6 +165,13 @@ export class TratamientoComponent implements OnInit {
     this.listaSuplementoCalcio = [
       { name: "CALCIO", code: "1" },
     ];
+    this.events1 = [
+      {status: '', date: 'INICIO GESTACIÓN'},
+      {status: 'ÁCIDO FÓLICO', date: 'Hasta 13 sem. de gestación',icon: PrimeIcons.SHOPPING_CART, color: '#9C27B0'},
+      {status: 'SULFATO FERROSO', date: 'A partir de las 14 sem. de gestación',icon: PrimeIcons.SHOPPING_CART, color: '#9C27B0'},
+      {status: 'CALCIO', date: 'A partir de las 18 sem. de gestación',icon: PrimeIcons.SHOPPING_CART, color: '#9C27B0'},
+      {status: '', date: 'PARTO'}
+  ];
     this.recuperarDatos();
     this.traerDiagnosticosDeConsulta();
     this.listarMedicamentosFarmacia();
@@ -359,7 +366,6 @@ export class TratamientoComponent implements OnInit {
       this.tratamientosComunes = res.object;
     })
   }
-
   guardarTodosDatos() {
     console.log(this.formRIEP.value);
     const req = {
