@@ -3,17 +3,17 @@ export interface DatosGeneralesFUA {
   idFUA?: string;
   idConsulta?: string;
   deLaIpress: IPRESS;
-  delAsegurado: Asegurado;
+  delAsegurado?: Asegurado;
 }
 export interface IPRESS {
   eessInformacion: {
     atencion: string;
     codOfertaFlexible: string;
     codRenaes: string;
-    lugarAtencion: string;
+    lugarDeAtencion: string;
     nombreEESS: string;
     personalQueAtiende: string;
-    referenciaRealizadaPor: string;
+    referenciaRealizadaPor?: string;
   };
   nroFormato: {
     anio: string;
@@ -31,7 +31,7 @@ export interface Asegurado {
   nroHistoriaClinica: string;
   saludMaterna: string;
   aseguradoDeOtrasIAFAS: {
-    codAsegurado: string,
+    codSeguro: string,
     institucion: string,
   } //idk
   sexo: string;
@@ -73,7 +73,7 @@ export interface ConceptoPrestacional {
   atencionDirecta: string,
   cobExtraOrdinario: {
     nroAutorizacion: string,
-    monto: string
+    monto: number
   },
   traslado: string,
   sepelio: string
@@ -161,10 +161,14 @@ export interface SegundaParteFUA {
 
   deLaAtencion?: Atencion,
   conceptoPrestacional?: ConceptoPrestacional,
-  destinoAsegurado?: DestinoAsegurado,
+  destinoDelAsegurado?: DestinoAsegurado,
   refiereContrarefiere?: RefiereContrarefiere,
   actividadesPreventivas?: ActividadesPreventivas,
   diagnostico?: Diagnostico,
-  vacunas?: string[],
+  vacunas?: Vacunas[],
   responsableAtencion?: ResponsableAtencion,
+}
+export interface Vacunas {
+  dosis: number,
+  nombre: string
 }

@@ -1,6 +1,9 @@
+import { DatePipe } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
-import { Diagnostico, KeyData, SegundaParteFUA } from "../models/fua";
+import { Router } from "@angular/router";
+import Swal from "sweetalert2";
+import { Diagnostico, KeyData, SegundaParteFUA, Vacunas } from "../models/fua";
 import { FuaService } from "../services/fua.service";
 
 @Component({
@@ -62,13 +65,16 @@ export class AtenionComponent implements OnInit {
   nroDocApoderado: string;
   /**Fin ngModels */
   listDiagnostico: Diagnostico;
+  listVacunas: Vacunas[];
 
   idFUA: string;
   secondDataFUA: SegundaParteFUA;
+  datePipe = new DatePipe('en-US');
 
   constructor(
     private form: FormBuilder,
-    private fuaService: FuaService
+    private fuaService: FuaService,
+    private router: Router
   ) {
     this.idFUA = JSON.parse(localStorage.getItem("dataFUA")).idFUA;
     console.log('id de FUA ', this.idFUA);
@@ -162,7 +168,8 @@ export class AtenionComponent implements OnInit {
     });
     this.setDataFUA(this.secondDataFUA);
     this.listDiagnostico = this.secondDataFUA.diagnostico;
-    console.log('diagnosticos ', this.listDiagnostico);
+    this.listVacunas = this.secondDataFUA.vacunas;
+    // this.tipeVaccine('BCG', this.listVacunas);
   }
   setDataFUA(data: SegundaParteFUA) {
     /**de la atencion */
@@ -182,21 +189,22 @@ export class AtenionComponent implements OnInit {
     }
     /**concepto prestacional */
     if (data.conceptoPrestacional != null) {
-      this.atencionDirecta = data.conceptoPrestacional.atencionDirecta == 'TRUE' ? true : false;
+      this.atencionDirecta = data.conceptoPrestacional.atencionDirecta == 'ATENCION DIRECTA' ? true : false;
       this.formPrestacional.patchValue({ nroAutorizacion: data.conceptoPrestacional.cobExtraOrdinario.nroAutorizacion });
       this.formPrestacional.patchValue({ monto: data.conceptoPrestacional.cobExtraOrdinario.monto });
-      this.traslado = data.conceptoPrestacional.traslado == 'TRUE' ? true : false;
+      this.traslado = data.conceptoPrestacional.traslado == 'TRASLADO' ? true : false;
       this.sepelio = data.conceptoPrestacional.sepelio;
     }
     /**del destino del asegurado/usuario */
-    if (data.destinoAsegurado != null) {
-      this.alta = data.destinoAsegurado.alta == 'TRUE' ? true : false;
-      this.cita = data.destinoAsegurado.cita == 'TRUE' ? true : false;
-      this.hospitalizacion = data.destinoAsegurado.hospitalizacion == 'TRUE' ? true : false;
-      this.referido = data.destinoAsegurado.referido
-      this.contraReferido = data.destinoAsegurado.contraReferido == 'TRUE' ? true : false;
-      this.fallecido = data.destinoAsegurado.fallecido == 'TRUE' ? true : false;
-      this.corteAdministrado = data.destinoAsegurado.corteAdministrado == 'TRUE' ? true : false;
+    // console.log('destino asegurado ', data.destinoDelAsegurado)
+    if (data.destinoDelAsegurado != null) {
+      this.alta = data.destinoDelAsegurado.alta == 'ALTA' ? true : false;
+      this.cita = data.destinoDelAsegurado.cita == 'CITA' ? true : false;
+      this.hospitalizacion = data.destinoDelAsegurado.hospitalizacion == 'HOSPITALIZACION' ? true : false;
+      this.referido = data.destinoDelAsegurado.referido
+      this.contraReferido = data.destinoDelAsegurado.contraReferido == 'CONTRARREFERIDO' ? true : false;
+      this.fallecido = data.destinoDelAsegurado.fallecido == 'FALLECIDO' ? true : false;
+      this.corteAdministrado = data.destinoDelAsegurado.corteAdministrado == 'CORTE ADMINISTRATIVO' ? true : false;
     }
     /**se refiere/contrarefiere */
     if (data.refiereContrarefiere != null) {
@@ -220,32 +228,36 @@ export class AtenionComponent implements OnInit {
       this.formActiPreventivas.patchValue({ apgar1ro: data.actividadesPreventivas.delRecienNacido.apgar1ro });
       this.formActiPreventivas.patchValue({ apgar5to: data.actividadesPreventivas.delRecienNacido.apgar5to });
       this.formActiPreventivas.patchValue({ corteTardioCordon: data.actividadesPreventivas.delRecienNacido.corteTardioCordon });
-      //gestante
+      //etapa de vida
       this.formActiPreventivas.patchValue({ nroCred: data.actividadesPreventivas.etapaDeVida.nroCred });
-      this.formActiPreventivas.patchValue({ rnPrematuro: data.actividadesPreventivas.etapaDeVida.rnPrematuro });
-      this.formActiPreventivas.patchValue({ bajoPesoNacer: data.actividadesPreventivas.etapaDeVida.bajoPesoNacer });
-      this.formActiPreventivas.patchValue({ enfermedadCongenitaAlNacer: data.actividadesPreventivas.etapaDeVida.enfermedadCongenitaAlNacer });
+      this.formActiPreventivas.patchValue({ rnPrematuro: data.actividadesPreventivas.etapaDeVida.rnPrematuro == "RN PREMATURO" ? "SI" : "NO" });
+      this.formActiPreventivas.patchValue({ bajoPesoNacer: data.actividadesPreventivas.etapaDeVida.bajoPesoNacer == "BAJO PESO NACER" ? "SI" : "NO" });
+      this.formActiPreventivas.patchValue({ enfermedadCongenitaAlNacer: data.actividadesPreventivas.etapaDeVida.enfermedadCongenitaAlNacer == "ENFERMEDAD CONGENITA AL NACER" ? "SI" : "NO" });
       this.formActiPreventivas.patchValue({ nroFamiliaresGestante: data.actividadesPreventivas.etapaDeVida.nroFamiliaresGestante });
       this.formActiPreventivas.patchValue({ pab: data.actividadesPreventivas.etapaDeVida.pab });
       this.formActiPreventivas.patchValue({ tapEedpTepsi: data.actividadesPreventivas.etapaDeVida.tapEedpTepsi });
-      this.formActiPreventivas.patchValue({ consejeriaNutricional: data.actividadesPreventivas.etapaDeVida.consejeriaNutricional });
-      this.formActiPreventivas.patchValue({ consejeriaIntegral: data.actividadesPreventivas.etapaDeVida.consejeriaIntegral });
+      this.formActiPreventivas.patchValue({ consejeriaNutricional: data.actividadesPreventivas.etapaDeVida.consejeriaNutricional == "CONSEJERIA  NUTRICIONAL" ? "SI" : "NO" });
+      this.formActiPreventivas.patchValue({ consejeriaIntegral: data.actividadesPreventivas.etapaDeVida.consejeriaIntegral == "CONSEJERIA INTEGRAL" ? "SI" : "NO" });
       this.formActiPreventivas.patchValue({ imc: data.actividadesPreventivas.etapaDeVida.imc });
-      this.formActiPreventivas.patchValue({ jovenAdultoEvaluacionIntegral: data.actividadesPreventivas.jovenAdultoEvaluacionIntegral });
-      this.formActiPreventivas.patchValue({ vacam: data.actividadesPreventivas.adultoMayor.vacam });
-      this.formActiPreventivas.patchValue({ tamizajeSaludMental: data.actividadesPreventivas.adultoMayor.tamizajeSaludMental });
+      //joven adulto
+      this.formActiPreventivas.patchValue({ jovenAdultoEvaluacionIntegral: data.actividadesPreventivas.jovenAdultoEvaluacionIntegral == "EVALUACION INTEGRAL" ? "SI" : "NO" });
+      //adulto mayor
+      this.formActiPreventivas.patchValue({ vacam: data.actividadesPreventivas.adultoMayor.vacam == "VACAM" ? "SI" : "NO" });
+      this.formActiPreventivas.patchValue({ tamizajeSaludMental: data.actividadesPreventivas.adultoMayor.tamizajeSaludMental == "TAMIZAJE" ? "SI" : "NO" });
     }
     /**vacunacion */
+
     /**diagnostico */
     /**responsable de la atencion*/
     this.formRespAtencion.patchValue({ dniResponsable: data.responsableAtencion.nroDoc });
     this.formRespAtencion.patchValue({ nombreResponsable: data.responsableAtencion.nombreResponsableAtencion });
     this.formRespAtencion.patchValue({ nroColegiaturaResponsable: data.responsableAtencion.nroColegiatura });
     this.formRespAtencion.patchValue({ responsableAtencion: data.responsableAtencion.responsableAtencion });
+    this.formRespAtencion.patchValue({ especialidad: data.responsableAtencion.especialidad });
     this.formRespAtencion.patchValue({ nroRne: data.responsableAtencion.nroRNE });
     this.formRespAtencion.patchValue({ egresado: data.responsableAtencion.egresado });
     /**apoderado */
-    this.firma = data.firma;
+    this.firma = data.aseguradoApoderado;
     this.nameApoderado = data.apoderado;
     this.nroDocApoderado = data.nroDocCeApoderado;
 
@@ -260,7 +272,7 @@ export class AtenionComponent implements OnInit {
         codAutorizacion: this.formAtencion.value.codAutorizacion,
         nroFuaVincular: this.formAtencion.value.nroFuaVincular,
         hospitalizacion: {
-          fechaIngreso: this.formAtencion.value.fechaIngreso,
+          fechaIngreso: this.datePipe.transform(this.formAtencion.value.fechaIngreso, 'yyyy-MM-dd'),
           fechaAlta: this.formAtencion.value.fechaAlta,
           fechaCorteAdministrativo: this.formAtencion.value.fechaCorteAdministrativo
         }
@@ -274,14 +286,14 @@ export class AtenionComponent implements OnInit {
         traslado: this.traslado == true ? 'TRASLADO' : '',
         sepelio: this.sepelio
       },
-      destinoAsegurado: {
+      destinoDelAsegurado: {
         alta: this.alta == true ? 'ALTA' : '',
         cita: this.cita == true ? 'CITA' : '',
         hospitalizacion: this.hospitalizacion == true ? 'HOSPITALIZACION' : '',
         referido: this.referido,
         contraReferido: this.contraReferido == true ? 'CONTRARREFERIDO' : '',
         fallecido: this.fallecido == true ? 'FALLECIDO' : '',
-        corteAdministrado: this.corteAdministrado == true ? 'CORTE ADMINISTRATICO' : '',
+        corteAdministrado: this.corteAdministrado == true ? 'CORTE ADMINISTRATIVO' : '',
       },
       refiereContrarefiere: {
         codigoRenaesIpress: this.formReferencia.value.codRenaes,
@@ -324,6 +336,8 @@ export class AtenionComponent implements OnInit {
         }
       },
       /**vacunas */
+      vacunas: this.listVacunas,
+      /**diagnostico */
       diagnostico: this.listDiagnostico,
       responsableAtencion: {
         nroDoc: this.formRespAtencion.value.dniResponsable,
@@ -335,14 +349,47 @@ export class AtenionComponent implements OnInit {
         egresado: this.formRespAtencion.value.egresado
       },
       /**apoderado */
-      firma: this.firma,
+      aseguradoApoderado: this.firma,
+      firma: '',
       apoderado: this.nameApoderado,
       nroDocCeApoderado: this.nroDocApoderado,
+      firmaSelloResponsableAtencion: '',
+      huellaDigital: ''
     }
   }
   save() {
     this.recoverData();
     console.log('second data to save ', this.secondDataFUA);
+    Swal.fire({
+      title: 'Esta Seguro que Desea Guardar FUA',
+      showDenyButton: true,
+      confirmButtonText: 'Guardar',
+      denyButtonText: `Cancelar`,
+      confirmButtonColor: '#3085d6',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.fuaService.postSegundaParteFUA(this.idFUA, this.keyData.codPrestacion, this.secondDataFUA).subscribe((res: any) => {
+          this.router.navigate(['/dashboard/fua/listar-fua'])
+          Swal.fire({
+            icon: "success",
+            title: "Se Guardo Correctamente FUA",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+        });
+      } else if (result.isDenied) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'No se Guardo FUA',
+          showConfirmButton: false,
+          timer: 2000
+        });
+      }
+    })
+
+
+
+
   }
   changeNgModel(rowData: Diagnostico, index: number) {
     let auxDx: Diagnostico = {
@@ -360,5 +407,9 @@ export class AtenionComponent implements OnInit {
       patologiaMaterna: rowData.patologiaMaterna
     }
     this.listDiagnostico[index] = auxDx;
+  }
+  nameVaccine(vac: string) {
+    let aux: string = vac.replace(/[0-9]/, '')
+    return aux
   }
 }

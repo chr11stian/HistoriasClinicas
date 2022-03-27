@@ -37,7 +37,6 @@ export class IpressComponent implements OnInit {
   idFUA: string;
   /**ngModels */
   personal: string;
-  lugarAtencion: string;
   renaes: string;
   attention: string;
   gender: string;
@@ -53,7 +52,6 @@ export class IpressComponent implements OnInit {
     ];
     this.inicializarForm();
     this.idFUA = JSON.parse(localStorage.getItem("dataFUA")).idFUA;
-    // this.attentionPlace = "EXTRAMURAL";
     console.log("id de FUA ", this.idFUA);
     this.getDataFUA(this.idFUA);
   }
@@ -104,11 +102,13 @@ export class IpressComponent implements OnInit {
 
   setDataFUA() {
     /**de la ipress */
+    console.log('data de renaes ', this.dataFUA.deLaIpress.eessInformacion.codRenaes);
     this.formIpress.patchValue({ codRenaes: this.dataFUA.deLaIpress.eessInformacion.codRenaes });
     this.formIpress.patchValue({ nombreIpress: this.dataFUA.deLaIpress.eessInformacion.nombreEESS });
     this.personal = this.dataFUA.deLaIpress.eessInformacion.personalQueAtiende;
     this.codOfertaFlexible = this.dataFUA.deLaIpress.eessInformacion.codOfertaFlexible;
-    this.lugarAtencion = this.dataFUA.deLaIpress.eessInformacion.codRenaes;
+    // console.log('lugar atencion ', this.dataFUA.deLaIpress.eessInformacion.lugarDeAtencion);
+    this.attentionPlace = this.dataFUA.deLaIpress.eessInformacion.lugarDeAtencion;
     this.attention = this.dataFUA.deLaIpress.eessInformacion.atencion;
     this.formIpress.patchValue({ codRenaesRef: this.dataFUA.deLaIpress.eessInformacion.referenciaRealizadaPor });
     this.formIpress.patchValue({ ipressRef: this.dataFUA.deLaIpress.eessInformacion.referenciaRealizadaPor });
@@ -120,7 +120,7 @@ export class IpressComponent implements OnInit {
     this.formAsegurado.patchValue({ afiliacion: this.dataFUA.delAsegurado.codAseguradoSis.afiliacion });
     this.formAsegurado.patchValue({ nro: this.dataFUA.delAsegurado.codAseguradoSis.nro });
     this.formAsegurado.patchValue({ institucion: this.dataFUA.delAsegurado.aseguradoDeOtrasIAFAS.institucion });
-    this.formAsegurado.patchValue({ codSeguro: this.dataFUA.delAsegurado.aseguradoDeOtrasIAFAS.codAsegurado });
+    this.formAsegurado.patchValue({ codSeguro: this.dataFUA.delAsegurado.aseguradoDeOtrasIAFAS.codSeguro });
     this.formAsegurado.patchValue({ apePaterno: this.dataFUA.delAsegurado.apellidoPaterno });
     this.formAsegurado.patchValue({ apeMaterno: this.dataFUA.delAsegurado.apellidoMaterno });
     this.formAsegurado.patchValue({ primerNombre: this.dataFUA.delAsegurado.primerNombre });
@@ -144,16 +144,16 @@ export class IpressComponent implements OnInit {
         nroFormato: {
           codEESS: '',
           anio: '',
-          correlativo: 0
+          correlativo: 1
         },
         eessInformacion: {
           codRenaes: this.formIpress.value.codRenaes,
           nombreEESS: this.formIpress.value.nombreIpress,
           codOfertaFlexible: this.codOfertaFlexible,
           personalQueAtiende: this.personal,
-          lugarAtencion: this.attentionPlace,
+          lugarDeAtencion: this.attentionPlace,
           atencion: this.attention,
-          referenciaRealizadaPor: this.formIpress.value.ipressRef
+          // referenciaRealizadaPor: this.formIpress.value.ipressRef
         }
       },
       delAsegurado: {
@@ -166,7 +166,7 @@ export class IpressComponent implements OnInit {
         },
         aseguradoDeOtrasIAFAS: {
           institucion: this.formAsegurado.value.institucion,
-          codAsegurado: this.formAsegurado.value.codSeguro
+          codSeguro: this.formAsegurado.value.codSeguro
         },
         apellidoPaterno: this.formAsegurado.value.apePaterno,
         apellidoMaterno: this.formAsegurado.value.apeMaterno,
