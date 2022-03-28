@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import {
   HttpErrorResponse,
   HttpEvent,
-  HttpHandler,
+  HttpHandler, HttpHeaders,
   HttpInterceptor,
   HttpRequest,
 } from "@angular/common/http";
@@ -26,6 +26,9 @@ export class InterceptorService implements HttpInterceptor {
     let cloned = req;
     const idToken = JSON.parse(localStorage.getItem("token"));
     if (idToken) {
+      let username:'reporte';
+      let password:'reporte@2022';
+      const headers=new HttpHeaders();
       // console.log('entro token', idToken)
       cloned = req.clone({
         setHeaders: {

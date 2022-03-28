@@ -249,6 +249,9 @@ export class TratamientoCredComponent implements OnInit {
   /*****************Imprimir Receta**************/
   imprimirReceta(){
     console.log("imprimiendo receta");
+    this.tratamientoService.printReceta(this.data.idConsulta).subscribe((data:any)=>{
+
+    })
   }
 
   openTratamiento() {

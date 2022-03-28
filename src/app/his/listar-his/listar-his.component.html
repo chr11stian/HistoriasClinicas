@@ -1,0 +1,37 @@
+<div>
+
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+            <span class="p-m-0">
+                LISTA DE HIS
+            </span>
+        </ng-template>
+
+    </p-toolbar>
+
+
+    <p-table [value]="listDataHIS" #dt styleClass="p-datatable-gridlines" [rows]="10"
+             [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+             currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+
+        <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+            <tr>
+                <th style="text-align: center">Nro</th>
+                <th style="text-align: center">Cod Prestación</th>
+                <th style="text-align: center">ACCIONES</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-i="rowIndex">
+            <tr>
+                <td style="text-align: center">{{ i }}</td>
+                <td style="text-align: center">{{ rowData.codPrestacion }}</td>
+                <td style="text-align: center">
+                    <span class="p-buttonset">
+                        <button pButton pRipple class="p-button-success" routerLink="obstetricia" label="IR FUA"
+                                icon="pi pi-caret-right" (click)="openFUA(rowData)"></button>
+                    </span>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

@@ -51,6 +51,10 @@ const routes: Routes = [
                 loadChildren: () => import('src/app/fua/fua.module').then(n => n.FuaModule),
             },
             {
+                path: "his",
+                loadChildren: () => import('src/app/his/his.module').then(n => n.HisModule),
+            },
+            {
                 path: "adolescente",
                 loadChildren: () => import('src/app/adolescente/adolescente.module').then(n => n.AdolescenteModule),
             },

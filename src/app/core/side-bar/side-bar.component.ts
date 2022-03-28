@@ -476,7 +476,11 @@ const menu_ipress = [
                 label: "Ipress Farmacia",
                 routerLink: "admision/ipress-farmacia",
             },
-
+            {
+                icon: "pi pi-file",
+                label: "Ups Auxiliar",
+                routerLink: "mantenimientos/ups-aux",
+            },
 
         ],
     },
