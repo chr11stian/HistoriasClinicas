@@ -27,7 +27,6 @@ export class ListarFuaComponent implements OnInit {
     this.data = this.router.getCurrentNavigation().extras;
     console.log('data del otro componente ', this.data);
     this.fuaService.getCrearRecuperarFUAxIdConsulta(this.data.id).subscribe((res: any) => {
-      console.log('cod error ', res.cod);
       if (res.cod == "2004") {
         this.location.back();
         Swal.fire({

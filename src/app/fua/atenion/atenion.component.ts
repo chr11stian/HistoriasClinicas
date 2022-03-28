@@ -425,7 +425,7 @@ export class AtenionComponent implements OnInit {
   }
   imprimir(){
     this.fuaService.evento = false;
-    this.fuaService.getReportFUA().subscribe((res:any)=>{
+    this.fuaService.getReportFUA(this.keyData.id).subscribe((res:any)=>{
 
     })
   }

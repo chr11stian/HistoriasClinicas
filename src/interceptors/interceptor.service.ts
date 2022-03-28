@@ -28,16 +28,15 @@ export class InterceptorService implements HttpInterceptor {
     let cloned = req;
     let nroPort: any = cloned.url.split(":");
     nroPort = nroPort[2].split("/", 1);
-    nroPort = nroPort[0]
-    console.log('URL a enviar  ', nroPort);
+    nroPort = nroPort[0];
     const idToken = JSON.parse(localStorage.getItem("token"));
-    let jwtAuth: string = "Bearer " + idToken.token;
-    let basicAuth: string = "Basic " + btoa('reporte' + ":" + 'reporte@2022');
     if (idToken) {
       // console.log('entro token', idToken)
+      let jwtAuth: string = "Bearer " + idToken.token;
+      let basicAuth: string = "Basic " + btoa('reporte' + ":" + 'reporte@2022');
       cloned = req.clone({
         setHeaders: {
-          Authorization: nroPort == "8200" ? basicAuth : jwtAuth
+          Authorization: nroPort == "8200" ? basicAuth : jwtAuth,
         },
       });
       // cloned = req.clone({
