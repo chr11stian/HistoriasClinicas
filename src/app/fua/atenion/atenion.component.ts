@@ -94,7 +94,8 @@ export class AtenionComponent implements OnInit {
       nroFuaVincular: new FormControl(""),
       fechaIngreso: new FormControl(""),
       fechaAlta: new FormControl(""),
-      fechaCorteAdministrativo: new FormControl("")
+      fechaCorteAdministrativo: new FormControl(""),
+      codPrestacion: new FormControl({ value: "", disabled: true })
 
     });
     this.formPrestacional = new FormGroup({
@@ -181,6 +182,7 @@ export class AtenionComponent implements OnInit {
       this.formAtencion.patchValue({ prestacionesAdicionales: data.deLaAtencion.prestacionesAdicionales });
       this.formAtencion.patchValue({ codAutorizacion: data.deLaAtencion.codAutorizacion });
       this.formAtencion.patchValue({ nroFuaVincular: data.deLaAtencion.nroFuaVincular });
+      this.formAtencion.patchValue({ codPrestacion: data.codPrestacion });
     }
     if (data.deLaAtencion.hospitalizacion != null) {
       this.formAtencion.patchValue({ fechaIngreso: data.deLaAtencion.hospitalizacion.fechaIngreso });
@@ -218,32 +220,41 @@ export class AtenionComponent implements OnInit {
       this.formActiPreventivas.patchValue({ talla: data.actividadesPreventivas.talla });
       this.formActiPreventivas.patchValue({ pa: data.actividadesPreventivas.pa });
       //de la gestante
+      if (data.actividadesPreventivas.deLaGestante != null) {
+
+      }
       this.formActiPreventivas.patchValue({ cpn: data.actividadesPreventivas.deLaGestante.cpn });
       this.formActiPreventivas.patchValue({ edadGesacional: data.actividadesPreventivas.deLaGestante.edadGesacional });
       this.formActiPreventivas.patchValue({ alturaUterina: data.actividadesPreventivas.deLaGestante.alturaUterina });
       this.formActiPreventivas.patchValue({ partoVertical: data.actividadesPreventivas.deLaGestante.partoVertical });
       this.formActiPreventivas.patchValue({ controlPerperio: data.actividadesPreventivas.deLaGestante.controlPerperio });
       //recien nacido
-      this.formActiPreventivas.patchValue({ edadGestacionalRN: data.actividadesPreventivas.delRecienNacido.edadGestacionalRN });
-      this.formActiPreventivas.patchValue({ apgar1ro: data.actividadesPreventivas.delRecienNacido.apgar1ro });
-      this.formActiPreventivas.patchValue({ apgar5to: data.actividadesPreventivas.delRecienNacido.apgar5to });
-      this.formActiPreventivas.patchValue({ corteTardioCordon: data.actividadesPreventivas.delRecienNacido.corteTardioCordon });
+      if (data.actividadesPreventivas.delRecienNacido != null) {
+        this.formActiPreventivas.patchValue({ edadGestacionalRN: data.actividadesPreventivas.delRecienNacido.edadGestacionalRN });
+        this.formActiPreventivas.patchValue({ apgar1ro: data.actividadesPreventivas.delRecienNacido.apgar1ro });
+        this.formActiPreventivas.patchValue({ apgar5to: data.actividadesPreventivas.delRecienNacido.apgar5to });
+        this.formActiPreventivas.patchValue({ corteTardioCordon: data.actividadesPreventivas.delRecienNacido.corteTardioCordon });
+      }
       //etapa de vida
-      this.formActiPreventivas.patchValue({ nroCred: data.actividadesPreventivas.etapaDeVida.nroCred });
-      this.formActiPreventivas.patchValue({ rnPrematuro: data.actividadesPreventivas.etapaDeVida.rnPrematuro == "RN PREMATURO" ? "SI" : "NO" });
-      this.formActiPreventivas.patchValue({ bajoPesoNacer: data.actividadesPreventivas.etapaDeVida.bajoPesoNacer == "BAJO PESO NACER" ? "SI" : "NO" });
-      this.formActiPreventivas.patchValue({ enfermedadCongenitaAlNacer: data.actividadesPreventivas.etapaDeVida.enfermedadCongenitaAlNacer == "ENFERMEDAD CONGENITA AL NACER" ? "SI" : "NO" });
-      this.formActiPreventivas.patchValue({ nroFamiliaresGestante: data.actividadesPreventivas.etapaDeVida.nroFamiliaresGestante });
-      this.formActiPreventivas.patchValue({ pab: data.actividadesPreventivas.etapaDeVida.pab });
-      this.formActiPreventivas.patchValue({ tapEedpTepsi: data.actividadesPreventivas.etapaDeVida.tapEedpTepsi });
-      this.formActiPreventivas.patchValue({ consejeriaNutricional: data.actividadesPreventivas.etapaDeVida.consejeriaNutricional == "CONSEJERIA  NUTRICIONAL" ? "SI" : "NO" });
-      this.formActiPreventivas.patchValue({ consejeriaIntegral: data.actividadesPreventivas.etapaDeVida.consejeriaIntegral == "CONSEJERIA INTEGRAL" ? "SI" : "NO" });
-      this.formActiPreventivas.patchValue({ imc: data.actividadesPreventivas.etapaDeVida.imc });
+      if (data.actividadesPreventivas.etapaDeVida != null) {
+        this.formActiPreventivas.patchValue({ nroCred: data.actividadesPreventivas.etapaDeVida.nroCred });
+        this.formActiPreventivas.patchValue({ rnPrematuro: data.actividadesPreventivas.etapaDeVida.rnPrematuro == "RN PREMATURO" ? "SI" : "NO" });
+        this.formActiPreventivas.patchValue({ bajoPesoNacer: data.actividadesPreventivas.etapaDeVida.bajoPesoNacer == "BAJO PESO NACER" ? "SI" : "NO" });
+        this.formActiPreventivas.patchValue({ enfermedadCongenitaAlNacer: data.actividadesPreventivas.etapaDeVida.enfermedadCongenitaAlNacer == "ENFERMEDAD CONGENITA AL NACER" ? "SI" : "NO" });
+        this.formActiPreventivas.patchValue({ nroFamiliaresGestante: data.actividadesPreventivas.etapaDeVida.nroFamiliaresGestante });
+        this.formActiPreventivas.patchValue({ pab: data.actividadesPreventivas.etapaDeVida.pab });
+        this.formActiPreventivas.patchValue({ tapEedpTepsi: data.actividadesPreventivas.etapaDeVida.tapEedpTepsi });
+        this.formActiPreventivas.patchValue({ consejeriaNutricional: data.actividadesPreventivas.etapaDeVida.consejeriaNutricional == "CONSEJERIA  NUTRICIONAL" ? "SI" : "NO" });
+        this.formActiPreventivas.patchValue({ consejeriaIntegral: data.actividadesPreventivas.etapaDeVida.consejeriaIntegral == "CONSEJERIA INTEGRAL" ? "SI" : "NO" });
+        this.formActiPreventivas.patchValue({ imc: data.actividadesPreventivas.etapaDeVida.imc });
+      }
       //joven adulto
       this.formActiPreventivas.patchValue({ jovenAdultoEvaluacionIntegral: data.actividadesPreventivas.jovenAdultoEvaluacionIntegral == "EVALUACION INTEGRAL" ? "SI" : "NO" });
       //adulto mayor
-      this.formActiPreventivas.patchValue({ vacam: data.actividadesPreventivas.adultoMayor.vacam == "VACAM" ? "SI" : "NO" });
-      this.formActiPreventivas.patchValue({ tamizajeSaludMental: data.actividadesPreventivas.adultoMayor.tamizajeSaludMental == "TAMIZAJE" ? "SI" : "NO" });
+      if (data.actividadesPreventivas.adultoMayor != null) {
+        this.formActiPreventivas.patchValue({ vacam: data.actividadesPreventivas.adultoMayor.vacam == "VACAM" ? "SI" : "NO" });
+        this.formActiPreventivas.patchValue({ tamizajeSaludMental: data.actividadesPreventivas.adultoMayor.tamizajeSaludMental == "TAMIZAJE" ? "SI" : "NO" });
+      }
     }
     /**vacunacion */
 
@@ -348,6 +359,7 @@ export class AtenionComponent implements OnInit {
         nroRNE: this.formRespAtencion.value.nroRne,
         egresado: this.formRespAtencion.value.egresado
       },
+      codPrestacion: this.formAtencion.value.codPrestacion,
       /**apoderado */
       aseguradoApoderado: this.firma,
       firma: '',
@@ -369,7 +381,10 @@ export class AtenionComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.fuaService.postSegundaParteFUA(this.idFUA, this.keyData.codPrestacion, this.secondDataFUA).subscribe((res: any) => {
-          this.router.navigate(['/dashboard/fua/listar-fua'])
+          let auxId: any = {
+            id: this.keyData.idConsulta
+          }
+          this.router.navigate(['/dashboard/fua/listar-fua'], auxId)
           Swal.fire({
             icon: "success",
             title: "Se Guardo Correctamente FUA",
@@ -386,10 +401,6 @@ export class AtenionComponent implements OnInit {
         });
       }
     })
-
-
-
-
   }
   changeNgModel(rowData: Diagnostico, index: number) {
     let auxDx: Diagnostico = {

@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {ObstetriciaGeneralService} from "../../../obstetricia-general/services/obstetricia-general.service";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from "@angular/forms";
+import { ObstetriciaGeneralService } from "../../../obstetricia-general/services/obstetricia-general.service";
 import {
     FiliancionService
 } from "../../../obstetricia-general/gestante/atencion/h-clinica-materno-perinatal/services/filiancion-atenciones/filiancion.service";
-import {ListaConsultaService} from '../services/lista-consulta.service';
-import {dato} from "src/app/cred/citas/models/data"
-import {ActivatedRoute, Router} from '@angular/router';
+import { ListaConsultaService } from '../services/lista-consulta.service';
+import { dato } from "src/app/cred/citas/models/data"
+import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -29,11 +29,11 @@ export class ListaConsultaComponent implements OnInit {
     sexo: string
 
     constructor(private form: FormBuilder,
-                private obstetriciaGeneralService: ObstetriciaGeneralService,
-                private filiancionService: FiliancionService,
-                private listaConsultaService: ListaConsultaService,
-                private route: ActivatedRoute,
-                private router: Router) {
+        private obstetriciaGeneralService: ObstetriciaGeneralService,
+        private filiancionService: FiliancionService,
+        private listaConsultaService: ListaConsultaService,
+        private route: ActivatedRoute,
+        private router: Router) {
     }
 
     ngOnInit(): void {
@@ -123,12 +123,6 @@ export class ListaConsultaComponent implements OnInit {
                 confirmButtonColor: '#3085d6',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Se creo FUA correctamente',
-                        showConfirmButton: false,
-                        timer: 2000
-                    });
                     this.router.navigate(['dashboard/fua/listar-fua'], rowData)
                 } else if (result.isDenied) {
                     Swal.fire({

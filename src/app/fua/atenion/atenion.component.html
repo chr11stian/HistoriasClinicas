@@ -35,7 +35,7 @@
                         </div>
                         <div class="col-12">
                             <span>Cod Prestación</span>
-                            <input type="text" pInputText formControlName='prestacionesAdicionales'
+                            <input type="text" pInputText formControlName='codPrestacion'
                                 class="p-inputtext inputfield w-full" placeholder="">
                         </div>
                         <!-- </div> -->
@@ -679,11 +679,11 @@
                         </td>
                         <td>{{ rowData.cie10SIS }}</td>
                         <td>
-                            <p-selectButton [options]="listDiagnosticoDXEgreso" [(ngModel)]="ipeDXEg"
+                            <!-- <p-selectButton [options]="listDiagnosticoDXEgreso" [(ngModel)]="ipeDXEg"
                                 optionLabel="label" (ngModelChange)="changeNgModel()" optionValue="value">
-                            </p-selectButton>
+                            </p-selectButton> -->
                         </td>
-                        <td>{{ rowData.cie10HIS }}</td>
+                        <!-- <td>{{ rowData.cie10HIS }}</td> -->
                     </tr>
                 </ng-template>
             </p-table>

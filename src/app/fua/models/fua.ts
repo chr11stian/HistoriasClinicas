@@ -155,6 +155,7 @@ export interface ResponsableAtencion {
   egresado: string
 }
 export interface SegundaParteFUA {
+  codPrestacion: string,
   aseguradoApoderado?: string,
   firma?: string,
   apoderado?: string,

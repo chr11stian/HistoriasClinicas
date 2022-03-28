@@ -21,14 +21,30 @@ export class ListarFuaComponent implements OnInit {
     private fuaService: FuaService,
   ) {
     // this.validateFUA();
-    let auxIdConsulta = "6230d335695e9313b233de63"
+    // let auxIdConsulta = "6230d335695e9313b233de63"
     // let auxIdConsulta = "621e909a96750255eedf01d4"
     // let auxIdConsulta = JSON.parse(localStorage.getItem("documento")).idConsulta;
     this.data = this.router.getCurrentNavigation().extras;
     console.log('data del otro componente ', this.data);
-    this.fuaService.getCrearRecuperarFUAxIdConsulta(auxIdConsulta).subscribe((res: any) => {
+    this.fuaService.getCrearRecuperarFUAxIdConsulta(this.data.id).subscribe((res: any) => {
+      console.log('cod error ', res.cod);
+      if (res.cod == "2004") {
+        this.location.back();
+        Swal.fire({
+          icon: 'warning',
+          title: 'No es Posible crear FUA ya que no posee diagnosticos',
+          showConfirmButton: false,
+          timer: 2000
+        });
+        return
+      }
       this.listDataFUA = res.object;
-      console.log('lista de FUAs', this.listDataFUA);
+      Swal.fire({
+        icon: 'success',
+        title: 'Se creo FUA correctamente',
+        showConfirmButton: false,
+        timer: 2000
+      });
     })
   }
 
@@ -42,7 +58,7 @@ export class ListarFuaComponent implements OnInit {
     }
     localStorage.setItem('dataFUA', JSON.stringify(dataFUA));
   }
-  dataDos(){
-    
+  dataDos() {
+
   }
 }
