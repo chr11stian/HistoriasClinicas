@@ -13,7 +13,8 @@ export class LabSolicitudComponent implements OnInit {
     listaSolicitud: any[] = [];
     listaSolicitud2: any[] = [];
     ListaLab: any;
-    idConsulta = "6228b26e1fcf0a0ee9ec50d3";
+    dataConsulta: any;
+    idConsulta: string;
 
     h1: any;
     h2: any;
@@ -27,13 +28,15 @@ export class LabSolicitudComponent implements OnInit {
                 public config: DynamicDialogConfig,
                 private servicesService: ServicesService,
                 private form: FormBuilder) {
+        this.dataConsulta = JSON.parse(localStorage.getItem('datosConsultaActual'));
+        this.idConsulta = this.dataConsulta.id;
     }
 
     ngOnInit(): void {
         this.buildForm();
         this.getLab();
-
-
+        this.recuperaDataPaciente();
+        console.log("Data Consulta", this.idConsulta)
     }
 
     getLab() {
@@ -44,67 +47,90 @@ export class LabSolicitudComponent implements OnInit {
         })
     }
 
+    recuperaDataPaciente() {
+        this.formSolicitudLab.get('edad').setValue(this.dataConsulta.anioEdad);
+        this.formSolicitudLab.get('HCL').setValue(this.dataConsulta.nroHcl);
+        this.formSolicitudLab.get('servicio').setValue(this.dataConsulta.servicio);
+        this.formSolicitudLab.get('apellidosNombres').setValue(this.dataConsulta.datosPaciente.apePaterno + ' ' + this.dataConsulta.datosPaciente.apeMaterno + ' ' + this.dataConsulta.datosPaciente.primerNombre + ' ' + this.dataConsulta.datosPaciente.otrosNombres);
+    }
+
     buildForm() {
         this.formSolicitudLab = this.form.group({
             lista: new FormControl(''),
 
+            apellidosNombres: new FormControl(''),
+            edad: new FormControl(''),
+            HCL: new FormControl(''),
+            servicio: new FormControl(''),
+            camaNro: new FormControl(''),
+            DxPresuntivo: new FormControl(''),
+            observaciones: new FormControl(''),
+
             /**HEMATOLOGÍA**/
+            // first: new FormControl({value: '', disabled: true}, Validators.required),
+
             hemoglobina: new FormControl(''),
             Hematocrito: new FormControl(''),
-            HemogCompleto: new FormControl(''),
-            TiempoCoagulacion: new FormControl(''),
-            TiempoSangria: new FormControl(''),
-            VSG: new FormControl(''),
-            RecuentoPlaquetas: new FormControl(''),
-            RecuentoGlobulosRojos: new FormControl(''),
-            RecuentoGlobulosBlancos: new FormControl(''),
-            ConstantesCorpusculares: new FormControl(''),
-            CompatibilidadSanguinea: new FormControl(''),
+            HemogCompleto: new FormControl({value: '', disabled: true}),
+            TiempoCoagulacion: new FormControl({value: '', disabled: true}),
+            TiempoSangria: new FormControl({value: '', disabled: true}),
+            VSG: new FormControl({value: '', disabled: true}),
+            RecuentoPlaquetas: new FormControl({value: '', disabled: true}),
+            RecuentoGlobulosRojos: new FormControl({value: '', disabled: true}),
+            RecuentoGlobulosBlancos: new FormControl({value: '', disabled: true}),
+            ConstantesCorpusculares: new FormControl({value: '', disabled: true}),
+            CompatibilidadSanguinea: new FormControl({value: '', disabled: true}),
 
             /**INMUNOLOGÍA**/
             GrupoSanguineo: new FormControl(''),
-            ProteinaCReactiva: new FormControl(''),
-            ReaccionWidal: new FormControl(''),
-            FactorReumatoide: new FormControl(''),
-            RPR: new FormControl(''),
-            VIH: new FormControl(''),
-            AntigenoSuperficieHepatitisB: new FormControl(''),
-            BHGG: new FormControl(''),
-            Antiestreptolisinas: new FormControl(''),
-            antigenoFebrilBrucela: new FormControl(''),
-            Covid: new FormControl(''),
+            ProteinaCReactiva: new FormControl({value: '', disabled: true}),
+            ReaccionWidal: new FormControl({value: '', disabled: true}),
+            FactorReumatoide: new FormControl({value: '', disabled: true}),
+            RPR: new FormControl({value: '', disabled: false}),
+            VIH: new FormControl({value: '', disabled: false}),
+            AntigenoSuperficieHepatitisB: new FormControl({value: '', disabled: true}),
+            BHGG: new FormControl({value: '', disabled: true}),
+            Antiestreptolisinas: new FormControl({value: '', disabled: true}),
+            antigenoFebrilBrucela: new FormControl({value: '', disabled: true}),
+            Covid: new FormControl({value: '', disabled: true}),
 
             /**BIOQUÍMICA**/
             glucosa: new FormControl(''),
-            ColesterolTotal: new FormControl(''),
-            Trigliceridos: new FormControl(''),
-            Urea: new FormControl(''),
-            Creatinina: new FormControl(''),
-            TGO: new FormControl(''),
-            TGP: new FormControl(''),
-            BilirrubinasTotal: new FormControl(''),
-            ProteinasTotales: new FormControl(''),
-            Albumina: new FormControl(''),
-            FosfatasaAlcalina: new FormControl(''),
+            ColesterolTotal: new FormControl({value: '', disabled: true}),
+            Trigliceridos: new FormControl({value: '', disabled: true}),
+            Urea: new FormControl({value: '', disabled: true}),
+            Creatinina: new FormControl({value: '', disabled: true}),
+            TGO: new FormControl({value: '', disabled: true}),
+            TGP: new FormControl({value: '', disabled: true}),
+            BilirrubinasTotal: new FormControl({value: '', disabled: true}),
+            ProteinasTotales: new FormControl({value: '', disabled: true}),
+            Albumina: new FormControl({value: '', disabled: true}),
+            FosfatasaAlcalina: new FormControl({value: '', disabled: true}),
 
             /**PARASITOLOGÍA**/
-            ExParasitologiaDirecto: new FormControl(''),
-            ExParasitologiaSeriado: new FormControl(''),
-            TestGraham: new FormControl(''),
-            Coprofuncional: new FormControl(''),
-            ThevenonHeces: new FormControl(''),
-            ReaccionInflamatoria: new FormControl(''),
+            ExParasitologiaDirecto: new FormControl({value: '', disabled: true}),
+            ExParasitologiaSeriado: new FormControl({value: '', disabled: true}),
+            TestGraham: new FormControl({value: '', disabled: true}),
+            Coprofuncional: new FormControl({value: '', disabled: true}),
+            ThevenonHeces: new FormControl({value: '', disabled: true}),
+            ReaccionInflamatoria: new FormControl({value: '', disabled: true}),
 
             /**UROANÁLISIS**/
             ExamenComplentoOrina: new FormControl(''),
-            SedimientoUrinario: new FormControl(''),
-            ProteinuriaCC: new FormControl(''),
-            TestAcidoSulfosalicilico: new FormControl(''),
+            SedimientoUrinario: new FormControl({value: '', disabled: true}),
+            ProteinuriaCC: new FormControl({value: '', disabled: true}),
+            TestAcidoSulfosalicilico: new FormControl({value: '', disabled: true}),
 
             /**MICROBIOLOGÍA**/
-            ExamenDirSecrecion: new FormControl(''),
+            ExamenDirSecrecion: new FormControl({value: '', disabled: true}),
 
-            arregloSolicitud: new FormControl(''),
+            otro1: new FormControl({value: '', disabled: false}),
+            otro2: new FormControl({value: '', disabled: false}),
+            otro3: new FormControl({value: '', disabled: false}),
+            otro4: new FormControl({value: '', disabled: false}),
+            otro5: new FormControl({value: '', disabled: false}),
+            otro6: new FormControl({value: '', disabled: false}),
+
         })
     }
 
@@ -223,6 +249,7 @@ export class LabSolicitudComponent implements OnInit {
     }
 
     add() {
+
         this.listaSolicitud2 = [];
         this.listaSolicitud = [];
         this.listaSolicitud.push(this.h1)
@@ -238,14 +265,24 @@ export class LabSolicitudComponent implements OnInit {
                 this.listaSolicitud2.push(this.listaSolicitud[i]);
             }
         }
+
+
+        console.log("no se puede2")
+        this.listaSolicitud.push(this.formSolicitudLab.value.otro1);
+        this.listaSolicitud.push(this.formSolicitudLab.value.otro2);
+        this.listaSolicitud.push(this.formSolicitudLab.value.otro3);
+        this.listaSolicitud.push(this.formSolicitudLab.value.otro4);
+        this.listaSolicitud.push(this.formSolicitudLab.value.otro5);
+        this.listaSolicitud.push(this.formSolicitudLab.value.otro6);
+
         console.log(this.listaSolicitud2)
 
         const data = {
-            servicio: 'OBSTETRICIA',
-            nroCama: '',
-            dxPresuntivo: '',
+            servicio: this.formSolicitudLab.value.servicio,
+            nroCama: this.formSolicitudLab.value.camaNro,
+            dxPresuntivo: this.formSolicitudLab.value.DxPresuntivo,
             examenesAuxiliares: this.listaSolicitud2,
-            observaciones: ''
+            observaciones: this.formSolicitudLab.value.observaciones,
         }
         console.log("DATA", data)
         this.servicesService.addSolicitudLab(this.idConsulta, data).subscribe((res: any) => {

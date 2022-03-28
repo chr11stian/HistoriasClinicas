@@ -2,6 +2,38 @@
     <form [formGroup]='formSolicitudLab'>
         <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
             <div class="grid m-2">
+                <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
+                    <div class="border">
+                        <div class="grid m-2">
+                            <div class="col-12 md:col-6 lg:col-3 p-field flex flex-column">
+                                <label>APELLIDOS Y NOMBRES:</label>
+                                <input type="text" pInputText class="inputTest" formControlName="apellidosNombres"/>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-1 p-field flex flex-column">
+                                <label>EDAD:</label>
+                                <input type="text" pInputText class="inputTest" formControlName="edad"/>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-1 p-field flex flex-column">
+                                <label>HCL:</label>
+                                <input type="text" pInputText class="inputTest" formControlName="HCL"/>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-3 p-field flex flex-column">
+                                <label>SERVICIO:</label>
+                                <input type="text" pInputText class="inputTest" formControlName="servicio"/>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-2 p-field flex flex-column">
+                                <label>CAMA NRO:</label>
+                                <input type="text" pInputText class="inputTest" formControlName="camaNro"/>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-2 p-field flex flex-column">
+                                <label>DX. PRESUNTIVO:</label>
+                                <input type="text" pInputText class="inputTest" formControlName="DxPresuntivo"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid m-2">
                 <div class="col-12 md:col-6 lg:col-3 p-field">
                     <div class="border">
                         <div class="grid m-2">
@@ -102,7 +134,7 @@
                                 <div class="grid">
                                     <div class="field-checkbox">
                                         <label>OTROS:</label>
-                                        <input type="text" pInputText class="w-full"/>
+                                        <input type="text" pInputText class="w-full" formControlName="otro1"/>
                                     </div>
                                 </div>
                             </div>
@@ -210,7 +242,7 @@
                                 <div class="grid">
                                     <div class="field-checkbox">
                                         <label>OTROS:</label>
-                                        <input type="text" pInputText class="w-full"/>
+                                        <input type="text" pInputText class="w-full" formControlName="otro2"/>
                                     </div>
                                 </div>
                             </div>
@@ -316,7 +348,7 @@
                                 <div class="grid">
                                     <div class="field-checkbox">
                                         <label>OTROS:</label>
-                                        <input type="text" pInputText class="w-full"/>
+                                        <input type="text" pInputText class="w-full" formControlName="otro3"/>
                                     </div>
                                 </div>
                             </div>
@@ -377,7 +409,7 @@
                                 <div class="grid">
                                     <div class="field-checkbox">
                                         <label>OTROS:</label>
-                                        <input type="text" pInputText class="w-full"/>
+                                        <input type="text" pInputText class="w-full" formControlName="otro4"/>
                                     </div>
                                 </div>
                             </div>
@@ -402,7 +434,7 @@
                                 <div class="grid">
                                     <div class="field-checkbox">
                                         <label>OTROS:</label>
-                                        <input type="text" pInputText class="w-full"/>
+                                        <input type="text" pInputText class="w-full" formControlName="otro5"/>
                                     </div>
                                 </div>
                             </div>
@@ -455,7 +487,7 @@
                                 <div class="grid">
                                     <div class="field-checkbox">
                                         <label>OTROS:</label>
-                                        <input type="text" pInputText class="w-full"/>
+                                        <input type="text" pInputText class="w-full" formControlName="otro6"/>
                                     </div>
                                 </div>
                             </div>
@@ -465,18 +497,9 @@
                 <div class="col-12 md:col-6 lg:col-9 p-field">
                     <div class="border">
                         <div class="grid m-2">
-                            <div class="col-12 md:col-6 lg:col-12 p-field">
-                                <div class="grid">
-                                    <div class="field-checkbox text-center">
-                                        <label style="color: rgb(77 77 77); text-decoration: underline; text-align: center">LISTA
-                                            DE SOLICITUD</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <button pButton pRipple type="button" label="Agregar"
-                                            class="p-button-raised p-button-success" (click)="add()"></button>
-
-                                </div>
+                            <div class="col-12 md:col-6 lg:col-12 p-field flex flex-column">
+                                <label>OBSERVACIONES:</label>
+                                <input type="text" pInputText class="inputTest" formControlName="observaciones"/>
                             </div>
                         </div>
                     </div>
@@ -484,4 +507,11 @@
             </div>
         </div>
     </form>
+</div>
+
+
+<div class="footer">
+    <button pButton type="button" (click)="add()" label="Guardar"
+            class="p-button-primary mt-4 mr-2"></button>
+    <button pButton type="button" label="Cancelar" class="p-button-danger mt-4"></button>
 </div>
