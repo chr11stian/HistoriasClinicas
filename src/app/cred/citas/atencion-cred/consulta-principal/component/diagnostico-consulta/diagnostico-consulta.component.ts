@@ -393,6 +393,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
     filterCIE10(event: any) {
         this.cieService.getCIEByDescripcion(event.query).subscribe((res: any) => {
             this.listaDeCIEHIS = res.object
+            console.log('CIEHIS',this.listaDeCIEHIS)
         })
     }
 

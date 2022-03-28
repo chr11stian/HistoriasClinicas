@@ -70,7 +70,7 @@ export class SuplementoComponent implements OnInit {
     this.getFC("fechaAplicacion").setValue(new Date());
   }
   save() {
-    const requestInput = {
+    let requestInput:any= {
         codPrestacion: "007", //duro no existe codprodedimiento para sis pero si como diagnostico
         codSISMED: this.getFC('medicamento').value.code,
         nroDiagnostico: 0, //deberia ir el codDiagnosticos sis incluido su sie(otras medidas profilacticas especificadas z29.8)
@@ -89,7 +89,12 @@ export class SuplementoComponent implements OnInit {
         edadMes: this.suplemento.edadMes,
         fechaTentativa: "2021-10-25"
     };
-    console.log('mi request',requestInput)
+
+    if (this.suplemento.tipoSuplementacion=='TERAPEUTICO'){
+      requestInput.tipoSuplementacion='TERAPEUTICO'
+    }
+    // console.log('recivico',this.suplemento)
+    // console.log('enviado',requestInput)
     this.confirmationService.confirm({
       header: "Confirmación",
       message: "Esta Seguro que desea guardar suplementacion",
@@ -98,18 +103,27 @@ export class SuplementoComponent implements OnInit {
       rejectLabel: "No",
       key:'claveDialog',
       accept: () => {
-        if (this.isSuplementacion){
-          this.SuplementacionService.PostSuplementacion(this.idConsulta,requestInput
-          ).subscribe(() => {
-            this.ref.close("agregado");
-          });
+        if (this.suplemento.tipoSuplementacion=='PREVENTIVO'){
+          if (this.isSuplementacion){
+            this.SuplementacionService.PostSuplementacion(this.idConsulta,requestInput
+            ).subscribe(() => {
+              this.ref.close("agregado");
+            });
+          }
+          else{
+            this.SuplementacionService.PostVitaminaA(this.idConsulta,requestInput
+            ).subscribe(() => {
+              this.ref.close("agregado");
+            });
+          }
         }
         else{
-          this.SuplementacionService.PostVitaminaA(this.idConsulta,requestInput
-          ).subscribe(() => {
-            this.ref.close("agregado");
-          });
+            this.SuplementacionService.PostSuplementacionXanemia(this.idConsulta,requestInput).subscribe((resp)=>{
+                this.ref.close('agregado')
+            })
         }
+
+
       },
       reject: () => {
         // console.log("no se borro");

@@ -29,6 +29,7 @@ export interface ControlCrecimiento {
   fechaTentativa: string;
 }
 export interface SuplementacionMicronutrientes {
+  tipoSuplementacion?:string
   descripcionEdad: string;
   edadMes:string,
   nombre: string;

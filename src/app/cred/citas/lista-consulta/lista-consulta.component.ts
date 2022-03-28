@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { ObstetriciaGeneralService } from "../../../obstetricia-general/services/obstetricia-general.service";
-import { FiliancionService } from "../../../obstetricia-general/gestante/atencion/h-clinica-materno-perinatal/services/filiancion-atenciones/filiancion.service";
+import {
+    FiliancionService
+} from "../../../obstetricia-general/gestante/atencion/h-clinica-materno-perinatal/services/filiancion-atenciones/filiancion.service";
 import { ListaConsultaService } from '../services/lista-consulta.service';
 import { dato } from "src/app/cred/citas/models/data"
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -30,6 +32,7 @@ export class ListaConsultaComponent implements OnInit {
         private obstetriciaGeneralService: ObstetriciaGeneralService,
         private filiancionService: FiliancionService,
         private listaConsultaService: ListaConsultaService,
+        private route: ActivatedRoute,
         private router: Router) {
     }
 
@@ -55,9 +58,13 @@ export class ListaConsultaComponent implements OnInit {
                 dia: r.object.diaEdad,
                 sexo: this.sexo,
                 fechaNacimiento: this.fechaNacimiento,
-                hidden: true
+                hidden: true,
+                see: false
             }
             localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
+            setTimeout(() => {
+                this.router.navigate(['/dashboard/cred/citas/atencion'])
+            }, 100)
         })
     }
 
@@ -68,9 +75,14 @@ export class ListaConsultaComponent implements OnInit {
             idConsulta: '',
             sexo: this.sexo,
             fechaNacimiento: this.fechaNacimiento,
-            hidden: true
+            hidden: true,
+            see: true
         }
         localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
+        setTimeout(() => {
+            this.router.navigate(['/dashboard/cred/citas/atencion'])
+        }, 100)
+
     }
 
     consultasNroDoc() {
@@ -87,6 +99,7 @@ export class ListaConsultaComponent implements OnInit {
         });
         this.getpacientesFiliados(this.data.nroDocumento);
     }
+
     irFUA(rowData) {
         let message1 = "Esta Seguro de Generar FUA?, se dara como finalizado la consulta"
         let message2 = "Esta Seguro de Generar FUA?, Debe revisar el tipo de Seguro"
@@ -110,12 +123,6 @@ export class ListaConsultaComponent implements OnInit {
                 confirmButtonColor: '#3085d6',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Se creo FUA correctamente',
-                        showConfirmButton: false,
-                        timer: 2000
-                    });
                     this.router.navigate(['dashboard/fua/listar-fua'], rowData)
                 } else if (result.isDenied) {
                     Swal.fire({

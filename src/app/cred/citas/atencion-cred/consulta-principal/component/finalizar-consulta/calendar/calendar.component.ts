@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, DoCheck, OnInit} from '@angular/core';
 import esLocale from '@fullcalendar/core/locales/es'
 import {CalendarOptions, DateSelectArg, EventInput, EventClickArg, EventApi} from '@fullcalendar/angular';
 import Swal from "sweetalert2";
@@ -19,7 +19,7 @@ interface event {
     styleUrls: ['./calendar.component.css'],
     providers: [DialogService]
 })
-export class CalendarComponent implements OnInit {
+export class CalendarComponent implements OnInit, DoCheck {
     attributeLocalS = 'documento'
     data: dato
     datePipe = new DatePipe('en-US');
@@ -31,6 +31,7 @@ export class CalendarComponent implements OnInit {
     ref: DynamicDialogRef;
     calendarVisible = true;
     event: event[] = []
+    proxCita: string = ''
     calendarOptions: CalendarOptions = {
         initialEvents: this.planService.list,
         headerToolbar: {
@@ -86,7 +87,7 @@ export class CalendarComponent implements OnInit {
         const calendarApi = this.dateSelect.view.calendar;
         let aux = this.dateSelect.startStr + this.datePipe.transform(this.formAcuerdos.value.hour, 'THH:mm')
         calendarApi.unselect(); // clear date selection
-        console.log('aux', aux)
+        this.proxCita = this.dateSelect.endStr
         if (title) {
             calendarApi.addEvent({
                 title,
@@ -97,11 +98,11 @@ export class CalendarComponent implements OnInit {
             title: title,
             start: this.dateSelect.startStr
         })
-        console.log(this.event);
-        this.currentEvents.map((aux: any) => {
+        //console.log(this.event);
+        /*this.currentEvents.map((aux: any) => {
             console.log(aux._def.title)
             console.log(aux._instance.range.end)
-        })
+        })*/
         this.dialogAcuerdos = false;
     }
 
@@ -111,7 +112,14 @@ export class CalendarComponent implements OnInit {
         this.formAcuerdos.get('descripcionAcuerdo').setValue("");
         this.dialogAcuerdos = true;
         //let title = this.title
+    }
 
+    ngDoCheck() {
+        if (this.proxCita !== '') {
+            this.planService.proxCita = this.proxCita
+            console.log('prox', this.planService.proxCita)
+
+        }
     }
 
     handleEvents(events: EventApi[]) {

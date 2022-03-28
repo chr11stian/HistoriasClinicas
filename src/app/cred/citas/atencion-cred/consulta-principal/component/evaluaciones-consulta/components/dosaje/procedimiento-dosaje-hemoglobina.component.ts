@@ -4,12 +4,12 @@ import {
   SuplementacionesMicronutrientesService
 } from "../../../../../plan/component/plan-atencion-integral/services/suplementaciones-micronutrientes/suplementaciones-micronutrientes.service";
 import {DialogService} from "primeng/dynamicdialog";
-import {DosajeComponent} from "../dosaje/dosaje.component";
+import {DosajeComponent} from "../dosaje-modal/dosaje.component";
 import {DosajeHemoglobina} from "../../../../models/dosaje.interface";
 import {MessageService} from "primeng/api";
 
 @Component({
-  selector: 'app-procedimiento-dosaje-hemoglobina',
+  selector: 'app-procedimiento-dosaje-modal-hemoglobina',
   templateUrl: './procedimiento-dosaje-hemoglobina.component.html',
   styleUrls: ['./procedimiento-dosaje-hemoglobina.component.css'],
   providers: [DialogService]
@@ -35,6 +35,7 @@ export class ProcedimientoDosajeHemoglobinaComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getDosajePreventivo()
+    this.getDosajeTerapeutico()
   }
   getDosajePreventivo(){
     this.suplementacionesMicronutrientesService.getDosajeHemoglobina(this.nroDni).subscribe((resp)=>{
@@ -46,24 +47,30 @@ export class ProcedimientoDosajeHemoglobinaComponent implements OnInit {
   getDosajeTerapeutico(){
     this.suplementacionesMicronutrientesService.getDosajeHemoglobinaTerapeutico(this.nroDni).subscribe((resp)=>{
       this.dataTerapeutico=resp.object
-      console.log('respuesta del servidor->>>>',this.dataPreventivo)
-      this.transform();
+      console.log('respuesta terapeutica->>>>',this.dataPreventivo)
+      this.transformTerapeutico();
     })
   }
   determinarMostrar(mesEvaluado){
-    if(this.edadMes>=mesEvaluado && this.edadMes-mesEvaluado<6 ) {
-      // if (this.edadMes==mesEvaluado){
+   // w if(this.edadMes>=mesEvaluado && this.edadMes-mesEvaluado<6 ) {
+      if (this.edadMes==mesEvaluado){
       return true;
     }
     else
       return false;
   }
   agregarSuplementacion(dosaje){
-    console.log('heyy con el dosaje', dosaje)
+    console.log('heyy con el dosaje-modal', dosaje)
     console.log('nro mes',this.edadMes)
   }
   transform() {
     this.dataPreventivo.forEach((element) => {
+      element.fechaTentativa = new Date(`${element.fechaTentativa} 00:00:00`);
+      element.fecha = element.fecha != null ? new Date(`${element.fecha} 00:00:00`) : null;
+    });
+  }
+  transformTerapeutico() {
+    this.dataTerapeutico.forEach((element) => {
       element.fechaTentativa = new Date(`${element.fechaTentativa} 00:00:00`);
       element.fecha = element.fecha != null ? new Date(`${element.fecha} 00:00:00`) : null;
     });
@@ -86,11 +93,11 @@ export class ProcedimientoDosajeHemoglobinaComponent implements OnInit {
       }
       console.log('mensaje',mensaje)
       this.getDosajePreventivo();
-      // this.getDosajeTerapeutico();
+      this.getDosajeTerapeutico();
     });
   }
   abrirModalLaboratorio(dosaje){
-    // const {edadMes,nroControl}=dosaje
+    // const {edadMes,nroControl}=dosaje-modal
     // const inputRequest={
     //   edadMes,
     //   nroControl

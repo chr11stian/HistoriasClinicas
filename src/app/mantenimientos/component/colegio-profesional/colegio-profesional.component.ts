@@ -34,6 +34,7 @@ export class ColegioProfesionalComponent implements OnInit {
         this.form = this.formBuilder.group({
             codigo: ['', [Validators.required]],
             nombre: ['', [Validators.required]],
+            abreviatura: ['', [Validators.required]],
         })
     }
 
@@ -49,14 +50,16 @@ export class ColegioProfesionalComponent implements OnInit {
         this.form.reset();
         this.form.get('codigo').setValue("");
         this.form.get('nombre').setValue("");
+        this.form.get('abreviatura').setValue("");
         this.colegioDialog = true;
-      }
+    }
     saveForm() {
         console.log("guardar");
         this.isUpdate = false;
         const req = {
             codigo: this.form.value.codigo,
             nombre: this.form.value.nombre,
+            abreviatura: this.form.value.abreviatura,
         }
         if (req.codigo.trim() !== "" || req.nombre.trim() !== "") {
             this.colegioProfesionalservice.createColegioProfesional(req).subscribe(
@@ -73,7 +76,7 @@ export class ColegioProfesionalComponent implements OnInit {
                     this.colegioDialog = false;
                 }
             )
-        } 
+        }
     }
 
     guardarNuevo() {
@@ -85,6 +88,7 @@ export class ColegioProfesionalComponent implements OnInit {
         this.isUpdate = true;
         this.form.get('codigo').setValue(rowData.codigo)
         this.form.get('nombre').setValue(rowData.nombre)
+        this.form.get('abreviatura').setValue(rowData.abreviatura)
         this.idUpdate = rowData.id;
         this.colegioDialog = true;
 
@@ -95,6 +99,7 @@ export class ColegioProfesionalComponent implements OnInit {
             id: this.idUpdate,
             codigo: this.form.value.codigo,
             nombre: this.form.value.nombre,
+            abreviatura: this.form.value.abreviatura,
         }
         this.colegioProfesionalservice.editColegioProfesional(req).subscribe(
             result => {
@@ -145,11 +150,11 @@ export class ColegioProfesionalComponent implements OnInit {
 
     canceled() {
         Swal.fire({
-          icon: 'warning',
-          title: 'Cancelado...',
-          text: '',
-          showConfirmButton: false,
-          timer: 1000
+            icon: 'warning',
+            title: 'Cancelado...',
+            text: '',
+            showConfirmButton: false,
+            timer: 1000
         })
         this.colegioDialog = false;
     }

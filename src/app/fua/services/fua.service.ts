@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 export class FuaService {
   urlServer = environment.baseUrl
   bd = environment.bd
+  evento: boolean = false;
 
   constructor(private http: HttpClient) { }
 
@@ -28,6 +29,10 @@ export class FuaService {
   }
   postSegundaParteFUA(idFUA: string, codPrestacion: string, dataFUA) {
     return this.http.post(`${this.urlServer}/${this.bd}/fua/guardar/datos/${idFUA}/${codPrestacion}`, dataFUA);
+  }
+  /**REPORTES */
+  getReportFUA(idFUA: string) {
+    return this.http.get(`http://192.168.5.3:8200/jasperserver/rest_v2/reports/Reports/FUA/anexo1.pdf?${idFUA}`);
   }
   /**PROMISES */
   getPromiseCrearRecuperarFUAxIdConsulta(idConsulta: string) {

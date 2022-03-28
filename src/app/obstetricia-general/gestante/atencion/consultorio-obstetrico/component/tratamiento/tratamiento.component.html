@@ -120,8 +120,25 @@
     <br>
     <form [formGroup]='formRIEP'>
         <div class="grid">
-            <div class="col-12 md:col-6">
-                <p-fieldset legend="ÁCIDO FOLICO / HIERRO">
+            <div class="col-12 md:col-12 lg:col-12 xl:col-12">
+                <div class="card">
+                    <div class="text-center py-3">
+                        <label class="text-xl">SUPLEMENTACIONES</label>
+                    </div>
+                    <div class="px-5">
+                        <p-timeline [value]="events1" layout="horizontal" align="top">
+                            <ng-template pTemplate="content" let-event>
+                                <label class="text-sm text-green-700 ">{{event.date}}</label>
+                            </ng-template>
+                            <ng-template pTemplate="opposite" let-event>
+                                <label class="text-sm  underline text-indigo-500">{{event.status}}</label>
+                            </ng-template>
+                        </p-timeline>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 md:col-6 lg:col-6 xl:col-6">
+                <p-fieldset legend="ÁCIDO FOLICO / SULFATO FERROSO">
                     <div class="grid">
                         <div class="col-12">
                             <label>Diagnostico:</label>
@@ -176,8 +193,9 @@
                                 <div class="col-12">
                                     <label>Nombre UPS Aux:</label>
                                     <p-dropdown [options]="listaUpsHis" formControlName="nombreUPSAux1" appendTo="body"
-                                        optionLabel="nombreUPS" optionValue="nombreUPS" class="inputfield p-fluid w-full"
-                                        placeholder="Seleccione nombre aux UPS"></p-dropdown>
+                                        optionLabel="nombreUPS" optionValue="nombreUPS"
+                                        class="inputfield p-fluid w-full" placeholder="Seleccione nombre aux UPS">
+                                    </p-dropdown>
                                 </div>
                                 <div class="col-12">
                                     <label>Nombre Suplemento:</label>
@@ -296,8 +314,9 @@
                                 <div class="col-12">
                                     <label>Nombre UPS Aux:</label>
                                     <p-dropdown [options]="listaUpsHis" formControlName="nombreUPSAux2" appendTo="body"
-                                        optionLabel="nombreUPS" optionValue="nombreUPS" class="inputfield p-fluid w-full"
-                                        placeholder="Seleccione nombre UPS Aux"></p-dropdown>
+                                        optionLabel="nombreUPS" optionValue="nombreUPS"
+                                        class="inputfield p-fluid w-full" placeholder="Seleccione nombre UPS Aux">
+                                    </p-dropdown>
                                 </div>
                                 <div class="col-12">
                                     <label>Nombre Suplemento:</label>

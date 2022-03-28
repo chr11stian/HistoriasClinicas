@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
+import { Router } from "@angular/router";
+import Swal from "sweetalert2";
 import { Asegurado, DatosGeneralesFUA, IPRESS } from "../models/fua";
 import { FuaService } from "../services/fua.service";
 
@@ -37,7 +39,6 @@ export class IpressComponent implements OnInit {
   idFUA: string;
   /**ngModels */
   personal: string;
-  lugarAtencion: string;
   renaes: string;
   attention: string;
   gender: string;
@@ -46,14 +47,16 @@ export class IpressComponent implements OnInit {
   codOfertaFlexible: string;
   /**fin ngModels */
   dataFUA: DatosGeneralesFUA;
-  constructor(private fuaService: FuaService) {
+  constructor(
+    private fuaService: FuaService,
+    private router: Router
+  ) {
     this.twoOptions = [
       { name: "si", code: "si" },
       { name: "no", code: "no" },
     ];
     this.inicializarForm();
     this.idFUA = JSON.parse(localStorage.getItem("dataFUA")).idFUA;
-    // this.attentionPlace = "EXTRAMURAL";
     console.log("id de FUA ", this.idFUA);
     this.getDataFUA(this.idFUA);
   }
@@ -104,37 +107,50 @@ export class IpressComponent implements OnInit {
 
   setDataFUA() {
     /**de la ipress */
-    this.formIpress.patchValue({ codRenaes: this.dataFUA.deLaIpress.eessInformacion.codRenaes });
-    this.formIpress.patchValue({ nombreIpress: this.dataFUA.deLaIpress.eessInformacion.nombreEESS });
-    this.personal = this.dataFUA.deLaIpress.eessInformacion.personalQueAtiende;
-    this.codOfertaFlexible = this.dataFUA.deLaIpress.eessInformacion.codOfertaFlexible;
-    this.lugarAtencion = this.dataFUA.deLaIpress.eessInformacion.codRenaes;
-    this.attention = this.dataFUA.deLaIpress.eessInformacion.atencion;
-    this.formIpress.patchValue({ codRenaesRef: this.dataFUA.deLaIpress.eessInformacion.referenciaRealizadaPor });
-    this.formIpress.patchValue({ ipressRef: this.dataFUA.deLaIpress.eessInformacion.referenciaRealizadaPor });
-    this.formIpress.patchValue({ nroHojaRef: this.dataFUA.deLaIpress.eessInformacion.referenciaRealizadaPor });
+    if (this.dataFUA.deLaIpress.eessInformacion != null) {
+      this.formIpress.patchValue({ codRenaes: this.dataFUA.deLaIpress.eessInformacion.codRenaes });
+      this.formIpress.patchValue({ nombreIpress: this.dataFUA.deLaIpress.eessInformacion.nombreEESS });
+      this.personal = this.dataFUA.deLaIpress.eessInformacion.personalQueAtiende;
+      this.codOfertaFlexible = this.dataFUA.deLaIpress.eessInformacion.codOfertaFlexible;
+      this.attentionPlace = this.dataFUA.deLaIpress.eessInformacion.lugarDeAtencion;
+      this.attention = this.dataFUA.deLaIpress.eessInformacion.atencion;
+      if (this.dataFUA.deLaIpress.eessInformacion.referenciaRealizadaPor != null) {
+        this.formIpress.patchValue({ codRenaesRef: this.dataFUA.deLaIpress.eessInformacion.referenciaRealizadaPor.codRenaes });
+        this.formIpress.patchValue({ ipressRef: this.dataFUA.deLaIpress.eessInformacion.referenciaRealizadaPor.nombreIpress });
+        this.formIpress.patchValue({ nroHojaRef: this.dataFUA.deLaIpress.eessInformacion.referenciaRealizadaPor.nroHojaReferencia });
+      }
+    }
     /**del asegurado */
-    this.formAsegurado.patchValue({ tdi: this.dataFUA.delAsegurado.tdi });
-    this.formAsegurado.patchValue({ nroDoc: this.dataFUA.delAsegurado.nroDoc });
-    this.formAsegurado.patchValue({ diresa: this.dataFUA.delAsegurado.codAseguradoSis.diresaOtros });
-    this.formAsegurado.patchValue({ afiliacion: this.dataFUA.delAsegurado.codAseguradoSis.afiliacion });
-    this.formAsegurado.patchValue({ nro: this.dataFUA.delAsegurado.codAseguradoSis.nro });
-    this.formAsegurado.patchValue({ institucion: this.dataFUA.delAsegurado.aseguradoDeOtrasIAFAS.institucion });
-    this.formAsegurado.patchValue({ codSeguro: this.dataFUA.delAsegurado.aseguradoDeOtrasIAFAS.codAsegurado });
-    this.formAsegurado.patchValue({ apePaterno: this.dataFUA.delAsegurado.apellidoPaterno });
-    this.formAsegurado.patchValue({ apeMaterno: this.dataFUA.delAsegurado.apellidoMaterno });
-    this.formAsegurado.patchValue({ primerNombre: this.dataFUA.delAsegurado.primerNombre });
-    this.formAsegurado.patchValue({ otrosNombres: this.dataFUA.delAsegurado.otrosNombres });
-    this.gender = this.dataFUA.delAsegurado.sexo;
-    this.maternalHealth = this.dataFUA.delAsegurado.saludMaterna;
-    this.formAsegurado.patchValue({ fechaParto: this.dataFUA.delAsegurado.fecha.fechaParto });
-    this.formAsegurado.patchValue({ fechaNacimiento: this.dataFUA.delAsegurado.fecha.fechaNacimiento });
-    this.formAsegurado.patchValue({ fechaFallecimiento: this.dataFUA.delAsegurado.fecha.fechaFallecimiento });
-    this.formAsegurado.patchValue({ nroHistoriaClinica: this.dataFUA.delAsegurado.nroHistoriaClinica });
-    this.formAsegurado.patchValue({ etnia: this.dataFUA.delAsegurado.etnia });
-    this.formAsegurado.patchValue({ cnv1: this.dataFUA.delAsegurado.rn01 });
-    this.formAsegurado.patchValue({ cnv2: this.dataFUA.delAsegurado.nr02 });
-    this.formAsegurado.patchValue({ cnv3: this.dataFUA.delAsegurado.nr03 });
+    if (this.dataFUA.delAsegurado != null) {
+      this.formAsegurado.patchValue({ tdi: this.dataFUA.delAsegurado.tdi });
+      this.formAsegurado.patchValue({ nroDoc: this.dataFUA.delAsegurado.nroDoc });
+      if (this.dataFUA.delAsegurado.codAseguradoSis != null) {
+        this.formAsegurado.patchValue({ diresa: this.dataFUA.delAsegurado.codAseguradoSis.diresaOtros });
+        this.formAsegurado.patchValue({ afiliacion: this.dataFUA.delAsegurado.codAseguradoSis.afiliacion });
+        this.formAsegurado.patchValue({ nro: this.dataFUA.delAsegurado.codAseguradoSis.nro });
+      }
+      if (this.dataFUA.delAsegurado.aseguradoDeOtrasIAFAS != null) {
+        this.formAsegurado.patchValue({ institucion: this.dataFUA.delAsegurado.aseguradoDeOtrasIAFAS.institucion });
+        this.formAsegurado.patchValue({ codSeguro: this.dataFUA.delAsegurado.aseguradoDeOtrasIAFAS.codSeguro });
+      }
+
+      this.formAsegurado.patchValue({ apePaterno: this.dataFUA.delAsegurado.apellidoPaterno });
+      this.formAsegurado.patchValue({ apeMaterno: this.dataFUA.delAsegurado.apellidoMaterno });
+      this.formAsegurado.patchValue({ primerNombre: this.dataFUA.delAsegurado.primerNombre });
+      this.formAsegurado.patchValue({ otrosNombres: this.dataFUA.delAsegurado.otrosNombres });
+      this.gender = this.dataFUA.delAsegurado.sexo;
+      this.maternalHealth = this.dataFUA.delAsegurado.saludMaterna;
+      if (this.dataFUA.delAsegurado.fecha != null) {
+        this.formAsegurado.patchValue({ fechaParto: this.dataFUA.delAsegurado.fecha.fechaParto });
+        this.formAsegurado.patchValue({ fechaNacimiento: this.dataFUA.delAsegurado.fecha.fechaNacimiento });
+        this.formAsegurado.patchValue({ fechaFallecimiento: this.dataFUA.delAsegurado.fecha.fechaFallecimiento });
+      }
+      this.formAsegurado.patchValue({ nroHistoriaClinica: this.dataFUA.delAsegurado.nroHistoriaClinica });
+      this.formAsegurado.patchValue({ etnia: this.dataFUA.delAsegurado.etnia });
+      this.formAsegurado.patchValue({ cnv1: this.dataFUA.delAsegurado.rn01 });
+      this.formAsegurado.patchValue({ cnv2: this.dataFUA.delAsegurado.nr02 });
+      this.formAsegurado.patchValue({ cnv3: this.dataFUA.delAsegurado.nr03 });
+    }
   }
 
   recoverDataFUA() {
@@ -144,16 +160,20 @@ export class IpressComponent implements OnInit {
         nroFormato: {
           codEESS: '',
           anio: '',
-          correlativo: 0
+          correlativo: 1
         },
         eessInformacion: {
           codRenaes: this.formIpress.value.codRenaes,
           nombreEESS: this.formIpress.value.nombreIpress,
           codOfertaFlexible: this.codOfertaFlexible,
           personalQueAtiende: this.personal,
-          lugarAtencion: this.attentionPlace,
+          lugarDeAtencion: this.attentionPlace,
           atencion: this.attention,
-          referenciaRealizadaPor: this.formIpress.value.ipressRef
+          referenciaRealizadaPor: {
+            codRenaes: this.formIpress.value.codRenaesRef,
+            nombreIpress: this.formIpress.value.ipressRef,
+            nroHojaReferencia: this.formIpress.value.nroHojaRef
+          }
         }
       },
       delAsegurado: {
@@ -166,7 +186,7 @@ export class IpressComponent implements OnInit {
         },
         aseguradoDeOtrasIAFAS: {
           institucion: this.formAsegurado.value.institucion,
-          codAsegurado: this.formAsegurado.value.codSeguro
+          codSeguro: this.formAsegurado.value.codSeguro
         },
         apellidoPaterno: this.formAsegurado.value.apePaterno,
         apellidoMaterno: this.formAsegurado.value.apeMaterno,
@@ -192,6 +212,13 @@ export class IpressComponent implements OnInit {
     console.log('data to save ', this.dataFUA);
     this.fuaService.postDatosIpressAsegurado(this.idFUA, this.dataFUA).subscribe((res: any) => {
       console.log('se guardo la data correctamente ', res);
+      Swal.fire({
+        icon: "success",
+        title: "Se Guardo Correctamente FUA",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      // this.router.navigate(['/dashboard/fua/listar-fua'])
     });
   }
 }
