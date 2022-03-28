@@ -33,7 +33,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   listaExamenes: Examen[] = [
     { tipoExam: 1, nombreExam: "TEST DE GRAHAM" },
     { tipoExam: 2, nombreExam: "DOSAJE DE HEMOGLOBINA" },
-    { tipoExam: 1, nombreExam: "PARASITO SERIADO" },
+    { tipoExam: 1, nombreExam: "ESTUDIO PARASITOLOGICO DE HECES POR 3" },
   ];
   listaLugares: Lugar[] = [
     { index: 1, lugarLab: "CONSULTORIO" },
@@ -210,11 +210,11 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
       auxDataExam = {
         tipoLaboratorio: "EXAMEN_LABORATORIO",
         subTipo: "HEMATOLOGIA",
-        nombreExamen: "HEMOGLOBINA",
+        nombreExamen: this.examLab.nombreExam,
         codigo: "",
         codPrestacion: "",
         cie10: "",
-        codigoHIS: "",
+        codigoHIS: "85018",
         lugarExamen: this.lugarLab.lugarLab,
         resultado: {
           hematologia: this.dataHematologia,
@@ -231,7 +231,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
         codigo: "",
         codPrestacion: "",
         cie10: "",
-        codigoHIS: "",
+        codigoHIS: this.examLab.nombreExam == "TEST DE GRAHAM" ? "87178" : "87177.01",
         lugarExamen: this.lugarLab.lugarLab,
         resultado: {
           parasitologia: this.dataParasitologia,

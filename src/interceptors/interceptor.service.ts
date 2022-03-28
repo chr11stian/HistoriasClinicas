@@ -9,27 +9,35 @@ import {
 import { catchError } from "rxjs/operators";
 import { Observable, throwError } from "rxjs";
 import { LoginService } from "src/app/login/services/login.service";
+import { FuaService } from "src/app/fua/services/fua.service";
 
 @Injectable({
   providedIn: "root",
 })
 export class InterceptorService implements HttpInterceptor {
   constructor(
-    private loginService: LoginService
+    private loginService: LoginService,
+    private fuaService: FuaService
   ) // private messageService: MessageService
-  {}
+  { }
 
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     let cloned = req;
+    let nroPort: any = cloned.url.split(":");
+    nroPort = nroPort[2].split("/", 1);
+    nroPort = nroPort[0]
+    console.log('URL a enviar  ', nroPort);
     const idToken = JSON.parse(localStorage.getItem("token"));
+    let jwtAuth: string = "Bearer " + idToken.token;
+    let basicAuth: string = "Basic " + btoa('reporte' + ":" + 'reporte@2022');
     if (idToken) {
       // console.log('entro token', idToken)
       cloned = req.clone({
         setHeaders: {
-          Authorization: "Bearer " + idToken.token,
+          Authorization: nroPort == "8200" ? basicAuth : jwtAuth
         },
       });
       // cloned = req.clone({

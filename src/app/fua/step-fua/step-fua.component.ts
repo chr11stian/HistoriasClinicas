@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from "primeng/api"
+import { IpressComponent } from '../ipress/ipress.component';
 
 @Component({
     selector: 'app-step-fua',
@@ -12,6 +13,8 @@ export class StepFuaComponent implements OnInit {
     items: MenuItem[]
     indiceActivo: number = 0
     stepName = "ipress"
+
+    @ViewChild(IpressComponent) ipress:IpressComponent;
 
     constructor() {
         this.options = [
@@ -63,6 +66,19 @@ export class StepFuaComponent implements OnInit {
     ChangeStep(event: number) {
         this.indiceActivo = event;
         this.name()
+    }
+    nextPage(){
+        console.log('siguiente ');
+        switch (this.stepName) {
+            case 'ipress':
+                this.ipress.save();
+                this.stepName = "atencion"
+                this.indiceActivo = 1
+                break;
+        
+            default:
+                break;
+        }
     }
 }
 

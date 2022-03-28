@@ -423,4 +423,10 @@ export class AtenionComponent implements OnInit {
     let aux: string = vac.replace(/[0-9]/, '')
     return aux
   }
+  imprimir(){
+    this.fuaService.evento = false;
+    this.fuaService.getReportFUA().subscribe((res:any)=>{
+
+    })
+  }
 }
