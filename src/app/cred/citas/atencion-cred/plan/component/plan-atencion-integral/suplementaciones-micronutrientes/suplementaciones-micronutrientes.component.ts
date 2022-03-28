@@ -39,6 +39,10 @@ export class SuplementacionesMicronutrientesComponent implements OnInit {
     console.log('data SF ', this.SF);
   }
   getLista() {
+    // console.log('-->',
+    //     this.servicio.getListaMicronutrientesPro(this.nroDni)
+    // )
+
     this.servicio.getListaMicronutrientes(this.nroDni)
       .toPromise().then((result) => {
         this.listaMicronutrientes = result.object

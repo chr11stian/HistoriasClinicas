@@ -77,7 +77,13 @@
                     <span>Establecimiento Destino de la Referencia: </span>
                 </div>
                 <div class="col-8">
-                    <input class="w-full" formControlName="destino" type="text" pInputText placeholder="Destino">
+                    <p-autoComplete [suggestions]="listIpress" (completeMethod)="filterIpress($event)"
+                                    field="nombreEESS" [dropdown]="true"
+                                    class="inputfield p-fluid w-full" formControlName="destino"
+                                    placeholder="Seleccionar Ipress">
+                    </p-autoComplete>
+
+                    <!--<input class="w-full" formControlName="destino" type="text" pInputText placeholder="Destino">-->
                 </div>
             </div>
         </div>
@@ -117,27 +123,32 @@
             <div class="col-6 align-items-center flex">
                 <span>Dirección:</span>
                 <div class="col-10">
-                    <input type="text" class="w-full" pInputText formControlName="nombre">
+                    <input type="text" class="w-full" pInputText formControlName="direccion">
                 </div>
             </div>
             <div class="col-3 align-items-center flex">
                 <span>Distrito:</span>
                 <div class="col-8">
-                    <input type="text" class="w-full" pInputText formControlName="nombre">
+                    <input type="text" class="w-full" pInputText formControlName="distrito">
                 </div>
             </div>
             <div class="col-3 align-items-center flex">
                 <span>Departamento:</span>
                 <div class="col-8">
-                    <input type="text" class="w-full" pInputText formControlName="nombre">
+                    <input type="text" class="w-full" pInputText formControlName="departamento">
                 </div>
             </div>
         </div>
     </p-fieldset>
+    <p-fieldset legend="Motivo de referencia" [toggleable]="true">
+        <textarea class="inputfield w-full" formControlName="motivo" pInputTextarea>
+                </textarea>
+    </p-fieldset>
     <p-fieldset legend="Resumen de Historia Clinica" [toggleable]="true">
         <p-tabView>
             <p-tabPanel header="ANAMNESIS" leftIcon="pi pi-calendar">
-
+                <textarea class="inputfield w-full" formControlName="anamnesis" pInputTextarea>
+                </textarea>
             </p-tabPanel>
             <p-tabPanel header="EXAMEN FISICO" leftIcon="pi pi-calendar">
                 <form [formGroup]="examFG">
@@ -167,8 +178,30 @@
                         </div>
                     </div>
                     <p-divider></p-divider>
-                    <label>Observaciones de Signos Vitales:</label>
-                    <textarea class="inputfield w-full mb-2" formControlName="detailFC" pInputTextarea></textarea>
+                    <!--<label>Observaciones de Signos Vitales:</label>
+                    <textarea class="inputfield w-full mb-2" formControlName="detailFC" pInputTextarea></textarea>-->
+                    <p-table class="table-over" [value]="examenFisico" #dt
+                             styleClass="p-datatable-gridlines" [rows]="10"
+                             [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
+                             [showCurrentPageReport]="true"
+                             currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="text-align: center" class="font-2">Nro</th>
+                                <th style="text-align: center" class="font-2">Examen</th>
+                                <th style="text-align: center" class="font-2">Tipo</th>
+                                <th style="text-align: center" class="font-2">Descripcion</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                            <tr>
+                                <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+                                <td style="text-align: center">{{ rowData.examen }}</td>
+                                <td style="text-align: center">{{ rowData.tipo }}</td>
+                                <td style="text-align: center">{{ rowData.descripcion }}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
                 </form>
             </p-tabPanel>
             <p-tabPanel header="EXAMENES AUXILIARES" leftIcon="pi pi-calendar">
@@ -203,10 +236,80 @@
                 </p-table>
             </p-tabPanel>
             <p-tabPanel header="DIAGNÓSTICO" leftIcon="pi pi-calendar">
-
+                <p-table [value]="diagnostico" [rowHover]="true" styleClass="p-datatable-gridlines"
+                         [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,15]"
+                         [paginator]="true"
+                         currentPageReportTemplate="Mostrando {first} al {last} de {totalRecords} entradas"
+                         [filterDelay]="0">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="text-align: center" class="font-2">Nro</th>
+                            <th style="text-align: center" class="font-2">CODIGO DE PRESTACION</th>
+                            <th style="text-align: center" class="font-2">NOMBRE UPS</th>
+                            <th style="text-align: center" class="font-1">DIAGNÓSTICO SIS</th>
+                            <th style="text-align: center" class="font-2">CIE 10 SIS</th>
+                            <th style="text-align: center" class="font-1">DIAGNÓSTICO HIS</th>
+                            <th style="text-align: center" class="font-2">CIE 10 HIS</th>
+                            <th style="text-align: center" class="font-2">TIPO</th>
+                            <th style="text-align: center" class="font-2">FACTOR CONDICIONAL</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                        <tr>
+                            <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+                            <td style="text-align: center">{{ rowData.codPrestacion }}</td>
+                            <td style="text-align: center">{{ rowData.nombreUPS }}</td>
+                            <td style="text-align: center">{{ rowData.diagnosticoSIS }}</td>
+                            <td style="text-align: center">{{ rowData.cie10SIS }}</td>
+                            <td style="text-align: center">{{ rowData.diagnosticoHIS }}</td>
+                            <td style="text-align: center">{{ rowData.cie10HIS }}</td>
+                            <td style="text-align: center">{{ rowData.tipo }}</td>
+                            <td style="text-align: center">{{ rowData.factorCondicional }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
             </p-tabPanel>
             <p-tabPanel header="TRATAMIENTO" leftIcon="pi pi-calendar">
+                <p-table class="table-over" [value]="tratamientos" #dt styleClass="p-datatable-gridlines" [rows]="10"
+                         [rowsPerPageOptions]="[10, 25, 50]"
+                         [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+                         currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="text-align: center" class="font-2">Nro</th>
+                            <th style="text-align: center" class="font-2">COD.</th>
+                            <th style="text-align: center" class="font-2">NOMBRE</th>
+                            <th style="text-align: center" class="font-2">FF</th>
+                            <th style="text-align: center" class="font-2">CONCENTRACION</th>
+                            <th style="text-align: center" class="font-2">VIA ADMINISTRACION</th>
+                            <th style="text-align: center" class="font-2">CANT.</th>
+                            <th style="text-align: center" class="font-2">DOSIS</th>
+                            <th style="text-align: center" class="font-2">INTERVALO</th>
+                            <th style="text-align: center" class="font-2">DURACION</th>
+                            <th style="text-align: center" class="font-2">FECHA VENCIMIENTO</th>
+                            <th style="text-align: center" class="font-2">COD. PRESTACIÓN</th>
+                            <th style="text-align: center" class="font-2">CIE 10 HIS</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                        <tr>
+                            <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+                            <td style="text-align: center">{{ rowData.medicamento.codigo }}</td>
+                            <td style="text-align: center">{{ rowData.medicamento.nombre }}</td>
+                            <td style="text-align: center">{{ rowData.medicamento.ff }}</td>
+                            <td style="text-align: center">{{ rowData.medicamento.concentracion  }}</td>
+                            <td style="text-align: center">{{ rowData.medicamento.viaAdministracion }}</td>
+                            <td style="text-align: center">{{ rowData.cantidad }}</td>
+                            <td style="text-align: center">{{ rowData.dosis }}</td>
+                            <td style="text-align: center">{{ rowData.intervalo }}</td>
+                            <td style="text-align: center">{{ rowData.duracion }}</td>
+                            <td style="text-align: center">{{ rowData.fechaVenc | date: 'dd-MM-yyy'}}</td>
+                            <td style="text-align: center">{{ rowData.codPrestacion}}</td>
+                            <td style="text-align: center">{{ rowData.cie10SIS}}</td>
+                        </tr>
+                    </ng-template>
 
+                </p-table>
             </p-tabPanel>
         </p-tabView>
     </p-fieldset>

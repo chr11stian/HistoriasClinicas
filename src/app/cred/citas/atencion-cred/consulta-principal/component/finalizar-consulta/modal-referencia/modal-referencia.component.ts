@@ -1,16 +1,17 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, DoCheck} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {FinalizarConsultaService} from '../../../services/finalizar-consulta.service';
 import {
-    Coordinacion,
+    referencia,
     dato,
-    Personal,
     ReferenciaInterface,
     laboratorio,
-    datosLaboratorio,
-    ExamenesAuxiliares
+    ExamenesAuxiliares, SignosVitales,
+    redInterface
 } from "../../../../../models/data";
 import {DatePipe} from "@angular/common";
+import Swal from "sweetalert2";
+import {DynamicDialogRef} from "primeng/dynamicdialog";
 
 interface formControlInterface {
     pro: string,
@@ -18,12 +19,46 @@ interface formControlInterface {
     nameFC: string
 }
 
+interface diagnosticoInterface {
+    codPrestacion: string,
+    nombreUPS: string,
+    diagnosticoSIS: string,
+    cie10SIS: string,
+    diagnosticoHIS: string,
+    cie10HIS: string,
+    tipo: string,
+    factorCondicional: string
+}
+
+interface examenInterface {
+    examen: string,
+    tipo: string,
+    descripcion: string
+}
+
+interface tratamientoInterface {
+    cantidad: string,
+    dosis: string,
+    intervalo: string,
+    duracion: string,
+    fechaVenc: string,
+    medicamento: medicamentoInterface
+}
+
+interface medicamentoInterface {
+    codigo: string,
+    nombre: string,
+    ff: string,
+    concentracion: string,
+    viaAdministracion: string,
+}
+
 @Component({
     selector: 'app-modal-referencia',
     templateUrl: './modal-referencia.component.html',
     styleUrls: ['./modal-referencia.component.css']
 })
-export class ModalReferenciaComponent implements OnInit {
+export class ModalReferenciaComponent implements OnInit, DoCheck {
     fecha: Date = new Date()
     datePipe = new DatePipe('en-US');
     data: dato
@@ -31,8 +66,9 @@ export class ModalReferenciaComponent implements OnInit {
     formReferencia: FormGroup
     examFG: FormGroup
     sis: string = 'CUZ-234234235'
-    historia: string = "7023456"
-    edad: string = "1 año 2 meses 5 dias"
+    historia: string = ''
+    edad: string = ''
+    listIpress: string[] = []
     stateOptions = [
         {label: 'Si', value: true},
         {label: 'No', value: false}
@@ -41,7 +77,18 @@ export class ModalReferenciaComponent implements OnInit {
         {label: 'F', value: true},
         {label: 'M', value: false}
     ]
-
+    labelFisico: string[] = [
+        'Piel y Faneras (cabello, uñas)',
+        'Cabeza',
+        'Cara',
+        'Cuello',
+        'Tórax',
+        'Abdomen',
+        'Columna Vertebral',
+        'Extremidades',
+        'Genitouriano',
+        'Ano'
+    ]
     dataExamFisicos: formControlInterface[] = [
         {pro: 'temperatura', label: 'T (c°)', nameFC: 'TFC'},
         {pro: 'presionSistolica', label: 'PS (pa)', nameFC: 'PSFC'},
@@ -72,11 +119,18 @@ export class ModalReferenciaComponent implements OnInit {
         {name: 'Estable', code: 'Estable'},
         {name: 'Mal estado', code: 'Mal estado'}
     ];
-
+    examenFisico: examenInterface[] = []
     examenAux: ExamenesAuxiliares[] = []
+    diagnostico: diagnosticoInterface[] = []
+    tratamientos: tratamientoInterface[] = []
 
     constructor(private formBuilder: FormBuilder,
+                private ref: DynamicDialogRef,
                 private referenceService: FinalizarConsultaService) {
+    }
+
+    ngDoCheck() {
+        //console.log('form', this.formReferencia.get('destino').value)
     }
 
     ngOnInit(): void {
@@ -86,8 +140,41 @@ export class ModalReferenciaComponent implements OnInit {
     }
 
     inicializar() {
+        this.referenceService.consultaReferencia(this.data.idConsulta).subscribe((r: any) => {
+            let datosPaciente = r.object.datosPaciente
+            let signosVitales: SignosVitales = r.object.signosVitales
+            let examFisico = r.object.examenesFisicos
+            this.diagnostico = r.object.diagnosticos
+            this.tratamientos = r.object.tratamientos
+            this.historia = r.object.nroHcl
+            this.edad = r.object.anioEdad + ' años ' + r.object.mesEdad + ' meses ' + r.object.diaEdad + ' dias '
+            this.formReferencia.get('nombre').setValue(datosPaciente.primerNombre + ' ' + datosPaciente.otrosNombres + ' ' + datosPaciente.apePaterno + ' ' + datosPaciente.apeMaterno)
+            this.formReferencia.get('sex').setValue(!(datosPaciente.sexo === 'MASCULINO'))
+            this.formReferencia.get('anamnesis').setValue(r.object.anamnesis)
+
+            this.examFG.get('TFC').setValue(signosVitales.temperatura)
+            this.examFG.get('PSFC').setValue(signosVitales.presionSistolica)
+            this.examFG.get('PDFC').setValue(signosVitales.presionDiastolica)
+            this.examFG.get('FC').setValue(signosVitales.fc)
+            this.examFG.get('FRFC').setValue(signosVitales.fr)
+            this.examFG.get('PesoFC').setValue(signosVitales.peso)
+            this.examFG.get('TallaFC').setValue(signosVitales.talla)
+            this.examFG.get('imcFC').setValue(signosVitales.imc)
+            this.examFG.get('PCFC').setValue(signosVitales.perimetroCefalico)
+
+            examFisico.map((obj: any, index) => {
+                console.log('ob', obj)
+                this.examenFisico.push({
+                    examen: 'Examen Fisico',
+                    tipo: this.labelFisico[index],
+                    descripcion: obj.valor
+                })
+            })
+
+        })
         this.referenceService.searchLaboratorio(this.data.idConsulta).subscribe((r: any) => {
             let aux: laboratorio[] = r.object;
+
             aux.map((obj: laboratorio) => {
                     let aux_: ExamenesAuxiliares =
                         {
@@ -116,6 +203,8 @@ export class ModalReferenciaComponent implements OnInit {
             detailFC: new FormControl({value: null, disabled: false}, []),
         })
         this.formReferencia = this.formBuilder.group({
+            motivo: new FormControl("", []),
+            anamnesis: new FormControl("", []),
             asegurado: new FormControl(true),
             sex: new FormControl(true),
             fecha: new FormControl("", []),
@@ -131,6 +220,9 @@ export class ModalReferenciaComponent implements OnInit {
             sis: new FormControl("", []),
             historia: new FormControl("", []),
             nombre: new FormControl("", []),
+            domicilio: new FormControl("", []),
+            departamento: new FormControl("", []),
+            distrito: new FormControl("", []),
             referencia: new FormControl("", []),
             especialidad: new FormControl("", []),
             condicion: new FormControl("", []),
@@ -146,7 +238,6 @@ export class ModalReferenciaComponent implements OnInit {
     }
 
     save() {
-
         let aux: ReferenciaInterface = {
             fecha: this.datePipe.transform(this.formReferencia.value.fecha, 'yyyy-MM-dd HH:mm:ss'),
             tipoSubsidio: this.formReferencia.value.tipoSub,
@@ -162,16 +253,66 @@ export class ModalReferenciaComponent implements OnInit {
                 tipoReferencia: this.formReferencia.value.referencia,
                 especialidad: this.formReferencia.value.especialidad,
                 condicionPacienteSalida: this.formReferencia.value.condicion,
-                motivo: '',
+                motivo: this.formReferencia.value.motivo,
                 examenesAuxiliares: this.examenAux
             }
         }
-        console.log('aux', aux)
-        this.referenceService.addReference(this.data.idConsulta, aux).subscribe((r: any) => {
-            console.log(r)
-        })
+        let red = this.formReferencia.get('destino').value
+        if (this.referenceService.referencia === undefined) {
+            this.referenceService.addReference(this.data.idConsulta, aux).subscribe((r: any) => {
+                this.referenceService.referencia = {
+                    idRef: r.object.id,
+                    disa: red.red.disa,
+                    nombreIPRESS: red.nombreEESS,
+                    renipress: red.renipress
+                }
+            })
+            Swal.fire({
+                icon: 'success',
+                title: 'Agregado correctamente',
+                text: '',
+                showConfirmButton: false,
+                timer: 1500,
+            })
+            this.ref.close(aux);
+        } else {
+            let aux: ReferenciaInterface = {
+                id: this.referenceService.referencia.idRef,
+                fecha: this.datePipe.transform(this.formReferencia.value.fecha, 'yyyy-MM-dd HH:mm:ss'),
+                tipoSubsidio: this.formReferencia.value.tipoSub,
+                coordinacion: {
+                    fechaAtendera: this.datePipe.transform(this.formReferencia.value.fechaAtencion, 'yyyy-MM-dd'),
+                    horaAtendera: this.datePipe.transform(this.formReferencia.value.hourAtencion, 'HH:mm'),
+                    personalAtendera: {
+                        primerNombre: this.formReferencia.value.nombreAtendera
+                    },
+                    personalCoordino: {
+                        primerNombre: this.formReferencia.value.nombreCoordino
+                    },
+                    tipoReferencia: this.formReferencia.value.referencia,
+                    especialidad: this.formReferencia.value.especialidad,
+                    condicionPacienteSalida: this.formReferencia.value.condicion,
+                    motivo: '',
+                    examenesAuxiliares: this.examenAux
+                }
+            }
+            this.referenceService.updateReferencia(aux).subscribe((r: any) => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Se actualizo correctamente',
+                    text: '',
+                    showConfirmButton: false,
+                    timer: 1500,
+                })
+            })
+            this.ref.close(aux);
+        }
+    }
 
-        console.log(this.selectedDestino, this.selectedEspecialidad)
+    filterIpress(event: any) {
+        this.referenceService.buscarIprees(event.query).subscribe((res: any) => {
+            this.listIpress = res.object
+        })
     }
 }
 

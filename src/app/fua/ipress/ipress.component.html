@@ -1,14 +1,14 @@
-<p-toolbar styleClass="mb-4">
+<!-- <p-toolbar styleClass="mb-4">
     <ng-template pTemplate="left">
         <h3 class="text-base">DATOS GENERALES</h3>
     </ng-template>
     <ng-template pTemplate="right" class="button">
-        <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-primary"
-            style="background-color: #003c71" (click)="abrir()"></button>
+        <button pButton pRipple label="Siguiente" icon="pi pi-save" class="p-button-primary"
+            style="background-color: #003c71" (click)="save()"></button>
     </ng-template>
-</p-toolbar>
+</p-toolbar> -->
 <div class="m-1">
-    <p-fieldset legend="De la institución prestadora de servicios de salud" class="mb-3">
+    <p-fieldset legend="DE LA INSTITUCIÓN PRESTADORA DE SERVICIOS DE SALUD" class="mb-3">
         <form [formGroup]="formIpress">
             <div class="grid">
                 <div class="col-3 md:col-2">
@@ -17,7 +17,7 @@
                         <input type="text" pInputText formControlName="codRenaes" />
                     </div>
                 </div>
-                <div class="col-3 md:col-10 mt-3">
+                <div class="col-3 md:col-10">
                     <span>Nombre de la IPRESS que realiza la atención</span>
                     <div class="p-fluid mt-2">
                         <input type="text" pInputText formControlName="nombreIpress" />
@@ -25,7 +25,6 @@
                 </div>
             </div>
         </form>
-
         <div class="grid">
             <!-- <form [formGroup]="formDatosGenerales"> -->
             <div class="col-6 lg:col-4">

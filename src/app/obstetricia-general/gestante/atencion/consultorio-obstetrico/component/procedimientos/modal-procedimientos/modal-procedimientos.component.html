@@ -1,4 +1,3 @@
-<p>modal-procedimientos works!</p>
 <!-------------INICIO DIALOG PROCEDIMIENTO------->
 <form [formGroup]='formProcedimientos'>
     <div class="grid p-mb-4 mt-2">
@@ -6,13 +5,35 @@
             <p-fieldset legend="PRESTACIÓN">
                 <div class="grid p-fluid">
                     <div class="col-6">
+                        <label>Nombre UPS:</label>
+                        <p-dropdown [options]="listaUps" formControlName="ups" appendTo="body" optionLabel="nombreUPS"
+                            optionValue="nombreUPS" class="inputfield p-fluid w-full" placeholder="Seleccione"></p-dropdown>
+                    </div>
+                    <div class="col-6">
+                        <label>Nombre UPS aux:</label>
+                        <p-dropdown [options]="listaUpsHis" formControlName="subtitulo" appendTo="body" optionLabel="nombreUPS"
+                            optionValue="nombreUPS" class="inputfield p-fluid w-full" placeholder="Seleccione"></p-dropdown>
+                    </div>
+                    <div class="col-6">
                         <label>Diagnostico:</label>
                         <p-dropdown [options]="diagnosticosList" formControlName="diagnostico" appendTo="body" (onChange)="onChangeDiagnostico()"
                         optionLabel="diagnosticoSIS" class="inputfield p-fluid w-full" placeholder="Seleccione diagnostico SIS"></p-dropdown>
                     </div>
-                    <div class="col-6">
+                    <div class="col-3">
                         <label>Prestacion:</label>
                         <input type="text" pInputText formControlName='prestacion' placeholder="Prestacion" required disabled/>
+                    </div>
+                    <div class="col-2">
+                        <label>Tipo diagnostico:</label>
+                        <p-dropdown inputId="dropdown" [options]="tipoList" formControlName="tipo" placeholder="Seleccione"
+                            optionLabel="label" optionValue="value" defaultLabel="Seleccione:" appendTo="body"
+                            class="inputfield p-fluid w-full">
+                        </p-dropdown>
+                    </div>
+                    <div class="col-1">
+                        <label>Lab:</label>
+                        <input type="text" pInputText formControlName='lab' placeholder="Lab"
+                            class="p-fluid inputfield w-full">
                     </div>
                 </div>
             </p-fieldset>

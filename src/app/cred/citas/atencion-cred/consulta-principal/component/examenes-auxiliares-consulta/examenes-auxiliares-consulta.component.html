@@ -89,7 +89,7 @@
 </div>
 
 <p-dialog class="dialogo m-4" [(visible)]="addExamDialog" [style]="{width: '65%'}" [modal]="true" styleClass="p-fluid"
-    (onHide)="closeExamDialog()">
+    (onHide)="closeExamDialog()" class="auxExamCred">
     <ng-template pTemplate="header">
         <h3>NUEVO EXAMEN AUXILIAR</h3>
     </ng-template>
@@ -106,6 +106,60 @@
                 <p-dropdown [options]="listaLugares" [(ngModel)]="lugarLab" placeholder="SELECCIONA UN LUGAR"
                     [showClear]="false" appendTo="body" optionLabel="lugarLab">
                 </p-dropdown>
+            </div>
+
+            <div class="col-12">
+                <div class="grid mt-2 border">
+                    <div class="col-3 ">
+                        <div class="grid">
+                            <span class="mr-2 mt-2 mx-3 font-bold">Resultado:</span>
+                            <div *ngFor="let item of listResults">
+                                <div class="grid ">
+                                    <div class="col-6 flex flex-column text-center">
+                                        <span [for]="item.value" class="pr-1">{{ item.name }}</span>
+                                        <p-radioButton [inputId]="item.value" name="item" [value]="item.value"
+                                            [(ngModel)]="result">
+                                        </p-radioButton>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <span class="mr-2">Resultado</span>
+                            <p-checkbox [(ngModel)]="result" binary="true" inputId="binary" class="pr-2">
+                            </p-checkbox> -->
+                        </div>
+                    </div>
+                    <div class="col-2 mt-2" *ngIf="examLab.tipoExam == 2">
+                        <div class="grid">
+                            <span class="mr-2 font-bold">Anemia</span>
+                            <p-checkbox [(ngModel)]="resultKey" binary="true" inputId="binary" class="pr-2"
+                                (ngModelChange)="ngmodelXg()">
+                            </p-checkbox>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid mt-3 border" *ngIf="resultKey && examLab.tipoExam == 2">
+                    <div class="col-12">
+                        <label class="mb-2 ml-3"> Nivel de Anemia:</label>
+                    </div>
+                    <div class="col-2 text-left" *ngFor="let item of listValueResult">
+                        <div class="grid">
+                            <div class="col-6 text-right">
+                                <span [for]="item.value" class="pr-1">{{ item.name }}</span>
+                            </div>
+                            <div class="col-4">
+                                <p-radioButton [inputId]="item.value" name="item" [value]="item.value"
+                                    [(ngModel)]="resultValue">
+                                </p-radioButton>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Observaciones -->
+            <div class="col-12" *ngIf="lugarLab.index == 1">
+                <label>Observaciones:</label>
+                <textarea [rows]="3" class="inputfield w-full mt-2" [(ngModel)]="observaciones" pInputTextarea
+                    oninput="this.value=this.value.toUpperCase()"></textarea>
             </div>
             <!-- CAMPOS DE HEMOGLOBINA EN CONSULTORIO -->
             <div class="p-fluid col-9" *ngIf="lugarLab.index == 1 && examLab.tipoExam == 2">
@@ -182,11 +236,7 @@
                     </div>
                 </form>
             </div>
-            <div class="col-12" *ngIf="lugarLab.index == 1">
-                <label>Obervaciones:</label>
-                <textarea [rows]="3" class="inputfield w-full mt-2" [(ngModel)]="observaciones" pInputTextarea
-                    oninput="this.value=this.value.toUpperCase()"></textarea>
-            </div>
+
         </div>
         <!-- FORM HEMATOLOGIA -->
         <form [formGroup]="formHematologia">

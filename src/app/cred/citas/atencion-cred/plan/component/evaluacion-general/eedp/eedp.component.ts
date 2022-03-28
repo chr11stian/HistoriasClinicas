@@ -36,6 +36,11 @@ export class EEDPComponent implements OnInit {
     }
     async getEEDPByNroHcl() {
         await this.eedpService.getPromiseEEDPxNroHcl(this.dataPaciente.nroDocumento).then(data => {
+            console.log('cod error ', data);
+            if (data.cod == "2005") {
+                console.log("no hay datos para este mes");
+                return
+            }
             this.resultListEEDP = data
         });
         console.log('datos de eedp por nro de historia', this.resultListEEDP);
