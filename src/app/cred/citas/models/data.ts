@@ -1,4 +1,4 @@
-export interface dato {
+export interface  dato {
     hidden?: boolean,
     nroDocumento?: string,
     tipoDoc?: string,
@@ -9,6 +9,7 @@ export interface dato {
     sexo?: string,
     fechaNacimiento?: string,
     see?: boolean
+    nroConsulta?:number
 }
 
 export interface outputTriajeInterface {

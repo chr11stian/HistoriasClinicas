@@ -549,7 +549,9 @@
     </div>
 
     <div class="col col-offset-10">
-        <button type="submit"
+        <button
+                [disabled]="this.getFC('edadN').invalid"
+                type="submit"
                 pButton
                 pRipple
                 icon="pi pi-save"

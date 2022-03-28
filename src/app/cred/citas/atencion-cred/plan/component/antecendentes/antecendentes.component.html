@@ -1,12 +1,28 @@
-<p-tabView>
-    <p-tabPanel header="ANTECEDENTES PERSONALES" leftIcon="pi pi-calendar">
-        <app-personal></app-personal>
-    </p-tabPanel>
-    <p-tabPanel header="ANTECEDENTES FAMILIARES" leftIcon="pi pi-calendar">
-        <app-familiar></app-familiar>
-    </p-tabPanel>
-    <p-tabPanel header="VIVIENDA/SANEAMIENTO BASICO" leftIcon="pi pi-calendar">
-        <app-vivienda></app-vivienda>
-    </p-tabPanel>
-</p-tabView>
+<p-card>
+    <ng-template pTemplate="header">
+        <p-toolbar>
+            <ng-template pTemplate="left">
+                <h3 class="mt-2">DATOS GENERALES NIÑO/NIÑA</h3>
+            </ng-template>
+            <ng-template pTemplate="right" class="button">
+                <button *ngIf="isFirstConsulta" pButton pRipple label=" Guardar y Siguiente" iconPos="right" icon="pi pi-angle-right"
+                        class="guardar mr-2" (click)="guardarDatosGenerales()"
+                        style="background-color: #0c3866"></button>
+            </ng-template>
+        </p-toolbar>
+    </ng-template>
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="ANTECEDENTES PERSONALES" leftIcon="pi pi-calendar">
+                <app-personal></app-personal>
+            </p-tabPanel>
+            <p-tabPanel header="ANTECEDENTES FAMILIARES" leftIcon="pi pi-calendar">
+                <app-familiar></app-familiar>
+            </p-tabPanel>
+            <p-tabPanel header="VIVIENDA/SANEAMIENTO BASICO" leftIcon="pi pi-calendar">
+                <app-vivienda></app-vivienda>
+            </p-tabPanel>
+        </p-tabView>
+    </ng-template>
+</p-card>
 

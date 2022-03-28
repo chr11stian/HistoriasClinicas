@@ -43,6 +43,7 @@ export class ListaConsultaComponent implements OnInit {
     getpacientesFiliados(nroDoc) {
         this.listaConsultaService.getConsultasCRED(nroDoc).subscribe((r: any) => {
             this.dataConsulta = r.object;
+            // console.log('lista de consultas-------------->',this.dataConsulta)
         })
     }
 

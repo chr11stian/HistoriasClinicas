@@ -265,6 +265,7 @@ export class TriajeCredComponent implements OnInit {
         this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
         (this.data.idConsulta !== '') ? this.recuperarData(this.data.idConsulta) : this.recuperarPersona()
         this.buildForm()
+        this.getTotalConsulta();
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -285,6 +286,13 @@ export class TriajeCredComponent implements OnInit {
             this.generalInfoFG.get('year').setValue(edad)
             this.generalInfoFG.get('dateAttention').setValue(this.fecha_hoy)
             this.generalInfoFG.get('hour').setValue(this.fecha_hoy)
+        })
+    }
+    nroConsulta:number=0
+    getTotalConsulta(){
+        this.consultaGeneralService.getTotalConsultas(this.data.nroDocumento).subscribe((resp:any)=>{
+            console.log('nro de consulta------>',resp.object.length)
+            this.nroConsulta=resp.object.length;
         })
     }
 
@@ -626,14 +634,24 @@ export class TriajeCredComponent implements OnInit {
     }
 
     getConsultaPrincipal(): void {
-        if (this.data.idConsulta === '') {
-            this.save()
+        //si es la primera consulta
+        if(this.nroConsulta==0){
+            if (this.data.idConsulta === '') {
+                this.save()
+            }
+            setTimeout(() => {
+                this.router.navigate(['/dashboard/cred/citas/atencion/plan-atencion-integral'])
+            }, 1000);
         }
-        setTimeout(() => {
-            this.router.navigate(['/dashboard/cred/citas/atencion/consulta-principal'])
-        }, 1000);
+        else{
+            if (this.data.idConsulta === '') {
+                this.save()
+            }
+            setTimeout(() => {
+                this.router.navigate(['/dashboard/cred/citas/atencion/consulta-principal'])
+            }, 1000);
 
-
+        }
     }
 }
 

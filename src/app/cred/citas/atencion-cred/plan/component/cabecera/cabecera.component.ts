@@ -29,10 +29,10 @@ export class CabeceraComponent implements OnInit, DoCheck {
     consulta: ApiPlanAtencion
     j: number = 100
 
-    @ViewChild(DatosGeneralesComponent) datosGenerales: DatosGeneralesComponent;
-    @ViewChild(AntecendentesComponent) antecedentes: AntecendentesComponent;
-    @ViewChild(PlanAtencionIntegralComponent) planAtencion: PlanAtencionIntegralComponent;
-    @ViewChild(EvaluacionGeneralComponent) evaluacion: EvaluacionGeneralComponent;
+    // @ViewChild(DatosGeneralesComponent) datosGenerales: DatosGeneralesComponent;
+    // @ViewChild(AntecendentesComponent) antecedentes: AntecendentesComponent;
+    // @ViewChild(PlanAtencionIntegralComponent) planAtencion: PlanAtencionIntegralComponent;
+    // @ViewChild(EvaluacionGeneralComponent) evaluacion: EvaluacionGeneralComponent;
 
     constructor(private consultaGeneralService: ConsultaGeneralService,
                 private route: ActivatedRoute,
@@ -43,12 +43,22 @@ export class CabeceraComponent implements OnInit, DoCheck {
             {name: "C EXTRANJERIA", code: 3},
             {name: "OTROS", code: 4},
         ]
-    }
 
+
+    }
+    getTotalConsulta(){
+        this.consultaGeneralService.getTotalConsultas(this.data.nroDocumento).subscribe((resp:any)=>{
+            console.log('nro de consulta------>',resp.object.length)
+            this.nroConsulta=resp.object.length;
+        })
+    }
+    nroConsulta:number=0;
     ngDoCheck() {
         //this.saveStep()
     }
-
+    ChangeStep(indice){
+       this.stepActivado=indice
+    }
     ngOnInit(): void {
         this.items = [
             {label: "Datos Generales", styleClass: 'icon'},
@@ -63,6 +73,7 @@ export class CabeceraComponent implements OnInit, DoCheck {
         this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
         this.getPlan(this.data.nroDocumento)
         console.log('plan de atencion', this.data)
+        this.getTotalConsulta();
     }
 
     getPlan(dni: string) {
@@ -94,95 +105,62 @@ export class CabeceraComponent implements OnInit, DoCheck {
             console.log(err)
         })
     }
-
-    //--cambia los nombres de los steps según el indice
-    name() {
+    stepActivado:number=0;
+    nextPage() {
+        // console.log(this.stepName)
+        switch (this.indiceActivo) {
+            case 0:
+                this.indiceActivo=1
+                this.stepActivado=1;
+                break;
+            case 1:
+                this.indiceActivo=2
+                this.stepActivado=2;
+                break;
+            case 2:
+                this.indiceActivo=3
+                this.stepActivado=3;
+                break;
+        }
+    }
+    prevPage() {
         switch (this.indiceActivo) {
             case 3:
-                this.stepName = "evaluacion"
-                break
+                this.indiceActivo=2
+                this.stepActivado=2;
+                break;
             case 2:
-                this.stepName = "plan"
-                break
+                this.indiceActivo=1
+                this.stepActivado=1;
+                break;
             case 1:
-                this.stepName = "antecedentes"
-                break
-            case 0:
-                this.stepName = "datos"
-                break
-        }
-    }
-
-    //--cambia step
-    ChangeStep(event: number) {
-        this.indiceActivo = event;
-        this.name()
-    }
-
-    // pasamos al siguiente step
-    nextPage() {
-        switch (this.stepName) {
-            case 'datos':
-                this.datosGenerales.save()
-                this.stepName = 'antecedentes';
-                this.indiceActivo = 0;
-                break;
-            case 'antecedentes':
-                //this.antecedentes.save()
-                this.stepName = 'plan';
-                this.indiceActivo = 1;
-                break;
-            case 'plan':
-                //this.planAtencion.save()
-                this.stepName = 'evaluacion';
-                this.indiceActivo = 2;
-                break;
-            case 'evaluacion':
-                //this.evaluacion.save()
+                this.indiceActivo=0
+                this.stepActivado=0;
                 break;
         }
     }
 
-    // regresamos al anterior step
-    prevPage() {
-        switch (this.stepName) {
-            case 'evaluacion':
-                this.stepName = 'plan';
-                this.indiceActivo = 2;
-                break;
-            case 'plan':
-                this.stepName = 'antecedentes';
-                this.indiceActivo = 1;
-                break;
-            case 'antecedentes':
-                this.stepName = 'datos';
-                this.indiceActivo = 0;
-                break;
-        }
-    }
-
-    saveStep() {
-        if (this.indiceActivo !== this.j) {
-            console.log('j ', this.indiceActivo, this.j)
-            switch (this.j) {
-                case 3:
-                    //this.evaluacion.save()
-                    break
-                case 2:
-                    //this.planAtencion.save()
-                    break
-                case 1:
-                    //this.antecedentes.save()
-                    break
-                case 0:
-                    this.datosGenerales.save()
-                    break
-            }
-            this.j = this.indiceActivo
-        }
-    }
+    // saveStep() {
+    //     if (this.indiceActivo !== this.j) {
+    //         console.log('j ', this.indiceActivo, this.j)
+    //         switch (this.j) {
+    //             case 3:
+    //                 //this.evaluacion.save()
+    //                 break
+    //             case 2:
+    //                 //this.planAtencion.save()
+    //                 break
+    //             case 1:
+    //                 //this.antecedentes.save()
+    //                 break
+    //             case 0:
+    //                 this.datosGenerales.save()
+    //                 break
+    //         }
+    //         this.j = this.indiceActivo
+    //     }
+    // }
 }
-
 interface data {
     name: string
     code: number

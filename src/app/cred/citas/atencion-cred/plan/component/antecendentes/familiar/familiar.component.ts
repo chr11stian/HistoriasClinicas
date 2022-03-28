@@ -101,8 +101,9 @@ export class FamiliarComponent implements OnInit {
 
     recuperarData() {
         this.antecedentesService.getAntecedentesPersonalesPatologicos(this.nroDoc).subscribe((r: any) => {
-            this.listPatologias = r.object.antecedentesFamiliares
-            console.log('pata', this.listPatologias)
+            if (r.cod!='2402'){
+                this.listPatologias = r.object.antecedentesFamiliares
+            }
         })
     }
 
