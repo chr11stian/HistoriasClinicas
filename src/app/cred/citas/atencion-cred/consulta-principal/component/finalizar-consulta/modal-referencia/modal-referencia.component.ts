@@ -68,7 +68,7 @@ export class ModalReferenciaComponent implements OnInit, DoCheck {
     sis: string = 'CUZ-234234235'
     historia: string = ''
     edad: string = ''
-    listIpress: string[] = ['belempampa']
+    listIpress: string[] = []
     stateOptions = [
         {label: 'Si', value: true},
         {label: 'No', value: false}
@@ -125,12 +125,12 @@ export class ModalReferenciaComponent implements OnInit, DoCheck {
     tratamientos: tratamientoInterface[] = []
 
     constructor(private formBuilder: FormBuilder,
-                private ref:DynamicDialogRef,
+                private ref: DynamicDialogRef,
                 private referenceService: FinalizarConsultaService) {
     }
 
     ngDoCheck() {
-        console.log('form', this.formReferencia.get('destino').value)
+        //console.log('form', this.formReferencia.get('destino').value)
     }
 
     ngOnInit(): void {
@@ -253,27 +253,60 @@ export class ModalReferenciaComponent implements OnInit, DoCheck {
                 tipoReferencia: this.formReferencia.value.referencia,
                 especialidad: this.formReferencia.value.especialidad,
                 condicionPacienteSalida: this.formReferencia.value.condicion,
-                motivo: '',
+                motivo: this.formReferencia.value.motivo,
                 examenesAuxiliares: this.examenAux
             }
         }
         let red = this.formReferencia.get('destino').value
-        this.referenceService.addReference(this.data.idConsulta, aux).subscribe((r: any) => {
-            this.referenceService.referencia = {
-                idRef: r.object.id,
-                disa: red.red.disa,
-                nombreIPRESS: red.nombreEESS,
-                renipress: red.renipress
+        if (this.referenceService.referencia === undefined) {
+            this.referenceService.addReference(this.data.idConsulta, aux).subscribe((r: any) => {
+                this.referenceService.referencia = {
+                    idRef: r.object.id,
+                    disa: red.red.disa,
+                    nombreIPRESS: red.nombreEESS,
+                    renipress: red.renipress
+                }
+            })
+            Swal.fire({
+                icon: 'success',
+                title: 'Agregado correctamente',
+                text: '',
+                showConfirmButton: false,
+                timer: 1500,
+            })
+            this.ref.close(aux);
+        } else {
+            let aux: ReferenciaInterface = {
+                id: this.referenceService.referencia.idRef,
+                fecha: this.datePipe.transform(this.formReferencia.value.fecha, 'yyyy-MM-dd HH:mm:ss'),
+                tipoSubsidio: this.formReferencia.value.tipoSub,
+                coordinacion: {
+                    fechaAtendera: this.datePipe.transform(this.formReferencia.value.fechaAtencion, 'yyyy-MM-dd'),
+                    horaAtendera: this.datePipe.transform(this.formReferencia.value.hourAtencion, 'HH:mm'),
+                    personalAtendera: {
+                        primerNombre: this.formReferencia.value.nombreAtendera
+                    },
+                    personalCoordino: {
+                        primerNombre: this.formReferencia.value.nombreCoordino
+                    },
+                    tipoReferencia: this.formReferencia.value.referencia,
+                    especialidad: this.formReferencia.value.especialidad,
+                    condicionPacienteSalida: this.formReferencia.value.condicion,
+                    motivo: '',
+                    examenesAuxiliares: this.examenAux
+                }
             }
-        })
-        Swal.fire({
-            icon: 'success',
-            title: 'Agregado correctamente',
-            text: '',
-            showConfirmButton: false,
-            timer: 1500,
-        })
-        this.ref.close();
+            this.referenceService.updateReferencia(aux).subscribe((r: any) => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Se actualizo correctamente',
+                    text: '',
+                    showConfirmButton: false,
+                    timer: 1500,
+                })
+            })
+            this.ref.close(aux);
+        }
     }
 
     filterIpress(event: any) {

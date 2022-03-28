@@ -41,8 +41,10 @@ import {MessageModule} from 'primeng/message';
 import {InputMaskModule} from 'primeng/inputmask';
 import {FullCalendarModule} from "primeng/fullcalendar";
 import { FormsModule } from '@angular/forms';
+import {TimelineModule} from 'primeng/timeline';
 
 const importsApi = [
+    TimelineModule,
     FullCalendarModule,
     MultiSelectModule,
     MessagesModule,

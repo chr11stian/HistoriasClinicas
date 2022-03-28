@@ -2,6 +2,38 @@
     <form [formGroup]='formSolicitudLab'>
         <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
             <div class="grid m-2">
+                <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
+                    <div class="border">
+                        <div class="grid m-2">
+                            <div class="col-12 md:col-6 lg:col-3 p-field flex flex-column">
+                                <label>APELLIDOS Y NOMBRES:</label>
+                                <input type="text" pInputText class="inputTest" formControlName="apellidosNombres"/>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-1 p-field flex flex-column">
+                                <label>EDAD:</label>
+                                <input type="text" pInputText class="inputTest" formControlName="edad"/>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-1 p-field flex flex-column">
+                                <label>HCL:</label>
+                                <input type="text" pInputText class="inputTest" formControlName="HCL"/>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-3 p-field flex flex-column">
+                                <label>SERVICIO:</label>
+                                <input type="text" pInputText class="inputTest" formControlName="servicio"/>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-2 p-field flex flex-column">
+                                <label>CAMA NRO:</label>
+                                <input type="text" pInputText class="inputTest" formControlName="camaNro"/>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-2 p-field flex flex-column">
+                                <label>DX. PRESUNTIVO:</label>
+                                <input type="text" pInputText class="inputTest" formControlName="DxPresuntivo"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid m-2">
                 <div class="col-12 md:col-6 lg:col-3 p-field">
                     <div class="border">
                         <div class="grid m-2">
@@ -13,7 +45,7 @@
                                 </div>
                                 <div class="grid">
                                     <div class="field-checkbox">
-                                        <p-checkbox name='hemoglobina'
+                                        <p-checkbox (click)="hem1()"
                                                     value="HEMOGLOBINA"
                                                     [formControl]="formSolicitudLab.controls['hemoglobina']"></p-checkbox>
                                         <label>HEMOGLOBINA</label>
@@ -21,7 +53,8 @@
                                 </div>
                                 <div class="grid">
                                     <div class="field-checkbox">
-                                        <p-checkbox value="HEMATOCRITO"
+                                        <p-checkbox (click)="hem2()"
+                                                    value="HEMATOCRITO"
                                                     [formControl]="formSolicitudLab.controls['Hematocrito']"></p-checkbox>
                                         <label>HEMATOCRITO</label>
                                     </div>
@@ -101,7 +134,7 @@
                                 <div class="grid">
                                     <div class="field-checkbox">
                                         <label>OTROS:</label>
-                                        <input type="text" pInputText class="w-full"/>
+                                        <input type="text" pInputText class="w-full" formControlName="otro1"/>
                                     </div>
                                 </div>
                             </div>
@@ -119,7 +152,8 @@
                                 </div>
                                 <div class="grid">
                                     <div class="field-checkbox">
-                                        <p-checkbox value="GRUPO SANGUÍNEO"
+                                        <p-checkbox (click)="hem12()"
+                                                    value="GRUPO SANGUÍNEO"
 
                                                     [formControl]="formSolicitudLab.controls['GrupoSanguineo']"></p-checkbox>
                                         <label>GRUPO SANGUÍNEO</label>
@@ -151,7 +185,7 @@
                                 </div>
                                 <div class="grid">
                                     <div class="field-checkbox">
-                                        <p-checkbox value="R.P.R y/o PRUEBA RÁPIDA DE SÍFILIS"
+                                        <p-checkbox (click)="hem16()" value="R.P.R y/o PRUEBA RÁPIDA DE SÍFILIS"
 
                                                     [formControl]="formSolicitudLab.controls['RPR']"></p-checkbox>
                                         <label>R.P.R y/o PRUEBA RÁPIDA DE SÍFILIS</label>
@@ -159,7 +193,7 @@
                                 </div>
                                 <div class="grid">
                                     <div class="field-checkbox">
-                                        <p-checkbox value="V.I.H (prueba rápida)"
+                                        <p-checkbox (click)="hem17()" value="V.I.H (prueba rápida)"
 
                                                     [formControl]="formSolicitudLab.controls['VIH']"></p-checkbox>
                                         <label>V.I.H (prueba rápida)</label>
@@ -208,7 +242,7 @@
                                 <div class="grid">
                                     <div class="field-checkbox">
                                         <label>OTROS:</label>
-                                        <input type="text" pInputText class="w-full"/>
+                                        <input type="text" pInputText class="w-full" formControlName="otro2"/>
                                     </div>
                                 </div>
                             </div>
@@ -226,7 +260,7 @@
                                 </div>
                                 <div class="grid">
                                     <div class="field-checkbox">
-                                        <p-checkbox value="GLUCOSA"
+                                        <p-checkbox (click)="hem23()" value="GLUCOSA"
 
                                                     [formControl]="formSolicitudLab.controls['glucosa']"></p-checkbox>
                                         <label>GLUCOSA</label>
@@ -314,7 +348,7 @@
                                 <div class="grid">
                                     <div class="field-checkbox">
                                         <label>OTROS:</label>
-                                        <input type="text" pInputText class="w-full"/>
+                                        <input type="text" pInputText class="w-full" formControlName="otro3"/>
                                     </div>
                                 </div>
                             </div>
@@ -375,7 +409,7 @@
                                 <div class="grid">
                                     <div class="field-checkbox">
                                         <label>OTROS:</label>
-                                        <input type="text" pInputText class="w-full"/>
+                                        <input type="text" pInputText class="w-full" formControlName="otro4"/>
                                     </div>
                                 </div>
                             </div>
@@ -400,7 +434,7 @@
                                 <div class="grid">
                                     <div class="field-checkbox">
                                         <label>OTROS:</label>
-                                        <input type="text" pInputText class="w-full"/>
+                                        <input type="text" pInputText class="w-full" formControlName="otro5"/>
                                     </div>
                                 </div>
                             </div>
@@ -420,7 +454,7 @@
                                 </div>
                                 <div class="grid">
                                     <div class="field-checkbox">
-                                        <p-checkbox value="EXAMEN COMPLETO DE ORINA"
+                                        <p-checkbox (click)="uroanalisis1()" value="EXAMEN COMPLETO DE ORINA"
 
                                                     [formControl]="formSolicitudLab.controls['ExamenComplentoOrina']"></p-checkbox>
                                         <label>EXAMEN COMPLETO DE ORINA</label>
@@ -453,7 +487,7 @@
                                 <div class="grid">
                                     <div class="field-checkbox">
                                         <label>OTROS:</label>
-                                        <input type="text" pInputText class="w-full"/>
+                                        <input type="text" pInputText class="w-full" formControlName="otro6"/>
                                     </div>
                                 </div>
                             </div>
@@ -463,12 +497,9 @@
                 <div class="col-12 md:col-6 lg:col-9 p-field">
                     <div class="border">
                         <div class="grid m-2">
-                            <div class="col-12 md:col-6 lg:col-12 p-field">
-                                <div class="grid">
-                                    <div class="field-checkbox text-center">
-                                        <label style="color: rgb(77 77 77); text-decoration: underline; text-align: center">LISTA DE SOLICITUD</label>
-                                    </div>
-                                </div>
+                            <div class="col-12 md:col-6 lg:col-12 p-field flex flex-column">
+                                <label>OBSERVACIONES:</label>
+                                <input type="text" pInputText class="inputTest" formControlName="observaciones"/>
                             </div>
                         </div>
                     </div>
@@ -476,4 +507,11 @@
             </div>
         </div>
     </form>
+</div>
+
+
+<div class="footer">
+    <button pButton type="button" (click)="add()" label="Guardar"
+            class="p-button-primary mt-4 mr-2"></button>
+    <button pButton type="button" label="Cancelar" class="p-button-danger mt-4"></button>
 </div>

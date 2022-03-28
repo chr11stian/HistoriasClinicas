@@ -83,6 +83,12 @@
                                 value="interconsulta">
                         </p-tag>
                     </td>
+                    <td style="text-align: center" *ngIf="rowData.estadoAtencion===2">
+                        <p-tag
+                                severity="primary"
+                                value="completo">
+                        </p-tag>
+                    </td>
                 </ng-template>
 
                 <td style="text-align: center">
