@@ -38,8 +38,10 @@
                     1 TRIAJE
                 </button>
             </div>
-            <div class="col-12 md:col-6 lg:col-3" style="align-content: center;" [hidden]="hidden">
-                <button pButton
+            <div class="col-12 md:col-6 lg:col-3" style="align-content: center;" >
+                <button
+                        [disabled]="!isTriajeTaken"
+                        pButton
                         pRipple
                         icon="pi pi-plus-circle"
                         iconPos="left"
@@ -49,8 +51,10 @@
                     2 PLAN DE ATENCIÓN INTEGRAL
                 </button>
             </div>
-            <div class="col-12 md:col-6 lg:col-3" [hidden]="hidden">
-                <button pButton
+            <div class="col-12 md:col-6 lg:col-3">
+                <button
+                        [disabled]="PrimeraConsulta()"
+                        pButton
                         pRipple
                         icon="pi pi-plus-circle"
                         iconPos="left"
@@ -61,17 +65,17 @@
                 </button>
             </div>
 
-            <div class="col-12 md:col-6 lg:col-3" [hidden]="hidden">
-                <button pButton
-                        pRipple
-                        icon="pi pi-plus-circle"
-                        iconPos="left"
-                        type="button"
-                        routerLink="examenes"
-                        class="p-button-raised p-button-secondary">
-                    OTROS EXAMENES
-                </button>
-            </div>
+<!--            <div class="col-12 md:col-6 lg:col-3" [hidden]="hidden">-->
+<!--                <button pButton-->
+<!--                        pRipple-->
+<!--                        icon="pi pi-plus-circle"-->
+<!--                        iconPos="left"-->
+<!--                        type="button"-->
+<!--                        routerLink="examenes"-->
+<!--                        class="p-button-raised p-button-secondary">-->
+<!--                    OTROS EXAMENES-->
+<!--                </button>-->
+<!--            </div>-->
         </div>
     </div>
 </div>

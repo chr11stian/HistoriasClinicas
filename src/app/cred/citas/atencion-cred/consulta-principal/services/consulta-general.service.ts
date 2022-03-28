@@ -50,4 +50,8 @@ export class ConsultaGeneralService {
     getTotalConsultas(nroDni:string){
         return this.http.get(`${this.urlServer}/${this.bd}/cred/consulta/all/${nroDni}`)
     }
+    tienePlan(nroDni:string){
+        return this.http.get(`${this.urlServer}/${this.bd}/cred/recuperardatos/${nroDni}`)
+    }
+
 }

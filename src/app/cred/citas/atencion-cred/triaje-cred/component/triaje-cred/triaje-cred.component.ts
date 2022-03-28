@@ -265,7 +265,7 @@ export class TriajeCredComponent implements OnInit {
         this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
         (this.data.idConsulta !== '') ? this.recuperarData(this.data.idConsulta) : this.recuperarPersona()
         this.buildForm()
-        this.getTotalConsulta();
+        // this.getTotalConsulta();
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -289,12 +289,12 @@ export class TriajeCredComponent implements OnInit {
         })
     }
     nroConsulta:number=0
-    getTotalConsulta(){
-        this.consultaGeneralService.getTotalConsultas(this.data.nroDocumento).subscribe((resp:any)=>{
-            console.log('nro de consulta------>',resp.object.length)
-            this.nroConsulta=resp.object.length;
-        })
-    }
+    // getTotalConsulta(){
+    //     this.consultaGeneralService.getTotalConsultas(this.data.nroDocumento).subscribe((resp:any)=>{
+    //         console.log('nro de consulta------>',resp.object.length)
+    //         this.nroConsulta=resp.object.length;
+    //     })
+    // }
 
     recuperarData(id) {
         this.consultaGeneralService.datosGenerales({
@@ -467,6 +467,7 @@ export class TriajeCredComponent implements OnInit {
             talla: this.examFG.value.TallaFC,
             imc: this.examFG.value.imcFC,
             perimetroCefalico: this.examFG.value.PCFC
+            
         }
     }
 
@@ -634,13 +635,13 @@ export class TriajeCredComponent implements OnInit {
     }
 
     getConsultaPrincipal(): void {
-        //si es la primera consulta
+        // si es la primera consulta
         if(this.nroConsulta==0){
             if (this.data.idConsulta === '') {
                 this.save()
             }
             setTimeout(() => {
-                this.router.navigate(['/dashboard/cred/citas/atencion/plan-atencion-integral'])
+                this.router.navigate(['dashboard/cred/citas/atencion'])
             }, 1000);
         }
         else{
@@ -648,10 +649,18 @@ export class TriajeCredComponent implements OnInit {
                 this.save()
             }
             setTimeout(() => {
-                this.router.navigate(['/dashboard/cred/citas/atencion/consulta-principal'])
+                this.router.navigate(['/dashboard/cred/citas/atencion'])
             }, 1000);
 
         }
+        // if (this.data.idConsulta === '') {
+        //             this.save()
+        // }
+        //
+        // setTimeout(() => {
+        //     this.router.navigate(['/dashboard/cred/citas/atencion'])
+        // }, 1000);
+
     }
 }
 

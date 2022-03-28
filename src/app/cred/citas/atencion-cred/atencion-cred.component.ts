@@ -1,11 +1,13 @@
 import {Component, OnInit} from '@angular/core'
 import {ActivatedRoute, Router} from '@angular/router'
 import {dato} from "../models/data";
+import {ConsultaGeneralService} from "./consulta-principal/services/consulta-general.service";
 
 // interface queryParams {
 //     nroDoc: string
 //     tipoDoc: string
 // }
+
 
 @Component({
     selector: 'app-atencion-cred',
@@ -18,14 +20,52 @@ export class AtencionCredComponent implements OnInit {
     nroDoc: string = ''
     hidden: boolean
     data: dato
-
     constructor(private route: ActivatedRoute,
-                private router: Router) {
+                private router: Router,
+                private consultaGeneralService:ConsultaGeneralService ) {
     }
+    isTriajeTaken:boolean=false;//si retorna con id de una consulta
+
+
+    isPlanTaken:boolean=false;
+
+    isPrimeraConsulta:boolean=false;
+    havePlan:boolean=false
+    tienePlan(){
+
+        this.consultaGeneralService.tienePlan(this.data.nroDocumento).subscribe((resp:any)=>{
+            if (resp.cod=='2403'){
+                if(resp.object.planAtencion!=null)
+                    this.havePlan= true
+                else
+                    this.havePlan= false
+            }
+        })
+    }
+
+    PrimeraConsulta(){
+        console.log('eva-->', this.isTriajeTaken,this.havePlan)
+        if (this.isTriajeTaken){
+            if(this.havePlan){
+                return false
+            }
+            else
+                return true
+        }
+        else
+            return true
+        // return false  activado
+        // return true  desactivado
+
+    }
+
+
 
     ngOnInit(): void {
         this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
         this.hidden = this.data.see
+        this.isTriajeTaken=!this.hidden
+        this.tienePlan()
         /**this.route.queryParams
          .subscribe(params => {
                 console.log('params', params)
