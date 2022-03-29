@@ -65,7 +65,7 @@ export class ProcedimientosComponent implements OnInit {
     /*usando local storage*/
     this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
     this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
-    
+
     //estado para saber que estado usar en consultas
     this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
 
@@ -97,17 +97,18 @@ export class ProcedimientosComponent implements OnInit {
       this.nroAtencion = nroAtencion;
       console.log("entre a edicion consulta", this.nroAtencion)
     }
-    this.recuperarDatos();
+    //this.recuperarDatos();
     this.traerDiagnosticosDeConsulta();
     this.traerListaResumen();
     this.traerListaResumenPendientes();
+    this.recuperarProcedimientos();
   }
 
   ngOnInit(): void {
   }
 
-  traerListaResumen(){
-    let data={
+  traerListaResumen() {
+    let data = {
       nroHcl: this.nroHcl,
       nroEmbarazo: this.nroEmbarazo,
       nroAtencion: this.nroAtencion
@@ -117,8 +118,8 @@ export class ProcedimientosComponent implements OnInit {
       console.log("resumen:", this.resumen);
     })
   }
-  traerListaResumenPendientes(){
-    let data={
+  traerListaResumenPendientes() {
+    let data = {
       nroHcl: this.nroHcl,
       nroEmbarazo: this.nroEmbarazo,
       nroAtencion: this.nroAtencion
@@ -135,38 +136,38 @@ export class ProcedimientosComponent implements OnInit {
     })
   }
 
-  recuperarDatos() {
-    this.recuperarNroFetos();
-    let aux = {
-      id: this.idConsulta,
-      nroHcl: this.nroHcl,
-      nroEmbarazo: this.nroEmbarazo,
-      nroAtencion: this.nroAtencion
-    }
-    this.tratamientoService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
-      this.dataConsulta = res.object;
-      console.log("data consulta:" + this.dataConsulta);
+  // recuperarDatos() {
+  //   this.recuperarNroFetos();
+  //   let aux = {
+  //     id: this.idConsulta,
+  //     nroHcl: this.nroHcl,
+  //     nroEmbarazo: this.nroEmbarazo,
+  //     nroAtencion: this.nroAtencion
+  //   }
+  //   this.tratamientoService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
+  //     this.dataConsulta = res.object;
+  //     console.log("data consulta:" + this.dataConsulta);
 
-      if (res['cod'] = '2401') {
-        if (this.dataConsulta != null) {
-          this.messageService.add({
-            severity: 'info',
-            summary: 'Recuperado',
-            detail: 'Registro recuperado satisfactoriamente'
-          });
-          if (this.dataConsulta.procedimientos != null) {
-            /* recuperar procedimientos*/
-            let p: number = 0;
-            while (p < this.dataConsulta.procedimientos.length) {
-              this.procedimientos.push(this.dataConsulta.procedimientos[p]);
-              p++;
-            }
-          }
-        }
-      } else { this.messageService.add({ severity: 'success', summary: 'Registros', detail: 'No hay datos ingresados todavía' }); }
-    }
-    );
-  }
+  //     if (res['cod'] = '2401') {
+  //       if (this.dataConsulta != null) {
+  //         this.messageService.add({
+  //           severity: 'info',
+  //           summary: 'Recuperado',
+  //           detail: 'Registro recuperado satisfactoriamente'
+  //         });
+  //         if (this.dataConsulta.procedimientos != null) {
+  //           /* recuperar procedimientos*/
+  //           let p: number = 0;
+  //           while (p < this.dataConsulta.procedimientos.length) {
+  //             this.procedimientos.push(this.dataConsulta.procedimientos[p]);
+  //             p++;
+  //           }
+  //         }
+  //       }
+  //     } else { this.messageService.add({ severity: 'success', summary: 'Registros', detail: 'No hay datos ingresados todavía' }); }
+  //   }
+  //   );
+  // }
   recuperarNroFetos() {
     let idData = {
       id: this.idConsulta
@@ -178,7 +179,6 @@ export class ProcedimientosComponent implements OnInit {
       this.imc = parseFloat(res.object.imc);
     })
   }
-
   /*DATOS RECIBIDOS DE PROCEDIMIENTOS*/
   openDialogProcedimiento() {
     this.ref = this.dialog.open(ModalProcedimientosComponent, {
@@ -191,8 +191,23 @@ export class ProcedimientosComponent implements OnInit {
     })
     this.ref.onClose.subscribe((data: any) => {
       console.log("data de modal PROCEDIMIENTOS", data)
-      if (data !== undefined)
-        this.procedimientos.push(data);
+        this.recuperarProcedimientos();
+        this.traerListaResumenPendientes();
+    })
+  }
+  openDialogProcedimientoConsejeria(nombre) {
+    this.ref = this.dialog.open(ModalProcedimientosComponent, {
+      header: "PROCEDIMIENTOS",
+      contentStyle: {
+        heigth: "700px",
+        width: "980px",
+        overflow: "auto",
+      },
+      data: nombre
+    })
+    this.ref.onClose.subscribe((data: any) => {
+      console.log("data de modal PROCEDIMIENTOS", data)
+      this.recuperarProcedimientos();
     })
   }
   openDialogEditarProcedimiento(row, index) {
@@ -211,13 +226,10 @@ export class ProcedimientosComponent implements OnInit {
     })
     this.ref.onClose.subscribe((data: any) => {
       console.log('data de modal PROCEDIMIENTOS ', data)
-      if (data !== undefined) {
-        this.procedimientos.splice(data.index, 1, data.row);
-      };
+      this.recuperarProcedimientos();
     })
   }
-
-  eliminarProcedimiento(index) {
+  eliminarProcedimiento(codProcedimientoHIS) {
     Swal.fire({
       showCancelButton: true,
       confirmButtonText: 'Eliminar',
@@ -227,40 +239,50 @@ export class ProcedimientosComponent implements OnInit {
       showConfirmButton: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        this.procedimientos.splice(index, 1)
-        Swal.fire({
-          icon: 'success',
-          title: 'Eliminado correctamente',
-          text: '',
-          showConfirmButton: false,
-          timer: 1500
-        })
+        this.tratamientoService.eliminarProcedimientoGestante(this.nroHcl, this.nroEmbarazo, this.nroAtencion, codProcedimientoHIS).subscribe(
+          (resp) => {
+            this.recuperarProcedimientos();
+            Swal.fire({
+              icon: 'success',
+              title: 'Eliminado correctamente',
+              text: '',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          }
+        );
       }
     })
   }
 
-  guardarTodosDatos() {
-    const req = {
-      id: this.idConsulta,
-      nroHcl: this.nroHcl,
-      nroEmbarazo: this.nroEmbarazo,
-      nroAtencion: this.nroAtencion,
-      tipoDoc: this.tipoDocRecuperado,
-      nroDoc: this.nroDocRecuperado,
-      procedimientos: this.procedimientos,
-    }
-    this.tratamientoService.updateConsultas(this.nroFetos, req).subscribe(
-      (resp) => {
-        console.log(resp);
-        console.log(req);
-        Swal.fire({
-          icon: 'success',
-          title: 'Actualizado correctamente',
-          text: '',
-          showConfirmButton: false,
-          timer: 1500,
-        })
-      }
-    )
+  async recuperarProcedimientos() {
+    await this.tratamientoService.listarProcedimientosDeUnaConsulta(this.nroHcl, this.nroEmbarazo, this.nroAtencion).then((res: any) => {
+      this.procedimientos = res.object;
+    })
   }
+
+  // guardarTodosDatos() {
+  //   const req = {
+  //     id: this.idConsulta,
+  //     nroHcl: this.nroHcl,
+  //     nroEmbarazo: this.nroEmbarazo,
+  //     nroAtencion: this.nroAtencion,
+  //     tipoDoc: this.tipoDocRecuperado,
+  //     nroDoc: this.nroDocRecuperado,
+  //     procedimientos: this.procedimientos,
+  //   }
+  //   this.tratamientoService.updateConsultas(this.nroFetos, req).subscribe(
+  //     (resp) => {
+  //       console.log(resp);
+  //       console.log(req);
+  //       Swal.fire({
+  //         icon: 'success',
+  //         title: 'Actualizado correctamente',
+  //         text: '',
+  //         showConfirmButton: false,
+  //         timer: 1500,
+  //       })
+  //     }
+  //   )
+  // }
 }
