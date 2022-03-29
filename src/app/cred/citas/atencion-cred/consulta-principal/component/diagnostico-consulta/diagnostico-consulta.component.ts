@@ -577,6 +577,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
 
 }
 
+
 interface diagnosticoInterface {
     nro?:number,
     diagnosticoHIS?:string,
