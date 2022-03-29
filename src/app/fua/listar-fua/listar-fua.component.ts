@@ -20,10 +20,6 @@ export class ListarFuaComponent implements OnInit {
     private router: Router,
     private fuaService: FuaService,
   ) {
-    // this.validateFUA();
-    // let auxIdConsulta = "6230d335695e9313b233de63"
-    // let auxIdConsulta = "621e909a96750255eedf01d4"
-    // let auxIdConsulta = JSON.parse(localStorage.getItem("documento")).idConsulta;
     this.data = this.router.getCurrentNavigation().extras;
     console.log('data del otro componente ', this.data);
     this.fuaService.getCrearRecuperarFUAxIdConsulta(this.data.id).subscribe((res: any) => {
@@ -35,15 +31,17 @@ export class ListarFuaComponent implements OnInit {
           showConfirmButton: false,
           timer: 2000
         });
-        return
+        return;
       }
       this.listDataFUA = res.object;
-      Swal.fire({
-        icon: 'success',
-        title: 'Se creo FUA correctamente',
-        showConfirmButton: false,
-        timer: 2000
-      });
+      if (this.data.estadoConsulta == 1) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Se creo FUA correctamente',
+          showConfirmButton: false,
+          timer: 2000
+        });
+      }
     })
   }
 
@@ -51,13 +49,12 @@ export class ListarFuaComponent implements OnInit {
   }
   openFUA(rowData) {
     console.log('data de la lista ', rowData);
-    this.router.navigate(['dashboard/fua/fua'])
+    this.router.navigate(['dashboard/fua/fua']);
     let dataFUA = {
-      idFUA: rowData.id
+      idConsulta: rowData.idConsulta,
+      idFUA: rowData.id,
+      codPrestacion: rowData.codPrestacion,
     }
     localStorage.setItem('dataFUA', JSON.stringify(dataFUA));
-  }
-  dataDos() {
-
   }
 }

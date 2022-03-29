@@ -14,7 +14,7 @@ export class StepFuaComponent implements OnInit {
     indiceActivo: number = 0
     stepName = "ipress"
 
-    @ViewChild(IpressComponent) ipress:IpressComponent;
+    @ViewChild(IpressComponent) ipress: IpressComponent;
 
     constructor() {
         this.options = [
@@ -31,7 +31,7 @@ export class StepFuaComponent implements OnInit {
             { label: "Datos Generales" },
             // {label: "Del Asegurado"},
             { label: "Datos especificos" },
-            // {label: "Concepto prestacional"},
+            { label: "Concepto prestacional" },
             // {label: "Refiere contra"},
             // {label: "Diagnostico"},
         ]
@@ -45,9 +45,9 @@ export class StepFuaComponent implements OnInit {
             // case 4:
             //     this.stepName = "refiere-contrarefiere"
             //     break
-            // case 3:
-            //     this.stepName = "concepto-prestacional"
-            //     break
+            case 2:
+                this.stepName = "concepto-prestacional"
+                break
             // case 2:
             //     this.stepName = "atencion"
             //     break
@@ -67,7 +67,7 @@ export class StepFuaComponent implements OnInit {
         this.indiceActivo = event;
         this.name()
     }
-    nextPage(){
+    nextPage() {
         console.log('siguiente ');
         switch (this.stepName) {
             case 'ipress':
@@ -75,7 +75,7 @@ export class StepFuaComponent implements OnInit {
                 this.stepName = "atencion"
                 this.indiceActivo = 1
                 break;
-        
+
             default:
                 break;
         }

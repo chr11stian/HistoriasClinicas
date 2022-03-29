@@ -46,4 +46,12 @@ export class ConsultaGeneralService {
     getGenerales(id) {
         return this.http.get(`${this.urlServer}/${this.bd}/cred/consulta/datosgenerales/${id}`)
     }
+    //nro de consultas
+    getTotalConsultas(nroDni:string){
+        return this.http.get(`${this.urlServer}/${this.bd}/cred/consulta/all/${nroDni}`)
+    }
+    tienePlan(nroDni:string){
+        return this.http.get(`${this.urlServer}/${this.bd}/cred/recuperardatos/${nroDni}`)
+    }
+
 }

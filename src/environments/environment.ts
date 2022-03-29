@@ -9,12 +9,18 @@ export const environment = {
     // baseUrl: "http://190.108.93.145:3012/api", //publica
 
     /**ACCESO AL LOGIN**/
+
     base_uri: "http://192.168.5.3:3010/login/hce2",
-    //base_uri: "http://190.108.93.145:3010/login/hce2",
+    // base_uri: "http://190.108.93.145:3010/login/hce2",
 
     /**ACCESO A LOS DATOS DEL PIDE Y SIS**/
     base_url_pide: "http://192.168.5.3:3011/pide/datos-sis",
     // base_url_pide: "http://190.108.93.145:3011/pide/datos-sis",
+
+    /***ACCESO A REPORTE TRATAMIENTOS****/
+    base_urlTx:"http://192.168.5.3:8200",
+    // base_urlTx: "http://190.108.93.145:8200",
+
 };
 
 /*

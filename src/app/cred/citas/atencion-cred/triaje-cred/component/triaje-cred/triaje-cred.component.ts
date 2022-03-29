@@ -258,13 +258,16 @@ export class TriajeCredComponent implements OnInit {
             nameFC: 'palidezAll'
         }
     ]
+    botonGuardarVolver: string;
 
     constructor(private router: Router, private route: ActivatedRoute,
                 private consultaService: ListaConsultaService,
                 private consultaGeneralService: ConsultaGeneralService) {
         this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
         (this.data.idConsulta !== '') ? this.recuperarData(this.data.idConsulta) : this.recuperarPersona()
+        this.botonGuardarVolver = this.data.idConsulta == '' ? 'Guardar' : 'Volver'
         this.buildForm()
+        // this.getTotalConsulta();
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -287,6 +290,14 @@ export class TriajeCredComponent implements OnInit {
             this.generalInfoFG.get('hour').setValue(this.fecha_hoy)
         })
     }
+
+    nroConsulta: number = 0
+    // getTotalConsulta(){
+    //     this.consultaGeneralService.getTotalConsultas(this.data.nroDocumento).subscribe((resp:any)=>{
+    //         console.log('nro de consulta------>',resp.object.length)
+    //         this.nroConsulta=resp.object.length;
+    //     })
+    // }
 
     recuperarData(id) {
         this.consultaGeneralService.datosGenerales({
@@ -459,10 +470,12 @@ export class TriajeCredComponent implements OnInit {
             talla: this.examFG.value.TallaFC,
             imc: this.examFG.value.imcFC,
             perimetroCefalico: this.examFG.value.PCFC
+
         }
     }
 
     async save() {
+        this.getPlan(this.data.nroDocumento);
         this.outData()
         const req: triajeInterface = {
             signosVitales: this.signosVitales,
@@ -477,6 +490,7 @@ export class TriajeCredComponent implements OnInit {
         if (req) {
             await this.consultaService.crearConsulta(this.data.nroDocumento, req).toPromise().then(
                 (r: any) => {
+                    console.log('respuesta del servidor', r)
                     let data: dato = {
                         nroDocumento: this.data.nroDocumento,
                         tipoDoc: this.data.tipoDoc,
@@ -503,11 +517,13 @@ export class TriajeCredComponent implements OnInit {
                 }
             )
         }
-        this.getPlan(this.data.nroDocumento);
+
     }
+
     getPlan(dni: string) {
         this.consultaGeneralService.traerPlan(dni).subscribe(
             result => {
+                console.log('cod', result.cod)
                 if (result.cod === '2404') {
                     this.getNuevoPlan()
                     console.log('2404', result)
@@ -532,6 +548,7 @@ export class TriajeCredComponent implements OnInit {
             console.log(err)
         })
     }
+
     saveInterconsulta(): void {
         this.outData()
         const req: interconsultaInterface = {
@@ -626,13 +643,30 @@ export class TriajeCredComponent implements OnInit {
     }
 
     getConsultaPrincipal(): void {
+        // si es la primera consulta
+        // if(this.nroConsulta==0){
+        //     if (this.data.idConsulta === '') {
+        //         this.save()
+        //     }
+        //     setTimeout(() => {
+        //         this.router.navigate(['dashboard/cred/citas/atencion'])
+        //     }, 1000);
+        // }
+        // else{
+        //     if (this.data.idConsulta === '') {
+        //         this.save()
+        //     }
+        //     setTimeout(() => {
+        //         this.router.navigate(['/dashboard/cred/citas/atencion'])
+        //     }, 1000);
+        //
+        // }
         if (this.data.idConsulta === '') {
             this.save()
         }
         setTimeout(() => {
-            this.router.navigate(['/dashboard/cred/citas/atencion/consulta-principal'])
+            this.router.navigate(['/dashboard/cred/citas/atencion'])
         }, 1000);
-
 
     }
 }

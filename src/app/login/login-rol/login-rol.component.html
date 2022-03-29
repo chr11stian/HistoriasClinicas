@@ -1,0 +1,28 @@
+<form [formGroup]='formRol'>
+    <div class="col-12 grid login justify-content-center">
+        <div class="col-7 justify-content-center">
+            <div style="text-align:center;"><span>ESCALA:</span></div>
+            <div class="col-12 p-fluid justify-content-center">
+                <p-dropdown
+                        [options]="escala"
+                        formControlName="escala"
+                        (onChange)="cambio($event)"
+                ></p-dropdown>
+            </div>
+        </div>
+        <div class="col-7 justify-content-center">
+            <div style="text-align:center;"><span>ROL:</span></div>
+            <div class="col-12 p-fluid justify-content-center">
+                <p-dropdown
+                        [options]="rol"
+                        formControlName="rol"
+                ></p-dropdown>
+            </div>
+        </div>
+        <div class="col-12 grid justify-content-center">
+            <button pButton pRipple type="button" style="background-color: #AF0017;" label="Iniciar"
+                    class="p-button-danger" (click)="ingresar()"
+            ></button>
+        </div>
+    </div>
+</form>
