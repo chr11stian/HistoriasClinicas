@@ -323,8 +323,16 @@ export class EcografiaResultadoComponent implements OnInit {
         this.formEcografiaResultado.patchValue({ HISCIE: this.listaDeCIE.find(elemento => elemento.codigoItem == configuracion.codigoHIS) });
         this.formEcografiaResultado.get("diagnosticoHIS").setValue(this.listaDeCIE.find(elemento => elemento.codigoItem == configuracion.codigoHIS).descripcionItem);
       })
-      this.formEcografiaResultado.get('autocompleteHIS').disable();
-      this.formEcografiaResultado.get('HISCIE').disable();
+      this.formEcografiaResultado.get('semanas').setValue(configuracion.edadGestacionalSemanas);
+      this.formEcografiaResultado.get('dias').setValue(configuracion.edadGestacionalDias);
+      this.formEcografiaResultado.get('fechaProbableParto').setValue(configuracion.fechaProbableParto);
+      this.formEcografiaResultado.get('lcr').setValue(configuracion.lcr);
+      this.formEcografiaResultado.get('lcf').setValue(configuracion.lcf);
+      this.formEcografiaResultado.get('placenta').setValue(configuracion.placenta);
+      this.formEcografiaResultado.get('sacoGestacional').setValue(configuracion.sacoGestacional);
+      this.formEcografiaResultado.get('morfologiaFetal').setValue(configuracion.morfologiaFetal);
+      this.formEcografiaResultado.get('resultados').setValue(configuracion.resultados);
+      this.formEcografiaResultado.get('labExterno').setValue(configuracion.labExterno);
     })
   }
   recuperarPrestaciones() {

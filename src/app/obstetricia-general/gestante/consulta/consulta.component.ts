@@ -162,5 +162,6 @@ export class ConsultaComponent implements OnInit {
         // console.log(event)
         localStorage.removeItem('IDConsulta');
         localStorage.setItem('IDConsulta', JSON.stringify(event.id));
+        localStorage.setItem('datosConsultaActual', JSON.stringify(event));
     }
 }

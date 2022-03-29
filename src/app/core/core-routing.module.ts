@@ -51,6 +51,10 @@ const routes: Routes = [
                 loadChildren: () => import('src/app/fua/fua.module').then(n => n.FuaModule),
             },
             {
+                path: "his",
+                loadChildren: () => import('src/app/his/his.module').then(n => n.HisModule),
+            },
+            {
                 path: "adolescente",
                 loadChildren: () => import('src/app/adolescente/adolescente.module').then(n => n.AdolescenteModule),
             },
@@ -61,6 +65,10 @@ const routes: Routes = [
             {
                 path: "adulto-mayor",
                 loadChildren: () => import('src/app/adulto-mayor/adulto-mayor.module').then(n => n.AdultoMayorModule),
+            },
+            {
+                path: "laboratorios",
+                loadChildren: () => import('src/app/Laboratorio/laboratorio.module').then(n => n.LaboratorioModule),
             },
         ]
     }

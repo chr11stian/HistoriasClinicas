@@ -2,34 +2,54 @@ import { Injectable } from "@angular/core";
 import {
   HttpErrorResponse,
   HttpEvent,
-  HttpHandler,
+  HttpHandler, HttpHeaders,
   HttpInterceptor,
   HttpRequest,
 } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 import { Observable, throwError } from "rxjs";
 import { LoginService } from "src/app/login/services/login.service";
+import { FuaService } from "src/app/fua/services/fua.service";
 
 @Injectable({
   providedIn: "root",
 })
 export class InterceptorService implements HttpInterceptor {
   constructor(
-    private loginService: LoginService
+    private loginService: LoginService,
+    private fuaService: FuaService
   ) // private messageService: MessageService
-  {}
+  { }
 
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     let cloned = req;
+    let urlReq = cloned.url.split(":");
+    console.log('splited data ', urlReq);
+    if (urlReq[0] == 'http') {
+      urlReq = urlReq[2].split("/");
+    }
+
+    console.log('por number ', urlReq);
+    let portNum = urlReq[0];
+    // urlReq = urlReq[0];
     const idToken = JSON.parse(localStorage.getItem("token"));
     if (idToken) {
+      let username:'reporte';
+      let password:'reporte@2022';
+      const headers=new HttpHeaders();
       // console.log('entro token', idToken)
+      let jwtAuth: string = "Bearer " + idToken.token;
+      let basicAuth: string = "Basic " + btoa('reporte' + ":" + 'reporte@2022');
       cloned = req.clone({
         setHeaders: {
-          Authorization: "Bearer " + idToken.token,
+          "Access-Control-Allow-Origin": "*",
+          Authorization: portNum == "8200" ? basicAuth : jwtAuth,
+          "Access-Control-Allow-Credentials": "true",
+          "Access-Control-Allow-Headers": "origin, content-type, accept, authorization",
+          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS, HEAD"
         },
       });
       // cloned = req.clone({

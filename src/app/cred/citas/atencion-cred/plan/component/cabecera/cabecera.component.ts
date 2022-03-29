@@ -14,7 +14,7 @@ import {dato} from "../../../../models/data";
     templateUrl: "./cabecera.component.html",
     styleUrls: ["./cabecera.component.css"],
 })
-export class CabeceraComponent implements OnInit, DoCheck {
+export class CabeceraComponent implements OnInit {
     /* lo que reciben del paso anterior */
     data: dato
     tipoDoc: string = ''
@@ -28,41 +28,36 @@ export class CabeceraComponent implements OnInit, DoCheck {
     stepName = "datos"
     consulta: ApiPlanAtencion
     j: number = 100
+    havenPlan:boolean//tiene plan hasta el momento
+    // @ViewChild(DatosGeneralesComponent) datosGenerales: DatosGeneralesComponent;
+    // @ViewChild(AntecendentesComponent) antecedentes: AntecendentesComponent;
+    // @ViewChild(PlanAtencionIntegralComponent) planAtencion: PlanAtencionIntegralComponent;
+    // @ViewChild(EvaluacionGeneralComponent) evaluacion: EvaluacionGeneralComponent;
 
-    @ViewChild(DatosGeneralesComponent) datosGenerales: DatosGeneralesComponent;
-    @ViewChild(AntecendentesComponent) antecedentes: AntecendentesComponent;
-    @ViewChild(PlanAtencionIntegralComponent) planAtencion: PlanAtencionIntegralComponent;
-    @ViewChild(EvaluacionGeneralComponent) evaluacion: EvaluacionGeneralComponent;
-
-    constructor(private consultaGeneralService: ConsultaGeneralService,
-                private route: ActivatedRoute,
-                private router: Router) {
-        this.options = [
-            {name: "DNI", code: 1},
-            {name: "CARNET RN", code: 2},
-            {name: "C EXTRANJERIA", code: 3},
-            {name: "OTROS", code: 4},
-        ]
-    }
-
-    ngDoCheck() {
-        //this.saveStep()
-    }
-
-    ngOnInit(): void {
+    constructor(private consultaGeneralService: ConsultaGeneralService) {
         this.items = [
             {label: "Datos Generales", styleClass: 'icon'},
             {label: "Antecedentes", styleClass: 'icon1'},
             {label: "Plan de Atención Integral", styleClass: 'icon2'},
             {label: "Evaluación General", styleClass: 'icon3'},
         ]
-        this.getQueryParams()
     }
-
+    ngOnInit(): void {
+        this.getQueryParams()
+        this.havePlan();
+    }
     getQueryParams(): void {
         this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
         this.getPlan(this.data.nroDocumento)
         console.log('plan de atencion', this.data)
+    }
+    havePlan(){
+        this.consultaGeneralService.tienePlan(this.data.nroDocumento).subscribe((resp:any)=>{
+            this.havenPlan=resp.object.planAtencion==null?false:true
+        })
+    }
+    ChangeStep(indice){
+        this.stepActivado=indice
     }
 
     getPlan(dni: string) {
@@ -94,95 +89,41 @@ export class CabeceraComponent implements OnInit, DoCheck {
             console.log(err)
         })
     }
-
-    //--cambia los nombres de los steps según el indice
-    name() {
+    stepActivado:number=0; //step por defecto
+    nextPage() {
+        // console.log(this.stepName)
+        switch (this.indiceActivo) {
+            case 0:
+                this.indiceActivo=1
+                this.stepActivado=1;
+                break;
+            case 1:
+                this.indiceActivo=2
+                this.stepActivado=2;
+                break;
+            case 2:
+                this.indiceActivo=3
+                this.stepActivado=3;
+                break;
+        }
+    }
+    prevPage() {
         switch (this.indiceActivo) {
             case 3:
-                this.stepName = "evaluacion"
-                break
+                this.indiceActivo=2
+                this.stepActivado=2;
+                break;
             case 2:
-                this.stepName = "plan"
-                break
+                this.indiceActivo=1
+                this.stepActivado=1;
+                break;
             case 1:
-                this.stepName = "antecedentes"
-                break
-            case 0:
-                this.stepName = "datos"
-                break
-        }
-    }
-
-    //--cambia step
-    ChangeStep(event: number) {
-        this.indiceActivo = event;
-        this.name()
-    }
-
-    // pasamos al siguiente step
-    nextPage() {
-        switch (this.stepName) {
-            case 'datos':
-                this.datosGenerales.save()
-                this.stepName = 'antecedentes';
-                this.indiceActivo = 0;
+                this.indiceActivo=0
+                this.stepActivado=0;
                 break;
-            case 'antecedentes':
-                //this.antecedentes.save()
-                this.stepName = 'plan';
-                this.indiceActivo = 1;
-                break;
-            case 'plan':
-                //this.planAtencion.save()
-                this.stepName = 'evaluacion';
-                this.indiceActivo = 2;
-                break;
-            case 'evaluacion':
-                //this.evaluacion.save()
-                break;
-        }
-    }
-
-    // regresamos al anterior step
-    prevPage() {
-        switch (this.stepName) {
-            case 'evaluacion':
-                this.stepName = 'plan';
-                this.indiceActivo = 2;
-                break;
-            case 'plan':
-                this.stepName = 'antecedentes';
-                this.indiceActivo = 1;
-                break;
-            case 'antecedentes':
-                this.stepName = 'datos';
-                this.indiceActivo = 0;
-                break;
-        }
-    }
-
-    saveStep() {
-        if (this.indiceActivo !== this.j) {
-            console.log('j ', this.indiceActivo, this.j)
-            switch (this.j) {
-                case 3:
-                    //this.evaluacion.save()
-                    break
-                case 2:
-                    //this.planAtencion.save()
-                    break
-                case 1:
-                    //this.antecedentes.save()
-                    break
-                case 0:
-                    this.datosGenerales.save()
-                    break
-            }
-            this.j = this.indiceActivo
         }
     }
 }
-
 interface data {
     name: string
     code: number

@@ -59,8 +59,8 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
     this.inmunizacionFC = new FormGroup({
       fechaTentativa:new FormControl({value:'',disabled:true},Validators.required),
       fechaAplicacion:new FormControl({value:'',disabled:true},Validators.required),
-      viaAdministracion:new FormControl('INTRAVENOSA',Validators.required),
-      cantidad:new FormControl('',Validators.required),
+      viaAdministracion:new FormControl('INTRAMUSCULAR',Validators.required),
+      cantidad:new FormControl('0.1 CC',Validators.required),
       lote: new FormControl(null, [Validators.required]),
       fechaVencimiento: new FormControl('', [Validators.required]),
     })

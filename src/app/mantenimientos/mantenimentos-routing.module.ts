@@ -28,6 +28,7 @@ import { UnidadEjecutoraComponent } from "./component/unidad-ejecutora/unidad-ej
 import {PrestacionComponent} from "./component/prestacion/prestacion.component";
 import {AntecedentesPacienteComponent} from "./component/antecedentes-paciente/antecedentes-paciente.component";
 import {MedicamentosComponent} from "./component/medicamentos/medicamentos.component";
+import {UpsAuxIpressComponent} from "./component/ups-aux-ipress/ups-aux-ipress.component";
 
 const routes: Routes = [
   {
@@ -107,6 +108,10 @@ const routes: Routes = [
   {
     path: "ups",
     component: UpsComponent,
+  },
+  {
+    path: "ups-aux",
+    component: UpsAuxIpressComponent,
   },
   {
     path: "condicion-paciente-discapacidad",

@@ -35,43 +35,47 @@
                         type="button"
                         (click)="getTriaje()"
                         class="p-button-raised p-button-secondary">
-                    TRIAJE
+                    1 TRIAJE
                 </button>
             </div>
-            <div class="col-12 md:col-6 lg:col-3" style="align-content: center;" [hidden]="hidden">
-                <button pButton
+            <div class="col-12 md:col-6 lg:col-3" style="align-content: center;" >
+                <button
+                        [disabled]="!isTriajeTaken"
+                        pButton
                         pRipple
                         icon="pi pi-plus-circle"
                         iconPos="left"
                         type="button"
                         (click)="getPlanAtencionIntegralPrincipal()"
                         class="p-button-raised p-button-secondary">
-                    PLAN DE ATENCIÓN INTEGRAL
+                    2 PLAN DE ATENCIÓN INTEGRAL
                 </button>
             </div>
-            <div class="col-12 md:col-6 lg:col-3" [hidden]="hidden">
-                <button pButton
+            <div class="col-12 md:col-6 lg:col-3">
+                <button
+                        [disabled]="PrimeraConsulta()"
+                        pButton
                         pRipple
                         icon="pi pi-plus-circle"
                         iconPos="left"
                         type="button"
                         (click)="getConsultaPrincipal()"
                         class="p-button-raised p-button-secondary">
-                    CONSULTA PRINCIPAL
+                    3 CONSULTA PRINCIPAL
                 </button>
             </div>
 
-            <div class="col-12 md:col-6 lg:col-3" [hidden]="hidden">
-                <button pButton
-                        pRipple
-                        icon="pi pi-plus-circle"
-                        iconPos="left"
-                        type="button"
-                        routerLink="examenes"
-                        class="p-button-raised p-button-secondary">
-                    OTROS EXAMENES
-                </button>
-            </div>
+<!--            <div class="col-12 md:col-6 lg:col-3" [hidden]="hidden">-->
+<!--                <button pButton-->
+<!--                        pRipple-->
+<!--                        icon="pi pi-plus-circle"-->
+<!--                        iconPos="left"-->
+<!--                        type="button"-->
+<!--                        routerLink="examenes"-->
+<!--                        class="p-button-raised p-button-secondary">-->
+<!--                    OTROS EXAMENES-->
+<!--                </button>-->
+<!--            </div>-->
         </div>
     </div>
 </div>

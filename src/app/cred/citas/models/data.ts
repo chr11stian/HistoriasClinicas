@@ -1,4 +1,4 @@
-export interface dato {
+export interface  dato {
     hidden?: boolean,
     nroDocumento?: string,
     tipoDoc?: string,
@@ -9,6 +9,7 @@ export interface dato {
     sexo?: string,
     fechaNacimiento?: string,
     see?: boolean
+    nroConsulta?:number
 }
 
 export interface outputTriajeInterface {
@@ -262,6 +263,7 @@ export interface referencia {
     nroFormato?: string;
     renipress?: string;
 }
+
 export interface redInterface {
     disa: string;
     idMicroRed: string;
@@ -269,4 +271,20 @@ export interface redInterface {
     nombreDisa: string;
     nombreMicroRed: string;
     nombreRed: string;
+}
+
+export interface rolInterface {
+    app: string;
+    escala: string;
+    idEESS: string;
+    nombreEESS: string;
+    permisos: string;
+    rol: string;
+}
+
+export interface escala {
+    user?: string,
+    pass?: string,
+    escala: string,
+    rol?: string[]
 }

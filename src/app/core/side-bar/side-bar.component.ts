@@ -250,12 +250,27 @@ const menu_microred = [
 
 const menu_ipress = [
     {
-        label: "Triaje",
-        items: [{
-            label: "Paciente",
-        }]
-    },
+        label: "Administración",
+        items: [
 
+            {
+                icon: "pi pi-file",
+                label: "Rol Guardia",
+                routerLink: "historia/rol-guardia",
+            },
+
+            {
+                label: "Personal de Salud",
+                icon: "pi pi-pw pi-file",
+                routerLink: "admision/personal-salud",
+            },
+            {
+                label: "Usuarios",
+                icon: "pi pi-pw pi-file",
+                routerLink: "admision/usuarios",
+            },
+        ],
+    },
     {
         label: "Admision",
         items: [
@@ -281,7 +296,6 @@ const menu_ipress = [
             },
         ],
     },
-
     {
         label: "Historias Clinicas",
         items: [
@@ -395,28 +409,13 @@ const menu_ipress = [
     },
 
     {
-        label: "Administración",
-        items: [
-
-            {
-                icon: "pi pi-file",
-                label: "Rol Guardia",
-                routerLink: "historia/rol-guardia",
-            },
-
-            {
-                label: "Personal de Salud",
-                icon: "pi pi-pw pi-file",
-                routerLink: "admision/personal-salud",
-            },
-            {
-                label: "Usuarios",
-                icon: "pi pi-pw pi-file",
-                routerLink: "admision/usuarios",
-            },
-        ],
+        label: "Laboratorio",
+        items: [{
+            label: "Laboratorio",
+            icon: "pi pi-pw pi-file",
+            routerLink: "laboratorios/lista-laboratorio",
+        }]
     },
-
 
     {
         label: "Mantenimientos",
@@ -425,6 +424,11 @@ const menu_ipress = [
                 label: "Ipress",
                 icon: "pi pi-pw pi-file",
                 routerLink: "admision/ipress",
+            },
+            {
+                label: "Ups Auxiliar",
+                icon: "pi pi-pw pi-file",
+                routerLink: "mantenimientos/ups-aux",
             },
             {
                 label: "Ipress Turnos",
@@ -471,7 +475,11 @@ const menu_ipress = [
                 label: "Ipress Farmacia",
                 routerLink: "admision/ipress-farmacia",
             },
-
+            {
+                icon: "pi pi-file",
+                label: "Ups Auxiliar",
+                routerLink: "mantenimientos/ups-aux",
+            },
 
         ],
     },

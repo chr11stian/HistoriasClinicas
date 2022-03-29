@@ -219,6 +219,7 @@ export class EcografiaSolicitudComponent implements OnInit {
   }
   async enviarEdicionSolicitudEcografia() {
     var data = {
+      idExamAux: this.idEdicion,
       subTipo: this.formEcografiaSolicitud.value.subTipo,
       codPrestacion: this.formEcografiaSolicitud.value.diagnostico.codPrestacion,
       codigoSIS: this.formEcografiaSolicitud.value.SISCIE.codigo,
@@ -266,7 +267,7 @@ export class EcografiaSolicitudComponent implements OnInit {
     this.DxService.listarDiagnosticosDeUnaConsulta(this.nroHcl, this.nroEmbarazo, this.nroAtencion).then((res: any) => {
       this.diagnosticosList = res.object;
       let configuracion = this.config.data.row;
-      this.idEdicion = configuracion.id;
+      this.idEdicion = configuracion.idExamAux;
       this.formEcografiaSolicitud.get("ups").setValue(configuracion.nombreUPS);
       this.formEcografiaSolicitud.get("subtitulo").setValue(configuracion.nombreUPSaux);
       this.formEcografiaSolicitud.get("tipo").setValue(configuracion.tipoDX);

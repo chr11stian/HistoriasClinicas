@@ -1,91 +1,25 @@
 <div class="card">
     <div class="grid" style="margin-top:20px; margin-bottom:20px">
         <div class="col-9" style="margin: 0 0 0 20px;">
-            <span style="font-size: 2em;">CONTROL DE CRECIMIENTO Y DESARROLLO </span>
+            <span style="font-size: 2em;">CONTROL DE CRECIMIENTO Y DESARROLLO</span>
         </div>
     </div>
 </div>
+<p-steps [model]="items" styleClass="step-custom" [readonly]="(!havenPlan)" [(activeIndex)]="indiceActivo"
+         (activeIndexChange)="ChangeStep($event)" >
 
-<p-steps [model]="items" styleClass="step-custom" [readonly]="false" [(activeIndex)]="indiceActivo"
-         (activeIndexChange)="ChangeStep($event)">
 </p-steps>
-<div class="stepsdemo-content" *ngIf="stepName === 'datos'">
-    <p-card>
-        <ng-template pTemplate="header">
-            <p-toolbar>
-                <ng-template pTemplate="left">
-                    <h3 class="mt-2">DATOS GENERALES NIÑO/NIÑA</h3>
-                </ng-template>
-                <ng-template pTemplate="right" class="button">
-                    <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
-                            class="guardar mr-2" (click)="nextPage()" style="background-color: #0c3866"></button>
-                </ng-template>
-            </p-toolbar>
-        </ng-template>
-        <ng-template pTemplate="content">
-            <app-datos-generales></app-datos-generales>
-        </ng-template>
-    </p-card>
+<div class="stepsdemo-content" *ngIf="stepActivado ==0">
+    <app-datos-generales (onChangeIndice)="nextPage()" [isFirstConsulta]="!havenPlan"></app-datos-generales>
 </div>
-<div class="stepsdemo-content" *ngIf="stepName === 'antecedentes'">
-    <p-card>
-        <ng-template pTemplate="header">
-            <p-toolbar>
-                <ng-template pTemplate="left">
-                    <h3 class="mt-2">ANTECEDENTES PERSONALES</h3>
-                </ng-template>
-                <ng-template pTemplate="right" class="button">
-                    <button pButton pRipple label="Atras" icon="pi pi-angle-left"
-                            class="p-button-secondary mr-2" (click)="prevPage()"></button>
-                    <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
-                            class="guardar mr-2" (click)="nextPage()" style="background-color: #0c3866"></button>
-                </ng-template>
-            </p-toolbar>
-        </ng-template>
-        <ng-template pTemplate="content">
-            <app-antecendentes></app-antecendentes>
-        </ng-template>
-    </p-card>
+<div class="stepsdemo-content" *ngIf="stepActivado ==1">
+    <app-antecendentes (onChangeIndice)="nextPage()" [isFirstConsulta]="!havenPlan"></app-antecendentes>
 </div>
-<div class="stepsdemo-content" *ngIf="stepName === 'plan'">
-    <p-card>
-        <ng-template pTemplate="header">
-            <p-toolbar>
-                <ng-template pTemplate="left">
-                    <h3 class="mt-2">PLAN DE ATENCIÓN INTEGRAL</h3>
-                </ng-template>
-                <ng-template pTemplate="right" class="button">
-                    <button pButton pRipple label="Atras" icon="pi pi-angle-left"
-                            class="p-button-secondary mr-2" (click)="prevPage()"></button>
-                    <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
-                            class="guardar mr-2" (click)="nextPage()" style="background-color: #0c3866"></button>
-                </ng-template>
-            </p-toolbar>
-        </ng-template>
-        <ng-template pTemplate="content">
-            <app-plan-atencion-integral></app-plan-atencion-integral>
-        </ng-template>
-    </p-card>
+<div class="stepsdemo-content" *ngIf="stepActivado ==2">
+    <app-plan-atencion-integral (onChangeIndice)="nextPage()" [isFirstConsulta]="!havenPlan"></app-plan-atencion-integral>
 </div>
-<div class="stepsdemo-content" *ngIf="stepName === 'evaluacion'">
-    <p-card>
-        <ng-template pTemplate="header">
-            <p-toolbar>
-                <ng-template pTemplate="left">
-                    <h3 class="mt-2">TEST DE EVALUACIONES</h3>
-                </ng-template>
-                <ng-template pTemplate="right" class="button">
-                    <button pButton pRipple label="Atras" (click)="prevPage()" icon="pi pi-angle-left"
-                            class="p-button-secondary mr-2"></button>
-                    <button pButton pRipple label="Guardar" iconPos="right" icon="pi pi-save"
-                            class="guardar mr-2" (click)="nextPage()" style="background-color: #0c3866"></button>
-                </ng-template>
-            </p-toolbar>
-        </ng-template>
-        <ng-template pTemplate="content">
-            <app-evaluacion-general></app-evaluacion-general>
-        </ng-template>
-    </p-card>
+<div class="stepsdemo-content" *ngIf="stepActivado ==3">
+    <app-evaluacion-general (onChangeIndice)="nextPage()" [isFirstConsulta]="!havenPlan"></app-evaluacion-general>
 </div>
 
 

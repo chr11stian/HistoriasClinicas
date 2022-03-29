@@ -83,6 +83,12 @@
                                 value="interconsulta">
                         </p-tag>
                     </td>
+                    <td style="text-align: center" *ngIf="rowData.estadoAtencion===2">
+                        <p-tag
+                                severity="primary"
+                                value="completo">
+                        </p-tag>
+                    </td>
                 </ng-template>
 
                 <td style="text-align: center">
@@ -95,6 +101,11 @@
                         <button pButton pRipple class="p-button-info" label="FUA"
                                 style="background-color: #0c3866"
                                 (click)="irFUA(rowData)"></button>
+                    </span>
+                    <span class="p-buttonset pl-1">
+                        <button pButton pRipple class="p-button-info" label="HIS"
+                                style="background-color: #0c3866"
+                                (click)="irHIS(rowData)"></button>
                     </span>
                 </td>
             </tr>
