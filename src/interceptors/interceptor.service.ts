@@ -26,9 +26,15 @@ export class InterceptorService implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     let cloned = req;
-    let nroPort: any = cloned.url.split(":");
-    nroPort = nroPort[2].split("/", 1);
-    nroPort = nroPort[0];
+    let urlReq = cloned.url.split(":");
+    console.log('splited data ', urlReq);
+    if (urlReq[0] == 'http') {
+      urlReq = urlReq[2].split("/");
+    }
+
+    console.log('por number ', urlReq);
+    let portNum = urlReq[0];
+    // urlReq = urlReq[0];
     const idToken = JSON.parse(localStorage.getItem("token"));
     if (idToken) {
       // console.log('entro token', idToken)
@@ -36,7 +42,11 @@ export class InterceptorService implements HttpInterceptor {
       let basicAuth: string = "Basic " + btoa('reporte' + ":" + 'reporte@2022');
       cloned = req.clone({
         setHeaders: {
-          Authorization: nroPort == "8200" ? basicAuth : jwtAuth,
+          "Access-Control-Allow-Origin": "*",
+          Authorization: portNum == "8200" ? basicAuth : jwtAuth,
+          "Access-Control-Allow-Credentials": "true",
+          "Access-Control-Allow-Headers": "origin, content-type, accept, authorization",
+          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS, HEAD"
         },
       });
       // cloned = req.clone({

@@ -67,7 +67,6 @@ export class AtenionComponent implements OnInit {
   listDiagnostico: Diagnostico;
   listVacunas: Vacunas[];
 
-  idFUA: string;
   secondDataFUA: SegundaParteFUA;
   datePipe = new DatePipe('en-US');
 
@@ -76,8 +75,8 @@ export class AtenionComponent implements OnInit {
     private fuaService: FuaService,
     private router: Router
   ) {
-    this.idFUA = JSON.parse(localStorage.getItem("dataFUA")).idFUA;
-    console.log('id de FUA ', this.idFUA);
+    this.keyData = JSON.parse(localStorage.getItem("dataFUA"));
+    console.log('localstorage de FUA ', this.keyData);
     this.getDataFUA();
   }
 
@@ -87,23 +86,21 @@ export class AtenionComponent implements OnInit {
   buildForm() {
     this.formAtencion = this.form.group({
       fechaAtencion: new FormControl(""),
-      hora: new FormControl(""),
-      ups: new FormControl(""),
-      prestacionesAdicionales: new FormControl(""),
-      codAutorizacion: new FormControl(""),
-      nroFuaVincular: new FormControl(""),
-      fechaIngreso: new FormControl(""),
-      fechaAlta: new FormControl(""),
-      fechaCorteAdministrativo: new FormControl(""),
+      hora: new FormControl({ value: "" }),
+      ups: new FormControl({ value: "" }),
+      prestacionesAdicionales: new FormControl({ value: "" }),
+      codAutorizacion: new FormControl({ value: "" }),
+      nroFuaVincular: new FormControl({ value: "" }),
+      fechaIngreso: new FormControl({ value: "" }),
+      fechaAlta: new FormControl({ value: "" }),
+      fechaCorteAdministrativo: new FormControl({ value: "" }),
       codPrestacion: new FormControl({ value: "", disabled: true })
 
     });
     this.formPrestacional = new FormGroup({
-      // nroAutorizacion: new FormControl(""),
-      atencionDirecta: new FormControl(""),
+      atencionDirecta: new FormControl({ value: "" }),
       nroAutorizacion: new FormControl(""),
       monto: new FormControl(""),
-      // traslado: new FormControl(""),
       sepelio: new FormControl("")
     });
     this.formReferencia = new FormGroup({
@@ -159,10 +156,7 @@ export class AtenionComponent implements OnInit {
   }
 
   async getDataFUA() {
-    await this.fuaService.getPromiseIpressAseguradoxidFUA(this.idFUA).then((data) => {
-      this.keyData = data;
-    });
-    await this.fuaService.getPromiseSegundaParteFUA(this.keyData.idConsulta, this.keyData.id, this.keyData.codPrestacion).then((data) => {
+    await this.fuaService.getPromiseSegundaParteFUA(this.keyData.idConsulta, this.keyData.idFUA, this.keyData.codPrestacion).then((data) => {
       this.secondDataFUA = data;
       console.log('second fua data ', this.secondDataFUA);
 
@@ -221,13 +215,12 @@ export class AtenionComponent implements OnInit {
       this.formActiPreventivas.patchValue({ pa: data.actividadesPreventivas.pa });
       //de la gestante
       if (data.actividadesPreventivas.deLaGestante != null) {
-
+        this.formActiPreventivas.patchValue({ cpn: data.actividadesPreventivas.deLaGestante.cpn });
+        this.formActiPreventivas.patchValue({ edadGesacional: data.actividadesPreventivas.deLaGestante.edadGesacional });
+        this.formActiPreventivas.patchValue({ alturaUterina: data.actividadesPreventivas.deLaGestante.alturaUterina });
+        this.formActiPreventivas.patchValue({ partoVertical: data.actividadesPreventivas.deLaGestante.partoVertical });
+        this.formActiPreventivas.patchValue({ controlPerperio: data.actividadesPreventivas.deLaGestante.controlPerperio });
       }
-      this.formActiPreventivas.patchValue({ cpn: data.actividadesPreventivas.deLaGestante.cpn });
-      this.formActiPreventivas.patchValue({ edadGesacional: data.actividadesPreventivas.deLaGestante.edadGesacional });
-      this.formActiPreventivas.patchValue({ alturaUterina: data.actividadesPreventivas.deLaGestante.alturaUterina });
-      this.formActiPreventivas.patchValue({ partoVertical: data.actividadesPreventivas.deLaGestante.partoVertical });
-      this.formActiPreventivas.patchValue({ controlPerperio: data.actividadesPreventivas.deLaGestante.controlPerperio });
       //recien nacido
       if (data.actividadesPreventivas.delRecienNacido != null) {
         this.formActiPreventivas.patchValue({ edadGestacionalRN: data.actividadesPreventivas.delRecienNacido.edadGestacionalRN });
@@ -380,7 +373,7 @@ export class AtenionComponent implements OnInit {
       confirmButtonColor: '#3085d6',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.fuaService.postSegundaParteFUA(this.idFUA, this.keyData.codPrestacion, this.secondDataFUA).subscribe((res: any) => {
+        this.fuaService.postSegundaParteFUA(this.keyData.idFUA, this.keyData.codPrestacion, this.secondDataFUA).subscribe((res: any) => {
           let auxId: any = {
             id: this.keyData.idConsulta
           }
@@ -423,10 +416,10 @@ export class AtenionComponent implements OnInit {
     let aux: string = vac.replace(/[0-9]/, '')
     return aux
   }
-  imprimir(){
+  imprimir() {
     this.fuaService.evento = false;
-    this.fuaService.getReportFUA(this.keyData.id).subscribe((res:any)=>{
-
-    })
+    this.fuaService.getReportFUA(this.keyData.idFUA).subscribe((res: any) => {
+      
+    });
   }
 }
