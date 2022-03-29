@@ -62,6 +62,10 @@ const routes: Routes = [
                 path: "adulto-mayor",
                 loadChildren: () => import('src/app/adulto-mayor/adulto-mayor.module').then(n => n.AdultoMayorModule),
             },
+            {
+                path: "laboratorios",
+                loadChildren: () => import('src/app/Laboratorio/laboratorio.module').then(n => n.LaboratorioModule),
+            },
         ]
     }
 ];
