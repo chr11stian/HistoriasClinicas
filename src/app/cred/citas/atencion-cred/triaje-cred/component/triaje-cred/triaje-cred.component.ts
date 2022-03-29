@@ -475,6 +475,7 @@ export class TriajeCredComponent implements OnInit {
     }
 
     async save() {
+        this.getPlan(this.data.nroDocumento);
         this.outData()
         const req: triajeInterface = {
             signosVitales: this.signosVitales,
@@ -489,7 +490,7 @@ export class TriajeCredComponent implements OnInit {
         if (req) {
             await this.consultaService.crearConsulta(this.data.nroDocumento, req).toPromise().then(
                 (r: any) => {
-                    console.log('respuesta del servidor',r)
+                    console.log('respuesta del servidor', r)
                     let data: dato = {
                         nroDocumento: this.data.nroDocumento,
                         tipoDoc: this.data.tipoDoc,
@@ -516,12 +517,13 @@ export class TriajeCredComponent implements OnInit {
                 }
             )
         }
-        this.getPlan(this.data.nroDocumento);
+
     }
 
     getPlan(dni: string) {
         this.consultaGeneralService.traerPlan(dni).subscribe(
             result => {
+                console.log('cod', result.cod)
                 if (result.cod === '2404') {
                     this.getNuevoPlan()
                     console.log('2404', result)
