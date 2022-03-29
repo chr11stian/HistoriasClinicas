@@ -489,6 +489,7 @@ export class TriajeCredComponent implements OnInit {
         if (req) {
             await this.consultaService.crearConsulta(this.data.nroDocumento, req).toPromise().then(
                 (r: any) => {
+                    console.log('respuesta del servidor',r)
                     let data: dato = {
                         nroDocumento: this.data.nroDocumento,
                         tipoDoc: this.data.tipoDoc,
