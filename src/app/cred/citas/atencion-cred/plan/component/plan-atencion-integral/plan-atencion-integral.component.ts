@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core'
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core'
 import {DialogService} from 'primeng/dynamicdialog'
 
 @Component({
@@ -8,6 +8,8 @@ import {DialogService} from 'primeng/dynamicdialog'
     providers: [DialogService]
 })
 export class PlanAtencionIntegralComponent implements OnInit {
+    @Input() isFirstConsulta=false
+    @Output() onChangeIndice:EventEmitter<number>=new EventEmitter<number>();
     stateOptions: any[]
     date3: Date
     constructor() {
@@ -15,6 +17,10 @@ export class PlanAtencionIntegralComponent implements OnInit {
             {label: 'NO', value: false}]
 
     }
+    guardarDatosGenerales(){
+        this.onChangeIndice.emit(2);
+    }
+
 
     ngOnInit(): void {
     }

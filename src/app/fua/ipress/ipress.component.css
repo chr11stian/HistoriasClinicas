@@ -10,3 +10,6 @@
 ::ng-deep .p-toggleable-content .p-fieldset-content{
   padding-left: 0.5rem;
 }
+span{
+  font-weight: 500;
+}

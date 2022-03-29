@@ -1,0 +1,49 @@
+::ng-deep.p-dialog .p-dialog-header {
+    border-bottom: 0 none;
+    background: #0c3866;
+    color: #ffffff;
+    height: 40px;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+}
+
+::ng-deep >>> .p-dialog .p-dialog-header .p-dialog-header-icon {
+    width: 2rem;
+    height: 2rem;
+    color: #f8f9fa;
+    border: 0 none;
+    background: transparent;
+    border-radius: 50%;
+    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+    margin-right: 0.5rem;
+}
+
+
+::ng-deep >>> .p-dialog .p-dialog-header .p-dialog-title {
+    font-size: 12px;
+    text-align: center;
+}
+
+.footer {
+    text-align: right;
+    background: transparent;
+    position: absolute;
+    bottom: 0;
+    width: 97%;
+    height: 5em;
+    color: white;
+    bottom: 0;
+    z-index: 50;
+}
+
+.border {
+    border: 1px solid #2570c4;
+    border-radius: 10px;
+}
+
+label {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    /*font-weight: bold;*/
+    color: rgb(135 135 135);
+    font-size: 10px;
+}

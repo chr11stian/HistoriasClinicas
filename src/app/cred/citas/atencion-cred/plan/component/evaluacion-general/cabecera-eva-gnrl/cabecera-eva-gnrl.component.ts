@@ -7,21 +7,7 @@ import { MenuItem } from "primeng/api"
   styleUrls: ['./cabecera-eva-gnrl.component.css']
 })
 export class CabeceraEvaGnrlComponent implements OnInit {
-
-  items: MenuItem[];
-  indiceActivo: number = 0;
-
   constructor() { }
-
   ngOnInit(): void {
-    this.items = [
-      { label: "Evaluacion de la Alimentacion del niño(a)"},
-      { label: "Escala de Evaluacion del desaroolo Psicomotor (EEDP) 0-4 Años" },
-      { label: "Evaluacion del desarollo Psicomotor (EEDP)" }
-    ]
-  }
-
-  ChangeStep(event: number){
-    this.indiceActivo = event;
   }
 }

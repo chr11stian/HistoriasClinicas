@@ -4,9 +4,9 @@
     </div>
     <ng-template pTemplate="right" class="button" style="text-align: right">
 
-        <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-danger mr-2"
+        <!-- <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-danger mr-2"
             style="background: #C50009; border: 1px" (click)="save()">
-        </button>
+        </button> -->
     </ng-template>
 </p-toolbar>
 <div class="col-12">
@@ -35,7 +35,7 @@
                         </div>
                         <div class="col-12">
                             <span>Cod Prestación</span>
-                            <input type="text" pInputText formControlName='prestacionesAdicionales'
+                            <input type="text" pInputText formControlName='codPrestacion'
                                 class="p-inputtext inputfield w-full" placeholder="">
                         </div>
                         <!-- </div> -->
@@ -117,13 +117,13 @@
                             <input type="text" pInputText formControlName='nroAutorizacion'
                                 class="p-inputtext inputfield w-full" placeholder="">
                             <span>Monto</span>
-                            <input type="text" pInputText formControlName='monto' class="p-inputtext inputfield w-full"
-                                placeholder="">
+                            <input type="number" pInputText formControlName='monto'
+                                class="p-inputtext inputfield w-full" placeholder="">
                         </div>
                     </p-fieldset>
                 </form>
             </div>
-            <div class="col-3">
+            <!-- <div class="col-3">
                 <form [formGroup]="formPrestacional">
                     <p-fieldset legend="Carta de Garantia">
                         <div class="col-12 ">
@@ -136,7 +136,7 @@
                         </div>
                     </p-fieldset>
                 </form>
-            </div>
+            </div> -->
             <div class="col-1">
                 <div class="border">
                     <div class="grid my-5">
@@ -232,7 +232,7 @@
                 <div class="col-8 mt-4">
                     <span>Nombre de la IPRESS a la que se refiere/contrarrefiere</span>
                     <input type="text" pInputText formControlName='nombreIpress' class="p-inputtext inputfield w-full"
-                        placeholder="">
+                        oninput="this.value=this.value.toUpperCase()" placeholder="">
                 </div>
                 <div class="col-2">
                     <span>N° Hoja de Referencia/Contrarreferencia</span>
@@ -244,38 +244,38 @@
     </p-fieldset>
 </div>
 <div class="grid">
-    <div class="col-8">
+    <div class="col-9">
         <p-fieldset legend="ACTIVIDADES PREVENTIVAS Y OTROS">
             <form [formGroup]="formActiPreventivas">
                 <div class="grid">
-                    <div class="col-4">
+                    <div class="col-2">
                         <div class="grid">
-                            <div class="col-4">
+                            <div class="col-6">
                                 <span>Peso(Kg)</span>
                             </div>
-                            <div class="col-8">
+                            <div class="col-6">
                                 <input type="number" pInputText formControlName='peso'
                                     class="p-inputtext inputfield w-full" placeholder="">
                             </div>
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-2">
                         <div class="grid">
-                            <div class="col-4">
+                            <div class="col-6">
                                 <span>Talla(cm)</span>
                             </div>
-                            <div class="col-8">
+                            <div class="col-6">
                                 <input type="number" pInputText formControlName='talla'
                                     class="p-inputtext inputfield w-full" placeholder="">
                             </div>
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-2">
                         <div class="grid">
-                            <div class="col-4">
+                            <div class="col-6">
                                 <span>P.A.(mmHg)</span>
                             </div>
-                            <div class="col-8">
+                            <div class="col-6">
                                 <input type="text" pInputText formControlName='pa' class="p-inputtext inputfield w-full"
                                     placeholder="">
                             </div>
@@ -299,7 +299,7 @@
                                     <span>Edad Gestacional</span>
                                 </div>
                                 <div class="col-6">
-                                    <input type="text" pInputText formControlName='edadGesacional'
+                                    <input type="number" pInputText formControlName='edadGesacional'
                                         class="p-inputtext inputfield w-full" placeholder="">
                                 </div>
                             </div>
@@ -308,7 +308,7 @@
                                     <span>Altura Uterina</span>
                                 </div>
                                 <div class="col-6">
-                                    <input type="text" pInputText formControlName='alturaUterina'
+                                    <input type="number" pInputText formControlName='alturaUterina'
                                         class="p-inputtext inputfield w-full" placeholder="">
                                 </div>
                             </div>
@@ -339,7 +339,7 @@
                                     <span>Edad Gestacional RN (SEM)</span>
                                 </div>
                                 <div class="col-3">
-                                    <input type="text" pInputText formControlName='edadGestacionalRN'
+                                    <input type="number" pInputText formControlName='edadGestacionalRN'
                                         class="p-inputtext inputfield w-full" placeholder="">
                                 </div>
                             </div>
@@ -380,14 +380,14 @@
                                     <div>N° CRED</div>
                                 </div>
                                 <div class="col-3">
-                                    <input type="text" pInputText formControlName='nroCred'
+                                    <input type="number" pInputText formControlName='nroCred'
                                         class="p-inputtext inputfield w-full" placeholder="">
                                 </div>
                                 <div class="col-3">
                                     <div>PAB(cm)</div>
                                 </div>
                                 <div class="col-3">
-                                    <input type="text" pInputText formControlName='pab'
+                                    <input type="number" pInputText formControlName='pab'
                                         class="p-inputtext inputfield w-full" placeholder="">
                                 </div>
                             </div>
@@ -439,13 +439,13 @@
                                 <!-- QUINTA FILA -->
                                 <div class="col-6">
                                     <div>N° Familiares de Gestante/Puerpera Casa Materna</div>
-                                    <input type="text" pInputText formControlName='nroFamiliaresGestante'
+                                    <input type="number" pInputText formControlName='nroFamiliaresGestante'
                                         class="p-inputtext inputfield w-full" placeholder="">
                                 </div>
                                 <div class="col-6">
                                     <div>IMC (Kg/m2)</div>
                                     <br>
-                                    <input type="text" pInputText formControlName='imc'
+                                    <input type="number" pInputText formControlName='imc'
                                         class="p-inputtext inputfield w-full" placeholder="">
                                 </div>
                             </div>
@@ -483,9 +483,17 @@
             </form>
         </p-fieldset>
     </div>
-    <div class="col-4">
+    <div class="col-3">
         <p-fieldset legend="VACUNAS N° DE DOSIS">
             <div class="grid">
+                <div class="col-4" *ngFor="let item of listVacunas">
+                    <span>{{nameVaccine(item.nombre)}}</span>
+                    <input type="text" pInputText [(ngModel)]="item.dosis" class="p-inputtext inputfield w-full"
+                        placeholder="">
+                </div>
+            </div>
+
+            <!-- <div class="grid">
                 <div class="col-1 md:col-1 lg:col-2 p-fluid">
                     <div class="fontVac">BCG</div>
                 </div>
@@ -505,7 +513,6 @@
                     <input type="text" pInputText>
                 </div>
             </div>
-            <!-- SEGUNDA FILA-->
             <div class="grid">
                 <div class="col-1 md:col-1 lg:col-2 p-fluid">
                     <div>DTP</div>
@@ -526,7 +533,6 @@
                     <input type="text" pInputText>
                 </div>
             </div>
-            <!-- TERCERA FILA-->
             <div class="grid">
                 <div class="col-1 md:col-1 lg:col-2 p-fluid">
                     <div>APO</div>
@@ -547,7 +553,6 @@
                     <input type="text" pInputText>
                 </div>
             </div>
-            <!-- CUARTA FILA-->
             <div class="grid">
                 <div class="col-1 md:col-1 lg:col-2 p-fluid">
                     <div>ASA</div>
@@ -568,7 +573,6 @@
                     <p-selectButton [options]="sino" optionValue="value" optionLabel="label"></p-selectButton>
                 </div>
             </div>
-            <!-- QUINTA FILA-->
             <div class="grid">
                 <div class="col-1 md:col-1 lg:col-2 p-fluid">
                     <div>SPR</div>
@@ -589,7 +593,6 @@
                     <input type="text" pInputText>
                 </div>
             </div>
-            <!-- SEXTA FILA-->
             <div class="grid">
                 <div class="col-1 md:col-1 lg:col-2 p-fluid">
                     <div>SR</div>
@@ -610,7 +613,6 @@
                     <input type="text" pInputText>
                 </div>
             </div>
-            <!-- SEPTIMA FILA-->
             <div class="grid">
                 <div class="col-1 md:col-1 lg:col-2 p-fluid">
                     <div>HVB</div>
@@ -630,7 +632,7 @@
                 <div class="col-2 md:col-2 lg:col-2 p-fluid">
                     <input type="text" pInputText>
                 </div>
-            </div>
+            </div> -->
             <p-card>
                 <div style="text-align: center">
                     <p class="text-xs font-medium">GRUPO DE RIESGO HVB:
@@ -654,12 +656,9 @@
                     <tr>
                         <th rowspan="3">#</th>
                         <th rowspan="3" style="width: 30em; text-align: center;">Descripción</th>
-                        <!-- <th colspan="1"></th> -->
                     </tr>
                     <tr>
-                        <!-- <th colspan="1"></th> -->
                         <th colspan="2" style="text-align: center;">INGRESO</th>
-                        <!-- <th colspan="1"></th> -->
                         <th colspan="2" style="text-align: center;">EGRESOS</th>
                     </tr>
                     <tr>
@@ -672,19 +671,19 @@
                 <ng-template pTemplate="body" let-rowData let-i="rowIndex">
                     <tr>
                         <td>{{ i +1 }}</td>
-                        <td>{{ rowData.diagnosticoHIS }}%</td>
+                        <td>{{ rowData.diagnosticoSIS }}</td>
                         <td>
-                            <p-selectButton [options]="listDiagnosticoDXIngreso" [(ngModel)]="tipeDXIn"
-                                optionLabel="label" (ngModelChange)="changeNgModel()" optionValue="value">
+                            <p-selectButton [options]="listDiagnosticoDXIngreso" [(ngModel)]="rowData.tipo"
+                                optionLabel="label" (ngModelChange)="changeNgModel(rowData, i)" optionValue="value">
                             </p-selectButton>
                         </td>
                         <td>{{ rowData.cie10SIS }}</td>
                         <td>
-                            <p-selectButton [options]="listDiagnosticoDXEgreso" [(ngModel)]="ipeDXEg"
+                            <!-- <p-selectButton [options]="listDiagnosticoDXEgreso" [(ngModel)]="ipeDXEg"
                                 optionLabel="label" (ngModelChange)="changeNgModel()" optionValue="value">
-                            </p-selectButton>
+                            </p-selectButton> -->
                         </td>
-                        <td>{{ rowData.cie10HIS }}</td>
+                        <!-- <td>{{ rowData.cie10HIS }}</td> -->
                     </tr>
                 </ng-template>
             </p-table>
@@ -700,37 +699,79 @@
                     <div class="col-6">
                         <span>Nombre del Responsable de la Atención</span>
                         <input type="text" pInputText formControlName='nombreResponsable'
-                            class="p-inputtext inputfield w-full" placeholder="">
+                            class="p-inputtext inputfield w-full" oninput="this.value = this.value.toUpperCase();"
+                            placeholder="">
                     </div>
                     <div class="col-3">
                         <span>N° de Colegiatura</span>
                         <input type="text" pInputText formControlName='nroColegiaturaResponsable'
-                            class="p-inputtext inputfield w-full" placeholder="">
+                            class="p-inputtext inputfield w-full" oninput="this.value=this.value.toUpperCase()"
+                            placeholder="">
                     </div>
                 </div>
                 <div class="grid">
                     <div class="col-2">
                         <span>Responsable de la Atención</span>
                         <input type="text" pInputText formControlName='responsableAtencion'
-                            class="p-inputtext inputfield w-full" placeholder="">
+                            class="p-inputtext inputfield w-full" oninput="this.value=this.value.toUpperCase()"
+                            placeholder="">
                     </div>
                     <div class="col-5">
                         <span>Especialidad</span>
                         <input type="text" pInputText formControlName='especialidad'
-                            class="p-inputtext inputfield w-full" placeholder="">
+                            class="p-inputtext inputfield w-full" oninput="this.value=this.value.toUpperCase()"
+                            placeholder="">
                     </div>
                     <div class="col-3">
                         <span>N° RNE</span>
                         <input type="text" pInputText formControlName='nroRne' class="p-inputtext inputfield w-full"
-                            placeholder="">
+                            oninput="this.value=this.value.toUpperCase()" placeholder="">
                     </div>
                     <div class="col-2">
                         <span>Egresado</span>
                         <input type="text" pInputText formControlName='egresado' class="p-inputtext inputfield w-full"
-                            placeholder="">
+                            oninput="this.value=this.value.toUpperCase()" placeholder="">
                     </div>
                 </div>
             </form>
+        </p-fieldset>
+        <p-fieldset legend="DATOS DEL APODERADO">
+            <div class="grid">
+                <div class="col-2">
+                    <p-fieldset legend="Firma">
+                        <div *ngFor="let item of listFirma">
+                            <div class="grid">
+                                <div class="col-9">
+                                    <span [for]="item.value" class="pr-1">{{ item.name }}</span>
+                                </div>
+                                <div class="col-3">
+                                    <p-radioButton [inputId]="item.value" name="item" [value]="item.value"
+                                        [(ngModel)]="firma">
+                                    </p-radioButton>
+                                </div>
+                            </div>
+                        </div>
+                    </p-fieldset>
+                </div>
+                <div class="col-4">
+                    <span>Apoderado</span>
+                    <input type="text" pInputText [(ngModel)]="nameApoderado" class="p-inputtext inputfield w-full"
+                        oninput="this.value=this.value.toUpperCase()" placeholder="">
+                </div>
+                <div class="col-2">
+                    <span>DNI o CE del Apoderado</span>
+                    <input type="text" pInputText [(ngModel)]="nroDocApoderado" class="p-inputtext inputfield w-full"
+                        oninput="this.value=this.value.toUpperCase()" placeholder="">
+                </div>
+                <div class="col-4 text-right">
+                    <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-danger mr-2"
+                        style="background: #2e00c5; border: 1px" (click)="save()">
+                    </button>
+                    <button pButton pRipple label="Imprimir" icon="pi pi-save" class="p-button-danger mr-2"
+                        style="background: #2e00c5; border: 1px" (click)="imprimir()">
+                    </button>
+                </div>
+            </div>
         </p-fieldset>
     </div>
 </div>

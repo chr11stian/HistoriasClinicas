@@ -27,8 +27,8 @@
         </div>
 
     </div> -->
-    <p-steps [model]="items" [readonly]="false" [(activeIndex)]="indiceActivo"
-             (activeIndexChange)="ChangeStep($event)" class="col-12 md:col-6 lg:col-12 p-field">
+    <p-steps [model]="items" [readonly]="false" [(activeIndex)]="indiceActivo" (activeIndexChange)="ChangeStep($event)"
+        class="col-12 md:col-6 lg:col-12 p-field">
     </p-steps>
 
 </p-panel>
@@ -38,6 +38,17 @@
 
 <div class="stepsdemo-content" *ngIf="stepName === 'ipress'">
     <p-card>
+        <ng-template pTemplate="header">
+            <p-toolbar>
+                <ng-template pTemplate="left">
+                    <h3 class="mt-2">DATOS GENERALES</h3>
+                </ng-template>
+                <ng-template pTemplate="right" class="button">
+                    <button pButton pRipple label="Siguienteee" iconPos="right" icon="pi pi-angle-right"
+                        class="guardar mr-2" (click)="nextPage()" style="background-color: #0c3866"></button>
+                </ng-template>
+            </p-toolbar>
+        </ng-template>
         <ng-template pTemplate="content">
             <app-ipress></app-ipress>
         </ng-template>
@@ -69,7 +80,7 @@
 </div>
 
 
-<div class="stepsdemo-content" *ngIf="stepName === 'refiere-contrarefiere'">
+<!-- <div class="stepsdemo-content" *ngIf="stepName === 'refiere-contrarefiere'">
     <p-card>
         <ng-template pTemplate="content">
             <app-s-refiere-contrarefiere></app-s-refiere-contrarefiere>
@@ -84,4 +95,4 @@
             <app-diagnostico></app-diagnostico>
         </ng-template>
     </p-card>
-</div>
+</div> -->
