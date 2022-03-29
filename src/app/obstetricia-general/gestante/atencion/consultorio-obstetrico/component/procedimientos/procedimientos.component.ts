@@ -208,6 +208,7 @@ export class ProcedimientosComponent implements OnInit {
     this.ref.onClose.subscribe((data: any) => {
       console.log("data de modal PROCEDIMIENTOS", data)
       this.recuperarProcedimientos();
+      this.traerListaResumenPendientes();
     })
   }
   openDialogEditarProcedimiento(row, index) {

@@ -18,7 +18,7 @@
                     </ng-template>
                 </p-toolbar>
                 <div class="RESUMEN">
-                    <p-table class="table-over" [value]="resumen" #dt styleClass="p-datatable-sm" [rows]="10"
+                    <p-table class="table-over" [value]="resumen" #dt styleClass="p-datatable-gridlines" [rows]="10"
                         [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
                         [showCurrentPageReport]="true"
                         currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
@@ -49,7 +49,7 @@
                     </ng-template>
                 </p-toolbar>
                 <div class="RESUMEN">
-                    <p-table class="table-over" [value]="resumenPendientes" #dt styleClass="p-datatable-sm" [rows]="10"
+                    <p-table class="table-over" [value]="resumenPendientes" #dt styleClass="p-datatable-gridlines" [rows]="10"
                         [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
                         [showCurrentPageReport]="true"
                         currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
@@ -66,8 +66,9 @@
                                 <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
                                 <td style="text-align: center">{{ rowData.nombre }}</td>
                                 <td style="text-align: center">
-                                    <button pButton pRipple label="Proced." icon="pi pi-plus" pButton type="button"
-                            class="button-agregar" (click)="openDialogProcedimientoConsejeria(rowData.nombre)"></button>
+                                    <button pButton pRipple type="button" icon="pi pi-plus" label="Proced"
+                                        class="p-button-rounded p-button-help"
+                                        (click)="openDialogProcedimientoConsejeria(rowData.nombre)"></button>
                                 </td>
                             </tr>
                         </ng-template>
@@ -80,11 +81,11 @@
                         <h3 class="mt-2">PROCEDIMIENTOS</h3>
                     </ng-template>
                     <ng-template pTemplate="right">
-                            <button pButton pRipple label="Agregar Procedimiento" icon="pi pi-plus" pButton type="button"
-                                class="button-agregar" (click)="openDialogProcedimiento()"></button>
+                        <button pButton pRipple label="Agregar Procedimiento" icon="pi pi-plus" pButton type="button"
+                            class="button-agregar" (click)="openDialogProcedimiento()"></button>
                     </ng-template>
                 </p-toolbar>
-                <p-table class="table-over" [value]="procedimientos" #dt styleClass="p-datatable-sm" [rows]="10"
+                <p-table class="table-over" [value]="procedimientos" #dt styleClass="p-datatable-gridlines" [rows]="10"
                     [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
                     [showCurrentPageReport]="true"
                     currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
