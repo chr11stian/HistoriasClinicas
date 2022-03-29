@@ -14,7 +14,7 @@ import {dato} from "../../../../models/data";
     templateUrl: "./cabecera.component.html",
     styleUrls: ["./cabecera.component.css"],
 })
-export class CabeceraComponent implements OnInit, DoCheck {
+export class CabeceraComponent implements OnInit {
     /* lo que reciben del paso anterior */
     data: dato
     tipoDoc: string = ''
@@ -28,52 +28,36 @@ export class CabeceraComponent implements OnInit, DoCheck {
     stepName = "datos"
     consulta: ApiPlanAtencion
     j: number = 100
-
+    havenPlan:boolean//tiene plan hasta el momento
     // @ViewChild(DatosGeneralesComponent) datosGenerales: DatosGeneralesComponent;
     // @ViewChild(AntecendentesComponent) antecedentes: AntecendentesComponent;
     // @ViewChild(PlanAtencionIntegralComponent) planAtencion: PlanAtencionIntegralComponent;
     // @ViewChild(EvaluacionGeneralComponent) evaluacion: EvaluacionGeneralComponent;
 
-    constructor(private consultaGeneralService: ConsultaGeneralService,
-                private route: ActivatedRoute,
-                private router: Router) {
-        this.options = [
-            {name: "DNI", code: 1},
-            {name: "CARNET RN", code: 2},
-            {name: "C EXTRANJERIA", code: 3},
-            {name: "OTROS", code: 4},
-        ]
-
-
-    }
-    getTotalConsulta(){
-        this.consultaGeneralService.getTotalConsultas(this.data.nroDocumento).subscribe((resp:any)=>{
-            console.log('nro de consulta------>',resp.object.length)
-            this.nroConsulta=resp.object.length;
-        })
-    }
-    nroConsulta:number=0;
-    ngDoCheck() {
-        //this.saveStep()
-    }
-    ChangeStep(indice){
-       this.stepActivado=indice
-    }
-    ngOnInit(): void {
+    constructor(private consultaGeneralService: ConsultaGeneralService) {
         this.items = [
             {label: "Datos Generales", styleClass: 'icon'},
             {label: "Antecedentes", styleClass: 'icon1'},
             {label: "Plan de Atención Integral", styleClass: 'icon2'},
             {label: "Evaluación General", styleClass: 'icon3'},
         ]
-        this.getQueryParams()
     }
-
+    ngOnInit(): void {
+        this.getQueryParams()
+        this.havePlan();
+    }
     getQueryParams(): void {
         this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
         this.getPlan(this.data.nroDocumento)
         console.log('plan de atencion', this.data)
-        this.getTotalConsulta();
+    }
+    havePlan(){
+        this.consultaGeneralService.tienePlan(this.data.nroDocumento).subscribe((resp:any)=>{
+            this.havenPlan=resp.object.planAtencion==null?false:true
+        })
+    }
+    ChangeStep(indice){
+        this.stepActivado=indice
     }
 
     getPlan(dni: string) {
@@ -105,7 +89,7 @@ export class CabeceraComponent implements OnInit, DoCheck {
             console.log(err)
         })
     }
-    stepActivado:number=0;
+    stepActivado:number=0; //step por defecto
     nextPage() {
         // console.log(this.stepName)
         switch (this.indiceActivo) {
@@ -139,27 +123,6 @@ export class CabeceraComponent implements OnInit, DoCheck {
                 break;
         }
     }
-
-    // saveStep() {
-    //     if (this.indiceActivo !== this.j) {
-    //         console.log('j ', this.indiceActivo, this.j)
-    //         switch (this.j) {
-    //             case 3:
-    //                 //this.evaluacion.save()
-    //                 break
-    //             case 2:
-    //                 //this.planAtencion.save()
-    //                 break
-    //             case 1:
-    //                 //this.antecedentes.save()
-    //                 break
-    //             case 0:
-    //                 this.datosGenerales.save()
-    //                 break
-    //         }
-    //         this.j = this.indiceActivo
-    //     }
-    // }
 }
 interface data {
     name: string

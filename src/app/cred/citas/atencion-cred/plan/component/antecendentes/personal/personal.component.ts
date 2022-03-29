@@ -1,4 +1,4 @@
-import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
 import {FormGroup, FormBuilder, AbstractControl, Validators, FormControl} from '@angular/forms';
 import {AntecedentesService} from '../../../services/antecedentes/antecedentes.service';
 import {AntecedentesPersonalesFormType} from '../../models/antecedentes.interface';
@@ -13,6 +13,9 @@ import {DatePipe} from "@angular/common";
     styleUrls: ['./personal.component.css']
 })
 export class PersonalComponent implements OnInit {
+    @Output() onPersonal:EventEmitter<boolean>=new EventEmitter<boolean>();
+    @Input() isEditable:boolean
+    //aparte
     @Output() personalEmit: EventEmitter<AntecedentesPersonalesFormType> = new EventEmitter<AntecedentesPersonalesFormType>();
     datePipe = new DatePipe('en-US');
     stateOptions: any[];
@@ -184,6 +187,7 @@ export class PersonalComponent implements OnInit {
             timer: 1500,
         })
         this.dialogAcuerdos = false;
+
     }
 
     recuperarDatos() {
@@ -353,6 +357,7 @@ export class PersonalComponent implements OnInit {
                     showConfirmButton: false,
                     timer: 1500,
                 })
+                this.onPersonal.emit(true)
             }
         )
 

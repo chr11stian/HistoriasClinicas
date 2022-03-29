@@ -9,7 +9,11 @@ export class AntecendentesComponent implements OnInit {
   @Input() isFirstConsulta=false
   @Output() onChangeIndice:EventEmitter<number>=new EventEmitter<number>();
   constructor() { }
-
+  isIngresadoAntecedentes={
+    personales:false,
+    familiares:false,
+    vivienda:false,
+  }
   ngOnInit(): void {
   }
   guardarDatosGenerales(){
