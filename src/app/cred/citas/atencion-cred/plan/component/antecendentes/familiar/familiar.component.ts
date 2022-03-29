@@ -1,4 +1,4 @@
-import {Component, OnInit, EventEmitter, Output} from '@angular/core';
+import {Component, OnInit, EventEmitter, Output, Input} from '@angular/core';
 import {FormGroup, FormBuilder, AbstractControl} from '@angular/forms';
 import {AntecedenteFamiliarService} from 'src/app/cred/services/antecedentes/antecedente-familiar.service';
 import {AntecedentesFamiliaresFormType, AntecedentesFamiliaresType} from '../../models/antecedentes.interface';
@@ -12,6 +12,9 @@ import Swal from "sweetalert2";
     styleUrls: ['./familiar.component.css']
 })
 export class FamiliarComponent implements OnInit {
+    @Output() onFamiliar:EventEmitter<boolean>=new EventEmitter<boolean>();
+    @Input() isEditable:boolean
+    //aparte
     @Output() familiarEmit: EventEmitter<AntecedentesFamiliaresFormType> = new EventEmitter<AntecedentesFamiliaresFormType>();
     familiarFG: FormGroup;
     nroDoc: string = ''
@@ -101,8 +104,9 @@ export class FamiliarComponent implements OnInit {
 
     recuperarData() {
         this.antecedentesService.getAntecedentesPersonalesPatologicos(this.nroDoc).subscribe((r: any) => {
-            this.listPatologias = r.object.antecedentesFamiliares
-            console.log('pata', this.listPatologias)
+            if (r.cod!='2402'){
+                this.listPatologias = r.object.antecedentesFamiliares
+            }
         })
     }
 
@@ -185,6 +189,7 @@ export class FamiliarComponent implements OnInit {
                     showConfirmButton: false,
                     timer: 1500,
                 })
+                this.onFamiliar.emit(true)
             }
         })
 

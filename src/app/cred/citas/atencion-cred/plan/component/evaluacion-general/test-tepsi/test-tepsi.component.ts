@@ -121,7 +121,7 @@ export class TestTepsiComponent implements OnInit {
   }
    getTestTepsi(){
     this.tepsiService.getConsultaTepsiPorDNI(this.nroDNI).subscribe((resp)=>{
-      if (resp['cod']=='2121'){
+      if (resp['object']!=null){
         this.messageService.add({key: 'myKey1', severity:'success', summary: 'Registro Tepsi recuperado', detail: 'Registro recuperado satisfactoriamente'});
         const resultado=resp['object'];
         this.fecha=(new Date(resultado['fechaAtencion']))

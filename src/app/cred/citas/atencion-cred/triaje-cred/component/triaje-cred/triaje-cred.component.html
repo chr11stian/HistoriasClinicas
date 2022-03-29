@@ -79,7 +79,7 @@
         </div>
         <p-divider></p-divider>
         <label>Observaciones de Signos Vitales:</label>
-        <textarea class="inputfield w-full mb-2" formControlName="detailFC" pInputTextarea></textarea>
+        <textarea class="inputfield w-full mb-2"  pInputTextarea></textarea>
     </form>
 </p-fieldset>
 <p-fieldset legend="Descarte de signos de peligro"
@@ -256,12 +256,13 @@
         </button>
     </div>
     <div [hidden]="!my">
+
         <button type="submit"
-                icon="pi pi-save"
+                icon="pi"
                 pButton
                 pRipple
                 (click)="getConsultaPrincipal()"
-                label="Seguir Consulta"
+                [label]="botonGuardarVolver"
                 style="background-color: #0c3866"
                 class="ml-4 p-button-raised p-button-info"
         >
