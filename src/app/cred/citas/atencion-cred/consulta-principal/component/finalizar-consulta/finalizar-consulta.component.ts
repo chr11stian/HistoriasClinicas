@@ -407,7 +407,8 @@ export class FinalizarConsultaComponent implements OnInit, DoCheck {
         })
         this.referencia = []
         this.ref.onClose.subscribe((data: ReferenciaInterface) => {
-            this.referencia.push(data)
+            if (data !== undefined)
+                this.referencia.push(data)
         })
     }
 }

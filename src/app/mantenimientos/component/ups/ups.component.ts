@@ -42,7 +42,7 @@ export class UpsComponent implements OnInit {
         { label: 'Inactivo', value: false }
     ];
     SISHISOption = [
-        { label: 'HIS', value: 'his' },
+        { label: 'HIS', value: 'listar-his' },
         { label: 'SIS', value: 'sis' }
     ]
     subTitulosOptions = [
@@ -185,7 +185,7 @@ export class UpsComponent implements OnInit {
         let auxSisHis;
 
         if (row.esHIS == true) {
-            auxSisHis = 'his'
+            auxSisHis = 'listar-his'
         } else {
             auxSisHis = 'sis'
         }

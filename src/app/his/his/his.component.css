@@ -1,0 +1,80 @@
+p-selectbutton >>> .p-selectbutton .p-button.p-highlight {
+    background: #959ea6;
+    border-color: #959ea6;
+}
+
+p-calendar >>> .p-button {
+    background: #0c3866;
+    border: 1px solid #0c3866;
+    align-self: center;
+}
+
+.guardar {
+    background: #0c3866;
+    border-color: #0c3866;
+    align-items: center;
+}
+
+p-toolbar >>> * {
+    align-self: center;
+}
+
+
+
+
+label {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    /*font-weight: bold;*/
+    color: rgb(135 135 135);
+}
+
+span {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    /*font-weight: bold;*/
+    color: #0c3866;
+}
+
+/*p-toolbar >>> .p-toolbar {*/
+/*    background: rgb(242 242 242);*/
+/*    !*border: 1px solid rgb(222 226 230);*!*/
+/*    !*padding: 1rem;*!*/
+/*    !*border-radius: 3px;*!*/
+/*}*/
+
+.image {
+    width: 140px;
+    height: 150px;
+    margin: 10px auto;
+    display: block;
+}
+
+p-toolbar >>> .p-toolbar {
+    background: rgb(216 222 229);
+    border: 1px solid rgb(222 226 230);
+    padding: 0.5rem;
+    height: auto;
+    border-radius: 3px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+input[type="number"] {
+    padding-left: 0.1em;
+    text-align: left;
+}
+
+p-selectbutton >>> .p-selectbutton .p-button {
+    /*color: #6e6e6e;*/
+    /*font-size: xx-large;*/
+    /*background-color: "blue";*/
+    padding: 5px;
+}
+
