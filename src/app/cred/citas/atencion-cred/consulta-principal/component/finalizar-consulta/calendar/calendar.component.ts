@@ -117,8 +117,6 @@ export class CalendarComponent implements OnInit, DoCheck {
     ngDoCheck() {
         if (this.proxCita !== '') {
             this.planService.proxCita = this.proxCita
-            console.log('prox', this.planService.proxCita)
-
         }
     }
 
