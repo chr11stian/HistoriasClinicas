@@ -30,9 +30,19 @@ export class FuaService {
   postSegundaParteFUA(idFUA: string, codPrestacion: string, dataFUA) {
     return this.http.post(`${this.urlServer}/${this.bd}/fua/guardar/datos/${idFUA}/${codPrestacion}`, dataFUA);
   }
+  getListaTratamientos(idConsulta: string) {
+    return this.http.get(`${this.urlServer}/${this.bd}/fua/buscar-tratamientos/${idConsulta}`);
+  }
+  postTratamientosFUA(idFUA: string, data) {
+    return this.http.post(`${this.urlServer}/${this.bd}/fua/crear/${idFUA}`, data);
+  }
+  getListaProcedimientosDiag(idConsulta: string, codPrestacion: string) {
+    return this.http.get(`${this.urlServer}/${this.bd}/fua/buscar-proced-img-labo/${idConsulta}/${codPrestacion}`);
+  }
+  postProcedimientos
   /**REPORTES */
-  getReportFUA() {
-    return this.http.get(`http://192.168.5.3:8200/jasperserver/rest_v2/reports/Reports/FUA/anexo1.pdf?idFua=622a1f1a0e2950287fcbd0cd`);
+  getReportFUA(idFUA: string) {
+    return this.http.get(`http://192.168.5.3:8200/jasperserver/rest_v2/reports/Reports/FUA/anexo1.pdf?${idFUA}`);
   }
   /**PROMISES */
   getPromiseCrearRecuperarFUAxIdConsulta(idConsulta: string) {

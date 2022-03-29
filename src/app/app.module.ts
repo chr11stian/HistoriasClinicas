@@ -18,6 +18,7 @@ import {DividerModule} from "primeng/divider";
 import {ToggleButtonModule} from 'primeng/togglebutton';
 import {InterceptorService} from "../interceptors/interceptor.service";
 import {FullCalendarModule} from "primeng/fullcalendar";
+import { LoginRolComponent } from './login/login-rol/login-rol.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import {FullCalendarModule} from "primeng/fullcalendar";
         AppComponent,
         LoginComponent,
         NotFoundComponent,
+        LoginRolComponent,
     ],
     imports: [
         FullCalendarModule,

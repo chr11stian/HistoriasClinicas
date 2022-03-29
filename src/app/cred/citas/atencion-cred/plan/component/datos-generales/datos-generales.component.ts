@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core"
+import {Component, OnInit, Output, EventEmitter, Input} from "@angular/core"
 import {
     AbstractControl,
     FormControl,
@@ -16,6 +16,9 @@ import {dato} from "../../../../models/data";
     styleUrls: ["./datos-generales.component.css"],
 })
 export class DatosGeneralesComponent implements OnInit {
+    @Input() isFirstConsulta=false
+    @Output() onChangeIndice:EventEmitter<number>=new EventEmitter<number>();
+
     form: FormGroup
     data: dato
     attributeLocalS = 'documento'
@@ -127,7 +130,7 @@ export class DatosGeneralesComponent implements OnInit {
     recuperarInformacion() {
         this.DatosGeneralesService.getDatosGenerales(this.nroDoc).subscribe((r: any) => {
             this.respuestaDatosGenerales = r.object
-            console.log('resp', this.respuestaDatosGenerales)
+            console.log('respuestas---->>>>>>>', this.respuestaDatosGenerales)
             this.edad = this.respuestaDatosGenerales.edad.anio + ' años ' + this.respuestaDatosGenerales.edad.mes + ' meses ' + this.respuestaDatosGenerales.edad.dia + 'dias'
             console.log('datos generales ', this.respuestaDatosGenerales)
             this.generalInfoFG.get('nombre').setValue(this.respuestaDatosGenerales.nombres)
@@ -162,6 +165,12 @@ export class DatosGeneralesComponent implements OnInit {
                     this.apoderadoInfoFG.get('gradoInstruccionPadre').setValue(this.respuestaDatosGenerales.responsable[0].gradoInstruccion)
             }
         })
+    }
+    guardarDatosGenerales(){
+        this.save();
+
+        this.onChangeIndice.emit(2);
+
     }
 
     save() {

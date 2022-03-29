@@ -1,4 +1,4 @@
-import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
 import {FormGroup, FormBuilder, AbstractControl, Validators, FormControl} from '@angular/forms';
 import {AntecedentesService} from '../../../services/antecedentes/antecedentes.service';
 import {AntecedentesPersonalesFormType} from '../../models/antecedentes.interface';
@@ -13,6 +13,9 @@ import {DatePipe} from "@angular/common";
     styleUrls: ['./personal.component.css']
 })
 export class PersonalComponent implements OnInit {
+    @Output() onPersonal:EventEmitter<boolean>=new EventEmitter<boolean>();
+    @Input() isEditable:boolean
+    //aparte
     @Output() personalEmit: EventEmitter<AntecedentesPersonalesFormType> = new EventEmitter<AntecedentesPersonalesFormType>();
     datePipe = new DatePipe('en-US');
     stateOptions: any[];
@@ -109,7 +112,7 @@ export class PersonalComponent implements OnInit {
             patologiasE2: [''],
             normalE: [null],
             complicadoE: [null],
-            nroE1: [''],
+            nroE1: new FormControl(''),
             atencionPrenaE: [false],
             nroE2: [''],
             lugarApn: [''],
@@ -126,7 +129,7 @@ export class PersonalComponent implements OnInit {
             familiarP: [false],
             otroP: [false],
             otroDetalleP: [''],
-            edadN: [''],
+            edadN: new FormControl('',Validators.required),
             pesoN: [''],
             tallaN: [''],
             perimetroCefaN: [''],
@@ -184,6 +187,7 @@ export class PersonalComponent implements OnInit {
             timer: 1500,
         })
         this.dialogAcuerdos = false;
+
     }
 
     recuperarDatos() {
@@ -241,8 +245,12 @@ export class PersonalComponent implements OnInit {
             }
         })
         this.antecedentesService.getAntecedentesPersonalesPatologicos(this.nroDoc).subscribe((r: any) => {
-            this.listPatologias = r.object.antecedentesPersonales
-            if (this.listPatologias.length > 0) this.list = true
+            if (r.cod!='2402'){
+                console.log('depurando',r)
+                this.listPatologias = r.object.antecedentesPersonales
+                if (this.listPatologias.length > 0) this.list = true
+
+            }
         })
     }
 
@@ -303,6 +311,7 @@ export class PersonalComponent implements OnInit {
     }
 
     save() {
+        console.log(this.getFC('edadN').invalid)
         let aux: AntecedentesPerinatales = {
             embarazo: {
                 tipoEmbarazo: this.getFC('normalE').value,
@@ -348,6 +357,7 @@ export class PersonalComponent implements OnInit {
                     showConfirmButton: false,
                     timer: 1500,
                 })
+                this.onPersonal.emit(true)
             }
         )
 
