@@ -23,7 +23,6 @@ import {ProgressSpinnerModule} from "primeng/progressspinner";
         DialogConsultaComponent,
         ConsultasNoControlComponent,
         DialogConsultaUniversalComponent,
-
     ],
     exports: [],
     imports: [

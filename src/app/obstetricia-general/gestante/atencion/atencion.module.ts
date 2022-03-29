@@ -44,5 +44,4 @@ import { IntervaloDialogoComponent } from './plan-parto/intervalo-dialogo/interv
     ]
 })
 export class AtencionModule {
-
 }

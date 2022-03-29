@@ -59,6 +59,14 @@ export interface Hematologia {
     vrChcm?: string,
     hcm?: string,
     vrHcm?: string,
+
+    /**DATOS NUEVOS */
+    resultado?: {
+        clave: string,//anemia
+        valor: string,//leve, moderado, severo
+        resultado: string//positivo, negativo
+    }
+    observacionesLaboratorio?: string
 }
 export interface Parasitologia {
     examenMacroscopico: ExamenMacroscopico,
@@ -66,6 +74,12 @@ export interface Parasitologia {
     sangreOcultaHeces: string,
     gotaGruesa: string,
     frotisLesion: string,
+
+    /**DATOS NUEVOS */
+    resultado?: {
+        resultado: string//positivo, negativo
+    }
+    observacionesLaboratorio?: string
 }
 export interface ExamenMacroscopico {
     color?: string,

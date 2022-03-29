@@ -12,102 +12,10 @@
         <div class="mt-1">
             <p-tabView >
                 <p-tabPanel header="ECOGRAFIAS">
-                    <p-toolbar class="mt-3">
-                        <ng-template pTemplate="left">
-                            <h3 class="mt-2">SOLICITUDES DE ECOGRAFIAS</h3>
-                        </ng-template>
-                    </p-toolbar>
-                    <p-table class="table-over" [value]="solicitudesEco" #dt styleClass="p-datatable-gridlines" [rows]="10"
-                        [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
-                        currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
-                        <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
-                            <tr>
-                                <th style="text-align: center" class="font-2">Nro </th>
-                                <th style="text-align: center" class="font-1">COD. PRESTACION</th>
-                                <th style="text-align: center" class="font-1">CIE 10 SIS</th>
-                                <th style="text-align: center" class="font-2">DIAGNOSTICOS SIS</th>
-                                <th style="text-align: center" class="font-1">CIE 10 HIS</th>
-                                <th style="text-align: center" class="font-2">DIAGNOSTICOS HIS</th>
-                                <th style="text-align: center" class="font-2">TIPO</th>
-                                <th style="text-align: center" class="font-2">ACCIÓN</th>
-                            </tr>
-                        </ng-template>
-                        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-                            <tr>
-                                <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                                <td style="text-align: center">{{ rowData.codPrestacion }}</td>
-                                <td style="text-align: center">{{ rowData.cie10SIS }}</td>
-                                <td style="text-align: center">{{ rowData.diagnosticoSIS }}</td>
-                                <td style="text-align: center">{{ rowData.cie10HIS }}</td>
-                                <td style="text-align: center">{{ rowData.diagnosticoHIS }}</td>
-                                <td style="text-align: center">{{ rowData.tipo }}</td>
-                                <td style="text-align: center">
-                                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded m-1"
-                                        (click)="editarSolicitudEco(rowData)" pTooltip="Editar">
-                                    </button>
-                                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                                        (click)="eliminarSolicitudEco(rowData)" pTooltip="Eliminar">
-                                    </button>
-                                </td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
-                    <p-toolbar>
-                        <ng-template pTemplate="right" class="button">
-                            <button pButton pRipple label="Agregar Solicitud" icon="pi pi-plus" pButton type="button"
-                                class="button-agregar" (click)="openSolicitudEco()"></button>
-                        </ng-template>
-                    </p-toolbar>
-                    <br/>
-                    <p-toolbar>
-                        <ng-template pTemplate="left">
-                            <h3 class="mt-2">RESULTADOS DE ECOGRAFIAS</h3>
-                        </ng-template>
-                    </p-toolbar>
-                    <p-table class="table-over" [value]="resultadosEco" #dt styleClass="p-datatable-gridlines" [rows]="10"
-                        [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
-                        currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
-                        <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
-                            <tr>
-                                <th style="text-align: center" class="font-2">Nro </th>
-                                <th style="text-align: center" class="font-1">COD. PRESTACION</th>
-                                <th style="text-align: center" class="font-1">CIE 10 SIS</th>
-                                <th style="text-align: center" class="font-2">DIAGNOSTICOS SIS</th>
-                                <th style="text-align: center" class="font-1">CIE 10 HIS</th>
-                                <th style="text-align: center" class="font-2">DIAGNOSTICOS HIS</th>
-                                <th style="text-align: center" class="font-2">TIPO</th>
-                                <th style="text-align: center" class="font-2">ACCIÓN</th>
-                            </tr>
-                        </ng-template>
-                        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-                            <tr>
-                                <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                                <td style="text-align: center">{{ rowData.codPrestacion }}</td>
-                                <td style="text-align: center">{{ rowData.cie10SIS }}</td>
-                                <td style="text-align: center">{{ rowData.diagnosticoSIS }}</td>
-                                <td style="text-align: center">{{ rowData.cie10HIS }}</td>
-                                <td style="text-align: center">{{ rowData.diagnosticoHIS }}</td>
-                                <td style="text-align: center">{{ rowData.tipo }}</td>
-                                <td style="text-align: center">
-                                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded m-1"
-                                        (click)="editarResultadoEco(rowData)" pTooltip="Editar">
-                                    </button>
-                                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                                        (click)="eliminarResultadoEco(rowData)" pTooltip="Eliminar">
-                                    </button>
-                                </td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
-                    <p-toolbar>
-                        <ng-template pTemplate="right" class="button">
-                            <button pButton pRipple label="Agregar Resultado" icon="pi pi-plus" pButton type="button"
-                                class="button-agregar" (click)="openResultadoEco()"></button>
-                        </ng-template>
-                    </p-toolbar>
+                    <app-ecografias></app-ecografias>
                 </p-tabPanel>
                 <p-tabPanel header="LABORATORIO">
-
+                    <app-laboratorio></app-laboratorio>
                 </p-tabPanel>
             </p-tabView>
         </div>

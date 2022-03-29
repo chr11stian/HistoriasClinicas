@@ -8,6 +8,7 @@ import {
 } from "../../../h-clinica-materno-perinatal/services/filiancion-atenciones/filiancion.service";
 import {DatePipe} from "@angular/common";
 import {MessageService} from "primeng/api";
+import {image} from "../../../../../../../assets/images/image.const";
 
 @Component({
     selector: 'app-datos-generales',
@@ -31,6 +32,8 @@ export class DatosGeneralesComponent implements OnInit {
     opciones4: any;
     opciones5: any;
     opciones6: any;
+    dataPacientesReniec: any;
+    imagePath: string = image;
 
     sumagestas: any;
 
@@ -108,10 +111,11 @@ export class DatosGeneralesComponent implements OnInit {
     dataPaciente2: any;
     estadoEdicion: Boolean;
 
-    nroAtencion:any;
+    nroAtencion: any;
     antecedentesDialog: boolean;
-    
-    familiares2:any;
+
+    familiares2: any;
+
     constructor(private form: FormBuilder,
                 private obstetriciaGeneralService: ObstetriciaGeneralService,
                 private consultasService: ConsultasService,
@@ -852,7 +856,19 @@ export class DatosGeneralesComponent implements OnInit {
         this.formAntecedentes.get('subtitulo').setValue("MATERNO");*/
         this.antecedentesDialog = true;
     }
+
     canceled1() {
         this.antecedentesDialog = false;
+    }
+
+    traerDataReniec() {
+        this.filiancionService.getDatosReniec(this.formDatos_Generales.value.nroDocAcompaniante).subscribe((res: any) => {
+            this.dataPacientesReniec = res;
+            console.log(res);
+            // this.imagePath = res.foto;
+            this.formDatos_Generales.get('nroDocAcompaniante').setValue(this.dataPacientesReniec.nroDocumento);
+            this.formDatos_Generales.get('apellidosAcompaniante').setValue(this.dataPacientesReniec.apePaterno + '' + this.dataPacientesReniec.apeMaterno);
+            this.formDatos_Generales.get('nombresAcompaniante').setValue(this.dataPacientesReniec.nombres);
+        });
     }
 }

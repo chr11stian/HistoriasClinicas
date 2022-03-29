@@ -7,7 +7,7 @@ export interface DosajeHemoglobina{
     valorHb: number,
     factorCorreccion:string
     estadoControlado: boolean,
-    estadoAnemia:string,
+    tieneAnemia:string,
     nivelAnemia:string
     fecha:Date,
     fechaTentativa: Date

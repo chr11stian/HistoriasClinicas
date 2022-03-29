@@ -44,45 +44,6 @@
             <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-success"></button>
         </ng-template>
     </p-toolbar>
-    <form [formGroup]="formCitas">
-        <div class="grid">
-            <!--            <div class="col-12 md:col-6 lg:col-6">-->
-            <!--                <div class="grid">-->
-            <!--                    <div class="col-12 md:col-6 lg:col-2 p-fluid">-->
-            <!--                        <span class="">TIPO DOC</span>-->
-            <!--                        <p-dropdown [options]="listaDocumentosIdentidad"-->
-            <!--                                    formControlName="tipoDoc"-->
-            <!--                                    placeholder="Tipo Documento"-->
-            <!--                                    optionLabel="abreviatura"-->
-            <!--                                    optionValue="abreviatura"-->
-            <!--                                    [showClear]="false">-->
-            <!--                        </p-dropdown>-->
-            <!--                    </div>-->
-            <!--                    <div class="col-12 md:col-6 lg:col-4 p-field">-->
-            <!--                        <span class="">DOCUMENTO DEL PACIENTE</span>-->
-            <!--                        <div class="p-inputgroup">-->
-            <!--                            <input type="text" pInputText formControlName="nroDoc"/>-->
-            <!--                            <p-button icon="pi pi-search" (click)="buscarCupoXdniFecha()"></p-button>-->
-            <!--                        </div>-->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--            </div>-->
-            <!--            <div class="col-12 md:col-6 lg:col-6 p-field">-->
-            <!--                <div class="grid">-->
-            <!--                    <div class="col-12 md:col-6 lg:col-4 p-field">-->
-            <!--                        <span class="">FILTRAR POR FECHA</span>-->
-            <!--                        <div class="p-inputgroup">-->
-            <!--                            <p-calendar dateFormat="yy-mm-dd"-->
-            <!--                                        formControlName="fechaBusqueda"-->
-            <!--                                        [readonlyInput]="true"-->
-            <!--                                        (onSelect)="getCuposXservicio()">-->
-            <!--                            </p-calendar>-->
-            <!--                        </div>-->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--            </div>-->
-        </div>
-    </form>
 </div>
 
 <div>
@@ -112,7 +73,7 @@
     <p-accordion>
         <p-accordionTab header="LISTA DE PACIENTES CON CUPOS PARA EL DIA DE HOY" [selected]="true">
             <p-table [value]="DataCupos" #dt [globalFilterFields]="['fecha']" styleClass="p-datatable-gridlines "
-                     [rows]="10" [loading]="loading"
+                     [rows]="10" [loading]="loading" responsiveLayout="scroll" class="CitasList"
                      [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
                      currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
 
@@ -155,6 +116,9 @@
                 </ng-template>
             </p-table>
         </p-accordionTab>
+
+
+
         <p-accordionTab header="LISTA DE GESTANTES CON CITAS NO ATENDIDAS">
             <p-table [value]="citas" #dt styleClass="p-datatable-gridlines" [rows]="5"
                      [rowsPerPageOptions]="[5, 10, 50]"
