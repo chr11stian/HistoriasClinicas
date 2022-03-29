@@ -4,6 +4,7 @@ import {TopMenuComponent} from "./core/top-menu/top-menu.component";
 import {LoginComponent} from './login/login.component';
 import {NotFoundComponent} from './not-found/not-found.component';
 import {AuthGuard} from './core/guards/authGuard';
+import {LoginRolComponent} from "./login/login-rol/login-rol.component";
 
 const routes: Routes = [
     {
