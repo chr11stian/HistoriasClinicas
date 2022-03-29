@@ -673,7 +673,7 @@
                         <td>{{ i +1 }}</td>
                         <td>{{ rowData.diagnosticoSIS }}</td>
                         <td>
-                            <p-selectButton [options]="listDiagnosticoDXIngreso" [(ngModel)]="tipeDXIn"
+                            <p-selectButton [options]="listDiagnosticoDXIngreso" [(ngModel)]="rowData.tipo"
                                 optionLabel="label" (ngModelChange)="changeNgModel(rowData, i)" optionValue="value">
                             </p-selectButton>
                         </td>

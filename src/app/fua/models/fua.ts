@@ -56,7 +56,7 @@ export interface Asegurado {
 }
 export interface KeyData {
   idConsulta: string,
-  id: string,
+  idFUA: string,
   codPrestacion: string
 }
 /**SEGUNDA PARTE FUA*/
@@ -176,4 +176,31 @@ export interface SegundaParteFUA {
 export interface Vacunas {
   dosis: number,
   nombre: string
+}
+//terapeutica insumos, procedimientos
+export interface Tratamiento {
+  medicamento: {
+    id: string,
+    codigo: string,
+    nombre: string,
+    nombreComercial: string,
+    ff: string,
+    concentracion: string,
+    viaAdministracion: string
+  },
+  cantidad: number,
+  cantEntregado?: number,
+  dx: string,
+  dosis: string,
+  intervalo: string,
+  duracion: string,
+  fechaVenc: string,
+  observaciones: string,
+  indicaciones: {
+    efectosMedicamento: string,
+    instrucciones: string,
+    advertencias: string,
+    otrasIndicaciones: string
+  },
+  cie10SIS: string
 }
