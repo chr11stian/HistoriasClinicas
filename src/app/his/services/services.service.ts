@@ -5,7 +5,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 @Injectable({
   providedIn: 'root'
 })
-export class ServicesService {
+export class HISService {
   urlServer = environment.baseUrl
   bd = environment.bd
 
@@ -27,7 +27,7 @@ export class ServicesService {
   updateHis(idHis:string,data:any){
     return this.http.post(`${this.urlServer}/${this.bd}/his/actualizar/${idHis}/`, data)
   }
-  getListHisForUpsAux(upsAux:string,data){
+  getListHisForUpsAux(upsAux:string){
     const params =new HttpParams({
       fromObject:{
         upsAux:upsAux

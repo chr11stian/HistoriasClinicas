@@ -7,6 +7,7 @@ import {DiagnosticoConsultaService} from "../../services/diagnostico-consulta.se
 import { PrestacionService } from 'src/app/mantenimientos/services/prestacion/prestacion.service';
 import {dato} from "../../../../models/data";
 import { MessageService} from "primeng/api";
+import {UpsAuxIpressService} from "../../../../../../mantenimientos/services/ups-aux-ipress/ups-aux-ipress.service";
 
 @Component({
     selector: 'app-diagnostico-consulta',
@@ -52,6 +53,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
                 private PrestacionService: PrestacionService,
                 private cieService: CieService,
                 private formBuilder: FormBuilder,
+                private UpsAuxService:UpsAuxIpressService,
                 private messageService: MessageService) {
         this.buildForm();
         this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
@@ -64,6 +66,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
 
     ngOnInit(): void {
         this.recuperarUpsHis();
+        this.recuperarUpsAuxHis();
         // this.recuperarResumenDxBDInmunizaciones();
         // this.recuperarResumenDxBDSuplementaciones();
         this.recuperarResumenDxBDTamizajes();
@@ -102,12 +105,13 @@ export class DiagnosticoConsultaComponent implements OnInit {
         }
         this.DiagnosticoService.listaUpsHis(data).then((res: any) => this.listaUpsHis = res.object);
     }
-
+   /** Servicios para recuperar lista de ups Aux por ipress***/
     recuperarUpsAuxHis() {
-        let data = {
-            codUPS: this.formDiagnostico.value.nombreUPS.codUPS
-        }
-        this.DiagnosticoService.listaUpsAuxHis(data).then((res: any) => this.listaUpsAuxHis = res.object.subTituloUPS);
+       this.UpsAuxService.getUpsAuxPorIpress(this.idIpress).subscribe((r: any) => {
+           if(r.object!=null){
+               this.listaUpsAuxHis=r.object.filter(element => element.estado == true);
+           }
+       })
     }
 
     /** Servicios para recuperar Resumen DX ***/
@@ -343,6 +347,8 @@ export class DiagnosticoConsultaComponent implements OnInit {
         this.isUpdate = false;
         this.checked=false;
         this.formDiagnostico.reset();
+        this.formDiagnostico.patchValue({ nombreUPS: "ENFERMERIA"});
+        // this.formDiagnostico.get('nombreUPS').disable();
         this.formDiagnostico.get('prestacion').enable();
         this.formDiagnostico.get('buscarDxSIS').enable();
         this.formDiagnostico.get('buscarDxHIS').enable();
@@ -351,7 +357,6 @@ export class DiagnosticoConsultaComponent implements OnInit {
         this.listaDeCIESIS=[];
         this.diagnosticoDialog = true;
     }
-
 
     cancelDiagnostico() {
         this.diagnosticoDialog = false;
@@ -490,9 +495,9 @@ export class DiagnosticoConsultaComponent implements OnInit {
             cie10SIS:this.formDiagnostico.getRawValue().cie10SIS.cie10,
             tipo:this.formDiagnostico.value.tipoDiagnostico,
             codPrestacion:this.formDiagnostico.getRawValue().prestacion.codigo,
-            nombreUPS:this.formDiagnostico.value.nombreUPS.nombreUPS,
+            nombreUPS:this.formDiagnostico.getRawValue().nombreUPS.nombreUPS,
             factorCondicional: this.formDiagnostico.value.factorCondicional,
-            nombreUPSaux:this.formDiagnostico.value.nombreUPSaux.nombreSubTipo,
+            nombreUPSaux:this.formDiagnostico.getRawValue().nombreUPSaux.nombre,
             lab:this.formDiagnostico.value.lab,
             patologiaMaterna:null
         }
@@ -543,9 +548,9 @@ export class DiagnosticoConsultaComponent implements OnInit {
             cie10SIS: this.formDiagnostico.getRawValue().cie10SIS.cie10,
             tipo: this.formDiagnostico.value.tipoDiagnostico,
             codPrestacion: this.formDiagnostico.getRawValue().prestacion.codigo,
-            nombreUPS: this.formDiagnostico.value.nombreUPS.nombreUPS,
+            nombreUPS: this.formDiagnostico.getRawValue().nombreUPS.nombreUPS,
             factorCondicional: this.formDiagnostico.value.factorCondicional,
-            nombreUPSaux: this.formDiagnostico.value.nombreUPSaux.nombreSubTipo,
+            nombreUPSaux: this.formDiagnostico.value.nombreUPSaux.nombre,
             lab: this.formDiagnostico.value.lab,
             patologiaMaterna: null
         }
@@ -561,8 +566,8 @@ export class DiagnosticoConsultaComponent implements OnInit {
         console.log(this.listaUpsAuxHis);
         this.formDiagnostico.get('prestacion').setValue(this.ListaPrestacion.find(element => element.codigo == rowData.codPrestacion));
         this.formDiagnostico.get('tipoDiagnostico').setValue(rowData.tipo);
-        this.formDiagnostico.get('nombreUPS').setValue(this.listaUpsHis.find(element=>element.nombreUPS == rowData.nombreUPS));
-        this.formDiagnostico.get('nombreUPSaux').setValue(this.listaUpsAuxHis.find(element=>element.nombreSubTipo == rowData.nombreUPSaux));
+        this.formDiagnostico.get('nombreUPS').setValue("ENFERMERIA");
+        this.formDiagnostico.get('nombreUPSaux').setValue(this.listaUpsAuxHis.find(element=>element.nombre == rowData.nombre));
         this.formDiagnostico.get('diagnosticoSIS').setValue(rowData.diagnosticoSIS);
         this.formDiagnostico.get('diagnosticoHIS').setValue(rowData.diagnosticoHIS);
         this.formDiagnostico.get('lab').setValue(rowData.lab);
@@ -635,14 +640,14 @@ export class DiagnosticoConsultaComponent implements OnInit {
         console.log(this.selectedProducts);
         this.diagnosticoDialog = true;
         this.formDiagnostico.reset();
-        this.formDiagnostico.get('nombreUPS').setValue("ATENCION INTEGRAL DEL NINO");
+        this.formDiagnostico.get('nombreUPS').setValue("ENFERMERIA");
+        this.formDiagnostico.patchValue({ nombreUPS: "ENFERMERIA" });
         this.formDiagnostico.get('cie10HIS').setValue("");
         this.formDiagnostico.get('cie10SIS').setValue("");
         this.diagnosticoDialog = true;
         this.selectedProducts.forEach(element=>console.log(element));
 
     }
-
 
     selectedOption(event: any) {
         this.formDiagnostico.patchValue({ diagnosticoSIS: event.value.diagnostico });

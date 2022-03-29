@@ -1,5 +1,6 @@
-<div>
 
+
+<div class="card">
     <p-toolbar styleClass="p-mb-4">
         <ng-template pTemplate="left">
             <span class="p-m-0">
@@ -17,18 +18,18 @@
         <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
             <tr>
                 <th style="text-align: center">Nro</th>
-                <th style="text-align: center">Cod Prestación</th>
+                <th style="text-align: center">Ups Aux</th>
                 <th style="text-align: center">ACCIONES</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-i="rowIndex">
             <tr>
                 <td style="text-align: center">{{ i }}</td>
-                <td style="text-align: center">{{ rowData.codPrestacion }}</td>
+                <td style="text-align: center">{{ rowData.nombreUPSaux }}</td>
                 <td style="text-align: center">
                     <span class="p-buttonset">
-                        <button pButton pRipple class="p-button-success" routerLink="obstetricia" label="IR FUA"
-                                icon="pi pi-caret-right" (click)="openFUA(rowData)"></button>
+                        <button pButton pRipple class="p-button-success"  label="Generar HIS"
+                                icon="pi pi-caret-right" (click)="generarHis(rowData)"></button>
                     </span>
                 </td>
             </tr>

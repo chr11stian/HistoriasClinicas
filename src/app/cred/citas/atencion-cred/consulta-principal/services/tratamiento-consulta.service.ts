@@ -13,6 +13,8 @@ export class TratamientoConsultaService {
   bd = environment.bd
   base_url = `${this.urlServer}/${this.bd}/cred/consulta/`
   headers = new Headers();
+  evento: boolean = false;
+
   constructor(private http: HttpClient) {
       // this.headers.append("Authorization":"B")
   }
