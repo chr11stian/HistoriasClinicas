@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import {
   HttpErrorResponse,
   HttpEvent,
-  HttpHandler,
+  HttpHandler, HttpHeaders,
   HttpInterceptor,
   HttpRequest,
 } from "@angular/common/http";
@@ -37,6 +37,9 @@ export class InterceptorService implements HttpInterceptor {
     // urlReq = urlReq[0];
     const idToken = JSON.parse(localStorage.getItem("token"));
     if (idToken) {
+      let username:'reporte';
+      let password:'reporte@2022';
+      const headers=new HttpHeaders();
       // console.log('entro token', idToken)
       let jwtAuth: string = "Bearer " + idToken.token;
       let basicAuth: string = "Basic " + btoa('reporte' + ":" + 'reporte@2022');

@@ -77,4 +77,10 @@ export class DiagnosticoConsultaService {
             .then(res => <any[]>res)
             .then(data => { return data;});
     }
+    listaUpsAuxHisPorIpress(idIpress:string){
+        return this.http.get(`${this.urlServer}/${this.bd}/ipress/listarups_his${idIpress}`)
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data;});
+    }
 }

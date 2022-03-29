@@ -607,6 +607,7 @@ export class TestPeruanoComponent implements OnInit {
     return index.descripcion;
   }
 
+
   addTestPeruano() {
     this.estadoVisualizar = false;
     for (let i = 0; i < this.codigosArr.length; i++) {
@@ -614,15 +615,17 @@ export class TestPeruanoComponent implements OnInit {
         this.codigosArr.splice(i, 1);
       }
     }
-    for (let i = 0; i < this.codigosArr.length; i++) {
-      if (this.codigosArr[i] != this.codigosArr[i + 1]) {
-
+    let aux = this.codigosArr.filter((item,index)=>{
+      return this.codigosArr.indexOf(item) === index;
+    })
+    for (let i = 0; i < aux.length; i++) {
+      if (aux[i] != aux[i + 1]) {
         this.calificacion.push({
-          codigo: this.codigosArr[i],
-          descripcion: this.encontrarPregunta(this.codigosArr[i]),
-          actividad: this.encontrarPregunta(this.codigosArr[i]),
-          x: this.convetirX(this.codigosArr[i]),
-          y: this.convertirY(this.codigosArr[i])
+          codigo: aux[i],
+          descripcion: this.encontrarPregunta(aux[i]),
+          actividad: this.encontrarPregunta(aux[i]),
+          x: this.convetirX(aux[i]),
+          y: this.convertirY(aux[i])
         })
       }
     }
@@ -631,7 +634,10 @@ export class TestPeruanoComponent implements OnInit {
   {
     var calificacion2 = this.preguntas.map(element=>(element.codigo+"_"+this.edadMeses).toString())
     console.log(calificacion2)
-    if(calificacion == calificacion2){
+    var calificacionRealizada=calificacion.map(element=>element.codigo)
+    console.log(calificacionRealizada.sort())
+    var aux = calificacionRealizada.sort();
+    if(JSON.stringify(aux)===JSON.stringify(calificacion2)){
       return 'NORMAL'
     }
     else{

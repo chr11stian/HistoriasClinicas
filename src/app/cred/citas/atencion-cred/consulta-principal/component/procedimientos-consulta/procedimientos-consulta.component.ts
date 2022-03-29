@@ -6,6 +6,7 @@ import { PrestacionService } from 'src/app/mantenimientos/services/prestacion/pr
 import {CieService} from "../../../../../../obstetricia-general/services/cie.service";
 import Swal from "sweetalert2";
 import {MessageService} from "primeng/api";
+import {UpsAuxIpressService} from "../../../../../../mantenimientos/services/ups-aux-ipress/ups-aux-ipress.service";
 
 @Component({
   selector: 'app-procedimientos-consulta',
@@ -19,6 +20,8 @@ export class ProcedimientosConsultaComponent implements OnInit {
   attributeLocalS = 'documento';
   dataConsulta:dato;
   id: string = "";
+  itemEdit:number=-1;
+  isUpdate:boolean=false;
 
   loading: boolean = true;
   idIpress:string="";
@@ -29,7 +32,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
 
   contador:number = 0;
   hayDatos:boolean=false;
-  checked:boolean;
+  checked: boolean=false;
 
   ListaPrestacion:any[]=[];
   listaDeCIEHIS: any[]=[];
@@ -44,6 +47,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
               private DiagnosticoService: DiagnosticoConsultaService,
               private formBuilder: FormBuilder,
               private cieService: CieService,
+              private UpsAuxService:UpsAuxIpressService,
               private messageService: MessageService) {
     this.buildForm();
     this.dataConsulta = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
@@ -62,7 +66,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
 
   ngOnInit(): void {
     this.recuperarUpsHis();
-    // this.recuperarUpsAuxHis();
+    this.recuperarUpsAuxHis();
     this.recuperarPrestaciones();
     this.recuperarDxBD();
     this.listarDiagnosticos();
@@ -71,23 +75,24 @@ export class ProcedimientosConsultaComponent implements OnInit {
 
   buildForm() {
     this.formProcedimiento = this.formBuilder.group({
-        buscarPDxSIS:  new FormControl({value:'',disabled:false}),
-        buscarPDxHIS:  new FormControl({value:'',disabled:false}),
-        diagnostico: new FormControl({value:'',disabled:false}),
-        prestacion: new FormControl({value:'',disabled:false}),
-        procedimientoSIS:  new FormControl({value:'',disabled:false}),
-        procedimientoHIS: new FormControl({value:'',disabled:false}),
-        codProcedimientoSIS: new FormControl({value:'',disabled:false}),
-        codProcedimientoHIS: new FormControl({value:'',disabled:false}),
-        codPrestacion: ['', [Validators.required]],
-        nombreUPS: ['', [Validators.required]],
-        nombreUPSaux:['', [Validators.required]],
-        lab:  new FormControl({value:'',disabled:false}),
-        tipoDiagnostico:  new FormControl({value:'',disabled:false}),
-        cie10SIS: new FormControl({value:'',disabled:false}),
+      nro:new FormControl(''),
+      buscarPDxSIS:  new FormControl({value:'',disabled:false}),
+      buscarPDxHIS:  new FormControl({value:'',disabled:false}),
+      diagnostico: new FormControl({value:'',disabled:false}),
+      prestacion: new FormControl({value:'',disabled:false}),
+      procedimientoSIS:  new FormControl({value:'',disabled:false}),
+      procedimientoHIS: new FormControl({value:'',disabled:false}),
+      codProcedimientoSIS: new FormControl({value:'',disabled:false}),
+      codProcedimientoHIS: new FormControl({value:'',disabled:false}),
+      codPrestacion: ['', [Validators.required]],
+      nombreUPS: ['ENFERMERIA', [Validators.required]],
+      nombreUPSaux:['', [Validators.required]],
+      lab:  new FormControl({value:'',disabled:false}),
+      tipoDiagnostico:  new FormControl({value:'',disabled:false}),
+      cie10SIS: new FormControl({value:'',disabled:false}),
     });
-
   }
+  /** Servicios para recuperar lista de ups Aux por ipress***/
   recuperarUpsHis() {
     let data = {
       idIpress: this.idIpress,
@@ -96,11 +101,13 @@ export class ProcedimientosConsultaComponent implements OnInit {
     }
     this.DiagnosticoService.listaUpsHis(data).then((res: any) => this.listaUpsHis = res.object);
   }
+  /** Servicios para recuperar lista de ups Aux por ipress***/
   recuperarUpsAuxHis() {
-    let data = {
-      codUPS: this.formProcedimiento.value.nombreUPS.codUPS
-    }
-    this.DiagnosticoService.listaUpsAuxHis(data).then((res: any) => this.listaUpsAuxHis = res.object.subTituloUPS);
+    this.UpsAuxService.getUpsAuxPorIpress(this.idIpress).subscribe((r: any) => {
+      if(r.object!=null){
+        this.listaUpsAuxHis=r.object.filter(element => element.estado == true);
+      }
+    })
   }
 
   recuperarDxBD(){
@@ -149,6 +156,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
       }
     })
   }
+
   /** Servicios para recuperar Resumen DX ***/
   recuperarResumenDxBDSuplementaciones(){
     this.DiagnosticoService.getSuplementacionResumen(this.dataConsulta.idConsulta).subscribe((r: any) => {
@@ -163,7 +171,6 @@ export class ProcedimientosConsultaComponent implements OnInit {
           }
           this.tablaResumenDx.push(aux);
         }
-
       }
     })
   }
@@ -338,7 +345,14 @@ export class ProcedimientosConsultaComponent implements OnInit {
   openProcedimiento() {
       this.formProcedimiento.reset();
       this.checked = false;
-      // this.formProcedimiento.get('nombreUPS').setValue("ATENCION INTEGRAL DE NINO");
+      this.isUpdate=false;
+      // this.formProcedimiento.get('nombreUPS').disable();
+      this.formProcedimiento.get('prestacion').enable();
+      this.formProcedimiento.get('buscarPDxSIS').enable();
+      this.formProcedimiento.get('buscarPDxHIS').enable();
+      this.listaDeCIESIS=[];
+      this.formProcedimiento.get('nombreUPS').setValue("ENFERMERIA");
+      this.formProcedimiento.get('codProcedimientoSIS').enable();
       this.procedimientoDialog = true;
   }
 
@@ -369,17 +383,16 @@ export class ProcedimientosConsultaComponent implements OnInit {
   }
 
   getDatatoSavePx() {
-
         console.log(this.formProcedimiento.value.codProcedimientoHIS)
         let aux = {
             procedimientoSIS:this.formProcedimiento.value.procedimientoSIS,
             procedimientoHIS:this.formProcedimiento.value.procedimientoHIS,
-            codProcedimientoSIS:this.formProcedimiento.value.codProcedimientoSIS,
+            codProcedimientoSIS:this.formProcedimiento.value.codProcedimientoSIS.codigo,
             codProcedimientoHIS:this.formProcedimiento.value.codProcedimientoHIS.codigoItem,
-            codPrestacion:this.formProcedimiento.value.prestacion.codigo,
+            codPrestacion:this.formProcedimiento.getRawValue().prestacion.codigo,
             cie10SIS:this.formProcedimiento.value.diagnostico.cie10SIS,
-            nombreUPS:this.formProcedimiento.value.nombreUPS.nombreUPS,
-            nombreUPSaux:this.formProcedimiento.value.nombreUPSaux.nombreSubTipo,
+            nombreUPS:this.formProcedimiento.getRawValue().nombreUPS.nombreUPS,
+            nombreUPSaux:this.formProcedimiento.getRawValue().nombreUPSaux.nombre,
             lab:this.formProcedimiento.value.lab,
             tipo:this.formProcedimiento.value.tipoDiagnostico,
 
@@ -418,6 +431,60 @@ export class ProcedimientosConsultaComponent implements OnInit {
           this.messageService.add({severity:'error', summary: 'Cuidado!', detail:'Ya ingreso este procedimiento, vuelva a intentar.'});
         }
 
+  }
+
+  getDatatoEditPx() {
+    this.isUpdate = false;
+    console.log(this.formProcedimiento.value.nombreUPS)
+    console.log(this.formProcedimiento.value.cie10SIS)
+    console.log(this.itemEdit);
+    this.procedimientos.splice(this.itemEdit, 1)
+    let aux = {
+        procedimientoSIS:this.formProcedimiento.value.procedimientoSIS,
+        procedimientoHIS:this.formProcedimiento.value.procedimientoHIS,
+        codProcedimientoSIS:this.formProcedimiento.value.codProcedimientoSIS,
+        codProcedimientoHIS:this.formProcedimiento.value.codProcedimientoHIS.codigoItem,
+        codPrestacion:this.formProcedimiento.getRawValue().prestacion.codigo,
+        cie10SIS:this.formProcedimiento.value.diagnostico.cie10SIS,
+        nombreUPS:this.formProcedimiento.getRawValue().nombreUPS.nombreUPS,
+        nombreUPSaux:this.formProcedimiento.value.nombreUPSaux.nombre,
+        lab:this.formProcedimiento.value.lab,
+        tipo:this.formProcedimiento.value.tipoDiagnostico,
+    }
+    this.procedimientos.push(aux);
+    this.procedimientoDialog=false;
+  }
+  editarDx(rowData,rowindex) {
+    this.isUpdate = true;
+    this.checked=false;
+    this.itemEdit=rowindex;
+    this.formProcedimiento.reset();
+    console.log(rowData);
+    console.log(this.listaUpsAuxHis);
+    this.formProcedimiento.get('prestacion').setValue(this.ListaPrestacion.find(element => element.codigo == rowData.codPrestacion));
+    this.formProcedimiento.get('tipoDiagnostico').setValue(rowData.tipo);
+    this.formProcedimiento.get('nombreUPS').setValue("ENFERMERIA");
+    this.formProcedimiento.get('nombreUPSaux').setValue(this.listaUpsAuxHis.find(element=>element.nombreSubTipo == rowData.nombreUPSaux));
+    this.formProcedimiento.get('procedimientoSIS').setValue(rowData.procedimientoSIS);
+    this.formProcedimiento.get('procedimientoHIS').setValue(rowData.procedimientoHIS);
+    this.formProcedimiento.get('lab').setValue(rowData.lab);
+    this.PrestacionService.getDiagnosticoPorCodigo(rowData.codPrestacion).subscribe((res: any) => {
+      this.listaDeCIESIS = res.object.procedimientos;
+      console.log(this.listaDeCIESIS)
+      this.formProcedimiento.patchValue({ codProcedimientoSIS: this.listaDeCIESIS.find(elemento => elemento.codigo == rowData.codProcedimientoSIS) });
+    })
+    this.cieService.getCIEByDescripcion(rowData.codProcedimientoHIS).subscribe((res: any) => {
+      this.listaDeCIEHIS = res.object;
+      this.formProcedimiento.patchValue({ codProcedimientoHIS: this.listaDeCIEHIS.find(elemento => elemento.codigoItem == rowData.cie10HIS) });
+    })
+    // this.formProcedimiento.get('cie10HIS').setValue(this.listaDiagnosticos.find(element=>element.diagnosticoHIS==rowData.cie10SIS));
+
+    this.formProcedimiento.get('nro').setValue(rowData.nro);
+    this.formProcedimiento.get('prestacion').disable();
+    this.formProcedimiento.get('buscarPDxSIS').disable();
+    this.formProcedimiento.get('codProcedimientoSIS').disable();
+    this.procedimientoDialog = true;
+    console.log("modificando", rowData);
   }
 
   onChangeDiagnostico() {
@@ -477,10 +544,10 @@ export class ProcedimientosConsultaComponent implements OnInit {
     })
   }
 
-  selectDxSIS() {
+  selectDxSIS(event) {
     console.log(this.formProcedimiento.value.buscarPDxSIS);
-    this.formProcedimiento.patchValue({ procedimientoSIS: this.formProcedimiento.value.buscarPDxSIS.procedimiento})
-    this.formProcedimiento.patchValue({ codProcedimientoSIS: this.formProcedimiento.value.buscarPDxSIS.codigo});
+    this.formProcedimiento.patchValue({ procedimientoSIS: event.value.procedimiento})
+    this.formProcedimiento.patchValue({ codProcedimientoSIS: event.value},{emitEvent:false});
     this.formProcedimiento.patchValue({ buscarPDxSIS: ""})
   }
 
@@ -575,6 +642,11 @@ export class ProcedimientosConsultaComponent implements OnInit {
         })
       }
     })
+  }
+
+  selectedOption(event: any) {
+    this.formProcedimiento.patchValue({ procedimientoSIS: event.value.procedimiento });
+
   }
 }
 interface resultados{
