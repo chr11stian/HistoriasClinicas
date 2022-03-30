@@ -55,7 +55,7 @@ export class TopMenuComponent implements OnInit {
 
     ngOnInit(): void {
         let user = JSON.parse(localStorage.getItem('usuario'));
-        this.NombreUsuario = user.email + " " + user.estado;
+        this.NombreUsuario = user.nombres
         this.items = [
             {
                 label: 'Mi Perfil',
