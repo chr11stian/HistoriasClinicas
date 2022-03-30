@@ -7,7 +7,6 @@ import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
 import { DatePipe } from "@angular/common";
 import { dato } from 'src/app/cred/citas/models/data';
 import { ConsultasService } from '../../../services/consultas.service';
-//import {FinalizarConsultaService} from '../../../services/finalizar-consulta.service';
 
 interface event {
     title: string,
@@ -32,35 +31,30 @@ export class CronogramaComponent implements OnInit {
     calendarVisible = true;
     event: event[] = []
     proxCita: string = ''
-    calendarOptions: CalendarOptions = {
-        initialEvents: this.planService.list,
-        headerToolbar: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'listYear,dayGridMonth,timeGridWeek,timeGridDay'
-        },
-        locale: esLocale,
-        initialView: 'dayGridMonth',// alternatively, use the `events` setting to fetch from a feed
-        weekends: true,
-        editable: true,
-        selectable: true,
-        selectMirror: true,
-        dayMaxEvents: true,
-        select: this.handleDateSelect.bind(this),
-        eventsSet: this.handleEvents.bind(this)
-        /* you can update a remote database when these fire:
-        eventAdd:
-        eventChange:
-        eventRemove:
-        */
-    }
-
+    calendarOptions: CalendarOptions
     currentEvents: EventApi[] = [];
 
     constructor(private formBuilder: FormBuilder,
         private dialog: DialogService,
         private planService: ConsultasService) {
-        console.log("calendar", this.planService.list)
+        this.calendarOptions = {
+            initialEvents: this.planService.list,
+            headerToolbar: {
+                left: 'prev,next',
+                center: 'title',
+                right: 'listYear,dayGridMonth,timeGridWeek,timeGridDay'
+            },
+            locale: esLocale,
+            initialView: 'dayGridMonth',// alternatively, use the `events` setting to fetch from a feed
+            weekends: true,
+            editable: true,
+            selectable: true,
+            selectMirror: true,
+            dayMaxEvents: true,
+            select: this.handleDateSelect.bind(this),
+            eventsSet: this.handleEvents.bind(this)
+        }
+        console.log("calendar", this.calendarOptions)
     }
 
     ngOnInit(): void {
