@@ -21,6 +21,16 @@
                     <div class="col-12 md:col-6 lg:col-4 p-field">
                         <div class="grid">
                             <div class="p-inputgroup">
+                                <div class="col-12" style="text-align: left">
+                                    <label class="">Nombre del Establecimiento de Salud </label>
+                                    <input type="text" pInputText class="inputfield w-full"
+                                           formControlName="establecimiento">
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="p-inputgroup">
                                 <!--año-->
                                 <div class="col-6" style="text-align: left">
                                     <label class="">Año </label>
@@ -34,16 +44,6 @@
                                     <p-inputNumber class="inputfield w-full"
                                                    formControlName="mes">
                                     </p-inputNumber>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="grid">
-                            <div class="p-inputgroup">
-                                <div class="col-12" style="text-align: left">
-                                    <label class="">Nombre del Establecimiento de Salud </label>
-                                    <input type="text" pInputText class="inputfield w-full"
-                                           formControlName="establecimiento">
                                 </div>
 
                             </div>
@@ -611,8 +611,11 @@
         <br>
         <div class="grid">
             <div class="col-12 md:col-6 lg:col-12 p-field" style="text-align:right;">
-                <button pButton pRipple label="Guardar" iconPos="right" icon="pi pi-angle-right"
+                <button *ngIf="!isUpdate" pButton pRipple label="Guardar" iconPos="right" icon="pi pi-save"
                         (click)="saveHis()" class="guardar mr-2"
+                        style="background-color: #0c3866"></button>
+                <button *ngIf="isUpdate" pButton pRipple label="Editar" iconPos="right" icon="pi pi-pencil"
+                        (click)="updateHis()" class="guardar mr-2"
                         style="background-color: #0c3866"></button>
             </div>
         </div>

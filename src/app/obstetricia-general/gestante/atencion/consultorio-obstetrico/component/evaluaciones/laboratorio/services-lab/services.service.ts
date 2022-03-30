@@ -19,4 +19,8 @@ export class ServicesService {
     getLab() {
         return this.http.get(`${this.base_url}/${this.bd}/tools/laboratorios`)
     }
+
+    addInmunologia(idLab, idIpres, data) {
+        return this.http.post(`${this.base_url}/${this.bd}/examenesAuxiliares/inmunologia/${idLab}/${idIpres}`, data)
+    }
 }
