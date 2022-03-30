@@ -104,7 +104,7 @@ export class TopMenuComponent implements OnInit {
             summary: "Confirmado",
             detail: "Sesion cerrada con exito"
         });
-        window.location.reload();
+        //window.location.reload();
 
     }
 }
