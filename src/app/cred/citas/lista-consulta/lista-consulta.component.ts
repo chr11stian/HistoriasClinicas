@@ -136,5 +136,48 @@ export class ListaConsultaComponent implements OnInit {
             })
         }
     }
+
+    irHIS(rowData) {
+        let message1 = "Esta Seguro de Generar HIS?, se dara como finalizado la consulta"
+        let message2 = "Esta Seguro de Generar HIS?, Debe revisar el tipo de Seguro"
+        if (rowData.estadoAtencion == 0) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Consulta en Interconsulta, no es posible hacer HIS',
+                showConfirmButton: false,
+                timer: 2000
+            });
+        }
+        if (rowData.estadoAtencion == 2) {
+            this.router.navigate(['dashboard/his/listar-his'], rowData)
+        }
+        if (rowData.estadoAtencion == 1) {
+            Swal.fire({
+                title: rowData.tipoConsulta != 'CRED' ? message1 : message2,
+                showDenyButton: true,
+                confirmButtonText: 'Crear HIS',
+                denyButtonText: `Cancelar`,
+                confirmButtonColor: '#3085d6',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Se creo HIS correctamente',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                    this.router.navigate(['dashboard/his/listar-his'], rowData)
+                } else if (result.isDenied) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'No se creo HIS',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                }
+            })
+        }
+    }
+
 }
 

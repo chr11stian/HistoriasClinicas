@@ -15,7 +15,8 @@ interface event {
 @Component({
     selector: 'app-cronograma',
     templateUrl: './cronograma.component.html',
-    styleUrls: ['./cronograma.component.css']
+    styleUrls: ['./cronograma.component.css'],
+    providers: [DialogService]
 })
 export class CronogramaComponent implements OnInit {
 

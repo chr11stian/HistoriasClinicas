@@ -426,6 +426,11 @@ const menu_ipress = [
                 routerLink: "admision/ipress",
             },
             {
+                label: "Ups Auxiliar",
+                icon: "pi pi-pw pi-file",
+                routerLink: "mantenimientos/ups-aux",
+            },
+            {
                 label: "Ipress Turnos",
                 icon: "pi pi-pw pi-file",
                 routerLink: "admision/ipress-turnos",
@@ -470,7 +475,11 @@ const menu_ipress = [
                 label: "Ipress Farmacia",
                 routerLink: "admision/ipress-farmacia",
             },
-
+            {
+                icon: "pi pi-file",
+                label: "Ups Auxiliar",
+                routerLink: "mantenimientos/ups-aux",
+            },
 
         ],
     },
