@@ -12,8 +12,12 @@ import {dato} from "../../cred/citas/models/data";
 })
 export class ListarHisComponent implements OnInit {
   listDataHIS: any;
+  listaHisGenerados:any[];
   data:any;
-  attributeLocalS = 'hisDocument';
+  attributeLocalS = 'hisGenerateDocument';
+  attributeLocalS2 = 'hisDocument';
+  estadoG="NO GENERAR";
+  estadoC="NO CREADO";
   constructor(
       private location: Location,
       private router: Router,
@@ -22,6 +26,7 @@ export class ListarHisComponent implements OnInit {
     this.data = this.router.getCurrentNavigation().extras;
     console.log(this.data);
     this.getListUpsAux();
+    this.getListUpsAuxGenerado();
 
   }
 
@@ -49,9 +54,15 @@ export class ListarHisComponent implements OnInit {
       });
     })
   }
+  getListUpsAuxGenerado() {
+    this.hisService.getListaHisGenerados(this.data.id).subscribe((res: any) => {
+     this.listaHisGenerados = res.object;
+    })
+  }
 
   generarHis(rowData: any) {
     console.log(rowData);
+    this.estadoG='GENERAR';
     this.router.navigate(['dashboard/his/his'])
     let data: any =
         {
@@ -59,9 +70,25 @@ export class ListarHisComponent implements OnInit {
           nroHcl: rowData.nroHcl,
           tipoDoc:rowData.tipoDoc,
           nombreUPSaux:rowData.nombreUPSaux,
-          idConsulta: rowData.idConsulta
+          idConsulta: rowData.idConsulta,
+          idHis:rowData.id
         }
     localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
+  }
 
+  verHis(rowData: any) {
+    console.log(rowData);
+    this.estadoC='CREADO';
+    this.router.navigate(['dashboard/his/his'])
+    let data: any =
+        {
+          nroDoc: rowData.nroDoc,
+          nroHcl: rowData.nroHcl,
+          tipoDoc:rowData.tipoDoc,
+          nombreUPSaux:rowData.nombreUPSaux,
+          idConsulta: rowData.idConsulta,
+          idHis:rowData.id
+        }
+    localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
   }
 }

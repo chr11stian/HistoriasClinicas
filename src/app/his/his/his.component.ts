@@ -13,6 +13,7 @@ import {Location} from "@angular/common";
 export class HisComponent implements OnInit {
   formDatos:FormGroup;
   datos:any;
+  dataHis:any;
   data:any;
   options:  any[];
   turnos:any[];
@@ -20,14 +21,14 @@ export class HisComponent implements OnInit {
   actividad:any[];
   diagnosticos:any[];
   listaConIng:any[];
+  isUpdate:boolean=false;
 
   constructor(  private form: FormBuilder,
                 private router: Router,
                 private hisService:HISService,
                 private location: Location)
   {
-    this.datos = JSON.parse(localStorage.getItem("hisDocument"));
-    console.log('HIS DATA ', this.datos);
+
     this.options = [
       {name: 'A', value: 'AÑOS'},
       {name: 'D', value: 'DIAS'},
@@ -50,16 +51,43 @@ export class HisComponent implements OnInit {
     this.sexo = [
       {name: 'F', value: 'FEMENINO'},
       {name: 'M', value: 'MASCULINO'},
-
     ];
+    this.datos = JSON.parse(localStorage.getItem("hisDocument"));
+
   }
 
   ngOnInit(): void {
     this.buildForm();
-    this.getGenerateHisUpsAux();
+    if(this.datos.idHis!=null){
+      this.isUpdate=false;
+      this.getGenerateHisUpsAux();
+    }
+    else {
+      this.isUpdate=true;
+      this.recuperarHisUpsAuxPorId();
+    }
+
+
 
   }
+  recuperarHisUpsAuxPorId(){
+    this.hisService.getListaHisGeneradosPorId(this.dataHis.idHis).subscribe((res: any) => {
+      if(res.object!=null){
+        console.log(res.object);
+        this.data = res.object;
+        this.diagnosticos=res.object.diagnosticos;
+        this.showFromBDData();
+        Swal.fire({
+          icon: 'success',
+          title: 'DATOS HIS',
+          text: 'Recuperado con éxito',
+          showConfirmButton: false,
+          timer: 1500,
+        })
 
+      }
+    })
+  }
   getGenerateHisUpsAux(){
     this.hisService.generarHisPorUpsAux(this.datos.nombreUPSaux,this.datos.idConsulta).subscribe((res: any) => {
       if(res.object!=null){
@@ -192,6 +220,7 @@ export class HisComponent implements OnInit {
     this.formDatos.get('fechaNacimiento').setValue(date);
     this.formDatos.get('fechaUltimaRegla').setValue(this.data.fum);
   }
+
   getDataToSave(){
     this.data = {
       lote:this.formDatos.value.lote,
@@ -237,11 +266,13 @@ export class HisComponent implements OnInit {
       idConsulta:this.formDatos.value.idConsulta
     }
   }
+
   saveHis() {
     this.getDataToSave();
     this.hisService.saveHis(this.data).subscribe((res: any) => {
       console.log('cod', res.cod);
       if (res.object == null) {
+        this.isUpdate=true;
         Swal.fire({
           icon: 'success',
           title: 'Se agrego correctamente este HIS',
@@ -258,6 +289,7 @@ export class HisComponent implements OnInit {
       });
     })
   }
+
   updateHis(){
 
   }
