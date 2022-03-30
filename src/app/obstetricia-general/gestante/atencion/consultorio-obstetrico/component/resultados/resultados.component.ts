@@ -8,6 +8,7 @@ import { ModalInterconsultaComponent } from "./modal-interconsulta/modal-interco
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import Swal from "sweetalert2";
 import { DatePipe } from '@angular/common';
+import { CronogramaComponent } from './cronograma/cronograma.component';
 interface Employee {
     name: string;
     department: string;
@@ -185,22 +186,12 @@ export class ResultadosComponent implements OnInit {
             nombreResponsable: new FormControl('', [Validators.required]),
             docResponsable: new FormControl('', [Validators.required])
         })
-        this.examenFG = new FormGroup({
-            resultado: new FormControl('', [Validators.required]),
-            fechaExamen: new FormControl('', [Validators.required])
-        })
-        this.resultadoEcografiaFG = new FormGroup({
-            fechaEcografia1: new FormControl('', [Validators.required]),
-            resultado1: new FormControl('', [Validators.required]),
-            semana1: new FormControl('', [Validators.required, , Validators.min(1), Validators.max(40)]),
-            dia1: new FormControl('', [Validators.required, Validators.min(1), Validators.max(7)]),
-        })
     }
     ngOnInit(): void {
-        this.examenFG.get('fechaExamen').setValue(new Date());
         this.recuperarDatos();
         this.form.get("nombreResponsable").setValue(this.nombreResponsable);
         this.form.get("docResponsable").setValue(this.nroDocResponsable);
+        this.agenda();
     }
 
     openDialogInterconsultas() {
@@ -353,6 +344,32 @@ export class ResultadosComponent implements OnInit {
     }
     funcionAuxiliar(fecha) {
         return new Date(fecha).getTime();
+    }
+
+    agenda() {
+        this.consultaService.getCronogramaGestante(this.nroHcl).subscribe((r: any) => {
+            let aux = r.object
+            console.log(aux)
+            aux.map((r_: any) => {
+                this.consultaService.list.push({
+                    title: r_.descripcion+" - "+r_.tipo,
+                    start: r_.fecha+ " "+this.datePipe.transform(0, 'HH:mm:ss')
+                })
+            })
+            
+        })
+    }
+
+    openCalendar() {
+        this.ref = this.dialog.open(CronogramaComponent, {
+            header: "CALENDARIO DE ACTIIVIDADES",
+            height: '100%',
+            width: '90%',
+            style: {
+                position: 'absolute',
+                top: '17px',
+            },
+        })
     }
 
 }

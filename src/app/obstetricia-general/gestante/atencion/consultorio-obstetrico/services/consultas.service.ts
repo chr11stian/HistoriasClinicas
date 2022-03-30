@@ -1,13 +1,21 @@
 import { Injectable } from '@angular/core';
 import { environment } from "../../../../../../environments/environment";
 import { HttpClient } from "@angular/common/http";
+import { referencia } from 'src/app/cred/citas/models/data';
 
+interface event {
+    title: string,
+    start: string | Date
+}
 @Injectable({
     providedIn: 'root'
 })
 export class ConsultasService {
     base_url = environment.baseUrl;
     bd = environment.bd;
+    list: event[] = []
+    referencia: referencia
+    proxCita = ''
 
     constructor(private http: HttpClient) {
     }
