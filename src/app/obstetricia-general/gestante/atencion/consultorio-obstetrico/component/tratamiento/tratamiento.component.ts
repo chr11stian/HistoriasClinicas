@@ -12,7 +12,7 @@ import { MessageService } from "primeng/api";
 import { MedicamentosService } from 'src/app/mantenimientos/services/medicamentos/medicamentos.service';
 import { IpressFarmaciaService } from 'src/app/modulos/ipress-farmacia/services/ipress-farmacia.service';
 import { CieService } from 'src/app/obstetricia-general/services/cie.service';
-import {PrimeIcons} from 'primeng/api';
+import { PrimeIcons } from 'primeng/api';
 @Component({
   selector: 'app-tratamiento',
   templateUrl: './tratamiento.component.html',
@@ -166,12 +166,16 @@ export class TratamientoComponent implements OnInit {
       { name: "CALCIO", code: "1" },
     ];
     this.events1 = [
-      {status: '', date: 'INICIO GESTACIÓN'},
-      {status: 'ÁCIDO FÓLICO', date: 'Hasta 13 sem. de gestación',icon: PrimeIcons.SHOPPING_CART, color: '#9C27B0'},
-      {status: 'SULFATO FERROSO', date: 'A partir de las 14 sem. de gestación',icon: PrimeIcons.SHOPPING_CART, color: '#9C27B0'},
-      {status: 'CALCIO', date: 'A partir de las 18 sem. de gestación',icon: PrimeIcons.SHOPPING_CART, color: '#9C27B0'},
-      {status: '', date: 'PARTO'}
-  ];
+      { status: '', date: 'INICIO GESTACIÓN' },
+      { status: 'ÁCIDO FÓLICO', date: 'Hasta 13 sem. de gestación', icon: PrimeIcons.SHOPPING_CART, color: '#9C27B0' },
+      { status: 'SULFATO FERROSO', date: 'A partir de las 14 sem. de gestación', icon: PrimeIcons.SHOPPING_CART, color: '#9C27B0' },
+      { status: 'CALCIO', date: 'A partir de las 18 sem. de gestación', icon: PrimeIcons.SHOPPING_CART, color: '#9C27B0' },
+      { status: '', date: 'PARTO' }
+    ];
+    this.formRIEP.get('nombreUPS1').setValue("OBSTETRICIA");
+    this.formRIEP.get('nombreUPSAux1').setValue("MATERNO PERINATAL");
+    this.formRIEP.get('nombreUPS2').setValue("OBSTETRICIA");
+    this.formRIEP.get('nombreUPSAux2').setValue("MATERNO PERINATAL");
     this.recuperarDatos();
     this.traerDiagnosticosDeConsulta();
     this.listarMedicamentosFarmacia();
@@ -200,7 +204,6 @@ export class TratamientoComponent implements OnInit {
       acidoFolicoDuracion: new FormControl(""),
       acidoFolicoLab: new FormControl(""),
       acidoFolicoIndicacion: new FormControl(""),
-
 
       calcioNombre: new FormControl(""),
       calcioDescripcion: new FormControl(""),
@@ -377,24 +380,24 @@ export class TratamientoComponent implements OnInit {
       nroDoc: this.nroDocRecuperado,
       tratamientosSuplementos: {
         acidoFolico: this.formRIEP.value.acidoFolicoNombre == "ACIDO FÓLICO" ? {
-          codPrestacion: this.formRIEP.value.acidoFolicoNombre == "ACIDO FÓLICO" ? this.formRIEP.value.diagnostico.codPrestacion : null,
-          codSISMED: this.formRIEP.value.acidoFolicoNombre == "ACIDO FÓLICO" ? this.formRIEP.value.nombre.medicamento.codigo : null,
-          cie10SIS: this.formRIEP.value.acidoFolicoNombre == "ACIDO FÓLICO" ? this.formRIEP.value.nombre.diagnostico.cie10SIS : null,
-          codProcedimientoHIS: this.formRIEP.value.acidoFolicoNombre == "ACIDO FÓLICO" ? this.formRIEP.value.HISCIE1.codigoItem : null,
-          nombreUPS: this.formRIEP.value.acidoFolicoNombre == "ACIDO FÓLICO" ? this.formRIEP.value.nombreUPS1 : null,
-          nombreUPSaux: this.formRIEP.value.acidoFolicoNombre == "ACIDO FÓLICO" ? this.formRIEP.value.nombreUPSAux1 : null,
-          nombre: this.formRIEP.value.acidoFolicoNombre == "ACIDO FÓLICO" ? this.formRIEP.value.acidoFolicoNombre : null,
-          descripcion: this.formRIEP.value.acidoFolicoNombre == "ACIDO FÓLICO" ? this.formRIEP.value.acidoFolicoDescripcion : null,
-          cantidad: this.formRIEP.value.acidoFolicoNombre == "ACIDO FÓLICO" ? this.formRIEP.value.acidoFolicoCantidad : null,
-          dosisIndicacion: this.formRIEP.value.acidoFolicoNombre == "ACIDO FÓLICO" ? this.formRIEP.value.acidoFolicoDosisIndicaciones : null,
-          viaAdministracion: this.formRIEP.value.acidoFolicoNombre == "ACIDO FÓLICO" ? this.formRIEP.value.acidoFolicoViaAdministracion : null,
-          frecuencia: this.formRIEP.value.acidoFolicoNombre == "ACIDO FÓLICO" ? this.formRIEP.value.acidoFolicoFrecuencia : null,
-          duracion: this.formRIEP.value.acidoFolicoNombre == "ACIDO FÓLICO" ? this.formRIEP.value.acidoFolicoDuracion : null,
-          indicacion: this.formRIEP.value.acidoFolicoNombre == "ACIDO FÓLICO" ? this.formRIEP.value.acidoFolicoIndicacion : null,
-          dosis: this.formRIEP.value.acidoFolicoNombre == "ACIDO FÓLICO" ? this.formRIEP.value.acidoFolicoDosisNro : null,
+          codPrestacion: this.formRIEP.value.diagnostico ? this.formRIEP.value.diagnostico.codPrestacion : null,
+          codSISMED: this.formRIEP.value.nombre.medicamento ? this.formRIEP.value.nombre.medicamento.codigo : null,
+          cie10SIS: this.formRIEP.value.diagnostico ? this.formRIEP.value.diagnostico.cie10SIS : null,
+          codProcedimientoHIS: this.formRIEP.value.HISCIE1 ? this.formRIEP.value.HISCIE1.codigoItem : null,
+          nombreUPS: this.formRIEP.value.nombreUPS1 ? this.formRIEP.value.nombreUPS1 : null,
+          nombreUPSaux: this.formRIEP.value.nombreUPSAux1 ? this.formRIEP.value.nombreUPSAux1 : null,
+          nombre: this.formRIEP.value.acidoFolicoNombre ? this.formRIEP.value.acidoFolicoNombre : null,
+          descripcion: this.formRIEP.value.acidoFolicoDescripcion ? this.formRIEP.value.acidoFolicoDescripcion : null,
+          cantidad: this.formRIEP.value.acidoFolicoCantidad ? this.formRIEP.value.acidoFolicoCantidad : null,
+          dosisIndicacion: this.formRIEP.value.acidoFolicoDosisIndicaciones ? this.formRIEP.value.acidoFolicoDosisIndicaciones : null,
+          viaAdministracion: this.formRIEP.value.acidoFolicoViaAdministracion ? this.formRIEP.value.acidoFolicoViaAdministracion : null,
+          frecuencia: this.formRIEP.value.acidoFolicoFrecuencia ? this.formRIEP.value.acidoFolicoFrecuencia : null,
+          duracion: this.formRIEP.value.acidoFolicoDuracion ? this.formRIEP.value.acidoFolicoDuracion : null,
+          indicacion: this.formRIEP.value.acidoFolicoIndicacion ? this.formRIEP.value.acidoFolicoIndicacion : null,
+          dosis: this.formRIEP.value.acidoFolicoDosisNro ? this.formRIEP.value.acidoFolicoDosisNro : null,
           estadoAdministrado: this.formRIEP.value.acidoFolicoNombre == "ACIDO FÓLICO" ? true : null,
-          fechaVenc: this.formRIEP.value.acidoFolicoNombre == "ACIDO FÓLICO" ? this.formRIEP.value.acidoFolicoFechaVenc : null,
-          lab: this.formRIEP.value.acidoFolicoNombre == "ACIDO FÓLICO" ? this.formRIEP.value.acidoFolicoLab : null,
+          fechaVenc: this.formRIEP.value.acidoFolicoFechaVenc ? this.formRIEP.value.acidoFolicoFechaVenc : null,
+          lab: this.formRIEP.value.acidoFolicoLab ? this.formRIEP.value.acidoFolicoLab : null,
           tipo: this.formRIEP.value.acidoFolicoNombre == "ACIDO FÓLICO" ? "D" : null,
         } : null,
         hierroYAcidoFolico: this.formRIEP.value.acidoFolicoNombre == "ACIDO FOLICO + FERROSO SULFATO" ? {
@@ -485,7 +488,6 @@ export class TratamientoComponent implements OnInit {
           if (this.dataConsulta.tratamientosSuplementos != null) {
             if (this.dataConsulta.tratamientosSuplementos.acidoFolico !== null) {
               this.formRIEP.get('acidoFolicoCantidad').setValue(this.dataConsulta.tratamientosSuplementos.acidoFolico.cantidad);
-              this.formRIEP.get('acidoFolicoDescripcion').setValue(this.dataConsulta.tratamientosSuplementos.acidoFolico.descripcion);
               this.formRIEP.get('acidoFolicoDosisIndicaciones').setValue(this.dataConsulta.tratamientosSuplementos.acidoFolico.dosisIndicacion);
               this.formRIEP.get('acidoFolicoDosisNro').setValue(this.dataConsulta.tratamientosSuplementos.acidoFolico.dosis);
               this.formRIEP.get('acidoFolicoDuracion').setValue(this.dataConsulta.tratamientosSuplementos.acidoFolico.duracion);
@@ -506,11 +508,11 @@ export class TratamientoComponent implements OnInit {
               this.selectedOptionNameMedicamento(this.aux.find(elemento => elemento.medicamento.codigo == this.dataConsulta.tratamientosSuplementos.acidoFolico.codSISMED), 1);
               this.formRIEP.get('nombreUPS1').setValue(this.dataConsulta.tratamientosSuplementos.acidoFolico.nombreUPS);
               this.formRIEP.get('nombreUPSAux1').setValue(this.dataConsulta.tratamientosSuplementos.acidoFolico.nombreUPSaux);
+              this.formRIEP.get('acidoFolicoDescripcion').setValue(this.dataConsulta.tratamientosSuplementos.acidoFolico.descripcion);
             }
             else {
               if (this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico !== null) {
                 this.formRIEP.get('acidoFolicoCantidad').setValue(this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.cantidad);
-                this.formRIEP.get('acidoFolicoDescripcion').setValue(this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.descripcion);
                 this.formRIEP.get('acidoFolicoDosisIndicaciones').setValue(this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.dosisIndicacion);
                 this.formRIEP.get('acidoFolicoDosisNro').setValue(this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.dosis);
                 this.formRIEP.get('acidoFolicoDuracion').setValue(this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.duracion);
@@ -532,12 +534,12 @@ export class TratamientoComponent implements OnInit {
                 this.selectedOptionNameMedicamento(this.aux.find(elemento => elemento.medicamento.codigo == this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.codSISMED), 1);
                 this.formRIEP.get('nombreUPS1').setValue(this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.nombreUPS);
                 this.formRIEP.get('nombreUPSAux1').setValue(this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.nombreUPSaux);
+                this.formRIEP.get('acidoFolicoDescripcion').setValue(this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.descripcion);
               }
             }
             if (this.dataConsulta.tratamientosSuplementos.calcio !== null) {
 
               this.formRIEP.get('calcioCantidad').setValue(this.dataConsulta.tratamientosSuplementos.calcio.cantidad);
-              this.formRIEP.get('calcioDescripcion').setValue(this.dataConsulta.tratamientosSuplementos.calcio.descripcion);
               this.formRIEP.get('calcioDosisIndicaciones').setValue(this.dataConsulta.tratamientosSuplementos.calcio.dosisIndicacion);
               this.formRIEP.get('calcioDosisNro').setValue(this.dataConsulta.tratamientosSuplementos.calcio.dosis);
               this.formRIEP.get('calcioDuracion').setValue(this.dataConsulta.tratamientosSuplementos.calcio.duracion);
@@ -559,6 +561,7 @@ export class TratamientoComponent implements OnInit {
               this.selectedOptionNameMedicamento(this.aux.find(elemento => elemento.medicamento.codigo == this.dataConsulta.tratamientosSuplementos.calcio.codSISMED), 2);
               this.formRIEP.get('nombreUPS2').setValue(this.dataConsulta.tratamientosSuplementos.calcio.nombreUPS);
               this.formRIEP.get('nombreUPSAux2').setValue(this.dataConsulta.tratamientosSuplementos.calcio.nombreUPSaux);
+              this.formRIEP.get('calcioDescripcion').setValue(this.dataConsulta.tratamientosSuplementos.calcio.descripcion);
 
             }
           }

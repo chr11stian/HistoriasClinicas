@@ -1,25 +1,25 @@
-import {Component, DoCheck, OnInit} from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import esLocale from '@fullcalendar/core/locales/es'
-import {CalendarOptions, DateSelectArg, EventInput, EventClickArg, EventApi} from '@fullcalendar/angular';
+import { CalendarOptions, DateSelectArg, EventInput, EventClickArg, EventApi } from '@fullcalendar/angular';
 import Swal from "sweetalert2";
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
-import {DatePipe} from "@angular/common";
-import {FinalizarConsultaService} from '../../../services/finalizar-consulta.service';
-import {dato} from "../../../../../models/data";
+import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
+import { DatePipe } from "@angular/common";
+import { dato } from 'src/app/cred/citas/models/data';
+import { ConsultasService } from '../../../services/consultas.service';
+//import {FinalizarConsultaService} from '../../../services/finalizar-consulta.service';
 
 interface event {
     title: string,
     start: string | Date
 }
-
 @Component({
-    selector: 'app-calendar',
-    templateUrl: './calendar.component.html',
-    styleUrls: ['./calendar.component.css'],
-    providers: [DialogService]
+    selector: 'app-cronograma',
+    templateUrl: './cronograma.component.html',
+    styleUrls: ['./cronograma.component.css']
 })
-export class CalendarComponent implements OnInit, DoCheck {
+export class CronogramaComponent implements OnInit {
+
     attributeLocalS = 'documento'
     data: dato
     datePipe = new DatePipe('en-US');
@@ -58,12 +58,13 @@ export class CalendarComponent implements OnInit, DoCheck {
     currentEvents: EventApi[] = [];
 
     constructor(private formBuilder: FormBuilder,
-                private dialog: DialogService,
-                private planService: FinalizarConsultaService) {
+        private dialog: DialogService,
+        private planService: ConsultasService) {
+        console.log("calendar", this.planService.list)
     }
 
     ngOnInit(): void {
-        this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
+        //this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
         this.formAcuerdos = this.formBuilder.group({
             hour: new FormControl(''),
             descripcionAcuerdo: new FormControl("", []),

@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MessageService } from 'primeng/api';
@@ -17,8 +18,11 @@ import { EcografiaSolicitudComponent } from './ecografia-solicitud/ecografia-sol
 export class EcografiasComponent implements OnInit {
 
   ref: DynamicDialogRef;
+  datePipe = new DatePipe('en-US');
   solicitudesEco: any[] = []
   resultadosEco: any[] = []
+
+  historialEco: any[] = []
 
   idConsulta: string;
   tipoDocRecuperado: string;
@@ -39,6 +43,8 @@ export class EcografiasComponent implements OnInit {
   sexoPaciente: any;
 
   nroConsultaGuardada: any;
+  fechaConsulta: any = new Date();
+  fechaInicio: any = new Date();
   constructor(private formBuilder: FormBuilder,
     private dialog: DialogService,
     private PrestacionService: PrestacionService,
@@ -94,7 +100,7 @@ export class EcografiasComponent implements OnInit {
       nroEmbarazo: this.nroEmbarazo,
       nroAtencion: this.nroAtencion
     }
-    this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
+    await this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
       this.nroConsultaGuardada = res.object.id;
       this.DxService.listarSolicitudesEco(this.nroConsultaGuardada).then((res: any) => {
         this.solicitudesEco = res.object;
@@ -108,10 +114,33 @@ export class EcografiasComponent implements OnInit {
       nroEmbarazo: this.nroEmbarazo,
       nroAtencion: this.nroAtencion
     }
-    this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
+    await this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
       this.nroConsultaGuardada = res.object.id;
       this.DxService.listaConcluidosEco(this.nroConsultaGuardada).then((res: any) => {
         this.resultadosEco = res.object;
+      })
+    })
+  }
+  async recuperarHistorialEcografias() {
+    let aux = {
+      id: this.idConsulta,
+      nroHcl: this.nroHcl,
+      nroEmbarazo: this.nroEmbarazo,
+      nroAtencion: this.nroAtencion
+    }
+    await this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
+      this.nroConsultaGuardada = res.object.id;
+      this.fechaConsulta = this.datePipe.transform(res.object.fecha, 'yyyy-MM-dd');
+      this.fechaInicio = this.datePipe.transform(res.object.fum, 'yyyy-MM-dd');
+
+      let data={
+        nroHcl:this.nroHcl,
+        fechaInicio:this.fechaInicio,
+        fechaFin:this.fechaConsulta
+
+      }
+      this.DxService.listaHistorialEco(data).then((res: any) => {
+        this.historialEco = res.object;
       })
     })
   }
@@ -222,48 +251,49 @@ export class EcografiasComponent implements OnInit {
       this.recuperarEcografiasConcluidos();
     })
   }
-  eliminarResutadoEcografia(index) {
-    let data = {
-      codigoHIS: index
-    }
-    Swal.fire({
-      showCancelButton: true,
-      confirmButtonText: 'Eliminar',
-      icon: 'warning',
-      title: 'Estas seguro de eliminar este registro?',
-      text: '',
-      showConfirmButton: true,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        let aux = {
-          id: this.idConsulta,
-          nroHcl: this.nroHcl,
-          nroEmbarazo: this.nroEmbarazo,
-          nroAtencion: this.nroAtencion
-        }
-        this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
-          this.nroConsultaGuardada = res.object.id;
-          this.DxService.eliminarResultadoEcografiasGestante(this.nroConsultaGuardada, data).subscribe(
-            (resp) => {
-              this.recuperarEcografiasConcluidos();
-              Swal.fire({
-                icon: 'success',
-                title: 'Eliminado correctamente',
-                text: '',
-                showConfirmButton: false,
-                timer: 1500
-              })
-            }
-          );
-        })
-      }
-    })
+  // eliminarResutadoEcografia(index) {
+  //   let data = {
+  //     codigoHIS: index
+  //   }
+  //   Swal.fire({
+  //     showCancelButton: true,
+  //     confirmButtonText: 'Eliminar',
+  //     icon: 'warning',
+  //     title: 'Estas seguro de eliminar este registro?',
+  //     text: '',
+  //     showConfirmButton: true,
+  //   }).then((result) => {
+  //     if (result.isConfirmed) {
+  //       let aux = {
+  //         id: this.idConsulta,
+  //         nroHcl: this.nroHcl,
+  //         nroEmbarazo: this.nroEmbarazo,
+  //         nroAtencion: this.nroAtencion
+  //       }
+  //       this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
+  //         this.nroConsultaGuardada = res.object.id;
+  //         this.DxService.eliminarResultadoEcografiasGestante(this.nroConsultaGuardada, data).subscribe(
+  //           (resp) => {
+  //             this.recuperarEcografiasConcluidos();
+  //             Swal.fire({
+  //               icon: 'success',
+  //               title: 'Eliminado correctamente',
+  //               text: '',
+  //               showConfirmButton: false,
+  //               timer: 1500
+  //             })
+  //           }
+  //         );
+  //       })
+  //     }
+  //   })
 
 
-  }
+  // }
   ngOnInit(): void {
     this.recuperarEcografiasPendientes();
     this.recuperarEcografiasConcluidos();
+    this.recuperarHistorialEcografias();
   }
 
 }
