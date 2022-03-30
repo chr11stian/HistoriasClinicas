@@ -263,6 +263,10 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   recoverDataHematologia() {
     this.dataHematologia = {
       hemoglobina: this.formHematologia.value.hemoglobina,
+
+      hbConFactorCorrecion: 0,
+      factorCorreccion: 0,
+
       hematocrito: this.formHematologia.get("hematocrito").value,
       grupoSanguineo: this.formHematologia.value.grupoSanguineo,
       factorRH: this.formHematologia.value.factorRH,

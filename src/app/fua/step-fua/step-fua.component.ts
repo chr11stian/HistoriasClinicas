@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from "primeng/api"
+import { AtenionComponent } from '../atenion/atenion.component';
 import { IpressComponent } from '../ipress/ipress.component';
 
 @Component({
@@ -15,6 +16,7 @@ export class StepFuaComponent implements OnInit {
     stepName = "ipress"
 
     @ViewChild(IpressComponent) ipress: IpressComponent;
+    @ViewChild(AtenionComponent) atencion:AtenionComponent;
 
     constructor() {
         this.options = [
@@ -31,7 +33,7 @@ export class StepFuaComponent implements OnInit {
             { label: "Datos Generales" },
             // {label: "Del Asegurado"},
             { label: "Datos especificos" },
-            { label: "Concepto prestacional" },
+            // { label: "Concepto prestacional" },
             // {label: "Refiere contra"},
             // {label: "Diagnostico"},
         ]
@@ -45,9 +47,9 @@ export class StepFuaComponent implements OnInit {
             // case 4:
             //     this.stepName = "refiere-contrarefiere"
             //     break
-            case 2:
-                this.stepName = "concepto-prestacional"
-                break
+            // case 2:
+            //     this.stepName = "tercera_parte"
+            //     break
             // case 2:
             //     this.stepName = "atencion"
             //     break
@@ -68,8 +70,13 @@ export class StepFuaComponent implements OnInit {
         this.name()
     }
     nextPage() {
-        console.log('siguiente ');
+
         switch (this.stepName) {
+            // case 'atencion':
+            //     this.ipress.save();
+            //     this.stepName = "atencion"
+            //     this.indiceActivo = 1
+            //     break;
             case 'ipress':
                 this.ipress.save();
                 this.stepName = "atencion"
@@ -79,6 +86,8 @@ export class StepFuaComponent implements OnInit {
             default:
                 break;
         }
+    }
+    previosPage(){
     }
 }
 

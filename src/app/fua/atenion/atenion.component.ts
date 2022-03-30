@@ -31,6 +31,7 @@ export class AtenionComponent implements OnInit {
     { label: "D", value: "D" },
     { label: "R", value: "R" },
   ];
+  listDiagnosticoDXIngreso1 = ['P', 'D', 'R'];
   listDiagnosticoDXEgreso = [
     { label: "D", value: "D" },
     { label: "R", value: "R" },
@@ -85,7 +86,7 @@ export class AtenionComponent implements OnInit {
   }
   buildForm() {
     this.formAtencion = this.form.group({
-      fechaAtencion: new FormControl(""),
+      fechaAtencion: new FormControl({ value: "", disabled: true }),
       hora: new FormControl({ value: "" }),
       ups: new FormControl({ value: "" }),
       prestacionesAdicionales: new FormControl({ value: "" }),
@@ -95,7 +96,6 @@ export class AtenionComponent implements OnInit {
       fechaAlta: new FormControl({ value: "" }),
       fechaCorteAdministrativo: new FormControl({ value: "" }),
       codPrestacion: new FormControl({ value: "", disabled: true })
-
     });
     this.formPrestacional = new FormGroup({
       atencionDirecta: new FormControl({ value: "" }),
@@ -276,7 +276,7 @@ export class AtenionComponent implements OnInit {
         codAutorizacion: this.formAtencion.value.codAutorizacion,
         nroFuaVincular: this.formAtencion.value.nroFuaVincular,
         hospitalizacion: {
-          fechaIngreso: this.datePipe.transform(this.formAtencion.value.fechaIngreso, 'yyyy-MM-dd'),
+          fechaIngreso: this.formAtencion.value.fechaIngreso,
           fechaAlta: this.formAtencion.value.fechaAlta,
           fechaCorteAdministrativo: this.formAtencion.value.fechaCorteAdministrativo
         }
@@ -395,23 +395,6 @@ export class AtenionComponent implements OnInit {
       }
     })
   }
-  changeNgModel(rowData: Diagnostico, index: number) {
-    let auxDx: Diagnostico = {
-      nro: rowData.nro,
-      diagnosticoHIS: rowData.diagnosticoHIS,
-      cie10HIS: rowData.cie10HIS,
-      diagnosticoSIS: rowData.diagnosticoSIS,
-      cie10SIS: rowData.cie10SIS,
-      tipo: this.tipeDXIn,
-      codPrestacion: rowData.codPrestacion,
-      nombreUPS: rowData.nombreUPS,
-      factorCondicional: rowData.factorCondicional,
-      lab: rowData.lab,
-      nombreUPSaux: rowData.nombreUPSaux,
-      patologiaMaterna: rowData.patologiaMaterna
-    }
-    this.listDiagnostico[index] = auxDx;
-  }
   nameVaccine(vac: string) {
     let aux: string = vac.replace(/[0-9]/, '')
     return aux
@@ -419,7 +402,11 @@ export class AtenionComponent implements OnInit {
   imprimir() {
     this.fuaService.evento = false;
     this.fuaService.getReportFUA(this.keyData.idFUA).subscribe((res: any) => {
-      
+
     });
+  }
+
+  changeNgModel2() {
+    console.log('data of diagnostic ', this.listDiagnostico);
   }
 }

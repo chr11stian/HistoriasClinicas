@@ -30,6 +30,10 @@ export interface ResultadoLaboratorio {
 }
 export interface Hematologia {
     hemoglobina?: string,
+    //campos nuevos
+    hbConFactorCorrecion: number,
+    factorCorreccion:number,
+    // fin campos nuevos
     hematocrito?: string,
     grupoSanguineo?: string,
     factorRH?: string,

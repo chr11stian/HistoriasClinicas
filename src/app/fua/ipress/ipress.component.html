@@ -1,13 +1,35 @@
-<!-- <p-toolbar styleClass="mb-4">
-    <ng-template pTemplate="left">
-        <h3 class="text-base">DATOS GENERALES</h3>
-    </ng-template>
-    <ng-template pTemplate="right" class="button">
-        <button pButton pRipple label="Siguiente" icon="pi pi-save" class="p-button-primary"
-            style="background-color: #003c71" (click)="save()"></button>
-    </ng-template>
+<!-- <p-toolbar>
+    <div class="p-toolbar-group-left">
+        <h1 class="p-m-0">FORMATO UNICO DE ATENCIÓN - </h1>
+    </div>
 </p-toolbar> -->
 <div class="m-1">
+    <!-- <div class="grid">
+        <div class="col-2">
+            <p-inputnumber type="number" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                class="inputfield w-full" formControlName="codSeguro"></p-inputnumber>
+        </div>
+    </div> -->
+    <div class="col-12">
+        <p-fieldset legend="NÚMERO DE FORMATO" class="mb-3">
+            <form [formGroup]="formNroFormato">
+                <div class="grid margin">
+                    <div class="col-1 p-field mr-2">
+                        <input type="number" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                            class="inputfield w-full" formControlName="anio" min="0">
+                    </div>
+                    <div class="col-1">
+                        <input type="number" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                            class="inputfield w-full" formControlName="codEESS" min="0">
+                    </div>
+                    <div class="col-1">
+                        <input type="number" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                            class="inputfield w-full" formControlName="correlativo" min="0">
+                    </div>
+                </div>
+            </form>
+        </p-fieldset>
+    </div>
     <p-fieldset legend="DE LA INSTITUCIÓN PRESTADORA DE SERVICIOS DE SALUD" class="mb-3">
         <form [formGroup]="formIpress">
             <div class="grid">
@@ -110,7 +132,7 @@
                         <div class="col-4 lg:col-3">
                             <p-fieldset legend="Identificación">
                                 <div class="grid">
-                                    <div class="col-3 md:col-3 mt-3 p-0">
+                                    <div class="col-3 md:col-3 p-0">
                                         <span>TDI</span>
                                         <div class="p-fluid">
                                             <input type="text" pInputText formControlName="tdi" />

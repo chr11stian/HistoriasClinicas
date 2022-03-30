@@ -43,3 +43,6 @@ input[type="number"] {
 span{
   font-weight: 500;
 }
+.p-inputtext {
+  opacity: 1;
+}

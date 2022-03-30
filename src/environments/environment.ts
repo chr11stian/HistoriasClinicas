@@ -10,7 +10,7 @@ export const environment = {
 
     /**ACCESO AL LOGIN**/
 
-    base_uri: "http://192.168.5.3:3010/login/hce2",
+    base_uri: "http://192.168.5.3:3010/login/hce",
     // base_uri: "http://190.108.93.145:3010/login/hce2",
 
     /**ACCESO A LOS DATOS DEL PIDE Y SIS**/

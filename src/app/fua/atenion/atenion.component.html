@@ -673,8 +673,7 @@
                         <td>{{ i +1 }}</td>
                         <td>{{ rowData.diagnosticoSIS }}</td>
                         <td>
-                            <p-selectButton [options]="listDiagnosticoDXIngreso" [(ngModel)]="rowData.tipo"
-                                optionLabel="label" (ngModelChange)="changeNgModel(rowData, i)" optionValue="value">
+                            <p-selectButton [options]="listDiagnosticoDXIngreso1" [(ngModel)]="rowData.tipo">
                             </p-selectButton>
                         </td>
                         <td>{{ rowData.cie10SIS }}</td>
@@ -683,7 +682,9 @@
                                 optionLabel="label" (ngModelChange)="changeNgModel()" optionValue="value">
                             </p-selectButton> -->
                         </td>
-                        <!-- <td>{{ rowData.cie10HIS }}</td> -->
+                        <td>
+
+                        </td>
                     </tr>
                 </ng-template>
             </p-table>
@@ -734,6 +735,9 @@
                     </div>
                 </div>
             </form>
+            <div class="col-12">
+                <span class="text-xs">1.MÉDICO 2.FARMECEUTICO 3.CIRUJANO DENTISTA 4.BIÓLOGO 5.OBSTETRIZ 6.ENFERMERIA 7.TRABAJADORA SOCIAL 8.PSICOLOGIA 9.TECNOLOGO MEDICO 10.NUTRICÍON 11.TÉCNICO ENFERMERIA 12.AUXILIAR DE ENFERMERIA 13.OTRO</span>
+            </div>
         </p-fieldset>
         <p-fieldset legend="DATOS DEL APODERADO">
             <div class="grid">
