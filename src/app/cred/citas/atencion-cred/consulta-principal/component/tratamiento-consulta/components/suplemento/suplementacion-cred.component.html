@@ -334,6 +334,8 @@
                     </ng-template>
                 </div>
                 <div class="col-1 text-center">
+                    <div *ngIf="tera.edadMes==edadMes">
+
                     <button *ngIf="!tera.estadoAdministrado;" (click)="isSuplementacion=false;agregarSuplementacion(tera)"
                             pButton
                             pRipple
@@ -341,6 +343,7 @@
                             pTooltip="Agregar Suplementacion"
                             tooltipPosition="bottom"
                             class="p-button-rounded p-button-warning p-button-outlined"></button>
+                    </div>
                 </div>
             </div>
         </div>
