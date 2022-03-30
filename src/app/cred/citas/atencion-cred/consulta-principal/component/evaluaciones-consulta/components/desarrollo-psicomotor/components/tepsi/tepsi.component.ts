@@ -13,6 +13,7 @@ import Swal from "sweetalert2";
   styleUrls: ['./tepsi.component.css']
 })
 export class TepsiComponent implements OnInit {
+
   resultadoA:resultado[]=[{
     puntajeBruto:0,//test total
     puntajeT:0,
@@ -63,13 +64,19 @@ export class TepsiComponent implements OnInit {
   attributeLocalS = 'documento'
   data:dato
   idConsulta:string
+  usuario:any
+
 
   minimo:number[]=[5,5,3,4,2,2,2,2,2,2,2,3,2]
   indicePregunta:number[]=[3,4,6,7,12,13,14,15,16,17,18,23,24]
   constructor(private tepsiService:TepsiService,
               private messageService: MessageService) {
+
     this.buildForm();
+    // iniciamos x defecto
     this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
+    this.usuario=JSON.parse(localStorage.getItem('usuario'))
+    this.getFC('nombreExaminador').setValue(`${this.usuario.nombres} ${this.usuario.apellidos}`)
     this.idConsulta=this.data.idConsulta
     this.anioEdad=this.data.anio;
     this.mesEdad=this.data.mes;
@@ -254,56 +261,6 @@ export class TepsiComponent implements OnInit {
     }
     this.calcularResultadoSubTest1(2)
   }
-  // calcularEdadDinamico(fechaInput:Date){
-  //   console.log('fecha nacimiento',this.fechaNacimiento)
-  //
-  //   let fechaNacimiento: Date = new Date(this.fechaNacimiento); //requeriremos la fecha de nacimiento//formato mes/dia/año
-  //   let dia = fechaNacimiento.getDate()
-  //   let mes = fechaNacimiento.getMonth() + 1
-  //   let ano = fechaNacimiento.getFullYear()
-  //
-  //   // cogemos los ingresados
-  //   let fecha_hoy:Date= fechaInput;
-  //   let ahora_ano = fecha_hoy.getFullYear()
-  //   let ahora_mes = fecha_hoy.getMonth() + 1;
-  //   let ahora_dia = fecha_hoy.getDate();
-  //
-  //   let edad = (ahora_ano + 1900) - ano;
-  //   if (ahora_mes < mes) {
-  //     edad--;
-  //   }
-  //   if ((mes == ahora_mes) && (ahora_dia < dia)) {
-  //     edad--;
-  //   }
-  //   if (edad >= 1900) {
-  //     edad -= 1900;
-  //   }
-  //
-  //   let meses = 0;
-  //   if (ahora_mes > mes && dia > ahora_dia)
-  //     meses = ahora_mes - mes - 1;
-  //   else if (ahora_mes > mes)
-  //     meses = ahora_mes - mes
-  //   if (ahora_mes < mes && dia < ahora_dia)
-  //     meses = 12 - (mes - ahora_mes);
-  //   else if (ahora_mes < mes)
-  //     meses = 12 - (mes - ahora_mes + 1);
-  //   if (ahora_mes == mes && dia > ahora_dia)
-  //     meses = 11;
-  //
-  //   // calculamos los dias
-  //   let dias = 0;
-  //   if (ahora_dia > dia)
-  //     dias = ahora_dia - dia;
-  //   if (ahora_dia < dia) {
-  //     let ultimoDiaMes: Date = new Date(ahora_ano, ahora_mes - 1, 0);
-  //     dias = ultimoDiaMes.getDate() - (dia - ahora_dia);
-  //   }
-  //   this.anioEdad = edad
-  //   this.mesEdad = meses
-  //   this.diaEdad= dias
-  // }
-
   async getTablaPuntaje(){
     Swal.fire({title: 'Cargando Datos' });
     Swal.showLoading();

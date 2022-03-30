@@ -43,7 +43,7 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
               private messageService: MessageService,
               private confirmationService: ConfirmationService) {
     this.dataDocumento = <dato>JSON.parse(localStorage.getItem('documento'));
-    this.dataUsuario = <dato>JSON.parse(localStorage.getItem('usuario'));
+    this.dataUsuario = <dato>JSON.parse(localStorage.getItem('uEsuario'));
     this.idIpress=this.dataUsuario.ipress.idIpress;
 
 
