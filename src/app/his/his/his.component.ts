@@ -22,6 +22,7 @@ export class HisComponent implements OnInit {
   diagnosticos:any[];
   listaConIng:any[];
   isUpdate:boolean=false;
+  idHis:string="";
 
   constructor(  private form: FormBuilder,
                 private router: Router,
@@ -52,29 +53,33 @@ export class HisComponent implements OnInit {
       {name: 'F', value: 'FEMENINO'},
       {name: 'M', value: 'MASCULINO'},
     ];
+    // this.datos = JSON.parse(localStorage.getItem("hisGenerateDocument"));
     this.datos = JSON.parse(localStorage.getItem("hisDocument"));
+    console.log(this.datos);
 
   }
 
   ngOnInit(): void {
     this.buildForm();
-    if(this.datos.idHis!=null){
+    console.log(this.datos);
+    console.log(this.datos.estadoG);
+    if(this.datos.estadoG==true){
+      this.isUpdate=true;
+      this.idHis=this.datos.id;
+      this.recuperarHisUpsAuxPorId();
+    }
+    else{
       this.isUpdate=false;
       this.getGenerateHisUpsAux();
     }
-    else {
-      this.isUpdate=true;
-      this.recuperarHisUpsAuxPorId();
-    }
-
-
-
   }
+
   recuperarHisUpsAuxPorId(){
-    this.hisService.getListaHisGeneradosPorId(this.dataHis.idHis).subscribe((res: any) => {
+    this.hisService.getListaHisGeneradosPorId(this.datos.idHis).subscribe((res: any) => {
       if(res.object!=null){
-        console.log(res.object);
+        console.log("DATA DE HIS YA CREADO"+res.object);
         this.data = res.object;
+        this.idHis=res.object.id;
         this.diagnosticos=res.object.diagnosticos;
         this.showFromBDData();
         Swal.fire({
@@ -91,7 +96,7 @@ export class HisComponent implements OnInit {
   getGenerateHisUpsAux(){
     this.hisService.generarHisPorUpsAux(this.datos.nombreUPSaux,this.datos.idConsulta).subscribe((res: any) => {
       if(res.object!=null){
-        console.log(res.object);
+        console.log("DATA DE GENERAR HIS" +res.object);
         this.data = res.object;
         this.diagnosticos=res.object.diagnosticos;
         this.showFromBDData();
@@ -130,13 +135,13 @@ export class HisComponent implements OnInit {
       año: new FormControl(""),
       mes: new FormControl(""),
       dia: new FormControl(""),
-      lote: new FormControl(""),
-      pagina: new FormControl(""),
+      // lote: new FormControl(""),
+      // pagina: new FormControl(""),
       ipress:new FormControl(""),
       fechaProceso:new FormControl(""),
-      digitador: new FormControl(""),
-      codigoDigitador: new FormControl(""),
-      establecimiento: new FormControl(""),
+      // digitador: new FormControl(""),
+      // codigoDigitador: new FormControl(""),
+      // establecimiento: new FormControl(""),
       ups: new FormControl(""),
       nombreProfesional : new FormControl(""),
       dniProfesional: new FormControl(""),
@@ -145,7 +150,7 @@ export class HisComponent implements OnInit {
       upsAux: new FormControl(""),
       codigoPersonal: new FormControl(""),
       horaAtencion: new FormControl(""),
-      programaSocial: new FormControl(""),
+      // programaSocial: new FormControl(""),
       turno: new FormControl(""),
       peso: new FormControl(""),
       talla: new FormControl(""),
@@ -184,13 +189,12 @@ export class HisComponent implements OnInit {
     this.formDatos.get('año').setValue(this.data.anio);
     this.formDatos.get('mes').setValue(this.data.mes);
     this.formDatos.get('dia').setValue(this.data.dia);
-    this.formDatos.get('lote').setValue(this.data.lote);
-    this.formDatos.get('pagina').setValue(this.data.pagina);
+    // this.formDatos.get('lote').setValue(this.data.lote);
+    // this.formDatos.get('pagina').setValue(this.data.pagina);
     this.formDatos.get('ipress').setValue(this.data.nombreIpress);
-
-    this.formDatos.get('digitador').setValue(this.data.digitador);
-    this.formDatos.get('codigoDigitador').setValue(this.data.codigoDigitador);
-    this.formDatos.get('establecimiento').setValue(this.data.establecimiento);
+    // this.formDatos.get('digitador').setValue(this.data.digitador);
+    // this.formDatos.get('codigoDigitador').setValue(this.data.codigoDigitador);
+    // this.formDatos.get('establecimiento').setValue(this.data.establecimiento);
     this.formDatos.get('ups').setValue(this.data.ups);
     this.formDatos.get('nombreProfesional').setValue(this.data.nombreProfesional);
     this.formDatos.get('dniProfesional').setValue(this.data.dniProfesional);
@@ -199,7 +203,7 @@ export class HisComponent implements OnInit {
     this.formDatos.get('upsAux').setValue(this.data.upsAuxiliar);
     this.formDatos.get('codigoPersonal').setValue(this.data.codigoPersonal);
     this.formDatos.get('horaAtencion').setValue(this.data.horaAtencion);
-    this.formDatos.get('programaSocial').setValue(this.data.programaSocial);
+    // this.formDatos.get('programaSocial').setValue(this.data.programaSocial);
     this.formDatos.get('turno').setValue(this.data.turno);
     this.formDatos.get('peso').setValue(this.data.peso);
     this.formDatos.get('talla').setValue(this.data.talla);
@@ -223,8 +227,13 @@ export class HisComponent implements OnInit {
 
   getDataToSave(){
     this.data = {
-      lote:this.formDatos.value.lote,
+      // lote:this.formDatos.value.lote,
+      establecimiento:this.formDatos.value.establecimiento,
+      fechaProceso:this.formDatos.value.fechaProceso,
+      programaSocial:this.formDatos.value.programaSocial,
       anio:this.formDatos.value.año,
+      turno:this.formDatos.value.turno,
+      actividad:this.formDatos.value.actividad,
       mes:this.formDatos.value.mes,
       nombreIpress:this.formDatos.value.ipress,
       ups:this.formDatos.value.ups,
@@ -239,13 +248,13 @@ export class HisComponent implements OnInit {
       conIngSe:this.formDatos.value.conIngSe,
       tipoDoc:this.formDatos.value.tipoDoc,
       nroDoc:this.formDatos.value.nroDoc,
-      nombre: this.formDatos.value.nombre,
+      nombre: this.formDatos.value.nombres,
       apePaterno:this.formDatos.value.apePaterno,
       apeMaterno:this.formDatos.value.apeMaterno,
       sexo:this.formDatos.value.sexo,
       etnia:this.formDatos.value.etnia,
       edad:this.formDatos.value.edad,
-      denomicacionEdad:this.formDatos.value.denomicacionEdad,
+      denominacionEdad:this.formDatos.value.denominacionEdad,
       fechaNacimiento:this.formDatos.value.fechaNacimiento,
       nroHcl:this.formDatos.value.nroHcl,
       ccpp:this.formDatos.value.ccpp,
@@ -291,6 +300,25 @@ export class HisComponent implements OnInit {
   }
 
   updateHis(){
-
+    this.getDataToSave();
+    this.hisService.updateHis(this.idHis,this.data).subscribe((res: any) => {
+      console.log('cod', res.cod);
+      if (res.object == null) {
+        this.isUpdate=true;
+        Swal.fire({
+          icon: 'success',
+          title: 'Se actualizo correctamente este HIS',
+          showConfirmButton: false,
+          timer: 2000
+        });
+      }
+    },error => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Hubo un error',
+        showConfirmButton: false,
+        timer: 2000
+      });
+    })
   }
 }
