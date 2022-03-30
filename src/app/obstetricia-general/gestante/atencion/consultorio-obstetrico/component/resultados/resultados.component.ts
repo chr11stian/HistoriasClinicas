@@ -51,6 +51,7 @@ export class ResultadosComponent implements OnInit {
     nombreResponsable: any;
     nroDocResponsable: any;
 
+    fecha: Date
     constructor(
         private consultaService: ConsultasService,
         private messageService: MessageService,
@@ -268,6 +269,7 @@ export class ResultadosComponent implements OnInit {
         this.consultaService.getCronogramaGestante(this.nroHcl).subscribe((r: any) => {
             let aux = r.object
             console.log(aux)
+            this.consultaService.list=[];
             aux.map((r_: any) => {
                 this.consultaService.list.push({
                     title: r_.descripcion+" - "+r_.tipo,
@@ -279,7 +281,7 @@ export class ResultadosComponent implements OnInit {
 
     openCalendar() {
         this.ref = this.dialog.open(CronogramaComponent, {
-            header: "CALENDARIO DE ACTIIVIDADES",
+            header: "CALENDARIO DE ACTIVIDADES",
             height: '100%',
             width: '90%',
             style: {
@@ -288,5 +290,9 @@ export class ResultadosComponent implements OnInit {
             },
         })
     }
-
+    ngDoCheck() {
+        if (this.consultaService.proxCita !== '') {
+            this.fecha = new Date(this.consultaService.proxCita)
+        }
+    }
 }
