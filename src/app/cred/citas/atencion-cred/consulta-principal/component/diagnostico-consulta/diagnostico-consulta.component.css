@@ -12,20 +12,31 @@ p-calendar >>> .p-button {
     font-weight: 700;
     color: #bf0d21;
 }
-:host ::ng-deep .rojofondo {
-    background-color: #fcbfba !important;
+:host ::ng-deep .fondoSuplementacion {
+    background-color: #addad2 !important;
 }
 :host ::ng-deep .fondoamarillo {
-    background-color: #ffff9e !important;
+    background-color: #66adb4 !important;
 }
 :host ::ng-deep .fondoverde {
-    background-color: #d3ffaa !important;
+    background-color: #a6c0ce !important;
 }
 :host ::ng-deep .fondoceleste {
-    background-color: #d9e5ff !important;
+    background-color: #bfcea6 !important;
 }
 :host ::ng-deep .fondogris {
-    background-color: #d5d5d5 !important;
+    background-color: #ceb4a6  !important;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+    text-align: center !important;
+    border: 1px solid #b6b6b6;
+    background-color: #dddddd;
+    padding: 0.5rem;
+}
+:host ::ng-deep .p-datatable.p-datatable-gridlines .p-datatable-header {
+    background-color: #dddddd;
+    border: 1px solid #b6b6b6;
 }
 .guardar {
     background: #0c3866;
@@ -97,9 +108,6 @@ p-dialog >>> .p-dialog .p-dialog-header .p-dialog-title {
 .p-table >>> .p-table {
     overflow-x: auto;
 }
-
-
-
 
 /*estilo para responsive formulario*/
 .resp {

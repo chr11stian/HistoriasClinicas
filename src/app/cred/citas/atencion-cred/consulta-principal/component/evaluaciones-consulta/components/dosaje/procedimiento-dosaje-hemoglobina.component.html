@@ -32,7 +32,7 @@
         <!--        <div *ngIf="dataPreventivo.length>=1;else noCorresponde">-->
 
         <div class="" *ngFor="let dosaje of dataPreventivo">
-            <div class="grid" *ngIf="determinarMostrar(dosaje.edadMes)">
+            <div class="grid" *ngIf="dosaje.edadMes==edadMes">
                 <div class="col-1 text-center">
                     {{dosaje.edadMes}}
                 </div>
@@ -138,7 +138,7 @@
         <!--        <div *ngIf="dataPreventivo.length>=1;else noCorresponde">-->
 
         <div class="" *ngFor="let dosaje of dataTerapeutico">
-            <div class="grid" >
+            <div class="grid">
                 <div class="col-1 text-center">
                     {{dosaje.edadMes}}
                 </div>
@@ -203,16 +203,19 @@
                 </div>
 
                 <div class="col-2 flex justify-content-around">
-                    <button *ngIf="!dosaje.estadoControlado;" (click)="agregarDosaje(dosaje)" pButton pRipple
-                            type="button" icon="pi pi-pencil"
-                            pTooltip="Agregar Dosaje de Hemoglobina"
-                            tooltipPosition="bottom"
-                            class="p-button-rounded p-button-warning p-button-outlined"></button>
-                    <button *ngIf="!dosaje.estadoControlado;" pButton pRipple
-                            type="button" icon="pi pi-briefcase"
-                            pTooltip="Solicitar Examen a Laboratorio"
-                            tooltipPosition="bottom"
-                            class="p-button-rounded p-button-warning p-button-outlined"></button>
+                    <div *ngIf="dosaje.edadMes==edadMes">
+
+                        <button *ngIf="!dosaje.estadoControlado;" (click)="agregarDosaje(dosaje)" pButton pRipple
+                                type="button" icon="pi pi-pencil"
+                                pTooltip="Agregar Dosaje de Hemoglobina"
+                                tooltipPosition="bottom"
+                                class="p-button-rounded p-button-warning p-button-outlined"></button>
+                        <button *ngIf="!dosaje.estadoControlado;" pButton pRipple
+                                type="button" icon="pi pi-briefcase"
+                                pTooltip="Solicitar Examen a Laboratorio"
+                                tooltipPosition="bottom"
+                                class="p-button-rounded p-button-warning p-button-outlined"></button>
+                    </div>
                 </div>
             </div>
         </div>
