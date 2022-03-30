@@ -138,14 +138,20 @@ export class LabSolicitudComponent implements OnInit {
         this.h1 = null;
         if (this.formSolicitudLab.value.hemoglobina[0] != undefined) {
             this.h1 = {
-                codigoHIS: "HIS",
-                cie10: "85015",
-                nombreExamen: this.formSolicitudLab.value.hemoglobina[0],
-                subTipo: "HEMATOLOGÍA",
                 tipoLaboratorio: "EXAMEN_LABORATORIO",
-                codigo: '',
-                codPrestacion: '',
-                labExterno: '',
+                subTipo: "HEMATOLOGÍA",
+                nombreExamen: this.formSolicitudLab.value.hemoglobina[0],
+                nombreExamenSIS:"",
+                cie10SIS: "85015",
+                nombreUPS:"",
+                nombreUPSaux:"",
+                codPrestacion:"",
+                codigoSIS:"",
+                codigoHIS: "HIS",
+                tipoDx:"",
+                lab:"",
+                lugarExamen:"CONSULTORIO",
+                labExterno: false,
             }
         }
 
@@ -156,14 +162,20 @@ export class LabSolicitudComponent implements OnInit {
         this.h2 = null;
         if (this.formSolicitudLab.value.Hematocrito[0] != undefined) {
             this.h2 = {
-                codigoHIS: "HIS",
-                cie10: "85014",
-                nombreExamen: this.formSolicitudLab.value.Hematocrito[0],
-                subTipo: "HEMATOLOGÍA",
                 tipoLaboratorio: "EXAMEN_LABORATORIO",
-                codigo: '',
-                codPrestacion: '',
-                labExterno: '',
+                subTipo: "HEMATOLOGÍA",
+                nombreExamen: this.formSolicitudLab.value.Hematocrito[0],
+                nombreExamenSIS:"",
+                cie10SIS: "85014",
+                nombreUPS:"",
+                nombreUPSaux:"",
+                codPrestacion:"",
+                codigoSIS:"",
+                codigoHIS: "HIS",
+                tipoDx:"",
+                lab:"",
+                lugarExamen:"CONSULTORIO",
+                labExterno: false,
             }
         }
     }
@@ -172,14 +184,20 @@ export class LabSolicitudComponent implements OnInit {
         this.h3 = null;
         if (this.formSolicitudLab.value.GrupoSanguineo[0] != undefined) {
             this.h3 = {
-                codigoHIS: "HIS",
-                cie10: "85014",
-                nombreExamen: this.formSolicitudLab.value.GrupoSanguineo[0],
-                subTipo: "INMUNOLOGÍA",
                 tipoLaboratorio: "EXAMEN_LABORATORIO",
-                codigo: '',
-                codPrestacion: '',
-                labExterno: '',
+                subTipo: "INMUNOLOGÍA",
+                nombreExamen: this.formSolicitudLab.value.GrupoSanguineo[0],
+                nombreExamenSIS:"",
+                cie10SIS: "86900",
+                nombreUPS:"",
+                nombreUPSaux:"",
+                codPrestacion:"",
+                codigoSIS:"",
+                codigoHIS: "HIS",
+                tipoDx:"",
+                lab:"",
+                lugarExamen:"CONSULTORIO",
+                labExterno: false,
             }
         }
     }
@@ -188,14 +206,20 @@ export class LabSolicitudComponent implements OnInit {
         this.h4 = null;
         if (this.formSolicitudLab.value.RPR[0] != undefined) {
             this.h4 = {
-                codigoHIS: "HIS",
-                cie10: "85014",
-                nombreExamen: this.formSolicitudLab.value.RPR[0],
-                subTipo: "INMUNOLOGÍA",
                 tipoLaboratorio: "EXAMEN_LABORATORIO",
-                codigo: '',
-                codPrestacion: '',
-                labExterno: '',
+                subTipo: "INMUNOLOGÍA",
+                nombreExamen: this.formSolicitudLab.value.RPR[0],
+                nombreExamenSIS:"",
+                cie10SIS: "86592",
+                nombreUPS:"",
+                nombreUPSaux:"",
+                codPrestacion:"",
+                codigoSIS:"",
+                codigoHIS: "HIS",
+                tipoDx:"",
+                lab:"",
+                lugarExamen:"CONSULTORIO",
+                labExterno: false,
             }
         }
     }
@@ -204,14 +228,20 @@ export class LabSolicitudComponent implements OnInit {
         this.h5 = null;
         if (this.formSolicitudLab.value.VIH[0] != undefined) {
             this.h5 = {
-                codigoHIS: "HIS",
-                cie10: "85014",
-                nombreExamen: this.formSolicitudLab.value.VIH[0],
-                subTipo: "INMUNOLOGÍA",
                 tipoLaboratorio: "EXAMEN_LABORATORIO",
-                codigo: '',
-                codPrestacion: '',
-                labExterno: '',
+                subTipo: "INMUNOLOGÍA",
+                nombreExamen: this.formSolicitudLab.value.VIH[0],
+                nombreExamenSIS:"",
+                cie10SIS: "Z0179",
+                nombreUPS:"",
+                nombreUPSaux:"",
+                codPrestacion:"",
+                codigoSIS:"",
+                codigoHIS: "HIS",
+                tipoDx:"",
+                lab:"",
+                lugarExamen:"CONSULTORIO",
+                labExterno: false,
             }
         }
     }
@@ -220,14 +250,20 @@ export class LabSolicitudComponent implements OnInit {
         this.h6 = null;
         if (this.formSolicitudLab.value.glucosa[0] != undefined) {
             this.h6 = {
-                codigoHIS: "HIS",
-                cie10: "85014",
-                nombreExamen: this.formSolicitudLab.value.glucosa[0],
-                subTipo: "BIOQUÍMICA",
                 tipoLaboratorio: "EXAMEN_LABORATORIO",
-                codigo: '',
-                codPrestacion: '',
-                labExterno: '',
+                subTipo: "BIOQUÍMICA",
+                nombreExamen: this.formSolicitudLab.value.glucosa[0],
+                nombreExamenSIS:"",
+                cie10SIS: "82948",
+                nombreUPS:"",
+                nombreUPSaux:"",
+                codPrestacion:"",
+                codigoSIS:"",
+                codigoHIS: "HIS",
+                tipoDx:"",
+                lab:"",
+                lugarExamen:"CONSULTORIO",
+                labExterno: false,
             }
         }
     }
@@ -236,14 +272,20 @@ export class LabSolicitudComponent implements OnInit {
         this.h7 = null;
         if (this.formSolicitudLab.value.ExamenComplentoOrina[0] != undefined) {
             this.h7 = {
-                codigoHIS: "HIS",
-                cie10: "85014",
-                nombreExamen: this.formSolicitudLab.value.ExamenComplentoOrina[0],
-                subTipo: "UROANÁLISIS",
                 tipoLaboratorio: "EXAMEN_LABORATORIO",
-                codigo: '',
-                codPrestacion: '',
-                labExterno: '',
+                subTipo: "UROANÁLISIS",
+                nombreExamen: this.formSolicitudLab.value.ExamenComplentoOrina[0],
+                nombreExamenSIS:"",
+                cie10SIS: "Z0173",
+                nombreUPS:"",
+                nombreUPSaux:"",
+                codPrestacion:"",
+                codigoSIS:"",
+                codigoHIS: "HIS",
+                tipoDx:"",
+                lab:"",
+                lugarExamen:"CONSULTORIO",
+                labExterno: false,
             }
         }
     }
@@ -285,8 +327,8 @@ export class LabSolicitudComponent implements OnInit {
             observaciones: this.formSolicitudLab.value.observaciones,
         }
         console.log("DATA", data)
-        this.servicesService.addSolicitudLab(this.idConsulta, data).subscribe((res: any) => {
-            console.log('SOLICITUD LAB', res);
-        })
+        // this.servicesService.addSolicitudLab(this.idConsulta, data).subscribe((res: any) => {
+        //     console.log('SOLICITUD LAB', res);
+        // })
     }
 }

@@ -3,9 +3,9 @@ import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {DatePipe} from "@angular/common";
 import {LaboratoriosService} from "../../services/laboratorios.service";
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
-import {LabInmunologiaComponent} from "../lab-inmunologia/lab-inmunologia.component";
 import Swal from "sweetalert2";
 import {LabHematologiaComponent} from "../lab-hematologia/lab-hematologia.component";
+import {LabInmunologiaComponent} from "../lab-inmunologia/lab-inmunologia.component";
 
 @Component({
     selector: 'app-lista-laboratorio',
