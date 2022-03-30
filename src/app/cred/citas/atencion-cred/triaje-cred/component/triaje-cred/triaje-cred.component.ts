@@ -475,7 +475,7 @@ export class TriajeCredComponent implements OnInit {
     }
 
     async save() {
-        this.getPlan(this.data.nroDocumento);
+        await this.getPlan(this.data.nroDocumento);
         this.outData()
         const req: triajeInterface = {
             signosVitales: this.signosVitales,
