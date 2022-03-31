@@ -477,7 +477,7 @@ export class TriajeCredComponent implements OnInit {
     async save() {
         // this.getPlan(this.data.nroDocumento);
         let hayPlan:boolean=false;
-        await  this.consultaGeneralService.traerPlan(this.data.nroDocumento).subscribe(
+        await  this.consultaGeneralService.traerPlan(this.data.nroDocumento).toPromise().then(
             result => {
                 console.log('respuesta traer plan',result)
                 hayPlan=result.cod === '2403'?true:false
