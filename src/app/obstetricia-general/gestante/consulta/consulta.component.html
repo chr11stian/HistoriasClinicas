@@ -1,23 +1,27 @@
 <p-card>
-    <span class="text-3xl">GESTANTES >> Consulta Obstétrica</span>
-    <span class="text-xs"></span>
+    <div class="grid p-2 align-items-center">
+        <i class="pi pi-book " style="font-size: 2rem"></i>
+        <label class="text-2xl ml-3 ">GESTANTES >> CONSULTA OBSTÉTRICA</label>
+        <br>
+        <br>
+    </div>
     <form [formGroup]="formConsulta">
-        <p-toolbar class="p-mb-4">
+        <p-toolbar class="p-mb-4 pt-1">
             <ng-template pTemplate="left">
-                <h3 class="p-m-0">CONSULTA</h3>
+                <h3 class="p-m-0">LISTA DE CONSULTAS</h3>
             </ng-template>
             <ng-template pTemplate="right" class="button">
-                <button pButton pRipple label="Regresar" icon="pi pi-arrow-left" class="p-button-primary mr-2"
+                <button pButton pRipple label="Regresar" icon="pi pi-arrow-left" class="button-agregar mr-2"
                     (click)="regresar()"></button>
-                <button pButton pRipple label="Agregar Consulta" icon="pi pi-save" (click)="irConsultaNew(false)"
-                    class="p-button-raised p-button-primary mr-2"></button>
+                <button pButton pRipple label="Agregar Consulta" icon="pi pi-plus" (click)="irConsultaNew(false)"
+                    class="p-button-raised button-agregar mr-2"></button>
             </ng-template>
         </p-toolbar>
         <div class="grid">
             <div class="col-12">
 
                 <p-table [value]="consultas" responsiveLayout="scroll" styleClass="p-datatable-gridlines" [rows]="10"
-                    [paginator]="true" [autoLayout]="true"
+                    [paginator]="true" [autoLayout]="true" [loading]="loading"
                     currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
                     [showCurrentPageReport]="true">
                     <ng-template pTemplate="header">

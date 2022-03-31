@@ -7,37 +7,30 @@
                 <label class="">GESTACIONES DEL PACIENTE</label>
             </ng-template>
             <div class="grid align-items-center">
-                <div class="col-12 md:col-12 md:col-6 lg:col-1">
-                    <div class="grid">
+                <div class="col-4 md:col-4 md:col-1 lg:col-1">
+                    <div class="grid px-3">
                         <div class="p-inputgroup">
                             <img class="image" alt="Imagen" src="{{'data:image/jpg;base64,' + imagePath}}">
                         </div>
                     </div>
+
                 </div>
-                <div class="col-12 md:col-12 md:col-6 lg:col-2">
+                <div class="col-8 md:col-8 md:col-11 lg:col-11">
                     <div class="grid">
-                        <div class="p-inputgroup">
+                        <div class="p-inputgroup py-1">
                             <label style="padding: 3px; color: #5b5b5b">{{tipoDoc}}:</label>
                             <label style="padding: 3px">{{nroDoc}}</label>
                         </div>
-                    </div>
-
-                </div>
-                <div class="col-12 md:col-12 md:col-6 lg:col-6">
-                    <div class="grid">
-                        <div class="p-inputgroup">
+                        <div class="p-inputgroup py-1">
                             <label style="padding: 3px; color: #5b5b5b">APELLIDOS Y NOMBRES: </label>
                             <label style="padding: 3px">{{apellidosNombres}}</label>
                         </div>
-                    </div>
-                </div>
-                <div class="col-12 md:col-12 md:col-6 lg:col-3">
-                    <div class="grid">
-                        <div class="p-inputgroup">
-                            <label style="padding: 3px; color: #5b5b5b">NUMERO DE HCL: </label>
+                        <div class="p-inputgroup py-1">
+                            <label style="padding: 3px; color: #5b5b5b">NRO DE HCL: </label>
                             <label style="padding: 3px">{{nroHcl}}</label>
                         </div>
                     </div>
+
                 </div>
             </div>
         </p-panel>
@@ -45,23 +38,22 @@
 
         <p-toolbar styleClass="p-mb-4">
             <ng-template pTemplate="left">
-            <span class="p-m-0" style="font-size: 11px">
-                LISTA DE CONSULTA REALIZADAS EL DIA DE HOY
-            </span>
+                <span class="p-m-0" style="font-size: 11px">
+                    LISTA DE CONSULTA REALIZADAS EL DIA DE HOY
+                </span>
             </ng-template>
             <ng-template pTemplate="right" class="button">
                 <button pButton pRipple type="button" routerLink="obstetricia" icon="pi pi-plus"
-                        label="REGISTRAR NUEVA GESTA" class="p-button-raised p-button-secondary"
-                        (click)="newEmbarazo()" style="font-size: 11px; height: 25px"
-                        [disabled]="filiacionUltimaPosicion!=='FINALIZADO'"></button>
+                    label="REGISTRAR NUEVA GESTA" class="p-button-raised p-button-secondary" (click)="newEmbarazo()"
+                    style="font-size: 11px; height: 25px" [disabled]="filiacionUltimaPosicion!=='FINALIZADO'"></button>
             </ng-template>
         </p-toolbar>
 
 
         <p-table [value]="pacientesFiliacion" #dt styleClass="p-datatable-gridlines" [rows]="10"
-                 [rowsPerPageOptions]="[10, 25, 50]" responsiveLayout="scroll" class="gestanteList"
-                 [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
-                 currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+            [rowsPerPageOptions]="[10, 25, 50]" responsiveLayout="scroll" class="gestanteList" [paginator]="true"
+            [autoLayout]="true" [showCurrentPageReport]="true"
+            currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
 
             <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
                 <tr>
@@ -75,11 +67,11 @@
                     <td style="text-align: center; font-size: 11px">{{ rowData.nroEmbarazo }}</td>
                     <td style="text-align: center; font-size: 11px">{{ rowData.estado }}</td>
                     <td style="text-align: center">
-                    <span class="p-buttonset">
-                        <button pButton pRipple class="p-button-success" routerLink="obstetricia" label="Atencion"
-                                icon="pi pi-caret-right"
-                                (click)="gestacion(rowData)" style="font-size: 11px; height: 25px"></button>
-                    </span>
+                        <span class="p-buttonset">
+                            <button pButton pRipple class="p-button-success" routerLink="obstetricia" label="Atencion"
+                                icon="pi pi-caret-right" (click)="gestacion(rowData)"
+                                style="font-size: 11px; height: 25px"></button>
+                        </span>
                     </td>
                 </tr>
             </ng-template>
@@ -88,4 +80,5 @@
     <div class="col-1 p-card-content mt-2"></div>
 </div>
 <!-- dialogo consulta -->
+
 </html>
