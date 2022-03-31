@@ -167,7 +167,7 @@ export class EedpComponent implements OnInit {
       this.diagnostico = 'RIESGO'
     if (this.coeficienteDesarrollo <= 0.69)
       this.diagnostico = 'RETRASO'
-      /**ARMANDO OBJETO PARA ENVIAR */
+    /**ARMANDO OBJETO PARA ENVIAR */
     this.dataTestEEDP = {
       codigoCIE10: "",
       codigoHIS: "",
@@ -179,7 +179,7 @@ export class EedpComponent implements OnInit {
         edadMes: this.mesesTotal,
         diagnostico: this.diagnostico,
         coeficienteDesarrollo: parseFloat(this.coeficienteDesarrollo),
-        docExaminador: this.dataExaminador.docExaminador,
+        docExaminador: this.dataExaminador.nroDocumento,
         listaUltimasPreguntas: [
           {
             clave: 'C',
@@ -198,7 +198,7 @@ export class EedpComponent implements OnInit {
         listaEvaluacionMesEDDP: this.listaPreguntas
       }
     }
-
+    console.log('data eedp to save ', this.dataTestEEDP);
     this.eedpService.postPromiseAddEEDP(this.idConsulta, this.dataTestEEDP).then(data => {
 
       console.log('data before validation ', data);
@@ -303,7 +303,7 @@ export class EedpComponent implements OnInit {
       console.log('data de tabla res eedp ', this.dataTabla);
     });
   }
-  dataConsoleToPerderTiempo(){
+  dataConsoleToPerderTiempo() {
     this.mesesTotal.toFixed(2)
   }
 }

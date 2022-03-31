@@ -23,6 +23,7 @@ export interface ExamenAuxiliar {
     lugarExamen: string,
     resultado: ResultadoLaboratorio,
     labExterno: string
+    //campo nuevo
 }
 export interface ResultadoLaboratorio {
     hematologia?: Hematologia,
@@ -30,6 +31,10 @@ export interface ResultadoLaboratorio {
 }
 export interface Hematologia {
     hemoglobina?: string,
+    //campos nuevos
+    hbConFactorCorrecion: number,
+    factorCorreccion:number,
+    // fin campos nuevos
     hematocrito?: string,
     grupoSanguineo?: string,
     factorRH?: string,

@@ -729,6 +729,7 @@ export class DatosGeneralesComponent implements OnInit {
             nroAtencion: parseInt(this.formDatos_Generales.value.nroAtencion),
             nroControlSis: this.formDatos_Generales.value.nroControlSis,
 
+            fum: this.datePipe.transform(this.formDatos_Generales.value.FUR, 'yyyy-MM-dd'),
             rcat: this.formDatos_Generales.value.RCAT,
 
             psicoprofilaxis: {

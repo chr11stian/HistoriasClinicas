@@ -1,13 +1,21 @@
 import { Injectable } from '@angular/core';
 import { environment } from "../../../../../../environments/environment";
 import { HttpClient } from "@angular/common/http";
+import { referencia } from 'src/app/cred/citas/models/data';
 
+interface event {
+    title: string,
+    start: string | Date
+}
 @Injectable({
     providedIn: 'root'
 })
 export class ConsultasService {
     base_url = environment.baseUrl;
     bd = environment.bd;
+    list: event[] = []
+    referencia: referencia
+    proxCita = ''
 
     constructor(private http: HttpClient) {
     }
@@ -98,6 +106,29 @@ export class ConsultasService {
     eliminarTratamientoGestante(nroHcl,nroEmbarazo,nroAtencion,id){
         return this.http.delete(`${this.base_url}/${this.bd}/obstetricia/consulta/eliminarTratamiento/${nroHcl}/${nroEmbarazo}/${nroAtencion}/${id}`)
     }
+    //procedimientos
+    guardarProcedimientoGestante(nroHcl,nroEmbarazo,nroAtencion,data){
+        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/agregarProcedimiento/${nroHcl}/${nroEmbarazo}/${nroAtencion}`, data)
+        .toPromise()
+        .then(res => <any[]>res)
+        .then(data => { return data; });
+    }
+    guardarProcedimientoGestanteConsejeria(nroHcl,nroEmbarazo,nroAtencion,consejeria,data){
+        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/agregarProcedimiento/${nroHcl}/${nroEmbarazo}/${nroAtencion}/${consejeria}`, data)
+        .toPromise()
+        .then(res => <any[]>res)
+        .then(data => { return data; });
+    }
+    editarProcedimientoGestante(nroHcl,nroEmbarazo,nroAtencion,data){
+        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/actualizarProcedimiento/${nroHcl}/${nroEmbarazo}/${nroAtencion}`, data)
+        .toPromise()
+        .then(res => <any[]>res)
+        .then(data => { return data; });
+    }
+    eliminarProcedimientoGestante(nroHcl,nroEmbarazo,nroAtencion,codProcedimientoHIS){
+        return this.http.delete(`${this.base_url}/${this.bd}/obstetricia/consulta/eliminarProcedimiento/${nroHcl}/${nroEmbarazo}/${nroAtencion}/${codProcedimientoHIS}`)
+    }
+
     //procedimiento de imagenes
     guardarSolicitudEcografiasGestante(id,data){
         return this.http.post(`${this.base_url}/${this.bd}/examenesAuxiliares/agregar-ProcImg/${id}`, data)
@@ -126,8 +157,13 @@ export class ConsultasService {
         .then(res => <any[]>res)
         .then(data => { return data; });
     }
-    eliminarResultadoEcografiasGestante(id,data){
-        return this.http.put(`${this.base_url}/${this.bd}/examenesAuxiliares/eliminarProcImgPendiente/${id}`,data)
+    
+    //buscar por id ecografia
+    buscarEcografiaAbdominalId(id){
+        return this.http.get(`${this.base_url}/${this.bd}/examenesAuxiliares/ecografiaObsAbdominal_EF/${id}`)
+        .toPromise()
+        .then(res => <any[]>res)
+        .then(data => { return data; });
     }
      //listar
     listarDiagnosticosDeUnaConsulta(nroHcl,nroEmbarazo,nroAtencion){
@@ -144,6 +180,12 @@ export class ConsultasService {
     }
     listarTratamientosDeUnaConsulta(nroHcl,nroEmbarazo,nroAtencion){
         return this.http.get(`${this.base_url}/${this.bd}/obstetricia/consulta/listarTratamiento/${nroHcl}/${nroEmbarazo}/${nroAtencion}`)
+        .toPromise()
+        .then(res => <any[]>res)
+        .then(data => { return data; });
+    }
+    listarProcedimientosDeUnaConsulta(nroHcl,nroEmbarazo,nroAtencion){
+        return this.http.get(`${this.base_url}/${this.bd}/obstetricia/consulta/listarProcedimientos/${nroHcl}/${nroEmbarazo}/${nroAtencion}`)
         .toPromise()
         .then(res => <any[]>res)
         .then(data => { return data; });
