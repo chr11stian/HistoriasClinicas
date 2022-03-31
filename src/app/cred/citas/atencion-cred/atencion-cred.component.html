@@ -28,7 +28,8 @@
     <div>
         <div class="flex justify-content-between" style="margin-left: 50px; margin-right: 50px;">
             <div class="col-12 md:col-6 lg:col-3">
-                <button pButton
+                <button [disabled]="isTriajeTaken"
+                        pButton
                         pRipple
                         icon="pi pi-plus-circle"
                         iconPos="left"

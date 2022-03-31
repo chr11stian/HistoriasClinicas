@@ -52,6 +52,8 @@ export class EcografiaResultadoComponent implements OnInit {
   nroConsultaGuardada: any;
   listaSubTipos: any;
   opciones: any;
+
+  ecoEdit: any;
   constructor(private form: FormBuilder,
     private ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
@@ -119,7 +121,7 @@ export class EcografiaResultadoComponent implements OnInit {
     this.traerDiagnosticosDeConsulta();
 
     if (config.data) {
-      this.llenarCamposSolicitudEcografia();
+      this.llenarCamposResultadoEcografia();
     }
     else {
       this.formEcografiaResultado.get('ups').setValue("OBSTETRICIA");
@@ -155,6 +157,13 @@ export class EcografiaResultadoComponent implements OnInit {
       sacoGestacional: new FormControl("", [Validators.required]),
       morfologiaFetal: new FormControl("", [Validators.required]),
       resultados: new FormControl("", [Validators.required]),
+    })
+  }
+  async recuperarEcografiasId(){
+    console.log("id de la eco", this.config.data.row.idExamAux);
+    await this.DxService.buscarEcografiaAbdominalId(this.config.data.row.idExamAux).then((res: any) => {
+      this.ecoEdit = res.object;
+      console.log("resultados",res);
     })
   }
   recuperarConsulta() {
@@ -202,7 +211,7 @@ export class EcografiaResultadoComponent implements OnInit {
       this.nroConsultaGuardada = res.object.id;
       var data = {
         idConsulta: this.nroConsultaGuardada,
-        labExterno: true,
+        labExterno: this.formEcografiaResultado.value.labExterno,
         agregarafiliacion: true,
         datosLaboratorio: {
           subTipo: this.formEcografiaResultado.value.subTipo,
@@ -252,21 +261,12 @@ export class EcografiaResultadoComponent implements OnInit {
     this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
       this.nroConsultaGuardada = res.object.id;
       var data = {
+        id: this.config.data.row.idExamAux,    
+        idIpress:this.idIpress,
         idConsulta: this.nroConsultaGuardada,
-        labExterno: true,
+        labExterno: this.formEcografiaResultado.value.labExterno,
         agregarafiliacion: true,
         datosLaboratorio: {
-          subTipo: this.formEcografiaResultado.value.subTipo,
-          codPrestacion: this.formEcografiaResultado.value.diagnostico.codPrestacion,
-          codigoSIS: this.formEcografiaResultado.value.SISCIE.codigo,
-          nombreExamenSIS: this.formEcografiaResultado.value.diagnosticoSIS,
-          codigoHIS: this.formEcografiaResultado.value.HISCIE.codigoItem,
-          nombreExamen: this.formEcografiaResultado.value.diagnosticoHIS,
-          nombreUPS: this.formEcografiaResultado.value.ups,
-          nombreUPSaux: this.formEcografiaResultado.value.subtitulo,
-          tipoDX: this.formEcografiaResultado.value.tipo,
-          lab: this.formEcografiaResultado.value.lab,
-          cie10SIS: this.formEcografiaResultado.value.diagnostico.cie10SIS,
           fecha: this.datePipe.transform(this.formEcografiaResultado.value.fecha, 'yyyy-MM-dd'),
         },
         edadGestacionalSemanas: this.formEcografiaResultado.value.semanas,
@@ -300,7 +300,8 @@ export class EcografiaResultadoComponent implements OnInit {
     })
     this.dialogInmunizaciones = false;
   }
-  llenarCamposSolicitudEcografia() {
+  async llenarCamposResultadoEcografia() {
+    await this.recuperarEcografiasId();
     this.DxService.listarDiagnosticosDeUnaConsulta(this.nroHcl, this.nroEmbarazo, this.nroAtencion).then((res: any) => {
       this.diagnosticosList = res.object;
       let configuracion = this.config.data.row;
@@ -323,16 +324,17 @@ export class EcografiaResultadoComponent implements OnInit {
         this.formEcografiaResultado.patchValue({ HISCIE: this.listaDeCIE.find(elemento => elemento.codigoItem == configuracion.codigoHIS) });
         this.formEcografiaResultado.get("diagnosticoHIS").setValue(this.listaDeCIE.find(elemento => elemento.codigoItem == configuracion.codigoHIS).descripcionItem);
       })
-      this.formEcografiaResultado.get('semanas').setValue(configuracion.edadGestacionalSemanas);
-      this.formEcografiaResultado.get('dias').setValue(configuracion.edadGestacionalDias);
-      this.formEcografiaResultado.get('fechaProbableParto').setValue(configuracion.fechaProbableParto);
-      this.formEcografiaResultado.get('lcr').setValue(configuracion.lcr);
-      this.formEcografiaResultado.get('lcf').setValue(configuracion.lcf);
-      this.formEcografiaResultado.get('placenta').setValue(configuracion.placenta);
-      this.formEcografiaResultado.get('sacoGestacional').setValue(configuracion.sacoGestacional);
-      this.formEcografiaResultado.get('morfologiaFetal').setValue(configuracion.morfologiaFetal);
-      this.formEcografiaResultado.get('resultados').setValue(configuracion.resultados);
-      this.formEcografiaResultado.get('labExterno').setValue(configuracion.labExterno);
+      this.formEcografiaResultado.get('fecha').setValue(new Date(this.ecoEdit.datosLaboratorio.fecha));
+      this.formEcografiaResultado.get('semanas').setValue(this.ecoEdit.edadGestacionalSemanas);
+      this.formEcografiaResultado.get('dias').setValue(this.ecoEdit.edadGestacionalDias);
+      this.formEcografiaResultado.get('fechaProbableParto').setValue(new Date(this.ecoEdit.fechaProbableParto));
+      this.formEcografiaResultado.get('lcr').setValue(this.ecoEdit.lcr);
+      this.formEcografiaResultado.get('lcf').setValue(this.ecoEdit.lcf);
+      this.formEcografiaResultado.get('placenta').setValue(this.ecoEdit.placenta);
+      this.formEcografiaResultado.get('sacoGestacional').setValue(this.ecoEdit.sacoGestacional);
+      this.formEcografiaResultado.get('morfologiaFetal').setValue(this.ecoEdit.morfologiaFetal);
+      this.formEcografiaResultado.get('resultados').setValue(this.ecoEdit.resultados);
+      this.formEcografiaResultado.get('labExterno').setValue(this.ecoEdit.labExterno);
     })
   }
   recuperarPrestaciones() {

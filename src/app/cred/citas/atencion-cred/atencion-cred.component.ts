@@ -66,6 +66,7 @@ export class AtencionCredComponent implements OnInit {
         this.hidden = this.data.see
         this.isTriajeTaken=!this.hidden
         this.tienePlan()
+
         /**this.route.queryParams
          .subscribe(params => {
                 console.log('params', params)

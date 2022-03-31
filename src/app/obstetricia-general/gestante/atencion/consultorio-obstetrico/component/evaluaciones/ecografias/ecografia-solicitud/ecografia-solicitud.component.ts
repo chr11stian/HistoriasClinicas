@@ -202,7 +202,7 @@ export class EcografiaSolicitudComponent implements OnInit {
       nroEmbarazo: this.nroEmbarazo,
       nroAtencion: this.nroAtencion
     }
-    this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
+    await this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
       this.nroConsultaGuardada = res.object.id;
       this.DxService.guardarSolicitudEcografiasGestante(this.nroConsultaGuardada, data).then((res: any) => {
         Swal.fire({
@@ -240,7 +240,7 @@ export class EcografiaSolicitudComponent implements OnInit {
       nroEmbarazo: this.nroEmbarazo,
       nroAtencion: this.nroAtencion
     }
-    this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
+    await this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
       this.nroConsultaGuardada = res.object.id;
       this.DxService.editarSolicitudEcografiasGestante(this.nroConsultaGuardada, data).then((res: any) => {
         Swal.fire({

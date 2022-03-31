@@ -18,6 +18,11 @@
     height: 60%;
 }
 
+p-password >>> .p-password input {
+    width: 200px;
+    text-align:center
+}
+
 /*p-password >>> .p-password input {*/
 /*    !*width: 15rem;*!*/
 /*    width: 240px;*/

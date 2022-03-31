@@ -66,7 +66,7 @@ export interface Atencion {
   ups: string,
   prestacionesAdicionales: string,
   codAutorizacion: string,
-  nroFuaVincular: string,
+  nroFuaVincular?: string,
   hospitalizacion: {
     fechaIngreso: string,
     fechaAlta: string,
@@ -132,18 +132,22 @@ export interface ActividadesPreventivas {
   }
 }
 export interface Diagnostico {
-  nro: number,
-  diagnosticoHIS: string,
-  cie10HIS: string,
-  diagnosticoSIS: string,
-  cie10SIS: string,
-  tipo: string,
-  codPrestacion: string,
-  nombreUPS: string,
-  factorCondicional: string,
-  lab: string
-  nombreUPSaux: string,
-  patologiaMaterna: string
+  cie10: string,
+  diagnostico: string,
+  tipoDx: string,
+
+  // nro: number,
+  // diagnosticoHIS: string,
+  // cie10HIS: string,
+  // diagnosticoSIS: string,
+  // cie10SIS: string,
+  // tipo: string,
+  // codPrestacion: string,
+  // nombreUPS: string,
+  // factorCondicional: string,
+  // lab: string
+  // nombreUPSaux: string,
+  // patologiaMaterna: string
 }
 export interface ResponsableAtencion {
   nroDoc: string,

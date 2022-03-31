@@ -114,6 +114,7 @@ export class LoginService {
         localStorage.removeItem('token');
         localStorage.clear();
         this.router.navigate(['/login']);
+        console.log('entro')
     }
 
     getUser(body) {
