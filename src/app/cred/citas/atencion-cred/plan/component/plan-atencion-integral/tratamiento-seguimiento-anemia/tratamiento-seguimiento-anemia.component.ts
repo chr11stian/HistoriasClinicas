@@ -27,6 +27,7 @@ export class TratamientoSeguimientoAnemiaComponent implements OnInit {
     // this.tipoDNI=this.rutaActiva.snapshot.queryParams.tipoDoc;
     // this.nroDNI=this.rutaActiva.snapshot.queryParams.nroDoc;
     this.getDosaje()
+    this.getDosajeTerapeutico()
   }
 
   getDosaje(){
@@ -35,9 +36,22 @@ export class TratamientoSeguimientoAnemiaComponent implements OnInit {
       this.transform();
     })
   }
+  getDosajeTerapeutico(){
+    this.suplementacionesMicronutrientesService.getDosajeHemoglobinaTerapeutico(this.nroDni).subscribe((resp)=>{
+      this.dataDosajeTerapeutico=resp.object
+      this.transformTerapeutico();
+    })
+  }
+
 
   transform() {
     this.dataDosajePreventivo.forEach((element) => {
+      element.fechaTentativa = new Date(`${element.fechaTentativa} 00:00:00`);
+      element.fecha = element.fecha != null ? new Date(`${element.fecha} 00:00:00`) : null;
+    });
+  }
+  transformTerapeutico() {
+    this.dataDosajeTerapeutico.forEach((element) => {
       element.fechaTentativa = new Date(`${element.fechaTentativa} 00:00:00`);
       element.fecha = element.fecha != null ? new Date(`${element.fecha} 00:00:00`) : null;
     });

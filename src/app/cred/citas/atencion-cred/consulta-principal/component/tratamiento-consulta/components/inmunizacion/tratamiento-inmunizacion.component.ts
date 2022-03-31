@@ -22,7 +22,7 @@ export class TratamientoInmunizacionComponent implements OnInit {
   nroDNI: string;
   stateOptions: any[];
   listaInmunizaciones: inmunizaciones[] = [];
-  inmunizacionesAgrupadas = [[], [], [], [], [], [], [], [], [], []];
+  inmunizacionesAgrupadas = [[], [], [], [], [], [], [], [], []];
   collapse: boolean[] = [
     true,
     true,
@@ -95,7 +95,7 @@ export class TratamientoInmunizacionComponent implements OnInit {
     this.inmunizacionesService
         .getListaInmunizaciones(this.nroDNI)
         .subscribe((resp) => {
-          this.inmunizacionesAgrupadas = [[], [], [], [], [], [], [], [], [], []];
+          this.inmunizacionesAgrupadas = [[], [], [], [], [], [], [], [], []];
           this.listaInmunizaciones = resp["object"];
           this.toDate();
           this.clasificamos();

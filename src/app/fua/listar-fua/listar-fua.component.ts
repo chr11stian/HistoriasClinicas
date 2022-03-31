@@ -57,4 +57,10 @@ export class ListarFuaComponent implements OnInit {
     }
     localStorage.setItem('dataFUA', JSON.stringify(dataFUA));
   }
+  imprimirFUA(data) {
+    console.log('data del listar ', data);
+    console.log('si la data se maneja desde el ')
+    this.listDataFUA.apellidos = "datos de uno";
+    
+  }
 }

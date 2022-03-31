@@ -115,6 +115,8 @@ export class DosajeComponent implements OnInit {
                     resultado: {
                         hematologia: {
                             hemoglobina: this.getFC('valorHb').value,
+                            valorHb: this.getFC('valorHbRestado').value,
+                            factorCorreccion: this.factorAjuste,
                             hematocrito: " ",
                             grupoSanguineo: " ",
                             factorRH: " ",
