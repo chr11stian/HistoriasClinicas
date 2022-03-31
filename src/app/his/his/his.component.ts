@@ -3,7 +3,7 @@ import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
 import {HISService} from "../services/services.service";
 import Swal from "sweetalert2";
-import {Location} from "@angular/common";
+import {DatePipe, Location} from "@angular/common";
 
 @Component({
   selector: 'app-his',
@@ -23,7 +23,7 @@ export class HisComponent implements OnInit {
   listaConIng:any[];
   isUpdate:boolean=false;
   idHis:string="";
-
+  datePipe = new DatePipe('en-US');
   constructor(  private form: FormBuilder,
                 private router: Router,
                 private hisService:HISService,
@@ -38,7 +38,7 @@ export class HisComponent implements OnInit {
     this.listaConIng= [
       {name: 'N', value: 'N'},
       {name: 'C', value: 'C'},
-      {name: 'R', value: 'R'}
+      {name: 'R', value: 'R'},
     ];
     this.actividad = [
       {name: 'I', value: 'INTRAMURAL'},
@@ -63,7 +63,7 @@ export class HisComponent implements OnInit {
     this.buildForm();
     console.log(this.datos);
     console.log(this.datos.estadoG);
-    if(this.datos.estadoG==true){
+    if(this.datos.idHis){
       this.isUpdate=true;
       this.idHis=this.datos.id;
       this.recuperarHisUpsAuxPorId();
@@ -116,52 +116,52 @@ export class HisComponent implements OnInit {
   }
   buildForm() {
     this.formDatos = this.form.group({
-      apePaterno: new FormControl(""),
-      apeMaterno: new FormControl(""),
-      nombres: new FormControl(""),
-      fechaNacimiento: new FormControl(""),
-      fechaUltimaRegla: new FormControl(""),
+      apePaterno: new FormControl({value:"",disabled:true}),
+      apeMaterno: new FormControl({value:"",disabled:true}),
+      nombres: new FormControl({value:"",disabled:true}),
+      fechaNacimiento: new FormControl({value:"",disabled:true}),
+      fum: new FormControl({value:"",disabled:true}),
       etnia: new FormControl(""),
-      nroDoc: new FormControl(""),
-      tipoDoc:new FormControl(""),
-      nroHcl:new FormControl(""),
-      sexo:new FormControl(""),
+      nroDoc: new FormControl({value:"",disabled:true}),
+      tipoDoc:new FormControl({value:"",disabled:true}),
+      nroHcl:new FormControl({value:"",disabled:true}),
+      sexo:new FormControl({value:"",disabled:true}),
       financiamiento: new FormControl(""),
-      ccpp: new FormControl(""),
-      distrito: new FormControl(""),
+      ccpp: new FormControl({value:"",disabled:true}),
+      distrito: new FormControl({value:"",disabled:true}),
       sector: new FormControl(""),
-      denominacionEdad: new FormControl(""),
-      edad: new FormControl(""),
-      año: new FormControl(""),
-      mes: new FormControl(""),
-      dia: new FormControl(""),
+      denominacionEdad: new FormControl({value:"",disabled:true}),
+      edad: new FormControl({value:"",disabled:true}),
+      año: new FormControl({value:"",disabled:true}),
+      mes: new FormControl({value:"",disabled:true}),
+      dia: new FormControl({value:"",disabled:true}),
       // lote: new FormControl(""),
       // pagina: new FormControl(""),
-      ipress:new FormControl(""),
+      ipress:new FormControl({value:"",disabled:true}),
       fechaProceso:new FormControl(""),
       // digitador: new FormControl(""),
       // codigoDigitador: new FormControl(""),
       // establecimiento: new FormControl(""),
-      ups: new FormControl(""),
-      nombreProfesional : new FormControl(""),
-      dniProfesional: new FormControl(""),
-      colegiatura: new FormControl(""),
+      ups: new FormControl({value:"",disabled:true}),
+      nombreProfesional : new FormControl({value:"",disabled:true}),
+      dniProfesional: new FormControl({value:"",disabled:true}),
+      colegiatura: new FormControl({value:"",disabled:true}),
       actividad: new FormControl(""),
-      upsAux: new FormControl(""),
-      codigoPersonal: new FormControl(""),
-      horaAtencion: new FormControl(""),
+      upsAux: new FormControl({value:"",disabled:true}),
+      codigoPersonal: new FormControl({value:"",disabled:true}),
+      horaAtencion: new FormControl({value:"",disabled:true}),
       // programaSocial: new FormControl(""),
       turno: new FormControl(""),
-      peso: new FormControl(""),
-      talla: new FormControl(""),
+      peso: new FormControl({value:"",disabled:true}),
+      talla: new FormControl({value:"",disabled:true}),
       grupoRiesgo: new FormControl(""),
-      semanaGestacion:new FormControl(""),
+      semanaGestacion:new FormControl({value:"",disabled:true}),
       registroOpcional:new FormControl(""),
       saludMaterna: new FormControl(""),
       conIngEs: new FormControl(""),
       conIngSe: new FormControl(""),
-      hb:new FormControl(""),
-      fechaHb:new FormControl(""),
+      hb:new FormControl({value:"",disabled:true}),
+      fechaHb:new FormControl({value:"",disabled:true}),
       perimetroCefalico:new FormControl(""),
       perimetroAbdominal:new FormControl(""),
       idConsulta:new FormControl(""),
@@ -171,6 +171,7 @@ export class HisComponent implements OnInit {
 
   showFromBDData(){
     console.log(this.data);
+    // console.log(this.convetirMesATexto(this.data.mes));
     this.formDatos.get('apePaterno').setValue(this.data.apePaterno);
     this.formDatos.get('apeMaterno').setValue(this.data.apeMaterno);
     this.formDatos.get('nombres').setValue(this.data.nombre);
@@ -187,7 +188,7 @@ export class HisComponent implements OnInit {
     this.formDatos.get('denominacionEdad').setValue(this.data.denominacionEdad);
     this.formDatos.get('edad').setValue(this.data.edad);
     this.formDatos.get('año').setValue(this.data.anio);
-    this.formDatos.get('mes').setValue(this.data.mes);
+    this.formDatos.get('mes').setValue(this.convetirMesATexto(this.data.mes));
     this.formDatos.get('dia').setValue(this.data.dia);
     // this.formDatos.get('lote').setValue(this.data.lote);
     // this.formDatos.get('pagina').setValue(this.data.pagina);
@@ -214,65 +215,85 @@ export class HisComponent implements OnInit {
     this.formDatos.get('conIngEs').setValue(this.data.conIngEs);
     this.formDatos.get('conIngSe').setValue(this.data.conIngSe);
     this.formDatos.get('hb').setValue(this.data.hb);
-    this.formDatos.get('fechaHb').setValue(this.data.fechaHb);
+    this.formDatos.get('fechaHb').setValue(this.datePipe.transform(this.data.fechaHb, 'yyyy-MM-dd'));
     this.formDatos.get('perimetroCefalico').setValue(this.data.perimetroCefalico);
     this.formDatos.get('perimetroAbdominal').setValue(this.data.perimetroAbdominal);
-    this.formDatos.get('fechaProceso').setValue(this.data.fechaProceso);
     this.formDatos.get('idConsulta').setValue(this.data.idConsulta);
-    let date:Date = this.data.fechaNacimiento;
-    console.log("fecha date", date);
-    this.formDatos.get('fechaNacimiento').setValue(date);
-    this.formDatos.get('fechaUltimaRegla').setValue(this.data.fum);
+    this.formDatos.get('fechaNacimiento').setValue(this.datePipe.transform(this.data.fechaNacimiento, 'yyyy-MM-dd HH:mm:ss'));
+    console.log(this.datePipe.transform(this.data.fechaProceso, 'yyyy-MM-dd'));
+    this.formDatos.get('fechaProceso').setValue(this.datePipe.transform(this.data.fechaProceso, 'yyyy-MM-dd'));
+    this.formDatos.get('fum').setValue(this.datePipe.transform(this.data.fum, 'yyyy-MM-dd'));
+    // console.log("fecha date", dateFum);
   }
 
+  convetirMesATexto(mes:any):string{
+    console.log(mes);
+    if(mes=='1' || mes =='ENERO'){
+      console.log(mes);
+      return "ENERO";
+    }
+    else if(mes=='2' || mes =='FEBRERO') return "FEBRERO"
+    else if (mes=='3' || mes =='MARZO') return "MARZO"
+    else if (mes=='4' || mes =='ABRIL') return  "ABRIL"
+    else if(mes=='5' || mes =='MAYO') return "MAYO"
+    else if(mes=='6' || mes =='JUNIO') return  "JUNIO"
+    else if(mes=='7' || mes =='JULIO') return  "JULIO"
+    else if(mes=='8' || mes =='AGOSTO') return  "AGOSTO"
+    else if(mes=='9' || mes =='SETIEMBRE') return  "SETIEMBRE"
+    else if(mes=='10' || mes =='OCTUBRE') return  "OCTUBRE"
+    else if(mes=='11' || mes =='NOVIEMBRE') return  "NOVIEMBRE"
+    else return "DICIEMBRE"
+  }
   getDataToSave(){
+    console.log(this.datePipe.transform(this.formDatos.getRawValue().fum,'yyyy-MM-dd'));
+    let dateNac=new Date(this.formDatos.getRawValue().fechaNacimiento);
+    console.log('fecha nac',dateNac);
     this.data = {
-      // lote:this.formDatos.value.lote,
-      establecimiento:this.formDatos.value.establecimiento,
-      fechaProceso:this.formDatos.value.fechaProceso,
-      programaSocial:this.formDatos.value.programaSocial,
-      anio:this.formDatos.value.año,
-      turno:this.formDatos.value.turno,
-      actividad:this.formDatos.value.actividad,
-      mes:this.formDatos.value.mes,
-      nombreIpress:this.formDatos.value.ipress,
-      ups:this.formDatos.value.ups,
-      upsAuxiliar:this.formDatos.value.upsAux,
-      nombreProfesional:this.formDatos.value.nombreProfesional,
-      dniProfesional:this.formDatos.value.dniProfesional,
-      colegiatura:this.formDatos.value.colegiatura,
-      dia:this.formDatos.value.dia,
-      horaAtencion:this.formDatos.value.horaAtencion,
-      saludMaterna:this.formDatos.value.saludMaterna,
-      conIngEs:this.formDatos.value.conIngEs,
-      conIngSe:this.formDatos.value.conIngSe,
-      tipoDoc:this.formDatos.value.tipoDoc,
-      nroDoc:this.formDatos.value.nroDoc,
-      nombre: this.formDatos.value.nombres,
-      apePaterno:this.formDatos.value.apePaterno,
-      apeMaterno:this.formDatos.value.apeMaterno,
-      sexo:this.formDatos.value.sexo,
-      etnia:this.formDatos.value.etnia,
-      edad:this.formDatos.value.edad,
-      denominacionEdad:this.formDatos.value.denominacionEdad,
-      fechaNacimiento:this.formDatos.value.fechaNacimiento,
-      nroHcl:this.formDatos.value.nroHcl,
-      ccpp:this.formDatos.value.ccpp,
-      distrito:this.formDatos.value.distrito,
-      sector:this.formDatos.value.sector,
-      financiamiento:this.formDatos.value.financiamiento,
-      registroOpcional:this.formDatos.value.registroOpcional,
-      grupoRiesgo:this.formDatos.value.grupoRiesgo,
-      fum:this.formDatos.value.fum,
-      semanaGestacion:this.formDatos.value.semanaGestacion,
-      peso:this.formDatos.value.peso,
-      talla:this.formDatos.value.talla,
-      hb:this.formDatos.value.hb,
-      fechaRegistroHB:this.formDatos.value.fechaHb,
-      perimetroCefalico:this.formDatos.value.perimetroCefalico,
-      perimetroAbdominal:this.formDatos.value.perimetroAbdominal,
+      fechaProceso:this.datePipe.transform(this.formDatos.getRawValue().fechaProceso,'yyyy-MM-dd'),
+      programaSocial:this.formDatos.getRawValue().programaSocial,
+      anio:this.formDatos.getRawValue().año,
+      turno:this.formDatos.getRawValue().turno,
+      actividad:this.formDatos.getRawValue().actividad,
+      mes:this.formDatos.getRawValue().mes,
+      nombreIpress:this.formDatos.getRawValue().ipress,
+      ups:this.formDatos.getRawValue().ups,
+      upsAuxiliar:this.formDatos.getRawValue().upsAux,
+      nombreProfesional:this.formDatos.getRawValue().nombreProfesional,
+      dniProfesional:this.formDatos.getRawValue().dniProfesional,
+      colegiatura:this.formDatos.getRawValue().colegiatura,
+      dia:this.formDatos.getRawValue().dia,
+      horaAtencion:this.formDatos.getRawValue().horaAtencion,
+      saludMaterna:this.formDatos.getRawValue().saludMaterna,
+      conIngEs:this.formDatos.getRawValue().conIngEs,
+      conIngSe:this.formDatos.getRawValue().conIngSe,
+      tipoDoc:this.formDatos.getRawValue().tipoDoc,
+      nroDoc:this.formDatos.getRawValue().nroDoc,
+      nombre: this.formDatos.getRawValue().nombres,
+      apePaterno:this.formDatos.getRawValue().apePaterno,
+      apeMaterno:this.formDatos.getRawValue().apeMaterno,
+      sexo:this.formDatos.getRawValue().sexo,
+      etnia:this.formDatos.getRawValue().etnia,
+      edad:this.formDatos.getRawValue().edad,
+      denominacionEdad:this.formDatos.getRawValue().denominacionEdad,
+
+      fechaNacimiento:this.datePipe.transform(this.formDatos.getRawValue().fechaNacimiento,'yyyy-MM-ddTHH:mm:ss'),
+      nroHcl:this.formDatos.getRawValue().nroHcl,
+      ccpp:this.formDatos.getRawValue().ccpp,
+      distrito:this.formDatos.getRawValue().distrito,
+      sector:this.formDatos.getRawValue().sector,
+      financiamiento:this.formDatos.getRawValue().financiamiento,
+      registroOpcional:this.formDatos.getRawValue().registroOpcional,
+      grupoRiesgo:this.formDatos.getRawValue().grupoRiesgo,
+      fum:this.datePipe.transform(this.formDatos.getRawValue().fum,'yyyy-MM-dd'),
+      semanaGestacion:this.formDatos.getRawValue().semanaGestacion,
+      peso:this.formDatos.getRawValue().peso,
+      talla:this.formDatos.getRawValue().talla,
+      hb:this.formDatos.getRawValue().hb,
+      fechaRegistroHB:this.datePipe.transform(this.formDatos.getRawValue().fechaHb,'yyyy-MM-dd'),
+      perimetroCefalico:this.formDatos.getRawValue().perimetroCefalico,
+      perimetroAbdominal:this.formDatos.getRawValue().perimetroAbdominal,
       diagnosticos:this.diagnosticos,
-      idConsulta:this.formDatos.value.idConsulta
+      idConsulta:this.formDatos.getRawValue().idConsulta
     }
   }
 

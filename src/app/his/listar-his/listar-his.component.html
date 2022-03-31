@@ -8,7 +8,8 @@
 
     </p-toolbar>
 
-    <p-table [value]="listDataHIS" #dt styleClass="p-datatable-gridlines" [rows]="10"
+    <p-table [value]="listDataHIS" #dt styleClass="p-datatable-gridlines"
+             responsiveLayout="scroll" [rows]="10"
              [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
              currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
 
@@ -55,7 +56,8 @@
 
     </p-toolbar>
 
-    <p-table [value]="listaHisGenerados" #dt styleClass="p-datatable-gridlines" [rows]="10"
+    <p-table [value]="listaHisGenerados" #dt styleClass="p-datatable-gridlines"
+             responsiveLayout="scroll" [rows]="10"
              [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
              currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
 

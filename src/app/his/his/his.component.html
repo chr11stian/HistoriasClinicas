@@ -1,13 +1,18 @@
+<div class="titulo">
+    <span class="p-m-0">
+        <div class="grid">
+            <div class="col-2">
+                <i class="pi pi-book" style="font-size: 3rem"></i>
+            </div>
+            <div class="col-8">
+                REGISTRO DIARIO DE ATENCIÓN Y OTRAS ACTIVIDADES DE SALUD
+                (REGISTRO NOMINAL)
+            </div>
+        </div>
+    </span>
+</div>
 
 <div class="card">
-    <p-toolbar styleClass="p-mb-4">
-        <ng-template pTemplate="left">
-            <span class="p-m-0">
-              REGISTRO DIARIO DE ATENCIÓN Y OTRAS ACTIVIDADES DE SALUD - REGISTRO NOMINAL
-            </span>
-        </ng-template>
-
-    </p-toolbar>
     <br>
     <div>
         <p-toolbar>
@@ -19,30 +24,30 @@
             <form [formGroup]='formDatos'>
                 <div class="grid m-2">
                     <div class="col-12 md:col-6 lg:col-4 p-field">
+                        <!--nombre ipress-->
                         <div class="grid">
                             <div class="p-inputgroup">
                                 <div class="col-12" style="text-align: left">
-                                    <label class="">Nombre Ipress </label>
-                                    <input type="text" pInputText class="inputfield w-full" formControlName="ipress">
+                                    <label class="" style="text-transform:uppercase">Nombre Ipress </label>
+                                    <input type="text" style="text-transform:uppercase" pInputText class="inputfield w-full" formControlName="ipress">
                                 </div>
 
                             </div>
                         </div>
+                        <!-- año y mes -->
                         <div class="grid">
                             <div class="p-inputgroup">
                                 <!--año-->
                                 <div class="col-6" style="text-align: left">
-                                    <label class="">Año </label>
+                                    <label class="" style="text-transform:uppercase">Año </label>
                                     <p-inputNumber class="inputfield w-full"
                                            formControlName="año">
                                     </p-inputNumber>
                                 </div>
                                 <!--mes-->
                                 <div class="col-6" style="text-align: left">
-                                    <label class="">Mes </label>
-                                    <p-inputNumber class="inputfield w-full"
-                                                   formControlName="mes">
-                                    </p-inputNumber>
+                                    <label class="" style="text-transform:uppercase">Mes </label>
+                                    <input type="text" style="text-transform:uppercase" pInputText  class="inputfield w-full" formControlName="mes">
                                 </div>
 
                             </div>
@@ -53,34 +58,23 @@
                         <!--Fecha Proceso---->
                         <div class="grid">
                             <div class="col-12" style="text-align: left">
-                                <label class="">Fecha Proceso </label>
+                                <label class="" style="text-transform:uppercase">Fecha Proceso </label>
                                 <p-calendar formControlName="fechaProceso" placeholder="" showIcon="true"
-                                            dateFormat="yy-mm-dd" class="p-fluid"></p-calendar>
+                                            dateFormat="yy-mm-dd"  class="p-fluid"></p-calendar>
 
                             </div>
                         </div>
-
-                        <!--Nombre Ipress--->
-<!--                        <div class="grid">-->
-<!--                            <div class="p-inputgroup">-->
-<!--                                <div class="col-12" style="text-align: left">-->
-<!--                                    <label class="">Nombre Ipress </label>-->
-<!--                                    <input type="text" pInputText class="inputfield w-full" formControlName="ipress">-->
-<!--                                </div>-->
-
-<!--                            </div>-->
-<!--                        </div>-->
-                        <!--Dia--->
+                        <!-- dia - hora de atencion-->
                         <div class="grid">
                             <div class="p-inputgroup">
                                 <div class="col-5" style="text-align: left">
-                                    <label class="">Dia </label>
+                                    <label class="" style="text-transform:uppercase">Dia </label>
                                     <p-inputNumber  class="inputfield w-full"
                                            formControlName="dia">
                                     </p-inputNumber>
                                 </div>
                                 <div class="col-7" style="text-align: left">
-                                    <label class="">Hora de Atención: </label>
+                                    <label class="" style="text-transform:uppercase">Hora de Atención: </label>
                                     <input type="time" pInputText class="inputfield w-full"
                                            formControlName="horaAtencion">
                                 </div>
@@ -88,13 +82,13 @@
                         </div>
 
                     </div>
-                    <div class="col-12 md:col-6 lg:col-4 p-field">
+                    <div class="col-12 md:col-12 lg:col-4 p-field">
                         <!--UPS--->
                         <div class="grid">
                             <div class="p-inputgroup">
                                 <div class="col-12" style="text-align: left">
-                                    <label class="">UPS </label>
-                                    <input type="text" pInputText class="inputfield w-full" formControlName="ups">
+                                    <label class="" style="text-transform:uppercase">UPS </label>
+                                    <input type="text"  style="text-transform:uppercase"pInputText class="inputfield w-full" formControlName="ups">
                                 </div>
                             </div>
                         </div>
@@ -102,8 +96,8 @@
                         <div class="grid">
                             <div class="p-inputgroup">
                                 <div class="col-12" style="text-align: left">
-                                    <label class="">UPS Aux</label>
-                                    <input type="text" pInputText class="inputfield w-full" formControlName="upsAux">
+                                    <label class="" style="text-transform:uppercase">UPS Aux</label>
+                                    <input type="text" style="text-transform:uppercase" pInputText class="inputfield w-full" formControlName="upsAux">
                                 </div>
                             </div>
                         </div>
@@ -122,53 +116,54 @@
             <form [formGroup]='formDatos'>
                 <div class="grid m-2">
                     <div class="col-12 md:col-6 lg:col-3 p-field">
+                        <!--nombre profesional-->
                         <div class="grid">
                             <div class="p-inputgroup">
-                                <!--año-->
                                 <div class="col-12" style="text-align: left">
-                                    <label class="">Nombre del responsable </label>
-                                    <input type="text" pInputText class="inputfield w-full"
+                                    <label class="" style="text-transform:uppercase">Nombre del responsable </label>
+                                    <input type="text" style="text-transform:uppercase" pInputText class="inputfield w-full"
                                            formControlName="nombreProfesional">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-12 md:col-6 lg:col-3 p-field">
+                        <!--dni profesional-->
                         <div class="grid">
                             <div class="p-inputgroup">
                                 <div class="col-12" style="text-align: left">
-                                    <label class="">DNI Responsable: </label>
-                                    <input type="text" pInputText class="inputfield w-full"
+                                    <label class="" style="text-transform:uppercase">DNI Responsable: </label>
+                                    <input type="text" style="text-transform:uppercase" pInputText class="inputfield w-full"
                                            formControlName="dniProfesional">
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 md:col-6 lg:col-3 p-field">
+                    <div class="col-12 md:col-4 lg:col-2 p-field">
                         <div class="grid">
                             <!--colegiatura-->
                             <div class="col-12" style="text-align: left">
-                                <label class="">Colegiatura </label>
-                                <input type="text" pInputText class="inputfield w-full"
+                                <label class="" style="text-transform:uppercase">Colegiatura </label>
+                                <input type="text" style="text-transform:uppercase" pInputText class="inputfield w-full"
                                        formControlName="colegiatura">
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 md:col-6 lg:col-2 p-field">
+                    <div class="col-12 md:col-4 lg:col-3 p-field">
                         <!--turno de atencion-->
                         <div class="grid">
                             <div class="col-12 p-fluid" style="text-align: left">
-                                <label class="">Turno de Atención </label>
+                                <label class="" style="text-transform:uppercase">Turno de Atención </label>
                                 <p-selectButton [options]="turnos" formControlName="turno" optionLabel="name" optionValue="value">
                                 </p-selectButton>
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 md:col-6 lg:col-1 p-field">
+                    <div class="col-12 md:col-4 lg:col-1 p-field">
                         <!--actividad-->
                         <div class="grid">
                             <div class="col-12 p-fluid" style="text-align: left">
-                                <label class="">Actividad </label>
+                                <label class="" style="text-transform:uppercase">Actividad </label>
                                 <p-selectButton [options]="actividad" formControlName="actividad"  optionLabel="name" optionValue="value">
                                 </p-selectButton>
                             </div>
@@ -192,7 +187,7 @@
                         <div class="grid">
                             <div class="p-inputgroup">
                                 <div class="col-4" style="text-align: left">
-                                    <label class="">Apellido Paterno </label>
+                                    <label class="" style="text-transform:uppercase">Apellido Paterno </label>
                                 </div>
                                 <div class="col-8">
                                     <input type="text" pInputText class="inputfield w-full"
@@ -204,7 +199,7 @@
                         <div class="grid">
                             <div class="p-inputgroup">
                                 <div class="col-4" style="text-align: left">
-                                    <label class="">Apellido Materno </label>
+                                    <label class="" style="text-transform:uppercase">Apellido Materno </label>
                                 </div>
                                 <div class="col-8">
                                     <input type="text" pInputText class="inputfield w-full" formControlName="apeMaterno"
@@ -216,7 +211,7 @@
                         <div class="grid">
                             <div class="p-inputgroup">
                                 <div class="col-4" style="text-align: left">
-                                    <label class="">Nombres </label>
+                                    <label class="" style="text-transform:uppercase">Nombres </label>
                                 </div>
                                 <div class="col-8">
                                     <input type="text" pInputText class="inputfield w-full" formControlName="nombres"
@@ -228,7 +223,7 @@
                         <div class="grid">
                             <div class="p-inputgroup">
                                 <div class="col-4" style="text-align: left">
-                                    <label class="">Edad:</label>
+                                    <label class="" style="text-transform:uppercase">Edad:</label>
                                 </div>
                                 <div class="col-3 p-fluid">
                                     <p-inputNumber  class="inputfield w-full"
@@ -246,7 +241,7 @@
                         <div class="grid">
                             <div class="p-inputgroup">
                                 <div class="col-4" style="text-align: left">
-                                    <label class="">Grupo de Riesgo:</label>
+                                    <label class="" style="text-transform:uppercase">Grupo de Riesgo:</label>
                                 </div>
                                 <div class="col-8">
                                     <input type="text" pInputText class="inputfield w-full" formControlName="grupoRiesgo"
@@ -258,7 +253,7 @@
                         <div class="grid">
                             <div class="p-inputgroup">
                                 <div class="col-4" style="text-align: left">
-                                    <label class="">Salud Materna:</label>
+                                    <label class="" style="text-transform:uppercase">Salud Materna:</label>
                                 </div>
                                 <div class="col-8">
                                     <input type="text" pInputText class="inputfield w-full" formControlName="saludMaterna"
@@ -273,10 +268,10 @@
                         <div class="grid">
                             <div class="p-inputgroup">
                                 <div class="col-4" style="text-align: left">
-                                    <label class="">Tipo de Doc.</label>
+                                    <label class="" style="text-transform:uppercase">Tipo de Doc.</label>
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" pInputText class="inputfield w-full" formControlName="tipoDoc">
+                                    <input type="text" style="text-transform:uppercase" pInputText class="inputfield w-full" formControlName="tipoDoc">
                                 </div>
                             </div>
                         </div>
@@ -284,10 +279,10 @@
                         <div class="grid">
                             <div class="p-inputgroup">
                                 <div class="col-4" style="text-align: left">
-                                    <label class="">Doc. de Identidad</label>
+                                    <label class="" style="text-transform:uppercase">Doc. de Identidad</label>
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" pInputText class="inputfield w-full" formControlName="nroDoc">
+                                    <input type="text" style="text-transform:uppercase" pInputText class="inputfield w-full" formControlName="nroDoc">
 
                                 </div>
                             </div>
@@ -296,10 +291,10 @@
                         <div class="grid">
                             <div class="p-inputgroup">
                                 <div class="col-4" style="text-align: left">
-                                    <label class="">Núm. de HCl</label>
+                                    <label class="" style="text-transform:uppercase">Núm. de HCl</label>
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" pInputText class="inputfield w-full" formControlName="nroHcl">
+                                    <input type="text" style="text-transform:uppercase" pInputText class="inputfield w-full" formControlName="nroHcl">
 
                                 </div>
                             </div>
@@ -308,7 +303,7 @@
                         <div class="grid">
                             <div class="p-inputgroup">
                                 <div class="col-4" style="text-align: left">
-                                    <label class="">Sexo</label>
+                                    <label class="" style="text-transform:uppercase">Sexo</label>
                                 </div>
                                 <div class="col-8 p-fluid">
                                     <p-selectButton [options]="sexo" formControlName="sexo" optionLabel="name" optionValue="value">
@@ -320,7 +315,7 @@
                         <div class="grid">
                             <div class="p-inputgroup">
                                 <div class="col-4" style="text-align: left">
-                                    <label class="">Semana Gestación:</label>
+                                    <label class="" style="text-transform:uppercase">Semana Gestación:</label>
                                 </div>
                                 <div class="col-8">
                                     <input type="text" pInputText class="inputfield w-full" formControlName="semanaGestacion"
@@ -332,7 +327,7 @@
                         <div class="grid">
                             <div class="p-inputgroup">
                                 <div class="col-4" style="text-align: left">
-                                    <label class="">CON_ING ES:</label>
+                                    <label class="" style="text-transform:uppercase">CON_ING ES:</label>
                                 </div>
                                 <div class="col-8 p-fluid">
                                     <p-selectButton [options]="listaConIng" formControlName="conIngEs" optionLabel="name" optionValue="value">
@@ -341,12 +336,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 md:col-6 lg:col-4 p-field">
+                    <div class="col-12 md:col-12 lg:col-4 p-field">
                         <!-- Financiamiento-->
                         <div class="grid">
                             <div class="p-inputgroup">
                                 <div class="col-4" style="text-align: left">
-                                    <label class="">Financ.</label>
+                                    <label class="" style="text-transform:uppercase">Financ.</label>
                                 </div>
                                 <div class="col-8">
                                     <input type="text" pInputText class="inputfield w-full" formControlName="financiamiento"
@@ -358,11 +353,11 @@
                         <div class="grid">
                             <div class="p-inputgroup">
                                 <div class="col-4" style="text-align: left">
-                                    <label class="">Fecha de Nac. </label>
+                                    <label class="" style="text-transform:uppercase">Fecha de Nac. </label>
                                 </div>
                                 <div class="col-8">
-                                    <p-calendar formControlName="fechaNacimiento" placeholder="" dateFormat="yy-mm-dd"
-                                                  class="p-fluid" [showIcon]="true" [showTime]="true" [showSeconds]="true"></p-calendar>
+                                    <p-calendar formControlName="fechaNacimiento" placeholder=""  dateFormat="yy-mm-dd"
+                                                class="p-fluid" [showIcon]="true" [showTime]="true" [showSeconds]="true"></p-calendar>
                                 </div>
                             </div>
                         </div>
@@ -370,11 +365,11 @@
                         <div class="grid">
                             <div class="p-inputgroup">
                                 <div class="col-4" style="text-align: left">
-                                    <label class="">Fecha de Última Regla</label>
+                                    <label class="" style="text-transform:uppercase">Fecha de Última Regla</label>
                                 </div>
                                 <div class="col-8">
-                                    <p-calendar formControlName="fechaUltimaRegla" placeholder="" dateFormat="yy-mm-dd"
-                                                 class="p-fluid" [showIcon]="true" [showTime]="true" [showSeconds]="true"></p-calendar>
+                                    <p-calendar formControlName="fum" placeholder=""  dateFormat="yy-mm-dd"
+                                                class="p-fluid" [showIcon]="true" ></p-calendar>
                                 </div>
                             </div>
                         </div>
@@ -382,7 +377,7 @@
                         <div class="grid">
                             <div class="p-inputgroup">
                                 <div class="col-4" style="text-align: left">
-                                    <label class="">Etnia</label>
+                                    <label class="" style="text-transform:uppercase">Etnia</label>
                                 </div>
                                 <div class="col-8">
                                     <input type="text" pInputText class="inputfield w-full" formControlName="etnia"
@@ -394,7 +389,7 @@
                         <div class="grid">
                             <div class="p-inputgroup">
                                 <div class="col-4" style="text-align: left">
-                                    <label class="">Registro Opcional:</label>
+                                    <label class="" style="text-transform:uppercase">Registro Opcional:</label>
                                 </div>
                                 <div class="col-8">
                                     <input type="text" pInputText class="inputfield w-full" formControlName="registroOpcional"
@@ -406,7 +401,7 @@
                         <div class="grid">
                             <div class="p-inputgroup">
                                 <div class="col-4" style="text-align: left">
-                                    <label class="">CON_ING SE:</label>
+                                    <label class="" style="text-transform:uppercase">CON_ING SE:</label>
                                 </div>
                                 <div class="col-8 p-fluid">
                                     <p-selectButton [options]="listaConIng" formControlName="conIngSe" optionLabel="name" optionValue="value">
@@ -414,7 +409,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </form>
@@ -428,11 +422,11 @@
         <div class="border">
             <form [formGroup]='formDatos'>
                 <div class="grid m-2">
-                    <div class="col-12 md:col-6 lg:col-4 p-field">
+                    <div class="col-12 md:col-4 lg:col-4 p-field">
                         <!-- Centro poblado de procedencia-->
                         <div class="grid">
                             <div class="col-4" style="text-align: left">
-                                <label class="">Distrito</label>
+                                <label class="" style="text-transform:uppercase">Distrito</label>
                             </div>
                             <div class="col-8">
                                 <input type="text" pInputText class="inputfield w-full" formControlName="distrito"
@@ -440,11 +434,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 md:col-6 lg:col-4 p-field">
+                    <div class="col-12 md:col-4 lg:col-4 p-field">
                         <!-- Centro poblado de procedencia-->
                         <div class="grid">
                             <div class="col-4" style="text-align: left">
-                                <label class="">Sector</label>
+                                <label class="" style="text-transform:uppercase">Sector</label>
                             </div>
                             <div class="col-8">
                                 <input type="text" pInputText class="inputfield w-full" formControlName="sector"
@@ -452,11 +446,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 md:col-6 lg:col-4 p-field">
+                    <div class="col-12 md:col-4 lg:col-4 p-field">
                         <!-- Centro poblado de procedencia-->
                         <div class="grid">
                             <div class="col-4" style="text-align: left">
-                                <label class="">Centro Poblado</label>
+                                <label class="" style="text-transform:uppercase">Centro Poblado</label>
                             </div>
                             <div class="col-8">
                                 <input type="text" pInputText class="inputfield w-full" formControlName="ccpp"
@@ -483,7 +477,7 @@
                         <div class="grid">
                             <div class="p-inputgroup">
                                 <div class="col-4" style="text-align: left">
-                                    <label class="">Peso:</label>
+                                    <label class="" style="text-transform:uppercase">Peso:</label>
                                 </div>
                                 <div class="col-8">
                                     <input type="text" pInputText class="inputfield w-full" formControlName="peso"
@@ -495,7 +489,7 @@
                         <div class="grid">
                             <div class="p-inputgroup">
                                 <div class="col-4" style="text-align: left">
-                                    <label class="">Perímetro Abd.:</label>
+                                    <label class="" style="text-transform:uppercase">Perímetro Abd.:</label>
                                 </div>
                                 <div class="col-8">
                                     <input type="text" pInputText class="inputfield w-full" formControlName="perimetroAbdominal"
@@ -509,7 +503,7 @@
                         <div class="grid">
                             <div class="p-inputgroup">
                                 <div class="col-4" style="text-align: left">
-                                    <label class="">Talla:</label>
+                                    <label class="" style="text-transform:uppercase">Talla:</label>
                                 </div>
                                 <div class="col-8">
                                     <input type="text" pInputText class="inputfield w-full" formControlName="talla"
@@ -520,7 +514,7 @@
                         <div class="grid">
                             <div class="p-inputgroup">
                                 <div class="col-4" style="text-align: left">
-                                    <label class="">Perímetro Cefálico.:</label>
+                                    <label class="" style="text-transform:uppercase">Perímetro Cefálico.:</label>
                                 </div>
                                 <div class="col-8">
                                     <input type="text" pInputText class="inputfield w-full" formControlName="perimetroCefalico"
@@ -529,12 +523,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 md:col-6 lg:col-4 p-field">
+                    <div class="col-12 md:col-12 lg:col-4 p-field">
                         <!--Hemoglobina-->
                         <div class="grid">
                             <div class="p-inputgroup">
                                 <div class="col-4" style="text-align: left">
-                                    <label class="">Hb:</label>
+                                    <label class="" style="text-transform:uppercase">Hb:</label>
                                 </div>
                                 <div class="col-8">
                                     <input type="text" pInputText class="inputfield w-full" formControlName="hb"
@@ -546,12 +540,12 @@
                         <div class="grid">
                             <div class="p-inputgroup">
                                 <div class="col-4" style="text-align: left">
-                                    <label class="">Fecha registro Hb:</label>
+                                    <label class="" style="text-transform:uppercase">Fecha registro Hb:</label>
                                 </div>
                                 <div class="col-8">
 <!--                                    <input type="datetime-local" pInputText class="inputfield w-full" formControlName="fechaHb"-->
 <!--                                           style="text-transform:uppercase">-->
-                                    <p-calendar formControlName="fechaHb" placeholder=""
+                                    <p-calendar formControlName="fechaHb" placeholder="" [showIcon]="true"
                                                 dateFormat="yy-mm-dd" class="p-fluid"></p-calendar>
                                 </div>
                             </div>
@@ -567,8 +561,10 @@
                 <label>DIAGNOSTICOS</label>
             </ng-template>
         </p-toolbar>
+        <br>
         <div class="border">
-            <p-table [value]="diagnosticos" #dt styleClass="p-datatable-gridlines" [rows]="10"
+            <p-table [value]="diagnosticos" #dt styleClass="p-datatable-gridlines"
+                     responsiveLayout="scroll" [rows]="10"
                      [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
                      currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
 
