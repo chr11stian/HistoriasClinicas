@@ -173,9 +173,10 @@ export class TepsiComponent implements OnInit {
     return aux
   }
   isUpdate:boolean=false
-  async getTestTepsi(){
-    await this.tepsiService.getConsultaTepsi(this.idConsulta).then((resp)=>{
-      if (resp['cod']=='2121'){
+  getTestTepsi(){
+      this.tepsiService.getConsultaTepsi(this.idConsulta).then((resp)=>{
+        //2122 si no hay registro
+        if (resp['cod']=='2121'){
         this.isUpdate=true;
         this.messageService.add({key: 'myKey1', severity:'success', summary: 'Registro recuperado', detail: 'Registro recuperado satisfactoriamente'});
         const resultado=resp['object']['testTepsi'];
@@ -261,10 +262,10 @@ export class TepsiComponent implements OnInit {
     }
     this.calcularResultadoSubTest1(2)
   }
-  async getTablaPuntaje(){
+  getTablaPuntaje(){
     Swal.fire({title: 'Cargando Datos' });
     Swal.showLoading();
-    await this.tepsiService.getTablaPuntaje1(this.rango).then((data)=>{
+      this.tepsiService.getTablaPuntaje1(this.rango).then((data)=>{
       this.tablaPuntajeTotal=data['object']['tablaPuntajeTotal'];
       this.tablaSubTestG.push({subTest:data['object']['tablaSubTestCoordinacion']})
       this.tablaSubTestG.push({subTest: data['object']['tablaSubTestLenguaje']})
