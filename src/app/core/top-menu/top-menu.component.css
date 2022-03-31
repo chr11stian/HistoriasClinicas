@@ -1,12 +1,18 @@
-@media all and (max-device-width: 450px){
-    .menu{ display:none !important; }
-}
-@media all and (max-device-width: 450px){
-    .icon{ display: none; margin-left: 5%}
+@media all and (max-device-width: 450px) {
+    .menu {
+        display: none !important;
+    }
 }
 
-p-menubar >>> .p-menubar-button{
-    display: none ;
+@media all and (max-device-width: 450px) {
+    .icon {
+        display: none;
+        margin-left: 5%
+    }
+}
+
+p-menubar >>> .p-menubar-button {
+    display: none;
 }
 
 /* .template{
@@ -42,7 +48,7 @@ p-menubar >>> .p-menubar-button{
 
 .user-name {
     width: 180px;
-    margin-top: 3%
+    margin-top: 2%;
 }
 
 .user-icon {
@@ -52,7 +58,7 @@ p-menubar >>> .p-menubar-button{
     margin-left: 3%
 }
 
-.user-option{
+.user-option {
     width: 10%;
     height: 10%;
     background-color: aquamarine;
