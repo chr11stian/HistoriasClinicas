@@ -164,12 +164,6 @@ export class ListaConsultaComponent implements OnInit {
                 confirmButtonColor: '#3085d6',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Se creo HIS correctamente',
-                        showConfirmButton: false,
-                        timer: 2000
-                    });
                     this.router.navigate(['dashboard/his/listar-his'], rowData)
                 } else if (result.isDenied) {
                     Swal.fire({

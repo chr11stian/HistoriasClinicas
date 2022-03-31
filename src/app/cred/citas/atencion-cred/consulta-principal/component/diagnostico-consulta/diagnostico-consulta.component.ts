@@ -65,7 +65,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.recuperarUpsHis();
+        // this.recuperarUpsHis();
         this.recuperarUpsAuxHis();
         // this.recuperarResumenDxBDInmunizaciones();
         // this.recuperarResumenDxBDSuplementaciones();
@@ -84,7 +84,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
            buscarDxHIS:  new FormControl({value:'',disabled:false}),
            tipoDiagnostico:  new FormControl({value:'',disabled:false}),
            prestacion: new FormControl({value:'',disabled:false}),
-           nombreUPS: ['', [Validators.required]],
+           nombreUPS: new FormControl({value:'',disabled:true}),
            nombreUPSaux:['', [Validators.required]],
            diagnosticoSIS: new FormControl({value:'',disabled:false}),
            cie10SIS: new FormControl({value:'',disabled:false}),
@@ -111,6 +111,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
            if(r.object!=null){
                this.listaUpsAuxHis=r.object.filter(element => element.estado == true);
            }
+           console.log("lista ups aux ",this.listaUpsAuxHis);
        })
     }
 
@@ -118,7 +119,6 @@ export class DiagnosticoConsultaComponent implements OnInit {
     recuperarResumenDxBDSuplementaciones(){
         this.DiagnosticoService.getSuplementacionResumen(this.dataConsulta.idConsulta).subscribe((r: any) => {
             //-- recupera laboratorios resumen
-
             if(r.object.suplementaciones!=null){
                 this.loading = false;
                 for(let i =0 ;i < r.object.suplementaciones.length;i++){
@@ -347,8 +347,9 @@ export class DiagnosticoConsultaComponent implements OnInit {
         this.isUpdate = false;
         this.checked=false;
         this.formDiagnostico.reset();
-        this.formDiagnostico.patchValue({ nombreUPS: "ENFERMERIA"});
-        // this.formDiagnostico.get('nombreUPS').disable();
+        this.formDiagnostico.get('nombreUPS').setValue("ENFERMERIA");
+        // this.formDiagnostico.patchValue({ nombreUPS: "ENFERMERIA"});
+        this.formDiagnostico.get('nombreUPS').disable();
         this.formDiagnostico.get('prestacion').enable();
         this.formDiagnostico.get('buscarDxSIS').enable();
         this.formDiagnostico.get('buscarDxHIS').enable();
@@ -383,9 +384,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
     /*** funciones Procedimientos****/
     onChangePrestacion() {
         let codigoPrestacion:any;
-
-            codigoPrestacion=this.formDiagnostico.value.prestacion.codigo;
-
+        codigoPrestacion=this.formDiagnostico.value.prestacion.codigo;
         this.formDiagnostico.patchValue({ diagnosticoSIS: ""})
         this.formDiagnostico.patchValue({ cie10SIS: ""})
         this.PrestacionService.getDiagnosticoPorCodigo(codigoPrestacion).subscribe((res: any) => {
@@ -533,6 +532,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
         }
 
     }
+
     getDatatoEditDx() {
         this.isUpdate = false;
         this.checked=false;
@@ -557,6 +557,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
         this.diagnosticos.push(aux);
         this.diagnosticoDialog=false;
     }
+
     editarDx(rowData,rowindex) {
         this.isUpdate = true;
         this.itemEdit=rowindex;
@@ -567,7 +568,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
         this.formDiagnostico.get('prestacion').setValue(this.ListaPrestacion.find(element => element.codigo == rowData.codPrestacion));
         this.formDiagnostico.get('tipoDiagnostico').setValue(rowData.tipo);
         this.formDiagnostico.get('nombreUPS').setValue("ENFERMERIA");
-        this.formDiagnostico.get('nombreUPSaux').setValue(this.listaUpsAuxHis.find(element=>element.nombre == rowData.nombre));
+        this.formDiagnostico.get('nombreUPSaux').setValue(this.listaUpsAuxHis.find(element=>element.nombre == rowData.nombreUPSaux));
         this.formDiagnostico.get('diagnosticoSIS').setValue(rowData.diagnosticoSIS);
         this.formDiagnostico.get('diagnosticoHIS').setValue(rowData.diagnosticoHIS);
         this.formDiagnostico.get('lab').setValue(rowData.lab);
@@ -641,7 +642,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
         this.diagnosticoDialog = true;
         this.formDiagnostico.reset();
         this.formDiagnostico.get('nombreUPS').setValue("ENFERMERIA");
-        this.formDiagnostico.patchValue({ nombreUPS: "ENFERMERIA" });
+        // this.formDiagnostico.patchValue({ nombreUPS: "ENFERMERIA" });
         this.formDiagnostico.get('cie10HIS').setValue("");
         this.formDiagnostico.get('cie10SIS').setValue("");
         this.diagnosticoDialog = true;
