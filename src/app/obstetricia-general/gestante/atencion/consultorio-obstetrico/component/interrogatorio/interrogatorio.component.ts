@@ -161,13 +161,15 @@ export class InterrogatorioComponent implements OnInit {
     const response: any = await this.consultaObstetricaService.getLastConsulById(idData);
     this.ultimaConsulta = response.object;
     this.nroFetos = this.ultimaConsulta.nroFetos;
-    console.log('ultima consulta', this.ultimaConsulta);
+    console.log('ultima consultarrrrrr', this.ultimaConsulta);
+    console.log("nnro fetos", this.ultimaConsulta.nroFetos)
     this.form.get("imc").setValue(this.ultimaConsulta.imc);
     this.form.get("pesoHabitual").setValue(this.ultimaConsulta.pesoHabitual);
+    this.form.patchValue({ nroFetos: this.nroFetos});
+    
     if (!this.estadoEditar) {
       this.calcularEdadGestacional(this.ultimaConsulta.fum);
       this.calcularGanancia();
-
       //funciones biologicas
       this.form.patchValue({ apetito: this.ultimaConsulta.funcionesBiologicas[0].valor });
       this.form.patchValue({ sed: this.ultimaConsulta.funcionesBiologicas[1].valor });
@@ -260,7 +262,7 @@ export class InterrogatorioComponent implements OnInit {
         this.imcService.getGananciaPesoRegular(semanas).subscribe((res: any) => {
           let auxiliar = res.object.recomendacionGananciaPesoRegular[0];
           console.log('datos ', auxiliar);
-          if (this.nroFetos < 2) {
+          if (this.form.value.nroFetos < 2) {
             if (parseFloat(this.form.value.talla) < 157) {
               if (gananciaPeso < auxiliar.min) {
                 indicador = "GIP"
@@ -327,7 +329,7 @@ export class InterrogatorioComponent implements OnInit {
           this.imcService.getGananciaObesa(semanas).subscribe((res: any) => {
             console.log('datos ', res.object);
             let auxiliar = res.object.recomendacionGananciaObesa[0];
-            if (this.nroFetos < 2) {
+            if (this.form.value.nroFetos < 2) {
               if (parseFloat(this.form.value.talla) < 157) {
                 if (gananciaPeso < auxiliar.min) {
                   indicador = "GIP"
@@ -424,6 +426,7 @@ export class InterrogatorioComponent implements OnInit {
       abdomenDetalle: new FormControl(""),
       examenFisicoOtro: new FormControl(""),
 
+      nroFetos: new FormControl(""),
       alturaUterina: new FormControl(""),
       selectSituacion: new FormControl(""),
       selectPresentacion: new FormControl(""),
@@ -537,7 +540,7 @@ export class InterrogatorioComponent implements OnInit {
 
   guardarDatos() {
     this.recuperarDatos();
-    this.consultaObstetricaService.updateConsultas(this.nroFetos, this.interrogatorioData).subscribe((res: any) => {
+    this.consultaObstetricaService.updateConsultas(this.form.value.nroFetos, this.interrogatorioData).subscribe((res: any) => {
       this.messageService.add({
         severity: "success",
         summary: "Exito",
