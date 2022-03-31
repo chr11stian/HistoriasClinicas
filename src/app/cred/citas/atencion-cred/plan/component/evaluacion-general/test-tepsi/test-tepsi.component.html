@@ -41,36 +41,39 @@
     <p-card [style]="{'height': '21rem', 'padding-top': 'unset'}" class="pr-1">
       <ng-template pTemplate="header">
         <h3 style="margin-bottom: unset;" class="text-center mb-2">Resultado Test</h3>
-        <div class="flex justify-content-center">
-          <div class="col-11 grid">
-            <div class="col-3"></div>
-            <div class="col-9 grid">
-              <div class="col-2 text-center" style="font-size: 0.8rem">RETRASO</div>
-              <div class="col-2 text-center" style="font-size: 0.8rem">RIESGO</div>
-              <div class="col-8 text-center" style="font-size: 1rem">NORMALIDAD</div>
+        <div class="grid">
+          <div class="col-3 text-right align-self-center">Puntaje T
+          </div>
+          <div class="col-9">
+            <div style="">
+              <div class="flex">
+                <div style="width:2rem "></div>
+                <div class="text-center" style="width:4rem;font-size: 0.8rem">RETRASO</div>
+                <div class="text-center" style="width:4rem;font-size: 0.8rem">RIESGO</div>
+                <div class="text-center" style="width:16rem;font-size: 1rem">NORMALIDAD</div>
+                <div style="width:2rem "></div>
+              </div>
+              <div class="flex" style="height: 18px">
+                <div class="" style="justify-content: center;width: 2rem"></div>
+                <div class="color-1" style="justify-content: center;width: 4rem"></div>
+                <div class="color-2" style="justify-content: center;width: 4rem"></div>
+                <div class="color-3" style="justify-content: center;width: 4rem"></div>
+                <div class="color-3" style="justify-content: center;width: 4rem"></div>
+                <div class="color-3" style="justify-content: center;width: 4rem"></div>
+                <div class="color-3" style="justify-content: center;width: 4rem"></div>
+                <div class="" style="justify-content: center;width: 2rem"></div>
+              </div>
+              <div class="flex" style="">
+                <div class="margenes text-center" style="width: 4rem">20</div>
+                <div class="margenes text-center" style="width: 4rem">30</div>
+                <div class="margenes text-center" style="width: 4rem">40</div>
+                <div class="margenes text-center" style="width: 4rem">50</div>
+                <div class="margenes text-center" style="width: 4rem">60</div>
+                <div class="margenes text-center" style="width: 4rem">70</div>
+                <div class="margenes text-center" style="width: 4rem">80</div>
+              </div>
             </div>
-            <div class="col-2" style="font-weight: bold; padding-top: 0px">
-            </div>
-            <div class="col-10 grid" style="height: 30px">
-              <div class="col-2 color-1"></div>
-              <div class="col-2 color-2"></div>
-              <div class="col-2 color-3"></div>
-              <div class="col-2 color-3"></div>
-              <div class="col-2 color-3"></div>
-              <div class="col-2 color-3"></div>
-            </div>
-            <div class="col-2 text-center" style="margin: 0px; padding: 0px">
-              PUNTAJE T
-            </div>
-            <div class="col-10 grid" style="margin: 0px; padding: 0px">
-              <div class="col margenes " style="justify-content: center">20</div>
-              <div class="col margenes " style="justify-content: center">30</div>
-              <div class="col margenes " style="justify-content: center">40</div>
-              <div class="col margenes " style="justify-content: center">50</div>
-              <div class="col margenes " style="justify-content: center">60</div>
-              <div class="col margenes " style="justify-content: center">70</div>
-              <div class="col margenes " style="justify-content: center">80</div>
-            </div>
+
           </div>
         </div>
       </ng-template>

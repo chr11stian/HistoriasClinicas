@@ -520,8 +520,8 @@ export class TriajeCredComponent implements OnInit {
 
     }
 
-    getPlan(dni: string) {
-        this.consultaGeneralService.traerPlan(dni).subscribe(
+    async getPlan(dni: string) {
+        await this.consultaGeneralService.traerPlan(dni).subscribe(
             result => {
                 console.log('cod', result.cod)
                 if (result.cod === '2404') {
@@ -643,24 +643,6 @@ export class TriajeCredComponent implements OnInit {
     }
 
     getConsultaPrincipal(): void {
-        // si es la primera consulta
-        // if(this.nroConsulta==0){
-        //     if (this.data.idConsulta === '') {
-        //         this.save()
-        //     }
-        //     setTimeout(() => {
-        //         this.router.navigate(['dashboard/cred/citas/atencion'])
-        //     }, 1000);
-        // }
-        // else{
-        //     if (this.data.idConsulta === '') {
-        //         this.save()
-        //     }
-        //     setTimeout(() => {
-        //         this.router.navigate(['/dashboard/cred/citas/atencion'])
-        //     }, 1000);
-        //
-        // }
         if (this.data.idConsulta === '') {
             this.save()
         }

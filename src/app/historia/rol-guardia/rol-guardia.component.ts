@@ -28,7 +28,7 @@ export class RolGuardiaComponent implements OnInit {
     {mesNro: 10, mes: 'OCTUBRE'},
     {mesNro: 11, mes: 'NOVIEMBRE'},
     {mesNro: 12, mes: 'DICIEMBRE'} ]
-  idIpressZarzuela = "616de45e0273042236434b51";//la posta medica x defecto
+  idIpressZarzuela = "";//la posta medica x defecto
   loading: boolean = true;
   loadingUps: boolean = true;
   listaTurno: any[] = [];
@@ -45,12 +45,16 @@ export class RolGuardiaComponent implements OnInit {
 
   isAdelante:boolean
   isAdelante1:boolean
+  auxiliar:any;
   constructor(
     private rolGuardiaService: RolGuardiaService,
     private personalService: PersonalService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService){
+    this.auxiliar=JSON.parse(localStorage.getItem('usuario'))
+    this.idIpressZarzuela=this.auxiliar.ipress.idIpress
     this.getPrimeraPantalla();
+
 
     // this.numeroDiasMes();
     // this.generarCabecera();
