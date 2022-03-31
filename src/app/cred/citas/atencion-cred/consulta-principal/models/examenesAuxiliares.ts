@@ -23,6 +23,7 @@ export interface ExamenAuxiliar {
     lugarExamen: string,
     resultado: ResultadoLaboratorio,
     labExterno: string
+    //campo nuevo
 }
 export interface ResultadoLaboratorio {
     hematologia?: Hematologia,

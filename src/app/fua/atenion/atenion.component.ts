@@ -2,6 +2,7 @@ import { DatePipe } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
+import { PersonalService } from "src/app/core/services/personal-services/personal.service";
 import Swal from "sweetalert2";
 import { Diagnostico, KeyData, SegundaParteFUA, Vacunas } from "../models/fua";
 import { FuaService } from "../services/fua.service";
@@ -70,14 +71,18 @@ export class AtenionComponent implements OnInit {
 
   secondDataFUA: SegundaParteFUA;
   datePipe = new DatePipe('en-US');
+  dataPersonal: any;
 
   constructor(
     private form: FormBuilder,
     private fuaService: FuaService,
-    private router: Router
+    private router: Router,
+    private personalService: PersonalService,
   ) {
     this.keyData = JSON.parse(localStorage.getItem("dataFUA"));
-    console.log('localstorage de FUA ', this.keyData);
+    let auxPersonal = JSON.parse(localStorage.getItem("usuario"));
+    // console.log('localstorage de FUA ', this.keyData);
+    console.log('datos de usuario ', auxPersonal);
     this.getDataFUA();
   }
 
@@ -136,9 +141,9 @@ export class AtenionComponent implements OnInit {
       tamizajeSaludMental: new FormControl("")
     });
     this.formRespAtencion = new FormGroup({
-      dniResponsable: new FormControl(""),
-      nombreResponsable: new FormControl(""),
-      nroColegiaturaResponsable: new FormControl(""),
+      dniResponsable: new FormControl({ value: "", disabled: true }),
+      nombreResponsable: new FormControl({ value: "", disabled: true }),
+      nroColegiaturaResponsable: new FormControl({ value: "", disabled: true }),
       responsableAtencion: new FormControl(""),
       especialidad: new FormControl(""),
       nroRne: new FormControl(""),
@@ -274,7 +279,7 @@ export class AtenionComponent implements OnInit {
         ups: this.formAtencion.value.ups,
         prestacionesAdicionales: this.formAtencion.value.prestacionesAdicionales,
         codAutorizacion: this.formAtencion.value.codAutorizacion,
-        nroFuaVincular: this.formAtencion.value.nroFuaVincular,
+        // nroFuaVincular: this.formAtencion.value.nroFuaVincular,
         hospitalizacion: {
           fechaIngreso: this.formAtencion.value.fechaIngreso,
           fechaAlta: this.formAtencion.value.fechaAlta,
@@ -373,18 +378,19 @@ export class AtenionComponent implements OnInit {
       confirmButtonColor: '#3085d6',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.fuaService.postSegundaParteFUA(this.keyData.idFUA, this.keyData.codPrestacion, this.secondDataFUA).subscribe((res: any) => {
-          let auxId: any = {
-            id: this.keyData.idConsulta
-          }
-          this.router.navigate(['/dashboard/fua/listar-fua'], auxId)
-          Swal.fire({
-            icon: "success",
-            title: "Se Guardo Correctamente FUA",
-            showConfirmButton: false,
-            timer: 2000,
-          });
-        });
+        console.log('data to save ', this.secondDataFUA);
+        // this.fuaService.postSegundaParteFUA(this.keyData.idFUA, this.keyData.codPrestacion, this.secondDataFUA).subscribe((res: any) => {
+        //   let auxId: any = {
+        //     id: this.keyData.idConsulta
+        //   }
+        //   this.router.navigate(['/dashboard/fua/listar-fua'], auxId)
+        //   Swal.fire({
+        //     icon: "success",
+        //     title: "Se Guardo Correctamente FUA",
+        //     showConfirmButton: false,
+        //     timer: 2000,
+        //   });
+        // });
       } else if (result.isDenied) {
         Swal.fire({
           icon: 'warning',
@@ -404,9 +410,5 @@ export class AtenionComponent implements OnInit {
     this.fuaService.getReportFUA(this.keyData.idFUA).subscribe((res: any) => {
 
     });
-  }
-
-  changeNgModel2() {
-    console.log('data of diagnostic ', this.listDiagnostico);
   }
 }

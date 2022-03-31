@@ -24,3 +24,14 @@ input[type="number"] {
 .p-inputtext {
   opacity: 1;
 }
+p-radiobutton >>> .p-radiobutton .p-radiobutton-icon {
+  content: url("src\assets\svg-icons\check-svgrepo-com.svg");
+}
+
+::ng-deep .p-radiobutton .p-radiobutton-box.p-highlight:hover,
+::ng-deep .p-radiobutton .p-radiobutton-box.p-highlight,
+::ng-deep .p-radiobutton .p-radiobutton-icon,
+::ng-deep .p-radiobutton-box.p-highlight .p-radiobutton-icon {
+    background: #0f89e7;
+    border-color: #0f89e7;
+}
