@@ -117,18 +117,25 @@
         <div class="grid">
             <div class="col-12 md:col-12 lg:col-12 xl:col-12">
                 <div class="card">
-                    <div class="text-center py-3">
-                        <label class="text-xl">SUPLEMENTACIONES</label>
+                    <div class="">
+                        <div class="text-center py-3 border-solid bg-blue-800 border-1">
+                            <label class="text-xl text-white">SUPLEMENTACIONES</label>
+                        </div>
                     </div>
-                    <div class="px-5">
-                        <p-timeline [value]="events1" layout="horizontal" align="top">
-                            <ng-template pTemplate="content" let-event>
-                                <label class="text-sm text-green-700 ">{{event.date}}</label>
-                            </ng-template>
-                            <ng-template pTemplate="opposite" let-event>
-                                <label class="text-sm  underline text-indigo-500">{{event.status}}</label>
-                            </ng-template>
-                        </p-timeline>
+                    <div class="grid p-3 align-items-center">
+                        <div *ngFor="let item of listaCalendarioSuplementos" class="col-6 md:col-3 text-center">
+                            <p-card  styleClass="p-card-shadow p-3 border-solid border-1">
+                                <ng-template pTemplate="header">
+                                    <label>{{item.titulo}}</label>
+                                    <p class="text-blue-800">({{item.dosis}})</p>
+                                    <br>
+                                </ng-template>
+                                <p>{{item.tiempo}}</p>
+                                <ng-template pTemplate="footer">
+                                    <p class="text-blue-700">{{item.cantidad}}</p>
+                                </ng-template>
+                            </p-card>
+                        </div>
                     </div>
                 </div>
             </div>
