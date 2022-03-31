@@ -32,19 +32,18 @@ export class AtencionCredComponent implements OnInit {
     isPrimeraConsulta:boolean=false;
     havePlan:boolean=false
     tienePlan(){
-
-        this.consultaGeneralService.tienePlan(this.data.nroDocumento).subscribe((resp:any)=>{
-            if (resp.cod=='2403'){
-                if(resp.object.planAtencion!=null)
-                    this.havePlan= true
-                else
-                    this.havePlan= false
+        console.log('tiene plan')
+        this.consultaGeneralService.tienePlanCred(this.data.nroDocumento).subscribe((resp:any)=>{
+            if (resp.cod=='2121'){
+               this.havePlan=resp.object.respuesta
             }
+        },(error)=>{
+            console.log('estado 404 ',error)
         })
     }
 
     PrimeraConsulta(){
-        console.log('eva-->', this.isTriajeTaken,this.havePlan)
+        // console.log('eva-->', this.isTriajeTaken,this.havePlan)
         if (this.isTriajeTaken){
             if(this.havePlan){
                 return false
