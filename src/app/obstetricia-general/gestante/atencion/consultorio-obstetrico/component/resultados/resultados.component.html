@@ -18,11 +18,11 @@
             <p-fieldset legend="PROXIMA CITA">
                 <div class="grid ">
                     <div class="col-12">
-                        <p-calendar [showIcon]="true" dateFormat="yy-mm-dd" formControlName="proxCita" inputId="icon">
+                        <p-calendar [ngModel]="fecha" [showIcon]="true" dateFormat="yy-mm-dd" formControlName="proxCita" inputId="icon">
                         </p-calendar>
                     </div>
                     <div class="col-12">
-                        <p-button label="Ver cronograma citas" icon="pi pi-calendar-plus" (click)="mostrarCronograma()">
+                        <p-button label="Ver cronograma citas" icon="pi pi-calendar-plus" (click)="openCalendar()">
                         </p-button>
                     </div>
                 </div>

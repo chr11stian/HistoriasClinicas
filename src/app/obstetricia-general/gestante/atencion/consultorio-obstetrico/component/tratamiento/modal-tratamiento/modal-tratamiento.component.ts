@@ -303,7 +303,6 @@ export class ModalTratamientoComponent implements OnInit {
     this.formTratamientoComun.patchValue({ fechaVencimiento: event.fechaVenc });
     this.formTratamientoComun.patchValue({ stock: event.stock });
   }
-
   listarMedicamentosFarmacia() {
     console.log("entrando a recuperar medicamentos de la farmacia");
     this.farmaciaService.getListaMedicamentosFarmaciaXIpress(this.renIpress).subscribe((data: any) => {

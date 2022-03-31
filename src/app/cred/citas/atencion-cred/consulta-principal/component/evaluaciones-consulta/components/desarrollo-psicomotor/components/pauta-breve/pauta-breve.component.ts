@@ -111,14 +111,14 @@ export class PautaBreveComponent implements OnInit {
       }
     }
     console.log('data to save ', this.dataPB);
-    // this.pautaBreveService.postAgregarPB(this.idConsulta, this.dataPB).subscribe((res: any) => {
-    //   Swal.fire({
-    //     icon: 'success',
-    //     title: 'Se Guardo la Pauta Breve Correctamente',
-    //     showConfirmButton: false,
-    //     timer: 1500
-    //   })
-    // });
+    this.pautaBreveService.postAgregarPB(this.idConsulta, this.dataPB).subscribe((res: any) => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Se Guardo la Pauta Breve Correctamente',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    });
   }
 
   confirmSaveTest() {

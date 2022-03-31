@@ -85,7 +85,7 @@
                                 </div>
                                 <div class="col-4 text-center">
                                     <button pButton pRipple icon="pi pi-check-circle" type="button"
-                                        label="Calcular ganancia" class="p-button-raised mt-3"
+                                        label="Calcular ganancia" class="p-button-raised mt-3 button-agregar"
                                         (click)="calcularGanancia()"></button>
                                 </div>
                             </div>
@@ -409,21 +409,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="grid mt-2 ">
-                        <button pButton pRipple label="Otros Examenes Fisicos" icon="pi pi-plus"
-                            class="p-button-primary" (click)="openDialogExamenesFinal()" class="mt-3"></button>
-                    </div>
                     <div class="grid mt-2">
                         <div class="col-6">
+                            <p-toolbar>
+                                <ng-template pTemplate="left">
+                                    <h3 class="mt-2">OTROS EXÁMENES FÍSICOS</h3>
+                                </ng-template>
+                                <ng-template pTemplate="right">
+                                    <button pButton pRipple label="Otros Examenes Fisicos" icon="pi pi-plus"
+                                    class="button-agregar" (click)="openDialogExamenesFinal()"></button>
+                                </ng-template>
+                            </p-toolbar>
                             <p-table [value]="listaOtrosPruebasFisicas" [showCurrentPageReport]="true"
                                 [filterDelay]="0">
-                                <ng-template pTemplate="caption">
-                                    <div class="flex justify-content-between">
-                                        <div class="table-header mt-2">
-                                            Otros Examenes Fisicos
-                                        </div>
-                                    </div>
-                                </ng-template>
                                 <ng-template pTemplate="header">
                                     <tr>
                                         <th>Nro</th>
@@ -455,6 +453,7 @@
                         </div>
                     </div>
                 </p-fieldset>
+                <br>
                 <p-fieldset legend="Examen Obstetrico">
                     <div class="grid">
                         <div class="col-3">
@@ -536,23 +535,21 @@
                     </div>
                 </p-fieldset>
                 <div class="col-12 mt-3">
-                    <div class="grid">
-                        <button pButton pRipple label="Examenes de Feto" icon="pi pi-plus" class="p-button-primary"
-                            (click)="openDialogExamenesFeto()" class="mt-3"></button>
-                    </div>
                     <div class="grid mt-2">
                         <div class="lg:col-12 md:col-12 col-fixed">
+                            <p-toolbar>
+                                <ng-template pTemplate="left">
+                                    <h3 class="mt-2">EXÁMENES FETALES</h3>
+                                </ng-template>
+                                <ng-template pTemplate="right">
+                                    <button pButton pRipple label="Examenes de Feto" icon="pi pi-plus"
+                                    class="button-agregar" (click)="openDialogExamenesFeto()"></button>
+                                </ng-template>
+                            </p-toolbar>
                             <p-table [value]="listaExamenesFetos" [rowHover]="true" [rows]="5"
                                 [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,15]" [paginator]="true"
                                 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                                 [filterDelay]="0" styleClass="p-datatable-gridlines">
-                                <ng-template pTemplate="caption">
-                                    <div class="flex justify-content-between">
-                                        <div class="table-header mt-2">
-                                            Examenes de Fetos
-                                        </div>
-                                    </div>
-                                </ng-template>
                                 <ng-template pTemplate="header">
                                     <tr>
                                         <th>Nro</th>
@@ -573,10 +570,13 @@
                                         <td>{{examFeto.movimientosFetales}}</td>
                                         <td>{{examFeto.fcf}} x min</td>
                                         <td style="display: flex;">
-                                            <button pButton pRipple class="p-button-info botones" icon="pi pi-pencil"
-                                                label="Editar" (click)="editarExamenFetos(examFeto, i)"></button>
-                                            <button pButton pRipple class="p-button-danger botones" icon="pi pi-times"
-                                                label="Eliminar" (click)="eliminar(i)"></button>
+                                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded m-1"
+                                                (click)="editarExamenFetos(examFeto, i)" pTooltip="Editar">
+                                            </button>
+                                            <button pButton pRipple icon="pi pi-trash"
+                                                class="p-button-rounded p-button-danger m-1" (click)="eliminar(i)"
+                                                pTooltip="Eliminar">
+                                            </button>
                                         </td>
                                     </tr>
                                 </ng-template>
@@ -603,7 +603,7 @@
             <div class="col-6 p-fluid">
                 <label>Resultado:</label>
                 <p-dropdown [options]="listaFuncionesBiologicas" formControlName="examResult" optionLabel="name"
-                    optionValue="name" placeholder="Seleccione una opción" appendTo="body"  class="inputfield w-full">
+                    optionValue="name" placeholder="Seleccione una opción" appendTo="body" class="inputfield w-full">
                 </p-dropdown>
             </div>
             <div class="col-12">

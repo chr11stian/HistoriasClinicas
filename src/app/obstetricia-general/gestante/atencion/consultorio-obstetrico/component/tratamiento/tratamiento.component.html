@@ -21,6 +21,10 @@
             <ng-template pTemplate="left">
                 <h3 class="p-m-0">INMUNIZACIONES</h3>
             </ng-template>
+            <ng-template pTemplate="right">
+                <button pButton pRipple label="Agregar Inmunización" icon="pi pi-plus" pButton type="button"
+                    class="button-agregar" (click)="openDialogTratamientoInmunizaciones()"></button>
+            </ng-template>
         </p-toolbar>
         <p-table class="table-over" [value]="tratamientoInmunizaciones" #dt styleClass="p-datatable-gridlines"
             [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
@@ -60,18 +64,15 @@
             </ng-template>
 
         </p-table>
-        <p-toolbar>
-            <div class="p-toolbar-group-right">
-                <button pButton pRipple label="Agregar Inmunizaciones" icon="pi pi-plus" pButton type="button"
-                    class="button-agregar" (click)="openDialogTratamientoInmunizaciones()"></button>
-            </div>
-
-        </p-toolbar>
     </div>
     <br>
     <p-toolbar>
         <ng-template pTemplate="left">
             <h3 class="mt-2">TRATAMIENTOS</h3>
+        </ng-template>
+        <ng-template pTemplate="right">
+            <button pButton pRipple label="Agregar Tratamiento" icon="pi pi-plus" pButton type="button"
+                class="button-agregar" (click)="openDialogTratamientoComun()"></button>
         </ng-template>
     </p-toolbar>
     <p-table class="table-over" [value]="tratamientosComunes" #dt styleClass="p-datatable-gridlines" [rows]="10"
@@ -111,29 +112,30 @@
             </tr>
         </ng-template>
     </p-table>
-    <p-toolbar>
-        <div class="p-toolbar-group-right">
-            <button pButton pRipple label="Agregar Tratamiento" icon="pi pi-plus" pButton type="button"
-                class="button-agregar" (click)="openDialogTratamientoComun()"></button>
-        </div>
-    </p-toolbar>
     <br>
     <form [formGroup]='formRIEP'>
         <div class="grid">
             <div class="col-12 md:col-12 lg:col-12 xl:col-12">
                 <div class="card">
-                    <div class="text-center py-3">
-                        <label class="text-xl">SUPLEMENTACIONES</label>
+                    <div class="">
+                        <div class="text-center py-3 border-solid bg-blue-800 border-1">
+                            <label class="text-xl text-white">SUPLEMENTACIONES</label>
+                        </div>
                     </div>
-                    <div class="px-5">
-                        <p-timeline [value]="events1" layout="horizontal" align="top">
-                            <ng-template pTemplate="content" let-event>
-                                <label class="text-sm text-green-700 ">{{event.date}}</label>
-                            </ng-template>
-                            <ng-template pTemplate="opposite" let-event>
-                                <label class="text-sm  underline text-indigo-500">{{event.status}}</label>
-                            </ng-template>
-                        </p-timeline>
+                    <div class="grid p-3 align-items-center">
+                        <div *ngFor="let item of listaCalendarioSuplementos" class="col-6 md:col-3 text-center">
+                            <p-card  styleClass="p-card-shadow p-3 border-solid border-1">
+                                <ng-template pTemplate="header">
+                                    <label>{{item.titulo}}</label>
+                                    <p class="text-blue-800">({{item.dosis}})</p>
+                                    <br>
+                                </ng-template>
+                                <p>{{item.tiempo}}</p>
+                                <ng-template pTemplate="footer">
+                                    <p class="text-blue-700">{{item.cantidad}}</p>
+                                </ng-template>
+                            </p-card>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -385,45 +387,44 @@
 
     <div class="grid">
         <div class="lg:col-12  col-12">
-            <p-fieldset legend="RECOMENDACIONES">
-                <p-table class="table-over" [value]="recomendaciones" #dt styleClass="p-datatable-gridlines" [rows]="10"
-                    [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
-                    [showCurrentPageReport]="true"
-                    currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+            <p-toolbar>
+                <ng-template pTemplate="left">
+                    <h3 class="mt-2">RECOMENDACIONES</h3>
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <button pButton pRipple label="Agregar Recomendación" icon="pi pi-plus" pButton type="button"
+                        class="button-agregar" (click)="openDialogRecomendaciones()"></button>
+                </ng-template>
+            </p-toolbar>
+            <p-table class="table-over" [value]="recomendaciones" #dt styleClass="p-datatable-gridlines" [rows]="10"
+                [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
+                [showCurrentPageReport]="true"
+                currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
 
-                    <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
-                        <tr>
-                            <th style="text-align: center" class="font-2">Nro </th>
-                            <th style="text-align: center" class="font-1">RECOMENDACIONES</th>
-                            <th style="text-align: center" class="font-2">Acciones</th>
+                <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                    <tr>
+                        <th style="text-align: center" class="font-2">Nro </th>
+                        <th style="text-align: center" class="font-1">RECOMENDACIONES</th>
+                        <th style="text-align: center" class="font-2">Acciones</th>
 
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-                        <tr>
-                            <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                            <td style="text-align: center">{{ rowData}}</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                    <tr>
+                        <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+                        <td style="text-align: center">{{ rowData}}</td>
 
-                            <td style="text-align: center">
-                                <button pButton pRipple icon="pi pi-pencil"
-                                    class="p-button-rounded p-button-primary m-1"
-                                    (click)="openDialogEditarRecomendaciones(rowData,rowIndex)" pTooltip="Editar">
-                                </button>
-                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                                    (click)="eliminarRecomendaciones(rowIndex)" pTooltip="Eliminar">
-                                </button>
-                            </td>
-                        </tr>
-                    </ng-template>
-
-                </p-table>
-                <p-toolbar>
-                    <div class="p-toolbar-group-right">
-                        <button pButton pRipple label="Agregar Recomendaciones" icon="pi pi-plus" pButton type="button"
-                            class="button-agregar" (click)="openDialogRecomendaciones()"></button>
-                    </div>
-                </p-toolbar>
-            </p-fieldset>
+                        <td style="text-align: center">
+                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                (click)="openDialogEditarRecomendaciones(rowData,rowIndex)" pTooltip="Editar">
+                            </button>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
+                                (click)="eliminarRecomendaciones(rowIndex)" pTooltip="Eliminar">
+                            </button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
         </div>
     </div>
 </div>
