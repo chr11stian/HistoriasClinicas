@@ -16,7 +16,7 @@
         <div class="grid">
             <div class="col-12">
 
-                <p-table [value]="consultas" responsiveLayout="scroll" styleClass="p-datatable-sm" [rows]="10"
+                <p-table [value]="consultas" responsiveLayout="scroll" styleClass="p-datatable-gridlines" [rows]="10"
                     [paginator]="true" [autoLayout]="true"
                     currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
                     [showCurrentPageReport]="true">
@@ -27,6 +27,7 @@
                             <th class="text-center">PACIENTE</th>
                             <th class="text-center">FECHA</th>
                             <th class="text-center">NRO ATENCION</th>
+                            <th class="text-center">ESTADO</th>
                             <th class="text-center">ACCIONES</th>
                         </tr>
                     </ng-template>
@@ -34,13 +35,34 @@
                         <tr>
                             <td class="text-center">{{i+1}}</td>
                             <td class="text-center">{{row.nroDoc}}</td>
-                            <td class="text-center">{{row.datosPaciente.primerNombre+" "+row.datosPaciente.apePaterno+" "+row.datosPaciente.apeMaterno}}</td>
+                            <td class="text-center">{{row.datosPaciente.primerNombre+" "+row.datosPaciente.apePaterno+"
+                                "+row.datosPaciente.apeMaterno}}</td>
                             <td class="text-center">{{row.fecha}}</td>
                             <td class="text-center">{{row.nroAtencion}}</td>
+                            <td style="text-align: center" *ngIf="row.estadoAtencion===1; else regular">
+                                <p-tag severity="warning" value="pendiente">
+                                </p-tag>
+                            </td>
+                            <ng-template #regular>
+                                <td style="text-align: center" *ngIf="row.estadoAtencion===0">
+                                    <p-tag severity="success" value="interconsulta">
+                                    </p-tag>
+                                </td>
+                                <td style="text-align: center" *ngIf="row.estadoAtencion===2">
+                                    <p-tag severity="primary" value="completo">
+                                    </p-tag>
+                                </td>
+                            </ng-template>
                             <td class="text-center">
-                                <button pButton pTooltip="Editar" icon="pi pi-pencil" pRipple type="button"
-                                    label="Editar" class="p-button-rounded p-button-warm" (click)="irConsultaVisualizar(row,true)"
-                                ></button>
+                                <span class="">
+                                    <button pButton pTooltip="Editar" icon="pi pi-pencil" pRipple type="button"
+                                        label="Editar" class="p-button-rounded p-button-warm"
+                                        (click)="irConsultaVisualizar(row,true)"></button>
+                                </span>
+                                <span class="pl-1 text-center">
+                                    <button pButton pTooltip="FUA" pRipple type="button" label="FUA"
+                                        class="p-button-rounded p-button-help" (click)="irFUA(row)"></button>
+                                </span>
                             </td>
                         </tr>
                     </ng-template>

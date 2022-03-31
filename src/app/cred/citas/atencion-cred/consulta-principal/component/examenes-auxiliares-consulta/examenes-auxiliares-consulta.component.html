@@ -131,8 +131,7 @@
                     <div class="col-2 mt-2" *ngIf="examLab.tipoExam == 2">
                         <div class="grid">
                             <span class="mr-2 font-bold">Anemia</span>
-                            <p-checkbox [(ngModel)]="resultKey" binary="true" inputId="binary" class="pr-2"
-                                (ngModelChange)="ngmodelXg()">
+                            <p-checkbox [(ngModel)]="resultKey" binary="true" inputId="binary" class="pr-2">
                             </p-checkbox>
                         </div>
                     </div>
@@ -170,7 +169,19 @@
                             <div class="flex flex-row">
                                 <div class="col-9 p-0">
                                     <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
-                                        placeholder="" class="inputfield w-full" formControlName="hemoglobina">
+                                        placeholder="" class="inputfield w-full" formControlName="hemoglobina" (OnChange)="calcularHemoFactor($event)">
+                                </div>
+                                <div class="infoInput">
+                                    g/dl
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4 mt-3">
+                            <label>Factor de Correción:</label>
+                            <div class="flex flex-row">
+                                <div class="col-9 p-0">
+                                    <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                        placeholder="" class="inputfield w-full" formControlName="factorCorreccion">
                                 </div>
                                 <div class="infoInput">
                                     g/dl
@@ -184,7 +195,7 @@
                                 <div class="col-9 p-0">
                                     <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
                                         placeholder="" class="inputfield w-full"
-                                        formControlName="hemoglobinaFactorCorrec">
+                                        formControlName="hbConFactorCorrecion">
                                 </div>
                                 <div class="infoInput">
                                     g/dl

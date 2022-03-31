@@ -14,6 +14,7 @@ export class IpressComponent implements OnInit {
   twoOptions: any[];
   formIpress: FormGroup;
   formAsegurado: FormGroup;
+  formNroFormato: FormGroup;
   listPersonalAte = [
     { name: "De la IPRESS", value: "DELAIPRESS" },
     { name: "Itinerante", value: "ITINERANTE" },
@@ -63,6 +64,11 @@ export class IpressComponent implements OnInit {
 
   ngOnInit(): void { }
   inicializarForm() {
+    this.formNroFormato = new FormGroup({
+      anio: new FormControl({ value: "", disabled: true }),
+      codEESS: new FormControl({ value: "", disabled: true }),
+      correlativo: new FormControl({ value: "", disabled: true }),
+    })
     this.formIpress = new FormGroup({
       codRenaes: new FormControl(""),
       nombreIpress: new FormControl(""),
@@ -106,6 +112,9 @@ export class IpressComponent implements OnInit {
   }
 
   setDataFUA() {
+    this.formNroFormato.patchValue({ anio: this.dataFUA.deLaIpress.nroFormato.anio });
+    this.formNroFormato.patchValue({ codEESS: this.dataFUA.deLaIpress.nroFormato.codEESS });
+    this.formNroFormato.patchValue({ correlativo: this.dataFUA.deLaIpress.nroFormato.correlativo });
     /**de la ipress */
     if (this.dataFUA.deLaIpress.eessInformacion != null) {
       this.formIpress.patchValue({ codRenaes: this.dataFUA.deLaIpress.eessInformacion.codRenaes });
