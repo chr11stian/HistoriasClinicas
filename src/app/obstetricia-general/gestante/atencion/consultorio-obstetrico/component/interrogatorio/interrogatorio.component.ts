@@ -235,8 +235,8 @@ export class InterrogatorioComponent implements OnInit {
     this.form.get("evalNutricionalValor").setValue(gananciaPeso);
     if (parseFloat(imc) < 18.5) {//bajo peso
       this.imcService.getGananciaBajoPeso(semanas).subscribe((res: any) => {
-        console.log('datos ', res.object);
-        let auxiliar = res.object.recomendacionGananciaBajoPeso[0]
+        console.log('datos ', res.object.recomendacionGestanteBajoPeso[0]);
+        let auxiliar = res.object.recomendacionGestanteBajoPeso[0]
 
         if (parseFloat(this.form.value.talla) < 157) {
           if (gananciaPeso < auxiliar.min) {
