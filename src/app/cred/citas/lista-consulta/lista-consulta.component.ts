@@ -151,7 +151,8 @@ export class ListaConsultaComponent implements OnInit {
         if (rowData.estadoAtencion == 2) {
             this.router.navigate(['dashboard/his/listar-his'], {
                 queryParams: {
-                    'idConsulta':rowData.id
+                    'idConsulta':rowData.id,
+                    'tipoConsulta':rowData.tipoConsulta
                 }
             })
         }

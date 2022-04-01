@@ -23,19 +23,28 @@ export class ListarHisComponent implements OnInit {
       private route: ActivatedRoute,
       private hisService: HISService,
   ) {
-    // this.data = this.router.getCurrentNavigation().extras;
-    console.log(this.data);
+    this.data = this.router.getCurrentNavigation().extras;
+    console.log("data extras",this.data);
     this.route.queryParams
         .subscribe(params => {
           console.log('params', params)
-          if (params['idConsulta']) {
-            this.idConsulta = params['idConsulta']
-          } else {
-            this.router.navigate(['/dashboard/cred/lista-consulta'])
-          }
+            if(params['tipoConsulta']=='CRED'){
+                if (params['idConsulta']) {
+                    this.idConsulta = params['idConsulta']
+                } else {
+                    this.router.navigate(['/dashboard/cred/lista-consulta'])
+                }
+            }
+            else{
+                if (params['tipoConsulta']=='CONSULTA GESTANTE') {
+                    this.idConsulta = params['idConsulta']
+                } else {
+                    this.router.navigate(['/dashboard/obstetricia-general/citas/consulta'])
+                }
+            }
+
         })
       this.getListUpsAux();
-
 
   }
 
@@ -79,10 +88,12 @@ export class ListarHisComponent implements OnInit {
   encontrarEstado(){
       console.log(this.listDataHIS);
       console.log(this.listaHisGenerados);
-      for(let i = 0;i<this.listDataHIS.length;i++){
+      if(this.listaHisGenerados!=null)
+      { for(let i = 0;i<this.listDataHIS.length;i++){
           this.estadoG[i] = this.listaHisGenerados.some(element =>
               element.upsAuxiliar == this.listDataHIS[i].nombreUPSaux
-          )
+            )
+         }
       }
       console.log(this.estadoG);
   }
