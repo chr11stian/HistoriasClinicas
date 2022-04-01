@@ -65,7 +65,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        // this.recuperarUpsHis();
+        this.recuperarUpsHis();
         this.recuperarUpsAuxHis();
         this.recuperarResumenDxBDInmunizaciones();
         this.recuperarResumenDxBDSuplementaciones();
@@ -74,6 +74,8 @@ export class DiagnosticoConsultaComponent implements OnInit {
         this.recuperarResumenDxBDLaboratorio();
         this.recuperarPrestaciones();
         this.recuperarDxBD();
+        this.formDiagnostico.get('nombreUPS').setValue("ENFERMERIA");
+
 
     }
 
@@ -349,12 +351,11 @@ export class DiagnosticoConsultaComponent implements OnInit {
         this.formDiagnostico.reset();
         this.formDiagnostico.get('nombreUPS').setValue("ENFERMERIA");
         // this.formDiagnostico.patchValue({ nombreUPS: "ENFERMERIA"});
-        this.formDiagnostico.get('nombreUPS').disable();
-        this.formDiagnostico.get('prestacion').enable();
-        this.formDiagnostico.get('buscarDxSIS').enable();
-        this.formDiagnostico.get('buscarDxHIS').enable();
+        // this.formDiagnostico.get('nombreUPS').disable();
+        // this.formDiagnostico.get('prestacion').enable();
+        // this.formDiagnostico.get('buscarDxSIS').enable();
+        // this.formDiagnostico.get('buscarDxHIS').enable();
         this.formDiagnostico.get('cie10HIS').setValue("");
-        this.formDiagnostico.get('cie10SIS').setValue("");
         this.listaDeCIESIS=[];
         this.diagnosticoDialog = true;
     }
@@ -494,7 +495,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
             cie10SIS:this.formDiagnostico.getRawValue().cie10SIS.cie10,
             tipo:this.formDiagnostico.value.tipoDiagnostico,
             codPrestacion:this.formDiagnostico.getRawValue().prestacion.codigo,
-            nombreUPS: 'ENFERMERIA',
+            nombreUPS: this.formDiagnostico.value.nombreUPS,
             factorCondicional: this.formDiagnostico.value.factorCondicional,
             nombreUPSaux:this.formDiagnostico.getRawValue().nombreUPSaux.nombre,
             lab:this.formDiagnostico.value.lab,
@@ -548,7 +549,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
             cie10SIS: this.formDiagnostico.getRawValue().cie10SIS.cie10,
             tipo: this.formDiagnostico.value.tipoDiagnostico,
             codPrestacion: this.formDiagnostico.getRawValue().prestacion.codigo,
-            nombreUPS: 'ENFERMERIA',
+            nombreUPS: this.formDiagnostico.getRawValue().nombreUPS,
             factorCondicional: this.formDiagnostico.value.factorCondicional,
             nombreUPSaux: this.formDiagnostico.value.nombreUPSaux.nombre,
             lab: this.formDiagnostico.value.lab,
@@ -583,9 +584,9 @@ export class DiagnosticoConsultaComponent implements OnInit {
             this.formDiagnostico.patchValue({ cie10HIS: this.listaDeCIEHIS.find(elemento => elemento.codigoItem == rowData.cie10HIS) });
         })
         this.formDiagnostico.get('nro').setValue(rowData.nro);
-        this.formDiagnostico.get('prestacion').disable();
-        this.formDiagnostico.get('buscarDxSIS').disable();
-        this.formDiagnostico.get('cie10SIS').disable();
+        // this.formDiagnostico.get('prestacion').disable();
+        // this.formDiagnostico.get('buscarDxSIS').disable();
+        // this.formDiagnostico.get('cie10SIS').disable();
         this.diagnosticoDialog = true;
         console.log("modificando", rowData);
     }

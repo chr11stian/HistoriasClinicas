@@ -63,7 +63,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
         this.recuperarResumenDxBDEvaluaciones();
         this.recuperarResumenDxBDLaboratorio();
         this.formProcedimiento.get('nombreUPS').setValue("ENFERMERIA");
-        this.formProcedimiento.get('nombreUPSaux').setValue("ATENCION INTEGRAL DE NINO");
+        // this.formProcedimiento.get('nombreUPSaux').setValue("ATENCION INTEGRAL DE NINO");
     // this.formProcedimiento.get("tipo").setValue("DEFINITIVO");
   }
 
@@ -351,21 +351,11 @@ export class ProcedimientosConsultaComponent implements OnInit {
       this.checked = false;
       this.isUpdate=false;
       this.formProcedimiento.get('prestacion').enable();
-      this.formProcedimiento.get('buscarPDxSIS').enable();
-      this.formProcedimiento.get('codProcedimientoSIS').enable();
-      // this.formProcedimiento.get('buscarPDxSIS').setValue("");
-      // this.formProcedimiento.get('buscarPDxHIS').setValue("");
       this.formProcedimiento.get('nombreUPS').setValue("ENFERMERIA");
-      // this.formProcedimiento.get('nombreUPS').disable();
-      // this.formProcedimiento.get('prestacion').enable();
-      // this.formProcedimiento.get('buscarPDxSIS').enable();
-      // this.formProcedimiento.get('buscarPDxHIS').enable();
       this.listaDeCIESIS=[];
-      // this.formProcedimiento.get('nombreUPS').setValue("");
       this.formProcedimiento.get('procedimientoSIS').setValue("");
-      // this.formProcedimiento.get('procedimientoHIS').setValue("");
       this.formProcedimiento.get('codProcedimientoSIS').setValue("");
-      // this.formProcedimiento.get('codProcedimientoHIS').setValue("");
+
       this.procedimientoDialog = true;
   }
 
@@ -456,7 +446,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
     let aux = {
         procedimientoSIS:this.formProcedimiento.getRawValue().procedimientoSIS,
         procedimientoHIS:this.formProcedimiento.getRawValue().procedimientoHIS,
-        codProcedimientoSIS:this.formProcedimiento.getRawValue().codProcedimientoSIS,
+        codProcedimientoSIS:this.formProcedimiento.getRawValue().codProcedimientoSIS.codigo,
         codProcedimientoHIS:this.formProcedimiento.getRawValue().codProcedimientoHIS.codigoItem,
         codPrestacion:this.formProcedimiento.getRawValue().prestacion.codigo,
         cie10SIS:this.formProcedimiento.getRawValue().diagnostico.cie10SIS,
@@ -479,32 +469,33 @@ export class ProcedimientosConsultaComponent implements OnInit {
     console.log("lista ups",this.listaUpsHis);
     this.formProcedimiento.get('prestacion').setValue(this.ListaPrestacion.find(element => element.codigo == rowData.codPrestacion));
     this.formProcedimiento.get('tipoDiagnostico').setValue(rowData.tipo);
-    this.formProcedimiento.get('nombreUPS').setValue(this.listaUpsHis.find(element=>element.nombreUPS == rowData.nombreUPS));
+    this.formProcedimiento.get('nombreUPS').setValue(rowData.nombreUPS);
     this.formProcedimiento.get('nombreUPSaux').setValue(this.listaUpsAuxHis.find(element=>element.nombre == rowData.nombreUPSaux));
     this.formProcedimiento.get('procedimientoSIS').setValue(rowData.procedimientoSIS);
     this.formProcedimiento.get('procedimientoHIS').setValue(rowData.procedimientoHIS);
     this.formProcedimiento.get('lab').setValue(rowData.lab);
+    this.formProcedimiento.get('resultadoFUA').setValue(rowData.resultadoFua);
     this.formProcedimiento.get('diagnostico').setValue(this.listaDiagnosticos.find(element=>element.cie10SIS==rowData.cie10SIS));
     this.PrestacionService.getProcedimientoPorCodigo(this.formProcedimiento.value.diagnostico.codPrestacion).subscribe((res: any) => {
       this.listaDeCIESIS = res.object.procedimientos;
-      console.log(this.listaDeCIESIS)
+      console.log('LISTA DE PROCEDIMIENTOS',this.listaDeCIESIS);
       // this.formProcedimiento.patchValue({prestacion:res.object.descripcion});
-      this.formProcedimiento.patchValue({procedimientoSIS:this.listaDeCIESIS.find(elemento => elemento.codigo == rowData.codProcedimientoSIS).procedimiento});
-      this.formProcedimiento.patchValue({ cie10SIS: this.listaDeCIESIS.find(elemento => elemento.codigo == rowData.codProcedimientoSIS) });
-      this.formProcedimiento.patchValue({ buscarPDxSIS: "" });
+      this.formProcedimiento.patchValue({codProcedimientoSIS:this.listaDeCIESIS.find(elemento => elemento.codigo == rowData.codProcedimientoSIS)});
+      // this.formProcedimiento.patchValue({ cie10SIS: this.listaDeCIESIS.find(elemento => elemento.codigo == rowData.codProcedimientoSIS) });
+      // this.formProcedimiento.patchValue({ buscarPDxSIS: "" });
 
     })
     this.cieService.getCIEByDescripcion(rowData.codProcedimientoHIS).subscribe((res: any) => {
       this.listaDeCIEHIS = res.object;
-      this.formProcedimiento.patchValue({ cie10HIS: this.listaDeCIEHIS.find(elemento => elemento.codigoItem == rowData.codProcedimientoHIS) });
-      this.formProcedimiento.get("procedimientoHIS").setValue(this.listaDeCIEHIS.find(elemento => elemento.codigoItem == rowData.codProcedimientoHIS).descripcionItem);
+      this.formProcedimiento.patchValue({ codProcedimientoHIS: this.listaDeCIEHIS.find(elemento => elemento.codigoItem == rowData.codProcedimientoHIS) });
+      // this.formProcedimiento.get("codProcedimientoHIS").setValue(rowData.codProcedimientoHIS);
 
     })
     console.log('lista de diagnosticos',this.listaDiagnosticos);
     this.formProcedimiento.get('nro').setValue(rowData.nro);
     this.formProcedimiento.get('prestacion').disable();
-    this.formProcedimiento.get('buscarPDxSIS').disable();
-    this.formProcedimiento.get('codProcedimientoSIS').disable();
+    // this.formProcedimiento.get('buscarPDxSIS').disable();
+    // this.formProcedimiento.get('codProcedimientoSIS').disable();
     this.procedimientoDialog = true;
     console.log("modificando", rowData);
   }
@@ -639,8 +630,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
     this.formProcedimiento.reset();
     this.formProcedimiento.get('nombreUPS').setValue("ENFERMERIA");
     this.formProcedimiento.get('prestacion').enable();
-    this.formProcedimiento.get('buscarPDxSIS').enable();
-    this.formProcedimiento.get('buscarPDxHIS').enable();
+    // this.formProcedimiento.get('codProcedimientoSIS').enable();
     this.formProcedimiento.get('buscarPDxSIS').setValue("");
     this.formProcedimiento.get('buscarPDxHIS').setValue("");
     this.listaDeCIESIS=[];
@@ -652,7 +642,6 @@ export class ProcedimientosConsultaComponent implements OnInit {
     this.selectedProducts.forEach(element=>console.log(element));
 
   }
-
 
   elimininarProcedimiento(rowIndex: any) {
     Swal.fire({
