@@ -28,6 +28,7 @@ import { IpressAmbientesComponent } from './ipress-ambientes/ipress-ambientes.co
 import { DialogPacienteComponent } from './paciente/dialog-paciente/dialog-paciente.component';
 import { IpressTarifarioComponent } from './ipress-tarifario/ipress-tarifario.component';
 import { IpressFarmaciaComponent } from './ipress-farmacia/component/ipress-farmacia.component';
+import {HisComponent} from "./his/his.component";
 
 @NgModule({
     declarations: [
@@ -44,6 +45,7 @@ import { IpressFarmaciaComponent } from './ipress-farmacia/component/ipress-farm
         DialogPacienteComponent,
         IpressTarifarioComponent,
         IpressFarmaciaComponent,
+        HisComponent
     ],
     exports: [
         PersonalSaludComponent,
@@ -60,8 +62,8 @@ import { IpressFarmaciaComponent } from './ipress-farmacia/component/ipress-farm
         CoreModule,
         PrimeModule,
         ToolbarModule,
-        FormsModule,
         SplitterModule,
+        FormsModule,
         ReactiveFormsModule,
         TreeSelectModule,
         DividerModule,
