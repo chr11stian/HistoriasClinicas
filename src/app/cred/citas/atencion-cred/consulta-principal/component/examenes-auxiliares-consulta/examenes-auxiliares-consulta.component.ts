@@ -280,7 +280,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
     this.dataHematologia = {
       hemoglobina: this.formHematologia.value.hemoglobina,
 
-      hbConFactorCorrecion: 0,
+      hbConFactorCorrecion: this.formHematologia.value.hbConFactorCorrecion,
       factorCorreccion: this.factorCorrection,
 
       hematocrito: this.formHematologia.get("hematocrito").value,
@@ -319,7 +319,8 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
         valor: this.resultValue,
         resultado: this.result,
       },
-      observacionesLaboratorio: this.observaciones
+      observacionesLaboratorio: this.observaciones,
+      resultadoExamen: this.formHematologia.value.hbConFactorCorrecion
     };
   }
   recoverDataParasitologia() {
@@ -367,7 +368,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
       resultado: {
         resultado: this.result
       },
-      observacionesLaboratorio: this.observaciones
+      observacionesLaboratorio: this.observaciones,
     };
   }
   saveAuxiliarsExams() {
@@ -457,7 +458,6 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   }
   agreeExamEdit() {
     if (this.examLab.tipoExam == 2) {
-
       this.recoverDataHematologia();
       this.listaExamenesAux[this.indexEdit].resultado.hematologia =
         this.dataHematologia;

@@ -14,6 +14,7 @@ export class ListarFuaComponent implements OnInit {
   data: any;
   listDataFUA: any;
   listaDatosFUA: any;
+  linkPDF: string;
   // "6231104446af060328998d19"
   constructor(
     private location: Location,
@@ -43,6 +44,7 @@ export class ListarFuaComponent implements OnInit {
         });
       }
     })
+    this.linkPDF = "http://192.168.5.3:8200/jasperserver/rest_v2/reports/Reports/FUA/anexo1.pdf?idFua="
   }
 
   ngOnInit(): void {
@@ -60,9 +62,9 @@ export class ListarFuaComponent implements OnInit {
   }
   imprimirFUA(data) {
     console.log('data del listar ', data);
-    this.fuaService.getReportFUA(data.id).subscribe((res: any) => {
+    // this.fuaService.getReportFUA(data.id).subscribe((res: any) => {
 
-    });
+    // });
   }
   consolg(){
     this.listDataFUA.forEach(item => {

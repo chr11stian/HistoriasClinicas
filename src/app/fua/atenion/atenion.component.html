@@ -167,7 +167,19 @@
             <div class="col-4">
                 <div class="border">
                     <div class="grid my-5">
-                        <div class="col-4 flex flex-column text-center">
+                        <div *ngFor="let item of listPlaceOne" class="col-4">
+                            <div class="grid">
+                                <div class="col-9 text-right">
+                                    <span [for]="item.value" class="pr-1">{{ item.name }}</span>
+                                </div>
+                                <div class="col-3 text-left">
+                                    <p-radioButton [inputId]="item.value" name="item" [value]="item.value"
+                                        [(ngModel)]="referido">
+                                    </p-radioButton>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-4 flex flex-column text-center">
                             <span class="mr-2">Alta</span>
                             <p-checkbox [(ngModel)]="alta" binary="true" inputId="binary" class="pr-2"></p-checkbox>
                         </div>
@@ -178,7 +190,7 @@
                         <div class="col-4 flex flex-column text-center">
                             <span class="mr-2">Hospitalización</span>
                             <p-checkbox [(ngModel)]="hospitalizacion" binary="true" inputId="binary"></p-checkbox>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -201,7 +213,19 @@
             <div class="col-5">
                 <div class="border">
                     <div class="grid my-5">
-                        <div class="col-4 flex flex-column text-center">
+                        <div *ngFor="let item of listPlaceTwo" class="col-4">
+                            <div class="grid">
+                                <div class="col-9 text-right">
+                                    <span [for]="item.value" class="pr-1">{{ item.name }}</span>
+                                </div>
+                                <div class="col-3 text-left">
+                                    <p-radioButton [inputId]="item.value" name="item" [value]="item.value"
+                                        [(ngModel)]="referido">
+                                    </p-radioButton>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-4 flex flex-column text-center">
                             <span class="mr-2">Contrarreferido</span>
                             <p-checkbox [(ngModel)]="contraReferido" binary="true" inputId="binary" class="pr-2">
                             </p-checkbox>
@@ -215,7 +239,7 @@
                             <span class="mr-2">Corte Administ</span>
                             <p-checkbox [(ngModel)]="corteAdministrado" binary="true" inputId="binary" class="pr-2">
                             </p-checkbox>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -673,10 +697,10 @@
                         <td>{{ i +1 }}</td>
                         <td>{{ rowData.diagnostico }}</td>
                         <td>
-                            <p-selectButton [options]="listDiagnosticoDXIngreso1" [(ngModel)]="rowData.tipo">
+                            <p-selectButton [options]="listDiagnosticoDXIngreso1" [(ngModel)]="rowData.tipoDx">
                             </p-selectButton>
                         </td>
-                        <td>{{ rowData.cie10SIS }}</td>
+                        <td>{{ rowData.cie_10 }}</td>
                         <td>
                             <!-- <p-selectButton [options]="listDiagnosticoDXEgreso" [(ngModel)]="ipeDXEg"
                                 optionLabel="label" (ngModelChange)="changeNgModel()" optionValue="value">
@@ -736,7 +760,9 @@
                 </div>
             </form>
             <div class="col-12">
-                <span class="text-xs">1.MÉDICO 2.FARMECEUTICO 3.CIRUJANO DENTISTA 4.BIÓLOGO 5.OBSTETRIZ 6.ENFERMERIA 7.TRABAJADORA SOCIAL 8.PSICOLOGIA 9.TECNOLOGO MEDICO 10.NUTRICÍON 11.TÉCNICO ENFERMERIA 12.AUXILIAR DE ENFERMERIA 13.OTRO</span>
+                <span class="text-xs">1.MÉDICO 2.FARMECEUTICO 3.CIRUJANO DENTISTA 4.BIÓLOGO 5.OBSTETRIZ 6.ENFERMERIA
+                    7.TRABAJADORA SOCIAL 8.PSICOLOGIA 9.TECNOLOGO MEDICO 10.NUTRICÍON 11.TÉCNICO ENFERMERIA 12.AUXILIAR
+                    DE ENFERMERIA 13.OTRO</span>
             </div>
         </p-fieldset>
         <p-fieldset legend="DATOS DEL APODERADO">

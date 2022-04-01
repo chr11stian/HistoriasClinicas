@@ -169,7 +169,8 @@
                             <div class="flex flex-row">
                                 <div class="col-9 p-0">
                                     <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
-                                        placeholder="" class="inputfield w-full" formControlName="hemoglobina" (keyup)="calcularHemoFactor(value)">
+                                        placeholder="" class="inputfield w-full" formControlName="hemoglobina"
+                                        (keyup)="calcularHemoFactor(value)">
                                 </div>
                                 <div class="infoInput">
                                     g/dl
@@ -194,8 +195,7 @@
                             <div class="flex flex-row">
                                 <div class="col-9 p-0">
                                     <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
-                                        placeholder="" class="inputfield w-full"
-                                        formControlName="hbConFactorCorrecion">
+                                        placeholder="" class="inputfield w-full" formControlName="hbConFactorCorrecion">
                                 </div>
                                 <div class="infoInput">
                                     g/dl
@@ -262,7 +262,7 @@
                         <div class="flex flex-row">
                             <div class="col-9 p-0">
                                 <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
-                                    placeholder="" class="inputfield w-full" formControlName="hemoglobina">
+                                    placeholder="" class="inputfield w-full" formControlName="hemoglobina" (keyup)="calcularHemoFactor(value)">
                             </div>
                             <div class="infoInput">
                                 g/dl
@@ -281,6 +281,31 @@
                             </div>
                         </div>
                     </div>
+                    <div class="p-fluid col-2">
+                        <label>Factor de Correción:</label>
+                        <div class="flex flex-row">
+                            <div class="col-9 p-0">
+                                <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                    placeholder="" class="inputfield w-full" formControlName="factorCorreccion">
+                            </div>
+                            <div class="infoInput">
+                                g/dl
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-fluid col-2">
+                        <label>Hemoglobina con factor de correción:</label>
+                        <div class="flex flex-row">
+                            <div class="col-9 p-0">
+                                <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                    placeholder="" class="inputfield w-full" formControlName="hbConFactorCorrecion">
+                            </div>
+                            <div class="infoInput">
+                                g/dl
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="p-fluid col-2">
                         <label>Grupo Sanguineo:</label>
                         <div class="col-12 p-0">
