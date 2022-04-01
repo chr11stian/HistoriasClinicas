@@ -67,8 +67,8 @@ export class DiagnosticoConsultaComponent implements OnInit {
     ngOnInit(): void {
         // this.recuperarUpsHis();
         this.recuperarUpsAuxHis();
-        // this.recuperarResumenDxBDInmunizaciones();
-        // this.recuperarResumenDxBDSuplementaciones();
+        this.recuperarResumenDxBDInmunizaciones();
+        this.recuperarResumenDxBDSuplementaciones();
         this.recuperarResumenDxBDTamizajes();
         this.recuperarResumenDxBDEvaluaciones();
         this.recuperarResumenDxBDLaboratorio();
@@ -137,27 +137,27 @@ export class DiagnosticoConsultaComponent implements OnInit {
     recuperarResumenDxBDLaboratorio(){
         this.DiagnosticoService.getLaboratorioResumen(this.dataConsulta.idConsulta).subscribe((r: any) => {
             //-- recupera laboratorios resumen
-           this.loading = false;
-           if(r.object!=null || r.object!=[]){
-                  if(r.object.hemoglobina) {
-                      let aux = {
-                          nombre:'LABORATORIO',
-                          evaluacion: 'HEMOGLOBINA',
-                          resultado:r.object.hemoglobina
-                      }
-                      this.tablaResumenDx.push(aux);
-                  }
-                  if(r.object.testGraham) {
-                       let aux = {
-                           nombre:'LABORATORIO',
-                           evaluacion: 'TEST GRAHAM',
-                           resultado:"Huevos de: " +r.object.testGraham.huevosDe[0] + " - " +r.object.testGraham.huevosDe[1] +
-                                      " Quistes de: "+r.object.testGraham.quistesDe[0] +" - " + r.object.testGraham.quistesDe[1]
+            if(r.object!=null || r.object!=[]){
+                this.loading = false;
+                for(let i=0;i<r.object.length;i++){
+                    let resu0:string=" ";
+                    let resu1:string=" ";
+                    let resu2:string=" ";
+                    let resu3:string=" ";
 
-                       }
-                       this.tablaResumenDx.push(aux);
-                  }
-               }
+                    if(r.object[i].lugar==null){  resu0="" } else{ resu0=r.object[i].lugarExamen}
+                    if(r.object[i].resultado.clave==null){resu1=""} else{resu1=r.object[i].resultado.clave}
+                    if(r.object[i].resultado.valor==null){resu2=""} else{resu2=r.object[i].resultado.valor}
+                    if(r.object[i].resultado.resultado==null){resu3=""} else{resu3=r.object[i].resultado.resultado}
+
+                    let aux = {
+                        nombre:'LABORATORIO',
+                        evaluacion:r.object[i].datosLaboratorio.nombreExamen + " : " + resu0,
+                        resultado: resu1 + " " + resu2 +" " + resu3
+                    }
+                    this.tablaResumenDx.push(aux);
+                }
+            }
         })
     }
 
@@ -494,7 +494,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
             cie10SIS:this.formDiagnostico.getRawValue().cie10SIS.cie10,
             tipo:this.formDiagnostico.value.tipoDiagnostico,
             codPrestacion:this.formDiagnostico.getRawValue().prestacion.codigo,
-            nombreUPS:this.formDiagnostico.getRawValue().nombreUPS.nombreUPS,
+            nombreUPS: 'ENFERMERIA',
             factorCondicional: this.formDiagnostico.value.factorCondicional,
             nombreUPSaux:this.formDiagnostico.getRawValue().nombreUPSaux.nombre,
             lab:this.formDiagnostico.value.lab,
@@ -548,7 +548,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
             cie10SIS: this.formDiagnostico.getRawValue().cie10SIS.cie10,
             tipo: this.formDiagnostico.value.tipoDiagnostico,
             codPrestacion: this.formDiagnostico.getRawValue().prestacion.codigo,
-            nombreUPS: this.formDiagnostico.getRawValue().nombreUPS.nombreUPS,
+            nombreUPS: 'ENFERMERIA',
             factorCondicional: this.formDiagnostico.value.factorCondicional,
             nombreUPSaux: this.formDiagnostico.value.nombreUPSaux.nombre,
             lab: this.formDiagnostico.value.lab,
