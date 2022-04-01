@@ -88,13 +88,13 @@
                 <td style="text-align: center">{{ i }}</td>
                 <td style="text-align: center">{{ rowData.codPrestacion }}</td>
                 <td style="text-align: center">
-                    <span class="p-buttonset">
-                        <button pButton pRipple class="p-button-success" label="IR FUA" icon="pi pi-caret-right"
-                            (click)="openFUA(rowData)"></button>
+                    <span class="">
+                        <button pButton pRipple class="p-button-rounded p-button-success" label="IR FUA"
+                            icon="pi pi-caret-right" (click)="openFUA(rowData)"></button>
                     </span>
-                    <span class="p-buttonset pl-1">
-                        <button pButton pRipple class="p-button-success" label="Imprimir" icon="pi pi-caret-right"
-                            (click)="imprimirFUA(rowData)"></button>
+                    <span class="pl-1">
+                        <button pButton pRipple class="p-button-rounded p-button-info" label="Imprimir"
+                            icon="pi pi-print" (click)="imprimirFUA(rowData)"></button>
                     </span>
                 </td>
             </tr>

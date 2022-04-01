@@ -169,7 +169,7 @@
                             <div class="flex flex-row">
                                 <div class="col-9 p-0">
                                     <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
-                                        placeholder="" class="inputfield w-full" formControlName="hemoglobina" (OnChange)="calcularHemoFactor($event)">
+                                        placeholder="" class="inputfield w-full" formControlName="hemoglobina" (keyup)="calcularHemoFactor(value)">
                                 </div>
                                 <div class="infoInput">
                                     g/dl

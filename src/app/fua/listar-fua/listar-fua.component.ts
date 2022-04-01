@@ -47,6 +47,7 @@ export class ListarFuaComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
   openFUA(rowData) {
     console.log('data de la lista ', rowData);
     this.router.navigate(['dashboard/fua/fua']);
@@ -59,8 +60,13 @@ export class ListarFuaComponent implements OnInit {
   }
   imprimirFUA(data) {
     console.log('data del listar ', data);
-    console.log('si la data se maneja desde el ')
-    this.listDataFUA.apellidos = "datos de uno";
-    
+    this.fuaService.getReportFUA(data.id).subscribe((res: any) => {
+
+    });
+  }
+  consolg(){
+    this.listDataFUA.forEach(item => {
+      console.log('data to set ', item)
+    });
   }
 }

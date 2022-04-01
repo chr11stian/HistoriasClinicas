@@ -91,7 +91,7 @@ export class AtenionComponent implements OnInit {
   }
   buildForm() {
     this.formAtencion = this.form.group({
-      fechaAtencion: new FormControl({ value: "", disabled: true }),
+      fechaAtencion: new FormControl({ value: "", }),
       hora: new FormControl({ value: "" }),
       ups: new FormControl({ value: "" }),
       prestacionesAdicionales: new FormControl({ value: "" }),
@@ -100,7 +100,7 @@ export class AtenionComponent implements OnInit {
       fechaIngreso: new FormControl({ value: "" }),
       fechaAlta: new FormControl({ value: "" }),
       fechaCorteAdministrativo: new FormControl({ value: "" }),
-      codPrestacion: new FormControl({ value: "", disabled: true })
+      codPrestacion: new FormControl({ value: "", })
     });
     this.formPrestacional = new FormGroup({
       atencionDirecta: new FormControl({ value: "" }),
@@ -141,9 +141,9 @@ export class AtenionComponent implements OnInit {
       tamizajeSaludMental: new FormControl("")
     });
     this.formRespAtencion = new FormGroup({
-      dniResponsable: new FormControl({ value: "", disabled: true }),
-      nombreResponsable: new FormControl({ value: "", disabled: true }),
-      nroColegiaturaResponsable: new FormControl({ value: "", disabled: true }),
+      dniResponsable: new FormControl({ value: "", }),
+      nombreResponsable: new FormControl({ value: "", }),
+      nroColegiaturaResponsable: new FormControl({ value: "", }),
       responsableAtencion: new FormControl(""),
       especialidad: new FormControl(""),
       nroRne: new FormControl(""),
@@ -181,7 +181,7 @@ export class AtenionComponent implements OnInit {
       this.formAtencion.patchValue({ prestacionesAdicionales: data.deLaAtencion.prestacionesAdicionales });
       this.formAtencion.patchValue({ codAutorizacion: data.deLaAtencion.codAutorizacion });
       this.formAtencion.patchValue({ nroFuaVincular: data.deLaAtencion.nroFuaVincular });
-      this.formAtencion.patchValue({ codPrestacion: data.codPrestacion });
+      this.formAtencion.patchValue({ codPrestacion: data.deLaAtencion.codPrestacion });
     }
     if (data.deLaAtencion.hospitalizacion != null) {
       this.formAtencion.patchValue({ fechaIngreso: data.deLaAtencion.hospitalizacion.fechaIngreso });
@@ -198,15 +198,15 @@ export class AtenionComponent implements OnInit {
     }
     /**del destino del asegurado/usuario */
     // console.log('destino asegurado ', data.destinoDelAsegurado)
-    if (data.destinoDelAsegurado != null) {
-      this.alta = data.destinoDelAsegurado.alta == 'ALTA' ? true : false;
-      this.cita = data.destinoDelAsegurado.cita == 'CITA' ? true : false;
-      this.hospitalizacion = data.destinoDelAsegurado.hospitalizacion == 'HOSPITALIZACION' ? true : false;
-      this.referido = data.destinoDelAsegurado.referido
-      this.contraReferido = data.destinoDelAsegurado.contraReferido == 'CONTRARREFERIDO' ? true : false;
-      this.fallecido = data.destinoDelAsegurado.fallecido == 'FALLECIDO' ? true : false;
-      this.corteAdministrado = data.destinoDelAsegurado.corteAdministrado == 'CORTE ADMINISTRATIVO' ? true : false;
-    }
+    // if (data.destinoDelAsegurado != null) {
+    //   this.alta = data.destinoDelAsegurado.alta == 'ALTA' ? true : false;
+    //   this.cita = data.destinoDelAsegurado.cita == 'CITA' ? true : false;
+    //   this.hospitalizacion = data.destinoDelAsegurado.hospitalizacion == 'HOSPITALIZACION' ? true : false;
+    //   this.referido = data.destinoDelAsegurado.referido
+    //   this.contraReferido = data.destinoDelAsegurado.contraReferido == 'CONTRARREFERIDO' ? true : false;
+    //   this.fallecido = data.destinoDelAsegurado.fallecido == 'FALLECIDO' ? true : false;
+    //   this.corteAdministrado = data.destinoDelAsegurado.corteAdministrado == 'CORTE ADMINISTRATIVO' ? true : false;
+    // }
     /**se refiere/contrarefiere */
     if (data.refiereContrarefiere != null) {
       this.formReferencia.patchValue({ codRenaes: data.refiereContrarefiere.codigoRenaesIpress });
@@ -272,134 +272,141 @@ export class AtenionComponent implements OnInit {
 
   }
   recoverData() {
-    this.secondDataFUA = {
-      deLaAtencion: {
-        fechaAtencion: this.formAtencion.value.fechaAtencion,
-        hora: this.formAtencion.value.hora,
-        ups: this.formAtencion.value.ups,
-        prestacionesAdicionales: this.formAtencion.value.prestacionesAdicionales,
-        codAutorizacion: this.formAtencion.value.codAutorizacion,
-        // nroFuaVincular: this.formAtencion.value.nroFuaVincular,
-        hospitalizacion: {
-          fechaIngreso: this.formAtencion.value.fechaIngreso,
-          fechaAlta: this.formAtencion.value.fechaAlta,
-          fechaCorteAdministrativo: this.formAtencion.value.fechaCorteAdministrativo
-        }
-      },
-      conceptoPrestacional: {
-        atencionDirecta: this.atencionDirecta == true ? 'ATENCION DIRECTA' : '',
-        cobExtraOrdinario: {
-          nroAutorizacion: this.formPrestacional.value.nroAutorizacion,
-          monto: this.formPrestacional.value.monto
-        },
-        traslado: this.traslado == true ? 'TRASLADO' : '',
-        sepelio: this.sepelio
-      },
-      destinoDelAsegurado: {
-        alta: this.alta == true ? 'ALTA' : '',
-        cita: this.cita == true ? 'CITA' : '',
-        hospitalizacion: this.hospitalizacion == true ? 'HOSPITALIZACION' : '',
-        referido: this.referido,
-        contraReferido: this.contraReferido == true ? 'CONTRARREFERIDO' : '',
-        fallecido: this.fallecido == true ? 'FALLECIDO' : '',
-        corteAdministrado: this.corteAdministrado == true ? 'CORTE ADMINISTRATIVO' : '',
-      },
-      refiereContrarefiere: {
-        codigoRenaesIpress: this.formReferencia.value.codRenaes,
-        nombreIpress: this.formReferencia.value.nombreIpress,
-        nroHojaReferenciaContrareferencia: this.formReferencia.value.nroHojaReferencia
-      },
-      actividadesPreventivas: {
-        peso: this.formActiPreventivas.value.peso,
-        talla: this.formActiPreventivas.value.talla,
-        pa: this.formActiPreventivas.value.pa,
-        deLaGestante: {
-          cpn: this.formActiPreventivas.value.cpn,
-          edadGesacional: this.formActiPreventivas.value.edadGesacional,
-          alturaUterina: this.formActiPreventivas.value.alturaUterina,
-          partoVertical: this.formActiPreventivas.value.partoVertical,
-          controlPerperio: this.formActiPreventivas.value.controlPerperio,
-        },
-        delRecienNacido: {
-          edadGestacionalRN: this.formActiPreventivas.value.edadGestacionalRN,
-          apgar1ro: this.formActiPreventivas.value.apgar1ro,
-          apgar5to: this.formActiPreventivas.value.apgar5to,
-          corteTardioCordon: this.formActiPreventivas.value.corteTardioCordon
-        },
-        etapaDeVida: {
-          nroCred: this.formActiPreventivas.value.nroCred,
-          pab: this.formActiPreventivas.value.pab,
-          rnPrematuro: this.formActiPreventivas.value.rnPrematuro == "SI" ? "RN PREMATURO" : '',
-          tapEedpTepsi: this.formActiPreventivas.value.tapEedpTepsi,
-          bajoPesoNacer: this.formActiPreventivas.value.bajoPesoNacer == "SI" ? "BAJO PESO NACER" : '',
-          consejeriaNutricional: this.formActiPreventivas.value.consejeriaNutricional == "SI" ? "CONSEJERIA  NUTRICIONAL" : '',
-          enfermedadCongenitaAlNacer: this.formActiPreventivas.value.enfermedadCongenitaAlNacer == "SI" ? "ENFERMEDAD CONGENITA AL NACER" : '',
-          consejeriaIntegral: this.formActiPreventivas.value.consejeriaIntegral == "SI" ? "CONSEJERIA INTEGRAL" : '',
-          nroFamiliaresGestante: this.formActiPreventivas.value.nroFamiliaresGestante,
-          imc: this.formActiPreventivas.value.imc
-        },
-        jovenAdultoEvaluacionIntegral: this.formActiPreventivas.value.jovenAdultoEvaluacionIntegral == "SI" ? "EVALUACION INTEGRAL" : '',
-        adultoMayor: {
-          vacam: this.formActiPreventivas.value.vacam == "SI" ? "VACAM" : '',
-          tamizajeSaludMental: this.formActiPreventivas.value.tamizajeSaludMental == "SI" ? "TAMIZAJE" : ''
-        }
-      },
-      /**vacunas */
-      vacunas: this.listVacunas,
-      /**diagnostico */
-      diagnostico: this.listDiagnostico,
-      responsableAtencion: {
-        nroDoc: this.formRespAtencion.value.dniResponsable,
-        nombreResponsableAtencion: this.formRespAtencion.value.nombreResponsable,
-        nroColegiatura: this.formRespAtencion.value.nroColegiaturaResponsable,
-        responsableAtencion: this.formRespAtencion.value.responsableAtencion,
-        especialidad: this.formRespAtencion.value.especialidad,
-        nroRNE: this.formRespAtencion.value.nroRne,
-        egresado: this.formRespAtencion.value.egresado
-      },
-      codPrestacion: this.formAtencion.value.codPrestacion,
-      /**apoderado */
-      aseguradoApoderado: this.firma,
-      firma: '',
-      apoderado: this.nameApoderado,
-      nroDocCeApoderado: this.nroDocApoderado,
-      firmaSelloResponsableAtencion: '',
-      huellaDigital: ''
-    }
+    let aux = this.formAtencion.value.fechaIngreso == "" ? null : this.formAtencion.value.fechaIngreso
+    console.log('fecha ingreso  ', aux);
+    // this.secondDataFUA = {
+    //   deLaAtencion: {
+    //     fechaAtencion: this.formAtencion.value.fechaAtencion,
+    //     hora: this.formAtencion.value.hora,
+    //     ups: this.formAtencion.value.ups,
+    //     codPrestacion: this.formAtencion.value.codPrestacion,
+    //     prestacionesAdicionales: this.formAtencion.value.prestacionesAdicionales,
+    //     codAutorizacion: this.formAtencion.value.codAutorizacion,
+    //     // nroFuaVincular: this.formAtencion.value.nroFuaVincular,
+    //     hospitalizacion: {
+    //       fechaIngreso: this.formAtencion.value.fechaIngreso == "" ? null : this.formAtencion.value.fechaIngreso,
+    //       fechaAlta: this.formAtencion.value.fechaAlta == "" ? null : this.formAtencion.value.fechaAlta,
+    //       fechaCorteAdministrativo: this.formAtencion.value.fechaCorteAdministrativo == "" ? null : this.formAtencion.value.fechaCorteAdministrativo
+    //     }
+    //   },
+    //   conceptoPrestacional: {
+    //     atencionDirecta: this.atencionDirecta == true ? 'ATENCION DIRECTA' : '',
+    //     cobExtraOrdinario: {
+    //       nroAutorizacion: this.formPrestacional.value.nroAutorizacion,
+    //       monto: this.formPrestacional.value.monto
+    //     },
+    //     traslado: this.traslado == true ? 'TRASLADO' : '',
+    //     sepelio: this.sepelio
+    //   },
+    //   // destinoDelAsegurado: {
+    //   //   alta: this.alta == true ? 'ALTA' : '',
+    //   //   cita: this.cita == true ? 'CITA' : '',
+    //   //   hospitalizacion: this.hospitalizacion == true ? 'HOSPITALIZACION' : '',
+    //   //   referido: this.referido,
+    //   //   contraReferido: this.contraReferido == true ? 'CONTRARREFERIDO' : '',
+    //   //   fallecido: this.fallecido == true ? 'FALLECIDO' : '',
+    //   //   corteAdministrado: this.corteAdministrado == true ? 'CORTE ADMINISTRATIVO' : '',
+    //   // },
+    //   destinoDelAsegurado: 'ALTA',
+    //   refiereContrarefiere: {
+    //     codigoRenaesIpress: this.formReferencia.value.codRenaes,
+    //     nombreIpress: this.formReferencia.value.nombreIpress,
+    //     nroHojaReferenciaContrareferencia: this.formReferencia.value.nroHojaReferencia
+    //   },
+    //   actividadesPreventivas: {
+    //     peso: this.formActiPreventivas.value.peso,
+    //     talla: this.formActiPreventivas.value.talla,
+    //     pa: this.formActiPreventivas.value.pa,
+    //     deLaGestante: {
+    //       cpn: this.formActiPreventivas.value.cpn,
+    //       edadGesacional: this.formActiPreventivas.value.edadGesacional,
+    //       alturaUterina: this.formActiPreventivas.value.alturaUterina,
+    //       partoVertical: this.formActiPreventivas.value.partoVertical,
+    //       controlPerperio: this.formActiPreventivas.value.controlPerperio,
+    //     },
+    //     delRecienNacido: {
+    //       edadGestacionalRN: this.formActiPreventivas.value.edadGestacionalRN,
+    //       apgar1ro: this.formActiPreventivas.value.apgar1ro,
+    //       apgar5to: this.formActiPreventivas.value.apgar5to,
+    //       corteTardioCordon: this.formActiPreventivas.value.corteTardioCordon
+    //     },
+    //     etapaDeVida: {
+    //       nroCred: this.formActiPreventivas.value.nroCred,
+    //       pab: this.formActiPreventivas.value.pab,
+    //       rnPrematuro: this.formActiPreventivas.value.rnPrematuro == "SI" ? "RN PREMATURO" : '',
+    //       tapEedpTepsi: this.formActiPreventivas.value.tapEedpTepsi,
+    //       bajoPesoNacer: this.formActiPreventivas.value.bajoPesoNacer == "SI" ? "BAJO PESO NACER" : '',
+    //       consejeriaNutricional: this.formActiPreventivas.value.consejeriaNutricional == "SI" ? "CONSEJERIA  NUTRICIONAL" : '',
+    //       enfermedadCongenitaAlNacer: this.formActiPreventivas.value.enfermedadCongenitaAlNacer == "SI" ? "ENFERMEDAD CONGENITA AL NACER" : '',
+    //       consejeriaIntegral: this.formActiPreventivas.value.consejeriaIntegral == "SI" ? "CONSEJERIA INTEGRAL" : '',
+    //       nroFamiliaresGestante: this.formActiPreventivas.value.nroFamiliaresGestante,
+    //       imc: this.formActiPreventivas.value.imc
+    //     },
+    //     jovenAdultoEvaluacionIntegral: this.formActiPreventivas.value.jovenAdultoEvaluacionIntegral == "SI" ? "EVALUACION INTEGRAL" : '',
+    //     adultoMayor: {
+    //       vacam: this.formActiPreventivas.value.vacam == "SI" ? "VACAM" : '',
+    //       tamizajeSaludMental: this.formActiPreventivas.value.tamizajeSaludMental == "SI" ? "TAMIZAJE" : ''
+    //     }
+    //   },
+    //   /**vacunas */
+    //   vacunas: this.listVacunas,
+    //   /**diagnostico */
+    //   diagnostico: this.listDiagnostico,
+    //   responsableAtencion: {
+    //     nroDoc: this.formRespAtencion.value.dniResponsable,
+    //     nombreResponsableAtencion: this.formRespAtencion.value.nombreResponsable,
+    //     nroColegiatura: this.formRespAtencion.value.nroColegiaturaResponsable,
+    //     responsableAtencion: this.formRespAtencion.value.responsableAtencion,
+    //     especialidad: this.formRespAtencion.value.especialidad,
+    //     nroRNE: this.formRespAtencion.value.nroRne,
+    //     egresado: this.formRespAtencion.value.egresado
+    //   },
+    //   // codPrestacion: this.formAtencion.value.codPrestacion,
+    //   /**apoderado */
+    //   aseguradoApoderado: this.firma,
+    //   firma: '',
+    //   apoderado: this.nameApoderado,
+    //   nroDocCeApoderado: this.nroDocApoderado,
+    //   firmaSelloResponsableAtencion: '',
+    //   huellaDigital: '',
+    //   tipoConsulta: 'ELE'
+    // }
   }
   save() {
-    this.recoverData();
-    console.log('second data to save ', this.secondDataFUA);
-    Swal.fire({
-      title: 'Esta Seguro que Desea Guardar FUA',
-      showDenyButton: true,
-      confirmButtonText: 'Guardar',
-      denyButtonText: `Cancelar`,
-      confirmButtonColor: '#3085d6',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        console.log('data to save ', this.secondDataFUA);
-        // this.fuaService.postSegundaParteFUA(this.keyData.idFUA, this.keyData.codPrestacion, this.secondDataFUA).subscribe((res: any) => {
-        //   let auxId: any = {
-        //     id: this.keyData.idConsulta
-        //   }
-        //   this.router.navigate(['/dashboard/fua/listar-fua'], auxId)
-        //   Swal.fire({
-        //     icon: "success",
-        //     title: "Se Guardo Correctamente FUA",
-        //     showConfirmButton: false,
-        //     timer: 2000,
-        //   });
-        // });
-      } else if (result.isDenied) {
-        Swal.fire({
-          icon: 'warning',
-          title: 'No se Guardo FUA',
-          showConfirmButton: false,
-          timer: 2000
-        });
-      }
-    })
+    let aux = this.formAtencion.value.fechaIngreso == "" ? null : this.formAtencion.value.fechaIngreso
+    console.log('fecha ingreso  ', aux.value);
+    // this.recoverData();
+    // console.log('second data to save ', this.secondDataFUA);
+    // Swal.fire({
+    //   title: 'Esta Seguro que Desea Guardar FUA',
+    //   showDenyButton: true,
+    //   confirmButtonText: 'Guardar',
+    //   denyButtonText: `Cancelar`,
+    //   confirmButtonColor: '#3085d6',
+    // }).then((result) => {
+    //   if (result.isConfirmed) {
+    //     console.log('data to save ', this.secondDataFUA);
+    //     this.fuaService.postSegundaParteFUA(this.keyData.idFUA, this.keyData.codPrestacion, this.secondDataFUA).subscribe((res: any) => {
+    //       let auxId: any = {
+    //         id: this.keyData.idConsulta
+    //       }
+    //       this.router.navigate(['/dashboard/fua/listar-fua'], auxId)
+    //       Swal.fire({
+    //         icon: "success",
+    //         title: "Se Guardo Correctamente FUA",
+    //         showConfirmButton: false,
+    //         timer: 2000,
+    //       });
+    //     });
+    //   } else if (result.isDenied) {
+    //     Swal.fire({
+    //       icon: 'warning',
+    //       title: 'No se Guardo FUA',
+    //       showConfirmButton: false,
+    //       timer: 2000
+    //     });
+    //   }
+    // })
   }
   nameVaccine(vac: string) {
     let aux: string = vac.replace(/[0-9]/, '')

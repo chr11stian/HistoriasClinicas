@@ -48,7 +48,18 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   listResults: any[] = [
     { name: "Positivo", value: "POSITIVO" },
     { name: "Negativo", value: "NEGATIVO" },
-  ]
+  ];
+  listDestinoAsegurado: any[] = [
+    { name: "Alta", value: "ALTA" },
+    { name: "Cita", value: "CITA" },
+    { name: "Hospitalización", value: "HOSPITALIZACION" },
+    { name: "Emergencia", value: "EMERGENCIA" },
+    { name: "Consulta Externa", value: "CONSULTA EXTERNA" },
+    { name: "Apoyo al Diagnostico", value: "APOYO AL DIAGNOSTICO" },
+    { name: "Contrarreferido", value: "CONTRARREFERENCIA" },
+    { name: "Fallecido", value: "FALLECIDO" },
+    { name: "Corte Administ", value: "CORTE ADMINSTRADO" },
+  ];
   dataExamenesAuxiliares: Laboratorio;
   isLabo: boolean = false;
   dataHematologia: Hematologia;
@@ -606,8 +617,10 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
       data: dataDialog,
     });
   }
-  calcularHemoFactor(value){
-    console.log('value de hemo ', value);
+  calcularHemoFactor(value) {
+    let aux = this.formHematologia.value.hemoglobina
+    console.log('hemo ', aux);
+    this.formHematologia.patchValue({ hbConFactorCorrecion: this.formHematologia.value.hemoglobina - this.factorCorrection });
   }
 }
 interface Examen {
