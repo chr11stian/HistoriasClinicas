@@ -33,6 +33,7 @@ export class ConsultaComponent implements OnInit {
     Gestacion: any;
     DataFiliacionPaciente: any;
 
+    loading: boolean = true;
     constructor(
         private fb: FormBuilder,
         private location: Location,
@@ -136,6 +137,7 @@ export class ConsultaComponent implements OnInit {
         this.consultaObstetriciaService.getDatosConsultasObstetricasListar(data).subscribe((res: any) => {
             console.log('trajo datos exito ', res)
             this.consultas = res.object ? res.object : [];
+            this.loading = false;
         })
     }
 

@@ -149,7 +149,11 @@ export class ListaConsultaComponent implements OnInit {
             });
         }
         if (rowData.estadoAtencion == 2) {
-            this.router.navigate(['dashboard/his/listar-his'], rowData)
+            this.router.navigate(['dashboard/his/listar-his'], {
+                queryParams: {
+                    'idConsulta':rowData.id
+                }
+            })
         }
         if (rowData.estadoAtencion == 1) {
             Swal.fire({

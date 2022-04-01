@@ -9,11 +9,7 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import Swal from "sweetalert2";
 import { DatePipe } from '@angular/common';
 import { CronogramaComponent } from './cronograma/cronograma.component';
-interface Employee {
-    name: string;
-    department: string;
-    salary: number;
-}
+
 
 @Component({
     selector: 'app-resultados',
@@ -23,87 +19,11 @@ interface Employee {
 })
 export class ResultadosComponent implements OnInit {
     ref: DynamicDialogRef;
-    ABO = [
-        { name: 'A', code: 'A' },
-        { name: 'B', code: 'B' },
-        { name: 'AB', code: 'AB' },
-        { name: 'O', code: 'O' }
-    ];
-    PN = [
-        { name: '+', code: '+' },
-        { name: '-', code: '-' }
-    ]
-    normalAnormal = [
-        { name: 'normal', code: 'normal' },
-        { name: 'anormal', code: 'anormal' },
-        { name: 'no se hizo', code: 'no se hizo' },
-        { name: 'no aplica', code: 'no aplica' },
-    ]
-    positivoNegativo = [
-        { name: 'positivo', code: 'positivo' },
-        { name: 'negativo', code: 'negativo' },
-        { name: 'no se hizo', code: 'no se hizo' },
-        { name: 'no aplica', code: 'no aplica' },
-    ]
-    reactivoNoReactivo = [
-        { name: 'reactivo', code: 'reactivo' },
-        { name: 'no reactivo', code: 'no reactivo' },
-        { name: 'no se hizo', code: 'no se hizo' },
-        { name: 'no aplica', code: 'no aplica' },
-    ]
 
     /*CAMPOS PARA RECUPERAR LA DATA PRINCIPAL*/
     dataConsulta: any;
     idConsultoriObstetrico: string;
-    examenes = [
-        { display: "Grupo Sanguineo", name: 'grupoSanguineo', code: 1, tipoInput: 1, codeDrop: this.ABO },
-        { display: "Factor RH", name: 'factorRH', code: 2, tipoInput: 1, codeDrop: this.PN },
-        { display: "Hemograma", name: 'hemograma', code: 3, tipoInput: 3 },
-        { display: "Hemoglobina", name: 'hemoglobina', code: 4, tipoInput: 2 },
-        { display: "Factor de Correccion", name: 'factorCorreccion', code: 5, tipoInput: 2 },
-        { display: "HTO", name: 'hto', code: 6, tipoInput: 3 },
-        { display: "Glucosa", name: 'glucosa', code: 7, tipoInput: 2 },
-        { display: "Tolerancia Glucosa", name: 'toleranciaGlucosa', code: 8, tipoInput: 1, codeDrop: this.normalAnormal },
-        { display: "Examen de Orina", name: 'exaOrina', code: 9, tipoInput: 1, codeDrop: this.positivoNegativo },
-        { display: "RPR", name: 'rpr', code: 10, tipoInput: 1, codeDrop: this.reactivoNoReactivo },
-        { display: "RPR Reactivo", name: 'rprReactivo', code: 11, tipoInput: 1, codeDrop: this.reactivoNoReactivo },
-        { display: "Examen Sec V", name: 'exSecV', code: 12, tipoInput: 1, codeDrop: this.normalAnormal },
-        { display: "Protenuaria Cuantitativa", name: 'proteinuriaCuantitativa', code: 13, tipoInput: 1, codeDrop: this.normalAnormal },
-        { display: "Protenuaria Cualitativa", name: 'proteinuriaCualitativa', code: 14, tipoInput: 1, codeDrop: this.normalAnormal },
-        { display: "Prueva VIH", name: 'pruebaVIH', code: 15, tipoInput: 1, codeDrop: this.reactivoNoReactivo },
-        { display: "Prueba Hepatitis", name: 'prHepatitis', code: 16, tipoInput: 1, codeDrop: this.reactivoNoReactivo },
-        { display: "Elisa", name: 'elisa', code: 17, tipoInput: 1, codeDrop: this.reactivoNoReactivo },
-        { display: "Glicemia", name: 'glicemia', code: 18, tipoInput: 1, codeDrop: this.normalAnormal },
-        { display: "Bacteriuria", name: 'bacteriuria', code: 19, tipoInput: 1, codeDrop: this.positivoNegativo },
-        { display: "Nitritos", name: 'nitritos', code: 20, tipoInput: 1, codeDrop: this.positivoNegativo },
-        { display: "Urocultivo", name: 'urocultivo', code: 21, tipoInput: 1, codeDrop: this.positivoNegativo },
-        { display: "BK Esputo", name: 'bkEsputo', code: 22, tipoInput: 1, codeDrop: this.positivoNegativo },
-        { display: "WS Term Blotkfi", name: 'wsternBlotlfi', code: 23, tipoInput: 1, codeDrop: this.positivoNegativo },
-        { display: "TH lv1", name: 'thlv1', code: 24, tipoInput: 1, codeDrop: this.positivoNegativo },
-        { display: "Toch", name: 'torch', code: 25, tipoInput: 1, codeDrop: this.positivoNegativo },
-        { display: "Gota Gruesa", name: 'gotaGruesa', code: 26, tipoInput: 3 },
-        { display: "PAP", name: 'pap', code: 27, tipoInput: 1, codeDrop: this.normalAnormal },
-        { display: "IVAA", name: 'ivaa', code: 28, tipoInput: 1, codeDrop: this.normalAnormal }
-    ]
-    displaySeleccionado = 'otros';
-    pruebaSeleccionada = ''
-    opcionesInput = []
-    tipoInput1 = 0;
-    visible = false;
-    seleccionar(itemSelected) {
-        this.tipoInput1 = 0;
-        this.examenFG.setValue({ resultado: '', fechaExamen: '' });
-        console.log(this.examenFG.value)
-        this.tipoInput1 = itemSelected.value.tipoInput;
-        this.pruebaSeleccionada = itemSelected.value.name
-        this.displaySeleccionado = itemSelected.value.display;
-        console.log(this.displaySeleccionado, this.pruebaSeleccionada)
-        if (this.tipoInput1 == 1) {
-            this.opcionesInput = itemSelected.value.codeDrop;
-        }
-    }
-    resultadoEcografiaFG: FormGroup;
-    examenFG: FormGroup;
+
     form: FormGroup;
     isUpdate: boolean = false;
     index = 0;
@@ -131,10 +51,10 @@ export class ResultadosComponent implements OnInit {
     nombreResponsable: any;
     nroDocResponsable: any;
 
-    constructor(private resultadosService: ResultadosService,
+    fecha: Date
+    constructor(
         private consultaService: ConsultasService,
         private messageService: MessageService,
-        private consultasService: ConsultasService,
         private dialog: DialogService) {
         this.buildForm();
 
@@ -177,7 +97,7 @@ export class ResultadosComponent implements OnInit {
             this.nroAtencion = nroAtencion;
             console.log("entre a edicion consulta", this.nroAtencion)
         }
-        this.recuperarCronograma()
+        this.agenda();
     }
 
     buildForm() {
@@ -191,7 +111,6 @@ export class ResultadosComponent implements OnInit {
         this.recuperarDatos();
         this.form.get("nombreResponsable").setValue(this.nombreResponsable);
         this.form.get("docResponsable").setValue(this.nroDocResponsable);
-        this.agenda();
     }
 
     openDialogInterconsultas() {
@@ -337,7 +256,7 @@ export class ResultadosComponent implements OnInit {
         this.cronogramaDialog = false;
     }
     recuperarCronograma() {
-        this.consultasService.getCronogramaGestante(this.nroHcl).subscribe((res: any) => {
+        this.consultaService.getCronogramaGestante(this.nroHcl).subscribe((res: any) => {
             this.cronograma = res.object;
             console.log("cronograma:", this.cronograma)
         })
@@ -350,19 +269,19 @@ export class ResultadosComponent implements OnInit {
         this.consultaService.getCronogramaGestante(this.nroHcl).subscribe((r: any) => {
             let aux = r.object
             console.log(aux)
+            this.consultaService.list=[];
             aux.map((r_: any) => {
                 this.consultaService.list.push({
                     title: r_.descripcion+" - "+r_.tipo,
                     start: r_.fecha+ " "+this.datePipe.transform(0, 'HH:mm:ss')
                 })
             })
-            
         })
     }
 
     openCalendar() {
         this.ref = this.dialog.open(CronogramaComponent, {
-            header: "CALENDARIO DE ACTIIVIDADES",
+            header: "CALENDARIO DE ACTIVIDADES",
             height: '100%',
             width: '90%',
             style: {
@@ -371,5 +290,9 @@ export class ResultadosComponent implements OnInit {
             },
         })
     }
-
+    ngDoCheck() {
+        if (this.consultaService.proxCita !== '') {
+            this.fecha = new Date(this.consultaService.proxCita)
+        }
+    }
 }

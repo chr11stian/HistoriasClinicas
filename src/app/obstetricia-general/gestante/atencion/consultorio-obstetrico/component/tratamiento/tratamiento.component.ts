@@ -90,6 +90,7 @@ export class TratamientoComponent implements OnInit {
   edadPaciente: any;
   sexoPaciente: any;
   events1: any[] = [];
+  listaCalendarioSuplementos: any[] = [];
   constructor(private formBuilder: FormBuilder,
     private obstetriciaService: ObstetriciaGeneralService,
     private dialog: DialogService,
@@ -171,6 +172,12 @@ export class TratamientoComponent implements OnInit {
       { status: 'SULFATO FERROSO', date: 'A partir de las 14 sem. de gestación', icon: PrimeIcons.SHOPPING_CART, color: '#9C27B0' },
       { status: 'CALCIO', date: 'A partir de las 18 sem. de gestación', icon: PrimeIcons.SHOPPING_CART, color: '#9C27B0' },
       { status: '', date: 'PARTO' }
+    ];
+    this.listaCalendarioSuplementos = [
+      { titulo: 'ÁCIDO FÓLICO', dosis: '1 tab. diaria', cantidad: "500ug de acido fólico", tiempo: "Durante las primeras 13 sem. de gestación" },
+      { titulo: 'ÁCIDO FÓLICO / SULFATO FERROSO', dosis: '1 tab. diaria', cantidad: "60mg de He elemental + 400ug de ácido fólico", tiempo: "A partir de las 14 sem. de gestación" },
+      { titulo: 'ÁCIDO FÓLICO / SULFATO FERROSO', dosis: '2 tab. diarias', cantidad: "120mg de He elemental + 800ug de ácido fólico", tiempo: "Gestantes que inicial su atención prenatal despues de las 32 sem." },
+      { titulo: 'CALCIO', dosis: '1 tab. diaria', cantidad: "500ug o 0.5mg de calcio", tiempo: "A partir de las 20 sem. de gestación" },
     ];
     this.formRIEP.get('nombreUPS1').setValue("OBSTETRICIA");
     this.formRIEP.get('nombreUPSAux1').setValue("MATERNO PERINATAL");

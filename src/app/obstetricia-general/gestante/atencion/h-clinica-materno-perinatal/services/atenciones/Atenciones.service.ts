@@ -24,4 +24,7 @@ export class AtencionesService {
     getDatosGraficoAlturaUterina(id){
         return this.http.get(`${this.base_url}/${this.bd}/obstetricia/atencionprenatal/graficoAlturaUterinaId/${id}`);
     }
+    getIMCgestante(nroHcl,nroEmbarazo){
+        return this.http.get(`${this.base_url}/${this.bd}/obstetricia/consulta/getIMC/${nroHcl}/${nroEmbarazo}`);
+    }
 }
