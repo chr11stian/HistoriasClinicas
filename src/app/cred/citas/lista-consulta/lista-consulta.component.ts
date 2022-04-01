@@ -115,7 +115,7 @@ export class ListaConsultaComponent implements OnInit {
         if (rowData.estadoAtencion == 2) {
             this.router.navigate(['dashboard/fua/listar-fua'], rowData)
         }
-        if (rowData.estadoAtencion == 1) {
+        if (rowData.estadoAtencion == 1 || rowData.estadoAtencion == 0) {
             Swal.fire({
                 title: rowData.tipoConsulta != 'CRED' ? message1 : message2,
                 showDenyButton: true,

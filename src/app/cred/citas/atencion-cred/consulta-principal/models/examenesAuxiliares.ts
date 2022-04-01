@@ -33,7 +33,7 @@ export interface Hematologia {
     hemoglobina?: string,
     //campos nuevos
     hbConFactorCorrecion: number,
-    factorCorreccion:number,
+    factorCorreccion: number,
     // fin campos nuevos
     hematocrito?: string,
     grupoSanguineo?: string,
@@ -64,6 +64,7 @@ export interface Hematologia {
     vrChcm?: string,
     hcm?: string,
     vrHcm?: string,
+    resultadoExamen?: string
 
     /**DATOS NUEVOS */
     resultado?: {
