@@ -32,7 +32,7 @@ export class StepFuaComponent implements OnInit {
         this.items = [
             { label: "Datos Generales" },
             // {label: "Del Asegurado"},
-            { label: "Datos especificos" },
+            { label: "Datos Complementarios" },
             // { label: "Concepto prestacional" },
             // {label: "Refiere contra"},
             // {label: "Diagnostico"},

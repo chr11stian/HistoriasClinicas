@@ -48,7 +48,18 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   listResults: any[] = [
     { name: "Positivo", value: "POSITIVO" },
     { name: "Negativo", value: "NEGATIVO" },
-  ]
+  ];
+  listDestinoAsegurado: any[] = [
+    { name: "Alta", value: "ALTA" },
+    { name: "Cita", value: "CITA" },
+    { name: "Hospitalización", value: "HOSPITALIZACION" },
+    { name: "Emergencia", value: "EMERGENCIA" },
+    { name: "Consulta Externa", value: "CONSULTA EXTERNA" },
+    { name: "Apoyo al Diagnostico", value: "APOYO AL DIAGNOSTICO" },
+    { name: "Contrarreferido", value: "CONTRARREFERENCIA" },
+    { name: "Fallecido", value: "FALLECIDO" },
+    { name: "Corte Administ", value: "CORTE ADMINSTRADO" },
+  ];
   dataExamenesAuxiliares: Laboratorio;
   isLabo: boolean = false;
   dataHematologia: Hematologia;
@@ -269,7 +280,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
     this.dataHematologia = {
       hemoglobina: this.formHematologia.value.hemoglobina,
 
-      hbConFactorCorrecion: 0,
+      hbConFactorCorrecion: this.formHematologia.value.hbConFactorCorrecion,
       factorCorreccion: this.factorCorrection,
 
       hematocrito: this.formHematologia.get("hematocrito").value,
@@ -308,7 +319,8 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
         valor: this.resultValue,
         resultado: this.result,
       },
-      observacionesLaboratorio: this.observaciones
+      observacionesLaboratorio: this.observaciones,
+      resultadoExamen: this.formHematologia.value.hbConFactorCorrecion
     };
   }
   recoverDataParasitologia() {
@@ -356,7 +368,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
       resultado: {
         resultado: this.result
       },
-      observacionesLaboratorio: this.observaciones
+      observacionesLaboratorio: this.observaciones,
     };
   }
   saveAuxiliarsExams() {
@@ -446,7 +458,6 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   }
   agreeExamEdit() {
     if (this.examLab.tipoExam == 2) {
-
       this.recoverDataHematologia();
       this.listaExamenesAux[this.indexEdit].resultado.hematologia =
         this.dataHematologia;
@@ -606,8 +617,10 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
       data: dataDialog,
     });
   }
-  calcularHemoFactor(value){
-    console.log('value de hemo ', value);
+  calcularHemoFactor(value) {
+    let aux = this.formHematologia.value.hemoglobina
+    console.log('hemo ', aux);
+    this.formHematologia.patchValue({ hbConFactorCorrecion: this.formHematologia.value.hemoglobina - this.factorCorrection });
   }
 }
 interface Examen {
