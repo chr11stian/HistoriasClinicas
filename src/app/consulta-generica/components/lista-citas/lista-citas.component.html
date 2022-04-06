@@ -1,242 +1,451 @@
-<div class="card">
-    <p-card>
-        <div class="grid">
-            <div class="col-9" style="margin: 0 0 0 20px">
-                <span style="font-size: 2em">
-                    {{titulo | uppercase }}> CITAS
-                </span>
-            </div>
-            <div class="col-12 flex" style="margin: 0 0 0 20px">
-                <div class="col-2">
-                    <div class="field grid">
-                        <strong>
-                            <label class="line-height-4" for="username2">
-                                *Tipo de documento:
-                            </label>
-                        </strong>
-                        <p-dropdown placeholder="Seleccionar"
-                                    [options]="options"
+<!--<div class="card">-->
+<!--    <p-card>-->
+<!--        <div class="grid">-->
+<!--            <div class="col-9" style="margin: 0 0 0 20px">-->
+<!--                <span style="font-size: 2em">-->
+<!--                    {{titulo | uppercase }}> CITAS-->
+<!--                </span>-->
+<!--            </div>-->
+<!--            <div class="col-12 flex" style="margin: 0 0 0 20px">-->
+<!--                <div class="col-2">-->
+<!--                    <div class="field grid">-->
+<!--                        <strong>-->
+<!--                            <label class="line-height-4" for="username2">-->
+<!--                                *Tipo de documento:-->
+<!--                            </label>-->
+<!--                        </strong>-->
+<!--                        <p-dropdown placeholder="Seleccionar"-->
+<!--                                    [options]="options"-->
 
-                                    optionLabel="name">
-                        </p-dropdown>
-                    </div>
-                </div>
-                <div class="col-3 align-items-end">
-                    <div class="field grid">
-                        <strong>
-                            <label class="line-height-4" for="username2">
-                                *Ingrese valor del documento*
-                            </label>
-                        </strong>
-                        <input style="width: 450px" id="username2" pInputText/>
-                    </div>
-                </div>
-                <div class="col-1">
-                    <button pButton class="boton-red" style="margin-top: 25px">
-                        <i class="pi pi-search" style="font-size: 1rem"></i> &nbsp;Buscar
-                    </button>
-                </div>
-            </div>
+<!--                                    optionLabel="name">-->
+<!--                        </p-dropdown>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-3 align-items-end">-->
+<!--                    <div class="field grid">-->
+<!--                        <strong>-->
+<!--                            <label class="line-height-4" for="username2">-->
+<!--                                *Ingrese valor del documento*-->
+<!--                            </label>-->
+<!--                        </strong>-->
+<!--                        <input style="width: 450px" id="username2" pInputText/>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-1">-->
+<!--                    <button pButton class="boton-red" style="margin-top: 25px">-->
+<!--                        <i class="pi pi-search" style="font-size: 1rem"></i> &nbsp;Buscar-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </p-card>-->
+<!--</div>-->
+<!--<div>-->
+<!--    <p-accordion>-->
+<!--        <p-accordionTab-->
+<!--                header="LISTA DE NIÑOS/NIÑAS CON CITAS EL DIA DE HOY"-->
+<!--                [selected]="true"-->
+<!--        >-->
+<!--            <div class="tableScroll" style="width: 100%">-->
+<!--                <p-table-->
+<!--                        responsiveLayout="scroll"-->
+<!--                        [resizableColumns]="true"-->
+<!--                        scrollDirection="both"-->
+<!--                        [value]="citas"-->
+<!--                        #dt-->
+<!--                        styleClass="p-datatable-gridlines"-->
+<!--                        [rows]="10"-->
+<!--                        [rowsPerPageOptions]="[10, 25, 50]"-->
+<!--                        [paginator]="true"-->
+<!--                        [autoLayout]="true"-->
+<!--                        [showCurrentPageReport]="true"-->
+<!--                        currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"-->
+<!--                >-->
+<!--                    <ng-template pTemplate="header" styleClass="p-datatable-gridlines">-->
+<!--                        <tr>-->
+<!--                            <th>Nro</th>-->
+<!--                            <th>DNI</th>-->
+<!--                            <th>APELLIDOS</th>-->
+<!--                            <th>NOMBRES</th>-->
+<!--                            <th>CONSULTORIO</th>-->
+<!--                            <th>HORARIO</th>-->
+<!--                            <th>FECHA</th>-->
+<!--                            <th>ACCIONES</th>-->
+<!--                        </tr>-->
+<!--                    </ng-template>-->
+<!--                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">-->
+<!--                        <tr>-->
+<!--                            <td>{{ rowIndex + 1 }}</td>-->
+<!--                            <td>{{ rowData.dni }}</td>-->
+<!--                            <td>{{ rowData.apellidos }}</td>-->
+<!--                            <td>{{ rowData.nombres }}</td>-->
+<!--                            <td>{{ rowData.consultorio }}</td>-->
+<!--                            <td>{{ rowData.horario }}</td>-->
+<!--                            <td>{{ rowData.fecha }}</td>-->
+<!--                            <td>-->
+<!--                                <span class="p-buttonset flex justify-content-around">-->
+<!--                                    <button-->
+<!--                                            pButton-->
+<!--                                            pRipple-->
+<!--                                            (click)="atender(rowData)"-->
+<!--                                            class="boton-azul"-->
+<!--                                            label="Atender"-->
+<!--                                            icon="pi pi-check"-->
+<!--                                    ></button>-->
+<!--                                    <button-->
+<!--                                            pButton-->
+<!--                                            pRipple-->
+<!--                                            (click)="irConsulta(rowData)"-->
+<!--                                            class="boton-mostaza"-->
+<!--                                            label="Consulta"-->
+<!--                                            icon="pi pi-book"-->
+<!--                                    ></button>-->
+<!--                                    <button-->
+<!--                                            pButton-->
+<!--                                            pRipple-->
+<!--                                            class="boton-red"-->
+<!--                                            label="Cancelar"-->
+<!--                                            icon="pi pi-times"-->
+<!--                                    ></button>-->
+<!--                                </span>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                    </ng-template>-->
+<!--                </p-table>-->
+<!--            </div>-->
+<!--        </p-accordionTab>-->
+<!--        <p-accordionTab header="LISTA DE NIÑOS/NIÑAS CON CITAS NO ATENDIDAS">-->
+<!--            <p-table-->
+<!--                    responsiveLayout="scroll"-->
+<!--                    [resizableColumns]="true"-->
+<!--                    scrollDirection="both"-->
+<!--                    class="tableScroll"-->
+<!--                    style="width: 100%"-->
+<!--                    [value]="citas"-->
+<!--                    #dt-->
+<!--                    styleClass="p-datatable-gridlines"-->
+<!--                    [rows]="10"-->
+<!--                    [rowsPerPageOptions]="[10, 25, 50]"-->
+<!--                    [paginator]="true"-->
+<!--                    [autoLayout]="true"-->
+<!--                    [showCurrentPageReport]="true"-->
+<!--                    currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"-->
+<!--            >-->
+<!--                <ng-template pTemplate="header" styleClass="p-datatable-gridlines">-->
+<!--                    <tr>-->
+<!--                        <th>Nro</th>-->
+<!--                        <th>DNI</th>-->
+<!--                        <th>APELLIDOS</th>-->
+<!--                        <th>NOMBRES</th>-->
+<!--                        <th>CONSULTORIO</th>-->
+<!--                        <th>HORARIO</th>-->
+<!--                        <th>FECHA</th>-->
+<!--                        <th>ACCIONES</th>-->
+<!--                    </tr>-->
+<!--                </ng-template>-->
+<!--                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">-->
+<!--                    <tr>-->
+<!--                        <td>{{ rowIndex + 1 }}</td>-->
+<!--                        <td>{{ rowData.dni }}</td>-->
+<!--                        <td>{{ rowData.apellidos }}</td>-->
+<!--                        <td>{{ rowData.nombres }}</td>-->
+<!--                        <td>{{ rowData.consultorio }}</td>-->
+<!--                        <td>{{ rowData.horario }}</td>-->
+<!--                        <td>{{ rowData.fecha }}</td>-->
+<!--                        <td>-->
+<!--                            <span class="p-buttonset">-->
+<!--                                <button-->
+<!--                                        pButton-->
+<!--                                        pRipple-->
+<!--                                        class="boton-azul"-->
+<!--                                        label="Reprogramar"-->
+<!--                                        (click)="openReprogramar()"-->
+<!--                                        icon="pi pi-undo"-->
+<!--                                ></button>-->
+<!--                                <button-->
+<!--                                        pButton-->
+<!--                                        pRipple-->
+<!--                                        class="boton-morado"-->
+<!--                                        label="Cancelar"-->
+<!--                                        icon="pi pi-times"-->
+<!--                                ></button>-->
+<!--                                <button-->
+<!--                                        pButton-->
+<!--                                        pRipple-->
+<!--                                        class="boton-red"-->
+<!--                                        label="Eliminar"-->
+<!--                                        icon="pi pi-trash"-->
+<!--                                ></button>-->
+<!--                            </span>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+<!--                </ng-template>-->
+<!--            </p-table>-->
+<!--        </p-accordionTab>-->
+<!--        <p-accordionTab header="LISTA DE NIÑOS/NIÑAS CON CITAS CANCELADAS">-->
+<!--            <p-table-->
+<!--                    responsiveLayout="scroll"-->
+<!--                    [resizableColumns]="true"-->
+<!--                    scrollDirection="both"-->
+<!--                    class="tableScroll"-->
+<!--                    style="width: 100%"-->
+<!--                    [value]="citas"-->
+<!--                    #dt-->
+<!--                    styleClass="p-datatable-gridlines"-->
+<!--                    [rows]="10"-->
+<!--                    [rowsPerPageOptions]="[10, 25, 50]"-->
+<!--                    [paginator]="true"-->
+<!--                    [autoLayout]="true"-->
+<!--                    [showCurrentPageReport]="true"-->
+<!--                    currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"-->
+<!--            >-->
+<!--                <ng-template pTemplate="header" styleClass="p-datatable-gridlines">-->
+<!--                    <tr>-->
+<!--                        <th>Nro</th>-->
+<!--                        <th>DNI</th>-->
+<!--                        <th>APELLIDOS</th>-->
+<!--                        <th>NOMBRES</th>-->
+<!--                        <th>CONSULTORIO</th>-->
+<!--                        <th>HORARIO</th>-->
+<!--                        <th>FECHA</th>-->
+<!--                        <th>ACCIONES</th>-->
+<!--                    </tr>-->
+<!--                </ng-template>-->
+<!--                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">-->
+<!--                    <tr>-->
+<!--                        <td>{{ rowIndex + 1 }}</td>-->
+<!--                        <td>{{ rowData.dni }}</td>-->
+<!--                        <td>{{ rowData.apellidos }}</td>-->
+<!--                        <td>{{ rowData.nombres }}</td>-->
+<!--                        <td>{{ rowData.consultorio }}</td>-->
+<!--                        <td>{{ rowData.horario }}</td>-->
+<!--                        <td>{{ rowData.fecha }}</td>-->
+<!--                        <td>-->
+<!--                            <span class="p-buttonset">-->
+<!--                                <button-->
+<!--                                        pButton-->
+<!--                                        pRipple-->
+<!--                                        class="boton-azul"-->
+<!--                                        label="Reprogramar"-->
+<!--                                        (click)="openReprogramar()"-->
+<!--                                        icon="pi pi-undo"-->
+<!--                                ></button>-->
+<!--                                <button-->
+<!--                                        pButton-->
+<!--                                        pRipple-->
+<!--                                        class="boton-red"-->
+<!--                                        label="Eliminar"-->
+<!--                                        icon="pi pi-trash"-->
+<!--                                ></button>-->
+<!--                            </span>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+<!--                </ng-template>-->
+<!--            </p-table>-->
+<!--        </p-accordionTab>-->
+<!--    </p-accordion>-->
+<!--</div>-->
+<div class="p-panel">
+    <br>
+    <div class="grid">
+        <div class="col-12 md:col-6 lg:col-12 p-field" style="text-align:center;">
+            <span style="font-size: 1.5rem">LISTA DE PACIENTES EN {{titulo | uppercase }}</span>
         </div>
-    </p-card>
+    </div>
+    <br>
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+            <form [formGroup]="formCitas">
+                <div class="grid">
+                    <div class="col-12 md:col-12 lg:col-12 flex justify-content-center">
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-6 p-fluid">
+                                <div><span>Tipo Doc.:</span></div>
+                                <div>
+                                    <p-dropdown [options]="listaDocumentosIdentidad"
+                                                formControlName="tipoDoc"
+                                                placeholder="Tipo Documento"
+                                                optionLabel="abreviatura"
+                                                optionValue="abreviatura"
+                                                [showClear]="false">
+                                    </p-dropdown>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-6 p-field">
+                                <span class="">Número de Documento:</span>
+                                <div class="p-inputgroup">
+                                    <input type="text" pInputText formControlName="nroDoc"/>
+                                    <p-button icon="pi pi-search" (click)="buscarCupoXdniFecha()"></p-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </ng-template>
+        <ng-template pTemplate="right">
+            <form [formGroup]="formCitas">
+                <div class="grid">
+                    <div class="col-12 md:col-12 lg:col-12 flex justify-content-center">
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-6 p-field ">
+                                <span class="">Filtrar por Fecha:</span>
+                                <div class="p-inputgroup">
+                                    <p-calendar dateFormat="yy-mm-dd"
+                                                formControlName="fechaBusqueda"
+                                                [readonlyInput]="true"
+                                                (onSelect)="getCuposXservicio()">
+                                    </p-calendar>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-6 p-field">
+                                <button style="margin-top:15px;" pButton pRipple label="Exportar" icon="pi pi-upload"
+                                        class="p-button-success"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </ng-template>
+    </p-toolbar>
 </div>
+
+<div>
+    <p-table [value]="dataPaciente" #dt styleClass="p-datatable-gridlines">
+
+        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+            <tr>
+                <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                <td style="text-align: center">{{ rowData.nroDoc }}</td>
+                <td style="text-align: center">{{ rowData.apePaterno }}</td>
+                <td style="text-align: center">{{ rowData.apeMaterno }}</td>
+                <td style="text-align: center">{{ rowData.primerNombre }}</td>
+                <td style="text-align: center">{{ rowData.celular }}</td>
+                <td style="text-align: right">
+                    <button pButton pRipple routerLink="gestante" (click)="enviarData(rowData)"
+                            class="boton-azul" label="Atender"
+                            icon="pi pi-check"></button>
+                    <button pButton pRipple routerLink="noControl" class="boton-mostaza" label="No Control"
+                            icon="pi pi-book" (click)="irConsultaNoControl(rowData)"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+</div>
+
+
 <div>
     <p-accordion>
-        <p-accordionTab
-                header="LISTA DE NIÑOS/NIÑAS CON CITAS EL DIA DE HOY"
-                [selected]="true"
-        >
-            <div class="tableScroll" style="width: 100%">
-                <p-table
-                        responsiveLayout="scroll"
-                        [resizableColumns]="true"
-                        scrollDirection="both"
-                        [value]="citas"
-                        #dt
-                        styleClass="p-datatable-gridlines"
-                        [rows]="10"
-                        [rowsPerPageOptions]="[10, 25, 50]"
-                        [paginator]="true"
-                        [autoLayout]="true"
-                        [showCurrentPageReport]="true"
-                        currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
-                >
-                    <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
-                        <tr>
-                            <th>Nro</th>
-                            <th>DNI</th>
-                            <th>APELLIDOS</th>
-                            <th>NOMBRES</th>
-                            <th>CONSULTORIO</th>
-                            <th>HORARIO</th>
-                            <th>FECHA</th>
-                            <th>ACCIONES</th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-                        <tr>
-                            <td>{{ rowIndex + 1 }}</td>
-                            <td>{{ rowData.dni }}</td>
-                            <td>{{ rowData.apellidos }}</td>
-                            <td>{{ rowData.nombres }}</td>
-                            <td>{{ rowData.consultorio }}</td>
-                            <td>{{ rowData.horario }}</td>
-                            <td>{{ rowData.fecha }}</td>
-                            <td>
-                                <span class="p-buttonset flex justify-content-around">
-                                    <button
-                                            pButton
-                                            pRipple
-                                            (click)="atender(rowData)"
-                                            class="boton-azul"
-                                            label="Atender"
-                                            icon="pi pi-check"
-                                    ></button>
-                                    <button
-                                            pButton
-                                            pRipple
-                                            (click)="irConsulta(rowData)"
-                                            class="boton-mostaza"
-                                            label="Consulta"
-                                            icon="pi pi-book"
-                                    ></button>
-                                    <button
-                                            pButton
-                                            pRipple
-                                            class="boton-red"
-                                            label="Cancelar"
-                                            icon="pi pi-times"
-                                    ></button>
-                                </span>
-                            </td>
-                        </tr>
-                    </ng-template>
-                </p-table>
-            </div>
-        </p-accordionTab>
-        <p-accordionTab header="LISTA DE NIÑOS/NIÑAS CON CITAS NO ATENDIDAS">
-            <p-table
-                    responsiveLayout="scroll"
-                    [resizableColumns]="true"
-                    scrollDirection="both"
-                    class="tableScroll"
-                    style="width: 100%"
-                    [value]="citas"
-                    #dt
-                    styleClass="p-datatable-gridlines"
-                    [rows]="10"
-                    [rowsPerPageOptions]="[10, 25, 50]"
-                    [paginator]="true"
-                    [autoLayout]="true"
-                    [showCurrentPageReport]="true"
-                    currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
-            >
+        <p-accordionTab header="LISTA DE PACIENTES CON CUPOS PARA EL DIA DE HOY" [selected]="true">
+            <p-table [value]="DataCupos" #dt [globalFilterFields]="['fecha']" styleClass="p-datatable-gridlines "
+                     [rows]="10"
+                     [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
+                     currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+
                 <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
                     <tr>
-                        <th>Nro</th>
-                        <th>DNI</th>
-                        <th>APELLIDOS</th>
-                        <th>NOMBRES</th>
-                        <th>CONSULTORIO</th>
-                        <th>HORARIO</th>
-                        <th>FECHA</th>
-                        <th>ACCIONES</th>
+                        <th style="text-align: center">Nro</th>
+                        <th style="text-align: center">DNI</th>
+                        <th style="text-align: center">APELLIDOS</th>
+                        <th style="text-align: center">NOMBRES</th>
+                        <th style="text-align: center">HORA ATENCION</th>
+                        <th style="text-align: center">FECHA ATENCION</th>
+                        <th style="text-align: center">SERVICIO</th>
+                        <th style="text-align: center">ACCION</th>
+
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                     <tr>
-                        <td>{{ rowIndex + 1 }}</td>
-                        <td>{{ rowData.dni }}</td>
-                        <td>{{ rowData.apellidos }}</td>
-                        <td>{{ rowData.nombres }}</td>
-                        <td>{{ rowData.consultorio }}</td>
-                        <td>{{ rowData.horario }}</td>
-                        <td>{{ rowData.fecha }}</td>
-                        <td>
+                        <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                        <td style="text-align: center">{{ rowData.paciente.nroDoc }}</td>
+                        <td style="text-align: center">{{ rowData.paciente.apellidos }}</td>
+                        <td style="text-align: center">{{ rowData.paciente.nombre}}</td>
+                        <td style="text-align: center">{{ rowData.horaAtencion}}</td>
+                        <td style="text-align: center">{{ rowData.fechaAtencion | date: 'dd-MM-yyyy'}}</td>
+                        <td style="text-align: center">{{ rowData.ipress.servicio}}</td>
+                        <td style="text-align: center">
+                            <button pButton pRipple type="button" routerLink="../lista-consulta" label="Atención"
+                                    class="p-button-secondary" style=""
+                                    (click)="atender(rowData)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-accordionTab>
+        <p-accordionTab header="LISTA DE PACIENTES CON CITAS NO ATENDIDAS">
+            <p-table [value]="citas" #dt styleClass="p-datatable-gridlines" [rows]="5"
+                     [rowsPerPageOptions]="[5, 10, 50]"
+                     [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+                     currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+
+                <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                    <tr>
+                        <th style="text-align: center">Nro</th>
+                        <th style="text-align: center">DNI</th>
+                        <th style="text-align: center">APELLIDOS</th>
+                        <th style="text-align: center">NOMBRES</th>
+                        <th style="text-align: center">CONSULTORIO</th>
+                        <th style="text-align: center">HORARIO</th>
+                        <th style="text-align: center">FECHA</th>
+                        <th style="text-align: center">ACCIONES</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                    <tr>
+                        <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                        <td style="text-align: center">{{ rowData.dni }}</td>
+                        <td style="text-align: center">{{ rowData.apellidos }}</td>
+                        <td style="text-align: center">{{ rowData.nombres }}</td>
+                        <td style="text-align: center">{{ rowData.consultorio }}</td>
+                        <td style="text-align: center">{{ rowData.horario }}</td>
+                        <td style="text-align: center">{{ rowData.fecha }}</td>
+                        <td style="text-align: center">
                             <span class="p-buttonset">
-                                <button
-                                        pButton
-                                        pRipple
-                                        class="boton-azul"
-                                        label="Reprogramar"
-                                        (click)="openReprogramar()"
-                                        icon="pi pi-undo"
-                                ></button>
-                                <button
-                                        pButton
-                                        pRipple
-                                        class="boton-morado"
-                                        label="Cancelar"
-                                        icon="pi pi-times"
-                                ></button>
-                                <button
-                                        pButton
-                                        pRipple
-                                        class="boton-red"
-                                        label="Eliminar"
-                                        icon="pi pi-trash"
-                                ></button>
+                                <button pButton pRipple class="boton-azul" label="Reprogramar"
+                                        icon="pi pi-undo"></button>
+                                <button pButton pRipple class="boton-morado" label="Cancelar"
+                                        icon="pi pi-times"></button>
+                                <button pButton pRipple class="boton-red" label="Eliminar" icon="pi pi-trash"></button>
                             </span>
                         </td>
                     </tr>
                 </ng-template>
             </p-table>
         </p-accordionTab>
-        <p-accordionTab header="LISTA DE NIÑOS/NIÑAS CON CITAS CANCELADAS">
-            <p-table
-                    responsiveLayout="scroll"
-                    [resizableColumns]="true"
-                    scrollDirection="both"
-                    class="tableScroll"
-                    style="width: 100%"
-                    [value]="citas"
-                    #dt
-                    styleClass="p-datatable-gridlines"
-                    [rows]="10"
-                    [rowsPerPageOptions]="[10, 25, 50]"
-                    [paginator]="true"
-                    [autoLayout]="true"
-                    [showCurrentPageReport]="true"
-                    currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
-            >
+        <p-accordionTab header="LISTA DE PACIENTES CON CITAS CANCELADAS">
+            <p-table [value]="citas" #dt styleClass="p-datatable-gridlines" [rows]="10"
+                     [rowsPerPageOptions]="[10, 25, 50]"
+                     [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+                     currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+
                 <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
                     <tr>
-                        <th>Nro</th>
-                        <th>DNI</th>
-                        <th>APELLIDOS</th>
-                        <th>NOMBRES</th>
-                        <th>CONSULTORIO</th>
-                        <th>HORARIO</th>
-                        <th>FECHA</th>
-                        <th>ACCIONES</th>
+                        <th style="text-align: center">Nro</th>
+                        <th style="text-align: center">DNI</th>
+                        <th style="text-align: center">APELLIDOS</th>
+                        <th style="text-align: center">NOMBRES</th>
+                        <th style="text-align: center">CONSULTORIO</th>
+                        <th style="text-align: center">HORARIO</th>
+                        <th style="text-align: center">FECHA</th>
+                        <th style="text-align: center">ACCIONES</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                     <tr>
-                        <td>{{ rowIndex + 1 }}</td>
-                        <td>{{ rowData.dni }}</td>
-                        <td>{{ rowData.apellidos }}</td>
-                        <td>{{ rowData.nombres }}</td>
-                        <td>{{ rowData.consultorio }}</td>
-                        <td>{{ rowData.horario }}</td>
-                        <td>{{ rowData.fecha }}</td>
-                        <td>
+                        <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                        <td style="text-align: center">{{ rowData.dni }}</td>
+                        <td style="text-align: center">{{ rowData.apellidos }}</td>
+                        <td style="text-align: center">{{ rowData.nombres }}</td>
+                        <td style="text-align: center">{{ rowData.consultorio }}</td>
+                        <td style="text-align: center">{{ rowData.horario }}</td>
+                        <td style="text-align: center">{{ rowData.fecha }}</td>
+                        <td style="text-align: center">}
                             <span class="p-buttonset">
-                                <button
-                                        pButton
-                                        pRipple
-                                        class="boton-azul"
-                                        label="Reprogramar"
-                                        (click)="openReprogramar()"
-                                        icon="pi pi-undo"
-                                ></button>
-                                <button
-                                        pButton
-                                        pRipple
-                                        class="boton-red"
-                                        label="Eliminar"
-                                        icon="pi pi-trash"
-                                ></button>
+                                <button pButton pRipple class="boton-azul" label="Reprogramar"
+                                        icon="pi pi-undo"></button>
+                                <button pButton pRipple class="boton-red" label="Eliminar" icon="pi pi-trash"></button>
                             </span>
                         </td>
                     </tr>
