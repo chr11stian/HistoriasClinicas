@@ -294,12 +294,14 @@
                                 </p-selectButton>
                             </div>
                             <div class="col-2 flex flex-column flex align-items-center justify-content-center">
-                                <span>APGAR</span>
-                                <p-selectButton [options]="stateOptions1"
-                                                formControlName="apgarN"
-                                                optionLabel="label"
-                                                optionValue="value">
-                                </p-selectButton>
+                                <span>APGAR 1m</span>
+                                <input formControlName="apgar1m" type="number"
+                                       class="inputfield w-full" pInputText>
+                            </div>
+                            <div class="col-2 flex flex-column flex align-items-center justify-content-center">
+                                <span>APGAR 5m</span>
+                                <input formControlName="apgar5m" type="number"
+                                       class="inputfield w-full" pInputText>
                             </div>
                             <div class="col-2 flex flex-column flex align-items-center justify-content-center">
                                 <span>Reanimación</span>
@@ -602,8 +604,8 @@
     <ng-template pTemplate="footer">
         <button pButton type="button" label="Cancelar" class="button-cancelar" icon="pi pi-times"
                 style="background-color: #0c3866" (click)="cancelAcuerdo()"></button>
-        <buttons  class="button-agregar" icon="pi pi-save" pButton type="button" label="Guardar"
-                style="background-color: #0c3866" (click)="saveAcuerdo()"></buttons>
+        <buttons class="button-agregar" icon="pi pi-save" pButton type="button" label="Guardar"
+                 style="background-color: #0c3866" (click)="saveAcuerdo()"></buttons>
 
     </ng-template>
 </p-dialog>

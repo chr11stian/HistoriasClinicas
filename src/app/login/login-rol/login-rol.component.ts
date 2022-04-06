@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {DynamicDialogRef} from "primeng/dynamicdialog";
 import {LoginService} from "../services/login.service";
-import {escala} from "../../cred/citas/models/data";
+import {escala, nombreRol} from "../../cred/citas/models/data";
 import {Router} from "@angular/router";
 
 @Component({
@@ -10,10 +10,13 @@ import {Router} from "@angular/router";
     templateUrl: './login-rol.component.html',
     styleUrls: ['./login-rol.component.css']
 })
+
 export class LoginRolComponent implements OnInit {
     formRol: FormGroup
     escala: string [] = []
     rol: string[] = []
+    nombreRol: string[] = []
+    listnombreRol: nombreRol[] = []
     list: escala[]
     destino = [
         {name: 'Emergencia', code: 'Emergencia'},
@@ -33,8 +36,8 @@ export class LoginRolComponent implements OnInit {
             password: this.serviceLogin.listEscala[0].pass,
             rol: this.formRol.value.rol === '' ? this.rol[0] : this.formRol.value.rol,
             escala: this.formRol.value.escala === '' ? this.escala[0] : this.formRol.value.escala
-
         }
+        console.log('rol', this.formRol.value.rol)
         console.log(credenciales)
         this.serviceLogin.ingresar(credenciales).subscribe(resp => {
             if (resp.error) {
@@ -49,6 +52,7 @@ export class LoginRolComponent implements OnInit {
 
     ngOnInit(): void {
         this.list = this.serviceLogin.listEscala
+        console.log('list', this.list)
         this.formBuild()
         this.buildEscala()
     }
@@ -58,16 +62,21 @@ export class LoginRolComponent implements OnInit {
             this.escala.push(r.escala)
         })
         this.rol = this.list[0].rol
+        this.nombreRol = this.list[0].nombreRol
+        this.listnombreRol = this.list[0].list
     }
 
     searchEscala(s: string) {
         this.list.map((r: escala) => {
-            if (s === r.escala)
+            if (s === r.escala) {
                 this.rol = r.rol
+                this.nombreRol = r.nombreRol
+            }
         })
     }
 
     cambio(e) {
+        console.log('', e)
         this.searchEscala(e.value)
     }
 
