@@ -4,6 +4,7 @@ import {LayoutPrincipalComponent} from './layout-principal/layout-principal.comp
 import {InicioComponent} from './inicio/inicio.component'
 import {CajaModule} from "../caja/caja.module";
 import {ReportesModule} from "../reportes/reportes.module";
+import {ConsultaGenericaModule} from "../consulta-generica/consulta-generica.module";
 
 // Modulos
 
@@ -74,6 +75,10 @@ const routes: Routes = [
             {
                 path: "reportes",
                 loadChildren: () => import('src/app/reportes/reportes.module').then(n => n.ReportesModule),
+            },
+            {
+                path: "consulta-generica",
+                loadChildren: () => import('src/app/consulta-generica/consulta-generica.module').then(n => n.ConsultaGenericaModule)
             },
         ]
     }
