@@ -514,6 +514,14 @@ const menu_ipress = [
             routerLink: "laboratorios/lista-laboratorio",
         }]
     },
+    {
+        label: "Reportes",
+        items: [{
+            label: "Reportes HIS",
+            icon: "pi pi-pw pi-file",
+            routerLink: "reportes/reportes-his",
+        }]
+    },
 
     {
         label: "Mantenimientos",
