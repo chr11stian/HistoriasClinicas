@@ -139,7 +139,6 @@ export class ListaConsultaComponent implements OnInit {
 
     irHIS(rowData) {
         let message1 = "Esta Seguro de Generar HIS?, se dara como finalizado la consulta"
-        let message2 = "Esta Seguro de Generar HIS?, Debe revisar el tipo de Seguro"
         if (rowData.estadoAtencion == 0) {
             Swal.fire({
                 icon: 'warning',
@@ -158,14 +157,19 @@ export class ListaConsultaComponent implements OnInit {
         }
         if (rowData.estadoAtencion == 1) {
             Swal.fire({
-                title: rowData.tipoConsulta != 'CRED' ? message1 : message2,
+                title: message1,
                 showDenyButton: true,
                 confirmButtonText: 'Crear HIS',
                 denyButtonText: `Cancelar`,
                 confirmButtonColor: '#3085d6',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    this.router.navigate(['dashboard/his/listar-his'], rowData)
+                    this.router.navigate(['dashboard/his/listar-his'], {
+                        queryParams: {
+                            'idConsulta':rowData.id,
+                            'tipoConsulta':rowData.tipoConsulta
+                        }
+                    })
                 } else if (result.isDenied) {
                     Swal.fire({
                         icon: 'warning',
