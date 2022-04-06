@@ -456,7 +456,7 @@ export class ModalCupos2Component implements OnInit {
             },
 
             transeunte: false,
-            detallePago: this.formPacientesCupo.value.estadoPago,
+            detallePago: this.detallePago,
             tipoConsulta: this.cuposService.tipoConsulta,
 
             ipress: {
