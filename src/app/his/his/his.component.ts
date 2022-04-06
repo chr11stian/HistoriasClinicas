@@ -55,8 +55,12 @@ export class HisComponent implements OnInit {
       {name: 'M', value: 'MASCULINO'},
     ];
     // this.datos = JSON.parse(localStorage.getItem("hisGenerateDocument"));
-    this.datos = JSON.parse(localStorage.getItem("hisDocument"));
-    this.idHisReporte = JSON.parse(localStorage.getItem("HisReporte")).idHisReporte;
+    if(localStorage.getItem("hisDocument")){
+      this.datos = JSON.parse(localStorage.getItem("hisDocument"));
+    }
+    if(localStorage.getItem("HisReporte")){
+      this.idHisReporte = JSON.parse(localStorage.getItem("HisReporte")).idHisReporte;
+    }
     console.log(this.idHisReporte);
     console.log(this.datos);
 
@@ -66,7 +70,7 @@ export class HisComponent implements OnInit {
     this.buildForm();
     console.log(this.datos);
     console.log(this.datos.estadoG);
-    if(this.idHisReporte){
+    if(this.idHisReporte!=""){
       this.recuperarHisUpsAuxPorIdReporte(this.idHisReporte);
     }
     if(this.datos.idHis){
