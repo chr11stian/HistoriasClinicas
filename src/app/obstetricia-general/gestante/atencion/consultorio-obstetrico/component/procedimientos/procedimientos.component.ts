@@ -6,7 +6,6 @@ import { ConsultasService } from "../../services/consultas.service";
 import Swal from "sweetalert2";
 import { MessageService } from "primeng/api";
 import { ModalProcedimientosComponent } from './modal-procedimientos/modal-procedimientos.component';
-import { MedicamentosService } from 'src/app/mantenimientos/services/medicamentos/medicamentos.service';
 import { IpressFarmaciaService } from 'src/app/modulos/ipress-farmacia/services/ipress-farmacia.service';
 @Component({
   selector: 'app-procedimientos',

@@ -56,7 +56,7 @@
 <!--         Procedimientos-->
     <div class="col-12 lg:col-12 md:col-12 col-fixed">
         <p-table [value]="procedimientos" [rowHover]="true" styleClass="p-datatable-gridlines"
-                 [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,15]"
+                 responsiveLayout="scroll" [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,15]"
                  [paginator]="true" currentPageReportTemplate="Mostrando {first} al {last} de {totalRecords} entradas"
                  [filterDelay]="0">
             <ng-template pTemplate="caption">
@@ -73,30 +73,32 @@
             <ng-template pTemplate="header">
                 <tr>
                     <th style="text-align: center" class="font-2">Nro</th>
-<!--                    <th style="text-align: center" class="font-2">COD. PROCEDIMIENTO SIS</th>-->
+                    <th style="text-align: center" class="font-2">COD. PROCEDIMIENTO SIS</th>
                     <th style="text-align: center" class="font-2">PROCEDIMIENTO SIS</th>
-<!--                    <th style="text-align: center" class="font-1">COD. PROCEDIMIENTO HIS</th>-->
+                    <th style="text-align: center" class="font-1">COD. PROCEDIMIENTO HIS</th>
                     <th style="text-align: center" class="font-2">PROCEDIMIENTO HIS</th>
                     <th style="text-align: center" class="font-1">COD. PRESTACIÓN</th>
                     <th style="text-align: center" class="font-2">CIE 10 SIS</th>
                     <th style="text-align: center" class="font-2">SUBTITULO UPS</th>
                     <th style="text-align: center" class="font-2">TIPO</th>
                     <th style="text-align: center" class="font-2">LAB.</th>
+                    <th style="text-align: center" class="font-2">RESULTADO EXAM.</th>
                     <th style="text-align: center" class="font-2">ACCIÓN</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                 <tr>
                     <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-<!--                    <td style="text-align: center">{{ rowData.codProcedimientoSIS }}</td>-->
+                    <td style="text-align: center">{{ rowData.codProcedimientoSIS }}</td>
                     <td style="text-align: center">{{ rowData.procedimientoSIS }}</td>
-<!--                    <td style="text-align: center">{{ rowData.codProcedimientoHIS }}</td>-->
+                    <td style="text-align: center">{{ rowData.codProcedimientoHIS }}</td>
                     <td style="text-align: center">{{ rowData.procedimientoHIS }}</td>
                     <td style="text-align: center">{{ rowData.codPrestacion }}</td>
                     <td style="text-align: center">{{ rowData.cie10SIS }}</td>
                     <td style="text-align: center">{{ rowData.nombreUPSaux }}</td>
                     <td style="text-align: center">{{ rowData.tipo }}</td>
                     <td style="text-align: center">{{ rowData.lab }}</td>
+                    <td style="text-align: center">{{ rowData.resultadoFua }}</td>
                     <td style="text-align: center">
                         <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded m-1"
                                 (click)="editarDx(rowData,rowIndex)" pTooltip="Editar">
@@ -145,7 +147,7 @@
     <form [formGroup]='formProcedimiento'>
         <div class="grid mt-2 ">
             <div class="col-6 p-fluid">
-                <label class="">CIE 10 HIS: </label>
+                <label class="">CIE 10 SIS: </label>
                 <p-dropdown [options]="listaDiagnosticos" formControlName="diagnostico"
                             placeholder="Seleccionar un Diagnostico"
                             (onChange)="onChangeDiagnostico()"
@@ -173,9 +175,9 @@
 
             <div class="col-3 p-fluid">
                 <label>NOMBRE UPS:</label>
-                <p-dropdown inputId="dropdown"  [options]="listaUpsHis" id="nombreUPS" formControlName="nombreUPS" optionLabel="nombreUPS"
+                <p-dropdown inputId="dropdown"  [options]="listaUpsHis" id="nombreUPS" formControlName="nombreUPS" optionLabel="nombreUPS" optionValue="nombreUPS"
                             placeholder="Seleccionar" defaultLabel="Seleccione:" appendTo="body"
-                            class="inputfield p-fluid w-full">
+                            class="inputfield p-fluid w-full" required>
                 </p-dropdown>
 
             </div>
@@ -188,12 +190,16 @@
 
             </div>
 
-            <div class="col-3 p-fluid">
+            <div class="col-1 p-fluid">
                 <label>LAB:</label>
                 <input type="text" style="text-transform:uppercase"  pInputText class="inputfield p-fluid w-full" formControlName="lab"/>
             </div>
-
             <div class="col-3 p-fluid">
+                <label>RESULTADO EXAMEN:</label>
+                <input type="text" style="text-transform:uppercase"  pInputText class="inputfield p-fluid w-full" formControlName="resultadoFUA"/>
+            </div>
+
+            <div class="col-2 p-fluid">
                 <label>Tipo diagnostico:</label>
                 <p-dropdown inputId="dropdown" [options]="tipoList" formControlName="tipoDiagnostico" placeholder="Seleccione"
                             optionLabel="label" optionValue="value" defaultLabel="Seleccione:" appendTo="body"
@@ -205,7 +211,7 @@
                 <p-fieldset legend="PROCEDIMIENTO SIS">
                     <div class="grid mt-2">
                         <div class="col-12 p-fluid">
-                            <p-dropdown [options]="listaDeProcedimientos" formControlName="buscarPDxSIS" placeholder="Seleccionar un Diagnostico" optionLabel="procedimiento" (onChange)="selectDxSIS($event)" >
+                            <p-dropdown [options]="listaDeCIESIS" formControlName="buscarPDxSIS" placeholder="Seleccionar un Diagnostico" optionLabel="procedimiento" (onChange)="selectDxSIS($event)" >
                                 <ng-template let-procedimientos pTemplate="item">
                                     <div class="flex align-items-center">
                                         <div>{{procedimientos.codigo}}-{{procedimientos.procedimiento}}</div>
@@ -221,11 +227,11 @@
                     </div>
                     <div class="grid mt-2">
                         <div class="col-12 p-fluid">
-                            <label>CIE 10: </label>
+                            <label>CODIGO PROCEDIMIENTO SIS: </label>
                         </div>
                         <div class="col-12 p-fluid">
                             <div class="col-12 p-fluid">
-                                <p-dropdown   [options]="listaDeProcedimientos" formControlName="codProcedimientoSIS" appendTo="body"
+                                <p-dropdown   [options]="listaDeCIESIS" formControlName="codProcedimientoSIS" appendTo="body"
                                               optionLabel="codigo" class="inputfield p-fluid w-full" placeholder="Seleccione"
                                               (onChange)="selectedOption($event)"></p-dropdown>
                                 <!--                            <input style="text-transform:uppercase"   pInputText formControlName="cie10SIS">-->
@@ -253,7 +259,7 @@
                     </div>
                     <div class="grid mt-2">
                         <div class="col-12 p-fluid">
-                            <label>CIE 10: </label>
+                            <label>CODIGO PROCEDIMIENTO HIS (CIE 10): </label>
                         </div>
                         <div class="col-12 p-fluid">
                             <p-autoComplete [suggestions]="listaDeCIEHIS" (completeMethod)="filterCIE10($event)"
