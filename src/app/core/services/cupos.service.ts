@@ -17,6 +17,7 @@ export class CuposService {
     FechaAtencionSeleccionado = null;
     HoraAtencionSeleccionado: any;
     dataPersonalSelecionado: any;
+    tipoConsulta: string;
 
     modal1: DynamicDialogRef;
     modal2: DynamicDialogRef;
