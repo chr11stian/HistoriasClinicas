@@ -23,6 +23,7 @@ export class HisComponent implements OnInit {
   listaConIng:any[];
   isUpdate:boolean=false;
   idHis:string="";
+  idHisReporte:string="";
   datePipe = new DatePipe('en-US');
   constructor(  private form: FormBuilder,
                 private router: Router,
@@ -55,6 +56,8 @@ export class HisComponent implements OnInit {
     ];
     // this.datos = JSON.parse(localStorage.getItem("hisGenerateDocument"));
     this.datos = JSON.parse(localStorage.getItem("hisDocument"));
+    this.idHisReporte = JSON.parse(localStorage.getItem("HisReporte")).idHisReporte;
+    console.log(this.idHisReporte);
     console.log(this.datos);
 
   }
@@ -63,6 +66,9 @@ export class HisComponent implements OnInit {
     this.buildForm();
     console.log(this.datos);
     console.log(this.datos.estadoG);
+    if(this.idHisReporte){
+      this.recuperarHisUpsAuxPorIdReporte(this.idHisReporte);
+    }
     if(this.datos.idHis){
       this.isUpdate=true;
       this.idHis=this.datos.id;
@@ -72,8 +78,29 @@ export class HisComponent implements OnInit {
       this.isUpdate=false;
       this.getGenerateHisUpsAux();
     }
+
+
   }
 
+  recuperarHisUpsAuxPorIdReporte(idHis:string){
+    this.hisService.getListaHisGeneradosPorId(idHis).subscribe((res: any) => {
+      if(res.object!=null){
+        console.log("DATA DE HIS YA CREADO"+res.object);
+        this.data = res.object;
+        this.idHis=res.object.id;
+        this.diagnosticos=res.object.diagnosticos;
+        this.showFromBDData();
+        Swal.fire({
+          icon: 'success',
+          title: 'DATOS HIS',
+          text: 'Recuperado con éxito',
+          showConfirmButton: false,
+          timer: 1500,
+        })
+
+      }
+    })
+  }
   recuperarHisUpsAuxPorId(){
     this.hisService.getListaHisGeneradosPorId(this.datos.idHis).subscribe((res: any) => {
       if(res.object!=null){
