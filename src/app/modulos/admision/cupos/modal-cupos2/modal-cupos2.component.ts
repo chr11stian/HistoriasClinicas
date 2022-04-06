@@ -61,6 +61,10 @@ export class ModalCupos2Component implements OnInit {
     DepartamentoIDSelct: any;
     ProvinciaIDSelct: any;
     DistritoIDSelct: any;
+    listEstadoPago: any = [
+        { name: 'GRATUITO', value: 'GRATUITO' },
+        { name: 'PENDIENTE ', value: 'PENDIENTE' }
+    ];
 
     public pacienteComponent: PacienteComponent;
 
@@ -258,6 +262,8 @@ export class ModalCupos2Component implements OnInit {
             prov: new FormControl('', [Validators.required]),
             dist: new FormControl('', [Validators.required]),
             ccpp: new FormControl('', [Validators.required]),
+
+            detallePago: new FormControl('')
         })
     }
 
@@ -450,7 +456,7 @@ export class ModalCupos2Component implements OnInit {
             },
 
             transeunte: false,
-            detallePago: this.detallePago,
+            detallePago: this.formPacientesCupo.value.estadoPago,
             tipoConsulta: this.cuposService.tipoConsulta,
 
             ipress: {
@@ -458,6 +464,7 @@ export class ModalCupos2Component implements OnInit {
                 nombre: this.dataPersonalSelecionado.ipress.nombre,
                 servicio: this.dataPersonalSelecionado.ipress.servicio
             },
+
         };
         console.log("guardar", req);
         this.cuposService.saveCupos(req).subscribe(
@@ -625,5 +632,10 @@ export class ModalCupos2Component implements OnInit {
     isInvalid(control: string): boolean {
         const formC: AbstractControl = this.formPacientesCupo.get(control);
         return formC.invalid && (formC.dirty || formC.touched);
+    }
+    tipoPagoChg(){
+
+        this.detallePago = this.formPacientesCupo.value.detallePago
+        console.log('detalle Pago', this.detallePago);
     }
 }
