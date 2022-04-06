@@ -431,6 +431,54 @@ const menu_ipress = [
                     },
                 ]
             },
+            {
+                icon: "pi pi-file",
+                label: "Adolescente",
+                items: [
+                    {
+                        label: "Citas",
+                        icon: "pi pi-pw pi-file",
+                        routerLink: "consulta-generica/lista-consultas/adolescente",
+                    },
+                    {
+                        label: "Consulta",
+                        icon: "pi pi-pw pi-file",
+                        routerLink: "consulta-generica/lista-consultas",
+                    },
+                ]
+            },
+            {
+                icon: "pi pi-file",
+                label: "Adulto",
+                items: [
+                    {
+                        label: "Citas",
+                        icon: "pi pi-pw pi-file",
+                        routerLink: "consulta-generica/lista-consultas/adulto",
+                    },
+                    {
+                        label: "Consulta",
+                        icon: "pi pi-pw pi-file",
+                        routerLink: "consulta-generica/lista-consultas",
+                    },
+                ]
+            },
+            {
+                icon: "pi pi-file",
+                label: "Adulto Mayor",
+                items: [
+                    {
+                        label: "Citas",
+                        icon: "pi pi-pw pi-file",
+                        routerLink: "consulta-generica/lista-consultas/Adulto Mayor",
+                    },
+                    {
+                        label: "Consulta",
+                        icon: "pi pi-pw pi-file",
+                        routerLink: "consulta-generica/lista-consultas",
+                    },
+                ]
+            },
 
             {
                 icon: "pi pi-file",

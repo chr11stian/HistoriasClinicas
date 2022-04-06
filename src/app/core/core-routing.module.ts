@@ -73,7 +73,7 @@ const routes: Routes = [
             },
             {
                 path: "consulta-generica",
-                loadChildren: () => import('src/app/consulta-generica/consulta-generica.module').then(n => n.ConsultaGenericaModule),
+                loadChildren: () => import('src/app/consulta-generica/consulta-generica.module').then(n => n.ConsultaGenericaModule)
             },
         ]
     }
