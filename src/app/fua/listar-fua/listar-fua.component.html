@@ -85,17 +85,26 @@
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-i="rowIndex">
             <tr>
-                <td style="text-align: center">{{ i }}</td>
+                <td style="text-align: center">{{ i+1 }}</td>
                 <td style="text-align: center">{{ rowData.codPrestacion }}</td>
                 <td style="text-align: center">
-                    <span class="p-buttonset">
-                        <button pButton pRipple class="p-button-success" label="IR FUA" icon="pi pi-caret-right"
-                            (click)="openFUA(rowData)"></button>
+                    <span class="">
+                        <button pButton pRipple class="p-button-rounded p-button-success" label="IR FUA"
+                            icon="pi pi-caret-right" (click)="openFUA(rowData)"></button>
                     </span>
-                    <span class="p-buttonset pl-1">
-                        <button pButton pRipple class="p-button-success" label="Imprimir" icon="pi pi-caret-right"
-                            (click)="imprimirFUA(rowData)"></button>
+                    <span class="ml-1">
+                        <button pButton pRipple class="p-button-rounded p-button-info">
+                            <a style="color: white; font-weight: bold;"
+                                href="http://190.108.93.145:8200/jasperserver/rest_v2/reports/Reports/FUA/anexo1.pdf?idFua={{rowData.id}}"
+                                target="_blank">Descargar FUA</a>
+                        </button>
+
                     </span>
+
+                    <!-- <span class="pl-1">
+                        <button pButton pRipple class="p-button-rounded p-button-info" label="Imprimir" 
+                            icon="pi pi-print" (click)="imprimirFUA(rowData)"></button>
+                    </span> -->
                 </td>
             </tr>
         </ng-template>

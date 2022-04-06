@@ -43,7 +43,7 @@ export class FuaService {
   postProcedimientos
   /**REPORTES */
   getReportFUA(idFUA: string) {
-    return this.http.get(`${this.urlReporter}/jasperserver/rest_v2/reports/Reports/FUA/anexo1.pdf?${idFUA}`);
+    return this.http.get(`${this.urlReporter}/jasperserver/rest_v2/reports/Reports/FUA/anexo1.pdf?idFua=${idFUA}`);
   }
   /**PROMISES */
   getPromiseCrearRecuperarFUAxIdConsulta(idConsulta: string) {

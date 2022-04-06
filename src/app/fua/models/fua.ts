@@ -64,6 +64,7 @@ export interface Atencion {
   fechaAtencion: string,
   hora: string,
   ups: string,
+  codPrestacion: string,
   prestacionesAdicionales: string,
   codAutorizacion: string,
   nroFuaVincular?: string,
@@ -132,9 +133,10 @@ export interface ActividadesPreventivas {
   }
 }
 export interface Diagnostico {
-  cie10: string,
+  cie_10: string,
   diagnostico: string,
   tipoDx: string,
+  ups: string
 
   // nro: number,
   // diagnosticoHIS: string,
@@ -159,7 +161,7 @@ export interface ResponsableAtencion {
   egresado: string
 }
 export interface SegundaParteFUA {
-  codPrestacion: string,
+  // codPrestacion: string,
   aseguradoApoderado?: string,
   firma?: string,
   apoderado?: string,
@@ -170,12 +172,14 @@ export interface SegundaParteFUA {
 
   deLaAtencion?: Atencion,
   conceptoPrestacional?: ConceptoPrestacional,
-  destinoDelAsegurado?: DestinoAsegurado,
+  destinoDelAsegurado?: string,
   refiereContrarefiere?: RefiereContrarefiere,
   actividadesPreventivas?: ActividadesPreventivas,
   diagnostico?: Diagnostico,
   vacunas?: Vacunas[],
   responsableAtencion?: ResponsableAtencion,
+
+  tipoConsulta:string
 }
 export interface Vacunas {
   dosis: number,

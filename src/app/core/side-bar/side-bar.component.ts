@@ -384,19 +384,52 @@ const menu_ipress = [
             {
                 icon: "pi pi-file",
                 label: "Odontologia",
-                items: []
+                items: [
+                    {
+                        label: "Citas",
+                        icon: "pi pi-pw pi-file",
+                        routerLink: "consulta-generica/lista-consultas/odontologia",
+                    },
+                    {
+                        label: "Consulta",
+                        icon: "pi pi-pw pi-file",
+                        routerLink: "consulta-generica/lista-consultas",
+                    },
+                ]
             },
 
             {
                 icon: "pi pi-file",
                 label: "Psicologia",
-                items: []
+                items: [
+                    {
+                        label: "Citas",
+                        icon: "pi pi-pw pi-file",
+                        routerLink: "consulta-generica/lista-consultas/psicologia",
+                    },
+                    {
+                        label: "Consulta",
+                        icon: "pi pi-pw pi-file",
+                        routerLink: "consulta-generica/lista-consultas",
+                    },
+                ]
             },
 
             {
                 icon: "pi pi-file",
                 label: "Nutrición",
-                items: []
+                items: [
+                    {
+                        label: "Citas",
+                        icon: "pi pi-pw pi-file",
+                        routerLink: "consulta-generica/lista-consultas/nutricion",
+                    },
+                    {
+                        label: "Consulta",
+                        icon: "pi pi-pw pi-file",
+                        routerLink: "consulta-generica/lista-consultas",
+                    },
+                ]
             },
 
             {
@@ -479,7 +512,16 @@ const menu_ipress = [
                 icon: "pi pi-file",
                 label: "Ups Auxiliar",
                 routerLink: "mantenimientos/ups-aux",
+            }, {
+                icon: "pi pi-file",
+                label: "His",
+                routerLink: "admision/ipress-his",
             },
+            // {
+            //     icon: "pi pi-file",
+            //     label: "Fua",
+            //     routerLink: "#",
+            // },
 
         ],
     },

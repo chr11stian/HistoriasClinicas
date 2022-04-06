@@ -115,7 +115,7 @@ export class ListaConsultaComponent implements OnInit {
         if (rowData.estadoAtencion == 2) {
             this.router.navigate(['dashboard/fua/listar-fua'], rowData)
         }
-        if (rowData.estadoAtencion == 1) {
+        if (rowData.estadoAtencion == 1 || rowData.estadoAtencion == 0) {
             Swal.fire({
                 title: rowData.tipoConsulta != 'CRED' ? message1 : message2,
                 showDenyButton: true,
@@ -151,7 +151,8 @@ export class ListaConsultaComponent implements OnInit {
         if (rowData.estadoAtencion == 2) {
             this.router.navigate(['dashboard/his/listar-his'], {
                 queryParams: {
-                    'idConsulta':rowData.id
+                    'idConsulta':rowData.id,
+                    'tipoConsulta':rowData.tipoConsulta
                 }
             })
         }
@@ -164,12 +165,6 @@ export class ListaConsultaComponent implements OnInit {
                 confirmButtonColor: '#3085d6',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Se creo HIS correctamente',
-                        showConfirmButton: false,
-                        timer: 2000
-                    });
                     this.router.navigate(['dashboard/his/listar-his'], rowData)
                 } else if (result.isDenied) {
                     Swal.fire({
