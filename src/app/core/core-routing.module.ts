@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {LayoutPrincipalComponent} from './layout-principal/layout-principal.component'
 import {InicioComponent} from './inicio/inicio.component'
 import {CajaModule} from "../caja/caja.module";
+import {ConsultaGenericaModule} from "../consulta-generica/consulta-generica.module";
 
 // Modulos
 
@@ -69,6 +70,10 @@ const routes: Routes = [
             {
                 path: "laboratorios",
                 loadChildren: () => import('src/app/Laboratorio/laboratorio.module').then(n => n.LaboratorioModule),
+            },
+            {
+                path: "consulta-generica",
+                loadChildren: () => import('src/app/consulta-generica/consulta-generica.module').then(n => n.ConsultaGenericaModule),
             },
         ]
     }
