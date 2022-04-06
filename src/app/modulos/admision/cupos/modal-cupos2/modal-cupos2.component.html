@@ -240,6 +240,18 @@
                                            formControlName="tipoSeguro"/>
                                 </div>
                             </div>
+                            <div class="col-12 md:col-6 lg:col-2 flex flex-column p-fluid">
+                                <label class="">TIPO PAGO</label>
+                                <p-dropdown [options]="listEstadoPago"
+                                            appendTo="body" 
+                                            formControlName="detallePago"
+                                            placeholder="Seleccione"
+                                            optionLabel="name"
+                                            optionValue="value"
+                                            [showClear]="false"
+                                            (onChange)="tipoPagoChg()">
+                                </p-dropdown>
+                            </div>
 
                             <div class="col-12 md:col-6 lg:col-3 p-field">
                                 <label class="">TRANSEUNTE</label>
