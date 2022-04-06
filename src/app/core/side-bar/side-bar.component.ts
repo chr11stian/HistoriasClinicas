@@ -350,6 +350,7 @@ const menu_ipress = [
                             },
                         ]
                     },
+
                     {
                         icon: "pi pi-file",
                         label: "Adulto",
@@ -378,6 +379,22 @@ const menu_ipress = [
                         ]
                     },
                 ],
+            },
+            {
+                icon: "pi pi-file",
+                label: "Medicina General",
+                items: [
+                    {
+                        label: "Citas",
+                        icon: "pi pi-pw pi-file",
+                        routerLink: "consulta-generica/lista-consultas/medicina general",
+                    },
+                    {
+                        label: "Consulta",
+                        icon: "pi pi-pw pi-file",
+                        routerLink: "consulta-generica/lista-consultas",
+                    },
+                ]
             },
 
 

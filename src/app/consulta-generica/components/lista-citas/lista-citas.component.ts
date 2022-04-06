@@ -66,7 +66,7 @@ export class ListaCitasComponent implements OnInit {
   }
   getCuposXservicio() {
     let data = {
-      servicio: 'ATENCION INTEGRAL DEL NINO',
+      servicio: this.titulo,
       fecha: this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd')
     }
     console.log('DATA ', data);
@@ -106,11 +106,12 @@ export class ListaCitasComponent implements OnInit {
         fecha: '16/11/2021'
       },
     ]
+    this.getCuposXservicio()
   }
   buildForm() {
     this.formCitas = new FormGroup({
       fechaInicio: new FormControl(''),
-      fechaBusqueda: new FormControl(''),
+      fechaBusqueda: new FormControl(new Date(),),
       tipoDoc: new FormControl(''),
       nroDoc: new FormControl(''),
     })
