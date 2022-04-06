@@ -17,12 +17,12 @@
                     <div class="col-12">
                         <span>Fecha de Atención</span>
                         <input type="date" pInputText formControlName='fechaAtencion'
-                            class="p-inputtext inputfield w-full" placeholder="Fecha">
+                            class="p-inputtext inputfield w-full" placeholder="Fecha" [readonly]="disabl">
                     </div>
                     <div class="col-12">
                         <span>Hora</span>
                         <input type="text" pInputText formControlName='hora' class="p-inputtext inputfield w-full"
-                            placeholder="Fecha">
+                            placeholder="Fecha" [readonly]="disabl">
                     </div>
                 </div>
                 <div class="col-3 md:col-2 border">
@@ -31,12 +31,12 @@
                         <div class="col-12">
                             <span>UPS</span>
                             <input type="text" pInputText formControlName='ups' class="p-inputtext inputfield w-full"
-                                placeholder="">
+                                placeholder="" [readonly]="disabl">
                         </div>
                         <div class="col-12">
                             <span>Cod Prestación</span>
                             <input type="text" pInputText formControlName='codPrestacion'
-                                class="p-inputtext inputfield w-full" placeholder="">
+                                class="p-inputtext inputfield w-full" placeholder="" [readonly]="disabl">
                         </div>
                         <!-- </div> -->
                         <!-- <div class="col-7 pt-0">
@@ -71,7 +71,7 @@
                             </div>
                             <div class="col-6">
                                 <input type="date" pInputText formControlName='fechaIngreso'
-                                    class="p-inputtext inputfield w-full" placeholder="Fecha">
+                                    class="p-inputtext inputfield w-full" placeholder="Fecha" [readonly]="disabl">
                             </div>
                         </div>
                         <div class="grid">
@@ -80,7 +80,7 @@
                             </div>
                             <div class="col-6">
                                 <input type="date" pInputText formControlName='fechaAlta'
-                                    class="p-inputtext inputfield w-full" placeholder="Fecha">
+                                    class="p-inputtext inputfield w-full" placeholder="Fecha" [readonly]="disabl">
                             </div>
                         </div>
                         <div class="grid">
@@ -89,7 +89,7 @@
                             </div>
                             <div class="col-6">
                                 <input type="date" pInputText formControlName='fechaCorteAdministrativo'
-                                    class="p-inputtext inputfield w-full" placeholder="Fecha">
+                                    class="p-inputtext inputfield w-full" placeholder="Fecha" [readonly]="disabl">
                             </div>
                         </div>
                     </p-fieldset>
@@ -103,13 +103,13 @@
                 <div class="border">
                     <div class="grid my-5">
                         <div class="col-12 text-center flex flex-column">
-                            <span class="pr-2">Atencion Directa</span>
+                            <span class="pr-2">Atención Directa</span>
                             <p-checkbox [(ngModel)]="atencionDirecta" binary="true" inputId="binary"></p-checkbox>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-3">
+            <div class="col-3 col-offset-1">
                 <form [formGroup]="formPrestacional">
                     <p-fieldset legend="Cob Extraordinario">
                         <div class="col-12">
@@ -137,7 +137,7 @@
                     </p-fieldset>
                 </form>
             </div> -->
-            <div class="col-1">
+            <div class="col-1 col-offset-1">
                 <div class="border">
                     <div class="grid my-5">
                         <div class="col-12 text-center flex flex-column">
@@ -147,7 +147,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-3">
+            <div class="col-3 col-offset-1">
                 <p-fieldset legend="Sepelio">
                     <div *ngFor="let item of listSepelio" class="p-field-checkbox grid pb-2">
                         <div class="col-8">
@@ -167,9 +167,9 @@
             <div class="col-4">
                 <div class="border">
                     <div class="grid my-5">
-                        <div *ngFor="let item of listPlaceOne" class="col-4">
+                        <div *ngFor="let item of listPlaceOne" class="col-4 text-left">
                             <div class="grid">
-                                <div class="col-9 text-right">
+                                <div class="col-9">
                                     <span [for]="item.value" class="pr-1">{{ item.name }}</span>
                                 </div>
                                 <div class="col-3 text-left">

@@ -449,6 +449,7 @@ export class ModalCupos2Component implements OnInit {
 
             transeunte: false,
             detallePago: this.detallePago,
+            tipoConsulta:this.cuposService.tipoConsulta,
 
             ipress: {
                 ipress_id: this.dataPersonalSelecionado.ipress.idIpress,

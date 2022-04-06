@@ -16,7 +16,7 @@ export class IpressFarmaciaComponent implements OnInit {
   formDatos: FormGroup;
 
   renipress: any;
-  idIpress:string="616de45e0273042236434b51";
+  idIpress:string="";
   nombreRenipress:string;
 
   medicamento:any;
@@ -35,6 +35,8 @@ export class IpressFarmaciaComponent implements OnInit {
               private medicamentosServices:MedicamentosService,
               private farmaciaService:IpressFarmaciaService,
               private fb: FormBuilder) {
+    this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
+
   }
 
   ngOnInit(): void {
