@@ -485,7 +485,7 @@ export class ModalCupos2Component implements OnInit {
                     })
                     return
                 }
-            }
+            }   
         );
     }
 
