@@ -82,6 +82,7 @@ export class AtenionComponent implements OnInit {
   secondDataFUA: SegundaParteFUA;
   datePipe = new DatePipe('en-US');
   dataPersonal: any;
+  disabl: boolean = true;
 
   constructor(
     private form: FormBuilder,
