@@ -7,6 +7,7 @@ import {
 import {CuposService} from "../../../core/services/cupos.service";
 import {DatePipe} from "@angular/common";
 import {MessageService} from "primeng/api";
+import {dato} from "../../../cred/citas/models/data";
 
 @Component({
   selector: 'app-lista-citas',
@@ -15,6 +16,7 @@ import {MessageService} from "primeng/api";
 })
 export class ListaCitasComponent implements OnInit {
   formCitas: FormGroup;
+  attributeLocalS = 'consultaGeneral'
   idIpress = "616de45e0273042236434b51";
   listaDocumentosIdentidad:any[]
   options:any[]
@@ -23,7 +25,7 @@ export class ListaCitasComponent implements OnInit {
   DataCuposPaciente:any[];
   DataCupos:any[]
   dataPaciente: any[];
-
+  data: dato
 
   constructor(private router: Router,
               private rutaActiva:ActivatedRoute,
@@ -108,6 +110,7 @@ export class ListaCitasComponent implements OnInit {
     ]
     this.getCuposXservicio()
   }
+
   buildForm() {
     this.formCitas = new FormGroup({
       fechaInicio: new FormControl(''),
@@ -118,10 +121,22 @@ export class ListaCitasComponent implements OnInit {
   }
   atender(row:any): void {
     /** redirigir a atencion de usuario */
+   console.log("data event" ,row);
+   let data:any={
+     nroDoc:row.paciente.nroDoc,
+     tipoDoc:row.paciente.tipoDoc,
+     anio:row.paciente.edadAnio,
+     mes:row.paciente.edadMes,
+     dia:row.paciente.edadDia,
+     sexo:row.paciente.sexo,
+     celular:row.paciente.nroTelefono
+   }
+    localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
+
     this.router.navigate(['/dashboard/consulta-generica/citas/consulta-principal'], {
       queryParams: {
         'tipoDoc': 'DNI',
-        'nroDoc': row.nroDoc,
+        'nroDoc': row.paciente.nroDoc,
       }
     })
   }

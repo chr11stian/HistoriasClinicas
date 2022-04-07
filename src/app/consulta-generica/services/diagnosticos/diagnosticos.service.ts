@@ -25,5 +25,23 @@ export class DiagnosticosService {
   getDiagnostico(idConsulta) {
     return this.http.get(`${this.base_url}/${this.bd}/consultageneral/listarDiagnostico/${idConsulta}`)
   }
-
+  /****lista UPS HIS*********/
+  listaUpsHis(data){
+    return this.http.post(`${this.base_url}/${this.bd}/ipress/listarups_his`,data)
+        .toPromise()
+        .then(res => <any[]>res)
+        .then(data => { return data;});
+  }
+  listaUpsAuxHis(data){
+    return this.http.post(`${this.base_url}/${this.bd}/ups/codUPS`,data)
+        .toPromise()
+        .then(res => <any[]>res)
+        .then(data => { return data;});
+  }
+  listaUpsAuxHisPorIpress(idIpress:string){
+    return this.http.get(`${this.base_url}/${this.bd}/ipress/listarups_his${idIpress}`)
+        .toPromise()
+        .then(res => <any[]>res)
+        .then(data => { return data;});
+  }
 }

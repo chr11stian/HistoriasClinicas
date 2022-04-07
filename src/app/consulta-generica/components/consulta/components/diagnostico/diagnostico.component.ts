@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import Swal from "sweetalert2";
 import {dato} from "../../../../../cred/citas/models/data";
-import {DiagnosticoConsultaService} from "../../../../../cred/citas/atencion-cred/consulta-principal/services/diagnostico-consulta.service";
 import {CieService} from "../../../../../obstetricia-general/services/cie.service";
 import {UpsAuxIpressService} from "../../../../../mantenimientos/services/ups-aux-ipress/ups-aux-ipress.service";
 import {MessageService} from "primeng/api";
 import {DialogService} from "primeng/dynamicdialog";
 import { PrestacionService } from 'src/app/mantenimientos/services/prestacion/prestacion.service';
+import {DiagnosticosService} from "../../../../services/diagnosticos/diagnosticos.service";
 
 @Component({
   selector: 'app-diagnostico',
@@ -47,7 +47,7 @@ export class DiagnosticoComponent implements OnInit {
 
   descripcionItem: string;
   private hayDatos:boolean=false;
-  constructor(private DiagnosticoService: DiagnosticoConsultaService,
+  constructor(private DiagnosticoService: DiagnosticosService,
               private PrestacionService: PrestacionService,
               private cieService: CieService,
               private formBuilder: FormBuilder,
@@ -67,7 +67,7 @@ export class DiagnosticoComponent implements OnInit {
     this.recuperarUpsAuxHis();
     this.recuperarPrestaciones();
     this.recuperarDxBD();
-    this.formDiagnostico.get('nombreUPS').setValue("ENFERMERIA");
+
   }
   buildForm() {
     this.formDiagnostico = this.formBuilder.group({
@@ -76,7 +76,7 @@ export class DiagnosticoComponent implements OnInit {
       buscarDxHIS:  new FormControl({value:'',disabled:false}),
       tipoDiagnostico:  new FormControl({value:'',disabled:false}),
       prestacion: new FormControl({value:'',disabled:false}),
-      nombreUPS: new FormControl({value:'',disabled:true}),
+      nombreUPS: new FormControl({value:'',disabled:false}),
       nombreUPSaux:['', [Validators.required]],
       diagnosticoSIS: new FormControl({value:'',disabled:false}),
       cie10SIS: new FormControl({value:'',disabled:false}),
@@ -85,7 +85,6 @@ export class DiagnosticoComponent implements OnInit {
       factorCondicional:  new FormControl({value:'',disabled:false}),
       lab:  new FormControl({value:'',disabled:false})
     });
-
 
   }
 
