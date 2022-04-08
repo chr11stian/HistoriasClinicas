@@ -10,6 +10,7 @@ import { AcuerdosComponent } from './components/acuerdos/acuerdos.component';
 import { StepGeneralComponent } from './components/step-general/step-general.component';
 import {PrimeModule} from "../../../shared/prime/prime.module";
 import {SharedModule} from "primeng/api";
+import { ProcedimientoComponent } from './components/procedimiento/procedimiento.component';
 
 
 
@@ -20,7 +21,8 @@ import {SharedModule} from "primeng/api";
     DiagnosticoComponent,
     TratamientoComponent,
     AcuerdosComponent,
-    StepGeneralComponent
+    StepGeneralComponent,
+    ProcedimientoComponent
   ],
   imports: [
     CommonModule,

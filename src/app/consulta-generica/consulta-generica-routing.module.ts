@@ -1,20 +1,27 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {ListaCitasComponent} from "./components/lista-citas/lista-citas.component";
+import {ListaConsultaComponent} from "./components/lista-consulta/lista-consulta.component";
 
-const routes: Routes = [
+let routes: Routes;
+routes = [
   {
     path: "",
     // component: InicioComponent
     // component: DashboardComponent
   },
+  {
+    path: "lista-cita/lista-consulta",
+    component: ListaConsultaComponent
+  },
 
   {
-    path: "lista-consultas/:tipoConsulta",
-    component: ListaCitasComponent
+    path: "lista-cita/:tipoConsulta",
+    component: ListaCitasComponent,
+
   },
   {
-    path: "citas",
+    path: "consulta",
     loadChildren: () => import('src/app/consulta-generica/components/consulta/consulta.module').then(n => n.ConsultaModule),
   },
 ];

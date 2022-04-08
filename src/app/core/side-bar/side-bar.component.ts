@@ -329,7 +329,57 @@ const menu_ipress = [
                     },
                 ]
             },
-
+            //
+            // {
+            //     icon: "pi pi-file",
+            //     label: "Medicina General",
+            //     items: [
+            //         {
+            //             icon: "pi pi-file",
+            //             label: "Adolescente",
+            //             items: [
+            //                 {
+            //                     label: "Citas",
+            //                     icon: "pi pi-pw pi-file",
+            //                     routerLink: "adolescente/citas",
+            //                 },
+            //                 {
+            //                     label: "Consultas",
+            //                     icon: "pi pi-pw pi-file",
+            //                     routerLink: "adolescente/citas/consulta",
+            //                 },
+            //             ]
+            //         },
+            //
+            //         {
+            //             icon: "pi pi-file",
+            //             label: "Adulto",
+            //             items: [
+            //                 {
+            //                     label: "Citas",
+            //                     icon: "pi pi-pw pi-file",
+            //                     routerLink: "adulto/citas",
+            //                 },
+            //             ]
+            //         },
+            //         {
+            //             icon: "pi pi-file",
+            //             label: "Adulto Mayor",
+            //             items: [
+            //                 {
+            //                     label: "Citas",
+            //                     icon: "pi pi-pw pi-file",
+            //                     routerLink: "adulto-mayor/citas",
+            //                 },
+            //                 // {
+            //                 //     label: "Consultas",
+            //                 //     icon: "pi pi-pw pi-file",
+            //                 //     routerLink: "adulto-mayor/citas/consulta",
+            //                 // },
+            //             ]
+            //         },
+            //     ],
+            // },
             {
                 icon: "pi pi-file",
                 label: "Medicina General",
@@ -341,13 +391,21 @@ const menu_ipress = [
                             {
                                 label: "Citas",
                                 icon: "pi pi-pw pi-file",
-                                routerLink: "adolescente/citas",
-                            },
+                                routerLink: "consulta-generica/lista-cita/ADOLESCENTE",
+
+                            }
+                        ]
+                    },
+                    {
+                        icon: "pi pi-file",
+                        label: "Joven",
+                        items: [
                             {
-                                label: "Consultas",
+                                label: "Citas",
                                 icon: "pi pi-pw pi-file",
-                                routerLink: "adolescente/citas/consulta",
-                            },
+                                routerLink: "consulta-generica/lista-cita/JOVEN",
+
+                            }
                         ]
                     },
 
@@ -358,7 +416,7 @@ const menu_ipress = [
                             {
                                 label: "Citas",
                                 icon: "pi pi-pw pi-file",
-                                routerLink: "adulto/citas",
+                                routerLink: "consulta-generica/lista-cita/ADULTO",
                             },
                         ]
                     },
@@ -369,32 +427,11 @@ const menu_ipress = [
                             {
                                 label: "Citas",
                                 icon: "pi pi-pw pi-file",
-                                routerLink: "adulto-mayor/citas",
+                                routerLink: "consulta-generica/lista-cita/ADULTO MAYOR",
                             },
-                            // {
-                            //     label: "Consultas",
-                            //     icon: "pi pi-pw pi-file",
-                            //     routerLink: "adulto-mayor/citas/consulta",
-                            // },
                         ]
                     },
                 ],
-            },
-            {
-                icon: "pi pi-file",
-                label: "Medicina General",
-                items: [
-                    {
-                        label: "Citas",
-                        icon: "pi pi-pw pi-file",
-                        routerLink: "consulta-generica/lista-consultas/medicina general",
-                    },
-                    {
-                        label: "Consulta",
-                        icon: "pi pi-pw pi-file",
-                        routerLink: "consulta-generica/lista-consultas",
-                    },
-                ]
             },
 
 
@@ -405,13 +442,8 @@ const menu_ipress = [
                     {
                         label: "Citas",
                         icon: "pi pi-pw pi-file",
-                        routerLink: "consulta-generica/lista-consultas/odontologia",
-                    },
-                    {
-                        label: "Consulta",
-                        icon: "pi pi-pw pi-file",
-                        routerLink: "consulta-generica/lista-consultas",
-                    },
+                        routerLink: "consulta-generica/lista-cita/odontologia",
+                    }
                 ]
             },
 
@@ -422,14 +454,10 @@ const menu_ipress = [
                     {
                         label: "Citas",
                         icon: "pi pi-pw pi-file",
-                        routerLink: "consulta-generica/lista-consultas/psicologia",
-                    },
-                    {
-                        label: "Consulta",
-                        icon: "pi pi-pw pi-file",
-                        routerLink: "consulta-generica/lista-consultas",
-                    },
-                ]
+                        routerLink: "consulta-generica/lista-cita/psicologia",
+                    }
+                    ]
+
             },
 
             {
@@ -439,64 +467,10 @@ const menu_ipress = [
                     {
                         label: "Citas",
                         icon: "pi pi-pw pi-file",
-                        routerLink: "consulta-generica/lista-consultas/nutricion",
-                    },
-                    {
-                        label: "Consulta",
-                        icon: "pi pi-pw pi-file",
-                        routerLink: "consulta-generica/lista-consultas",
+                        routerLink: "consulta-generica/lista-cita/nutricion",
                     },
                 ]
             },
-            {
-                icon: "pi pi-file",
-                label: "Adolescente",
-                items: [
-                    {
-                        label: "Citas",
-                        icon: "pi pi-pw pi-file",
-                        routerLink: "consulta-generica/lista-consultas/adolescente",
-                    },
-                    {
-                        label: "Consulta",
-                        icon: "pi pi-pw pi-file",
-                        routerLink: "consulta-generica/lista-consultas",
-                    },
-                ]
-            },
-            {
-                icon: "pi pi-file",
-                label: "Adulto",
-                items: [
-                    {
-                        label: "Citas",
-                        icon: "pi pi-pw pi-file",
-                        routerLink: "consulta-generica/lista-consultas/adulto",
-                    },
-                    {
-                        label: "Consulta",
-                        icon: "pi pi-pw pi-file",
-                        routerLink: "consulta-generica/lista-consultas",
-                    },
-                ]
-            },
-            {
-                icon: "pi pi-file",
-                label: "Adulto Mayor",
-                items: [
-                    {
-                        label: "Citas",
-                        icon: "pi pi-pw pi-file",
-                        routerLink: "consulta-generica/lista-consultas/Adulto Mayor",
-                    },
-                    {
-                        label: "Consulta",
-                        icon: "pi pi-pw pi-file",
-                        routerLink: "consulta-generica/lista-consultas",
-                    },
-                ]
-            },
-
             {
                 icon: "pi pi-file",
                 label: "FUA",

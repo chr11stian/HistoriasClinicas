@@ -2,12 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {LayoutPrincipalComponent} from './layout-principal/layout-principal.component'
 import {InicioComponent} from './inicio/inicio.component'
-import {CajaModule} from "../caja/caja.module";
-import {ReportesModule} from "../reportes/reportes.module";
-import {ConsultaGenericaModule} from "../consulta-generica/consulta-generica.module";
-
 // Modulos
-
 const routes: Routes = [
     {
         path: "",
