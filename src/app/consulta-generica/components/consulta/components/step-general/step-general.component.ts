@@ -60,7 +60,7 @@ export class StepGeneralComponent implements OnInit {
       { label: 'Diagnóstico', styleClass: 'icon3' },
       // { label: 'Exámenes Auxiliares', styleClass: 'icon4' },
       { label: 'Tratamiento', styleClass: 'icon5' },
-      // { label: 'Procedimientos', styleClass: 'icon6' },
+      { label: 'Procedimientos', styleClass: 'icon6' },
       { label: 'Acuerdos', styleClass: 'icon7' },
     ]
     await this.getQueryParams()
@@ -130,12 +130,12 @@ export class StepGeneralComponent implements OnInit {
   //--cambia los nombres de los steps según el indice
   name() {
     switch (this.indiceActivo) {
-      case 4:
+      case 5:
         this.stepName = 'finalizar'
         break
-      // case 6:
-      //   this.stepName = 'procedimientos'
-      //   break
+      case 4:
+        this.stepName = 'procedimientos'
+        break
       case 3:
         this.stepName = 'tratamiento'
         break
