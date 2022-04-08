@@ -29,7 +29,12 @@ export class DatosGeneralesComponent implements OnInit {
     this.builForm();
     this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
     console.log(this.data);
-    this.getPacientefromPaciente();
+    if(this.idConsulta==null){
+      this.getPacientefromPaciente();
+    }
+    else{
+      this.recuperarDatosGeneralesBD()
+    }
   }
   builForm(){
     this.formDatos_Generales = this.formBuilder.group({
@@ -80,10 +85,8 @@ export class DatosGeneralesComponent implements OnInit {
     this.datosGeneralesService.getPacientePorDoc(data).subscribe((res: any) => {
       console.log(res);
       console.log(res.object);
-        this.formDatos_Generales.get('tipoDoc').setValue(res.object.tipoDoc);
-        this.formDatos_Generales.get('docIndentidad').setValue(res.object.nroDoc);
-        // this.formDatos_Generales.patchValue({ tipoDoc: res.object.tipoDoc});
-      // this.formDatos_Generales.patchValue({ docIndentidad: res.object.nroDoc});
+      this.formDatos_Generales.get('tipoDoc').setValue(res.object.tipoDoc);
+      this.formDatos_Generales.get('docIndentidad').setValue(res.object.nroDoc);
       this.formDatos_Generales.get('apePaterno').setValue(res.object.apePaterno);
       this.formDatos_Generales.get('apeMaterno').setValue(res.object.apeMaterno);
       this.formDatos_Generales.get('nombre').setValue(res.object.primerNombre + " " +res.object.otrosNombres);
@@ -115,7 +118,7 @@ export class DatosGeneralesComponent implements OnInit {
         direccion:this.form_Acompaniante.value.direccion,
         telefono:this.form_Acompaniante.value.telefono
       },
-      funcionesBiologicas:this.listaFuncionesBiologicas,
+      // funcionesBiologicas:this.listaFuncionesBiologicas,
       listaSignosAlarma:this.listaSignosAlarma,
       servicio:"MEDICINA GENERAL",
       tipoConsulta:"ADULTO"
@@ -214,7 +217,7 @@ export class DatosGeneralesComponent implements OnInit {
     this.listaSignosAlarma.splice(rowIndex, 1)
   }
 
-  recuperarDatosGenerales(){
+  recuperarDatosGeneralesBD(){
     this.datosGeneralesService.searchConsultaDatosGenerales(this.idConsulta).subscribe((res: any) => {
       this.form_Acompaniante.get('tipoDocA').setValue(res.object.acompanante.tipoDoc);
       this.form_Acompaniante.get('nroDocA').setValue(res.object.acompanante.nroDoc);

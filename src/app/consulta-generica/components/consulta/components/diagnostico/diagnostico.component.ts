@@ -17,17 +17,15 @@ import {DiagnosticosService} from "../../../../services/diagnosticos/diagnostico
 
 })
 export class DiagnosticoComponent implements OnInit {
-  selectedProducts: resultados[];
-  tablaResumenDx:resultados[]=[];
   dxs:any[]=[];
 
   loading: boolean = true;
-  submitted: boolean = false;
+  // submitted: boolean = false;
 
-  attributeLocalS = 'documento';
+  attributeLocalS = 'idConsultaGeneral';
   idIpress:string="";
   dataConsulta:dato;
-  id: string = "";
+  idConsulta: string = "";
   itemEdit:number=-1;
   isUpdate:boolean=false;
 
@@ -38,11 +36,11 @@ export class DiagnosticoComponent implements OnInit {
   ListaPrestacion:any[]=[];
   listaDeCIEHIS: any[]=[];
   listaDeCIESIS: any[]=[];
-  listaDeProcedimientos:any[]=[];
+  // listaDeProcedimientos:any[]=[];
   tipoList:lista[]=[];
   listaUpsHis:any[]=[];
   listaUpsAuxHis:any[]=[];
-
+  estadoEditar:boolean=false;
   checked: boolean=false;
 
   descripcionItem: string;
@@ -55,7 +53,9 @@ export class DiagnosticoComponent implements OnInit {
               private messageService: MessageService) {
     this.buildForm();
     this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
-    this.dataConsulta = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
+    this.idConsulta = JSON.parse(localStorage.getItem('idConsultaGeneral')).idConsulta;
+    this.estadoEditar = JSON.parse(localStorage.getItem('idConsultaGeneral')).estadoEditar;
+    // this.dataConsulta = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
     this.tipoList = [{ label: 'DEFINITIVO', value: 'D' },
       { label: 'PRESUNTIVO', value: 'P' },
       { label: 'REPETITIVO', value: 'R' },
@@ -116,7 +116,7 @@ export class DiagnosticoComponent implements OnInit {
 
   /****funciones para recuperar Dx y Procedimientos**/
   recuperarDxBD(){
-    this.DiagnosticoService.getDiagnostico(this.dataConsulta.idConsulta).subscribe((res: any) => {
+    this.DiagnosticoService.getDiagnostico(this.idConsulta).subscribe((res: any) => {
           console.log(res.cod);
           if(res.object!=null){
             console.log(res.object);
@@ -255,7 +255,7 @@ export class DiagnosticoComponent implements OnInit {
   }
 
   /*ELIMINAR DATOS DE LAS TABLAS*/
-  eliminarDiagnostico(rowIndex: any) {
+  eliminarDiagnostico(rowData:any,rowIndex: any) {
     console.log("entrando a editar diagnosticos",rowIndex);
     Swal.fire({
       showCancelButton: true,
@@ -266,7 +266,7 @@ export class DiagnosticoComponent implements OnInit {
       showConfirmButton: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        this.diagnosticos.splice(rowIndex, 1)
+        this.DiagnosticoService.deleteDiagnostico(this.idConsulta,rowData.cie10SIS)
         Swal.fire({
           icon: 'success',
           title: 'Eliminado correctamente',
@@ -281,12 +281,9 @@ export class DiagnosticoComponent implements OnInit {
 
   /***funciones para guardar datos****/
   getDatatoSaveDx(){
-    this.isUpdate=false;
     console.log(this.formDiagnostico.value.nombreUPS)
     console.log(this.formDiagnostico.value.cie10SIS)
-
     let aux = {
-      nro:this.diagnosticos.length +1,
       diagnosticoHIS:this.formDiagnostico.value.diagnosticoHIS,
       cie10HIS:this.formDiagnostico.value.cie10HIS.codigoItem,
       diagnosticoSIS:this.formDiagnostico.value.diagnosticoSIS,
@@ -299,36 +296,25 @@ export class DiagnosticoComponent implements OnInit {
       lab:this.formDiagnostico.value.lab,
       patologiaMaterna:null
     }
-    var duplicado :boolean = this.diagnosticos.some(element=>element.diagnosticoHIS==aux.diagnosticoHIS)
-    console.log(duplicado)
-    this.diagnosticoDialog = false;
-    if(!duplicado){
-      this.diagnosticos.push(aux);
-      if(this.selectedProducts) {
-        this.tablaResumenDx = this.tablaResumenDx.filter(val => !this.selectedProducts.includes(val));
-        this.selectedProducts = null;
-        console.log(this.tablaResumenDx);
-
-        if (this.tablaResumenDx.length == 0) {
-          console.log(this.tablaResumenDx);
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Exito!',
-            detail: 'No hay Diagnósticos pendientes'
-          });
-        } else {
-          console.log(this.tablaResumenDx);
-          this.messageService.add({
-            severity: 'warn',
-            summary: 'Cuidado!',
-            detail: 'Aún tiene evaluaciones realizadas sin diagnósticar'
-          });
-        }
-      }
-    }
-    else{
-      this.messageService.add({severity:'error', summary: 'Cuidado!', detail:'Ya ingreso este diagnóstico, vuelva a intentar.'});
-    }
+    this.DiagnosticoService.addDiagnostico(this.idConsulta,aux).subscribe((res: any) => {
+      Swal.fire({
+        icon: 'success',
+        title: 'DIAGNOSTICO...',
+        text: 'GUARDADO',
+        showConfirmButton: false,
+        timer: 1000
+      })
+    })
+    // var duplicado :boolean = this.diagnosticos.some(element=>element.diagnosticoHIS==aux.diagnosticoHIS)
+    // console.log(duplicado)
+    // this.diagnosticoDialog = false;
+    // if(!duplicado){
+    //   this.diagnosticos.push(aux);
+    //
+    // }
+    // else{
+    //   this.messageService.add({severity:'error', summary: 'Cuidado!', detail:'Ya ingreso este diagnóstico, vuelva a intentar.'});
+    // }
 
   }
 
@@ -340,7 +326,6 @@ export class DiagnosticoComponent implements OnInit {
     console.log(this.itemEdit);
     this.diagnosticos.splice(this.itemEdit, 1)
     let aux = {
-      nro: this.itemEdit + 1,
       diagnosticoHIS: this.formDiagnostico.value.diagnosticoHIS,
       cie10HIS: this.formDiagnostico.value.cie10HIS.codigoItem,
       diagnosticoSIS: this.formDiagnostico.value.diagnosticoSIS,
@@ -387,66 +372,6 @@ export class DiagnosticoComponent implements OnInit {
     // this.formDiagnostico.get('cie10SIS').disable();
     this.diagnosticoDialog = true;
     console.log("modificando", rowData);
-  }
-
-  SaveDiagnostico() {
-
-    if(!this.hayDatos){
-      this.DiagnosticoService.addDiagnostico(this.dataConsulta.idConsulta, this.diagnosticos).subscribe(
-          (resp) => {
-            console.log(resp);
-            Swal.fire({
-              icon: 'success',
-              title: 'DIAGNOSTICOS...',
-              text: 'Guardado correctamente',
-              showConfirmButton: false,
-              timer: 1000
-            })
-          },error => {
-            Swal.fire({
-              icon: 'error',
-              title: 'DIAGNOSTICOS...',
-              text: 'Hubo un error, vuelva a intentarlo',
-              showConfirmButton: false,
-              timer: 1000
-            })
-          })
-    }
-    else{
-      this.DiagnosticoService.updateDiagnostico(this.dataConsulta.idConsulta, this.diagnosticos).subscribe(
-          (resp) => {
-            console.log(resp);
-            Swal.fire({
-              icon: 'success',
-              title: 'DIAGNOSTICOS...',
-              text: 'Actualizado correctamente',
-              showConfirmButton: false,
-              timer: 1000
-            })
-          },error => {
-            Swal.fire({
-              icon: 'error',
-              title: 'DIAGNOSTICOS...',
-              text: 'Hubo un error, vuelva a intentarlo',
-              showConfirmButton: false,
-              timer: 1000
-            })
-          })
-    }
-  }
-
-  agregarToDx() {
-    this.checked = true;
-    console.log(this.selectedProducts);
-    this.diagnosticoDialog = true;
-    this.formDiagnostico.reset();
-    this.formDiagnostico.get('nombreUPS').setValue("ENFERMERIA");
-    // this.formDiagnostico.patchValue({ nombreUPS: "ENFERMERIA" });
-    this.formDiagnostico.get('cie10HIS').setValue("");
-    this.formDiagnostico.get('cie10SIS').setValue("");
-    this.diagnosticoDialog = true;
-    this.selectedProducts.forEach(element=>console.log(element));
-
   }
 
   selectedOption(event: any) {
