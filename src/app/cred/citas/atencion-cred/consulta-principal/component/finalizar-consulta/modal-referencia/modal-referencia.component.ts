@@ -161,30 +161,31 @@ export class ModalReferenciaComponent implements OnInit, DoCheck {
             this.examFG.get('TallaFC').setValue(signosVitales.talla)
             this.examFG.get('imcFC').setValue(signosVitales.imc)
             this.examFG.get('PCFC').setValue(signosVitales.perimetroCefalico)
-
-            examFisico.map((obj: any, index) => {
-                console.log('ob', obj)
-                this.examenFisico.push({
-                    examen: 'Examen Fisico',
-                    tipo: this.labelFisico[index],
-                    descripcion: obj.valor
+            if (examFisico !== null) {
+                examFisico.map((obj: any, index) => {
+                    this.examenFisico.push({
+                        examen: 'Examen Fisico',
+                        tipo: this.labelFisico[index],
+                        descripcion: obj.valor
+                    })
                 })
-            })
+            }
 
         })
         this.referenceService.searchLaboratorio(this.data.idConsulta).subscribe((r: any) => {
             let aux: laboratorio[] = r.object;
-
-            aux.map((obj: laboratorio) => {
-                    let aux_: ExamenesAuxiliares =
-                        {
-                            tipoExamAux: obj.datosLaboratorio.tipoLaboratorio,
-                            subTipo: obj.datosLaboratorio.subTipo,
-                            nombreExamen: obj.datosLaboratorio.nombreExamen
-                        }
-                    this.examenAux.push(aux_)
-                }
-            )
+            if (aux.length > 0) {
+                aux.map((obj: laboratorio) => {
+                        let aux_: ExamenesAuxiliares =
+                            {
+                                tipoExamAux: obj.datosLaboratorio.tipoLaboratorio,
+                                subTipo: obj.datosLaboratorio.subTipo,
+                                nombreExamen: obj.datosLaboratorio.nombreExamen
+                            }
+                        this.examenAux.push(aux_)
+                    }
+                )
+            }
         })
     }
 

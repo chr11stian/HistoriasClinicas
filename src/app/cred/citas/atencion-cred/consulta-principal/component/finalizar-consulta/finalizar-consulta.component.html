@@ -141,7 +141,7 @@
                 <td style="text-align: center">{{ rowData.servicio }}</td>
                 <td style="text-align: center">{{ rowData.nivelUrgencia }}</td>
                 <td style="text-align: center">
-                   <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
                             (click)="eliminarInterconsulta(rowIndex)" pTooltip="Eliminar">
                     </button>
                 </td>
@@ -219,16 +219,19 @@
 </p-dialog>
 
 <!-- Dialog Acuerdo --->
-<p-dialog header="INTERCONSULTA" [(visible)]="dialogInterconsulta" [modal]="true" [style]="{width: '30%'}" [draggable]="false"
+<p-dialog header="INTERCONSULTA" [(visible)]="dialogInterconsulta" [modal]="true" [style]="{width: '30%'}"
+          [draggable]="false"
           [resizable]="false">
 
     <form [formGroup]='formInterconsulta'>
-        <div class="grid">
-            <div class="col-6 md:col-3 p-fluid">
+        <div class="grid align-items-center">
+            <div class="col-3 md:col-3">
                 Próxima cita:
             </div>
-            <div class="col-6 md:col-9  p-fluid">
-                <p-calendar [ngModel]="fecha" formControlName="fecha" [showIcon]="true"
+            <div class="col-9 md:col-9 p-fluid ">
+                <p-calendar style="position:absolute; top:55px" [ngModel]="fecha"
+                            formControlName="fecha"
+                            [showIcon]="true"
                             inputId="icon"></p-calendar>
             </div>
             <div class="col-6 md:col-3  p-fluid">
@@ -242,6 +245,7 @@
             </div>
             <div class="col-6 md:col-4  p-fluid">
                 <p-dropdown
+                        style="position:absolute;bottom:85px"
                         [options]="servicios"
                         formControlName="servicio"
                         optionLabel="name"
@@ -253,6 +257,7 @@
             </div>
             <div class="col-6 md:col-4  p-fluid">
                 <p-dropdown
+                        style="position:absolute;bottom:85px"
                         [options]="urgencia"
                         formControlName="urgencia"
                         optionLabel="name"
@@ -262,10 +267,11 @@
         </div>
     </form>
     <ng-template pTemplate="footer">
-        <button pButton type="button" label="Cancelar" style="background-color: #0c3866" class="button-cancelar" icon="pi pi-times"
+        <button pButton type="button" label="Cancelar" style="background-color: #0c3866" class="button-cancelar"
+                icon="pi pi-times"
                 (click)="cancelInterconsulta()"></button>
-        <button class="button-agregar" icon="pi pi-save" style="background-color: #0c3866" pButton type="button" label="Guardar"
+        <button class="button-agregar" icon="pi pi-save" style="background-color: #0c3866" pButton type="button"
+                label="Guardar"
                 (click)="saveInterconsulta()"></button>
-
     </ng-template>
 </p-dialog>
