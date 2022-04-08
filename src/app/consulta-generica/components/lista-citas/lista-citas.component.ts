@@ -7,6 +7,7 @@ import {
 import {CuposService} from "../../../core/services/cupos.service";
 import {DatePipe} from "@angular/common";
 import {MessageService} from "primeng/api";
+import {dato} from "../../../cred/citas/models/data";
 
 @Component({
   selector: 'app-lista-citas',
@@ -15,6 +16,7 @@ import {MessageService} from "primeng/api";
 })
 export class ListaCitasComponent implements OnInit, OnChanges {
   formCitas: FormGroup;
+  attributeLocalS = 'consultaGeneral'
   idIpress = "616de45e0273042236434b51";
   listaDocumentosIdentidad:any[]
   options:any[]
@@ -23,6 +25,8 @@ export class ListaCitasComponent implements OnInit, OnChanges {
   DataCuposPaciente:any[];
   DataCupos:any[]
   dataPaciente: any[];
+  data: dato
+
   constructor(private router: Router,
               private rutaActiva:ActivatedRoute,
               private documentoIdentidadService: DocumentoIdentidadService,
