@@ -26,7 +26,9 @@ export class TratamientoComponent implements OnInit {
   data:dato;
 
   estadoEditar:boolean=false;
+  estadoEditar2:boolean=false;
 
+  idConsulta:string=null
   intervaloList: any[];
   medicamentosConDatos: any[]=[];
   listaMedicamentos:any;
@@ -76,7 +78,8 @@ export class TratamientoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
+    this.idConsulta = JSON.parse(localStorage.getItem('idConsultaGeneral')).id;
+    this.estadoEditar2 = JSON.parse(localStorage.getItem('idConsultaGeneral')).estadoEditar;
     this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
 
     this.listarTratamientos();
@@ -166,7 +169,7 @@ export class TratamientoComponent implements OnInit {
   }
 
   listarDiagnosticos(){
-    this.DiagnosticoService.getDiagnostico(this.data.idConsulta).subscribe((data:any)=>{
+    this.DiagnosticoService.getDiagnostico(this.idConsulta).subscribe((data:any)=>{
       if(data.object!=undefined || data.object!=null){
         console.log(data.object);
         this.listaDiagnosticos=data.object;
@@ -228,7 +231,7 @@ export class TratamientoComponent implements OnInit {
   }
 
   listarTratamientos(){
-    this.tratamientoService.getTratamiento(this.data.idConsulta).subscribe((data:any)=>{
+    this.tratamientoService.getTratamiento(this.idConsulta).subscribe((data:any)=>{
       if(data!=undefined || data!=null){
         this.hayDatos=true;
         // console.log(data.object);
@@ -244,7 +247,7 @@ export class TratamientoComponent implements OnInit {
   imprimirReceta(){
     console.log("imprimiendo receta");
     this.tratamientoService.evento = false;
-    this.tratamientoService.printReceta(this.data.idConsulta).subscribe((data:any)=>{
+    this.tratamientoService.printReceta(this.idConsulta).subscribe((data:any)=>{
     })
   }
 
@@ -289,7 +292,7 @@ export class TratamientoComponent implements OnInit {
     if(!duplicado){
       this.tratamientos.push(cadena)
       if(!this.hayDatos){
-        this.tratamientoService.addTratamiento(this.data.idConsulta,this.tratamientos).subscribe((data:any)=>{
+        this.tratamientoService.addTratamiento(this.idConsulta,this.tratamientos).subscribe((data:any)=>{
           Swal.fire({
             icon: 'success',
             title: 'Tratamientos',
@@ -304,7 +307,7 @@ export class TratamientoComponent implements OnInit {
         })
       }
       else{
-        this.tratamientoService.updateTratamiento(this.data.idConsulta,this.tratamientos).subscribe((data:any)=>{
+        this.tratamientoService.updateTratamiento(this.idConsulta,this.tratamientos).subscribe((data:any)=>{
           Swal.fire({
             icon: 'success',
             title: 'Tratamientos',
@@ -363,7 +366,7 @@ export class TratamientoComponent implements OnInit {
     this.tratamientos=AuxItem;
     // console.log("cadena" , cadena)
     this.tratamientos.push(cadena);
-    this.tratamientoService.updateTratamiento(this.data.idConsulta,this.tratamientos).subscribe((data:any)=>{
+    this.tratamientoService.updateTratamiento(this.idConsulta,this.tratamientos).subscribe((data:any)=>{
       Swal.fire({
         icon: 'success',
         title: 'Tratamientos',
@@ -423,7 +426,7 @@ export class TratamientoComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.tratamientos.splice(rowIndex, 1)
-        this.tratamientoService.updateTratamiento(this.data.idConsulta,this.tratamientos).subscribe((data:any)=>{
+        this.tratamientoService.updateTratamiento(this.idConsulta,this.tratamientos).subscribe((data:any)=>{
           Swal.fire({
             icon: 'success',
             title: 'Eliminado correctamente',

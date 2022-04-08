@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import Swal from "sweetalert2";
-import {dato} from "../../../../../cred/citas/models/data";
 import {CieService} from "../../../../../obstetricia-general/services/cie.service";
 import {UpsAuxIpressService} from "../../../../../mantenimientos/services/ups-aux-ipress/ups-aux-ipress.service";
 import {MessageService} from "primeng/api";
@@ -23,8 +22,9 @@ export class DiagnosticoComponent implements OnInit {
   // submitted: boolean = false;
 
   attributeLocalS = 'idConsultaGeneral';
+  attributeLocalS2 = 'consultaGeneral';
   idIpress:string="";
-  dataConsulta:dato;
+  dataConsulta:any;
   idConsulta: string = "";
   itemEdit:number=-1;
   isUpdate:boolean=false;
@@ -53,9 +53,9 @@ export class DiagnosticoComponent implements OnInit {
               private messageService: MessageService) {
     this.buildForm();
     this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
-    this.idConsulta = JSON.parse(localStorage.getItem('idConsultaGeneral')).idConsulta;
+    this.idConsulta = JSON.parse(localStorage.getItem('idConsultaGeneral')).id;
     this.estadoEditar = JSON.parse(localStorage.getItem('idConsultaGeneral')).estadoEditar;
-    // this.dataConsulta = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
+    this.dataConsulta = JSON.parse(localStorage.getItem(this.attributeLocalS2));
     this.tipoList = [{ label: 'DEFINITIVO', value: 'D' },
       { label: 'PRESUNTIVO', value: 'P' },
       { label: 'REPETITIVO', value: 'R' },
@@ -124,7 +124,6 @@ export class DiagnosticoComponent implements OnInit {
             this.diagnosticos = res.object;
           }
           else{
-            this.diagnosticos = [];
             Swal.fire({
               icon: 'info',
               title: 'INFORMACION',
@@ -152,7 +151,7 @@ export class DiagnosticoComponent implements OnInit {
     this.isUpdate = false;
     this.checked=false;
     this.formDiagnostico.reset();
-    this.formDiagnostico.get('nombreUPS').setValue("ENFERMERIA");
+    this.formDiagnostico.get('nombreUPS').setValue("");
     this.formDiagnostico.get('cie10HIS').setValue("");
     this.listaDeCIESIS=[];
     this.diagnosticoDialog = true;
@@ -266,13 +265,15 @@ export class DiagnosticoComponent implements OnInit {
       showConfirmButton: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        this.DiagnosticoService.deleteDiagnostico(this.idConsulta,rowData.cie10SIS)
-        Swal.fire({
-          icon: 'success',
-          title: 'Eliminado correctamente',
-          text: '',
-          showConfirmButton: false,
-          timer: 1500
+        this.DiagnosticoService.deleteDiagnostico(this.idConsulta,rowData.cie10SIS).subscribe((res: any) => {
+          this.recuperarDxBD();
+          Swal.fire({
+            icon: 'success',
+            title: 'Eliminado correctamente',
+            text: '',
+            showConfirmButton: false,
+            timer: 1500
+          })
         })
       }
     })
@@ -305,16 +306,8 @@ export class DiagnosticoComponent implements OnInit {
         timer: 1000
       })
     })
-    // var duplicado :boolean = this.diagnosticos.some(element=>element.diagnosticoHIS==aux.diagnosticoHIS)
-    // console.log(duplicado)
-    // this.diagnosticoDialog = false;
-    // if(!duplicado){
-    //   this.diagnosticos.push(aux);
-    //
-    // }
-    // else{
-    //   this.messageService.add({severity:'error', summary: 'Cuidado!', detail:'Ya ingreso este diagnóstico, vuelva a intentar.'});
-    // }
+    this.recuperarDxBD();
+    this.diagnosticoDialog = false;
 
   }
 
@@ -326,6 +319,7 @@ export class DiagnosticoComponent implements OnInit {
     console.log(this.itemEdit);
     this.diagnosticos.splice(this.itemEdit, 1)
     let aux = {
+      nro:this.diagnosticos.length+1,
       diagnosticoHIS: this.formDiagnostico.value.diagnosticoHIS,
       cie10HIS: this.formDiagnostico.value.cie10HIS.codigoItem,
       diagnosticoSIS: this.formDiagnostico.value.diagnosticoSIS,
@@ -342,16 +336,15 @@ export class DiagnosticoComponent implements OnInit {
     this.diagnosticoDialog=false;
   }
 
-  editarDx(rowData,rowindex) {
-    this.isUpdate = true;
-    this.itemEdit=rowindex;
+  editarDx(rowData) {
     this.formDiagnostico.reset();
     this.diagnosticoDialog=true;
     console.log(rowData);
+    console.log(this.listaUpsHis);
     console.log(this.listaUpsAuxHis);
     this.formDiagnostico.get('prestacion').setValue(this.ListaPrestacion.find(element => element.codigo == rowData.codPrestacion));
     this.formDiagnostico.get('tipoDiagnostico').setValue(rowData.tipo);
-    this.formDiagnostico.get('nombreUPS').setValue("ENFERMERIA");
+    this.formDiagnostico.get('nombreUPS').setValue(rowData.nombreUPS);
     this.formDiagnostico.get('nombreUPSaux').setValue(this.listaUpsAuxHis.find(element=>element.nombre == rowData.nombreUPSaux));
     this.formDiagnostico.get('diagnosticoSIS').setValue(rowData.diagnosticoSIS);
     this.formDiagnostico.get('diagnosticoHIS').setValue(rowData.diagnosticoHIS);
@@ -367,11 +360,32 @@ export class DiagnosticoComponent implements OnInit {
       this.formDiagnostico.patchValue({ cie10HIS: this.listaDeCIEHIS.find(elemento => elemento.codigoItem == rowData.cie10HIS) });
     })
     this.formDiagnostico.get('nro').setValue(rowData.nro);
-    // this.formDiagnostico.get('prestacion').disable();
-    // this.formDiagnostico.get('buscarDxSIS').disable();
-    // this.formDiagnostico.get('cie10SIS').disable();
     this.diagnosticoDialog = true;
     console.log("modificando", rowData);
+    let aux = {
+      nro:this.diagnosticos.length+1,
+      diagnosticoHIS: this.formDiagnostico.value.diagnosticoHIS,
+      cie10HIS: this.formDiagnostico.value.cie10HIS.codigoItem,
+      diagnosticoSIS: this.formDiagnostico.value.diagnosticoSIS,
+      cie10SIS: this.formDiagnostico.getRawValue().cie10SIS.cie10,
+      tipo: this.formDiagnostico.value.tipoDiagnostico,
+      codPrestacion: this.formDiagnostico.getRawValue().prestacion.codigo,
+      nombreUPS: this.formDiagnostico.getRawValue().nombreUPS,
+      factorCondicional: this.formDiagnostico.value.factorCondicional,
+      nombreUPSaux: this.formDiagnostico.value.nombreUPSaux.nombre,
+      lab: this.formDiagnostico.value.lab,
+      patologiaMaterna: null
+    }
+    this.DiagnosticoService.updateDiagnostico(this.idConsulta,aux).subscribe((res: any) => {
+      Swal.fire({
+        icon: 'success',
+        title: 'DIAGNOSTICO...',
+        text: 'ACTUALIZADO',
+        showConfirmButton: false,
+        timer: 1000
+      })
+    })
+    this.diagnosticoDialog=false;
   }
 
   selectedOption(event: any) {
