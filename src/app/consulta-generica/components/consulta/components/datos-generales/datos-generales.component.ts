@@ -15,9 +15,9 @@ export class DatosGeneralesComponent implements OnInit {
   form_Funciones:FormGroup;
   form_SignosAlarma:FormGroup;
   imagePath: string;
-  attributeLocalS = 'consultaGeneral'
-  attributeLocalSConsulta='idConsultaGeneral'
-  idConsulta=null;
+  attributeLocalS = 'documento'
+  // attributeLocalSConsulta='idConsultaGeneral'
+  idConsulta="";
   data:any;
   datosGenerales:any;
   listaSignosAlarma:any[]=[];
@@ -28,8 +28,9 @@ export class DatosGeneralesComponent implements OnInit {
   ngOnInit(): void {
     this.builForm();
     this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
+    // this.idConsulta=this.data.idConsulta;
     console.log(this.data);
-    if(this.idConsulta==null){
+    if(this.data.idConsulta==""){
       this.getPacientefromPaciente();
     }
     else{
@@ -80,7 +81,7 @@ export class DatosGeneralesComponent implements OnInit {
     this.traerDataReniec();
     let data={
       tipoDoc:this.data.tipoDoc,
-      nroDoc:this.data.nroDoc
+      nroDoc:this.data.nroDocumento
     }
     this.datosGeneralesService.getPacientePorDoc(data).subscribe((res: any) => {
       console.log(res);
@@ -121,7 +122,7 @@ export class DatosGeneralesComponent implements OnInit {
       // funcionesBiologicas:this.listaFuncionesBiologicas,
       listaSignosAlarma:this.listaSignosAlarma,
       servicio:"MEDICINA GENERAL",
-      tipoConsulta:"ADULTO"
+      tipoConsulta:"JOVEN"
     }
 
     this.datosGenerales = req;
@@ -149,7 +150,7 @@ export class DatosGeneralesComponent implements OnInit {
       funcionesBiologicas:this.listaFuncionesBiologicas,
       listaSignosAlarma:this.listaSignosAlarma,
       servicio:"MEDICINA GENERAL",
-      tipoConsulta:"ADULTO"
+      tipoConsulta:this.data.tipoConsulta
     }
     console.log(this.datosGenerales);
     this.datosGeneralesService.updateConsultaDatosGenerales(req).subscribe((r: any) => {
@@ -161,23 +162,30 @@ export class DatosGeneralesComponent implements OnInit {
     this.recuperarDatos();
     console.log(this.datosGenerales);
     this.datosGeneralesService.addConsultaDatosGenerales(this.datosGenerales).subscribe((r: any) => {
-      this.idConsulta=r.object.id;
-      let id={id:this.idConsulta,
-      estadoEditar:true
+      let id=r.object.id;
+      let data={
+        anio:this.data.anio,
+        dia:this.data.dia,
+        fechaNacimiento:this.data.fechaNacimiento,
+        idConsulta:id,
+        mes:this.data.mes,
+        sexo:this.data.sexo,
+        tipoDoc:this.data.tipoDoc,
+        nroDoc:this.data.nroDoc
       }
-      localStorage.setItem(this.attributeLocalSConsulta, JSON.stringify(id));
+      localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
 
     })
   }
   guardarActualizar(){
-    console.log("idConsulta",this.idConsulta)
+    console.log("idConsulta",this.data.idConsulta)
     if(this.idConsulta==null){
-      console.log("no tiene id",this.idConsulta)
+      console.log("no tiene id",this.data.idConsulta)
       this.guardarNuevaConsulta();
     }
     else{
       this.actualizarConsulta();
-      console.log("tiene id",this.idConsulta)
+      console.log("tiene id",this.data.idConsulta)
     }
   }
   traerDataReniec() {
@@ -218,7 +226,8 @@ export class DatosGeneralesComponent implements OnInit {
   }
 
   recuperarDatosGeneralesBD(){
-    this.datosGeneralesService.searchConsultaDatosGenerales(this.idConsulta).subscribe((res: any) => {
+    this.datosGeneralesService.searchConsultaDatosGenerales(this.data.idConsulta).subscribe((res: any) => {
+     console.log(res.object);
       this.form_Acompaniante.get('tipoDocA').setValue(res.object.acompanante.tipoDoc);
       this.form_Acompaniante.get('nroDocA').setValue(res.object.acompanante.nroDoc);
       this.form_Acompaniante.get('nombreA').setValue(res.object.acompanante.nombre);
