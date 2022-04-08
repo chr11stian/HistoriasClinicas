@@ -249,7 +249,9 @@
     <br>
     <div class="grid">
         <div class="col-12 md:col-6 lg:col-12 p-field" style="text-align:center;">
-            <span style="font-size: 1.5rem">LISTA DE PACIENTES EN {{titulo | uppercase }}</span>
+            <span style="font-size: 1.5rem">LISTA DE PACIENTES EN
+                <span *ngIf="tipoConsulta=='adolescente'|| tipoConsulta=='adulto'||tipoConsulta=='adulto mayor'">MEDICINA GENERAL-</span>
+                {{tipoConsulta | uppercase }}</span>
         </div>
     </div>
     <br>
@@ -294,7 +296,7 @@
                                     <p-calendar dateFormat="yy-mm-dd"
                                                 formControlName="fechaBusqueda"
                                                 [readonlyInput]="true"
-                                                (onSelect)="getCuposXservicio()">
+                                                (onSelect)="getTriadosXservicio()">
                                     </p-calendar>
                                 </div>
                             </div>
@@ -366,9 +368,9 @@
                         <td style="text-align: center">{{ rowData.fechaAtencion | date: 'dd-MM-yyyy'}}</td>
                         <td style="text-align: center">{{ rowData.ipress.servicio}}</td>
                         <td style="text-align: center">
-                            <button pButton pRipple type="button" routerLink="../lista-consulta" label="Atención"
+                            <button pButton pRipple type="button"  label="Atención"
                                     class="p-button-secondary" style=""
-                                    (click)="atender(rowData)"></button>
+                                    (click)="enviarData(rowData)"></button>
                         </td>
                     </tr>
                 </ng-template>

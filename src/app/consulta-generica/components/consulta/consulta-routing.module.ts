@@ -4,7 +4,7 @@ import {StepGeneralComponent} from "./components/step-general/step-general.compo
 
 const routes: Routes = [
   {
-    path: "consulta-principal",
+    path: "",
     component: StepGeneralComponent
   },
 ];

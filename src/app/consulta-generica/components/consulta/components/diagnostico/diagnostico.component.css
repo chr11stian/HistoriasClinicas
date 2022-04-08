@@ -1,0 +1,136 @@
+p-selectbutton >>> .p-selectbutton .p-button.p-highlight {
+    background: #0c3866;
+    border-color: #0c3866;
+}
+
+p-calendar >>> .p-button {
+    background: #0c3866;
+    border: 1px solid #0c3866;
+    align-self: center;
+}
+.rojo{
+    font-weight: 700;
+    color: #bf0d21;
+}
+:host ::ng-deep .fondoSuplementacion {
+    background-color: #addad2 !important;
+}
+:host ::ng-deep .fondoamarillo {
+    background-color: #66adb4 !important;
+}
+:host ::ng-deep .fondoverde {
+    background-color: #a6c0ce !important;
+}
+:host ::ng-deep .fondoceleste {
+    background-color: #bfcea6 !important;
+}
+:host ::ng-deep .fondogris {
+    background-color: #ceb4a6  !important;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+    text-align: center !important;
+    border: 1px solid #b6b6b6;
+    background-color: #dddddd;
+    padding: 0.5rem;
+}
+:host ::ng-deep .p-datatable.p-datatable-gridlines .p-datatable-header {
+    background-color: #dddddd;
+    border: 1px solid #b6b6b6;
+}
+.guardar {
+    background: #0c3866;
+    border-color: #0c3866;
+    align-items: center;
+}
+
+p-toolbar >>> * {
+    align-self: center;
+}
+
+.button-toolbar {
+    margin: 5px;
+}
+
+.button-cancelar {
+    background: #BF0D21;
+}
+
+.button-agregar {
+    background: #003C71;
+}
+
+p-calendar >>> .p-button.p-button-icon-only {
+    background-color: #003c71;
+}
+
+p {
+    margin: 0;
+}
+
+.table-over {
+    overflow-x: auto;
+}
+
+.confirmation-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.p-d-inline {
+    width: auto;
+    z-index: 5;
+}
+
+:host >>> .p-dialog {
+    z-index: 5;
+    width: auto;
+    background: #FFFFFF;
+}
+
+p-dialog >>> .p-dialog .p-dialog-header {
+    border-bottom: 0 none;
+    background: #0c3866;
+    color: #495057;
+    padding: 1.5rem;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+    z-index:89999;
+}
+p-dialog >>> .p-dialog .p-dialog-header .p-dialog-title {
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: #ffffff;
+    z-index:89999;
+}
+
+.p-table >>> .p-table {
+    overflow-x: auto;
+}
+
+/*estilo para responsive formulario*/
+.resp {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-gap: 0.5rem;
+    padding: 2px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+@media (min-width: 300px) {
+
+}
+
+@media (min-width: 500px) {
+
+}
+
+@media (min-width: 900px) {
+
+}
+p-checkbox >>> .p-checkbox .p-checkbox-box {
+    border-radius: 10px;
+}
+
