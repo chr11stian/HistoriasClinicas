@@ -44,6 +44,10 @@ export class LoginRolComponent implements OnInit {
                 console.log("error")
             }
             if (resp.token) {
+                this.serviceLogin.getRol().subscribe((r: any) => {
+                    console.log(r)
+                })
+
                 this.router.navigate(['dashboard']);
             }
         })
