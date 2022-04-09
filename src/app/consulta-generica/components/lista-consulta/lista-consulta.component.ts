@@ -40,9 +40,9 @@ export class ListaConsultaComponent implements OnInit {
   }
 
   getpacientesFiliados(nroDoc) {
-    this.listaConsultaService.getConsultasCRED(nroDoc).subscribe((r: any) => {
+    //para cred
+    this.listaConsultaService.getListaConsultaXtipo('DNI',nroDoc,this.data.tipoConsulta).subscribe((r: any) => {
       this.dataConsulta = r.object;
-      // console.log('lista de consultas-------------->',this.dataConsulta)
     })
   }
 
@@ -53,9 +53,9 @@ export class ListaConsultaComponent implements OnInit {
         nroDocumento: this.data.nroDocumento,
         tipoDoc: this.data.tipoDoc,
         idConsulta: event.id,
-        anio: r.object.anioEdad,
-        mes: r.object.mesEdad,
-        dia: r.object.diaEdad,
+        // anio: r.object.anioEdad,
+        // mes: r.object.mesEdad,
+        // dia: r.object.diaEdad,
         sexo: this.sexo,
         fechaNacimiento: this.fechaNacimiento,
         tipoConsulta:this.data.tipoConsulta
@@ -68,14 +68,15 @@ export class ListaConsultaComponent implements OnInit {
   }
 
   nuevaConsulta() {
-    let data: dato = {
+    let data: any = {
       nroDocumento: this.data.nroDocumento,
       tipoDoc: this.data.tipoDoc,
       idConsulta: '',
       sexo: this.sexo,
       fechaNacimiento: this.fechaNacimiento,
       hidden: true,
-      see: true
+      see: true,
+      tipoConsulta:this.data.tipoConsulta
     }
     localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
     setTimeout(() => {

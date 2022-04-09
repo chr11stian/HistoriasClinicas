@@ -5,7 +5,7 @@ import {LoginService} from './services/login.service';
 import {LoginRolComponent} from './login-rol/login-rol.component';
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {BreakpointObserver, BreakpointState} from '@angular/cdk/layout';
-import {rolInterface, escala} from "../cred/citas/models/data";
+import {rolInterface, escala, nombreRol} from "../cred/citas/models/data";
 
 
 @Component({
@@ -83,16 +83,26 @@ export class LoginComponent implements OnInit, DoCheck {
             })
         })
         this.listAux.map((e: escala, index: number) => {
-            let aux: string[] = []
+            let auxRol: string[] = []
+            let auxNombreRol: string[] = []
+            let listNombreRol: nombreRol[]=[]
             this.listRol.map((r: rolInterface) => {
-                if (e.escala === r.escala)
-                    aux.push(r.rol)
+                if (e.escala === r.escala){
+                    auxRol.push(r.rol)
+                    auxNombreRol.push(r.nombreRol)
+                    listNombreRol.push({
+                        rol: r.rol,
+                        nombreRol: r.nombreRol
+                    })
+                }
             })
             this.listAux[index] = {
                 user: this.usuario,
                 pass: this.password,
                 escala: this.listAux[index].escala,
-                rol: aux
+                rol: auxRol,
+                nombreRol: auxNombreRol,
+                list: listNombreRol
             }
         })
         this.loginService.listEscala = this.listAux

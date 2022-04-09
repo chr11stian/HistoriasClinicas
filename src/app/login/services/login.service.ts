@@ -12,6 +12,7 @@ import {escala} from "../../cred/citas/models/data";
 })
 export class LoginService {
     base_uri = environment.base_uri;
+    base_uri_ = environment.base_uri_
     listEscala: escala[]
     private currentUserSubject: BehaviorSubject<LoginInterface>;
     public currentUser: Observable<LoginInterface>;
@@ -148,5 +149,8 @@ export class LoginService {
             }
             return user;
         }))
+    }
+    getRol() {
+        return this.http.get(`${this.base_uri_}/accesos/rol/all`);
     }
 }
