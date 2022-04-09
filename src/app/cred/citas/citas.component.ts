@@ -39,7 +39,7 @@ export class CitasComponent implements OnInit {
     dataCitas: any;
     formCitas: FormGroup;
     datePipe = new DatePipe('en-US');
-    fechaActual = new Date();
+        fechaActual = new Date();
 
 
     dataPaciente: any[];

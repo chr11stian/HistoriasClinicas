@@ -1,25 +1,30 @@
-import { Component, OnInit } from "@angular/core";
-import { PersonalService } from "../../core/services/personal-services/personal.service";
-import { FormBuilder, Validators, FormGroup } from "@angular/forms";
+import {Component, OnInit} from "@angular/core";
+import {PersonalService} from "../../core/services/personal-services/personal.service";
+import {FormBuilder, Validators, FormGroup} from "@angular/forms";
 import Swal from "sweetalert2";
-import { Personal } from "src/app/core/models/personal.models";
-import { DocumentoIdentidadService } from "src/app/mantenimientos/services/documento-identidad/documento-identidad.service";
+import {Personal} from "src/app/core/models/personal.models";
+import {
+    DocumentoIdentidadService
+} from "src/app/mantenimientos/services/documento-identidad/documento-identidad.service";
 import {
     ColegioProfesional,
     DocumentoIdentidad,
     Especialidad,
     TipoPersonal,
 } from "src/app/core/models/mantenimiento.models";
-import { TipoPersonalService } from "src/app/mantenimientos/services/tipo-personal/tipo-personal.service";
-import { EspecialidadService } from "src/app/mantenimientos/services/especialidad/especialidad.service";
-import { ColegioProfesionalService } from "src/app/mantenimientos/services/colegio-profesional/colegio-profesional.service";
-import { DatePipe, getLocaleDateFormat } from "@angular/common";
-import { TipoContratoService } from "src/app/mantenimientos/services/tipo-contrato/tipo-contrato.service";
-import { IpressService } from "src/app/core/services/ipress/ipress.service";
-import { RolGuardiaService } from "src/app/core/services/rol-guardia/rol-guardia.service";
-import { image } from '../../../assets/images/image.const';
-import { TipoUpsService } from "src/app/mantenimientos/services/tipo-ups.service";
-import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
+import {TipoPersonalService} from "src/app/mantenimientos/services/tipo-personal/tipo-personal.service";
+import {EspecialidadService} from "src/app/mantenimientos/services/especialidad/especialidad.service";
+import {
+    ColegioProfesionalService
+} from "src/app/mantenimientos/services/colegio-profesional/colegio-profesional.service";
+import {DatePipe, getLocaleDateFormat} from "@angular/common";
+import {TipoContratoService} from "src/app/mantenimientos/services/tipo-contrato/tipo-contrato.service";
+import {IpressService} from "src/app/core/services/ipress/ipress.service";
+import {RolGuardiaService} from "src/app/core/services/rol-guardia/rol-guardia.service";
+import {image} from '../../../assets/images/image.const';
+import {TipoUpsService} from "src/app/mantenimientos/services/tipo-ups.service";
+import {UsuarioService} from "../usuarios/services/usuario.service";
+import {LoginService} from "../../login/services/login.service";
 
 @Component({
     selector: "app-personal-salud",
@@ -31,7 +36,7 @@ export class PersonalSaludComponent implements OnInit {
     form: FormGroup;
     formEspecialidad: FormGroup;
     formRol: FormGroup;
-
+    formRoles: FormGroup;
     imagePath: string = image;
     //datos a usar
     data: Personal[] = [];
@@ -58,18 +63,21 @@ export class PersonalSaludComponent implements OnInit {
 
     especialidades: any[];
     rolesX: any[] = [];
+    rolesSistema: any[] = []
     listaUpsX: any[];
     personalDialog: boolean;
     personalEspecialidadDialog: boolean;
     personalRolDialogX: boolean;
+    rolSistema: boolean
     datePipe = new DatePipe("en-US");
     idIpress = "616de45e0273042236434b51";
     iprees: string = "la posta medica";
-
+    listaRol: rol[] = []
     nombreRolOpciones: any[] = [
         //"ASISTENCIAL",
         //"ADMINISTRATIVO"
     ]
+
     constructor(
         private personalservice: PersonalService,
         private documentoservice: DocumentoIdentidadService,
@@ -80,7 +88,8 @@ export class PersonalSaludComponent implements OnInit {
         private ipressservice: IpressService,
         private formBuilder: FormBuilder,
         private rolGuardiaService: RolGuardiaService,
-        private tipoUpsService: TipoUpsService
+        private tipoUpsService: TipoUpsService,
+        private loginService: LoginService
     ) {
         this.buildForm();
         this.getPersonal();
@@ -95,8 +104,8 @@ export class PersonalSaludComponent implements OnInit {
         this.getNombreRoles();
 
         this.stateOptions = [
-            { label: "Activo", value: true },
-            { label: "Inactivo", value: false },
+            {label: "Activo", value: true},
+            {label: "Inactivo", value: false},
         ];
         this.domicilioList = [
             {
@@ -121,6 +130,7 @@ export class PersonalSaludComponent implements OnInit {
             this.nombreRolOpciones = res.object;
         });
     }
+
     getDocumentos() {
         this.documentoservice.getDocumentosIdentidad().subscribe((res: any) => {
             this.docList = res.object;
@@ -182,6 +192,9 @@ export class PersonalSaludComponent implements OnInit {
     }
 
     buildForm() {
+        this.formRoles = this.formBuilder.group({
+            rol: [""]
+        })
         this.form = this.formBuilder.group({
             tipoDoc: ["", [Validators.required]],
             nroDoc: ["", [Validators.required]],
@@ -235,9 +248,11 @@ export class PersonalSaludComponent implements OnInit {
                 console.log('ups-->', this.listaUpsX)
             });
     }
+
     buscarNombre(id) {
         return this.listaUpsX.find(elemento => elemento.id == id).nombreUPS;
     }
+
     saveForm() {
         this.isUpdate = false;
         let otrosNombres = this.form.value.nombres.split(" ", 2);
@@ -273,10 +288,10 @@ export class PersonalSaludComponent implements OnInit {
                 abreviatura: tipoPersonalSelected.abreviatura,
             },
             colegioProfesional:
-            {
-                codigo: colegioSelected.codigo,
-                nombre: colegioSelected.nombre,
-            },
+                {
+                    codigo: colegioSelected.codigo,
+                    nombre: colegioSelected.nombre,
+                },
             colegiatura: this.form.value.colegiatura,
             estado: this.form.value.estado,
             detalleIpress: {
@@ -400,10 +415,10 @@ export class PersonalSaludComponent implements OnInit {
                 abreviatura: tipoPersonalSelected.abreviatura,
             },
             colegioProfesional:
-            {
-                codigo: colegioSelected.codigo,
-                nombre: colegioSelected.nombre,
-            },
+                {
+                    codigo: colegioSelected.codigo,
+                    nombre: colegioSelected.nombre,
+                },
             colegiatura: this.form.value.colegiatura,
             estado: this.form.value.estado,
             detalleIpress: {
@@ -531,6 +546,14 @@ export class PersonalSaludComponent implements OnInit {
         this.isUpdateRolX = false;
     }
 
+    newRolSistema(rowData) {
+        this.rolesSistema = []
+        this.nombrePersonal = `${rowData.apePaterno} ${rowData.apeMaterno}, ${rowData.primerNombre}`;
+        this.idRolX = rowData.id;
+        this.formRol.reset();
+        this.rolSistema = true;
+    }
+
     guardarNuevoEspecialidad() {
         this.isUpdateEspecialidad = false;
         this.formEspecialidad.reset();
@@ -628,6 +651,25 @@ export class PersonalSaludComponent implements OnInit {
                         this.getPersonalIdEspecialidad();
                         this.getPersonal();
                     });
+            }
+        });
+    }
+
+    agregarRol() {
+        this.rolesSistema.push(this.formRoles.value.rol)
+    }
+
+    eliminarRolSistema(rowData, index) {
+        Swal.fire({
+            showCancelButton: true,
+            confirmButtonText: "Eliminar",
+            icon: "warning",
+            title: "Estas seguro de eliminar",
+            text: "",
+            showConfirmButton: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.rolesSistema.splice(index, 1)
             }
         });
     }
@@ -761,5 +803,13 @@ export class PersonalSaludComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.loginService.getRol().subscribe((r: any) => {
+            this.listaRol = r.lista
+        })
     }
+}
+
+export interface rol {
+    nombre: string,
+    codigo: string
 }

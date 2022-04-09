@@ -156,7 +156,8 @@ export interface Nacimiento {
     perimetroCefalico: number;
     perimetroToracico: number;
     respiracionLlantoNacerInmediato: boolean;
-    apgar: boolean;
+    apgar1: number;
+    apgar5: number;
     reanimacion: boolean;
     patologiaNeonatal: boolean;
     especifique: string;
@@ -280,11 +281,19 @@ export interface rolInterface {
     nombreEESS: string;
     permisos: string;
     rol: string;
+    nombreRol: string
 }
 
 export interface escala {
     user?: string,
     pass?: string,
     escala: string,
-    rol?: string[]
+    rol?: string[],
+    nombreRol?:string[]
+    list?: nombreRol[]
+}
+
+export interface nombreRol {
+    rol: string,
+    nombreRol: string
 }

@@ -60,7 +60,7 @@ export class StepGeneralComponent implements OnInit {
       { label: 'Diagnóstico', styleClass: 'icon3' },
       // { label: 'Exámenes Auxiliares', styleClass: 'icon4' },
       { label: 'Tratamiento', styleClass: 'icon5' },
-      // { label: 'Procedimientos', styleClass: 'icon6' },
+      { label: 'Procedimientos', styleClass: 'icon6' },
       { label: 'Acuerdos', styleClass: 'icon7' },
     ]
     await this.getQueryParams()
@@ -133,10 +133,17 @@ export class StepGeneralComponent implements OnInit {
       case 5:
         this.stepName = 'finalizar'
         break
+<<<<<<< HEAD
       // case 6:
       //   this.stepName = 'procedimientos'
       //   break
       case 4:
+=======
+      case 4:
+        this.stepName = 'procedimientos'
+        break
+      case 3:
+>>>>>>> bf5384f007a6c3a2ce6c1e2b51c15c95a2ac1aa5
         this.stepName = 'tratamiento'
         break
       // case 4:

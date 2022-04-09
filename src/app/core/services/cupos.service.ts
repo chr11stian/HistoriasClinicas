@@ -133,4 +133,9 @@ export class CuposService {
                 return null;
             })
     }
+
+    getTriadosServicioFecha(servicio,data) {
+        return this.http.post(`${this.base_url}/${this.bd}/cupo/pasadosPorTriajeTipo/${servicio}`,data)
+    }
+
 }

@@ -21,9 +21,7 @@ export class FinalizarConsultaComponent implements OnInit, DoCheck {
     data: dato
     fecha: Date
     acuerdosFG: FormGroup
-    finalizar: finalizarAtencionInterface;
     acuerdos: listaAcuerdosConMadre[] = [];
-    examenesAux: examenesAuxInteface[] = [];
     referencia: ReferenciaInterface[] = []
     interconsulta: proxCita[] = []
 
@@ -263,7 +261,6 @@ export class FinalizarConsultaComponent implements OnInit, DoCheck {
             this.acuerdos[this.index3].descripcion = this.formAcuerdos.value.descripcion
             this.bool3 = false;
         }
-        //console.log("acuerdos", this.acuerdosComprimisos)
         Swal.fire({
             icon: 'success',
             title: aux !== true ? 'Agregado correctamente' : 'Actualizado correctamente',
@@ -276,15 +273,6 @@ export class FinalizarConsultaComponent implements OnInit, DoCheck {
 
     eliminarAcuerdo(index) {
         this.acuerdos.splice(index, 1)
-    }
-
-    editarAcuerdo(row, index) {
-        this.isUpdate3 = false;
-        this.bool3 = true;
-        this.index3 = index
-        this.formAcuerdos.reset();
-        this.formAcuerdos.get('descripcionAcuerdo').setValue(row.descripcionAcuerdo);
-        this.dialogAcuerdos = true;
     }
 
     openInterconsulta() {
@@ -317,7 +305,6 @@ export class FinalizarConsultaComponent implements OnInit, DoCheck {
         }
         this.interconsulta.push(aux_)
 
-        console.log("acuerdos", this.examenesAux)
         Swal.fire({
             icon: 'success',
             title: 'Agregado correctamente',
@@ -330,16 +317,6 @@ export class FinalizarConsultaComponent implements OnInit, DoCheck {
 
     eliminarInterconsulta(index) {
         this.interconsulta.splice(index, 1)
-    }
-
-    editarExamen(row, index) {
-        this.isUpdate4 = false;
-        this.bool4 = true;
-        this.index4 = index
-        this.formExamen.reset();
-        this.formExamen.get('nombreEspecialidad').setValue(row.nombreEspecialidad);
-        this.formExamen.get('examen').setValue(row.examen);
-        this.dialogExamenes = true;
     }
 
     /* funciones tabla referencia */
@@ -373,19 +350,9 @@ export class FinalizarConsultaComponent implements OnInit, DoCheck {
         })
     }
 
-    irInterconsulta() {
-        this.router.navigate(['/dashboard/cred/citas/atencion/examenes'],
-            {
-                queryParams: {
-                    'tipoDoc': this.tipoDoc,
-                    'nroDoc': this.nroDoc,
-                }
-            })
-    }
-
     openCalendar() {
         this.ref = this.dialog.open(CalendarComponent, {
-            header: "CALENDARIO DE ACTIIVIDADES",
+            header: "CALENDARIO DE ACTIVIDADES",
             height: '100%',
             width: '90%',
             style: {
@@ -411,33 +378,4 @@ export class FinalizarConsultaComponent implements OnInit, DoCheck {
                 this.referencia.push(data)
         })
     }
-}
-
-interface finalizarAtencionInterface {
-    acuerdosComprimisos: acuerdosComprimisosInterface[],
-    examenesAux: examenesAuxInteface[],
-    referencia: referenciaInterface,
-    proximaCita: string,
-    atendidoPor: string,
-    dniPersonal: string,
-    observacion: string
-}
-
-interface examenesAuxInteface {
-    idSIS: string,
-    nombreEspecialidad: string,
-    examen: string,
-    resultado: string,
-    //fecha: string
-}
-
-interface acuerdosComprimisosInterface {
-    codigoAcuerdo: string,
-    descripcionAcuerdo: string
-}
-
-interface referenciaInterface {
-    consultorio: string,
-    motivo: string,
-    codRENAES: string
 }
