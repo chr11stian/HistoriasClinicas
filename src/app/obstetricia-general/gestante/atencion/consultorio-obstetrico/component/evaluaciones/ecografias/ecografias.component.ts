@@ -54,7 +54,7 @@ export class EcografiasComponent implements OnInit {
 
     /*********RECUPERAR DATOS*********/
     this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
-    console.log("ipress", this.idIpress)
+    console.log("ipress", this.idIpress)  
 
     /*usando local storage*/
     this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));

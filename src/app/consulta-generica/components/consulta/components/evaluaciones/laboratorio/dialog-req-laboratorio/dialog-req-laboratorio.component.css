@@ -1,0 +1,75 @@
+::ng-deep.p-dialog .p-dialog-header {
+    border-bottom: 0 none;
+    background: #0c3866;
+    color: #ffffff;
+    height: 40px;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+}
+
+::ng-deep >>> .p-dialog .p-dialog-header .p-dialog-header-icon {
+    width: 2rem;
+    height: 2rem;
+    color: #f8f9fa;
+    border: 0 none;
+    background: transparent;
+    border-radius: 50%;
+    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+    margin-right: 0.5rem;
+}
+
+
+::ng-deep >>> .p-dialog .p-dialog-header .p-dialog-title {
+    font-size: 12px;
+    text-align: center;
+}
+
+.footer {
+    text-align: right;
+    background: transparent;
+    /*background: #2A4794;*/
+    position: absolute;
+    bottom: 0;
+    width: 97%;
+    height: 5em;
+    color: white;
+    bottom: 0;
+    z-index: 50;
+}
+
+.border {
+    border: 1px solid rgb(222 226 230);
+    border-radius: 1px;
+    background: #f8f9fa;
+}
+
+.border2 {
+    border: 1px solid #2570c4;
+    border-radius: 10px;
+    background: #ffffff;
+}
+
+label {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    /*font-weight: bold;*/
+    color: rgb(135 135 135);
+    font-size: 10px;
+}
+
+p-checkbox >>> .p-checkbox .p-checkbox-box {
+    border: 2px solid #6c757d;
+    background: #0c3866;
+    width: 20px;
+    height: 20px;
+    color: #495057;
+    border-radius: 3px;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+p-toolbar >>> .p-toolbar {
+    background: rgb(216 222 229);
+    border: 1px solid rgb(222 226 230);
+    padding: 0.5rem;
+    height: auto;
+    border-radius: 1px;
+}

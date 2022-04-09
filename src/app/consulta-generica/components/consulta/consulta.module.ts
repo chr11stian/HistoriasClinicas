@@ -10,6 +10,10 @@ import { AcuerdosComponent } from './components/acuerdos/acuerdos.component';
 import { StepGeneralComponent } from './components/step-general/step-general.component';
 import {PrimeModule} from "../../../shared/prime/prime.module";
 import {SharedModule} from "primeng/api";
+import { EvaluacionesComponent } from './components/evaluaciones/evaluaciones.component';
+import { LaboratorioComponent } from './components/evaluaciones/laboratorio/laboratorio.component';
+import { DialogReqLaboratorioComponent } from './components/evaluaciones/laboratorio/dialog-req-laboratorio/dialog-req-laboratorio.component';
+import { ProcedImagenesComponent } from './components/evaluaciones/proced-imagenes/proced-imagenes.component';
 
 
 
@@ -20,7 +24,11 @@ import {SharedModule} from "primeng/api";
     DiagnosticoComponent,
     TratamientoComponent,
     AcuerdosComponent,
-    StepGeneralComponent
+    StepGeneralComponent,
+    EvaluacionesComponent,
+    LaboratorioComponent,
+    DialogReqLaboratorioComponent,
+    ProcedImagenesComponent,
   ],
   imports: [
     CommonModule,

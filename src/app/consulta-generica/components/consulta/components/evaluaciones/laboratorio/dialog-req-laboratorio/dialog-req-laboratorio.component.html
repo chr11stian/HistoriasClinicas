@@ -1,0 +1,164 @@
+<div class="border2 m-2">
+    <form [formGroup]='formReqLabo'>
+        <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
+            <div class="grid m-2">
+                <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
+                    <div class="border2">
+                        <div class="grid m-2">
+                            <div class="col-12 md:col-6 lg:col-3 p-field flex flex-column">
+                                <label>APELLIDOS Y NOMBRES:</label>
+                                <input type="text" pInputText class="inputTest" formControlName="apellidosNombres"/>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-1 p-field flex flex-column">
+                                <label>EDAD:</label>
+                                <input type="text" pInputText class="inputTest" formControlName="edad"/>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-1 p-field flex flex-column">
+                                <label>HCL:</label>
+                                <input type="text" pInputText class="inputTest" formControlName="HCL"/>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-3 p-field flex flex-column">
+                                <label>SERVICIO:</label>
+                                <input type="text" pInputText class="inputTest" formControlName="servicio"/>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-2 p-field flex flex-column">
+                                <label>CAMA NRO:</label>
+                                <input type="text" pInputText class="inputTest" formControlName="camaNro"/>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-2 p-field flex flex-column">
+                                <label>DX. PRESUNTIVO:</label>
+                                <input type="text" pInputText class="inputTest" formControlName="DxPresuntivo"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid m-2">
+                <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
+                    <div class="border">
+                        <div class="grid m-2">
+                            <div class="col-12 md:col-4 lg:col-4 p-field flex flex-column">
+                                <label>PRESTACION:</label>
+                                <p-dropdown [options]="listPrestaciones" formControlName="prestacion" appendTo="body"
+                                            (onChange)="onChangeDiagnostico($event)"
+                                            optionLabel="descripcion" class="inputfield p-fluid w-full"
+                                            placeholder="Seleccione prestacion"></p-dropdown>
+                            </div>
+                            <div class="col-12 md:col-2 lg:col-2 p-field flex flex-column">
+                                <label>NOMBRE UPS</label>
+                                <p-dropdown [options]="listaUps" optionLabel="nombreUPS"></p-dropdown>
+                            </div>
+                            <div class="col-12 md:col-2 lg:col-2 p-field flex flex-column">
+                                <label>NOMBRE UPS AUX</label>
+                                <p-dropdown [options]="listaUpsHis" optionLabel="nombreUPS"></p-dropdown>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-2 p-field flex flex-column">
+                                <label>COD. PRESTACION:</label>
+                                <input type="text" pInputText class="inputTest" formControlName="codPrestacion"/>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-4 p-field flex flex-column">
+                                <label>SERVICIO LABORATORIO:</label>
+                                <p-dropdown [options]="listSubTipoLabo" formControlName="subTipo" appendTo="body"
+                                            optionLabel="nombre" class="inputfield p-fluid w-full"
+                                            placeholder="Seleccione"></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="grid m-2">
+                            <div class="col-12 md:col-6 lg:col-4 p-field flex flex-column">
+                                <label>LUGAR DE EXAMEN:</label>
+                                <p-dropdown [options]="LugarExamen" formControlName="lugarExamen" appendTo="body"
+                                            optionLabel="nombre" class="inputfield p-fluid w-full"
+                                            placeholder="Seleccione lugar de examen"></p-dropdown>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid m-2">
+                <div class="col-12 md:col-6 lg:col-6 p-field">
+                    <p-toolbar>
+                        <ng-template pTemplate="left">
+                            <label>PROCEDIMIENTO SIS</label>
+                        </ng-template>
+                    </p-toolbar>
+                    <div class="border">
+                        <div class="grid m-2">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="grid mt-2">
+                                    <label>Procedimiento: </label>
+                                    <p-dropdown [options]="procedimientos" formControlName="autocompleteSIS"
+                                                appendTo="body"
+                                                (onChange)="selectedOptionNameCIE($event,0)"
+                                                optionLabel="procedimiento" class="inputfield p-fluid w-full"
+                                                placeholder="Seleccione"></p-dropdown>
+                                    <textarea [rows]="3" class="inputfield w-full mt-2"
+                                              formControlName="diagnosticoSIS" pInputTextarea></textarea>
+                                </div>
+                                <div class="grid mt-2 ">
+                                    <label class="mr-2">CIE 10: </label>
+                                    <p-dropdown [options]="procedimientos" formControlName="SISCIE" appendTo="body"
+                                                optionLabel="codigo"
+                                                class="inputfield p-fluid w-full" placeholder="Seleccione"
+                                                (onChange)="selectedOption($event,0)"></p-dropdown>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-6 p-field">
+                    <p-toolbar>
+                        <ng-template pTemplate="left">
+                            <label>PROCEDIMIENTO HIS</label>
+                        </ng-template>
+                    </p-toolbar>
+                    <div class="border">
+                        <div class="grid m-2">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="grid mt-2">
+                                    <label>Procedimiento: </label>
+                                    <p-autoComplete [suggestions]="listaDeCIE" (completeMethod)="filterCIE10($event)"
+                                                    appendTo="body"
+                                                    field="descripcionItem" [minLength]="1" class="areaText "
+                                                    class="inputfield p-fluid w-full"
+                                                    formControlName="autocompleteHfIS"
+                                                    (onSelect)="selectedOptionNameCIE($event,1)">
+                                    </p-autoComplete>
+                                    <textarea [rows]="3" class="inputfield w-full mt-2" formControlName="diagnosticoHIS"
+                                              pInputTextarea
+                                              disabled></textarea>
+                                </div>
+                                <div class="grid mt-2">
+                                    <label class="mr-2">CIE 10: </label>
+                                    <p-autoComplete formControlName="HISCIE" [suggestions]="listaDeCIE"
+                                                    (completeMethod)="filterCIE10($event)" field="codigoItem"
+                                                    [minLength]="1"
+                                                    class="inputfield p-fluid w-full"
+                                                    (onSelect)="selectedOption($event,1)" [forceSelection]="true"
+                                                    dataKey="codigoItem">
+                                    </p-autoComplete>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid m-2">
+                <div class="col-12 md:col-6 lg:col-9 p-field">
+                    <div class="border">
+                        <div class="grid m-2">
+                            <div class="col-12 md:col-6 lg:col-12 p-field flex flex-column">
+                                <label>OBSERVACIONES:</label>
+                                <input type="text" pInputText class="inputTest" formControlName="observaciones"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="footer">
+    <button pButton type="button" (click)="add()" label="Guardar"
+            class="p-button-primary mt-4 mr-2"></button>
+    <button pButton type="button" label="Cancelar" class="p-button-danger mt-4"></button>
+</div>

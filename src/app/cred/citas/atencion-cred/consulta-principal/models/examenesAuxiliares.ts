@@ -21,7 +21,7 @@ export interface ExamenAuxiliar {
     cie10: string,
     codigoHIS: string,
     lugarExamen: string,
-    resultado: ResultadoLaboratorio,
+    resultado?: ResultadoLaboratorio,
     labExterno: string
     //campo nuevo
 }
