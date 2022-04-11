@@ -130,20 +130,13 @@ export class StepGeneralComponent implements OnInit {
   //--cambia los nombres de los steps según el indice
   name() {
     switch (this.indiceActivo) {
-      case 5:
+      case 6:
         this.stepName = 'finalizar'
         break
-<<<<<<< HEAD
-      // case 6:
-      //   this.stepName = 'procedimientos'
-      //   break
-      case 4:
-=======
-      case 4:
+      case 5:
         this.stepName = 'procedimientos'
         break
-      case 3:
->>>>>>> bf5384f007a6c3a2ce6c1e2b51c15c95a2ac1aa5
+      case 4:
         this.stepName = 'tratamiento'
         break
       // case 4:
