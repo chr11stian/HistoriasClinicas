@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {environment} from "../../../../environments/environment";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +8,9 @@ import {HttpClient} from "@angular/common/http";
 export class TratamientosService {
   base_url = environment.baseUrl;
   bd = environment.bd;
-
+  urlTx=environment.base_urlTx
+  headers = new Headers();
+  evento: boolean = false;
   constructor(private http: HttpClient) { }
 
   addTratamientos(idConsulta, data) {
@@ -25,6 +27,22 @@ export class TratamientosService {
 
   getTratamiento(idConsulta){
     return this.http.delete(`${this.base_url}/${this.bd}/consultageneral/listarTratamiento/${idConsulta}`)
+  }
+  printReceta(idConsulta:any){
+    let username:'reporte';
+    let password:'reporte@2022';
+
+    const headers=new HttpHeaders();
+
+    headers.append('Authorization', 'Basic ' + btoa(username + ":" + password));
+
+    const params = new HttpParams({
+          fromObject:{
+            idConsulta:idConsulta
+          }
+        }
+    )
+    return this.http.get(`${this.urlTx}/jasperserver/rest_v2/reports/Reports/RECETA/recetas.pdf`,{params,headers})
   }
 
 }

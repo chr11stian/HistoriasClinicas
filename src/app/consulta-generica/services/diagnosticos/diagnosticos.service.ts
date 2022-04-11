@@ -25,6 +25,13 @@ export class DiagnosticosService {
   getDiagnostico(idConsulta) {
     return this.http.get(`${this.base_url}/${this.bd}/consultageneral/listarDiagnostico/${idConsulta}`)
   }
+
+  addConsultaDatosGenerales(data){
+    return this.http.post(`${this.base_url}/${this.bd}/consultageneral/agregarConsulta`,data)
+  }
+  updateConsultaDatosGenerales(data){
+    return this.http.put(`${this.base_url}/${this.bd}/consultageneral/actualizarConsulta`,data)
+  }
   /****lista UPS HIS*********/
   listaUpsHis(data){
     return this.http.post(`${this.base_url}/${this.bd}/ipress/listarups_his`,data)
