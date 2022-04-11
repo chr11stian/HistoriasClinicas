@@ -7,6 +7,8 @@ import {
 } from "../../../../../cred/citas/atencion-cred/consulta-principal/component/diagnostico-consulta/diagnostico-consulta.component";
 import {AcuerdosComponent} from "../acuerdos/acuerdos.component";
 import {DiagnosticoComponent} from "../diagnostico/diagnostico.component";
+import {TratamientoComponent} from "../tratamiento/tratamiento.component";
+import {ProcedimientoComponent} from "../procedimiento/procedimiento.component";
 
 @Component({
   selector: 'app-step-general',
@@ -32,8 +34,10 @@ export class StepGeneralComponent implements OnInit {
 
   @ViewChild(DatosGeneralesComponent) datosGeneralesConsulta: DatosGeneralesComponent;
   @ViewChild(MotivoConsultaComponent) motivoConsulta: MotivoConsultaComponent
-  @ViewChild(AcuerdosComponent) diagnosticoConsulta: AcuerdosComponent
-  @ViewChild(DiagnosticoComponent) tratamientoConsulta: DiagnosticoComponent
+  @ViewChild(DiagnosticoComponent) diagnosticoConsulta: DiagnosticoComponent
+  @ViewChild(AcuerdosComponent) AcuerdosComponent: AcuerdosComponent
+  @ViewChild(ProcedimientoComponent) procedimientoConsulta: ProcedimientoComponent
+  @ViewChild(TratamientoComponent) tratamientoConsulta: TratamientoComponent
 
 
   constructor(
@@ -175,39 +179,38 @@ export class StepGeneralComponent implements OnInit {
         break;
       case 'motivo':
         // this.motivoConsulta.save()
-        this.stepName = 'evaluaciones';
+        this.stepName = 'diagnostico';
         this.indiceActivo = 2;
         break;
-      case 'evaluaciones':
-        // this.evaluacionesConsulta.save()
-        this.stepName = 'diagnostico';
+      case 'diagnostico':
+        this.diagnosticoConsulta.SaveDiagnostico()
+        this.stepName = 'tratamiento';
         this.indiceActivo = 3;
         break;
 
-      case 'diagnostico':
-        // this.diagnosticoConsulta.SaveDiagnostico()
-        this.stepName = 'examenesAux';
+      case 'tratamiento':
+        this.stepName = 'procedimiento';
         this.indiceActivo = 4;
         break;
 
-      case 'examenesAux':
+      case 'procedimiento':
         // this.examenesAuxConsulta.saveAuxiliarsExams()
-        this.stepName = 'tratamiento';
+        this.stepName = 'finalizar';
         this.indiceActivo = 5;
         break;
 
-      case 'tratamiento':
-        // this.tratamientoConsulta.save()
-        this.stepName = 'procedimientos';
-        this.indiceActivo = 6;
-        break;
-
-      case 'procedimientos':
-        // this.procedimientosConsulta.saveProcedimiento();
-        this.stepName = 'finalizar';
-        this.indiceActivo = 7;
-        break;
-
+      // case 'tratamiento':
+      //   // this.tratamientoConsulta.save()
+      //   this.stepName = 'procedimientos';
+      //   this.indiceActivo = 6;
+      //   break;
+      //
+      // case 'procedimientos':
+      //   // this.procedimientosConsulta.saveProcedimiento();
+      //   this.stepName = 'finalizar';
+      //   this.indiceActivo = 7;
+      //   break;
+      //
       case 'finalizar':
         // this.finalizarConsulta.save()
         break;

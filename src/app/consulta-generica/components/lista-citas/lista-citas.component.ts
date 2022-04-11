@@ -171,14 +171,16 @@ export class ListaCitasComponent implements OnInit, OnChanges {
     // console.log("EVENTO", event);
     // this.obstetriciaGeneralService.tipoDoc = event.paciente.tipoDoc;
     // this.obstetriciaGeneralService.nroDoc = event.paciente.nroDoc;
-
+    console.log('data Paciente',dataPaciente)
     let data: any =
         {
           tipoConsulta: this.tipoConsulta,
           nroDocumento: dataPaciente.paciente.nroDoc,
           tipoDoc: dataPaciente.paciente.tipoDoc,
           idConsulta: '',
-          sexo: ''
+          sexo: dataPaciente.paciente.sexo,
+          anio:dataPaciente.paciente.edadAnio,
+          servicio:dataPaciente.servicio
         }
     localStorage.setItem('documento', JSON.stringify(data));
 
