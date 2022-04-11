@@ -30,6 +30,7 @@ export class DatosGeneralesComponent implements OnInit {
     this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
     // this.idConsulta=this.data.idConsulta;
     console.log(this.data);
+    console.log(this.data.idConsulta);
     if(this.data.idConsulta==""){
       this.getPacientefromPaciente();
     }
@@ -49,7 +50,7 @@ export class DatosGeneralesComponent implements OnInit {
       hcl:new FormControl(''),
       edad:new FormControl(''),
       // ocupacion:new FormControl(''),
-      estabOrigen:new FormControl(''),
+      codSeguro:new FormControl(''),
       fum:new FormControl(''),
       cel:new FormControl(''),
       direccion:new FormControl(''),
@@ -93,11 +94,11 @@ export class DatosGeneralesComponent implements OnInit {
       this.formDatos_Generales.get('nombre').setValue(res.object.primerNombre + " " +res.object.otrosNombres);
       this.formDatos_Generales.get('fechaNacimiento').setValue(res.object.nacimiento.fechaNacimiento);
       this.formDatos_Generales.get('hcl').setValue(res.object.nroHcl);
-      this.formDatos_Generales.get('edad').setValue(this.data.anio + " años " + this.data.mes + " meses " + this.data.dia + " dias");
+      this.formDatos_Generales.get('edad').setValue(this.data.anio);
       this.formDatos_Generales.get('sexo').setValue(res.object.sexo);
       this.formDatos_Generales.get('cel').setValue(res.object.celular);
       this.formDatos_Generales.get('direccion').setValue(res.object.domicilio.direccion);
-      this.formDatos_Generales.get('estabOrigen').setValue(res.object.nombreEESS);
+      // this.formDatos_Generales.get('codSeguro').setValue(res.object.nombreEESS);
     });
   }
   recuperarDatos(){
@@ -122,14 +123,14 @@ export class DatosGeneralesComponent implements OnInit {
       // funcionesBiologicas:this.listaFuncionesBiologicas,
       listaSignosAlarma:this.listaSignosAlarma,
       servicio:"MEDICINA GENERAL",
-      tipoConsulta:"JOVEN"
+      tipoConsulta:this.data.tipoConsulta
     }
 
     this.datosGenerales = req;
   }
   actualizarConsulta() {
     let req = {
-      id:this.idConsulta,
+      id:this.data.idConsulta,
       fecha:this.datePipe.transform(this.formDatos_Generales.value.fecha,'yyyy-MM-dd HH:mm:ss'),
       anioEdad:this.data.anio,
       fum:this.datePipe.transform(this.formDatos_Generales.getRawValue().fum,'yyyy-MM-dd'),
@@ -147,7 +148,7 @@ export class DatosGeneralesComponent implements OnInit {
         direccion:this.form_Acompaniante.value.direccion,
         telefono:this.form_Acompaniante.value.telefono
       },
-      funcionesBiologicas:this.listaFuncionesBiologicas,
+      // funcionesBiologicas:this.listaFuncionesBiologicas,
       listaSignosAlarma:this.listaSignosAlarma,
       servicio:"MEDICINA GENERAL",
       tipoConsulta:this.data.tipoConsulta
@@ -157,29 +158,32 @@ export class DatosGeneralesComponent implements OnInit {
     },error => {
       console.log("ocurrio un error")
     })
+    this.recuperarDatosGeneralesBD();
   }
   guardarNuevaConsulta(){
     this.recuperarDatos();
     console.log(this.datosGenerales);
     this.datosGeneralesService.addConsultaDatosGenerales(this.datosGenerales).subscribe((r: any) => {
       let id=r.object.id;
+      this.data.idConsulta=r.object.id;
       let data={
-        anio:this.data.anio,
-        dia:this.data.dia,
         fechaNacimiento:this.data.fechaNacimiento,
+        hidden:this.data.hidden,
         idConsulta:id,
-        mes:this.data.mes,
+        see:this.data.see,
         sexo:this.data.sexo,
         tipoDoc:this.data.tipoDoc,
-        nroDoc:this.data.nroDoc
+        nroDocumento:this.data.nroDocumento,
+        tipoConsulta:this.data.tipoConsulta
       }
       localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
+      this.recuperarDatosGeneralesBD();
 
     })
   }
   guardarActualizar(){
     console.log("idConsulta",this.data.idConsulta)
-    if(this.idConsulta==null){
+    if(this.data.idConsulta==""){
       console.log("no tiene id",this.data.idConsulta)
       this.guardarNuevaConsulta();
     }
@@ -189,14 +193,21 @@ export class DatosGeneralesComponent implements OnInit {
     }
   }
   traerDataReniec() {
-    this.datosGeneralesService.getDatosReniec(this.data.nroDoc).subscribe((res: any) => {
+    this.datosGeneralesService.getDatosReniec(this.data.nroDocumento).subscribe((res: any) => {
       // console.log(res);
-      this.imagePath = res.foto;
+      if(res.foto==null){
+        this.imagePath="../../../assets/images/hcl.png";
+      }
+      else{
+        this.imagePath = res.foto;
+      }
+
     });
   }
 
   AgregarSignos() {
     let a:any = {
+      codSigno:this.listaSignosAlarma.length+1,
       tipoEdad: this.form_SignosAlarma.value.tipoEdad,
       nombreSigno: this.form_SignosAlarma.value.nombreSigno.toUpperCase(),
       valorSigno: true
@@ -238,17 +249,19 @@ export class DatosGeneralesComponent implements OnInit {
       this.form_Acompaniante.get('telefono').setValue(res.object.acompanante.telefono);
       this.formDatos_Generales.get('fecha').setValue(res.object.fecha);
       this.listaSignosAlarma=res.object.listaSignosAlarma;
-      this.listaFuncionesBiologicas=res.object.listaFuncionesBiologicas;
-      // this.formDatos_Generales.get('apePaterno').setValue(res.object.apePaterno);
-      // this.formDatos_Generales.get('apeMaterno').setValue(res.object.apeMaterno);
-      // this.formDatos_Generales.get('nombre').setValue(res.object.primerNombre + " " +res.object.otrosNombres);
-      // this.formDatos_Generales.get('fechaNacimiento').setValue(res.object.nacimiento.fechaNacimiento);
-      // this.formDatos_Generales.get('hcl').setValue(res.object.nroHcl);
-      // this.formDatos_Generales.get('edad').setValue(this.data.anio + " años " + this.data.mes + " meses " + this.data.dia + " dias");
-      // this.formDatos_Generales.get('sexo').setValue(res.object.sexo);
-      // this.formDatos_Generales.get('cel').setValue(res.object.celular);
-      // this.formDatos_Generales.get('direccion').setValue(res.object.domicilio.direccion);
-      // this.formDatos_Generales.get('estabOrigen').setValue(res.object.nombreEESS);
+      // this.listaFuncionesBiologicas=res.object.listaFuncionesBiologicas;
+      this.formDatos_Generales.get('docIndentidad').setValue(res.object.nroDoc);
+      this.formDatos_Generales.get('tipoDoc').setValue(res.object.tipoDoc);
+      this.formDatos_Generales.get('apePaterno').setValue(res.object.datosPaciente.apePaterno);
+      this.formDatos_Generales.get('apeMaterno').setValue(res.object.datosPaciente.apeMaterno);
+      this.formDatos_Generales.get('nombre').setValue(res.object.datosPaciente.primerNombre + " " +res.object.datosPaciente.otrosNombres);
+      this.formDatos_Generales.get('fechaNacimiento').setValue(res.object.datosPaciente.fechaNacimiento);
+      this.formDatos_Generales.get('hcl').setValue(res.object.nroHcl);
+      this.formDatos_Generales.get('edad').setValue(this.data.anio);
+      this.formDatos_Generales.get('sexo').setValue(res.object.datosPaciente.sexo);
+      this.formDatos_Generales.get('cel').setValue(res.object.datosPaciente.celular);
+      this.formDatos_Generales.get('direccion').setValue(res.object.datosPaciente.domicilio.direccion);
+      this.formDatos_Generales.get('codSeguro').setValue(res.object.datosPaciente.codSeguro);
     });
   }
 }

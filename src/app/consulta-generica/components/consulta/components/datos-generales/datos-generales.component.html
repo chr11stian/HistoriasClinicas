@@ -122,7 +122,7 @@
                             <label class="">Edad *</label>
                         </div>
                         <div class="col-6">
-                            <input type="text" pInputText class="inputfield w-full" formControlName="edad">
+                            <input type="number" pInputText class="inputfield w-full" formControlName="edad">
 
                         </div>
                     </div>
@@ -141,10 +141,10 @@
                 <div class="grid">
                     <div class="p-inputgroup">
                         <div class="col-4" style="text-align: left">
-                            <label class="">Estab. Origen:</label>
+                            <label class="">CodSeguro:</label>
                         </div>
                         <div class="col-6">
-                            <input type="text" pInputText class="inputfield w-full" formControlName="estabOrigen"
+                            <input type="text" pInputText class="inputfield w-full" formControlName="codSeguro"
                                    style="text-transform:uppercase">
                         </div>
                     </div>
@@ -349,68 +349,68 @@
     </form>
 </div>
 
-<br>
-<p-toolbar>
-    <ng-template pTemplate="left">
-        <label>FUNCIONES BIOLOGICAS</label>
-    </ng-template>
-</p-toolbar>
-<div class="border">
-    <form [formGroup]='form_Funciones'>
-        <div class="grid m-2">
-            <div class="grid col-12">
-                <div class="col-3 p-fluid">
-                    <label>Funcion:</label>
-                    <input  formControlName="funcion" type="text" class=" w-full" placeholder="Especifique" pInputText>
-                </div>
-                <div class="col-2 p-fluid">
-                    <label>Valor:</label>
-                    <input  formControlName="valor" type="text" class=" w-full" placeholder="Especifique" pInputText>
-                </div>
-                <div class="col-5 p-fluid">
-                    <label>Detalle:</label>
-                    <input  formControlName="detalle" type="text" class=" w-full" placeholder="Especifique" pInputText>
-                </div>
-                <div class="col-2 p-fluid">
-                    <button style="background-color: #0c3866" class="button-agregar p-button-rounded" icon="pi pi-plus"
-                            pButton type="button"
-                            (click)="AgregarFuncion()"></button>
-                </div>
-            </div>
-            <br>
-            <div class="col-12">
-                <p-table class="table-over" [value]="listaFuncionesBiologicas" #dt
-                         styleClass="p-datatable-gridlines" [rows]="10"
-                         [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
-                         [showCurrentPageReport]="true"
-                         currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
-                    <ng-template pTemplate="header">
-                        <tr>
-                            <th style="text-align: center" class="font-2">Nro</th>
-                            <th style="text-align: center" class="font-2">Funcion</th>
-                            <th style="text-align: center" class="font-2">Valor</th>
-                            <th style="text-align: center" class="font-2">Detalle</th>
-                            <th style="text-align: center" class="font-2">Acción</th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-                        <tr>
-                            <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                            <td style="text-align: center">{{ rowData.funcion }}</td>
-                            <td style="text-align: center">{{ rowData.valor }}</td>
-                            <td style="text-align: center">{{ rowData.detalle }}</td>
-                            <td style="text-align: center">
-                                <button pButton pRipple icon="pi pi-trash"
-                                        class="p-button-rounded p-button-danger m-1"
-                                        (click)="eliminarFuncion(rowIndex)" pTooltip="Eliminar">
-                                </button>
-                            </td>
-                        </tr>
-                    </ng-template>
-                </p-table>
-            </div>
-        </div>
-    </form>
-</div
->
-<br>
+<!--<br>-->
+<!--<p-toolbar>-->
+<!--    <ng-template pTemplate="left">-->
+<!--        <label>FUNCIONES BIOLOGICAS</label>-->
+<!--    </ng-template>-->
+<!--</p-toolbar>-->
+<!--<div class="border">-->
+<!--    <form [formGroup]='form_Funciones'>-->
+<!--        <div class="grid m-2">-->
+<!--            <div class="grid col-12">-->
+<!--                <div class="col-3 p-fluid">-->
+<!--                    <label>Funcion:</label>-->
+<!--                    <input  formControlName="funcion" type="text" class=" w-full" placeholder="Especifique" pInputText>-->
+<!--                </div>-->
+<!--                <div class="col-2 p-fluid">-->
+<!--                    <label>Valor:</label>-->
+<!--                    <input  formControlName="valor" type="text" class=" w-full" placeholder="Especifique" pInputText>-->
+<!--                </div>-->
+<!--                <div class="col-5 p-fluid">-->
+<!--                    <label>Detalle:</label>-->
+<!--                    <input  formControlName="detalle" type="text" class=" w-full" placeholder="Especifique" pInputText>-->
+<!--                </div>-->
+<!--                <div class="col-2 p-fluid">-->
+<!--                    <button style="background-color: #0c3866" class="button-agregar p-button-rounded" icon="pi pi-plus"-->
+<!--                            pButton type="button"-->
+<!--                            (click)="AgregarFuncion()"></button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <br>-->
+<!--            <div class="col-12">-->
+<!--                <p-table class="table-over" [value]="listaFuncionesBiologicas" #dt-->
+<!--                         styleClass="p-datatable-gridlines" [rows]="10"-->
+<!--                         [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"-->
+<!--                         [showCurrentPageReport]="true"-->
+<!--                         currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">-->
+<!--                    <ng-template pTemplate="header">-->
+<!--                        <tr>-->
+<!--                            <th style="text-align: center" class="font-2">Nro</th>-->
+<!--                            <th style="text-align: center" class="font-2">Funcion</th>-->
+<!--                            <th style="text-align: center" class="font-2">Valor</th>-->
+<!--                            <th style="text-align: center" class="font-2">Detalle</th>-->
+<!--                            <th style="text-align: center" class="font-2">Acción</th>-->
+<!--                        </tr>-->
+<!--                    </ng-template>-->
+<!--                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">-->
+<!--                        <tr>-->
+<!--                            <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>-->
+<!--                            <td style="text-align: center">{{ rowData.funcion }}</td>-->
+<!--                            <td style="text-align: center">{{ rowData.valor }}</td>-->
+<!--                            <td style="text-align: center">{{ rowData.detalle }}</td>-->
+<!--                            <td style="text-align: center">-->
+<!--                                <button pButton pRipple icon="pi pi-trash"-->
+<!--                                        class="p-button-rounded p-button-danger m-1"-->
+<!--                                        (click)="eliminarFuncion(rowIndex)" pTooltip="Eliminar">-->
+<!--                                </button>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                    </ng-template>-->
+<!--                </p-table>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </form>-->
+<!--</div-->
+<!--&gt;-->
+<!--<br>-->

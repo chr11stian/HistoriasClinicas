@@ -53,7 +53,7 @@ export class ListaConsultaComponent implements OnInit {
         nroDocumento: this.data.nroDocumento,
         tipoDoc: this.data.tipoDoc,
         idConsulta: event.id,
-        // anio: r.object.anioEdad,
+        anio:this.data.anioEdad,
         // mes: r.object.mesEdad,
         // dia: r.object.diaEdad,
         sexo: this.sexo,

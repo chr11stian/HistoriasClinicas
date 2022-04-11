@@ -45,7 +45,7 @@
                     <td style="text-align: center">{{ rowData.lab }}</td>
                     <td style="text-align: center">
                         <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded m-1"
-                                (click)="editarDx(rowData)" pTooltip="Editar">
+                                (click)="editarDx(rowData,rowIndex)" pTooltip="Editar">
                         </button>
                         <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
                                 (click)="eliminarDiagnostico(rowData,rowIndex)" pTooltip="Eliminar">

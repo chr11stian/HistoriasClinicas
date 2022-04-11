@@ -21,8 +21,8 @@ export class DiagnosticoComponent implements OnInit {
   loading: boolean = true;
   // submitted: boolean = false;
 
-  attributeLocalS = 'idConsultaGeneral';
-  attributeLocalS2 = 'consultaGeneral';
+  attributeLocalS = 'document';
+  // attributeLocalS2 = 'consultaGeneral';
   idIpress:string="";
   dataConsulta:any;
   idConsulta: string = "";
@@ -53,9 +53,7 @@ export class DiagnosticoComponent implements OnInit {
               private messageService: MessageService) {
     this.buildForm();
     this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
-    this.idConsulta = JSON.parse(localStorage.getItem('idConsultaGeneral')).id;
-    this.estadoEditar = JSON.parse(localStorage.getItem('idConsultaGeneral')).estadoEditar;
-    this.dataConsulta = JSON.parse(localStorage.getItem(this.attributeLocalS2));
+    this.dataConsulta = JSON.parse(localStorage.getItem('documento'));
     this.tipoList = [{ label: 'DEFINITIVO', value: 'D' },
       { label: 'PRESUNTIVO', value: 'P' },
       { label: 'REPETITIVO', value: 'R' },
@@ -89,9 +87,10 @@ export class DiagnosticoComponent implements OnInit {
   }
 
   recuperarUpsHis() {
+    console.log(this.dataConsulta)
     let data = {
       idIpress: this.idIpress,
-      edad: this.dataConsulta.anio,
+      edad: 28,
       sexo: this.dataConsulta.sexo
     }
     this.DiagnosticoService.listaUpsHis(data).then((res: any) => this.listaUpsHis = res.object);
@@ -116,7 +115,7 @@ export class DiagnosticoComponent implements OnInit {
 
   /****funciones para recuperar Dx y Procedimientos**/
   recuperarDxBD(){
-    this.DiagnosticoService.getDiagnostico(this.idConsulta).subscribe((res: any) => {
+    this.DiagnosticoService.getDiagnostico(this.dataConsulta.idConsulta).subscribe((res: any) => {
           console.log(res.cod);
           if(res.object!=null){
             console.log(res.object);
@@ -124,6 +123,7 @@ export class DiagnosticoComponent implements OnInit {
             this.diagnosticos = res.object;
           }
           else{
+            this.diagnosticos = [];
             Swal.fire({
               icon: 'info',
               title: 'INFORMACION',
@@ -188,13 +188,14 @@ export class DiagnosticoComponent implements OnInit {
     this.PrestacionService.getDiagnosticoPorCodigo(codigoPrestacion).subscribe((res: any) => {
       // this.listaDeCIE = res.object.diagnostico;
       console.log(res.object);
+      this.dataConsulta.anio=28
       if(res.object.denominacion=='ANIOS')
       {
         if(this.dataConsulta.anio>=res.object.edadMin && this.dataConsulta.anio<=res.object.edadMax){
           this.listaDeCIESIS = res.object.diagnostico.filter(element=>element.estado=='ACTIVADO');
         }
         else{
-          this.messageService.add({severity:'error', summary: 'warn', detail:'No hay diagnosticos disponibles para la edad del niño(a) en esta Prestación.'});
+          this.messageService.add({severity:'error', summary: 'warn', detail:'No hay diagnosticos disponibles para la edad del paciente.'});
         }
       }
       if(res.object.denominacion=='MESES')
@@ -265,15 +266,13 @@ export class DiagnosticoComponent implements OnInit {
       showConfirmButton: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        this.DiagnosticoService.deleteDiagnostico(this.idConsulta,rowData.cie10SIS).subscribe((res: any) => {
-          this.recuperarDxBD();
-          Swal.fire({
-            icon: 'success',
-            title: 'Eliminado correctamente',
-            text: '',
-            showConfirmButton: false,
-            timer: 1500
-          })
+        this.diagnosticos.splice(rowIndex, 1)
+        Swal.fire({
+          icon: 'success',
+          title: 'Eliminado correctamente',
+          text: '',
+          showConfirmButton: false,
+          timer: 1500
         })
       }
     })
@@ -297,17 +296,15 @@ export class DiagnosticoComponent implements OnInit {
       lab:this.formDiagnostico.value.lab,
       patologiaMaterna:null
     }
-    this.DiagnosticoService.addDiagnostico(this.idConsulta,aux).subscribe((res: any) => {
-      Swal.fire({
-        icon: 'success',
-        title: 'DIAGNOSTICO...',
-        text: 'GUARDADO',
-        showConfirmButton: false,
-        timer: 1000
-      })
-    })
-    this.recuperarDxBD();
+    var duplicado :boolean = this.diagnosticos.some(element=>element.diagnosticoHIS==aux.diagnosticoHIS)
+    console.log(duplicado)
     this.diagnosticoDialog = false;
+    if(!duplicado){
+      this.diagnosticos.push(aux);
+    }
+    else{
+      this.messageService.add({severity:'error', summary: 'Cuidado!', detail:'Ya ingreso este diagnóstico, vuelva a intentar.'});
+    }
 
   }
 
@@ -336,10 +333,11 @@ export class DiagnosticoComponent implements OnInit {
     this.diagnosticoDialog=false;
   }
 
-  editarDx(rowData) {
+  editarDx(rowData,rowindex) {
+    this.isUpdate = true;
+    this.itemEdit=rowindex;
     this.formDiagnostico.reset();
     this.diagnosticoDialog=true;
-    console.log(rowData);
     console.log(this.listaUpsHis);
     console.log(this.listaUpsAuxHis);
     this.formDiagnostico.get('prestacion').setValue(this.ListaPrestacion.find(element => element.codigo == rowData.codPrestacion));
@@ -362,32 +360,52 @@ export class DiagnosticoComponent implements OnInit {
     this.formDiagnostico.get('nro').setValue(rowData.nro);
     this.diagnosticoDialog = true;
     console.log("modificando", rowData);
-    let aux = {
-      nro:this.diagnosticos.length+1,
-      diagnosticoHIS: this.formDiagnostico.value.diagnosticoHIS,
-      cie10HIS: this.formDiagnostico.value.cie10HIS.codigoItem,
-      diagnosticoSIS: this.formDiagnostico.value.diagnosticoSIS,
-      cie10SIS: this.formDiagnostico.getRawValue().cie10SIS.cie10,
-      tipo: this.formDiagnostico.value.tipoDiagnostico,
-      codPrestacion: this.formDiagnostico.getRawValue().prestacion.codigo,
-      nombreUPS: this.formDiagnostico.getRawValue().nombreUPS,
-      factorCondicional: this.formDiagnostico.value.factorCondicional,
-      nombreUPSaux: this.formDiagnostico.value.nombreUPSaux.nombre,
-      lab: this.formDiagnostico.value.lab,
-      patologiaMaterna: null
-    }
-    this.DiagnosticoService.updateDiagnostico(this.idConsulta,aux).subscribe((res: any) => {
-      Swal.fire({
-        icon: 'success',
-        title: 'DIAGNOSTICO...',
-        text: 'ACTUALIZADO',
-        showConfirmButton: false,
-        timer: 1000
-      })
-    })
     this.diagnosticoDialog=false;
   }
-
+  SaveDiagnostico() {
+    if(!this.hayDatos){
+      this.DiagnosticoService.addDiagnostico(this.dataConsulta.idConsulta, this.diagnosticos).subscribe(
+          (resp) => {
+            console.log(resp);
+            Swal.fire({
+              icon: 'success',
+              title: 'DIAGNOSTICOS...',
+              text: 'Guardado correctamente',
+              showConfirmButton: false,
+              timer: 1000
+            })
+          },error => {
+            Swal.fire({
+              icon: 'error',
+              title: 'DIAGNOSTICOS...',
+              text: 'Hubo un error, vuelva a intentarlo',
+              showConfirmButton: false,
+              timer: 1000
+            })
+          })
+    }
+    else{
+      this.DiagnosticoService.updateDiagnostico(this.dataConsulta.idConsulta, this.diagnosticos).subscribe(
+          (resp) => {
+            console.log(resp);
+            Swal.fire({
+              icon: 'success',
+              title: 'DIAGNOSTICOS...',
+              text: 'Actualizado correctamente',
+              showConfirmButton: false,
+              timer: 1000
+            })
+          },error => {
+            Swal.fire({
+              icon: 'error',
+              title: 'DIAGNOSTICOS...',
+              text: 'Hubo un error, vuelva a intentarlo',
+              showConfirmButton: false,
+              timer: 1000
+            })
+          })
+    }
+  }
   selectedOption(event: any) {
     this.formDiagnostico.patchValue({ diagnosticoSIS: event.value.diagnostico });
   }

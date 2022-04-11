@@ -78,8 +78,8 @@ export class TratamientoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.idConsulta = JSON.parse(localStorage.getItem('idConsultaGeneral')).id;
-    this.estadoEditar2 = JSON.parse(localStorage.getItem('idConsultaGeneral')).estadoEditar;
+    this.idConsulta = JSON.parse(localStorage.getItem('documento')).idConsulta;
+    // this.estadoEditar2 = JSON.parse(localStorage.getItem('idConsultaGeneral')).estadoEditar;
     this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
 
     this.listarTratamientos();
