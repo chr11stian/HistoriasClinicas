@@ -135,3 +135,4 @@ export class MotivoConsultaComponent implements OnInit {
     this.consultaGeneralService.putUpdateConsultaGeneralByIdConsulta(this.dataMotivoConsulta).subscribe((res:any)=>{})
   }
 }
+  
