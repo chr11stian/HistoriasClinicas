@@ -26,7 +26,7 @@ export class TratamientosService {
   }
 
   getTratamiento(idConsulta){
-    return this.http.delete(`${this.base_url}/${this.bd}/consultageneral/listarTratamiento/${idConsulta}`)
+    return this.http.get(`${this.base_url}/${this.bd}/consultageneral/listarTratamiento/${idConsulta}`)
   }
   printReceta(idConsulta:any){
     let username:'reporte';
