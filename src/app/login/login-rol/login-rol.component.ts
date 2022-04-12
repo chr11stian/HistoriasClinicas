@@ -31,11 +31,13 @@ export class LoginRolComponent implements OnInit {
     }
 
     ingresar() {
+        let rol = this.formRol.value.rol === '' ? this.rol[0] : this.formRol.value.rol
+        let escala = this.formRol.value.escala === '' ? this.escala[0] : this.formRol.value.escala
         let credenciales = {
             username: this.serviceLogin.listEscala[0].user,
             password: this.serviceLogin.listEscala[0].pass,
-            rol: this.formRol.value.rol === '' ? this.rol[0] : this.formRol.value.rol,
-            escala: this.formRol.value.escala === '' ? this.escala[0] : this.formRol.value.escala
+            rol: rol,
+            escala: escala
         }
         console.log('rol', this.formRol.value.rol)
         console.log(credenciales)
@@ -45,6 +47,7 @@ export class LoginRolComponent implements OnInit {
             }
             if (resp.token) {
                 this.serviceLogin.getRol().subscribe((r: any) => {
+                    localStorage.setItem('rol', JSON.stringify({"rol": rol, "escala": escala}));
                     console.log(r)
                 })
 
