@@ -131,7 +131,7 @@ export class DatosGeneralesComponent implements OnInit {
   actualizarConsulta() {
     let req = {
       id:this.data.idConsulta,
-      fecha:this.datePipe.transform(this.formDatos_Generales.value.fecha,'yyyy-MM-dd HH:mm:ss'),
+      // fecha:this.datePipe.transform(this.formDatos_Generales.value.fecha,'yyyy-MM-dd HH:mm:ss'),
       anioEdad:this.data.anio,
       fum:this.datePipe.transform(this.formDatos_Generales.getRawValue().fum,'yyyy-MM-dd'),
       nroHcl:this.formDatos_Generales.getRawValue().hcl,
@@ -150,8 +150,8 @@ export class DatosGeneralesComponent implements OnInit {
       },
       // funcionesBiologicas:this.listaFuncionesBiologicas,
       listaSignosAlarma:this.listaSignosAlarma,
-      servicio:"MEDICINA GENERAL",
-      tipoConsulta:this.data.tipoConsulta
+      // servicio:"MEDICINA GENERAL",
+      // tipoConsulta:this.data.tipoConsulta
     }
     console.log(this.datosGenerales);
     this.datosGeneralesService.updateConsultaDatosGenerales(req).subscribe((r: any) => {

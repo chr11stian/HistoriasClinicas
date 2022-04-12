@@ -150,7 +150,12 @@ export class LoginService {
             return user;
         }))
     }
+
     getRol() {
         return this.http.get(`${this.base_uri_}/accesos/rol/all`);
+    }
+
+    crearRol(data) {
+        return this.http.post(`${this.base_uri_}/accesos/user`, data)
     }
 }

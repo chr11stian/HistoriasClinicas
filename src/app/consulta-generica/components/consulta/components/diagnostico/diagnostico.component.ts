@@ -90,7 +90,7 @@ export class DiagnosticoComponent implements OnInit {
     console.log(this.dataConsulta)
     let data = {
       idIpress: this.idIpress,
-      edad: 28,
+      edad: this.dataConsulta.anio,
       sexo: this.dataConsulta.sexo
     }
     this.DiagnosticoService.listaUpsHis(data).then((res: any) => this.listaUpsHis = res.object);
@@ -147,7 +147,7 @@ export class DiagnosticoComponent implements OnInit {
   /**Funciones de Diagnostico*/
 
   openDiagnostico() {
-    this.diagnosticoDialog = true;
+    // this.diagnosticoDialog = true;
     this.isUpdate = false;
     this.checked=false;
     this.formDiagnostico.reset();
@@ -316,7 +316,6 @@ export class DiagnosticoComponent implements OnInit {
     console.log(this.itemEdit);
     this.diagnosticos.splice(this.itemEdit, 1)
     let aux = {
-      nro:this.diagnosticos.length+1,
       diagnosticoHIS: this.formDiagnostico.value.diagnosticoHIS,
       cie10HIS: this.formDiagnostico.value.cie10HIS.codigoItem,
       diagnosticoSIS: this.formDiagnostico.value.diagnosticoSIS,
@@ -337,7 +336,7 @@ export class DiagnosticoComponent implements OnInit {
     this.isUpdate = true;
     this.itemEdit=rowindex;
     this.formDiagnostico.reset();
-    this.diagnosticoDialog=true;
+    this.diagnosticoDialog = true;
     console.log(this.listaUpsHis);
     console.log(this.listaUpsAuxHis);
     this.formDiagnostico.get('prestacion').setValue(this.ListaPrestacion.find(element => element.codigo == rowData.codPrestacion));
@@ -358,13 +357,17 @@ export class DiagnosticoComponent implements OnInit {
       this.formDiagnostico.patchValue({ cie10HIS: this.listaDeCIEHIS.find(elemento => elemento.codigoItem == rowData.cie10HIS) });
     })
     this.formDiagnostico.get('nro').setValue(rowData.nro);
-    this.diagnosticoDialog = true;
+    // this.diagnosticoDialog = true;
     console.log("modificando", rowData);
-    this.diagnosticoDialog=false;
+    // this.diagnosticoDialog=false;
   }
   SaveDiagnostico() {
+    let data = {
+      id:this.dataConsulta.idConsulta,
+      diagnosticos:this.diagnosticos
+    }
     if(!this.hayDatos){
-      this.DiagnosticoService.addDiagnostico(this.dataConsulta.idConsulta, this.diagnosticos).subscribe(
+      this.DiagnosticoService.updateConsultaDatosGenerales(data).subscribe(
           (resp) => {
             console.log(resp);
             Swal.fire({
@@ -385,7 +388,7 @@ export class DiagnosticoComponent implements OnInit {
           })
     }
     else{
-      this.DiagnosticoService.updateDiagnostico(this.dataConsulta.idConsulta, this.diagnosticos).subscribe(
+      this.DiagnosticoService.updateConsultaDatosGenerales(data).subscribe(
           (resp) => {
             console.log(resp);
             Swal.fire({

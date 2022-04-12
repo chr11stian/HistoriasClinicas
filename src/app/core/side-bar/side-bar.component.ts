@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from "@angular/core";
+import {Component, Input, OnInit, DoCheck} from "@angular/core";
 import {FilterService, MenuItem} from "primeng/api";
 import {Router} from "@angular/router";
 
@@ -248,353 +248,329 @@ const menu_microred = [
     },
 ];
 
-const menu_ipress = [
-    {
-        label: "Administración",
-        items: [
+const administracion1 = {
+    label: "Administración",
+    items: [
 
-            {
-                icon: "pi pi-file",
-                label: "Rol Guardia",
-                routerLink: "historia/rol-guardia",
-            },
+        {
+            icon: "pi pi-file",
+            label: "Rol Guardia",
+            routerLink: "historia/rol-guardia",
+        },
 
-            {
-                label: "Personal de Salud",
-                icon: "pi pi-pw pi-file",
-                routerLink: "admision/personal-salud",
-            },
-            {
-                label: "Usuarios",
-                icon: "pi pi-pw pi-file",
-                routerLink: "admision/usuarios",
-            },
-        ],
-    },
-    {
-        label: "Admision",
-        items: [
-            {
-                icon: "pi pi-file",
-                label: "Cupos",
-                routerLink: "admision/atenciones",
-            },
-            {
-                label: "Caja",
-                icon: "pi pi-pw pi-file",
-                routerLink: "caja/abrir-caja",
-            },
-            {
-                icon: "pi pi-file",
-                label: "Paciente",
-                routerLink: "admision/paciente",
-            },
-            {
-                icon: "pi pi-file",
-                label: "Triaje",
-                routerLink: "admision/triaje",
-            },
-        ],
-    },
-    {
-        label: "Historias Clinicas",
-        items: [
-            {
-                icon: "pi pi-file",
-                label: "Obstetricia",
-                items: [
-                    {
-                        label: "Citas",
-                        routerLink: "obstetricia-general/citas",
-                    },
-                    {
-                        label: "Historia de Consultas",
-                        routerLink: "obstetricia-general/historia-consultas",
-                    },
-                ]
-            },
-            {
-                icon: "pi pi-file",
-                label: "Niño/Niña",
-                items: [
-                    {
-                        label: "Citas",
-                        icon: "pi pi-pw pi-file",
-                        routerLink: "cred/citas",
-                    },
-                    {
-                        label: "Consultas",
-                        icon: "pi pi-pw pi-file",
-                        routerLink: "cred/consulta-cred-general",
-                    },
-                ]
-            },
-            //
-            // {
-            //     icon: "pi pi-file",
-            //     label: "Medicina General",
-            //     items: [
-            //         {
-            //             icon: "pi pi-file",
-            //             label: "Adolescente",
-            //             items: [
-            //                 {
-            //                     label: "Citas",
-            //                     icon: "pi pi-pw pi-file",
-            //                     routerLink: "adolescente/citas",
-            //                 },
-            //                 {
-            //                     label: "Consultas",
-            //                     icon: "pi pi-pw pi-file",
-            //                     routerLink: "adolescente/citas/consulta",
-            //                 },
-            //             ]
-            //         },
-            //
-            //         {
-            //             icon: "pi pi-file",
-            //             label: "Adulto",
-            //             items: [
-            //                 {
-            //                     label: "Citas",
-            //                     icon: "pi pi-pw pi-file",
-            //                     routerLink: "adulto/citas",
-            //                 },
-            //             ]
-            //         },
-            //         {
-            //             icon: "pi pi-file",
-            //             label: "Adulto Mayor",
-            //             items: [
-            //                 {
-            //                     label: "Citas",
-            //                     icon: "pi pi-pw pi-file",
-            //                     routerLink: "adulto-mayor/citas",
-            //                 },
-            //                 // {
-            //                 //     label: "Consultas",
-            //                 //     icon: "pi pi-pw pi-file",
-            //                 //     routerLink: "adulto-mayor/citas/consulta",
-            //                 // },
-            //             ]
-            //         },
-            //     ],
-            // },
-            {
-                icon: "pi pi-file",
-                label: "Medicina General",
-                items: [
-                    {
-                        icon: "pi pi-file",
-                        label: "Adolescente",
-                        items: [
-                            {
-                                label: "Citas",
-                                icon: "pi pi-pw pi-file",
-                                routerLink: "consulta-generica/lista-cita/ADOLESCENTE",
+        {
+            label: "Personal de Salud",
+            icon: "pi pi-pw pi-file",
+            routerLink: "admision/personal-salud",
+        },
+        {
+            label: "Usuarios",
+            icon: "pi pi-pw pi-file",
+            routerLink: "admision/usuarios",
+        },
+    ],
+}
+const administracion2 = {
+    label: "Mantenimientos",
+    items: [
+        {
+            label: "Ipress",
+            icon: "pi pi-pw pi-file",
+            routerLink: "admision/ipress",
+        },
+        {
+            label: "Ups Auxiliar",
+            icon: "pi pi-pw pi-file",
+            routerLink: "mantenimientos/ups-aux",
+        },
+        {
+            label: "Ipress Turnos",
+            icon: "pi pi-pw pi-file",
+            routerLink: "admision/ipress-turnos",
+        },
+        {
+            label: "Ipress Ambientes",
+            icon: "pi pi-pw pi-file",
+            routerLink: "admision/ipress-ambientes",
+        },
+        {
+            label: "Ipress Roles",
+            icon: "pi pi-pw pi-file",
+            routerLink: "admision/ipress-roles",
+        },
+        {
+            label: "Ipress Horarios",
+            icon: "pi pi-pw pi-file",
+            routerLink: "admision/ipress-horarios",
+        },
+        {
+            label: "Ipress Tarifario",
+            icon: "pi pi-pw pi-file",
+            routerLink: "admision/ipress-tarifario",
+        },
+        {
+            icon: "pi pi-file",
+            label: "Tipo Personal",
+            routerLink: "mantenimientos/tipo-personal",
+        },
+        {
+            icon: "pi pi-file",
+            label: "Unidad ejecutora",
+            routerLink: "mantenimientos/unidad-ejecutora",
+        },
+        {
+            icon: "pi pi-file",
+            label: "Antecedentes Pacientes",
+            routerLink: "mantenimientos/antecedentes-paciente",
+        },
+        {
+            icon: "pi pi-file",
+            label: "Ipress Farmacia",
+            routerLink: "admision/ipress-farmacia",
+        },
+        {
+            icon: "pi pi-file",
+            label: "Ups Auxiliar",
+            routerLink: "mantenimientos/ups-aux",
+        }, {
+            icon: "pi pi-file",
+            label: "His",
+            routerLink: "admision/ipress-his",
+        }
+    ],
+}
+const triaje = {
+    label: "Triaje",
+    items: [{
+        icon: "pi pi-file",
+        label: "Triaje",
+        routerLink: "admision/triaje",
+    }]
+}
+const admision = {
+    label: "Admision",
+    items: [
+        {
+            icon: "pi pi-file",
+            label: "Cupos",
+            routerLink: "admision/atenciones",
+        },
+        {
+            label: "Caja",
+            icon: "pi pi-pw pi-file",
+            routerLink: "caja/abrir-caja",
+        },
+        {
+            icon: "pi pi-file",
+            label: "Paciente",
+            routerLink: "admision/paciente",
+        }
+    ],
+}
+const historias = {
+    label: "Historias Clinicas",
+    items: [
+        {
+            icon: "pi pi-file",
+            label: "Obstetricia",
+            items: [
+                {
+                    label: "Citas",
+                    routerLink: "obstetricia-general/citas",
+                },
+                {
+                    label: "Historia de Consultas",
+                    routerLink: "obstetricia-general/historia-consultas",
+                },
+            ]
+        },
+        {
+            icon: "pi pi-file",
+            label: "Niño/Niña",
+            items: [
+                {
+                    label: "Citas",
+                    icon: "pi pi-pw pi-file",
+                    routerLink: "cred/citas",
+                },
+                {
+                    label: "Consultas",
+                    icon: "pi pi-pw pi-file",
+                    routerLink: "cred/consulta-cred-general",
+                },
+            ]
+        },
+        {
+            icon: "pi pi-file",
+            label: "Medicina General",
+            items: [
+                {
+                    icon: "pi pi-file",
+                    label: "Adolescente",
+                    items: [
+                        {
+                            label: "Citas",
+                            icon: "pi pi-pw pi-file",
+                            routerLink: "consulta-generica/lista-cita/ADOLESCENTE",
 
-                            }
-                        ]
-                    },
-                    {
-                        icon: "pi pi-file",
-                        label: "Joven",
-                        items: [
-                            {
-                                label: "Citas",
-                                icon: "pi pi-pw pi-file",
-                                routerLink: "consulta-generica/lista-cita/JOVEN",
-
-                            }
-                        ]
-                    },
-
-                    {
-                        icon: "pi pi-file",
-                        label: "Adulto",
-                        items: [
-                            {
-                                label: "Citas",
-                                icon: "pi pi-pw pi-file",
-                                routerLink: "consulta-generica/lista-cita/ADULTO",
-                            },
-                        ]
-                    },
-                    {
-                        icon: "pi pi-file",
-                        label: "Adulto Mayor",
-                        items: [
-                            {
-                                label: "Citas",
-                                icon: "pi pi-pw pi-file",
-                                routerLink: "consulta-generica/lista-cita/ADULTO MAYOR",
-                            },
-                        ]
-                    },
-                ],
-            },
-
-
-            {
-                icon: "pi pi-file",
-                label: "Odontologia",
-                items: [
-                    {
-                        label: "Citas",
-                        icon: "pi pi-pw pi-file",
-                        routerLink: "consulta-generica/lista-cita/odontologia",
-                    }
-                ]
-            },
-
-            {
-                icon: "pi pi-file",
-                label: "Psicologia",
-                items: [
-                    {
-                        label: "Citas",
-                        icon: "pi pi-pw pi-file",
-                        routerLink: "consulta-generica/lista-cita/psicologia",
-                    }
+                        }
                     ]
+                },
+                {
+                    icon: "pi pi-file",
+                    label: "Joven",
+                    items: [
+                        {
+                            label: "Citas",
+                            icon: "pi pi-pw pi-file",
+                            routerLink: "consulta-generica/lista-cita/JOVEN",
 
-            },
+                        }
+                    ]
+                },
 
-            {
-                icon: "pi pi-file",
-                label: "Nutrición",
-                items: [
-                    {
-                        label: "Citas",
-                        icon: "pi pi-pw pi-file",
-                        routerLink: "consulta-generica/lista-cita/nutricion",
-                    },
-                ]
-            },
-            {
-                icon: "pi pi-file",
-                label: "FUA",
-                routerLink: "fua/fua",
-            },
+                {
+                    icon: "pi pi-file",
+                    label: "Adulto",
+                    items: [
+                        {
+                            label: "Citas",
+                            icon: "pi pi-pw pi-file",
+                            routerLink: "consulta-generica/lista-cita/ADULTO",
+                        },
+                    ]
+                },
+                {
+                    icon: "pi pi-file",
+                    label: "Adulto Mayor",
+                    items: [
+                        {
+                            label: "Citas",
+                            icon: "pi pi-pw pi-file",
+                            routerLink: "consulta-generica/lista-cita/ADULTO MAYOR",
+                        },
+                    ]
+                },
+            ],
+        },
 
-        ],
-    },
 
-    {
+        {
+            icon: "pi pi-file",
+            label: "Odontologia",
+            items: [
+                {
+                    label: "Citas",
+                    icon: "pi pi-pw pi-file",
+                    routerLink: "consulta-generica/lista-cita/odontologia",
+                }
+            ]
+        },
+        {
+            icon: "pi pi-file",
+            label: "Psicologia",
+            items: [
+                {
+                    label: "Citas",
+                    icon: "pi pi-pw pi-file",
+                    routerLink: "consulta-generica/lista-cita/psicologia",
+                }
+            ]
+
+        },
+
+        {
+            icon: "pi pi-file",
+            label: "Nutrición",
+            items: [
+                {
+                    label: "Citas",
+                    icon: "pi pi-pw pi-file",
+                    routerLink: "consulta-generica/lista-cita/nutricion",
+                },
+            ]
+        },
+        {
+            icon: "pi pi-file",
+            label: "FUA",
+            routerLink: "fua/fua",
+        },
+
+    ],
+}
+const laboratorio = {
+    label: "Laboratorio",
+    items: [{
         label: "Laboratorio",
-        items: [{
-            label: "Laboratorio",
-            icon: "pi pi-pw pi-file",
-            routerLink: "laboratorios/lista-laboratorio",
-        }]
-    },
-    {
-        label: "Reportes",
-        items: [{
-            label: "Reportes HIS",
-            icon: "pi pi-pw pi-file",
-            routerLink: "reportes/reportes-his",
-        }]
-    },
+        icon: "pi pi-pw pi-file",
+        routerLink: "laboratorios/lista-laboratorio",
+    }]
+}
+const reportes = {
+    label: "Reportes",
+    items: [{
+        label: "Reportes HIS",
+        icon: "pi pi-pw pi-file",
+        routerLink: "reportes/reportes-his",
+    }]
+}
+const menu_ipress = [];
 
-    {
-        label: "Mantenimientos",
-        items: [
-            {
-                label: "Ipress",
-                icon: "pi pi-pw pi-file",
-                routerLink: "admision/ipress",
-            },
-            {
-                label: "Ups Auxiliar",
-                icon: "pi pi-pw pi-file",
-                routerLink: "mantenimientos/ups-aux",
-            },
-            {
-                label: "Ipress Turnos",
-                icon: "pi pi-pw pi-file",
-                routerLink: "admision/ipress-turnos",
-            },
-            {
-                label: "Ipress Ambientes",
-                icon: "pi pi-pw pi-file",
-                routerLink: "admision/ipress-ambientes",
-            },
-            {
-                label: "Ipress Roles",
-                icon: "pi pi-pw pi-file",
-                routerLink: "admision/ipress-roles",
-            },
-            {
-                label: "Ipress Horarios",
-                icon: "pi pi-pw pi-file",
-                routerLink: "admision/ipress-horarios",
-            },
-            {
-                label: "Ipress Tarifario",
-                icon: "pi pi-pw pi-file",
-                routerLink: "admision/ipress-tarifario",
-            },
-            {
-                icon: "pi pi-file",
-                label: "Tipo Personal",
-                routerLink: "mantenimientos/tipo-personal",
-            },
-            {
-                icon: "pi pi-file",
-                label: "Unidad ejecutora",
-                routerLink: "mantenimientos/unidad-ejecutora",
-            },
-            {
-                icon: "pi pi-file",
-                label: "Antecedentes Pacientes",
-                routerLink: "mantenimientos/antecedentes-paciente",
-            },
-            {
-                icon: "pi pi-file",
-                label: "Ipress Farmacia",
-                routerLink: "admision/ipress-farmacia",
-            },
-            {
-                icon: "pi pi-file",
-                label: "Ups Auxiliar",
-                routerLink: "mantenimientos/ups-aux",
-            }, {
-                icon: "pi pi-file",
-                label: "His",
-                routerLink: "admision/ipress-his",
-            },
-            // {
-            //     icon: "pi pi-file",
-            //     label: "Fua",
-            //     routerLink: "#",
-            // },
-
-        ],
-    },
-];
 
 @Component({
     selector: "app-side-bar",
     templateUrl: "./side-bar.component.html",
     styleUrls: ["./side-bar.component.css"],
 })
-export class SideBarComponent implements OnInit {
-    model: MenuItem[];
-    items: MenuItem[];
+export class SideBarComponent implements OnInit, DoCheck {
+    model: MenuItem[] = [];
+    items: MenuItem[] = [];
     filteredRoutes: any[];
     selectedRoute: any;
     @Input() active: boolean;
+    rol: any
 
     activeSubmenus: { [key: string]: boolean } = {};
 
     constructor(private filterService: FilterService, private router: Router) {
     }
 
+    build() {
+        if (this.rol.rol === 'ROL_4_7') {
+            menu_ipress.length = 0
+            menu_ipress.push(administracion1)
+            menu_ipress.push(administracion2)
+        }
+        if (this.rol.rol === 'ROL_4_5') {
+            menu_ipress.length = 0
+            menu_ipress.push(admision)
+        }
+        if (this.rol.rol === 'ROL_4_6') {
+            menu_ipress.length = 0
+            menu_ipress.push(triaje)
+            menu_ipress.push(historias)
+            menu_ipress.push(laboratorio)
+            menu_ipress.push(reportes)
+        }
+    }
+
+    ngDoCheck() {
+        this.rol = JSON.parse(localStorage.getItem('roles'));
+    }
+
     ngOnInit(): void {
+        console.log('items', menu_ipress)
+        setTimeout(() => {
+            this.build()
+        }, 100)
+        setTimeout(() => {
+            this.menu()
+        }, 100)
+    }
+
+    menu() {
         let token = JSON.parse(localStorage.getItem('token'));
-        console.log('token en side bar', token)
-        // this.items = menu_ipress;
+       // console.log('token en side bar', token)
         switch (token.roles) {
             case "GERESA":
                 this.items = menu_geresa;

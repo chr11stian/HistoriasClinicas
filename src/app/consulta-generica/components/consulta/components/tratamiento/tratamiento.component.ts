@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {dato} from "../../../../../cred/citas/models/data";
-import {TratamientoConsultaService} from "../../../../../cred/citas/atencion-cred/consulta-principal/services/tratamiento-consulta.service";
-import {DiagnosticoConsultaService} from "../../../../../cred/citas/atencion-cred/consulta-principal/services/diagnostico-consulta.service";
 import {IpressFarmaciaService} from "../../../../../modulos/ipress-farmacia/services/ipress-farmacia.service";
 import {MedicamentosService} from "../../../../../mantenimientos/services/medicamentos/medicamentos.service";
 import {IpressService} from "../../../../../core/services/ipress/ipress.service";
 import { PrestacionService } from 'src/app/mantenimientos/services/prestacion/prestacion.service';
 import Swal from "sweetalert2";
+import {DiagnosticosService} from "../../../../services/diagnosticos/diagnosticos.service";
+import {TratamientosService} from "../../../../services/tratamientos/tratamientos.service";
 
 @Component({
   selector: 'app-tratamiento',
@@ -41,8 +41,8 @@ export class TratamientoComponent implements OnInit {
   aux:any[]=[];
   dialogIndicaciones: boolean=false;
   dialogObservaciones: boolean=false;
-  constructor(private tratamientoService: TratamientoConsultaService,
-              private DiagnosticoService: DiagnosticoConsultaService,
+  constructor(private tratamientoService: TratamientosService,
+              private DiagnosticoService: DiagnosticosService,
               private farmaciaService: IpressFarmaciaService,
               private medicamentosService:MedicamentosService,
               private ipressServices: IpressService,
@@ -81,7 +81,6 @@ export class TratamientoComponent implements OnInit {
     this.idConsulta = JSON.parse(localStorage.getItem('documento')).idConsulta;
     // this.estadoEditar2 = JSON.parse(localStorage.getItem('idConsultaGeneral')).estadoEditar;
     this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
-
     this.listarTratamientos();
     this.buscarCodigoIpress();
     this.listarDiagnosticos();
@@ -232,9 +231,9 @@ export class TratamientoComponent implements OnInit {
 
   listarTratamientos(){
     this.tratamientoService.getTratamiento(this.idConsulta).subscribe((data:any)=>{
-      if(data!=undefined || data!=null){
+      if(data.object!=null || data.object!=undefined){
         this.hayDatos=true;
-        // console.log(data.object);
+        console.log(data.object);
         this.tratamientos=(data.object);
       }
       else{
@@ -285,14 +284,18 @@ export class TratamientoComponent implements OnInit {
       }
     }
     console.log(this.tratamientos);
-    var duplicado:boolean=this.tratamientos.some(element=>element.medicamento.id===cadena.medicamento.id)
+    var duplicado = false;
+    if(this.tratamientos!=null){
+      duplicado=this.tratamientos.some(element=>element.medicamento.id===cadena.medicamento.id)
+    }
     // var duplicado:boolean=this.tratamientos.includes(cadena)
     console.log(duplicado);
     console.log("cadena" , cadena)
     if(!duplicado){
-      this.tratamientos.push(cadena)
+
       if(!this.hayDatos){
-        this.tratamientoService.addTratamiento(this.idConsulta,this.tratamientos).subscribe((data:any)=>{
+        this.tratamientoService.addTratamientos(this.idConsulta,cadena).subscribe((data:any)=>{
+          this.listarTratamientos();
           Swal.fire({
             icon: 'success',
             title: 'Tratamientos',
@@ -307,7 +310,7 @@ export class TratamientoComponent implements OnInit {
         })
       }
       else{
-        this.tratamientoService.updateTratamiento(this.idConsulta,this.tratamientos).subscribe((data:any)=>{
+        this.tratamientoService.updateTratamientos(this.idConsulta,this.tratamientos).subscribe((data:any)=>{
           Swal.fire({
             icon: 'success',
             title: 'Tratamientos',
@@ -339,12 +342,12 @@ export class TratamientoComponent implements OnInit {
     let cadena = {
       medicamento:{
         id:this.tratamientoEditar.medicamento.id,
-        codigo:this.formTratamiento.value.codigo,
-        nombre:this.formTratamiento.value.nombre,
-        ff:this.formTratamiento.value.ff,
-        concentracion:this.formTratamiento.value.concentracion,
-        viaAdministracion:this.formTratamiento.value.viaAdministracion,
-        nombreComercial:this.formTratamiento.value.nombreComercial,
+        // codigo:this.formTratamiento.value.codigo,
+        // nombre:this.formTratamiento.value.nombre,
+        // ff:this.formTratamiento.value.ff,
+        // concentracion:this.formTratamiento.value.concentracion,
+        // viaAdministracion:this.formTratamiento.value.viaAdministracion,
+        // nombreComercial:this.formTratamiento.value.nombreComercial,
       },
       cantidad:this.formTratamiento.value.cantidad,
       dosis:this.formTratamiento.value.dosis,
@@ -361,12 +364,13 @@ export class TratamientoComponent implements OnInit {
       cie10SIS: this.formTratamiento.value.codigoCIE,
       codPrestacion: this.formTratamiento.value.codPrestacion
     }
-    var AuxItem = this.tratamientos.filter(element=>element!=this.tratamientoEditar);
+    // var AuxItem = this.tratamientos.filter(element=>element!=this.tratamientoEditar);
     // console.log(AuxItem);
-    this.tratamientos=AuxItem;
+    // this.tratamientos=AuxItem;
     // console.log("cadena" , cadena)
-    this.tratamientos.push(cadena);
-    this.tratamientoService.updateTratamiento(this.idConsulta,this.tratamientos).subscribe((data:any)=>{
+    // this.tratamientos.push(cadena);
+    this.tratamientoService.updateTratamientos(this.idConsulta,cadena).subscribe((data:any)=>{
+      this.listarTratamientos();
       Swal.fire({
         icon: 'success',
         title: 'Tratamientos',
@@ -414,7 +418,7 @@ export class TratamientoComponent implements OnInit {
     this.tratamientoEditar=rowData;
   }
 
-  eliminarTratamiento(rowIndex: any) {
+  eliminarTratamiento(rowData:any,rowIndex: any) {
     // console.log("entrando a editar medicamentos",rowIndex,rowIndex);
     Swal.fire({
       showCancelButton: true,
@@ -425,8 +429,9 @@ export class TratamientoComponent implements OnInit {
       showConfirmButton: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        this.tratamientos.splice(rowIndex, 1)
-        this.tratamientoService.updateTratamiento(this.idConsulta,this.tratamientos).subscribe((data:any)=>{
+        // this.tratamientos.splice(rowIndex, 1)
+        this.tratamientoService.deleteTratamiento(this.idConsulta,rowData.medicamento.id).subscribe((data:any)=>{
+          this.listarTratamientos();
           Swal.fire({
             icon: 'success',
             title: 'Eliminado correctamente',
