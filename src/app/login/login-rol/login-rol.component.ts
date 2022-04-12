@@ -47,7 +47,7 @@ export class LoginRolComponent implements OnInit {
             }
             if (resp.token) {
                 this.serviceLogin.getRol().subscribe((r: any) => {
-                    localStorage.setItem('rol', JSON.stringify({"rol": rol, "escala": escala}));
+                    localStorage.setItem('roles', JSON.stringify({"rol": rol, "escala": escala}));
                     console.log(r)
                 })
 

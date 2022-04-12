@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from "@angular/core";
+import {Component, Input, OnInit, DoCheck} from "@angular/core";
 import {FilterService, MenuItem} from "primeng/api";
 import {Router} from "@angular/router";
 
@@ -522,12 +522,13 @@ const menu_ipress = [];
     templateUrl: "./side-bar.component.html",
     styleUrls: ["./side-bar.component.css"],
 })
-export class SideBarComponent implements OnInit {
-    model: MenuItem[];
-    items: MenuItem[];
+export class SideBarComponent implements OnInit, DoCheck {
+    model: MenuItem[] = [];
+    items: MenuItem[] = [];
     filteredRoutes: any[];
     selectedRoute: any;
     @Input() active: boolean;
+    rol: any
 
     activeSubmenus: { [key: string]: boolean } = {};
 
@@ -535,29 +536,41 @@ export class SideBarComponent implements OnInit {
     }
 
     build() {
-        let rol = JSON.parse(localStorage.getItem('rol'));
-        console.log('rol', rol)
-        if (rol.rol === 'ROL_4_7') {
+        if (this.rol.rol === 'ROL_4_7') {
+            menu_ipress.length = 0
             menu_ipress.push(administracion1)
             menu_ipress.push(administracion2)
         }
-        if (rol.rol === 'ROL_4_6') {
-
-            menu_ipress.push(triaje)
+        if (this.rol.rol === 'ROL_4_5') {
+            menu_ipress.length = 0
             menu_ipress.push(admision)
+        }
+        if (this.rol.rol === 'ROL_4_6') {
+            menu_ipress.length = 0
+            menu_ipress.push(triaje)
             menu_ipress.push(historias)
             menu_ipress.push(laboratorio)
             menu_ipress.push(reportes)
         }
     }
 
+    ngDoCheck() {
+        this.rol = JSON.parse(localStorage.getItem('roles'));
+    }
+
     ngOnInit(): void {
+        console.log('items', menu_ipress)
         setTimeout(() => {
             this.build()
         }, 100)
+        setTimeout(() => {
+            this.menu()
+        }, 100)
+    }
+
+    menu() {
         let token = JSON.parse(localStorage.getItem('token'));
-        console.log('token en side bar', token)
-        // this.items = menu_ipress;
+       // console.log('token en side bar', token)
         switch (token.roles) {
             case "GERESA":
                 this.items = menu_geresa;
