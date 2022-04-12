@@ -4,7 +4,7 @@
     </ng-template>
     <ng-template pTemplate="right" class="button">
         <button pButton pRipple label="Guardar" iconPos="right" icon="pi pi-save"
-                class="guardar-boton" (click)="guardarDatosGenerales()"></button>
+                class="guardar-boton" (click)="guardarActualizar()"></button>
     </ng-template>
 </p-toolbar>
 <br>
@@ -28,12 +28,11 @@
                 <div class="grid">
                     <div class="p-inputgroup">
                         <div class="col-4" style="text-align: left">
-                            <label class="">Fecha Atencion: *</label>
+                            <label class="">Fecha Atencion:*</label>
                         </div>
                         <div class="col-6">
-                            <p-calendar formControlName="fecha" placeholder="" [showIcon]="true"
+                            <p-calendar formControlName="fecha" placeholder="" [showIcon]="true" [showTime]="true" [showSeconds]="true"
                                         dateFormat="yy-mm-dd" class="p-fluid"></p-calendar>
-
                         </div>
                     </div>
                 </div>
@@ -123,7 +122,7 @@
                             <label class="">Edad *</label>
                         </div>
                         <div class="col-6">
-                            <input type="text" pInputText class="inputfield w-full" formControlName="edad">
+                            <input type="number" pInputText class="inputfield w-full" formControlName="edad">
 
                         </div>
                     </div>
@@ -142,10 +141,10 @@
                 <div class="grid">
                     <div class="p-inputgroup">
                         <div class="col-4" style="text-align: left">
-                            <label class="">Estab. Origen:</label>
+                            <label class="">CodSeguro:</label>
                         </div>
                         <div class="col-6">
-                            <input type="text" pInputText class="inputfield w-full" formControlName="estabOrigen"
+                            <input type="text" pInputText class="inputfield w-full" formControlName="codSeguro"
                                    style="text-transform:uppercase">
                         </div>
                     </div>
@@ -194,101 +193,224 @@
 </p-toolbar>
 <div class="border">
     <form [formGroup]='form_Acompaniante'>
-        <div class="col-12 md:col-4 lg:col-4 p-field">
-            <div class="grid">
-                <div class="p-inputgroup">
-                    <div class="col-4" style="text-align: left">
-                        <label class="">Tipo Documento *</label>
+        <div class="grid m-2">
+            <div class="col-12 md:col-4 lg:col-4 p-field">
+                <div class="grid">
+                    <div class="p-inputgroup">
+                        <div class="col-4" style="text-align: left">
+                            <label class="">Tipo Documento *</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" pInputText class="inputfield w-full"
+                                   formControlName="tipoDocA">
+                        </div>
                     </div>
-                    <div class="col-6">
-                        <input type="text" pInputText class="inputfield w-full"
-                               formControlName="tipoDocA">
+                </div>
+                <div class="grid">
+                    <div class="p-inputgroup">
+                        <div class="col-4" style="text-align: left">
+                            <label class="">Doc. de Identidad *</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" pInputText class="inputfield w-full"
+                                   formControlName="nroDocA">
+                        </div>
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="p-inputgroup">
+                        <div class="col-4" style="text-align: left">
+                            <label class="">Parentesco * </label>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" pInputText class="inputfield w-full" formControlName="parentesco"
+                                   style="text-transform:uppercase">
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="grid">
-                <div class="p-inputgroup">
-                    <div class="col-4" style="text-align: left">
-                        <label class="">Doc. de Identidad *</label>
-                    </div>
-                    <div class="col-6">
-                        <input type="text" pInputText class="inputfield w-full"
-                               formControlName="nroDocA">
-                    </div>
-                </div>
-            </div>
-            <div class="grid">
-                <div class="p-inputgroup">
-                    <div class="col-4" style="text-align: left">
-                        <label class="">Parentesco * </label>
-                    </div>
-                    <div class="col-6">
-                        <input type="text" pInputText class="inputfield w-full" formControlName="parentesco"
-                               style="text-transform:uppercase">
+            <div class="col-12 md:col-4 lg:col-4 p-field">
+                <div class="grid">
+                    <div class="p-inputgroup">
+                        <div class="col-4" style="text-align: left">
+                            <label class="">Apellidos *: </label>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" pInputText class="inputfield w-full " formControlName="apellidosA"
+                                   style="text-transform:uppercase">
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-12 md:col-4 lg:col-4 p-field">
-            <div class="grid">
-                <div class="p-inputgroup">
-                    <div class="col-4" style="text-align: left">
-                        <label class="">Apellidos *: </label>
-                    </div>
-                    <div class="col-6">
-                        <input type="text" pInputText class="inputfield w-full " formControlName="apellidosA"
-                               style="text-transform:uppercase">
-                    </div>
-                </div>
-            </div>
-            <div class="grid">
-                <div class="p-inputgroup">
-                    <div class="col-4" style="text-align: left">
-                        <label class="">Nombres *</label>
-                    </div>
-                    <div class="col-6">
-                        <input type="text" pInputText class="inputfield w-full" formControlName="nombreA">
+                <div class="grid">
+                    <div class="p-inputgroup">
+                        <div class="col-4" style="text-align: left">
+                            <label class="">Nombres *</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" pInputText class="inputfield w-full" formControlName="nombreA">
 
+                        </div>
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="p-inputgroup">
+                        <div class="col-4" style="text-align: left">
+                            <label class="">Edad *</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="number" pInputText class="inputfield w-full" formControlName="edad"
+                                   style="text-transform:uppercase">
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="grid">
-                <div class="p-inputgroup">
-                    <div class="col-4" style="text-align: left">
-                        <label class="">Edad *</label>
-                    </div>
-                    <div class="col-6">
-                        <input type="number" pInputText class="inputfield w-full" formControlName="edad"
-                               style="text-transform:uppercase">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 md:col-4 lg:col-4 p-field">
-            <div class="grid">
-                <div class="p-inputgroup">
-                    <div class="col-4" style="text-align: left">
-                        <label class="">Telefono: </label>
-                    </div>
-                    <div class="col-6">
-                        <input type="text" pInputText class="inputfield w-full " formControlName="telefono"
-                               style="text-transform:uppercase">
+            <div class="col-12 md:col-4 lg:col-4 p-field">
+                <div class="grid">
+                    <div class="p-inputgroup">
+                        <div class="col-4" style="text-align: left">
+                            <label class="">Telefono: </label>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" pInputText class="inputfield w-full " formControlName="telefono"
+                                   style="text-transform:uppercase">
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="grid">
-                <div class="p-inputgroup">
-                    <div class="col-4" style="text-align: left">
-                        <label class="">Dirección *</label>
-                    </div>
-                    <div class="col-6">
-                        <input type="text" pInputText class="inputfield w-full" formControlName="direccion">
+                <div class="grid">
+                    <div class="p-inputgroup">
+                        <div class="col-4" style="text-align: left">
+                            <label class="">Dirección *</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" pInputText class="inputfield w-full" formControlName="direccion">
 
+                        </div>
                     </div>
                 </div>
-            </div>
 
+            </div>
         </div>
     </form>
 </div>
-<br>
+<p-toolbar>
+    <ng-template pTemplate="left">
+        <label>SIGNOS DE ALARMA</label>
+    </ng-template>
+</p-toolbar>
+<div class="border">
+    <form [formGroup]='form_SignosAlarma'>
+        <div class="grid m-2">
+            <div class="grid col-12">
+                <div class="col-3 p-fluid">
+                    <label>Tipo Edad:</label>
+                    <input  formControlName="tipoEdad" type="text" class=" w-full" placeholder="Especifique" pInputText>
+                </div>
+                <div class="col-5 p-fluid">
+                    <label>Signo:</label>
+                    <input  formControlName="nombreSigno" type="text" class=" w-full" placeholder="Especifique" pInputText>
+                </div>
+                <div class="col-2 p-fluid">
+                    <button style="background-color: #0c3866" class="button-agregar p-button-rounded" icon="pi pi-plus"
+                            pButton type="button"
+                            (click)="AgregarSignos()"></button>
+                </div>
+            </div>
+            <br>
+            <div class="col-12">
+                <p-table class="table-over" [value]="listaSignosAlarma" #dt
+                         styleClass="p-datatable-gridlines" [rows]="10"
+                         [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
+                         [showCurrentPageReport]="true"
+                         currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="text-align: center" class="font-2">Nro</th>
+                            <th style="text-align: center" class="font-2">Tipo Edad</th>
+                            <th style="text-align: center" class="font-2">Signo</th>
+                            <th style="text-align: center" class="font-2">Accion</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                        <tr>
+                            <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+                            <td style="text-align: center">{{ rowData.tipoEdad }}</td>
+                            <td style="text-align: center">{{ rowData.nombreSigno }}</td>
+                            <td style="text-align: center">
+                                <button pButton pRipple icon="pi pi-trash"
+                                        class="p-button-rounded p-button-danger m-1"
+                                        (click)="eliminarSigno(rowIndex)" pTooltip="Eliminar">
+                                </button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--<br>-->
+<!--<p-toolbar>-->
+<!--    <ng-template pTemplate="left">-->
+<!--        <label>FUNCIONES BIOLOGICAS</label>-->
+<!--    </ng-template>-->
+<!--</p-toolbar>-->
+<!--<div class="border">-->
+<!--    <form [formGroup]='form_Funciones'>-->
+<!--        <div class="grid m-2">-->
+<!--            <div class="grid col-12">-->
+<!--                <div class="col-3 p-fluid">-->
+<!--                    <label>Funcion:</label>-->
+<!--                    <input  formControlName="funcion" type="text" class=" w-full" placeholder="Especifique" pInputText>-->
+<!--                </div>-->
+<!--                <div class="col-2 p-fluid">-->
+<!--                    <label>Valor:</label>-->
+<!--                    <input  formControlName="valor" type="text" class=" w-full" placeholder="Especifique" pInputText>-->
+<!--                </div>-->
+<!--                <div class="col-5 p-fluid">-->
+<!--                    <label>Detalle:</label>-->
+<!--                    <input  formControlName="detalle" type="text" class=" w-full" placeholder="Especifique" pInputText>-->
+<!--                </div>-->
+<!--                <div class="col-2 p-fluid">-->
+<!--                    <button style="background-color: #0c3866" class="button-agregar p-button-rounded" icon="pi pi-plus"-->
+<!--                            pButton type="button"-->
+<!--                            (click)="AgregarFuncion()"></button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <br>-->
+<!--            <div class="col-12">-->
+<!--                <p-table class="table-over" [value]="listaFuncionesBiologicas" #dt-->
+<!--                         styleClass="p-datatable-gridlines" [rows]="10"-->
+<!--                         [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"-->
+<!--                         [showCurrentPageReport]="true"-->
+<!--                         currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">-->
+<!--                    <ng-template pTemplate="header">-->
+<!--                        <tr>-->
+<!--                            <th style="text-align: center" class="font-2">Nro</th>-->
+<!--                            <th style="text-align: center" class="font-2">Funcion</th>-->
+<!--                            <th style="text-align: center" class="font-2">Valor</th>-->
+<!--                            <th style="text-align: center" class="font-2">Detalle</th>-->
+<!--                            <th style="text-align: center" class="font-2">Acción</th>-->
+<!--                        </tr>-->
+<!--                    </ng-template>-->
+<!--                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">-->
+<!--                        <tr>-->
+<!--                            <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>-->
+<!--                            <td style="text-align: center">{{ rowData.funcion }}</td>-->
+<!--                            <td style="text-align: center">{{ rowData.valor }}</td>-->
+<!--                            <td style="text-align: center">{{ rowData.detalle }}</td>-->
+<!--                            <td style="text-align: center">-->
+<!--                                <button pButton pRipple icon="pi pi-trash"-->
+<!--                                        class="p-button-rounded p-button-danger m-1"-->
+<!--                                        (click)="eliminarFuncion(rowIndex)" pTooltip="Eliminar">-->
+<!--                                </button>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                    </ng-template>-->
+<!--                </p-table>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </form>-->
+<!--</div-->
+<!--&gt;-->
+<!--<br>-->

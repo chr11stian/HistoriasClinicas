@@ -19,5 +19,10 @@ export class DatosGeneralesService {
   addConsultaDatosGenerales(data){
     return this.http.post(`${this.base_url}/${this.bd}/consultageneral/agregarConsulta`,data)
   }
-
+  updateConsultaDatosGenerales(data){
+    return this.http.put(`${this.base_url}/${this.bd}/consultageneral/actualizarConsulta`,data)
+  }
+  searchConsultaDatosGenerales(idConsulta){
+    return this.http.get(`${this.base_url}/${this.bd}/consultageneral/buscar/${idConsulta}`)
+  }
 }
