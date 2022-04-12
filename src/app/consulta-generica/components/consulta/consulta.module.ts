@@ -15,6 +15,10 @@ import { LaboratorioComponent } from './components/evaluaciones/laboratorio/labo
 import { DialogReqLaboratorioComponent } from './components/evaluaciones/laboratorio/dialog-req-laboratorio/dialog-req-laboratorio.component';
 import { ProcedImagenesComponent } from './components/evaluaciones/proced-imagenes/proced-imagenes.component';
 import { ProcedimientoComponent } from './components/procedimiento/procedimiento.component';
+import { TratamientoInmunizacionComponent } from './components/tratamiento/tratamiento-inmunizacion/tratamiento-inmunizacion.component';
+import { TratamientoSuplementacionComponent } from './components/tratamiento/tratamiento-suplementacion/tratamiento-suplementacion.component';
+import { TratamientoGeneralComponent } from './components/tratamiento/tratamiento-general/tratamiento-general.component';
+import { TratamientoInmunizacionModalComponent } from './components/tratamiento/tratamiento-inmunizacion-modal/tratamiento-inmunizacion-modal.component';
 
 
 
@@ -30,7 +34,11 @@ import { ProcedimientoComponent } from './components/procedimiento/procedimiento
     LaboratorioComponent,
     DialogReqLaboratorioComponent,
     ProcedImagenesComponent,
-    ProcedimientoComponent
+    ProcedimientoComponent,
+    TratamientoInmunizacionComponent,
+    TratamientoSuplementacionComponent,
+    TratamientoGeneralComponent,
+    TratamientoInmunizacionModalComponent
   ],
   imports: [
     CommonModule,
