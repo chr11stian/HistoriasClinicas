@@ -90,7 +90,7 @@ export class DiagnosticoComponent implements OnInit {
     console.log(this.dataConsulta)
     let data = {
       idIpress: this.idIpress,
-      edad: 28,
+      edad: this.dataConsulta.anio,
       sexo: this.dataConsulta.sexo
     }
     this.DiagnosticoService.listaUpsHis(data).then((res: any) => this.listaUpsHis = res.object);
