@@ -1,4 +1,5 @@
 export interface MotivoConsulta {
+    id:string,
     funcionesBiologicas: FuncionesBiologicas[],
     signosVitales: {
         temperatura: number,
