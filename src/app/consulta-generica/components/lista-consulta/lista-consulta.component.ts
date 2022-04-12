@@ -53,12 +53,13 @@ export class ListaConsultaComponent implements OnInit {
         nroDocumento: this.data.nroDocumento,
         tipoDoc: this.data.tipoDoc,
         idConsulta: event.id,
-        anio:this.data.anioEdad,
-        // mes: r.object.mesEdad,
-        // dia: r.object.diaEdad,
+        anio:this.data.anio,
+        mes: this.data.mes,
+        dia: this.data.dia,
         sexo: this.sexo,
         fechaNacimiento: this.fechaNacimiento,
-        tipoConsulta:this.data.tipoConsulta
+        tipoConsulta:this.data.tipoConsulta,
+        ups:this.data.ups
       }
       localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
       setTimeout(() => {
@@ -72,11 +73,13 @@ export class ListaConsultaComponent implements OnInit {
       nroDocumento: this.data.nroDocumento,
       tipoDoc: this.data.tipoDoc,
       idConsulta: '',
+      anio:this.data.anio,
+      mes: this.data.mes,
+      dia: this.data.dia,
       sexo: this.sexo,
       fechaNacimiento: this.fechaNacimiento,
-      hidden: true,
-      see: true,
-      tipoConsulta:this.data.tipoConsulta
+      tipoConsulta:this.data.tipoConsulta,
+      ups:this.data.ups
     }
     localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
     setTimeout(() => {

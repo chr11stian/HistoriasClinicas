@@ -174,12 +174,16 @@ export class ListaCitasComponent implements OnInit, OnChanges {
     console.log('data Paciente',dataPaciente)
     let data: any =
         {
+          ups:this.tipoConsulta=='ADOLESCENTE'||this.tipoConsulta=='JOVEN'|| this.tipoConsulta=='ADULTO'||this.tipoConsulta=='ADULTO MAYOR'?'MEDICINA GENERAL':this.tipoConsulta,
           tipoConsulta: this.tipoConsulta,
           nroDocumento: dataPaciente.paciente.nroDoc,
           tipoDoc: dataPaciente.paciente.tipoDoc,
           idConsulta: '',
           sexo: dataPaciente.paciente.sexo,
           anio:dataPaciente.paciente.edadAnio,
+          mes:dataPaciente.paciente.edadMes,
+          dia:dataPaciente.paciente.edadDia,
+
           servicio:dataPaciente.servicio
         }
     localStorage.setItem('documento', JSON.stringify(data));
