@@ -65,8 +65,8 @@ export class DialogReqLaboratorioComponent implements OnInit {
     this.inicializarForm();
     this.idConsulta
     this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
-    this.edadPaciente = JSON.parse(localStorage.getItem('consultaGeneral')).anio;
-    this.sexoPaciente = JSON.parse(localStorage.getItem('consultaGeneral')).sexo;
+    this.edadPaciente = JSON.parse(localStorage.getItem('documento')).anio;
+    this.sexoPaciente = JSON.parse(localStorage.getItem('documento')).sexo;
   }
 
   ngOnInit(): void {
