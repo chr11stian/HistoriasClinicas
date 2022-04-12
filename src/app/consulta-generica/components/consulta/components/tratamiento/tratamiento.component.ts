@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {dato} from "../../../../../cred/citas/models/data";
-import {TratamientoConsultaService} from "../../../../../cred/citas/atencion-cred/consulta-principal/services/tratamiento-consulta.service";
-import {DiagnosticoConsultaService} from "../../../../../cred/citas/atencion-cred/consulta-principal/services/diagnostico-consulta.service";
 import {IpressFarmaciaService} from "../../../../../modulos/ipress-farmacia/services/ipress-farmacia.service";
 import {MedicamentosService} from "../../../../../mantenimientos/services/medicamentos/medicamentos.service";
 import {IpressService} from "../../../../../core/services/ipress/ipress.service";
@@ -294,9 +292,10 @@ export class TratamientoComponent implements OnInit {
     console.log(duplicado);
     console.log("cadena" , cadena)
     if(!duplicado){
-      this.tratamientos.push(cadena)
+
       if(!this.hayDatos){
-        this.tratamientoService.addTratamientos(this.idConsulta,this.tratamientos).subscribe((data:any)=>{
+        this.tratamientoService.addTratamientos(this.idConsulta,cadena).subscribe((data:any)=>{
+          this.listarTratamientos();
           Swal.fire({
             icon: 'success',
             title: 'Tratamientos',
@@ -343,12 +342,12 @@ export class TratamientoComponent implements OnInit {
     let cadena = {
       medicamento:{
         id:this.tratamientoEditar.medicamento.id,
-        codigo:this.formTratamiento.value.codigo,
-        nombre:this.formTratamiento.value.nombre,
-        ff:this.formTratamiento.value.ff,
-        concentracion:this.formTratamiento.value.concentracion,
-        viaAdministracion:this.formTratamiento.value.viaAdministracion,
-        nombreComercial:this.formTratamiento.value.nombreComercial,
+        // codigo:this.formTratamiento.value.codigo,
+        // nombre:this.formTratamiento.value.nombre,
+        // ff:this.formTratamiento.value.ff,
+        // concentracion:this.formTratamiento.value.concentracion,
+        // viaAdministracion:this.formTratamiento.value.viaAdministracion,
+        // nombreComercial:this.formTratamiento.value.nombreComercial,
       },
       cantidad:this.formTratamiento.value.cantidad,
       dosis:this.formTratamiento.value.dosis,
@@ -365,12 +364,13 @@ export class TratamientoComponent implements OnInit {
       cie10SIS: this.formTratamiento.value.codigoCIE,
       codPrestacion: this.formTratamiento.value.codPrestacion
     }
-    var AuxItem = this.tratamientos.filter(element=>element!=this.tratamientoEditar);
+    // var AuxItem = this.tratamientos.filter(element=>element!=this.tratamientoEditar);
     // console.log(AuxItem);
-    this.tratamientos=AuxItem;
+    // this.tratamientos=AuxItem;
     // console.log("cadena" , cadena)
-    this.tratamientos.push(cadena);
-    this.tratamientoService.updateTratamientos(this.idConsulta,this.tratamientos).subscribe((data:any)=>{
+    // this.tratamientos.push(cadena);
+    this.tratamientoService.updateTratamientos(this.idConsulta,cadena).subscribe((data:any)=>{
+      this.listarTratamientos();
       Swal.fire({
         icon: 'success',
         title: 'Tratamientos',
@@ -418,7 +418,7 @@ export class TratamientoComponent implements OnInit {
     this.tratamientoEditar=rowData;
   }
 
-  eliminarTratamiento(rowIndex: any) {
+  eliminarTratamiento(rowData:any,rowIndex: any) {
     // console.log("entrando a editar medicamentos",rowIndex,rowIndex);
     Swal.fire({
       showCancelButton: true,
@@ -429,8 +429,9 @@ export class TratamientoComponent implements OnInit {
       showConfirmButton: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        this.tratamientos.splice(rowIndex, 1)
-        this.tratamientoService.updateTratamientos(this.idConsulta,this.tratamientos).subscribe((data:any)=>{
+        // this.tratamientos.splice(rowIndex, 1)
+        this.tratamientoService.deleteTratamiento(this.idConsulta,rowData.medicamento.id).subscribe((data:any)=>{
+          this.listarTratamientos();
           Swal.fire({
             icon: 'success',
             title: 'Eliminado correctamente',

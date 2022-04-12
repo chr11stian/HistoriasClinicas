@@ -25,6 +25,7 @@ import {image} from '../../../assets/images/image.const';
 import {TipoUpsService} from "src/app/mantenimientos/services/tipo-ups.service";
 import {UsuarioService} from "../usuarios/services/usuario.service";
 import {LoginService} from "../../login/services/login.service";
+import {dato} from "../../cred/citas/models/data";
 
 @Component({
     selector: "app-personal-salud",
@@ -77,6 +78,8 @@ export class PersonalSaludComponent implements OnInit {
         //"ASISTENCIAL",
         //"ADMINISTRATIVO"
     ]
+    datoLocalStore: dato
+    nroDocRow: string = ''
 
     constructor(
         private personalservice: PersonalService,
@@ -547,6 +550,8 @@ export class PersonalSaludComponent implements OnInit {
     }
 
     newRolSistema(rowData) {
+        console.log('row', rowData)
+        this.nroDocRow = rowData.nroDoc;
         this.rolesSistema = []
         this.nombrePersonal = `${rowData.apePaterno} ${rowData.apeMaterno}, ${rowData.primerNombre}`;
         this.idRolX = rowData.id;
@@ -656,7 +661,32 @@ export class PersonalSaludComponent implements OnInit {
     }
 
     agregarRol() {
-        this.rolesSistema.push(this.formRoles.value.rol)
+        if (this.rolesSistema.find((rol) => rol.nombre === this.formRoles.value.rol.nombre) === undefined)
+            this.rolesSistema.push(this.formRoles.value.rol)
+    }
+
+    guardarRolSistema() {
+        let permisos: any[] = []
+        this.rolesSistema.map((r: any) => {
+            permisos.push({permisos: '4' + r.codigo})
+        })
+        let data = {
+            tipoDoc: "DNI",
+            nroDoc: this.nroDocRow,
+            password: this.nroDocRow,
+            apps: permisos,
+            estado: true
+        }
+        this.loginService.crearRol(data).subscribe((r: any) => {
+            console.log(r)
+            Swal.fire({
+                icon: "success",
+                title: "Agregado correctamente",
+                text: "",
+                showConfirmButton: false,
+                timer: 1500,
+            })
+        })
     }
 
     eliminarRolSistema(rowData, index) {
