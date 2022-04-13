@@ -77,6 +77,7 @@ export class LoginComponent implements OnInit, DoCheck {
     }
 
     buildRol() {
+        console.log('rol',this.listRol)
         this.listRol.map((r: rolInterface) => {
             this.listAux.push({
                 escala: r.escala
@@ -85,9 +86,9 @@ export class LoginComponent implements OnInit, DoCheck {
         this.listAux.map((e: escala, index: number) => {
             let auxRol: string[] = []
             let auxNombreRol: string[] = []
-            let listNombreRol: nombreRol[]=[]
+            let listNombreRol: nombreRol[] = []
             this.listRol.map((r: rolInterface) => {
-                if (e.escala === r.escala){
+                if (e.escala === r.escala) {
                     auxRol.push(r.rol)
                     auxNombreRol.push(r.nombreRol)
                     listNombreRol.push({
