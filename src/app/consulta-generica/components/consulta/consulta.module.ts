@@ -19,6 +19,7 @@ import { TratamientoInmunizacionComponent } from './components/tratamiento/trata
 import { TratamientoSuplementacionComponent } from './components/tratamiento/tratamiento-suplementacion/tratamiento-suplementacion.component';
 import { TratamientoGeneralComponent } from './components/tratamiento/tratamiento-general/tratamiento-general.component';
 import { TratamientoInmunizacionModalComponent } from './components/tratamiento/tratamiento-inmunizacion-modal/tratamiento-inmunizacion-modal.component';
+import { TratamientoSuplementacionModalComponent } from './components/tratamiento/tratamiento-suplementacion-modal/tratamiento-suplementacion-modal.component';
 
 
 
@@ -38,7 +39,8 @@ import { TratamientoInmunizacionModalComponent } from './components/tratamiento/
     TratamientoInmunizacionComponent,
     TratamientoSuplementacionComponent,
     TratamientoGeneralComponent,
-    TratamientoInmunizacionModalComponent
+    TratamientoInmunizacionModalComponent,
+    TratamientoSuplementacionModalComponent
   ],
   imports: [
     CommonModule,
