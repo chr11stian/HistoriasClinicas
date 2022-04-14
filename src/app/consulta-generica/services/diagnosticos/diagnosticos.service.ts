@@ -51,4 +51,8 @@ export class DiagnosticosService {
         .then(res => <any[]>res)
         .then(data => { return data;});
   }
+  /***procedimientos****/
+  getProcedimientos(idConsulta) {
+    return this.http.get(`${this.base_url}/${this.bd}/consultageneral/listarProcedimientos/${idConsulta}`)
+  }
 }

@@ -93,14 +93,14 @@ export class TratamientoGeneralComponent implements OnInit {
       medicamento: new FormControl(''),
       id: new FormControl(''),
       codigoCIE: new FormControl({value:'',disabled:false}),
-      codigo: new FormControl({value:'',disabled:false}),
-      nombre: new FormControl({value:'',disabled:false}),
-      nombreComercial: new FormControl({value:'',disabled:false}),
-      ff: new FormControl({value:'',disabled:false}),
+      codigo: new FormControl({value:'',disabled:true}),
+      nombre: new FormControl({value:'',disabled:true}),
+      nombreComercial: new FormControl({value:'',disabled:true}),
+      ff: new FormControl({value:'',disabled:true}),
       stock:new FormControl({value:'',disabled:true}),
-      concentracion: new FormControl({value:'',disabled:false}),
-      viaAdministracion: new FormControl({value:'',disabled:false}),
-      fechaVenc: new FormControl({value:'',disabled:false}),
+      concentracion: new FormControl({value:'',disabled:true}),
+      viaAdministracion: new FormControl({value:'',disabled:true}),
+      fechaVenc: new FormControl({value:'',disabled:true}),
       cantidad:new FormControl({value:'',disabled:false}),
       dosis:new FormControl({value:'',disabled:false}),
       intervalo:new FormControl({value:'',disabled:false}),
@@ -262,20 +262,20 @@ export class TratamientoGeneralComponent implements OnInit {
     let cadena = {
       medicamento:{
         id:this.formTratamiento.value.id,
-        codigo:this.formTratamiento.value.codigo,
-        nombre:this.formTratamiento.value.nombre,
-        ff:this.formTratamiento.value.ff,
-        concentracion:this.formTratamiento.value.concentracion,
-        viaAdministracion:this.formTratamiento.value.viaAdministracion,
-        nombreComercial:this.formTratamiento.value.nombreComercial
+        // codigo:this.formTratamiento.value.codigo,
+        // nombre:this.formTratamiento.value.nombre,
+        // ff:this.formTratamiento.value.ff,
+        // concentracion:this.formTratamiento.value.concentracion,
+        // viaAdministracion:this.formTratamiento.value.viaAdministracion,
+        // nombreComercial:this.formTratamiento.value.nombreComercial
       },
-      codPrestacion:this.formTratamiento.value.codPrestacion,
-      cie10SIS: this.formTratamiento.value.cie10SIS.cie10SIS,
-      cantidad:this.formTratamiento.value.cantidad,
-      dosis:this.formTratamiento.value.dosis,
-      intervalo:this.formTratamiento.value.intervalo,
-      duracion:this.formTratamiento.value.duracion,
-      fechaVenc: this.formTratamiento.value.fechaVenc,
+      codPrestacion:this.formTratamiento.getRawValue().codPrestacion,
+      cie10SIS: this.formTratamiento.getRawValue().cie10SIS.cie10SIS,
+      cantidad:this.formTratamiento.getRawValue().cantidad,
+      dosis:this.formTratamiento.getRawValue().dosis,
+      intervalo:this.formTratamiento.getRawValue().intervalo,
+      duracion:this.formTratamiento.getRawValue().duracion,
+      fechaVenc: this.formTratamiento.getRawValue().fechaVenc,
       observaciones:this.formTratamiento.value.observaciones,
       indicaciones:{
         efectosMedicamento:this.formTratamiento.value.efectosMedicamento,
@@ -293,8 +293,6 @@ export class TratamientoGeneralComponent implements OnInit {
     console.log(duplicado);
     console.log("cadena" , cadena)
     if(!duplicado){
-
-      if(!this.hayDatos){
         this.tratamientoService.addTratamientos(this.idConsulta,cadena).subscribe((data:any)=>{
           this.listarTratamientos();
           Swal.fire({
@@ -310,24 +308,7 @@ export class TratamientoGeneralComponent implements OnInit {
           })
         })
       }
-      else{
-        this.tratamientoService.updateTratamientos(this.idConsulta,this.tratamientos).subscribe((data:any)=>{
-          Swal.fire({
-            icon: 'success',
-            title: 'Tratamientos',
-            text: 'Se guardo un medicamento!',
-          })
-        },error => {
-          Swal.fire({
-            icon: 'error',
-            title: 'Tratamientos',
-            text: 'Ocurrio un error al ingresar, vuelva a intentarlo!',
-          })
-        })
-      }
 
-
-    }
     else{
       Swal.fire({
         icon: 'error',
@@ -352,9 +333,9 @@ export class TratamientoGeneralComponent implements OnInit {
       },
       cantidad:this.formTratamiento.value.cantidad,
       dosis:this.formTratamiento.value.dosis,
-      intervalo:this.formTratamiento.value.intervalo,
+      intervalo:this.formTratamiento.getRawValue().intervalo,
       duracion:this.formTratamiento.value.duracion,
-      fechaVenc: this.formTratamiento.value.fechaVenc,
+      fechaVenc: this.formTratamiento.getRawValue().fechaVenc,
       observaciones:this.formTratamiento.value.observaciones,
       indicaciones:{
         efectosMedicamento:this.formTratamiento.value.efectosMedicamento,
@@ -365,11 +346,6 @@ export class TratamientoGeneralComponent implements OnInit {
       cie10SIS: this.formTratamiento.value.codigoCIE,
       codPrestacion: this.formTratamiento.value.codPrestacion
     }
-    // var AuxItem = this.tratamientos.filter(element=>element!=this.tratamientoEditar);
-    // console.log(AuxItem);
-    // this.tratamientos=AuxItem;
-    // console.log("cadena" , cadena)
-    // this.tratamientos.push(cadena);
     this.tratamientoService.updateTratamientos(this.idConsulta,cadena).subscribe((data:any)=>{
       this.listarTratamientos();
       Swal.fire({
