@@ -1,0 +1,8 @@
+.imageHcl{
+    background: url('src/assets/images/hcl.png') no-repeat;
+    background-size: contain;
+    height: 210px;
+    background-position: 90% 90%;
+    margin: auto;
+    text-align: center;
+}

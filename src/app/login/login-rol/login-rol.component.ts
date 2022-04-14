@@ -1,9 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {DynamicDialogRef} from "primeng/dynamicdialog";
+import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {LoginService} from "../services/login.service";
 import {escala, nombreRol} from "../../cred/citas/models/data";
 import {Router} from "@angular/router";
+import {PasswordComponent} from "../password/password.component";
+import {BreakpointObserver, BreakpointState} from "@angular/cdk/layout";
 
 @Component({
     selector: 'app-login-rol',
@@ -18,6 +20,7 @@ export class LoginRolComponent implements OnInit {
     nombreRol: string[] = []
     listnombreRol: nombreRol[] = []
     list: escala[]
+    size: boolean
     destino = [
         {name: 'Emergencia', code: 'Emergencia'},
         {name: 'Consulta Externa', code: 'Consulta Externa'},
@@ -27,7 +30,15 @@ export class LoginRolComponent implements OnInit {
     constructor(private formBuilder: FormBuilder,
                 private ref: DynamicDialogRef,
                 private serviceLogin: LoginService,
-                private router: Router) {
+                private router: Router,
+                private dialog: DialogService,
+                private breakpointObserver: BreakpointObserver) {
+    }
+
+    size_width() {
+        this.breakpointObserver.observe(['(max-width: 500px)']).subscribe((result: BreakpointState) => {
+            this.size = result.matches
+        });
     }
 
     ingresar() {
@@ -39,8 +50,6 @@ export class LoginRolComponent implements OnInit {
             rol: rol,
             escala: escala
         }
-        console.log('rol', this.formRol.value.rol)
-        console.log(credenciales)
         this.serviceLogin.ingresar(credenciales).subscribe(resp => {
             if (resp.error) {
                 console.log("error")
@@ -48,16 +57,18 @@ export class LoginRolComponent implements OnInit {
             if (resp.token) {
                 this.serviceLogin.getRol().subscribe((r: any) => {
                     localStorage.setItem('roles', JSON.stringify({"rol": rol, "escala": escala}));
-                    console.log(r)
                 })
-
-                this.router.navigate(['dashboard']);
+                if (this.serviceLogin.listEscala[0].user === this.serviceLogin.listEscala[0].pass)
+                    this.openPassword()
+                else
+                    this.router.navigate(['dashboard']);
             }
         })
         this.ref.close()
     }
 
     ngOnInit(): void {
+        this.size_width()
         this.list = this.serviceLogin.listEscala
         console.log('list', this.list)
         this.formBuild()
@@ -91,6 +102,23 @@ export class LoginRolComponent implements OnInit {
         this.formRol = this.formBuilder.group({
             escala: new FormControl("", []),
             rol: new FormControl("", []),
+        })
+    }
+
+    openPassword() {
+        this.ref = this.dialog.open(PasswordComponent, {
+            header: 'Cambiar la contraseña',
+            height: '45%',
+            width: this.size ? '60%' : '25%',
+            style: {
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)'
+            },
+        })
+
+        this.ref.onClose.subscribe(() => {
         })
     }
 }
