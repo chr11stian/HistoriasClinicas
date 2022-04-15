@@ -8,6 +8,8 @@ import {
   ConsultasService
 } from "../../../../../../obstetricia-general/gestante/atencion/consultorio-obstetrico/services/consultas.service";
 import {DynamicDialogRef} from "primeng/dynamicdialog";
+import { PrestacionService } from 'src/app/mantenimientos/services/prestacion/prestacion.service';
+import {CieService} from "../../../../../../obstetricia-general/services/cie.service";
 
 @Component({
   selector: 'app-tratamiento-suplementacion-modal',
@@ -15,6 +17,8 @@ import {DynamicDialogRef} from "primeng/dynamicdialog";
   styleUrls: ['./tratamiento-suplementacion-modal.component.css']
 })
 export class TratamientoSuplementacionModalComponent implements OnInit {
+  listaDeCIEHIS: any[]=[];
+  ListaPrestacion:any[]=[];
   aux: any;
   dataConsulta:any
   idConsulta:string
@@ -26,7 +30,9 @@ export class TratamientoSuplementacionModalComponent implements OnInit {
     {name:'Preventivo',code:'Preventivo'},
     {name:'Terapeutico',code:'Terapeutico'}
   ]
-  constructor(private tratamientosSuplementacionService:TratamientosSuplementacionService,
+  constructor(private cieService: CieService,
+              private prestacionService: PrestacionService,
+              private tratamientosSuplementacionService:TratamientosSuplementacionService,
               private farmaciaService: IpressFarmaciaService,
               private tratamientoService:ConsultasService,
               public ref: DynamicDialogRef) {
@@ -40,6 +46,7 @@ export class TratamientoSuplementacionModalComponent implements OnInit {
   ngOnInit(): void {
     this.listarMedicamentosFarmacia()
     this.recuperarUPS();
+    this.recuperarPrestaciones();
   }
   // recuperarUpsHis() {
   //   let Data = {
@@ -51,8 +58,39 @@ export class TratamientoSuplementacionModalComponent implements OnInit {
   //   console.log("DATA PARA UPS HIS", this.listaUpsHis)
   // }
   recuperarUPS() {
-    this.tratamientoService.listaUps(this.idIpress).then((res: any) => this.listaUps = res.object);
-    console.log("DATA PARA UPS", this.listaUps)
+    this.tratamientoService.listaUps(this.idIpress).then((res: any) => {
+      this.listaUps = res.object
+      console.log(res.object)
+    });
+
+  }
+  selectedDxHIS(event: any) {
+    console.log('lista de cie ', this.listaDeCIEHIS);
+    console.log('evento desde diagnos ', event);
+    this.getFC('procedimientoHIS').setValue(event.descripcionItem);
+    this.getFC('codProcedimientoHIS').setValue('');
+    this.getFC('codProcedimientoHISinput').setValue(event.codigoItem);
+
+    // this.formProcedimiento.patchValue({ buscarPDxHIS: ""})
+    // this.formProcedimiento.patchValue({ codProcedimientoHIS: event});
+    //
+  }
+  recuperarPrestaciones() {
+    this.prestacionService.getPrestacion().subscribe((res: any) => {
+      this.ListaPrestacion = res.object;
+      console.log("prestaciones:", this.ListaPrestacion);
+    })
+  }
+  onChangePrestacion(){
+    console.log(this.getFC('prestacion').value)
+
+  }
+  filterCIE10(event: any) {
+    console.log('event->>>>>>>>>',event)
+    this.cieService.getCIEByDescripcion(event.query).subscribe((res: any) => {
+      console.log(res)
+      this.listaDeCIEHIS = res.object
+    })
   }
   buildForm(){
     this.suplementacionFC=new FormGroup({
@@ -64,6 +102,7 @@ export class TratamientoSuplementacionModalComponent implements OnInit {
 
       nroDiagnostico:new FormControl('',Validators.required) ,
       codProcedimientoHIS:new FormControl('',Validators.required) ,
+      codProcedimientoHISinput:new FormControl('',Validators.required) ,
       codUPS:new FormControl('',Validators.required) ,
 
 
@@ -76,6 +115,8 @@ export class TratamientoSuplementacionModalComponent implements OnInit {
       indicacion:new FormControl('',Validators.required) ,
       dosis:new FormControl('',Validators.required) ,
       fecha:new FormControl(new Date(),Validators.required) ,
+      prestacion:new FormControl('',Validators.required) ,
+      procedimientoHIS:new FormControl('',Validators.required) ,
     })
 
   }
@@ -85,11 +126,11 @@ export class TratamientoSuplementacionModalComponent implements OnInit {
   save(){
     const inputRequest={
       tipoSuplementacion: this.getFC('tipoSuplementacion').value,
-      codPrestacion: "24432",
+      codPrestacion: this.getFC('prestacion').value,
       codSISMED:this.getFC('codSISMED').value,
       nroDiagnostico: 0,
-      codProcedimientoHIS: "13432",
-      codUPS: '',
+      codProcedimientoHIS: this.getFC('codProcedimientoHISinput').value,
+      codUPS: this.getFC('codUPS').value,
       nombre: this.getFC('nombre').value,
       descripcion: this.getFC('descripcion').value,
 
@@ -102,6 +143,7 @@ export class TratamientoSuplementacionModalComponent implements OnInit {
       fecha: this.obtenerFecha(this.getFC('fecha').value),
       estadoAdministrado: true
     }
+    console.log('input request',inputRequest)
     this.tratamientosSuplementacionService.PostSuplementacion(this.idConsulta,inputRequest).subscribe((resp)=>{
       console.log('respuesta del servidor',resp)
       this.ref.close('agregado')

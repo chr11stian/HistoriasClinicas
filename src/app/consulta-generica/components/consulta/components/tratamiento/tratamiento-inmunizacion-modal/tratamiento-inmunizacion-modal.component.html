@@ -17,35 +17,37 @@
                                required/>
                     </div>
                     <div class="col-2">
-<!--                        <label>Dosis:</label>-->
-<!--                        <p-dropdown [options]="dosisList" formControlName="dosis" appendTo="body"-->
-<!--                                    optionLabel="name" optionValue="code" class="inputfield p-fluid w-full" placeholder="Seleccione"></p-dropdown>-->
-<!--&lt;!&ndash;                        <input type="number" pInputText formControlName='dosis' placeholder="Dosis" required />&ndash;&gt;-->
+                        <label>Nro. Dosis:</label>
+                        <input type="number" pInputText formControlName='dosis' placeholder="Dosis" required />
                     </div>
                     <div class="col-3">
                         <label>Tipo dosis:</label>
                         <p-dropdown [options]="tiposDosis" formControlName="tipoDosis" appendTo="body"
                                     optionLabel="label" optionValue="value" class="inputfield p-fluid w-full" placeholder="Seleccione"></p-dropdown>
                     </div>
-                    <div class="col-3">
-<!--                        <label>Via Administracion:  </label>-->
-<!--                        <p-dropdown [options]="viaAdministracionList" formControlName="viaAdministracion" appendTo="body"-->
-<!--                                    optionLabel="name" optionValue="code" class="inputfield p-fluid w-full" placeholder="Seleccione"></p-dropdown>-->
+                    <div class="col-4">
+                        <label>Via Administracion:  </label>
+                        <p-dropdown [options]="viaAdministracionList" formControlName="viaAdministracion" appendTo="body"
+                                    optionLabel="name" optionValue="code" class="inputfield p-fluid w-full" placeholder="Seleccione"></p-dropdown>
                     </div>
-
-<!--                    <div class="col-3">-->
-<!--                        <label>Lote:  </label>-->
-<!--                        <p-inputNumber formControlName="lote" mode="decimal" inputId="withoutgrouping" [useGrouping]="false">-->
-<!--                        </p-inputNumber>-->
-<!--                    </div>-->
-<!--                    <div class="col-3">-->
-<!--                        <label>Fecha Vencimiento:  </label>-->
-<!--                        <p-calendar formControlName="fechaVencimiento" [showIcon]="true" inputId="icon" dateFormat="dd/mm/yy" ></p-calendar>-->
-<!--                    </div>-->
-<!--                    <div class="col-3">-->
-<!--                        <label>Fecha Administracion:  </label>-->
-<!--                        <p-calendar formControlName="fech" [showIcon]="true" inputId="icon" dateFormat="dd/mm/yy" ></p-calendar>-->
-<!--                    </div>-->
+                    <div class="col-4">
+                        <label>Cantidad:  </label>
+                        <p-dropdown [options]="dosisList" formControlName="cantidad" appendTo="body"
+                                    optionLabel="name" optionValue="code" class="inputfield p-fluid w-full" placeholder="Seleccione"></p-dropdown>
+                    </div>
+                    <div class="col-4">
+                        <label>Lote:  </label>
+                        <p-inputNumber formControlName="lote" mode="decimal" inputId="withoutgrouping" [useGrouping]="false">
+                        </p-inputNumber>
+                    </div>
+                    <div class="col-4">
+                        <label>Fecha Vencimiento:  </label>
+                        <p-calendar formControlName="fechaVencimiento" [showIcon]="true" inputId="icon" dateFormat="dd/mm/yy" ></p-calendar>
+                    </div>
+                    <div class="col-4">
+                        <label>Fecha Administracion:  </label>
+                        <p-calendar formControlName="fechaAdministracion" [showIcon]="true" inputId="icon" dateFormat="dd/mm/yy" ></p-calendar>
+                    </div>
                 </div>
             </p-fieldset>
         </div>
@@ -59,7 +61,7 @@
                     </div>
                     <div class="col-6">
                         <label>Nombre UPS aux:</label>
-                        <p-dropdown [options]="listaUpsHis" formControlName="subtitulo" appendTo="body" optionLabel="nombreUPS"
+                        <p-dropdown [options]="listaUps" formControlName="subtitulo" appendTo="body" optionLabel="nombreUPS"
                                     optionValue="nombreUPS" class="inputfield p-fluid w-full" placeholder="Seleccione"></p-dropdown>
                     </div>
                     <div class="col-6">
@@ -69,7 +71,11 @@
                     </div>
                     <div class="col-4">
                         <label>Prestacion:</label>
-                        <input type="text" pInputText formControlName='prestacion' placeholder="Prestacion" required disabled/>
+                        <p-dropdown inputId="dropdown" [options]="prestacionList" formControlName="prestacion"
+                                    placeholder="Seleccionar" optionLabel="descripcion" defaultLabel="Seleccione:" appendTo="body"
+                                    class="inputfield p-fluid w-full" (onChange)="onChangePrestacion()">
+                        </p-dropdown>
+<!--                        <input type="text" pInputText formControlName='prestacion' placeholder="Prestacion" required disabled/>-->
                     </div>
                     <div class="col-2">
                         <label>Tipo dx:</label>

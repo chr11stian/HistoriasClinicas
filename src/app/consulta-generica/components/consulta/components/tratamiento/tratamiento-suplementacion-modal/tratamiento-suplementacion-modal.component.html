@@ -48,7 +48,9 @@
                 </div>
                 <div class="col-4">
                     <label>Fecha:</label>
-                    <p-calendar formControlName="fecha" dateFormat="dd/mm/yy" [showIcon]="true" inputId="icon" class="p-fluid inputfield w-full" [style]="{'position': 'fixed', 'overflow': 'visible', 'z-index': '999'}"></p-calendar>
+                    <p-calendar formControlName="fecha" dateFormat="dd/mm/yy" [showIcon]="true" inputId="icon"
+                                class="p-fluid inputfield w-full"
+                                ></p-calendar>
                 </div>
                 <div class="col-3">
                     <label>Duracion:</label>
@@ -60,8 +62,66 @@
                     <input type="text" pInputText formControlName='indicacion'
                            placeholder="Indicacion" class="p-fluid inputfield w-full">
                 </div>
-
             </div>
+            <p-fieldset legend="PROCEDIMIENTO HIS">
+                <div class="grid">
+                    <div class="col-6">
+                        <div class="col-6 p-fluid">
+                            <label>Prestacion:</label>
+                            <p-dropdown inputId="dropdown" [options]="ListaPrestacion" formControlName="prestacion"
+                                        optionValue="codigo"
+                                        placeholder="Seleccionar" optionLabel="descripcion" defaultLabel="Seleccione:"
+                                        appendTo="body"
+                                        class="inputfield p-fluid w-full" (onChange)="onChangePrestacion()">
+                            </p-dropdown>
+                        </div>
+                        <div class="col-6 p-fluid">
+                            <label>UPS:</label>
+                            <p-dropdown inputId="dropdown" [options]="listaUps" formControlName="codUPS" optionValue="id"
+                                        placeholder="Seleccionar" optionLabel="nombreUPS" defaultLabel="Seleccione:"
+                                        appendTo="body"
+                                        class="inputfield p-fluid w-full">
+                            </p-dropdown>
+                        </div>
+
+                    </div>
+                    <div class="col-6">
+                        <div class="grid mt-2">
+                            <div class="col-12 p-fluid">
+                                <p-autoComplete [suggestions]="listaDeCIEHIS" (completeMethod)="filterCIE10($event)"
+                                                appendTo="body" field="descripcionItem" [minLength]="1" class="areaText"
+                                                class="inputfield p-fluid w-full" formControlName="codProcedimientoHISinput"
+                                                (onSelect)="selectedDxHIS($event)" [dropdown]="true" placeholder="Seleccionar un Diagnostico">
+                                </p-autoComplete>
+                            </div>
+                        </div>
+                        <div class="grid mt-2">
+                            <div class="col-12 p-fluid">
+                                <textarea rows="5" cols="30" pInputTextarea formControlName="procedimientoHIS"></textarea>
+                            </div>
+                        </div>
+<!--                        <div class="grid mt-2">-->
+<!--                            <div class="col-12 p-fluid">-->
+<!--                                <label>CODIGO PROCEDIMIENTO HIS (CIE 10): </label>-->
+<!--                            </div>-->
+<!--                            <div class="col-12 p-fluid">-->
+<!--                                <p-autoComplete [suggestions]="listaDeCIEHIS" (completeMethod)="filterCIE10($event)"-->
+<!--                                                appendTo="body" field="codigoItem" [minLength]="1" class="areaText"-->
+<!--                                                class="inputfield p-fluid w-full" formControlName="codProcedimientoHIS"-->
+<!--                                                (onSelect)="selectedDxHIS($event)" [dropdown]="true" placeholder="Seleccionar un Diagnostico">-->
+<!--                                </p-autoComplete>-->
+<!--                                &lt;!&ndash;                     <input pInputText formControlName="cie10HIS">&ndash;&gt;-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+
+                    </div>
+
+                </div>
+
+
+
+            </p-fieldset>
         </div>
     </div>
     <div class="flex justify-content-end mt-5">
