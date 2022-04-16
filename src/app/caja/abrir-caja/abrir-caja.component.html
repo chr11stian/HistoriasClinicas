@@ -20,7 +20,8 @@
                         <div class="col-1"></div>
                         <div class="col-10 md-4">
                             <p-dropdown [options]="listaAmbientes" formControlName="ambiente"
-                                placeholder="Selecciona ambiente" optionLabel="ambiente" optionValue="ambiente">
+                                (onChange)="verificarCaja()" placeholder="Selecciona ambiente" optionLabel="ambiente"
+                                optionValue="ambiente">
                             </p-dropdown>
                         </div>
                         <div class="col-1"></div>
@@ -28,8 +29,8 @@
                         <div class="col-10 md-4">
                             <div class="p-inputgroup">
                                 <span class="p-inputgroup-addon"><i class="pi pi-id-card"></i></span>
-                                <input type="text" pInputText placeholder="DNI" formControlName="nroDoc">
-                                <button type="button" pButton pRipple icon="pi pi-search"
+                                <input type="text" pInputText placeholder="DNI" formControlName="nroDoc" disabled>
+                                <button type="button" pButton pRipple icon="pi pi-search" disabled
                                     class="p-button-danger"></button>
                             </div>
                         </div>
@@ -42,15 +43,19 @@
                             </div>
                         </div>
                         <div class="col-1"></div>
-                        
+
                     </div>
+                </div>
+                <div *ngIf="estadoCaja!=''" class="text-center">
+                    <label>Estado: {{estadoCaja}}</label>
                 </div>
             </form>
         </div>
 
         <ng-template pTemplate="footer">
-            <p-button label="ABRIR CAJA" icon="pi pi-check-circle" styleClass="p-button-danger"
-                (click)="clickAbrirCaja()"></p-button>
+            <p-button *ngIf="estadoCaja=='CERRADO'" label="ABRIR CAJA" icon="pi pi-check-circle"
+                styleClass="p-button-danger" (click)="clickAbrirCaja()"></p-button>
+            <p-button *ngIf="estadoCaja=='ABIERTO'" label="ENTRAR" icon="pi pi-sign-in" styleClass="p-button-info" (click)="entrar()"></p-button>
         </ng-template>
 
     </p-card>
