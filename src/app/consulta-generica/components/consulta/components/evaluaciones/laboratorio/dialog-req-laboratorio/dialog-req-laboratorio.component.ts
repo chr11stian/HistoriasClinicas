@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AddLaboratorio, Laboratorio } from 'src/app/cred/citas/atencion-cred/consulta-principal/models/examenesAuxiliares';
 import { ExamenesAuxiliaresService } from 'src/app/cred/citas/atencion-cred/consulta-principal/services/examenes-auxiliares.service';
 import { PrestacionService } from 'src/app/mantenimientos/services/prestacion/prestacion.service';
 import { ServicesService } from 'src/app/obstetricia-general/gestante/atencion/consultorio-obstetrico/component/evaluaciones/laboratorio/services-lab/services.service';
 import { ConsultasService } from 'src/app/obstetricia-general/gestante/atencion/consultorio-obstetrico/services/consultas.service';
 import { CieService } from 'src/app/obstetricia-general/services/cie.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-dialog-req-laboratorio',
@@ -48,10 +50,11 @@ export class DialogReqLaboratorioComponent implements OnInit {
     { nombre: "CONSULTORIO" },
     { nombre: "LABORATORIO" },
   ];
-  tipoList = [{ label: 'DEFINITIVO', value: 'D' },
-      { label: 'PRESUNTIVO', value: 'P' },
-      { label: 'REPETITIVO', value: 'R' },
-    ];
+  tipoList = [
+    { label: 'DEFINITIVO', value: 'D' },
+    { label: 'PRESUNTIVO', value: 'P' },
+    { label: 'REPETITIVO', value: 'R' },
+  ];
   listNombreUPS: any;
   dataLabo: AddLaboratorio;
   PrestacionLaboratorio: any;
@@ -60,18 +63,28 @@ export class DialogReqLaboratorioComponent implements OnInit {
   idIpress: any;
   edadPaciente: string;
   sexoPaciente: string;
+  listExamsName: any[] = [];
+  listAllExamns: any;
+
 
   constructor(
     private prestacionService: PrestacionService,
     private cieService: CieService,
     private laboService: ExamenesAuxiliaresService,
-    private DxService: ConsultasService
+    private DxService: ConsultasService,
+    private ref: DynamicDialogRef,
   ) {
     this.inicializarForm();
-    this.idConsulta
+
     this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
-    this.edadPaciente = JSON.parse(localStorage.getItem('documento')).anio;
-    this.sexoPaciente = JSON.parse(localStorage.getItem('documento')).sexo;
+    let documento = JSON.parse(localStorage.getItem('documento'))
+    this.edadPaciente = documento.anio;
+    this.sexoPaciente = documento.sexo;
+    this.idConsulta = documento.idConsulta;
+    this.laboService.getListaServiciosLaboratorio().subscribe((res: any) => {
+      this.listAllExamns = res.examenes;
+      console.log('all exam ', this.listAllExamns);
+    });
   }
 
   ngOnInit(): void {
@@ -90,6 +103,7 @@ export class DialogReqLaboratorioComponent implements OnInit {
       observaciones: new FormControl(''),
       nombreUPS: new FormControl(''),
       nombreUPSAux: new FormControl(''),
+      nombreExamen: new FormControl(''),
 
       /**EXAMENES**/
       HEMATOLOGIA: new FormControl(''),
@@ -179,32 +193,51 @@ export class DialogReqLaboratorioComponent implements OnInit {
     this.DxService.listaUpsHis(Data).then((res: any) => this.listaUpsHis = res.object);
   }
 
-  recoverDataReqLabo(){
+  recoverDataReqLabo() {
     this.dataLabo = {
-      servicio:'',
+      servicio: '',
       nroCama: this.formReqLabo.value.camaNro,
-      examenAuxiliar:{
-        tipoLaboratorio:'EXAMEN_LABORATORIO',
-        subTipo:this.formReqLabo.value.subTipo,
-        nombreExamen:'',
-        nombreExamenSIS:'',
-        cie10SIS:this.formReqLabo.value.SISCIE,
-        nombreUPS:this.formReqLabo.value.nombreUPS,
-        nombreUPSAux:this.formReqLabo.value.nombreUPSAux,
-        codigoSIS: this.formReqLabo.value.autocompleteSIS,
-        codigoHIS:this.formReqLabo.value.autocompleteHIS,
-        lugarExamen:this.formReqLabo.value.lugarExamen,
-        labExterno:'false',
-        tipoDx:this.formReqLabo.value.DxPresuntivo,
-        codPrestacion:this.formReqLabo.value.codPrestacion
+      examenAuxiliar: {
+        tipoLaboratorio: 'EXAMEN_LABORATORIO',
+        subTipo: this.formReqLabo.value.subTipo.nombre,
+        nombreExamen: this.formReqLabo.value.nombreExamen.nombreExamen,
+        nombreExamenSIS: '',
+        cie10SIS: this.formReqLabo.value.SISCIE.codigo,
+        nombreUPS: this.formReqLabo.value.nombreUPS.nombreUPS,
+        nombreUPSAux: this.formReqLabo.value.nombreUPSAux.nombreUPS,
+        codigoSIS: this.formReqLabo.value.SISCIE.codigo,
+        codigoHIS: this.formReqLabo.value.HISCIE.codigoItem,
+        lugarExamen: this.formReqLabo.value.lugarExamen.nombre,
+        labExterno: 'false',
+        tipoDx: this.formReqLabo.value.DxPresuntivo,
+        codPrestacion: this.formReqLabo.value.codPrestacion
       },
 
     }
   }
 
   save() {
+    console.log('exam ', this.formReqLabo.value.HISCIE);
     this.recoverDataReqLabo();
     console.log(this.dataLabo);
-    // this.laboService.postAddExamenesAuxiliares(this.idConsulta,this.dataLabo).subscribe((res:any)=>{})
+    this.laboService.postAddExamenesAuxiliares(this.idConsulta, this.dataLabo).subscribe((res: any) => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Guardado',
+        text: 'Solicitud de laboratorio guardada correctamente',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      this.ref.close();
+    })
+  }
+
+  onChangeExamType(event) {
+    this.listExamsName = [];
+    console.log('event ', event.value.nombre);
+    this.listAllExamns.find(item => {
+      item.subTipo === event.value.nombre ? this.listExamsName.push(item) : '';
+    })
+    console.log('event ', event.value.nombre, this.listExamsName);
   }
 }

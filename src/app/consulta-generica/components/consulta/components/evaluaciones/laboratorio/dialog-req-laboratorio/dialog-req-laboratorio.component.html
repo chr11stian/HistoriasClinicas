@@ -5,7 +5,7 @@
                 <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
                     <div class="border2">
                         <div class="grid m-2">
-                            <div class="col-12 md:col-6 lg:col-3 p-field flex flex-column">
+                            <!-- <div class="col-12 md:col-6 lg:col-3 p-field flex flex-column">
                                 <label>APELLIDOS Y NOMBRES:</label>
                                 <input type="text" pInputText class="inputTest" formControlName="apellidosNombres" />
                             </div>
@@ -20,7 +20,7 @@
                             <div class="col-12 md:col-6 lg:col-3 p-field flex flex-column">
                                 <label>SERVICIO:</label>
                                 <input type="text" pInputText class="inputTest" formControlName="servicio" />
-                            </div>
+                            </div> -->
                             <div class="col-12 md:col-6 lg:col-2 p-field flex flex-column">
                                 <label>CAMA NRO:</label>
                                 <input type="text" pInputText class="inputTest" formControlName="camaNro" />
@@ -63,7 +63,13 @@
                             <div class="col-12 md:col-6 lg:col-4 p-field flex flex-column">
                                 <label>SERVICIO LABORATORIO:</label>
                                 <p-dropdown [options]="listSubTipoLabo" formControlName="subTipo" appendTo="body"
-                                    optionLabel="nombre" class="inputfield p-fluid w-full" placeholder="Seleccione">
+                                    optionLabel="nombre" class="inputfield p-fluid w-full" placeholder="Seleccione" (onChange)="onChangeExamType($event)" >
+                                </p-dropdown>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-4 p-field flex flex-column">
+                                <label>NOMBRE EXAMEN:</label>
+                                <p-dropdown [options]="listExamsName" formControlName="nombreExamen" appendTo="body"
+                                    optionLabel="nombreExamen" class="inputfield p-fluid w-full" placeholder="Seleccione">
                                 </p-dropdown>
                             </div>
                         </div>
