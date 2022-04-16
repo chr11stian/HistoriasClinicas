@@ -175,7 +175,7 @@ export class StepGeneralComponent implements OnInit {
         this.indiceActivo = 1;
         break;
       case 'motivo':
-        // this.motivoConsulta.save()
+        this.motivoConsulta.save()
         this.stepName = 'evaluaciones';
         this.indiceActivo = 2;
         break;
