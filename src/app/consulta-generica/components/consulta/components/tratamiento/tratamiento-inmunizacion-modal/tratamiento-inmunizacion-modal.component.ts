@@ -10,6 +10,7 @@ import Swal from "sweetalert2";
 import { PrestacionService } from 'src/app/mantenimientos/services/prestacion/prestacion.service';
 import { CieService } from 'src/app/obstetricia-general/services/cie.service';
 import { MedicamentosService } from 'src/app/mantenimientos/services/medicamentos/medicamentos.service';
+import {TratamientosInmunizacionService} from "../../../../../services/tratamientos/tratamientos-inmunizacion.service";
 
 
 @Component({
@@ -64,7 +65,8 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
               private CieService: CieService,
               private DxService: ConsultasService,
               private MedicamentosService: MedicamentosService,
-              private messageService: MessageService) {
+              private messageService: MessageService,
+              private TratamientosInmunizacionService:TratamientosInmunizacionService) {
 
     //this.idObstetricia = this.obstetriciaGeneralService.idGestacion;
 
@@ -117,7 +119,7 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
     this.buildForm();
 
     this.recuperarPrestaciones();
-    this.traerDiagnosticosDeConsulta();
+    // this.traerDiagnosticosDeConsulta();
 
     if (config.data) {
       this.llenarCamposTratamientoInmunizaciones();
@@ -220,8 +222,8 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
       viaAdministracion: new FormControl("", [Validators.required]),
       cantidad: new FormControl("", [Validators.required]),
       lote: new FormControl("", [Validators.required]),
-      fechaVencimiento: new FormControl("", [Validators.required]),
-      fechaAdministracion: new FormControl("", [Validators.required]),
+      fechaVencimiento: new FormControl(new Date(), [Validators.required]),
+      fechaAdministracion: new FormControl(new Date(), [Validators.required]),
 
       prestacion: new FormControl("", [Validators.required]),
       diagnostico: new FormControl("", [Validators.required]),
@@ -255,12 +257,12 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
     this.formInmunizaciones.reset();
     this.dialogInmunizaciones = true;
   }
-  traerDiagnosticosDeConsulta() {
-    this.DxService.listarDiagnosticosDeUnaConsulta(this.nroHcl, this.nroEmbarazo, this.nroAtencion).then((res: any) => {
-      this.diagnosticosList = res.object;
-      console.log("diagnosticos:", this.diagnosticosList);
-    })
-  }
+  // traerDiagnosticosDeConsulta() {
+  //   this.DxService.listarDiagnosticosDeUnaConsulta(this.nroHcl, this.nroEmbarazo, this.nroAtencion).then((res: any) => {
+  //     this.diagnosticosList = res.object;
+  //     console.log("diagnosticos:", this.diagnosticosList);
+  //   })
+  // }
   async enviarTratamientoInmunizaciones() {
     var data = {
       nombre: this.formInmunizaciones.value.nombre.nombre,
@@ -284,6 +286,9 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
       pertenecePAICRED: false,
     }
     console.log(data);
+    this.TratamientosInmunizacionService.postInmunizacion(data).subscribe((resp)=>{
+      this.ref.close('agregado');
+    })
 
     // await this.DxService.guardarInmunizacionGestante(this.nroHcl, this.nroEmbarazo, this.nroAtencion, data).then((res: any) => {
     //   this.dialogInmunizaciones = false;
