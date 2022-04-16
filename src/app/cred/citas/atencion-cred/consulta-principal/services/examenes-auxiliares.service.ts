@@ -23,6 +23,9 @@ export class ExamenesAuxiliaresService {
   putAddExamenesAuxiliares(idConsulta: string, data) {
     return this.http.put(`${this.urlServer}/${this.bd}/examenesAuxiliares/crear-Laboratorios-resultados/${idConsulta}`, data);
   }
+  postAddExamenesAuxiliares(idConsulta: string, data) {
+    return this.http.post(`${this.urlServer}/${this.bd}/examenesAuxiliares/agregar-laboratorio-consultorio-lab/${idConsulta}`, data);
+  }
   /**PROMISES */
   getPromiseListaServiciosLaboratorio() {
     return this.http.get<any>(`${this.urlServer}/${this.bd}/tools/laboratorios-resultados`)

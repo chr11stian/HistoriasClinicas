@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Laboratorio } from 'src/app/cred/citas/atencion-cred/consulta-principal/models/examenesAuxiliares';
+import { AddLaboratorio, Laboratorio } from 'src/app/cred/citas/atencion-cred/consulta-principal/models/examenesAuxiliares';
+import { ExamenesAuxiliaresService } from 'src/app/cred/citas/atencion-cred/consulta-principal/services/examenes-auxiliares.service';
 import { PrestacionService } from 'src/app/mantenimientos/services/prestacion/prestacion.service';
 import { ServicesService } from 'src/app/obstetricia-general/gestante/atencion/consultorio-obstetrico/component/evaluaciones/laboratorio/services-lab/services.service';
 import { ConsultasService } from 'src/app/obstetricia-general/gestante/atencion/consultorio-obstetrico/services/consultas.service';
@@ -47,8 +48,12 @@ export class DialogReqLaboratorioComponent implements OnInit {
     { nombre: "CONSULTORIO" },
     { nombre: "LABORATORIO" },
   ];
+  tipoList = [{ label: 'DEFINITIVO', value: 'D' },
+      { label: 'PRESUNTIVO', value: 'P' },
+      { label: 'REPETITIVO', value: 'R' },
+    ];
   listNombreUPS: any;
-  dataLabo: Laboratorio;
+  dataLabo: AddLaboratorio;
   PrestacionLaboratorio: any;
   listaUps: any;
   listaUpsHis: any;
@@ -59,7 +64,7 @@ export class DialogReqLaboratorioComponent implements OnInit {
   constructor(
     private prestacionService: PrestacionService,
     private cieService: CieService,
-    private laboService: ServicesService,
+    private laboService: ExamenesAuxiliaresService,
     private DxService: ConsultasService
   ) {
     this.inicializarForm();
@@ -72,6 +77,7 @@ export class DialogReqLaboratorioComponent implements OnInit {
   ngOnInit(): void {
     this.getPrestacion();
     this.recuperarUPS();
+    this.recuperarUpsHis();
   }
   inicializarForm() {
     this.formReqLabo = new FormGroup({
@@ -82,6 +88,8 @@ export class DialogReqLaboratorioComponent implements OnInit {
       camaNro: new FormControl(''),
       DxPresuntivo: new FormControl(''),
       observaciones: new FormControl(''),
+      nombreUPS: new FormControl(''),
+      nombreUPSAux: new FormControl(''),
 
       /**EXAMENES**/
       HEMATOLOGIA: new FormControl(''),
@@ -171,9 +179,32 @@ export class DialogReqLaboratorioComponent implements OnInit {
     this.DxService.listaUpsHis(Data).then((res: any) => this.listaUpsHis = res.object);
   }
 
-  save(data) {
-    this.laboService.addSolicitudLab(this.idConsulta, data).subscribe((res: any) => {
-      console.log('SOLICITUD LAB', res);
-    })
+  recoverDataReqLabo(){
+    this.dataLabo = {
+      servicio:'',
+      nroCama: this.formReqLabo.value.camaNro,
+      examenAuxiliar:{
+        tipoLaboratorio:'EXAMEN_LABORATORIO',
+        subTipo:this.formReqLabo.value.subTipo,
+        nombreExamen:'',
+        nombreExamenSIS:'',
+        cie10SIS:this.formReqLabo.value.SISCIE,
+        nombreUPS:this.formReqLabo.value.nombreUPS,
+        nombreUPSAux:this.formReqLabo.value.nombreUPSAux,
+        codigoSIS: this.formReqLabo.value.autocompleteSIS,
+        codigoHIS:this.formReqLabo.value.autocompleteHIS,
+        lugarExamen:this.formReqLabo.value.lugarExamen,
+        labExterno:'false',
+        tipoDx:this.formReqLabo.value.DxPresuntivo,
+        codPrestacion:this.formReqLabo.value.codPrestacion
+      },
+
+    }
+  }
+
+  save() {
+    this.recoverDataReqLabo();
+    console.log(this.dataLabo);
+    // this.laboService.postAddExamenesAuxiliares(this.idConsulta,this.dataLabo).subscribe((res:any)=>{})
   }
 }

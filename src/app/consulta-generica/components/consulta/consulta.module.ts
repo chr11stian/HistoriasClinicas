@@ -15,6 +15,8 @@ import { LaboratorioComponent } from './components/evaluaciones/laboratorio/labo
 import { DialogReqLaboratorioComponent } from './components/evaluaciones/laboratorio/dialog-req-laboratorio/dialog-req-laboratorio.component';
 import { ProcedImagenesComponent } from './components/evaluaciones/proced-imagenes/proced-imagenes.component';
 import { ProcedimientoComponent } from './components/procedimiento/procedimiento.component';
+import { DialogResultadoImgComponent } from './components/evaluaciones/proced-imagenes/dialog-resultado-img/dialog-resultado-img.component';
+import { DialogSolicitudImgComponent } from './components/evaluaciones/proced-imagenes/dialog-solicitud-img/dialog-solicitud-img.component';
 
 
 
@@ -30,7 +32,9 @@ import { ProcedimientoComponent } from './components/procedimiento/procedimiento
     LaboratorioComponent,
     DialogReqLaboratorioComponent,
     ProcedImagenesComponent,
-    ProcedimientoComponent
+    ProcedimientoComponent,
+    DialogResultadoImgComponent,
+    DialogSolicitudImgComponent
   ],
   imports: [
     CommonModule,
