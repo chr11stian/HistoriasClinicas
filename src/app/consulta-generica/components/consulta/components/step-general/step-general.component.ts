@@ -9,6 +9,7 @@ import {AcuerdosComponent} from "../acuerdos/acuerdos.component";
 import {DiagnosticoComponent} from "../diagnostico/diagnostico.component";
 import {TratamientoComponent} from "../tratamiento/tratamiento.component";
 import {ProcedimientoComponent} from "../procedimiento/procedimiento.component";
+import {EvaluacionesComponent} from "../evaluaciones/evaluaciones.component";
 
 @Component({
   selector: 'app-step-general',
@@ -34,6 +35,7 @@ export class StepGeneralComponent implements OnInit {
 
   @ViewChild(DatosGeneralesComponent) datosGeneralesConsulta: DatosGeneralesComponent;
   @ViewChild(MotivoConsultaComponent) motivoConsulta: MotivoConsultaComponent
+  @ViewChild(EvaluacionesComponent) evaluacionesConsulta: EvaluacionesComponent
   @ViewChild(DiagnosticoComponent) diagnosticoConsulta: DiagnosticoComponent
   @ViewChild(AcuerdosComponent) AcuerdosComponent: AcuerdosComponent
   @ViewChild(ProcedimientoComponent) procedimientoConsulta: ProcedimientoComponent
@@ -138,18 +140,13 @@ export class StepGeneralComponent implements OnInit {
         this.stepName = 'finalizar'
         break
       case 5:
-        this.stepName = 'procedimientos'
+        this.stepName = 'procedimiento'
         break
       case 4:
         this.stepName = 'tratamiento'
         break
-      // case 4:
-      //   this.stepName = 'examenesAux'
-      //   // this.stepName = 'diagnostico'
-      //   break
       case 3:
         this.stepName = 'diagnostico'
-        // this.stepName = 'examenesAux'
         break
       case 2:
         this.stepName = 'evaluaciones'
@@ -173,44 +170,37 @@ export class StepGeneralComponent implements OnInit {
   nextPage() {
     switch (this.stepName) {
       case 'datos':
-        // this.datosGeneralesConsulta.save()
+        this.datosGeneralesConsulta.guardarActualizar()
         this.stepName = 'motivo';
         this.indiceActivo = 1;
         break;
       case 'motivo':
         // this.motivoConsulta.save()
-        this.stepName = 'diagnostico';
+        this.stepName = 'evaluaciones';
         this.indiceActivo = 2;
+        break;
+      case 'evaluaciones':
+        // this.motivoConsulta.save()
+        this.stepName = 'diagnostico';
+        this.indiceActivo = 3;
         break;
       case 'diagnostico':
         this.diagnosticoConsulta.SaveDiagnostico()
         this.stepName = 'tratamiento';
-        this.indiceActivo = 3;
+        this.indiceActivo = 4;
         break;
 
       case 'tratamiento':
         this.stepName = 'procedimiento';
-        this.indiceActivo = 4;
-        break;
-
-      case 'procedimiento':
-        // this.examenesAuxConsulta.saveAuxiliarsExams()
-        this.stepName = 'finalizar';
         this.indiceActivo = 5;
         break;
 
-      // case 'tratamiento':
-      //   // this.tratamientoConsulta.save()
-      //   this.stepName = 'procedimientos';
-      //   this.indiceActivo = 6;
-      //   break;
-      //
-      // case 'procedimientos':
-      //   // this.procedimientosConsulta.saveProcedimiento();
-      //   this.stepName = 'finalizar';
-      //   this.indiceActivo = 7;
-      //   break;
-      //
+      case 'procedimiento':
+        this.procedimientoConsulta.saveProcedimiento();
+        this.stepName = 'finalizar';
+        this.indiceActivo = 6;
+        break;
+
       case 'finalizar':
         // this.finalizarConsulta.save()
         break;
@@ -222,19 +212,15 @@ export class StepGeneralComponent implements OnInit {
     switch (this.stepName) {
       case 'finalizar':
         console.log('fi ', this.stepName)
-        this.stepName = 'procedimientos';
-        this.indiceActivo = 6;
-        break;
-      case 'procedimientos':
-        console.log('fi ', this.stepName)
-        this.stepName = 'tratamiento';
+        this.stepName = 'procedimiento';
         this.indiceActivo = 5;
         break;
-      case 'tratamiento':
-        this.stepName = 'examenesAux';
+      case 'procedimiento':
+        console.log('fi ', this.stepName)
+        this.stepName = 'tratamiento';
         this.indiceActivo = 4;
         break;
-      case 'examenesAux':
+      case 'tratamiento':
         this.stepName = 'diagnostico';
         this.indiceActivo = 3;
         break;
@@ -250,6 +236,10 @@ export class StepGeneralComponent implements OnInit {
         this.stepName = 'datos';
         this.indiceActivo = 0;
         break;
+      // case 'datos':
+      //   this.stepName = 'datos';
+      //   this.indiceActivo = 0;
+      //   break;
     }
   }
 

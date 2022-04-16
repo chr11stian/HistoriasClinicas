@@ -3,6 +3,8 @@ import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {dato} from "../../../../../cred/citas/models/data";
 import {DatosGeneralesService} from "../../../../services/datos-generales/datos-generales.service";
 import {DatePipe} from "@angular/common";
+import {DocumentoIdentidadService} from "../../../../../mantenimientos/services/documento-identidad/documento-identidad.service";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-datos-generales',
@@ -16,15 +18,19 @@ export class DatosGeneralesComponent implements OnInit {
   form_SignosAlarma:FormGroup;
   imagePath: string;
   attributeLocalS = 'documento'
-  // attributeLocalSConsulta='idConsultaGeneral'
+  hayFoto=false;
   idConsulta="";
   data:any;
   datosGenerales:any;
   listaSignosAlarma:any[]=[];
   listaFuncionesBiologicas:any[]=[];
+  listaDocumentosIdentidad: any;
   datePipe = new DatePipe('en-US');
   constructor(private formBuilder: FormBuilder,
-              private datosGeneralesService:DatosGeneralesService){ }
+              private datosGeneralesService:DatosGeneralesService,
+              private documentoIdentidadService: DocumentoIdentidadService){
+    this.getDocumentosIdentidad();
+  }
   ngOnInit(): void {
     this.builForm();
     this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
@@ -41,20 +47,20 @@ export class DatosGeneralesComponent implements OnInit {
   builForm(){
     this.formDatos_Generales = this.formBuilder.group({
       fecha:new FormControl(''),
-      tipoDoc:new FormControl(''),
-      docIndentidad:new FormControl(''),
-      apePaterno:new FormControl(''),
-      apeMaterno:new FormControl(''),
-      nombre:new FormControl(''),
-      fechaNacimiento:new FormControl(''),
-      hcl:new FormControl(''),
-      edad:new FormControl(''),
+      tipoDoc:new FormControl({value:'',disabled:true}),
+      docIndentidad:new FormControl({value:'',disabled:true}),
+      apePaterno:new FormControl({value:'',disabled:true}),
+      apeMaterno:new FormControl({value:'',disabled:true}),
+      nombre:new FormControl({value:'',disabled:true}),
+      fechaNacimiento:new FormControl({value:'',disabled:true}),
+      hcl:new FormControl({value:'',disabled:true}),
+      edad:new FormControl({value:'',disabled:true}),
       // ocupacion:new FormControl(''),
-      codSeguro:new FormControl(''),
+      codSeguro:new FormControl({value:'',disabled:true}),
       fum:new FormControl(''),
       cel:new FormControl(''),
       direccion:new FormControl(''),
-      sexo:new FormControl(''),
+      sexo:new FormControl({value:'',disabled:true}),
     }),
     this.form_Acompaniante = this.formBuilder.group({
       tipoDocA:new FormControl(''),
@@ -78,6 +84,15 @@ export class DatosGeneralesComponent implements OnInit {
     })
 
   }
+
+  /**Lista los tipos de documentos de Identidad de un paciente**/
+  getDocumentosIdentidad() {
+    this.documentoIdentidadService.getDocumentosIdentidad().subscribe((res: any) => {
+      this.listaDocumentosIdentidad = res.object;
+      console.log('docs ', this.listaDocumentosIdentidad);
+    })
+  }
+
   getPacientefromPaciente(){
     this.traerDataReniec();
     let data={
@@ -94,7 +109,7 @@ export class DatosGeneralesComponent implements OnInit {
       this.formDatos_Generales.get('nombre').setValue(res.object.primerNombre + " " +res.object.otrosNombres);
       this.formDatos_Generales.get('fechaNacimiento').setValue(res.object.nacimiento.fechaNacimiento);
       this.formDatos_Generales.get('hcl').setValue(res.object.nroHcl);
-      this.formDatos_Generales.get('edad').setValue(this.data.anio);
+      this.formDatos_Generales.get('edad').setValue(this.data.anio + " años " + this.data.mes+" meses " + this.data.dia + " dias");
       this.formDatos_Generales.get('sexo').setValue(res.object.sexo);
       this.formDatos_Generales.get('cel').setValue(res.object.celular);
       this.formDatos_Generales.get('direccion').setValue(res.object.domicilio.direccion);
@@ -122,10 +137,9 @@ export class DatosGeneralesComponent implements OnInit {
       },
       // funcionesBiologicas:this.listaFuncionesBiologicas,
       listaSignosAlarma:this.listaSignosAlarma,
-      servicio:"MEDICINA GENERAL",
+      servicio:this.data.ups,
       tipoConsulta:this.data.tipoConsulta
     }
-
     this.datosGenerales = req;
   }
   actualizarConsulta() {
@@ -135,8 +149,8 @@ export class DatosGeneralesComponent implements OnInit {
       anioEdad:this.data.anio,
       fum:this.datePipe.transform(this.formDatos_Generales.getRawValue().fum,'yyyy-MM-dd'),
       nroHcl:this.formDatos_Generales.getRawValue().hcl,
-      tipoDoc:this.formDatos_Generales.getRawValue().tipoDoc,
-      nroDoc:this.formDatos_Generales.getRawValue().docIndentidad,
+      // tipoDoc:this.formDatos_Generales.getRawValue().tipoDoc,
+      // nroDoc:this.formDatos_Generales.getRawValue().docIndentidad,
       direccion:this.formDatos_Generales.getRawValue().direccion,
       acompanante:{
         tipoDoc:this.form_Acompaniante.value.tipoDocA,
@@ -155,6 +169,14 @@ export class DatosGeneralesComponent implements OnInit {
     }
     console.log(this.datosGenerales);
     this.datosGeneralesService.updateConsultaDatosGenerales(req).subscribe((r: any) => {
+      console.log(req);
+      Swal.fire({
+        icon: 'success',
+        title: 'DATOS GENERALES...',
+        text: 'Actualizado correctamente',
+        showConfirmButton: false,
+        timer: 1000
+      })
     },error => {
       console.log("ocurrio un error")
     })
@@ -168,15 +190,24 @@ export class DatosGeneralesComponent implements OnInit {
       this.data.idConsulta=r.object.id;
       let data={
         fechaNacimiento:this.data.fechaNacimiento,
-        hidden:this.data.hidden,
         idConsulta:id,
-        see:this.data.see,
+        anio:this.data.anio,
+        dia:this.data.dia,
+        mes:this.data.mes,
         sexo:this.data.sexo,
         tipoDoc:this.data.tipoDoc,
         nroDocumento:this.data.nroDocumento,
+        ups:this.data.ups,
         tipoConsulta:this.data.tipoConsulta
       }
       localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
+      Swal.fire({
+        icon: 'success',
+        title: 'DATOS GENERALES...',
+        text: 'Guardado correctamente',
+        showConfirmButton: false,
+        timer: 1000
+      })
       this.recuperarDatosGeneralesBD();
 
     })
@@ -196,9 +227,10 @@ export class DatosGeneralesComponent implements OnInit {
     this.datosGeneralesService.getDatosReniec(this.data.nroDocumento).subscribe((res: any) => {
       // console.log(res);
       if(res.foto==null){
-        this.imagePath="../../../assets/images/hcl.png";
+        this.hayFoto=false;
       }
       else{
+        this.hayFoto=true;
         this.imagePath = res.foto;
       }
 
@@ -257,7 +289,7 @@ export class DatosGeneralesComponent implements OnInit {
       this.formDatos_Generales.get('nombre').setValue(res.object.datosPaciente.primerNombre + " " +res.object.datosPaciente.otrosNombres);
       this.formDatos_Generales.get('fechaNacimiento').setValue(res.object.datosPaciente.fechaNacimiento);
       this.formDatos_Generales.get('hcl').setValue(res.object.nroHcl);
-      this.formDatos_Generales.get('edad').setValue(this.data.anio);
+      this.formDatos_Generales.get('edad').setValue(this.data.anio + " años " + this.data.mes + " meses " + this.data.dia + " dias");
       this.formDatos_Generales.get('sexo').setValue(res.object.datosPaciente.sexo);
       this.formDatos_Generales.get('cel').setValue(res.object.datosPaciente.celular);
       this.formDatos_Generales.get('direccion').setValue(res.object.datosPaciente.domicilio.direccion);

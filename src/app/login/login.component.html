@@ -10,15 +10,16 @@
             <p class="titulo_principal" style="color: #4d4d4d">Iniciar Sesión</p>
 
             <div class="grid justify-content-center">
-                <div class="col-8 md:col-6 lg:col-8 p-field">
-                    <input type="text" name="usuario" style="width:200px; text-align:center" pInputText placeholder="Usuario"
+                <div class="col-12 md:col-12 lg:col-12 p-field">
+                    <input type="text" name="usuario" style="width:200px; text-align:center" pInputText
+                           placeholder="Usuario"
                            [(ngModel)]="usuario">
                 </div>
             </div>
 
             <div class="grid justify-content-center">
-                <div class="col-8 md:col-6 lg:col-8">
-                    <p-password class="w-full" weakLabel="Debil"  mediumLabel="Medio" strongLabel="Fuerte"
+                <div class="col-12 md:col-12 lg:col-12">
+                    <p-password class="w-full" weakLabel="Debil" mediumLabel="Medio" strongLabel="Fuerte"
                                 promptLabel="Ingrese una Contraseña" [toggleMask]="true" name="password"
                                 placeholder="Contraseña" [(ngModel)]="password"></p-password>
                 </div>

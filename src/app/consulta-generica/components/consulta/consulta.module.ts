@@ -17,6 +17,10 @@ import { ProcedImagenesComponent } from './components/evaluaciones/proced-imagen
 import { ProcedimientoComponent } from './components/procedimiento/procedimiento.component';
 import { DialogResultadoImgComponent } from './components/evaluaciones/proced-imagenes/dialog-resultado-img/dialog-resultado-img.component';
 import { DialogSolicitudImgComponent } from './components/evaluaciones/proced-imagenes/dialog-solicitud-img/dialog-solicitud-img.component';
+import { TratamientoInmunizacionComponent } from './components/tratamiento/tratamiento-inmunizacion/tratamiento-inmunizacion.component';
+import { TratamientoSuplementacionComponent } from './components/tratamiento/tratamiento-suplementacion/tratamiento-suplementacion.component';
+import { TratamientoGeneralComponent } from './components/tratamiento/tratamiento-general/tratamiento-general.component';
+import { TratamientoInmunizacionModalComponent } from './components/tratamiento/tratamiento-inmunizacion-modal/tratamiento-inmunizacion-modal.component';
 
 
 
@@ -34,7 +38,11 @@ import { DialogSolicitudImgComponent } from './components/evaluaciones/proced-im
     ProcedImagenesComponent,
     ProcedimientoComponent,
     DialogResultadoImgComponent,
-    DialogSolicitudImgComponent
+    DialogSolicitudImgComponent,
+    TratamientoInmunizacionComponent,
+    TratamientoSuplementacionComponent,
+    TratamientoGeneralComponent,
+    TratamientoInmunizacionModalComponent
   ],
   imports: [
     CommonModule,

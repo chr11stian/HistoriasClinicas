@@ -158,4 +158,8 @@ export class LoginService {
     crearRol(data) {
         return this.http.post(`${this.base_uri_}/accesos/user`, data)
     }
+
+    updatePassword(dni,data) {
+        return this.http.put(`${this.base_uri_}/accesos/user/${dni}`, data)
+    }
 }

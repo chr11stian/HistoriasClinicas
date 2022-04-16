@@ -42,7 +42,6 @@ export class DiagnosticoComponent implements OnInit {
   listaUpsAuxHis:any[]=[];
   estadoEditar:boolean=false;
   checked: boolean=false;
-
   descripcionItem: string;
   private hayDatos:boolean=false;
   constructor(private DiagnosticoService: DiagnosticosService,
@@ -188,14 +187,13 @@ export class DiagnosticoComponent implements OnInit {
     this.PrestacionService.getDiagnosticoPorCodigo(codigoPrestacion).subscribe((res: any) => {
       // this.listaDeCIE = res.object.diagnostico;
       console.log(res.object);
-      this.dataConsulta.anio=28
       if(res.object.denominacion=='ANIOS')
       {
         if(this.dataConsulta.anio>=res.object.edadMin && this.dataConsulta.anio<=res.object.edadMax){
           this.listaDeCIESIS = res.object.diagnostico.filter(element=>element.estado=='ACTIVADO');
         }
         else{
-          this.messageService.add({severity:'error', summary: 'warn', detail:'No hay diagnosticos disponibles para la edad del paciente.'});
+          this.messageService.add({severity:'error', summary: 'CUIDADO', detail:'No hay diagnosticos disponibles para la edad del paciente.'});
         }
       }
       if(res.object.denominacion=='MESES')
@@ -205,7 +203,7 @@ export class DiagnosticoComponent implements OnInit {
           this.listaDeCIESIS = res.object.diagnostico.filter(element=>element.estado=='ACTIVADO');
         }
         else{
-          this.messageService.add({severity:'error', summary: 'warn', detail:'No hay diagnosticos disponibles para la edad del niño(a) en esta Prestación.'});
+          this.messageService.add({severity:'error', summary: 'CUIDADO', detail:'No hay diagnosticos disponibles para la edad del paciente en esta Prestación.'});
         }
 
       }
@@ -216,11 +214,11 @@ export class DiagnosticoComponent implements OnInit {
             this.listaDeCIESIS = res.object.diagnostico.filter(element=>element.estado=='ACTIVADO');
           }
           else{
-            this.messageService.add({severity:'error', summary: 'warn', detail:'No hay diagnosticos disponibles para la edad del niño(a) en esta Prestación.'});
+            this.messageService.add({severity:'error', summary: 'CUIDADO', detail:'No hay diagnosticos disponibles para la edad del paciente en esta Prestación.'});
           }
         }
         else{
-          this.messageService.add({severity:'error', summary: 'warn', detail:'No hay diagnosticos disponibles para la edad del niño(a) en esta Prestación.'});
+          this.messageService.add({severity:'error', summary: 'CUIDADO', detail:'No hay diagnosticos disponibles para la edad del paciente en esta Prestación.'});
         }
       }
 
