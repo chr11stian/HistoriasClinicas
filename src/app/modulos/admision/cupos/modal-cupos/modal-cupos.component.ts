@@ -125,7 +125,7 @@ export class ModalCuposComponent implements OnInit {
         this.cuposService.HoraAtencionSeleccionado = event.data.horasCupo;
         this.cuposService.FechaAtencionSeleccionado = event.data.fechaOferta;
         this.cuposService.dataPersonalSelecionado = event.data;
-        this.cuposService.tipoConsulta = this.formCuposOferta.value.tipoConsulta;
+        this.cuposService.tipoConsulta = this.formCuposOferta.value.tipoConsulta==""?this.formCuposOferta.value.SelectUPSOferta:this.formCuposOferta.value.tipoConsulta;
         this.personalSelected = event.data.personal.nombre;//Personal
         this.dataSelectAmbiente = event.data.ambiente;
         this.dataSelectHoras = event.data.horasCupo;

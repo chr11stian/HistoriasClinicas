@@ -27,7 +27,7 @@ export class MotivoConsultaComponent implements OnInit {
   ) {
     this.inicializarForm();
     this.idConsulta = JSON.parse(localStorage.getItem('documento')).idConsulta;
-    this.consultaGeneralService.searchConsultaDatosGenerales(this.idConsulta).subscribe((res:any)=>{
+    this.consultaGeneralService.searchConsultaDatosGenerales(this.idConsulta).subscribe((res: any) => {
 
     })
   }
@@ -64,6 +64,17 @@ export class MotivoConsultaComponent implements OnInit {
       genitouriano: new FormControl(""),
       ano: new FormControl(""),
       obsExamenFisico: new FormControl(""),
+
+      pielDetalle: new FormControl(""),
+      mucosasDetalle: new FormControl(""),
+      cabezaDetalle: new FormControl(""),
+      caraDetalle: new FormControl(""),
+      cuelloDetalle: new FormControl(""),
+      toraxDetalle: new FormControl(""),
+      abdomenDetalle: new FormControl(""),
+      columnaVertDetalle: new FormControl(""),
+      extremidadesDetalle: new FormControl(""),
+      // examenFisicoOtro: new FormControl(""),
     });
     this.formExtraData = new FormGroup({
       anamnesis: new FormControl(""),
@@ -109,14 +120,14 @@ export class MotivoConsultaComponent implements OnInit {
         imc: this.formVitalSigns.value.imc,
       },
       examenesFisicos: [
-        { nombreExamen: 'PIEL', detalle: this.formPhysicalExam.value.piel },
-        { nombreExamen: 'CABEZA', detalle: this.formPhysicalExam.value.cabeza },
-        { nombreExamen: 'CARA', detalle: this.formPhysicalExam.value.cara },
-        { nombreExamen: 'CUELLO', detalle: this.formPhysicalExam.value.cuello },
-        { nombreExamen: 'TORAX', detalle: this.formPhysicalExam.value.torax },
-        { nombreExamen: 'ABDOMEN', detalle: this.formPhysicalExam.value.abdomen },
-        { nombreExamen: 'COLUMNA_VERT', detalle: this.formPhysicalExam.value.columnaVert },
-        { nombreExamen: 'EXTREMIDADES', detalle: this.formPhysicalExam.value.extremidades },
+        { nombreExamen: 'PIEL', valor: this.formPhysicalExam.value.piel, detalle: this.formPhysicalExam.value.pielDetalle },
+        { nombreExamen: 'CABEZA', valor: this.formPhysicalExam.value.piel, detalle: this.formPhysicalExam.value.cabezaDetalle },
+        { nombreExamen: 'CARA', valor: this.formPhysicalExam.value.piel, detalle: this.formPhysicalExam.value.caraDetalle },
+        { nombreExamen: 'CUELLO', valor: this.formPhysicalExam.value.piel, detalle: this.formPhysicalExam.value.cuelloDetalle },
+        { nombreExamen: 'TORAX', valor: this.formPhysicalExam.value.piel, detalle: this.formPhysicalExam.value.toraxDetalle },
+        { nombreExamen: 'ABDOMEN', valor: this.formPhysicalExam.value.piel, detalle: this.formPhysicalExam.value.abdomenDetalle },
+        { nombreExamen: 'COLUMNA_VERT', valor: this.formPhysicalExam.value.piel, detalle: this.formPhysicalExam.value.columnaVertDetalle },
+        { nombreExamen: 'EXTREMIDADES', valor: this.formPhysicalExam.value.piel, detalle: this.formPhysicalExam.value.extremidadesDetalle },
       ],
       obsExamenFisico: this.formPhysicalExam.value.obsExamenFisico,
       anamnesis: this.formExtraData.value.anamnesis,
@@ -132,7 +143,6 @@ export class MotivoConsultaComponent implements OnInit {
   save() {
     this.recoverData();
     // console.log('data to save ', this.dataMotivoConsulta);
-    this.consultaGeneralService.putUpdateConsultaGeneralByIdConsulta(this.dataMotivoConsulta).subscribe((res:any)=>{})
+    this.consultaGeneralService.putUpdateConsultaGeneralByIdConsulta(this.dataMotivoConsulta).subscribe((res: any) => { })
   }
 }
-  
