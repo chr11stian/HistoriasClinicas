@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { DatosGeneralesService } from 'src/app/consulta-generica/services/datos-generales/datos-generales.service';
 import { MotivoConsulta } from 'src/app/core/models/consultaGenerica';
 
 @Component({
@@ -15,13 +16,20 @@ export class MotivoConsultaComponent implements OnInit {
   formExtraData: FormGroup;
   formBiologicalFunctions: FormGroup;
   dataMotivoConsulta: MotivoConsulta;
+  idConsulta: string;
   listaFuncionesBiologicas = [
     { name: "Conservado" },
     { name: "Alterado" }
   ];
 
-  constructor() {
+  constructor(
+    private consultaGeneralService: DatosGeneralesService,
+  ) {
     this.inicializarForm();
+    this.idConsulta = JSON.parse(localStorage.getItem('documento')).idConsulta;
+    this.consultaGeneralService.searchConsultaDatosGenerales(this.idConsulta).subscribe((res:any)=>{
+
+    })
   }
 
   ngOnInit(): void {
@@ -81,6 +89,7 @@ export class MotivoConsultaComponent implements OnInit {
   }
   recoverData() {
     this.dataMotivoConsulta = {
+      id: this.idConsulta,
       funcionesBiologicas: [
         { funcion: 'APETITO', valor: this.formBiologicalFunctions.value.apetito, detalle: this.formBiologicalFunctions.value.apetitoDetalle },
         { funcion: 'SED', valor: this.formBiologicalFunctions.value.sed, detalle: this.formBiologicalFunctions.value.sedDetalle },
@@ -122,6 +131,8 @@ export class MotivoConsultaComponent implements OnInit {
   }
   save() {
     this.recoverData();
-    console.log('data to save ', this.dataMotivoConsulta);
+    // console.log('data to save ', this.dataMotivoConsulta);
+    this.consultaGeneralService.putUpdateConsultaGeneralByIdConsulta(this.dataMotivoConsulta).subscribe((res:any)=>{})
   }
 }
+  

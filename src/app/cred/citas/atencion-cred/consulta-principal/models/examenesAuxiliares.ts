@@ -1,28 +1,33 @@
 export interface Laboratorio {
     servicio: string,
     nroCama: string,
-    dxPresuntivo: string,
+    dxPresuntivo?: string,
     examenesAuxiliares?: ExamenAuxiliar[],
-    observaciones: string
+    observaciones?: string
 }
 export interface AddLaboratorio {
     servicio: string,
     nroCama: string,
-    dxPresuntivo: string,
+    dxPresuntivo?: string,
     examenAuxiliar?: ExamenAuxiliar,
-    observaciones: string
+    observaciones?: string
 }
 export interface ExamenAuxiliar {
     tipoLaboratorio: string,
     subTipo: string,
     nombreExamen: string,
-    codigo: string,
+    nombreExamenSIS?: string,
+    cie10SIS?: string,
+    nombreUPS?:string,
+    nombreUPSAux?:string,
     codPrestacion: string,
-    cie10: string,
+    codigoSIS: string,
+    cie10?: string,
     codigoHIS: string,
     lugarExamen: string,
     resultado?: ResultadoLaboratorio,
-    labExterno: string
+    labExterno: string,
+    tipoDx?:string,
     //campo nuevo
 }
 export interface ResultadoLaboratorio {

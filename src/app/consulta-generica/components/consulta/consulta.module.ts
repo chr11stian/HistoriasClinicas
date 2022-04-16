@@ -15,6 +15,8 @@ import { LaboratorioComponent } from './components/evaluaciones/laboratorio/labo
 import { DialogReqLaboratorioComponent } from './components/evaluaciones/laboratorio/dialog-req-laboratorio/dialog-req-laboratorio.component';
 import { ProcedImagenesComponent } from './components/evaluaciones/proced-imagenes/proced-imagenes.component';
 import { ProcedimientoComponent } from './components/procedimiento/procedimiento.component';
+import { DialogResultadoImgComponent } from './components/evaluaciones/proced-imagenes/dialog-resultado-img/dialog-resultado-img.component';
+import { DialogSolicitudImgComponent } from './components/evaluaciones/proced-imagenes/dialog-solicitud-img/dialog-solicitud-img.component';
 import { TratamientoInmunizacionComponent } from './components/tratamiento/tratamiento-inmunizacion/tratamiento-inmunizacion.component';
 import { TratamientoSuplementacionComponent } from './components/tratamiento/tratamiento-suplementacion/tratamiento-suplementacion.component';
 import { TratamientoGeneralComponent } from './components/tratamiento/tratamiento-general/tratamiento-general.component';
@@ -36,6 +38,8 @@ import { TratamientoSuplementacionModalComponent } from './components/tratamient
     DialogReqLaboratorioComponent,
     ProcedImagenesComponent,
     ProcedimientoComponent,
+    DialogResultadoImgComponent,
+    DialogSolicitudImgComponent,
     TratamientoInmunizacionComponent,
     TratamientoSuplementacionComponent,
     TratamientoGeneralComponent,
