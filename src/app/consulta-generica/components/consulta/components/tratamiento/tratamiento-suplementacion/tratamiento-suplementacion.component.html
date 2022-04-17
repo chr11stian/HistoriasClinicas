@@ -22,7 +22,7 @@
                 <th style="text-align: center" class="font-2">TIPO DOSIS</th>
                 <th style="text-align: center" class="font-2">DOSIS</th>
                 <th style="text-align: center" class="font-2">ESTADO</th>
-                <th style="text-align: center" class="font-2">Acciones</th>
+<!--                <th style="text-align: center" class="font-2">Acciones</th>-->
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
@@ -34,14 +34,14 @@
                 <td style="text-align: center">{{ rowData.tipoDosis }}</td>
                 <td style="text-align: center">{{ rowData.dosis }}</td>
                 <td style="text-align: center">{{ rowData.estado }}</td>
-                <td style="text-align: center">
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
-                            (click)="openDialogEditarTratamientoInmunizaciones(rowData)" pTooltip="Editar">
-                    </button>
-                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                            (click)="eliminarInmunizaciones(rowData.id)" pTooltip="Eliminar">
-                    </button>
-                </td>
+<!--                <td style="text-align: center">-->
+<!--                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"-->
+<!--                            (click)="openDialogEditarTratamientoInmunizaciones(rowData)" pTooltip="Editar">-->
+<!--                    </button>-->
+<!--                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"-->
+<!--                            (click)="eliminarInmunizaciones(rowData.id)" pTooltip="Eliminar">-->
+<!--                    </button>-->
+<!--                </td>-->
             </tr>
         </ng-template>
 

@@ -13,4 +13,7 @@ export class TratamientosSuplementacionService {
   PostSuplementacion(idConsulta,data){
     return this.http.post(`${this.base_url}/${this.bd}/consultageneral/agregarSuplementacion/${idConsulta}`,data)
   }
+  getSuplementacion(idConsulta){
+    return this.http.get(`${this.base_url}/${this.bd}/consultageneral/listarSuplementaciones/${idConsulta}`)
+  }
 }

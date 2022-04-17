@@ -272,7 +272,7 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
       tipoDx: this.formInmunizaciones.value.tipo,
       nombreUPS: this.formInmunizaciones.value.ups,
       nombreUPSaux: this.formInmunizaciones.value.subtitulo,
-      codPrestacion: this.formInmunizaciones.value.diagnostico.codPrestacion,
+      codPrestacion: this.formInmunizaciones.value.prestacion.codigo,
       codProcedimientoHIS: this.formInmunizaciones.value.HISCIE.codigoItem,
       codProcedimientoSIS: this.formInmunizaciones.value.SISCIE.codigo,
       idIpressSolicitante: this.idIpress,

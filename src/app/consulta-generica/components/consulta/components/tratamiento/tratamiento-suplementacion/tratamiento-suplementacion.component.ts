@@ -7,6 +7,9 @@ import {
     TratamientoSuplementacionModalComponent
 } from "../tratamiento-suplementacion-modal/tratamiento-suplementacion-modal.component";
 import Swal from "sweetalert2";
+import {
+    TratamientosSuplementacionService
+} from "../../../../../services/tratamientos/tratamientos-suplementacion.service";
 @Component({
   selector: 'app-tratamiento-suplementacion',
   templateUrl: './tratamiento-suplementacion.component.html',
@@ -17,11 +20,14 @@ export class TratamientoSuplementacionComponent implements OnInit {
 
     ref: DynamicDialogRef;
     tratamientoSuplementacion:any[]
-    constructor(private dialog: DialogService) {
+    dataConsulta=<any>JSON.parse(localStorage.getItem('documento'))
+    constructor(private dialog: DialogService,
+                private TratamientosSuplementacionService:TratamientosSuplementacionService) {
         console.log('inmunizacione')
     }
 
     ngOnInit(): void {
+        this.getSuplementacion();
     }
     openDialogTratamientoInmunizaciones() {
         this.ref = this.dialog.open(TratamientoSuplementacionModalComponent, {
@@ -34,6 +40,7 @@ export class TratamientoSuplementacionComponent implements OnInit {
         })
         this.ref.onClose.subscribe((data: any) => {
             if(data=='agregado'){
+                this.getSuplementacion();
                 Swal.fire({
                     icon: 'success',
                     title: 'Guardado',
@@ -50,6 +57,12 @@ export class TratamientoSuplementacionComponent implements OnInit {
 
     }
     eliminarInmunizaciones(){
+
+    }
+    getSuplementacion(){
+        this.TratamientosSuplementacionService.getSuplementacion(this.dataConsulta.idConsulta).subscribe((resp:any)=>{
+            this.tratamientoSuplementacion=resp.object
+        })
 
     }
 
