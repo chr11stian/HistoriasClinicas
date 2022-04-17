@@ -59,7 +59,7 @@ export class AtenionComponent implements OnInit {
   formRespAtencion: FormGroup;
   formApoderado: FormGroup;
   /**ngModels */
-  atencionDirecta: boolean = false;
+  atencionDirecta: boolean = true;
   alta: boolean;
   cita: boolean;
   hospitalizacion: boolean;
