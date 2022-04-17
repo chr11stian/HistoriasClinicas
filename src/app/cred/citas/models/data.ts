@@ -8,8 +8,9 @@ export interface  dato {
     anio?: number
     sexo?: string,
     fechaNacimiento?: string,
-    see?: boolean
-    nroConsulta?:number
+    see?: boolean,
+    nroConsulta?:number,
+    ups?:string
 }
 
 export interface outputTriajeInterface {

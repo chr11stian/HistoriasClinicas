@@ -6,6 +6,7 @@ import {dato} from "../../../cred/citas/models/data";
 import {
   FiliancionService
 } from "../../../obstetricia-general/gestante/atencion/h-clinica-materno-perinatal/services/filiancion-atenciones/filiancion.service";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-lista-consulta',
@@ -141,48 +142,48 @@ export class ListaConsultaComponent implements OnInit {
   }
 
   irHIS(rowData) {
-    // let message1 = "Esta Seguro de Generar HIS?, se dara como finalizado la consulta"
-    // if (rowData.estadoAtencion == 0) {
-    //   Swal.fire({
-    //     icon: 'warning',
-    //     title: 'Consulta en Interconsulta, no es posible hacer HIS',
-    //     showConfirmButton: false,
-    //     timer: 2000
-    //   });
-    // }
-    // if (rowData.estadoAtencion == 2) {
-    //   this.router.navigate(['dashboard/his/listar-his'], {
-    //     queryParams: {
-    //       'idConsulta':rowData.id,
-    //       'tipoConsulta':rowData.tipoConsulta
-    //     }
-    //   })
-    // }
-    // if (rowData.estadoAtencion == 1) {
-    //   Swal.fire({
-    //     title: message1,
-    //     showDenyButton: true,
-    //     confirmButtonText: 'Crear HIS',
-    //     denyButtonText: `Cancelar`,
-    //     confirmButtonColor: '#3085d6',
-    //   }).then((result) => {
-    //     if (result.isConfirmed) {
-    //       this.router.navigate(['dashboard/his/listar-his'], {
-    //         queryParams: {
-    //           'idConsulta':rowData.id,
-    //           'tipoConsulta':rowData.tipoConsulta
-    //         }
-    //       })
-    //     } else if (result.isDenied) {
-    //       Swal.fire({
-    //         icon: 'warning',
-    //         title: 'No se creo HIS',
-    //         showConfirmButton: false,
-    //         timer: 2000
-    //       });
-    //     }
-    //   })
-    // }
+    let message1 = "Esta Seguro de Generar HIS?, se dara como finalizado la consulta"
+    if (rowData.estadoAtencion == 0) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Consulta en Interconsulta, no es posible hacer HIS',
+        showConfirmButton: false,
+        timer: 2000
+      });
+    }
+    if (rowData.estadoAtencion == 2) {
+      this.router.navigate(['dashboard/his/listar-his'], {
+        queryParams: {
+          'idConsulta':rowData.id,
+          'tipoConsulta':rowData.tipoConsulta
+        }
+      })
+    }
+    if (rowData.estadoAtencion == 1) {
+      Swal.fire({
+        title: message1,
+        showDenyButton: true,
+        confirmButtonText: 'Crear HIS',
+        denyButtonText: `Cancelar`,
+        confirmButtonColor: '#3085d6',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.router.navigate(['dashboard/his/listar-his'], {
+            queryParams: {
+              'idConsulta':rowData.id,
+              'tipoConsulta':rowData.tipoConsulta
+            }
+          })
+        } else if (result.isDenied) {
+          Swal.fire({
+            icon: 'warning',
+            title: 'No se creo HIS',
+            showConfirmButton: false,
+            timer: 2000
+          });
+        }
+      })
+    }
   }
 
 }
