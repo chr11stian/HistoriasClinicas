@@ -150,7 +150,7 @@ export class DiagnosticoComponent implements OnInit {
     this.isUpdate = false;
     this.checked=false;
     this.formDiagnostico.reset();
-    this.formDiagnostico.get('nombreUPS').setValue("");
+    this.formDiagnostico.get('nombreUPS').setValue(this.dataConsulta.ups);
     this.formDiagnostico.get('cie10HIS').setValue("");
     this.listaDeCIESIS=[];
     this.diagnosticoDialog = true;
