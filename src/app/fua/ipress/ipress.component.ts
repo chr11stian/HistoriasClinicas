@@ -168,9 +168,9 @@ export class IpressComponent implements OnInit {
     this.dataFUA = {
       deLaIpress: {
         nroFormato: {
-          codEESS: '',
-          anio: '',
-          correlativo: 1
+          codEESS: this.formNroFormato.value.codEESS,
+          anio: this.formNroFormato.value.anio,
+          correlativo: this.formNroFormato.value.correlativo
         },
         eessInformacion: {
           codRenaes: this.formIpress.value.codRenaes,
@@ -220,15 +220,15 @@ export class IpressComponent implements OnInit {
   save() {
     this.recoverDataFUA();
     console.log('data to save ', this.dataFUA);
-    // this.fuaService.postDatosIpressAsegurado(this.idFUA, this.dataFUA).subscribe((res: any) => {
-    //   console.log('se guardo la data correctamente ', res);
-    //   Swal.fire({
-    //     icon: "success",
-    //     title: "Se Guardo Correctamente FUA",
-    //     showConfirmButton: false,
-    //     timer: 2000,
-    //   });
-    //   // this.router.navigate(['/dashboard/fua/listar-fua'])
-    // });
+    this.fuaService.postDatosIpressAsegurado(this.idFUA, this.dataFUA).subscribe((res: any) => {
+      console.log('se guardo la data correctamente ', res);
+      Swal.fire({
+        icon: "success",
+        title: "Se Guardo Correctamente FUA",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      // this.router.navigate(['/dashboard/fua/listar-fua'])
+    });
   }
 }
