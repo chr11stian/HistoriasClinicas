@@ -462,7 +462,7 @@ const historias = {
                 {
                     label: "Citas",
                     icon: "pi pi-pw pi-file",
-                    routerLink: "consulta-generica/lista-cita/odontologia",
+                    routerLink: "consulta-generica/lista-cita/odontologia general",
                 }
             ]
         },
