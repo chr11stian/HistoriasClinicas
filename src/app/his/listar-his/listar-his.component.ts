@@ -28,20 +28,29 @@ export class ListarHisComponent implements OnInit {
     this.route.queryParams
         .subscribe(params => {
           console.log('params', params)
-            if(params['tipoConsulta']=='CRED'){
+            if(params['tipoConsulta']!='CRED' || params['tipoConsulta']!='CONSULTA GESTANTE'){
                 if (params['idConsulta']) {
                     this.idConsulta = params['idConsulta']
                 } else {
-                    this.router.navigate(['/dashboard/cred/lista-consulta'])
+                    this.location.back();
+                }
+            }else{
+                if(params['tipoConsulta']=='CRED'){
+                    if (params['idConsulta']) {
+                        this.idConsulta = params['idConsulta']
+                    } else {
+                        this.router.navigate(['/dashboard/cred/lista-consulta'])
+                    }
+                }
+                else {
+                    if (params['tipoConsulta']=='CONSULTA GESTANTE') {
+                        this.idConsulta = params['idConsulta']
+                    } else {
+                        this.router.navigate(['/dashboard/obstetricia-general/citas/consulta'])
+                    }
                 }
             }
-            else{
-                if (params['tipoConsulta']=='CONSULTA GESTANTE') {
-                    this.idConsulta = params['idConsulta']
-                } else {
-                    this.router.navigate(['/dashboard/obstetricia-general/citas/consulta'])
-                }
-            }
+
 
         })
       this.getListUpsAux();

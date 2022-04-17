@@ -10,6 +10,7 @@ import Swal from "sweetalert2";
 import { PrestacionService } from 'src/app/mantenimientos/services/prestacion/prestacion.service';
 import { CieService } from 'src/app/obstetricia-general/services/cie.service';
 import { MedicamentosService } from 'src/app/mantenimientos/services/medicamentos/medicamentos.service';
+import {TratamientosInmunizacionService} from "../../../../../services/tratamientos/tratamientos-inmunizacion.service";
 
 
 @Component({
@@ -53,6 +54,10 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
   tipoList: any;
   edadPaciente: any;
   sexoPaciente: any;
+  viaAdministracionList:any[]
+  dosisList:any[]
+  dataConsulta:any;
+
   constructor(private form: FormBuilder,
               private ref: DynamicDialogRef,
               public config: DynamicDialogConfig,
@@ -60,19 +65,22 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
               private CieService: CieService,
               private DxService: ConsultasService,
               private MedicamentosService: MedicamentosService,
-              private messageService: MessageService) {
+              private messageService: MessageService,
+              private TratamientosInmunizacionService:TratamientosInmunizacionService) {
 
     //this.idObstetricia = this.obstetriciaGeneralService.idGestacion;
 
     this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
+    // this.dataConsulta = <any>JSON.parse(localStorage.getItem(this.attributeLocalS));
+    this.dataConsulta=<any>JSON.parse(localStorage.getItem('documento'))
     console.log("ipress", this.idIpress)
 
     /*********RECUPERAR DATOS*********/
     /*usando local storage*/
-    this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
-    this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
-    this.edadPaciente = JSON.parse(localStorage.getItem('datacupos')).paciente.edadAnio;
-    this.sexoPaciente = JSON.parse(localStorage.getItem('datacupos')).paciente.sexo;
+    // this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
+    // this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
+    // this.edadPaciente = JSON.parse(localStorage.getItem('datacupos')).paciente.edadAnio;
+    // this.sexoPaciente = JSON.parse(localStorage.getItem('datacupos')).paciente.sexo;
     this.recuperarUpsHis();
     this.recuperarUPS();
     //estado para saber que estado usar en consultas
@@ -82,11 +90,11 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
     console.log("gestacion desde datos generales", this.Gestacion);
 
     if (this.Gestacion == null) {
-      this.tipoDocRecuperado = this.dataPaciente2.tipoDoc;
-      this.nroDocRecuperado = this.dataPaciente2.nroDoc;
-      this.idConsulta = JSON.parse(localStorage.getItem('idGestacionRegistro'));
-      this.nroEmbarazo = this.dataPaciente2.nroEmbarazo;
-      this.nroHcl = this.dataPaciente2.nroHcl;
+      // // this.tipoDocRecuperado = this.dataPaciente2.tipoDoc;
+      // // this.nroDocRecuperado = this.dataPaciente2.nroDoc;
+      // this.idConsulta = JSON.parse(localStorage.getItem('idGestacionRegistro'));
+      // this.nroEmbarazo = this.dataPaciente2.nroEmbarazo;
+      // this.nroHcl = this.dataPaciente2.nroHcl;
 
     } else {
       this.tipoDocRecuperado = this.Gestacion.tipoDoc;
@@ -111,7 +119,7 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
     this.buildForm();
 
     this.recuperarPrestaciones();
-    this.traerDiagnosticosDeConsulta();
+    // this.traerDiagnosticosDeConsulta();
 
     if (config.data) {
       this.llenarCamposTratamientoInmunizaciones();
@@ -135,11 +143,75 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
       { label: '4TA DOSIS REFUERZO', value: 'RF4' },
       { label: '5TA DOSIS REFUERZO', value: 'RF5' }
     ];
+    this.viaAdministracionList=[
+      {name:'Intramuscular',code:'INTRAMUSCULAR' },
+      {name:'Intradérmica',code:'INTRADERMICA' },
+      {name:'Via Oral',code:'VIA ORAL' },
+      {name:'Via Subcutánea',code:'VIA SUBCUTANEA' }
+    ]
+    this.dosisList=[
+      {name:'0.1 CC',code:'0.1 CC'},
+      {name:'0.25 CC',code:'0.25 CC'},
+      {name:'0.5 CC',code:'0.5 CC'},
+      {name:'1 CC',code:'1 CC'},
+      {name:'2 gotas',code:'0.1 CC'},
+    ]
   }
+
+
 
   ngOnInit(): void {
+    this.recuperarPrestaciones()
 
   }
+  onChangePrestacion(){
+    let codigoPrestacion:any;
+    codigoPrestacion=this.formInmunizaciones.value.prestacion.codigo;
+    this.formInmunizaciones.patchValue({ procedimientoSIS: ""})
+    this.formInmunizaciones.patchValue({ codigoSIS: ""})
+    this.PrestacionService.getDiagnosticoPorCodigo(codigoPrestacion).subscribe((res: any) => {
+      this.listaDeCIESIS = res.object.procedimientos;
+
+      console.log(res.object);
+      if(res.object.denominacion=='ANIOS')
+      {
+        if(this.dataConsulta.anio>=res.object.edadMin && this.dataConsulta.anio<=res.object.edadMax){
+          this.listaDeCIESIS = res.object.procedimientos;
+        }
+        else{
+          this.messageService.add({severity:'error', summary: 'Cuidado', detail:'No hay diagnosticos disponibles para la edad del niño(a) en esta Prestación.'});
+        }
+      }
+      if(res.object.denominacion=='MESES')
+      {
+        let meses = this.dataConsulta.anio*12 + this.dataConsulta.mes + this.dataConsulta.dia/30;
+        if(meses>=res.object.edadMin && meses <=res.object.edadMax){
+          this.listaDeCIESIS = res.object.procedimientos;
+        }
+        else{
+          this.messageService.add({severity:'error', summary: 'Cuidado!', detail:'No hay diagnosticos disponibles para la edad del niño(a) en esta Prestación.'});
+        }
+
+      }
+      if(res.object.denominacion=='DIAS')
+      {
+        if(this.dataConsulta.anio==0 && this.dataConsulta.mes==0){
+          if(this.dataConsulta.dia>=res.object.edadMin && this.dataConsulta.dia<=res.object.edadMax){
+            this.listaDeCIESIS = res.object.procedimientos;
+          }
+          else{
+            this.messageService.add({severity:'error', summary: 'Cuidado!', detail:'No hay diagnosticos disponibles para la edad del niño(a) en esta Prestación.'});
+          }
+        }
+        else{
+          this.messageService.add({severity:'error', summary: 'Cuidado!', detail:'No hay diagnosticos disponibles para la edad del niño(a) en esta Prestación.'});
+        }
+      }
+
+    })
+
+  }
+
 
   buildForm() {
     this.formInmunizaciones = this.form.group({
@@ -147,6 +219,12 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
       nombreComercial: new FormControl("", [Validators.required]),
       dosis: new FormControl("", [Validators.required]),
       tipoDosis: new FormControl("", [Validators.required]),
+      viaAdministracion: new FormControl("", [Validators.required]),
+      cantidad: new FormControl("", [Validators.required]),
+      lote: new FormControl("", [Validators.required]),
+      fechaVencimiento: new FormControl(new Date(), [Validators.required]),
+      fechaAdministracion: new FormControl(new Date(), [Validators.required]),
+
       prestacion: new FormControl("", [Validators.required]),
       diagnostico: new FormControl("", [Validators.required]),
       autocompleteSIS: [''],
@@ -170,54 +248,65 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
     this.DxService.listaUpsHis(Data).then((res: any) => this.listaUpsHis = res.object);
   }
   recuperarUPS() {
-    this.DxService.listaUps(this.idIpress).then((res: any) => this.listaUps = res.object);
-    console.log("DATA PARA UPS", this.listaUps)
+    this.DxService.listaUps(this.idIpress).then((res: any) => {
+        this.listaUps = res.object;
+        console.log("DATA PARA UPS", this.listaUps);
+    });
   }
   openNew() {
     this.formInmunizaciones.reset();
     this.dialogInmunizaciones = true;
   }
-  traerDiagnosticosDeConsulta() {
-    this.DxService.listarDiagnosticosDeUnaConsulta(this.nroHcl, this.nroEmbarazo, this.nroAtencion).then((res: any) => {
-      this.diagnosticosList = res.object;
-      console.log("diagnosticos:", this.diagnosticosList);
-    })
-  }
+  // traerDiagnosticosDeConsulta() {
+  //   this.DxService.listarDiagnosticosDeUnaConsulta(this.nroHcl, this.nroEmbarazo, this.nroAtencion).then((res: any) => {
+  //     this.diagnosticosList = res.object;
+  //     console.log("diagnosticos:", this.diagnosticosList);
+  //   })
+  // }
   async enviarTratamientoInmunizaciones() {
     var data = {
       nombre: this.formInmunizaciones.value.nombre.nombre,
       nombreComercial: this.formInmunizaciones.value.nombreComercial,
       dosis: this.formInmunizaciones.value.dosis,
       tipoDosis: this.formInmunizaciones.value.tipoDosis,
-      codPrestacion: this.formInmunizaciones.value.diagnostico.codPrestacion,
-      codProcedimientoSIS: this.formInmunizaciones.value.SISCIE.codigo,
-      cie10SIS: this.formInmunizaciones.value.diagnostico.cie10SIS,
-      codProcedimientoHIS: this.formInmunizaciones.value.HISCIE.codigoItem,
+      tipoDx: this.formInmunizaciones.value.tipo,
       nombreUPS: this.formInmunizaciones.value.ups,
       nombreUPSaux: this.formInmunizaciones.value.subtitulo,
-      tipoDx: this.formInmunizaciones.value.tipo,
+      codPrestacion: this.formInmunizaciones.value.prestacion.codigo,
+      codProcedimientoHIS: this.formInmunizaciones.value.HISCIE.codigoItem,
+      codProcedimientoSIS: this.formInmunizaciones.value.SISCIE.codigo,
       idIpressSolicitante: this.idIpress,
+      viaAdministracion: this.formInmunizaciones.value.viaAdministracion,
+      cantidad: this.formInmunizaciones.value.cantidad,
+      lote: this.formInmunizaciones.value.lote,
+      fechaVencimiento: this.obtenerFecha(this.formInmunizaciones.value.fechaVencimiento),
+      fechaAdministracion: this.obtenerFecha(this.formInmunizaciones.value.fechaAdministracion),
+      fechaProxDosis:'',
+      idConsulta:this.dataConsulta.idConsulta,
       pertenecePAICRED: false,
-      datosPaciente: {
-        tipoDoc: this.tipoDocRecuperado,
-        nroDoc: this.nroDocRecuperado
-      }
     }
-
     console.log(data);
-
-    await this.DxService.guardarInmunizacionGestante(this.nroHcl, this.nroEmbarazo, this.nroAtencion, data).then((res: any) => {
-      this.dialogInmunizaciones = false;
-      Swal.fire({
-        icon: 'success',
-        title: 'Guardado',
-        text: 'Solicitud de inmunización guardada correctamente',
-        showConfirmButton: false,
-        timer: 1500,
-      })
+    this.TratamientosInmunizacionService.postInmunizacion(data).subscribe((resp)=>{
+      this.ref.close('agregado');
     })
 
+    // await this.DxService.guardarInmunizacionGestante(this.nroHcl, this.nroEmbarazo, this.nroAtencion, data).then((res: any) => {
+    //   this.dialogInmunizaciones = false;
+    //   Swal.fire({
+    //     icon: 'success',
+    //     title: 'Guardado',
+    //     text: 'Solicitud de inmunización guardada correctamente',
+    //     showConfirmButton: false,
+    //     timer: 1500,
+    //   })
+    // })
   }
+  obtenerFecha(fecha: Date) {
+    const parte1 = fecha.toISOString().split('T')
+    const parte2 = parte1[1].split('.')[0]
+    return `${parte1[0]}`
+  }
+
   async enviarEdicionTratamientoInmunizacion() {
     var data = {
       id: this.idEdicion,
@@ -308,7 +397,7 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
   recuperarPrestaciones() {
     this.DxService.getPrestaciones().subscribe((res: any) => {
       this.prestacionList = res.object;
-      console.log("prestaciones:", this.prestacionList);
+      console.log("prestaciones:---->", this.prestacionList);
     })
   }
   onChangeDiagnostico() {

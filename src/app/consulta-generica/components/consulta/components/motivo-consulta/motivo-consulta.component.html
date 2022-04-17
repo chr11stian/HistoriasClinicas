@@ -161,51 +161,123 @@
                 <div class="grid">
                     <div class="col-6">
                         <label>Piel y Faneras (cabello, uñas):</label>
-                        <textarea type="text" pInputTextarea formControlName='piel' placeholder="Piel y Faneras"
-                            class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
-                            [rows]="2"></textarea>
+                        <div class="grid">
+                            <div class="col-6">
+                                <p-dropdown [options]="listaFuncionesBiologicas" formControlName="piel"
+                                    appendTo="body" optionLabel="name" optionValue="name" class="p-fluid w-full"
+                                    placeholder="Seleccione una opción">
+                                </p-dropdown>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" pInputText formControlName='pielDetalle'
+                                    placeholder="Detalle del examen" class="inputfield w-full">
+                            </div>
+                        </div>
                     </div>
                     <div class="col-6">
                         <label>Cabeza:</label>
-                        <textarea type="text" pInputTextarea formControlName='cabeza' placeholder="Piel y Faneras"
-                            class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
-                            [rows]="2"></textarea>
+                        <div class="grid">
+                            <div class="col-6">
+                                <p-dropdown [options]="listaFuncionesBiologicas" formControlName="cabeza"
+                                    appendTo="body" optionLabel="name" optionValue="name" class="p-fluid w-full"
+                                    placeholder="Seleccione una opción">
+                                </p-dropdown>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" pInputText formControlName='cabezaDetalle'
+                                    placeholder="Detalle del examen" class="inputfield w-full">
+                            </div>
+                        </div>
                     </div>
                     <div class="col-6">
                         <label>Cara:</label>
-                        <textarea type="text" pInputTextarea formControlName='cara' placeholder="Piel y Faneras"
-                            class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
-                            [rows]="2"></textarea>
+                        <div class="grid">
+                            <div class="col-6">
+                                <p-dropdown [options]="listaFuncionesBiologicas" formControlName="cara"
+                                    appendTo="body" optionLabel="name" optionValue="name" class="p-fluid w-full"
+                                    placeholder="Seleccione una opción">
+                                </p-dropdown>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" pInputText formControlName='caraDetalle'
+                                    placeholder="Detalle del examen" class="inputfield w-full">
+                            </div>
+                        </div>
                     </div>
                     <div class="col-6">
                         <label>Cuello:</label>
-                        <textarea type="text" pInputTextarea formControlName='cuello' placeholder="Piel y Faneras"
-                            class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
-                            [rows]="2"></textarea>
+                        <div class="grid">
+                            <div class="col-6">
+                                <p-dropdown [options]="listaFuncionesBiologicas" formControlName="cuello"
+                                    appendTo="body" optionLabel="name" optionValue="name" class="p-fluid w-full"
+                                    placeholder="Seleccione una opción">
+                                </p-dropdown>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" pInputText formControlName='cuelloDetalle'
+                                    placeholder="Detalle del examen" class="inputfield w-full">
+                            </div>
+                        </div>
                     </div>
                     <div class="col-6">
                         <label>Torax:</label>
-                        <textarea type="text" pInputTextarea formControlName='torax' placeholder="Piel y Faneras"
-                            class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
-                            [rows]="2"></textarea>
+                        <div class="grid">
+                            <div class="col-6">
+                                <p-dropdown [options]="listaFuncionesBiologicas" formControlName="torax"
+                                    appendTo="body" optionLabel="name" optionValue="name" class="p-fluid w-full"
+                                    placeholder="Seleccione una opción">
+                                </p-dropdown>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" pInputText formControlName='toraxDetalle'
+                                    placeholder="Detalle del examen" class="inputfield w-full">
+                            </div>
+                        </div>
                     </div>
                     <div class="col-6">
                         <label>Abdomen:</label>
-                        <textarea type="text" pInputTextarea formControlName='abdomen' placeholder="Piel y Faneras"
-                            class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
-                            [rows]="2"></textarea>
+                        <div class="grid">
+                            <div class="col-6">
+                                <p-dropdown [options]="listaFuncionesBiologicas" formControlName="abdomen"
+                                    appendTo="body" optionLabel="name" optionValue="name" class="p-fluid w-full"
+                                    placeholder="Seleccione una opción">
+                                </p-dropdown>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" pInputText formControlName='abdomenDetalle'
+                                    placeholder="Detalle del examen" class="inputfield w-full">
+                            </div>
+                        </div>
                     </div>
                     <div class="col-6">
                         <label>Columna Vert:</label>
-                        <textarea type="text" pInputTextarea formControlName='columnaVert' placeholder="Piel y Faneras"
-                            class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
-                            [rows]="2"></textarea>
+                        <div class="grid">
+                            <div class="col-6">
+                                <p-dropdown [options]="listaFuncionesBiologicas" formControlName="columnaVert"
+                                    appendTo="body" optionLabel="name" optionValue="name" class="p-fluid w-full"
+                                    placeholder="Seleccione una opción">
+                                </p-dropdown>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" pInputText formControlName='columnaVertDetalle'
+                                    placeholder="Detalle del examen" class="inputfield w-full">
+                            </div>
+                        </div>
                     </div>
                     <div class="col-6">
                         <label>Extremidades:</label>
-                        <textarea type="text" pInputTextarea formControlName='extremidades' placeholder="Piel y Faneras"
-                            class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
-                            [rows]="2"></textarea>
+                        <div class="grid">
+                            <div class="col-6">
+                                <p-dropdown [options]="listaFuncionesBiologicas" formControlName="extremidades"
+                                    appendTo="body" optionLabel="name" optionValue="name" class="p-fluid w-full"
+                                    placeholder="Seleccione una opción">
+                                </p-dropdown>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" pInputText formControlName='extremidadesDetalle'
+                                    placeholder="Detalle del examen" class="inputfield w-full">
+                            </div>
+                        </div>
                     </div>
                     <!-- <div class="col-6">
                         <label>Genitouriano:</label>

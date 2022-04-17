@@ -1,1 +1,50 @@
-<p>tratamiento-suplementacion works!</p>
+<div class="">
+    <p-toolbar>
+        <ng-template pTemplate="left">
+            <h3 class="p-m-0">SUPLEMENTACIÓN</h3>
+        </ng-template>
+        <ng-template pTemplate="right">
+            <button pButton pRipple label="Agregar Suplementación" icon="pi pi-plus" pButton type="button"
+                    class="button-agregar" (click)="openDialogTratamientoInmunizaciones()"></button>
+        </ng-template>
+    </p-toolbar>
+    <p-table class="table-over" [value]="tratamientoSuplementacion" #dt styleClass="p-datatable-gridlines"
+             [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
+             [showCurrentPageReport]="true"
+             currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+
+        <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+            <tr>
+                <th style="text-align: center" class="font-2">Nro </th>
+                <th style="text-align: center" class="font-1">COD. PRESTACION</th>
+                <th style="text-align: center" class="font-2">COD. PROCEDIMIENTO SIS</th>
+                <th style="text-align: center" class="font-2">COD. PROCEDIMIENTO HIS</th>
+                <th style="text-align: center" class="font-2">TIPO DOSIS</th>
+                <th style="text-align: center" class="font-2">DOSIS</th>
+                <th style="text-align: center" class="font-2">ESTADO</th>
+<!--                <th style="text-align: center" class="font-2">Acciones</th>-->
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+            <tr>
+                <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+                <td style="text-align: center">{{ rowData.codPrestacion }}</td>
+                <td style="text-align: center">{{ rowData.codProcedimientoSIS }}</td>
+                <td style="text-align: center">{{ rowData.codProcedimientoHIS }}</td>
+                <td style="text-align: center">{{ rowData.tipoDosis }}</td>
+                <td style="text-align: center">{{ rowData.dosis }}</td>
+                <td style="text-align: center">{{ rowData.estado }}</td>
+<!--                <td style="text-align: center">-->
+<!--                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"-->
+<!--                            (click)="openDialogEditarTratamientoInmunizaciones(rowData)" pTooltip="Editar">-->
+<!--                    </button>-->
+<!--                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"-->
+<!--                            (click)="eliminarInmunizaciones(rowData.id)" pTooltip="Eliminar">-->
+<!--                    </button>-->
+<!--                </td>-->
+            </tr>
+        </ng-template>
+
+    </p-table>
+</div>
+<br>

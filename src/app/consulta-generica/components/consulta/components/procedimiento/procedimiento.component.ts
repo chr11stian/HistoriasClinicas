@@ -107,20 +107,22 @@ export class ProcedimientoComponent implements OnInit {
     console.log("recuperar bd pro:")
     this.ConsultaService.searchConsultaDatosGenerales(this.dataConsulta.idConsulta).subscribe((res: any) => {
           if(res.object!=null){
-            console.log("procedimientos",res.object);
-            this.hayDatos=true;
-            this.procedimientos = res.object.procedimientos;
+            if(res.object.procedimientos!=null){
+              console.log("procedimientos",res.object);
+              this.hayDatos=true;
+              this.procedimientos = res.object.procedimientos;
+            } else{
+              this.procedimientos=[];
+              Swal.fire({
+                icon: 'info',
+                title: 'INFORMACION',
+                text: 'Aún no hay registros guardados en Procedimientos',
+                showConfirmButton: false,
+                timer: 1500,
+              })
+            }
           }
-          else{
-            this.procedimientos=[];
-            Swal.fire({
-              icon: 'info',
-              title: 'INFORMACION',
-              text: 'Aún no hay registros guardados en Procedimientos',
-              showConfirmButton: false,
-              timer: 1500,
-            })
-          }
+
 
         },error => {
           Swal.fire({
@@ -165,7 +167,7 @@ export class ProcedimientoComponent implements OnInit {
     this.checked = false;
     this.isUpdate=false;
     this.formProcedimiento.get('prestacion').enable();
-    this.formProcedimiento.get('nombreUPS').setValue("ENFERMERIA");
+    this.formProcedimiento.get('nombreUPS').setValue(this.dataConsulta.ups);
     this.listaDeCIESIS=[];
     this.formProcedimiento.get('procedimientoSIS').setValue("");
     this.formProcedimiento.get('codProcedimientoSIS').setValue("");
@@ -218,6 +220,7 @@ export class ProcedimientoComponent implements OnInit {
     console.log("aux",aux)
 
     var duplicado:boolean;
+    console.log("procedimientos",this.procedimientos);
     duplicado=this.procedimientos.some(element=>element.procedimientoHIS==aux.procedimientoHIS);
     console.log(duplicado)
     this.procedimientoDialog = false;

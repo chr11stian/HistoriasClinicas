@@ -16,11 +16,11 @@ import { ServicesService } from '../services/services.service';
 export class PagoProcedimientosComponent implements OnInit {
 
   DataPendientesPago: any;
-  idIpressLapostaMedica = "616de45e0273042236434b51";
-  ipressNombre = "Belempampa";
-  ipressRenaes = "2306";
-  ipressDireccion = "Urb. Tupac Amaru S/N";
-  ipressTelefono = "084-457812";
+  idIpress= "";
+  ipressNombre = "";
+  ipressRenaes = "";
+  ipressDireccion = "";
+  ipressRUC = "";
   formCaja: FormGroup;
   formProcedimiento: FormGroup;
   datePipe = new DatePipe('en-US');
@@ -41,7 +41,9 @@ export class PagoProcedimientosComponent implements OnInit {
     "CONSULTA",
     "PROCEDIMIENTO"
   ];
-  nroCaja: String = "01";
+  nroCaja: String = "";
+  tipoDocReceptor: "";
+  nroDocReceptor: "";
   constructor(
     private servicesService: ServicesService,
     private pacienteService: PacienteService,
@@ -49,10 +51,19 @@ export class PagoProcedimientosComponent implements OnInit {
     private upsService: UpsService,
     private fb: FormBuilder
   ) {
-    console.log("traje usuario a caja", JSON.parse(localStorage.getItem('usuario')));
+    this.nroCaja = JSON.parse(localStorage.getItem('cajaActual'));
+    this.tipoDocReceptor = JSON.parse(localStorage.getItem('usuario')).tipoDocumento;
+    this.nroDocReceptor = JSON.parse(localStorage.getItem('usuario')).nroDocumento;
+
+    this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
+    this.ipressNombre = JSON.parse(localStorage.getItem('usuario')).ipress.nombreEESS;
+    this.ipressRenaes = JSON.parse(localStorage.getItem('usuario')).ipress.renipress;
+    this.ipressDireccion = JSON.parse(localStorage.getItem('usuario')).ipress.ubicacion.direccion;
+    this.ipressRUC = JSON.parse(localStorage.getItem('usuario')).ipress.ruc;
+
     this.buildForm();
     this.formCaja.get('fechaBusqueda').setValue(this.datafecha);
-    this.getListaEcografiasPendientes();
+    //this.getListaEcografiasPendientes();
     this.getUPS();
   }
 
@@ -60,10 +71,9 @@ export class PagoProcedimientosComponent implements OnInit {
   getListaEcografiasPendientes() {
     let data = {
       fechaAtencion: this.datePipe.transform(this.formCaja.value.fechaBusqueda, 'yyyy-MM-dd')
-      // fechaAtencion: "2022-01-20",
     }
     console.log('DATA', data);
-    this.servicesService.getListaPendientesEcografias(this.idIpressLapostaMedica).subscribe((res: any) => {
+    this.servicesService.getListaPendientesEcografias(this.idIpress).subscribe((res: any) => {
       this.DataPendientesPago = res.object;
       console.log('LISTA DE ECOGRAFIAS PENDIENTES', this.DataPendientesPago);
     })
@@ -129,15 +139,15 @@ export class PagoProcedimientosComponent implements OnInit {
   pagar() {
     let datos={
       tipo: "R",
-      tipoDocReceptor: "DNI",
-      nroDocReceptor: "73145986",
+      tipoDocReceptor: this.tipoDocReceptor,
+      nroDocReceptor: this.nroDocReceptor,
       apellidos: this.formCaja.value.apePaterno,
       nombres: this.formCaja.value.nombres,
       detalle: this.procedimientosPagar,
       importeTotal: this.formCaja.value.precioTotal
     }
 
-    this.servicesService.pagarRecibo(this.idIpressLapostaMedica, this.nroCaja, datos).subscribe((res: any) => {
+    this.servicesService.pagarRecibo(this.idIpress, this.nroCaja, datos).subscribe((res: any) => {
       Swal.fire({
         icon: 'success',
         title: 'Registro',
@@ -146,7 +156,7 @@ export class PagoProcedimientosComponent implements OnInit {
         timer: 1500,
       })
       this.Dialogpagos = false;
-      this.getListaEcografiasPendientes();
+      //this.getListaEcografiasPendientes();
     });
   }
 
@@ -240,7 +250,7 @@ export class PagoProcedimientosComponent implements OnInit {
     this.Dialogpagos = true;
     this.formCaja.get('nroCaja').setValue(this.nroCaja);
     this.formCaja.get('fechaRecibo').setValue(new Date().toLocaleString());
-    this.servicesService.obtenerNumeracionCaja(this.idIpressLapostaMedica,this.nroCaja).subscribe((res: any) => {
+    this.servicesService.obtenerNumeracionCaja(this.idIpress,this.nroCaja).subscribe((res: any) => {
       this.formCaja.get('nroBoleta').setValue(res.object.contadorRecibos+1);
   })
   }
@@ -254,7 +264,7 @@ export class PagoProcedimientosComponent implements OnInit {
       timer: 1000
     })
     this.Dialogpagos = false;
-    this.getListaEcografiasPendientes();
+    //this.getListaEcografiasPendientes();
     this.formCaja.reset();
     this.procedimientosPagar=[];
   }
@@ -299,7 +309,6 @@ export class PagoProcedimientosComponent implements OnInit {
   }
 
   canceledProcedimiento() {
-    
     this.Dialogprocedimientos = false;
   }
   eliminarProcedimiento(rowIndex) {
@@ -325,7 +334,7 @@ export class PagoProcedimientosComponent implements OnInit {
   }
   onChangeTarifa() {
     let data = {
-      idIpress: this.idIpressLapostaMedica,
+      idIpress: this.idIpress,
       ups: this.formProcedimiento.value.ups,
       tipo: this.formProcedimiento.value.tipo
     }
