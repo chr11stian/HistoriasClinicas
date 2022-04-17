@@ -6,7 +6,7 @@ import {dato} from "../../../cred/citas/models/data";
 import {
   FiliancionService
 } from "../../../obstetricia-general/gestante/atencion/h-clinica-materno-perinatal/services/filiancion-atenciones/filiancion.service";
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-lista-consulta',
@@ -106,39 +106,40 @@ export class ListaConsultaComponent implements OnInit {
   }
 
   irFUA(rowData) {
-    // let message1 = "Esta Seguro de Generar FUA?, se dara como finalizado la consulta"
-    // let message2 = "Esta Seguro de Generar FUA?, Debe revisar el tipo de Seguro"
-    // if (rowData.estadoAtencion == 0) {
-    //   Swal.fire({
-    //     icon: 'warning',
-    //     title: 'Consulta en Interconsulta, no es posible hacer FUA',
-    //     showConfirmButton: false,
-    //     timer: 2000
-    //   });
-    // }
-    // if (rowData.estadoAtencion == 2) {
-    //   this.router.navigate(['dashboard/fua/listar-fua'], rowData)
-    // }
-    // if (rowData.estadoAtencion == 1 || rowData.estadoAtencion == 0) {
-    //   Swal.fire({
-    //     title: rowData.tipoConsulta != 'CRED' ? message1 : message2,
-    //     showDenyButton: true,
-    //     confirmButtonText: 'Crear FUA',
-    //     denyButtonText: `Cancelar`,
-    //     confirmButtonColor: '#3085d6',
-    //   }).then((result) => {
-    //     if (result.isConfirmed) {
-    //       this.router.navigate(['dashboard/fua/listar-fua'], rowData)
-    //     } else if (result.isDenied) {
-    //       Swal.fire({
-    //         icon: 'warning',
-    //         title: 'No se creo FUA',
-    //         showConfirmButton: false,
-    //         timer: 2000
-    //       });
-    //     }
-    //   })
-    // }
+    console.log('data', rowData);
+    let message1 = "Esta Seguro de Generar FUA?, se dara como finalizado la consulta"
+    let message2 = "Esta Seguro de Generar FUA?, Debe revisar el tipo de Seguro"
+    if (rowData.estadoAtencion == 0) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Consulta en Interconsulta, no es posible hacer FUA',
+        showConfirmButton: false,
+        timer: 2000
+      });
+    }
+    if (rowData.estadoAtencion == 2) {
+      this.router.navigate(['dashboard/fua/listar-fua'], rowData)
+    }
+    if (rowData.estadoAtencion == 1 || rowData.estadoAtencion == 0) {
+      Swal.fire({
+        title: rowData.tipoConsulta != 'CRED' ? message1 : message2,
+        showDenyButton: true,
+        confirmButtonText: 'Crear FUA',
+        denyButtonText: `Cancelar`,
+        confirmButtonColor: '#3085d6',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.router.navigate(['dashboard/fua/listar-fua'], rowData)
+        } else if (result.isDenied) {
+          Swal.fire({
+            icon: 'warning',
+            title: 'No se creo FUA',
+            showConfirmButton: false,
+            timer: 2000
+          });
+        }
+      })
+    }
   }
 
   irHIS(rowData) {
