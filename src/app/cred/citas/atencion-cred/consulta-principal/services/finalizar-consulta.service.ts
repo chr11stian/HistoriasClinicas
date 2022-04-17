@@ -26,6 +26,10 @@ export class FinalizarConsultaService {
         return this.http.post(`${this.urlServer}/${this.bd}/cred/consulta/acuerdos/${id}`, data)
     }
 
+    getListaAcuerdos() {
+        return this.http.get(`${this.urlServer}/${this.bd}/cred/consulta/acuerdos`)
+    }
+
     buscarIprees(item: string) {
         return this.http.get(`${this.urlServer}/${this.bd}/ipress/filtro/${item}`)
     }

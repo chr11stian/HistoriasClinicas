@@ -1,4 +1,4 @@
-export interface  dato {
+export interface dato {
     hidden?: boolean,
     nroDocumento?: string,
     tipoDoc?: string,
@@ -9,7 +9,7 @@ export interface  dato {
     sexo?: string,
     fechaNacimiento?: string,
     see?: boolean
-    nroConsulta?:number
+    nroConsulta?: number
 }
 
 export interface outputTriajeInterface {
@@ -233,13 +233,17 @@ export interface ExamenesAuxiliares {
 }
 
 export interface acuerdosInterface {
-    listaAcuerdosConMadre: listaAcuerdosConMadre[];
+    acuerdosCompromisosCRED: acuerdosCompromisosCRED,
     referencia: referencia;
     proxCita: proxCita;
     observacionesConsulta: string;
     interconsultas: proxCita[];
 }
 
+export interface acuerdosCompromisosCRED{
+    edadMes: number,
+    listaAcuerdosConMadre: listaAcuerdosConMadre[]
+}
 export interface proxCita {
     fecha: Date | string;
     motivo?: string;
@@ -250,8 +254,8 @@ export interface proxCita {
 
 export interface listaAcuerdosConMadre {
     nroAcuerdo: string;
-    descripcion: string;
-    edadMes?: string;
+    descripcion?: string;
+    edadMes?: number | string;
 }
 
 export interface referencia {
@@ -289,7 +293,7 @@ export interface escala {
     pass?: string,
     escala: string,
     rol?: string[],
-    nombreRol?:string[]
+    nombreRol?: string[]
     list?: nombreRol[]
 }
 

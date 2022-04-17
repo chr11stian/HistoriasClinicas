@@ -1,1 +1,257 @@
-<p>acuerdos works!</p>
+<div class="flex">
+    <div class="col-12 md-12 lg-12">
+        <p-toolbar>
+
+            <ng-template pTemplate="left">
+                <span class="p-m-0">ACUERDOS Y COMPROMISOS CON LA MADRE Y/O CUIDADOR DEL NIÑO(a)</span>
+            </ng-template>
+            <ng-template pTemplate="right" class="button">
+                <!--    <button pButton pRipple label="Agregar" iconPos="right" icon="pi pi-plus-circle"
+                        class="guardar mr-2"
+                        style="background-color: #0c3866" (click)="openAcuerdo()"></button>-->
+            </ng-template>
+        </p-toolbar>
+        <div class="col-12">
+            <form [formGroup]="FrmAcuerdo">
+                <div class="grid">
+                    <div class="col-12 flex justify-content-center">
+                        <p-dropdown [options]="listAcuerdos" formControlName="acuerdo" placeholder="Acuerdos"
+                                    optionLabel="descripcion" optionValue="nroAcuerdo" [showClear]="false"
+                                    scrollHeight="100px">
+                        </p-dropdown>
+                        <button style="background-color: #0c3866" class="button-agregar p-button-rounded"
+                                icon="pi pi-plus"
+                                pButton type="button"
+                                (click)="Agregar()"></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <p-table class="table-over" [value]="acuerdos" #dt styleClass="p-datatable-gridlines" [rows]="10"
+                 [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
+                 [showCurrentPageReport]="true"
+                 currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="text-align: center" class="font-2">Nro</th>
+                    <th style="text-align: center" class="font-2">NROACUERDO</th>
+                    <th style="text-align: center" class="font-2">ACUERDO</th>
+                    <th style="text-align: center" class="font-2">ACCIÓN</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                <tr>
+                    <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+                    <td style="text-align: center">{{ rowData.nroAcuerdo }}</td>
+                    <td style="text-align: center">{{ rowData.descripcion }}</td>
+                    <td style="text-align: center">
+                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
+                                (click)="eliminarAcuerdo(rowIndex)" pTooltip="Eliminar">
+                        </button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+<div class="flex">
+    <div class="col-12 md:col-6 lg:col-6">
+        <p-toolbar>
+            <ng-template pTemplate="left">
+                <span class="p-m-0">REFERENCIA</span>
+            </ng-template>
+            <ng-template pTemplate="right" class="button">
+                <button pButton pRipple label="Referencia" iconPos="right" icon="pi pi-plus-circle" class="guardar mr-2"
+                        style="background-color: #0c3866" (click)="openRefe()"></button>
+            </ng-template>
+        </p-toolbar>
+        <p-table class="table-over" [value]="referencia" #dt styleClass="p-datatable-gridlines" [rows]="10"
+                 [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
+                 [showCurrentPageReport]="true"
+                 currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="text-align: center" class="font-2">FECHA</th>
+                    <th style="text-align: center" class="font-2">CONSULTORIO</th>
+                    <th style="text-align: center" class="font-2">MOTIVO</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                <tr>
+                    <td style="text-align: center">{{ rowData.coordinacion.fechaAtendera }}</td>
+                    <td style="text-align: center">{{ rowData.coordinacion.especialidad }}</td>
+                    <td style="text-align: center">{{ rowData.coordinacion.motivo }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <div class="col-12 md:col-6 lg:col-6">
+        <p-fieldset legend="PROXIMA CITA" styleClass="mb-2" [toggleable]="true">
+            <form [formGroup]="acuerdosFG">
+                <div class="grid">
+                    <div class="flex col-12 justify-content-center">
+                        <button pButton pRipple label="Calendario" iconPos="right" icon="pi pi-plus-circle"
+                                class="guardar mr-2"
+                                style="background-color: #0c3866" (click)="openCalendar()"></button>
+                    </div>
+                    <div class="col-6 md:col-3 p-fluid">
+                        Próxima cita :
+                    </div>
+                    <div class="col-6 md:col-9  p-fluid">
+                        <p-calendar [ngModel]="fecha" formControlName="proximaCitaFC" [showIcon]="true"
+                                    inputId="icon"></p-calendar>
+                    </div>
+                    <div class="col-6 md:col-3  p-fluid">
+                        Motivo :
+                    </div>
+                    <div class="col-6 md:col-9  p-fluid">
+                        <textarea class="inputfield w-full" formControlName="motivo" pInputTextarea></textarea>
+                    </div>
+                    <div class="col-6 md:col-2  p-fluid">
+                        Servicio :
+                    </div>
+                    <div class="col-6 md:col-4  p-fluid">
+                        <p-dropdown
+                                [options]="servicios"
+                                formControlName="servicio"
+                                optionLabel="name"
+                                optionValue="code"
+                        ></p-dropdown>
+                    </div>
+                    <div class="col-6 md:col-2  p-fluid">
+                        Nivel Urgencia:
+                    </div>
+                    <div class="col-6 md:col-4  p-fluid">
+                        <p-dropdown
+                                [options]="urgencia"
+                                formControlName="urgencia"
+                                optionLabel="name"
+                                optionValue="code"
+                        ></p-dropdown>
+                    </div>
+                </div>
+            </form>
+        </p-fieldset>
+    </div>
+</div>
+
+<p-fieldset legend="INTERCONSULTA" styleClass="mb-2" [toggleable]="true">
+    <button pButton pRipple label="Agregar" iconPos="right" icon="pi pi-plus-circle" class="guardar mr-2"
+            style="background-color: #0c3866" (click)="openInterconsulta()"></button>
+    <p-table class="table-over" [value]="interconsulta" #dt styleClass="p-datatable-gridlines" [rows]="10"
+             [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
+             [showCurrentPageReport]="true"
+             currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="text-align: center" class="font-2">Nro</th>
+                <th style="text-align: center" class="font-2">CITA</th>
+                <th style="text-align: center" class="font-2">MOTIVO</th>
+                <th style="text-align: center" class="font-2">SERVICIO</th>
+                <th style="text-align: center" class="font-2">NIVEL</th>
+                <th style="text-align: center" class="font-2">ACCIÓN</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+            <tr>
+                <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+                <td style="text-align: center">{{ rowData.fecha }}</td>
+                <td style="text-align: center">{{ rowData.motivo }}</td>
+                <td style="text-align: center">{{ rowData.servicio }}</td>
+                <td style="text-align: center">{{ rowData.nivelUrgencia }}</td>
+                <td style="text-align: center">
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
+                            (click)="eliminarInterconsulta(rowIndex)" pTooltip="Eliminar">
+                    </button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-fieldset>
+
+<p-fieldset legend="OBSERVACIONES" styleClass="mb-2" [toggleable]="true">
+    <form [formGroup]="acuerdosFG">
+        <textarea class="inputfield w-full mb-2" formControlName="observacionFC" pInputTextarea></textarea>
+    </form>
+</p-fieldset>
+
+<!-- Dialog Acuerdo --->
+<p-dialog header="ACUERDO" [(visible)]="dialogAcuerdos" [modal]="true" [style]="{width: '50%', height: '40%'}"
+          [draggable]="false"
+          [resizable]="false">
+
+    <form [formGroup]='formAcuerdos'>
+        <div class="grid">
+            <div class="col-12 justify-content-center">
+                <textarea style="height: 120px" class="w-full" pInputTextarea
+                          formControlName="descripcion">
+                </textarea>
+            </div>
+        </div>
+    </form>
+    <ng-template pTemplate="footer">
+        <button pButton type="button" label="Cancelar" class="button-cancelar" icon="pi pi-times"
+                (click)="cancelAcuerdo()"></button>
+        <button class="button-agregar" icon="pi pi-save" pButton type="button" label="Guardar"
+                (click)="saveAcuerdo()"></button>
+
+    </ng-template>
+</p-dialog>
+
+<!-- Dialog Acuerdo --->
+<p-dialog header="INTERCONSULTA" [(visible)]="dialogInterconsulta" [modal]="true" [style]="{width: '30%'}"
+          [draggable]="false"
+          [resizable]="false">
+
+    <form [formGroup]='formInterconsulta'>
+        <div class="grid align-items-center">
+            <div class="col-3 md:col-3">
+                Próxima cita:
+            </div>
+            <div class="col-9 md:col-9 p-fluid ">
+                <p-calendar style="position:absolute; top:55px" [ngModel]="fecha"
+                            formControlName="fecha"
+                            [showIcon]="true"
+                            inputId="icon"></p-calendar>
+            </div>
+            <div class="col-6 md:col-3  p-fluid">
+                Motivo:
+            </div>
+            <div class="col-6 md:col-9  p-fluid">
+                <textarea class="inputfield w-full" formControlName="motivo" pInputTextarea></textarea>
+            </div>
+            <div class="col-6 md:col-2  p-fluid">
+                Servicio:
+            </div>
+            <div class="col-6 md:col-4  p-fluid">
+                <p-dropdown
+                        style="position:absolute;bottom:85px"
+                        [options]="servicios"
+                        formControlName="servicio"
+                        optionLabel="name"
+                        optionValue="code"
+                ></p-dropdown>
+            </div>
+            <div class="col-6 md:col-2  p-fluid">
+                Nivel Urgencia:
+            </div>
+            <div class="col-6 md:col-4  p-fluid">
+                <p-dropdown
+                        style="position:absolute;bottom:85px"
+                        [options]="urgencia"
+                        formControlName="urgencia"
+                        optionLabel="name"
+                        optionValue="code"
+                ></p-dropdown>
+            </div>
+        </div>
+    </form>
+    <ng-template pTemplate="footer">
+        <button pButton type="button" label="Cancelar" style="background-color: #0c3866" class="button-cancelar"
+                icon="pi pi-times"
+                (click)="cancelInterconsulta()"></button>
+        <button class="button-agregar" icon="pi pi-save" style="background-color: #0c3866" pButton type="button"
+                label="Guardar"
+                (click)="saveInterconsulta()"></button>
+    </ng-template>
+</p-dialog>
