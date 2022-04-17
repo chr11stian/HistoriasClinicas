@@ -13,11 +13,11 @@ import { TarifarioService } from 'src/app/core/services/tarifario/tarifario.serv
 export class PagosComponent implements OnInit {
 
     DataPendientesPago: any;
-    idIpressLapostaMedica = "616de45e0273042236434b51";
-    ipressNombre = "Belempampa";
-    ipressRenaes = "2306";
-    ipressDireccion = "Urb. Tupac Amaru S/N";
-    ipressTelefono = "084-457812";
+    idIpress = "";
+    ipressNombre = "";
+    ipressRenaes = "";
+    ipressDireccion = "";
+    ipressRUC = "";
     formCaja: FormGroup;
     datePipe = new DatePipe('en-US');
     datafecha: Date = new Date();
@@ -25,12 +25,24 @@ export class PagosComponent implements OnInit {
     idPagoCaja: any;
 
     tarifas: any[];
-    nroCaja: String = "01";
+
+    nroCaja: String = "";
+    tipoDocReceptor: "";
+    nroDocReceptor: "";
     constructor(
         private servicesService: ServicesService,
         private tarifarioService: TarifarioService,
         private fb: FormBuilder,
     ) {
+        this.nroCaja = JSON.parse(localStorage.getItem('cajaActual'));
+        this.tipoDocReceptor = JSON.parse(localStorage.getItem('usuario')).tipoDocumento;
+        this.nroDocReceptor = JSON.parse(localStorage.getItem('usuario')).nroDocumento;
+
+        this.idIpress= JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
+        this.ipressNombre = JSON.parse(localStorage.getItem('usuario')).ipress.nombreEESS;
+        this.ipressRenaes = JSON.parse(localStorage.getItem('usuario')).ipress.renipress;
+        this.ipressDireccion = JSON.parse(localStorage.getItem('usuario')).ipress.ubicacion.direccion;
+        this.ipressRUC = JSON.parse(localStorage.getItem('usuario')).ipress.ruc;
     }
 
     ngOnInit(): void {
@@ -65,7 +77,7 @@ export class PagosComponent implements OnInit {
 
     getTarifaUps() {
         let data = {
-            idIpress: this.idIpressLapostaMedica,
+            idIpress: this.idIpress,
             ups: this.formCaja.value.servicio,
             tipo: "CONSULTA"
         }
@@ -86,7 +98,7 @@ export class PagosComponent implements OnInit {
             // fechaAtencion: "2022-01-20",
         }
         console.log('DATA', data);
-        this.servicesService.getListaPendientesDePago(this.idIpressLapostaMedica, data).subscribe((res: any) => {
+        this.servicesService.getListaPendientesDePago(this.idIpress, data).subscribe((res: any) => {
             this.DataPendientesPago = res.object;
             console.log('LISTA DE CUPOS PENDIENTES', this.DataPendientesPago);
         })
@@ -118,8 +130,8 @@ export class PagosComponent implements OnInit {
     pagar() {
         let pago1 = {
             tipo: "R",
-            tipoDocReceptor: "DNI",
-            nroDocReceptor: "73145986",
+            tipoDocReceptor: this.tipoDocReceptor,
+            nroDocReceptor: this.nroDocReceptor,
             apellidos: this.formCaja.value.apePaterno,
             nombres: this.formCaja.value.nombres,
             detalle: [
@@ -138,7 +150,7 @@ export class PagosComponent implements OnInit {
         }
 
 
-        this.servicesService.pagarRecibo(this.idIpressLapostaMedica, this.nroCaja, pago1).subscribe((res: any) => {
+        this.servicesService.pagarRecibo(this.idIpress, this.nroCaja, pago1).subscribe((res: any) => {
             this.servicesService.UpdateCupoCAja(this.idPagoCaja).subscribe((res: any) => {
             });
             Swal.fire({
@@ -165,13 +177,13 @@ export class PagosComponent implements OnInit {
         this.formCaja.get('servicio').setValue(event.ipress.servicio);
         this.formCaja.get('nroCaja').setValue(this.nroCaja);
         this.formCaja.get('fechaRecibo').setValue(new Date().toLocaleString());
-        
+
         this.formCaja.get('fechaAtencion').setValue(event.fechaAtencion);
         this.formCaja.get('horaAtencion').setValue(event.horaAtencion + "-" + event.horaAtencionFin);
 
         this.getTarifaUps();
-        this.servicesService.obtenerNumeracionCaja(this.idIpressLapostaMedica,this.nroCaja).subscribe((res: any) => {
-            this.formCaja.get('nroBoleta').setValue(res.object.contadorRecibos+1);
+        this.servicesService.obtenerNumeracionCaja(this.idIpress, this.nroCaja).subscribe((res: any) => {
+            this.formCaja.get('nroBoleta').setValue(res.object.contadorRecibos + 1);
         })
     }
 
@@ -181,6 +193,6 @@ export class PagosComponent implements OnInit {
         this.formCaja.get('codigoPago').setValue("");
         this.formCaja.get('tipoPago').setValue("");
         this.formCaja.get('precioServicio').setValue(0);
-        this.tarifas=[];
+        this.tarifas = [];
     }
 }

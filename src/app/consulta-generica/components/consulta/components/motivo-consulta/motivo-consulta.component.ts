@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DatosGeneralesService } from 'src/app/consulta-generica/services/datos-generales/datos-generales.service';
 import { MotivoConsulta } from 'src/app/core/models/consultaGenerica';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-motivo-consulta',
@@ -16,6 +17,7 @@ export class MotivoConsultaComponent implements OnInit {
   formExtraData: FormGroup;
   formBiologicalFunctions: FormGroup;
   dataMotivoConsulta: MotivoConsulta;
+  dataResMotivoCons: any;
   idConsulta: string;
   listaFuncionesBiologicas = [
     { name: "Conservado" },
@@ -28,7 +30,11 @@ export class MotivoConsultaComponent implements OnInit {
     this.inicializarForm();
     this.idConsulta = JSON.parse(localStorage.getItem('documento')).idConsulta;
     this.consultaGeneralService.searchConsultaDatosGenerales(this.idConsulta).subscribe((res: any) => {
-
+      this.consultaGeneralService.searchConsultaDatosGenerales(this.idConsulta).subscribe((res: any) => {
+        console.log('datos de consulta ', res.object);
+        this.dataResMotivoCons = res.object;
+        this.loadDataMotivoConsulta(this.dataResMotivoCons)
+      })
     })
   }
 
@@ -98,6 +104,55 @@ export class MotivoConsultaComponent implements OnInit {
       deposicionesDetalle: new FormControl(""),
     })
   }
+  loadDataMotivoConsulta(data) {
+    this.formMotivoConsulta.patchValue({ detailMotivoFC: data.motivoConsulta });
+    this.formVitalSigns.patchValue({ temperatura: data.signosVitales.temperatura });
+    this.formVitalSigns.patchValue({ presionSistolica: data.signosVitales.presionSistolica });
+    this.formVitalSigns.patchValue({ presionDiastolica: data.signosVitales.presionDiastolica });
+    this.formVitalSigns.patchValue({ fc: data.signosVitales.fc });
+    this.formVitalSigns.patchValue({ fr: data.signosVitales.fr });
+    this.formVitalSigns.patchValue({ peso: data.signosVitales.peso });
+    this.formVitalSigns.patchValue({ talla: data.signosVitales.talla });
+    this.formVitalSigns.patchValue({ imc: data.signosVitales.imc });
+
+    this.formPhysicalExam.patchValue({ piel: data.examenesFisicos[0].valor });
+    this.formPhysicalExam.patchValue({ cabeza: data.examenesFisicos[1].valor });
+    this.formPhysicalExam.patchValue({ cara: data.examenesFisicos[2].valor });
+    this.formPhysicalExam.patchValue({ cuello: data.examenesFisicos[3].valor });
+    this.formPhysicalExam.patchValue({ torax: data.examenesFisicos[4].valor });
+    this.formPhysicalExam.patchValue({ abdomen: data.examenesFisicos[5].valor });
+    this.formPhysicalExam.patchValue({ columnaVert: data.examenesFisicos[6].valor });
+    this.formPhysicalExam.patchValue({ extremidades: data.examenesFisicos[7].valor });
+
+    this.formPhysicalExam.patchValue({ pielDetalle: data.examenesFisicos[0].detalle });
+    this.formPhysicalExam.patchValue({ cabezaDetalle: data.examenesFisicos[1].detalle });
+    this.formPhysicalExam.patchValue({ caraDetalle: data.examenesFisicos[2].detalle });
+    this.formPhysicalExam.patchValue({ cuelloDetalle: data.examenesFisicos[3].detalle });
+    this.formPhysicalExam.patchValue({ toraxDetalle: data.examenesFisicos[4].detalle });
+    this.formPhysicalExam.patchValue({ abdomenDetalle: data.examenesFisicos[5].detalle });
+    this.formPhysicalExam.patchValue({ columnaVertDetalle: data.examenesFisicos[6].detalle });
+    this.formPhysicalExam.patchValue({ extremidadesDetalle: data.examenesFisicos[7].detalle });
+
+    this.formExtraData.patchValue({ anamnesis: data.anamnesis });
+    this.formExtraData.patchValue({ tiempoEnfermedad: data.interMedicinaGeneral.tiempoEnfermedad });
+    this.formExtraData.patchValue({ formaInicio: data.interMedicinaGeneral.formaInicio });
+    this.formExtraData.patchValue({ curso: data.interMedicinaGeneral.curso });
+    this.formExtraData.patchValue({ observacion: data.interMedicinaGeneral.observacion });
+
+    this.formBiologicalFunctions.patchValue({ apetito: data.funcionesBiologicas[0].valor });
+    this.formBiologicalFunctions.patchValue({ apetitoDetalle: data.funcionesBiologicas[0].detalle });
+    this.formBiologicalFunctions.patchValue({ sed: data.funcionesBiologicas[1].valor });
+    this.formBiologicalFunctions.patchValue({ sedDetalle: data.funcionesBiologicas[1].detalle });
+    this.formBiologicalFunctions.patchValue({ suenos: data.funcionesBiologicas[2].valor });
+    this.formBiologicalFunctions.patchValue({ suenosDetalle: data.funcionesBiologicas[2].detalle });
+    this.formBiologicalFunctions.patchValue({ estadoAnimo: data.funcionesBiologicas[3].valor });
+    this.formBiologicalFunctions.patchValue({ estadoAnimoDetalle: data.funcionesBiologicas[3].detalle });
+    this.formBiologicalFunctions.patchValue({ orina: data.funcionesBiologicas[4].valor });
+    this.formBiologicalFunctions.patchValue({ orinaDetalle: data.funcionesBiologicas[4].detalle });
+    this.formBiologicalFunctions.patchValue({ deposiciones: data.funcionesBiologicas[5].valor });
+    this.formBiologicalFunctions.patchValue({ deposicionesDetalle: data.funcionesBiologicas[5].detalle });
+
+  }
   recoverData() {
     this.dataMotivoConsulta = {
       id: this.idConsulta,
@@ -143,6 +198,14 @@ export class MotivoConsultaComponent implements OnInit {
   save() {
     this.recoverData();
     // console.log('data to save ', this.dataMotivoConsulta);
-    this.consultaGeneralService.putUpdateConsultaGeneralByIdConsulta(this.dataMotivoConsulta).subscribe((res: any) => { })
+    this.consultaGeneralService.putUpdateConsultaGeneralByIdConsulta(this.dataMotivoConsulta).subscribe((res: any) => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Guardado',
+        text: 'Datos guardados correctamente',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    })
   }
 }
