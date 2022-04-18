@@ -30,7 +30,7 @@ export class ListarCuposComponent implements OnInit {
   Pacientes: any;
   ProximaCita: any;
   dataPaciente2: any;
-  idIpress: string = "616de45e0273042236434b51";
+  idIpress: string;
 
   constructor(
     private fb: FormBuilder,
@@ -44,7 +44,8 @@ export class ListarCuposComponent implements OnInit {
       { name: "C EXTRANJERIA", code: 3 },
       { name: "OTROS", code: 4 },
     ]
-
+    this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
+    console.log('id ipress token ', this.idIpress);
   }
 
 

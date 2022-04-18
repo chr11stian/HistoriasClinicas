@@ -49,6 +49,9 @@ export class ModalProcedimientosComponent implements OnInit {
   tipoList: any;
   edadPaciente: any;
   sexoPaciente: any;
+
+  consejeria = false;
+  valorConsejeria = " ";
   constructor(private form: FormBuilder,
     private ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
@@ -104,16 +107,28 @@ export class ModalProcedimientosComponent implements OnInit {
     { label: 'PRESUNTIVO', value: 'P' },
     { label: 'REPETITIVO', value: 'R' },
     ];
-    console.log(config.data);
+    console.log("esto es lo q mandas a modal", config);
     this.buildForm();
 
     this.recuperarPrestaciones();
     this.traerDiagnosticosDeConsulta();
 
-    if (config.data) {
+    if (config.data && typeof (config.data) !== 'string') {
+      this.consejeria = false;
+      console.log("consejeria", this.consejeria)
       this.llenarCamposTratamientoProcedimientos();
     }
-    else{
+    if (config.data && typeof (config.data) === 'string') {
+      this.consejeria = true;
+      this.valorConsejeria = config.data;
+      console.log("consejeria", this.consejeria);
+      this.formProcedimientos.get('ups').setValue("OBSTETRICIA");
+      this.formProcedimientos.get('subtitulo').setValue("MATERNO PERINATAL");
+      this.formProcedimientos.get("tipo").setValue("D");
+    }
+    else {
+      this.consejeria = false;
+      console.log("consejeria", this.consejeria)
       this.formProcedimientos.get('ups').setValue("OBSTETRICIA");
       this.formProcedimientos.get('subtitulo').setValue("MATERNO PERINATAL");
       this.formProcedimientos.get("tipo").setValue("D");
@@ -163,7 +178,7 @@ export class ModalProcedimientosComponent implements OnInit {
       console.log("diagnosticos:", this.diagnosticosList);
     })
   }
-  enviarProcedimientos() {
+  async enviarProcedimientos() {
     var data = {
       codPrestacion: this.formProcedimientos.value.diagnostico.codPrestacion,
       procedimientoSIS: this.formProcedimientos.value.diagnosticoSIS,
@@ -178,10 +193,68 @@ export class ModalProcedimientosComponent implements OnInit {
     }
 
     console.log(data);
-    this.dataProcedimientos.push(data);
-    this.dialogProcedimientos = false;
-  }
 
+    await this.DxService.guardarProcedimientoGestante(this.nroHcl, this.nroEmbarazo, this.nroAtencion, data).then((res: any) => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Guardado',
+        text: 'Procedimiento guardado correctamente',
+        showConfirmButton: false,
+        timer: 1500,
+      })
+    })
+  }
+  async enviarProcedimientosConsejeria() {
+    var data = {
+      codPrestacion: this.formProcedimientos.value.diagnostico.codPrestacion,
+      procedimientoSIS: this.formProcedimientos.value.diagnosticoSIS,
+      codProcedimientoSIS: this.formProcedimientos.value.SISCIE.codigo,
+      cie10SIS: this.formProcedimientos.value.diagnostico.cie10SIS,
+      procedimientoHIS: this.formProcedimientos.value.diagnosticoHIS,
+      codProcedimientoHIS: this.formProcedimientos.value.HISCIE.codigoItem,
+      nombreUPS: this.formProcedimientos.value.ups,
+      nombreUPSaux: this.formProcedimientos.value.subtitulo,
+      lab: this.formProcedimientos.value.lab,
+      tipo: this.formProcedimientos.value.tipo,
+    }
+
+    console.log(data);
+
+    await this.DxService.guardarProcedimientoGestanteConsejeria(this.nroHcl, this.nroEmbarazo, this.nroAtencion, this.valorConsejeria, data).then((res: any) => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Guardado',
+        text: 'Procedimiento guardado correctamente',
+        showConfirmButton: false,
+        timer: 1500,
+      })
+    })
+  }
+  async enviarEdicionProcedimiento() {
+    var data = {
+      codPrestacion: this.formProcedimientos.value.diagnostico.codPrestacion,
+      procedimientoSIS: this.formProcedimientos.value.diagnosticoSIS,
+      codProcedimientoSIS: this.formProcedimientos.value.SISCIE.codigo,
+      cie10SIS: this.formProcedimientos.value.diagnostico.cie10SIS,
+      procedimientoHIS: this.formProcedimientos.value.diagnosticoHIS,
+      codProcedimientoHIS: this.formProcedimientos.value.HISCIE.codigoItem,
+      nombreUPS: this.formProcedimientos.value.ups,
+      nombreUPSaux: this.formProcedimientos.value.subtitulo,
+      lab: this.formProcedimientos.value.lab,
+      tipo: this.formProcedimientos.value.tipo,
+    }
+    console.log(data);
+
+    await this.DxService.editarProcedimientoGestante(this.nroHcl, this.nroEmbarazo, this.nroAtencion, data).then((res: any) => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Actualizado',
+        text: 'Procedimiento guardado correctamente',
+        showConfirmButton: false,
+        timer: 1500,
+      })
+    })
+  }
   llenarCamposTratamientoProcedimientos() {
     this.DxService.listarDiagnosticosDeUnaConsulta(this.nroHcl, this.nroEmbarazo, this.nroAtencion).then((res: any) => {
       this.diagnosticosList = res.object;
@@ -208,14 +281,16 @@ export class ModalProcedimientosComponent implements OnInit {
     })
 
   }
-  closeDialogGuardar() {
-    this.enviarProcedimientos();
+  async closeDialogGuardar() {
     this.ref.close(
-      this.config.data ? {
-        index: this.config.data.index,
-        row: this.dataProcedimientos[0]
-      } :
-        this.dataProcedimientos[0]);
+      await (this.config.data && typeof (this.config.data) !== 'string') ?
+        this.enviarEdicionProcedimiento().then((res) => this.ref.close())
+        :
+        (this.config.data && typeof (this.config.data) === 'string') ?
+          this.enviarProcedimientosConsejeria().then((res) => this.ref.close()) :
+          this.enviarProcedimientos().then((res) => this.ref.close()
+          )
+    )
   }
 
   closeDialog() {

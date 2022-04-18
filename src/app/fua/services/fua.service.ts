@@ -6,8 +6,9 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class FuaService {
-  urlServer = environment.baseUrl
-  bd = environment.bd
+  urlServer = environment.baseUrl;
+  bd = environment.bd;
+  urlReporter = environment.base_urlTx;
   evento: boolean = false;
 
   constructor(private http: HttpClient) { }
@@ -42,7 +43,7 @@ export class FuaService {
   postProcedimientos
   /**REPORTES */
   getReportFUA(idFUA: string) {
-    return this.http.get(`http://192.168.5.3:8200/jasperserver/rest_v2/reports/Reports/FUA/anexo1.pdf?${idFUA}`);
+    return this.http.get(`${this.urlReporter}/jasperserver/rest_v2/reports/Reports/FUA/anexo1.pdf?idFua=${idFUA}`);
   }
   /**PROMISES */
   getPromiseCrearRecuperarFUAxIdConsulta(idConsulta: string) {

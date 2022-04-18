@@ -1,0 +1,340 @@
+<div class="grid">
+    <div class="col-12">
+        <p-fieldset legend="Motivo de Consulta" styleClass="mb-2">
+            <form [formGroup]="formMotivoConsulta">
+                <textarea class="inputfield w-full mb-2" formControlName="detailMotivoFC" pInputTextarea
+                    oninput="this.value=this.value.toUpperCase()"></textarea>
+            </form>
+        </p-fieldset>
+        <p-fieldset legend="Signos Vitales">
+            <form [formGroup]="formVitalSigns">
+                <div class="grid text-center">
+                    <div class="col-2">
+                        <label>Temperatura</label>
+                        <input type="number" pInputText formControlName='temperatura' placeholder=""
+                            class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
+                    </div>
+                    <div class="col-2">
+                        <label>Pres. Sistolica</label>
+                        <input type="number" pInputText formControlName='presionSistolica' placeholder=""
+                            class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
+                    </div>
+                    <div class="col-2">
+                        <label>Pres. Diastolica</label>
+                        <input type="number" pInputText formControlName='presionDiastolica' placeholder=""
+                            class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
+                    </div>
+                    <div class="col-2">
+                        <label>FC</label>
+                        <input type="number" pInputText formControlName='fc' placeholder=""
+                            class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
+                    </div>
+                    <div class="col-2">
+                        <label>FR</label>
+                        <input type="number" pInputText formControlName='fr' placeholder=""
+                            class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
+                    </div>
+                    <div class="col-2">
+                        <label>Peso</label>
+                        <input type="number" pInputText formControlName='peso' placeholder=""
+                            class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
+                    </div>
+                    <div class="col-2">
+                        <label>Talla</label>
+                        <input type="number" pInputText formControlName='talla' placeholder=""
+                            class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
+                    </div>
+                    <div class="col-2">
+                        <label>IMC</label>
+                        <input type="number" pInputText formControlName='imc' placeholder=""
+                            class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
+                    </div>
+                </div>
+                <p-divider></p-divider>
+                <!-- <label>Observaciones de Signos Vitales:</label>
+                <textarea class="inputfield w-full mb-2" formControlName="obsSignosVitales" pInputTextarea></textarea> -->
+            </form>
+        </p-fieldset>
+
+
+        <p-fieldset legend="Estado Actual: Funciones Biológicas">
+            <form [formGroup]="formBiologicalFunctions">
+                <div class="grid">
+                    <div class="col-4">
+                        <label class="mt-3">Apetito:</label>
+                        <div class="grid">
+                            <div class="col-6">
+                                <p-dropdown [options]="listaFuncionesBiologicas" formControlName="apetito"
+                                    optionLabel="name" optionValue="name" class="inputfield p-fluid w-full"
+                                    placeholder="Seleccione una opción">
+                                </p-dropdown>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" pInputText formControlName='apetitoDetalle'
+                                    placeholder="Detalle del apetito" class="inputfield w-full">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <label class="mt-3">Sed:</label>
+                        <div class="grid">
+                            <div class="col-6">
+                                <p-dropdown [options]="listaFuncionesBiologicas" formControlName="sed"
+                                    optionLabel="name" optionValue="name" class="inputfield p-fluid w-full"
+                                    placeholder="Seleccione una opción">
+                                </p-dropdown>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" pInputText formControlName='sedDetalle'
+                                    placeholder="Detalle de la sed" class="inputfield w-full">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <label class="mt-3">Sueño:</label>
+                        <div class="grid">
+                            <div class="col-6">
+                                <p-dropdown [options]="listaFuncionesBiologicas" formControlName="suenos"
+                                    optionLabel="name" optionValue="name" class="inputfield p-fluid w-full"
+                                    placeholder="Seleccione una opción">
+                                </p-dropdown>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" pInputText formControlName='suenosDetalle'
+                                    placeholder="Detalle del sueño" class="inputfield w-full">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <label class="mt-3">Estado de ánimo:</label>
+                        <div class="grid">
+                            <div class="col-6">
+                                <p-dropdown [options]="listaFuncionesBiologicas" formControlName="estadoAnimo"
+                                    optionLabel="name" optionValue="name" class="inputfield p-fluid w-full"
+                                    placeholder="Seleccione una opción">
+                                </p-dropdown>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" pInputText formControlName='estadoAnimoDetalle'
+                                    placeholder="Detalle del estado de ánimo" class="inputfield w-full">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <label class="mt-3">Orina:</label>
+                        <div class="grid">
+                            <div class="col-6">
+                                <p-dropdown [options]="listaFuncionesBiologicas" formControlName="orina"
+                                    optionLabel="name" optionValue="name" class="inputfield p-fluid w-full"
+                                    placeholder="Seleccione una opción">
+                                </p-dropdown>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" pInputText formControlName='orinaDetalle'
+                                    placeholder="Detalle de la orina" class="inputfield w-full">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <label class="mt-3">Deposiciones:</label>
+                        <div class="grid">
+                            <div class="col-6">
+                                <p-dropdown [options]="listaFuncionesBiologicas" formControlName="deposiciones"
+                                    optionLabel="name" optionValue="name" class="inputfield p-fluid w-full"
+                                    placeholder="Seleccione una opción">
+                                </p-dropdown>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" pInputText formControlName='deposicionesDetalle'
+                                    placeholder="Detalle de las deposiciones" class="inputfield w-full">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </p-fieldset>
+
+
+
+        <p-fieldset legend="Examen Físico">
+            <form [formGroup]="formPhysicalExam">
+                <div class="grid">
+                    <div class="col-6">
+                        <label>Piel y Faneras (cabello, uñas):</label>
+                        <div class="grid">
+                            <div class="col-6">
+                                <p-dropdown [options]="listaFuncionesBiologicas" formControlName="piel"
+                                    appendTo="body" optionLabel="name" optionValue="name" class="p-fluid w-full"
+                                    placeholder="Seleccione una opción">
+                                </p-dropdown>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" pInputText formControlName='pielDetalle'
+                                    placeholder="Detalle del examen" class="inputfield w-full">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label>Cabeza:</label>
+                        <div class="grid">
+                            <div class="col-6">
+                                <p-dropdown [options]="listaFuncionesBiologicas" formControlName="cabeza"
+                                    appendTo="body" optionLabel="name" optionValue="name" class="p-fluid w-full"
+                                    placeholder="Seleccione una opción">
+                                </p-dropdown>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" pInputText formControlName='cabezaDetalle'
+                                    placeholder="Detalle del examen" class="inputfield w-full">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label>Cara:</label>
+                        <div class="grid">
+                            <div class="col-6">
+                                <p-dropdown [options]="listaFuncionesBiologicas" formControlName="cara"
+                                    appendTo="body" optionLabel="name" optionValue="name" class="p-fluid w-full"
+                                    placeholder="Seleccione una opción">
+                                </p-dropdown>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" pInputText formControlName='caraDetalle'
+                                    placeholder="Detalle del examen" class="inputfield w-full">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label>Cuello:</label>
+                        <div class="grid">
+                            <div class="col-6">
+                                <p-dropdown [options]="listaFuncionesBiologicas" formControlName="cuello"
+                                    appendTo="body" optionLabel="name" optionValue="name" class="p-fluid w-full"
+                                    placeholder="Seleccione una opción">
+                                </p-dropdown>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" pInputText formControlName='cuelloDetalle'
+                                    placeholder="Detalle del examen" class="inputfield w-full">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label>Torax:</label>
+                        <div class="grid">
+                            <div class="col-6">
+                                <p-dropdown [options]="listaFuncionesBiologicas" formControlName="torax"
+                                    appendTo="body" optionLabel="name" optionValue="name" class="p-fluid w-full"
+                                    placeholder="Seleccione una opción">
+                                </p-dropdown>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" pInputText formControlName='toraxDetalle'
+                                    placeholder="Detalle del examen" class="inputfield w-full">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label>Abdomen:</label>
+                        <div class="grid">
+                            <div class="col-6">
+                                <p-dropdown [options]="listaFuncionesBiologicas" formControlName="abdomen"
+                                    appendTo="body" optionLabel="name" optionValue="name" class="p-fluid w-full"
+                                    placeholder="Seleccione una opción">
+                                </p-dropdown>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" pInputText formControlName='abdomenDetalle'
+                                    placeholder="Detalle del examen" class="inputfield w-full">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label>Columna Vert:</label>
+                        <div class="grid">
+                            <div class="col-6">
+                                <p-dropdown [options]="listaFuncionesBiologicas" formControlName="columnaVert"
+                                    appendTo="body" optionLabel="name" optionValue="name" class="p-fluid w-full"
+                                    placeholder="Seleccione una opción">
+                                </p-dropdown>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" pInputText formControlName='columnaVertDetalle'
+                                    placeholder="Detalle del examen" class="inputfield w-full">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label>Extremidades:</label>
+                        <div class="grid">
+                            <div class="col-6">
+                                <p-dropdown [options]="listaFuncionesBiologicas" formControlName="extremidades"
+                                    appendTo="body" optionLabel="name" optionValue="name" class="p-fluid w-full"
+                                    placeholder="Seleccione una opción">
+                                </p-dropdown>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" pInputText formControlName='extremidadesDetalle'
+                                    placeholder="Detalle del examen" class="inputfield w-full">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-6">
+                        <label>Genitouriano:</label>
+                        <textarea type="text" pInputTextarea  formControlName='genitouriano' placeholder="Piel y Faneras"
+                            class="inputfield w-full" oninput="this.value=this.value.toUpperCase()" [rows]="2"></textarea>
+                    </div>
+                    <div class="col-6">
+                        <label>Ano:</label>
+                        <textarea type="text" pInputTextarea  formControlName='ano' placeholder="Piel y Faneras"
+                            class="inputfield w-full" oninput="this.value=this.value.toUpperCase()" [rows]="2"></textarea>
+                    </div> -->
+                </div>
+                <p-divider>x</p-divider>
+                <label>Observaciones de Exámenes Físicos:</label>
+                <textarea class="inputfield w-full mb-2" formControlName="obsExamenFisico" pInputTextarea></textarea>
+            </form>
+        </p-fieldset>
+    </div>
+    <div class="col-12">
+        <form [formGroup]="formExtraData">
+            <div class="grid">
+                <div class="col-4">
+                    <p-fieldset legend="Anamnesis">
+                        <label>Anamnesis:</label>
+                        <textarea [rows]="6" class="inputfield w-full mb-2" formControlName="anamnesis"
+                            pInputTextarea></textarea>
+                    </p-fieldset>
+                </div>
+                <div class="col-8">
+                    <p-fieldset legend="ENFERMEDAD">
+                        <div class="grid">
+                            <div class="col-6">
+                                <label>Tiempo Enfermedad:</label>
+                                <input type="text" pInputText formControlName='tiempoEnfermedad' placeholder=""
+                                    class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
+                            </div>
+                            <div class="col-6">
+                                <label>Forma Inicio:</label>
+                                <input type="text" pInputText formControlName='formaInicio' placeholder=""
+                                    class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
+                            </div>
+                            <div class="col-6">
+                                <label>Curso:</label>
+                                <textarea class="inputfield w-full mb-2" formControlName="curso"
+                                    pInputTextarea></textarea>
+                            </div>
+                            <div class="col-6">
+                                <label>Observacion:</label>
+                                <textarea class="inputfield w-full mb-2" formControlName="observacion"
+                                    pInputTextarea></textarea>
+                            </div>
+                        </div>
+                    </p-fieldset>
+                </div>
+            </div>
+        </form>
+        <button pButton pRipple type="button" icon="pi pi-eye" (click)="save()"
+            class="p-button-rounded p-button-text"></button>
+    </div>
+</div>

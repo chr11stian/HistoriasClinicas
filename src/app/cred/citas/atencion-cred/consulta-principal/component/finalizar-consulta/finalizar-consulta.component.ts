@@ -21,13 +21,12 @@ export class FinalizarConsultaComponent implements OnInit, DoCheck {
     data: dato
     fecha: Date
     acuerdosFG: FormGroup
-    finalizar: finalizarAtencionInterface;
     acuerdos: listaAcuerdosConMadre[] = [];
-    examenesAux: examenesAuxInteface[] = [];
     referencia: ReferenciaInterface[] = []
     interconsulta: proxCita[] = []
 
     id: string;
+    FrmAcuerdo: FormGroup
     formExamen: FormGroup;
     formAcuerdos: FormGroup;
     formReferencia: FormGroup;
@@ -55,7 +54,8 @@ export class FinalizarConsultaComponent implements OnInit, DoCheck {
 
     tipoDoc: string = ''
     nroDoc: string = ''
-
+    mes: number
+    listAcuerdos: listaAcuerdosConMadre[] = []
     datePipe = new DatePipe('en-US');
     ref: DynamicDialogRef;
 
@@ -125,7 +125,10 @@ export class FinalizarConsultaComponent implements OnInit, DoCheck {
 
     save() {
         let aux: acuerdosInterface = {
-            listaAcuerdosConMadre: this.acuerdos,
+            acuerdosCompromisosCRED: {
+                edadMes: this.mes,
+                listaAcuerdosConMadre: this.acuerdos
+            },
             referencia: this.acuerdosService.referencia,
             proxCita: {
                 fecha: this.datePipe.transform(this.acuerdosFG.get('proximaCitaFC').value, 'yyyy-MM-dd'),
@@ -160,7 +163,9 @@ export class FinalizarConsultaComponent implements OnInit, DoCheck {
             servicio: new FormControl({value: '', disabled: false}, []),
             urgencia: new FormControl({value: '', disabled: false}, [])
         })
-
+        this.FrmAcuerdo = new FormGroup({
+            acuerdo: new FormControl({value: null, disabled: false}, [])
+        })
         this.formInterconsulta = new FormGroup({
             fecha: new FormControl({value: null, disabled: false}, []),
             motivo: new FormControl({value: '', disabled: false}, []),
@@ -184,9 +189,19 @@ export class FinalizarConsultaComponent implements OnInit, DoCheck {
         });
     }
 
+    listaAcuerdos() {
+        this.acuerdosService.getListaAcuerdos().subscribe((r: any) => {
+            this.listAcuerdos = r.object
+            console.log('acuerdos', this.listAcuerdos)
+        })
+
+    }
+
     ngOnInit(): void {
         this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
+        this.mes = this.data.mes
         this.agenda()
+        this.listaAcuerdos()
     }
 
     /* mostrar el plan en el calendario */
@@ -248,6 +263,14 @@ export class FinalizarConsultaComponent implements OnInit, DoCheck {
         this.dialogAcuerdos = false;
     }
 
+    Agregar() {
+        console.log(this.FrmAcuerdo.value.acuerdo)
+        let a: listaAcuerdosConMadre = {
+            nroAcuerdo: this.FrmAcuerdo.value.acuerdo
+        }
+        this.acuerdos.push(a);
+    }
+
     saveAcuerdo() {
         let aux = true
         if (this.bool3 === false) {
@@ -263,7 +286,6 @@ export class FinalizarConsultaComponent implements OnInit, DoCheck {
             this.acuerdos[this.index3].descripcion = this.formAcuerdos.value.descripcion
             this.bool3 = false;
         }
-        //console.log("acuerdos", this.acuerdosComprimisos)
         Swal.fire({
             icon: 'success',
             title: aux !== true ? 'Agregado correctamente' : 'Actualizado correctamente',
@@ -276,15 +298,6 @@ export class FinalizarConsultaComponent implements OnInit, DoCheck {
 
     eliminarAcuerdo(index) {
         this.acuerdos.splice(index, 1)
-    }
-
-    editarAcuerdo(row, index) {
-        this.isUpdate3 = false;
-        this.bool3 = true;
-        this.index3 = index
-        this.formAcuerdos.reset();
-        this.formAcuerdos.get('descripcionAcuerdo').setValue(row.descripcionAcuerdo);
-        this.dialogAcuerdos = true;
     }
 
     openInterconsulta() {
@@ -317,7 +330,6 @@ export class FinalizarConsultaComponent implements OnInit, DoCheck {
         }
         this.interconsulta.push(aux_)
 
-        console.log("acuerdos", this.examenesAux)
         Swal.fire({
             icon: 'success',
             title: 'Agregado correctamente',
@@ -330,16 +342,6 @@ export class FinalizarConsultaComponent implements OnInit, DoCheck {
 
     eliminarInterconsulta(index) {
         this.interconsulta.splice(index, 1)
-    }
-
-    editarExamen(row, index) {
-        this.isUpdate4 = false;
-        this.bool4 = true;
-        this.index4 = index
-        this.formExamen.reset();
-        this.formExamen.get('nombreEspecialidad').setValue(row.nombreEspecialidad);
-        this.formExamen.get('examen').setValue(row.examen);
-        this.dialogExamenes = true;
     }
 
     /* funciones tabla referencia */
@@ -373,19 +375,9 @@ export class FinalizarConsultaComponent implements OnInit, DoCheck {
         })
     }
 
-    irInterconsulta() {
-        this.router.navigate(['/dashboard/cred/citas/atencion/examenes'],
-            {
-                queryParams: {
-                    'tipoDoc': this.tipoDoc,
-                    'nroDoc': this.nroDoc,
-                }
-            })
-    }
-
     openCalendar() {
         this.ref = this.dialog.open(CalendarComponent, {
-            header: "CALENDARIO DE ACTIIVIDADES",
+            header: "CALENDARIO DE ACTIVIDADES",
             height: '100%',
             width: '90%',
             style: {
@@ -411,33 +403,4 @@ export class FinalizarConsultaComponent implements OnInit, DoCheck {
                 this.referencia.push(data)
         })
     }
-}
-
-interface finalizarAtencionInterface {
-    acuerdosComprimisos: acuerdosComprimisosInterface[],
-    examenesAux: examenesAuxInteface[],
-    referencia: referenciaInterface,
-    proximaCita: string,
-    atendidoPor: string,
-    dniPersonal: string,
-    observacion: string
-}
-
-interface examenesAuxInteface {
-    idSIS: string,
-    nombreEspecialidad: string,
-    examen: string,
-    resultado: string,
-    //fecha: string
-}
-
-interface acuerdosComprimisosInterface {
-    codigoAcuerdo: string,
-    descripcionAcuerdo: string
-}
-
-interface referenciaInterface {
-    consultorio: string,
-    motivo: string,
-    codRENAES: string
 }

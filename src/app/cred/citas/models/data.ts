@@ -1,4 +1,4 @@
-export interface  dato {
+export interface dato {
     hidden?: boolean,
     nroDocumento?: string,
     tipoDoc?: string,
@@ -8,8 +8,9 @@ export interface  dato {
     anio?: number
     sexo?: string,
     fechaNacimiento?: string,
-    see?: boolean
-    nroConsulta?:number
+    see?: boolean,
+    nroConsulta?:number,
+    ups?:string
 }
 
 export interface outputTriajeInterface {
@@ -156,7 +157,8 @@ export interface Nacimiento {
     perimetroCefalico: number;
     perimetroToracico: number;
     respiracionLlantoNacerInmediato: boolean;
-    apgar: boolean;
+    apgar1: number;
+    apgar5: number;
     reanimacion: boolean;
     patologiaNeonatal: boolean;
     especifique: string;
@@ -232,13 +234,17 @@ export interface ExamenesAuxiliares {
 }
 
 export interface acuerdosInterface {
-    listaAcuerdosConMadre: listaAcuerdosConMadre[];
+    acuerdosCompromisosCRED: acuerdosCompromisosCRED,
     referencia: referencia;
     proxCita: proxCita;
     observacionesConsulta: string;
     interconsultas: proxCita[];
 }
 
+export interface acuerdosCompromisosCRED{
+    edadMes: number,
+    listaAcuerdosConMadre: listaAcuerdosConMadre[]
+}
 export interface proxCita {
     fecha: Date | string;
     motivo?: string;
@@ -249,8 +255,8 @@ export interface proxCita {
 
 export interface listaAcuerdosConMadre {
     nroAcuerdo: string;
-    descripcion: string;
-    edadMes?: string;
+    descripcion?: string;
+    edadMes?: number | string;
 }
 
 export interface referencia {
@@ -280,11 +286,19 @@ export interface rolInterface {
     nombreEESS: string;
     permisos: string;
     rol: string;
+    nombreRol: string
 }
 
 export interface escala {
     user?: string,
     pass?: string,
     escala: string,
-    rol?: string[]
+    rol?: string[],
+    nombreRol?: string[]
+    list?: nombreRol[]
+}
+
+export interface nombreRol {
+    rol: string,
+    nombreRol: string
 }

@@ -7,6 +7,7 @@ import {
 } from "@angular/forms";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
 import Swal from "sweetalert2";
+import { SuplementacionesMicronutrientesService } from "../../../plan/component/plan-atencion-integral/services/suplementaciones-micronutrientes/suplementaciones-micronutrientes.service";
 import {
   AddLaboratorio,
   ExamenAuxiliar,
@@ -47,7 +48,18 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   listResults: any[] = [
     { name: "Positivo", value: "POSITIVO" },
     { name: "Negativo", value: "NEGATIVO" },
-  ]
+  ];
+  listDestinoAsegurado: any[] = [
+    { name: "Alta", value: "ALTA" },
+    { name: "Cita", value: "CITA" },
+    { name: "Hospitalización", value: "HOSPITALIZACION" },
+    { name: "Emergencia", value: "EMERGENCIA" },
+    { name: "Consulta Externa", value: "CONSULTA EXTERNA" },
+    { name: "Apoyo al Diagnostico", value: "APOYO AL DIAGNOSTICO" },
+    { name: "Contrarreferido", value: "CONTRARREFERENCIA" },
+    { name: "Fallecido", value: "FALLECIDO" },
+    { name: "Corte Administ", value: "CORTE ADMINSTRADO" },
+  ];
   dataExamenesAuxiliares: Laboratorio;
   isLabo: boolean = false;
   dataHematologia: Hematologia;
@@ -68,27 +80,30 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   toShow: boolean = false;
   indexEdit: number;
   toEdit: boolean = false;
+  factorCorrection: number;
 
   constructor(
     private fb: FormBuilder,
     private auxExamService: ExamenesAuxiliaresService,
-    private dialog: DialogService
+    private dialog: DialogService,
+    private ajusteHemoService: SuplementacionesMicronutrientesService
   ) {
     this.idConsulta = JSON.parse(localStorage.getItem("documento")).idConsulta;
     this.recoverDataAuxialsExams();
+    let ipressAux = JSON.parse(localStorage.getItem("usuario")).ipress;
+    console.log('data de usuario ', ipressAux);
+    this.ajusteHemoService.getFactorCorrepcionXipress(ipressAux.idIpress).subscribe((res: any) => {
+      this.factorCorrection = res.object.factorAjuste;
+    });
   }
 
   ngOnInit(): void { }
   inicializarForm() {
     this.formHematologia = new FormGroup({
-      hemoglobina: new FormControl(
-        { value: "", disabled: this.toShow },
-        { validators: [Validators.required] }
+      hemoglobina: new FormControl({ value: "", disabled: this.toShow }, { validators: [Validators.required] }),
+      hbConFactorCorrecion: new FormControl({ value: "", disabled: this.toShow }, { validators: [Validators.required] }
       ),
-      hemoglobinaFactorCorrec: new FormControl(
-        { value: "", disabled: this.toShow },
-        { validators: [Validators.required] }
-      ),
+      factorCorreccion: new FormControl({ value: this.factorCorrection, disabled: this.toShow }),
       hematocrito: new FormControl({ value: "", disabled: this.toShow }),
       grupoSanguineo: new FormControl({ value: "", disabled: this.toShow }),
       factorRH: new FormControl({ value: "", disabled: this.toShow }),
@@ -193,6 +208,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
     this.inicializarForm();
   }
   openAddExamDialog() {
+
     this.isUpdate = false;
     this.examLab = {};
     this.lugarLab = {};
@@ -211,7 +227,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
         tipoLaboratorio: "EXAMEN_LABORATORIO",
         subTipo: "HEMATOLOGIA",
         nombreExamen: this.examLab.nombreExam,
-        codigo: "",
+        codigoSIS: "",
         codPrestacion: "",
         cie10: "",
         codigoHIS: "85018",
@@ -228,7 +244,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
         tipoLaboratorio: "EXAMEN_LABORATORIO",
         subTipo: "PARASITOLOGIA",
         nombreExamen: this.examLab.nombreExam,
-        codigo: "",
+        codigoSIS: "",
         codPrestacion: "",
         cie10: "",
         codigoHIS: this.examLab.nombreExam == "TEST DE GRAHAM" ? "87178" : "87177.01",
@@ -263,6 +279,10 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   recoverDataHematologia() {
     this.dataHematologia = {
       hemoglobina: this.formHematologia.value.hemoglobina,
+
+      hbConFactorCorrecion: this.formHematologia.value.hbConFactorCorrecion,
+      factorCorreccion: this.factorCorrection,
+
       hematocrito: this.formHematologia.get("hematocrito").value,
       grupoSanguineo: this.formHematologia.value.grupoSanguineo,
       factorRH: this.formHematologia.value.factorRH,
@@ -299,7 +319,8 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
         valor: this.resultValue,
         resultado: this.result,
       },
-      observacionesLaboratorio: this.observaciones
+      observacionesLaboratorio: this.observaciones,
+      resultadoExamen: this.formHematologia.value.hbConFactorCorrecion
     };
   }
   recoverDataParasitologia() {
@@ -347,7 +368,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
       resultado: {
         resultado: this.result
       },
-      observacionesLaboratorio: this.observaciones
+      observacionesLaboratorio: this.observaciones,
     };
   }
   saveAuxiliarsExams() {
@@ -453,6 +474,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
     this.resultValue = data.resultado.valor;
     this.result = data.resultado.resultado;
     this.formHematologia.patchValue({ hemoglobina: data.hemoglobina });
+    // this.formHematologia.patchValue({ factorCorreccion:  });
     this.formHematologia.patchValue({ hematocrito: data.hematocrito });
     this.formHematologia.patchValue({ grupoSanguineo: data.grupoSanguineo });
     this.formHematologia.patchValue({ factorRH: data.factorRH });
@@ -595,8 +617,10 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
       data: dataDialog,
     });
   }
-  ngmodelXg() {
-    console.log('data de ngmodel ', this.resultValue);
+  calcularHemoFactor(value) {
+    let aux = this.formHematologia.value.hemoglobina
+    console.log('hemo ', aux);
+    this.formHematologia.patchValue({ hbConFactorCorrecion: this.formHematologia.value.hemoglobina - this.factorCorrection });
   }
 }
 interface Examen {

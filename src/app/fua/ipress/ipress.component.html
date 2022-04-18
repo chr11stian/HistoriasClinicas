@@ -1,26 +1,48 @@
-<!-- <p-toolbar styleClass="mb-4">
-    <ng-template pTemplate="left">
-        <h3 class="text-base">DATOS GENERALES</h3>
-    </ng-template>
-    <ng-template pTemplate="right" class="button">
-        <button pButton pRipple label="Siguiente" icon="pi pi-save" class="p-button-primary"
-            style="background-color: #003c71" (click)="save()"></button>
-    </ng-template>
+<!-- <p-toolbar>
+    <div class="p-toolbar-group-left">
+        <h1 class="p-m-0">FORMATO UNICO DE ATENCIÓN - </h1>
+    </div>
 </p-toolbar> -->
 <div class="m-1">
+    <!-- <div class="grid">
+        <div class="col-2">
+            <p-inputnumber type="number" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                class="inputfield w-full" formControlName="codSeguro"></p-inputnumber>
+        </div>
+    </div> -->
+    <div class="col-12">
+        <p-fieldset legend="NÚMERO DE FORMATO" class="mb-3">
+            <form [formGroup]="formNroFormato">
+                <div class="grid margin">
+                    <div class="col-1 p-field mr-2">
+                        <input type="number" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                            class="inputfield w-full" formControlName="anio" min="0">
+                    </div>
+                    <div class="col-1">
+                        <input type="number" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                            class="inputfield w-full" formControlName="codEESS" min="0">
+                    </div>
+                    <div class="col-1">
+                        <input type="number" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                            class="inputfield w-full" formControlName="correlativo" min="0">
+                    </div>
+                </div>
+            </form>
+        </p-fieldset>
+    </div>
     <p-fieldset legend="DE LA INSTITUCIÓN PRESTADORA DE SERVICIOS DE SALUD" class="mb-3">
         <form [formGroup]="formIpress">
             <div class="grid">
                 <div class="col-3 md:col-2">
                     <span>Cod RENAES de la IPRESS</span>
                     <div class="p-fluid mt-2">
-                        <input type="text" pInputText formControlName="codRenaes" />
+                        <input type="text" pInputText formControlName="codRenaes" [readonly]="disabl" />
                     </div>
                 </div>
                 <div class="col-3 md:col-10">
                     <span>Nombre de la IPRESS que realiza la atención</span>
                     <div class="p-fluid mt-2">
-                        <input type="text" pInputText formControlName="nombreIpress" />
+                        <input type="text" pInputText formControlName="nombreIpress" [readonly]="disabl" />
                     </div>
                 </div>
             </div>
@@ -37,7 +59,7 @@
                                 </div>
                                 <div class="col-3 text-left">
                                     <p-radioButton [inputId]="atend.value" name="atend" [value]="atend.value"
-                                        [(ngModel)]="personal"></p-radioButton>
+                                        [(ngModel)]="personal" [disabled]="disabl"></p-radioButton>
                                 </div>
                             </div>
                         </div>
@@ -110,16 +132,17 @@
                         <div class="col-4 lg:col-3">
                             <p-fieldset legend="Identificación">
                                 <div class="grid">
-                                    <div class="col-3 md:col-3 mt-3 p-0">
+                                    <div class="col-3 md:col-3 p-0">
                                         <span>TDI</span>
                                         <div class="p-fluid">
-                                            <input type="text" pInputText formControlName="tdi" />
+                                            <input type="text" pInputText formControlName="tdi" [readonly] />
                                         </div>
                                     </div>
                                     <div class="col-3 md:col-9">
                                         <span>N° documento identidad</span>
                                         <div class="p-fluid">
-                                            <input type="text" pInputText formControlName="nroDoc" />
+                                            <input type="text" pInputText formControlName="nroDoc"
+                                                [readonly]="disabl" />
                                         </div>
                                     </div>
                                 </div>
@@ -175,22 +198,22 @@
                         <div class="col-4 lg:col-3">
                             <span>Apellido Paterno</span>
                             <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
-                                class="inputfield w-full" formControlName="apePaterno">
+                                class="inputfield w-full" formControlName="apePaterno" [readonly]="disabl">
                         </div>
                         <div class="col-4 lg:col-3">
                             <span>Apellido Materno</span>
                             <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
-                                class="inputfield w-full" formControlName="apeMaterno">
+                                class="inputfield w-full" formControlName="apeMaterno" [readonly]="disabl">
                         </div>
                         <div class="col-4 lg:col-3">
                             <span>Primer Nombre</span>
                             <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
-                                class="inputfield w-full" formControlName="primerNombre">
+                                class="inputfield w-full" formControlName="primerNombre" [readonly]="disabl">
                         </div>
                         <div class="col-4 lg:col-3">
                             <span>Otros Nombres</span>
                             <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
-                                class="inputfield w-full" formControlName="otrosNombres">
+                                class="inputfield w-full" formControlName="otrosNombres" [readonly]="disabl">
                         </div>
                     </div>
                 </form>
@@ -205,7 +228,7 @@
                                 </div>
                                 <div class="col-3">
                                     <p-radioButton [inputId]="item.value" name="item" [value]="item.value"
-                                        [(ngModel)]="gender"></p-radioButton>
+                                        [(ngModel)]="gender" [disabled]="disabl"></p-radioButton>
                                 </div>
                             </div>
                         </p-fieldset>
@@ -230,7 +253,8 @@
                                     </div>
                                     <div class="col-8">
                                         <input type="date" pInputText formControlName='fechaParto'
-                                            class="p-inputtext inputfield w-full" placeholder="FechaParto">
+                                            class="p-inputtext inputfield w-full" placeholder="FechaParto"
+                                            [readonly]="disabl">
                                     </div>
                                 </div>
                                 <div class="grid">
@@ -239,7 +263,8 @@
                                     </div>
                                     <div class="col-8">
                                         <input type="date" pInputText formControlName='fechaNacimiento'
-                                            class="p-inputtext inputfield w-full" placeholder="FechaNacimiento">
+                                            class="p-inputtext inputfield w-full" placeholder="FechaNacimiento"
+                                            [readonly]="disabl">
                                     </div>
                                 </div>
                                 <div class="grid">
@@ -248,7 +273,8 @@
                                     </div>
                                     <div class="col-8">
                                         <input type="date" pInputText formControlName='fechaFallecimiento'
-                                            class="p-inputtext inputfield w-full" placeholder="FechaFallecimiento">
+                                            class="p-inputtext inputfield w-full" placeholder="FechaFallecimiento"
+                                            [readonly]="disabl">
                                     </div>
                                 </div>
                             </p-fieldset>
@@ -260,12 +286,14 @@
                                 <div class="col-6">
                                     <span>Nro Historia Clinica</span>
                                     <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
-                                        placeholder="" class="inputfield w-full" formControlName="nroHistoriaClinica">
+                                        placeholder="" class="inputfield w-full" formControlName="nroHistoriaClinica"
+                                        [readonly]="disabl">
                                 </div>
                                 <div class="col-6">
                                     <span>Etnia</span>
                                     <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
-                                        placeholder="" class="inputfield w-full" formControlName="etnia">
+                                        placeholder="" class="inputfield w-full" formControlName="etnia"
+                                        [readonly]="disabl">
                                 </div>
                             </div>
                             <div class="grid">
@@ -274,7 +302,8 @@
                                 </div>
                                 <div class="col-7">
                                     <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
-                                        placeholder="" class="inputfield w-full" formControlName="cnv1">
+                                        placeholder="" class="inputfield w-full" formControlName="cnv1"
+                                        [readonly]="disabl">
                                 </div>
                             </div>
                             <div class="grid">
@@ -283,7 +312,8 @@
                                 </div>
                                 <div class="col-7">
                                     <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
-                                        placeholder="" class="inputfield w-full" formControlName="cnv2">
+                                        placeholder="" class="inputfield w-full" formControlName="cnv2"
+                                        [readonly]="disabl">
                                 </div>
                             </div>
                             <div class="grid">
@@ -292,7 +322,8 @@
                                 </div>
                                 <div class="col-7">
                                     <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
-                                        placeholder="" class="inputfield w-full" formControlName="cnv3">
+                                        placeholder="" class="inputfield w-full" formControlName="cnv3"
+                                        [readonly]="disabl">
                                 </div>
                             </div>
                         </form>

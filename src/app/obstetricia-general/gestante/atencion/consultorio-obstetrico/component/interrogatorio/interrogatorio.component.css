@@ -69,3 +69,6 @@ p-dialog>>> .p-dialog .p-dialog-header {
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
 }
+.button-agregar{
+  background: #003C71;
+}

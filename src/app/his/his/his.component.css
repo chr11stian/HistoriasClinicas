@@ -20,8 +20,6 @@ p-toolbar >>> * {
 }
 
 
-
-
 label {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     /*font-weight: bold;*/
@@ -30,22 +28,28 @@ label {
 
 span {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    /*font-weight: bold;*/
-    color: #0c3866;
+    font-weight: bold;
+    color: #FFFFFF;
+    font-size: large;
+    text-align: center;
 }
 
-/*p-toolbar >>> .p-toolbar {*/
-/*    background: rgb(242 242 242);*/
-/*    !*border: 1px solid rgb(222 226 230);*!*/
-/*    !*padding: 1rem;*!*/
-/*    !*border-radius: 3px;*!*/
-/*}*/
+.titulo {
+    background: #0c3866;
+    border-color: #0c3866;
+    align-items: center;
+    padding: 2.5rem;
+    border-radius: 3px;
+    text-align: center;
+
+}
 
 .image {
     width: 140px;
     height: 150px;
     margin: 10px auto;
     display: block;
+    color:#FFFFFF;
 }
 
 p-toolbar >>> .p-toolbar {

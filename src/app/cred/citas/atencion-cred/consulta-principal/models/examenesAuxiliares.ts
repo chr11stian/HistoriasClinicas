@@ -1,28 +1,34 @@
 export interface Laboratorio {
     servicio: string,
     nroCama: string,
-    dxPresuntivo: string,
+    dxPresuntivo?: string,
     examenesAuxiliares?: ExamenAuxiliar[],
-    observaciones: string
+    observaciones?: string
 }
 export interface AddLaboratorio {
     servicio: string,
     nroCama: string,
-    dxPresuntivo: string,
+    dxPresuntivo?: string,
     examenAuxiliar?: ExamenAuxiliar,
-    observaciones: string
+    observaciones?: string
 }
 export interface ExamenAuxiliar {
     tipoLaboratorio: string,
     subTipo: string,
     nombreExamen: string,
-    codigo: string,
+    nombreExamenSIS?: string,
+    cie10SIS?: string,
+    nombreUPS?:string,
+    nombreUPSAux?:string,
     codPrestacion: string,
-    cie10: string,
+    codigoSIS: string,
+    cie10?: string,
     codigoHIS: string,
     lugarExamen: string,
-    resultado: ResultadoLaboratorio,
-    labExterno: string
+    resultado?: ResultadoLaboratorio,
+    labExterno: string,
+    tipoDx?:string,
+    //campo nuevo
 }
 export interface ResultadoLaboratorio {
     hematologia?: Hematologia,
@@ -30,6 +36,10 @@ export interface ResultadoLaboratorio {
 }
 export interface Hematologia {
     hemoglobina?: string,
+    //campos nuevos
+    hbConFactorCorrecion: number,
+    factorCorreccion: number,
+    // fin campos nuevos
     hematocrito?: string,
     grupoSanguineo?: string,
     factorRH?: string,
@@ -59,6 +69,7 @@ export interface Hematologia {
     vrChcm?: string,
     hcm?: string,
     vrHcm?: string,
+    resultadoExamen?: string
 
     /**DATOS NUEVOS */
     resultado?: {
