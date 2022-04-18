@@ -26,6 +26,7 @@ export class FinalizarConsultaComponent implements OnInit, DoCheck {
     interconsulta: proxCita[] = []
 
     id: string;
+    FrmAcuerdo: FormGroup
     formExamen: FormGroup;
     formAcuerdos: FormGroup;
     formReferencia: FormGroup;
@@ -53,7 +54,8 @@ export class FinalizarConsultaComponent implements OnInit, DoCheck {
 
     tipoDoc: string = ''
     nroDoc: string = ''
-
+    mes: number
+    listAcuerdos: listaAcuerdosConMadre[] = []
     datePipe = new DatePipe('en-US');
     ref: DynamicDialogRef;
 
@@ -123,7 +125,10 @@ export class FinalizarConsultaComponent implements OnInit, DoCheck {
 
     save() {
         let aux: acuerdosInterface = {
-            listaAcuerdosConMadre: this.acuerdos,
+            acuerdosCompromisosCRED: {
+                edadMes: this.mes,
+                listaAcuerdosConMadre: this.acuerdos
+            },
             referencia: this.acuerdosService.referencia,
             proxCita: {
                 fecha: this.datePipe.transform(this.acuerdosFG.get('proximaCitaFC').value, 'yyyy-MM-dd'),
@@ -158,7 +163,9 @@ export class FinalizarConsultaComponent implements OnInit, DoCheck {
             servicio: new FormControl({value: '', disabled: false}, []),
             urgencia: new FormControl({value: '', disabled: false}, [])
         })
-
+        this.FrmAcuerdo = new FormGroup({
+            acuerdo: new FormControl({value: null, disabled: false}, [])
+        })
         this.formInterconsulta = new FormGroup({
             fecha: new FormControl({value: null, disabled: false}, []),
             motivo: new FormControl({value: '', disabled: false}, []),
@@ -182,9 +189,19 @@ export class FinalizarConsultaComponent implements OnInit, DoCheck {
         });
     }
 
+    listaAcuerdos() {
+        this.acuerdosService.getListaAcuerdos().subscribe((r: any) => {
+            this.listAcuerdos = r.object
+            console.log('acuerdos', this.listAcuerdos)
+        })
+
+    }
+
     ngOnInit(): void {
         this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
+        this.mes = this.data.mes
         this.agenda()
+        this.listaAcuerdos()
     }
 
     /* mostrar el plan en el calendario */
@@ -244,6 +261,14 @@ export class FinalizarConsultaComponent implements OnInit, DoCheck {
             timer: 1000
         })
         this.dialogAcuerdos = false;
+    }
+
+    Agregar() {
+        console.log(this.FrmAcuerdo.value.acuerdo)
+        let a: listaAcuerdosConMadre = {
+            nroAcuerdo: this.FrmAcuerdo.value.acuerdo
+        }
+        this.acuerdos.push(a);
     }
 
     saveAcuerdo() {

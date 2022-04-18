@@ -211,7 +211,7 @@
                 <p-fieldset legend="PROCEDIMIENTO SIS">
                     <div class="grid mt-2">
                         <div class="col-12 p-fluid">
-                            <p-dropdown [options]="listaDeCIESIS" formControlName="buscarPDxSIS" placeholder="Seleccionar un Diagnostico" optionLabel="procedimiento" (onChange)="selectDxSIS($event)" >
+                            <p-dropdown [options]="listaDeCIESIS" formControlName="buscarPDxSIS" placeholder="Seleccionar un Procedimiento" optionLabel="procedimiento" (onChange)="selectDxSIS($event)" >
                                 <ng-template let-procedimientos pTemplate="item">
                                     <div class="flex align-items-center">
                                         <div>{{procedimientos.codigo}}-{{procedimientos.procedimiento}}</div>
@@ -248,7 +248,7 @@
                             <p-autoComplete [suggestions]="listaDeCIEHIS" (completeMethod)="filterCIE10($event)"
                                             appendTo="body" field="descripcionItem" [minLength]="1" class="areaText"
                                             class="inputfield p-fluid w-full" formControlName="buscarPDxHIS"
-                                            (onSelect)="selectedDxHIS($event)" [dropdown]="true" placeholder="Seleccionar un Diagnostico">
+                                            (onSelect)="selectedDxHIS($event)" [dropdown]="true" placeholder="Seleccionar un Procedimiento">
                             </p-autoComplete>
                         </div>
                     </div>

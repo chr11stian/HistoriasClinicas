@@ -462,7 +462,7 @@ const historias = {
                 {
                     label: "Citas",
                     icon: "pi pi-pw pi-file",
-                    routerLink: "consulta-generica/lista-cita/odontologia general",
+                    routerLink: "consulta-generica/lista-cita/ODONTOLOGIA GENERAL",
                 }
             ]
         },
@@ -473,7 +473,7 @@ const historias = {
                 {
                     label: "Citas",
                     icon: "pi pi-pw pi-file",
-                    routerLink: "consulta-generica/lista-cita/psicologia",
+                    routerLink: "consulta-generica/lista-cita/PSICOLOGIA",
                 }
             ]
 
@@ -486,7 +486,7 @@ const historias = {
                 {
                     label: "Citas",
                     icon: "pi pi-pw pi-file",
-                    routerLink: "consulta-generica/lista-cita/nutricion",
+                    routerLink: "consulta-generica/lista-cita/NUTRICION",
                 },
             ]
         },
