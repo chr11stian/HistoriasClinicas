@@ -15,6 +15,7 @@ export class ListarFuaComponent implements OnInit {
   listDataFUA: any;
   listaDatosFUA: any;
   linkPDF: string;
+  idConsulta:string;
   // "6231104446af060328998d19"
   constructor(
     private location: Location,
@@ -22,6 +23,7 @@ export class ListarFuaComponent implements OnInit {
     private fuaService: FuaService,
   ) {
     this.data = this.router.getCurrentNavigation().extras;
+    this.idConsulta = this.data.id;
     console.log('data del otro componente ', this.data);
     this.fuaService.getCrearRecuperarFUAxIdConsulta(this.data.id).subscribe((res: any) => {
       if (res.cod == "2004") {

@@ -50,6 +50,7 @@ export class SuplementoComponent implements OnInit {
     this.suplemento = this.config.data.suplementacion;
     this.isSuplementacion = this.config.data.isSuplementacion;
     this.getSuplementancion();
+    console.log('la suplemtacion enviada',this.suplemento)
   }
   ngOnInit(): void {
     this.idConsulta=this.dataDocumento.idConsulta;
@@ -103,7 +104,9 @@ export class SuplementoComponent implements OnInit {
       rejectLabel: "No",
       key:'claveDialog',
       accept: () => {
+        console.log('tipo suplementacion',this.suplemento.tipoSuplementacion)
         if (this.suplemento.tipoSuplementacion=='PREVENTIVO'){
+          console.log('->>>>>>>>>>>>>>',this.isSuplementacion)
           if (this.isSuplementacion){
             this.SuplementacionService.PostSuplementacion(this.idConsulta,requestInput
             ).subscribe(() => {
