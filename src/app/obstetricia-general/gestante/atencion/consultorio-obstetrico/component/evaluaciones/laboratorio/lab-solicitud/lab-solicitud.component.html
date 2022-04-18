@@ -3,7 +3,7 @@
         <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
             <div class="grid m-2">
                 <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
-                    <div class="border">
+                    <div class="border2">
                         <div class="grid m-2">
                             <div class="col-12 md:col-6 lg:col-3 p-field flex flex-column">
                                 <label>APELLIDOS Y NOMBRES:</label>
@@ -34,408 +34,100 @@
                 </div>
             </div>
             <div class="grid m-2">
-                <div class="col-12 md:col-6 lg:col-3 p-field">
+                <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
+                    <div class="border">
+                        <div class="grid m-2">
+                            <div class="col-12 md:col-6 lg:col-6 p-field flex flex-column">
+                                <label>PRESTACION:</label>
+                                <p-dropdown [options]="prestacion2" formControlName="prestacion" appendTo="body"
+                                            (onChange)="onChangeDiagnostico($event)"
+                                            optionLabel="descripcion" class="inputfield p-fluid w-full"
+                                            placeholder="Seleccione prestacion"></p-dropdown>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-2 p-field flex flex-column">
+                                <label>COD. PRESTACION:</label>
+                                <input type="text" pInputText class="inputTest" formControlName="codPrestacion"/>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-4 p-field flex flex-column">
+                                <label>SERVICIO LABORATORIO:</label>
+                                <p-dropdown [options]="subTipoLaboratorio" formControlName="subTipo" appendTo="body"
+                                            optionLabel="nombre" class="inputfield p-fluid w-full"
+                                            placeholder="Seleccione"></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="grid m-2">
+                            <div class="col-12 md:col-6 lg:col-4 p-field flex flex-column">
+                                <label>LUGAR DE EXAMEN:</label>
+                                <p-dropdown [options]="LugarExamen" formControlName="lugarExamen" appendTo="body"
+                                            optionLabel="nombre" class="inputfield p-fluid w-full"
+                                            placeholder="Seleccione lugar de examen"></p-dropdown>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid m-2">
+                <div class="col-12 md:col-6 lg:col-6 p-field">
+                    <p-toolbar>
+                        <ng-template pTemplate="left">
+                            <label>PROCEDIMIENTO SIS</label>
+                        </ng-template>
+                    </p-toolbar>
                     <div class="border">
                         <div class="grid m-2">
                             <div class="col-12 md:col-6 lg:col-12 p-field">
-                                <div class="grid">
-                                    <div class="field-checkbox text-center">
-                                        <label style="color: rgb(77 77 77); text-decoration: underline; text-align: center">HEMATOLOGÍA</label>
-                                    </div>
+                                <div class="grid mt-2">
+                                    <label>Procedimiento: </label>
+                                    <p-dropdown [options]="procedimientos" formControlName="autocompleteSIS"
+                                                appendTo="body"
+                                                (onChange)="selectedOptionNameCIE($event,0)"
+                                                optionLabel="procedimiento" class="inputfield p-fluid w-full"
+                                                placeholder="Seleccione"></p-dropdown>
+                                    <textarea [rows]="3" class="inputfield w-full mt-2"
+                                              formControlName="diagnosticoSIS" pInputTextarea></textarea>
                                 </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox (click)="hem1()"
-                                                    value="HEMOGLOBINA"
-                                                    [formControl]="formSolicitudLab.controls['hemoglobina']"></p-checkbox>
-                                        <label>HEMOGLOBINA</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox (click)="hem2()"
-                                                    value="HEMATOCRITO"
-                                                    [formControl]="formSolicitudLab.controls['Hematocrito']"></p-checkbox>
-                                        <label>HEMATOCRITO</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox value="HEMOGRAMA COMPLETO"
-
-                                                    [formControl]="formSolicitudLab.controls['HemogCompleto']"></p-checkbox>
-                                        <label>HEMOGRAMA COMPLETO</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox value="TIEMPO DE COAGULACÍON"
-
-                                                    [formControl]="formSolicitudLab.controls['TiempoCoagulacion']"></p-checkbox>
-                                        <label>TIEMPO DE COAGULACÍON</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox value="TIEMPO DE SANGRÍA"
-
-                                                    [formControl]="formSolicitudLab.controls['TiempoSangria']"></p-checkbox>
-                                        <label>TIEMPO DE SANGRÍA</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox value="V.S.G"
-
-                                                    [formControl]="formSolicitudLab.controls['VSG']"></p-checkbox>
-                                        <label>V.S.G</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox value="RECUENTO DE PLAQUETAS"
-
-                                                    [formControl]="formSolicitudLab.controls['RecuentoPlaquetas']"></p-checkbox>
-                                        <label>RECUENTO DE PLAQUETAS</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox value="RECUENTO DE GLÓBULOS ROJOS"
-
-                                                    [formControl]="formSolicitudLab.controls['RecuentoGlobulosRojos']"></p-checkbox>
-                                        <label>RECUENTO DE GLÓBULOS ROJOS</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox value="RECUENTO DE GLÓBULOS BLANCOS"
-
-                                                    [formControl]="formSolicitudLab.controls['RecuentoGlobulosBlancos']"></p-checkbox>
-                                        <label>RECUENTO DE GLÓBULOS BLANCOS</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox value="CONSTANTES CORPUSCULARES"
-
-                                                    [formControl]="formSolicitudLab.controls['ConstantesCorpusculares']"></p-checkbox>
-                                        <label>CONSTANTES CORPUSCULARES</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox value="COMPATIBILIDAD SANGUÍNEA"
-
-                                                    [formControl]="formSolicitudLab.controls['CompatibilidadSanguinea']"></p-checkbox>
-                                        <label>COMPATIBILIDAD SANGUÍNEA</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <label>OTROS:</label>
-                                        <input type="text" pInputText class="w-full" formControlName="otro1"/>
-                                    </div>
+                                <div class="grid mt-2 ">
+                                    <label class="mr-2">CIE 10: </label>
+                                    <p-dropdown [options]="procedimientos" formControlName="SISCIE" appendTo="body"
+                                                optionLabel="codigo"
+                                                class="inputfield p-fluid w-full" placeholder="Seleccione"
+                                                (onChange)="selectedOption($event,0)"></p-dropdown>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 md:col-6 lg:col-3 p-field">
+                <div class="col-12 md:col-6 lg:col-6 p-field">
+                    <p-toolbar>
+                        <ng-template pTemplate="left">
+                            <label>PROCEDIMIENTO HIS</label>
+                        </ng-template>
+                    </p-toolbar>
                     <div class="border">
                         <div class="grid m-2">
                             <div class="col-12 md:col-6 lg:col-12 p-field">
-                                <div class="grid">
-                                    <div class="field-checkbox text-center">
-                                        <label style="color: rgb(77 77 77); text-decoration: underline; text-align: center">INMUNOLOGÍA</label>
-                                    </div>
+                                <div class="grid mt-2">
+                                    <label>Procedimiento: </label>
+                                    <p-autoComplete [suggestions]="listaDeCIE" (completeMethod)="filterCIE10($event)"
+                                                    appendTo="body"
+                                                    field="descripcionItem" [minLength]="1" class="areaText "
+                                                    class="inputfield p-fluid w-full"
+                                                    formControlName="autocompleteHIS"
+                                                    (onSelect)="selectedOptionNameCIE($event,1)">
+                                    </p-autoComplete>
+                                    <textarea [rows]="3" class="inputfield w-full mt-2" formControlName="diagnosticoHIS"
+                                              pInputTextarea
+                                              disabled></textarea>
                                 </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox (click)="hem12()"
-                                                    value="GRUPO SANGUÍNEO"
-
-                                                    [formControl]="formSolicitudLab.controls['GrupoSanguineo']"></p-checkbox>
-                                        <label>GRUPO SANGUÍNEO</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox value="PROTEÍNA C REACTIVA"
-
-                                                    [formControl]="formSolicitudLab.controls['ProteinaCReactiva']"></p-checkbox>
-                                        <label>PROTEÍNA C REACTIVA</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox value="REACCIÓN DE WIDAL"
-
-                                                    [formControl]="formSolicitudLab.controls['ReaccionWidal']"></p-checkbox>
-                                        <label>REACCIÓN DE WIDAL</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox value="FACTOR REUMATOIDEO"
-
-                                                    [formControl]="formSolicitudLab.controls['FactorReumatoide']"></p-checkbox>
-                                        <label>FACTOR REUMATOIDEO</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox (click)="hem16()" value="R.P.R y/o PRUEBA RÁPIDA DE SÍFILIS"
-
-                                                    [formControl]="formSolicitudLab.controls['RPR']"></p-checkbox>
-                                        <label>R.P.R y/o PRUEBA RÁPIDA DE SÍFILIS</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox (click)="hem17()" value="V.I.H (prueba rápida)"
-
-                                                    [formControl]="formSolicitudLab.controls['VIH']"></p-checkbox>
-                                        <label>V.I.H (prueba rápida)</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox value="ANTÍGENO DE SUPERFICIE HEPATITIS B"
-
-                                                    [formControl]="formSolicitudLab.controls['AntigenoSuperficieHepatitisB']"></p-checkbox>
-                                        <label>ANTÍGENO DE SUPERFICIE HEPATITIS B</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox value="BHGG (TEST DE EMBARAZO)"
-
-                                                    [formControl]="formSolicitudLab.controls['BHGG']"></p-checkbox>
-                                        <label>BHGG (TEST DE EMBARAZO)</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox value="ANTIESTREPTOLISINAS"
-
-                                                    [formControl]="formSolicitudLab.controls['Antiestreptolisinas']"></p-checkbox>
-                                        <label>ANTIESTREPTOLISINAS (ASO)</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox value="ANTÍGENO FEBRIL PARA BRUCELA"
-
-                                                    [formControl]="formSolicitudLab.controls['antigenoFebrilBrucela']"></p-checkbox>
-                                        <label>ANTÍGENO FEBRIL PARA BRUCELA</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox value="COVID-19"
-
-                                                    [formControl]="formSolicitudLab.controls['Covid']"></p-checkbox>
-                                        <label>COVID-19</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <label>OTROS:</label>
-                                        <input type="text" pInputText class="w-full" formControlName="otro2"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 md:col-6 lg:col-3 p-field">
-                    <div class="border">
-                        <div class="grid m-2">
-                            <div class="col-12 md:col-6 lg:col-12 p-field">
-                                <div class="grid">
-                                    <div class="field-checkbox text-center">
-                                        <label style="color: rgb(77 77 77); text-decoration: underline; text-align: center">BIOQUÍMICA</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox (click)="hem23()" value="GLUCOSA"
-
-                                                    [formControl]="formSolicitudLab.controls['glucosa']"></p-checkbox>
-                                        <label>GLUCOSA</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox value="COLESTEROL TOTAL"
-
-                                                    [formControl]="formSolicitudLab.controls['ColesterolTotal']"></p-checkbox>
-                                        <label>COLESTEROL TOTAL</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox value="TRIGLICERIDOS"
-
-                                                    [formControl]="formSolicitudLab.controls['Trigliceridos']"></p-checkbox>
-                                        <label>TRIGLICERIDOS</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox value="UREA"
-
-                                                    [formControl]="formSolicitudLab.controls['Urea']"></p-checkbox>
-                                        <label>UREA</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox value="CREATININA"
-
-                                                    [formControl]="formSolicitudLab.controls['Creatinina']"></p-checkbox>
-                                        <label>CREATININA</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox value="T.G.O"
-
-                                                    [formControl]="formSolicitudLab.controls['TGO']"></p-checkbox>
-                                        <label>T.G.O</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox value="T.G.P"
-
-                                                    [formControl]="formSolicitudLab.controls['TGP']"></p-checkbox>
-                                        <label>T.G.P</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox value="BILIRRUBINAS TOTAL Y FRACC."
-
-                                                    [formControl]="formSolicitudLab.controls['BilirrubinasTotal']"></p-checkbox>
-                                        <label>BILIRRUBINAS TOTAL Y FRACC.</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox value="PROTEINAS TOTALES Y FRACC"
-
-                                                    [formControl]="formSolicitudLab.controls['ProteinasTotales']"></p-checkbox>
-                                        <label>PROTEINAS TOTALES Y FRACC.</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox value="ALBÚMINA"
-
-                                                    [formControl]="formSolicitudLab.controls['Albumina']"></p-checkbox>
-                                        <label>ALBÚMINA</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox value="FOSFATASA ALCALINA"
-                                                    [formControl]="formSolicitudLab.controls['FosfatasaAlcalina']"></p-checkbox>
-                                        <label>FOSFATASA ALCALINA</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <label>OTROS:</label>
-                                        <input type="text" pInputText class="w-full" formControlName="otro3"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 md:col-6 lg:col-3 p-field">
-                    <div class="border">
-                        <div class="grid m-2">
-                            <div class="col-12 md:col-6 lg:col-12 p-field">
-                                <div class="grid">
-                                    <div class="field-checkbox text-center">
-                                        <label style="color: rgb(77 77 77); text-decoration: underline; text-align: center">PARASITOLOGÍA</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox value="EX. PARASITOLOGÍA DIRECTO EN HECES"
-                                                    [formControl]="formSolicitudLab.controls['ExParasitologiaDirecto']"></p-checkbox>
-                                        <label>EX. PARASITOLOGÍA DIRECTO EN HECES</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox value="EX. PARASITOLOGÍA SERIADO EN HECES"
-                                                    [formControl]="formSolicitudLab.controls['ExParasitologiaSeriado']"></p-checkbox>
-                                        <label>EX. PARASITOLOGÍA SERIADO EN HECES</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox value="TEST DE GRAHAM"
-                                                    [formControl]="formSolicitudLab.controls['TestGraham']"></p-checkbox>
-                                        <label>TEST DE GRAHAM</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox value="COPROFUNCIONAL"
-                                                    [formControl]="formSolicitudLab.controls['Coprofuncional']"></p-checkbox>
-                                        <label>COPROFUNCIONAL</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox name="ThevenonHeces" value="THEVENON EN HECES"
-                                                    [formControl]="formSolicitudLab.controls['ThevenonHeces']"></p-checkbox>
-                                        <label>THEVENON EN HECES</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox value="REACCIÓN INFLAMATORIA/MOCO FECAL"
-                                                    [formControl]="formSolicitudLab.controls['ReaccionInflamatoria']"></p-checkbox>
-                                        <label>REACCIÓN INFLAMATORIA/MOCO FECAL</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <label>OTROS:</label>
-                                        <input type="text" pInputText class="w-full" formControlName="otro4"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="border">
-                        <div class="grid m-2">
-                            <div class="col-12 md:col-6 lg:col-12 p-field">
-                                <div class="grid">
-                                    <div class="field-checkbox text-center">
-                                        <label style="color: rgb(77 77 77); text-decoration: underline; text-align: center">MICROBIOLOGÍA</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox value="EXAMEN DIR. SECRECIÓN VAG."
-                                                    [formControl]="formSolicitudLab.controls['ExamenDirSecrecion']"></p-checkbox>
-                                        <label>EXAMEN DIR. SECRECIÓN VAG.</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <label>OTROS:</label>
-                                        <input type="text" pInputText class="w-full" formControlName="otro5"/>
-                                    </div>
+                                <div class="grid mt-2">
+                                    <label class="mr-2">CIE 10: </label>
+                                    <p-autoComplete formControlName="HISCIE" [suggestions]="listaDeCIE"
+                                                    (completeMethod)="filterCIE10($event)" field="codigoItem"
+                                                    [minLength]="1"
+                                                    class="inputfield p-fluid w-full"
+                                                    (onSelect)="selectedOption($event,1)" [forceSelection]="true"
+                                                    dataKey="codigoItem">
+                                    </p-autoComplete>
                                 </div>
                             </div>
                         </div>
@@ -443,57 +135,6 @@
                 </div>
             </div>
             <div class="grid m-2">
-                <div class="col-12 md:col-6 lg:col-3 p-field">
-                    <div class="border">
-                        <div class="grid m-2">
-                            <div class="col-12 md:col-6 lg:col-12 p-field">
-                                <div class="grid">
-                                    <div class="field-checkbox text-center">
-                                        <label style="color: rgb(77 77 77); text-decoration: underline; text-align: center">UROANÁLISIS</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox (click)="uroanalisis1()" value="EXAMEN COMPLETO DE ORINA"
-
-                                                    [formControl]="formSolicitudLab.controls['ExamenComplentoOrina']"></p-checkbox>
-                                        <label>EXAMEN COMPLETO DE ORINA</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox value="SEDIMIENTO URINARIO"
-
-                                                    [formControl]="formSolicitudLab.controls['SedimientoUrinario']"></p-checkbox>
-                                        <label>SEDIMIENTO URINARIO</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox value="PROTEINURIA CUANTITATIVA / CUALITATIVA"
-
-                                                    [formControl]="formSolicitudLab.controls['ProteinuriaCC']"></p-checkbox>
-                                        <label>PROTEINURIA CUANTITATIVA / CUALITATIVA</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <p-checkbox value="TEST DE ÁCIDO SULFOSALICÍLICO"
-
-                                                    [formControl]="formSolicitudLab.controls['TestAcidoSulfosalicilico']"></p-checkbox>
-                                        <label>TEST DE ÁCIDO SULFOSALICÍLICO</label>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="field-checkbox">
-                                        <label>OTROS:</label>
-                                        <input type="text" pInputText class="w-full" formControlName="otro6"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="col-12 md:col-6 lg:col-9 p-field">
                     <div class="border">
                         <div class="grid m-2">

@@ -24,19 +24,25 @@ export class ResumenPagosComponent implements OnInit {
   DialogPagosProcedimientos: Boolean = false;
   Dialogpagos: Boolean = false;
 
-  ipressNombre = "Belempampa";
-  ipressRenaes = "2306";
-  ipressDireccion = "Urb. Tupac Amaru S/N";
-  ipressTelefono = "084-457812";
-  nroCaja = "01";
+  ipressNombre = "";
+  ipressRenaes = "";
+  ipressDireccion = "";
+  ipressRUC = "";
+  nroCaja: String = "";
   constructor(
     private servicesService: ServicesService,
     private formBuilder: FormBuilder
   ) {
     this.buildForm();
-    this.idIpress = "616de45e0273042236434b51";
-    this.nombreIpress = "la posta medica";
+    this.nroCaja = JSON.parse(localStorage.getItem('cajaActual'));
+
+    this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
+    this.ipressNombre = JSON.parse(localStorage.getItem('usuario')).ipress.nombreEESS;
+    this.ipressRenaes = JSON.parse(localStorage.getItem('usuario')).ipress.renipress;
+    this.ipressDireccion = JSON.parse(localStorage.getItem('usuario')).ipress.ubicacion.direccion;
+    this.ipressRUC = JSON.parse(localStorage.getItem('usuario')).ipress.ruc;
     this.DataPagos = [];
+    this.getListaPagosRealizados();
   }
 
   buildForm() {
@@ -76,13 +82,13 @@ export class ResumenPagosComponent implements OnInit {
 
     console.log('DATA ', data);
 
-    this.servicesService.listarPagosRealizados(this.idIpress,this.nroCaja,data).subscribe((res: any) => {
+    this.servicesService.listarPagosRealizados(this.idIpress, this.nroCaja, data).subscribe((res: any) => {
       this.DataPagos = res.object;
       console.log('LISTA DE pagos de caja 01', this.DataPagos);
     })
   }
-  visualizarPago(rowData){
-    if (rowData.recibos.detalle!==null && rowData.recibos.detalle[0].idCupo==null){
+  visualizarPago(rowData) {
+    if (rowData.recibos.detalle !== null && rowData.recibos.detalle[0].idCupo == null) {
       this.DialogPagosProcedimientos = true;
       this.formCajaProcedimiento.get("nroCaja").setValue(this.nroCaja);
       this.formCajaProcedimiento.get("fechaRecibo").setValue(rowData.recibos.fechaEmision);
@@ -93,7 +99,7 @@ export class ResumenPagosComponent implements OnInit {
       this.formCajaProcedimiento.get("precioTotal").setValue(rowData.recibos.importeTotal);
       this.procedimientosPagar = rowData.recibos.detalle;
     }
-    else{
+    else {
       this.Dialogpagos = true;
       this.formCaja.get("nroCaja").setValue(this.nroCaja);
       this.formCaja.get("fechaRecibo").setValue(rowData.recibos.fechaEmision);
@@ -102,20 +108,20 @@ export class ResumenPagosComponent implements OnInit {
       this.formCaja.get("nombres").setValue(rowData.recibos.nombres);
       this.formCaja.get("estado").setValue(rowData.recibos.estado);
       this.formCaja.get("precioServicio").setValue(rowData.recibos.importeTotal);
-      this.formCaja.get("servicio").setValue(rowData.recibos.detalle!==null?rowData.recibos.detalle[0].ups:"CONSULTA");
-      this.formCaja.get("tipoPago").setValue(rowData.recibos.detalle!==null?rowData.recibos.detalle[0].tipo:"CONSULTA");
-      this.formCaja.get("descripcionPago").setValue(rowData.recibos.detalle!==null?rowData.recibos.detalle[0].descripcion:"CONSULTA");
-      this.formCaja.get("codigoPago").setValue(rowData.recibos.detalle!==null?rowData.recibos.detalle[0].codigo:"CON-1");
+      this.formCaja.get("servicio").setValue(rowData.recibos.detalle !== null ? rowData.recibos.detalle[0].ups : "CONSULTA");
+      this.formCaja.get("tipoPago").setValue(rowData.recibos.detalle !== null ? rowData.recibos.detalle[0].tipo : "CONSULTA");
+      this.formCaja.get("descripcionPago").setValue(rowData.recibos.detalle !== null ? rowData.recibos.detalle[0].descripcion : "CONSULTA");
+      this.formCaja.get("codigoPago").setValue(rowData.recibos.detalle !== null ? rowData.recibos.detalle[0].codigo : "CON-1");
     }
   }
-  salir(){
+  salir() {
     this.DialogPagosProcedimientos = false;
     this.Dialogpagos = false;
     this.formCaja.reset();
     this.formCajaProcedimiento.reset();
-    this.procedimientosPagar=[];
+    this.procedimientosPagar = [];
   }
-  anularRecibo(rowData){
+  anularRecibo(rowData) {
     Swal.fire({
       showCancelButton: true,
       confirmButtonText: 'Anular',
@@ -123,22 +129,22 @@ export class ResumenPagosComponent implements OnInit {
       title: 'Estas seguro de anular este recibo?',
       text: '',
       showConfirmButton: true,
-  }).then((result) => {
+    }).then((result) => {
       if (result.isConfirmed) {
-          this.servicesService.anularRecibo(this.idIpress,this.nroCaja,rowData.recibos.nro).subscribe(
-              result => {
-                  this.getListaPagosRealizados()
-              }
-          );
-          Swal.fire({
-              icon: 'success',
-              title: 'Anulado correctamente',
-              text: '',
-              showConfirmButton: false,
-              timer: 1000
-          })
+        this.servicesService.anularRecibo(this.idIpress, this.nroCaja, rowData.recibos.nro).subscribe(
+          result => {
+            this.getListaPagosRealizados()
+          }
+        );
+        Swal.fire({
+          icon: 'success',
+          title: 'Anulado correctamente',
+          text: '',
+          showConfirmButton: false,
+          timer: 1000
+        })
       }
-  })
+    })
   }
   ngOnInit(): void {
   }

@@ -12,6 +12,7 @@ import {escala} from "../../cred/citas/models/data";
 })
 export class LoginService {
     base_uri = environment.base_uri;
+    base_uri_ = environment.base_uri_
     listEscala: escala[]
     private currentUserSubject: BehaviorSubject<LoginInterface>;
     public currentUser: Observable<LoginInterface>;
@@ -114,6 +115,7 @@ export class LoginService {
         localStorage.removeItem('token');
         localStorage.clear();
         this.router.navigate(['/login']);
+        console.log('entro')
     }
 
     getUser(body) {
@@ -147,5 +149,17 @@ export class LoginService {
             }
             return user;
         }))
+    }
+
+    getRol() {
+        return this.http.get(`${this.base_uri_}/accesos/rol/all`);
+    }
+
+    crearRol(data) {
+        return this.http.post(`${this.base_uri_}/accesos/user`, data)
+    }
+
+    updatePassword(dni,data) {
+        return this.http.put(`${this.base_uri_}/accesos/user/${dni}`, data)
     }
 }

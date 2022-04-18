@@ -1,17 +1,15 @@
-
-
 <div class="card">
     <p-toolbar styleClass="p-mb-4">
         <ng-template pTemplate="left">
             <span class="p-m-0">
-                LISTA DE HIS
+                LISTA DE HIS PENDIENTES A GENERAR
             </span>
         </ng-template>
 
     </p-toolbar>
 
-
-    <p-table [value]="listDataHIS" #dt styleClass="p-datatable-gridlines" [rows]="10"
+    <p-table [value]="listDataHIS" #dt styleClass="p-datatable-gridlines"
+             responsiveLayout="scroll" [rows]="10"
              [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
              currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
 
@@ -19,17 +17,78 @@
             <tr>
                 <th style="text-align: center">Nro</th>
                 <th style="text-align: center">Ups Aux</th>
-                <th style="text-align: center">ACCIONES</th>
+                <th style="text-align: center">ESTADO</th>
+<!--                <th style="text-align: center">ACCIONES</th>-->
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-i="rowIndex">
             <tr>
-                <td style="text-align: center">{{ i }}</td>
+                <td style="text-align: center">{{ i +1}}</td>
                 <td style="text-align: center">{{ rowData.nombreUPSaux }}</td>
                 <td style="text-align: center">
-                    <span class="p-buttonset">
+                    <div *ngIf="estadoG[i]==true;else noEs">
+                        <p-tag
+                                value="CREADO"
+                                severity="warning"
+                                styleClass="text-sm"
+                        ></p-tag>
+                    </div>
+                    <ng-template #noEs>
+                        <span class="p-buttonset">
                         <button pButton pRipple class="p-button-success"  label="Generar HIS"
-                                icon="pi pi-caret-right" (click)="generarHis(rowData)"></button>
+                                icon="pi pi-caret-right" (click)="generarHis(rowData,i)"></button>
+                    </span>
+                    </ng-template>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+<br>
+
+<div class="card">
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+            <span class="p-m-0">
+                LISTA DE HIS YA GENERADOS
+            </span>
+        </ng-template>
+
+    </p-toolbar>
+
+    <p-table [value]="listaHisGenerados" #dt styleClass="p-datatable-gridlines"
+             responsiveLayout="scroll" [rows]="10"
+             [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+             currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+
+        <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+            <tr>
+                <th style="text-align: center">Nro</th>
+                <th style="text-align: center">UPS</th>
+                <th style="text-align: center">Ups Aux</th>
+                <th style="text-align: center">Estado</th>
+                <th style="text-align: center">ACCIONES</th>
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-i="rowIndex">
+            <tr>
+                <td style="text-align: center">{{ i+1 }}</td>
+                <td style="text-align: center">{{ rowData.ups }}</td>
+                <td style="text-align: center">{{ rowData.upsAuxiliar }}</td>
+                <td style="text-align: center">
+                    <div>
+                        <p-tag
+                                value="CREADO"
+                                severity="warning"
+                                styleClass="text-sm">
+                        </p-tag>
+                    </div>
+                </td>
+                <td style="text-align: center">
+                    <span class="p-buttonset">
+                        <button pButton pRipple class="p-button-success"  label="Ver HIS"
+                                icon="pi pi-caret-right" (click)="verHis(rowData,i)"></button>
                     </span>
                 </td>
             </tr>

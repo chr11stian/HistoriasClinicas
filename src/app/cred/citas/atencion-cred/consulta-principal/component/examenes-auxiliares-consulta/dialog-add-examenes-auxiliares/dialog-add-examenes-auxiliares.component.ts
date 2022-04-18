@@ -190,6 +190,10 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
   recoverDataHematologia() {
     this.dataHematologia = {
       hemoglobina: this.formHematologia.value.hemoglobina,
+
+      hbConFactorCorrecion: 0,
+    factorCorreccion:0,
+
       hematocrito: this.formHematologia.get("hematocrito").value,
       grupoSanguineo: this.formHematologia.value.grupoSanguineo,
       factorRH: this.formHematologia.value.factorRH,
@@ -273,7 +277,7 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
         tipoLaboratorio: "EXAMEN_LABORATORIO",
         subTipo: "HEMATOLOGIA",
         nombreExamen: "HEMOGLOBINA",
-        codigo: "",
+        codigoSIS: "",
         codPrestacion: "",
         cie10: "",
         codigoHIS: "",
@@ -290,7 +294,7 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
         tipoLaboratorio: "EXAMEN_LABORATORIO",
         subTipo: "PARASITOLOGIA",
         nombreExamen: this.examLab.nombreExam,
-        codigo: "",
+        codigoSIS: "",
         codPrestacion: "",
         cie10: "",
         codigoHIS: "",

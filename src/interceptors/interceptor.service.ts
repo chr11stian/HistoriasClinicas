@@ -27,12 +27,9 @@ export class InterceptorService implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     let cloned = req;
     let urlReq = cloned.url.split(":");
-    console.log('splited data ', urlReq);
     if (urlReq[0] == 'http') {
       urlReq = urlReq[2].split("/");
     }
-
-    console.log('por number ', urlReq);
     let portNum = urlReq[0];
     // urlReq = urlReq[0];
     const idToken = JSON.parse(localStorage.getItem("token"));

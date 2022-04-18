@@ -15,6 +15,7 @@ import { IpressHorariosComponent } from './ipress-horarios/ipress-horarios.compo
 import { IpressTarifarioComponent } from './ipress-tarifario/ipress-tarifario.component';
 import {IpressFarmaciaComponent} from "./ipress-farmacia/component/ipress-farmacia.component";
 import {ListarHisComponent} from "../his/listar-his/listar-his.component";
+import {HisComponent} from "./his/his.component";
 
 const routes: Routes = [
     {
@@ -79,6 +80,10 @@ const routes: Routes = [
     {
         path: "ipress-farmacia",
         component: IpressFarmaciaComponent
+    },
+    {
+        path: "ipress-his",
+        component: HisComponent
     },
 
 ];

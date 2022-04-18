@@ -64,9 +64,10 @@ export interface Atencion {
   fechaAtencion: string,
   hora: string,
   ups: string,
+  codPrestacion: string,
   prestacionesAdicionales: string,
   codAutorizacion: string,
-  nroFuaVincular: string,
+  nroFuaVincular?: string,
   hospitalizacion: {
     fechaIngreso: string,
     fechaAlta: string,
@@ -132,18 +133,23 @@ export interface ActividadesPreventivas {
   }
 }
 export interface Diagnostico {
-  nro: number,
-  diagnosticoHIS: string,
-  cie10HIS: string,
-  diagnosticoSIS: string,
-  cie10SIS: string,
-  tipo: string,
-  codPrestacion: string,
-  nombreUPS: string,
-  factorCondicional: string,
-  lab: string
-  nombreUPSaux: string,
-  patologiaMaterna: string
+  cie_10: string,
+  diagnostico: string,
+  tipoDx: string,
+  ups: string
+
+  // nro: number,
+  // diagnosticoHIS: string,
+  // cie10HIS: string,
+  // diagnosticoSIS: string,
+  // cie10SIS: string,
+  // tipo: string,
+  // codPrestacion: string,
+  // nombreUPS: string,
+  // factorCondicional: string,
+  // lab: string
+  // nombreUPSaux: string,
+  // patologiaMaterna: string
 }
 export interface ResponsableAtencion {
   nroDoc: string,
@@ -155,7 +161,7 @@ export interface ResponsableAtencion {
   egresado: string
 }
 export interface SegundaParteFUA {
-  codPrestacion: string,
+  // codPrestacion: string,
   aseguradoApoderado?: string,
   firma?: string,
   apoderado?: string,
@@ -166,12 +172,14 @@ export interface SegundaParteFUA {
 
   deLaAtencion?: Atencion,
   conceptoPrestacional?: ConceptoPrestacional,
-  destinoDelAsegurado?: DestinoAsegurado,
+  destinoDelAsegurado?: string,
   refiereContrarefiere?: RefiereContrarefiere,
   actividadesPreventivas?: ActividadesPreventivas,
   diagnostico?: Diagnostico,
   vacunas?: Vacunas[],
   responsableAtencion?: ResponsableAtencion,
+
+  tipoConsulta:string
 }
 export interface Vacunas {
   dosis: number,

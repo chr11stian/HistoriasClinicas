@@ -14,6 +14,7 @@ export class IpressComponent implements OnInit {
   twoOptions: any[];
   formIpress: FormGroup;
   formAsegurado: FormGroup;
+  formNroFormato: FormGroup;
   listPersonalAte = [
     { name: "De la IPRESS", value: "DELAIPRESS" },
     { name: "Itinerante", value: "ITINERANTE" },
@@ -47,6 +48,7 @@ export class IpressComponent implements OnInit {
   codOfertaFlexible: string;
   /**fin ngModels */
   dataFUA: DatosGeneralesFUA;
+  disabl: boolean = true;
   constructor(
     private fuaService: FuaService,
     private router: Router
@@ -63,9 +65,14 @@ export class IpressComponent implements OnInit {
 
   ngOnInit(): void { }
   inicializarForm() {
+    this.formNroFormato = new FormGroup({
+      anio: new FormControl({ value: "" }),
+      codEESS: new FormControl({ value: "" }),
+      correlativo: new FormControl({ value: "" }),
+    })
     this.formIpress = new FormGroup({
       codRenaes: new FormControl(""),
-      nombreIpress: new FormControl(""),
+      nombreIpress: new FormControl({ value: "", }),
       codRenaesRef: new FormControl(""),
       ipressRef: new FormControl(""),
       nroHojaRef: new FormControl(""),
@@ -106,6 +113,9 @@ export class IpressComponent implements OnInit {
   }
 
   setDataFUA() {
+    this.formNroFormato.patchValue({ anio: this.dataFUA.deLaIpress.nroFormato.anio });
+    this.formNroFormato.patchValue({ codEESS: this.dataFUA.deLaIpress.nroFormato.codEESS });
+    this.formNroFormato.patchValue({ correlativo: this.dataFUA.deLaIpress.nroFormato.correlativo });
     /**de la ipress */
     if (this.dataFUA.deLaIpress.eessInformacion != null) {
       this.formIpress.patchValue({ codRenaes: this.dataFUA.deLaIpress.eessInformacion.codRenaes });
@@ -158,9 +168,9 @@ export class IpressComponent implements OnInit {
     this.dataFUA = {
       deLaIpress: {
         nroFormato: {
-          codEESS: '',
-          anio: '',
-          correlativo: 1
+          codEESS: this.formNroFormato.value.codEESS,
+          anio: this.formNroFormato.value.anio,
+          correlativo: this.formNroFormato.value.correlativo
         },
         eessInformacion: {
           codRenaes: this.formIpress.value.codRenaes,

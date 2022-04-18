@@ -1,15 +1,16 @@
-import {Location} from "@angular/common";
-import {Component, OnInit} from "@angular/core";
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
+import { Location } from "@angular/common";
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
 import {
     DialogConsultaUniversalComponent
 } from "../../historia-consultas/dialog-consulta-universal/dialog-consulta-universal.component";
-import {DialogConsultaComponent} from "./dialog-consulta/dialog-consulta.component";
-import {ConsultaObstetriciaService} from "./services/consulta-obstetricia/consulta-obstetricia.service";
-import {ObstetriciaGeneralService} from "../../services/obstetricia-general.service";
-import {Router} from "@angular/router";
-import {ConsultasService} from "../atencion/consultorio-obstetrico/services/consultas.service";
+import { DialogConsultaComponent } from "./dialog-consulta/dialog-consulta.component";
+import { ConsultaObstetriciaService } from "./services/consulta-obstetricia/consulta-obstetricia.service";
+import { ObstetriciaGeneralService } from "../../services/obstetricia-general.service";
+import { Router } from "@angular/router";
+import { ConsultasService } from "../atencion/consultorio-obstetrico/services/consultas.service";
+import Swal from "sweetalert2";
 
 @Component({
     selector: "app-consulta",
@@ -32,6 +33,7 @@ export class ConsultaComponent implements OnInit {
     Gestacion: any;
     DataFiliacionPaciente: any;
 
+    loading: boolean = true;
     constructor(
         private fb: FormBuilder,
         private location: Location,
@@ -135,6 +137,7 @@ export class ConsultaComponent implements OnInit {
         this.consultaObstetriciaService.getDatosConsultasObstetricasListar(data).subscribe((res: any) => {
             console.log('trajo datos exito ', res)
             this.consultas = res.object ? res.object : [];
+            this.loading = false;
         })
     }
 
@@ -163,5 +166,87 @@ export class ConsultaComponent implements OnInit {
         localStorage.removeItem('IDConsulta');
         localStorage.setItem('IDConsulta', JSON.stringify(event.id));
         localStorage.setItem('datosConsultaActual', JSON.stringify(event));
+    }
+    irFUA(rowData) {
+        console.log('data recibida ', rowData);
+        let message1 = "Esta Seguro de Generar FUA?, se dara como finalizado la consulta"
+        let message2 = "Esta Seguro de Generar FUA?, Debe revisar el tipo de Seguro"
+        // this.router.navigate(['dashboard/fua/listar-fua'], rowData)
+        if (rowData.estadoAtencion == 0) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Consulta en Interconsulta, no es posible hacer FUA',
+                showConfirmButton: false,
+                timer: 2000
+            });
+        }
+        if (rowData.estadoAtencion == 2) {
+            this.router.navigate(['dashboard/fua/listar-fua'], rowData)
+        }
+        if (rowData.estadoAtencion == 1) {
+            Swal.fire({
+                title: rowData.tipoConsulta != 'CRED' ? message1 : message2,
+                showDenyButton: true,
+                confirmButtonText: 'Crear FUA',
+                denyButtonText: `Cancelar`,
+                confirmButtonColor: '#3085d6',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.router.navigate(['dashboard/fua/listar-fua'], rowData)
+                } else if (result.isDenied) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'No se creo FUA',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                }
+            })
+        }
+    }
+
+    irHIS(rowData) {
+        let message1 = "Esta Seguro de Generar HIS?, se dara como finalizado la consulta"
+        if (rowData.estadoAtencion == 0) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Consulta en Interconsulta, no es posible hacer HIS',
+                showConfirmButton: false,
+                timer: 2000
+            });
+        }
+        if (rowData.estadoAtencion == 2) {
+            this.router.navigate(['dashboard/his/listar-his'], {
+                queryParams: {
+                    'idConsulta':rowData.id,
+                     'tipoConsulta':rowData.tipoConsulta
+                }
+            })
+        }
+        if (rowData.estadoAtencion == 1) {
+            Swal.fire({
+                title: message1 ,
+                showDenyButton: true,
+                confirmButtonText: 'Crear HIS',
+                denyButtonText: `Cancelar`,
+                confirmButtonColor: '#3085d6',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.router.navigate(['dashboard/his/listar-his'], {
+                        queryParams: {
+                            'idConsulta':rowData.id,
+                            'tipoConsulta':rowData.tipoConsulta
+                        }
+                    })
+                } else if (result.isDenied) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'No se creo HIS',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                }
+            })
+        }
     }
 }

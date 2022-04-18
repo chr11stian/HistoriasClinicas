@@ -475,7 +475,38 @@ export class TriajeCredComponent implements OnInit {
     }
 
     async save() {
-        this.getPlan(this.data.nroDocumento);
+        // this.getPlan(this.data.nroDocumento);
+        let hayPlan:boolean=false;
+        await  this.consultaGeneralService.traerPlan(this.data.nroDocumento).toPromise().then(
+            result => {
+                console.log('respuesta traer plan',result)
+                hayPlan=result.cod === '2403'?true:false
+                // console.log('cod', result.cod)
+                // if (result.cod === '2404') {
+                //     this.getNuevoPlan()
+                //     console.log('2404', result)
+                // }
+                // if (result.cod === '2403') {
+                //     console.log('2403', result)
+                // }
+            }, err => {
+                console.log(err)
+            }
+        )
+        console.log('ya hay plan',hayPlan)
+        if (!hayPlan){
+            console.log('***entramos a crarle el plan****')
+            await this.consultaGeneralService.crearPlan(
+                {
+                    'tipoDoc': this.data.tipoDoc,
+                    'nroDoc': this.data.nroDocumento
+                }
+            ).toPromise().then((result) => {
+            }).catch((err) => {
+                console.log(err)
+            })
+            // this.getNuevoPlan()
+        }
         this.outData()
         const req: triajeInterface = {
             signosVitales: this.signosVitales,
@@ -485,12 +516,10 @@ export class TriajeCredComponent implements OnInit {
             factorRiesgo: this.factorRiesgoFG.value,
             anamnesis: this.anamnesisFC.value
         }
-
-        console.log('req', req)
         if (req) {
             await this.consultaService.crearConsulta(this.data.nroDocumento, req).toPromise().then(
                 (r: any) => {
-                    console.log('respuesta del servidor', r)
+                    console.log('respuesta del servidor despues de afiliar a cred', r)
                     let data: dato = {
                         nroDocumento: this.data.nroDocumento,
                         tipoDoc: this.data.tipoDoc,
@@ -520,8 +549,8 @@ export class TriajeCredComponent implements OnInit {
 
     }
 
-    getPlan(dni: string) {
-        this.consultaGeneralService.traerPlan(dni).subscribe(
+    async getPlan(dni: string) {
+        await this.consultaGeneralService.traerPlan(dni).subscribe(
             result => {
                 console.log('cod', result.cod)
                 if (result.cod === '2404') {
@@ -643,24 +672,6 @@ export class TriajeCredComponent implements OnInit {
     }
 
     getConsultaPrincipal(): void {
-        // si es la primera consulta
-        // if(this.nroConsulta==0){
-        //     if (this.data.idConsulta === '') {
-        //         this.save()
-        //     }
-        //     setTimeout(() => {
-        //         this.router.navigate(['dashboard/cred/citas/atencion'])
-        //     }, 1000);
-        // }
-        // else{
-        //     if (this.data.idConsulta === '') {
-        //         this.save()
-        //     }
-        //     setTimeout(() => {
-        //         this.router.navigate(['/dashboard/cred/citas/atencion'])
-        //     }, 1000);
-        //
-        // }
         if (this.data.idConsulta === '') {
             this.save()
         }

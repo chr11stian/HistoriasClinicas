@@ -25,7 +25,19 @@ import { EcografiaResultadoComponent } from './component/evaluaciones/ecografias
 import { EcografiasComponent } from './component/evaluaciones/ecografias/ecografias.component';
 import { LaboratorioComponent } from './component/evaluaciones/laboratorio/laboratorio.component';
 import { LabSolicitudComponent } from './component/evaluaciones/laboratorio/lab-solicitud/lab-solicitud.component';
+import { CronogramaComponent } from './component/resultados/cronograma/cronograma.component';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import listPlugin from '@fullcalendar/list';
+import interactionPlugin from '@fullcalendar/interaction';
+import {FullCalendarModule} from "@fullcalendar/angular";
 
+FullCalendarModule.registerPlugins([
+    dayGridPlugin,
+    timeGridPlugin,
+    listPlugin,
+    interactionPlugin
+])
 @NgModule({
     declarations: [
         ModalTratamientoComponent,
@@ -47,9 +59,11 @@ import { LabSolicitudComponent } from './component/evaluaciones/laboratorio/lab-
         EcografiaResultadoComponent,
         EcografiasComponent,
         LaboratorioComponent,
-        LabSolicitudComponent
+        LabSolicitudComponent,
+        CronogramaComponent
     ],
     imports: [
+        FullCalendarModule,
         ConsultaObstetricoRoutingModule,
         CommonModule,
         PrimeModule,

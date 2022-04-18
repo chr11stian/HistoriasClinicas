@@ -1,0 +1,24 @@
+
+<div class="p-card">
+    <div class="evaluaciones">
+        <!-- <p-toolbar>
+            <ng-template pTemplate="left">
+                <h3 class="mt-2">EVALUACIONES</h3>
+            </ng-template>
+
+            <ng-template pTemplate="right" class="button">
+                <button class="button-agregar" icon="pi pi-save" pButton type="button" label="Guardar"></button>
+            </ng-template>
+        </p-toolbar> -->
+        <div class="mt-1">
+            <p-tabView >
+                <p-tabPanel header="IMAGENES">
+                    <app-proced-imagenes></app-proced-imagenes>
+                </p-tabPanel>
+                <p-tabPanel header="LABORATORIO">
+                    <app-laboratorio></app-laboratorio>
+                </p-tabPanel>
+            </p-tabView>
+        </div>
+    </div>
+</div>

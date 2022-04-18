@@ -42,10 +42,23 @@ export class ConceptoPrestacionalComponent implements OnInit {
       console.log('item of products ', item);
     })
   }
-  deleteProdFarm(index: number, tipe:number) {
-    this.listProductosFarm.splice(index, 1)
-    console.log('se borro  ');
-    this.listProcedimientosDiagnosticos = [...this.listProcedimientosDiagnosticos]
-    console.log('list to save ', this.listProductosFarm);
+  deleteProdFarm(index: number, tipe: number) {
+    switch (tipe) {
+      case 1:
+        this.listProductosFarm.splice(index, 1);
+        this.listProcedimientosDiagnosticos = [...this.listProcedimientosDiagnosticos];
+        break;
+      case 2:
+        console.log('eliminar2');
+        break
+      case 3:
+        console.log('eliminar3');
+        break
+      case 4:
+        console.log('eliminar4 ');
+        break
+      default:
+        break;
+    }
   }
 }

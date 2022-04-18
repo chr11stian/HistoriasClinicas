@@ -2,6 +2,7 @@ import { DatePipe } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
+import { PersonalService } from "src/app/core/services/personal-services/personal.service";
 import Swal from "sweetalert2";
 import { Diagnostico, KeyData, SegundaParteFUA, Vacunas } from "../models/fua";
 import { FuaService } from "../services/fua.service";
@@ -17,6 +18,16 @@ export class AtenionComponent implements OnInit {
     { name: "Consulta Externa", value: "CONSULTA EXTERNA" },
     { name: "Apoyo al Diagnostico", value: "APOYO AL DIAGNOSTICO" },
   ];
+  listPlaceOne = [
+    { name: "Alta", value: "ALTA" },
+    { name: "Cita", value: "CITA" },
+    { name: "Hospitalización", value: "HOSPITALIZACION" }
+  ];
+  listPlaceTwo = [
+    { name: "Contrarreferido", value: "CONTRARREFERIDO" },
+    { name: "Fallecido", value: "FALLECIDO" },
+    { name: "Corte Adminis", value: "CORTE ADMINISTRATIVO" },
+  ];
   sino = [
     { label: "Si", value: "SI" },
     { label: "No", value: "NO" },
@@ -31,6 +42,7 @@ export class AtenionComponent implements OnInit {
     { label: "D", value: "D" },
     { label: "R", value: "R" },
   ];
+  listDiagnosticoDXIngreso1 = ['P', 'D', 'R'];
   listDiagnosticoDXEgreso = [
     { label: "D", value: "D" },
     { label: "R", value: "R" },
@@ -47,7 +59,7 @@ export class AtenionComponent implements OnInit {
   formRespAtencion: FormGroup;
   formApoderado: FormGroup;
   /**ngModels */
-  atencionDirecta: boolean = false;
+  atencionDirecta: boolean = true;
   alta: boolean;
   cita: boolean;
   hospitalizacion: boolean;
@@ -69,14 +81,19 @@ export class AtenionComponent implements OnInit {
 
   secondDataFUA: SegundaParteFUA;
   datePipe = new DatePipe('en-US');
+  dataPersonal: any;
+  disabl: boolean = true;
 
   constructor(
     private form: FormBuilder,
     private fuaService: FuaService,
-    private router: Router
+    private router: Router,
+    private personalService: PersonalService,
   ) {
     this.keyData = JSON.parse(localStorage.getItem("dataFUA"));
-    console.log('localstorage de FUA ', this.keyData);
+    let auxPersonal = JSON.parse(localStorage.getItem("usuario"));
+    // console.log('localstorage de FUA ', this.keyData);
+    console.log('datos de usuario ', auxPersonal);
     this.getDataFUA();
   }
 
@@ -85,20 +102,19 @@ export class AtenionComponent implements OnInit {
   }
   buildForm() {
     this.formAtencion = this.form.group({
-      fechaAtencion: new FormControl(""),
-      hora: new FormControl({ value: "" }),
-      ups: new FormControl({ value: "" }),
-      prestacionesAdicionales: new FormControl({ value: "" }),
-      codAutorizacion: new FormControl({ value: "" }),
-      nroFuaVincular: new FormControl({ value: "" }),
-      fechaIngreso: new FormControl({ value: "" }),
-      fechaAlta: new FormControl({ value: "" }),
-      fechaCorteAdministrativo: new FormControl({ value: "" }),
-      codPrestacion: new FormControl({ value: "", disabled: true })
-
+      fechaAtencion: new FormControl("",),
+      hora: new FormControl(""),
+      ups: new FormControl(""),
+      prestacionesAdicionales: new FormControl(""),
+      codAutorizacion: new FormControl(""),
+      nroFuaVincular: new FormControl(""),
+      fechaIngreso: new FormControl(null),
+      fechaAlta: new FormControl(null),
+      fechaCorteAdministrativo: new FormControl(null),
+      codPrestacion: new FormControl("")
     });
     this.formPrestacional = new FormGroup({
-      atencionDirecta: new FormControl({ value: "" }),
+      atencionDirecta: new FormControl(""),
       nroAutorizacion: new FormControl(""),
       monto: new FormControl(""),
       sepelio: new FormControl("")
@@ -176,7 +192,7 @@ export class AtenionComponent implements OnInit {
       this.formAtencion.patchValue({ prestacionesAdicionales: data.deLaAtencion.prestacionesAdicionales });
       this.formAtencion.patchValue({ codAutorizacion: data.deLaAtencion.codAutorizacion });
       this.formAtencion.patchValue({ nroFuaVincular: data.deLaAtencion.nroFuaVincular });
-      this.formAtencion.patchValue({ codPrestacion: data.codPrestacion });
+      this.formAtencion.patchValue({ codPrestacion: data.deLaAtencion.codPrestacion });
     }
     if (data.deLaAtencion.hospitalizacion != null) {
       this.formAtencion.patchValue({ fechaIngreso: data.deLaAtencion.hospitalizacion.fechaIngreso });
@@ -193,15 +209,15 @@ export class AtenionComponent implements OnInit {
     }
     /**del destino del asegurado/usuario */
     // console.log('destino asegurado ', data.destinoDelAsegurado)
-    if (data.destinoDelAsegurado != null) {
-      this.alta = data.destinoDelAsegurado.alta == 'ALTA' ? true : false;
-      this.cita = data.destinoDelAsegurado.cita == 'CITA' ? true : false;
-      this.hospitalizacion = data.destinoDelAsegurado.hospitalizacion == 'HOSPITALIZACION' ? true : false;
-      this.referido = data.destinoDelAsegurado.referido
-      this.contraReferido = data.destinoDelAsegurado.contraReferido == 'CONTRARREFERIDO' ? true : false;
-      this.fallecido = data.destinoDelAsegurado.fallecido == 'FALLECIDO' ? true : false;
-      this.corteAdministrado = data.destinoDelAsegurado.corteAdministrado == 'CORTE ADMINISTRATIVO' ? true : false;
-    }
+    // if (data.destinoDelAsegurado != null) {
+    //   this.alta = data.destinoDelAsegurado.alta == 'ALTA' ? true : false;
+    //   this.cita = data.destinoDelAsegurado.cita == 'CITA' ? true : false;
+    //   this.hospitalizacion = data.destinoDelAsegurado.hospitalizacion == 'HOSPITALIZACION' ? true : false;
+    //   this.referido = data.destinoDelAsegurado.referido
+    //   this.contraReferido = data.destinoDelAsegurado.contraReferido == 'CONTRARREFERIDO' ? true : false;
+    //   this.fallecido = data.destinoDelAsegurado.fallecido == 'FALLECIDO' ? true : false;
+    //   this.corteAdministrado = data.destinoDelAsegurado.corteAdministrado == 'CORTE ADMINISTRATIVO' ? true : false;
+    // }
     /**se refiere/contrarefiere */
     if (data.refiereContrarefiere != null) {
       this.formReferencia.patchValue({ codRenaes: data.refiereContrarefiere.codigoRenaesIpress });
@@ -264,19 +280,23 @@ export class AtenionComponent implements OnInit {
     this.firma = data.aseguradoApoderado;
     this.nameApoderado = data.apoderado;
     this.nroDocApoderado = data.nroDocCeApoderado;
+    this.referido = data.destinoDelAsegurado;
 
   }
   recoverData() {
+    // let aux = this.formAtencion.value.fechaIngreso == "" ? null : this.formAtencion.value.fechaIngreso
+    // console.log('fecha ingreso  ', aux);
     this.secondDataFUA = {
       deLaAtencion: {
         fechaAtencion: this.formAtencion.value.fechaAtencion,
         hora: this.formAtencion.value.hora,
         ups: this.formAtencion.value.ups,
+        codPrestacion: this.formAtencion.value.codPrestacion,
         prestacionesAdicionales: this.formAtencion.value.prestacionesAdicionales,
         codAutorizacion: this.formAtencion.value.codAutorizacion,
-        nroFuaVincular: this.formAtencion.value.nroFuaVincular,
+        // nroFuaVincular: this.formAtencion.value.nroFuaVincular,
         hospitalizacion: {
-          fechaIngreso: this.datePipe.transform(this.formAtencion.value.fechaIngreso, 'yyyy-MM-dd'),
+          fechaIngreso: this.formAtencion.value.fechaIngreso,
           fechaAlta: this.formAtencion.value.fechaAlta,
           fechaCorteAdministrativo: this.formAtencion.value.fechaCorteAdministrativo
         }
@@ -290,15 +310,16 @@ export class AtenionComponent implements OnInit {
         traslado: this.traslado == true ? 'TRASLADO' : '',
         sepelio: this.sepelio
       },
-      destinoDelAsegurado: {
-        alta: this.alta == true ? 'ALTA' : '',
-        cita: this.cita == true ? 'CITA' : '',
-        hospitalizacion: this.hospitalizacion == true ? 'HOSPITALIZACION' : '',
-        referido: this.referido,
-        contraReferido: this.contraReferido == true ? 'CONTRARREFERIDO' : '',
-        fallecido: this.fallecido == true ? 'FALLECIDO' : '',
-        corteAdministrado: this.corteAdministrado == true ? 'CORTE ADMINISTRATIVO' : '',
-      },
+      // destinoDelAsegurado: {
+      //   alta: this.alta == true ? 'ALTA' : '',
+      //   cita: this.cita == true ? 'CITA' : '',
+      //   hospitalizacion: this.hospitalizacion == true ? 'HOSPITALIZACION' : '',
+      //   referido: this.referido,
+      //   contraReferido: this.contraReferido == true ? 'CONTRARREFERIDO' : '',
+      //   fallecido: this.fallecido == true ? 'FALLECIDO' : '',
+      //   corteAdministrado: this.corteAdministrado == true ? 'CORTE ADMINISTRATIVO' : '',
+      // },
+      destinoDelAsegurado: this.referido,
       refiereContrarefiere: {
         codigoRenaesIpress: this.formReferencia.value.codRenaes,
         nombreIpress: this.formReferencia.value.nombreIpress,
@@ -352,18 +373,21 @@ export class AtenionComponent implements OnInit {
         nroRNE: this.formRespAtencion.value.nroRne,
         egresado: this.formRespAtencion.value.egresado
       },
-      codPrestacion: this.formAtencion.value.codPrestacion,
+      // codPrestacion: this.formAtencion.value.codPrestacion,
       /**apoderado */
       aseguradoApoderado: this.firma,
       firma: '',
       apoderado: this.nameApoderado,
       nroDocCeApoderado: this.nroDocApoderado,
       firmaSelloResponsableAtencion: '',
-      huellaDigital: ''
+      huellaDigital: '',
+      tipoConsulta: 'ELE'
     }
   }
   save() {
+    let aux = this.formAtencion.value.fechaIngreso == "" ? null : this.formAtencion.value.fechaIngreso
     this.recoverData();
+    console.log('segunda parte  ', this.secondDataFUA);
     console.log('second data to save ', this.secondDataFUA);
     Swal.fire({
       title: 'Esta Seguro que Desea Guardar FUA',
@@ -373,6 +397,7 @@ export class AtenionComponent implements OnInit {
       confirmButtonColor: '#3085d6',
     }).then((result) => {
       if (result.isConfirmed) {
+        console.log('data to save ', this.secondDataFUA);
         this.fuaService.postSegundaParteFUA(this.keyData.idFUA, this.keyData.codPrestacion, this.secondDataFUA).subscribe((res: any) => {
           let auxId: any = {
             id: this.keyData.idConsulta
@@ -395,23 +420,6 @@ export class AtenionComponent implements OnInit {
       }
     })
   }
-  changeNgModel(rowData: Diagnostico, index: number) {
-    let auxDx: Diagnostico = {
-      nro: rowData.nro,
-      diagnosticoHIS: rowData.diagnosticoHIS,
-      cie10HIS: rowData.cie10HIS,
-      diagnosticoSIS: rowData.diagnosticoSIS,
-      cie10SIS: rowData.cie10SIS,
-      tipo: this.tipeDXIn,
-      codPrestacion: rowData.codPrestacion,
-      nombreUPS: rowData.nombreUPS,
-      factorCondicional: rowData.factorCondicional,
-      lab: rowData.lab,
-      nombreUPSaux: rowData.nombreUPSaux,
-      patologiaMaterna: rowData.patologiaMaterna
-    }
-    this.listDiagnostico[index] = auxDx;
-  }
   nameVaccine(vac: string) {
     let aux: string = vac.replace(/[0-9]/, '')
     return aux
@@ -419,7 +427,7 @@ export class AtenionComponent implements OnInit {
   imprimir() {
     this.fuaService.evento = false;
     this.fuaService.getReportFUA(this.keyData.idFUA).subscribe((res: any) => {
-      
+
     });
   }
 }

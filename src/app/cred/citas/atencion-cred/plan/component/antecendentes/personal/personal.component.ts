@@ -135,7 +135,8 @@ export class PersonalComponent implements OnInit {
             perimetroCefaN: [''],
             perimetroTorN: [''],
             inmediatoN: [false],
-            apgarN: [false],
+            apgar1m: [''],
+            apgar5m: [''],
             reanimacionN: [false],
             patologiaNeoN: [false],
             detallePatologiaN: [''],
@@ -227,7 +228,8 @@ export class PersonalComponent implements OnInit {
                 this.personalFG.get('perimetroCefaN').setValue(this.antecedentes.nacimiento.perimetroCefalico)
                 this.personalFG.get('perimetroTorN').setValue(this.antecedentes.nacimiento.perimetroToracico)
                 this.personalFG.get('inmediatoN').setValue(this.antecedentes.nacimiento.respiracionLlantoNacerInmediato)
-                this.personalFG.get('apgarN').setValue(this.antecedentes.nacimiento.apgar ? 1 : 5)
+                this.personalFG.get('apgar1m').setValue(this.antecedentes.nacimiento.apgar1)
+                this.personalFG.get('apgar5m').setValue(this.antecedentes.nacimiento.apgar5)
                 this.personalFG.get('reanimacionN').setValue(this.antecedentes.nacimiento.reanimacion)
                 this.personalFG.get('patologiaNeoN').setValue(this.antecedentes.nacimiento.patologiaNeonatal)
                 this.personalFG.get('detallePatologiaN').setValue(this.antecedentes.nacimiento.especifique)
@@ -335,7 +337,8 @@ export class PersonalComponent implements OnInit {
                 perimetroCefalico: this.getFC('perimetroCefaN').value,
                 perimetroToracico: this.getFC('perimetroTorN').value,
                 respiracionLlantoNacerInmediato: this.getFC('inmediatoN').value,
-                apgar: this.getFC('apgarN').value,
+                apgar1: this.getFC('apgar1m').value,
+                apgar5: this.getFC('apgar5m').value,
                 reanimacion: this.getFC('reanimacionN').value,
                 patologiaNeonatal: this.getFC('patologiaNeoN').value,
                 especifique: this.getFC('detallePatologiaN').value,

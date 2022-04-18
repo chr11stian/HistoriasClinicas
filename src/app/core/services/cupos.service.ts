@@ -17,6 +17,7 @@ export class CuposService {
     FechaAtencionSeleccionado = null;
     HoraAtencionSeleccionado: any;
     dataPersonalSelecionado: any;
+    tipoConsulta: string;
 
     modal1: DynamicDialogRef;
     modal2: DynamicDialogRef;
@@ -117,6 +118,9 @@ export class CuposService {
         return this.http.put(`${this.base_url}/${this.bd}/paciente/actualizarDatos/`, data)
     }
 
+    getPacientesTriadosPorTipoConsulta(tipoConsulta,data){
+        return this.http.post(`${this.base_url}/${this.bd}/cupo/pasadosTriaje/${tipoConsulta}`,data)
+    }
     buscarListaCuposPersonal(idIpres, data){
         return this.http.post(`${this.base_url}/${this.bd}/cupo/listar/cupos/por/personal/${idIpres}`,data)
             .toPromise()
@@ -129,4 +133,9 @@ export class CuposService {
                 return null;
             })
     }
+
+    getTriadosServicioFecha(servicio,data) {
+        return this.http.post(`${this.base_url}/${this.bd}/cupo/pasadosPorTriajeTipo/${servicio}`,data)
+    }
+
 }

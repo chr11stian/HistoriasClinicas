@@ -1,19 +1,19 @@
-import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import { Component, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import {
     DocumentoIdentidadService
 } from "../../../../mantenimientos/services/documento-identidad/documento-identidad.service";
 import Swal from "sweetalert2";
-import {PacienteService} from "../../../../core/services/paciente/paciente.service";
-import {CuposService} from "../../../../core/services/cupos.service";
-import {UbicacionService} from "../../../../mantenimientos/services/ubicacion/ubicacion.service";
-import {Distrito, Provincias} from "../../../../core/models/ubicacion.models";
-import {DatePipe} from "@angular/common";
-import {MessageService} from "primeng/api";
-import {PacienteComponent} from "../../../paciente/paciente.component";
-import {DialogService, DynamicDialogConfig} from "primeng/dynamicdialog";
-import {DialogPacienteComponent} from "../../../paciente/dialog-paciente/dialog-paciente.component";
-import {timer} from "rxjs";
+import { PacienteService } from "../../../../core/services/paciente/paciente.service";
+import { CuposService } from "../../../../core/services/cupos.service";
+import { UbicacionService } from "../../../../mantenimientos/services/ubicacion/ubicacion.service";
+import { Distrito, Provincias } from "../../../../core/models/ubicacion.models";
+import { DatePipe } from "@angular/common";
+import { MessageService } from "primeng/api";
+import { PacienteComponent } from "../../../paciente/paciente.component";
+import { DialogService, DynamicDialogConfig } from "primeng/dynamicdialog";
+import { DialogPacienteComponent } from "../../../paciente/dialog-paciente/dialog-paciente.component";
+import { timer } from "rxjs";
 
 @Component({
     selector: 'app-modal-cupos2',
@@ -23,7 +23,8 @@ import {timer} from "rxjs";
 
 })
 export class ModalCupos2Component implements OnInit {
-    idIpressLapostaMedica = "616de45e0273042236434b51";
+    // idIpressLapostaMedica = "616de45e0273042236434b51";
+    idIpressLapostaMedica: string;
     formPacientesCupo: FormGroup;
     listaDocumentosIdentidad: any;
     dataPacientes: any;
@@ -60,18 +61,22 @@ export class ModalCupos2Component implements OnInit {
     DepartamentoIDSelct: any;
     ProvinciaIDSelct: any;
     DistritoIDSelct: any;
+    listEstadoPago: any = [
+        { name: 'GRATUITO', value: 'GRATUITO' },
+        { name: 'PENDIENTE ', value: 'PENDIENTE' }
+    ];
 
     public pacienteComponent: PacienteComponent;
 
 
     constructor(private fb: FormBuilder,
-                private documentoIdentidadService: DocumentoIdentidadService,
-                private messageService: MessageService,
-                // public pacienteComponent: PacienteComponent,
-                private pacienteService: PacienteService,
-                private ubicacionService: UbicacionService,
-                private dialog: DialogService,
-                private cuposService: CuposService,) {
+        private documentoIdentidadService: DocumentoIdentidadService,
+        private messageService: MessageService,
+        // public pacienteComponent: PacienteComponent,
+        private pacienteService: PacienteService,
+        private ubicacionService: UbicacionService,
+        private dialog: DialogService,
+        private cuposService: CuposService,) {
         this.dataSelectServicio = cuposService.ServicioSeleccionado;
         this.dataSelectAmbiente = cuposService.AmbienteSeleccionado;
         this.personalSelected = cuposService.PersonalResponsableSeleccionado;
@@ -79,6 +84,7 @@ export class ModalCupos2Component implements OnInit {
         this.selectedHorario = cuposService.HoraAtencionSeleccionado;
         this.dataPersonalSelecionado = cuposService.dataPersonalSelecionado;
         this.getDepartamentos();
+        this.idIpressLapostaMedica = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
     }
 
     ngOnInit(): void {
@@ -256,6 +262,8 @@ export class ModalCupos2Component implements OnInit {
             prov: new FormControl('', [Validators.required]),
             dist: new FormControl('', [Validators.required]),
             ccpp: new FormControl('', [Validators.required]),
+
+            detallePago: new FormControl('')
         })
     }
 
@@ -449,12 +457,14 @@ export class ModalCupos2Component implements OnInit {
 
             transeunte: false,
             detallePago: this.detallePago,
+            tipoConsulta: this.cuposService.tipoConsulta,
 
             ipress: {
                 ipress_id: this.dataPersonalSelecionado.ipress.idIpress,
                 nombre: this.dataPersonalSelecionado.ipress.nombre,
                 servicio: this.dataPersonalSelecionado.ipress.servicio
             },
+
         };
         console.log("guardar", req);
         this.cuposService.saveCupos(req).subscribe(
@@ -622,5 +632,10 @@ export class ModalCupos2Component implements OnInit {
     isInvalid(control: string): boolean {
         const formC: AbstractControl = this.formPacientesCupo.get(control);
         return formC.invalid && (formC.dirty || formC.touched);
+    }
+    tipoPagoChg(){
+
+        this.detallePago = this.formPacientesCupo.value.detallePago
+        console.log('detalle Pago', this.detallePago);
     }
 }

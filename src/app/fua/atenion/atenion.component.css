@@ -43,3 +43,9 @@ input[type="number"] {
 span{
   font-weight: 500;
 }
+.p-inputtext {
+  opacity: 1;
+}
+p-radiobutton >>> .p-radiobutton .p-radiobutton-icon {
+  content: url("src\assets\svg-icons\check-svgrepo-com.svg");
+}

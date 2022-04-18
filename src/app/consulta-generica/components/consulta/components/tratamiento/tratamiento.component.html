@@ -1,0 +1,15 @@
+<p-tabView>
+    <p-tabPanel header="INMUNIZACION" leftIcon="pi pi-user" [selected]="true">
+            <app-tratamiento-inmunizacion></app-tratamiento-inmunizacion>
+    </p-tabPanel>
+    <p-tabPanel header="SUPLEMENTACION" leftIcon="pi pi-user">
+        <ng-template pTemplate="content">
+            <app-tratamiento-suplementacion></app-tratamiento-suplementacion>
+        </ng-template>
+    </p-tabPanel>
+    <p-tabPanel header="TRATAMIENTO" leftIcon="pi pi-user">
+        <ng-template pTemplate="content">
+            <app-tratamiento-general></app-tratamiento-general>
+        </ng-template>
+    </p-tabPanel>
+</p-tabView>

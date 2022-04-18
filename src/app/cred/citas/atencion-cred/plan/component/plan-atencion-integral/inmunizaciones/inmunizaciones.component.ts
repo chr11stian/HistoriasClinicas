@@ -18,8 +18,8 @@ export class InmunizacionesComponent implements OnInit {
   nroDNI: string;
   stateOptions: any[];
   listaInmunizaciones: inmunizaciones[] = [];
-  // listaMeses: number[] = [1, 2, 3, 4, 5, 6, 12, 18, 24, 48];
-  inmunizacionesAgrupadas = [[], [], [], [], [], [], [], [], [], []];
+  // listaMeses: number[] = [0, 2, 4, 6, 7, 12, 15, 18, 96];
+  inmunizacionesAgrupadas = [[], [], [], [], [], [], [], [], []];
   agrupaciones: any[] = [
     { abreviado: "RN", completo: "Recien Nacido" },
     { abreviado: "Menor_1A", completo: "Menor de un Año" },
@@ -83,7 +83,7 @@ export class InmunizacionesComponent implements OnInit {
     this.inmunizacionesService
       .getListaInmunizaciones(this.nroDNI)
       .subscribe((resp) => {
-        this.inmunizacionesAgrupadas = [[], [], [], [], [], [], [], [], [], []];
+        this.inmunizacionesAgrupadas = [[], [], [], [], [], [], [], [], []];
         this.listaInmunizaciones = resp["object"];
         this.toDate();
         this.clasificamos();
