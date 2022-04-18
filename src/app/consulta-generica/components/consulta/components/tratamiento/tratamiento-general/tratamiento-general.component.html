@@ -80,8 +80,17 @@
 
         </ng-template>
         <ng-template pTemplate="right" class="button">
-            <button pButton pRipple label="Imprimir Receta" iconPos="right" icon="pi pi-print"
-                    class="guardar mr-2" (click)="imprimirReceta()" style="background-color: #0c3866"></button>
+            <button pButton pRipple label=" Receta " iconPos="right" icon="pi pi-print"
+                    class="guardar mr-2"  style="background-color: #0c3866" >
+                <a style="color: white; font-weight: bold;"
+                   href="http://190.108.93.145:8200/jasperserver/rest_v2/reports/Reports/RECETA/recetas.pdf?idConsulta={{idConsulta}}"
+                   target="_blank">Imprimir </a>
+            </button>
+
+                <!--                    class="guardar mr-2" (click)="imprimirReceta()" style="background-color: #0c3866"></button>-->
+
+                <!--            <button pButton pRipple label="Imprimir Receta" iconPos="right" icon="pi pi-print"-->
+<!--                    class="guardar mr-2" (click)="imprimirReceta()" style="background-color: #0c3866"></button>-->
         </ng-template>
     </p-toolbar>
 </div>

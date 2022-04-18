@@ -495,7 +495,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
             cie10SIS:this.formDiagnostico.getRawValue().cie10SIS.cie10,
             tipo:this.formDiagnostico.value.tipoDiagnostico,
             codPrestacion:this.formDiagnostico.getRawValue().prestacion.codigo,
-            nombreUPS: this.formDiagnostico.value.nombreUPS,
+            nombreUPS: this.formDiagnostico.getRawValue().nombreUPS,
             factorCondicional: this.formDiagnostico.value.factorCondicional,
             nombreUPSaux:this.formDiagnostico.getRawValue().nombreUPSaux.nombre,
             lab:this.formDiagnostico.value.lab,
@@ -568,7 +568,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
         console.log(this.listaUpsAuxHis);
         this.formDiagnostico.get('prestacion').setValue(this.ListaPrestacion.find(element => element.codigo == rowData.codPrestacion));
         this.formDiagnostico.get('tipoDiagnostico').setValue(rowData.tipo);
-        this.formDiagnostico.get('nombreUPS').setValue("ENFERMERIA");
+        this.formDiagnostico.get('nombreUPS').setValue(rowData.nombreUPS);
         this.formDiagnostico.get('nombreUPSaux').setValue(this.listaUpsAuxHis.find(element=>element.nombre == rowData.nombreUPSaux));
         this.formDiagnostico.get('diagnosticoSIS').setValue(rowData.diagnosticoSIS);
         this.formDiagnostico.get('diagnosticoHIS').setValue(rowData.diagnosticoHIS);
