@@ -27,6 +27,7 @@ export class TratamientoCredComponent implements OnInit {
   attributeLocalS = 'documento'
   data:dato;
 
+
   estadoEditar:boolean=false;
 
   intervaloList: any[];
