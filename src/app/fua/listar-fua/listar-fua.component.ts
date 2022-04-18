@@ -23,7 +23,7 @@ export class ListarFuaComponent implements OnInit {
     private fuaService: FuaService,
   ) {
     this.data = this.router.getCurrentNavigation().extras;
-    this.idConsulta = JSON.parse(localStorage.getItem('dataFUA')).idConsulta;
+    this.idConsulta = this.data.id;
     console.log('data del otro componente ', this.data);
     this.fuaService.getCrearRecuperarFUAxIdConsulta(this.data.id).subscribe((res: any) => {
       if (res.cod == "2004") {

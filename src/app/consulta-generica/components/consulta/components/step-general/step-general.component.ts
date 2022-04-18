@@ -17,7 +17,7 @@ import {EvaluacionesComponent} from "../evaluaciones/evaluaciones.component";
   styleUrls: ['./step-general.component.css']
 })
 export class StepGeneralComponent implements OnInit {
-
+  data = <any>JSON.parse(localStorage.getItem('documento'))
   /* lo que reciben del paso anterior */
   tipoDoc: string = ''
   nroDoc: string = ''
