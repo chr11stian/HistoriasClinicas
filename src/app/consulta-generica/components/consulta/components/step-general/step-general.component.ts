@@ -202,6 +202,7 @@ export class StepGeneralComponent implements OnInit {
         break;
 
       case 'finalizar':
+        this.AcuerdosComponent.save()
         // this.finalizarConsulta.save()
         break;
     }

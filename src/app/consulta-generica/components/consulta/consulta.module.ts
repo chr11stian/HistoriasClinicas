@@ -22,7 +22,18 @@ import { TratamientoSuplementacionComponent } from './components/tratamiento/tra
 import { TratamientoGeneralComponent } from './components/tratamiento/tratamiento-general/tratamiento-general.component';
 import { TratamientoInmunizacionModalComponent } from './components/tratamiento/tratamiento-inmunizacion-modal/tratamiento-inmunizacion-modal.component';
 import { TratamientoSuplementacionModalComponent } from './components/tratamiento/tratamiento-suplementacion-modal/tratamiento-suplementacion-modal.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import listPlugin from '@fullcalendar/list';
+import interactionPlugin from '@fullcalendar/interaction';
 
+FullCalendarModule.registerPlugins([
+  dayGridPlugin,
+  timeGridPlugin,
+  listPlugin,
+  interactionPlugin
+])
 
 
 @NgModule({
