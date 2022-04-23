@@ -386,7 +386,7 @@ const historias = {
         },
         {
             icon: "pi pi-file",
-            label: "Niño/Niña",
+            label: "Consultorio Niño/Niña Sano",
             items: [
                 {
                     label: "Citas",
@@ -404,6 +404,17 @@ const historias = {
             icon: "pi pi-file",
             label: "Medicina General",
             items: [
+                {
+                    icon: "pi pi-file",
+                    label: "Niño/Niña",
+                    items: [
+                        {
+                            label: "Citas",
+                            icon: "pi pi-pw pi-file",
+                            routerLink: "consulta-generica/lista-cita/NIÑO O NIÑA",
+                        }
+                    ]
+                },
                 {
                     icon: "pi pi-file",
                     label: "Adolescente",
