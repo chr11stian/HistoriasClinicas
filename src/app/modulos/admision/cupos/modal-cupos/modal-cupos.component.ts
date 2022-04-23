@@ -49,7 +49,8 @@ export class ModalCuposComponent implements OnInit {
         { name: "ADOLESCENTE", value: "ADOLESCENTE", ups: "MEDICINA GENERAL" },
         { name: "JOVEN", value: "JOVEN", ups: "MEDICINA GENERAL" },
         { name: "ADULTO", value: "ADULTO", ups: "MEDICINA GENERAL" },
-        { name: "ADULTO MAYOR", value: "ADULTO_MAYOR", ups: "MEDICINA GENERAL" }
+        { name: "ADULTO MAYOR", value: "ADULTO_MAYOR", ups: "MEDICINA GENERAL" },
+        { name: "NIÑO O NIÑA", value: "NIÑO_NIÑA", ups: "MEDICINA GENERAL" }
     ];
     listActualTipoConsulta: tipoConsulta[] = [];
     constructor(private fb: FormBuilder,
@@ -125,7 +126,7 @@ export class ModalCuposComponent implements OnInit {
         this.cuposService.HoraAtencionSeleccionado = event.data.horasCupo;
         this.cuposService.FechaAtencionSeleccionado = event.data.fechaOferta;
         this.cuposService.dataPersonalSelecionado = event.data;
-        this.cuposService.tipoConsulta = this.formCuposOferta.value.tipoConsulta==""?this.formCuposOferta.value.SelectUPSOferta:this.formCuposOferta.value.tipoConsulta;
+        this.cuposService.tipoConsulta = this.formCuposOferta.value.tipoConsulta == "" ? this.formCuposOferta.value.SelectUPSOferta : this.formCuposOferta.value.tipoConsulta;
         this.personalSelected = event.data.personal.nombre;//Personal
         this.dataSelectAmbiente = event.data.ambiente;
         this.dataSelectHoras = event.data.horasCupo;
