@@ -411,7 +411,7 @@ const historias = {
                         {
                             label: "Citas",
                             icon: "pi pi-pw pi-file",
-                            routerLink: "consulta-generica/lista-cita/NIÑO O NIÑA",
+                            routerLink: "consulta-generica/lista-cita/NIÑO_NIÑA",
                         }
                     ]
                 },
