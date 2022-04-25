@@ -70,6 +70,9 @@ export class ListaCitasComponent implements OnInit, OnChanges {
     this.getTriadosXservicio()
   }
   get tipoConsulta(){
+    // if(this.rutaActiva.snapshot.params.tipoConsulta=='NIÑO_NIÑA'){
+    //   return 'NIÑO/NIÑA'
+    // }
     return this.rutaActiva.snapshot.params.tipoConsulta
   }
   ngOnChanges(changes: SimpleChanges) {
