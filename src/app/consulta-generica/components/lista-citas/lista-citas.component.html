@@ -250,8 +250,9 @@
     <div class="grid">
         <div class="col-12 md:col-6 lg:col-12 p-field" style="text-align:center;">
             <span style="font-size: 1.5rem">LISTA DE PACIENTES EN
-                <span *ngIf="tipoConsulta=='NIÑO_NIÑA'||tipoConsulta=='ADOLESCENTE'|| tipoConsulta=='JOVEN'|| tipoConsulta=='ADULTO'||tipoConsulta=='ADULTO MAYOR'">MEDICINA GENERAL-</span>
-                {{tipoConsulta | uppercase }}</span>
+
+                <span>{{buscarTipoConsulta(tipoConsulta)}}</span>
+            </span>
         </div>
     </div>
     <br>
