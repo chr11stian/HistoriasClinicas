@@ -141,12 +141,14 @@ export class ModalReferenciaComponent implements OnInit, DoCheck {
 
     inicializar() {
         this.referenceService.consultaReferencia(this.data.idConsulta).subscribe((r: any) => {
+            console.log('ob',r.object)
             let datosPaciente = r.object.datosPaciente
             let signosVitales: SignosVitales = r.object.signosVitales
             let examFisico = r.object.examenesFisicos
             this.diagnostico = r.object.diagnosticos
             this.tratamientos = r.object.tratamientos
             this.historia = r.object.nroHcl
+            this.formReferencia.get('origen').setValue(r.object.ipress.nombreEESS)
             this.edad = r.object.anioEdad + ' años ' + r.object.mesEdad + ' meses ' + r.object.diaEdad + ' dias '
             this.formReferencia.get('nombre').setValue(datosPaciente.primerNombre + ' ' + datosPaciente.otrosNombres + ' ' + datosPaciente.apePaterno + ' ' + datosPaciente.apeMaterno)
             this.formReferencia.get('sex').setValue(!(datosPaciente.sexo === 'MASCULINO'))

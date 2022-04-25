@@ -16,7 +16,7 @@
                 <div class="grid">
                     <div class="col-12 flex justify-content-center">
                         <p-dropdown [options]="listAcuerdos" formControlName="acuerdo" placeholder="Acuerdos"
-                                    optionLabel="descripcion" optionValue="nroAcuerdo" [showClear]="false"
+                                    optionLabel="descripcion" optionValue="nroAcuerdo"  [showClear]="false"
                                     scrollHeight="100px">
                         </p-dropdown>
                         <button style="background-color: #0c3866" class="button-agregar p-button-rounded"
@@ -27,7 +27,7 @@
                 </div>
             </form>
         </div>
-        <p-table class="table-over" [value]="acuerdos" #dt styleClass="p-datatable-gridlines" [rows]="10"
+        <p-table class="table-over" [value]="acuerdosAux" #dt styleClass="p-datatable-gridlines" [rows]="10"
                  [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
                  [showCurrentPageReport]="true"
                  currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
@@ -107,24 +107,22 @@
                     <div class="col-6 md:col-9  p-fluid">
                         <textarea class="inputfield w-full" formControlName="motivo" pInputTextarea></textarea>
                     </div>
-                    <div class="col-6 md:col-2  p-fluid">
-                        Servicio :
+                    <div class="col-3 md:col-3 p-fluid">
+                        Servicio:
                     </div>
-                    <div class="col-6 md:col-4  p-fluid">
-                        <p-dropdown
-                                [options]="servicios"
-                                formControlName="servicio"
-                                optionLabel="name"
-                                optionValue="code"
-                        ></p-dropdown>
+                    <div class="col-9 md:col-9 p-fluid">
+                        <p-dropdown [options]="servicios" formControlName="servicioC"
+                                    placeholder="Seleccione un servicio" optionLabel="nombreUPS" optionValue="nombreUPS"
+                                    [showClear]="false" (onChange)="ListaServicios()">
+                        </p-dropdown>
                     </div>
-                    <div class="col-6 md:col-2  p-fluid">
+                    <div class="col-6 md:col-3  p-fluid">
                         Nivel Urgencia:
                     </div>
-                    <div class="col-6 md:col-4  p-fluid">
+                    <div class="col-6 md:col-9  p-fluid">
                         <p-dropdown
                                 [options]="urgencia"
-                                formControlName="urgencia"
+                                formControlName="urgenciaC"
                                 optionLabel="name"
                                 optionValue="code"
                         ></p-dropdown>
@@ -220,24 +218,21 @@
             <div class="col-6 md:col-9  p-fluid">
                 <textarea class="inputfield w-full" formControlName="motivo" pInputTextarea></textarea>
             </div>
-            <div class="col-6 md:col-2  p-fluid">
+            <div class="col-3 md:col-3 p-fluid">
                 Servicio:
             </div>
-            <div class="col-6 md:col-4  p-fluid">
-                <p-dropdown
-                        style="position:absolute;bottom:85px"
-                        [options]="servicios"
-                        formControlName="servicio"
-                        optionLabel="name"
-                        optionValue="code"
-                ></p-dropdown>
+            <div class="col-9 md:col-9 p-fluid">
+                <p-dropdown style="position:absolute; bottom:105px" [options]="servicios" formControlName="servicio"
+                            placeholder="Seleccione un servicio" optionLabel="nombreUPS" optionValue="nombreUPS"
+                            [showClear]="false" (onChange)="ListaServicios()">
+                </p-dropdown>
             </div>
-            <div class="col-6 md:col-2  p-fluid">
+            <div class="col-6 md:col-3  p-fluid">
                 Nivel Urgencia:
             </div>
-            <div class="col-6 md:col-4  p-fluid">
+            <div class="col-6 md:col-9  p-fluid">
                 <p-dropdown
-                        style="position:absolute;bottom:85px"
+                        style="position:absolute;bottom:65px"
                         [options]="urgencia"
                         formControlName="urgencia"
                         optionLabel="name"

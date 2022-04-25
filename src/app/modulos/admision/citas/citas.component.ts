@@ -1,4 +1,4 @@
-import { DatePipe } from '@angular/common';
+  import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
@@ -75,7 +75,7 @@ export class CitasComponent implements OnInit {
   getListaServiciosXIpress() {
     this.rolGuardiaService.getServiciosPorIpress(this.idIpress).subscribe((res: any) => {
       this.servicios = res.object;
-      console.log('LISTA DE SERVICIOS DE IPRESS', this.servicios);
+      console.log('LISTA DE SERVICIOS DE IPRESSS', this.servicios);
     })
   }
 
