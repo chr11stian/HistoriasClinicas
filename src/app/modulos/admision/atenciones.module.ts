@@ -9,6 +9,7 @@ import { ModalCuposComponent } from './cupos/modal-cupos/modal-cupos.component';
 import {PaginatorModule} from "primeng/paginator";
 import { ModalCupos2Component } from './cupos/modal-cupos2/modal-cupos2.component';
 import { GenerarOfertasComponent } from './generar-ofertas/generar-ofertas.component';
+import { InterconsultaComponent } from './interconsulta/interconsulta.component';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { GenerarOfertasComponent } from './generar-ofertas/generar-ofertas.compo
         ModalCuposComponent,
         ModalCupos2Component,
         GenerarOfertasComponent,
+        InterconsultaComponent,
     ],
     imports: [
         CommonModule,

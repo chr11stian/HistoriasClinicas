@@ -9,6 +9,7 @@ import {DatePipe} from "@angular/common";
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {CalendarComponent} from "./calendar/calendar.component";
 import {dato, listaAcuerdosConMadre, acuerdosInterface, proxCita, ReferenciaInterface} from "../../../../models/data";
+import {RolGuardiaService} from "../../../../../../core/services/rol-guardia/rol-guardia.service";
 
 @Component({
     selector: 'app-finalizar-consulta',
@@ -22,6 +23,7 @@ export class FinalizarConsultaComponent implements OnInit, DoCheck {
     fecha: Date
     acuerdosFG: FormGroup
     acuerdos: listaAcuerdosConMadre[] = [];
+    acuerdosAux: listaAcuerdosConMadre[] = [];
     referencia: ReferenciaInterface[] = []
     interconsulta: proxCita[] = []
 
@@ -58,15 +60,7 @@ export class FinalizarConsultaComponent implements OnInit, DoCheck {
     listAcuerdos: listaAcuerdosConMadre[] = []
     datePipe = new DatePipe('en-US');
     ref: DynamicDialogRef;
-
-    servicios = [
-        {name: 'Pediatria', code: 'Pediatria'},
-        {name: 'Cirugía', code: 'Cirugía'},
-        {name: 'Gineco Obstetra', code: 'Gineco Obstetra'},
-        {name: 'Laboratorio', code: 'Laboratorio'},
-        {name: 'Dx. Imagen', code: 'Dx. Imagen'},
-        {name: 'Otros', code: 'Otros'},
-    ];
+    servicios: string[] = []
     urgencia = [
         {name: 'Nivel 1', code: 'Nivel 1'},
         {name: 'Nivel 2', code: 'Nivel 2'},
@@ -82,6 +76,7 @@ export class FinalizarConsultaComponent implements OnInit, DoCheck {
     }
 
     constructor(private acuerdosService: FinalizarConsultaService,
+                private rolGuardiaService: RolGuardiaService,
                 private cieService: CieService,
                 private formBuilder: FormBuilder,
                 private router: Router,
@@ -133,8 +128,8 @@ export class FinalizarConsultaComponent implements OnInit, DoCheck {
             proxCita: {
                 fecha: this.datePipe.transform(this.acuerdosFG.get('proximaCitaFC').value, 'yyyy-MM-dd'),
                 motivo: this.acuerdosFG.get('motivo').value,
-                servicio: this.acuerdosFG.get('servicio').value,
-                nivelUrgencia: this.acuerdosFG.value.urgencia,
+                servicio: this.acuerdosFG.get('servicioC').value,
+                nivelUrgencia: this.acuerdosFG.get('urgenciaC').value,
             },
             observacionesConsulta: this.acuerdosFG.get('observacionFC').value,
             interconsultas: this.interconsulta
@@ -151,6 +146,14 @@ export class FinalizarConsultaComponent implements OnInit, DoCheck {
         })
     }
 
+    ListaServicios() {
+        let idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
+        this.rolGuardiaService.getServiciosPorIpress(idIpress).subscribe((res: any) => {
+            this.servicios = res.object;
+            console.log('LISTA DE SERVICIOS DE IPRESSS', this.servicios);
+        })
+    }
+
     buildFG(): void {
         this.id = localStorage.getItem(this.attributeLocalS);
         this.acuerdosFG = new FormGroup({
@@ -161,7 +164,9 @@ export class FinalizarConsultaComponent implements OnInit, DoCheck {
             observacionFC: new FormControl({value: '', disabled: false}, []),
             motivo: new FormControl({value: '', disabled: false}, []),
             servicio: new FormControl({value: '', disabled: false}, []),
-            urgencia: new FormControl({value: '', disabled: false}, [])
+            urgencia: new FormControl({value: '', disabled: false}, []),
+            servicioC: new FormControl({value: '', disabled: false}, []),
+            urgenciaC: new FormControl({value: '', disabled: false}, [])
         })
         this.FrmAcuerdo = new FormGroup({
             acuerdo: new FormControl({value: null, disabled: false}, [])
@@ -202,6 +207,7 @@ export class FinalizarConsultaComponent implements OnInit, DoCheck {
         this.mes = this.data.mes
         this.agenda()
         this.listaAcuerdos()
+        this.ListaServicios()
     }
 
     /* mostrar el plan en el calendario */
@@ -268,7 +274,12 @@ export class FinalizarConsultaComponent implements OnInit, DoCheck {
         let a: listaAcuerdosConMadre = {
             nroAcuerdo: this.FrmAcuerdo.value.acuerdo
         }
+        let b: listaAcuerdosConMadre = {
+            nroAcuerdo: this.FrmAcuerdo.value.acuerdo,
+            descripcion: this.listAcuerdos[this.FrmAcuerdo.value.acuerdo-1].descripcion
+        }
         this.acuerdos.push(a);
+        this.acuerdosAux.push(b)
     }
 
     saveAcuerdo() {
@@ -298,6 +309,7 @@ export class FinalizarConsultaComponent implements OnInit, DoCheck {
 
     eliminarAcuerdo(index) {
         this.acuerdos.splice(index, 1)
+        this.acuerdosAux.splice(index, 1)
     }
 
     openInterconsulta() {
