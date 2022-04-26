@@ -135,12 +135,12 @@ export class AcuerdosComponent implements OnInit, DoCheck {
     save() {
         let aux: any = {
             id: this.data.idConsulta,
-            proxCita: {
+            /*proxCita: {
                 fecha: this.datePipe.transform(this.acuerdosFG.get('proximaCitaFC').value, 'yyyy-MM-dd'),
                 motivo: this.acuerdosFG.get('motivo').value,
                 servicio: this.acuerdosFG.get('servicio').value,
                 nivelUrgencia: this.acuerdosFG.value.urgencia,
-            },
+            },*/
             interconsultas: this.interconsulta
         }
         console.log('aux', aux)
@@ -202,7 +202,8 @@ export class AcuerdosComponent implements OnInit, DoCheck {
 
     recuperar() {
         this.servicio.searchConsultaDatosGenerales(this.data.idConsulta).subscribe((r: any) => {
-            console.log('object', r.object)
+            console.log('object', r.object.interconsultas)
+            this.interconsulta = r.object.interconsultas
         })
     }
 
@@ -337,6 +338,7 @@ export class AcuerdosComponent implements OnInit, DoCheck {
             fecha: this.datePipe.transform(this.formInterconsulta.value.fecha, 'yyyy-MM-dd'),
             motivo: this.formInterconsulta.value.motivo,
             servicio: this.formInterconsulta.value.servicio,
+            estado: 'TENTATIVO',
             nivelUrgencia: this.formInterconsulta.value.urgencia
         }
         this.interconsulta.push(aux_)
@@ -355,7 +357,7 @@ export class AcuerdosComponent implements OnInit, DoCheck {
         let idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
         this.rolGuardiaService.getServiciosPorIpress(idIpress).subscribe((res: any) => {
             this.servicios = res.object;
-            console.log('LISTA DE SERVICIOS DE IPRESSS', this.servicios);
+            //console.log('LISTA DE SERVICIOS DE IPRESSS', this.servicios);
         })
     }
 
