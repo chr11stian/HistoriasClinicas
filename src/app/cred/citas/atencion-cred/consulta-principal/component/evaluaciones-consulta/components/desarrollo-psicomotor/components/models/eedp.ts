@@ -78,8 +78,8 @@ export interface ItemEEDP {
     listItemEedp?: AnswerEEDP[]
 }
 export interface TestEEDP {
-    codigoCIE10: string,
-    codigoHIS: string,
+    codigoCIE10?: string,
+    codigoHIS?: string,
     codigoPrestacion: string,
     testEedp: {
         fechaAtencion: string,
@@ -90,9 +90,19 @@ export interface TestEEDP {
         docExaminador: string,
         listaUltimasPreguntas?: Tupla[],
         listaEvaluacionMesEDDP: ItemEEDP[]
+        edadMes: number,
     }
 }
 export interface Tupla {
     clave: string,
     numeroPregunta: number
+}
+export interface DatosConsulta {
+    anio:number,
+    mes: number,
+    dia: number,
+    idConsulta: string,
+    sexo: string,
+    tipoDoc:string,
+    nroDocumento: string
 }

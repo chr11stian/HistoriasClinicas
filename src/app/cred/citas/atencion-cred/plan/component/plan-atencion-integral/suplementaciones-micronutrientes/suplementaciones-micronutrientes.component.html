@@ -1,127 +1,277 @@
-<div class="grid mb-2">
-  <div class="col flex justify-content-start">
-    <div>
-      <button
-        pButton
-        pRipple
-        label="Save"
-        class="mr-2 p-button-info"
-        icon="pi pi-save"
-        (click)="saveData()"
-        styleClass="p-button"
-      ></button>
-      <button
-        pButton
-        pRipple
-        label="Expandir"
-        class="mr-2 p-button-success"
-        icon="pi pi-window-maximize"
-        (click)="expandir = false"
-        styleClass="p-button"
-      ></button>
-      <button
-        pButton
-        pRipple
-        label="Comprimir"
-        class="mr-2 p-button-secondary"
-        icon="pi pi-window-minimize"
-        (click)="expandir = true"
-        styleClass="p-button"
-      ></button>
+<div>
+    <p-divider align="left">
+        <div class="p-d-inline-flex p-ai-center">
+            <i class="pi pi-angle-double-right p-mr-2"></i>
+            <b>Suplementacion Preventiva</b>
+        </div>
+    </p-divider>
+</div>
+<p-fieldset styleClass="mb-3">
+    <ng-template pTemplate="header">
+        <div>
+            Suplementacion con SULFATO FERROSO
+        </div>
+    </ng-template>
+    <div class="grid">
+        <div class="col-1 text-center" style="font-weight: bold">Edad Mes</div>
+        <div class="col-2 text-center" style="font-weight: bold">Nombre</div>
+        <div class="col-1 text-center" style="font-weight: bold">Nro Dosis</div>
+        <div class="col text-center" style="font-weight: bold">Fecha Tentativa</div>
+        <div class="col text-center" style="font-weight: bold">Fecha Administracion</div>
+        <div class="col-2 text-center" style="font-weight: bold">Estado</div>
     </div>
-  </div>
+    <div class="grid" *ngFor="let sf of listaSF">
+        <div class="col-1 text-center">
+            {{sf.edadMes}}
+        </div>
+        <div class="col-2 text-center">
+            {{sf.descripcion}}
+        </div>
+        <div class="col-1 text-center">
+            {{sf.dosis}}
+        </div>
+        <div class="col text-center">
+            <p-calendar
+                    [showIcon]="true"
+                    placeholder="Fecha"
+                    [disabled]="true"
+                    dateFormat="dd/mm/yy"
+                    [(ngModel)]="sf.fechaTentativa"
+                    [ngClass]="{
+                        vacunado: sf.estadoAdministrado,
+                        noVacunado: !sf.estadoAdministrado
+                      }"
+            ></p-calendar>
+        </div>
+        <div class="col text-center">
+            <p-calendar
+                    [showIcon]="true"
+                    placeholder="Fecha"
+                    [disabled]="true"
+                    dateFormat="dd/mm/yy"
+                    [(ngModel)]="sf.fecha"
+                    [ngClass]="{
+                        vacunado: sf.estadoAdministrado,
+                        noVacunado: !sf.estadoAdministrado
+                      }"
+            ></p-calendar>
+        </div>
+        <div class="col-2 text-center">
+            <span *ngIf="sf.estadoAdministrado;else noVacunado;">
+              <p-tag severity="success" value="Administrado" [rounded]="true"></p-tag>
+            </span>
+            <ng-template #noVacunado>
+              <span>
+                <p-tag severity="warning" value="No Administrado" [rounded]="true"></p-tag>
+              </span>
+            </ng-template>
+        </div>
+    </div>
+</p-fieldset>
+<p-fieldset styleClass="mb-3">
+    <ng-template pTemplate="header">
+        <div>
+            Suplementacion con MICRONUTRIENTES
+        </div>
+    </ng-template>
+    <div class="grid">
+        <div class="col-1 text-center" style="font-weight: bold">Edad Mes</div>
+        <div class="col-2 text-center" style="font-weight: bold">Nombre</div>
+        <div class="col-1 text-center" style="font-weight: bold">Nro Dosis</div>
+        <div class="col text-center" style="font-weight: bold">Fecha Tentativa</div>
+        <div class="col text-center" style="font-weight: bold">Fecha Administracion</div>
+        <div class="col-2 text-center" style="font-weight: bold">Estado</div>
+    </div>
+    <div class="grid" *ngFor="let mnm of listaMNM">
+        <div class="col-1 text-center">
+            {{mnm.edadMes}}
+        </div>
+        <div class="col-2 text-center">
+            {{mnm.descripcion}}
+        </div>
+        <div class="col-1 text-center">
+            {{mnm.dosis}}
+        </div>
+        <div class="col text-center">
+            <p-calendar
+                    [showIcon]="true"
+                    placeholder="Fecha"
+                    [disabled]="true"
+                    dateFormat="dd/mm/yy"
+                    [(ngModel)]="mnm.fechaTentativa"
+                    [ngClass]="{
+                        vacunado: mnm.estadoAdministrado,
+                        noVacunado: !mnm.estadoAdministrado
+                      }"
+            ></p-calendar>
+        </div>
+        <div class="col text-center">
+            <p-calendar
+                    [showIcon]="true"
+                    placeholder="Fecha"
+                    [disabled]="true"
+                    dateFormat="dd/mm/yy"
+                    [(ngModel)]="mnm.fecha"
+                    [ngClass]="{
+                        vacunado: mnm.estadoAdministrado,
+                        noVacunado: !mnm.estadoAdministrado
+                      }"
+            ></p-calendar>
+        </div>
+        <div class="col-2 text-center">
+            <span *ngIf="mnm.estadoAdministrado;else noVacunado;">
+              <p-tag severity="success" value="Administrado" [rounded]="true"></p-tag>
+            </span>
+            <ng-template #noVacunado>
+              <span>
+                <p-tag severity="warning" value="No Administrado" [rounded]="true"></p-tag>
+              </span>
+            </ng-template>
+        </div>
+    </div>
+</p-fieldset>
+<p-fieldset styleClass="mb-3">
+    <ng-template pTemplate="header">
+        <div>
+            Suplementacion Vitamina A
+        </div>
+    </ng-template>
+    <div class="grid">
+        <div class="col-1 text-center" style="font-weight: bold">Edad Mes</div>
+        <div class="col-2 text-center" style="font-weight: bold">Nombre</div>
+        <div class="col-1 text-center" style="font-weight: bold">Nro Dosis</div>
+        <div class="col text-center" style="font-weight: bold">Fecha Tentativa</div>
+        <div class="col text-center" style="font-weight: bold">Fecha Administracion</div>
+        <div class="col-2 text-center" style="font-weight: bold">Estado</div>
+
+    </div>
+    <div class="grid" *ngFor="let va of listaVA">
+
+        <div class="col-1 text-center">
+            {{va.edadMes}}
+        </div>
+        <div class="col-2 text-center">
+            {{va.descripcion}}
+        </div>
+        <div class="col-1 text-center">
+            {{va.dosis}}
+        </div>
+        <div class="col text-center">
+            <p-calendar
+                    [showIcon]="true"
+                    placeholder="Fecha"
+                    [disabled]="true"
+                    dateFormat="dd/mm/yy"
+                    [(ngModel)]="va.fechaTentativa"
+                    [ngClass]="{
+                        vacunado: va.estadoAdministrado,
+                        noVacunado: !va.estadoAdministrado
+                      }"
+            ></p-calendar>
+        </div>
+        <div class="col text-center">
+            <p-calendar
+                    [showIcon]="true"
+                    placeholder="Fecha"
+                    [disabled]="true"
+                    dateFormat="dd/mm/yy"
+                    [(ngModel)]="va.fecha"
+                    [ngClass]="{
+                        vacunado: va.fecha,
+                        noVacunado: !va.fecha
+                      }"
+            ></p-calendar>
+        </div>
+        <div class="col-2 text-center">
+            <span *ngIf="va.estadoAdministrado;else noVacunado;">
+              <p-tag severity="success" value="Administrado" [rounded]="true"></p-tag>
+            </span>
+            <ng-template #noVacunado>
+              <span>
+                <p-tag severity="warning" value="No Administrado" [rounded]="true"></p-tag>
+              </span>
+            </ng-template>
+        </div>
+
+
+    </div>
+</p-fieldset>
+<div>
+    <p-divider align="left">
+        <div class="p-d-inline-flex p-ai-center">
+            <i class="pi pi-angle-double-right p-mr-2"></i>
+            <b>Suplementacion Terapeutica</b>
+        </div>
+    </p-divider>
 </div>
-<div class="grid">
-  <div class="lg:col-6 col-fixed">
-    <p-fieldset
-      legend="Suplementación con hierro"
-      [toggleable]="true"
-      [collapsed]="expandir"
-    >
-      <div class="card flex flex-column">
-        <div class="field grid">
-          <div class="mr-2 text-right" style="width: 200px">Fecha</div>
-          <div class="text-right" style="width: 140px">Fecha Tentativa</div>
+<p-fieldset styleClass="mb-3">
+    <ng-template pTemplate="header">
+        <div>
+            Suplementacion Terapeutica
         </div>
-        <div class="field grid" *ngFor="let itemSF of SF">
-          <span class="col-fixed text-right mr-2" style="width: 30px"
-            >{{ itemSF.nroSuplemento }}°:</span
-          >
-          <p-selectButton
-            [options]="stateOptions"
-            optionLabel="label"
-            class="mr-2"
-            [(ngModel)]="itemSF.estado"
-            optionValue="optionValue"
-          >
-          </p-selectButton>
-          <div class="mr-2" style="width: 113px">
-            <p-calendar
-              [showIcon]="true"
-              inputId="icon"
-              placeholder="Fecha"
-              dateFormat="yy-mm-dd"
-              [(ngModel)]="itemSF.fecha"
-            ></p-calendar>
-          </div>
-          <div style="width: 113px">
-            <p-calendar
-              [showIcon]="true"
-              inputId="icon"
-              [disabled]="true"
-              placeholder="Fecha"
-              dateFormat="yy-mm-dd"
-              [(ngModel)]="itemSF.fechaTentativa"
-            ></p-calendar>
-          </div>
+    </ng-template>
+    <div class="grid">
+        <div class="col-1 text-center" style="font-weight: bold">Edad Mes</div>
+        <div class="col-2 text-center" style="font-weight: bold">Nombre</div>
+        <div class="col-1 text-center" style="font-weight: bold">Nro Dosis</div>
+        <div class="col text-center" style="font-weight: bold">Fecha Tentativa</div>
+        <div class="col text-center" style="font-weight: bold">Fecha Administracion</div>
+        <div class="col-2 text-center" style="font-weight: bold">Estado</div>
+
+    </div>
+    <div class="grid" *ngFor="let va of listaTerapeutica">
+
+        <div class="col-1 text-center">
+            {{va.edadMes}}
         </div>
-      </div>
-    </p-fieldset>
-  </div>
-  <div class="lg:col-6 col-fixed">
-    <p-fieldset
-      legend="Suplementacion con Micronutrientes"
-      [toggleable]="true"
-      [collapsed]="expandir"
-    >
-      <div class="card flex flex-column">
-        <div class="field grid">
-          <div class="mr-2 text-right" style="width: 190px">Fecha</div>
-          <div class="text-right" style="width: 140px">Fecha Tentativa</div>
+        <div class="col-2 text-center">
+            {{va.descripcion}}
         </div>
-        <div class="field grid" *ngFor="let itemMMN of MMN">
-          <span class="col-fixed text-right mr-2" style="width: 30px"
-            >{{ itemMMN.nroSuplemento }}°:</span
-          >
-          <p-selectButton
-            [options]="stateOptions"
-            optionLabel="label"
-            class="mr-2"
-            [(ngModel)]="itemMMN.estado"
-            optionValue="optionValue"
-          >
-          </p-selectButton>
-          <div class="mr-2" style="width: 113px">
-            <p-calendar
-              [showIcon]="true"
-              inputId="icon"
-              placeholder="Fecha"
-              dateFormat="yy-mm-dd"
-              [(ngModel)]="itemMMN.fecha"
-            ></p-calendar>
-          </div>
-          <div style="width: 113px">
-            <p-calendar
-              [showIcon]="true"
-              inputId="icon"
-              [disabled]="true"
-              placeholder="Fecha"
-              dateFormat="yy-mm-dd"
-              [(ngModel)]="itemMMN.fechaTentativa"
-            ></p-calendar>
-          </div>
+        <div class="col-1 text-center">
+            {{va.dosis}}
         </div>
-      </div>
-    </p-fieldset>
-  </div>
-</div>
+        <div class="col text-center">
+            <p-calendar
+                    [showIcon]="true"
+                    placeholder="Fecha"
+                    [disabled]="true"
+                    dateFormat="dd/mm/yy"
+                    [(ngModel)]="va.fechaTentativa"
+                    [ngClass]="{
+                        vacunado: va.estadoAdministrado,
+                        noVacunado: !va.estadoAdministrado
+                      }"
+            ></p-calendar>
+        </div>
+        <div class="col text-center">
+            <p-calendar
+                    [showIcon]="true"
+                    placeholder="Fecha"
+                    [disabled]="true"
+                    dateFormat="dd/mm/yy"
+                    [(ngModel)]="va.fecha"
+                    [ngClass]="{
+                        vacunado: va.fecha,
+                        noVacunado: !va.fecha
+                      }"
+            ></p-calendar>
+        </div>
+        <div class="col-2 text-center">
+            <span *ngIf="va.estadoAdministrado;else noVacunado;">
+              <p-tag severity="success" value="Administrado" [rounded]="true"></p-tag>
+            </span>
+            <ng-template #noVacunado>
+              <span>
+                <p-tag severity="warning" value="No Administrado" [rounded]="true"></p-tag>
+              </span>
+            </ng-template>
+        </div>
+
+
+    </div>
+</p-fieldset>
+
+
+
+
+

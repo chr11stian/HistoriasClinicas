@@ -1,0 +1,605 @@
+<div class="titulo">
+    <span class="p-m-0">
+        <div class="grid">
+            <div class="col-2">
+                <i class="pi pi-book" style="font-size: 3rem"></i>
+            </div>
+            <div class="col-8">
+                REGISTRO DIARIO DE ATENCIÓN Y OTRAS ACTIVIDADES DE SALUD
+                (REGISTRO NOMINAL)
+            </div>
+        </div>
+    </span>
+</div>
+
+<div class="card">
+    <br>
+    <div>
+        <p-toolbar>
+            <ng-template pTemplate="left">
+                <label>OTROS DATOS</label>
+            </ng-template>
+        </p-toolbar>
+        <div class="border">
+            <form [formGroup]='formDatos'>
+                <div class="grid m-2">
+                    <div class="col-12 md:col-6 lg:col-4 p-field">
+                        <!--nombre ipress-->
+                        <div class="grid">
+                            <div class="p-inputgroup">
+                                <div class="col-12" style="text-align: left">
+                                    <label class="" style="text-transform:uppercase">Nombre Ipress </label>
+                                    <input type="text" style="text-transform:uppercase" pInputText class="inputfield w-full" formControlName="ipress">
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- año y mes -->
+                        <div class="grid">
+                            <div class="p-inputgroup">
+                                <!--año-->
+                                <div class="col-6" style="text-align: left">
+                                    <label class="" style="text-transform:uppercase">Año </label>
+                                    <p-inputNumber class="inputfield w-full"
+                                           formControlName="año">
+                                    </p-inputNumber>
+                                </div>
+                                <!--mes-->
+                                <div class="col-6" style="text-align: left">
+                                    <label class="" style="text-transform:uppercase">Mes </label>
+                                    <input type="text" style="text-transform:uppercase" pInputText  class="inputfield w-full" formControlName="mes">
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-4 p-field">
+                        <!--Fecha Proceso---->
+                        <div class="grid">
+                            <div class="col-12" style="text-align: left">
+                                <label class="" style="text-transform:uppercase">Fecha Proceso </label>
+                                <p-calendar formControlName="fechaProceso" placeholder="" showIcon="true"
+                                            dateFormat="yy-mm-dd"  class="p-fluid"></p-calendar>
+
+                            </div>
+                        </div>
+                        <!-- dia - hora de atencion-->
+                        <div class="grid">
+                            <div class="p-inputgroup">
+                                <div class="col-5" style="text-align: left">
+                                    <label class="" style="text-transform:uppercase">Dia </label>
+                                    <p-inputNumber  class="inputfield w-full"
+                                           formControlName="dia">
+                                    </p-inputNumber>
+                                </div>
+                                <div class="col-7" style="text-align: left">
+                                    <label class="" style="text-transform:uppercase">Hora de Atención: </label>
+                                    <input type="time" pInputText class="inputfield w-full"
+                                           formControlName="horaAtencion">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-12 md:col-12 lg:col-4 p-field">
+                        <!--UPS--->
+                        <div class="grid">
+                            <div class="p-inputgroup">
+                                <div class="col-12" style="text-align: left">
+                                    <label class="" style="text-transform:uppercase">UPS </label>
+                                    <input type="text"  style="text-transform:uppercase"pInputText class="inputfield w-full" formControlName="ups">
+                                </div>
+                            </div>
+                        </div>
+                        <!--UPS - UPS aux--->
+                        <div class="grid">
+                            <div class="p-inputgroup">
+                                <div class="col-12" style="text-align: left">
+                                    <label class="" style="text-transform:uppercase">UPS Aux</label>
+                                    <input type="text" style="text-transform:uppercase" pInputText class="inputfield w-full" formControlName="upsAux">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <br>
+        <p-toolbar>
+            <ng-template pTemplate="left">
+                <label>DATOS DEL RESPONSABLE DE LA ATENCIÓN</label>
+            </ng-template>
+        </p-toolbar>
+        <div class="border">
+            <form [formGroup]='formDatos'>
+                <div class="grid m-2">
+                    <div class="col-12 md:col-6 lg:col-3 p-field">
+                        <!--nombre profesional-->
+                        <div class="grid">
+                            <div class="p-inputgroup">
+                                <div class="col-12" style="text-align: left">
+                                    <label class="" style="text-transform:uppercase">Nombre del responsable </label>
+                                    <input type="text" style="text-transform:uppercase" pInputText class="inputfield w-full"
+                                           formControlName="nombreProfesional">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-3 p-field">
+                        <!--dni profesional-->
+                        <div class="grid">
+                            <div class="p-inputgroup">
+                                <div class="col-12" style="text-align: left">
+                                    <label class="" style="text-transform:uppercase">DNI Responsable: </label>
+                                    <input type="text" style="text-transform:uppercase" pInputText class="inputfield w-full"
+                                           formControlName="dniProfesional">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-4 lg:col-2 p-field">
+                        <div class="grid">
+                            <!--colegiatura-->
+                            <div class="col-12" style="text-align: left">
+                                <label class="" style="text-transform:uppercase">Colegiatura </label>
+                                <input type="text" style="text-transform:uppercase" pInputText class="inputfield w-full"
+                                       formControlName="colegiatura">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-4 lg:col-3 p-field">
+                        <!--turno de atencion-->
+                        <div class="grid">
+                            <div class="col-12 p-fluid" style="text-align: left">
+                                <label class="" style="text-transform:uppercase">Turno de Atención </label>
+                                <p-selectButton [options]="turnos" formControlName="turno" optionLabel="name" optionValue="value">
+                                </p-selectButton>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-4 lg:col-1 p-field">
+                        <!--actividad-->
+                        <div class="grid">
+                            <div class="col-12 p-fluid" style="text-align: left">
+                                <label class="" style="text-transform:uppercase">Actividad </label>
+                                <p-selectButton [options]="actividad" formControlName="actividad"  optionLabel="name" optionValue="value">
+                                </p-selectButton>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <br>
+        <p-toolbar>
+            <ng-template pTemplate="left">
+                <label>DATOS PERSONALES</label>
+            </ng-template>
+        </p-toolbar>
+        <div class="border">
+            <form [formGroup]='formDatos'>
+                <div class="grid m-2">
+                    <div class="col-12 md:col-6 lg:col-4 p-field">
+                        <!-- Apellido Paterno-->
+                        <div class="grid">
+                            <div class="p-inputgroup">
+                                <div class="col-4" style="text-align: left">
+                                    <label class="" style="text-transform:uppercase">Apellido Paterno </label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" pInputText class="inputfield w-full"
+                                           formControlName="apePaterno">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Apellido Materno-->
+                        <div class="grid">
+                            <div class="p-inputgroup">
+                                <div class="col-4" style="text-align: left">
+                                    <label class="" style="text-transform:uppercase">Apellido Materno </label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" pInputText class="inputfield w-full" formControlName="apeMaterno"
+                                           style="text-transform:uppercase">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Nombres-->
+                        <div class="grid">
+                            <div class="p-inputgroup">
+                                <div class="col-4" style="text-align: left">
+                                    <label class="" style="text-transform:uppercase">Nombres </label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" pInputText class="inputfield w-full" formControlName="nombres"
+                                           style="text-transform:uppercase">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Edad -->
+                        <div class="grid">
+                            <div class="p-inputgroup">
+                                <div class="col-4" style="text-align: left">
+                                    <label class="" style="text-transform:uppercase">Edad:</label>
+                                </div>
+                                <div class="col-3 p-fluid">
+                                    <p-inputNumber  class="inputfield w-full"
+                                           formControlName="edad">
+                                    </p-inputNumber>
+                                </div>
+                                <div class="col-5 p-fluid">
+                                    <p-selectButton [options]="options" formControlName="denominacionEdad" optionLabel="name" optionValue="value">
+                                    </p-selectButton>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!--grupo de riesgo-->
+                        <div class="grid">
+                            <div class="p-inputgroup">
+                                <div class="col-4" style="text-align: left">
+                                    <label class="" style="text-transform:uppercase">Grupo de Riesgo:</label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" pInputText class="inputfield w-full" formControlName="grupoRiesgo"
+                                           style="text-transform:uppercase">
+                                </div>
+                            </div>
+                        </div>
+                        <!--Salud materna-->
+                        <div class="grid">
+                            <div class="p-inputgroup">
+                                <div class="col-4" style="text-align: left">
+                                    <label class="" style="text-transform:uppercase">Salud Materna:</label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" pInputText class="inputfield w-full" formControlName="saludMaterna"
+                                           style="text-transform:uppercase">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-4 p-field">
+                        <!-- tipo de identidad-->
+                        <div class="grid">
+                            <div class="p-inputgroup">
+                                <div class="col-4" style="text-align: left">
+                                    <label class="" style="text-transform:uppercase">Tipo de Doc.</label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" style="text-transform:uppercase" pInputText class="inputfield w-full" formControlName="tipoDoc">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- doc de identidad-->
+                        <div class="grid">
+                            <div class="p-inputgroup">
+                                <div class="col-4" style="text-align: left">
+                                    <label class="" style="text-transform:uppercase">Doc. de Identidad</label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" style="text-transform:uppercase" pInputText class="inputfield w-full" formControlName="nroDoc">
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Número de HCL-->
+                        <div class="grid">
+                            <div class="p-inputgroup">
+                                <div class="col-4" style="text-align: left">
+                                    <label class="" style="text-transform:uppercase">Núm. de HCl</label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" style="text-transform:uppercase" pInputText class="inputfield w-full" formControlName="nroHcl">
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Sexo-->
+                        <div class="grid">
+                            <div class="p-inputgroup">
+                                <div class="col-4" style="text-align: left">
+                                    <label class="" style="text-transform:uppercase">Sexo</label>
+                                </div>
+                                <div class="col-8 p-fluid">
+                                    <p-selectButton [options]="sexo" formControlName="sexo" optionLabel="name" optionValue="value">
+                                    </p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Semana Gestacion-->
+                        <div class="grid">
+                            <div class="p-inputgroup">
+                                <div class="col-4" style="text-align: left">
+                                    <label class="" style="text-transform:uppercase">Semana Gestación:</label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" pInputText class="inputfield w-full" formControlName="semanaGestacion"
+                                           style="text-transform:uppercase">
+                                </div>
+                            </div>
+                        </div>
+                        <!--Con ing Es-->
+                        <div class="grid">
+                            <div class="p-inputgroup">
+                                <div class="col-4" style="text-align: left">
+                                    <label class="" style="text-transform:uppercase">CON_ING ES:</label>
+                                </div>
+                                <div class="col-8 p-fluid">
+                                    <p-selectButton [options]="listaConIng" formControlName="conIngEs" optionLabel="name" optionValue="value">
+                                    </p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-12 lg:col-4 p-field">
+                        <!-- Financiamiento-->
+                        <div class="grid">
+                            <div class="p-inputgroup">
+                                <div class="col-4" style="text-align: left">
+                                    <label class="" style="text-transform:uppercase">Financ.</label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" pInputText class="inputfield w-full" formControlName="financiamiento"
+                                           style="text-transform:uppercase">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Fecha de Nacimiento-->
+                        <div class="grid">
+                            <div class="p-inputgroup">
+                                <div class="col-4" style="text-align: left">
+                                    <label class="" style="text-transform:uppercase">Fecha de Nac. </label>
+                                </div>
+                                <div class="col-8">
+                                    <p-calendar formControlName="fechaNacimiento" placeholder=""  dateFormat="yy-mm-dd"
+                                                class="p-fluid" [showIcon]="true" [showTime]="true" [showSeconds]="true"></p-calendar>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Fecha de Ultima regla-->
+                        <div class="grid">
+                            <div class="p-inputgroup">
+                                <div class="col-4" style="text-align: left">
+                                    <label class="" style="text-transform:uppercase">Fecha de Última Regla</label>
+                                </div>
+                                <div class="col-8">
+                                    <p-calendar formControlName="fum" placeholder=""  dateFormat="yy-mm-dd"
+                                                class="p-fluid" [showIcon]="true" ></p-calendar>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Etnia-->
+                        <div class="grid">
+                            <div class="p-inputgroup">
+                                <div class="col-4" style="text-align: left">
+                                    <label class="" style="text-transform:uppercase">Etnia</label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" pInputText class="inputfield w-full" formControlName="etnia"
+                                           style="text-transform:uppercase">
+                                </div>
+                            </div>
+                        </div>
+                        <!--Registro opcional-->
+                        <div class="grid">
+                            <div class="p-inputgroup">
+                                <div class="col-4" style="text-align: left">
+                                    <label class="" style="text-transform:uppercase">Registro Opcional:</label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" pInputText class="inputfield w-full" formControlName="registroOpcional"
+                                           style="text-transform:uppercase">
+                                </div>
+                            </div>
+                        </div>
+                        <!--Con ing Es-->
+                        <div class="grid">
+                            <div class="p-inputgroup">
+                                <div class="col-4" style="text-align: left">
+                                    <label class="" style="text-transform:uppercase">CON_ING SE:</label>
+                                </div>
+                                <div class="col-8 p-fluid">
+                                    <p-selectButton [options]="listaConIng" formControlName="conIngSe" optionLabel="name" optionValue="value">
+                                    </p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <br>
+        <p-toolbar>
+            <ng-template pTemplate="left">
+                <label>LUGAR DE RESIDENCIA</label>
+            </ng-template>
+        </p-toolbar>
+        <div class="border">
+            <form [formGroup]='formDatos'>
+                <div class="grid m-2">
+                    <div class="col-12 md:col-4 lg:col-4 p-field">
+                        <!-- Centro poblado de procedencia-->
+                        <div class="grid">
+                            <div class="col-4" style="text-align: left">
+                                <label class="" style="text-transform:uppercase">Distrito</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" pInputText class="inputfield w-full" formControlName="distrito"
+                                       style="text-transform:uppercase">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-4 lg:col-4 p-field">
+                        <!-- Centro poblado de procedencia-->
+                        <div class="grid">
+                            <div class="col-4" style="text-align: left">
+                                <label class="" style="text-transform:uppercase">Sector</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" pInputText class="inputfield w-full" formControlName="sector"
+                                       style="text-transform:uppercase">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-4 lg:col-4 p-field">
+                        <!-- Centro poblado de procedencia-->
+                        <div class="grid">
+                            <div class="col-4" style="text-align: left">
+                                <label class="" style="text-transform:uppercase">Centro Poblado</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" pInputText class="inputfield w-full" formControlName="ccpp"
+                                       style="text-transform:uppercase">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+        <br>
+
+        <p-toolbar>
+            <ng-template pTemplate="left">
+                <label>EVALUACIÓN ANTROPOMÉTRICA</label>
+            </ng-template>
+        </p-toolbar>
+        <div class="border">
+            <form [formGroup]='formDatos'>
+                <div class="grid m-2">
+                    <div class="col-12 md:col-6 lg:col-4 p-field">
+                        <!--peso-->
+                        <div class="grid">
+                            <div class="p-inputgroup">
+                                <div class="col-4" style="text-align: left">
+                                    <label class="" style="text-transform:uppercase">Peso:</label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" pInputText class="inputfield w-full" formControlName="peso"
+                                           style="text-transform:uppercase">
+                                </div>
+                            </div>
+                        </div>
+                        <!--perimetro abdominal-->
+                        <div class="grid">
+                            <div class="p-inputgroup">
+                                <div class="col-4" style="text-align: left">
+                                    <label class="" style="text-transform:uppercase">Perímetro Abd.:</label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" pInputText class="inputfield w-full" formControlName="perimetroAbdominal"
+                                           style="text-transform:uppercase">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-4 p-field">
+                        <!--talla-->
+                        <div class="grid">
+                            <div class="p-inputgroup">
+                                <div class="col-4" style="text-align: left">
+                                    <label class="" style="text-transform:uppercase">Talla:</label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" pInputText class="inputfield w-full" formControlName="talla"
+                                           style="text-transform:uppercase">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="p-inputgroup">
+                                <div class="col-4" style="text-align: left">
+                                    <label class="" style="text-transform:uppercase">Perímetro Cefálico.:</label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" pInputText class="inputfield w-full" formControlName="perimetroCefalico"
+                                           style="text-transform:uppercase">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-12 lg:col-4 p-field">
+                        <!--Hemoglobina-->
+                        <div class="grid">
+                            <div class="p-inputgroup">
+                                <div class="col-4" style="text-align: left">
+                                    <label class="" style="text-transform:uppercase">Hb:</label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" pInputText class="inputfield w-full" formControlName="hb"
+                                           style="text-transform:uppercase">
+                                </div>
+                            </div>
+                        </div>
+                        <!--Fecha de registro de hemoglobina-->
+                        <div class="grid">
+                            <div class="p-inputgroup">
+                                <div class="col-4" style="text-align: left">
+                                    <label class="" style="text-transform:uppercase">Fecha registro Hb:</label>
+                                </div>
+                                <div class="col-8">
+<!--                                    <input type="datetime-local" pInputText class="inputfield w-full" formControlName="fechaHb"-->
+<!--                                           style="text-transform:uppercase">-->
+                                    <p-calendar formControlName="fechaHb" placeholder="" [showIcon]="true"
+                                                dateFormat="yy-mm-dd" class="p-fluid"></p-calendar>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <br>
+
+        <p-toolbar>
+            <ng-template pTemplate="left">
+                <label>DIAGNOSTICOS</label>
+            </ng-template>
+        </p-toolbar>
+        <br>
+        <div class="border">
+            <p-table [value]="diagnosticos" #dt styleClass="p-datatable-gridlines"
+                     responsiveLayout="scroll" [rows]="10"
+                     [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+                     currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+
+                <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                    <tr>
+                        <th style="text-align: center">Nro</th>
+                        <th style="text-align: center">Diagnóstico</th>
+                        <th style="text-align: center">Cie 10</th>
+                        <th style="text-align: center">Tipo Dx</th>
+                        <th style="text-align: center">Lab</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-i="rowIndex">
+                    <tr>
+                        <td style="text-align: center">{{ i+1 }}</td>
+                        <td style="text-align: center">{{ rowData.diagnostico }}</td>
+                        <td style="text-align: center">{{ rowData.cie_10 }}</td>
+                        <td style="text-align: center">{{ rowData.tipoDx }}</td>
+                        <td style="text-align: center">{{ rowData.lab }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+
+        </div>
+        <br>
+        <div class="grid">
+            <div class="col-12 md:col-6 lg:col-12 p-field" style="text-align:right;">
+                <button *ngIf="!isUpdate" pButton pRipple label="Guardar" iconPos="right" icon="pi pi-save"
+                        (click)="saveHis()" class="guardar mr-2"
+                        style="background-color: #0c3866"></button>
+                <button *ngIf="isUpdate" pButton pRipple label="Editar" iconPos="right" icon="pi pi-pencil"
+                        (click)="updateHis()" class="guardar mr-2"
+                        style="background-color: #0c3866"></button>
+            </div>
+        </div>
+    </div>
+
+</div>

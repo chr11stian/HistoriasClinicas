@@ -1,77 +1,796 @@
 <div class="grid">
     <div class="col-12 md:col-12 mt-2">
+        <!-- TABLA PARA LSITAR DATOS A GUARDAR -->
         <p-table #dt [value]="listaExamenesAux" [rows]="3" [paginator]="true" [rowHover]="true"
-            styleClass="p-datatable-sm" dataKey="id"
+            styleClass="p-datatable-gridlines" dataKey="id"
             currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} Entradas"
             [showCurrentPageReport]="true">
             <ng-template pTemplate="caption">
                 <div class="grid">
                     <div class="col-8">
-                        <h4>Lista de Exámenes</h4>
+                        <h3>Lista de Exámenes</h3>
                     </div>
                     <div class="col-4 text-right">
                         <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
                             class="p-button-raised mt-3" (click)="openAddExamDialog()"></button>
+                        <!-- <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar New"
+                            class="p-button-raised mt-3" (click)="openDialogAddAuxiliarExam()"></button> -->
                     </div>
                 </div>
             </ng-template>
             <ng-template pTemplate="header">
                 <tr>
-                    <th style="text-align: center;">Nro</th>
-                    <th style="text-align: center;">Examen</th>
-                    <th style="text-align: center;">Resultado</th>
-                    <th style="text-align: center;">Acción</th>
+                    <th style="text-align: center; width: 10%;">Nro</th>
+                    <th style="text-align: center; width: 40%;">Examen</th>
+                    <th style="text-align: center; width: 40%;">Sub Tipo</th>
+                    <th style="text-align: center; width: 10%;">Acción</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+            <ng-template pTemplate="body" let-rowData let-i="rowIndex">
                 <tr style="text-align: center">
-                    <td style="text-align: center">{{ rowIndex + 1 }}</td>
-                    <td style="text-align: center">{{ rowData.nombre }}</td>
-                    <td style="text-align: center">{{ rowData.valor }}</td>
-                    <td style="text-align: center; display: flex;">
+                    <td style="text-align: center;">{{ i + 1 }}</td>
+                    <td style="text-align: center;">{{ rowData.nombreExamen }}</td>
+                    <td style="text-align: center;">{{ rowData.subTipo }}</td>
+                    <td style="text-align: center;">
                         <button pButton pRipple type="button" icon="pi pi-pencil"
-                            (click)="openDialogEditarMedicacionFrecuente(rowData, rowIndex)"
-                            class="p-button-rounded p-button-text"></button>
-                        <button pButton pRipple type="button" icon="pi pi-trash" (click)="deleteExamItem(rowIndex)"
+                            (click)="openEditAuxiliarExam(rowData, i)" class="p-button-rounded p-button-text"></button>
+                        <button pButton pRipple type="button" icon="pi pi-trash" (click)="deleteExamItem(i)"
                             class="p-button-rounded p-button-danger p-button-text"></button>
                     </td>
                 </tr>
             </ng-template>
         </p-table>
+        <!-- TABLA PARA LISTAR DATOS RECUPERADOS -->
+        <p-table #dt [value]="listaDataLaboRes" [rows]="3" [paginator]="true" [rowHover]="true"
+            styleClass="p-datatable-gridlines" dataKey="id"
+            currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} Entradas"
+            [showCurrentPageReport]="true" *ngIf="toEdit">
+            <ng-template pTemplate="caption">
+                <div class="grid">
+                    <div class="col-8">
+                        <h3>Lista de Exámenes Pasados</h3>
+                    </div>
+                    <!-- <div class="col-4 text-right">
+                        <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
+                            class="p-button-raised mt-3" (click)="openAddExamDialog()"></button>
+                    </div> -->
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="text-align: center; width: 10%;">Nro</th>
+                    <th style="text-align: center; width: 25%;">Fecha Examen</th>
+                    <th style="text-align: center; width: 25%;">Examen</th>
+                    <th style="text-align: center; width: 25%;">Sub Tipo</th>
+                    <th style="text-align: center; width: 15%;">Acción</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-i="rowIndex">
+                <tr style="text-align: center">
+                    <td style="text-align: center; padding: 0.7rem;">{{ i + 1 }}</td>
+                    <td style="text-align: center; padding: 0.7rem;">{{ rowData.fechaRegistro }}</td>
+                    <td style="text-align: center; padding: 0.7rem;">{{ rowData.datosLaboratorio.nombreExamen }}</td>
+                    <td style="text-align: center; padding: 0.7rem;">{{ rowData.datosLaboratorio.subTipo }}</td>
+                    <td style="text-align: center; padding: 0.7rem;">
+                        <button pButton pRipple type="button" icon="pi pi-eye"
+                            (click)="openShowDataAuxiliarsExams(rowData)"
+                            class="p-button-rounded p-button-text"></button>
+                        <!-- <button pButton pRipple type="button" icon="pi pi-eye"
+                            (click)="openShowDataAuxiliarsExams(rowData)"
+                            class="p-button-rounded p-button-text"></button> -->
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <!-- BOTON PARA GUARDAR TEMPO -->
+        <button pButton pRipple type="button" icon="pi pi-chevron-circle-right" (click)="saveAuxiliarsExams()"
+            class="p-button-rounded p-button-text"></button>
     </div>
 </div>
 
-<p-dialog class="dialogo m-4" [(visible)]="addExamDialog" [style]="{width: '50%'}" [modal]="true" styleClass="p-fluid">
+<p-dialog class="dialogo m-4" [(visible)]="addExamDialog" [style]="{width: '65%'}" [modal]="true" styleClass="p-fluid"
+    (onHide)="closeExamDialog()" class="auxExamCred">
     <ng-template pTemplate="header">
         <h3>NUEVO EXAMEN AUXILIAR</h3>
     </ng-template>
     <ng-template pTemplate="body">
-        <form [formGroup]='formExamenAux'>
-            <div class="grid">
-                <div class="p-fluid col-5">
-                    <label>Examen:</label>
-                    <p-dropdown [options]="listaExamenes" formControlName="examen" placeholder="SELECCIONA UN EXAMEN"
-                        [showClear]="false" appendTo="body">
-                    </p-dropdown>
+        <div class="grid mt-2">
+            <div class="p-fluid col-4">
+                <label>Nombre Examen:</label>
+                <p-dropdown [options]="listaExamenes" [(ngModel)]="examLab" placeholder="SELECCIONA UN EXAMEN"
+                    [showClear]="false" appendTo="body" optionLabel="nombreExam">
+                </p-dropdown>
+            </div>
+            <div class="p-fluid col-3">
+                <label>Lugar:</label>
+                <p-dropdown [options]="listaLugares" [(ngModel)]="lugarLab" placeholder="SELECCIONA UN LUGAR"
+                    [showClear]="false" appendTo="body" optionLabel="lugarLab">
+                </p-dropdown>
+            </div>
+
+            <div class="col-12">
+                <div class="grid mt-2 border">
+                    <div class="col-3 ">
+                        <div class="grid">
+                            <span class="mr-2 mt-2 mx-3 font-bold">Resultado:</span>
+                            <div *ngFor="let item of listResults">
+                                <div class="grid ">
+                                    <div class="col-6 flex flex-column text-center">
+                                        <span [for]="item.value" class="pr-1">{{ item.name }}</span>
+                                        <p-radioButton [inputId]="item.value" name="item" [value]="item.value"
+                                            [(ngModel)]="result">
+                                        </p-radioButton>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <span class="mr-2">Resultado</span>
+                            <p-checkbox [(ngModel)]="result" binary="true" inputId="binary" class="pr-2">
+                            </p-checkbox> -->
+                        </div>
+                    </div>
+                    <div class="col-2 mt-2" *ngIf="examLab.tipoExam == 2">
+                        <div class="grid">
+                            <span class="mr-2 font-bold">Anemia</span>
+                            <p-checkbox [(ngModel)]="resultKey" binary="true" inputId="binary" class="pr-2">
+                            </p-checkbox>
+                        </div>
+                    </div>
                 </div>
-                <div class="p-fluid col-5">
-                    <label>Lugar:</label>
-                    <p-dropdown [options]="listaLugares" formControlName="examen" placeholder="SELECCIONA UN EXAMEN"
-                        [showClear]="false" appendTo="body">
-                    </p-dropdown>
+                <div class="grid mt-3 border" *ngIf="resultKey && examLab.tipoExam == 2">
+                    <div class="col-12">
+                        <label class="mb-2 ml-3"> Nivel de Anemia:</label>
+                    </div>
+                    <div class="col-2 text-left" *ngFor="let item of listValueResult">
+                        <div class="grid">
+                            <div class="col-6 text-right">
+                                <span [for]="item.value" class="pr-1">{{ item.name }}</span>
+                            </div>
+                            <div class="col-4">
+                                <p-radioButton [inputId]="item.value" name="item" [value]="item.value"
+                                    [(ngModel)]="resultValue">
+                                </p-radioButton>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-12">
-                    <label>Resultados:</label>
-                    <textarea [rows]="3" class="inputfield w-full mt-2" formControlName="descripcion" pInputTextarea
-                        oninput="this.value=this.value.toUpperCase()"></textarea>
+            </div>
+            <!-- Observaciones -->
+            <div class="col-12" *ngIf="lugarLab.index == 1">
+                <label>Observaciones:</label>
+                <textarea [rows]="3" class="inputfield w-full mt-2" [(ngModel)]="observaciones" pInputTextarea
+                    oninput="this.value=this.value.toUpperCase()"></textarea>
+            </div>
+            <!-- CAMPOS DE HEMOGLOBINA EN CONSULTORIO -->
+            <div class="p-fluid col-9" *ngIf="lugarLab.index == 1 && examLab.tipoExam == 2">
+                <form [formGroup]="formHematologia">
+                    <div class="grid border">
+                        <div class="col-4 mt-3">
+                            <label>Hemoglobina:</label>
+                            <div class="flex flex-row">
+                                <div class="col-9 p-0">
+                                    <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                        placeholder="" class="inputfield w-full" formControlName="hemoglobina"
+                                        (keyup)="calcularHemoFactor(value)">
+                                </div>
+                                <div class="infoInput">
+                                    g/dl
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4 mt-3">
+                            <label>Factor de Correción:</label>
+                            <div class="flex flex-row">
+                                <div class="col-9 p-0">
+                                    <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                        placeholder="" class="inputfield w-full" formControlName="factorCorreccion">
+                                </div>
+                                <div class="infoInput">
+                                    g/dl
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-1"></div> -->
+                        <div class="col-4">
+                            <label>Hemoglobina con factor de correción:</label>
+                            <div class="flex flex-row">
+                                <div class="col-9 p-0">
+                                    <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                        placeholder="" class="inputfield w-full" formControlName="hbConFactorCorrecion">
+                                </div>
+                                <div class="infoInput">
+                                    g/dl
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-1"></div> -->
+                        <div class="col-4 mt-3">
+                            <label>Hematocritos:</label>
+                            <div class="flex flex-row">
+                                <div class="col-9 p-0">
+                                    <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                        placeholder="" class="inputfield w-full" formControlName="hematocrito">
+                                </div>
+                                <div class="infoInput">
+                                    g/dl
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- CAMPOS DE PARASITOLOGIA EN CONSULTORIO -->
+            <div class="p-fluid mt-3 col-6" *ngIf="lugarLab.index == 1 && examLab.tipoExam == 1">
+                <form [formGroup]="formParasitario">
+                    <div class="grid border">
+                        <div class="p-fluid col-6 campo">
+                            <div class="tittle1 mt-5 mr-2">
+                                <label>Huevos De:</label>
+                            </div>
+                            <div class="col-11 p-0 value">
+                                <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                    placeholder="" class="inputfield w-full" formControlName="huevosDeValor1">
+                                <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                    placeholder="" class="inputfield w-full" formControlName="huevosDeValor2">
+                            </div>
+                        </div>
+                        <div class="p-fluid col-6 campo">
+                            <div class="tittle1 mt-5 mr-2">
+                                <label>Quistes De:</label>
+                            </div>
+                            <div class="col-11 p-0 value">
+                                <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                    placeholder="" class="inputfield w-full" formControlName="quistesDeValor1">
+                                <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                    placeholder="" class="inputfield w-full" formControlName="quistesDeValor2">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <!-- FORM HEMATOLOGIA -->
+        <form [formGroup]="formHematologia">
+            <div class="grid" *ngIf="examLab.tipoExam == 2 && lugarLab.index == 2">
+                <div class="p-fluid col-12">
+                    <h2>RESULTADOS HEMATOLOGIA:</h2>
+                    <p-divider></p-divider>
+                </div>
+                <div class="grid border mb-2">
+                    <div class="p-fluid col-2">
+                        <label>Hemoglobina:</label>
+                        <div class="flex flex-row">
+                            <div class="col-9 p-0">
+                                <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                    placeholder="" class="inputfield w-full" formControlName="hemoglobina" (keyup)="calcularHemoFactor(value)">
+                            </div>
+                            <div class="infoInput">
+                                g/dl
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-fluid col-2">
+                        <label>Hematocrito:</label>
+                        <div class="flex flex-row">
+                            <div class="col-9 p-0">
+                                <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                    placeholder="" class="inputfield w-full" formControlName="hematocrito">
+                            </div>
+                            <div class="infoInput">
+                                %
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-fluid col-2">
+                        <label>Factor de Correción:</label>
+                        <div class="flex flex-row">
+                            <div class="col-9 p-0">
+                                <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                    placeholder="" class="inputfield w-full" formControlName="factorCorreccion">
+                            </div>
+                            <div class="infoInput">
+                                g/dl
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-fluid col-2">
+                        <label>Hemoglobina con factor de correción:</label>
+                        <div class="flex flex-row">
+                            <div class="col-9 p-0">
+                                <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                    placeholder="" class="inputfield w-full" formControlName="hbConFactorCorrecion">
+                            </div>
+                            <div class="infoInput">
+                                g/dl
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-fluid col-2">
+                        <label>Grupo Sanguineo:</label>
+                        <div class="col-12 p-0">
+                            <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                                class="inputfield w-full" formControlName="grupoSanguineo">
+                        </div>
+                    </div>
+                    <div class="p-fluid col-2">
+                        <label>Factor Rh:</label>
+                        <div class="col-11 p-0">
+                            <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                                class="inputfield w-full" formControlName="factorRH">
+                        </div>
+                    </div>
+                    <div class="p-fluid col-2">
+                        <label>Tiempo Sangria:</label>
+                        <div class="col-11 p-0">
+                            <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                                class="inputfield w-full" formControlName="tiempoSangria">
+                        </div>
+                    </div>
+                    <div class="p-fluid col-2">
+                        <label>Tiempo Coagulacion:</label>
+                        <div class="col-11 p-0">
+                            <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                                class="inputfield w-full" formControlName="tiempoCoagulacion">
+                        </div>
+                    </div>
+                    <div class="p-fluid col-2">
+                        <label>Tiempo Protrombina:</label>
+                        <div class="col-11 p-0">
+                            <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                                class="inputfield w-full" formControlName="tiempoProtrombina">
+                        </div>
+                    </div>
+                    <div class="p-fluid col-2">
+                        <label>Tiempo Tromboplastina:</label>
+                        <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                            class="inputfield w-full" formControlName="tiempoTromboplastina">
+                    </div>
+                    <div class="p-fluid col-2 mt-3 pt-3">
+                        <label>Reticulocitos:</label>
+                        <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                            class="inputfield w-full" formControlName="reticulocitos">
+                    </div>
+                    <div class="p-fluid col-2 p-1">
+                        <label>Compatibilidad Sanguinea:</label>
+                        <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                            class="inputfield w-full" formControlName="compatibilidadSanguinea">
+                    </div>
+                    <div class="p-fluid col-2">
+                        <label>Rcto. Globulos Rojos:</label>
+                        <div class="flex flex-row">
+                            <div class="col-9 p-0">
+                                <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                    placeholder="" class="inputfield w-full" formControlName="rctoGlobulosRojos">
+                            </div>
+                            <div class="infoInput">
+                                /mm
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-fluid col-2 mt-3">
+                        <label>Rcto. Plaquetas:</label>
+                        <div class="flex flex-row">
+                            <div class="col-9 p-0">
+                                <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                    placeholder="" class="inputfield w-full" formControlName="rctoPlaquetas">
+                            </div>
+                            <div class="infoInput">
+                                /mm
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-fluid col-2 pt-1">
+                        <label>Rcto. Globulos Blancos:</label>
+                        <div class="flex flex-row">
+                            <div class="col-9 p-0">
+                                <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                    placeholder="" class="inputfield w-full" formControlName="rctoGlobulosBlancos">
+                            </div>
+                            <div class="infoInput">
+                                /mm
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p-fieldset legend="FÓRMULA LEUCOCITARIA">
+                    <div class="grid">
+                        <div class="p-fluid col-2">
+                            <label>Blastos:</label>
+                            <div class="flex flex-row">
+                                <div class="col-9 p-0">
+                                    <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                        placeholder="" class="inputfield w-full" formControlName="blastos">
+                                </div>
+                                <div class="infoInput">
+                                    %
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-fluid col-2">
+                            <label>Juveniles:</label>
+                            <div class="flex flex-row">
+                                <div class="col-9 p-0">
+                                    <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                        placeholder="" class="inputfield w-full" formControlName="juveniles">
+                                </div>
+                                <div class="infoInput">
+                                    %
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-fluid col-2">
+                            <label>Neutrófilos:</label>
+                            <div class="flex flex-row">
+                                <div class="col-9 p-0">
+                                    <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                        placeholder="" class="inputfield w-full" formControlName="neutrofilos">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-fluid col-2">
+                            <label>N. Abastonados:</label>
+                            <div class="flex flex-row">
+                                <div class="col-9 p-0">
+                                    <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                        placeholder="" class="inputfield w-full" formControlName="nAbastonados">
+                                </div>
+                                <div class="infoInput">
+                                    %
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-fluid col-2">
+                            <label>N. Segmentados:</label>
+                            <div class="flex flex-row">
+                                <div class="col-9 p-0">
+                                    <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                        placeholder="" class="inputfield w-full" formControlName="nSegmentados">
+                                </div>
+                                <div class="infoInput">
+                                    %
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-fluid col-2">
+                            <label>Linfocitos:</label>
+                            <div class="flex flex-row">
+                                <div class="col-9 p-0">
+                                    <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                        placeholder="" class="inputfield w-full" formControlName="linfocitos">
+                                </div>
+                                <div class="infoInput">
+                                    %
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-fluid col-2">
+                            <label>Monocitos:</label>
+                            <div class="flex flex-row">
+                                <div class="col-9 p-0">
+                                    <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                        placeholder="" class="inputfield w-full" formControlName="monocitos">
+                                </div>
+                                <div class="infoInput">
+                                    %
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-fluid col-2">
+                            <label>Eosinofilos:</label>
+                            <div class="flex flex-row">
+                                <div class="col-9 p-0">
+                                    <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                        placeholder="" class="inputfield w-full" formControlName="eosinofilos">
+                                </div>
+                                <div class="infoInput">
+                                    %
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-fluid col-2">
+                            <label>Basofilos:</label>
+                            <div class="flex flex-row">
+                                <div class="col-9 p-0">
+                                    <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                        placeholder="" class="inputfield w-full" formControlName="basofilos">
+                                </div>
+                                <div class="infoInput">
+                                    %
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </p-fieldset>
+                <p-fieldset legend="CONSTANTES CORPUSCULARES" class="my-3">
+                    <div class="grid">
+                        <div class="p-fluid col-2">
+                            <label>V.C.M.:</label>
+                            <div class="col-9 p-0">
+                                <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                    placeholder="" class="inputfield w-full" formControlName="vcm">
+                            </div>
+                        </div>
+                        <div class="p-fluid col-2">
+                            <label>V.R.:</label>
+                            <div class="col-9 p-0">
+                                <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                    placeholder="" class="inputfield w-full" formControlName="vrVcm">
+                            </div>
+                        </div>
+                        <div class="p-fluid col-2">
+                            <label>C.H.C.M.:</label>
+                            <div class="col-9 p-0">
+                                <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                    placeholder="" class="inputfield w-full" formControlName="chcm">
+                            </div>
+                        </div>
+                        <div class="p-fluid col-2">
+                            <label>V.R.:</label>
+                            <div class="col-9 p-0">
+                                <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                    placeholder="" class="inputfield w-full" formControlName="vrChcm">
+                            </div>
+                        </div>
+                        <div class="p-fluid col-2">
+                            <label>H.C.M.:</label>
+                            <div class="col-9 p-0">
+                                <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                    placeholder="" class="inputfield w-full" formControlName="hcm">
+                            </div>
+                        </div>
+                        <div class="p-fluid col-2">
+                            <label>V.R.:</label>
+                            <div class="col-9 p-0">
+                                <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                    placeholder="" class="inputfield w-full" formControlName="vrHcm">
+                            </div>
+                        </div>
+                    </div>
+                </p-fieldset>
+                <div class="p-fluid col-2 mt-2">
+                    <label>Velocidad de Sedimentación Globular (VSG):</label>
+                </div>
+                <div class="col-2">
+                    <div class="flex flex-row">
+                        <div class="col-8 p-0">
+                            <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                                class="inputfield w-full" formControlName="vsg1hora">
+                        </div>
+                        <div class="infoInput">
+                            mm/1ra hora
+                        </div>
+                    </div>
+                    <div class="flex flex-row">
+                        <div class="col-8 p-0">
+                            <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                                class="inputfield w-full" formControlName="vsg2hora">
+                        </div>
+                        <div class="infoInput">
+                            mm/2da hora
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- FORM PARACITARIO -->
+        <form [formGroup]="formParasitario">
+            <div class="grid" *ngIf="examLab.tipoExam == 1 && lugarLab.index == 2">
+                <div class="p-fluid col-12">
+                    <h2>RESULTADOS PARASITOLOGÍA:</h2>
+                    <p-divider></p-divider>
+                </div>
+                <p-fieldset legend="EXAMEN MACROSCÓPICO" class="my-3">
+                    <div class="grid">
+                        <div class="p-fluid col-2">
+                            <label>Color:</label>
+                            <div class="col-11 p-0">
+                                <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                    placeholder="" class="inputfield w-full" formControlName="color">
+                            </div>
+                        </div>
+                        <div class="p-fluid col-2">
+                            <label>Consistencia:</label>
+                            <div class="col-11 p-0">
+                                <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                    placeholder="" class="inputfield w-full" formControlName="consistencia">
+                            </div>
+                        </div>
+                        <div class="p-fluid col-2">
+                            <label>pH:</label>
+                            <div class="col-11 p-0">
+                                <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                    placeholder="" class="inputfield w-full" formControlName="pH">
+                            </div>
+                        </div>
+                        <div class="p-fluid col-2">
+                            <label>Reaccion:</label>
+                            <div class="col-11 p-0">
+                                <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                    placeholder="" class="inputfield w-full" formControlName="reaccion">
+                            </div>
+                        </div>
+                        <div class="p-fluid col-2">
+                            <label>Mucus:</label>
+                            <div class="col-11 p-0">
+                                <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                    placeholder="" class="inputfield w-full" formControlName="mucus">
+                            </div>
+                        </div>
+                        <div class="p-fluid col-2">
+                            <label>Sangre:</label>
+                            <div class="col-11 p-0">
+                                <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                    placeholder="" class="inputfield w-full" formControlName="sangre">
+                            </div>
+                        </div>
+                        <div class="p-fluid col-2">
+                            <label>Restos Alimenticios:</label>
+                            <div class="col-11 p-0">
+                                <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                    placeholder="" class="inputfield w-full" formControlName="restosAlimenticios">
+                            </div>
+                        </div>
+                    </div>
+                </p-fieldset>
+                <p-fieldset legend="EXAMEN MICROSCÓPICO" class="my-3">
+                    <div class="grid">
+                        <div class="p-fluid col-2">
+                            <label>Reacción Inflamatorio:</label>
+                            <div class="col-11 p-0">
+                                <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                    placeholder="" class="inputfield w-full" formControlName="reaccionInflamatorio">
+                            </div>
+                        </div>
+                        <div class="p-fluid col-2">
+                            <label>Filamentos Mucoides:</label>
+                            <div class="col-11 p-0">
+                                <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                    placeholder="" class="inputfield w-full" formControlName="filamentosMucoides">
+                            </div>
+                        </div>
+                        <div class="p-fluid col-2">
+                            <label>Leucocitos:</label>
+                            <div class="flex flex-row">
+                                <div class="col-9 p-0">
+                                    <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                        placeholder="" class="inputfield w-full" formControlName="leucocitos">
+                                </div>
+                                <div class="infoInput">
+                                    x c.m.
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="p-fluid col-2">
+                            <label>Hematíes:</label>
+                            <div class="flex flex-row">
+                                <div class="col-9 p-0">
+                                    <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                        placeholder="" class="inputfield w-full" formControlName="hematies">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-fluid col-2">
+                            <label>Cuerpos Grasos:</label>
+                            <div class="col-11 p-0">
+                                <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                    placeholder="" class="inputfield w-full" formControlName="cuerposGrasos">
+                            </div>
+                        </div>
+                        <div class="p-fluid col-2">
+                            <label>Levaduras:</label>
+                            <div class="col-11 p-0">
+                                <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                    placeholder="" class="inputfield w-full" formControlName="levaduras">
+                            </div>
+                        </div>
+                        <div class="p-fluid col-2">
+                            <label>Bacterias:</label>
+                            <div class="col-11 p-0">
+                                <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                    placeholder="" class="inputfield w-full" formControlName="bacterias">
+                            </div>
+                        </div>
+                        <div class="p-fluid col-2">
+                            <label>Cocos Bacilos:</label>
+                            <div class="col-11 p-0">
+                                <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                    placeholder="" class="inputfield w-full" formControlName="cocosBacilos">
+                            </div>
+                        </div>
+                        <div class="p-fluid col-2">
+                            <label>Formas Parasitarias:</label>
+                            <div class="col-11 p-0">
+                                <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
+                                    placeholder="" class="inputfield w-full" formControlName="formasParasitarias">
+                            </div>
+                        </div>
+                    </div>
+                </p-fieldset>
+
+                <div class="grid border">
+                    <div class="p-fluid col-3 campo">
+                        <div class="tittle1 mt-5 mr-2">
+                            <label>Huevos De:</label>
+                        </div>
+                        <div class="col-11 p-0 value">
+                            <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                                class="inputfield w-full" formControlName="huevosDeValor1">
+                            <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                                class="inputfield w-full" formControlName="huevosDeValor2">
+                        </div>
+                    </div>
+                    <div class="p-fluid col-3 campo">
+                        <div class="tittle1 mt-5 mr-2">
+                            <label>Quistes De:</label>
+                        </div>
+                        <div class="col-11 p-0 value">
+                            <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                                class="inputfield w-full" formControlName="quistesDeValor1">
+                            <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                                class="inputfield w-full" formControlName="quistesDeValor2">
+                        </div>
+                    </div>
+                    <div class="p-fluid col-3 campo">
+                        <div class="tittle1 mt-5 mr-2">
+                            <label>Trofozoitos De:</label>
+                        </div>
+                        <div class="col-11 p-0 value">
+                            <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                                class="inputfield w-full" formControlName="trofozoitosDeValor1">
+                            <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                                class="inputfield w-full" formControlName="trofozoitosDeValor2">
+                        </div>
+                    </div>
+                    <div class="p-fluid col-3 campo">
+                        <div class="tittle1 mt-5 mr-2">
+                            <label>Larvas De:</label>
+                        </div>
+                        <div class="col-11 p-0 value">
+                            <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                                class="inputfield w-full" formControlName="larvasDeValor1">
+                            <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                                class="inputfield w-full" formControlName="larvasDeValor2">
+                        </div>
+                    </div>
+                </div>
+                <div class="grid border">
+                    <div class="p-fluid col-3">
+                        <div class="tittle1 mt-4 mr-2">
+                            <label>Sangre oculta en heces:</label>
+                        </div>
+                        <div class="col-11 p-0 value">
+                            <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                                class="inputfield w-full" formControlName="sangreOcultaHeces">
+                        </div>
+                    </div>
+                    <div class="p-fluid col-3">
+                        <div class="tittle1 mt-4">
+                            <label>Gota Gruesa:(Dx. Malaria)</label>
+                        </div>
+                        <div class="col-11 p-0 value">
+                            <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                                class="inputfield w-full" formControlName="gotaGruesa">
+                        </div>
+                    </div>
+                    <div class="p-fluid col-3">
+                        <div class="tittle1 mt-4">
+                            <label>Frotis de Lesión:(Dx. Leishmaniosis)</label>
+                        </div>
+                        <div class="col-11 p-0 value">
+                            <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText placeholder=""
+                                class="inputfield w-full" formControlName="frotisLesion">
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>
     </ng-template>
-
     <ng-template pTemplate="footer" class="text-right">
-        <button *ngIf="isUpdate" pButton type="button" label="Guardar" (click)="guardarEdicionDiagnostico()"></button>
-        <button *ngIf="!isUpdate" pButton type="button" label="Guardar" (click)="agreeAddExamDialog()"></button>
+        <button *ngIf="isUpdate" pButton type="button" label="Actualizar" (click)="agreeExamEdit()"></button>
+        <button *ngIf="!isUpdate && !toShow" pButton type="button" label="Guardar"
+            (click)="agreeAddExamDialog()"></button>
         <button pButton type=" button" label="Cancelar" class="p-button-danger" (click)="closeExamDialog()"></button>
     </ng-template>
 </p-dialog>

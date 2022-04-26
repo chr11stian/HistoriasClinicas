@@ -3,6 +3,7 @@ import { ServicesService } from "../services/services.service";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { DatePipe } from "@angular/common";
 import Swal from "sweetalert2";
+import { TarifarioService } from 'src/app/core/services/tarifario/tarifario.service';
 
 @Component({
     selector: 'app-pagos',
@@ -12,36 +13,36 @@ import Swal from "sweetalert2";
 export class PagosComponent implements OnInit {
 
     DataPendientesPago: any;
-    idIpressLapostaMedica = "616de45e0273042236434b51";
-    ipressNombre = "Belempampa";
-    ipressRenaes = "2306";
-    ipressDireccion = "Urb. Tupac Amaru S/N";
-    ipressTelefono = "084-457812";
+    idIpress = "";
+    ipressNombre = "";
+    ipressRenaes = "";
+    ipressDireccion = "";
+    ipressRUC = "";
     formCaja: FormGroup;
     datePipe = new DatePipe('en-US');
     datafecha: Date = new Date();
     Dialogpagos: boolean;
     idPagoCaja: any;
 
-    tarifario=[
-        {
-            servicio: "OBSTETRICIA",
-            costo: 20.00
-        },
-        {
-            servicio: "MEDICINA GENERAL",
-            costo: 30.00
-        },
-        {
-            servicio: "ENFERMERIA",
-            costo: 15.00
-        },
-    ]
+    tarifas: any[];
 
-    
+    nroCaja: String = "";
+    tipoDocReceptor: "";
+    nroDocReceptor: "";
+    constructor(
+        private servicesService: ServicesService,
+        private tarifarioService: TarifarioService,
+        private fb: FormBuilder,
+    ) {
+        this.nroCaja = JSON.parse(localStorage.getItem('cajaActual'));
+        this.tipoDocReceptor = JSON.parse(localStorage.getItem('usuario')).tipoDocumento;
+        this.nroDocReceptor = JSON.parse(localStorage.getItem('usuario')).nroDocumento;
 
-    constructor(private servicesService: ServicesService,
-        private fb: FormBuilder,) {
+        this.idIpress= JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
+        this.ipressNombre = JSON.parse(localStorage.getItem('usuario')).ipress.nombreEESS;
+        this.ipressRenaes = JSON.parse(localStorage.getItem('usuario')).ipress.renipress;
+        this.ipressDireccion = JSON.parse(localStorage.getItem('usuario')).ipress.ubicacion.direccion;
+        this.ipressRUC = JSON.parse(localStorage.getItem('usuario')).ipress.ruc;
     }
 
     ngOnInit(): void {
@@ -54,7 +55,7 @@ export class PagosComponent implements OnInit {
         this.formCaja = this.fb.group({
             fechaBusqueda: new FormControl(''),
             nroCaja: new FormControl(''),
-            nroBoleta: new FormControl('0013'),
+            nroBoleta: new FormControl(''),
             nroDoc: new FormControl(''),
             apePaterno: new FormControl(''),
             nombres: new FormControl(''),
@@ -68,9 +69,28 @@ export class PagosComponent implements OnInit {
             precioServicio: new FormControl(''),
             tipoSeguro: new FormControl(''),
             edad: new FormControl(''),
+            descripcionPago: new FormControl(''),
+            tipoPago: new FormControl(''),
+            codigoPago: new FormControl(''),
         })
     }
 
+    getTarifaUps() {
+        let data = {
+            idIpress: this.idIpress,
+            ups: this.formCaja.value.servicio,
+            tipo: "CONSULTA"
+        }
+        this.tarifarioService.filtrarTarifasXServicioTipo(data).subscribe((res: any) => {
+            this.tarifas = res.object;
+            console.log('LISTA DE TARIFAS', this.tarifas);
+        })
+    }
+    onChangeTarifa() {
+        this.formCaja.get('codigoPago').setValue(this.formCaja.value.descripcionPago.codigo);
+        this.formCaja.get('tipoPago').setValue(this.formCaja.value.descripcionPago.tipo);
+        this.formCaja.get('precioServicio').setValue(this.formCaja.value.descripcionPago.costo);
+    }
     /** Selecciona  un servicio y fecha y lista las ofertas para reservar un cupo **/
     getListaCuposConfirmados() {
         let data = {
@@ -78,50 +98,59 @@ export class PagosComponent implements OnInit {
             // fechaAtencion: "2022-01-20",
         }
         console.log('DATA', data);
-        this.servicesService.getListaPendientesDePago(this.idIpressLapostaMedica, data).subscribe((res: any) => {
+        this.servicesService.getListaPendientesDePago(this.idIpress, data).subscribe((res: any) => {
             this.DataPendientesPago = res.object;
             console.log('LISTA DE CUPOS PENDIENTES', this.DataPendientesPago);
         })
     }
 
-    ponerEdadEnLetras(anios,meses,dias){
-        let cadena=""
-        if (anios>1){
-            cadena+=anios+" años,";
+    ponerEdadEnLetras(anios, meses, dias) {
+        let cadena = ""
+        if (anios > 1) {
+            cadena += anios + " años,";
         }
-        else{
-            if (anios!=0) 
-                cadena+=anios+" año,"
+        else {
+            if (anios != 0)
+                cadena += anios + " año,"
         }
-        if (meses>1){
-            cadena+=meses+" meses, ";
+        if (meses > 1) {
+            cadena += meses + " meses, ";
         }
-        else{
-            cadena+=meses+" mes, "
+        else {
+            cadena += meses + " mes, "
         }
-        if (dias>1){
-            cadena+=dias+" dias";
+        if (dias > 1) {
+            cadena += dias + " dias";
         }
-        else{
-            cadena+=dias+" dia"
+        else {
+            cadena += dias + " dia"
         }
         return cadena;
     }
     pagar() {
-        let pago = {
-            tipo:"C",
-            tipoDocReceptor:"DNI",
-            nroDocReceptor:"73145986",
+        let pago1 = {
+            tipo: "R",
+            tipoDocReceptor: this.tipoDocReceptor,
+            nroDocReceptor: this.nroDocReceptor,
             apellidos: this.formCaja.value.apePaterno,
             nombres: this.formCaja.value.nombres,
-            servicio:this.formCaja.value.servicio,
-            nroCupo:0,
-            fechaAtencion:this.formCaja.value.fechaAtencion,
-            horaAtencion:this.formCaja.value.horaAtencion.split("-")[0],
-            importeTotal:this.formCaja.value.precioServicio
+            detalle: [
+                {
+                    ups: this.formCaja.value.servicio,
+                    codigo: this.formCaja.value.codigoPago,
+                    descripcion: this.formCaja.value.descripcionPago.descripcion,
+                    tipo: this.formCaja.value.tipoPago,
+                    idCupo: this.idPagoCaja,
+                    cantidad: 1,
+                    precioUnitario: this.formCaja.value.precioServicio,
+                    importe: this.formCaja.value.precioServicio,
+                }
+            ],
+            importeTotal: this.formCaja.value.precioServicio,
         }
-        
-        this.servicesService.pagarCupo(this.idIpressLapostaMedica,"01",pago).subscribe((res: any) => {
+
+
+        this.servicesService.pagarRecibo(this.idIpress, this.nroCaja, pago1).subscribe((res: any) => {
             this.servicesService.UpdateCupoCAja(this.idPagoCaja).subscribe((res: any) => {
             });
             Swal.fire({
@@ -131,9 +160,8 @@ export class PagosComponent implements OnInit {
                 showConfirmButton: false,
                 timer: 1500,
             })
-            this.Dialogpagos = false;
-            this.getListaCuposConfirmados();
-        });  
+            this.close();
+        });
     }
 
     openModal(event) {
@@ -144,20 +172,27 @@ export class PagosComponent implements OnInit {
         this.formCaja.get('nroDoc').setValue(event.paciente.nroDoc);
         this.formCaja.get('apePaterno').setValue(event.paciente.apellidos);
         this.formCaja.get('nombres').setValue(event.paciente.nombre);
-        this.formCaja.get('edad').setValue(this.ponerEdadEnLetras(event.paciente.edadAnio,event.paciente.edadMes,event.paciente.edadDia));
+        this.formCaja.get('edad').setValue(this.ponerEdadEnLetras(event.paciente.edadAnio, event.paciente.edadMes, event.paciente.edadDia));
         this.formCaja.get('estado').setValue(event.detallePago);
         this.formCaja.get('servicio').setValue(event.ipress.servicio);
-        this.formCaja.get('nroCaja').setValue("01");
+        this.formCaja.get('nroCaja').setValue(this.nroCaja);
         this.formCaja.get('fechaRecibo').setValue(new Date().toLocaleString());
-        this.formCaja.get('nroBoleta').setValue("00013");
+
         this.formCaja.get('fechaAtencion').setValue(event.fechaAtencion);
-        this.formCaja.get('horaAtencion').setValue(event.horaAtencion+"-"+event.horaAtencionFin);
-        this.formCaja.get('precioServicio').setValue((this.tarifario.find((serv)=>serv.servicio==event.ipress.servicio)).costo);
-        this.formCaja.get('tipoSeguro').setValue("NO SIS");
+        this.formCaja.get('horaAtencion').setValue(event.horaAtencion + "-" + event.horaAtencionFin);
+
+        this.getTarifaUps();
+        this.servicesService.obtenerNumeracionCaja(this.idIpress, this.nroCaja).subscribe((res: any) => {
+            this.formCaja.get('nroBoleta').setValue(res.object.contadorRecibos + 1);
+        })
     }
 
     close() {
         this.Dialogpagos = false;
         this.getListaCuposConfirmados();
+        this.formCaja.get('codigoPago').setValue("");
+        this.formCaja.get('tipoPago').setValue("");
+        this.formCaja.get('precioServicio').setValue(0);
+        this.tarifas = [];
     }
 }

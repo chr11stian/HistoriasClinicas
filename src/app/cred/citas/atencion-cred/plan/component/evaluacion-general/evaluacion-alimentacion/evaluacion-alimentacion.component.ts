@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Product, FechaEvaluacionAlimentacion, EvaluacionAlimenticia, Preguntas} from '../models/EvaluacionAlimentacion';
 import {EvalAlimenService} from '../service/eval-alimen.service';
-import {ActivatedRoute, Router} from "@angular/router";
 import {MessageService} from "primeng/api";
 import {DatePipe} from "@angular/common";
+import {dato} from "../../../../../models/data";
 
 @Component({
     selector: 'app-evaluacion-alimentacion',
@@ -13,562 +13,89 @@ import {DatePipe} from "@angular/common";
 export class EvaluacionAlimentacionComponent implements OnInit {
     tipoDocRecuperado: string = "";
     nroDocRecuperado: string = "";
-    products1: Product[];
     evaluacionAlimenticia: FechaEvaluacionAlimentacion[] = [];
     Evaluaciones: EvaluacionAlimenticia[] = [];
     Preguntas: Preguntas;
     ArrayEvaluaciones: EvaluacionAlimenticia;
+    attributeLocalS = 'documento';
     datePipe = new DatePipe('en-US');
+    data:dato;
     edadEditable: number = 0;
     sino = [
         {label: 'SI', value: true},
         {label: 'NO', value: false}
     ];
+    listaTitulosPreguntas:TipoPregunta[]=[];
 
     constructor(private evalAlimenService: EvalAlimenService,
-                private route: ActivatedRoute,
-                private router: Router,
                 private messageService: MessageService) {
+        this.listaTitulosPreguntas=[{codigo:'FECHA',titulo:'FECHA'},
+            {codigo:'PREG_1',titulo:'1. ¿El niño(a) esta recibiendo lactancia materna? (explorar)'},
+            {codigo:'PREG_2',titulo:'2. ¿La tecnica de LM es adecuada? (explorar y observar)'},
+            {codigo:'PREG_3',titulo:'3. ¿La frecuencia de LM es adecuada? (explorar y observar)'},
+            {codigo:'PREG_4',titulo:'4. ¿El niño(a) recibe leche no materna? (explorar)'},
+            {codigo:'PREG_5',titulo:'5. ¿El niño(a) recibe agüitas? (explorar)'},
+            {codigo:'PREG_6',titulo:'6. ¿La niña o niño recibe algún otro alimento? (explorar)'},
+            {codigo:'PREG_7',titulo:'7. ¿La consistencia de la preparación es adecuada según la edad? (explorar)'},
+            {codigo:'PREG_8',titulo:'8. ¿La cantidad de Alimentos es adecuada según la edad? (explorar)'},
+            {codigo:'PREG_9',titulo:'9. ¿La frecuencia de la alimentación es adecuada según la edad? (explorar)'},
+            {codigo:'PREG_10',titulo:'10. ¿La frecuencia de la alimentación es adecuada según la edad? (explorar)'},
+            {codigo:'PREG_11',titulo:'11. ¿Consume frutas y verduras? (explorar)'},
+            {codigo:'PREG_12',titulo:'12. ¿Añade aceite, mantequilla o margarina a la comida del niño?'},
+            {codigo:'PREG_13',titulo:'13. ¿La niña o niño o recibe los alimentos en su propio plato?'},
+            {codigo:'PREG_14',titulo:'14. ¿Añade sal yodada a la comida familiar?'},
+            {codigo:'PREG_15',titulo:'15. ¿Es el niño(a) beneficiario de algún programa de apoyo social? (Especificar)'},
+            {codigo:'PREG_16',titulo:'16. ¿Cuántos sobres de micronutrientes consumio en el mes?'},
+            {codigo:'OBS',titulo:'Observaciones'},
+            {codigo:'DIAGNOSTICO',titulo:'Diagnostico'},
+        ]
     }
 
     ngOnInit(): void {
-        /*this.route.queryParams
-            .subscribe(params => {
-              console.log('params', params)
-              if (params['nroDoc']) {
-                this.tipoDocRecuperado = params['tipoDoc']
-                this.nroDocRecuperado = params['nroDoc']
-              } else {
-                this.router.navigate(['/dashboard/cred/citas'])
-              }
-            })*/
-        this.evaluacionAlimenticia = [
-            {
-                "titulo": "Fecha",
-                "valorRN": "",
-                "valor1M": "",
-                "valor2M": "",
-                "valor3M": "",
-                "valor4M": "",
-                "valor5M": "",
-                "valor6M": "",
-                "valor7M": "",
-                "valor8M": "",
-                "valor9M": "",
-                "valor10M": "",
-                "valor11M": "",
-                "valor12M": "",
-                "valor14M": "",
-                "valor16M": "",
-                "valor18M": "",
-                "valor20M": "",
-                "valor22M": "",
-                "valor24M": "",
-                "valor30M": "",
-                "valor33M": "",
-                "valor36M": "",
-                "valor39M": "",
-                "valor42M": ""
-            },
-            {
-                "titulo": "1. ¿El niño(a) esta recibiendo lactancia materna? (explorar)",
-                "valorRN": "",
-                "valor1M": "",
-                "valor2M": "",
-                "valor3M": "",
-                "valor4M": "",
-                "valor5M": "",
-                "valor6M": "",
-                "valor7M": "",
-                "valor8M": "",
-                "valor9M": "",
-                "valor10M": "",
-                "valor11M": "",
-                "valor12M": "",
-                "valor14M": "",
-                "valor16M": "",
-                "valor18M": "",
-                "valor20M": "",
-                "valor22M": "",
-                "valor24M": "",
-                "valor30M": "",
-                "valor33M": "",
-                "valor36M": "",
-                "valor39M": "",
-                "valor42M": ""
-            },
-            {
-                "titulo": "2. ¿La tecnica de LM es adecuada? (explorar y observar)",
-                "valorRN": "",
-                "valor1M": "",
-                "valor2M": "",
-                "valor3M": "",
-                "valor4M": "",
-                "valor5M": "",
-                "valor6M": "",
-                "valor7M": "",
-                "valor8M": "",
-                "valor9M": "",
-                "valor10M": "",
-                "valor11M": "",
-                "valor12M": "",
-                "valor14M": "",
-                "valor16M": "",
-                "valor18M": "",
-                "valor20M": "",
-                "valor22M": "",
-                "valor24M": "",
-                "valor30M": "",
-                "valor33M": "",
-                "valor36M": "",
-                "valor39M": "",
-                "valor42M": ""
-            },
-            {
-                "titulo": "3. ¿La frecuencia de LM es adecuada? (explorar y observar)",
-                "valorRN": "",
-                "valor1M": "",
-                "valor2M": "",
-                "valor3M": "",
-                "valor4M": "",
-                "valor5M": "",
-                "valor6M": "",
-                "valor7M": "",
-                "valor8M": "",
-                "valor9M": "",
-                "valor10M": "",
-                "valor11M": "",
-                "valor12M": "",
-                "valor14M": "",
-                "valor16M": "",
-                "valor18M": "",
-                "valor20M": "",
-                "valor22M": "",
-                "valor24M": "",
-                "valor30M": "",
-                "valor33M": "",
-                "valor36M": "",
-                "valor39M": "",
-                "valor42M": ""
-            },
-            {
-                "titulo": "4. ¿El niño(a) recibe leche no materna? (explorar)",
-                "valorRN": "",
-                "valor1M": "",
-                "valor2M": "",
-                "valor3M": "",
-                "valor4M": "",
-                "valor5M": "",
-                "valor6M": "",
-                "valor7M": "",
-                "valor8M": "",
-                "valor9M": "",
-                "valor10M": "",
-                "valor11M": "",
-                "valor12M": "",
-                "valor14M": "",
-                "valor16M": "",
-                "valor18M": "",
-                "valor20M": "",
-                "valor22M": "",
-                "valor24M": "",
-                "valor30M": "",
-                "valor33M": "",
-                "valor36M": "",
-                "valor39M": "",
-                "valor42M": ""
-            },
-            {
-                "titulo": "5. ¿El niño(a) recibe agüitas? (explorar)",
-                "valorRN": "",
-                "valor1M": "",
-                "valor2M": "",
-                "valor3M": "",
-                "valor4M": "",
-                "valor5M": "",
-                "valor6M": "",
-                "valor7M": "",
-                "valor8M": "",
-                "valor9M": "",
-                "valor10M": "",
-                "valor11M": "",
-                "valor12M": "",
-                "valor14M": "",
-                "valor16M": "",
-                "valor18M": "",
-                "valor20M": "",
-                "valor22M": "",
-                "valor24M": "",
-                "valor30M": "",
-                "valor33M": "",
-                "valor36M": "",
-                "valor39M": "",
-                "valor42M": ""
-            },
-            {
-                "titulo": "6. ¿La niña o niño recibe algún otro alimento? (explorar)",
-                "valorRN": "",
-                "valor1M": "",
-                "valor2M": "",
-                "valor3M": "",
-                "valor4M": "",
-                "valor5M": "",
-                "valor6M": "",
-                "valor7M": "",
-                "valor8M": "",
-                "valor9M": "",
-                "valor10M": "",
-                "valor11M": "",
-                "valor12M": "",
-                "valor14M": "",
-                "valor16M": "",
-                "valor18M": "",
-                "valor20M": "",
-                "valor22M": "",
-                "valor24M": "",
-                "valor30M": "",
-                "valor33M": "",
-                "valor36M": "",
-                "valor39M": "",
-                "valor42M": ""
-            },
-            {
-                "titulo": "7. ¿La consistencia de la preparación es adecuada según la edad? (explorar)",
-                "valorRN": "",
-                "valor1M": "",
-                "valor2M": "",
-                "valor3M": "",
-                "valor4M": "",
-                "valor5M": "",
-                "valor6M": "",
-                "valor7M": "",
-                "valor8M": "",
-                "valor9M": "",
-                "valor10M": "",
-                "valor11M": "",
-                "valor12M": "",
-                "valor14M": "",
-                "valor16M": "",
-                "valor18M": "",
-                "valor20M": "",
-                "valor22M": "",
-                "valor24M": "",
-                "valor30M": "",
-                "valor33M": "",
-                "valor36M": "",
-                "valor39M": "",
-                "valor42M": ""
-            },
-            {
-                "titulo": "8. ¿La cantidad de Alimentos es adecuada según la edad? (explorar)",
-                "valorRN": "",
-                "valor1M": "",
-                "valor2M": "",
-                "valor3M": "",
-                "valor4M": "",
-                "valor5M": "",
-                "valor6M": "",
-                "valor7M": "",
-                "valor8M": "",
-                "valor9M": "",
-                "valor10M": "",
-                "valor11M": "",
-                "valor12M": "",
-                "valor14M": "",
-                "valor16M": "",
-                "valor18M": "",
-                "valor20M": "",
-                "valor22M": "",
-                "valor24M": "",
-                "valor30M": "",
-                "valor33M": "",
-                "valor36M": "",
-                "valor39M": "",
-                "valor42M": ""
-            },
-            {
-                "titulo": "9. ¿La frecuencia de la alimentación es adecuada según la edad? (explorar)",
-                "valorRN": "",
-                "valor1M": "",
-                "valor2M": "",
-                "valor3M": "",
-                "valor4M": "",
-                "valor5M": "",
-                "valor6M": "",
-                "valor7M": "",
-                "valor8M": "",
-                "valor9M": "",
-                "valor10M": "",
-                "valor11M": "",
-                "valor12M": "",
-                "valor14M": "",
-                "valor16M": "",
-                "valor18M": "",
-                "valor20M": "",
-                "valor22M": "",
-                "valor24M": "",
-                "valor30M": "",
-                "valor33M": "",
-                "valor36M": "",
-                "valor39M": "",
-                "valor42M": ""
-            },
-            {
-                "titulo": "10. ¿La frecuencia de la alimentación es adecuada según la edad? (explorar)",
-                "valorRN": "",
-                "valor1M": "",
-                "valor2M": "",
-                "valor3M": "",
-                "valor4M": "",
-                "valor5M": "",
-                "valor6M": "",
-                "valor7M": "",
-                "valor8M": "",
-                "valor9M": "",
-                "valor10M": "",
-                "valor11M": "",
-                "valor12M": "",
-                "valor14M": "",
-                "valor16M": "",
-                "valor18M": "",
-                "valor20M": "",
-                "valor22M": "",
-                "valor24M": "",
-                "valor30M": "",
-                "valor33M": "",
-                "valor36M": "",
-                "valor39M": "",
-                "valor42M": ""
-            },
-            {
-                "titulo": "11. ¿Consume frutas y verduras? (explorar)",
-                "valorRN": "",
-                "valor1M": "",
-                "valor2M": "",
-                "valor3M": "",
-                "valor4M": "",
-                "valor5M": "",
-                "valor6M": "",
-                "valor7M": "",
-                "valor8M": "",
-                "valor9M": "",
-                "valor10M": "",
-                "valor11M": "",
-                "valor12M": "",
-                "valor14M": "",
-                "valor16M": "",
-                "valor18M": "",
-                "valor20M": "",
-                "valor22M": "",
-                "valor24M": "",
-                "valor30M": "",
-                "valor33M": "",
-                "valor36M": "",
-                "valor39M": "",
-                "valor42M": ""
-            },
-            {
-                "titulo": "12. ¿Añade aceite, mantequilla o margarina a la comida del niño?",
-                "valorRN": "",
-                "valor1M": "",
-                "valor2M": "",
-                "valor3M": "",
-                "valor4M": "",
-                "valor5M": "",
-                "valor6M": "",
-                "valor7M": "",
-                "valor8M": "",
-                "valor9M": "",
-                "valor10M": "",
-                "valor11M": "",
-                "valor12M": "",
-                "valor14M": "",
-                "valor16M": "",
-                "valor18M": "",
-                "valor20M": "",
-                "valor22M": "",
-                "valor24M": "",
-                "valor30M": "",
-                "valor33M": "",
-                "valor36M": "",
-                "valor39M": "",
-                "valor42M": ""
-            },
-            {
-                "titulo": "13. ¿La niña o niño o recibe los alimentos en su propio plato?",
-                "valorRN": "",
-                "valor1M": "",
-                "valor2M": "",
-                "valor3M": "",
-                "valor4M": "",
-                "valor5M": "",
-                "valor6M": "",
-                "valor7M": "",
-                "valor8M": "",
-                "valor9M": "",
-                "valor10M": "",
-                "valor11M": "",
-                "valor12M": "",
-                "valor14M": "",
-                "valor16M": "",
-                "valor18M": "",
-                "valor20M": "",
-                "valor22M": "",
-                "valor24M": "",
-                "valor30M": "",
-                "valor33M": "",
-                "valor36M": "",
-                "valor39M": "",
-                "valor42M": ""
-            },
-            {
-                "titulo": "14. ¿Añade sal yodada a la comida familiar?",
-                "valorRN": "",
-                "valor1M": "",
-                "valor2M": "",
-                "valor3M": "",
-                "valor4M": "",
-                "valor5M": "",
-                "valor6M": "",
-                "valor7M": "",
-                "valor8M": "",
-                "valor9M": "",
-                "valor10M": "",
-                "valor11M": "",
-                "valor12M": "",
-                "valor14M": "",
-                "valor16M": "",
-                "valor18M": "",
-                "valor20M": "",
-                "valor22M": "",
-                "valor24M": "",
-                "valor30M": "",
-                "valor33M": "",
-                "valor36M": "",
-                "valor39M": "",
-                "valor42M": ""
-            },
-            {
-                "titulo": "15. ¿Es el niño(a) beneficiario de algún programa de apoyo social? (Especificar)",
-                "valorRN": "",
-                "valor1M": "",
-                "valor2M": "",
-                "valor3M": "",
-                "valor4M": "",
-                "valor5M": "",
-                "valor6M": "",
-                "valor7M": "",
-                "valor8M": "",
-                "valor9M": "",
-                "valor10M": "",
-                "valor11M": "",
-                "valor12M": "",
-                "valor14M": "",
-                "valor16M": "",
-                "valor18M": "",
-                "valor20M": "",
-                "valor22M": "",
-                "valor24M": "",
-                "valor30M": "",
-                "valor33M": "",
-                "valor36M": "",
-                "valor39M": "",
-                "valor42M": ""
-            },
-            {
-                "titulo": "16. ¿Cuántos sobres de micronutrientes consumio en el mes?",
-                "valorRN": "",
-                "valor1M": "",
-                "valor2M": "",
-                "valor3M": "",
-                "valor4M": "",
-                "valor5M": "",
-                "valor6M": "",
-                "valor7M": "",
-                "valor8M": "",
-                "valor9M": "",
-                "valor10M": "",
-                "valor11M": "",
-                "valor12M": "",
-                "valor14M": "",
-                "valor16M": "",
-                "valor18M": "",
-                "valor20M": "",
-                "valor22M": "",
-                "valor24M": "",
-                "valor30M": "",
-                "valor33M": "",
-                "valor36M": "",
-                "valor39M": "",
-                "valor42M": ""
-            },
-            {
-                "titulo": "Observaciones",
-                "valorRN": "",
-                "valor1M": "",
-                "valor2M": "",
-                "valor3M": "",
-                "valor4M": "",
-                "valor5M": "",
-                "valor6M": "",
-                "valor7M": "",
-                "valor8M": "",
-                "valor9M": "",
-                "valor10M": "",
-                "valor11M": "",
-                "valor12M": "",
-                "valor14M": "",
-                "valor16M": "",
-                "valor18M": "",
-                "valor20M": "",
-                "valor22M": "",
-                "valor24M": "",
-                "valor30M": "",
-                "valor33M": "",
-                "valor36M": "",
-                "valor39M": "",
-                "valor42M": ""
-            },
-            {
-                "titulo": "Diagnóstico",
-                "valorRN": "",
-                "valor1M": "",
-                "valor2M": "",
-                "valor3M": "",
-                "valor4M": "",
-                "valor5M": "",
-                "valor6M": "",
-                "valor7M": "",
-                "valor8M": "",
-                "valor9M": "",
-                "valor10M": "",
-                "valor11M": "",
-                "valor12M": "",
-                "valor14M": "",
-                "valor16M": "",
-                "valor18M": "",
-                "valor20M": "",
-                "valor22M": "",
-                "valor24M": "",
-                "valor30M": "",
-                "valor33M": "",
-                "valor36M": "",
-                "valor39M": "",
-                "valor42M": ""
-            }
-        ]
+       this.llenarTabla();
+        console.log(this.evaluacionAlimenticia);
+        this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
         this.ObtenerUltimaEvaluacion();
-        this.recuperarDataEvaluacionAlimenticiaBD();
+        // this.recuperarDataEvaluacionAlimenticiaBD();
     }
-
+    llenarTabla(){
+        for(let i = 0; i<this.listaTitulosPreguntas.length;i++){
+            let cadena = {
+                titulo:this.listaTitulosPreguntas[i].titulo,
+                valorRN:"",
+                valor1M:"",
+                valor2M:"",
+                valor3M:"",
+                valor4M:"",
+                valor5M:"",
+                valor6M:"",
+                valor7M:"",
+                valor8M:"",
+                valor9M:"",
+                valor10M:"",
+                valor11M:"",
+                valor12M:"",
+                valor14M:"",
+                valor16M:"",
+                valor18M:"",
+                valor20M:"",
+                valor22M:"",
+                valor24M:"",
+                valor27M:"",
+                valor30M:"",
+                valor33M:"",
+                valor36M:"",
+                valor39M:"",
+                valor42M:"",
+            }
+            this.evaluacionAlimenticia.push(cadena);
+        }
+        console.log(this.evaluacionAlimenticia);
+    }
     recuperarDataEvaluacionAlimenticiaBD() {
-        this.evalAlimenService.getEvaluacionAlimenticiaCred(this.nroDocRecuperado).subscribe((res: any) => {
+        this.evalAlimenService.getEvaluacionAlimenticiaCred(this.data.nroDocumento).subscribe((res: any) => {
             this.Evaluaciones.push(res.object);
-            console.log('evaluacion', this.evaluacionAlimenticia);
-            console.log('paciente por doc ', this.Evaluaciones)
-            console.log(this.Evaluaciones[0]);
-            console.log(this.Evaluaciones[0][0]);
-            console.log(this.Evaluaciones[0][1]);
+
             let aux = this.Evaluaciones[0];
             let i = 0
             while (aux[i] != undefined) {
@@ -794,10 +321,8 @@ export class EvaluacionAlimentacionComponent implements OnInit {
                 i++;
             }
 
-
         });
     }
-
     obtenerTitulo(indice): string {
         if (indice == 0) {
             return "valorRN"
@@ -805,17 +330,12 @@ export class EvaluacionAlimentacionComponent implements OnInit {
             return "valor" + indice + "M"
         }
     }
-
-    convertirFecha(fecha) {
-        const fecha2 = fecha.replace("T", " ");
-        return fecha2 + ":00";
-    }
-
     ObtenerUltimaEvaluacion() {
         console.log('entro editar', this.Evaluaciones);
         let prefijo = "";
-        this.evalAlimenService.lastEvaluacionAlimenticiaCred(this.nroDocRecuperado).subscribe((res: any) => {
+        this.evalAlimenService.lastEvaluacionAlimenticiaCred(this.data.nroDocumento).subscribe((res: any) => {
             if (res.object != null || res.object != undefined) {
+                this.recuperarDataEvaluacionAlimenticiaBD();
                 console.log('recupero ultimo elemento ', res.object);
                 this.edadEditable = res.object.edad;
                 prefijo = this.obtenerTitulo(this.edadEditable);
@@ -823,13 +343,13 @@ export class EvaluacionAlimentacionComponent implements OnInit {
                 this.messageService.add({
                     severity: "success",
                     summary: "Exito",
-                    detail: "Se recupero la última atención"
+                    detail: "Se recupero las evaluaciones regsitradas en todas las consultas"
                 });
             } else {
                 this.messageService.add({
                     severity: "error",
                     summary: "Error",
-                    detail: "No hay datos registrados"
+                    detail: "No hay datos registrados en consultas"
                 });
             }
 
@@ -839,4 +359,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     }
 
 }
-
+export interface TipoPregunta{
+    codigo?:string,
+    titulo?:string
+}

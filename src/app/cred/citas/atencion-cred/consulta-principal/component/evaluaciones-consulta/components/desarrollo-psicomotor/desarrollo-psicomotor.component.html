@@ -1,13 +1,24 @@
 <div class="col-12">
-    <p-tabView>
-        <p-tabPanel header="TEST PERUANO DEL DESARROLLO DEL NIÑO">
-            <app-test-peruano></app-test-peruano>
-        </p-tabPanel>
-        <p-tabPanel header="ESCALA DE EVALUACIÓN DEL DESARROLLO PSICOMOTOR (EEDP ) 0-4 AÑOS">
-            <app-eedp></app-eedp>
-        </p-tabPanel>
-        <p-tabPanel header="PROTOCOLO TEST DE DESARROLLO PSICOMOTOR TEPSI">
-            <app-tepsi></app-tepsi>
-        </p-tabPanel>
-    </p-tabView>
+  <p-tabView>
+    <p-tabPanel header="TEST PERUANO DEL DESARROLLO DEL NIÑO">
+      <ng-template pTemplate="content">
+        <app-test-peruano></app-test-peruano>
+      </ng-template>
+    </p-tabPanel>
+    <p-tabPanel header="ESCALA DE EVALUACIÓN DEL DESARROLLO PSICOMOTOR (EEDP)">
+      <ng-template pTemplate="content">
+        <app-eedp></app-eedp>
+      </ng-template>
+    </p-tabPanel>
+    <p-tabPanel header="PAUTA BREVE">
+      <ng-template pTemplate="content">
+        <app-pauta-breve></app-pauta-breve>
+      </ng-template>
+    </p-tabPanel>
+    <p-tabPanel header="PROTOCOLO TEST DE DESARROLLO PSICOMOTOR TEPSI">
+      <ng-template pTemplate="content">
+        <app-tepsi></app-tepsi>
+      </ng-template>
+    </p-tabPanel>
+  </p-tabView>
 </div>

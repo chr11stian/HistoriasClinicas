@@ -60,15 +60,15 @@ export class TriajeCredComponent implements OnInit {
     ]
 
     dataExamFisicos: formInterface[] = [
-        {pro: 'temperatura', label: 'T°', nameFC: 'TFC'},
-        {pro: 'presionSistolica', label: 'PS', nameFC: 'PSFC'},
-        {pro: 'presionDiastolica', label: 'PD', nameFC: 'PDFC'},
-        {pro: 'fc', label: 'FC:', nameFC: 'FC'},
+        {pro: 'temperatura', label: 'T (c°)', nameFC: 'TFC'},
+        {pro: 'presionSistolica', label: 'PS (pa)', nameFC: 'PSFC'},
+        {pro: 'presionDiastolica', label: 'PD (pa)', nameFC: 'PDFC'},
+        {pro: 'fc', label: 'FC (l*min):', nameFC: 'FC'},
         {pro: 'fr', label: 'FR', nameFC: 'FRFC'},
-        {pro: 'peso', label: 'Peso ', nameFC: 'PesoFC'},
-        {pro: 'talla', label: 'Talla ', nameFC: 'TallaFC'},
-        {pro: 'imc', label: 'imc ', nameFC: 'imcFC'},
-        {pro: 'perimetroCefalico', label: 'PC ', nameFC: 'PCFC'}
+        {pro: 'peso', label: 'Peso (kg)', nameFC: 'PesoFC'},
+        {pro: 'talla', label: 'Talla (m)', nameFC: 'TallaFC'},
+        {pro: 'imc', label: 'imc(kg/m2)', nameFC: 'imcFC'},
+        {pro: 'perimetroCefalico', label: 'PC (cm)', nameFC: 'PCFC'}
     ]
     list: formControlInterface[] = [
         {
@@ -258,13 +258,16 @@ export class TriajeCredComponent implements OnInit {
             nameFC: 'palidezAll'
         }
     ]
+    botonGuardarVolver: string;
 
     constructor(private router: Router, private route: ActivatedRoute,
                 private consultaService: ListaConsultaService,
                 private consultaGeneralService: ConsultaGeneralService) {
         this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
         (this.data.idConsulta !== '') ? this.recuperarData(this.data.idConsulta) : this.recuperarPersona()
+        this.botonGuardarVolver = this.data.idConsulta == '' ? 'Guardar' : 'Volver'
         this.buildForm()
+        // this.getTotalConsulta();
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -287,6 +290,14 @@ export class TriajeCredComponent implements OnInit {
             this.generalInfoFG.get('hour').setValue(this.fecha_hoy)
         })
     }
+
+    nroConsulta: number = 0
+    // getTotalConsulta(){
+    //     this.consultaGeneralService.getTotalConsultas(this.data.nroDocumento).subscribe((resp:any)=>{
+    //         console.log('nro de consulta------>',resp.object.length)
+    //         this.nroConsulta=resp.object.length;
+    //     })
+    // }
 
     recuperarData(id) {
         this.consultaGeneralService.datosGenerales({
@@ -459,10 +470,43 @@ export class TriajeCredComponent implements OnInit {
             talla: this.examFG.value.TallaFC,
             imc: this.examFG.value.imcFC,
             perimetroCefalico: this.examFG.value.PCFC
+
         }
     }
 
     async save() {
+        // this.getPlan(this.data.nroDocumento);
+        let hayPlan:boolean=false;
+        await  this.consultaGeneralService.traerPlan(this.data.nroDocumento).toPromise().then(
+            result => {
+                console.log('respuesta traer plan',result)
+                hayPlan=result.cod === '2403'?true:false
+                // console.log('cod', result.cod)
+                // if (result.cod === '2404') {
+                //     this.getNuevoPlan()
+                //     console.log('2404', result)
+                // }
+                // if (result.cod === '2403') {
+                //     console.log('2403', result)
+                // }
+            }, err => {
+                console.log(err)
+            }
+        )
+        console.log('ya hay plan',hayPlan)
+        if (!hayPlan){
+            console.log('***entramos a crarle el plan****')
+            await this.consultaGeneralService.crearPlan(
+                {
+                    'tipoDoc': this.data.tipoDoc,
+                    'nroDoc': this.data.nroDocumento
+                }
+            ).toPromise().then((result) => {
+            }).catch((err) => {
+                console.log(err)
+            })
+            // this.getNuevoPlan()
+        }
         this.outData()
         const req: triajeInterface = {
             signosVitales: this.signosVitales,
@@ -472,11 +516,10 @@ export class TriajeCredComponent implements OnInit {
             factorRiesgo: this.factorRiesgoFG.value,
             anamnesis: this.anamnesisFC.value
         }
-
-        console.log('req', req)
         if (req) {
             await this.consultaService.crearConsulta(this.data.nroDocumento, req).toPromise().then(
                 (r: any) => {
+                    console.log('respuesta del servidor despues de afiliar a cred', r)
                     let data: dato = {
                         nroDocumento: this.data.nroDocumento,
                         tipoDoc: this.data.tipoDoc,
@@ -484,10 +527,15 @@ export class TriajeCredComponent implements OnInit {
                         anio: r.object.anioEdad,
                         mes: r.object.mesEdad,
                         dia: r.object.diaEdad,
-                        sexo: this.data.sexo
+                        sexo: this.data.sexo,
+                        fechaNacimiento: this.data.fechaNacimiento,
+                        hidden: true
                     }
                     this.consultaService.idConsulta = r.object.id
                     localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
+                    console.log('triaje data', data)
+                    console.log('1')
+                    console.log('respuesta ', r)
                     Swal.fire({
                         icon: 'success',
                         title: 'Actualizado correctamente',
@@ -498,6 +546,36 @@ export class TriajeCredComponent implements OnInit {
                 }
             )
         }
+
+    }
+
+    async getPlan(dni: string) {
+        await this.consultaGeneralService.traerPlan(dni).subscribe(
+            result => {
+                console.log('cod', result.cod)
+                if (result.cod === '2404') {
+                    this.getNuevoPlan()
+                    console.log('2404', result)
+                }
+                if (result.cod === '2403') {
+                    console.log('2403', result)
+                }
+            }, err => {
+                console.log(err)
+            }
+        )
+    }
+
+    getNuevoPlan(): void {
+        this.consultaGeneralService.crearPlan(
+            {
+                'tipoDoc': this.data.tipoDoc,
+                'nroDoc': this.data.nroDocumento
+            }
+        ).toPromise().then((result) => {
+        }).catch((err) => {
+            console.log(err)
+        })
     }
 
     saveInterconsulta(): void {
@@ -590,45 +668,16 @@ export class TriajeCredComponent implements OnInit {
 
     getExamenes(): void {
         this.saveInterconsulta()
-        this.getPlan(this.data.nroDocumento)
         this.router.navigate(['/dashboard/cred/citas/atencion/examenes'])
     }
 
     getConsultaPrincipal(): void {
         if (this.data.idConsulta === '') {
             this.save()
-            this.getPlan(this.data.nroDocumento)
         }
         setTimeout(() => {
-            this.router.navigate(['/dashboard/cred/citas/atencion/consulta-principal'])
+            this.router.navigate(['/dashboard/cred/citas/atencion'])
         }, 1000);
-    }
 
-    getPlan(dni: string) {
-        this.consultaGeneralService.traerPlan(dni).subscribe(
-            result => {
-                if (result.cod === '2404') {
-                    this.getNuevoPlan()
-                    console.log('2404', result)
-                }
-            }, err => {
-                console.log(err)
-            }
-        )
     }
-
-    getNuevoPlan(): void {
-        this.consultaGeneralService.crearPlan(
-            {
-                'tipoDoc': this.data.tipoDoc,
-                'nroDoc': this.data.nroDocumento
-            }
-        ).toPromise().then((result) => {
-            console.log(result)
-        }).catch((err) => {
-            console.log(err)
-        })
-    }
-
 }
-

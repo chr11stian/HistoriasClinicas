@@ -3,18 +3,29 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  bd: "hce",
-  baseUrl: "http://192.168.5.3:3012/api", //privada
-  // baseUrl: "http://190.108.93.145:3012/api", //publica
+    production: false,
+    bd: "hce",
 
-  /**ACCESO AL LOGIN**/
-  base_uri: "http://192.168.5.3:3010/login/hce",
-  // base_uri: "http://190.108.93.145:3010/login/hce",
-  // base_uri: "http://190.108.93.145:3012/api/hce/login/user",
+     // baseUrl: "http://192.168.5.3:3012/api", //privada
+     baseUrl: "http://190.108.93.145:3012/api", //publica
 
-  /**ACCESO A LOS DATOS DEL PIDE Y SIS**/
-  base_url_pide: "http://192.168.5.3:3011/pide/datos-sis",
+
+    /**ACCESO AL LOGIN**/
+    // base_uri: "http://192.168.5.3:3010/login/hce",
+   base_uri: "http://190.108.93.145:3010/login/hce",
+
+    /*LOGIN*/
+    // base_uri_: "http://192.168.5.3:3010",
+    base_uri_: "http://190.108.93.145:3010",
+
+    /**ACCESO A LOS DATOS DEL PIDE Y SIS**/
+   // base_url_pide: "http://192.168.5.3:3011/pide/datos-sis",
+     base_url_pide: "http://190.108.93.145:3011/pide/datos-sis",
+
+    /***ACCESO A REPORTE TRATAMIENTOS****/
+    // base_urlTx:"http://192.168.5.3:8200",
+    base_urlTx: "http://190.108.93.145:8200",
+
 };
 
 /*

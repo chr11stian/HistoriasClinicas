@@ -1,5 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {MenuItem} from "primeng/api"
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MenuItem } from "primeng/api"
+import { AtenionComponent } from '../atenion/atenion.component';
+import { IpressComponent } from '../ipress/ipress.component';
 
 @Component({
     selector: 'app-step-fua',
@@ -13,43 +15,49 @@ export class StepFuaComponent implements OnInit {
     indiceActivo: number = 0
     stepName = "ipress"
 
+    @ViewChild(IpressComponent) ipress: IpressComponent;
+    @ViewChild(AtenionComponent) atencion:AtenionComponent;
+
     constructor() {
         this.options = [
-            {name: "DNI", code: 1},
-            {name: "CARNET RN", code: 2},
-            {name: "C EXTRANJERIA", code: 3},
-            {name: "OTROS", code: 4},
+            { name: "DNI", code: 1 },
+            { name: "CARNET RN", code: 2 },
+            { name: "C EXTRANJERIA", code: 3 },
+            { name: "OTROS", code: 4 },
         ]
     }
 
 
     ngOnInit(): void {
         this.items = [
-            {label: "De la IPRESS"},
-            {label: "Del Asegurado"},
-            {label: "De la Atención"},
-            {label: "Concepto prestacional"},
-            {label: "Refiere contra"},
-            {label: "Diagnostico"},
+            { label: "Datos Generales" },
+            // {label: "Del Asegurado"},
+            { label: "Datos Complementarios" },
+            // { label: "Concepto prestacional" },
+            // {label: "Refiere contra"},
+            // {label: "Diagnostico"},
         ]
     }
 
     name() {
         switch (this.indiceActivo) {
-            case 5:
-                this.stepName = "diagnostico"
-                break
-            case 4:
-                this.stepName = "refiere-contrarefiere"
-                break
-            case 3:
-                this.stepName = "concepto-prestacional"
-                break
-            case 2:
-                this.stepName = "atencion"
-                break
+            // case 5:
+            //     this.stepName = "diagnostico"
+            //     break
+            // case 4:
+            //     this.stepName = "refiere-contrarefiere"
+            //     break
+            // case 2:
+            //     this.stepName = "tercera_parte"
+            //     break
+            // case 2:
+            //     this.stepName = "atencion"
+            //     break
+            // case 1:
+            //     this.stepName = "asegurado-usuario"
+            //     break
             case 1:
-                this.stepName = "asegurado-usuario"
+                this.stepName = "atencion"
                 break
             case 0:
                 this.stepName = "ipress"
@@ -60,6 +68,26 @@ export class StepFuaComponent implements OnInit {
     ChangeStep(event: number) {
         this.indiceActivo = event;
         this.name()
+    }
+    nextPage() {
+
+        switch (this.stepName) {
+            // case 'atencion':
+            //     this.ipress.save();
+            //     this.stepName = "atencion"
+            //     this.indiceActivo = 1
+            //     break;
+            case 'ipress':
+                this.ipress.save();
+                this.stepName = "atencion"
+                this.indiceActivo = 1
+                break;
+
+            default:
+                break;
+        }
+    }
+    previosPage(){
     }
 }
 

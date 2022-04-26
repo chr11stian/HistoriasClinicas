@@ -1,147 +1,36 @@
-<!--<p-toolbar>-->
-<!--    <ng-template pTemplate="left">-->
-<!--        <h3 class="mt-2">ANTECEDENTES</h3>-->
-<!--    </ng-template>-->
-<!--    <ng-template pTemplate="right" class="button">-->
-<!--        <button pButton pRipple label="Atras" icon="pi pi-angle-left" class="p-button-secondary mr-2"></button>-->
-<!--        <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"-->
-<!--                class="guardar mr-2" style="background-color: #0c3866" (click)="addData()"></button>-->
-<!--    </ng-template>-->
-<!--</p-toolbar>-->
-<!--<br>-->
+<p-toolbar>
+    <ng-template pTemplate="left">
+        <span>ANTECEDENTES</span>
+    </ng-template>
+    <ng-template pTemplate="right" class="button">
+        <button pButton pRipple label="Atras" icon="pi pi-angle-left" class="p-button-secondary mr-2"></button>
+        <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
+                class="guardar mr-2" style="background-color: #0c3866" (click)="addData()"></button>
+    </ng-template>
+</p-toolbar>
+<br>
 
 <div>
     <p-toolbar>
         <ng-template pTemplate="left">
-            <label>ANTECEDENTES OBSTETRICOS</label>
+            <label class="labelBlanco">ANTECEDENTES OBSTETRICOS</label>
         </ng-template>
     </p-toolbar>
     <div class="border">
         <form [formGroup]='formAntecedentesObstetricos'>
-            <div class="grid m-2 border2">
-                <div class="col-12 md:col-6 lg:col-3 p-field">
-                    <div class="grid">
-                        <div class="p-inputgroup">
-                            <div class="col-6" style="text-align: right">
-                                <label>Viven:</label>
-                            </div>
-                            <div class="col-4">
-                                <input type="number" pInputText class="inputfield w-full" formControlName="viven"
-                                       (keyup)="calculargestas()">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="grid">
-                        <div class="p-inputgroup">
-                            <div class="col-6" style="text-align: right">
-                                <label>Muerto - 1ra semana:</label>
-                            </div>
-                            <div class="col-4">
-                                <input type="number" pInputText class=" inputfield w-full"
-                                       formControlName="muertoPrimeraSemana" (keyup)="calculargestas()">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="grid">
-                        <div class="p-inputgroup">
-                            <div class="col-6" style="text-align: right">
-                                <label>Después - 1ra semana:</label>
-                            </div>
-                            <div class="col-4">
-                                <input type="number" pInputText class=" inputfield w-full"
-                                       formControlName="despuesPrimeraSemana" (keyup)="calculargestas()">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 md:col-6 lg:col-3 p-field">
-                    <br>
-                    <div class="grid">
-                        <div class="p-inputgroup">
-                            <div class="col-6" style="text-align: right">
-                                <label>Nacidos Vivos:</label>
-                            </div>
-                            <div class="col-4">
-                                <input type="number" pInputText class="inputfield w-full"
-                                       formControlName="NacidosVivos">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="grid">
-                        <div class="p-inputgroup">
-                            <div class="col-6" style="text-align: right">
-                                <label>Nacidos Muertos :</label>
-                            </div>
-                            <div class="col-4">
-                                <input type="number" pInputText class=" inputfield w-full"
-                                       formControlName="NacidosMuertos" (keyup)="calculargestas()">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 md:col-6 lg:col-3 p-field">
-                    <br>
-                    <div class="grid">
-                        <div class="p-inputgroup">
-                            <div class="col-6" style="text-align: right">
-                                <label>Vaginales:</label>
-                            </div>
-                            <div class="col-4">
-                                <input type="number" pInputText class="inputfield w-full" formControlName="vaginales"
-                                       (keyup)="calculargestas()">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="grid">
-                        <div class="p-inputgroup">
-                            <div class="col-6" style="text-align: right">
-                                <label>Cesáreas:</label>
-                            </div>
-                            <div class="col-4">
-                                <input type="number" pInputText class="inputfield w-full"
-                                       formControlName="cesarias" (keyup)="calculargestas()">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 md:col-6 lg:col-3 p-field">
-                    <br>
-                    <div class="grid">
-                        <div class="p-inputgroup">
-                            <div class="col-6" style="text-align: right">
-                                <label>Abortos:</label>
-                            </div>
-                            <div class="col-4">
-                                <input type="number" pInputText class=" inputfield w-full"
-                                       formControlName="abortos" (keyup)="calculargestas()">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="grid">
-                        <div class="p-inputgroup">
-                            <div class="col-6" style="text-align: right">
-                                <label>Partos:</label>
-                            </div>
-                            <div class="col-4">
-                                <input type="number" pInputText class="inputfield w-full" formControlName="partos">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="grid m-4">
                 <div class="col-12 md:col-6 lg:col-12">
                     <svg xmlns="http://www.w3.org/2000/svg">
                         <defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></defs>
-                        <rect x="10" y="10" width="50" height="30" r="5" rx="5" ry="5" fill="#ffffff"
+                        <rect x="10" y="10" width="50" height="30" r="5" rx="5" ry="5"
+                              fill="#ffffff"
                               stroke="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); cursor: pointer">
                         </rect>
                         <symbol id="input1" viewBox="0 0 347.11 49.7" preserveAspectRatio="none"></symbol>
-
                         <text x="35" y="25" text-anchor="middle" font="10px &quot;Arial&quot;"
                               stroke="none" fill="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
                               font-size="16px">
                             <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                                    dy="5.5">{{gestas}}</tspan>
@@ -155,12 +44,14 @@
                             </tspan>
                         </text>
 
-                        <rect x="200" y="10" width="50" height="30" r="5" rx="5" ry="5" fill="#ffffff"
+                        <rect (click)="inputAborto()" x="200" y="10" width="50" height="30" r="5" rx="5"
+                              ry="5"
+                              fill="#ffffff"
                               stroke="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);stroke:rgb(253,94,0); fill: rgb(252, 213, 90)"></rect>
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);stroke:rgb(253,94,0); fill: rgb(252, 213, 90)"></rect>
                         <text x="225" y="25" text-anchor="middle" font="10px &quot;Arial&quot;"
                               stroke="none" fill="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
+                              style="cursor: pointer;-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
                               font-size="16px">
                             <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" dy="5.5">{{abortos}}
                             </tspan>
@@ -176,11 +67,11 @@
 
                         <rect x="200" y="100" width="50" height="30" r="5" rx="5" ry="5" fill="#ffffff"
                               stroke="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
                         </rect>
                         <text x="225" y="115" text-anchor="middle" font="10px &quot;Arial&quot;"
                               stroke="none" fill="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
                               font-size="16px">
                             <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" dy="5.5">{{partos}}
                             </tspan>
@@ -194,12 +85,13 @@
                             </tspan>
                         </text>
 
-                        <rect x="400" y="10" width="50" height="30" r="5" rx="5" ry="5" fill="#ffffff"
+                        <rect (click)="inputVaginales()" x="400" y="10" width="50" height="30" r="5" rx="5"
+                              ry="5" fill="#ffffff"
                               stroke="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect>
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect>
                         <text x="425" y="25" text-anchor="middle" font="10px &quot;Arial&quot;"
                               stroke="none" fill="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
                               font-size="16px">
                             <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" dy="5.5">{{vaginales}}
                             </tspan>
@@ -213,12 +105,13 @@
                             </tspan>
                         </text>
 
-                        <rect x="400" y="100" width="50" height="30" r="5" rx="5" ry="5" fill="#ffffff"
+                        <rect (click)="inputCesarias()" x="400" y="100" width="50" height="30" r="5" rx="5"
+                              ry="5" fill="#ffffff"
                               stroke="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);stroke:rgb(246,26,26); fill: rgba(197, 0, 9, 0.63)"></rect>
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);stroke:rgb(246,26,26); fill: rgba(197, 0, 9, 0.63)"></rect>
                         <text x="425" y="115" text-anchor="middle" font="10px &quot;Arial&quot;"
                               stroke="none" fill="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
                               font-size="16px">
                             <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" dy="5.5">{{cesarias}}
                             </tspan>
@@ -234,10 +127,10 @@
 
                         <rect x="600" y="10" width="50" height="30" r="5" rx="5" ry="5" fill="#ffffff"
                               stroke="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect>
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect>
                         <text x="625" y="25" text-anchor="middle" font="10px &quot;Arial&quot;"
                               stroke="none" fill="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
                               font-size="16px">
                             <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" dy="5.5">{{nacidosVivos}}
                             </tspan>
@@ -254,12 +147,13 @@
                             </tspan>
                         </text>
 
-                        <rect x="600" y="100" width="50" height="30" r="5" rx="5" ry="5" fill="#ffffff"
+                        <rect (click)="inputNacidosMuertos()" x="600" y="100" width="50" height="30" r="5" rx="5"
+                              ry="5" fill="#ffffff"
                               stroke="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);stroke:rgb(253,94,0); fill: rgb(252, 213, 90)"></rect>
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);stroke:rgb(253,94,0); fill: rgb(252, 213, 90)"></rect>
                         <text x="625" y="115" text-anchor="middle" font="10px &quot;Arial&quot;"
                               stroke="none" fill="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
                               font-size="16px">
                             <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                                    dy="5.5">{{nacidosMuertos}}
@@ -277,14 +171,16 @@
                             </tspan>
                         </text>
 
-                        <rect x="800" y="10" width="50" height="30" r="5" rx="5" ry="5" fill="#ffffff"
+                        <rect (click)="inputViven()" x="800" y="10" width="50" height="30" r="5" rx="5" ry="5"
+                              fill="#ffffff"
                               stroke="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect>
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect>
                         <text x="825" y="25" text-anchor="middle" font="10px &quot;Arial&quot;"
                               stroke="none" fill="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
                               font-size="16px">
-                            <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" dy="5.5">{{viven}}
+                            <tspan style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                                   dy="5.5">{{viven}}
                             </tspan>
                         </text>
                         <text x="825" y="50" text-anchor="middle" font="10px &quot;Arial&quot;"
@@ -295,12 +191,13 @@
                             </tspan>
                         </text>
 
-                        <rect x="800" y="100" width="50" height="30" r="5" rx="5" ry="5" fill="#ffffff"
+                        <rect (click)="inputMueroPrimeraSemana()" x="800" y="100" width="50" height="30" r="5" rx="5"
+                              ry="5" fill="#ffffff"
                               stroke="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke:rgb(253,94,0); fill: rgb(252, 213, 90)"></rect>
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke:rgb(253,94,0); fill: rgb(252, 213, 90)"></rect>
                         <text x="825" y="115" text-anchor="middle" font="10px &quot;Arial&quot;"
                               stroke="none" fill="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
                               font-size="16px">
                             <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                                    dy="5.5">{{muertoPrimeraSemana}}
@@ -318,12 +215,13 @@
                             </tspan>
                         </text>
 
-                        <rect x="800" y="200" width="50" height="30" r="5" rx="5" ry="5" fill="#ffffff"
+                        <rect (click)="inputDespuesPrimeraSemana()" x="800" y="200" width="50" height="30" r="5" rx="5"
+                              ry="5" fill="#ffffff"
                               stroke="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);stroke:rgb(253,94,0); fill: rgb(252, 213, 90)"></rect>
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);stroke:rgb(253,94,0); fill: rgb(252, 213, 90)"></rect>
                         <text x="825" y="215" text-anchor="middle" font="10px &quot;Arial&quot;"
                               stroke="none" fill="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
                               font-size="16px">
                             <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                                    dy="5.5">{{despuesPrimeraSemana}}
@@ -341,17 +239,36 @@
                             </tspan>
                         </text>
 
-                        <!--                        <rect x="395" y="245" width="210" height="30" r="5" rx="5" ry="5" fill="none"-->
-                        <!--                              stroke="#000"-->
-                        <!--                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect>-->
-                        <!--                        <text x="500" y="260" text-anchor="middle" font="10px &quot;Arial&quot;"-->
-                        <!--                              stroke="none" fill="#000000"-->
-                        <!--                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 18px Arial;"-->
-                        <!--                              font-size="18px">-->
-                        <!--                            <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" dy="6">R.N-->
-                        <!--                                Mayor peso : 0 gr-->
-                        <!--                            </tspan>-->
-                        <!--                        </text>-->
+                        <rect (click)="inputRNmayorPeso()" x="395" y="245" width="220" height="30" r="5" rx="5" ry="5"
+                              fill="none"
+                              stroke="#000"
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);fill: rgb(255,255,255)"></rect>
+                        <text (click)="inputRNmayorPeso()" x="500" y="260" text-anchor="middle"
+                              font="10px &quot;Arial&quot;"
+                              stroke="none" fill="#000000"
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 18px Arial;"
+                              font-size="18px">
+                            <tspan (click)="inputRNmayorPeso()"
+                                   style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);" dy="6">R.N
+                                Mayor peso : {{RNmayorPeso}} gr
+                            </tspan>
+                        </text>
+
+                        <rect (click)="limpiarDetalleParto()" x="50" y="230" width="70" height="25" r="5" rx="5" ry="5"
+                              fill="none"
+                              stroke="#000"
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); fill: rgb(245,246,250)"></rect>
+                        <text (click)="limpiarDetalleParto()" x="85" y="240" text-anchor="middle"
+                              font="10px &quot;Arial&quot;"
+                              stroke="none" fill="#000000"
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 12px Arial;"
+                              font-size="12px">
+                            <tspan (click)="limpiarDetalleParto()"
+                                   style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);" dy="6">
+                                Limpiar
+                            </tspan>
+                        </text>
+
                         <path fill="none" stroke="#000000" d="M60,25L200,25"
                               style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path>
                         <path fill="none" stroke="#000000" d="M60,25L200,115"
@@ -376,46 +293,56 @@
                               style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path>
                         <path fill="none" stroke="#000000" d="M650,25L800,215"
                               style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path>
-                        <rect x="100" y="100" width="20" height="20" r="0" rx="0" ry="0" fill="none"
-                              stroke="#000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect>
 
+                        <rect (click)="ceroOmmas()" x="100" y="100" width="20" height="20" r="0" rx="0" ry="0"
+                              fill="none"
+                              stroke="#000"
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);stroke:rgb(253,94,0); fill: rgb(252, 213, 90)">
+                        </rect>
                         <text x="50" y="110" text-anchor="middle" font="10px &quot;Arial&quot;"
                               stroke="none" fill="#000000"
                               style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 12px Arial;"
                               font-size="12px">
-                            <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" dy="4">0 ó +
-                                3
-                            </tspan>
+                            <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" dy="4">0 ó + 3</tspan>
                         </text>
-                        <text x="110" y="110" text-anchor="middle" font="10px &quot;Arial&quot;"
+                        <text (click)="ceroOmmas()" x="110" y="110" text-anchor="middle" font="10px &quot;Arial&quot;"
                               stroke="none" fill="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 12px Arial;"
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 12px Arial;"
                               font-size="12px">
-                            <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" dy="4">X
+                            <tspan (click)="ceroOmmas()"
+                                   style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                                   dy="4">{{CeroOTres}}
                             </tspan>
                         </text>
-                        <rect x="100" y="130" width="20" height="20" r="0" rx="0" ry="0" fill="none"
+
+
+                        <rect (click)="ceroMayorDosMil()" x="100" y="130" width="20" height="20" r="0" rx="0" ry="0"
+                              fill="none"
                               stroke="#000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect>
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke:rgb(253,94,0); fill: rgb(252, 213, 90)"></rect>
                         <text x="50" y="140" text-anchor="middle" font="10px &quot;Arial&quot;"
                               stroke="none" fill="#000000"
                               style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 12px Arial;"
                               font-size="12px">
-                            <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" dy="4">&lt;
+                            <tspan style=" -webkit-tap-highlight-color: rgba(0, 0, 0, 0);" dy="4">&lt;
                                 2500g
                             </tspan>
                         </text>
-                        <text x="110" y="140" text-anchor="middle" font="10px &quot;Arial&quot;"
+                        <text (click)="ceroMayorDosMil()" x="110" y="140" text-anchor="middle"
+                              font="10px &quot;Arial&quot;"
                               stroke="none" fill="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 12px Arial;"
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 12px Arial;"
                               font-size="12px">
-                            <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                                   dy="140"></tspan>
+                            <tspan (click)="ceroMayorDosMil()"
+                                   style="cursor: pointer;-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                                   dy="4">{{MayorDosMilQuinientos}}</tspan>
                         </text>
-                        <rect x="100" y="160" width="20" height="20" r="0" rx="0" ry="0" fill="none"
+
+
+                        <rect (click)="Multiple1()" x="100" y="160" width="20" height="20" r="0" rx="0" ry="0"
+                              fill="none"
                               stroke="#000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect>
+                              style="cursor: pointer;-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke:rgb(253,94,0); fill: rgb(252, 213, 90)"></rect>
                         <text x="50" y="170" text-anchor="middle" font="10px &quot;Arial&quot;"
                               stroke="none" fill="#000000"
                               style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 12px Arial;"
@@ -424,16 +351,21 @@
                                 Múltiple
                             </tspan>
                         </text>
-                        <text x="110" y="170" text-anchor="middle" font="10px &quot;Arial&quot;"
+                        <text (click)="Multiple1()" x="110" y="170" text-anchor="middle"
+                              font="10px &quot;Arial&quot;"
                               stroke="none" fill="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 12px Arial;"
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 12px Arial;"
                               font-size="12px">
-                            <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                                   dy="170"></tspan>
+                            <tspan (click)="Multiple1()"
+                                   style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                                   dy="4">{{Multiple}}</tspan>
                         </text>
-                        <rect x="100" y="190" width="20" height="20" r="0" rx="0" ry="0" fill="none"
+
+
+                        <rect (click)="TrentaSiete()" x="100" y="190" width="20" height="20" r="0" rx="0" ry="0"
+                              fill="none"
                               stroke="#000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect>
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke:rgb(253,94,0); fill: rgb(252, 213, 90);"></rect>
                         <text x="50" y="200" text-anchor="middle" font="10px &quot;Arial&quot;"
                               stroke="none" fill="#000000"
                               style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 12px Arial;"
@@ -442,19 +374,21 @@
                                 sem
                             </tspan>
                         </text>
-                        <text x="110" y="200" text-anchor="middle" font="10px &quot;Arial&quot;"
+                        <text (click)="TrentaSiete()" x="110" y="200" text-anchor="middle" font="10px &quot;Arial&quot;"
                               stroke="none" fill="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 12px Arial;"
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 12px Arial;"
                               font-size="12px">
-                            <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
-                                   dy="200"></tspan>
+                            <tspan (click)="TrentaSiete()"
+                                   style="cursor: pointer;-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                                   dy="4">{{MayorTrentaSemanas}}</tspan>
                         </text>
+
                     </svg>
                 </div>
             </div>
         </form>
     </div>
-
+    <br>
     <div class="border ">
         <div class="grid m-2">
             <div class="col-12 md:col-6 lg:col-6">
@@ -535,10 +469,10 @@
         <div class="col-12 md:col-6 lg:col-6 p-field">
             <p-toolbar>
                 <ng-template pTemplate="left">
-                    <label>GESTACIÓN ANTERIOR</label>
+                    <label class="labelBlanco">GESTACIÓN ANTERIOR</label>
                 </ng-template>
             </p-toolbar>
-            <div class="border">
+            <div class="border" style="height: 90%">
                 <form [formGroup]='formAntecedentes'>
                     <div class="grid m-2 border">
                         <div class="col-12 md:col-6 lg:col-6 p-field">
@@ -570,6 +504,7 @@
                                                             optionLabel="name"
                                                             optionValue="booleano"
                                                             formControlName="intergenesico"
+                                                            class="amarillo"
                                             ></p-selectButton>
                                         </div>
 
@@ -578,7 +513,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="grid m-2 border">
+                    <div class="grid m-2">
                         <div class="col-12 md:col-6 lg:col-4 p-field" style="align-self: start">
                             <div class="border3">
                                 <div class="col-12" style="text-align: right">
@@ -705,7 +640,7 @@
                             <div class="border3">
                                 <div class="grid">
                                     <div class="col-12" style="text-align: right">
-                                        <label style="color: rgb(77 77 77);text-decoration: underline">Laptancia
+                                        <label style="color: rgb(77 77 77);text-decoration: underline">Lactancia
                                             Materna </label>
                                     </div>
                                 </div>
@@ -781,11 +716,11 @@
         <div class="col-12 md:col-6 lg:col-6 p-field">
             <p-toolbar>
                 <ng-template pTemplate="left">
-                    <label>ANTECEDENTES FAMILIARES</label>
+                    <label class="labelBlanco">ANTECEDENTES FAMILIARES</label>
                 </ng-template>
             </p-toolbar>
-            <div class="border">
-                <div class="grid m-2 border">
+            <div class="border" style="height: 90%">
+                <div class="grid m-2">
                     <div class="col-12 md:col-6 lg:col-6 p-field" style="align-self: start">
                         <div class="grid ">
                             <div class="col-5" style="text-align: right">
@@ -936,7 +871,6 @@
                             <div class="col-5" style="text-align: right">
                             </div>
                             <div class="col-2">
-
                             </div>
                             <div class="col-5" style="text-align: right">
                                 <label style="color: rgb(77 77 77); text-decoration: underline;">Quien: </label>
@@ -1058,7 +992,7 @@
                             </div>
                             <div class="col-2">
                                 <p-checkbox [(ngModel)]="otrosAntecedentesFamiliares2" value="otros"
-                                            class="mt-1"></p-checkbox>
+                                            class="mt-1 default p-radiobuttonColor "></p-checkbox>
                             </div>
                             <div class="col-5">
                                 <input type="text" pInputText [(ngModel)]="otrosAntecedentesFamiliares"
@@ -1072,294 +1006,355 @@
             </div>
         </div>
     </div>
-
     <br>
-</div>
 
-<p-fieldset legend="ANTECEDENTES" [toggleable]="true" collapsed="">
-    <div class="col">
-        <p-fieldset legend="Antecedentes Personales" [toggleable]="false">
-            <div class="grid">
-                <div class="col" style="align-self: start">
-                    <div class="grid">
-                        <div class="col-10" style="text-align: right">
-                            <label>Ninguno: </label>
-                        </div>
-                        <div class="col-2">
-                            <p-checkbox [(ngModel)]="Ninguno" name="Ninguno" value="Ninguno"></p-checkbox>
-                        </div>
-                    </div>
-                    <div class="grid">
-                        <div class="col-10" style="text-align: right">
-                            <label>Aborto habitual / recurrente: </label>
-                        </div>
-                        <div class="col-2">
-                            <p-checkbox [(ngModel)]="Abortohabitualrecurrente"
-                                        value="Aborto habitual / recurrente"></p-checkbox>
-                        </div>
-                    </div>
-                    <div class="grid">
-                        <div class="col-10" style="text-align: right">
-                            <label>Violencia: </label>
-                        </div>
-                        <div class="col-2">
-                            <p-checkbox [(ngModel)]="Violencia"
-                                        value="Violencia"></p-checkbox>
-                        </div>
-                    </div>
-                    <div class="grid ">
-                        <div class="col-10" style="text-align: right">
-                            <label>Cardiopatia: </label>
-                        </div>
-                        <div class="col-2">
-                            <p-checkbox [(ngModel)]="Cardiopatia"
-                                        value="Cardiopatia"></p-checkbox>
-                        </div>
-                    </div>
-                    <div class="grid ">
-                        <div class="col-10" style="text-align: right">
-                            <label>Cirugia Pélvica Uterina: </label>
-                        </div>
-                        <div class="col-2">
-                            <p-checkbox [(ngModel)]="cirugiaPelvicaUterina"
-                                        value="Cirugia Pélvica Uterina"></p-checkbox>
-                        </div>
-                    </div>
-                    <div class="grid ">
-                        <div class="col-10" style="text-align: right">
-                            <label>Eclampsia: </label>
-                        </div>
-                        <div class="col-2">
-                            <p-checkbox [(ngModel)]="Eclampsia"
-                                        value="Eclampsia"></p-checkbox>
-                        </div>
-                    </div>
-
-
-                    <div class="grid ">
-                        <div class="col-10" style="text-align: right">
-                            <label>Pre Eclampsia: </label>
-                        </div>
-                        <div class="col-2">
-                            <p-checkbox [(ngModel)]="preEclampsia"
-                                        value="Pre Eclampsia"></p-checkbox>
-                        </div>
-                    </div>
-                    <div class="grid ">
-                        <div class="col-10" style="text-align: right">
-                            <label>Hemorra. Postparto: </label>
-                        </div>
-                        <div class="col-2">
-                            <p-checkbox [(ngModel)]="hemorraPostparto"
-                                        value="Hemorra. Postparto"></p-checkbox>
-                        </div>
-                    </div>
-                    <div class="grid ">
-                        <div class="col-10" style="text-align: right">
-                            <label>TBC Pulmonar: </label>
-                        </div>
-                        <div class="col-2">
-                            <p-checkbox [(ngModel)]="TBCPulmonar2"
-                                        value="TBC Pulmonar"></p-checkbox>
-                        </div>
-                    </div>
-                    <div class="grid ">
-                        <div class="col-10" style="text-align: right">
-                            <label>VIH/SIDA:</label>
-                        </div>
-                        <div class="col-2">
+    <div class="grid">
+        <div class="col-12 md:col-6 lg:col-9 p-field">
+            <p-toolbar>
+                <ng-template pTemplate="left">
+                    <label class="labelBlanco">ANTECEDENTES PERSONALES</label>
+                </ng-template>
+            </p-toolbar>
+            <div class="border">
+                <div class="grid m-2">
+                    <div class="col-12 md:col-6 lg:col-4 p-field" style="align-self: start">
+                        <div class="grid">
+                            <div class="col-10" style="text-align: right">
+                                <label>Ninguno: </label>
+                            </div>
                             <div class="col-2">
-                                <p-checkbox [(ngModel)]="VIHSIDA"
+                                <p-checkbox class="default" [(ngModel)]="Ninguno" name="Ninguno"
+                                            value="Ninguno"></p-checkbox>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-10" style="text-align: right">
+                                <label>Aborto habitual / recurrente: </label>
+                            </div>
+                            <div class="col-2">
+                                <p-checkbox class="amarillo" [(ngModel)]="Abortohabitualrecurrente"
+                                            value="Aborto habitual / recurrente"></p-checkbox>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-10" style="text-align: right">
+                                <label>Violencia: </label>
+                            </div>
+                            <div class="col-2">
+                                <p-checkbox class="amarillo" [(ngModel)]="Violencia"
+                                            value="Violencia"></p-checkbox>
+                            </div>
+                        </div>
+                        <div class="grid ">
+                            <div class="col-10" style="text-align: right">
+                                <label>Cardiopatia: </label>
+                            </div>
+                            <div class="col-2">
+                                <p-checkbox class="amarillo" [(ngModel)]="Cardiopatia"
+                                            value="Cardiopatia"></p-checkbox>
+                            </div>
+                        </div>
+                        <div class="grid ">
+                            <div class="col-10" style="text-align: right">
+                                <label>Cirugia Pélvica Uterina: </label>
+                            </div>
+                            <div class="col-2">
+                                <p-checkbox class="amarillo" [(ngModel)]="cirugiaPelvicaUterina"
+                                            value="Cirugia Pélvica Uterina"></p-checkbox>
+                            </div>
+                        </div>
+                        <div class="grid ">
+                            <div class="col-10" style="text-align: right">
+                                <label>Eclampsia: </label>
+                            </div>
+                            <div class="col-2">
+                                <p-checkbox class="amarillo" [(ngModel)]="Eclampsia"
+                                            value="Eclampsia"></p-checkbox>
+                            </div>
+                        </div>
+                        <div class="grid ">
+                            <div class="col-10" style="text-align: right">
+                                <label>Pre Eclampsia: </label>
+                            </div>
+                            <div class="col-2">
+                                <p-checkbox class="amarillo" [(ngModel)]="preEclampsia"
+                                            value="Pre Eclampsia"></p-checkbox>
+                            </div>
+                        </div>
+                        <div class="grid ">
+                            <div class="col-10" style="text-align: right">
+                                <label>Hemorra. Postparto: </label>
+                            </div>
+                            <div class="col-2">
+                                <p-checkbox class="amarillo" [(ngModel)]="hemorraPostparto"
+                                            value="Hemorra. Postparto"></p-checkbox>
+                            </div>
+                        </div>
+                        <div class="grid ">
+                            <div class="col-10" style="text-align: right">
+                                <label>TBC Pulmonar: </label>
+                            </div>
+                            <div class="col-2">
+                                <p-checkbox class="amarillo" [(ngModel)]="TBCPulmonar2"
+                                            value="TBC Pulmonar"></p-checkbox>
+                            </div>
+                        </div>
+                        <div class="grid ">
+                            <div class="col-10" style="text-align: right">
+                                <label>VIH/SIDA:</label>
+                            </div>
+                            <div class="col-2">
+                                <p-checkbox class="amarillo" [(ngModel)]="VIHSIDA"
                                             value="VIH/SIDA"></p-checkbox>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col" style="align-self: start">
-                    <div class="grid ">
-                        <div class="col-10" style="text-align: right">
-                            <label>Alcoholismo: </label>
+                    <div class="col-12 md:col-6 lg:col-4 p-field" style="align-self: start">
+                        <div class="grid ">
+                            <div class="col-10" style="text-align: right">
+                                <label>Alcoholismo: </label>
+                            </div>
+                            <div class="col-2">
+                                <p-checkbox class="amarillo" [(ngModel)]="Alcoholismo"
+                                            value="Alcoholismo"></p-checkbox>
+                            </div>
                         </div>
-                        <div class="col-2">
-                            <p-checkbox [(ngModel)]="Alcoholismo"
-                                        value="Alcoholismo"></p-checkbox>
+                        <div class="grid ">
+                            <div class="col-10" style="text-align: right">
+                                <label>Alergia a medicamentos: </label>
+                            </div>
+                            <div class="col-2">
+                                <p-checkbox class="amarillo" [(ngModel)]="alergiaAmedicamentos"
+                                            value="Alergia a medicamentos"></p-checkbox>
+                            </div>
                         </div>
-                    </div>
-                    <div class="grid ">
-                        <div class="col-10" style="text-align: right">
-                            <label>Alergia a medicamentos: </label>
+                        <div class="grid ">
+                            <div class="col-10" style="text-align: right">
+                                <label>Asma Bronquial: </label>
+                            </div>
+                            <div class="col-2">
+                                <p-checkbox class="amarillo" [(ngModel)]="asmaBronquial"
+                                            value="Asma Bronquial"></p-checkbox>
+                            </div>
                         </div>
-                        <div class="col-2">
-                            <p-checkbox [(ngModel)]="alergiaAmedicamentos"
-                                        value="Alergia a medicamentos"></p-checkbox>
+                        <div class="grid ">
+                            <div class="col-10" style="text-align: right">
+                                <label>Diabetes: </label>
+                            </div>
+                            <div class="col-2">
+                                <p-checkbox class="amarillo" [(ngModel)]="diabetes2"
+                                            value="Diabetes"></p-checkbox>
+                            </div>
                         </div>
-                    </div>
-                    <div class="grid ">
-                        <div class="col-10" style="text-align: right">
-                            <label>Asma Bronquial: </label>
+                        <div class="grid ">
+                            <div class="col-10" style="text-align: right">
+                                <label>Enferm. Congénitas: </label>
+                            </div>
+                            <div class="col-2">
+                                <p-checkbox class="amarillo" [(ngModel)]="enfermCongenitas"
+                                            value="Enferm. Congénitas"></p-checkbox>
+                            </div>
                         </div>
-                        <div class="col-2">
-                            <p-checkbox [(ngModel)]="asmaBronquial"
-                                        value="Asma Bronquial"></p-checkbox>
+                        <div class="grid ">
+                            <div class="col-10" style="text-align: right">
+                                <label>Enferm. Infecciosas: </label>
+                            </div>
+                            <div class="col-2">
+                                <p-checkbox class="amarillo" [(ngModel)]="enfermInfecciosas"
+                                            value="Enferm. Infecciosas"></p-checkbox>
+                            </div>
                         </div>
-                    </div>
-                    <div class="grid ">
-                        <div class="col-10" style="text-align: right">
-                            <label>Diabetes: </label>
+                        <div class="grid ">
+                            <div class="col-10" style="text-align: right">
+                                <label>Epilepsia: </label>
+                            </div>
+                            <div class="col-2">
+                                <p-checkbox class="amarillo" [(ngModel)]="epilepsia"
+                                            value="Epilepsia"></p-checkbox>
+                            </div>
                         </div>
-                        <div class="col-2">
-                            <p-checkbox [(ngModel)]="diabetes2"
-                                        value="Diabetes"></p-checkbox>
+                        <div class="grid ">
+                            <div class="col-10" style="text-align: right">
+                                <label>Hip. Arterial: </label>
+                            </div>
+                            <div class="col-2">
+                                <p-checkbox class="amarillo" [(ngModel)]="hipArterial"
+                                            value="Hip. Arterial"></p-checkbox>
+                            </div>
                         </div>
-                    </div>
-                    <div class="grid ">
-                        <div class="col-10" style="text-align: right">
-                            <label>Enferm. Congénitas: </label>
+                        <div class="grid ">
+                            <div class="col-10" style="text-align: right">
+                                <label>Consumo de hoja de coca: </label>
+                            </div>
+                            <div class="col-2">
+                                <p-checkbox class="amarillo" [(ngModel)]="consumoHojaDeCoca"
+                                            value="Consumo de hoja de coca"></p-checkbox>
+                            </div>
                         </div>
-                        <div class="col-2">
-                            <p-checkbox [(ngModel)]="enfermCongenitas"
-                                        value="Enferm. Congénitas"></p-checkbox>
-                        </div>
-                    </div>
-                    <div class="grid ">
-                        <div class="col-10" style="text-align: right">
-                            <label>Enferm. Infecciosas: </label>
-                        </div>
-                        <div class="col-2">
-                            <p-checkbox [(ngModel)]="enfermInfecciosas"
-                                        value="Enferm. Infecciosas"></p-checkbox>
-                        </div>
-                    </div>
-                    <div class="grid ">
-                        <div class="col-10" style="text-align: right">
-                            <label>Epilepsia: </label>
-                        </div>
-                        <div class="col-2">
-                            <p-checkbox [(ngModel)]="epilepsia"
-                                        value="Epilepsia"></p-checkbox>
-                        </div>
-                    </div>
-                    <div class="grid ">
-                        <div class="col-10" style="text-align: right">
-                            <label>Hip. Arterial: </label>
-                        </div>
-                        <div class="col-2">
-                            <p-checkbox [(ngModel)]="hipArterial"
-                                        value="Hip. Arterial"></p-checkbox>
-                        </div>
-                    </div>
-                    <div class="grid ">
-                        <div class="col-10" style="text-align: right">
-                            <label>Consumo de hoja de coca: </label>
-                        </div>
-                        <div class="col-2">
-                            <p-checkbox [(ngModel)]="consumoHojaDeCoca"
-                                        value="Consumo de hoja de coca"></p-checkbox>
-                        </div>
-                    </div>
-                </div>
-                <div class="col" style="align-self: start">
-                    <div class="grid ">
-                        <div class="col-10" style="text-align: right">
-                            <label>Infertilidad: </label>
-                        </div>
-                        <div class="col-2">
-                            <p-checkbox [(ngModel)]="infertilidad"
-                                        value="Infertilidad"></p-checkbox>
-                        </div>
-                    </div>
-                    <div class="grid ">
-                        <div class="col-10" style="text-align: right">
-                            <label>Neoplasias: </label>
-                        </div>
-                        <div class="col-2">
-                            <p-checkbox [(ngModel)]="neoplasias"
-                                        value="Neoplasias"></p-checkbox>
+                        <div class="grid ">
+                            <div class="col-3" style="text-align: right">
+                                <label>Otros: </label>
+                            </div>
+                            <div class="col-1">
+                                <p-checkbox [(ngModel)]="otros23" value="otros"
+                                            class="mt-1 default"></p-checkbox>
+                            </div>
+                            <div class="col-7">
+                                <input type="text" pInputText [(ngModel)]="otros2"
+                                       (keyup)="eventoKeyupAntecedentesPersonales()"
+                                       class="inputfield w-full">
+                            </div>
                         </div>
                     </div>
-                    <div class="grid ">
-                        <div class="col-10" style="text-align: right">
-                            <label>Otras Drogas: </label>
+                    <div class="col-12 md:col-6 lg:col-4 p-field" style="align-self: start">
+                        <div class="grid ">
+                            <div class="col-10" style="text-align: right">
+                                <label>Infertilidad: </label>
+                            </div>
+                            <div class="col-2">
+                                <p-checkbox class="amarillo" [(ngModel)]="infertilidad"
+                                            value="Infertilidad"></p-checkbox>
+                            </div>
                         </div>
-                        <div class="col-2">
-                            <p-checkbox [(ngModel)]="otrasDrogas"
-                                        value="Otras Drogas"></p-checkbox>
+                        <div class="grid ">
+                            <div class="col-10" style="text-align: right">
+                                <label>Neoplasias: </label>
+                            </div>
+                            <div class="col-2">
+                                <p-checkbox class="amarillo" [(ngModel)]="neoplasias"
+                                            value="Neoplasias"></p-checkbox>
+                            </div>
                         </div>
-                    </div>
-                    <div class="grid ">
-                        <div class="col-10" style="text-align: right">
-                            <label>Parto Prolong: </label>
+                        <div class="grid ">
+                            <div class="col-10" style="text-align: right">
+                                <label>Otras Drogas: </label>
+                            </div>
+                            <div class="col-2">
+                                <p-checkbox class="amarillo" [(ngModel)]="otrasDrogas"
+                                            value="Otras Drogas"></p-checkbox>
+                            </div>
                         </div>
-                        <div class="col-2">
-                            <p-checkbox [(ngModel)]="partoProlong"
-                                        value="Parto Prolong"></p-checkbox>
+                        <div class="grid ">
+                            <div class="col-10" style="text-align: right">
+                                <label>Parto Prolong: </label>
+                            </div>
+                            <div class="col-2">
+                                <p-checkbox class="amarillo" [(ngModel)]="partoProlong"
+                                            value="Parto Prolong"></p-checkbox>
+                            </div>
                         </div>
-                    </div>
-                    <div class="grid ">
-                        <div class="col-10" style="text-align: right">
-                            <label>Preeclampsia: </label>
+                        <div class="grid ">
+                            <div class="col-10" style="text-align: right">
+                                <label>Preeclampsia: </label>
+                            </div>
+                            <div class="col-2">
+                                <p-checkbox class="amarillo" [(ngModel)]="preeclampsia"
+                                            value="Preeclampsia"></p-checkbox>
+                            </div>
                         </div>
-                        <div class="col-2">
-                            <p-checkbox [(ngModel)]="preeclampsia"
-                                        value="Preeclampsia"></p-checkbox>
+                        <div class="grid ">
+                            <div class="col-10" style="text-align: right">
+                                <label>Prematuridad: </label>
+                            </div>
+                            <div class="col-2">
+                                <p-checkbox class="amarillo" [(ngModel)]="prematuridad"
+                                            value="Prematuridad"></p-checkbox>
+                            </div>
                         </div>
-                    </div>
-                    <div class="grid ">
-                        <div class="col-10" style="text-align: right">
-                            <label>Prematuridad: </label>
+                        <div class="grid ">
+                            <div class="col-10" style="text-align: right">
+                                <label>Reten. Placenta: </label>
+                            </div>
+                            <div class="col-2">
+                                <p-checkbox class="amarillo" [(ngModel)]="retenPlacenta"
+                                            value="Reten. Placenta"></p-checkbox>
+                            </div>
                         </div>
-                        <div class="col-2">
-                            <p-checkbox [(ngModel)]="prematuridad"
-                                        value="Prematuridad"></p-checkbox>
+                        <div class="grid ">
+                            <div class="col-10" style="text-align: right">
+                                <label>Tabaco: </label>
+                            </div>
+                            <div class="col-2">
+                                <p-checkbox class="amarillo" [(ngModel)]="tabaco"
+                                            value="Tabaco"></p-checkbox>
+                            </div>
                         </div>
-                    </div>
-                    <div class="grid ">
-                        <div class="col-10" style="text-align: right">
-                            <label>Reten. Placenta: </label>
+                        <div class="grid ">
+                            <div class="col-10" style="text-align: right">
+                                <label>Transtorn. Mentales: </label>
+                            </div>
+                            <div class="col-2">
+                                <p-checkbox class="rojo" [(ngModel)]="transtornMentales"
+                                            value="Transtorn. Mentales"></p-checkbox>
+                            </div>
                         </div>
-                        <div class="col-2">
-                            <p-checkbox [(ngModel)]="retenPlacenta"
-                                        value="Reten. Placenta"></p-checkbox>
-                        </div>
-                    </div>
-                    <div class="grid ">
-                        <div class="col-10" style="text-align: right">
-                            <label>Tabaco: </label>
-                        </div>
-                        <div class="col-2">
-                            <p-checkbox [(ngModel)]="tabaco"
-                                        value="Tabaco"></p-checkbox>
-                        </div>
-                    </div>
-                    <div class="grid ">
-                        <div class="col-10" style="text-align: right">
-                            <label>Transtorn. Mentales: </label>
-                        </div>
-                        <div class="col-2">
-                            <p-checkbox [(ngModel)]="transtornMentales"
-                                        value="Transtorn. Mentales"></p-checkbox>
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-            <div class="grid">
-                <div class="grid col-12">
-                    <div class="col-3" style="text-align: right">
-                        <label>Otros: </label>
-                    </div>
-                    <div class="col-1">
-                        <p-checkbox [(ngModel)]="otros23" value="otros" class="mt-1"></p-checkbox>
-                    </div>
-                    <div class="col-8">
-                        <input type="text" pInputText [(ngModel)]="otros2"
-                               (keyup)="eventoKeyupAntecedentesPersonales()"
-                               class="inputfield w-full">
                     </div>
                 </div>
             </div>
-        </p-fieldset>
-        <br>
+        </div>
+        <div class="col-12 md:col-6 lg:col-3 p-field">
+            <p-toolbar>
+                <ng-template pTemplate="left">
+                    <label class="labelBlanco">VACUNAS PREVIAS</label>
+                </ng-template>
+            </p-toolbar>
+            <div class="border">
+                <form [formGroup]='formVacunasPrevias' class="m-2">
+                    <div class="flex">
+                        <div class="col-6 text-right">
+                            <label class=" mr-1 ">Rubeola: </label>
+                        </div>
+                        <div class="col-6">
+                            <p-selectButton [options]="opciones" formControlName="rubeola"
+                                            optionValue="booleano"
+                                            optionLabel="name"
+                                            class="inputfield w-full p-inputtext-sm"></p-selectButton>
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <div class="col-6 text-right">
+                            <label class=" mr-1 ">Hepatitis B: </label>
+                        </div>
+                        <div class="col-6">
+                            <p-selectButton [options]="opciones" formControlName="hepatitisB"
+                                            optionValue="booleano"
+                                            optionLabel="name"
+                                            class="inputfield w-full p-inputtext-sm"></p-selectButton>
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <div class="col-6 text-right">
+                            <label class=" mr-1 ">Papiloma Virus: </label>
+                        </div>
+                        <div class="col-6">
+                            <p-selectButton [options]="opciones" formControlName="papiloma"
+                                            optionValue="booleano"
+                                            optionLabel="name"></p-selectButton>
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <div class="col-6 text-right">
+                            <label class=" mr-1 ">Influenza: </label>
+                        </div>
+                        <div class="col-6">
+                            <p-selectButton [options]="opciones" formControlName="influenza"
+                                            optionValue="booleano"
+                                            optionLabel="name"></p-selectButton>
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <div class="col-6 text-right">
+                            <label class=" mr-1 ">Covid 19: </label>
+                        </div>
+                        <div class="col-6">
+                            <p-selectButton [options]="opciones" formControlName="covid"
+                                            optionValue="booleano"
+                                            optionLabel="name"></p-selectButton>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-</p-fieldset>
+</div>
+

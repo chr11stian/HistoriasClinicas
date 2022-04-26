@@ -1,76 +1,78 @@
-<div>
-    <p-toast key="myKey1"></p-toast>
-    <p-panel>
-        <ng-template pTemplate="header">
-            OFERTAS
-        </ng-template>
-        <div class="grid">
-
-            <div class="col-12 md:col-6 lg:col-5 p-field">
-                <form [formGroup]="formCuposOferta">
-                    <div class="grid">
-                        <div class="col-12 md:col-6 lg:col-3 p-field">
-                            <span class="">FECHA</span>
-                            <div class="p-inputgroup">
-                                <p-calendar dateFormat="yy-mm-dd"
-                                            formControlName="fechaOferta"
-                                            [readonlyInput]="true">
-                                </p-calendar>
-                            </div>
-                        </div>
-                        <div class="col-12 md:col-6 lg:col-6 p-field">
-                            <span class="">SERVICIO (UPS)</span>
-                            <div class="">
-                                <p-dropdown
-                                        [options]="ups"
-                                        formControlName="SelectUPSOferta"
-                                        placeholder="Seleccione un servicio"
-                                        optionLabel="nombreUPS"
-                                        optionValue="nombreUPS"
-                                        [showClear]="false"
-                                        (ngModelChange)="changeServicioSelected()">
-                                </p-dropdown>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-            <div class="col-12 md:col-6 lg:col-5 p-field">
-                <form [formGroup]="formCuposOferta">
-                    <div class="grid">
+<p-toast key="myKey1"></p-toast>
+<div class="border m-1" id="swal">
+    <div class="col-12 md:col-6 lg:col-12 p-field">
+        <div class="grid m-0">
+            <div class="col-12  md:col-6 lg:col-12 p-field">
+                <div class="border2">
+                    <div class="grid m-1">
                         <div class="col-12 md:col-6 lg:col-5 p-field">
-                            <div class="">
-                                <h5>PERSONAL:</h5>
-                                <span>{{personalSelected}}</span>
-                            </div>
+                            <form [formGroup]="formCuposOferta">
+                                <div class="grid">
+                                    <div class="col-12 md:col-6 lg:col-3 p-field">
+                                        <label class="">FECHA</label>
+                                        <div class="p-inputgroup">
+                                            <p-calendar dateFormat="yy-mm-dd"
+                                                        formControlName="fechaOferta"
+                                                        [readonlyInput]="true"
+                                                        (onSelect)="changeServicioSelected()">
+                                            </p-calendar>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 md:col-6 lg:col-6 p-field">
+                                        <label class="">SERVICIO (UPS)</label>
+                                        <div class="">
+                                            <p-dropdown
+                                                    [options]="ups"
+                                                    formControlName="SelectUPSOferta"
+                                                    placeholder="Seleccione un servicio"
+                                                    optionLabel="nombreUPS"
+                                                    optionValue="nombreUPS"
+                                                    [showClear]="false"
+                                                    (ngModelChange)="changeServicioSelected()">
+                                            </p-dropdown>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 md:col-6 lg:col-6 p-field" *ngIf="listActualTipoConsulta.length > 0">
+                                        <label class="">TIPO CONSULTA</label>
+                                        <div class="">
+                                            <p-dropdown
+                                                    [options]="listActualTipoConsulta"
+                                                    formControlName="tipoConsulta"
+                                                    placeholder="Seleccione"
+                                                    optionLabel="name"
+                                                    optionValue="value"
+                                                    [showClear]="false">
+                                            </p-dropdown>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                        <div class="col-12 md:col-6 lg:col-5 p-field">
-                            <div class="">
-                                <h5>AMBIENTE:</h5>
-                                <span>{{dataSelectAmbiente}}</span>
-                            </div>
+                        <div class="col-12 md:col-6 lg:col-7 p-field">
+                            <form [formGroup]="formCuposOferta">
+                                <div class="grid align-content-center">
+                                    <div class="col-12 md:col-6 lg:col-7 p-field">
+                                        <div class="">
+                                            <label style="padding: 3px; color: #3f3f3e">PERSONAL:</label>
+                                            <label style="padding: 3px">{{personalSelected}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 md:col-6 lg:col-5 p-field">
+                                        <div class="">
+                                            <label style="padding: 3px; color: #3f3f3e">AMBIENTE:</label>
+                                            <label style="padding: 3px">{{dataSelectAmbiente}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
-            <div class="col-12 md:col-6 lg:col-2 p-field">
-                <form [formGroup]="formCuposOferta">
-                    <div class="grid">
-                        <div class="col-12 md:col-6 lg:col-12 p-field">
-                            <div class="">
-                                <button pButton type="button" label="Cancelar" class="p-button-danger"></button>
-                                <button pButton type="button" label="Siguiente" (click)="aceptarDialogCupos()"></button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
         </div>
-        <br>
-        <div class="grid">
-            <div class="p-field col-6 p-card">
+
+        <div class="grid m-2">
+            <div class="col-12 md:col-6 lg:col-6 p-field p-card">
                 <p-table [value]="dataOfertasCupos" selectionMode="single"
                          [(selection)]="personalSelected"
                          responsiveLayout="scroll" (onRowSelect)="onRowSelect($event)">
@@ -91,8 +93,9 @@
                     </ng-template>
                 </p-table>
             </div>
-            <div class="p-field col-6 p-card">
-                <p-table [value]="dataSelectHoras" dataKey="nroCupo">
+            <div class="col-12 md:col-6 lg:col-6 p-field p-card">
+                <p-table [value]="dataSelectHoras" responsiveLayout="scroll" class="horasrx"
+                         scrollHeight="480px" selectionMode="single">
                     <ng-template pTemplate="header">
                         <tr>
                             <th style="text-align: center">NRO</th>
@@ -103,7 +106,7 @@
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-                        <tr>
+                        <tr [pSelectableRow]="rowData">
                             <td style="text-align: center">{{ rowIndex + 1}}</td>
                             <td style="text-align: center">{{ rowData.horaInicio}}</td>
                             <td style="text-align: center">{{ rowData.horaFin}}</td>
@@ -113,7 +116,6 @@
                                 <p-tag *ngIf="rowData.estado == 'OCUPADO'" severity="danger"
                                        value="OCUPADO"></p-tag>
                             </td>
-
                             <td style="text-align: center">
                                 <p-checkbox name="groupname" [value]="rowData"
                                             *ngIf="rowData.estado == estadoHoras" [disabled]="!estadoHoras"
@@ -125,7 +127,13 @@
                 </p-table>
             </div>
         </div>
-    </p-panel>
+    </div>
+</div>
+
+<div class="footer">
+    <button pButton type="button" (click)="aceptarDialogCupos()" label="Siguiente"
+            class="p-button-primary mt-4 mr-2"></button>
+    <button pButton type="button" label="Cancelar" class="p-button-danger mt-4"></button>
 </div>
 
 

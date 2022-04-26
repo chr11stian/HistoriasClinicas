@@ -1,0 +1,113 @@
+<div>
+    <p-panel>
+        <!-- <ng-template pTemplate="header">
+            <label class="">GESTACIONES DEL PACIENTE</label>
+        </ng-template> -->
+        <!-- <div class="grid">
+
+            <div class="col-12 md:col-12 md:col-6 lg:col-1">
+                <div class="p-inputgroup">
+                    <img class="image" alt="Imagen" src="{{'data:image/jpg;base64,' + imagePath}}">
+                </div>
+            </div>
+            <div class="col-12 md:col-6 lg:col-10">
+                <div class="grid">
+                    <div class="col-12 md:col-6 lg:col-2 p-field">
+                        <div class="p-inputgroup">
+                            <label>{{tipoDoc}}:</label>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-8 p-field">
+                        <div class="p-inputgroup">
+                            <tr>{{nroDoc}}</tr>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="col-12 md:col-6 lg:col-2 p-field">
+                        <div class="p-inputgroup">
+                            <label>NUMERO DE HCL:</label>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-8 p-field">
+                        <div class="p-inputgroup">
+                            <tr>{{nroHcl}}</tr>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="col-12 md:col-6 lg:col-2 p-field">
+                        <div class="p-inputgroup">
+                            <label>APELLIDOS Y NOMBRES:</label>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-8 p-field">
+                        <div class="p-inputgroup">
+                            <tr>{{apellidosNombres}}</tr>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-12 md:col-12 md:col-6 lg:col-1">
+                <div class="p-inputgroup">
+                </div>
+            </div>
+
+        </div> -->
+    </p-panel>
+
+
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+            <span class="p-m-0 font-bold">
+                LISTA DE FUA
+            </span>
+        </ng-template>
+        <ng-template pTemplate="right" class="button">
+            <button pButton pRipple class="p-button-rounded p-button-info ">
+                    <a style="color: white; font-weight: bold;"
+                    href="http://192.168.5.3:8200/jasperserver/rest_v2/reports/Reports/FUA/anexo1.pdf?idConsulta={{idConsulta}}"
+                    target="_blank">Descargar todo</a></button>
+        </ng-template>
+    </p-toolbar>
+
+
+    <p-table [value]="listDataFUA" #dt styleClass="p-datatable-gridlines" [rows]="10"
+        [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+        currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+
+        <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+            <tr>
+                <th style="text-align: center">Nro</th>
+                <th style="text-align: center">Cod Prestación</th>
+                <th style="text-align: center">ACCIONES</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-i="rowIndex">
+            <tr>
+                <td style="text-align: center">{{ i+1 }}</td>
+                <td style="text-align: center">{{ rowData.codPrestacion }}</td>
+                <td style="text-align: center">
+                    <span class="">
+                        <button pButton pRipple class="p-button-rounded p-button-success" label="IR FUA"
+                            icon="pi pi-caret-right" (click)="openFUA(rowData)"></button>
+                    </span>
+                    <span class="ml-1">
+                        <button pButton pRipple class="p-button-rounded p-button-info">
+                            <a style="color: white; font-weight: bold;"
+                                href="http://192.168.5.3:8200/jasperserver/rest_v2/reports/Reports/FUA/anexo1.pdf?idFua={{rowData.id}}"
+                                target="_blank">Descargar FUA</a>
+                        </button>
+
+                    </span>
+
+                    <!-- <span class="pl-1">
+                        <button pButton pRipple class="p-button-rounded p-button-info" label="Imprimir" 
+                            icon="pi pi-print" (click)="imprimirFUA(rowData)"></button>
+                    </span> -->
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

@@ -12,19 +12,26 @@ import {AppComponent} from './app.component';
 import {LoginComponent} from './login/login.component';
 import {NotFoundComponent} from './not-found/not-found.component';
 import {PrimeModule} from './shared/prime/prime.module'
+
 import {ChartModule} from 'primeng/chart';
 import {DividerModule} from "primeng/divider";
 import {ToggleButtonModule} from 'primeng/togglebutton';
 import {InterceptorService} from "../interceptors/interceptor.service";
+import {FullCalendarModule} from "primeng/fullcalendar";
+import { LoginRolComponent } from './login/login-rol/login-rol.component';
+import { PasswordComponent } from './login/password/password.component';
 
 
 @NgModule({
     declarations: [
         AppComponent,
         LoginComponent,
-        NotFoundComponent
+        NotFoundComponent,
+        LoginRolComponent,
+        PasswordComponent,
     ],
     imports: [
+        FullCalendarModule,
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,

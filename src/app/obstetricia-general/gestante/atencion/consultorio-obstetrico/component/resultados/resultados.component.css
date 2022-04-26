@@ -1,3 +1,82 @@
+p-selectbutton >>> .p-selectbutton .p-button.p-highlight {
+  background: #0c3866;
+  border-color: #0c3866;
+}
+.button-toolbar{
+  margin: 5px;
+}
+.button-cancelar{
+  background: #d31329;
+  border: #d31329;
+}
+.button-agregar{
+  background: #0c3866;
+  border: #0c3866;
+}
+p-calendar >>> .p-button.p-button-icon-only {
+  background-color: #0c3866;
+}
+
+p-dialog>>> .p-autocomplete{
+  width:100%;
+}
+p-dialog>>> .p-dialog .p-dialog-header {
+  border-bottom: 0 none;
+  background: #0c3866;
+  color: #ffffff;
+  padding: 1.5rem;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+}
+.p-dialog .p-dialog-header .p-dialog-title {
+  font-weight: 600;
+  font-size: 1.25rem;
+  color:#ffffff;
+}
+.table-over{
+  overflow-x: auto;
+}
+.confirmation-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.p-d-inline{
+  width: auto;
+  z-index: 5;
+}
+:host >>> .p-dialog  {
+  z-index: 5;
+  width: auto;
+  background: #FFFFFF;
+}
+.p-table >>> .p-table{
+  overflow-x: auto;
+}
+p-panel>>>.p-panel .p-panel-header{
+  background: #D32F2F;
+  border: 1px solid #D32F2F;
+  color: #FFFFFF;
+
+}
+p-panel>>>.p-panel .p-panel-content{
+  border: 1px solid #D32F2F;
+
+}
+
+@media (min-width: 300px){
+}
+
+@media (min-width: 500px){
+
+}
+@media (min-width: 900px){
+
+}
+:host ::ng-deep .row-faltantes {
+  background-color: rgba(208, 255, 206, 0.801) !important;
+}
+
 p-fieldset >>> .p-fieldset .p-fieldset-legend {
   padding: 0.5rem;
   border: 1px solid #dee2e6;
@@ -7,26 +86,10 @@ p-fieldset >>> .p-fieldset .p-fieldset-legend {
   border-radius: 5px;
   font-size: small;
 }
-p-fieldset >>> .p-fieldset .p-fieldset-content {
-  padding: 2px;
-  font-size: xx-small;
+::ng-deep .dialogo .p-dialog-mask .p-element {
+  display: block;
 }
-/*:host ::ng-deep>>> .p-inputtext  {*/
-/*  border-radius: 10px;*/
-/*  height: 25px;*/
-/*}*/
-/* >>> .p-calendar .p-inputtext  {*/
-/*  border-radius: 0px;*/
-/*  height: 25px;*/
-/*}*/
-/*p-calendar >>> .p-button.p-button-icon-only {*/
-/*  background-color: #003c71;*/
-/*  width: 25px;*/
-/*  height: 25px;*/
-/*}*/
-.borde {
-  border: 1px solid #D4D4D4;
-  border-radius: 10px;
-  margin:1rem;
-  padding: 1rem;
+
+.p-inputtextarea:disabled{
+  opacity: 1;
 }

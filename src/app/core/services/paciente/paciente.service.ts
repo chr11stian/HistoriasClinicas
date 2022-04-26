@@ -39,4 +39,12 @@ export class PacienteService {
   {
     return this.http.get(`${this.base_url}/${this.bd}/pide/datos-sis/${nroDoc}`)
   }
+  /**PROMISES */
+  getPromisePacienteByNroDoc(data) {
+    return this.http.post<any>(`${this.base_url}/${this.bd}/paciente/docId`, data)
+    .toPromise()
+      .then(res => <any>res.object)
+      .then(data => { return data; })
+      .catch(error => { return error.error });
+  }
 }

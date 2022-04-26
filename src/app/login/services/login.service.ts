@@ -5,13 +5,15 @@ import {map} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {LoginInterface} from "../model/login.interface";
 import {environment} from "../../../environments/environment";
+import {escala} from "../../cred/citas/models/data";
 
 @Injectable({
     providedIn: 'root'
 })
 export class LoginService {
     base_uri = environment.base_uri;
-
+    base_uri_ = environment.base_uri_
+    listEscala: escala[]
     private currentUserSubject: BehaviorSubject<LoginInterface>;
     public currentUser: Observable<LoginInterface>;
 
@@ -36,7 +38,7 @@ export class LoginService {
                 if (user) {
                     const token = {
                         usuario: 'user',
-                        roles: user.usuario.estado,
+                        roles: user.usuario.rol,
                         token: user.token
                     }
                     console.log("token", token)
@@ -45,8 +47,6 @@ export class LoginService {
                     localStorage.setItem('user', JSON.stringify(token))
                     localStorage.setItem('usuario', JSON.stringify(user.usuario))
                     localStorage.setItem('token', JSON.stringify(token))
-
-
                 }
                 return user;
             }))
@@ -115,5 +115,51 @@ export class LoginService {
         localStorage.removeItem('token');
         localStorage.clear();
         this.router.navigate(['/login']);
+        console.log('entro')
+    }
+
+    getUser(body) {
+        return this.http.post<any>(`${this.base_uri}/modo`, body, {
+            headers: new HttpHeaders({
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json'
+            })
+        })
+    }
+
+    ingresar(body) {
+        return this.http.post<any>(`${this.base_uri}`, body, {
+            headers: new HttpHeaders({
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json'
+            })
+        }).pipe(map(user => {
+            console.log('user', user)
+            if (user) {
+                const token = {
+                    usuario: user.usuario.nroDocumento,
+                    roles: user.usuario.escala,
+                    token: user.token
+                }
+                console.log("token", token)
+                this.currentUserSubject.next(token)
+
+                localStorage.setItem('usuario', JSON.stringify(user.usuario))
+                localStorage.setItem('token', JSON.stringify(token))
+            }
+            return user;
+        }))
+    }
+
+    getRol() {
+        return this.http.get(`${this.base_uri_}/accesos/rol/all`);
+    }
+
+    crearRol(data) {
+        return this.http.post(`${this.base_uri_}/accesos/user`, data)
+    }
+
+    updatePassword(dni,data) {
+        return this.http.put(`${this.base_uri_}/accesos/user/${dni}`, data)
     }
 }

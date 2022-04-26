@@ -63,7 +63,7 @@ p-tabview >>> .p-tabview .p-tabview-panels {
 
 :host >>> .p-steps .p-steps-item .p-menuitem-link .p-steps-number {
     border-radius: 0px;
-    width: 135px;
+    width: 200px;
     height: 50px;
     color: transparent;
     background: white;

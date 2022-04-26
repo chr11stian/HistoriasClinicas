@@ -13,15 +13,36 @@ import { ConsultaObstetricoRoutingModule } from "./consulta-obstetrico-routing.m
 import { PaginatorModule } from "primeng/paginator";
 import { ModalTratamientoComponent } from "./component/tratamiento/modal-tratamiento/modal-tratamiento.component";
 import { ModalInmunizacionesComponent } from "./component/tratamiento/modal-inmunizaciones/modal-inmunizaciones.component";
-import { ModalInterconsultaComponent } from './component/tratamiento/modal-interconsulta/modal-interconsulta.component';
+import { ModalInterconsultaComponent } from './component/resultados/modal-interconsulta/modal-interconsulta.component';
 import { ModalRecomendacionesComponent } from './component/tratamiento/modal-recomendaciones/modal-recomendaciones.component';
 import { ModalExamenesAuxiliaresComponent } from './component/tratamiento/modal-examenes-auxiliares/modal-examenes-auxiliares.component';
+import {TamizajeViolenciaComponent} from "./component/tamizaje-violencia/tamizaje-violencia.component";
+import { ModalProcedimientosComponent } from './component/procedimientos/modal-procedimientos/modal-procedimientos.component';
+import { ProcedimientosComponent } from './component/procedimientos/procedimientos.component';
+import { EvaluacionesComponent } from './component/evaluaciones/evaluaciones.component';
+import { EcografiaSolicitudComponent } from './component/evaluaciones/ecografias/ecografia-solicitud/ecografia-solicitud.component';
+import { EcografiaResultadoComponent } from './component/evaluaciones/ecografias/ecografia-resultado/ecografia-resultado.component';
+import { EcografiasComponent } from './component/evaluaciones/ecografias/ecografias.component';
+import { LaboratorioComponent } from './component/evaluaciones/laboratorio/laboratorio.component';
+import { LabSolicitudComponent } from './component/evaluaciones/laboratorio/lab-solicitud/lab-solicitud.component';
+import { CronogramaComponent } from './component/resultados/cronograma/cronograma.component';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import listPlugin from '@fullcalendar/list';
+import interactionPlugin from '@fullcalendar/interaction';
+import {FullCalendarModule} from "@fullcalendar/angular";
 
+FullCalendarModule.registerPlugins([
+    dayGridPlugin,
+    timeGridPlugin,
+    listPlugin,
+    interactionPlugin
+])
 @NgModule({
     declarations: [
         ModalTratamientoComponent,
         ModalInmunizacionesComponent,
-
+        TamizajeViolenciaComponent,
         DatosGeneralesComponent,
         StepGeneral_consultaComponent,
         InterrogatorioComponent,
@@ -31,10 +52,18 @@ import { ModalExamenesAuxiliaresComponent } from './component/tratamiento/modal-
         ModalInterconsultaComponent,
         ModalRecomendacionesComponent,
         ModalExamenesAuxiliaresComponent,
-
-
+        ProcedimientosComponent,
+        EvaluacionesComponent,
+        ModalProcedimientosComponent,
+        EcografiaSolicitudComponent,
+        EcografiaResultadoComponent,
+        EcografiasComponent,
+        LaboratorioComponent,
+        LabSolicitudComponent,
+        CronogramaComponent
     ],
     imports: [
+        FullCalendarModule,
         ConsultaObstetricoRoutingModule,
         CommonModule,
         PrimeModule,

@@ -1,0 +1,379 @@
+<div class="card">
+    <p-toolbar>
+      <ng-template pTemplate="left" >
+        <span class="p-m-0">TRATAMIENTO</span>
+      </ng-template>
+      <ng-template pTemplate="right" class="button">
+        <button pButton pRipple label="Agregar" iconPos="right" icon="pi pi-plus-circle"
+                class="guardar mr-2" (click)="openTratamiento()" style="background-color: #0c3866"></button>
+      </ng-template>
+    </p-toolbar>
+
+    <p-table class="table-over" [value]="tratamientos" #dt styleClass="p-datatable-gridlines" [rows]="10"
+             [rowsPerPageOptions]="[10, 25, 50]"
+             [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+             currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="text-align: center" class="font-2">Nro</th>
+          <th style="text-align: center" class="font-2">COD.</th>
+          <th style="text-align: center" class="font-2">NOMBRE</th>
+          <th style="text-align: center" class="font-2">FF</th>
+          <th style="text-align: center" class="font-2">CONCENTRACION</th>
+          <th style="text-align: center" class="font-2">VIA ADMINISTRACION</th>
+          <th style="text-align: center" class="font-2">CANT.</th>
+          <th style="text-align: center" class="font-2">DOSIS</th>
+          <th style="text-align: center" class="font-2">INTERVALO</th>
+          <th style="text-align: center" class="font-2">DURACION</th>
+          <th style="text-align: center" class="font-2">FECHA VENCIMIENTO</th>
+          <th style="text-align: center" class="font-2">OBS.</th>
+          <th style="text-align: center" class="font-2">IND.</th>
+          <th style="text-align: center" class="font-2">COD. PRESTACIÓN</th>
+          <th style="text-align: center" class="font-2">CIE 10 HIS</th>
+          <th style="text-align: center" class="font-2">ACCION</th>
+
+
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+        <tr>
+          <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+          <td style="text-align: center">{{ rowData.medicamento.codigo }}</td>
+          <td style="text-align: center">{{ rowData.medicamento.nombre }}</td>
+          <td style="text-align: center">{{ rowData.medicamento.ff }}</td>
+          <td style="text-align: center">{{ rowData.medicamento.concentracion  }}</td>
+          <td style="text-align: center">{{ rowData.medicamento.viaAdministracion }}</td>
+          <td style="text-align: center">{{ rowData.cantidad }}</td>
+          <td style="text-align: center">{{ rowData.dosis }}</td>
+          <td style="text-align: center">{{ rowData.intervalo }}</td>
+          <td style="text-align: center">{{ rowData.duracion }}</td>
+          <td style="text-align: center">{{ rowData.fechaVenc | date: 'dd-MM-yyy'}}</td>
+<!--          <td style="text-align: center">{{ rowData.observaciones}}</td>-->
+          <td style="text-align: center">
+            <button pButton pRipple icon="pi pi-eye"  pTooltip="Visualizar" class="p-button-rounded p-button-danger m-1"
+                    (click)="verObservaciones(rowData.observaciones)" ></button>
+          </td>
+          <td style="text-align: center">
+            <button pButton pRipple icon="pi pi-eye"  pTooltip="Visualizar" class="p-button-rounded p-button-help m-1"
+                    (click)="verIndicaciones(rowData.indicaciones)" ></button>
+          </td>
+
+<!--          <td style="text-align: center">{{ rowData.indicaciones.efectosMedicamento}}<br>-->
+<!--                    {{ rowData.indicaciones.instrucciones}}<br>-->
+<!--                    {{ rowData.indicaciones.advertencias}}<br>-->
+<!--                    {{ rowData.indicaciones.otrasIndicaciones}}</td>-->
+          <td style="text-align: center">{{ rowData.codPrestacion}}</td>
+          <td style="text-align: center">{{ rowData.cie10SIS}}</td>
+          <td style="text-align: center">
+            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                    (click)="editarTratamiento(rowData,rowIndex)" pTooltip="Editar"></button>
+            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
+                    (click)="eliminarTratamiento(rowIndex)" pTooltip="Eliminar">
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+
+    </p-table>
+
+    <p-toolbar>
+      <ng-template pTemplate="left" >
+
+      </ng-template>
+      <ng-template pTemplate="right" class="button">
+        <button pButton pRipple label=" Receta " iconPos="right" icon="pi pi-print"
+                class="guardar mr-2"  style="background-color: #0c3866" >
+          <a style="color: white; font-weight: bold;"
+             href="http://192.168.5.3:8200/jasperserver/rest_v2/reports/Reports/RECETA/recetas.pdf?idConsulta={{data.idConsulta}}"
+             target="_blank">Imprimir </a>
+        </button>
+<!--        <button pButton pRipple label="Imprimir Receta" iconPos="right" icon="pi pi-print"-->
+<!--                class="guardar mr-2" (click)="imprimirReceta()" style="background-color: #0c3866" ></button>-->
+      </ng-template>
+    </p-toolbar>
+</div>
+
+<p-dialog header="INGRESAR TRATAMIENTO" [(visible)]="dialogTratamiento" [modal]="true" [style]="{width: '70vw'}"
+          [draggable]="false" [resizable]="false">
+  <form [formGroup]='formTratamiento'>
+    <div class="grid m-2">
+      <div class="col-12 p-fluid " *ngIf="!estadoEditar">
+        <label class="">CIE 10 HIS: </label>
+        <p-dropdown [options]="listaDiagnosticos" formControlName="cie10SIS"
+                    placeholder="Seleccionar un Diagnostico"
+                    (onChange)="onChangeDiagnostico()"
+                    optionLabel="diagnosticoSIS">
+          <ng-template let-diagnosticos pTemplate="item">
+            <div class="flex align-items-center">
+              <div>{{diagnosticos.cie10SIS}}-{{diagnosticos.diagnosticoSIS}}</div>
+            </div>
+          </ng-template>
+        </p-dropdown>
+      </div>
+      <div class="col-12 p-fluid" *ngIf="estadoEditar">
+        <label class="">CIE 10 HIS: </label>
+        <input type="text" pInputText placeholder="CIE 10" class="inputfield w-full " formControlName="codigoCIE"
+               style="text-transform:uppercase" disabled>
+
+        <!--              <p-dropdown  inputId="dropdown" [options]="listaDiagnosticos"-->
+        <!--                           formControlName="cie10SIS"-->
+        <!--                           placeholder="seleccionar"-->
+        <!--                           defaultLabel="Seleccione:" >-->
+        <!--              </p-dropdown>-->
+      </div>
+
+    </div>
+    <div class="grid m-2">
+      <div class="col-4 p-fluid">
+        <label class="">COD. PRESTACION: </label>
+        <input type="text" pInputText placeholder="Prestacion" class="inputfield w-full " formControlName="codPrestacion"
+               style="text-transform:uppercase" disabled >
+      </div>
+      <div class="col-8 p-fluid " *ngIf="!estadoEditar" >
+        <label class="">DESRIPCION DE PRESTACION: </label>
+        <input type="text" pInputText placeholder="Prestacion" class="inputfield w-full " formControlName="prestacion"
+               style="text-transform:uppercase" value="descripcion" disabled>
+      </div>
+
+
+    </div>
+    <div class="grid m-2 p-fluid">
+      <div class="col-12 p-fluid">
+        <label *ngIf="!estadoEditar">Seleccione un Medicamento:</label>
+      </div>
+      <div class="col-12 p-fluid">
+        <p-autoComplete  formControlName="medicamento"
+                         *ngIf="!estadoEditar" [virtualScroll]="true"
+                         [suggestions]="aux"
+                         [itemSize]="34" (completeMethod)="filterItems($event)"
+                         field="stringMedicamento" [dropdown]="true"
+                         (onSelect)="selectedMedicamento($event)"
+        >
+        </p-autoComplete>
+      </div>
+    </div>
+    <div class="grid m-1">
+      <div class="col-12 m-1">
+        <p-toolbar>
+          <div class="p-toolbar-group-left">
+            <h3 class="ml-2">MEDICAMENTO:</h3>
+          </div>
+          <div class="p-toolbar-group-right">
+            <label class="" *ngIf="!estadoEditar">STOCK: </label>
+            <input type="text" pInputText  *ngIf="!estadoEditar" placeholder="Stock" class="inputfield w-full " formControlName="stock"
+                   style="text-transform:uppercase">
+          </div>
+        </p-toolbar>
+        <div class="border">
+          <div class="grid m-2">
+              <div class="col-3 p-fluid">
+                <label class="">CODIGO: </label>
+                <input type="text" pInputText placeholder="Codigo" class="inputfield w-full " formControlName="codigo"
+                       style="text-transform:uppercase">
+              </div>
+              <div class="col-7 p-fluid">
+                <label class="">NOMBRE: </label>
+                <input type="text" pInputText placeholder="Nombre" class="inputfield w-full " formControlName="nombre"
+                       style="text-transform:uppercase">
+              </div>
+              <div class="col-2 p-fluid">
+                <label class="">PRESENTACIÓN: </label>
+                <input type="text" pInputText placeholder="Presentación" class="inputfield w-full " formControlName="ff"
+                       style="text-transform:uppercase">
+              </div>
+          </div>
+          <div class="grid m-2">
+            <div class="col-3 p-fluid">
+              <label class="">CONCENTRACIÓN: </label>
+              <input type="text" pInputText placeholder="Concentración" class="inputfield w-full " formControlName="concentracion"
+                     style="text-transform:uppercase">
+            </div>
+            <div class="col-3 p-fluid">
+              <label class="">VIA ADMINISTRACIÓN: </label>
+              <p-dropdown  inputId="dropdown" [options]="viaadministracionList"
+                           formControlName="viaAdministracion"
+                           placeholder="seleccionar"
+                           optionLabel="label" optionValue="value"
+                           defaultLabel="Seleccione:" >
+              </p-dropdown>
+            </div>
+            <div class="col-3 p-fluid">
+              <label class="">FECHA VENCIMIENTO: </label><br>
+              <p-calendar formControlName="fechaVenc" class="inputfield w-full"  [showIcon]="true" inputId="icon" ></p-calendar>
+            </div>
+            <div class="col-3 p-fluid">
+              <label class="">NOMBRE COMERCIAL: </label>
+              <input type="text" pInputText  placeholder="NOMBRE COMERCIAL" class="inputfield w-full " formControlName="nombreComercial"
+                     style="text-transform:uppercase">
+             </div>
+            </div>
+          <hr style="background:#0c3866 ">
+
+          <div class="grid  m-2">
+
+            <div class="col-3 p-fluid">
+              <label class="">CANTIDAD: </label>
+              <p-inputNumber placeholder="Cantidad" class="inputfield w-full " formControlName="cantidad" [showButtons]="true" inputId="minmax-buttons" [min]="1" >
+              </p-inputNumber>
+<!--              <input type="number" pInputText  placeholder="Cantidad" class="inputfield w-full " formControlName="cantidad"-->
+<!--                     style="text-transform:uppercase">-->
+            </div>
+            <div class="col-2 p-fluid">
+              <label class="">DOSIS: </label>
+              <input type="text" pInputText placeholder="Dosis" class="inputfield w-full " formControlName="dosis"
+                     style="text-transform:uppercase">
+            </div>
+            <div class="col-4 p-fluid">
+              <label class="">INTERVALO: </label>
+              <p-dropdown  inputId="dropdown" [options]="intervaloList"
+                           formControlName="intervalo"
+                           placeholder="seleccionar"
+                           optionLabel="label" optionValue="value"
+                           defaultLabel="Seleccione:" >
+              </p-dropdown>
+            </div>
+            <div class="col-3 p-fluid">
+              <label class="">DURACIÓN: </label>
+              <input type="text" pInputText placeholder="Duracion" class="inputfield w-full " formControlName="duracion"
+                     style="text-transform:uppercase">
+            </div>
+          </div>
+        </div>
+
+        <p-toolbar>
+          <h3 class="ml-2">INDICACIONES:</h3>
+        </p-toolbar>
+        <div class="border">
+          <div class="grid m-2">
+            <div class="col-6 p-fluid">
+              <label class="">EFECTOS A MEDICAMENTOS: </label>
+              <textarea [rows]="2" [cols]="30"  style="text-transform:uppercase" placeholder="Efectos Medicamentos" pInputTextarea   formControlName="efectosMedicamento"></textarea>
+            </div>
+            <div class="col-6 p-fluid">
+              <label class="">INSTRUCCIONES: </label>
+              <textarea [rows]="2" [cols]="30"  style="text-transform:uppercase" placeholder="Instrucciones" pInputTextarea   formControlName="instrucciones"></textarea>
+            </div>
+            <div class="col-6 p-fluid">
+              <label class="">ADVERTENCIA: </label>
+              <textarea [rows]="2" [cols]="30"  style="text-transform:uppercase" placeholder="Advertencias" pInputTextarea  formControlName="advertencias"></textarea>
+            </div>
+            <div class="col-6 p-fluid">
+              <label class="">OTRAS INDICACIONES: </label>
+              <textarea [rows]="2" [cols]="30"  style="text-transform:uppercase" placeholder="Otras Indicaciones" pInputTextarea   formControlName="otrasIndicaciones"></textarea>
+            </div>
+          </div>
+        </div>
+        <p-toolbar>
+          <h3 class="ml-2">OBSERVACIONES:</h3>
+        </p-toolbar>
+        <div class="border">
+          <div class="grid m-2">
+            <div class="col-12 p-fluid">
+              <textarea [rows]="2" [cols]="30"  style="text-transform:uppercase" pInputTextarea placeholder="Observaciones"   formControlName="observaciones"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <ng-template pTemplate="footer">
+    <button pButton type="button"
+            label="Guardar"
+            *ngIf="!estadoEditar"
+            icon="pi pi-save"
+            style="background-color: #0c3866"
+            (click)="closeDialogGuardar()"
+            class="botonGuardar"></button>
+    <button pButton type="button"
+            *ngIf="estadoEditar"
+            label="Editar"
+            icon="pi pi-pencil"
+            style="background-color: #0c3866"
+            (click)="closeEditar()"
+            class="botonGuardar"></button>
+    <button pButton type="button"
+            label="Cancelar"
+            icon="pi pi-times-circle"
+            style="background-color:  #bf0d21"
+            (click)="canceled()"
+            class="botonCancelar"></button>
+  </ng-template>
+</p-dialog>
+
+<p-dialog header="INDICACIONES" [(visible)]="dialogIndicaciones" [modal]="true" [style]="{width: '70vw'}"
+          [draggable]="false" [resizable]="false">
+  <form [formGroup]='formIndicaciones'>
+
+    <div class="grid m-1">
+      <div class="col-12 m-1">
+        <p-toolbar>
+          <h3 class="ml-2">INDICACIONES A TOMAR EN CUENTA EN ESTE TRATAMIENTO:</h3>
+        </p-toolbar>
+        <div class="border">
+          <div class="grid m-2">
+            <div class="col-12 md:col-6 lg:col-6 p-fluid">
+              <label class="">EFECTOS A MEDICAMENTOS: </label>
+              <textarea [rows]="2" [cols]="30"  style="text-transform:uppercase" placeholder="Efectos Medicamentos" pInputTextarea   formControlName="efectosMedicamento"></textarea>
+            </div>
+            <div class="col-12 md:col-6 lg:col-6 p-fluid">
+              <label class="">INSTRUCCIONES: </label>
+              <textarea [rows]="2" [cols]="30"  style="text-transform:uppercase" placeholder="Instrucciones" pInputTextarea   formControlName="instrucciones"></textarea>
+            </div>
+            <div class="col-12 md:col-6 lg:col-6 p-fluid">
+              <label class="">ADVERTENCIA: </label>
+              <textarea [rows]="2" [cols]="30"  style="text-transform:uppercase" placeholder="Advertencias" pInputTextarea   formControlName="advertencias"></textarea>
+            </div>
+            <div class="col-12 md:col-6 lg:col-6 p-fluid">
+              <label class="">OTRAS INDICACIONES: </label>
+              <textarea [rows]="2" [cols]="30"  style="text-transform:uppercase" placeholder="Otras Indicaciones" pInputTextarea   formControlName="otrasIndicaciones"></textarea>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </form>
+
+  <ng-template pTemplate="footer">
+    <button pButton type="button"
+            label="Cerrar"
+            icon="pi pi-times-circle"
+            style="background-color:  #bf0d21"
+            (click)="dialogIndicaciones=false"
+            class="botonCancelar"></button>
+  </ng-template>
+</p-dialog>
+<p-dialog header="OBSERVACIONES" [(visible)]="dialogObservaciones" [modal]="true" [style]="{width: '50vw'}"
+          [draggable]="false" [resizable]="false">
+  <form [formGroup]='formIndicaciones'>
+
+    <div class="grid m-1">
+      <div class="col-12 m-1">
+        <p-toolbar>
+          <h3 class="ml-2">OBSERVACIONES A CONSIDERAR:</h3>
+        </p-toolbar>
+        <div class="border">
+          <div class="grid m-2">
+            <div class="col-12 p-fluid">
+              <textarea [rows]="2" [cols]="30"  style="text-transform:uppercase" placeholder="Observaciones" pInputTextarea   formControlName="observaciones"></textarea>
+            </div>
+        </div>
+
+      </div>
+    </div>
+    </div>
+  </form>
+
+  <ng-template pTemplate="footer">
+    <button pButton type="button"
+            label="Cerrar"
+            icon="pi pi-times-circle"
+            style="background-color:  #bf0d21"
+            (click)="dialogObservaciones=false"
+            class="botonCancelar"></button>
+  </ng-template>
+</p-dialog>
+
+
+

@@ -1,13 +1,72 @@
-<div class="grid">
-    <div class="lg:col-6 md:col-6 col-fixed">
-        <p-table [value]="diagnosticoNosologico" [rowHover]="true"
-                 [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,15]"
+<div class="card">
+
+    <div class="col-12">
+        <p-table [value]="tablaResumenDx"  responsiveLayout="scroll"
+                 [(selection)]="selectedProducts" [loading]="loading" [rowHover]="true" styleClass="p-datatable-gridlines">
+
+            <ng-template pTemplate="caption">
+                <div class="flex justify-content-between">
+                    <div class="table-header mt-2">
+                        RESUMEN DE RESULTADOS DE EVALUACIONES - TESTS - TAMIZAJES - INMUNIZACIONES - LABORATORIO
+                    </div>
+                    <div>
+                        <button pButton pRipple label="Agregar a Diagnósticos" icon="pi pi-plus" class="p-button-danger"
+                                (click)="agregarToDx()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="text-align: center" class="font-2">Nro</th>
+<!--                    <th style="text-align: center" class="font-2">EDAD</th>-->
+                    <th style="text-align: center" class="font-2">NOMBRE</th>
+                    <th style="text-align: center" class="font-2">EVALUACION</th>
+                    <th style="text-align: center" class="font-2">RESULTADO</th>
+<!--                    <th style="width: 3rem">ESTADO</th>-->
+                    <th style="width: 3rem">
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-listaResumen let-rowIndex="rowIndex">
+                <tr class="p-selectable-row" [ngClass]="{'fondoamarillo': listaResumen.nombre === 'INMUNIZACIONES','fondoverde':listaResumen.nombre === 'TAMIZAJES','fondoceleste':listaResumen.nombre === 'EVALUACIONES O TEST','fondogris':listaResumen.nombre === 'LABORATORIO','fondoSuplementacion':listaResumen.nombre === 'MNM'}">
+                    <td style="text-transform:uppercase;text-align: center">
+                        {{rowIndex+1}}
+                    </td>
+<!--                    <td style="text-transform:uppercase;text-align: center" >-->
+<!--                        {{this.dataConsulta.anio }} (años)    {{this.dataConsulta.mes }} (meses)    {{this.dataConsulta.dia }} (dias)-->
+<!--                    </td>-->
+                    <td style="text-transform:uppercase;text-align: center" >
+                        {{listaResumen.nombre}}
+                    </td>
+                    <td style="text-transform:uppercase;text-align: center">
+                        {{listaResumen.evaluacion}}
+                    </td >
+                    <td style="text-transform:uppercase;text-align: center"  [ngClass]="{'rojo': listaResumen.resultado === 'POSITIVO' || listaResumen.resultado =='RETRASO' || listaResumen.resultado =='NINO CON ALIMENTACION COMPLEMENTARIA INADECUADA' || listaResumen.resultado =='Sobrepeso' || listaResumen.resultado =='Riesgo microcefalia' || listaResumen.resultado =='Desnutrición' }">
+                        {{listaResumen.resultado}}
+                    </td>
+<!--                    <td>-->
+<!--                        <p-inputSwitch>{{checked[rowIndex]}}</p-inputSwitch>-->
+<!--                    </td>-->
+                    <td>
+                        <p-tableCheckbox [value]="listaResumen"></p-tableCheckbox>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <br>
+
+    <div class="col-12 lg:col-12 md:col-12">
+        <p-table [value]="diagnosticos" [rowHover]="true" styleClass="p-datatable-gridlines"
+                 responsiveLayout="scroll" [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,15]"
                  [paginator]="true" currentPageReportTemplate="Mostrando {first} al {last} de {totalRecords} entradas"
                  [filterDelay]="0">
             <ng-template pTemplate="caption">
                 <div class="flex justify-content-between">
                     <div class="table-header mt-2">
-                        1. Diagnóstico Nosológico o Sindrómico
+                        1. DIAGNÓSTICO NOSOLÓGICO O SINDRÓMICO
                     </div>
                     <div>
                         <button pButton pRipple label="Agregar" icon="pi pi-plus-circle" class="guardar mr-2"
@@ -18,17 +77,34 @@
             <ng-template pTemplate="header">
                 <tr>
                     <th style="text-align: center" class="font-2">Nro</th>
-                    <th style="text-align: center" class="font-1">CIE 10</th>
-                    <th style="text-align: center" class="font-2">DIAGNOSTICOS</th>
+                    <th style="text-align: center" class="font-2">CODIGO DE PRESTACION</th>
+                    <th style="text-align: center" class="font-2">NOMBRE SUBTITULO UPS</th>
+                    <th style="text-align: center" class="font-1">DIAGNÓSTICO SIS</th>
+                    <th style="text-align: center" class="font-2">CIE 10 SIS</th>
+                    <th style="text-align: center" class="font-1">DIAGNÓSTICO HIS</th>
+                    <th style="text-align: center" class="font-2">CIE 10 HIS</th>
+                    <th style="text-align: center" class="font-2">TIPO</th>
+                    <th style="text-align: center" class="font-2">FACTOR CONDICIONAL</th>
+                    <th style="text-align: center" class="font-2">LAB</th>
                     <th style="text-align: center" class="font-2">ACCIÓN</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                 <tr>
                     <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                    <td style="text-align: center">{{ rowData.codigoItem }}</td>
-                    <td style="text-align: center">{{ rowData.descripcionItem }}</td>
+                    <td style="text-align: center">{{ rowData.codPrestacion }}</td>
+                    <td style="text-align: center">{{ rowData.nombreUPSaux }}</td>
+                    <td style="text-align: center">{{ rowData.diagnosticoSIS }}</td>
+                    <td style="text-align: center">{{ rowData.cie10SIS }}</td>
+                    <td style="text-align: center">{{ rowData.diagnosticoHIS }}</td>
+                    <td style="text-align: center">{{ rowData.cie10HIS }}</td>
+                    <td style="text-align: center">{{ rowData.tipo }}</td>
+                    <td style="text-align: center">{{ rowData.factorCondicional }}
+                    <td style="text-align: center">{{ rowData.lab }}</td>
                     <td style="text-align: center">
+                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded m-1"
+                                (click)="editarDx(rowData,rowIndex)" pTooltip="Editar">
+                        </button>
                         <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
                                 (click)="eliminarDiagnostico(rowIndex)" pTooltip="Eliminar">
                         </button>
@@ -38,308 +114,167 @@
             </ng-template>
         </p-table>
     </div>
-    <div class="lg:col-6 md:col-6 col-fixed">
-        <p-table [value]="diagnosticoNosologico" [rowHover]="true"
-                 [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,15]"
-                 [paginator]="true" currentPageReportTemplate="Mostrando {first} al {last} de {totalRecords} entradas"
-                 [filterDelay]="0">
-            <ng-template pTemplate="caption">
-                <div class="flex justify-content-between">
-                    <div class="table-header mt-2">
-                        1. Tabla de Registro de HIS
-                    </div>
-                    <div>
-                        <button pButton pRipple label="Agregar" icon="pi pi-plus-circle" class="guardar mr-2"
-                                style="background-color: #0c3866" (click)="openDiagnostico()"></button>
-                    </div>
-                </div>
-            </ng-template>
-            <ng-template pTemplate="header">
-                <tr>
-                    <th style="text-align: center" class="font-2">Nro</th>
-                    <th style="text-align: center" class="font-1">Cod. Prestación de Servicios</th>
-                    <th style="text-align: center" class="font-2">Descripción</th>
-                    <th style="text-align: center" class="font-2">ACCIÓN</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-                <tr>
-                    <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                    <td style="text-align: center">{{ rowData.codigoItem }}</td>
-                    <td style="text-align: center">{{ rowData.descripcionItem }}</td>
-                    <td style="text-align: center">
-                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                                (click)="eliminarDiagnostico(rowIndex)" pTooltip="Eliminar">
-                        </button>
-
-                    </td>
-                </tr>
-            </ng-template>
-        </p-table>
-    </div>
-    <div class="lg:col-12 md:col-12 col-fixed">
-        <p-table [value]="factoresCondicionales" [rowHover]="true"
-                 [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,15]"
-                 [paginator]="true" currentPageReportTemplate="Mostrando {first} al {last} de {totalRecords} entradas"
-                 [filterDelay]="0">
-            <ng-template pTemplate="caption">
-                <div class="flex justify-content-between">
-                    <div class="table-header mt-2">
-                        2. Factores condicionales de la salud, nutrición y desarrollo
-                    </div>
-                    <div>
-                        <button pButton pRipple label="Agregar" icon="pi pi-plus-circle" class="guardar mr-2"
-                                style="background-color: #0c3866" (click)="openFactor()"></button>
-                    </div>
-                </div>
-            </ng-template>
-            <ng-template pTemplate="header">
-                <tr>
-                    <th style="text-align: center" class="font-2">Nro</th>
-                    <th style="text-align: center" class="font-2">FACTORES</th>
-                    <th style="text-align: center" class="font-2">ACCIÓN</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-                <tr>
-                    <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                    <td style="text-align: center">{{ rowData }}</td>
-                    <td style="text-align: center">
-                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
-                                (click)="editarFactor(rowData,rowIndex)" pTooltip="Editar"></button>
-                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                                (click)="eliminarFactor(rowIndex)" pTooltip="Eliminar">
-                        </button>
-
-                    </td>
-                </tr>
-            </ng-template>
-        </p-table>
-    </div>
-
-
-<!--    <div class="lg:col-6 md:col-6 col-fixed">-->
-<!--        <form [formGroup]=formG>-->
-<!--            <div class="card flex flex-row">-->
-<!--                <div class="col-6 col-fixed">-->
-<!--                    <p-card>-->
-<!--                        <p-toolbar>-->
-<!--                            <ng-template pTemplate="left">-->
-<!--                                <div class="font-semibold"> 2. Condición de Crecimiento y Estado Nutricional</div>-->
-<!--                            </ng-template>-->
-<!--                        </p-toolbar>-->
-<!--                        <br>-->
-<!--                        <div class="field grid">-->
-<!--                            <span class="col-fixed text-right mr-2" style="width:180px">Crecimiento adecuado:</span>-->
-<!--                            <p-radioButton class="mr-2" name="crecimiento" value="val1"-->
-<!--                                           formControlName="crecimiento"></p-radioButton>-->
-<!--                        </div>-->
-<!--                        <div class="field grid">-->
-<!--                            <span class="col-fixed text-right mr-2" style="width:180px">Crecimiento inadecuado:</span>-->
-<!--                            <p-radioButton class="mr-2" name="crecimiento" value="val2"-->
-<!--                                           formControlName="crecimiento"></p-radioButton>-->
-<!--                        </div>-->
-
-<!--                        <div class="field grid">-->
-<!--                            <span class="col-fixed ml-2 font-bold text-sm" style="width:167px">RIESGO NUTRICIONAL</span>-->
-<!--                            <span class="col-fixed text-right font-bold text-sm">P/T</span>-->
-<!--                            <span class="col-fixed text-right font-bold text-sm">T/E</span>-->
-<!--                            <span class="col-fixed text-right font-bold text-sm">P/T</span>-->
-<!--                        </div>-->
-<!--                        <div class="field grid">-->
-<!--                        <span class="col-fixed text-right mr-2"-->
-<!--                              style="width:180px">Ganancia inadecuada de peso y talla</span>-->
-<!--                            <p-radioButton class="mr-2" name="ganancia" value="val1"-->
-<!--                                           formControlName="ganancia"></p-radioButton>-->
-<!--                            <p-radioButton class="mr-2" name="ganancia" value="val2"-->
-<!--                                           formControlName="ganancia"></p-radioButton>-->
-<!--                            <p-radioButton class="mr-2" name="ganancia" value="val3"-->
-<!--                                           formControlName="ganancia"></p-radioButton>-->
-<!--                        </div>-->
-
-<!--                        <div class="field grid">-->
-<!--                            <span class="col-fixed text-right mr-2" style="width:180px">Desnutrición</span>-->
-<!--                            <p-radioButton class="mr-2" name="desnutricion" value="val1"-->
-<!--                                           formControlName="desnutricion"></p-radioButton>-->
-<!--                            <p-radioButton class="mr-2" name="desnutricion" value="val2"-->
-<!--                                           formControlName="desnutricion"></p-radioButton>-->
-<!--                            <p-radioButton class="mr-2" name="desnutricion" value="val3"-->
-<!--                                           formControlName="desnutricion"></p-radioButton>-->
-<!--                        </div>-->
-<!--                        <div class="field grid">-->
-<!--                            <span class="col-fixed text-right mr-2" style="width:180px">Sobrepeso</span>-->
-<!--                            <p-radioButton class="mr-2" name="sobrepeso" value="val1"-->
-<!--                                           formControlName="sobrepeso"></p-radioButton>-->
-<!--                            <p-radioButton class="mr-2" name="sobrepeso" value="val2"-->
-<!--                                           formControlName="sobrepeso"></p-radioButton>-->
-<!--                            <p-radioButton class="mr-2" name="sobrepeso" value="val3"-->
-<!--                                           formControlName="sobrepeso"></p-radioButton>-->
-<!--                        </div>-->
-<!--                        <div class="field grid">-->
-<!--                            <span class="col-fixed text-right mr-2" style="width:180px">Obesidad</span>-->
-<!--                            <p-radioButton class="mr-2" name="Obesidad" value="val1"-->
-<!--                                           formControlName="Obesidad"></p-radioButton>-->
-<!--                            <p-radioButton class="mr-2" name="Obesidad" value="val2"-->
-<!--                                           formControlName="Obesidad"></p-radioButton>-->
-<!--                            <p-radioButton class="mr-2" name="Obesidad" value="val3"-->
-<!--                                           formControlName="Obesidad"></p-radioButton>-->
-<!--                        </div>-->
-<!--                        <div class="field grid">-->
-<!--                            <span class="col-fixed text-right mr-2" style="width:180px">Otros</span>-->
-<!--                            <p-radioButton class="mr-2" name="Otros" value="val1"-->
-<!--                                           formControlName="Otros"></p-radioButton>-->
-<!--                            <p-radioButton class="mr-2" name="Otros" value="val2"-->
-<!--                                           formControlName="Otros"></p-radioButton>-->
-<!--                            <p-radioButton class="mr-2" name="Otros" value="val3"-->
-<!--                                           formControlName="Otros"></p-radioButton>-->
-<!--                        </div>-->
-<!--                        <div class="field grid">-->
-<!--                            <span class="col-fixed text-right mr-2" style="width:180px">Otros</span>-->
-<!--                            <p-radioButton class="mr-2" name="Otros2" value="val1"-->
-<!--                                           formControlName="Otros2"></p-radioButton>-->
-<!--                            <p-radioButton class="mr-2" name="Otros2" value="val2"-->
-<!--                                           formControlName="Otros2"></p-radioButton>-->
-<!--                            <p-radioButton class="mr-2" name="Otros2" value="val3"-->
-<!--                                           formControlName="Otros2"></p-radioButton>-->
-<!--                        </div>-->
-<!--                    </p-card>-->
-
-<!--                </div>-->
-<!--                <div class="col-6 col-fixed">-->
-<!--                    <p-card>-->
-<!--                        <p-toolbar>-->
-<!--                            <ng-template pTemplate="left">-->
-<!--                                <div class="font-semibold"> 3. Condición de Desarrollo Psicomotor</div>-->
-<!--                            </ng-template>-->
-<!--                        </p-toolbar>-->
-<!--                        <br>-->
-<!--                        <div class="field grid">-->
-<!--                            <span class="col-fixed text-right mr-2"-->
-<!--                                  style="width:180px">Normal:</span>-->
-<!--                            <p-checkbox class="mt-1" name="condicionNormal" value="val1"-->
-<!--                                        formControlName="condicionNormal"></p-checkbox>-->
-<!--                        </div>-->
-<!--                        <div class="field grid">-->
-<!--                            <span class="col-fixed text-right mr-2"-->
-<!--                                  style="width:180px">Riesgo de desarrollo:</span>-->
-<!--                            <p-checkbox class="mt-1" name="condicionRiesgo" value="val1"-->
-<!--                                        formControlName="condicionRiesgo"></p-checkbox>-->
-<!--                        </div>-->
-<!--                        <div class="field grid">-->
-<!--                            <span class="col-fixed text-right mr-2"-->
-<!--                                  style="width:180px">Deficit del desarrollo según PB:</span>-->
-<!--                            <p-checkbox class="mt-1" name="condicionDeficit" value="val1"-->
-<!--                                        formControlName="condicionDeficit"></p-checkbox>-->
-<!--                        </div>-->
-<!--                        <div class="field grid">-->
-<!--                            <span class="col-fixed text-right mr-2"-->
-<!--                                  style="width:180px">Transtorno del desarrollo:</span>-->
-<!--                            <p-checkbox class="mt-1" name="condicionTranstorno" value="val1"-->
-<!--                                        formControlName="condicionTranstorno"></p-checkbox>-->
-<!--                        </div>-->
-<!--                    </p-card>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="col-12 col-fixed">-->
-<!--                <p-card>-->
-<!--                    <p-toolbar>-->
-<!--                        <ng-template pTemplate="left">-->
-<!--                            <div class="font-semibold"> OBSERVACIONES</div>-->
-<!--                        </ng-template>-->
-<!--                    </p-toolbar>-->
-<!--                    <div class="field col-12">-->
-<!--                        <textarea formControlName="observacion" rows="4" pInputTextarea-->
-<!--                                  style="width: inherit;"-->
-<!--                                  placeholder="Ingrese sus observaciones..."></textarea>-->
-
-<!--                    </div>-->
-<!--                </p-card>-->
-<!--            </div>-->
-<!--        </form>-->
-<!--    </div>-->
 
 </div>
 
 <!-- Diagnóstico --->
-<p-dialog header={{titulo()}} [(visible)]="diagnosticoDialog" [modal]="true" [style]="{width: '50%', height: '60%'}"
+<p-dialog header="INGRESAR UN DIAGNOSTICO" [(visible)]="diagnosticoDialog" [modal]="true" [style]="{width: '80%', height: '70%'}"
           [draggable]="false" [resizable]="false">
-    <div class="grid">
-        <div class="col-6 justify-content-center">
-            <div class="p-field-radiobutton">
-                <p-radioButton name="city" [(ngModel)]="opcionBusqueda" value="porDescripcion"
-                               inputId="opcion1"></p-radioButton>
-                <label>Buscar por Descripcion</label>
+    <div class="card m-2" *ngIf="checked">
+        <p-toolbar>
+            <div class="p-toolbar-group-left">
+                 <h3>RESUMEN DE EVALUACIONES, EXAMENES AUXILIARES Y TEST SELECCIONADOS</h3>
             </div>
-        </div>
-        <div class="col-6 justify-content-center">
-            <div class="p-field-radiobutton">
-                <p-radioButton name="city" [(ngModel)]="opcionBusqueda" value="porcie10"
-                               inputId="opcion2"></p-radioButton>
-                <label>Buscar por Cie10</label>
-            </div>
-        </div>
-    </div>
-    <form [formGroup]='form' (ngSubmit)="saveDiagnostico(formTemplate)" #formTemplate="ngForm">
-        <div class="grid" style="margin-top:10px;">
-            <div class="grid col-12 justify-content-center">
-                <label *ngIf="opcionBusqueda=='porDescripcion'">Descripción del diagnóstico:</label>
-            </div>
-            <div class="grid col-12 p-fluid" style="margin-top:10px;">
-                <p-autoComplete *ngIf="opcionBusqueda==='porDescripcion'" formControlName="diagnostico"
-                                [suggestions]="Cie10" (completeMethod)="filterDiagnostico($event)"
-                                field="descripcionItem" [minLength]="1" placeholder="Descripcion"
-                                scrollHeight="400px" autoHighlight="true" class="areaText">
-                </p-autoComplete>
-            </div>
-        </div>
-        <div class="grid">
-            <div class="grid col-12 justify-content-center">
-                <label *ngIf="opcionBusqueda=='porcie10'">Busqueda por CIE 10:</label>
-            </div>
-            <div class="grid col-12 p-fluid" style="margin-top:10px;">
-                <p-autoComplete *ngIf="opcionBusqueda=='porcie10'" formControlName="diagnostico"
-                                [suggestions]="Cie10" disabled
-                                (completeMethod)="filterDiagnostico($event)" field="codigoItem"
-                                [minLength]="1" placeholder="CIE 10">
-                </p-autoComplete>
-            </div>
-        </div>
+        </p-toolbar>
 
-    </form>
-    <div *ngIf="hayError"
-         class="alert alert-danger">
-        No se encontró nada en el término
+        <p-table [value]="selectedProducts"  responsiveLayout="scroll">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>NOMBRE</th>
+                    <th>EVALUACION</th>
+                    <th>RESULTADO</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-dxs>
+                <tr style="text-transform:uppercase;text-align: center">
+                    <td>{{dxs.nombre}}</td>
+                    <td>{{dxs.evaluacion}}</td>
+                    <td>{{dxs.resultado}}</td>
+
+                </tr>
+            </ng-template>
+        </p-table>
     </div>
+
+    <form [formGroup]='formDiagnostico'>
+        <div class="grid mt-2 ">
+            <div class="col-12 p-fluid">
+                <label>Prestacion:</label>
+                <p-dropdown [options]="ListaPrestacion" formControlName="prestacion" placeholder="Seleccionar un Diagnostico" optionLabel="descripcion" (onChange)="onChangePrestacion()" >
+                    <ng-template let-prestaciones pTemplate="item">
+                        <div class="flex align-items-center">
+                            <div>{{prestaciones.codigo}}-{{prestaciones.descripcion}}</div>
+                        </div>
+                    </ng-template>
+                </p-dropdown>
+            </div>
+
+            <div class="col-3 p-fluid">
+                <label>NOMBRE UPS:</label>
+<!--                <input type="text" style="text-transform:uppercase"  pInputText class="inputfield p-fluid w-full" formControlName="nombreUPS"/>-->
+                <p-dropdown inputId="dropdown"  [options]="listaUpsHis" id="nombreUPS" formControlName="nombreUPS" optionLabel="nombreUPS" optionValue="nombreUPS"
+                            placeholder="Seleccionar" defaultLabel="Seleccione:" appendTo="body"
+                            class="inputfield p-fluid w-full">
+                </p-dropdown>
+
+            </div>
+            <div class="col-3 p-fluid">
+                <label>SUBTITULO UPS:</label>
+                <p-dropdown inputId="dropdown"  [options]="listaUpsAuxHis" id="nombreUPSaux" formControlName="nombreUPSaux" optionLabel="nombre"
+                            placeholder="Seleccionar" defaultLabel="Seleccione:" appendTo="body"
+                            class="inputfield p-fluid w-full">
+                </p-dropdown>
+
+            </div>
+            <div class="col-3 p-fluid">
+                <label>LAB:</label>
+                <input type="text" style="text-transform:uppercase"  pInputText class="inputfield p-fluid w-full" formControlName="lab"/>
+            </div>
+
+            <div class="col-3 p-fluid">
+                <label>Tipo diagnostico:</label>
+                <p-dropdown inputId="dropdown" [options]="tipoList" formControlName="tipoDiagnostico" placeholder="Seleccione"
+                            optionLabel="label" optionValue="value" defaultLabel="Seleccione:" appendTo="body"
+                            class="inputfield p-fluid w-full">
+                </p-dropdown>
+            </div>
+
+            <div class="col-12 md:col-6 lg:col-6">
+                <p-fieldset legend="DIAGNOSTICO SIS">
+                    <div class="grid mt-2">
+                        <div class="col-12 p-fluid">
+                            <p-dropdown [options]="listaDeCIESIS" formControlName="buscarDxSIS" placeholder="Seleccionar un Diagnostico"
+                                        optionLabel="diagnostico" (onChange)="selectDxSIS($event)" >
+                                <ng-template let-diagnosticos pTemplate="item">
+                                    <div class="flex align-items-center">
+                                        <div>{{diagnosticos.grupo}}-{{diagnosticos.diagnostico}}-{{diagnosticos.criterio}}</div>
+                                    </div>
+                                </ng-template>
+                            </p-dropdown>
+                        </div>
+                    </div>
+                    <div class="grid mt-2">
+                        <div class="col-12 p-fluid">
+                            <textarea style="text-transform:uppercase"  rows="5" cols="30" pInputTextarea formControlName="diagnosticoSIS"></textarea>
+                        </div>
+                    </div>
+                    <div class="grid mt-2">
+                        <div class="col-12 p-fluid">
+                            <label>CIE 10: </label>
+                        </div>
+                        <div class="col-12 p-fluid">
+                            <p-dropdown   [options]="listaDeCIESIS" formControlName="cie10SIS" appendTo="body"
+                                        optionLabel="cie10" class="inputfield p-fluid w-full" placeholder="Seleccione"
+                                        (onChange)="selectedOption($event)"></p-dropdown>
+<!--                            <input style="text-transform:uppercase"   pInputText formControlName="cie10SIS">-->
+                        </div>
+                    </div>
+                </p-fieldset>
+            </div>
+            <div class="col-6">
+                <p-fieldset legend="DIAGNOSTICO HIS">
+                    <div class="grid mt-2">
+                        <div class="col-12 p-fluid">
+                            <p-autoComplete [suggestions]="listaDeCIEHIS" (completeMethod)="filterCIE10($event)"
+                                            appendTo="body" field="descripcionItem" [minLength]="1" class="areaText"
+                                            class="inputfield p-fluid w-full" formControlName="buscarDxHIS"
+                                            (onSelect)="selectedDxHIS($event)" [dropdown]="true" placeholder="Seleccionar un Diagnostico">
+                            </p-autoComplete>
+                        </div>
+                    </div>
+                    <div class="grid mt-2">
+                        <div class="col-12 p-fluid">
+                            <textarea rows="5" cols="30" pInputTextarea formControlName="diagnosticoHIS"></textarea>
+                        </div>
+                    </div>
+                    <div class="grid mt-2">
+                        <div class="col-12 p-fluid">
+                            <label>CIE 10: </label>
+                        </div>
+                        <div class="col-12 p-fluid">
+                            <p-autoComplete [suggestions]="listaDeCIEHIS" (completeMethod)="filterCIE10($event)"
+                                            appendTo="body" field="codigoItem" [minLength]="1" class="areaText"
+                                            class="inputfield p-fluid w-full" formControlName="cie10HIS"
+                                            (onSelect)="selectedDxHIS($event)" [dropdown]="true" placeholder="Seleccionar un Diagnostico">
+                            </p-autoComplete>
+<!--                     <input pInputText formControlName="cie10HIS">-->
+                        </div>
+                    </div>
+                </p-fieldset>
+            </div>
+            <div class="col-12">
+                <div class="grid mt-2">
+                    <div class="col-12 p-fluid">
+                        <label >FACTOR CONDICIONAL: </label>
+                    </div>
+                    <div class="col-12 p-fluid">
+                        <input style="text-transform:uppercase"  pInputText formControlName="factorCondicional">
+                    </div>
+                </div>
+            </div>
+    </div>
+    </form>
     <ng-template pTemplate="footer">
+
+        <button *ngIf="!isUpdate" class="button-agregar" icon="pi pi-save" pButton type="button"
+                label="Guardar" (click)="getDatatoSaveDx()"></button>
+        <button *ngIf="isUpdate" class="button-agregar" icon="pi pi-pencil" pButton type="button"
+                label="Editar" (click)="getDatatoEditDx()"></button>
         <button pButton type="button" label="Cancelar" class="button-cancelar"
                 icon="pi pi-times" (click)="cancelDiagnostico()"></button>
-        <button class="button-agregar" icon="pi pi-save" pButton type="button"
-                label="Guardar" (click)="saveDiagnostico(formTemplate)"></button>
 
     </ng-template>
+
 </p-dialog>
-<!--Fin de Diagnóstico-->
 
 
-<!-- Factor Dialog --->
-<p-dialog header="FACTORES" [(visible)]="factorDialog" [modal]="true" [style]="{width: '40%'}"
-          [draggable]="false" [resizable]="false">
-
-    <form [formGroup]='formFactor'>
-        <div class="grid">
-            <div class="col-12 justify-content-center">
-                <textarea style="border-radius: 10px" id="indAdicional" rows="5" cols="90" pInputTextarea
-                          formControlName="factorTexto"> </textarea>
-
-            </div>
-        </div>
-    </form>
-    <ng-template pTemplate="footer">
-        <button pButton type="button" label="Cancelar" class="button-cancelar"
-                icon="pi pi-times" (click)="cancelFactor()"></button>
-        <button class="button-agregar" icon="pi pi-save" pButton type="button"
-                label="Guardar" (click)="saveFactor()"></button>
-
-    </ng-template>
-</p-dialog>
-<!--Fin de Factor-->

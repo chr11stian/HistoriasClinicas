@@ -7,28 +7,32 @@
         </div>
         <form class="login-form">
             <h5 class="titulo_principal" style="color: #4d4d4d">HISTORIA CLINICA ELECTRÓNICA </h5>
-            <p class="titulo_principal" style="color: #4d4d4d">Iniciar Seción</p>
+            <p class="titulo_principal" style="color: #4d4d4d">Iniciar Sesión</p>
 
-            <div class="grid" style="align-items: center;justify-content: center;">
-                <div class="col-12 md:col-6 lg:col-8 p-field">
-                    <input type="text" name="usuario" class="w-full" pInputText placeholder="Usuario" [(ngModel)]="usuario">
+            <div class="grid justify-content-center">
+                <div class="col-12 md:col-12 lg:col-12 p-field">
+                    <input type="text" name="usuario" style="width:200px; text-align:center" pInputText
+                           placeholder="Usuario"
+                           [(ngModel)]="usuario">
                 </div>
             </div>
 
-            <div class="grid" style="align-items: center;justify-content: center;">
-                <div class="col-12 md:col-6 lg:col-8 p-field">
-                    <p-password weakLabel="Debil" class="w-full" mediumLabel="Medio" strongLabel="Fuerte" promptLabel= "Ingrese una Contraseña" [toggleMask]="true" name="password" placeholder="Contraseña" [(ngModel)]="password"></p-password>
+            <div class="grid justify-content-center">
+                <div class="col-12 md:col-12 lg:col-12">
+                    <p-password class="w-full" weakLabel="Debil" mediumLabel="Medio" strongLabel="Fuerte"
+                                promptLabel="Ingrese una Contraseña" [toggleMask]="true" name="password"
+                                placeholder="Contraseña" [(ngModel)]="password"></p-password>
                 </div>
-                <div class="col-12 md:col-6 lg:col-12 p-field">
+                <!--<div class="col-12 md:col-6 lg:col-12 p-field">
                     <input type="checkbox">Mostrar contraseña
-                </div>
+                </div>-->
 
             </div>
 
             <div class="grid" style="align-items: center;justify-content: center;">
                 <div class="col-12 md:col-6 lg:col-12 p-field">
                     <button pButton pRipple type="button" label="Iniciar" class="p-button-danger"
-                            (click)="Ingresar()"></button>
+                            (click)="userLogin()"></button>
                 </div>
             </div>
 

@@ -25,6 +25,10 @@ import { UpsComponent } from "./component/ups/ups.component";
 import { CondicionPacienteDiscapacidadComponent } from "./component/condicion-paciente-discapacidad/condicion-paciente-discapacidad.component";
 import { TipoContratoComponent } from "./component/tipo-contrato/tipo-contrato.component";
 import { UnidadEjecutoraComponent } from "./component/unidad-ejecutora/unidad-ejecutora.component";
+import {PrestacionComponent} from "./component/prestacion/prestacion.component";
+import {AntecedentesPacienteComponent} from "./component/antecedentes-paciente/antecedentes-paciente.component";
+import {MedicamentosComponent} from "./component/medicamentos/medicamentos.component";
+import {UpsAuxIpressComponent} from "./component/ups-aux-ipress/ups-aux-ipress.component";
 
 const routes: Routes = [
   {
@@ -106,6 +110,10 @@ const routes: Routes = [
     component: UpsComponent,
   },
   {
+    path: "ups-aux",
+    component: UpsAuxIpressComponent,
+  },
+  {
     path: "condicion-paciente-discapacidad",
     component: CondicionPacienteDiscapacidadComponent,
   },
@@ -116,6 +124,18 @@ const routes: Routes = [
   {
     path: "unidad-ejecutora",
     component: UnidadEjecutoraComponent,
+  },
+  {
+    path: "antecedentes-paciente",
+    component: AntecedentesPacienteComponent,
+  },
+  {
+    path: "medicamentos",
+    component: MedicamentosComponent,
+  },
+  {
+    path: "prestacion",
+    component: PrestacionComponent,
   },
 ];
 

@@ -41,6 +41,11 @@ export class ListaConsultaService {
     getDatosGenerales(idConsulta) {
         const url = `${this.base_url}/hce/cred/consulta/datos/generales/${idConsulta}`
         return this.http.get(url)
+    }
 
+    //quitar
+    getListaConsultaXtipo(tidoDocumento,nroDocumento,tipoConsulta){
+        const url = `${this.base_url}/hce/consultageneral/listarXTipo/${tidoDocumento}/${nroDocumento}/${tipoConsulta}`
+        return this.http.get(url)
     }
 }

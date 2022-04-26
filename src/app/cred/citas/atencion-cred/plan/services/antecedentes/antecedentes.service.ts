@@ -9,18 +9,30 @@ export class AntecedentesService {
     base_url = environment.baseUrl;
     bd = environment.bd;
 
-    //--id
-    tipoDoc: string = "";
-    nroDoc: string = "";
-
     constructor(private http: HttpClient) {
     }
 
+    getAntecedentesPersonalesPatologicos(nroDoc) {
+        return this.http.get(`${this.base_url}/${this.bd}/antecedentes/${nroDoc}`)
+    }
+
+    addAntecedentesPersonalesPatologicos(data) {
+        return this.http.post(`${this.base_url}/${this.bd}/antecedentes`, data)
+    }
+
+    updateAntecedentesPersonalesPatologicos(data) {
+        return this.http.put(`${this.base_url}/${this.bd}/antecedentes/actualizarPer`, data)
+    }
+
     getAntecedentesPersonales(nroDoc) {
-        return this.http.get(`${this.base_url}/${this.bd}/cred/antecedentes/personales/${nroDoc}`)
+        return this.http.get(`${this.base_url}/${this.bd}/cred/antecedentes/personales/perinatales/${nroDoc}`)
     }
 
     updateAntecedentesPersonales(nroDoc, data) {
-        return this.http.post(`${this.base_url}/${this.bd}/cred/antecedentes/personales/${nroDoc}`, data)
+        return this.http.put(`${this.base_url}/${this.bd}/cred/antecedentes/personales/${nroDoc}`, data)
+    }
+
+    addAntecedentesPersonales(nroDoc, data) {
+        return this.http.post(`${this.base_url}/${this.bd}/cred/antecedentes/personales/perinatales/${nroDoc}`, data)
     }
 }

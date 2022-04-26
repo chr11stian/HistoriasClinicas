@@ -2,10 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {LayoutPrincipalComponent} from './layout-principal/layout-principal.component'
 import {InicioComponent} from './inicio/inicio.component'
-import {CajaModule} from "../caja/caja.module";
-
 // Modulos
-
 const routes: Routes = [
     {
         path: "",
@@ -51,6 +48,10 @@ const routes: Routes = [
                 loadChildren: () => import('src/app/fua/fua.module').then(n => n.FuaModule),
             },
             {
+                path: "his",
+                loadChildren: () => import('src/app/his/his.module').then(n => n.HisModule),
+            },
+            {
                 path: "adolescente",
                 loadChildren: () => import('src/app/adolescente/adolescente.module').then(n => n.AdolescenteModule),
             },
@@ -61,6 +62,18 @@ const routes: Routes = [
             {
                 path: "adulto-mayor",
                 loadChildren: () => import('src/app/adulto-mayor/adulto-mayor.module').then(n => n.AdultoMayorModule),
+            },
+            {
+                path: "laboratorios",
+                loadChildren: () => import('src/app/Laboratorio/laboratorio.module').then(n => n.LaboratorioModule),
+            },
+            {
+                path: "reportes",
+                loadChildren: () => import('src/app/reportes/reportes.module').then(n => n.ReportesModule),
+            },
+            {
+                path: "consulta-generica",
+                loadChildren: () => import('src/app/consulta-generica/consulta-generica.module').then(n => n.ConsultaGenericaModule)
             },
         ]
     }

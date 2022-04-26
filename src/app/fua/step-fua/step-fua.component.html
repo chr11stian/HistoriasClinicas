@@ -1,8 +1,8 @@
 <p-panel>
     <ng-template pTemplate="header">
-        <h3 class="m-1">COSULTAS OBSTETRICAS</h3>
+        <h3 class="m-1">FORMATO ÚNICO DE ATENCIÓN - FUA</h3>
     </ng-template>
-    <div class="grid">
+    <!-- <div class="grid">
         <div class="col-12 md:col-6 lg:col-3 p-field">
             <div class="">
                 <span class="">TIPO DOCUMENTO</span>
@@ -26,9 +26,9 @@
             </div>
         </div>
 
-    </div>
-    <p-steps [model]="items" [readonly]="false" [(activeIndex)]="indiceActivo"
-             (activeIndexChange)="ChangeStep($event)" class="col-12 md:col-6 lg:col-12 p-field">
+    </div> -->
+    <p-steps [model]="items" [readonly]="false" [(activeIndex)]="indiceActivo" (activeIndexChange)="ChangeStep($event)"
+        class="col-12 md:col-6 lg:col-12 p-field">
     </p-steps>
 
 </p-panel>
@@ -38,19 +38,30 @@
 
 <div class="stepsdemo-content" *ngIf="stepName === 'ipress'">
     <p-card>
+        <ng-template pTemplate="header">
+            <p-toolbar>
+                <ng-template pTemplate="left">
+                    <h3 class="mt-2">DATOS GENERALES</h3>
+                </ng-template>
+                <ng-template pTemplate="right" class="button">
+                    <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
+                        class="guardar mr-2" (click)="nextPage()" style="background-color: #0c3866"></button>
+                </ng-template>
+            </p-toolbar>
+        </ng-template>
         <ng-template pTemplate="content">
             <app-ipress></app-ipress>
         </ng-template>
     </p-card>
 </div>
 
-<div class="stepsdemo-content" *ngIf="stepName === 'asegurado-usuario'">
+<!-- <div class="stepsdemo-content" *ngIf="stepName === 'asegurado-usuario'">
     <p-card>
         <ng-template pTemplate="content">
             <app-asegurado-usuario></app-asegurado-usuario>
         </ng-template>
     </p-card>
-</div>
+</div> -->
 <div class="stepsdemo-content" *ngIf="stepName === 'atencion'">
     <p-card>
         <ng-template pTemplate="content">
@@ -60,7 +71,7 @@
 </div>
 
 
-<div class="stepsdemo-content" *ngIf="stepName === 'concepto-prestacional'">
+<div class="stepsdemo-content" *ngIf="stepName === 'tercera_parte'">
     <p-card>
         <ng-template pTemplate="content">
             <app-concepto-prestacional></app-concepto-prestacional>
@@ -69,7 +80,7 @@
 </div>
 
 
-<div class="stepsdemo-content" *ngIf="stepName === 'refiere-contrarefiere'">
+<!-- <div class="stepsdemo-content" *ngIf="stepName === 'refiere-contrarefiere'">
     <p-card>
         <ng-template pTemplate="content">
             <app-s-refiere-contrarefiere></app-s-refiere-contrarefiere>
@@ -84,4 +95,4 @@
             <app-diagnostico></app-diagnostico>
         </ng-template>
     </p-card>
-</div>
+</div> -->

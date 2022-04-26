@@ -1,96 +1,84 @@
-<div>
-    <p-panel>
-        <ng-template pTemplate="header">
-            <label class="">GESTACIONES DEL PACIENTE</label>
-        </ng-template>
-        <div class="">
-            <div class="grid">
-                <div class="col-12 md:col-6 lg:col-1 p-field">
-                    <div class="col-12 md:col-6 lg:col-1 p-field">
-                        <div class="image-container">
-                            <p-image src="assets/images/paciente.jpg" alt="Image" width="35"></p-image>
+<html>
+<div class="grid">
+    <div class="col-1 p-card-content mt-2"></div>
+    <div class="col-10">
+        <p-panel>
+            <ng-template pTemplate="header">
+                <label class="">GESTACIONES DEL PACIENTE</label>
+            </ng-template>
+            <div class="grid align-items-center">
+                <div class="col-4 md:col-4 md:col-1 lg:col-1">
+                    <div class="grid px-3">
+                        <div class="p-inputgroup">
+                            <img class="image" alt="Imagen" src="{{'data:image/jpg;base64,' + imagePath}}">
                         </div>
                     </div>
 
                 </div>
+                <div class="col-8 md:col-8 md:col-11 lg:col-11">
+                    <div class="grid">
+                        <div class="p-inputgroup py-1">
+                            <label style="padding: 3px; color: #5b5b5b">{{tipoDoc}}:</label>
+                            <label style="padding: 3px">{{nroDoc}}</label>
+                        </div>
+                        <div class="p-inputgroup py-1">
+                            <label style="padding: 3px; color: #5b5b5b">APELLIDOS Y NOMBRES: </label>
+                            <label style="padding: 3px">{{apellidosNombres}}</label>
+                        </div>
+                        <div class="p-inputgroup py-1">
+                            <label style="padding: 3px; color: #5b5b5b">NRO DE HCL: </label>
+                            <label style="padding: 3px">{{nroHcl}}</label>
+                        </div>
+                    </div>
 
-                <div class="col-12 md:col-6 lg:col-11 p-field">
-                    <div class="grid">
-                        <div class="col-12 md:col-6 lg:col-2 p-field">
-                            <div class="p-inputgroup">
-                                <label>{{tipoDoc}}:</label>
-                            </div>
-                        </div>
-                        <div class="col-12 md:col-6 lg:col-8 p-field">
-                            <div class="p-inputgroup">
-                                <tr>{{nroDoc}}</tr>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="grid">
-                        <div class="col-12 md:col-6 lg:col-2 p-field">
-                            <div class="p-inputgroup">
-                                <label>APELLIDOS Y NOMBRES:</label>
-                            </div>
-                        </div>
-                        <div class="col-12 md:col-6 lg:col-8 p-field">
-                            <div class="p-inputgroup">
-                                <tr>{{apellidosNombres}}</tr>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
+        </p-panel>
 
 
-        </div>
-
-    </p-panel>
-
-
-    <p-toolbar styleClass="p-mb-4">
-        <ng-template pTemplate="left">
-            <span class="p-m-0">
-                LISTA DE CONSULTA REALIZADAS EL DIA DE HOY
-            </span>
-        </ng-template>
-        <ng-template pTemplate="right" class="button">
-            <button pButton pRipple routerLink="obstetricia" label=" Nuevo Embarazo" icon="pi pi-plus"
-                    class="p-button-raised p-button-primary" (click)="newEmbarazo()"
-                    [disabled]="filiacionUltimaPosicion!=='FINALIZADO'"></button>
-        </ng-template>
-    </p-toolbar>
+        <p-toolbar styleClass="p-mb-4">
+            <ng-template pTemplate="left">
+                <span class="p-m-0" style="font-size: 11px">
+                    LISTA DE CONSULTA REALIZADAS EL DIA DE HOY
+                </span>
+            </ng-template>
+            <ng-template pTemplate="right" class="button">
+                <button pButton pRipple type="button" routerLink="obstetricia" icon="pi pi-plus"
+                    label="REGISTRAR NUEVA GESTA" class="p-button-raised p-button-secondary" (click)="newEmbarazo()"
+                    style="font-size: 11px; height: 25px" [disabled]="filiacionUltimaPosicion!=='FINALIZADO'"></button>
+            </ng-template>
+        </p-toolbar>
 
 
-    <p-table [value]="pacientesFiliacion" #dt styleClass="p-datatable-gridlines" [rows]="10"
-             [rowsPerPageOptions]="[10, 25, 50]"
-             [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
-             currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+        <p-table [value]="pacientesFiliacion" #dt styleClass="p-datatable-gridlines" [rows]="10"
+            [rowsPerPageOptions]="[10, 25, 50]" responsiveLayout="scroll" class="gestanteList" [paginator]="true"
+            [autoLayout]="true" [showCurrentPageReport]="true"
+            currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
 
-        <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
-            <tr>
-                <th style="text-align: center">NUMERO DE GESTACION</th>
-                <th style="text-align: center">ESTADO</th>
-                <th style="text-align: center">ACCIONES</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-            <tr>
-                <td style="text-align: center">{{ rowData.nroEmbarazo }}</td>
-                <td style="text-align: center">{{ rowData.estado }}</td>
-                <td style="text-align: center">
-                    <span class="p-buttonset">
-                        <button pButton pRipple class="p-button-success" routerLink="obstetricia" label="Atencion"
-                                icon="pi pi-caret-right"
-                                (click)="atencion(rowData)"></button>
-                        <button pButton pRipple class="p-button-info" label="Consultas" routerLink="../../consulta"
-                                icon="pi pi-book"
-                                (click)="consultas(rowData)"></button>
-                    </span>
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
+            <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                <tr>
+                    <th style="text-align: center; font-size: 11px">NUMERO DE GESTACION</th>
+                    <th style="text-align: center; font-size: 11px">ESTADO</th>
+                    <th style="text-align: center; font-size: 11px">ACCIONES</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                <tr>
+                    <td style="text-align: center; font-size: 11px">{{ rowData.nroEmbarazo }}</td>
+                    <td style="text-align: center; font-size: 11px">{{ rowData.estado }}</td>
+                    <td style="text-align: center">
+                        <span class="p-buttonset">
+                            <button pButton pRipple class="p-button-success" routerLink="obstetricia" label="Atencion"
+                                icon="pi pi-caret-right" (click)="gestacion(rowData)"
+                                style="font-size: 11px; height: 25px"></button>
+                        </span>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <div class="col-1 p-card-content mt-2"></div>
 </div>
-
 <!-- dialogo consulta -->
+
+</html>

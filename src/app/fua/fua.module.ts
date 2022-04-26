@@ -9,6 +9,7 @@ import { AtenionComponent } from './atenion/atenion.component';
 import { ConceptoPrestacionalComponent } from './concepto-prestacional/concepto-prestacional.component';
 import { SRefiereContrarefiereComponent } from './s-refiere-contrarefiere/s-refiere-contrarefiere.component';
 import { DiagnosticoComponent } from './diagnostico/diagnostico.component';
+import { ListarFuaComponent } from './listar-fua/listar-fua.component';
 
 
 
@@ -20,7 +21,8 @@ import { DiagnosticoComponent } from './diagnostico/diagnostico.component';
     AtenionComponent,
     ConceptoPrestacionalComponent,
     SRefiereContrarefiereComponent,
-    DiagnosticoComponent
+    DiagnosticoComponent,
+    ListarFuaComponent
   ],
   imports: [
     CommonModule,

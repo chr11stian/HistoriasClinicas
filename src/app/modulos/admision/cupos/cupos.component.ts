@@ -1,15 +1,15 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {DatePipe} from "@angular/common";
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {DialogService, DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
-import {Router} from "@angular/router";
-import {MessageService, PrimeNGConfig} from "primeng/api";
-import {CuposService} from "../../../core/services/cupos.service";
-import {UpsService} from "../../../mantenimientos/services/ups/ups.service";
-import {DocumentoIdentidadService} from "../../../mantenimientos/services/documento-identidad/documento-identidad.service";
-import {PacienteService} from "../../../core/services/paciente/paciente.service";
-import {RolGuardiaService} from "../../../core/services/rol-guardia/rol-guardia.service";
-import {ModalCuposComponent} from "./modal-cupos/modal-cupos.component";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { DatePipe } from "@angular/common";
+import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import { DialogService, DynamicDialogConfig, DynamicDialogRef } from "primeng/dynamicdialog";
+import { Router } from "@angular/router";
+import { MessageService, PrimeNGConfig } from "primeng/api";
+import { CuposService } from "../../../core/services/cupos.service";
+import { UpsService } from "../../../mantenimientos/services/ups/ups.service";
+import { DocumentoIdentidadService } from "../../../mantenimientos/services/documento-identidad/documento-identidad.service";
+import { PacienteService } from "../../../core/services/paciente/paciente.service";
+import { RolGuardiaService } from "../../../core/services/rol-guardia/rol-guardia.service";
+import { ModalCuposComponent } from "./modal-cupos/modal-cupos.component";
 
 @Component({
     selector: 'app-cupos',
@@ -58,10 +58,10 @@ export class CuposComponent implements OnInit, OnDestroy {
         private rolGuardiaService: RolGuardiaService,
     ) {
         this.justifyOptions = [
-            {icon: "pi pi-align-left", justify: "Left"},
-            {icon: "pi pi-align-right", justify: "Right"},
-            {icon: "pi pi-align-center", justify: "Center"},
-            {icon: "pi pi-align-justify", justify: "Justify"}
+            { icon: "pi pi-align-left", justify: "Left" },
+            { icon: "pi pi-align-right", justify: "Right" },
+            { icon: "pi pi-align-center", justify: "Center" },
+            { icon: "pi pi-align-justify", justify: "Justify" }
         ];
 
 
@@ -120,7 +120,7 @@ export class CuposComponent implements OnInit, OnDestroy {
             servicio: this.formCuposListar.value.SelectUPS,
             fecha: this.datePipe.transform(this.formCuposListar.value.fechaBusqueda, 'yyyy-MM-dd')
         }
-        console.log('DATA ', data);
+        // console.log('DATA ', data);
 
         this.cuposService.getCuposServicioFecha(this.idIpressLapostaMedica, data).subscribe((res: any) => {
             this.DataCupos = res.object;
@@ -140,10 +140,11 @@ export class CuposComponent implements OnInit, OnDestroy {
     /**abre el dialog para cupos**/
     openDialogCuposNuevo() {
         this.cuposService.modal1 = this.dialog.open(ModalCuposComponent, {
+            header: 'CUPOS',
             width: '1200px',
             modal: true,
             height: '750px',
-            contentStyle: {"max-height": "500", "overflow": "auto"},
+            contentStyle: { "max-height": "500", "overflow": "auto" },
             baseZIndex: 10000
         });
     }

@@ -25,6 +25,12 @@ export class PersonalService {
         );
     }
 
+    getPersonalIpress(idIpress: string): Observable<Personal[]> {
+        return this.http.get<Personal[]>(
+            `${this.base_url}/${this.bd}/personal/listarpersonal/${idIpress}`
+        );
+    }
+
     getPersonalID(id): Observable<Personal> {
         return this.http.get<Personal>(
             `${this.base_url}/${this.bd}/personal/${id}`
@@ -82,15 +88,18 @@ export class PersonalService {
             reqInput
         );
     }
+
     //roles del personal
-        addRolesPersonal(idPersonal,reqInput:any){
-        return this.http.put(`${this.base_url}/${this.bd}/personal/ingresarrol/${idPersonal}`,reqInput)
+    addRolesPersonal(idPersonal, reqInput: any) {
+        return this.http.put(`${this.base_url}/${this.bd}/personal/ingresarrol/${idPersonal}`, reqInput)
     }
+
     deleteRol(idPersonal, idUPS) {
         return this.http.delete<any>(
             `${this.base_url}/${this.bd}/personal/eliminarrol/${idPersonal}/${idUPS}`
         );
     }
+
     editRol(idPersonal, reqRol) {
         return this.http.put<any>(
             `${this.base_url}/${this.bd}/personal/actualizarrol/${idPersonal}`,
@@ -99,13 +108,13 @@ export class PersonalService {
     }
 
     //traer sexo
-    getSexos(){
+    getSexos() {
         return this.http.get<any>(
             `${this.base_url}/${this.bd}/tools/genero`
         );
     }
 
-    getDatosReniec(doc){
+    getDatosReniec(doc) {
         return this.http.get(`${this.base_url}/${this.bd}/pide/datos-sis/${doc}`)
     }
 }

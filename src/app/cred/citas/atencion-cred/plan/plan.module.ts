@@ -14,6 +14,7 @@ import {EvaluacionGeneralModule} from './component/evaluacion-general/evaluacion
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {PlanAtencionIntegralModule} from './component/plan-atencion-integral/plan-atencion-integral.module'
+import {RippleModule} from "primeng/ripple";
 
 @NgModule({
     declarations: [
@@ -35,7 +36,8 @@ import {PlanAtencionIntegralModule} from './component/plan-atencion-integral/pla
         PrimeModule,
         FormsModule,
         ReactiveFormsModule,
-        PlanAtencionIntegralModule
+        PlanAtencionIntegralModule,
+        RippleModule
     ]
 })
 export class PlanModule {

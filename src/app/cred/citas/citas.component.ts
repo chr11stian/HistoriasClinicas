@@ -39,7 +39,7 @@ export class CitasComponent implements OnInit {
     dataCitas: any;
     formCitas: FormGroup;
     datePipe = new DatePipe('en-US');
-    fechaActual = new Date();
+        fechaActual = new Date();
 
 
     dataPaciente: any[];
@@ -109,7 +109,7 @@ export class CitasComponent implements OnInit {
     /**Lista de Cupos y citas sin importar el estado reservados por servicio **/
     getCuposXservicio() {
         let data = {
-            servicio: 'OBSTETRICIA',
+            servicio: 'ATENCION INTEGRAL DEL NINO',
             fecha: this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd')
         }
         console.log('DATA ', data);
@@ -190,7 +190,8 @@ export class CitasComponent implements OnInit {
             {
                 nroDocumento: event.paciente.nroDoc,
                 tipoDoc: event.paciente.tipoDoc,
-                idConsulta: ''
+                idConsulta: '',
+                sexo: ''
             }
         localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
     }

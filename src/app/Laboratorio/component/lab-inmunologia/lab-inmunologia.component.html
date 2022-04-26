@@ -1,0 +1,312 @@
+<div class="border2">
+    <form  [formGroup]="formInmunologia">
+        <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
+            <div class="grid m-2">
+                <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
+                    <div class="border">
+                        <div class="grid m-2">
+                            <div class="col-12 md:col-6 lg:col-4 p-field flex flex-column">
+                                <label>APELLIDOS Y NOMBRES:</label>
+                                <input type="text" pInputText class="inputTest" formControlName="apellidosNombres"/>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-1 p-field flex flex-column">
+                                <label>EDAD:</label>
+                                <input type="text" pInputText class="inputTest" formControlName="edad"/>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-1 p-field flex flex-column">
+                                <label>HCL:</label>
+                                <input type="text" pInputText class="inputTest" formControlName="HCL"/>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-3 p-field flex flex-column">
+                                <label>SERVICIO:</label>
+                                <input type="text" pInputText class="inputTest" formControlName="servicio"/>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-1 p-field flex flex-column">
+                                <label>CAMA NRO:</label>
+                                <input type="text" pInputText class="inputTest" formControlName="camaNro"/>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-2 p-field flex flex-column">
+                                <label>Nro. S.I.S.:</label>
+                                <input type="text" pInputText class="inputTest" formControlName="nroSIS"/>
+                            </div>
+                        </div>
+                        <div class="grid m-2">
+                            <div class="col-12 md:col-6 lg:col-4 p-field flex flex-column">
+                                <label>SOLICITANTE:</label>
+                                <input type="text" pInputText class="inputTest" formControlName="solicitante"/>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-2 p-field flex flex-column">
+                                <label>Nro. DE MUESTRA:</label>
+                                <input type="text" pInputText class="inputTest" formControlName="nroMuestra"/>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-4 p-field flex flex-column">
+                                <label>LUGAR DEL EXAMEN:</label>
+                                <input type="text" pInputText class="inputTest" formControlName="LugarExamen"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid m-2">
+                <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
+                    <div class="border">
+                        <div class="grid m-2">
+                            <div class="col-12 md:col-6 lg:col-4 p-field flex flex-column">
+                                <label>RESULTADOS:</label>
+                                <input type="text" pInputText class="inputTest" formControlName="resultados"/>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-3 p-field flex flex-column">
+                                <label>TIPO DE MUESTRA:</label>
+                                <input type="text" pInputText class="inputTest" formControlName="tipoMuestra"/>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-2 p-field flex flex-column">
+                                <label class="">FECHA</label>
+                                <div class="p-inputgroup">
+                                    <p-calendar dateFormat="yy-mm-dd"
+                                                formControlName="Fecha"
+                                                [readonlyInput]="true">
+                                    </p-calendar>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="grid m-2">
+                <div class="col-12 md:col-12 md:col-6 lg:col-5 p-field">
+                    <div class="border">
+                        <div class="grid m-2">
+                            <div class="col-12 md:col-6 lg:col-12 p-field flex flex-column">
+                                <label>Reacción de Widal:</label>
+                                <input type="text" pInputText class="inputTest" formControlName="reaccionWidal"/>
+                            </div>
+                        </div>
+                        <div class="grid m-2">
+                            <div class="col-12 md:col-12 md:col-6 lg:col-6 p-field">
+                                <div class="grid">
+                                    <div class="col-12 md:col-6 lg:col-12 p-field flex flex-column">
+                                        <label>Ag. Tiphyco "O"</label>
+                                        <div class="p-inputgroup align-items-center">
+                                            <input type="text" pInputText class="inputTest"
+                                                   formControlName="TiphycoO"/>
+                                            <label>dils.</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div class="col-12 md:col-6 lg:col-12 p-field flex flex-column">
+                                        <label>Ag. Tiphyco "H"</label>
+                                        <div class="p-inputgroup align-items-center">
+                                            <input type="text" pInputText class="inputTest"
+                                                   formControlName="TiphycoH"/>
+                                            <label>dils.</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div class="col-12 md:col-6 lg:col-12 p-field flex flex-column">
+                                        <label>Ag. ParaTiphyco "A"</label>
+                                        <div class="p-inputgroup align-items-center">
+                                            <input type="text" pInputText class="inputTest"
+                                                   formControlName="ParaTiphycoA"/>
+                                            <label>dils.</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div class="col-12 md:col-6 lg:col-12 p-field flex flex-column">
+                                        <label>Ag. ParaTiphyco "B"</label>
+                                        <div class="p-inputgroup align-items-center">
+                                            <input type="text" pInputText class="inputTest"
+                                                   formControlName="ParaTiphycoB"/>
+                                            <label>dils.</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-12 md:col-6 lg:col-6 p-field">
+                                <div class="grid">
+                                    <div class="col-12 md:col-6 lg:col-12 p-field flex flex-column">
+                                        <label>HBsAg:</label>
+                                        <div class="p-inputgroup align-items-center">
+                                            <input type="text" pInputText class="inputTest"
+                                                   formControlName="HBsAg"/>
+                                            <label>dils.</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div class="col-12 md:col-6 lg:col-12 p-field flex flex-column">
+                                        <label>Grupo Sanguíneo.</label>
+                                        <div class="p-inputgroup align-items-center">
+                                            <input type="text" pInputText class="inputTest"
+                                                   formControlName="GrupoSanguineo"/>
+                                            <label>dils.</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div class="col-12 md:col-6 lg:col-12 p-field flex flex-column">
+                                        <label>Factor Rh:</label>
+                                        <div class="p-inputgroup align-items-center">
+                                            <input type="text" pInputText class="inputTest"
+                                                   formControlName="FactorRH"/>
+                                            <label>dils.</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 md:col-12 md:col-6 lg:col-5 p-field">
+                    <div class="border">
+                        <div class="grid m-2">
+                            <div class="col-12 md:col-12 md:col-6 lg:col-6 p-field">
+                                <div class="grid">
+                                    <div class="col-12 md:col-6 lg:col-12 p-field flex flex-column">
+                                        <label>Proteina C. Reactiva-PCR</label>
+                                        <div class="p-inputgroup align-items-center">
+                                            <input type="text" pInputText class="inputTest"
+                                                   formControlName="ProteinaReactivaPCR"/>
+                                            <label></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div class="col-12 md:col-6 lg:col-12 p-field flex flex-column">
+                                        <label>Factor Reumatoide</label>
+                                        <div class="p-inputgroup align-items-center">
+                                            <input type="text" pInputText class="inputTest"
+                                                   formControlName="FactorReumatoide"/>
+                                            <label></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div class="col-12 md:col-6 lg:col-12 p-field flex flex-column">
+                                        <label>Antiestreptolisinas "O" ASO.</label>
+                                        <div class="p-inputgroup align-items-center">
+                                            <input type="text" pInputText class="inputTest"
+                                                   formControlName="AntiestreptolisinasASO"/>
+                                            <label></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div class="col-12 md:col-6 lg:col-12 p-field flex flex-column">
+                                        <label>R.P.R</label>
+                                        <div class="p-inputgroup align-items-center">
+                                            <input type="text" pInputText class="inputTest"
+                                                   formControlName="RPR"/>
+                                            <label>dils.</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-12 md:col-6 lg:col-6 p-field">
+                                <div class="grid">
+                                    <div class="col-12 md:col-6 lg:col-12 p-field flex flex-column">
+                                        <label>Sifilis (Prueba rápida)</label>
+                                        <div class="p-inputgroup align-items-center">
+                                            <input type="text" pInputText class="inputTest"
+                                                   formControlName="Sifilis"/>
+                                            <label></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div class="col-12 md:col-6 lg:col-12 p-field flex flex-column">
+                                        <label>VIH.1 y 2 (Prueba. rápida)</label>
+                                        <div class="p-inputgroup align-items-center">
+                                            <input type="text" pInputText class="inputTest"
+                                                   formControlName="VIH12"/>
+                                            <label></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div class="col-12 md:col-6 lg:col-12 p-field flex flex-column">
+                                        <label>PSA Total (Prueba rápida)</label>
+                                        <div class="p-inputgroup align-items-center">
+                                            <input type="text" pInputText class="inputTest"
+                                                   formControlName="PSAtotal"/>
+                                            <label></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div class="col-12 md:col-6 lg:col-12 p-field flex flex-column">
+                                        <label>Otros</label>
+                                        <div class="p-inputgroup align-items-center">
+                                            <input type="text" pInputText class="inputTest"
+                                                   formControlName="otros"/>
+                                            <label></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 md:col-12 md:col-6 lg:col-2 p-field">
+                    <label class="m-2">B-HCG (Test de embarazo)</label>
+                    <div class="border">
+                        <div class="grid m-2">
+                            <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
+                                <div class="grid">
+                                    <div class="col-12 md:col-6 lg:col-12 p-field flex flex-column">
+                                        <label>Resultado</label>
+                                        <div class="p-inputgroup align-items-center">
+                                            <input type="text" pInputText class="inputTest"
+                                                   formControlName="BHCGresultado"/>
+                                            <label></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div class="col-12 md:col-6 lg:col-12 p-field flex flex-column">
+                                        <label>Muestra</label>
+                                        <div class="p-inputgroup align-items-center">
+                                            <input type="text" pInputText class="inputTest"
+                                                   formControlName="BHCGmuestra"/>
+                                            <label></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div class="col-12 md:col-6 lg:col-12 p-field flex flex-column">
+                                        <label>Reactivo</label>
+                                        <div class="p-inputgroup align-items-center">
+                                            <input type="text" pInputText class="inputTest"
+                                                   formControlName="BHCGreactivo"/>
+                                            <label></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="footer">
+    <button pButton type="button" (click)="guardarInmunologia()" label="Guardar"
+            class="p-button-primary mt-4 mr-2"></button>
+    <button pButton type="button" label="Cancelar" class="p-button-danger mt-4"></button>
+</div>
+
+
+
+
+
+
+
+
+
+

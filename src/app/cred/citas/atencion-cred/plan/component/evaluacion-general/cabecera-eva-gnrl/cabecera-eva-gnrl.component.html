@@ -1,16 +1,32 @@
 <p-tabView>
-    <p-tabPanel header="Evaluacion de la Alimentacion del niño(a)">
-        <app-evaluacion-alimentacion></app-evaluacion-alimentacion>
-    </p-tabPanel>
-    <p-tabPanel
-            header="Escala de Evaluacion del desaroolo Psicomotor (EEDP) 0-4 Años"
-    >
-        <app-eedp></app-eedp>
-    </p-tabPanel>
-    <p-tabPanel header="Test de desarrollo">
-        <app-test-desarrollo></app-test-desarrollo>
-    </p-tabPanel>
-    <p-tabPanel header="Protocolo Test de Desarrollo Psicomotor Tepsi">
-        <app-test-tepsi></app-test-tepsi>
-    </p-tabPanel>
+  <p-tabPanel header="EVALUACIÓN DE ALIMENTACION">
+    <ng-template pTemplate="content">
+      <app-evaluacion-alimentacion></app-evaluacion-alimentacion>
+    </ng-template>
+  </p-tabPanel>
+  <p-tabPanel header="TEST (EEDP)">
+    <ng-template pTemplate="content">
+      <app-eedp></app-eedp>
+    </ng-template>
+  </p-tabPanel>
+  <p-tabPanel header="PAUTA BREVE">
+    <ng-template pTemplate="content">
+      <app-plan-pauta-breve></app-plan-pauta-breve>
+    </ng-template>
+  </p-tabPanel>
+  <p-tabPanel header="TEST PERUANO">
+    <ng-template pTemplate="content">
+      <app-test-desarrollo></app-test-desarrollo>
+    </ng-template>
+  </p-tabPanel>
+  <p-tabPanel header="TEST TEPSI">
+    <ng-template pTemplate="content">
+      <app-test-tepsi></app-test-tepsi>
+    </ng-template>
+  </p-tabPanel>
+  <p-tabPanel header="TAMIZAJES">
+    <ng-template pTemplate="content">
+      <app-tamizajes></app-tamizajes>
+    </ng-template>
+  </p-tabPanel>
 </p-tabView>

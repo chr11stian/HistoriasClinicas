@@ -1,101 +1,140 @@
-<p-card>
-    <div class="flex">
-        <div class="flex jutify-content-center align-items-center caja">
-            <div>
-                <strong>Edad:</strong>
-            </div>
-            <div class="ml-5">
-                <input id="float-input" type="text" pInputText placeholder="Mostrar años">
-                Años
-            </div>
-            <div class="ml-5">
-                <input id="float-input" type="text" pInputText placeholder="Mostrar meses">
-                Meses
-            </div>
-            <div class="ml-5">
-                <input id="float-input" type="text" pInputText placeholder="Mostrar días">
-                Días
-            </div>
-        </div>
-        <div class="ml-5">
-      <span class="p-input-icon-right ml-3">
-         Fecha:
-         <p-calendar class="ml-2" showTime="true" placeholder="dd/mm/aaaa"></p-calendar>
-         <i class="pi pi-calendar"></i>
-      </span>
-            <div class="flex ml-3 mt-2">
-                <p>Examinador:</p>
-                <input class="ml-2" style='width: 100%;' id="float-input" type="text" pInputText
-                       placeholder="Ingresa Examinador">
-            </div>
-        </div>
+<div class="grid">
+  <div class="col-6">
+    <div class="flex justify-content-start">
+      <div class="col-4 text-right" style="font-weight: bold; ">Edad:</div>
+      <div class="col-2 p-fluid mr-1">
+        <!--        <input class="col-6" [value]="anioEdad" type="text" placeholder="1" pInputText/>-->
+        <p-inputNumber disabled="true" [(ngModel)]="anioEdad" inputId="percent" suffix=" años">
+        </p-inputNumber>
+
+      </div>
+      <div class="col-2 p-fluid mr-1">
+        <!--        <input class="col-6" [value]="mesEdad" type="text" placeholder="11" pInputText/>-->
+        <p-inputNumber disabled="true" [(ngModel)]="mesEdad" inputId="percent" suffix=" meses">
+        </p-inputNumber>
+
+      </div>
+      <div class="col-2 p-fluid mr-1">
+        <!--        <input class="col-6" [value]="diaEdad" type="text" placeholder="25" pInputText/>-->
+        <p-inputNumber disabled="true" [(ngModel)]="diaEdad" inputId="percent" suffix=" dias">
+        </p-inputNumber>
+      </div>
     </div>
 
-    <div class="flex" style="margin-top:40px">
+    <div>
 
-        <div class="flex">
-            <div>
-                <div class="flex justify-content-center"
-                     style='border:1px solid #E50019; padding: 10px; align-items: center;'>
-                    <strong>RESULTADO TEST TOTAL</strong>
-                </div>
-                <div style='border: 1px solid #E50019; padding: 10px' class="flex flex-column justify-content-left">
-                    <div class="flex ml-3 mt-2">
-                        <p>Puntaje Bruto:</p>
-                        <input class="ml-2 p-inputtext-sm" id="float-input" type="text" pInputText>
-                    </div>
-                    <div class="flex ml-3 mt-2">
-                        <p>Puntaje T:</p>
-                        <input class="ml-2 p-inputtext-sm" id="float-input" type="text" pInputText>
-                    </div>
-                    <div class="flex ml-3 mt-2">
-                        <p>Categoría:</p>
-                        <input class="ml-2 p-inputtext-sm" id="float-input" type="text" pInputText>
-                    </div>
-                </div>
-            </div>
-
-            <div class="ml-3">
-                <div class="flex justify-content-center"
-                     style='border:1px solid #E50019; padding: 10px; align-items: center;'>
-                    <strong>RESULTADOS SUBTEST</strong>
-                </div>
-                <div style='border: 1px solid #E50019; padding: 10px' class="flex flex-column justify-content-left">
-                    <div class="flex ml-3 mt-2">
-                        <p>Puntaje Bruto:</p>
-                        <input class="ml-2 p-inputtext-sm" id="float-input" type="text" pInputText>
-                    </div>
-                    <div class="flex ml-3 mt-2">
-                        <p>Puntaje T:</p>
-                        <input class="ml-2 p-inputtext-sm" id="float-input" type="text" pInputText>
-                    </div>
-                    <div class="flex ml-3 mt-2">
-                        <p>Categoría:</p>
-                        <input class="ml-2 p-inputtext-sm" id="float-input" type="text" pInputText>
-                    </div>
-                </div>
-            </div>
+      <div class="grid">
+        <div style="font-weight: bold" class="col-4 text-right">
+          Fecha:
         </div>
-
-        <div>
-            <!-- Aqui va los cuadros rojos -->
+        <div class="col-4 p-fluid">
+          <p-calendar [showIcon]="true" dateFormat="dd/mm/yy" inputId="icon" [(ngModel)]="fecha"
+                      disabled="true"></p-calendar>
         </div>
-
+      </div>
+      <div class="grid">
+        <div style="font-weight: bold" class="col-4 text-right">Nro DNI Examinador:</div>
+        <div class="col-8 p-fluid"><input [(ngModel)]="docExaminador" disabled="true" type="text" pInputText></div>
+      </div>
     </div>
 
+    <p-card [style]="{'height': '21rem', 'padding-top': 'unset'}" class="pr-1">
+      <ng-template pTemplate="header">
+        <h3 style="margin-bottom: unset;" class="text-center mb-2">Resultado Test</h3>
+        <div class="grid">
+          <div class="col-3 text-right align-self-center">Puntaje T
+          </div>
+          <div class="col-9">
+            <div style="">
+              <div class="flex">
+                <div style="width:2rem "></div>
+                <div class="text-center" style="width:4rem;font-size: 0.8rem">RETRASO</div>
+                <div class="text-center" style="width:4rem;font-size: 0.8rem">RIESGO</div>
+                <div class="text-center" style="width:16rem;font-size: 1rem">NORMALIDAD</div>
+                <div style="width:2rem "></div>
+              </div>
+              <div class="flex" style="height: 18px">
+                <div class="" style="justify-content: center;width: 2rem"></div>
+                <div class="color-1" style="justify-content: center;width: 4rem"></div>
+                <div class="color-2" style="justify-content: center;width: 4rem"></div>
+                <div class="color-3" style="justify-content: center;width: 4rem"></div>
+                <div class="color-3" style="justify-content: center;width: 4rem"></div>
+                <div class="color-3" style="justify-content: center;width: 4rem"></div>
+                <div class="color-3" style="justify-content: center;width: 4rem"></div>
+                <div class="" style="justify-content: center;width: 2rem"></div>
+              </div>
+              <div class="flex" style="">
+                <div class="margenes text-center" style="width: 4rem">20</div>
+                <div class="margenes text-center" style="width: 4rem">30</div>
+                <div class="margenes text-center" style="width: 4rem">40</div>
+                <div class="margenes text-center" style="width: 4rem">50</div>
+                <div class="margenes text-center" style="width: 4rem">60</div>
+                <div class="margenes text-center" style="width: 4rem">70</div>
+                <div class="margenes text-center" style="width: 4rem">80</div>
+              </div>
+            </div>
 
-    <div style="margin-top:40px" class="flex justify-content-around">
-        <div class="caja2">
-            <div class="azul"></div>
-            <div class="blanco">1. SUB TEST COORDINACIÓN</div>
+          </div>
         </div>
-        <div class="caja2">
-            <div class="azul"></div>
-            <div class="blanco">2. SUB TEST LENGUAJE</div>
+      </ng-template>
+      <div class="flex justify-content-center" style="position: relative;">
+        <div style="position: absolute;width: 30vw;">
+          <p-chart type="bar" [data]="chartData" [options]="horizontalOptions" width="25vw" height="20vh"></p-chart>
         </div>
-        <div class="caja2">
-            <div class="azul"></div>
-            <div class="blanco">1. SUB TEST MOTROCIDAD</div>
-        </div>
-    </div>
-</p-card>
+      </div>
+
+    </p-card>
+  </div>
+  <div class="col-6 ">
+    <table class="resultadosSubTest mb-3">
+      <tbody>
+      <tr>
+        <th colspan="3">RESULTADO TEST TOTAL</th>
+      </tr>
+      <tr style="height: 10px">
+        <th>Puntaje Bruto</th>
+        <th>Puntaje T</th>
+        <th>Categoria</th>
+      </tr>
+      <tr>
+        <!--          <td>{{resultadoA[0].puntajeBruto}}</td>-->
+        <td>{{resultadoA[0].puntajeBruto}}</td>
+        <td>{{resultadoA[0].puntajeT}}</td>
+        <td>{{resultadoA[0].categoria}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <table class="resultadosSubTest" style="margin-bottom: 10px">
+      <tbody>
+      <tr>
+        <th colspan="4" class="text-center">RESULTADOS SUB TEST</th>
+      </tr>
+      <tr>
+        <th>Areas</th>
+        <th>Puntaje Bruto</th>
+        <th>Puntaje T</th>
+        <th>Categoria</th>
+      </tr>
+      <tr>
+        <th>Coordinacion</th>
+        <td class="text-center">{{resultadoA[1].puntajeBruto}}</td>
+        <td style="text-align: center">{{this.resultadoA[1].puntajeT}}</td>
+        <td>{{resultadoA[1].categoria}}</td>
+      </tr>
+      <tr>
+        <th>Lenguaje</th>
+        <td class="text-center">{{resultadoA[2].puntajeBruto}}</td>
+        <td style="text-align: center">{{resultadoA[2].puntajeT}}</td>
+        <td>{{resultadoA[2].categoria}}</td>
+      </tr>
+      <tr>
+        <th>Motricidad</th>
+        <td class="text-center">{{resultadoA[3].puntajeBruto}}</td>
+        <td style="text-align: center">{{resultadoA[3].puntajeT}}</td>
+        <td>{{resultadoA[3].categoria}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<p-toast key="myKey1"></p-toast>

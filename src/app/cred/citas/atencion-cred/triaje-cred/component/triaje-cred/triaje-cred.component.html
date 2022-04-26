@@ -53,39 +53,33 @@
     </form>
 </p-fieldset>
 
-<p-fieldset legend="Signos Vitales" [toggleable]="true">
+<p-fieldset legend="SIGNOS VITALES">
     <form [formGroup]="examFG">
         <div class="grid">
-            <div class="col-12 md:col-10">
-                <div class="grid">
+            <div class="col-12 md:col-12 justify-content-center">
+                <div class="grid align-items-center">
                     <ng-container *ngFor="let controlFC of dataExamFisicos">
                         <div class="col-6 md:col-1 text-right">
                             {{controlFC.label}}
                         </div>
-                        <div class="col-6 md:col-2">
+                        <div class="col-6 md:col-3">
                             <ng-container *ngIf="(controlFC.nameFC === 'TallaFC' || controlFC.nameFC === 'PesoFC'); else otros">
                                 <input (ngModelChange)="imc()" type="number" pInputText [formControlName]="controlFC.nameFC"
-                                       class="inputfield w-full"
+                                       class="inputfield w-full text-center"
                                 />
                             </ng-container>
                             <ng-template #otros>
                                 <input maxlength="6" type="number" pInputText [formControlName]="controlFC.nameFC"
-                                       class="inputfield w-full"/>
+                                       class="inputfield w-full text-center"/>
                             </ng-template>
                         </div>
                     </ng-container>
                 </div>
-
             </div>
         </div>
-        <div class="col-12 md:col-12">
-            <span> Observaciones:</span>
-            <textarea
-                    [formControl]="obsFC"
-                    class="inputfield w-full"
-                    pInputTextarea>
-        </textarea>
-        </div>
+        <p-divider></p-divider>
+        <label>Observaciones de Signos Vitales:</label>
+        <textarea class="inputfield w-full mb-2"  pInputTextarea></textarea>
     </form>
 </p-fieldset>
 <p-fieldset legend="Descarte de signos de peligro"
@@ -262,12 +256,13 @@
         </button>
     </div>
     <div [hidden]="!my">
+
         <button type="submit"
-                icon="pi pi-save"
+                icon="pi"
                 pButton
                 pRipple
                 (click)="getConsultaPrincipal()"
-                label="Seguir Consulta"
+                [label]="botonGuardarVolver"
                 style="background-color: #0c3866"
                 class="ml-4 p-button-raised p-button-info"
         >

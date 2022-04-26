@@ -1,111 +1,807 @@
+<p-toolbar>
+    <div class="p-toolbar-group-left">
+        <h1 class="p-m-0">De la Atención</h1>
+    </div>
+    <ng-template pTemplate="right" class="button" style="text-align: right">
 
-    <p-toolbar>
-            <div class="p-toolbar-group-left">
-                <h1 class="p-m-0">De la Atención</h1>
+        <!-- <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-danger mr-2"
+            style="background: #C50009; border: 1px" (click)="save()">
+        </button> -->
+    </ng-template>
+</p-toolbar>
+<div class="col-12">
+    <p-fieldset legend="DE LA ATENCION">
+        <form [formGroup]="formAtencion">
+            <div class="grid">
+                <div class="col-3 md:col-2 border">
+                    <div class="col-12">
+                        <span>Fecha de Atención</span>
+                        <input type="date" pInputText formControlName='fechaAtencion'
+                            class="p-inputtext inputfield w-full" placeholder="Fecha" [readonly]="disabl">
+                    </div>
+                    <div class="col-12">
+                        <span>Hora</span>
+                        <input type="text" pInputText formControlName='hora' class="p-inputtext inputfield w-full"
+                            placeholder="Fecha" [readonly]="disabl">
+                    </div>
+                </div>
+                <div class="col-3 md:col-2 border">
+                    <div class="grid">
+                        <!-- <div class="col-5"> -->
+                        <div class="col-12">
+                            <span>UPS</span>
+                            <input type="text" pInputText formControlName='ups' class="p-inputtext inputfield w-full"
+                                placeholder="" [readonly]="disabl">
+                        </div>
+                        <div class="col-12">
+                            <span>Cod Prestación</span>
+                            <input type="text" pInputText formControlName='codPrestacion'
+                                class="p-inputtext inputfield w-full" placeholder="" [readonly]="disabl">
+                        </div>
+                        <!-- </div> -->
+                        <!-- <div class="col-7 pt-0">
+                            <div class="col-12 pt-8">
+                                <span>cod Prestacion(es) adicional(es)</span>
+                                <input type="text" pInputText formControlName='prestacionesAdicionales'
+                                    class="p-inputtext inputfield w-full" placeholder="">
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="col-3 md:col-2 border">
+                    <div class="grid">
+                        <div class="col-5">
+                            <label>Reporte Vinculado</label>
+                        </div>
+                        <div class="col-7">
+                            <span>Cod Autorización</span>
+                            <input type="text" pInputText formControlName='codAutorizacion'
+                                class="p-inputtext inputfield w-full" placeholder="">
+                        </div>
+                    </div>
+                    <!-- <span>N° FUA a Vincular</span>
+                    <input type="text" pInputText formControlName='nroFuaVincular' class="p-inputtext inputfield w-full"
+                        placeholder=""> -->
+                </div>
+                <div class="col-3 md:col-5">
+                    <p-fieldset legend="Hospitalización">
+                        <div class="grid">
+                            <div class="col-6">
+                                <span>Fecha de Ingreso</span>
+                            </div>
+                            <div class="col-6">
+                                <input type="date" pInputText formControlName='fechaIngreso'
+                                    class="p-inputtext inputfield w-full" placeholder="Fecha" [readonly]="disabl">
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-6">
+                                <span>Fecha de Alta</span>
+                            </div>
+                            <div class="col-6">
+                                <input type="date" pInputText formControlName='fechaAlta'
+                                    class="p-inputtext inputfield w-full" placeholder="Fecha" [readonly]="disabl">
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-6">
+                                <span>Fecha Corte Administrativo</span>
+                            </div>
+                            <div class="col-6">
+                                <input type="date" pInputText formControlName='fechaCorteAdministrativo'
+                                    class="p-inputtext inputfield w-full" placeholder="Fecha" [readonly]="disabl">
+                            </div>
+                        </div>
+                    </p-fieldset>
+                </div>
             </div>
-            <ng-template pTemplate="right" class="button" style="text-align: right">
-
-            <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-danger mr-2"
-                    style= "background: #C50009; border: 1px">
-            </button>
-        </ng-template>
-    </p-toolbar>
-    <form [formGroup]="formDeLaAtencion">
+        </form>
+    </p-fieldset>
+    <p-fieldset legend="CONCEPTO PRESTACIONAL">
         <div class="grid">
-                <div class="col-12 md:col-6 xs:col-12 lg:col-4">
-                    <div class="grid">
-                        <div class="col-12">
-                            <p-fieldset legend="Fecha de Atención">
-                                    <div class="p-field">
-                                        <div class="col-12 p-fluid">
-                                            <label>Fecha de Atención:</label>
-                                        </div>
-                                        <div class="col-12 p-fluid">
-                                             <p-calendar  [showIcon]="true" inputId="icon"></p-calendar>
-                                        </div>
-                                    </div>
-                                    <div class="p-field">
-                                        <div class="col-12 p-fluid">
-                                             <label>Hora de Atención:</label>
-                                        </div>
-                                        <div class="col-12 p-fluid">
-                                            <p-calendar [timeOnly]="true" inputId="timeonly"></p-calendar>
-                                        </div>
-                                    </div>
-                            </p-fieldset>
-                        </div>
-                        <div class="col-12">
-                            <p-fieldset legend="Reporte Vinculado">
-                                <div class="col-12 p-fluid">
-                                    <label>Cod. Autorización</label>
-                                </div>
-                                <div class="col-12 p-fluid">
-                                    <input type="text"  pInputText placeholder="Ingrese código de autorización">
-                                </div>
-                            </p-fieldset>
+            <div class="col-2">
+                <div class="border">
+                    <div class="grid my-5">
+                        <div class="col-12 text-center flex flex-column">
+                            <span class="pr-2">Atención Directa</span>
+                            <p-checkbox [(ngModel)]="atencionDirecta" binary="true" inputId="binary"></p-checkbox>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 md:col-6 xs:col-12 lg:col-4">
-                    <div class="grid">
-                        <p-card class="col-12 margin">
-                                    <div class="col-12 p-fluid">
-                                        <label>UPS:</label>
-                                    </div>
-                                    <div class="col-12 p-fluid">
-                                            <input type="text"  pInputText placeholder="Ingrese UPS">
-                                        </div>
-                                    <div class="col-12 p-fluid">
-                                        <label>Cod. Prestación:</label>
-                                    </div>
-                                    <div class="col-12 p-fluid">
-                                        <input type="text" pInputText placeholder="Ingrese código de prestación">
-                                    </div>
-                                    <div class="col-12 p-fluid">
-                                    </div>
-                                        <label>Cod. Prestación(es) Adicional(es):</label>
-                                    <div class="col-12 p-fluid">
-                                        <input type="text"   pInputText placeholder="Ingrese código de prestación adicional">
-                                    </div>
+            </div>
+            <div class="col-3 col-offset-1">
+                <form [formGroup]="formPrestacional">
+                    <p-fieldset legend="Cob Extraordinario">
+                        <div class="col-12">
+                            <span>N° Autorización</span>
+                            <input type="text" pInputText formControlName='nroAutorizacion'
+                                class="p-inputtext inputfield w-full" placeholder="">
+                            <span>Monto</span>
+                            <input type="number" pInputText formControlName='monto'
+                                class="p-inputtext inputfield w-full" placeholder="">
+                        </div>
+                    </p-fieldset>
+                </form>
+            </div>
+            <!-- <div class="col-3">
+                <form [formGroup]="formPrestacional">
+                    <p-fieldset legend="Carta de Garantia">
+                        <div class="col-12 ">
+                            <span>N° Autorización</span>
+                            <input type="text" pInputText formControlName='nroAutorizacion'
+                                class="p-inputtext inputfield w-full" placeholder="">
+                            <span>Monto</span>
+                            <input type="text" pInputText formControlName='nroAutorizacion'
+                                class="p-inputtext inputfield w-full" placeholder="">
+                        </div>
+                    </p-fieldset>
+                </form>
+            </div> -->
+            <div class="col-1 col-offset-1">
+                <div class="border">
+                    <div class="grid my-5">
+                        <div class="col-12 text-center flex flex-column">
+                            <span class="pr-2">Traslado</span>
+                            <p-checkbox [(ngModel)]="traslado" binary="true" inputId="binary"></p-checkbox>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3 col-offset-1">
+                <p-fieldset legend="Sepelio">
+                    <div *ngFor="let item of listSepelio" class="p-field-checkbox grid pb-2">
+                        <div class="col-8">
+                            <span [for]="item.value">{{ item.name }}</span>
+                        </div>
+                        <div class="col-4 text-left">
+                            <p-radioButton [inputId]="item.value" name="item" [value]="item.value"
+                                [(ngModel)]="sepelio"></p-radioButton>
+                        </div>
+                    </div>
+                </p-fieldset>
+            </div>
+        </div>
+    </p-fieldset>
+    <p-fieldset legend="DEL DESTINO DEL ASEGURADO/USUARIO">
+        <div class="grid">
+            <div class="col-4">
+                <div class="border">
+                    <div class="grid my-5">
+                        <div *ngFor="let item of listPlaceOne" class="col-4 text-left">
+                            <div class="grid">
+                                <div class="col-9">
+                                    <span [for]="item.value" class="pr-1">{{ item.name }}</span>
+                                </div>
+                                <div class="col-3 text-left">
+                                    <p-radioButton [inputId]="item.value" name="item" [value]="item.value"
+                                        [(ngModel)]="referido">
+                                    </p-radioButton>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-4 flex flex-column text-center">
+                            <span class="mr-2">Alta</span>
+                            <p-checkbox [(ngModel)]="alta" binary="true" inputId="binary" class="pr-2"></p-checkbox>
+                        </div>
+                        <div class="col-4 flex flex-column text-center">
+                            <span class="mr-2">Cita</span>
+                            <p-checkbox [(ngModel)]="cita" binary="true" inputId="binary"></p-checkbox>
+                        </div>
+                        <div class="col-4 flex flex-column text-center">
+                            <span class="mr-2">Hospitalización</span>
+                            <p-checkbox [(ngModel)]="hospitalizacion" binary="true" inputId="binary"></p-checkbox>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <p-fieldset legend="Referido">
+                    <div *ngFor="let item of listReferido">
+                        <div class="grid">
+                            <div class="col-9">
+                                <span [for]="item.value" class="pr-1">{{ item.name }}</span>
+                            </div>
+                            <div class="col-3">
+                                <p-radioButton [inputId]="item.value" name="item" [value]="item.value"
+                                    [(ngModel)]="referido">
+                                </p-radioButton>
+                            </div>
+                        </div>
+                    </div>
+                </p-fieldset>
+            </div>
+            <div class="col-5">
+                <div class="border">
+                    <div class="grid my-5">
+                        <div *ngFor="let item of listPlaceTwo" class="col-4">
+                            <div class="grid">
+                                <div class="col-9 text-right">
+                                    <span [for]="item.value" class="pr-1">{{ item.name }}</span>
+                                </div>
+                                <div class="col-3 text-left">
+                                    <p-radioButton [inputId]="item.value" name="item" [value]="item.value"
+                                        [(ngModel)]="referido">
+                                    </p-radioButton>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-4 flex flex-column text-center">
+                            <span class="mr-2">Contrarreferido</span>
+                            <p-checkbox [(ngModel)]="contraReferido" binary="true" inputId="binary" class="pr-2">
+                            </p-checkbox>
+                        </div>
+                        <div class="col-4 flex flex-column text-center">
+                            <span class="mr-2">Fallecido</span>
+                            <p-checkbox [(ngModel)]="fallecido" binary="true" inputId="binary" class="pr-2">
+                            </p-checkbox>
+                        </div>
+                        <div class="col-4 flex flex-column text-center">
+                            <span class="mr-2">Corte Administ</span>
+                            <p-checkbox [(ngModel)]="corteAdministrado" binary="true" inputId="binary" class="pr-2">
+                            </p-checkbox>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </p-fieldset>
+    <p-fieldset legend="SE REFIERE/CONTRARREFIERE A">
+        <form [formGroup]="formReferencia">
+            <div class="grid">
+                <div class="col-2 mt-4">
+                    <span>Cod RENAES de la IPRESS</span>
+                    <input type="text" pInputText formControlName='codRenaes' class="p-inputtext inputfield w-full"
+                        placeholder="">
+                </div>
+                <div class="col-8 mt-4">
+                    <span>Nombre de la IPRESS a la que se refiere/contrarrefiere</span>
+                    <input type="text" pInputText formControlName='nombreIpress' class="p-inputtext inputfield w-full"
+                        oninput="this.value=this.value.toUpperCase()" placeholder="">
+                </div>
+                <div class="col-2">
+                    <span>N° Hoja de Referencia/Contrarreferencia</span>
+                    <input type="text" pInputText formControlName='nroHojaReferencia'
+                        class="p-inputtext inputfield w-full" placeholder="">
+                </div>
+            </div>
+        </form>
+    </p-fieldset>
+</div>
+<div class="grid">
+    <div class="col-9">
+        <p-fieldset legend="ACTIVIDADES PREVENTIVAS Y OTROS">
+            <form [formGroup]="formActiPreventivas">
+                <div class="grid">
+                    <div class="col-2">
+                        <div class="grid">
+                            <div class="col-6">
+                                <span>Peso(Kg)</span>
+                            </div>
+                            <div class="col-6">
+                                <input type="number" pInputText formControlName='peso'
+                                    class="p-inputtext inputfield w-full" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="grid">
+                            <div class="col-6">
+                                <span>Talla(cm)</span>
+                            </div>
+                            <div class="col-6">
+                                <input type="number" pInputText formControlName='talla'
+                                    class="p-inputtext inputfield w-full" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="grid">
+                            <div class="col-6">
+                                <span>P.A.(mmHg)</span>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" pInputText formControlName='pa' class="p-inputtext inputfield w-full"
+                                    placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="col-2">
+                        <p-fieldset legend="De la Gestante" class="gestante">
+                            <div class="grid">
+                                <div class="col-6">
+                                    <span>CPN(N°)</span>
+                                </div>
+                                <div class="col-6">
+                                    <input type="text" pInputText formControlName='cpn'
+                                        class="p-inputtext inputfield w-full" placeholder="">
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <div class="col-6">
+                                    <span>Edad Gestacional</span>
+                                </div>
+                                <div class="col-6">
+                                    <input type="number" pInputText formControlName='edadGesacional'
+                                        class="p-inputtext inputfield w-full" placeholder="">
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <div class="col-6">
+                                    <span>Altura Uterina</span>
+                                </div>
+                                <div class="col-6">
+                                    <input type="number" pInputText formControlName='alturaUterina'
+                                        class="p-inputtext inputfield w-full" placeholder="">
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <div class="col-6">
+                                    <span>Parto Vertical</span>
+                                </div>
+                                <div class="col-6">
+                                    <input type="text" pInputText formControlName='partoVertical'
+                                        class="p-inputtext inputfield w-full" placeholder="">
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <div class="col-6">
+                                    <span>Control Puerperio (N°)</span>
+                                </div>
+                                <div class="col-6">
+                                    <input type="text" pInputText formControlName='controlPerperio'
+                                        class="p-inputtext inputfield w-full" placeholder="">
+                                </div>
+                            </div>
+                        </p-fieldset>
+                    </div>
+                    <div class="col-4 pb-8">
+                        <p-fieldset legend="Del Recien Nacido">
+                            <div class="grid">
+                                <div class="col-9">
+                                    <span>Edad Gestacional RN (SEM)</span>
+                                </div>
+                                <div class="col-3">
+                                    <input type="number" pInputText formControlName='edadGestacionalRN'
+                                        class="p-inputtext inputfield w-full" placeholder="">
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <div class="col-4">
+                                    <span>APGAR</span>
+                                </div>
+                                <div class="col-2">
+                                    <span>1°</span>
+                                </div>
+                                <div class="col-2">
+                                    <input type="text" pInputText formControlName='apgar1ro'
+                                        class="p-inputtext inputfield w-full" placeholder="">
+                                </div>
+                                <div class="col-2">
+                                    <span>5°</span>
+                                </div>
+                                <div class="col-2">
+                                    <input type="text" pInputText formControlName='apgar5to'
+                                        class="p-inputtext inputfield w-full" placeholder="">
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <div class="col-9">
+                                    <span>Corte Tardio de Cordon (2 a 3 min)</span>
+                                </div>
+                                <div class="col-3">
+                                    <input type="text" pInputText formControlName='corteTardioCordon'
+                                        class="p-inputtext inputfield w-full" placeholder="">
+                                </div>
+                            </div>
+                        </p-fieldset>
+                    </div>
+                    <div class="col-4">
+                        <p-fieldset legend="Gestante/RN/Niño/Adolescente/Joven y Adulto/Adulto Mayor">
+                            <div class="grid">
+                                <div class="col-3">
+                                    <div>N° CRED</div>
+                                </div>
+                                <div class="col-3">
+                                    <input type="number" pInputText formControlName='nroCred'
+                                        class="p-inputtext inputfield w-full" placeholder="">
+                                </div>
+                                <div class="col-3">
+                                    <div>PAB(cm)</div>
+                                </div>
+                                <div class="col-3">
+                                    <input type="number" pInputText formControlName='pab'
+                                        class="p-inputtext inputfield w-full" placeholder="">
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <!-- SEGUNDA FILA -->
+                                <div class="col-6">
+                                    <div>R.N. Prematuro</div>
+                                    <p-selectButton [options]="sino" optionValue="value" optionLabel="label"
+                                        formControlName="rnPrematuro">
+                                    </p-selectButton>
+                                </div>
+                                <div class="col-6">
+                                    <div>TAP/EEDP o TEPSI</div>
+                                    <input type="text" pInputText formControlName='tapEedpTepsi'
+                                        class="p-inputtext inputfield w-full" placeholder="">
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <!-- TERCERA FILA -->
+                                <div class="col-6">
+                                    <div>Bajo de Peso al Nacer</div>
+                                    <p-selectButton [options]="sino" optionValue="value" optionLabel="label"
+                                        formControlName="bajoPesoNacer">
+                                    </p-selectButton>
+                                </div>
+                                <div class="col-6">
+                                    <div>Consejería Nutricional</div>
+                                    <p-selectButton [options]="sino" optionValue="value" optionLabel="label"
+                                        formControlName="consejeriaNutricional">
+                                    </p-selectButton>
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <!-- CUARTA FILA -->
+                                <div class="col-6">
+                                    <div>Enfer. Congenita/Secuela al Nacer</div>
+                                    <p-selectButton [options]="sino" optionValue="value" optionLabel="label"
+                                        formControlName="enfermedadCongenitaAlNacer">
+                                    </p-selectButton>
+                                </div>
+                                <div class="col-6">
+                                    <div>Consejería Integral</div>
+                                    <p-selectButton [options]="sino" optionValue="value" optionLabel="label"
+                                        formControlName="consejeriaIntegral">
+                                    </p-selectButton>
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <!-- QUINTA FILA -->
+                                <div class="col-6">
+                                    <div>N° Familiares de Gestante/Puerpera Casa Materna</div>
+                                    <input type="number" pInputText formControlName='nroFamiliaresGestante'
+                                        class="p-inputtext inputfield w-full" placeholder="">
+                                </div>
+                                <div class="col-6">
+                                    <div>IMC (Kg/m2)</div>
+                                    <br>
+                                    <input type="number" pInputText formControlName='imc'
+                                        class="p-inputtext inputfield w-full" placeholder="">
+                                </div>
+                            </div>
+                        </p-fieldset>
+                    </div>
+                    <div class="col-2">
+                        <p-fieldset legend="Joven y Adulto">
+                            <div class="grid">
+                                <div class="col-12">
+                                    <div>Evaluación Integral:</div>
+                                    <p-selectButton [options]="sino" optionValue="value" optionLabel="label"
+                                        formControlName="jovenAdultoEvaluacionIntegral">
+                                    </p-selectButton>
+                                </div>
+                            </div>
+                        </p-fieldset>
+                        <p-fieldset legend="Adulto Mayor">
+                            <div class="grid">
+                                <div class="col-12">
+                                    <div>VACAM:</div>
+                                    <p-selectButton [options]="sino" optionValue="value" optionLabel="label"
+                                        formControlName="vacam">
+                                    </p-selectButton>
+                                </div>
+                                <div class="col-12">
+                                    <div>Tamizaje de Salud Mental:</div>
+                                    <p-selectButton [options]="sino" optionValue="value" optionLabel="label"
+                                        formControlName="tamizajeSaludMental">
+                                    </p-selectButton>
+                                </div>
+                            </div>
+                        </p-fieldset>
+                    </div>
+                </div>
+            </form>
+        </p-fieldset>
+    </div>
+    <div class="col-3">
+        <p-fieldset legend="VACUNAS N° DE DOSIS">
+            <div class="grid">
+                <div class="col-4" *ngFor="let item of listVacunas">
+                    <span>{{nameVaccine(item.nombre)}}</span>
+                    <input type="text" pInputText [(ngModel)]="item.dosis" class="p-inputtext inputfield w-full"
+                        placeholder="">
+                </div>
+            </div>
 
-                        </p-card>
-                        <div class="col-12">
-                            <p-fieldset legend="N° FUA a vincular">
-                                <div class="col-12 p-fluid">
-                                <label>Cod. Prestación(es) Adicional(es)</label>
-                                </div>
-                                <div class="col-12 p-fluid">
-                                <input type="text"  pInputText  placeholder="Ingrese N° de FUA a vincular">
-                                </div>
-                            </p-fieldset>
-                        </div>
+            <!-- <div class="grid">
+                <div class="col-1 md:col-1 lg:col-2 p-fluid">
+                    <div class="fontVac">BCG</div>
+                </div>
+                <div class="col-2 md:col-2 lg:col-2 p-fluid">
+                    <input type="text" pInputText>
+                </div>
+                <div class="col-2 md:col-2 lg:col-2 p-fluid">
+                    <div>Influenza</div>
+                </div>
+                <div class="col-2 md:col-2 lg:col-2 p-fluid">
+                    <input type="text" pInputText>
+                </div>
+                <div class="col-3 md:col-3 lg:col-2 p-fluid">
+                    <div class="fontVac">Antiamaril.</div>
+                </div>
+                <div class="col-2 md:col-2 lg:col-2 p-fluid">
+                    <input type="text" pInputText>
+                </div>
+            </div>
+            <div class="grid">
+                <div class="col-1 md:col-1 lg:col-2 p-fluid">
+                    <div>DTP</div>
+                </div>
+                <div class="col-2 md:col-2 lg:col-2 p-fluid">
+                    <input type="text" pInputText>
+                </div>
+                <div class="col-2 md:col-2 lg:col-2 p-fluid">
+                    <div>Parotid</div>
+                </div>
+                <div class="col-2 md:col-2 lg:col-2 p-fluid">
+                    <input type="text" pInputText>
+                </div>
+                <div class="col-3 md:col-3 lg:col-2 p-fluid">
+                    <div class="fontVac">Antineumoc.</div>
+                </div>
+                <div class="col-2 md:col-2 lg:col-2 p-fluid">
+                    <input type="text" pInputText>
+                </div>
+            </div>
+            <div class="grid">
+                <div class="col-1 md:col-1 lg:col-2 p-fluid">
+                    <div>APO</div>
+                </div>
+                <div class="col-2 md:col-2 lg:col-2 p-fluid">
+                    <input type="text" pInputText>
+                </div>
+                <div class="col-2 md:col-2 lg:col-2 p-fluid">
+                    <div>Rubeola</div>
+                </div>
+                <div class="col-2 md:col-2 lg:col-2 p-fluid">
+                    <input type="text" pInputText>
+                </div>
+                <div class="col-3 md:col-3 lg:col-2 p-fluid">
+                    <div> Antitetan.</div>
+                </div>
+                <div class="col-2 md:col-2 lg:col-2 p-fluid">
+                    <input type="text" pInputText>
+                </div>
+            </div>
+            <div class="grid">
+                <div class="col-1 md:col-1 lg:col-2 p-fluid">
+                    <div>ASA</div>
+                </div>
+                <div class="col-2 md:col-2 lg:col-2 p-fluid">
+                    <input type="text" pInputText>
+                </div>
+                <div class="col-2 md:col-2 lg:col-2 p-fluid">
+                    <div class="fontVac">Rotavitrus</div>
+                </div>
+                <div class="col-2 md:col-2 lg:col-2 p-fluid">
+                    <input type="text" pInputText>
+                </div>
+                <div class="col-2 md:col-2 lg:col-2 p-fluid">
+                    <div class="fontVac">DT Adultos (N°Dosis)</div>
+                </div>
+                <div class="col-3 md:col-3 lg:col-2 p-fluid">
+                    <p-selectButton [options]="sino" optionValue="value" optionLabel="label"></p-selectButton>
+                </div>
+            </div>
+            <div class="grid">
+                <div class="col-1 md:col-1 lg:col-2 p-fluid">
+                    <div>SPR</div>
+                </div>
+                <div class="col-2 md:col-2 lg:col-2 p-fluid">
+                    <input type="text" pInputText>
+                </div>
+                <div class="col-2 md:col-2 lg:col-2 p-fluid">
+                    <div class="fontVac">DT Adultos (N°Dosis)</div>
+                </div>
+                <div class="col-2 md:col-2 lg:col-2 p-fluid">
+                    <input type="text" pInputText>
+                </div>
+                <div class="col-3 md:col-3 lg:col-2 p-fluid">
+                    <div>VPH</div>
+                </div>
+                <div class="col-2 md:col-2 lg:col-2 p-fluid">
+                    <input type="text" pInputText>
+                </div>
+            </div>
+            <div class="grid">
+                <div class="col-1 md:col-1 lg:col-2 p-fluid">
+                    <div>SR</div>
+                </div>
+                <div class="col-2 md:col-2 lg:col-2 p-fluid">
+                    <input type="text" pInputText>
+                </div>
+                <div class="col-2 md:col-2 lg:col-2 p-fluid">
+                    <div>IPV</div>
+                </div>
+                <div class="col-2 md:col-2 lg:col-2 p-fluid">
+                    <input type="text" pInputText>
+                </div>
+                <div class="col-3 md:col-3 lg:col-2 p-fluid">
+                    <div>Otra Vacuna</div>
+                </div>
+                <div class="col-2 md:col-2 lg:col-2 p-fluid">
+                    <input type="text" pInputText>
+                </div>
+            </div>
+            <div class="grid">
+                <div class="col-1 md:col-1 lg:col-2 p-fluid">
+                    <div>HVB</div>
+                </div>
+                <div class="col-2 md:col-2 lg:col-2 p-fluid">
+                    <input type="text" pInputText>
+                </div>
+                <div class="col-2 md:col-2 lg:col-2 p-fluid">
+                    <div>Pentaval.</div>
+                </div>
+                <div class="col-2 md:col-2 lg:col-2 p-fluid">
+                    <input type="text" pInputText>
+                </div>
+                <div class="col-3 md:col-3 lg:col-2 p-fluid">
+                    <div class="fontVac">Grupo de Riesgo HVB</div>
+                </div>
+                <div class="col-2 md:col-2 lg:col-2 p-fluid">
+                    <input type="text" pInputText>
+                </div>
+            </div> -->
+            <p-card>
+                <div style="text-align: center">
+                    <p class="text-xs font-medium">GRUPO DE RIESGO HVB:
+                        1. TRABAJORES DE SALUD
+                        2. TRABAJADORES SEXUALES
+                        3. HSH 4. PRIVADO LIBERTAD
+                        5. FF. AA.
+                        6. POLICIA NACIONAL
+                        7. ESTUDIANTES DE SALUD
+                        8. POLITRANFUNDIDOS
+                        9. DROGO DEPENDIENTES</p>
+                </div>
+            </p-card>
+        </p-fieldset>
+    </div>
+    <div class="col-12">
+        <p-fieldset legend="DIAGNOSTICOS">
+            <p-table [value]="listDiagnostico" responsiveLayout="scroll" class="diagnostico"
+                styleClass="p-datatable-gridlines">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th rowspan="3">#</th>
+                        <th rowspan="3" style="width: 30em; text-align: center;">Descripción</th>
+                    </tr>
+                    <tr>
+                        <th colspan="2" style="text-align: center;">INGRESO</th>
+                        <th colspan="2" style="text-align: center;">EGRESOS</th>
+                    </tr>
+                    <tr>
+                        <th>Tipo de DX</th>
+                        <th>CIE-10</th>
+                        <th>Tipo de DX</th>
+                        <th>CIE-10</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-i="rowIndex">
+                    <tr>
+                        <td>{{ i +1 }}</td>
+                        <td>{{ rowData.diagnostico }}</td>
+                        <td>
+                            <p-selectButton [options]="listDiagnosticoDXIngreso1" [(ngModel)]="rowData.tipoDx">
+                            </p-selectButton>
+                        </td>
+                        <td>{{ rowData.cie_10 }}</td>
+                        <td>
+                            <!-- <p-selectButton [options]="listDiagnosticoDXEgreso" [(ngModel)]="ipeDXEg"
+                                optionLabel="label" (ngModelChange)="changeNgModel()" optionValue="value">
+                            </p-selectButton> -->
+                        </td>
+                        <td>
+
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-fieldset>
+        <p-fieldset legend="RESPONSABLE DE LA ATENCIÓN">
+            <form [formGroup]="formRespAtencion">
+                <div class="grid">
+                    <div class="col-3">
+                        <span>N° de DNI</span>
+                        <input type="text" pInputText formControlName='dniResponsable'
+                            class="p-inputtext inputfield w-full" placeholder="">
+                    </div>
+                    <div class="col-6">
+                        <span>Nombre del Responsable de la Atención</span>
+                        <input type="text" pInputText formControlName='nombreResponsable'
+                            class="p-inputtext inputfield w-full" oninput="this.value = this.value.toUpperCase();"
+                            placeholder="">
+                    </div>
+                    <div class="col-3">
+                        <span>N° de Colegiatura</span>
+                        <input type="text" pInputText formControlName='nroColegiaturaResponsable'
+                            class="p-inputtext inputfield w-full" oninput="this.value=this.value.toUpperCase()"
+                            placeholder="">
                     </div>
                 </div>
-                <div class="col-12 md:col-12 xs:col-12 lg:col-4">
-                    <div class="grid">
-                        <div class="col-12">
-                            <p-fieldset legend="Hospitalización">
-                                <div class="col-12">
-                                    <label>Fecha de Ingreso</label>
-                                </div>
-                                <div class="col-12 p-fluid">
-                                    <p-calendar  [showIcon]="true" inputId="icon"></p-calendar>
-                                </div>
-                                <div class="col-12"l>
-                                    <label>Fecha de Alta</label>
-                                </div>
-                                <div class="col-12 p-fluid">
-                                    <p-calendar  [showIcon]="true" inputId="icon"></p-calendar>
-                                </div>
-                                <div class="col-12">
-                                    <label>Fecha de Corte Administrativo</label>
-                                </div>
-                                <div class="col-12 p-fluid">
-                                    <p-calendar  [showIcon]="true" inputId="icon"></p-calendar>
-                                </div>
-                            </p-fieldset>
-                        </div>
+                <div class="grid">
+                    <div class="col-2">
+                        <span>Responsable de la Atención</span>
+                        <input type="text" pInputText formControlName='responsableAtencion'
+                            class="p-inputtext inputfield w-full" oninput="this.value=this.value.toUpperCase()"
+                            placeholder="">
+                    </div>
+                    <div class="col-5">
+                        <span>Especialidad</span>
+                        <input type="text" pInputText formControlName='especialidad'
+                            class="p-inputtext inputfield w-full" oninput="this.value=this.value.toUpperCase()"
+                            placeholder="">
+                    </div>
+                    <div class="col-3">
+                        <span>N° RNE</span>
+                        <input type="text" pInputText formControlName='nroRne' class="p-inputtext inputfield w-full"
+                            oninput="this.value=this.value.toUpperCase()" placeholder="">
+                    </div>
+                    <div class="col-2">
+                        <span>Egresado</span>
+                        <input type="text" pInputText formControlName='egresado' class="p-inputtext inputfield w-full"
+                            oninput="this.value=this.value.toUpperCase()" placeholder="">
                     </div>
                 </div>
-      </div>
-    </form>
+            </form>
+            <div class="col-12">
+                <span class="text-xs">1.MÉDICO 2.FARMECEUTICO 3.CIRUJANO DENTISTA 4.BIÓLOGO 5.OBSTETRIZ 6.ENFERMERIA
+                    7.TRABAJADORA SOCIAL 8.PSICOLOGIA 9.TECNOLOGO MEDICO 10.NUTRICÍON 11.TÉCNICO ENFERMERIA 12.AUXILIAR
+                    DE ENFERMERIA 13.OTRO</span>
+            </div>
+        </p-fieldset>
+        <p-fieldset legend="DATOS DEL APODERADO">
+            <div class="grid">
+                <div class="col-2">
+                    <p-fieldset legend="Firma">
+                        <div *ngFor="let item of listFirma">
+                            <div class="grid">
+                                <div class="col-9">
+                                    <span [for]="item.value" class="pr-1">{{ item.name }}</span>
+                                </div>
+                                <div class="col-3">
+                                    <p-radioButton [inputId]="item.value" name="item" [value]="item.value"
+                                        [(ngModel)]="firma">
+                                    </p-radioButton>
+                                </div>
+                            </div>
+                        </div>
+                    </p-fieldset>
+                </div>
+                <div class="col-4">
+                    <span>Apoderado</span>
+                    <input type="text" pInputText [(ngModel)]="nameApoderado" class="p-inputtext inputfield w-full"
+                        oninput="this.value=this.value.toUpperCase()" placeholder="">
+                </div>
+                <div class="col-2">
+                    <span>DNI o CE del Apoderado</span>
+                    <input type="text" pInputText [(ngModel)]="nroDocApoderado" class="p-inputtext inputfield w-full"
+                        oninput="this.value=this.value.toUpperCase()" placeholder="">
+                </div>
+                <div class="col-4 text-right">
+                    <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-danger mr-2"
+                        style="background: #0c3866; border: 1px" (click)="save()">
+                    </button>
+                    <!-- <button pButton pRipple label="Imprimir" icon="pi pi-save" class="p-button-danger mr-2"
+                        style="background: #0c3866; border: 1px" (click)="imprimir()">
+                    </button> -->
+                </div>
+            </div>
+        </p-fieldset>
+    </div>
+</div>

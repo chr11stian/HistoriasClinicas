@@ -1,31 +1,37 @@
 <p-card>
-    <span class="text-3xl">GESTANTES >> Consulta Obstétrica</span>
-    <span class="text-xs"></span>
+    <div class="grid p-2 align-items-center">
+        <i class="pi pi-book " style="font-size: 2rem"></i>
+        <label class="text-2xl ml-3 ">GESTANTES >> CONSULTA OBSTÉTRICA</label>
+        <br>
+        <br>
+    </div>
     <form [formGroup]="formConsulta">
-        <p-toolbar class="p-mb-4">
+        <p-toolbar class="p-mb-4 pt-1">
             <ng-template pTemplate="left">
-                <h3 class="p-m-0">CONSULTA</h3>
+                <h3 class="p-m-0">LISTA DE CONSULTAS</h3>
             </ng-template>
             <ng-template pTemplate="right" class="button">
-                <button pButton pRipple label="Regresar" icon="pi pi-arrow-left" class="p-button-primary mr-2"
+                <button pButton pRipple label="Regresar" icon="pi pi-arrow-left" class="button-agregar mr-2"
                     (click)="regresar()"></button>
-                <button pButton pRipple label="Agregar Consulta" icon="pi pi-save" (click)="irConsulta()"
-                    class="p-button-raised p-button-primary mr-2"></button>
+                <button pButton pRipple label="Agregar Consulta" icon="pi pi-plus" (click)="irConsultaNew(false)"
+                    class="p-button-raised button-agregar mr-2"></button>
             </ng-template>
         </p-toolbar>
         <div class="grid">
             <div class="col-12">
 
-                <p-table [value]="consultas" responsiveLayout="scroll" styleClass="p-datatable-gridlines" [rows]="5"
-                    [paginator]="true" [autoLayout]="true"
+                <p-table [value]="consultas" responsiveLayout="scroll" styleClass="p-datatable-gridlines" [rows]="10"
+                    [paginator]="true" [autoLayout]="true" [loading]="loading"
                     currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
                     [showCurrentPageReport]="true">
                     <ng-template pTemplate="header">
                         <tr>
                             <th class="text-center">Nro</th>
                             <th class="text-center">DNI</th>
+                            <th class="text-center">PACIENTE</th>
                             <th class="text-center">FECHA</th>
                             <th class="text-center">NRO ATENCION</th>
+                            <th class="text-center">ESTADO</th>
                             <th class="text-center">ACCIONES</th>
                         </tr>
                     </ng-template>
@@ -33,23 +39,43 @@
                         <tr>
                             <td class="text-center">{{i+1}}</td>
                             <td class="text-center">{{row.nroDoc}}</td>
+                            <td class="text-center">{{row.datosPaciente.primerNombre+" "+row.datosPaciente.apePaterno+"
+                                "+row.datosPaciente.apeMaterno}}</td>
                             <td class="text-center">{{row.fecha}}</td>
                             <td class="text-center">{{row.nroAtencion}}</td>
+                            <td style="text-align: center" *ngIf="row.estadoAtencion===1; else regular">
+                                <p-tag severity="warning" value="pendiente">
+                                </p-tag>
+                            </td>
+                            <ng-template #regular>
+                                <td style="text-align: center" *ngIf="row.estadoAtencion===0">
+                                    <p-tag severity="success" value="interconsulta">
+                                    </p-tag>
+                                </td>
+                                <td style="text-align: center" *ngIf="row.estadoAtencion===2">
+                                    <p-tag severity="primary" value="completo">
+                                    </p-tag>
+                                </td>
+                            </ng-template>
                             <td class="text-center">
-                                <button pButton pTooltip="Editar" icon="pi pi-pencil" pRipple type="button"
-                                    label="Editar" class="p-button-rounded p-button-info"
-                                    (click)="openDialogConsultaEditar(row,i)"></button>
+                                <span class="">
+                                    <button pButton pTooltip="Editar" icon="pi pi-pencil" pRipple type="button"
+                                        label="Editar" class="p-button-rounded p-button-warm"
+                                        (click)="irConsultaVisualizar(row,true)"></button>
+                                </span>
+                                <span class="pl-1 text-center">
+                                    <button pButton pTooltip="FUA" pRipple type="button" label="FUA"
+                                        class="p-button-rounded p-button-help" (click)="irFUA(row)"></button>
+                                </span>
+                                <span class="pl-1">
+                                    <button pButton pRipple class="p-button-rounded p-button-info" label="HIS"
+                                            (click)="irHIS(row)"></button>
+                                </span>
                             </td>
                         </tr>
                     </ng-template>
                 </p-table>
             </div>
-            <!-- <div class="col-12 text-right">
-                <button pButton type="button" label="Agregar" class="m-1 w-5rem pButton btnAdd text-center "
-                    (click)="openDialogConsulta()"></button>
-                <button pButton type="button" label="Salir" class="m-1 w-5rem p-button-danger"
-                    (click)="close()"></button>
-            </div> -->
         </div>
     </form>
 </p-card>

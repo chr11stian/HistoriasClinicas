@@ -1,12 +1,10 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {FiliancionService} from "../../services/filiancion-atenciones/filiancion.service";
-import {formatDate} from "@angular/common";
 import Swal from "sweetalert2";
 import {ObstetriciaGeneralService} from "../../../../../services/obstetricia-general.service";
-import {validate} from "codelyzer/walkerFactory/walkerFn";
-import {PersonalService} from "../../../../../../core/services/personal-services/personal.service";
 import {image} from "../../../../../../../assets/images/image.const";
+import {UbicacionService} from "../../../../../../mantenimientos/services/ubicacion/ubicacion.service";
 
 @Component({
     selector: 'app-datos-generales-filiacion',
@@ -20,33 +18,55 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
     provincias: any;
     distritos: any
     options: any;
-    stadoCivil: any;
     familiares: any
     studies: any;
-    dataPacientes: any;
+    dataPacientes: any = null;
     id: any;
     fechanacimiento: string;
     edad: any;
-    // idDocumento: string;
     dataIDfiliacion: any;
     dataPacientesReniec: any;
     imagePath: string = image;
     formDatos_Generales: FormGroup;
 
 
-    idRecuperado: string = "";
+    idRecuperado: string = null;
     tipoDocRecuperado: string;
     nroDocRecuperado: string;
 
     fechaConvertido: string;
+    dataDepartamentos: any;
+    dataProvincia: any;
+    ProvinciaIDSelct: any;
+    dataDistrito: any;
+    DistritoIDSelct: any;
+    dataCentroPoblado: any;
+    DepartamentoIDSelct: any;
+    Gestacion: any;
+    dataPaciente2: any;
+    pacientesFiliacion: any;
 
-    constructor(private formDatosGenerales: FormBuilder,
+    constructor(private fb: FormBuilder,
                 private filiancionService: FiliancionService,
+                private ubicacionService: UbicacionService,
                 private obstetriciaGeneralService: ObstetriciaGeneralService) {
 
-        this.tipoDocRecuperado = this.obstetriciaGeneralService.tipoDoc;
-        this.nroDocRecuperado = this.obstetriciaGeneralService.nroDoc;
-        this.idRecuperado = this.obstetriciaGeneralService.idGestacion;
+        this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
+        this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
+
+        console.log("DATA PACIENTE 2", this.dataPaciente2);
+
+        if (this.Gestacion == null) {
+            this.tipoDocRecuperado = this.dataPaciente2.tipoDoc;
+            this.nroDocRecuperado = this.dataPaciente2.nroDoc;
+            this.idRecuperado = JSON.parse(localStorage.getItem('idGestacionRegistro'));
+
+
+        } else {
+            this.tipoDocRecuperado = this.Gestacion.tipoDoc;
+            this.nroDocRecuperado = this.Gestacion.nroDoc;
+            this.idRecuperado = this.Gestacion.id;
+        }
 
 
         this.options = [
@@ -55,45 +75,13 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
         ];
 
         this.studies = [
-            {gradoInstruccion: 'Analfabeta', code: 'Analfabeta'},
-            {gradoInstruccion: 'Primaria', code: 'Primaria'},
-            {gradoInstruccion: 'Secundaria', code: 'Secundaria'},
-            {gradoInstruccion: 'Superior', code: 'Superior'},
-            {gradoInstruccion: 'Superior No Univ.', code: 'SuperiorNo'},
+            'ANALFABETO',
+            'PRIMARIA INCOMPLETA',
+            'PRIMARIA COMPLETA',
+            'SECUNDARIA INCOMPLETA',
+            'SECUNDARIA COMPLETA',
+            'SUPERIOR'
         ];
-
-        this.stadoCivil = [
-            {estadocivil: 'Casado', code: 'Casado'},
-            {estadocivil: 'Combiviente', code: 'Combiviente'},
-            {estadocivil: 'Soltero', code: 'Soltero'},
-        ];
-
-        this.departamentos = [
-            {departamento: 'Lima'},
-            {departamento: 'Arequipa'},
-            {departamento: 'Puno'},
-            {departamento: 'Madre de Dios'},
-            {departamento: 'Cusco'},
-            {departamento: 'Loreto'},
-            {departamento: 'Cajamarca'},
-            {departamento: 'Ayacucho'},
-        ];
-        this.provincias = [
-            {provincia: 'Cusco'},
-            {provincia: 'Lima'},
-            {provincia: 'Arequipa'},
-            {provincia: 'Puno'},
-            {provincia: 'Madre de Dios'},
-            {provincia: 'Loreto'},
-            {provincia: 'Cajamarca'},
-            {provincia: 'Ayacucho'},
-        ];
-        this.distritos = [
-            {distrito: 'Cusco'},
-            {distrito: 'Santiago'},
-            {distrito: 'San sebastian'},
-        ];
-
     }
 
 
@@ -101,6 +89,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
         console.log("IdRecuperado", this.idRecuperado);
         console.log("TipoDocRecuperado", this.tipoDocRecuperado);
         console.log("NroDocRecuparado", this.nroDocRecuperado);
+        this.getDepartamentos();
         this.obternerFechaActual();
         this.buildForm();
 
@@ -110,6 +99,182 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
 
     }
 
+    buildForm() {
+        this.formDatos_Generales = this.fb.group({
+            HCL: new FormControl(''),
+            apePaterno: new FormControl(''),
+            apeMaterno: new FormControl(''),
+            primerNombre: new FormControl(''),
+            establecimiento: new FormControl(''),
+            estabOrigen: new FormControl(''),
+            aplica: new FormControl(''),
+            referencia: new FormControl(''),
+            codAficiaconSIS: new FormControl(''),
+            tipoSeguro: new FormControl(''),
+            docIndentidad: new FormControl(''),
+            fechaNacimiento: new FormControl(''),
+            ocupacion: new FormControl(''),
+            edad: new FormControl(''),
+            direccion: new FormControl(''),
+            gradoInstruccion: new FormControl(''),
+            amiosAprobados: new FormControl(''),
+            nombreNroSector: new FormControl(''),
+            estadoCivil: new FormControl(''),
+            departamento: new FormControl(''),
+            provincia: new FormControl(''),
+            distrito: new FormControl(''),
+            nombreRN: new FormControl(''),
+            pabreRN: new FormControl(''),
+            religion: new FormControl(''),
+            cel1: new FormControl('', [Validators.required, Validators.min(1), Validators.max(9)]),
+            cel2: new FormControl(''),
+            idioma: new FormControl(''),
+        })
+    }
+
+    /**Lista todos los departamento **/
+    getDepartamentos() {
+        this.ubicacionService.getDepartamentos().subscribe((resp: any) => {
+            this.dataDepartamentos = resp.object;
+            console.log("Departamento", this.dataDepartamentos);
+        });
+    }
+
+    /**Selecciona un departamento y lista las provincias**/
+    selectedDepartamento() {
+        let depa = this.formDatos_Generales.value.departamento;
+        this.dataDepartamentos.forEach(object => {
+            if (object.departamento === depa) {
+                console.log("Departamento:", object);
+                this.DepartamentoIDSelct = object.iddd
+            }
+        });
+        let dpto = {
+            iddd: this.DepartamentoIDSelct
+        }
+        this.dataDistrito = '';
+        this.dataCentroPoblado = '';
+        this.dataProvincia = '';
+        this.ubicacionService.getProvincias(dpto).subscribe((res: any) => {
+            this.dataProvincia = res.object;
+        });
+    }
+
+    /**Selecciona un Provincia y lista los Distritos**/
+    selectedProvincia() {
+        // DistritoIDSelct
+        let provinciaX = this.formDatos_Generales.value.provincia;
+        this.dataProvincia.forEach(object => {
+            if (object.provincia === provinciaX) {
+                console.log("Provincia:", object);
+                this.ProvinciaIDSelct = object.idpp
+            }
+        });
+
+        let provincia = {
+            iddd: this.DepartamentoIDSelct,
+            idpp: this.ProvinciaIDSelct,
+        };
+        this.dataCentroPoblado = '';
+        this.ubicacionService.getDistritos(provincia).subscribe((res: any) => {
+            this.dataDistrito = res.object;
+        });
+    }
+
+    /**Selecciona un Distrito y lista los Centros Poblados**/
+    selectedDistrito() {
+        let distritoX = this.formDatos_Generales.value.distrito;
+        this.dataDistrito.forEach(object => {
+            if (object.distrito === distritoX) {
+                console.log("Distrito:", object);
+                this.DistritoIDSelct = object.iddis
+            }
+        });
+        let distrito = {
+            iddd: this.DepartamentoIDSelct,
+            idpp: this.ProvinciaIDSelct,
+            iddis: this.DistritoIDSelct,
+        }
+        this.ubicacionService.getCentroPoblado(distrito).subscribe((res: any) => {
+            this.dataCentroPoblado = res.object;
+        });
+    }
+
+    listarUbicacionPacienteProvincias() {
+        let Departamento;
+        if (this.dataPacientes == null) {
+            Departamento = this.dataIDfiliacion.departamento;
+        } else {
+            Departamento = this.dataPacientes.domicilio.departamento;
+        }
+        console.log("Departamento XXX", this.dataPacientes)
+
+        console.log("Departamento:", Departamento);
+        this.dataDepartamentos.forEach(object => {
+            if (object.departamento === Departamento) {
+                console.log("Departamento:", object);
+                this.DepartamentoIDSelct = object.iddd
+            }
+        });
+        let dpto = {
+            iddd: this.DepartamentoIDSelct
+        }
+        this.ubicacionService.getProvincias(dpto).subscribe((res: any) => {
+            this.dataProvincia = res.object;
+            console.log("PROVINCIA:", this.dataProvincia);
+            this.listarUbicacionPacientedistritos();
+        });
+    }
+
+    listarUbicacionPacientedistritos() {
+
+        let Provincia;
+        if (this.dataPacientes == null) {
+            Provincia = this.dataIDfiliacion.provincia;
+        } else {
+            Provincia = this.dataPacientes.domicilio.provincia;
+        }
+
+        this.dataProvincia.forEach(object => {
+            if (object.provincia === Provincia) {
+                console.log("Provincia:", object);
+                this.ProvinciaIDSelct = object.idpp
+            }
+        });
+        let provincia1 = {
+            iddd: this.DepartamentoIDSelct,
+            idpp: this.ProvinciaIDSelct,
+        };
+        this.ubicacionService.getDistritos(provincia1).subscribe((res: any) => {
+            this.dataDistrito = res.object;
+            this.listarUbicacionPacienteCCPP();
+        });
+
+    }
+
+    listarUbicacionPacienteCCPP() {
+        let Distrito
+        if (this.dataPacientes == null) {
+            Distrito = this.dataIDfiliacion.distrito;
+        } else {
+            Distrito = this.dataPacientes.domicilio.distrito;
+        }
+
+        this.dataDistrito.forEach(object => {
+            if (object.distrito === Distrito) {
+                console.log("Distrito:", object);
+                this.DistritoIDSelct = object.iddis
+            }
+        });
+        let distrito1 = {
+            iddd: this.DepartamentoIDSelct,
+            idpp: this.ProvinciaIDSelct,
+            iddis: this.DistritoIDSelct,
+        }
+        this.ubicacionService.getCentroPoblado(distrito1).subscribe((res: any) => {
+            this.dataCentroPoblado = res.object;
+        });
+    }
 
     obternerFechaActual() {
         this.fecha = new Date();
@@ -178,11 +343,12 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
                     console.log("RESPUESTA", result)
                     Swal.fire({
                         icon: 'success',
-                        title: 'Guardo con exito',
-                        text: '',
+                        title: 'Registro',
+                        text: 'Fue creado con exito',
                         showConfirmButton: false,
                         timer: 1500,
                     })
+                    this.getpacientesFiliadosGestacion();
                 }
             )
         } else
@@ -190,8 +356,8 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
                 result => {
                     Swal.fire({
                         icon: 'success',
-                        title: 'Actualizo con exito',
-                        text: '',
+                        title: 'Registro',
+                        text: 'Fue actualizado con exito',
                         showConfirmButton: false,
                         timer: 1500,
                     })
@@ -203,6 +369,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
         this.filiancionService.getPacienteNroDocFiliacion(this.tipoDocRecuperado, this.nroDocRecuperado).subscribe((res: any) => {
             this.dataPacientes = res.object;
             this.traerDataReniec();
+            this.listarUbicacionPacienteProvincias();
             console.log('paciente por doc ', this.dataPacientes)
             this.formDatos_Generales.get('apePaterno').setValue(this.dataPacientes.apePaterno);
             this.formDatos_Generales.get('apeMaterno').setValue(this.dataPacientes.apeMaterno);
@@ -211,12 +378,13 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
             this.formDatos_Generales.get('docIndentidad').setValue(this.dataPacientes.nroDoc);
             this.formDatos_Generales.get('establecimiento').setValue(this.dataPacientes.nombreEESS);
             this.formDatos_Generales.get('estadoCivil').setValue(this.dataPacientes.estadoCivil);
-
-            this.formDatos_Generales.get('codAficiaconSIS').setValue(this.dataPacientes.codAficiaconSIS);
+            this.formDatos_Generales.get('codAficiaconSIS').setValue(this.dataPacientes.codSeguro);
+            this.formDatos_Generales.get('tipoSeguro').setValue(this.dataPacientes.tipoSeguro);
             this.formDatos_Generales.get('direccion').setValue(this.dataPacientes.domicilio.direccion);
             this.formDatos_Generales.get('departamento').setValue(this.dataPacientes.domicilio.departamento);
             this.formDatos_Generales.get('provincia').setValue(this.dataPacientes.domicilio.provincia);
             this.formDatos_Generales.get('distrito').setValue(this.dataPacientes.domicilio.distrito);
+            this.formDatos_Generales.get('nombreNroSector').setValue(this.dataPacientes.domicilio.ccpp);
             this.formDatos_Generales.get('gradoInstruccion').setValue(this.dataPacientes.gradoInstruccion);
             this.formDatos_Generales.get('cel1').setValue(this.dataPacientes.celular);
 
@@ -243,6 +411,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
     getpacienteFiiacionByID() {
         this.filiancionService.getPacienteFiliacionId(this.idRecuperado).subscribe((res: any) => {
             this.dataIDfiliacion = res.object;
+            this.listarUbicacionPacienteProvincias();
             this.traerDataReniec();
             console.log('fiilacion por ID ', this.dataIDfiliacion)
             this.formDatos_Generales.get('apePaterno').setValue(this.dataIDfiliacion.apePaterno);
@@ -278,44 +447,26 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
     }
 
 
-    buildForm() {
-        this.formDatos_Generales = this.formDatosGenerales.group({
-            HCL: new FormControl(''),
-            apePaterno: new FormControl(''),
-            apeMaterno: new FormControl(''),
-            primerNombre: new FormControl(''),
-            establecimiento: new FormControl(''),
-            estabOrigen: new FormControl(''),
-            aplica: new FormControl(''),
-            referencia: new FormControl(''),
-            codAficiaconSIS: new FormControl(''),
-            docIndentidad: new FormControl(''),
-            fechaNacimiento: new FormControl(''),
-            ocupacion: new FormControl(''),
-            edad: new FormControl(''),
-            direccion: new FormControl(''),
-            gradoInstruccion: new FormControl(''),
-            amiosAprobados: new FormControl(''),
-            nombreNroSector: new FormControl(''),
-            estadoCivil: new FormControl(''),
-            departamento: new FormControl(''),
-            provincia: new FormControl(''),
-            distrito: new FormControl(''),
-            nombreRN: new FormControl(''),
-            pabreRN: new FormControl(''),
-            religion: new FormControl(''),
-            cel1: new FormControl('', [Validators.required, Validators.min(1), Validators.max(9)]),
-            cel2: new FormControl(''),
-            idioma: new FormControl(''),
-        })
-    }
-
-
     traerDataReniec() {
         this.filiancionService.getDatosReniec(this.nroDocRecuperado).subscribe((res: any) => {
             this.dataPacientesReniec = res;
-            console.log(res);
+            // console.log(res);
             this.imagePath = res.foto;
+        });
+    }
+
+    getpacientesFiliadosGestacion() {
+        this.obstetriciaGeneralService.getPacienteFiliacion(this.tipoDocRecuperado, this.nroDocRecuperado).subscribe((res: any) => {
+            this.pacientesFiliacion = res.object
+            console.log('paciente con nro de gestacion ', this.pacientesFiliacion)
+            let index = this.pacientesFiliacion.length - 1;
+            this.idRecuperado = this.pacientesFiliacion[index].id;
+            localStorage.setItem('idGestacionRegistro', JSON.stringify(this.idRecuperado));
+
+            console.log('ARREGLO ULTIMA POSICION', this.idRecuperado);
+
+            this.getpacienteFiiacionByID();
+
         });
     }
 }

@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {ObstetriciaGeneralService} from './services/obstetricia-general.service';
-import {Router} from '@angular/router'
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {CitasService} from "./services/citas.service";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
@@ -10,6 +9,11 @@ import {MessageService} from "primeng/api";
 import {CuposService} from "../core/services/cupos.service";
 import {DocumentoIdentidadService} from "../mantenimientos/services/documento-identidad/documento-identidad.service";
 import Swal from "sweetalert2";
+import {RegistrarTriajeComponent} from "../modulos/triaje/registrar-triaje/registrar-triaje.component";
+import {CuposTriajeService} from "../modulos/triaje/services/cupos-triaje/cupos-triaje.service";
+import {Router} from '@angular/router';
+import {Observable} from "rxjs";
+
 
 @Component({
     selector: 'app-citas',
@@ -18,12 +22,15 @@ import Swal from "sweetalert2";
     providers: [DialogService],
 })
 export class CitasComponent implements OnInit {
+    productObservable$: Observable<number>;
+
     idIpressLapostaMedica = "616de45e0273042236434b51";
     iprees: string = "la posta medica";
     options: data[]
     selectedOption: data
     citas: any[]
     loading: boolean = true;
+    ref: DynamicDialogRef
 
 
     dataCitas: any;
@@ -38,16 +45,21 @@ export class CitasComponent implements OnInit {
     listaDocumentosIdentidad: any;
     TipoDoc: string = "DNI";
     DataCuposPaciente: any;
+    dataCuposTriados: any;
+    dialogTriaje: boolean = false;
 
 
     constructor(private obstetriciaGeneralService: ObstetriciaGeneralService,
                 private obstetriciaService: ObstetriciaGeneralService,
                 private citasService: CitasService,
                 private fb: FormBuilder,
+                private dialog: DialogService,
                 private pacienteService: PacienteService,
                 private messageService: MessageService,
                 private cuposService: CuposService,
                 private documentoIdentidadService: DocumentoIdentidadService,
+                private cuposTriajeService: CuposTriajeService,
+                private router: Router,
     ) {
         this.options = [
             {name: "DNI", code: 1},
@@ -70,11 +82,14 @@ export class CitasComponent implements OnInit {
 
 
     ngOnInit(): void {
+
         this.buildForm();
+
         this.formCitas.get('tipoDoc').setValue(this.TipoDoc);
         this.formCitas.get('fechaBusqueda').setValue(this.fechaActual);
         this.getDocumentosIdentidad();
-        this.getCuposXservicio();
+        this.buscarCuposPorPersonal();
+        // this.getCuposXservicio();
     }
 
     buildForm() {
@@ -159,21 +174,28 @@ export class CitasComponent implements OnInit {
     }
 
 
-
     enviarData2(event) {
-        this.obstetriciaGeneralService.tipoDoc = null;
-        this.obstetriciaGeneralService.nroDoc = null;
-        console.log("BUSQUEDA DNI SIN CUPO EVENTO", event);
-        this.obstetriciaGeneralService.tipoDoc = event.tipoDoc;
-        this.obstetriciaGeneralService.nroDoc = event.nroDoc;
+        localStorage.setItem('PacienteSinCupo', JSON.stringify(event));
+        localStorage.removeItem('datacupos');
     }
 
     enviarData(event) {
-        this.obstetriciaGeneralService.tipoDoc = null;
-        this.obstetriciaGeneralService.nroDoc = null;
-        console.log("LISTA DE CUPOS EVENTO", event);
-        this.obstetriciaGeneralService.tipoDoc = event.paciente.tipoDoc;
-        this.obstetriciaGeneralService.nroDoc = event.paciente.nroDoc;
+        // this.router.navigate(['/gestante']);
+        console.log("EVENTO", event)
+        if (event.funcionesVitales == null) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Paciente',
+                text: 'Necesita pasar por triaje',
+                showConfirmButton: false,
+                timer: 1500,
+            })
+            return
+        } else {
+            this.router.navigate(['dashboard/obstetricia-general/citas/gestante'], {queryParams: {id: null}})
+            localStorage.setItem('datacupos', JSON.stringify(event));
+            localStorage.removeItem('PacienteSinCupo');
+        }
     }
 
 
@@ -198,6 +220,46 @@ export class CitasComponent implements OnInit {
             severity: 'info',
             summary: 'Paciente',
             detail: 'No tiene un registro de cupo'
+        });
+    }
+
+    /**Buscar lista de cupos que pertenece a un personal de salud**/
+    async buscarCuposPorPersonal() {
+        let data = {
+            tipoDoc: this.formCitas.value.tipoDoc,
+            // nroDoc: this.formCitas.value.nroDoc,
+            nroDoc: '46538000',
+            fecha: this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd')
+        }
+        console.log("DATA DNI", data)
+        await this.cuposService.buscarListaCuposPersonal(this.idIpressLapostaMedica, data)
+            .then((result: any) => {
+                this.DataCupos = result.object
+                this.loading = false;
+                console.log('LISTA DE CUPO DEL PACIENTE', result)
+            });
+    }
+
+    openDialogTriaje(data) {
+        let opcion
+        if (data.funcionesVitales == null) {
+            opcion = 1
+        } else {
+            opcion = 3
+        }
+
+        let dataAux = {
+            data: data,
+            option: opcion
+        }
+        this.ref = this.dialog.open(RegistrarTriajeComponent, {
+            header: " Registrar Triaje",
+            width: '70%',
+            data: dataAux,
+        });
+        console.log("DATA TRIAJE", data)
+        this.ref.onClose.subscribe((data: any) => {
+            this.buscarCuposPorPersonal();
         });
     }
 }

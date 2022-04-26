@@ -6,8 +6,7 @@ p-table >>> .p-datatable table {
   font-weight:normal;
   text-align: center;
 }
-p-table >>> .p-datatable .p-datatable-thead > tr > th {
-
+::ng-deep .asignado .p-datatable .p-datatable-thead > tr > th {
   text-align: center;
   font-size: 1rem;
   word-wrap: break-word;
@@ -15,7 +14,7 @@ p-table >>> .p-datatable .p-datatable-thead > tr > th {
   font-weight: normal;
   min-width: 4rem;
 }
-p-table >>> .p-datatable .p-datatable-tbody > tr > td {
+::ng-deep .asignado .p-datatable .p-datatable-tbody > tr > td {
   text-align: center;
   font-size: 1rem;
   word-wrap: break-word;
@@ -23,9 +22,9 @@ p-table >>> .p-datatable .p-datatable-tbody > tr > td {
   padding-bottom: 0.5rem;
   padding-left: 0rem;
   padding-right: 0rem;
-  /*border: 1px solid black;*/
-
-
+}
+::ng-deep .primero .p-datatable .p-datatable-header{
+  padding: 0.5rem;
 }
 .borde {
   border: solid 1px #CDCDCD;
@@ -75,4 +74,33 @@ span p{
 .frozenCol-th::after {
   position: absolute;
   overflow-x: auto;
+}
+
+
+
+
+::ng-deep.p-dialog .p-dialog-header {
+  border-bottom: 0 none;
+  background: #0c3866;
+  color: #ffffff;
+  height: 40px;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+}
+
+::ng-deep >>> .p-dialog .p-dialog-header .p-dialog-header-icon {
+  width: 2rem;
+  height: 2rem;
+  color: #f8f9fa;
+  border: 0 none;
+  background: transparent;
+  border-radius: 50%;
+  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+  margin-right: 0.5rem;
+}
+
+
+::ng-deep >>> .p-dialog .p-dialog-header .p-dialog-title {
+  font-size: 12px;
+  text-align: center;
 }

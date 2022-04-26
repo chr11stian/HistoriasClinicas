@@ -1,7 +1,8 @@
 <div class="">
     <p-panel>
         <ng-template pTemplate="header">
-            <h3 class="m-1">GESTANTES</h3>
+            <h4 class="m-1">GESTANTE:</h4>
+            <span class="m-1">{{nombreDelGestante}}</span>
         </ng-template>
 
         <div class="grid">
@@ -20,16 +21,16 @@
             </div>
             <div class="col-12 md:col-6 lg:col-3  p-field">
                 <div class="grid">
-                    <div class="col-12 md:col-6 lg:col-12" p-field>
+                    <div class="col-12 md:col-2 lg:col-12" p-field>
                         <button pButton pRipple type="button" routerLink="plan-atencion"
                                 icon="pi pi-plus-circle" label="PLAN DE ATENCIÓN INTEGRAL"
-                                class="p-button-raised p-button-secondary"></button>
+                                class="p-button-raised p-button-secondary" (click)="ngOnDestroy()"></button>
                     </div>
                 </div>
                 <div class="grid">
                     <div class="col-12 md:col-6 lg:col-12" p-field>
-                        <button pButton pRipple type="button" routerLink="consultorio-obstetrico"
-                                label="CONSULTORIO OBSTETRICO" icon="pi pi-plus-circle"
+                        <button pButton pRipple type="button" routerLink="../../consulta"
+                                label="CONSULTAS PRENATALES" icon="pi pi-plus-circle"
                                 class="p-button-raised p-button-secondary"></button>
                     </div>
                 </div>
@@ -50,19 +51,19 @@
 
                 <div class="grid">
                     <div class="col-12 md:col-6 lg:col-12" p-field>
-                        <button pButton type="button" pRipple routerLink="../tamizaje-violencia"
-                                label="TAMIZAJE DE VIOLENCIA" icon="pi pi-plus-circle"
+                        <button pButton type="button" pRipple routerLink="../planParto"
+                                label="PLAN DE PARTO" icon="pi pi-plus-circle"
                                 class="p-button-raised p-button-secondary"></button>
                     </div>
                 </div>
 
-                <div class="grid">
+                <!-- <div class="grid">
                     <div class="col-12 md:col-6 lg:col-12" p-field>
                         <button pButton type="button" pRipple routerLink="../fua"
                                 label="FUA" icon="pi pi-plus-circle"
                                 class="p-button-raised p-button-secondary"></button>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
 

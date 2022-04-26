@@ -1,0 +1,23 @@
+<div class="grid">
+    <div class="col-10"></div>
+    <div class="col-2 mt-4 mb-0">
+        <button pButton pRipple label="Cerrar caja" icon="pi pi-sign-out"
+            class="p-button-raised p-button-danger mr-2" (click)="clickCerrarCaja()"></button>
+    </div>
+    <div class="col-12">
+        <label class="text-5xl text-pink-800 centrar p-2">CAJA</label>
+    </div>
+    <div class="col-12">
+        <p-tabView>
+            <p-tabPanel header="PAGO CUPOS">
+                <app-pagos></app-pagos>
+            </p-tabPanel>
+            <p-tabPanel header="PAGO DE PROCEDIMIENTOS">
+                <app-pago-procedimientos></app-pago-procedimientos>
+            </p-tabPanel>
+            <p-tabPanel header="RESUMEN DE PAGOS">
+                <app-resumen-pagos></app-resumen-pagos>
+            </p-tabPanel>
+        </p-tabView>
+    </div>
+</div>

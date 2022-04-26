@@ -5,7 +5,7 @@
     <ng-template pTemplate="right" class="button" style="text-align: right">
 
         <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-danger mr-2"
-                style= "background: #C50009; border: 1px">
+            style="background: #C50009; border: 1px">
         </button>
     </ng-template>
 </p-toolbar>
@@ -14,7 +14,7 @@
     <div class="grid">
         <div class="col-12 md:col-6 lg:col-4 p-fluid">
             <label>Codigo RENAES de la IPRESS:</label>
-            <input type="text"  pInputText placeholder="Ingrese código">
+            <input type="text" pInputText placeholder="Ingrese código">
         </div>
         <div class="col-12 md:col-6 lg:col-4 p-fluid">
             <label>Nombre de la IPRESS que realiza la Atención:</label>
@@ -22,7 +22,7 @@
         </div>
         <div class="col-12 md:col-6 lg:col-4 p-fluid">
             <label>N° Hoja de Referencia/Contrareferencia:</label>
-            <input type="text"   pInputText placeholder="Ingrese N° hoja de referencia">
+            <input type="text" pInputText placeholder="Ingrese N° hoja de referencia">
         </div>
     </div>
     <div class="grid">
@@ -31,7 +31,7 @@
                 <div class="grid">
                     <div class="col-12 md:col-6 lg:col-4 p-fluid">
                         <label>Peso (Kg):</label>
-                        <input type="text"  pInputText placeholder="Ingrese peso">
+                        <input type="text" pInputText placeholder="Ingrese peso">
                     </div>
                     <div class="col-12 md:col-6 lg:col-4 p-fluid">
                         <label>Talla:</label>
@@ -39,7 +39,7 @@
                     </div>
                     <div class="col-12 md:col-6 lg:col-4 p-fluid">
                         <label>P.A. (mmHg):</label>
-                        <input type="text"   pInputText placeholder="Ingrese P.A.">
+                        <input type="text" pInputText placeholder="Ingrese P.A.">
                     </div>
                 </div>
                 <br>
@@ -57,26 +57,26 @@
                                 <div class="grid">
                                     <div class="col-12 p-fluid">
                                         <div>Edad Gest.</div>
-                                        <input type="text"  pInputText>
+                                        <input type="text" pInputText>
                                     </div>
                                 </div>
                                 <div class="grid">
                                     <div class="col-12 p-fluid">
                                         <div>Altura Uterina</div>
-                                        <input type="text"   pInputText>
+                                        <input type="text" pInputText>
                                     </div>
                                 </div>
                                 <div class="grid">
                                     <div class="col-12 p-fluid">
                                         <div>Parto Vertical</div>
-                                        <p-selectButton [options]="sino"  optionValue="value"
-                                                        optionLabel="label"></p-selectButton>
+                                        <p-selectButton [options]="sino" optionValue="value" optionLabel="label">
+                                        </p-selectButton>
                                     </div>
                                 </div>
                                 <div class="grid">
                                     <div class="col-12 p-fluid">
                                         <div>Control Puerperio (N°)</div>
-                                        <input type="text"   pInputText>
+                                        <input type="text" pInputText>
                                     </div>
                                 </div>
                             </p-fieldset>
@@ -86,15 +86,15 @@
                     <div class="col-6 xl:col-3 lg:col-8 md:col-8 p-fluid">
                         <div class="grid">
                             <p-fieldset legend="Del recien nacido">
-                               <div class="grid">
-<!--                                   <div class="col-6">-->
-<!--                                       <div>Edad Gestacional RN (Sem)</div>-->
-<!--                                   </div>-->
-                                   <div class="col-12">
-                                       <div>Edad Gestacional RN (Sem)</div>
-                                       <input type="text"  pInputText>
-                                   </div>
-                               </div>
+                                <div class="grid">
+                                    <!--                                   <div class="col-6">-->
+                                    <!--                                       <div>Edad Gestacional RN (Sem)</div>-->
+                                    <!--                                   </div>-->
+                                    <div class="col-12">
+                                        <div>Edad Gestacional RN (Sem)</div>
+                                        <input type="text" pInputText>
+                                    </div>
+                                </div>
                                 <div class="grid ">
                                     <div class="col-4">
                                         <div class="col-12 apgar">
@@ -104,10 +104,10 @@
                                     <div class="col-4">
                                         <div class="grid ml-1">
                                             <div class="col-6 azul">
-                                                <label  style="color: #FFFFFF"> 1°</label>
+                                                <label style="color: #FFFFFF"> 1°</label>
                                             </div>
                                             <div class="col-6 blanco">
-<!--                                                <input type="text"  pInputText>-->
+                                                <!--                                                <input type="text"  pInputText>-->
                                             </div>
                                         </div>
 
@@ -118,19 +118,19 @@
                                                 <label style="color: #FFFFFF"> 5°</label>
                                             </div>
                                             <div class="col-6 blanco">
-<!--                                                <input type="text"  pInputText>-->
+                                                <!--                                                <input type="text"  pInputText>-->
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="grid">
-<!--                                    <div class="col-6">-->
-<!--                                        <div>Corte tardío de cordón(2 a 3 min) </div>-->
-<!--                                    </div>-->
+                                    <!--                                    <div class="col-6">-->
+                                    <!--                                        <div>Corte tardío de cordón(2 a 3 min) </div>-->
+                                    <!--                                    </div>-->
                                     <div class="col-12">
                                         <div>Corte tardío de cordón(2 a 3 min) </div>
-                                        <p-selectButton [options]="sino"  optionValue="value"
-                                                        optionLabel="label"></p-selectButton>
+                                        <p-selectButton [options]="sino" optionValue="value" optionLabel="label">
+                                        </p-selectButton>
                                     </div>
                                 </div>
                             </p-fieldset>
@@ -139,93 +139,93 @@
                     <!-- Gestante/RN/Niño/Adolescente/Joven y Adulto/AdultoMayor-->
                     <div class="col-12 xl:col-5 lg:col-8 md:col-8 p-fluid">
                         <p-fieldset legend="Gestante/RN/Niño/Adolescente/">
-                           <div class="grid">
-                               <!-- PRIMERA FILA -->
-                               <div class="col-3">
-                                   <div>APGAR</div>
-                               </div>
-                               <div class="col-3">
-                                   <input type="text"  pInputText>
-                               </div>
-                               <div class="col-3">
-                                   <div>PAB(cm)</div>
-                               </div>
-                               <div class="col-3">
-                                   <input type="text"  pInputText>
-                               </div>
-                           </div>
+                            <div class="grid">
+                                <!-- PRIMERA FILA -->
+                                <div class="col-3">
+                                    <div>APGAR</div>
+                                </div>
+                                <div class="col-3">
+                                    <input type="text" pInputText>
+                                </div>
+                                <div class="col-3">
+                                    <div>PAB(cm)</div>
+                                </div>
+                                <div class="col-3">
+                                    <input type="text" pInputText>
+                                </div>
+                            </div>
                             <div class="grid">
                                 <!-- SEGUNDA FILA -->
-<!--                                <div class="col-3">-->
-<!--                                    <div>R.N. Prematuro</div>-->
-<!--                                </div>-->
+                                <!--                                <div class="col-3">-->
+                                <!--                                    <div>R.N. Prematuro</div>-->
+                                <!--                                </div>-->
                                 <div class="col-6">
                                     <div>R.N. Prematuro:</div>
-                                    <p-selectButton [options]="sino"  optionValue="value"
-                                                    optionLabel="label"></p-selectButton>
+                                    <p-selectButton [options]="sino" optionValue="value" optionLabel="label">
+                                    </p-selectButton>
                                 </div>
-<!--                                <div class="col-3">-->
-<!--                                    <div>APGAR</div>-->
-<!--                                </div>-->
+                                <!--                                <div class="col-3">-->
+                                <!--                                    <div>APGAR</div>-->
+                                <!--                                </div>-->
                                 <div class="col-6">
                                     <div>APGAR:</div>
-                                    <input type="text"  pInputText>
+                                    <input type="text" pInputText>
                                 </div>
                             </div>
                             <div class="grid">
                                 <!-- TERCERA FILA -->
-<!--                                <div class="col-3">-->
-<!--                                    <div>Bajo de peso al nacer</div>-->
-<!--                                </div>-->
+                                <!--                                <div class="col-3">-->
+                                <!--                                    <div>Bajo de peso al nacer</div>-->
+                                <!--                                </div>-->
                                 <div class="col-6">
                                     <div>Bajo de peso al nacer:</div>
-                                    <p-selectButton [options]="sino"  optionValue="value"
-                                                    optionLabel="label"></p-selectButton>
+                                    <p-selectButton [options]="sino" optionValue="value" optionLabel="label">
+                                    </p-selectButton>
                                 </div>
-<!--                                <div class="col-3">-->
-<!--                                    <div>Consejería Nutricional</div>-->
-<!--                                </div>-->
+                                <!--                                <div class="col-3">-->
+                                <!--                                    <div>Consejería Nutricional</div>-->
+                                <!--                                </div>-->
                                 <div class="col-6">
                                     <div>Consejería Nutricional:</div>
-                                    <p-selectButton [options]="sino"  optionValue="value"
-                                                    optionLabel="label"></p-selectButton>
+                                    <p-selectButton [options]="sino" optionValue="value" optionLabel="label">
+                                    </p-selectButton>
                                 </div>
                             </div>
                             <div class="grid">
                                 <!-- CUARTA FILA -->
-<!--                                <div class="col-3">-->
-<!--                                    <div>Enfermedad Congenita/Secuela al nacer</div>-->
-<!--                                </div>-->
+                                <!--                                <div class="col-3">-->
+                                <!--                                    <div>Enfermedad Congenita/Secuela al nacer</div>-->
+                                <!--                                </div>-->
                                 <div class="col-7">
                                     <div>Enfer. congenita/Secuela al nacer</div>
-                                    <p-selectButton [options]="sino"  optionValue="value"
-                                                    optionLabel="label"></p-selectButton>
+                                    <p-selectButton [options]="sino" optionValue="value" optionLabel="label">
+                                    </p-selectButton>
                                 </div>
-<!--                                <div class="col-3">-->
-<!--                                    <div>Consejería Integral</div>-->
-<!--                                </div>-->
+                                <!--                                <div class="col-3">-->
+                                <!--                                    <div>Consejería Integral</div>-->
+                                <!--                                </div>-->
                                 <div class="col-5">
                                     <div>Consejería Integral</div>
-                                    <p-selectButton [options]="sino"  optionValue="value"
-                                                    optionLabel="label"></p-selectButton>
+                                    <p-selectButton [options]="sino" optionValue="value" optionLabel="label">
+                                    </p-selectButton>
                                 </div>
                             </div>
                             <div class="grid">
                                 <!-- QUINTA FILA -->
-<!--                                <div class="col-3">-->
-<!--                                    <div>N° Familiares de Gestante/Puerpera Casa Materna</div>-->
-<!--                                </div>-->
+                                <!--                                <div class="col-3">-->
+                                <!--                                    <div>N° Familiares de Gestante/Puerpera Casa Materna</div>-->
+                                <!--                                </div>-->
                                 <div class="col-8">
                                     <div>N° Familiares de Gestante/Puerpera Casa Materna</div>
-                                    <input type="text"  pInputText>
+                                    <input type="text" pInputText>
                                 </div>
-<!--                                <div class="col-3">-->
-<!--                                    <div>IMC (Kg/m2)</div>-->
-<!--                                </div>-->
+                                <!--                                <div class="col-3">-->
+                                <!--                                    <div>IMC (Kg/m2)</div>-->
+                                <!--                                </div>-->
                                 <div class="col-4">
                                     <div>IMC (Kg/m2)</div>
                                     <br>
-                                    <input type="text"  pInputText>
+                                    <input type="text" pInputText>
                                 </div>
                             </div>
                         </p-fieldset>
@@ -239,8 +239,8 @@
 
                                         <div class="col-12">
                                             <div>Evaluación Integral:</div>
-                                            <p-selectButton [options]="sino"  optionValue="value"
-                                                            optionLabel="label"></p-selectButton>
+                                            <p-selectButton [options]="sino" optionValue="value" optionLabel="label">
+                                            </p-selectButton>
                                         </div>
                                     </div>
                                 </p-fieldset>
@@ -250,21 +250,21 @@
                                     <div class="grid">
                                         <div class="col-12">
                                             <div>VACAM:</div>
-                                            <p-selectButton [options]="sino"  optionValue="value"
-                                                            optionLabel="label"></p-selectButton>
+                                            <p-selectButton [options]="sino" optionValue="value" optionLabel="label">
+                                            </p-selectButton>
                                         </div>
                                     </div>
                                 </p-fieldset>
                             </div>
                             <br>
                             <div class="col-12">
-                            <p-card>
+                                <p-card>
                                     <div class="col-12">
                                         <div>Tamizaje de salud mental:</div>
-                                        <p-selectButton [options]="TamizajeOptions"  optionValue="value"
-                                                        optionLabel="label"></p-selectButton>
+                                        <p-selectButton [options]="TamizajeOptions" optionValue="value"
+                                            optionLabel="label"></p-selectButton>
                                     </div>
-                            </p-card>
+                                </p-card>
                             </div>
 
                         </div>
@@ -281,7 +281,7 @@
                         <div class="fontVac">BCG</div>
                     </div>
                     <div class="col-2 md:col-2 lg:col-2 p-fluid">
-                        <input type="text"  pInputText>
+                        <input type="text" pInputText>
                     </div>
                     <div class="col-2 md:col-2 lg:col-2 p-fluid">
                         <div>Influenza</div>
@@ -293,7 +293,7 @@
                         <div class="fontVac">Antiamaril.</div>
                     </div>
                     <div class="col-2 md:col-2 lg:col-2 p-fluid">
-                        <input type="text"   pInputText>
+                        <input type="text" pInputText>
                     </div>
                 </div>
                 <!-- SEGUNDA FILA-->
@@ -302,7 +302,7 @@
                         <div>DTP</div>
                     </div>
                     <div class="col-2 md:col-2 lg:col-2 p-fluid">
-                        <input type="text"  pInputText>
+                        <input type="text" pInputText>
                     </div>
                     <div class="col-2 md:col-2 lg:col-2 p-fluid">
                         <div>Parotid</div>
@@ -314,7 +314,7 @@
                         <div class="fontVac">Antineumoc.</div>
                     </div>
                     <div class="col-2 md:col-2 lg:col-2 p-fluid">
-                        <input type="text"   pInputText>
+                        <input type="text" pInputText>
                     </div>
                 </div>
                 <!-- TERCERA FILA-->
@@ -323,7 +323,7 @@
                         <div>APO</div>
                     </div>
                     <div class="col-2 md:col-2 lg:col-2 p-fluid">
-                        <input type="text"  pInputText>
+                        <input type="text" pInputText>
                     </div>
                     <div class="col-2 md:col-2 lg:col-2 p-fluid">
                         <div>Rubeola</div>
@@ -335,7 +335,7 @@
                         <div> Antitetan.</div>
                     </div>
                     <div class="col-2 md:col-2 lg:col-2 p-fluid">
-                        <input type="text"   pInputText>
+                        <input type="text" pInputText>
                     </div>
                 </div>
                 <!-- CUARTA FILA-->
@@ -344,7 +344,7 @@
                         <div>ASA</div>
                     </div>
                     <div class="col-2 md:col-2 lg:col-2 p-fluid">
-                        <input type="text"  pInputText>
+                        <input type="text" pInputText>
                     </div>
                     <div class="col-2 md:col-2 lg:col-2 p-fluid">
                         <div class="fontVac">Rotavitrus</div>
@@ -356,8 +356,7 @@
                         <div class="fontVac">DT Adultos (N°Dosis)</div>
                     </div>
                     <div class="col-3 md:col-3 lg:col-2 p-fluid">
-                        <p-selectButton [options]="sino"  optionValue="value"
-                                        optionLabel="label"></p-selectButton>
+                        <p-selectButton [options]="sino" optionValue="value" optionLabel="label"></p-selectButton>
                     </div>
                 </div>
                 <!-- QUINTA FILA-->
@@ -366,7 +365,7 @@
                         <div>SPR</div>
                     </div>
                     <div class="col-2 md:col-2 lg:col-2 p-fluid">
-                        <input type="text"  pInputText>
+                        <input type="text" pInputText>
                     </div>
                     <div class="col-2 md:col-2 lg:col-2 p-fluid">
                         <div class="fontVac">DT Adultos (N°Dosis)</div>
@@ -378,7 +377,7 @@
                         <div>VPH</div>
                     </div>
                     <div class="col-2 md:col-2 lg:col-2 p-fluid">
-                        <input type="text"   pInputText>
+                        <input type="text" pInputText>
                     </div>
                 </div>
                 <!-- SEXTA FILA-->
@@ -387,7 +386,7 @@
                         <div>SR</div>
                     </div>
                     <div class="col-2 md:col-2 lg:col-2 p-fluid">
-                        <input type="text"  pInputText>
+                        <input type="text" pInputText>
                     </div>
                     <div class="col-2 md:col-2 lg:col-2 p-fluid">
                         <div>IPV</div>
@@ -399,7 +398,7 @@
                         <div>Otra Vacuna</div>
                     </div>
                     <div class="col-2 md:col-2 lg:col-2 p-fluid">
-                        <input type="text"   pInputText>
+                        <input type="text" pInputText>
                     </div>
                 </div>
                 <!-- SEPTIMA FILA-->
@@ -408,7 +407,7 @@
                         <div>HVB</div>
                     </div>
                     <div class="col-2 md:col-2 lg:col-2 p-fluid">
-                        <input type="text"  pInputText>
+                        <input type="text" pInputText>
                     </div>
                     <div class="col-2 md:col-2 lg:col-2 p-fluid">
                         <div>Pentaval.</div>
@@ -420,7 +419,7 @@
                         <div class="fontVac">Grupo de Riesgo HVB</div>
                     </div>
                     <div class="col-2 md:col-2 lg:col-2 p-fluid">
-                        <input type="text"   pInputText>
+                        <input type="text" pInputText>
                     </div>
                 </div>
                 <p-card>
