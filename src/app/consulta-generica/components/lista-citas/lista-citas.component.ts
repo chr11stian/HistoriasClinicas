@@ -202,7 +202,7 @@ export class ListaCitasComponent implements OnInit, OnChanges {
           anio:dataPaciente.paciente.edadAnio,
           mes:dataPaciente.paciente.edadMes,
           dia:dataPaciente.paciente.edadDia,
-
+          idCupo: dataPaciente.id,
           servicio:dataPaciente.servicio
         }
     localStorage.setItem('documento', JSON.stringify(data));
