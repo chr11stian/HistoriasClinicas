@@ -60,6 +60,7 @@ export class ListaConsultaComponent implements OnInit {
         sexo: this.sexo,
         fechaNacimiento: this.fechaNacimiento,
         tipoConsulta:this.data.tipoConsulta,
+        idCupo: this.data.idCupo,
         ups:this.data.ups
       }
       localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
