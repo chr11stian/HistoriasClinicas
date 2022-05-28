@@ -29,11 +29,21 @@ export class MotivoConsultaComponent implements OnInit {
   ) {
     this.inicializarForm();
     this.idConsulta = JSON.parse(localStorage.getItem('documento')).idConsulta;
+    let idCupo = JSON.parse(localStorage.getItem('documento')).idCupo;
     this.consultaGeneralService.searchConsultaDatosGenerales(this.idConsulta).subscribe((res: any) => {
       this.consultaGeneralService.searchConsultaDatosGenerales(this.idConsulta).subscribe((res: any) => {
-        console.log('datos de consulta ', res.object);
+        console.log('datos de consulta motivo de consulta', res.object);
         this.dataResMotivoCons = res.object;
-        this.loadDataMotivoConsulta(this.dataResMotivoCons)
+        if (this.dataResMotivoCons.signosVitales == null) {
+          this.consultaGeneralService.getDatosTriajeByIdCupo(idCupo).subscribe((res: any) => {
+            console.log('datos de triaje ', res);
+            this.setDataTriaje(res.object.funcionesVitales);
+          })
+        } else {
+          console.log('no es triaje');
+          this.loadDataMotivoConsulta(this.dataResMotivoCons)
+        }
+
       })
     })
   }
@@ -195,6 +205,18 @@ export class MotivoConsultaComponent implements OnInit {
       }
     }
   }
+
+  setDataTriaje(data) {
+    this.formVitalSigns.patchValue({ temperatura: data.temperatura });
+    this.formVitalSigns.patchValue({ presionSistolica: data.presionSistolica });
+    this.formVitalSigns.patchValue({ presionDiastolica: data.presionDiastolica });
+    this.formVitalSigns.patchValue({ fc: data.fc });
+    this.formVitalSigns.patchValue({ fr: data.fr });
+    this.formVitalSigns.patchValue({ peso: data.peso });
+    this.formVitalSigns.patchValue({ talla: data.talla });
+    this.formVitalSigns.patchValue({ imc: data.imc.toFixed(2) });
+  }
+
   save() {
     this.recoverData();
     // console.log('data to save ', this.dataMotivoConsulta);

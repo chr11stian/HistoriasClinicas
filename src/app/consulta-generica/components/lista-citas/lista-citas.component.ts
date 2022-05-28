@@ -26,6 +26,22 @@ export class ListaCitasComponent implements OnInit, OnChanges {
   DataCupos:any[]
   dataPaciente: any[];
   data: dato
+  listaTitulo=[
+      {code:'NIÑO_NIÑA',display:'MEDICINA GENERAL NIÑO/NIÑA'},
+      {code:'ADOLESCENTE',display:'MEDICINA GENERAL ADOLESCENTE'},
+      {code:'JOVEN',display:'MEDICINA GENERAL JOVEN'},
+      {code:'ADULTO',display:'MEDICINA GENERAL ADULTO'},
+      {code:'ADULTO MAYOR',display:'MEDICINA GENERAL ADULTO MAYOR'},
+      {code:'ODONTOLOGIA GENERAL',display:'ODONTOLOGIA'},
+      {code:'PSICOLOGIA',display:'PSICOLOGIA'},
+      {code:'NUTRICION',display:'NUTRICION'},
+  ]
+  buscarTipoConsulta(codigo){
+    const aux=this.listaTitulo.find((element)=>{
+      return element.code==codigo
+    })
+    return aux?.display||'SERVICIO NO DISPONIBLE'
+  }
 
   constructor(private router: Router,
               private rutaActiva:ActivatedRoute,
@@ -186,7 +202,7 @@ export class ListaCitasComponent implements OnInit, OnChanges {
           anio:dataPaciente.paciente.edadAnio,
           mes:dataPaciente.paciente.edadMes,
           dia:dataPaciente.paciente.edadDia,
-
+          idCupo: dataPaciente.id,
           servicio:dataPaciente.servicio
         }
     localStorage.setItem('documento', JSON.stringify(data));
