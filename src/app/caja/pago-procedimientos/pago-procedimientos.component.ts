@@ -322,6 +322,7 @@ export class PagoProcedimientosComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.procedimientosPagar.splice(rowIndex, 1);
+        this.calcularTotalRecibo(this.procedimientosPagar);
         Swal.fire({
           icon: 'success',
           title: 'Eliminado correctamente',
