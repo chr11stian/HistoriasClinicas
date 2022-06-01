@@ -1,7 +1,8 @@
 <div class="card">
     <div class="grid" style="margin-top:20px; margin-bottom:20px">
         <div class="col-9" style="margin: 0 0 0 20px;">
-            <span style="font-size: 2em;">CONSULTA-{{data.tipoConsulta}} </span>
+            <span style="font-size: 2em;">CONSULTA-{{  buscarTipoConsulta(
+                data.tipoConsulta)}} </span>
         </div>
     </div>
 </div>
@@ -132,7 +133,7 @@
         <ng-template pTemplate="header">
             <p-toolbar>
                 <ng-template pTemplate="left">
-                    <h3 class="mt-2">ACUERDOS DE LA CONSULTA</h3>
+                    <h3 class="mt-2">INTERCONSULTA</h3>
                 </ng-template>
                 <ng-template pTemplate="right" class="button">
                     <button pButton pRipple label="Atras" (click)="prevPage()" icon="pi pi-angle-left"

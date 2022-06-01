@@ -22,10 +22,14 @@ export class DatosGeneralesService {
   putUpdateConsultaGeneralByIdConsulta(data) {
     return this.http.put(`${this.base_url}/${this.bd}/consultageneral/actualizarConsulta`, data)
   }
-  updateConsultaDatosGenerales(data){
-    return this.http.put(`${this.base_url}/${this.bd}/consultageneral/actualizarConsulta`,data)
+  updateConsultaDatosGenerales(data) {
+    return this.http.put(`${this.base_url}/${this.bd}/consultageneral/actualizarConsulta`, data)
   }
-  searchConsultaDatosGenerales(idConsulta){
+  searchConsultaDatosGenerales(idConsulta) {
     return this.http.get(`${this.base_url}/${this.bd}/consultageneral/buscar/${idConsulta}`)
+  }
+
+  getDatosTriajeByIdCupo(idCupo: string) {
+    return this.http.get(`${this.base_url}/${this.bd}/cupo/obtener/triaje/cupo/id/${idCupo}`)
   }
 }

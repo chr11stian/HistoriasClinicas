@@ -5,7 +5,7 @@
             <div class="col-12  md:col-6 lg:col-12 p-field">
                 <div class="border2">
                     <div class="grid m-1">
-                        <div class="col-12 md:col-6 lg:col-5 p-field">
+                        <div class="col-12 md:col-7 lg:col-7 p-field">
                             <form [formGroup]="formCuposOferta">
                                 <div class="grid">
                                     <div class="col-12 md:col-6 lg:col-3 p-field">
@@ -14,11 +14,11 @@
                                             <p-calendar dateFormat="yy-mm-dd"
                                                         formControlName="fechaOferta"
                                                         [readonlyInput]="true"
-                                                        (onSelect)="changeServicioSelected()">
+                                                        (onSelect)="changeServicioSelected()" class=" p-fluid w-full">
                                             </p-calendar>
                                         </div>
                                     </div>
-                                    <div class="col-12 md:col-6 lg:col-6 p-field">
+                                    <div class="col-12 md:col-5 lg:col-5 p-field">
                                         <label class="">SERVICIO (UPS)</label>
                                         <div class="">
                                             <p-dropdown
@@ -28,11 +28,12 @@
                                                     optionLabel="nombreUPS"
                                                     optionValue="nombreUPS"
                                                     [showClear]="false"
-                                                    (ngModelChange)="changeServicioSelected()">
+                                                    (ngModelChange)="changeServicioSelected()"
+                                                    class=" p-fluid w-full">
                                             </p-dropdown>
                                         </div>
                                     </div>
-                                    <div class="col-12 md:col-6 lg:col-6 p-field" *ngIf="listActualTipoConsulta.length > 0">
+                                    <div class="col-12 md:col-4 lg:col-4 p-field" *ngIf="listActualTipoConsulta.length > 0">
                                         <label class="">TIPO CONSULTA</label>
                                         <div class="">
                                             <p-dropdown
@@ -41,14 +42,15 @@
                                                     placeholder="Seleccione"
                                                     optionLabel="name"
                                                     optionValue="value"
-                                                    [showClear]="false">
+                                                    [showClear]="false" 
+                                                    class=" p-fluid w-full">
                                             </p-dropdown>
                                         </div>
                                     </div>
                                 </div>
                             </form>
                         </div>
-                        <div class="col-12 md:col-6 lg:col-7 p-field">
+                        <div class="col-12 md:col-5 lg:col-5 p-field">
                             <form [formGroup]="formCuposOferta">
                                 <div class="grid align-content-center">
                                     <div class="col-12 md:col-6 lg:col-7 p-field">

@@ -31,6 +31,22 @@ export class StepGeneralComponent implements OnInit {
   j: number = 100
   indiceActivo: number = 0
   stepName = 'datos'
+  listaTitulo=[
+    {code:'NIÑO_NIÑA',display:'MEDICINA GENERAL NIÑO/NIÑA'},
+    {code:'ADOLESCENTE',display:'MEDICINA GENERAL ADOLESCENTE'},
+    {code:'JOVEN',display:'MEDICINA GENERAL JOVEN'},
+    {code:'ADULTO',display:'MEDICINA GENERAL ADULTO'},
+    {code:'ADULTO MAYOR',display:'MEDICINA GENERAL ADULTO MAYOR'},
+    {code:'ODONTOLOGIA GENERAL',display:'ODONTOLOGIA'},
+    {code:'PSICOLOGIA',display:'PSICOLOGIA'},
+    {code:'NUTRICION',display:'NUTRICION'},
+  ]
+  buscarTipoConsulta(codigo){
+    const aux=this.listaTitulo.find((element)=>{
+      return element.code==codigo
+    })
+    return aux?.display||'SERVICIO NO DISPONIBLE'
+  }
   // consulta: ApiConsulta
 
   @ViewChild(DatosGeneralesComponent) datosGeneralesConsulta: DatosGeneralesComponent;
@@ -67,7 +83,7 @@ export class StepGeneralComponent implements OnInit {
       // { label: 'Exámenes Auxiliares', styleClass: 'icon4' },
       { label: 'Tratamiento', styleClass: 'icon5' },
       { label: 'Procedimientos', styleClass: 'icon6' },
-      { label: 'Acuerdos', styleClass: 'icon7' },
+      { label: 'Interconsulta', styleClass: 'icon7' },
     ]
     await this.getQueryParams()
   }

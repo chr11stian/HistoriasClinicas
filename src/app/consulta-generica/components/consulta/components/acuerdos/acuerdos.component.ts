@@ -22,6 +22,7 @@ import {
     ModalReferenciaComponent
 } from "../../../../../cred/citas/atencion-cred/consulta-principal/component/finalizar-consulta/modal-referencia/modal-referencia.component";
 import {DatosGeneralesService} from "../../../../services/datos-generales/datos-generales.service";
+import {RolGuardiaService} from "../../../../../core/services/rol-guardia/rol-guardia.service";
 
 @Component({
     selector: 'app-acuerdos',
@@ -72,14 +73,7 @@ export class AcuerdosComponent implements OnInit, DoCheck {
     datePipe = new DatePipe('en-US');
     ref: DynamicDialogRef;
 
-    servicios = [
-        {name: 'Pediatria', code: 'Pediatria'},
-        {name: 'Cirugía', code: 'Cirugía'},
-        {name: 'Gineco Obstetra', code: 'Gineco Obstetra'},
-        {name: 'Laboratorio', code: 'Laboratorio'},
-        {name: 'Dx. Imagen', code: 'Dx. Imagen'},
-        {name: 'Otros', code: 'Otros'},
-    ];
+    servicios: string [] = []
     urgencia = [
         {name: 'Nivel 1', code: 'Nivel 1'},
         {name: 'Nivel 2', code: 'Nivel 2'},
@@ -100,7 +94,8 @@ export class AcuerdosComponent implements OnInit, DoCheck {
                 private formBuilder: FormBuilder,
                 private router: Router,
                 private route: ActivatedRoute,
-                private dialog: DialogService) {
+                private dialog: DialogService,
+                private rolGuardiaService: RolGuardiaService) {
         this.buildFG();
 
         this.nombreEspecialidad =
@@ -140,12 +135,12 @@ export class AcuerdosComponent implements OnInit, DoCheck {
     save() {
         let aux: any = {
             id: this.data.idConsulta,
-            proxCita: {
+            /*proxCita: {
                 fecha: this.datePipe.transform(this.acuerdosFG.get('proximaCitaFC').value, 'yyyy-MM-dd'),
                 motivo: this.acuerdosFG.get('motivo').value,
                 servicio: this.acuerdosFG.get('servicio').value,
                 nivelUrgencia: this.acuerdosFG.value.urgencia,
-            },
+            },*/
             interconsultas: this.interconsulta
         }
         console.log('aux', aux)
@@ -207,7 +202,8 @@ export class AcuerdosComponent implements OnInit, DoCheck {
 
     recuperar() {
         this.servicio.searchConsultaDatosGenerales(this.data.idConsulta).subscribe((r: any) => {
-            console.log('object', r.object)
+            console.log('object', r.object.interconsultas)
+            this.interconsulta = r.object.interconsultas
         })
     }
 
@@ -217,6 +213,7 @@ export class AcuerdosComponent implements OnInit, DoCheck {
         this.agenda()
         this.listaAcuerdos()
         this.recuperar()
+        this.ListaServicios()
     }
 
     /* mostrar el plan en el calendario */
@@ -341,6 +338,7 @@ export class AcuerdosComponent implements OnInit, DoCheck {
             fecha: this.datePipe.transform(this.formInterconsulta.value.fecha, 'yyyy-MM-dd'),
             motivo: this.formInterconsulta.value.motivo,
             servicio: this.formInterconsulta.value.servicio,
+            estado: 'TENTATIVO',
             nivelUrgencia: this.formInterconsulta.value.urgencia
         }
         this.interconsulta.push(aux_)
@@ -353,6 +351,14 @@ export class AcuerdosComponent implements OnInit, DoCheck {
             timer: 1500,
         })
         this.dialogInterconsulta = false;
+    }
+
+    ListaServicios() {
+        let idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
+        this.rolGuardiaService.getServiciosPorIpress(idIpress).subscribe((res: any) => {
+            this.servicios = res.object;
+            //console.log('LISTA DE SERVICIOS DE IPRESSS', this.servicios);
+        })
     }
 
     eliminarInterconsulta(index) {
