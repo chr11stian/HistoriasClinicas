@@ -18,7 +18,7 @@ export class IpressHorariosComponent implements OnInit {
     private formBuilder: FormBuilder,
     private ipressservice: IpressService
   ) {
-    this.idIpress = "616de45e0273042236434b51";
+    this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
     this.buildForm();
     this.getIpressId();
   }

@@ -17,7 +17,7 @@ import {dato} from "../../../cred/citas/models/data";
 export class ListaCitasComponent implements OnInit, OnChanges {
   formCitas: FormGroup;
   attributeLocalS = 'consultaGeneral'
-  idIpress = "616de45e0273042236434b51";
+  idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
   listaDocumentosIdentidad:any[]
   options:any[]
   citas:any[]

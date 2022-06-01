@@ -36,8 +36,8 @@ export class CitasComponent implements OnInit {
     private messageService: MessageService
   ) {
     this.buildForm();
-    this.idIpress = "616de45e0273042236434b51";
-    this.nombreIpress = "la posta medica";
+    this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
+    this.nombreIpress = JSON.parse(localStorage.getItem('usuario')).ipress.nombreEESS;
     this.data = [];
     this.servicios = [];
 

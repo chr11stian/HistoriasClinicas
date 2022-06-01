@@ -26,7 +26,7 @@ export class PacienteComponent implements OnInit {
     ref: DynamicDialogRef;
     // idIpressLapostaMedica = "616de45e0273042236434b51";
     // iprees: string = "la posta medica";
-    auxipress: string = "616de45e0273042236434b51";
+    auxipress: string = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
     dataPacienteEditar: any;
 
     constructor(

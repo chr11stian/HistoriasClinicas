@@ -23,7 +23,7 @@ export class DialogPacienteComponent implements OnInit {
     peruvian: boolean = true;
     dataPaciente: any;
     nacionalidad: string;
-    auxipress: string = "616de45e0273042236434b51";//logeo
+    auxipress: string = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
     imagePath: string = image;
     dataDepartamentos: any;
     dataProvincia: any;
