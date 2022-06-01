@@ -36,7 +36,9 @@ export class ListaConsultaComponent implements OnInit {
         private router: Router) {
     }
 
-    ngOnInit(): void {
+    ngOnInit()
+        :
+        void {
         this.consultasNroDoc();
     }
 
@@ -90,6 +92,7 @@ export class ListaConsultaComponent implements OnInit {
         this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS))
 
         this.filiancionService.getPacienteNroDocFiliacion(this.data.tipoDoc, this.data.nroDocumento).subscribe((res: any) => {
+            console.log('code',res.object)
             this.dataLifiado = res.object
             this.sexo = res.object.sexo
             this.fechaNacimiento = res.object.nacimiento.fechaNacimiento

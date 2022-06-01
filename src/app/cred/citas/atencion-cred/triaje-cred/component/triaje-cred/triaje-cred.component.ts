@@ -681,4 +681,3 @@ export class TriajeCredComponent implements OnInit {
 
     }
 }
-

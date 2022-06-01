@@ -12,19 +12,19 @@ export class ListaConsultaService {
 
     tipoDoc: string = "";
     nroDoc: string = "";
-    idConsulta: string= ""
+    idConsulta: string = ""
     data: any;
 
     constructor(private http: HttpClient) {
     }
 
-    getConsultasCRED(dni) {
-        const url = `${this.base_url}/hce/cred/consulta/all/${dni}`
+    getConsulta(idConsulta: string) {
+        const url = `${this.base_url}/hce/cred/consulta/${idConsulta}`
         return this.http.get(url)
     }
 
-    getConsulta(idConsulta) {
-        const url = `${this.base_url}/hce/cred/consulta/${idConsulta}`
+    getConsultasCRED(dni) {
+        const url = `${this.base_url}/hce/cred/consulta/all/${dni}`
         return this.http.get(url)
     }
 
@@ -38,7 +38,7 @@ export class ListaConsultaService {
         return this.http.post(url, data)
     }
 
-    getDatosGenerales(idConsulta){
+    getDatosGenerales(idConsulta) {
         const url = `${this.base_url}/hce/cred/consulta/datos/generales/${idConsulta}`
         return this.http.get(url)
     }
