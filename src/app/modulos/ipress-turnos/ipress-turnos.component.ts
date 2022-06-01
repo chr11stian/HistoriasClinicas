@@ -22,7 +22,7 @@ export class IpressTurnosComponent implements OnInit {
     private tipoturnoService: TipoTurnoService,
     private formBuilder: FormBuilder
   ) { 
-    this.idIpress = "616de45e0273042236434b51";
+    this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
     this.buildForm();
     this.getIpressId();
     this.getTiposTurno();
