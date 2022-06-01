@@ -17,7 +17,7 @@ export class ListaLaboratorioComponent implements OnInit {
     formListaLabo: FormGroup;
     datePipe = new DatePipe('en-US');
     fechaActual = new Date();
-    idIpres = '616de45e0273042236434b51';
+    idIpres = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
     DataLisLab: any;
     loading: boolean = true;
     ref: DynamicDialogRef;

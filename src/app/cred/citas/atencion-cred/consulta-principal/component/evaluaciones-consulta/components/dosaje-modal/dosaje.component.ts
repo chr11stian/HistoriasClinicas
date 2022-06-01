@@ -14,6 +14,7 @@ import {ConfirmationService} from "primeng/api";
     styleUrls: ['./dosaje.component.css']
 })
 export class DosajeComponent implements OnInit {
+    idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
     factorAjuste: number = 0;
     nivelAnemia = [
         {name: 'Anemia Leve', code: 'LEVE'},
@@ -42,7 +43,7 @@ export class DosajeComponent implements OnInit {
     }
 
     getFactor() {
-        this.dosajeService.getFactorCorrepcionXipress('616de45e0273042236434b51').subscribe((resp) => {
+        this.dosajeService.getFactorCorrepcionXipress(this.idIpress).subscribe((resp) => {
             this.factorAjuste = resp['object']['factorAjuste']
             console.log('factor ajuste:', this.factorAjuste)
         })

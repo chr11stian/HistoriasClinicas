@@ -19,8 +19,8 @@ export class ModalCuposComponent implements OnInit {
 
 
     /**Datos de una iprres**/
-    idIpressLapostaMedica = "616de45e0273042236434b51";
-    iprees: string = "la posta medica";
+    idIpressLapostaMedica = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
+    iprees: string = JSON.parse(localStorage.getItem('usuario')).ipress.nombreEESS;
 
     /**FECHAS**/
     datafecha: Date = new Date();

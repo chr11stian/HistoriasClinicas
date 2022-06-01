@@ -17,7 +17,7 @@ export class LabInmunologiaComponent implements OnInit {
     DataInmunologia: any;
     datePipe = new DatePipe('en-US');
     fechaActual = new Date();
-    idIpres: string = "616de45e0273042236434b51";
+    idIpres: string = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
 
     constructor(private ref: DynamicDialogRef,
                 private dialog: DialogService,
