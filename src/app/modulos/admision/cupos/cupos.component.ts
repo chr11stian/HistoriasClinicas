@@ -20,8 +20,8 @@ import { ModalCuposComponent } from "./modal-cupos/modal-cupos.component";
 })
 export class CuposComponent implements OnInit, OnDestroy {
 
-    idIpressLapostaMedica = "616de45e0273042236434b51";
-    iprees: string = "la posta medica";
+    idIpressLapostaMedica = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
+    iprees: string = JSON.parse(localStorage.getItem('usuario')).ipress.nombreEESS;
 
     DataCupos: any[];
     DataCuposPaciente: any;
