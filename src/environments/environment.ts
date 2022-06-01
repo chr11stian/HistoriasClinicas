@@ -24,7 +24,7 @@ export const environment = {
 
     /***ACCESO A REPORTE TRATAMIENTOS****/
     //base_urlTx:"http://192.168.5.3:8200",
-    base_urlTx: "http://190.108.93.145:8200",
+    base_urlTx:  "http://190.108.93.145:8200",
 
 
 };
