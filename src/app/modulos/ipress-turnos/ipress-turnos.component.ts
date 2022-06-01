@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IpressService } from 'src/app/core/services/ipress/ipress.service';
 import { TipoTurnoService } from 'src/app/mantenimientos/services/tipo-turno.service';
 import Swal from 'sweetalert2';
+import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-ipress-turnos',
@@ -16,7 +17,7 @@ export class IpressTurnosComponent implements OnInit {
   tipoTurnosList: any[];
   turnos: any[];
   turnoDialog: boolean;
-
+  datePipe = new DatePipe('en-US');
   constructor(
     private ipressservice: IpressService,
     private tipoturnoService: TipoTurnoService,
@@ -73,14 +74,14 @@ export class IpressTurnosComponent implements OnInit {
     this.formTurno.get('horaFin').setValue(new Date(`2021-01-01 ${horaFin.getHours()}: ${horaFin.getMinutes()}:00`));
   }
   saveTurno(rowData) {
-    let horaInicio = new Date(this.formTurno.value.horaInicio);
-    let horaFin = new Date(this.formTurno.value.horaFin);
+    let horaInicio = this.datePipe.transform(this.formTurno.value.horaInicio, 'HH:mm:ss')
+    let horaFin = this.datePipe.transform(this.formTurno.value.horaFin, 'HH:mm:ss')
     const req = {
       nombre: this.formTurno.value.nombre.nombre,
       abreviatura: this.formTurno.value.nombre.abreviatura,
       nroHoras: this.formTurno.value.nroHoras,
-      horaInicio: `${horaInicio.getHours()}:${horaInicio.getMinutes()}:00`,
-      horaFin: `${horaFin.getHours()}:${horaFin.getMinutes()}:00`
+      horaInicio: horaInicio,
+      horaFin: horaFin
     }
 
     this.ipressservice.createTurnoIpress(this.idIpress, req).subscribe(
@@ -105,14 +106,14 @@ export class IpressTurnosComponent implements OnInit {
     else return "Ingrese Nuevo Turno";
   }
   saveEdicionTurno() {
-    let horaInicio = new Date(this.formTurno.value.horaInicio);
-    let horaFin = new Date(this.formTurno.value.horaFin);
+    let horaInicio = this.datePipe.transform(this.formTurno.value.horaInicio, 'HH:mm:ss')
+    let horaFin = this.datePipe.transform(this.formTurno.value.horaFin, 'HH:mm:ss')
     const req = {
       nombre: this.formTurno.value.nombre.nombre,
       abreviatura: this.formTurno.value.nombre.abreviatura,
       nroHoras: this.formTurno.value.nroHoras,
-      horaInicio: `${horaInicio.getHours()}:${horaInicio.getMinutes()}:00`,
-      horaFin: `${horaFin.getHours()}:${horaFin.getMinutes()}:00`
+      horaInicio: horaInicio,
+      horaFin: horaFin
     }
     this.ipressservice.editTurnoIpress(this.idIpress, req).subscribe(
       result => {
