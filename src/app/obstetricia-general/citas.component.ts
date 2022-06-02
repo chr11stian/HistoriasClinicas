@@ -24,8 +24,8 @@ import {Observable} from "rxjs";
 export class CitasComponent implements OnInit {
     productObservable$: Observable<number>;
 
-    idIpressLapostaMedica = "616de45e0273042236434b51";
-    iprees: string = "la posta medica";
+    idIpressLapostaMedica = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
+    iprees: string = JSON.parse(localStorage.getItem('usuario')).ipress.nombreEESS;
     options: data[]
     selectedOption: data
     citas: any[]

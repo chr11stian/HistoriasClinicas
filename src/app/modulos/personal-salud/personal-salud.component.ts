@@ -71,8 +71,8 @@ export class PersonalSaludComponent implements OnInit {
     personalRolDialogX: boolean;
     rolSistema: boolean
     datePipe = new DatePipe("en-US");
-    idIpress = "616de45e0273042236434b51";
-    iprees: string = "la posta medica";
+    idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
+    iprees: string = JSON.parse(localStorage.getItem('usuario')).ipress.nombreEESS;
     listaRol: rol[] = []
     nombreRolOpciones: any[] = [
         //"ASISTENCIAL",

@@ -356,8 +356,8 @@ export class RolGuardiaComponent implements OnInit {
             mes: this.fechaPivot.getMonth() + 1,
             ambiente: this.listaAmbiente[this.indexSelected],
             ipress: {
-              idIpress: "616de45e0273042236434b51",
-              nombre: "la posta medica",
+              idIpress: JSON.parse(localStorage.getItem('usuario')).ipress.idIpress,
+              nombre: JSON.parse(localStorage.getItem('usuario')).ipress.nombreEESS,
               servicio: this.upsSeleccionada["nombreUPS"],
             },
             personal: {
