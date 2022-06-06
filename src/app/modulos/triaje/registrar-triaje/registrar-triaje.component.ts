@@ -30,6 +30,13 @@ export class RegistrarTriajeComponent implements OnInit {
     ver = false;
     datePipe = new DatePipe('en-US');
 
+    alertaTalta: boolean = false;
+    alertaTbaja: boolean = false;
+    alertaPAs: boolean = false;
+    alertaPAd: boolean = false;
+    alertaFR: boolean = false;
+    alertaFC: boolean = false;
+
     constructor(
         private fb: FormBuilder,
         private dialog: DialogService,
@@ -81,6 +88,43 @@ export class RegistrarTriajeComponent implements OnInit {
         }
     }
 
+    onChangeTemperatura(){
+        let temp=parseFloat(this.formTriaje.value.temperatura);
+        if (temp<35){   
+            this.alertaTbaja=true
+            this.alertaTalta=false
+        }
+        else  {
+            if (temp>=37.5){
+                this.alertaTbaja=false
+                this.alertaTalta=true
+            }
+            else {
+                this.alertaTbaja=false
+                this.alertaTalta=false
+            }
+        }
+    }
+    onChangePAs(){
+        let temp=parseFloat(this.formTriaje.value.presionSis);
+        if (temp>=140) this.alertaPAs=true
+        else this.alertaPAs=false
+    }
+    onChangePAd(){
+        let temp=parseFloat(this.formTriaje.value.presionDias);
+        if (temp>90) this.alertaPAd=true
+        else this.alertaPAd=false
+    }
+    onChangeFR(){
+        let temp=parseFloat(this.formTriaje.value.fr);
+        if (temp>100) this.alertaFR=true
+        else this.alertaFR=false
+    }
+    onChangeFC(){
+        let temp=parseFloat(this.formTriaje.value.fc);
+        if (temp>22) this.alertaFC=true
+        else this.alertaFC=false
+    }
     traerFoto() {
         this.personalService.getDatosReniec(this.datosPersonales.paciente.nroDoc).subscribe((res: any) => {
             this.dataPIDE = res;
