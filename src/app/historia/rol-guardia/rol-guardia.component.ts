@@ -94,6 +94,7 @@ export class RolGuardiaComponent implements OnInit {
           delete turno.horaFin;
         });
         this.listaTurno = resp["object"];
+        this.listaTurno.splice(0,0,{nombre:'LIBRE',abreviatura:'L',nroHoras:0})
         this.loadingUps = false;
       });
   }
