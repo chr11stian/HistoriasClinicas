@@ -89,7 +89,7 @@ export class CitasComponent implements OnInit {
         this.formCitas.get('fechaBusqueda').setValue(this.fechaActual);
         this.getDocumentosIdentidad();
         this.buscarCuposPorPersonal();
-        // this.getCuposXservicio();
+        this.getCuposXservicio();
     }
 
     buildForm() {
@@ -105,9 +105,9 @@ export class CitasComponent implements OnInit {
     getCuposXservicio() {
         let data = {
             servicio: 'OBSTETRICIA',
-            fecha: this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd')
+            fecha: this.formCitas.value.fechaBusqueda === '' ? this.datePipe.transform(new Date()) : this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd')
         }
-        console.log('DATA ', data);
+        console.log('DATASSS ', data);
 
         this.cuposService.getCuposServicioFecha(this.idIpressLapostaMedica, data).subscribe((res: any) => {
             this.DataCupos = res.object;

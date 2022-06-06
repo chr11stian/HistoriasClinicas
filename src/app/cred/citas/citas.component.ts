@@ -112,7 +112,7 @@ export class CitasComponent implements OnInit {
             servicio: 'ATENCION INTEGRAL DEL NINO',
             fecha: this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd')
         }
-        console.log('DATA ', data);
+        console.log('DATAS ', data);
 
         this.cuposService.getCuposServicioFecha(this.idIpressLapostaMedica, data).subscribe((res: any) => {
             this.DataCupos = res.object;
