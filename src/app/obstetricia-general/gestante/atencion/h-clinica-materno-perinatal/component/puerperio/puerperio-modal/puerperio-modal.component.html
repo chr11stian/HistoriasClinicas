@@ -43,14 +43,14 @@
             <label>Caract. Loquios:</label>
             <p-dropdown  inputId="dropdown" [options]="caracteristicasList" formControlName="caracteristicasLoquios"
                          placeholder="seleccionar" optionLabel="name" optionValue="code"
-                         defaultLabel="Seleccione:" >
+                         defaultLabel="Seleccione:"  appendTo="body">
             </p-dropdown>
 <!--            <input type="text" pInputText class="inputfield" formControlName="caracteristicasLoquios">-->
         </div>
     </div>
 </form>
 
-<div class="footer">
-    <button pButton type="button" label="Guardar" (click)="closeDialogGuardar()" class="p-button-danger mt-4"></button>
+<div class="flex justify-content-end">
+    <button pButton type="button" label="Guardar" (click)="closeDialogGuardar()" class="p-button-info mt-4 mr-2"></button>
     <button pButton type="button" label="Cancelar" (click)="closeDialog()"  class="p-button-danger mt-4"></button>
 </div>
