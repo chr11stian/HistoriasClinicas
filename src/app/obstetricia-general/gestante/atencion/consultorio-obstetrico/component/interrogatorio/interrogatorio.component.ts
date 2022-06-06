@@ -304,7 +304,7 @@ export class InterrogatorioComponent implements OnInit {
       else {
         if (parseFloat(imc) < 30) {//sobrepeso
           this.imcService.getGananciaSobrePeso(semanas).subscribe((res: any) => {
-            let auxiliar = res.object.recomendacionGananciaSobrePeso[0];
+            let auxiliar = res.object.recomencacionGananciaSobrePeso[0];
             console.log('datos ', res.object);
             if (parseFloat(this.form.value.talla) < 157) {
               if (gananciaPeso < auxiliar.min) {
