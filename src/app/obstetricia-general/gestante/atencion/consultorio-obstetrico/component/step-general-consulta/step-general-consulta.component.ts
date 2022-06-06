@@ -13,7 +13,7 @@ export class StepGeneral_consultaComponent implements OnInit {
     selectedOption: data
     items: MenuItem[]
     indiceActivo: number = 0
-    stepName = "evaluaciones"
+    stepName = "datos"
 
     data: any
     IDConsulta: string = null;
@@ -35,7 +35,7 @@ export class StepGeneral_consultaComponent implements OnInit {
             { label: "Interrogatorio" },
             { label: "Tamizaje"},
             { label: "Diagnosticos" },
-            { label: "Evaluaciones" },
+            { label: "Examens Aux" },
             { label: "Tratamientos" },
             { label: "Procedimientos" },
             { label: "Finalizar" },
