@@ -303,55 +303,17 @@
   >
     leyenda:
   </div>
-  <div class="flex justify-content-between">
+  <div class="flex justify-content-between align-items-center">
+    <!-- recuadro de leyenda -->
     <div class="col-9">
-      <div class="grid borde">
+      <div class="grid borde text-center">
         <div class="col-3" *ngFor="let turno of listaTurno">
-          <span>
-            {{turno.abreviatura}}
-          </span>-
-          <span>
-            {{turno.nombre|titlecase}}
-          </span>-
-          <span>
-            {{turno.nroHoras}} horas
-          </span>
+          <span>{{turno.abreviatura}}</span>-<span>{{turno.nombre|titlecase}}</span>:<span>{{turno.nroHoras}}horas</span>
         </div>
-        <!-- <div class="col-2">
-          <span
-            ><p>M-Mañana</p>
-            <p>T-Tarde</p>
-            <p>M/T-Mañana Tarde</p></span
-          >
-        </div>
-        <div class="col-3">
-          <span
-            ><p>GD-Guardia diurna</p>
-            <p>GN-Guardia Nocturna</p>
-            <p>T/GN-Tarde Guardia Nocturna</p></span
-          >
-        </div>
-        <div class="col-2">
-          <span
-            ><p>N-Noche</p>
-            <p>R-Reten</p>
-            <p style="color: #bf0d21">L-Libre</p></span
-          >
-        </div>
-        <div class="col-3">
-          <span
-            ><p>V-Vacaciones</p>
-            <p>O-Onomastico</p>
-            <p>GD(GN)-Guardia Diurna y Nocturna</p></span
-          >
-        </div>
-        <div class="col-2">
-          <span><p>F-Feriado</p> </span>
-        </div> -->
       </div>
     </div>
     <!-- Botones -->
-    <div class="col-3 flex justify-content-around">
+    <div class="col-3 flex justify-content-between">
       <div class="col-6">
         <button
           pButton
