@@ -28,28 +28,28 @@ export class TopMenuComponent implements OnInit {
 
     hidden() {
         this.hiddenMenu = !this.hiddenMenu;
-        this.data = <dato>JSON.parse(localStorage.getItem('documento'));
-        let data: dato = {
-            nroDocumento: this.data.nroDocumento,
-            tipoDoc: this.data.tipoDoc,
-            idConsulta: this.data.idConsulta,
-            anio: this.data.anio,
-            mes: this.data.mes,
-            dia: this.data.dia,
-            sexo: this.data.sexo,
-            fechaNacimiento: this.data.fechaNacimiento,
-            hidden: !this.hiddenMenu
-        }
+        // this.data = <dato>JSON.parse(localStorage.getItem('documento'));
+        // let data: dato = {
+        //     nroDocumento: this.data.nroDocumento,
+        //     tipoDoc: this.data.tipoDoc,
+        //     idConsulta: this.data.idConsulta,
+        //     anio: this.data.anio,
+        //     mes: this.data.mes,
+        //     dia: this.data.dia,
+        //     sexo: this.data.sexo,
+        //     fechaNacimiento: this.data.fechaNacimiento,
+        //     hidden: !this.hiddenMenu
+        // }
 
-        localStorage.setItem('documento', JSON.stringify(data));
-        if (this.hiddenMenu == false) {
-            this.style = 9;
-            this.style1.emit(this.style)
-        } else {
-            this.style = 12;
-            this.style1.emit(this.style)
-        }
-        this.hiddenMenu1.emit(!this.hiddenMenu)
+        // localStorage.setItem('documento', JSON.stringify(data));
+        // if (this.hiddenMenu == false) {
+        //     this.style = 9;
+        //     this.style1.emit(this.style)
+        // } else {
+        //     this.style = 12;
+        //     this.style1.emit(this.style)
+        // }
+        this.hiddenMenu1.emit(this.hiddenMenu)
     }
 
 
