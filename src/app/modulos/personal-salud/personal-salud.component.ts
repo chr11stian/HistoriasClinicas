@@ -248,12 +248,12 @@ export class PersonalSaludComponent implements OnInit {
             .getServiciosPorIpress(this.idIpress)
             .subscribe((resp) => {
                 this.listaUpsX = resp["object"];
-                console.log('ups-->', this.listaUpsX)
+                console.log('upsX-->', this.listaUpsX)
             });
     }
 
     buscarNombre(id) {
-        return this.listaUpsX.find(elemento => elemento.id == id).nombreUPS;
+        return this.listaUpsX.find(elemento => elemento.id == id)?.nombreUPS||'UPS ELIMINADA';
     }
 
     saveForm() {
@@ -539,7 +539,7 @@ export class PersonalSaludComponent implements OnInit {
 
     newRolX(rowData) {
         //if (rowData.roles !== null) {
-        this.rolesX = rowData.roles;
+        this.rolesX = rowData.roles;        
         //}
         console.log(this.rolesX);
         this.nombrePersonal = `${rowData.apePaterno} ${rowData.apeMaterno}, ${rowData.primerNombre}`;
