@@ -35,7 +35,7 @@ export class StepGeneral_consultaComponent implements OnInit {
             { label: "Interrogatorio" },
             { label: "Tamizaje"},
             { label: "Diagnosticos" },
-            { label: "Examens Aux" },
+            { label: "Exámenes Auxiliares" },
             { label: "Tratamientos" },
             { label: "Procedimientos" },
             { label: "Finalizar" },
