@@ -12,8 +12,8 @@
   flex: 11%;
   margin: 0.5em;
 }
-p-fieldset >>> .p-fieldset .p-fieldset-legend {
-  /* padding: 0.6rem; */
+::ng-deep .p-fieldset .p-fieldset-legend {
+  padding: 0.5rem;
   border: 1px solid #dee2e6;
   color: #495057;
   background: #d8dee5;
@@ -74,4 +74,7 @@ p-dialog>>> .p-dialog .p-dialog-header {
 }
 .fieldset_data{
   padding: 0%;
+}
+::ng-deep .p-fieldset.p-fieldset-toggleable .p-fieldset-legend a{
+  padding: 0.5rem;
 }
