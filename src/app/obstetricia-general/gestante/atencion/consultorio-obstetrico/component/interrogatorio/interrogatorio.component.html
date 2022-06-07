@@ -130,7 +130,8 @@
         </div>
         <div class="grid">
             <div class="col-12">
-                <p-fieldset legend="Estado Actual: Funciones Biológicas">
+                <p-fieldset legend="Estado Actual: Funciones Biológicas" [toggleable]="true" [collapsed]="true"
+                    class="fieldset_data">
                     <div class="grid">
                         <div class="col-4">
                             <label class="mt-3">Apetito:</label>
@@ -246,7 +247,7 @@
                 </p-fieldset>
             </div>
             <div class="col-8">
-                <p-fieldset legend="Enfermedad">
+                <p-fieldset legend="Enfermedad" [toggleable]="true" [collapsed]="true">
                     <div class="grid">
                         <div class="col-6">
                             <label>Tiempo de la enfermedad:</label>
@@ -274,7 +275,7 @@
                 </p-fieldset>
             </div>
             <div class="col-12">
-                <p-fieldset legend="Examen Fisico">
+                <p-fieldset legend="Examen Fisico" [toggleable]="true" [collapsed]="true">
                     <div class="grid">
                         <div class="col-4">
                             <label class="mt-3">Piel:</label>
@@ -674,21 +675,23 @@
                     </div>
                 </div>
                 <div class="grid">
-                    <div class="col-6">
+                    <div class="col-8">
                         <label class="">Latidos Cardíacos Fetales:</label>
                         <div class="grid pl-0">
-                            <div class="col-8 pt-0">
+                            <div class="col-6 pt-0" *ngIf="!chkLatidos">
                                 <input type="number" pInputText formControlName='latidosCardiacos' placeholder=""
                                     class="funcionesBiologicas inputfield w-full">
                             </div>
-                            <div class="col-4 pt-4 text-sm font-italic">
+                            <div class="col-2 pt-4 text-sm font-italic" *ngIf="!chkLatidos">
                                 <span>X min</span>
+                            </div>
+                            <div class="col-3 mt-2 text-center">
+                                <p-checkbox binary="true" inputId="binary" class="mr-2" (onChange)="latidosNA($event)"></p-checkbox>
+                                <label for="binary">NA</label>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
             </form>
         </div>
     </div>

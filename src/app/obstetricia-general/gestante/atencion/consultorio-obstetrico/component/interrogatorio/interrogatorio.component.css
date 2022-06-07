@@ -13,7 +13,7 @@
   margin: 0.5em;
 }
 p-fieldset >>> .p-fieldset .p-fieldset-legend {
-  padding: 0.5rem;
+  padding: 0.2rem;
   border: 1px solid #dee2e6;
   color: #495057;
   background: #d8dee5;
@@ -71,4 +71,7 @@ p-dialog>>> .p-dialog .p-dialog-header {
 }
 .button-agregar{
   background: #003C71;
+}
+.fieldset_data{
+  padding: 0%;
 }
