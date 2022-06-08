@@ -1,3 +1,4 @@
+<div #dropdown></div>
 <!--TABLA PERSONAL-->
 <div class="p-card">
     <p-toolbar styleClass="p-mb-4">
@@ -338,7 +339,8 @@
                                             [options]="especialidadesList"
                                             formControlName="nombre" optionLabel="nombre" optionValue="nombre"
                                             id="tipoid" required
-                                            placeholder="Selecciones Especialidad">
+                                            placeholder="Selecciones Especialidad"
+                                            [appendTo]="dropdown">
                                 </p-dropdown>
                                 <p-dropdown *ngIf="isUpdateEspecialidad" class="inputRedondo"
                                             [showTransitionOptions]="'300ms'"
@@ -453,7 +455,9 @@
                                             dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="listaUpsX"
                                             formControlName="ups"
                                             optionLabel="nombreUPS" optionValue="id" id="tipoid"
-                                            placeholder="Seleccione especialidad">
+                                            placeholder="Seleccione especialidad"
+                                            [appendTo]="dropdown"
+                                            >
                                 </p-dropdown>
                                 <p-dropdown *ngIf="isUpdateRol" class="inputRedondo" [showTransitionOptions]="'300ms'"
                                             dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="listaUpsX"
