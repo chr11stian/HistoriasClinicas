@@ -376,7 +376,7 @@ export class RolGuardiaComponent implements OnInit {
                 para el personal ${this.listaPersonal[this.indexSelected]['nombreCompleto']} `,
                 key: "toastSecundario",
               });
-
+              this.getPrimeraPantalla();
             },
             (error) => {
               console.log(error);
