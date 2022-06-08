@@ -414,7 +414,7 @@
                         </div>
                     </div>
                     <div class="grid mt-2">
-                        <div class="col-6">
+                        <!-- <div class="col-6">
                             <p-toolbar>
                                 <ng-template pTemplate="left">
                                     <h3 class="mt-2">OTROS EXÁMENES FÍSICOS</h3>
@@ -449,9 +449,9 @@
                                     </tr>
                                 </ng-template>
                             </p-table>
-                        </div>
-                        <div class="col-6 align-content-start">
-                            <label>Observaciones Examen Fisico:</label>
+                        </div> -->
+                        <div class="col-12 align-content-start">
+                            <label>Observaciones Examen Físico:</label>
                             <textarea [rows]="2" class="inputfield w-full" autoResize="autoResize"
                                 formControlName="obsExamFisico" pInputTextarea></textarea>
                         </div>
@@ -680,13 +680,13 @@
                         <div class="grid pl-0">
                             <div class="col-6 pt-0" *ngIf="!chkLatidos">
                                 <input type="number" pInputText formControlName='latidosCardiacos' placeholder=""
-                                    class="funcionesBiologicas inputfield w-full">
+                                    class="funcionesBiologicas inputfield w-full ml-0">
                             </div>
                             <div class="col-2 pt-4 text-sm font-italic" *ngIf="!chkLatidos">
                                 <span>X min</span>
                             </div>
                             <div class="col-3 mt-2 text-center">
-                                <p-checkbox binary="true" inputId="binary" class="mr-2" (onChange)="latidosNA($event)"></p-checkbox>
+                                <p-checkbox binary="true" inputId="binary" class="mr-2" (onChange)="latidosNA($event)" formControlName="isChecked"></p-checkbox>
                                 <label for="binary">NA</label>
                             </div>
                         </div>
