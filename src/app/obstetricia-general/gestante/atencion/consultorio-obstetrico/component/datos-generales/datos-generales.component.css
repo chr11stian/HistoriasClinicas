@@ -256,6 +256,9 @@ p-fieldset>>>.p-fieldset .p-fieldset-legend {
     background-position: 50% 50%;
     margin: auto;
 }
+/* ::ng-deep .p-element .p-calendar{
+    background: red;
+} */
 
 .bg_color, ::ng-deep .p-element .p-calendar {
     background: #EBF5FB;
@@ -264,6 +267,9 @@ p-fieldset>>>.p-fieldset .p-fieldset-legend {
 input:disabled{
     opacity: 1;
 }
-::ng-deep .p-element .p-calendar-disabled{
+::ng-deep .p-element .p-calendar{
     opacity: 1 !important;
+}
+::ng-deep .p-element .p-selectbutton{
+    opacity: 1;
 }
