@@ -78,6 +78,7 @@ export class InterrogatorioComponent implements OnInit {
 
   nroAtencion: any;
   nroFetos: any;
+  chkLatidos: boolean = false;
 
   estadoEditar: boolean;
   constructor(
@@ -165,8 +166,8 @@ export class InterrogatorioComponent implements OnInit {
     console.log("nnro fetos", this.ultimaConsulta.nroFetos)
     this.form.get("imc").setValue(this.ultimaConsulta.imc);
     this.form.get("pesoHabitual").setValue(this.ultimaConsulta.pesoHabitual);
-    this.form.patchValue({ nroFetos: this.nroFetos});
-    
+    this.form.patchValue({ nroFetos: this.nroFetos });
+
     if (!this.estadoEditar) {
       this.calcularEdadGestacional(this.ultimaConsulta.fum);
       this.calcularGanancia();
@@ -304,7 +305,7 @@ export class InterrogatorioComponent implements OnInit {
       else {
         if (parseFloat(imc) < 30) {//sobrepeso
           this.imcService.getGananciaSobrePeso(semanas).subscribe((res: any) => {
-            let auxiliar = res.object.recomendacionGananciaSobrePeso[0];
+            let auxiliar = res.object.recomencacionGananciaSobrePeso[0];
             console.log('datos ', res.object);
             if (parseFloat(this.form.value.talla) < 157) {
               if (gananciaPeso < auxiliar.min) {
@@ -561,7 +562,7 @@ export class InterrogatorioComponent implements OnInit {
       situacion: this.formExamenFetal.value.selectSituacion,
       presentacion: this.formExamenFetal.value.selectPresentacion,
       posicion: this.formExamenFetal.value.selectPosicion,
-      fcf: this.formExamenFetal.value.latidosCardiacos
+      fcf: this.formExamenFetal.value.latidosCardiacos == 0 ? 'NA' : this.formExamenFetal.value.latidosCardiacos
     }
   }
 
@@ -569,7 +570,8 @@ export class InterrogatorioComponent implements OnInit {
     console.log('form ', this.formExamenFetal.value.selectSituacion)
     this.recuperarDatosExamFet();
     this.fetalesExamDialog = false;
-    this.listaExamenesFetos.push(this.examenesFetales)
+    this.listaExamenesFetos.push(this.examenesFetales);
+    console.log('examenes fetales ', this.examenesFetales);
   }
 
   btnCancelarExamFetal() {
@@ -713,6 +715,12 @@ export class InterrogatorioComponent implements OnInit {
     this.listaOtrosPruebasFisicas.splice(index, 1);
   }
 
+  latidosNA(event) {
+    this.chkLatidos = event.checked;
+    console.log('chked ', this.chkLatidos);
+    this.chkLatidos! ? this.formExamenFetal.patchValue({ latidosCardiacos: null }) : '';
+
+  }
 }
 
 export interface ultimaConsulta {

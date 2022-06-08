@@ -90,7 +90,7 @@ export class StepGeneral_consultaComponent implements OnInit {
         console.log("INDEX", this.indiceActivo)
         this.name()
     }
-
+    
 }
 
 interface data {

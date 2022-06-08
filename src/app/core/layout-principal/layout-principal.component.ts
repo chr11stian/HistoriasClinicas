@@ -6,14 +6,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./layout-principal.component.css']
 })
 export class LayoutPrincipalComponent implements OnInit {
-
-  // menuActive: boolean;
-  // newsActive: boolean = true;
-  hidden: boolean = true;
-  number: number = 9;
+  hidden: boolean = false;
+  ocultar:string=''
   constructor() { }
   ngOnInit(): void {
   }
-  anchoSidebart:number=2
+  anchoSidebart(){
+    if(this.hidden){
+      this.ocultar='hidden'
+      return 0;
+    }
+    else{
+      this.ocultar='' 
+      return 2;
+    }
+
+  }
 
 }
