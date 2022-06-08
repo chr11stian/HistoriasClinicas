@@ -6,27 +6,22 @@
     font-size: 13px;
     font-weight: normal;
 }*/
-label{
-    font-weight: bold;
-} 
-html,body{
-    margin:5px;
-    background-color:var(--text-b);
-    font-family:var(--font-family);
-    font-size: 13px;
-    font-weight: normal;
+label {
+  font-weight: bold;
 }
-.text-layout{
-    color:var(--text-color)
+html,
+body {
+  margin: 5px;
+  background-color: var(--text-b);
+  font-family: var(--font-family);
+  font-size: 13px;
+  font-weight: normal;
+}
+.text-layout {
+  color: var(--text-color);
 }
 .p-dialog .p-dialog-header {
-    background-color: blue;
-    border-bottom: 0 none;
-    color: #ffffff;
-    height: 80px;
-    font-size: 2rem;
-    border-top-right-radius: 3px;
-    border-top-left-radius: 3px;
-  }
-  
-
+  background-color: #0c3866;
+  color: #ffffff;
+  font-size: 1.2rem;
+}

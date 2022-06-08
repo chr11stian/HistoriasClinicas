@@ -79,7 +79,7 @@ span p{
 
 
 
-:host::ng-deep.p-dialog .p-dialog-header {
+/* :host::ng-deep.p-dialog .p-dialog-header {
   background-color: red;
   border-bottom: 0 none;
   color: blue;
@@ -87,7 +87,7 @@ span p{
   font-size: 2rem;
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
-}
+} */
 
 ::ng-deep >>> .p-dialog .p-dialog-header .p-dialog-header-icon {
   width: 2rem;
