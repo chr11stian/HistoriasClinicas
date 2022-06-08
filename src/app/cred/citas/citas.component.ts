@@ -31,6 +31,9 @@ export class CitasComponent implements OnInit {
     attributeLocalS = 'documento'
     idIpressLapostaMedica = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
     iprees: string = JSON.parse(localStorage.getItem('usuario')).ipress.nombreEESS;
+    nroDocumento: string = JSON.parse(localStorage.getItem('usuario')).nroDocumento;
+    tipoDocumento: string = JSON.parse(localStorage.getItem('usuario')).tipoDocumento;
+    loading: boolean = true;
     options: data[]
     selectedOption: data
     citas: any[]
@@ -95,8 +98,22 @@ export class CitasComponent implements OnInit {
         this.formCitas.get('fechaBusqueda').setValue(this.fechaActual);
         this.getDocumentosIdentidad();
         this.getCuposXservicio();
+        this.buscarCuposPorPersonal();
     }
-
+    async buscarCuposPorPersonal() {
+        let data = {
+            tipoDoc: this.tipoDocumento,
+            nroDoc: this.nroDocumento,
+            fecha: this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd')
+        }
+        console.log("DATA DNI", data)
+        await this.cuposService.buscarListaCuposPersonal(this.idIpressLapostaMedica, data)
+            .then((result: any) => {
+                this.DataCupos = result.object
+                this.loading = false;
+                console.log('LISTA DE CUPO DEL PACIENTE', result)
+            });
+    }
     buildForm() {
         this.formCitas = this.fb.group({
             fechaInicio: new FormControl(''),
@@ -112,7 +129,7 @@ export class CitasComponent implements OnInit {
             servicio: 'ATENCION INTEGRAL DEL NINO',
             fecha: this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd')
         }
-        console.log('DATA ', data);
+        console.log('DATAS ', data);
 
         this.cuposService.getCuposServicioFecha(this.idIpressLapostaMedica, data).subscribe((res: any) => {
             this.DataCupos = res.object;
