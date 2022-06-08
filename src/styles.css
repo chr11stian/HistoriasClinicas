@@ -19,4 +19,14 @@ html,body{
 .text-layout{
     color:var(--text-color)
 }
+.p-dialog .p-dialog-header {
+    background-color: blue;
+    border-bottom: 0 none;
+    color: #ffffff;
+    height: 80px;
+    font-size: 2rem;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+  }
+  
 
