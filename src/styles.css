@@ -1,27 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
-html {
+/* html {
     font-family: -apple-system,
     BlinkMacSystemFont, "Segoe UI",
     Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-size: 13px;
     font-weight: normal;
-}
+}*/
 label{
     font-weight: bold;
+} 
+html,body{
+    margin:5px;
+    background-color:var(--text-b);
+    font-family:var(--font-family);
+    font-size: 13px;
+    font-weight: normal;
 }
-
-/*.lg\:col-3 {*/
-/*    flex: 0 0 auto;*/
-/*    padding: 0.5rem;*/
-/*    width: 15%;*/
-/*    background: #f8f9fa;*/
-/*}*/
-
-/*.lg\:col-9 {*/
-/*    display: flex;*/
-/*    flex: 0 0 auto;*/
-/*    padding: 0.5rem;*/
-/*    width: 85%;*/
-/*}*/
-
+.text-layout{
+    color:var(--text-color)
+}
 

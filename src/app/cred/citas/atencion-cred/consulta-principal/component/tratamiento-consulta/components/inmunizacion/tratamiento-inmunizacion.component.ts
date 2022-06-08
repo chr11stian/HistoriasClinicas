@@ -108,7 +108,11 @@ export class TratamientoInmunizacionComponent implements OnInit {
       header: `Agregar Vacuna ${nombre} Dosis numero (${vacuna.dosis})`,
       width: "50%",
       contentStyle: { "max-height": "500px", overflow: "auto" },
-      baseZIndex: 10000,
+      // autoZIndex:false,
+      // baseZIndex:1,
+      // dismissableMask:true,
+      // rtl:false,
+      // closable:false
     });
     ref.onClose.subscribe((mensaje) => {
       if (mensaje == "agregado") {
