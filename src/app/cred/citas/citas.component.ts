@@ -97,14 +97,15 @@ export class CitasComponent implements OnInit {
         this.formCitas.get('tipoDoc').setValue(this.TipoDoc);
         this.formCitas.get('fechaBusqueda').setValue(this.fechaActual);
         this.getDocumentosIdentidad();
-        this.getCuposXservicio();
+        //this.getCuposXservicio();
         this.buscarCuposPorPersonal();
     }
     async buscarCuposPorPersonal() {
         let data = {
             tipoDoc: this.tipoDocumento,
             nroDoc: this.nroDocumento,
-            fecha: this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd')
+            fecha: this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd'),
+            servicio: 'ATENCION INTEGRAL DEL NINO'
         }
         console.log("DATA DNI", data)
         await this.cuposService.buscarListaCuposPersonal(this.idIpressLapostaMedica, data)

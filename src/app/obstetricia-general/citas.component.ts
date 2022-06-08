@@ -230,7 +230,8 @@ export class CitasComponent implements OnInit {
         let data = {
             tipoDoc: this.tipoDocumento,
             nroDoc: this.nroDocumento,
-            fecha: this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd')
+            fecha: this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd'),
+            servicio: 'OBSTETRICIA'
         }
         console.log("DATA DNI", data)
         await this.cuposService.buscarListaCuposPersonal(this.idIpressLapostaMedica, data)
