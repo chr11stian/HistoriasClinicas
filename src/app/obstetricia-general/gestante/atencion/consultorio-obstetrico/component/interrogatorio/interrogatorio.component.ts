@@ -453,6 +453,7 @@ export class InterrogatorioComponent implements OnInit {
       selectPresentacion: new FormControl(""),
       selectPosicion: new FormControl(""),
       latidosCardiacos: new FormControl(""),
+      isChecked: new FormControl(""),
     })
 
     this.formExamFisico = this.fb.group({
@@ -554,6 +555,7 @@ export class InterrogatorioComponent implements OnInit {
     this.update = false;
     this.formExamenFetal.reset();
     this.fetalesExamDialog = true;
+    this.chkLatidos = false;
   }
 
   recuperarDatosExamFet() {
@@ -719,7 +721,6 @@ export class InterrogatorioComponent implements OnInit {
     this.chkLatidos = event.checked;
     console.log('chked ', this.chkLatidos);
     this.chkLatidos! ? this.formExamenFetal.patchValue({ latidosCardiacos: null }) : '';
-
   }
 }
 

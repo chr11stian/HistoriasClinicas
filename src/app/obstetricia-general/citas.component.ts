@@ -26,6 +26,8 @@ export class CitasComponent implements OnInit {
 
     idIpressLapostaMedica = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
     iprees: string = JSON.parse(localStorage.getItem('usuario')).ipress.nombreEESS;
+    nroDocumento: string = JSON.parse(localStorage.getItem('usuario')).nroDocumento;
+    tipoDocumento: string = JSON.parse(localStorage.getItem('usuario')).tipoDocumento;
     options: data[]
     selectedOption: data
     citas: any[]
@@ -89,7 +91,7 @@ export class CitasComponent implements OnInit {
         this.formCitas.get('fechaBusqueda').setValue(this.fechaActual);
         this.getDocumentosIdentidad();
         this.buscarCuposPorPersonal();
-        // this.getCuposXservicio();
+        //this.getCuposXservicio();
     }
 
     buildForm() {
@@ -105,9 +107,9 @@ export class CitasComponent implements OnInit {
     getCuposXservicio() {
         let data = {
             servicio: 'OBSTETRICIA',
-            fecha: this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd')
+            fecha: this.formCitas.value.fechaBusqueda === '' ? this.datePipe.transform(new Date()) : this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd')
         }
-        console.log('DATA ', data);
+        console.log('DATA OBS', data);
 
         this.cuposService.getCuposServicioFecha(this.idIpressLapostaMedica, data).subscribe((res: any) => {
             this.DataCupos = res.object;
@@ -226,10 +228,10 @@ export class CitasComponent implements OnInit {
     /**Buscar lista de cupos que pertenece a un personal de salud**/
     async buscarCuposPorPersonal() {
         let data = {
-            tipoDoc: this.formCitas.value.tipoDoc,
-            // nroDoc: this.formCitas.value.nroDoc,
-            nroDoc: '46538000',
-            fecha: this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd')
+            tipoDoc: this.tipoDocumento,
+            nroDoc: this.nroDocumento,
+            fecha: this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd'),
+            servicio: 'OBSTETRICIA'
         }
         console.log("DATA DNI", data)
         await this.cuposService.buscarListaCuposPersonal(this.idIpressLapostaMedica, data)

@@ -8,12 +8,13 @@
   flex: 8%;
   margin: 0.7em;
 }
+
 .examenObst {
   flex: 11%;
   margin: 0.5em;
 }
+
 ::ng-deep .p-fieldset .p-fieldset-legend {
-  padding: 0.5rem;
   border: 1px solid #dee2e6;
   color: #495057;
   background: #d8dee5;
@@ -22,7 +23,7 @@
   font-size: small;
 }
 
-p-radiobutton >>> .p-radiobutton .p-radiobutton-icon {
+p-radiobutton>>>.p-radiobutton .p-radiobutton-icon {
   content: url("src\assets\svg-icons\check-svgrepo-com.svg");
 }
 
@@ -61,7 +62,7 @@ input[type="number"] {
   text-align: left;
 }
 
-p-dialog>>> .p-dialog .p-dialog-header {
+p-dialog>>>.p-dialog .p-dialog-header {
   border-bottom: 0 none;
   background: #0c3866;
   color: #ffffff;
@@ -69,12 +70,16 @@ p-dialog>>> .p-dialog .p-dialog-header {
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
 }
-.button-agregar{
+
+.button-agregar {
   background: #003C71;
 }
-.fieldset_data{
+
+.fieldset_data {
   padding: 0%;
 }
-::ng-deep .p-fieldset.p-fieldset-toggleable .p-fieldset-legend a{
+
+::ng-deep .p-fieldset.p-fieldset-toggleable .p-fieldset-legend a,
+::ng-deep .p-fieldset .p-fieldset-legend {
   padding: 0.5rem;
 }
