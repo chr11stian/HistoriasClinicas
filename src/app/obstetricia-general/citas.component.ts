@@ -107,7 +107,7 @@ export class CitasComponent implements OnInit {
             servicio: 'OBSTETRICIA',
             fecha: this.formCitas.value.fechaBusqueda === '' ? this.datePipe.transform(new Date()) : this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd')
         }
-        console.log('DATASSS ', data);
+        console.log('DATA OBS', data);
 
         this.cuposService.getCuposServicioFecha(this.idIpressLapostaMedica, data).subscribe((res: any) => {
             this.DataCupos = res.object;
