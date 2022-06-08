@@ -575,9 +575,10 @@ export class GiagnosticosComponent implements OnInit {
     }
 
     filterCIE10(event) {
-        this.CieService.getCIEByDescripcion(event.query).subscribe((res: any) => {
-            this.listaDeCIE = res.object
-        })
+        this.CieService.getPromiseCIEbyDescripcionTipo('CX', event.query).then((res:any) => this.listaDeCIE = res.object);
+        // this.CieService.getCIEByDescripcionTipo('CX', event.query).subscribe((res: any) => {
+        //     this.listaDeCIE = res.object
+        // })
     }
 
     selectedOption(event, cieType) {

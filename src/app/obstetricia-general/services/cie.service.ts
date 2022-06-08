@@ -20,7 +20,14 @@ export class CieService {
     return this.http.get(`${this.base_url}/${this.bd}/cie10his/buscar/${codCIE}`)
   }
 
-  getCIEByDescripcionTipo(tipo,text){
+  getCIEByDescripcionTipo(tipo, text) {
     return this.http.get(`${this.base_url}/${this.bd}/cie10his/filtro/tipo/${tipo}/${text}`)
+  }
+
+  getPromiseCIEbyDescripcionTipo(tipo, text) {
+    return this.http.get(`${this.base_url}/${this.bd}/cie10his/filtro/tipo/${tipo}/${text}`)
+      .toPromise()
+      .then(res => <any[]>res)
+      .then(data => { return data; });
   }
 }
