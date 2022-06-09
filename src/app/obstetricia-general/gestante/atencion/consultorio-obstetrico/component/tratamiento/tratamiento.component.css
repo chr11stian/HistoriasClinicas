@@ -75,3 +75,17 @@ p-panel>>>.p-panel .p-panel-content{
 @media (min-width: 900px){
 
 }
+.image1 {
+    background: url('src/assets/images/acidoFolico.png') no-repeat;
+    background-size: contain;
+    height: 50px;
+    background-position: 50% 50%;
+    margin: auto;
+}
+.image2 {
+    background: url('src/assets/images/calcio.png') no-repeat;
+    background-size: contain;
+    height: 50px;
+    background-position: 50% 50%;
+    margin: auto;
+}
