@@ -158,6 +158,7 @@
               styleClass="my-2 py-1"
               (onChange)="changeUps1($event)"
               [(ngModel)]="upsSeleccionada"
+              [virtualScroll]="false"
             ></p-dropdown>
           </div>
         </th>
@@ -270,7 +271,7 @@
             class="bordeDropTurno"
             [appendTo]="dropdown"
             [options]="listaAmbienteXipres"
-            [virtualScroll]="true"
+            [virtualScroll]="false"
             optionLabel="ambiente"
             optionValue="ambiente"
             [(ngModel)]="listaAmbiente[i]"
@@ -284,7 +285,7 @@
             class="bordeDropTurno"
             [appendTo]="dropdown"
             [options]="listaTurno"
-            [virtualScroll]="true"
+            [virtualScroll]="false"
             dataKey="abreviatura"
             optionLabel="abreviatura"
             [(ngModel)]="matriz[i][j]"
