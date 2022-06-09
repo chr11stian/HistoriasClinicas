@@ -50,6 +50,9 @@ export class ModalInmunizacionesComponent implements OnInit {
   tipoList: any;
   edadPaciente: any;
   sexoPaciente: any;
+  medicamentosConDatos: any[] = [];
+  aux: any;
+
   constructor(private form: FormBuilder,
     private ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
@@ -359,5 +362,25 @@ export class ModalInmunizacionesComponent implements OnInit {
     // console.log('lista de medicamentos ', this.listaMedicamentos);
     // console.log('evento desde medicamentos ', event);
     // this.formInmunizaciones.patchValue({ nombreComercial: event.nombreComercial }, { emitEvent: false });
+  }
+
+
+  filterItems(event: any) {
+    let filtered: any[] = [];
+    let query = event.query;
+    console.log(this.medicamentosConDatos);
+    this.aux = this.medicamentosConDatos;
+    for (let i = 0; i < this.aux.length; i++) {
+      let item = this.aux[i];
+      if (item.stringMedicamento.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        filtered.push(item);
+      }
+    }
+    this.aux = filtered;
+    if (this.aux === []) {
+      console.log('no encontrado');
+      this.aux = this.medicamentosConDatos;
+
+    }
   }
 }
