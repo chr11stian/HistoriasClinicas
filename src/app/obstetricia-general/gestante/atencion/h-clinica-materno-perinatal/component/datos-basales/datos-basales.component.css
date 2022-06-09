@@ -150,3 +150,10 @@ label {
     color: rgb(135 135 135);
     font-size: 12px;
 }
+
+.bg_color, ::ng-deep .p-element .p-calendar {
+    background: #EBF5FB;
+}
+input:disabled{
+    opacity: 1;
+}
