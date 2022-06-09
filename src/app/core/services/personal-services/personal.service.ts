@@ -25,8 +25,8 @@ export class PersonalService {
         );
     }
 
-    getPersonalIpress(idIpress: string): Observable<Personal[]> {
-        return this.http.get<Personal[]>(
+    getPersonalIpress(idIpress: string)  {
+        return this.http.get(
             `${this.base_url}/${this.bd}/personal/listarpersonal/${idIpress}`
         );
     }

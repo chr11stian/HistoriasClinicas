@@ -237,9 +237,10 @@ export class PersonalSaludComponent implements OnInit {
     }
 
     getPersonal() {
-        this.personalservice.getPersonal().subscribe((res: any) => {
+        this.personalservice.getPersonalIpress(this.idIpress).subscribe((res: any) => {
+        //this.personalservice.getPersonal().subscribe((res: any) => {
             this.data = res.object;
-            // console.log(this.data)
+            console.log("data",this.data)
         });
     }
 
@@ -370,9 +371,9 @@ export class PersonalSaludComponent implements OnInit {
         this.form.get("estado").setValue(rowData.estado);
         this.form.get("contratoAbreviatura").setValue(rowData.contratoAbreviatura);
         this.form.get("sexo").setValue(rowData.sexo);
-        this.form.get("detalleIpress").setValue(rowData.detalleIpress ? rowData.detalleIpress[0].idIpress : "");
+        this.form.get("detalleIpress").setValue(rowData.detalleIpress ? rowData.detalleIpress.idIpress : "");
         this.form.get("fechaInicio").setValue(rowData.detalleIpress ?
-            this.datePipe.transform(rowData.detalleIpress[0].fechaInicio, "yyyy-MM-dd") : "");
+            this.datePipe.transform(rowData.detalleIpress.fechaInicio, "yyyy-MM-dd") : "");
         this.idUpdate = rowData.id;
         this.form.get("estadoCivil").disable();
         this.form.get("distrito").disable();
