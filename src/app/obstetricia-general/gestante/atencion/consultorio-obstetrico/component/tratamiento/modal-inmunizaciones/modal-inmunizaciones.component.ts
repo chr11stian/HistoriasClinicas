@@ -141,8 +141,8 @@ export class ModalInmunizacionesComponent implements OnInit {
   buildForm() {
     this.formInmunizaciones = this.form.group({
       nombre: new FormControl("", [Validators.required]),
-      nombreComercial: new FormControl("", [Validators.required]),
-      dosis: new FormControl("", [Validators.required]),
+      nombreComercial: new FormControl(""),
+      dosis: new FormControl(""),
       tipoDosis: new FormControl("", [Validators.required]),
       prestacion: new FormControl("", [Validators.required]),
       diagnostico: new FormControl("", [Validators.required]),
@@ -183,8 +183,8 @@ export class ModalInmunizacionesComponent implements OnInit {
   async enviarTratamientoInmunizaciones() {
     var data = {
       nombre: this.formInmunizaciones.value.nombre.nombre,
-      nombreComercial: this.formInmunizaciones.value.nombreComercial,
-      dosis: this.formInmunizaciones.value.dosis,
+      nombreComercial: '',
+      dosis: '',
       tipoDosis: this.formInmunizaciones.value.tipoDosis,
       codPrestacion: this.formInmunizaciones.value.diagnostico.codPrestacion,
       codProcedimientoSIS: this.formInmunizaciones.value.SISCIE.codigo,
@@ -219,8 +219,8 @@ export class ModalInmunizacionesComponent implements OnInit {
     var data = {
       id: this.idEdicion,
       nombre: this.formInmunizaciones.value.nombre.nombre,
-      nombreComercial: this.formInmunizaciones.value.nombreComercial,
-      dosis: this.formInmunizaciones.value.dosis,
+      nombreComercial: '',
+      dosis: '',
       tipoDosis: this.formInmunizaciones.value.tipoDosis,
       codPrestacion: this.formInmunizaciones.value.diagnostico.codPrestacion,
       codProcedimientoSIS: this.formInmunizaciones.value.SISCIE.codigo,
@@ -272,7 +272,7 @@ export class ModalInmunizacionesComponent implements OnInit {
       this.formInmunizaciones.get("ups").setValue(configuracion.nombreUPS);
       this.formInmunizaciones.get("subtitulo").setValue(configuracion.nombreUPSaux);
       this.formInmunizaciones.get("tipo").setValue(configuracion.tipoDx);
-      this.formInmunizaciones.get("dosis").setValue(configuracion.dosis);
+      // this.formInmunizaciones.get("dosis").setValue(configuracion.dosis);
       this.formInmunizaciones.get("tipoDosis").setValue(configuracion.tipoDosis);
       this.formInmunizaciones.get("diagnostico").setValue(this.diagnosticosList.find(elemento => elemento.cie10SIS == configuracion.cie10SIS));
       this.PrestacionService.getProcedimientoPorCodigo(this.formInmunizaciones.value.diagnostico.codPrestacion).subscribe((res: any) => {
@@ -356,8 +356,8 @@ export class ModalInmunizacionesComponent implements OnInit {
   }
 
   selectedOptionNameMedicamento(event) {
-    console.log('lista de medicamentos ', this.listaMedicamentos);
-    console.log('evento desde medicamentos ', event);
-    this.formInmunizaciones.patchValue({ nombreComercial: event.nombreComercial }, { emitEvent: false });
+    // console.log('lista de medicamentos ', this.listaMedicamentos);
+    // console.log('evento desde medicamentos ', event);
+    // this.formInmunizaciones.patchValue({ nombreComercial: event.nombreComercial }, { emitEvent: false });
   }
 }

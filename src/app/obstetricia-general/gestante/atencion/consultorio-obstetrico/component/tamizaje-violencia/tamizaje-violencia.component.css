@@ -172,3 +172,11 @@ p-inputgroup .p-inputtext {
     /*flex: 1 1 auto;*/
     width: 20%;
 }
+
+.bg_color {
+    background: #EBF5FB;
+}
+
+input:disabled{
+    opacity: 1;
+}
