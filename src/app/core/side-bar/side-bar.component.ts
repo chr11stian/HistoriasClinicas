@@ -263,11 +263,11 @@ const administracion1 = {
             icon: "pi pi-pw pi-file",
             routerLink: "admision/personal-salud",
         },
-        {
+        /*{
             label: "Usuarios",
             icon: "pi pi-pw pi-file",
             routerLink: "admision/usuarios",
-        },
+        },*/
     ],
 }
 const administracion2 = {
@@ -525,6 +525,14 @@ const reportes = {
         routerLink: "reportes/reportes-his",
     }]
 }
+const farmacia = {
+    label: "Farmacia",
+    items: [{
+        label: "Sistema Farmacia",
+        icon: "pi pi-pw pi-file",
+        routerLink: "admision/ipress-farmacia",
+    }]
+}
 const menu_ipress = [];
 
 
@@ -563,6 +571,10 @@ export class SideBarComponent implements OnInit, DoCheck {
             menu_ipress.push(laboratorio)
             menu_ipress.push(reportes)
         }
+        if (this.rol.rol === 'ROL_4_4') {
+            menu_ipress.length = 0
+            menu_ipress.push(farmacia)
+        }
     }
 
     ngDoCheck() {
@@ -581,7 +593,7 @@ export class SideBarComponent implements OnInit, DoCheck {
 
     menu() {
         let token = JSON.parse(localStorage.getItem('token'));
-       // console.log('token en side bar', token)
+        // console.log('token en side bar', token)
         switch (token.roles) {
             case "GERESA":
                 this.items = menu_geresa;

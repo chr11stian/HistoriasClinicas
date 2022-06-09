@@ -101,7 +101,7 @@ export class PersonalSaludComponent implements OnInit {
         this.getEspecialidades();
         this.getColegios();
         this.getTipoContratos();
-        this.getIpress();
+        //this.getIpress();
         this.getListaUps();
         this.getSexos();
         this.getNombreRoles();
@@ -269,9 +269,9 @@ export class PersonalSaludComponent implements OnInit {
         let colegioSelected = this.colegiosList.find(
             (colegio) => colegio.codigo === this.form.value.colegioProfesional
         );
-        let ipressSelected = this.ipressList.find(
+        /*let ipressSelected = this.ipressList.find(
             (ipress) => ipress.id === this.form.value.detalleIpress
-        );
+        );*/
         console.log(this.form.value.fechaNacimiento);
         const req = {
             tipoDoc: this.form.value.tipoDoc,
@@ -299,8 +299,8 @@ export class PersonalSaludComponent implements OnInit {
             colegiatura: this.form.value.colegiatura,
             estado: this.form.value.estado,
             detalleIpress: {
-                idIpress: this.form.value.detalleIpress,
-                eess: ipressSelected.nombreEESS,
+                idIpress: this.idIpress,
+                eess: this.iprees,
                 fechaInicio:
                     this.datePipe.transform(this.form.value.fechaInicio, "yyyy-MM-dd") +
                     " 00:00:00",
@@ -349,7 +349,7 @@ export class PersonalSaludComponent implements OnInit {
         this.form.get("estado").setValue("");
         this.form.get("contratoAbreviatura").setValue("");
         this.form.get("sexo").setValue("");
-        this.form.get("detalleIpress").setValue("");
+        this.form.get("detalleIpress").setValue(this.iprees);
         this.form.get("fechaInicio").setValue("");
         this.personalDialog = true;
     }
@@ -371,7 +371,7 @@ export class PersonalSaludComponent implements OnInit {
         this.form.get("estado").setValue(rowData.estado);
         this.form.get("contratoAbreviatura").setValue(rowData.contratoAbreviatura);
         this.form.get("sexo").setValue(rowData.sexo);
-        this.form.get("detalleIpress").setValue(rowData.detalleIpress ? rowData.detalleIpress.idIpress : "");
+        this.form.get("detalleIpress").setValue(this.iprees);
         this.form.get("fechaInicio").setValue(rowData.detalleIpress ?
             this.datePipe.transform(rowData.detalleIpress.fechaInicio, "yyyy-MM-dd") : "");
         this.idUpdate = rowData.id;
@@ -395,9 +395,9 @@ export class PersonalSaludComponent implements OnInit {
         let colegioSelected = this.colegiosList.find(
             (colegio) => colegio.codigo === this.form.value.colegioProfesional
         );
-        let ipressSelected = this.ipressList.find(
+        /*let ipressSelected = this.ipressList.find(
             (ipress) => ipress.id === this.form.value.detalleIpress
-        );
+        );*/
         console.log(this.form.value.fechaNacimiento);
         const req = {
             id: this.idUpdate,
@@ -426,8 +426,10 @@ export class PersonalSaludComponent implements OnInit {
             colegiatura: this.form.value.colegiatura,
             estado: this.form.value.estado,
             detalleIpress: {
-                idIpress: this.form.value.detalleIpress,
-                eess: ipressSelected.nombreEESS,
+                //idIpress: this.form.value.detalleIpress,
+                //eess: ipressSelected.nombreEESS,
+                idIpress: this.idIpress,
+                eess: this.iprees,
                 fechaInicio:
                     this.datePipe.transform(this.form.value.fechaInicio, "yyyy-MM-dd") +
                     " 00:00:00",
