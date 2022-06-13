@@ -280,7 +280,7 @@
                 </div>
                 <div class="p-field col-4">
                     <label>Ipress:</label>
-                    <p-dropdown *ngIf="!isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
+                    <!--<p-dropdown *ngIf="!isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
                                 dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="ipressList"
                                 formControlName="detalleIpress"
                                 optionLabel="nombreEESS" placeholder="Seleccione Ipress" optionValue="id"
@@ -291,7 +291,10 @@
                                 formControlName="detalleIpress"
                                 optionLabel="nombreEESS" [disabled]="true" optionValue="id" scrollHeight="80px"
                                 required>
-                    </p-dropdown>
+                    </p-dropdown>-->
+                    <input class="inputRedondo" type="text" pInputText disabled="true"
+                           formControlName="detalleIpress"
+                           required/>
                 </div>
                 <div class="p-field col-4">
                     <label>Fecha Inicio:</label>
