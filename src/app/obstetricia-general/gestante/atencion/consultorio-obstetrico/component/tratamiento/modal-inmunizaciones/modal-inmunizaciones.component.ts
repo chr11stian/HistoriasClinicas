@@ -383,4 +383,26 @@ export class ModalInmunizacionesComponent implements OnInit {
 
     }
   }
+
+  // selectedOptionNameMedicamento(event, n) {
+  //   console.log('lista de medicamentos ', this.medicamentosConDatos);
+  //   if (n == 1) {
+  //     this.codMedicamento1 = event.medicamento.codigo;
+  //     this.formRIEP.patchValue({ acidoFolicoDescripcion: event.medicamento.nombreComercial });
+  //     this.formRIEP.patchValue({ acidoFolicoNombre: event.medicamento.nombre });
+  //     this.formRIEP.patchValue({ acidoFolicoFechaVenc: event.fechaVenc });
+  //     this.formRIEP.patchValue({ acidoFolicoViaAdministracion: event.medicamento.viaAdministracion });
+  //     this.formRIEP.patchValue({ stock: event.stock });
+  //   }
+  //   if (n == 2) {
+  //     console.log(event);
+  //     this.codMedicamento2 = event.medicamento.codigo;
+  //     this.formRIEP.patchValue({ calcioDescripcion: event.medicamento.nombreComercial });
+  //     this.formRIEP.patchValue({ calcioNombre: event.medicamento.nombre });
+  //     this.formRIEP.patchValue({ calcioFechaVenc: event.fechaVenc });
+  //     this.formRIEP.patchValue({ calcioViaAdministracion: event.medicamento.viaAdministracion });
+  //     this.formRIEP.patchValue({ stock2: event.stock });
+  //   }
+
+  // }
 }

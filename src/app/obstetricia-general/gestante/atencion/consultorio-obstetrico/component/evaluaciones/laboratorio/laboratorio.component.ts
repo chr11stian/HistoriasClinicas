@@ -23,12 +23,12 @@ export class LaboratorioComponent implements OnInit {
     openDialogSolicitud() {
         this.ref = this.dialog.open(LabSolicitudComponent, {
             header: "SOLICITUD DE EXAMENES DE LABORATORIO",
-            width: "90%",
-            height: "800px",
-            // contentStyle: {
-            //     "max-height": "800px",
-            //     overflow: "auto",
-            // },
+            width: "60%",
+            height: "90%",
+            contentStyle: {
+                "max-height": "92%",
+                // overflow: "auto",
+            },
         })
         this.ref.onClose.subscribe((data: any) => {
             console.log('data de otro dialog ', data)
