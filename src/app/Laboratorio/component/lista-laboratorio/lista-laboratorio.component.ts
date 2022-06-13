@@ -19,6 +19,7 @@ export class ListaLaboratorioComponent implements OnInit {
     fechaActual = new Date();
     idIpres = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
     DataLisLab: any;
+    data: hematologiaInterface[]
     loading: boolean = true;
     ref: DynamicDialogRef;
 
@@ -35,6 +36,9 @@ export class ListaLaboratorioComponent implements OnInit {
         this.buildForm();
         this.formListaLabo.get('fechaBusqueda').setValue(this.fechaActual);
         this.listaLab();
+        this.data = [{
+            hemoglobina: "1"
+        }]
     }
 
     buildForm() {
@@ -52,7 +56,7 @@ export class ListaLaboratorioComponent implements OnInit {
         }
         console.log('DATA ', data);
 
-        this.laboratoriosService.getListaLab(this.idIpres, data).subscribe((res: any) => {
+        this.laboratoriosService.getSolicitudLaboratorio(this.idIpres, data).subscribe((res: any) => {
             this.DataLisLab = res.object;
             this.loading = false;
             console.log('LISTA DE SOLICITUD ', this.DataLisLab);
@@ -109,4 +113,41 @@ export class ListaLaboratorioComponent implements OnInit {
 
         console.log("opcion", opcion)
     }
+}
+
+export interface hematologiaInterface {
+    nroMuestra?: string
+    resultadoExamen?: string
+    hemoglobina?: string
+    rctoGlobulosRojos?: string
+    hematocrito?: string
+    rctoPlaquetas?: string
+    vsg1hora?: string
+    vsg2hora?: string
+    grupoSanguineo?: string
+    rctoGlobulosBlancos?: string
+    factorRH?: string
+    vcm?: string
+    vrVcm?: string
+    tiempoSangria?: string
+    blastos?: string
+    linfocitos?: string
+    chcm?: string
+    vrChcm?: string
+    tiempoCoagulacion?: string
+    juveniles?: string
+    monocitos?: string
+    hcm?: string
+    vrHcm?: string
+    tiempoProtrombina?: string
+    neutrofilos?: string
+    eosinofilos?: string
+    tiempoTromboplastina?: string
+    nAbastonados?: string
+    basofilos?: string
+    reticulocitos?: string
+    nSegmentados?: string
+    compatibilidadSanguinea?: string
+    hbConFactorCorrecion?: string
+    factorCorreccion?: string
 }

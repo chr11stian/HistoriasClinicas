@@ -13,7 +13,7 @@ export class LaboratoriosService {
 
     }
 
-    getListaLab(idIpres, data) {
+    getSolicitudLaboratorio(idIpres, data) {
         return this.http.post(`${this.base_url}/${this.bd}/examenesAuxiliares/listar/examen/laboratorio/${idIpres}`, data)
     }
 }
