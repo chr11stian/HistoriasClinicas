@@ -170,7 +170,7 @@ export class PlanPartoComponent implements OnInit {
             frecuenciaRadioEess: this.formPlanParto.value.FrecuenciaRadio,
             telefonoComunidad: this.formPlanParto.value.TelfComunidad,
             nombrePromotorSalud: this.formPlanParto.value.nombrePromotorSalud,
-            tiempoLlegarEess: Number(this.formPlanParto.value.tiempoLlegarEESS),
+            tiempoLlegarEess: this.formPlanParto.value.tiempoLlegarEESS,
         }
 
         console.log("DATA", data);

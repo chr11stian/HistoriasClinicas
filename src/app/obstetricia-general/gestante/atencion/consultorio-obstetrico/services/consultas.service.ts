@@ -65,9 +65,15 @@ export class ConsultasService {
     //diagnosticos
     guardarDiagnosticoDeGestante(nroHcl,nroEmbarazo,nroAtencion,data){
         return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/agregarDiagnostico/${nroHcl}/${nroEmbarazo}/${nroAtencion}`, data)
+        .toPromise()
+        .then(res => <any[]>res)
+        .then(data => { return data; });
     }
     actualizarDiagnosticoDeGestante(nroHcl,nroEmbarazo,nroAtencion,data){
         return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/actualizarDiagnostico/${nroHcl}/${nroEmbarazo}/${nroAtencion}`, data)
+        .toPromise()
+        .then(res => <any[]>res)
+        .then(data => { return data; });
     }
     eliminarDiagnosticoGestante(nroHcl,nroEmbarazo,nroAtencion,cie10SIS){
         return this.http.delete(`${this.base_url}/${this.bd}/obstetricia/consulta/eliminarDiagnostico/${nroHcl}/${nroEmbarazo}/${nroAtencion}/${cie10SIS}`)
