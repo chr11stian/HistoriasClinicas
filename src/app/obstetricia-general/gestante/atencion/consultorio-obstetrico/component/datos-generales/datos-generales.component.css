@@ -270,6 +270,7 @@ input:disabled{
 ::ng-deep .p-element .p-calendar{
     opacity: 1 !important;
 }
-::ng-deep .p-element .p-selectbutton{
+::ng-deep .p-element .p-selectbutton, .vacPrev{
     opacity: 1;
 }
+

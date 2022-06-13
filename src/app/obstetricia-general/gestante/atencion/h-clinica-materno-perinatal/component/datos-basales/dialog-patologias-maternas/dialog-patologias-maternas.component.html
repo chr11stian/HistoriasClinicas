@@ -2,9 +2,18 @@
     <!-- <ng-template pTemplate="body"> -->
     <form [formGroup]='formDiagnostico'>
         <div class="grid">
-            <div class="col-6">
+            <div class="col-3: text-right">
+                <label>CIE10</label>
+            </div>
+            <div class="col-9">
+                <p-autoComplete formControlName="cie10" [suggestions]="listaDeCIE" appendTo="body"
+                    (completeMethod)="filterCIE10($event)" field="codigoItem" [minLength]="1"
+                    (onSelect)="selectedOption($event)" class="" [forceSelection]="true" dataKey="codigoItem">
+                </p-autoComplete>
+            </div>
+            <!-- <div class="col-6">
                 <div class="grid">
-                    <div class="col-3 text-right">
+                    <div class="col-3: text-right">
                         <label>CIE10</label>
                     </div>
                     <div class="col-9">
@@ -21,22 +30,27 @@
                         <label>Fecha: </label>
                     </div>
                     <div class="col-8">
-                        <input type="date" pInputText formControlName='datePatologia' placeholder=""
+                        <input type="date" pInputText formControlName   ='datePatologia' placeholder=""
                             class="inputfield w-full">
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
         <div class="grid">
-            <div class="col-2 text-right">
-                <label>Diagnostico</label>
+            <div class="col-12">
+                <div class="grid">
+                    <div class="col-3 text-right">
+                        <label>Diagnostico</label>
+                    </div>
+                    <div class="col-9">
+                        <p-autoComplete [suggestions]="listaDeCIE" (completeMethod)="filterCIE10($event)"
+                            field="descripcionItem" [minLength]="1" class="areaText " appendTo="body"
+                            formControlName="autocompleteDiagnostico" (onSelect)="selectedOptionNameCIE($event)">
+                        </p-autoComplete>
+                    </div>
+                </div>
             </div>
-            <div class="col-9">
-                <p-autoComplete [suggestions]="listaDeCIE" (completeMethod)="filterCIE10($event)"
-                    field="descripcionItem" [minLength]="1" class="areaText " appendTo="body"
-                    formControlName="autocompleteDiagnostico" (onSelect)="selectedOptionNameCIE($event)">
-                </p-autoComplete>
-            </div>
+
         </div>
         <div class="grid">
             <textarea [rows]="3" class="inputfield w-full mt-2" formControlName="diagnostico" pInputTextarea

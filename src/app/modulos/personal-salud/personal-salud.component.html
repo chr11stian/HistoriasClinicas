@@ -49,25 +49,25 @@
                 <td style="text-align: center">{{ rowIndex + 1 }}</td>
                 <td style="text-align: center">{{ rowData.nroDoc }}</td>
                 <td style="text-align: center">
-                    {{ rowData.apePaterno + " " + rowData.apeMaterno }}
+                    {{ rowData.apePaterno + " " + rowData.apeMaterno.toUpperCase() }}
                 </td>
                 <td style="text-align: center">
-                    {{ rowData.primerNombre + " " + rowData.otrosNombres }}
+                    {{ rowData.primerNombre + " " + rowData.otrosNombres.toUpperCase() }}
                 </td>
                 <!-- <td style="text-align: center">{{ rowData.fechaNacimiento | date: "dd/MM/yyyy" }}</td> -->
                 <!-- <td style="text-align: center">{{ rowData.sexo }}</td> -->
                 <td style="text-align: center">
-                    {{ rowData.tipoPersonal ? rowData.tipoPersonal.nombre : "" }}
+                    {{ rowData.tipoPersonal ? rowData.tipoPersonal.nombre.toUpperCase() : "" }}
                 </td>
                 <td style="text-align: center">
                     {{
                     rowData.colegioProfesional
-                        ? rowData.colegioProfesional.nombre
+                        ? rowData.colegioProfesional.nombre.toUpperCase()
                         : ""
                     }}
                 </td>
                 <!-- <td style="text-align: center">{{ rowData.colegiatura }}</td> -->
-                <td style="text-align: center">{{ rowData.contratoAbreviatura }}</td>
+                <td style="text-align: center">{{ rowData.contratoAbreviatura.toUpperCase() }}</td>
                 <!-- <td style="text-align: center">{{ rowData.detalleIpress ? rowData.detalleIpress[0].eess : "" }}</td> -->
                 <td style="text-align: center">
                     <p-tag *ngIf="rowData.estado" styleClass="p-mr-2" severity="success" value="Activo"
@@ -89,7 +89,7 @@
                     <button pButton pRipple icon="pi pi-id-card" class="p-button-rounded p-button-help"
                             (click)="newRolSistema(rowData)"></button>
                 </td>
-                <td style="text-align: center; display: flex">
+                <td style="text-align: center">
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded m-1"
                             (click)="editar(rowData)"></button>
                     <button pButton (click)="eliminar(rowData)" pTooltip="Eliminar" pRipple type="button"
@@ -281,7 +281,7 @@
                 </div>
                 <div class="p-field col-4">
                     <label>Ipress:</label>
-                    <p-dropdown *ngIf="!isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
+                    <!--<p-dropdown *ngIf="!isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
                                 dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="ipressList"
                                 formControlName="detalleIpress"
                                 optionLabel="nombreEESS" placeholder="Seleccione Ipress" optionValue="id"
@@ -292,7 +292,10 @@
                                 formControlName="detalleIpress"
                                 optionLabel="nombreEESS" [disabled]="true" optionValue="id" scrollHeight="80px"
                                 required>
-                    </p-dropdown>
+                    </p-dropdown>-->
+                    <input class="inputRedondo" type="text" pInputText disabled="true"
+                           formControlName="detalleIpress"
+                           required/>
                 </div>
                 <div class="p-field col-4">
                     <label>Fecha Inicio:</label>

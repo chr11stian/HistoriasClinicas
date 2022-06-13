@@ -28,7 +28,7 @@
                             </div>
                             <div class="col-5">
                                 <input type="number" pInputText formControlName='talla' placeholder=""
-                                       class="inputfield w-full p-inputtext-sm">
+                                    class="inputfield w-full p-inputtext-sm bg_color" disabled>
                             </div>
                             <div class="col-2">
                                 <label class="text-sm font-italic">cm</label>
@@ -40,7 +40,7 @@
                             </div>
                             <div class="col-5">
                                 <input type="number" pInputText formControlName='pesoActual' placeholder=""
-                                       class="inputfield w-full p-inputtext-sm">
+                                    class="inputfield w-full p-inputtext-sm bg_color" disabled>
                             </div>
                             <div class="col-1 text-sm font-italic">Kg</div>
                         </div>
@@ -50,7 +50,7 @@
                             </div>
                             <div class="col-5">
                                 <input type="number" pInputText formControlName='pesoHabitual' placeholder=""
-                                       class="inputfield w-full p-inputtext-sm">
+                                    class="inputfield w-full p-inputtext-sm bg_color" disabled>
                             </div>
                             <div class="col-1 text-sm font-italic">Kg</div>
                         </div>
@@ -60,7 +60,7 @@
                             </div>
                             <div class="col-5">
                                 <input type="number" pInputText formControlName='imc' placeholder=""
-                                       class="inputfield w-full p-inputtext-sm">
+                                    class="inputfield w-full p-inputtext-sm bg_color" disabled>
                             </div>
                         </div>
                     </div>
@@ -79,7 +79,7 @@
                                 <div class="col">
                                     <label class="text-sm">N° Dosis Previas: </label>
                                     <input type="number" pInputText formControlName='nroDosisPrevias' placeholder=""
-                                           class="inputfield w-full">
+                                        class="inputfield w-full">
                                 </div>
                             </div>
                         </div>
@@ -103,16 +103,15 @@
                                 </div>
                                 <div class="col-5">
                                     <input type="date" pInputText formControlName='primeraDosis' placeholder=""
-                                           class="inputfield w-full">
+                                        class="inputfield w-full">
                                 </div>
                                 <div class="col-2 text-center">
                                     <p-radioButton name="firstDosis" formControlName="firstDosis" value="0"
-                                                   class="amarillo"></p-radioButton>
+                                        class="amarillo"></p-radioButton>
                                 </div>
                                 <div class="col-2 text-center">
                                     <p-radioButton name="firstDosis" formControlName="firstDosis" value="1"
-                                                   inputId="city2"
-                                                   class="default"></p-radioButton>
+                                        inputId="city2" class="default"></p-radioButton>
                                 </div>
                             </div>
                             <div class="grid">
@@ -121,17 +120,16 @@
                                 </div>
                                 <div class="col-5">
                                     <input type="date" pInputText formControlName='segundaDosis' placeholder=""
-                                           class="inputfield w-full text-sm">
+                                        class="inputfield w-full text-sm">
                                 </div>
                                 <div class="col-2 text-center">
                                     <p-radioButton name="secondDosis" formControlName="secondDosis" value="1"
-                                                   class="amarillo mb-5">
+                                        class="amarillo mb-5">
                                     </p-radioButton>
                                 </div>
                                 <div class="col-2 text-center">
                                     <p-radioButton name="secondDosis" formControlName="secondDosis" value="2"
-                                                   inputId="city2"
-                                                   class="default mb-5"></p-radioButton>
+                                        inputId="city2" class="default mb-5"></p-radioButton>
                                 </div>
                             </div>
                         </div>
@@ -150,40 +148,40 @@
                             <label>Grupo: </label>
                             <label class="ml-2">A</label>
                             <p-radioButton name="tipoSangreGrupo" formControlName="tipoSangreGrupo" value="A"
-                                           class="default ml-2"></p-radioButton>
+                                class="default ml-2"></p-radioButton>
                             <label class="ml-3">B </label>
                             <p-radioButton name="tipoSangreGrupo" formControlName="tipoSangreGrupo" value="B"
-                                           class="default ml-2"></p-radioButton>
+                                class="default ml-2"></p-radioButton>
                             <label class="ml-3">AB </label>
                             <p-radioButton name="tipoSangreGrupo" formControlName="tipoSangreGrupo" value="AB"
-                                           class="default ml-2"></p-radioButton>
+                                class="default ml-2"></p-radioButton>
                             <label class="ml-3">O </label>
                             <p-radioButton name="tipoSangreGrupo" formControlName="tipoSangreGrupo" value="O"
-                                           class="default ml-2"></p-radioButton>
+                                class="default ml-2"></p-radioButton>
                         </div>
                         <div class="grid pt-6 p-mb-4">
                             <label>Rh: </label>
                             <label class="ml-2 ">Rh(+)</label>
                             <p-radioButton name="rh" formControlName="rh" value="rh +" inputId="city2"
-                                           class="default ml-2">
+                                class="default ml-2">
                             </p-radioButton>
                             <div class="flex flex-column">
                                 <label class="ml-1 ">Rh(-)Sen </label>
                                 <label class="ml-1 ">Desc</label>
                             </div>
                             <p-radioButton name="rh" formControlName="rh" value="rh - sen desc" inputId="city2"
-                                           class="amarillo ml-2">
+                                class="amarillo ml-2">
                             </p-radioButton>
                             <div class="flex flex-column">
                                 <label class="ml-1 ">Rh(-)No</label>
                                 <label class="ml-1 ">Sen</label>
                             </div>
                             <p-radioButton name="rh" formControlName="rh" value="rh - no sen" inputId="city2"
-                                           class="amarillo ml-2">
+                                class="amarillo ml-2">
                             </p-radioButton>
                             <label class="ml-1 ">Rh(-) Sen</label>
                             <p-radioButton name="rh" formControlName="rh" value="rh - sen" inputId="city2"
-                                           class="rojo ml-2">
+                                class="rojo ml-2">
                             </p-radioButton>
                         </div>
                     </div>
@@ -208,27 +206,27 @@
                                 <!--                                &lt;!&ndash; <p-calendar formControlName="dateFUM" [showIcon]="true" inputId="icon"></p-calendar> &ndash;&gt;-->
                                 <!--                                <p-calendar [showIcon]="true" inputId="icon" (onSelect)="calcularIMC()" formControlName='dateFUM'-->
                                 <!--                                            dateFormat="dd/mm/yy"></p-calendar>-->
-                                <input type="date" pInputText formControlName='dateFUM' placeholder=""
-                                       class="" (change)="calcularIMC()">
+                                <input type="date" pInputText formControlName='dateFUM' placeholder="" class=""
+                                    (change)="calcularIMC()">
                             </div>
                             <div class="col-4">
                                 <div class="grid">
                                     <label class="ml-2 mr-1">Duda: </label>
                                     <p-selectButton [options]="sino" formControlName="duda" optionValue="value"
-                                                    optionLabel="label"></p-selectButton>
+                                        optionLabel="label"></p-selectButton>
                                 </div>
                             </div>
                         </div>
                         <div class="grid mt-2">
-                            <div class="col-5">
+                            <div class="col-3">
                                 <label>Fecha Probable de Parto: </label>
                             </div>
-                            <div class="col-7">
+                            <div class="col-7 text-left">
                                 <!-- <p-calendar formControlName="dateProbableParto" [showIcon]="true" inputId="icon"
                                             class="ml-4 ">
                                 </p-calendar> -->
                                 <input type="date" pInputText formControlName='dateProbableParto' placeholder=""
-                                       class="">
+                                    class="bg_color" disabled>
                             </div>
                         </div>
                         <div class="grid mt-1">
@@ -237,7 +235,7 @@
                             </div>
                             <div class="col-2">
                                 <input type="text" pInputText formControlName='ecografia1' placeholder=""
-                                       class="inputfield w-full">
+                                    class="inputfield w-full">
                             </div>
                             <div class="col-1">
                                 <label>Sem</label>
@@ -248,7 +246,7 @@
                             <div class="col-4">
                                 <!-- <p-calendar formControlName="dateEco1" [showIcon]="true" inputId="icon"></p-calendar> -->
                                 <input type="date" pInputText formControlName='dateEco1' placeholder=""
-                                       class="inputfield w-full">
+                                    class="inputfield w-full">
                             </div>
                         </div>
                         <div class="grid">
@@ -257,7 +255,7 @@
                             </div>
                             <div class="col-2">
                                 <input type="text" pInputText formControlName='ecografia2' placeholder=""
-                                       class="inputfield w-full">
+                                    class="inputfield w-full">
                             </div>
                             <div class="col-1">
                                 <label>Sem</label>
@@ -268,7 +266,7 @@
                             <div class="col-4">
                                 <!-- <p-calendar formControlName="dateEco2" [showIcon]="true" inputId="icon"></p-calendar> -->
                                 <input type="date" pInputText formControlName='dateEco2' placeholder=""
-                                       class="inputfield w-full">
+                                    class="inputfield w-full">
                             </div>
                         </div>
                         <div class="grid">
@@ -277,7 +275,7 @@
                             </div>
                             <div class="col-2">
                                 <input type="text" pInputText formControlName='ecografia3' placeholder=""
-                                       class="inputfield w-full">
+                                    class="inputfield w-full">
                             </div>
                             <div class="col-1">
                                 <label>Sem</label>
@@ -288,7 +286,7 @@
                             <div class="col-4">
                                 <!-- <p-calendar formControlName="dateEco3" [showIcon]="true" inputId="icon"></p-calendar> -->
                                 <input type="date" pInputText formControlName='dateEco3' placeholder=""
-                                       class="inputfield w-full">
+                                    class="inputfield w-full">
 
                             </div>
                         </div>
@@ -306,22 +304,21 @@
                         <div class="grid ">
                             <label class=" mr-1">Hospitalización: </label>
                             <p-selectButton [options]="sino" formControlName="hospitalizacion" optionValue="value"
-                                            optionLabel="label"></p-selectButton>
+                                optionLabel="label"></p-selectButton>
                         </div>
                         <div class="grid mt-3">
                             <label>Fecha: </label>
                             <input type="date" pInputText formControlName='dateHospitalizacion' placeholder=""
-                                   class="inputfield w-full">
+                                class="inputfield w-full">
                         </div>
                         <div class="grid flex flex-column mt-2">
                             <label>Diagnóstico: </label>
                             <p-autoComplete [suggestions]="listaDeCIE" (completeMethod)="filterCIE10($event)"
-                                            field="descripcionItem" [minLength]="1" class="areaText "
-                                            formControlName="autocompleteHosp"
-                                            (onSelect)="selectedOptionNameCIE($event,0)">
+                                field="descripcionItem" [minLength]="1" class="areaText "
+                                formControlName="autocompleteHosp" (onSelect)="selectedOptionNameCIE($event,0)">
                             </p-autoComplete>
                             <textarea [rows]="3" class="inputfield w-full mt-2" formControlName="diagnosticoHosp"
-                                      pInputTextarea disabled></textarea>
+                                pInputTextarea disabled></textarea>
                         </div>
                         <div class="grid mt-2 p-fluid">
                             <div class="col-4">
@@ -329,11 +326,9 @@
                             </div>
                             <div class="col-8 field">
                                 <p-autoComplete formControlName="hospitalizacionCIE" [suggestions]="listaDeCIE"
-                                                (completeMethod)="filterCIE10($event)" field="codigoItem"
-                                                [minLength]="1"
-                                                (onSelect)="selectedOption($event,0)" class=""
-                                                [forceSelection]="true"
-                                                dataKey="codigoItem">
+                                    (completeMethod)="filterCIE10($event)" field="codigoItem" [minLength]="1"
+                                    (onSelect)="selectedOption($event,0)" class="" [forceSelection]="true"
+                                    dataKey="codigoItem">
                                 </p-autoComplete>
                             </div>
                         </div>
@@ -353,18 +348,16 @@
                             <!-- <p-calendar formControlName="dateEmergencia" [showIcon]="true" inputId="icon"
                                 class="inputfield w-full"></p-calendar> -->
                             <input type="date" pInputText formControlName='dateEmergencia' placeholder=""
-                                   class="inputfield w-full">
+                                class="inputfield w-full">
                         </div>
                         <div class="grid flex flex-column mt-2">
                             <label>Diagnóstico</label>
                             <p-autoComplete formControlName="autocompleteEmerg" [suggestions]="listaDeCIE"
-                                            (completeMethod)="filterCIE10($event)" field="descripcionItem"
-                                            [minLength]="1"
-                                            class="areaText" (onSelect)="selectedOptionNameCIE($event,1)">
+                                (completeMethod)="filterCIE10($event)" field="descripcionItem" [minLength]="1"
+                                class="areaText" (onSelect)="selectedOptionNameCIE($event,1)">
                             </p-autoComplete>
-                            <textarea [rows]="3" class="inputfield w-full mt-2"
-                                      formControlName="diagnosticoEmergenci"
-                                      pInputTextarea disabled></textarea>
+                            <textarea [rows]="3" class="inputfield w-full mt-2" formControlName="diagnosticoEmergenci"
+                                pInputTextarea disabled></textarea>
                         </div>
                         <div class="grid mt-2 p-fluid">
                             <div class="col-4">
@@ -372,11 +365,9 @@
                             </div>
                             <div class="col-8">
                                 <p-autoComplete formControlName="emergenciaCIE" [suggestions]="listaDeCIE"
-                                                (completeMethod)="filterCIE10($event)" field="codigoItem"
-                                                [minLength]="1"
-                                                (onSelect)="selectedOption($event,1)" class=""
-                                                [forceSelection]="true"
-                                                dataKey="codigoItem">
+                                    (completeMethod)="filterCIE10($event)" field="codigoItem" [minLength]="1"
+                                    (onSelect)="selectedOption($event,1)" class="" [forceSelection]="true"
+                                    dataKey="codigoItem">
                                 </p-autoComplete>
                             </div>
                         </div>
@@ -402,8 +393,7 @@
                             </div>
                             <div class="col-6">
                                 <p-selectButton [options]="sino" formControlName="rubeola" optionValue="value"
-                                                optionLabel="label"
-                                                class="inputfield w-full p-inputtext-sm"></p-selectButton>
+                                    optionLabel="label" class="inputfield w-full p-inputtext-sm"></p-selectButton>
                             </div>
                         </div>
                         <div class="grid">
@@ -412,8 +402,7 @@
                             </div>
                             <div class="col-6">
                                 <p-selectButton [options]="sino" formControlName="hepatitisB" optionValue="value"
-                                                optionLabel="label"
-                                                class="inputfield w-full p-inputtext-sm"></p-selectButton>
+                                    optionLabel="label" class="inputfield w-full p-inputtext-sm"></p-selectButton>
                             </div>
                         </div>
                         <div class="grid">
@@ -422,7 +411,7 @@
                             </div>
                             <div class="col-6">
                                 <p-selectButton [options]="sino" formControlName="papiloma" optionValue="value"
-                                                optionLabel="label"></p-selectButton>
+                                    optionLabel="label"></p-selectButton>
                             </div>
                         </div>
                         <div class="grid">
@@ -431,7 +420,7 @@
                             </div>
                             <div class="col-6">
                                 <p-selectButton [options]="sino" formControlName="influenza" optionValue="value"
-                                                optionLabel="label"></p-selectButton>
+                                    optionLabel="label"></p-selectButton>
                             </div>
                         </div>
                         <div class="grid">
@@ -440,7 +429,7 @@
                             </div>
                             <div class="col-6">
                                 <p-selectButton [options]="sino" formControlName="covid" optionValue="value"
-                                                optionLabel="label"></p-selectButton>
+                                    optionLabel="label"></p-selectButton>
                             </div>
                         </div>
                     </div>
@@ -460,7 +449,7 @@
                             </div>
                             <div class="col-6">
                                 <p-selectButton [options]="sino" formControlName="tamizaje" optionValue="value"
-                                                optionLabel="label"></p-selectButton>
+                                    optionLabel="label"></p-selectButton>
                             </div>
                         </div>
                         <div class="grid">
@@ -469,14 +458,14 @@
                             </div>
                             <div class="col-6">
                                 <p-selectButton [options]="sino" formControlName="violencia" optionValue="value"
-                                                optionLabel="label"></p-selectButton>
+                                    optionLabel="label"></p-selectButton>
                             </div>
                         </div>
                         <div class="grid mt-2">
                             <label>Fecha: </label>
                             <!-- <p-calendar formControlName="dateViolencia" [showIcon]="true" inputId="icon"></p-calendar> -->
                             <input type="date" pInputText formControlName='dateViolencia' placeholder=""
-                                   class="inputfield w-full">
+                                class="inputfield w-full">
                         </div>
                     </div>
                 </div>
@@ -510,7 +499,7 @@
                             <div class="col-3 text-center">
                                 <!--                                <p- name="clinico" formControlName="clinico" value="sin examen" class="amarillo"></p->-->
                                 <p-radioButton name="clinico" formControlName="clinico" value="sin examen"
-                                               class="amarillo">
+                                    class="amarillo">
                                 </p-radioButton>
                             </div>
                             <div class="col-3 text-center">
@@ -519,7 +508,7 @@
                             </div>
                             <div class="col-3 text-center">
                                 <p-radioButton name="clinico" formControlName="clinico" value="patologico"
-                                               class="amarillo">
+                                    class="amarillo">
                                 </p-radioButton>
                             </div>
                         </div>
@@ -546,15 +535,15 @@
                             </div>
                             <div class="col-3 text-center">
                                 <p-radioButton name="cuelloUter" formControlName="cuelloUter" value="sin examen"
-                                               class="amarillo"></p-radioButton>
+                                    class="amarillo"></p-radioButton>
                             </div>
                             <div class="col-3 text-center">
                                 <p-radioButton name="cuelloUter" formControlName="cuelloUter" value="normal"
-                                               class="default"></p-radioButton>
+                                    class="default"></p-radioButton>
                             </div>
                             <div class="col-3 text-center">
                                 <p-radioButton name="cuelloUter" formControlName="cuelloUter" value="patologico"
-                                               class="amarillo"></p-radioButton>
+                                    class="amarillo"></p-radioButton>
                             </div>
                         </div>
                         <div class="grid">
@@ -563,7 +552,7 @@
                             </div>
                             <div class="col-3 text-center">
                                 <p-radioButton name="pelvis" formControlName="pelvis" value="sin examen"
-                                               class="amarillo">
+                                    class="amarillo">
                                 </p-radioButton>
                             </div>
                             <div class="col-3 text-center">
@@ -572,7 +561,7 @@
                             </div>
                             <div class="col-3 text-center">
                                 <p-radioButton name="pelvis" formControlName="pelvis" value="patologico"
-                                               class="amarillo">
+                                    class="amarillo">
                                 </p-radioButton>
                             </div>
                         </div>
@@ -582,7 +571,7 @@
                             </div>
                             <div class="col-3 text-center">
                                 <p-radioButton name="odont1" formControlName="odont1" value="sin examen"
-                                               class="amarillo">
+                                    class="amarillo">
                                 </p-radioButton>
                             </div>
                             <div class="col-3 text-center">
@@ -591,7 +580,7 @@
                             </div>
                             <div class="col-3 text-center">
                                 <p-radioButton name="odont1" formControlName="odont1" value="patologico"
-                                               class="amarillo">
+                                    class="amarillo">
                                 </p-radioButton>
                             </div>
                         </div>
@@ -601,7 +590,7 @@
                             </div>
                             <div class="col-3 text-center">
                                 <p-radioButton name="odont2" formControlName="odont2" value="sin examen"
-                                               class="amarillo">
+                                    class="amarillo">
                                 </p-radioButton>
                             </div>
                             <div class="col-3 text-center">
@@ -610,7 +599,7 @@
                             </div>
                             <div class="col-3 text-center">
                                 <p-radioButton name="odont2" formControlName="odont2" value="patologico"
-                                               class="amarillo">
+                                    class="amarillo">
                                 </p-radioButton>
                             </div>
                         </div>
@@ -628,7 +617,7 @@
                     <div class="m-2 grid p-field flex flex-column">
                         <label class="text-sm">N° Cigarrillos/Dia: </label>
                         <input type="number" pInputText formControlName='cigarrillosDia' placeholder=""
-                               class="inputfield w-full">
+                            class="inputfield w-full">
                     </div>
                 </div>
                 <br>
@@ -639,9 +628,8 @@
                 </p-toolbar>
                 <div class="border" style="height: 85px">
                     <div class="m-2 p-field flex flex-column col-12">
-                        <p-selectButton class="selectBtn" [options]="sino" formControlName="drogas"
-                                        optionValue="value"
-                                        optionLabel="label"></p-selectButton>
+                        <p-selectButton class="selectBtn" [options]="sino" formControlName="drogas" optionValue="value"
+                            optionLabel="label"></p-selectButton>
                     </div>
                 </div>
             </div>
@@ -678,15 +666,15 @@
                                     </div>
                                     <div class="col-2">
                                         <input type="text" pInputText formControlName='hg1' placeholder=""
-                                               class="inputfield w-full p-inputtext-sm">
+                                            class="inputfield w-full p-inputtext-sm">
                                     </div>
                                     <div class="col-2">
                                         <input type="text" pInputText formControlName='conFactor1' placeholder=""
-                                               class="inputfield w-full p-inputtext-sm">
+                                            class="inputfield w-full p-inputtext-sm">
                                     </div>
                                     <div class="col-4">
                                         <input type="date" pInputText formControlName='hemo1' placeholder=""
-                                               class="inputfield w-full">
+                                            class="inputfield w-full">
                                     </div>
                                 </div>
                                 <div class="grid m-2">
@@ -695,17 +683,17 @@
                                     </div>
                                     <div class="col-2">
                                         <input type="text" pInputText formControlName='hg2' placeholder=""
-                                               class="inputfield w-full p-inputtext-sm">
+                                            class="inputfield w-full p-inputtext-sm">
                                     </div>
                                     <div class="col-2">
                                         <input type="text" pInputText formControlName='conFactor2' placeholder=""
-                                               class="inputfield w-full p-inputtext-sm">
+                                            class="inputfield w-full p-inputtext-sm">
                                     </div>
                                     <div class="col-4">
                                         <!-- <p-calendar formControlName="hemo2" [showIcon]="true" inputId="icon">
                                         </p-calendar> -->
                                         <input type="date" pInputText formControlName='hemo2' placeholder=""
-                                               class="inputfield w-full">
+                                            class="inputfield w-full">
                                     </div>
                                 </div>
                                 <div class="grid m-2">
@@ -714,23 +702,23 @@
                                     </div>
                                     <div class="col-2">
                                         <input type="text" pInputText formControlName='hg3' placeholder=""
-                                               class="inputfield w-full p-inputtext-sm">
+                                            class="inputfield w-full p-inputtext-sm">
                                     </div>
                                     <div class="col-2">
                                         <input type="text" pInputText formControlName='conFactor3' placeholder=""
-                                               class="inputfield w-full p-inputtext-sm">
+                                            class="inputfield w-full p-inputtext-sm">
                                     </div>
                                     <div class="col-4">
                                         <!-- <p-calendar formControlName="hemo3" [showIcon]="true" inputId="icon">
                                         </p-calendar> -->
                                         <input type="date" pInputText formControlName='hemo3' placeholder=""
-                                               class="inputfield w-full">
+                                            class="inputfield w-full">
                                     </div>
                                 </div>
                                 <div class="grid m-2">
                                     <div class="col-5 text-right">
                                         <button pButton pRipple label="Agregar Hemoglobina" icon="pi pi-plus"
-                                                class=" bg-blue-700 mr-2" (click)="openDialogHemoglobina()"></button>
+                                            class=" bg-blue-700 mr-2" (click)="openDialogHemoglobina()"></button>
                                     </div>
                                     <div class="col-7 text-left ">
                                     </div>
@@ -776,15 +764,15 @@
                                     </div>
                                     <div class="col-1 text-center">
                                         <p-radioButton name="vdrl1" formControlName="vdrl1" value="no reactivo"
-                                                       class="default"></p-radioButton>
+                                            class="default"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="vdrl1" formControlName="vdrl1" value="reactivo"
-                                                       class="amarillo"></p-radioButton>
+                                            class="amarillo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="vdrl1" formControlName="vdrl1" class="amarillo"
-                                                       value="no se hizo"></p-radioButton>
+                                            value="no se hizo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                     </div>
@@ -792,7 +780,7 @@
                                         <!-- <p-calendar formControlName="datevdrl1" [showIcon]="true" inputId="icon">
                                         </p-calendar> -->
                                         <input type="date" pInputText formControlName='datevdrl1' placeholder=""
-                                               class="inputfield w-full">
+                                            class="inputfield w-full">
                                     </div>
                                 </div>
                                 <div class="grid">
@@ -801,15 +789,15 @@
                                     </div>
                                     <div class="col-1 text-center">
                                         <p-radioButton name="vdrl2" formControlName="vdrl2" value="no reactivo"
-                                                       class="default"></p-radioButton>
+                                            class="default"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="vdrl2" formControlName="vdrl2" value="reactivo"
-                                                       class="amarillo"></p-radioButton>
+                                            class="amarillo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="vdrl2" formControlName="vdrl2" class="amarillo"
-                                                       value="no se hizo"></p-radioButton>
+                                            value="no se hizo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                     </div>
@@ -817,7 +805,7 @@
                                         <!-- <p-calendar formControlName="dateVdrl2" [showIcon]="true" inputId="icon">
                                         </p-calendar> -->
                                         <input type="date" pInputText formControlName='dateVdrl2' placeholder=""
-                                               class="inputfield w-full">
+                                            class="inputfield w-full">
                                     </div>
                                 </div>
                                 <div class="grid">
@@ -826,27 +814,27 @@
                                     </div>
                                     <div class="col-1 text-center">
                                         <p-radioButton name="tpha" formControlName="tpha" value="no reactivo"
-                                                       class="default"></p-radioButton>
+                                            class="default"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="tpha" formControlName="tpha" value="reactivo"
-                                                       class="amarillo">
+                                            class="amarillo">
                                         </p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="tpha" formControlName="tpha" value="no se hizo"
-                                                       class="amarillo"></p-radioButton>
+                                            class="amarillo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="tpha" formControlName="tpha" value="no aplica"
-                                                       class="default">
+                                            class="default">
                                         </p-radioButton>
                                     </div>
                                     <div class="col-4 ml-3">
                                         <!-- <p-calendar formControlName="dateTpha" [showIcon]="true" inputId="icon">
                                         </p-calendar> -->
                                         <input type="date" pInputText formControlName='dateTpha' placeholder=""
-                                               class="inputfield w-full">
+                                            class="inputfield w-full">
                                     </div>
                                 </div>
                                 <div class="grid">
@@ -855,16 +843,16 @@
                                     </div>
                                     <div class="col-1 text-center">
                                         <p-radioButton name="vih1" formControlName="vih1" value="no reactivo"
-                                                       class="default"></p-radioButton>
+                                            class="default"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="vih1" formControlName="vih1" value="reactivo"
-                                                       class="amarillo">
+                                            class="amarillo">
                                         </p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="vih1" formControlName="vih1" class="amarillo"
-                                                       value="no se hizo"></p-radioButton>
+                                            value="no se hizo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                     </div>
@@ -872,7 +860,7 @@
                                         <!-- <p-calendar formControlName="dateVih1" [showIcon]="true" inputId="icon">
                                         </p-calendar> -->
                                         <input type="date" pInputText formControlName='dateVih1' placeholder=""
-                                               class="inputfield w-full">
+                                            class="inputfield w-full">
                                     </div>
                                 </div>
                                 <div class="grid">
@@ -881,16 +869,16 @@
                                     </div>
                                     <div class="col-1 text-center">
                                         <p-radioButton name="vih2" formControlName="vih2" value="no reactivo"
-                                                       class="default"></p-radioButton>
+                                            class="default"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="vih2" formControlName="vih2" value="reactivo"
-                                                       class="amarillo">
+                                            class="amarillo">
                                         </p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="vih2" formControlName="vih2" class="amarillo"
-                                                       value="no se hizo"></p-radioButton>
+                                            value="no se hizo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                     </div>
@@ -898,7 +886,7 @@
                                         <!-- <p-calendar formControlName="dateVih2" [showIcon]="true" inputId="icon">
                                         </p-calendar> -->
                                         <input type="date" pInputText formControlName='dateVih2' placeholder=""
-                                               class="inputfield w-full">
+                                            class="inputfield w-full">
                                     </div>
                                 </div>
                                 <div class="grid">
@@ -907,25 +895,25 @@
                                     </div>
                                     <div class="col-1 text-center">
                                         <p-radioButton name="hepatitis" formControlName="hepatitis" value="no reactivo"
-                                                       class="default"></p-radioButton>
+                                            class="default"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="hepatitis" formControlName="hepatitis" value="reactivo"
-                                                       class="amarillo"></p-radioButton>
+                                            class="amarillo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="hepatitis" formControlName="hepatitis" class="amarillo"
-                                                       value="no se hizo"></p-radioButton>
+                                            value="no se hizo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="hepatitis" formControlName="hepatitis" value="no aplica"
-                                                       class="default"></p-radioButton>
+                                            class="default"></p-radioButton>
                                     </div>
                                     <div class="col-4 ml-3">
                                         <!-- <p-calendar formControlName="dateHepatitis" [showIcon]="true" inputId="icon">
                                         </p-calendar> -->
                                         <input type="date" pInputText formControlName='dateHepatitis' placeholder=""
-                                               class="inputfield w-full">
+                                            class="inputfield w-full">
                                     </div>
                                 </div>
                                 <div class="grid">
@@ -934,25 +922,25 @@
                                     </div>
                                     <div class="col-1 text-center">
                                         <p-radioButton name="elisa1" formControlName="elisa1" value="no reactivo"
-                                                       class="default"></p-radioButton>
+                                            class="default"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="elisa1" formControlName="elisa1" value="reactivo"
-                                                       class="amarillo"></p-radioButton>
+                                            class="amarillo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="elisa1" formControlName="elisa1" class="amarillo"
-                                                       value="no se hizo"></p-radioButton>
+                                            value="no se hizo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="elisa1" formControlName="elisa1" value="no aplica"
-                                                       class="default"></p-radioButton>
+                                            class="default"></p-radioButton>
                                     </div>
                                     <div class="col-4 ml-3">
                                         <!-- <p-calendar formControlName="dateElisa1" [showIcon]="true" inputId="icon">
                                         </p-calendar> -->
                                         <input type="date" pInputText formControlName='dateElisa1' placeholder=""
-                                               class="inputfield w-full">
+                                            class="inputfield w-full">
                                     </div>
                                 </div>
                                 <div class="grid">
@@ -961,25 +949,25 @@
                                     </div>
                                     <div class="col-1 text-center">
                                         <p-radioButton name="elisa2" formControlName="elisa2" value="no reactivo"
-                                                       class="default"></p-radioButton>
+                                            class="default"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="elisa2" formControlName="elisa2" value="reactivo"
-                                                       class="amarillo"></p-radioButton>
+                                            class="amarillo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="elisa2" formControlName="elisa2" class="amarillo"
-                                                       value="no se hizo"></p-radioButton>
+                                            value="no se hizo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="elisa2" formControlName="elisa2" value="no aplica"
-                                                       class="default"></p-radioButton>
+                                            class="default"></p-radioButton>
                                     </div>
                                     <div class="col-4 ml-3">
                                         <!-- <p-calendar formControlName="dateElisa2" [showIcon]="true" inputId="icon">
                                         </p-calendar> -->
                                         <input type="date" pInputText formControlName='dateElisa2' placeholder=""
-                                               class="inputfield w-full">
+                                            class="inputfield w-full">
                                     </div>
                                 </div>
                             </div>
@@ -1009,15 +997,15 @@
                                     </div>
                                     <div class="col-1 text-center">
                                         <p-radioButton name="glicemia1" formControlName="glicemia1" value="normal"
-                                                       class="default"></p-radioButton>
+                                            class="default"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="glicemia1" formControlName="glicemia1" value="anormal"
-                                                       class="amarillo"></p-radioButton>
+                                            class="amarillo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="glicemia1" formControlName="glicemia1" class="amarillo"
-                                                       value="no se hizo"></p-radioButton>
+                                            value="no se hizo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                     </div>
@@ -1025,7 +1013,7 @@
                                         <!-- <p-calendar formControlName="dateGlicemia1" [showIcon]="true" inputId="icon">
                                         </p-calendar> -->
                                         <input type="date" pInputText formControlName='dateGlicemia1' placeholder=""
-                                               class="inputfield w-full">
+                                            class="inputfield w-full">
                                     </div>
                                 </div>
                                 <div class="grid">
@@ -1034,15 +1022,15 @@
                                     </div>
                                     <div class="col-1 text-center">
                                         <p-radioButton name="glicemia2" formControlName="glicemia2" value="normal"
-                                                       class="default"></p-radioButton>
+                                            class="default"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="glicemia2" formControlName="glicemia2" value="anormal"
-                                                       class="amarillo"></p-radioButton>
+                                            class="amarillo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="glicemia2" formControlName="glicemia2" class="amarillo"
-                                                       value="no se hizo"></p-radioButton>
+                                            value="no se hizo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                     </div>
@@ -1050,7 +1038,7 @@
                                         <!-- <p-calendar formControlName="dateGlicemia2" [showIcon]="true" inputId="icon">
                                         </p-calendar> -->
                                         <input type="date" pInputText formControlName='dateGlicemia2' placeholder=""
-                                               class="inputfield w-full">
+                                            class="inputfield w-full">
                                     </div>
                                 </div>
                                 <div class="grid">
@@ -1059,25 +1047,25 @@
                                     </div>
                                     <div class="col-1 text-center">
                                         <p-radioButton name="glucosa" formControlName="glucosa" value="normal"
-                                                       class="default"></p-radioButton>
+                                            class="default"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="glucosa" formControlName="glucosa" value="anormal"
-                                                       class="amarillo"></p-radioButton>
+                                            class="amarillo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="glucosa" formControlName="glucosa" class="amarillo"
-                                                       value="no se hizo"></p-radioButton>
+                                            value="no se hizo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="glucosa" formControlName="glucosa" value="no aplica"
-                                                       class="default"></p-radioButton>
+                                            class="default"></p-radioButton>
                                     </div>
                                     <div class="col-4 ml-3">
                                         <!-- <p-calendar formControlName="dateGlucosa" [showIcon]="true" inputId="icon">
                                         </p-calendar> -->
                                         <input type="date" pInputText formControlName='dateGlucosa' placeholder=""
-                                               class="inputfield w-full">
+                                            class="inputfield w-full">
                                     </div>
                                 </div>
                             </div>
@@ -1110,15 +1098,15 @@
                                     </div>
                                     <div class="col-1 text-center">
                                         <p-radioButton name="orina1" formControlName="orina1" value="negativo"
-                                                       class="default"></p-radioButton>
+                                            class="default"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="orina1" formControlName="orina1" value="positivo"
-                                                       class="amarillo"></p-radioButton>
+                                            class="amarillo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="orina1" formControlName="orina1" class="amarillo"
-                                                       value="no se hizo"></p-radioButton>
+                                            value="no se hizo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                     </div>
@@ -1126,7 +1114,7 @@
                                         <!-- <p-calendar formControlName="dateOrina1" [showIcon]="true" inputId="icon">
                                         </p-calendar> -->
                                         <input type="date" pInputText formControlName='dateOrina1' placeholder=""
-                                               class="inputfield w-full">
+                                            class="inputfield w-full">
                                     </div>
                                 </div>
                                 <div class="grid">
@@ -1135,15 +1123,15 @@
                                     </div>
                                     <div class="col-1 text-center">
                                         <p-radioButton name="orina2" formControlName="orina2" value="negativo"
-                                                       class="default"></p-radioButton>
+                                            class="default"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="orina2" formControlName="orina2" value="positivo"
-                                                       class="amarillo"></p-radioButton>
+                                            class="amarillo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="orina2" formControlName="orina2" class="amarillo"
-                                                       value="no se hizo"></p-radioButton>
+                                            value="no se hizo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                     </div>
@@ -1151,7 +1139,7 @@
                                         <!-- <p-calendar formControlName="dateOrina2" [showIcon]="true" inputId="icon">
                                         </p-calendar> -->
                                         <input type="date" pInputText formControlName='dateOrina2' placeholder=""
-                                               class="inputfield w-full">
+                                            class="inputfield w-full">
                                     </div>
                                 </div>
                                 <div class="grid">
@@ -1160,15 +1148,15 @@
                                     </div>
                                     <div class="col-1 text-center">
                                         <p-radioButton name="orina3" formControlName="orina3" value="negativo"
-                                                       class="default"></p-radioButton>
+                                            class="default"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="orina3" formControlName="orina3" value="positivo"
-                                                       class="amarillo"></p-radioButton>
+                                            class="amarillo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="orina3" formControlName="orina3" class="amarillo"
-                                                       value="no se hizo"></p-radioButton>
+                                            value="no se hizo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                     </div>
@@ -1176,7 +1164,7 @@
                                         <!-- <p-calendar formControlName="dateOrina3" [showIcon]="true" inputId="icon">
                                         </p-calendar> -->
                                         <input type="date" pInputText formControlName='dateOrina3' placeholder=""
-                                               class="inputfield w-full">
+                                            class="inputfield w-full">
                                     </div>
                                 </div>
                                 <div class="grid">
@@ -1185,15 +1173,15 @@
                                     </div>
                                     <div class="col-1 text-center">
                                         <p-radioButton name="bacteriuria" formControlName="bacteriuria" value="negativo"
-                                                       class="default"></p-radioButton>
+                                            class="default"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="bacteriuria" formControlName="bacteriuria" value="positivo"
-                                                       class="amarillo"></p-radioButton>
+                                            class="amarillo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="bacteriuria" formControlName="bacteriuria" class="amarillo"
-                                                       value="no se hizo"></p-radioButton>
+                                            value="no se hizo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                     </div>
@@ -1201,7 +1189,7 @@
                                         <!-- <p-calendar formControlName="dateBacteriuria" [showIcon]="true" inputId="icon">
                                         </p-calendar> -->
                                         <input type="date" pInputText formControlName='dateBacteriuria' placeholder=""
-                                               class="inputfield w-full">
+                                            class="inputfield w-full">
                                     </div>
                                 </div>
                                 <div class="grid">
@@ -1210,15 +1198,15 @@
                                     </div>
                                     <div class="col-1 text-center">
                                         <p-radioButton name="nitritos" formControlName="nitritos" value="negativo"
-                                                       class="default"></p-radioButton>
+                                            class="default"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="nitritos" formControlName="nitritos" value="positivo"
-                                                       class="amarillo"></p-radioButton>
+                                            class="amarillo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="nitritos" formControlName="nitritos" class="amarillo"
-                                                       value="no se hizo"></p-radioButton>
+                                            value="no se hizo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                     </div>
@@ -1226,7 +1214,7 @@
                                         <!-- <p-calendar formControlName="dateNitritos" [showIcon]="true" inputId="icon">
                                         </p-calendar> -->
                                         <input type="date" pInputText formControlName='dateNitritos' placeholder=""
-                                               class="inputfield w-full">
+                                            class="inputfield w-full">
                                     </div>
                                 </div>
                                 <div class="grid">
@@ -1235,15 +1223,15 @@
                                     </div>
                                     <div class="col-1 text-center">
                                         <p-radioButton name="urocultivo" formControlName="urocultivo" value="negativo"
-                                                       class="default"></p-radioButton>
+                                            class="default"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="urocultivo" formControlName="urocultivo" value="positivo"
-                                                       class="amarillo"></p-radioButton>
+                                            class="amarillo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="urocultivo" formControlName="urocultivo" class="amarillo"
-                                                       value="no se hizo"></p-radioButton>
+                                            value="no se hizo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                     </div>
@@ -1251,7 +1239,7 @@
                                         <!-- <p-calendar formControlName="dateUrocultivo" [showIcon]="true" inputId="icon">
                                         </p-calendar> -->
                                         <input type="date" pInputText formControlName='dateUrocultivo' placeholder=""
-                                               class="inputfield w-full">
+                                            class="inputfield w-full">
                                     </div>
                                 </div>
                                 <div class="grid">
@@ -1260,25 +1248,25 @@
                                     </div>
                                     <div class="col-1 text-center">
                                         <p-radioButton name="esputo" formControlName="esputo" value="negativo"
-                                                       class="default"></p-radioButton>
+                                            class="default"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="esputo" formControlName="esputo" value="positivo"
-                                                       class="amarillo"></p-radioButton>
+                                            class="amarillo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="esputo" formControlName="esputo" class="amarillo"
-                                                       value="no se hizo"></p-radioButton>
+                                            value="no se hizo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="esputo" formControlName="esputo" value="no aplica"
-                                                       class="default"></p-radioButton>
+                                            class="default"></p-radioButton>
                                     </div>
                                     <div class="col-4 ml-3">
                                         <!-- <p-calendar formControlName="dateEsputo" [showIcon]="true" inputId="icon">
                                         </p-calendar> -->
                                         <input type="date" pInputText formControlName='dateEsputo' placeholder=""
-                                               class="inputfield w-full">
+                                            class="inputfield w-full">
                                     </div>
                                 </div>
                                 <div class="grid">
@@ -1287,25 +1275,25 @@
                                     </div>
                                     <div class="col-1 text-center">
                                         <p-radioButton name="western" formControlName="western" value="negativo"
-                                                       class="default"></p-radioButton>
+                                            class="default"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="western" formControlName="western" value="positivo"
-                                                       class="amarillo"></p-radioButton>
+                                            class="amarillo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="western" formControlName="western" class="amarillo"
-                                                       value="no se hizo"></p-radioButton>
+                                            value="no se hizo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="western" formControlName="western" value="no aplica"
-                                                       class="default"></p-radioButton>
+                                            class="default"></p-radioButton>
                                     </div>
                                     <div class="col-4 ml-3">
                                         <!-- <p-calendar formControlName="dateWestern" [showIcon]="true" inputId="icon">
                                         </p-calendar> -->
                                         <input type="date" pInputText formControlName='dateWestern' placeholder=""
-                                               class="inputfield w-full">
+                                            class="inputfield w-full">
                                     </div>
                                 </div>
                                 <div class="grid">
@@ -1314,25 +1302,25 @@
                                     </div>
                                     <div class="col-1 text-center">
                                         <p-radioButton name="thlv1" formControlName="thlv1" value="negativo"
-                                                       class="default"></p-radioButton>
+                                            class="default"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="thlv1" formControlName="thlv1" value="positivo"
-                                                       class="amarillo"></p-radioButton>
+                                            class="amarillo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="thlv1" formControlName="thlv1" class="amarillo"
-                                                       value="no se hizo"></p-radioButton>
+                                            value="no se hizo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="thlv1" formControlName="thlv1" value="no aplica"
-                                                       class="default"></p-radioButton>
+                                            class="default"></p-radioButton>
                                     </div>
                                     <div class="col-4 ml-3">
                                         <!-- <p-calendar formControlName="dateThlv1" [showIcon]="true" inputId="icon">
                                         </p-calendar> -->
                                         <input type="date" pInputText formControlName='dateThlv1' placeholder=""
-                                               class="inputfield w-full">
+                                            class="inputfield w-full">
                                     </div>
                                 </div>
                                 <div class="grid">
@@ -1341,25 +1329,25 @@
                                     </div>
                                     <div class="col-1 text-center">
                                         <p-radioButton name="torch" formControlName="torch" value="negativo"
-                                                       class="default"></p-radioButton>
+                                            class="default"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="torch" formControlName="torch" value="positivo"
-                                                       class="amarillo"></p-radioButton>
+                                            class="amarillo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="torch" formControlName="torch" class="amarillo"
-                                                       value="no se hizo"></p-radioButton>
+                                            value="no se hizo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="torch" formControlName="torch" value="no aplica"
-                                                       class="default"></p-radioButton>
+                                            class="default"></p-radioButton>
                                     </div>
                                     <div class="col-4 ml-3">
                                         <!-- <p-calendar formControlName="dateTorch" [showIcon]="true" inputId="icon">
                                         </p-calendar> -->
                                         <input type="date" pInputText formControlName='dateTorch' placeholder=""
-                                               class="inputfield w-full">
+                                            class="inputfield w-full">
                                     </div>
                                 </div>
                                 <div class="grid">
@@ -1368,25 +1356,25 @@
                                     </div>
                                     <div class="col-1 text-center">
                                         <p-radioButton name="gotaGruesa" formControlName="gotaGruesa" value="negativo"
-                                                       class="default"></p-radioButton>
+                                            class="default"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="gotaGruesa" formControlName="gotaGruesa" value="positivo"
-                                                       class="amarillo"></p-radioButton>
+                                            class="amarillo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="gotaGruesa" formControlName="gotaGruesa" class="amarillo"
-                                                       value="no se hizo"></p-radioButton>
+                                            value="no se hizo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="gotaGruesa" formControlName="gotaGruesa" value="no aplica"
-                                                       class="default"></p-radioButton>
+                                            class="default"></p-radioButton>
                                     </div>
                                     <div class="col-4 ml-3">
                                         <!-- <p-calendar formControlName="dateGotaGruesa" [showIcon]="true" inputId="icon">
                                         </p-calendar> -->
                                         <input type="date" pInputText formControlName='dateGotaGruesa' placeholder=""
-                                               class="inputfield w-full">
+                                            class="inputfield w-full">
                                     </div>
                                 </div>
                             </div>
@@ -1416,15 +1404,15 @@
                                     </div>
                                     <div class="col-1 text-center">
                                         <p-radioButton name="proteinuriaCuanti" formControlName="proteinuriaCuanti"
-                                                       value="normal" class="default"></p-radioButton>
+                                            value="normal" class="default"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="proteinuriaCuanti" formControlName="proteinuriaCuanti"
-                                                       value="negativo" class="amarillo"></p-radioButton>
+                                            value="negativo" class="amarillo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="proteinuriaCuanti" formControlName="proteinuriaCuanti"
-                                                       class="amarillo" value="no se hizo"></p-radioButton>
+                                            class="amarillo" value="no se hizo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                     </div>
@@ -1433,8 +1421,7 @@
                                             inputId="icon">
                                         </p-calendar> -->
                                         <input type="date" pInputText formControlName='dateProteinuriaCuanti'
-                                               placeholder=""
-                                               class="inputfield w-full">
+                                            placeholder="" class="inputfield w-full">
                                     </div>
                                 </div>
                                 <div class="grid">
@@ -1443,26 +1430,25 @@
                                     </div>
                                     <div class="col-1 text-center">
                                         <p-radioButton name="proteinuriaCuali" formControlName="proteinuriaCuali"
-                                                       value="normal" class="default"></p-radioButton>
+                                            value="normal" class="default"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="proteinuriaCuali" formControlName="proteinuriaCuali"
-                                                       value="negativo" class="amarillo"></p-radioButton>
+                                            value="negativo" class="amarillo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="proteinuriaCuali" formControlName="proteinuriaCuali"
-                                                       class="amarillo" value="no se hizo"></p-radioButton>
+                                            class="amarillo" value="no se hizo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="proteinuriaCuali" formControlName="proteinuriaCuali"
-                                                       value="no aplica" class="default"></p-radioButton>
+                                            value="no aplica" class="default"></p-radioButton>
                                     </div>
                                     <div class="col-4 ml-3">
                                         <!-- <p-calendar formControlName="dateProteinuriaCuali" [showIcon]="true" inputId="icon">
                                         </p-calendar> -->
                                         <input type="date" pInputText formControlName='dateProteinuriaCuali'
-                                               placeholder=""
-                                               class="inputfield w-full">
+                                            placeholder="" class="inputfield w-full">
                                     </div>
                                 </div>
                                 <div class="grid">
@@ -1471,17 +1457,15 @@
                                     </div>
                                     <div class="col-1 text-center">
                                         <p-radioButton name="secrecionVag" formControlName="secrecionVag" value="normal"
-                                                       class="default"></p-radioButton>
+                                            class="default"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="secrecionVag" formControlName="secrecionVag"
-                                                       value="negativo"
-                                                       class="amarillo"></p-radioButton>
+                                            value="negativo" class="amarillo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="secrecionVag" formControlName="secrecionVag"
-                                                       class="amarillo"
-                                                       value="no se hizo"></p-radioButton>
+                                            class="amarillo" value="no se hizo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                     </div>
@@ -1489,7 +1473,7 @@
                                         <!-- <p-calendar formControlName="dateSecrecionVag" [showIcon]="true" inputId="icon">
                                         </p-calendar> -->
                                         <input type="date" pInputText formControlName='dateSecrecionVag' placeholder=""
-                                               class="inputfield w-full">
+                                            class="inputfield w-full">
                                     </div>
                                 </div>
                                 <div class="grid">
@@ -1502,12 +1486,12 @@
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="pap" formControlName="pap" value="negativo"
-                                                       class="amarillo">
+                                            class="amarillo">
                                         </p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="pap" formControlName="pap" class="amarillo"
-                                                       value="no se hizo">
+                                            value="no se hizo">
                                         </p-radioButton>
                                     </div>
                                     <div class="col-1">
@@ -1516,7 +1500,7 @@
                                         <!-- <p-calendar formControlName="datePap" [showIcon]="true" inputId="icon">
                                         </p-calendar> -->
                                         <input type="date" pInputText formControlName='datePap' placeholder=""
-                                               class="inputfield w-full">
+                                            class="inputfield w-full">
                                     </div>
                                 </div>
                                 <div class="grid">
@@ -1525,17 +1509,17 @@
                                     </div>
                                     <div class="col-1 text-center">
                                         <p-radioButton name="ivaa" formControlName="ivaa" value="normal"
-                                                       class="default">
+                                            class="default">
                                         </p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="ivaa" formControlName="ivaa" value="negativo"
-                                                       class="amarillo">
+                                            class="amarillo">
                                         </p-radioButton>
                                     </div>
                                     <div class="col-1">
                                         <p-radioButton name="ivaa" formControlName="ivaa" class="amarillo"
-                                                       value="no se hizo"></p-radioButton>
+                                            value="no se hizo"></p-radioButton>
                                     </div>
                                     <div class="col-1">
                                     </div>
@@ -1543,7 +1527,7 @@
                                         <!-- <p-calendar formControlName="dateIvaa" [showIcon]="true" inputId="icon">
                                         </p-calendar> -->
                                         <input type="date" pInputText formControlName='dateIvaa' placeholder=""
-                                               class="inputfield w-full">
+                                            class="inputfield w-full">
                                     </div>
                                 </div>
                             </div>
@@ -1567,7 +1551,7 @@
                     <div class="grid m-2">
                         <div class="col-12">
                             <button pButton pRipple icon="pi pi-plus" type="button" label="Patologias"
-                                    class="p-button-raised mt-3" (click)="openDialogPatologias()"></button>
+                                class="p-button-raised mt-3" (click)="openDialogPatologias()"></button>
                         </div>
                         <div class="col-12">
                             <p-table [value]="listaPatologiasMaternas" [showCurrentPageReport]="true" [filterDelay]="0">
@@ -1595,8 +1579,8 @@
                                         <td>{{patologias.fecha}}</td>
                                         <td style="display: flex;">
                                             <button pButton pRipple type="button" icon="pi pi-trash"
-                                                    (click)="eliminarPatologia(i)"
-                                                    class="p-button-rounded p-button-danger p-button-text"></button>
+                                                (click)="eliminarPatologia(i)"
+                                                class="p-button-rounded p-button-danger p-button-text"></button>
                                         </td>
                                     </tr>
                                 </ng-template>
@@ -1612,7 +1596,7 @@
 
 <!-- DIALOG DE HEMOGLOBINA -->
 <p-dialog [(visible)]="hemoglobinaDialog" [style]="{width: '70%'}" [modal]="true" styleClass="p-fluid" autoZIndex
-          class="dialogo">
+    class="dialogo">
     <div class="grid">
         <form [formGroup]='formHemoglobina'>
             <div class="col-12">
@@ -1620,22 +1604,22 @@
                     <div class="col-4">
                         <label class="">Hg(%):</label>
                         <input type="text" pInputText formControlName='hg' placeholder=""
-                               class="funcionesBiologicas inputfield w-full">
+                            class="funcionesBiologicas inputfield w-full">
                     </div>
                     <div class="col-4">
                         <label class="">Con factor</label>
                         <label class="">de correción:</label>
                         <input type="text" pInputText formControlName='factorCorrec' placeholder=""
-                               class="funcionesBiologicas inputfield w-full">
+                            class="funcionesBiologicas inputfield w-full">
                     </div>
                     <div class="col-4">
                         <label class="">Movimiento Fetal:</label>
                         <input type="text" pInputText formControlName='fechaHemo' placeholder=""
-                               class="funcionesBiologicas inputfield w-full">
+                            class="funcionesBiologicas inputfield w-full">
                     </div>
                     <div class="col-3">
                         <button pButton pRipple label="Agregar" icon="pi pi-plus" class=" bg-blue-700"
-                                (click)="openDialogHemoglobina()"></button>
+                            (click)="openDialogHemoglobina()"></button>
                     </div>
                 </div>
             </div>
