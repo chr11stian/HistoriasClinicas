@@ -1,5 +1,5 @@
 <div class="card">
-    <p-toolbar styleClass="p-mb-4">
+    <!-- <p-toolbar styleClass="p-mb-4">
         <div class="p-toolbar-group-left">
             <h3 class="p-m-0">LISTA DE UPS AUXILIARES</h3>
         </div>
@@ -11,6 +11,18 @@
                     icon="pi pi-plus">
             </button>
         </div>
+    </p-toolbar> -->
+    <p-toolbar styleClass="p-mb-4">
+
+        <ng-template pTemplate="left">
+            <h3 class="p-m-0">LISTA DE UPS AUXILIARES</h3>
+        </ng-template>
+
+        <ng-template pTemplate="right" class="button">
+            <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-danger p-mr-2"
+            (click)="openDialogUpsAux()"></button>
+            <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-primary"></button>
+        </ng-template>
     </p-toolbar>
     <p-table [value]="listaUpsAux" #dt
              styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
