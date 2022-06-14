@@ -48,4 +48,11 @@ export class ExamenesAuxiliaresService {
       .then(data => { return data; })
       .catch(error => { return error.error });
   }
+  postPromiseAddServiciosLaboratorio(idConsulta:string, data) {
+    return this.http.post<any>(`${this.urlServer}/${this.bd}/examenesAuxiliares/crear-Laboratorios/${idConsulta}`, data)
+      .toPromise()
+      .then(res => <any>res)
+      .then(data => { return data; })
+      .catch(error => { return error.error });
+  }
 }

@@ -50,6 +50,9 @@ export class ModalInmunizacionesComponent implements OnInit {
   tipoList: any;
   edadPaciente: any;
   sexoPaciente: any;
+  medicamentosConDatos: any[] = [];
+  aux: any;
+
   constructor(private form: FormBuilder,
     private ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
@@ -360,4 +363,46 @@ export class ModalInmunizacionesComponent implements OnInit {
     // console.log('evento desde medicamentos ', event);
     // this.formInmunizaciones.patchValue({ nombreComercial: event.nombreComercial }, { emitEvent: false });
   }
+
+
+  filterItems(event: any) {
+    let filtered: any[] = [];
+    let query = event.query;
+    console.log(this.medicamentosConDatos);
+    this.aux = this.medicamentosConDatos;
+    for (let i = 0; i < this.aux.length; i++) {
+      let item = this.aux[i];
+      if (item.stringMedicamento.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        filtered.push(item);
+      }
+    }
+    this.aux = filtered;
+    if (this.aux === []) {
+      console.log('no encontrado');
+      this.aux = this.medicamentosConDatos;
+
+    }
+  }
+
+  // selectedOptionNameMedicamento(event, n) {
+  //   console.log('lista de medicamentos ', this.medicamentosConDatos);
+  //   if (n == 1) {
+  //     this.codMedicamento1 = event.medicamento.codigo;
+  //     this.formRIEP.patchValue({ acidoFolicoDescripcion: event.medicamento.nombreComercial });
+  //     this.formRIEP.patchValue({ acidoFolicoNombre: event.medicamento.nombre });
+  //     this.formRIEP.patchValue({ acidoFolicoFechaVenc: event.fechaVenc });
+  //     this.formRIEP.patchValue({ acidoFolicoViaAdministracion: event.medicamento.viaAdministracion });
+  //     this.formRIEP.patchValue({ stock: event.stock });
+  //   }
+  //   if (n == 2) {
+  //     console.log(event);
+  //     this.codMedicamento2 = event.medicamento.codigo;
+  //     this.formRIEP.patchValue({ calcioDescripcion: event.medicamento.nombreComercial });
+  //     this.formRIEP.patchValue({ calcioNombre: event.medicamento.nombre });
+  //     this.formRIEP.patchValue({ calcioFechaVenc: event.fechaVenc });
+  //     this.formRIEP.patchValue({ calcioViaAdministracion: event.medicamento.viaAdministracion });
+  //     this.formRIEP.patchValue({ stock2: event.stock });
+  //   }
+
+  // }
 }
