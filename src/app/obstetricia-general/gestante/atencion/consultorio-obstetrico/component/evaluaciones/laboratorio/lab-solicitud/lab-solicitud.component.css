@@ -53,10 +53,10 @@ label {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     /*font-weight: bold;*/
     color: rgb(135 135 135);
-    font-size: 10px;
+    /* font-size: 10px; */
 }
 
-p-checkbox >>> .p-checkbox .p-checkbox-box {
+/* p-checkbox >>> .p-checkbox .p-checkbox-box {
     border: 2px solid #6c757d;
     background: #0c3866;
     width: 20px;
@@ -64,7 +64,7 @@ p-checkbox >>> .p-checkbox .p-checkbox-box {
     color: #495057;
     border-radius: 3px;
     transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
-}
+} */
 
 p-toolbar >>> .p-toolbar {
     background: rgb(216 222 229);
@@ -72,4 +72,12 @@ p-toolbar >>> .p-toolbar {
     padding: 0.5rem;
     height: auto;
     border-radius: 1px;
+}
+
+.image1 {
+    background: url('src/assets/images/laboratorio.png') no-repeat;
+    background-size: contain;
+    height: 50px;
+    background-position: 50% 50%;
+    margin: auto;
 }

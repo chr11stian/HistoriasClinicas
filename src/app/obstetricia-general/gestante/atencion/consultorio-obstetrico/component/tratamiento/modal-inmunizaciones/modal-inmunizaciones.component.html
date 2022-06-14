@@ -6,11 +6,17 @@
                 <div class="grid p-fluid">
                     <div class="col-8">
                         <label>Nombre:</label>
-                        <p-autoComplete [suggestions]="listaMedicamentos" (completeMethod)="filterMedicamento($event)" appendTo="body"
-                        field="nombre" [minLength]="1" class="inputfield p-fluid w-full"
-                        formControlName="nombre" (onSelect)="selectedOptionNameMedicamento($event)">
+                        <p-autoComplete [suggestions]="listaMedicamentos" (completeMethod)="filterMedicamento($event)" [itemSize]="34"
+                            appendTo="body" field="nombre" [minLength]="1" class="inputfield p-fluid w-full"
+                            formControlName="nombre" (onSelect)="selectedOptionNameMedicamento($event)"  [dropdown]="true">
                         </p-autoComplete>
                     </div>
+
+                    <!-- <p-autoComplete [suggestions]="aux" (completeMethod)="filterItems($event)" [itemSize]="34"
+                        appendTo="body" field="stringMedicamento" [minLength]="1" class="inputfield p-fluid w-full"
+                        formControlName="nombre" (onSelect)="selectedOptionNameMedicamento($event,1)" [dropdown]="true">
+                    </p-autoComplete> -->
+
                     <!-- <div class="col-3">
                         <label>Nombre comercial:</label>
                         <input type="text" pInputText formControlName='nombreComercial' placeholder="Nombre comercial"
@@ -23,7 +29,8 @@
                     <div class="col-3">
                         <label>Tipo dosis:</label>
                         <p-dropdown [options]="tiposDosis" formControlName="tipoDosis" appendTo="body"
-                        optionLabel="label" optionValue="value" class="inputfield p-fluid w-full" placeholder="Seleccione"></p-dropdown>
+                            optionLabel="label" optionValue="value" class="inputfield p-fluid w-full"
+                            placeholder="Seleccione"></p-dropdown>
                     </div>
                 </div>
             </p-fieldset>
@@ -34,27 +41,31 @@
                     <div class="col-6">
                         <label>Nombre UPS:</label>
                         <p-dropdown [options]="listaUps" formControlName="ups" appendTo="body" optionLabel="nombreUPS"
-                            optionValue="nombreUPS" class="inputfield p-fluid w-full" placeholder="Seleccione"></p-dropdown>
+                            optionValue="nombreUPS" class="inputfield p-fluid w-full" placeholder="Seleccione">
+                        </p-dropdown>
                     </div>
                     <div class="col-6">
                         <label>Nombre UPS aux:</label>
-                        <p-dropdown [options]="listaUpsHis" formControlName="subtitulo" appendTo="body" optionLabel="nombreUPS"
-                            optionValue="nombreUPS" class="inputfield p-fluid w-full" placeholder="Seleccione"></p-dropdown>
+                        <p-dropdown [options]="listaUpsHis" formControlName="subtitulo" appendTo="body"
+                            optionLabel="nombreUPS" optionValue="nombreUPS" class="inputfield p-fluid w-full"
+                            placeholder="Seleccione"></p-dropdown>
                     </div>
                     <div class="col-6">
                         <label>Diagnostico:</label>
-                        <p-dropdown [options]="diagnosticosList" formControlName="diagnostico" appendTo="body" (onChange)="onChangeDiagnostico()"
-                        optionLabel="diagnosticoSIS" class="inputfield p-fluid w-full" placeholder="Seleccione diagnostico SIS"></p-dropdown>
+                        <p-dropdown [options]="diagnosticosList" formControlName="diagnostico" appendTo="body"
+                            (onChange)="onChangeDiagnostico()" optionLabel="diagnosticoSIS"
+                            class="inputfield p-fluid w-full" placeholder="Seleccione diagnostico SIS"></p-dropdown>
                     </div>
                     <div class="col-4">
                         <label>Prestacion:</label>
-                        <input type="text" pInputText formControlName='prestacion' placeholder="Prestacion" required disabled/>
+                        <input type="text" pInputText formControlName='prestacion' placeholder="Prestacion" required
+                            disabled />
                     </div>
                     <div class="col-2">
                         <label>Tipo dx:</label>
-                        <p-dropdown inputId="dropdown" [options]="tipoList" formControlName="tipo" placeholder="Seleccione"
-                            optionLabel="label" optionValue="value" defaultLabel="Seleccione:" appendTo="body"
-                            class="inputfield p-fluid w-full">
+                        <p-dropdown inputId="dropdown" [options]="tipoList" formControlName="tipo"
+                            placeholder="Seleccione" optionLabel="label" optionValue="value" defaultLabel="Seleccione:"
+                            appendTo="body" class="inputfield p-fluid w-full">
                         </p-dropdown>
                     </div>
                 </div>
@@ -104,5 +115,6 @@
 <br>
 <div class="footer">
     <button pButton type="button" label="Cancelar" (click)="closeDialog()" class="button-cancelar mt-4"></button>
-    <button pButton type="button" label="Guardar" (click)="closeDialogGuardar()" class="button-agregar mt-4 ml-2"></button>
+    <button pButton type="button" label="Guardar" (click)="closeDialogGuardar()"
+        class="button-agregar mt-4 ml-2"></button>
 </div>

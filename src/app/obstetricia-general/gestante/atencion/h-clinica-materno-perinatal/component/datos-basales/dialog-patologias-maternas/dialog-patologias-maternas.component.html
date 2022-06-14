@@ -2,14 +2,37 @@
     <!-- <ng-template pTemplate="body"> -->
     <form [formGroup]='formDiagnostico'>
         <div class="grid">
-            <div class="col-3: text-right">
-                <label>CIE10</label>
-            </div>
-            <div class="col-9">
+            <div class="col-6">
+                <label class="mr-4">CIE 10:</label>
                 <p-autoComplete formControlName="cie10" [suggestions]="listaDeCIE" appendTo="body"
                     (completeMethod)="filterCIE10($event)" field="codigoItem" [minLength]="1"
                     (onSelect)="selectedOption($event)" class="" [forceSelection]="true" dataKey="codigoItem">
                 </p-autoComplete>
+                <!-- <div class="grid">
+                    <div class="col-6: text-right">
+                        <label>CIE10</label>
+                    </div>
+                    <div class="col-6">
+                        <p-autoComplete formControlName="cie10" [suggestions]="listaDeCIE" appendTo="body"
+                            (completeMethod)="filterCIE10($event)" field="codigoItem" [minLength]="1"
+                            (onSelect)="selectedOption($event)" class="" [forceSelection]="true" dataKey="codigoItem">
+                        </p-autoComplete>
+                    </div>
+                </div> -->
+            </div>
+            <div class="col-6">
+                <!-- <label>Fecha: </label>
+                <input type="date" pInputText formControlName='datePatologia' placeholder=""
+                            class="inputfield w-full"> -->
+                <div class="grid">
+                    <div class="col-3 text-right mt-2">
+                        <label>Fecha:</label>
+                    </div>
+                    <div class="col-8">
+                        <input type="date" pInputText formControlName='datePatologia' placeholder=""
+                            class="inputfield w-full">
+                    </div>
+                </div>
             </div>
             <!-- <div class="col-6">
                 <div class="grid">
@@ -23,23 +46,15 @@
                         </p-autoComplete>
                     </div>
                 </div>
-            </div>
-            <div class="col-6">
-                <div class="grid">
-                    <div class="col-4 text-right">
-                        <label>Fecha: </label>
-                    </div>
-                    <div class="col-8">
-                        <input type="date" pInputText formControlName   ='datePatologia' placeholder=""
-                            class="inputfield w-full">
-                    </div>
-                </div>
             </div> -->
-        </div>
-        <div class="grid">
             <div class="col-12">
-                <div class="grid">
-                    <div class="col-3 text-right">
+                <label class="mr-1">Diagnostico:</label>
+                <p-autoComplete [suggestions]="listaDeCIE" (completeMethod)="filterCIE10($event)"
+                            field="descripcionItem" [minLength]="1" class="areaText " appendTo="body"
+                            formControlName="autocompleteDiagnostico" (onSelect)="selectedOptionNameCIE($event)">
+                        </p-autoComplete>
+                <!-- <div class="grid">
+                    <div class="col-3">
                         <label>Diagnostico</label>
                     </div>
                     <div class="col-9">
@@ -48,7 +63,7 @@
                             formControlName="autocompleteDiagnostico" (onSelect)="selectedOptionNameCIE($event)">
                         </p-autoComplete>
                     </div>
-                </div>
+                </div> -->
             </div>
 
         </div>
