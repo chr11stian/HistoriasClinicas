@@ -6,6 +6,7 @@ import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import Swal from "sweetalert2";
 import {LabHematologiaComponent} from "../lab-hematologia/lab-hematologia.component";
 import {LabInmunologiaComponent} from "../lab-inmunologia/lab-inmunologia.component";
+import { LabParasitologiaComponent } from '../lab-parasitologia/lab-parasitologia.component';
 
 @Component({
     selector: 'app-lista-laboratorio',
@@ -69,18 +70,22 @@ export class ListaLaboratorioComponent implements OnInit {
         let dataAux = {
             data: data,
         }
-        let opcion;
+        let opcion=3;
 
         //condion para devolver una opcion
-        if ((data.datosLaboratorio.subTipo == "INMUNOLOGÍA") || (data.datosLaboratorio.subTipo == "INMUNOLOGIA")) {
-            opcion = 0;
-        }
-        if ((data.datosLaboratorio.subTipo == "HEMATOLOGÍA") || (data.datosLaboratorio.subTipo == "HEMATOLOGIA")) {
-            opcion = 1;
-        }
-        if ((data.datosLaboratorio.subTipo == "BIOQUÍMICA") || (data.datosLaboratorio.subTipo == "BIOQUIMICA")) {
-            opcion = 2;
-        }
+        // if ((data.datosLaboratorio.subTipo == "INMUNOLOGÍA") || (data.datosLaboratorio.subTipo == "INMUNOLOGIA")) {
+        //     opcion = 0;
+        // }
+        // if ((data.datosLaboratorio.subTipo == "HEMATOLOGÍA") || (data.datosLaboratorio.subTipo == "HEMATOLOGIA")) {
+        //     opcion = 1;
+        // }
+        // if ((data.datosLaboratorio.subTipo == "BIOQUÍMICA") || (data.datosLaboratorio.subTipo == "BIOQUIMICA")) {
+        //     opcion = 2;
+        // }
+        // if ((data.datosLaboratorio.subTipo == "PARASITOLOGIA") || (data.datosLaboratorio.subTipo == "PARASITOLOGIA")) {
+        //     opcion = 3;
+        // }
+     
 
         //opciones segun el laboratorio seleccione
         switch (opcion) {
@@ -109,7 +114,24 @@ export class ListaLaboratorioComponent implements OnInit {
                 });
             }
                 break
-        }
+            case 3: {
+                this.ref = this.dialog.open(LabParasitologiaComponent, {
+                    header: "LABORATORIO CLINICO - Parasitologia",
+                    width: '70%',
+                    data: dataAux,
+                });
+                console.log("DATA", data)
+                this.ref.onClose.subscribe((data: any) => {
+                    // this.buscarCuposPorPersonal();
+                });
+            }
+                break
+
+
+
+
+
+        }   
 
         console.log("opcion", opcion)
     }

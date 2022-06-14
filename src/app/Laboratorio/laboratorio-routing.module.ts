@@ -2,6 +2,7 @@ import {NgModule} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
 import {ListaLaboratorioComponent} from "./component/lista-laboratorio/lista-laboratorio.component";
 import {LabInmunologiaComponent} from "./component/lab-inmunologia/lab-inmunologia.component";
+import { LabParasitologiaComponent } from "./component/lab-parasitologia/lab-parasitologia.component";
 
 
 const routes: Routes = [
@@ -17,6 +18,10 @@ const routes: Routes = [
     {
         path: "lista-laboratorio",
         component: ListaLaboratorioComponent
+    },
+    {
+        path: "laboratorio-parasitologia",
+        component: LabParasitologiaComponent
     },
     {
         path: "inmunologia",
