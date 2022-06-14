@@ -25,10 +25,10 @@ export class LaboratorioComponent implements OnInit {
             header: "SOLICITUD DE EXAMENES DE LABORATORIO",
             width: "60%",
             height: "90%",
-            contentStyle: {
-                "max-height": "92%",
-                // overflow: "auto",
-            },
+            // contentStyle: {
+            //     "max-height": "92%",
+            //     overflow: "auto",
+            // },
         })
         this.ref.onClose.subscribe((data: any) => {
             console.log('data de otro dialog ', data)
