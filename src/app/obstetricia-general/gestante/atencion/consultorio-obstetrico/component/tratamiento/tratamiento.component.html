@@ -196,8 +196,10 @@
                         </div>
                         <div class="col-3">
                             <label>Frecuencia:</label>
-                            <input type="text" pInputText formControlName='acidoFolicoFrecuencia'
-                                placeholder="Frecuencia" class="p-fluid inputfield w-full">
+                            <p-dropdown [options]="listaIntervalos" formControlName="acidoFolicoFrecuencia"
+                                appendTo="body" optionLabel="name" optionValue="name" class="inputfield p-fluid w-full"
+                                placeholder="Seleccione frecuencia">
+                            </p-dropdown>
                         </div>
                         <div class="col-2">
                             <label>Lab:</label>
@@ -230,7 +232,7 @@
                                 <label for="city1" class="m-2">Suplementación de calcio.</label>
                             </div>
                         </div>
-                        <br/>
+                        <br />
                         <div class="col-6">
                             <label>Nombre UPS:</label>
                             <p-dropdown [options]="listaUps" formControlName="nombreUPS2" appendTo="body"
@@ -259,7 +261,7 @@
                                 (onSelect)="selectedOptionNameMedicamento($event,2)" [dropdown]="true">
                             </p-autoComplete>
                         </div>
-                        
+
                         <div class="col-2">
                             <label>Cantidad:</label>
                             <input type="number" pInputText formControlName='calcioCantidad' placeholder="Nro"
@@ -272,8 +274,10 @@
                         </div>
                         <div class="col-3">
                             <label>Frecuencia:</label>
-                            <input type="text" pInputText formControlName='calcioFrecuencia' placeholder="Frecuencia"
-                                class="p-fluid inputfield w-full">
+                            <p-dropdown [options]="listaIntervalos" formControlName="calcioFrecuencia" appendTo="body"
+                                optionLabel="name" optionValue="name" class="inputfield p-fluid w-full"
+                                placeholder="Seleccione frecuencia">
+                            </p-dropdown>
                         </div>
                         <div class="col-2">
                             <label>Lab:</label>

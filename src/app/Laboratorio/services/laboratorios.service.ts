@@ -10,9 +10,12 @@ export class LaboratoriosService {
     bd = environment.bd;
 
     constructor(private http: HttpClient) {
-
     }
     getSolicitudLaboratorio(idIpres, data) {
         return this.http.post(`${this.base_url}/${this.bd}/examenesAuxiliares/listar/examen/laboratorio/${idIpres}`, data)
+    }
+
+    guardarLaboratorioHematologico(idSolicitudLaboratorio, data) {
+        return this.http.post(`${this.base_url}/${this.bd}/examenesAuxiliares/hematologia/${idSolicitudLaboratorio}`, data)
     }
 }

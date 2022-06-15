@@ -1,9 +1,57 @@
-
+<form [formGroup]="formHematologia">
+    <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
+        <div class="grid m-2">
+            <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
+                <div class="grid">
+                    <div class="col-12 md:col-6 lg:col-6 flex align-items-center">
+                        <div class="col-fixed" style="width:140px"><span>Apellidos y Nombres:</span></div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="apellidosNombres"/>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
+                        <div class="col-fixed" style="width:50px"><span>Edad:</span></div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="edad"/>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
+                        <div class="col-fixed" style="width:70px"><span>N° H.CL:</span></div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="nroHistoria"/>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
+                        <div class="col-fixed" style="width:70px"><span>N° S.I.S:</span></div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="nroSis"/>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-5 flex align-items-center">
+                        <div class="col-fixed" style="width:90px"><span>Solicitante:</span></div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="solicitante"/>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-3 flex align-items-center">
+                        <div class="col-fixed" style="width:120px"><span>Hora de Muestra:</span></div>
+                        <p-calendar
+                                class="w-full"
+                                [timeOnly]="true"
+                                [ngModel]="fecha"
+                                formControlName="hour"
+                                inputId="timeonly">
+                        </p-calendar>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
+                        <div class="col-fixed" style="width:90px"><span>N° Muestra:</span></div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="nroMuestra"/>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
+                        <div class="col-fixed" style="width:70px"><span>N° Cama:</span></div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="nroCama"/>
+                    </div>
+                </div>
+                <p-divider align="center" type="dashed">
+                </p-divider>
+            </div>
+        </div>
+    </div>
+</form>
 <p-table [value]="dataHematologia" responsiveLayout="scroll" styleClass="p-datatable-gridlines">
     <ng-template pTemplate="header">
         <tr>
-            <th colspan="8">Resultados: Análisis</th>
-            <th colspan="4">Tipo de Muestra:</th>
+            <th colspan="12" style="text-align:center">Resultados: Análisis Hematológico</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-data let-editing="editing">
@@ -30,14 +78,14 @@
                     </ng-template>
                 </p-cellEditor>
             </td>
-            <td colspan="2" rowspan="2">Velocidad de Sedimentación Globular(VSG)</td>
-            <td colspan="3" pEditableColumn>
+            <td colspan="2">Tipo de Muestra:</td>
+            <td colspan="3" pEditableColumn style="text-align:center">
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="data.vsg1hora" required>
+                        <input pInputText type="text" [(ngModel)]="data.tipoMuestra" required>
                     </ng-template>
                     <ng-template pTemplate="output">
-                        {{data.vsg1hora | currency:'mm/1°hora':'symbol':'1.1-1':'fr'}}
+                        {{data.tipoMuestra}}
                     </ng-template>
                 </p-cellEditor>
             </td>
@@ -65,13 +113,14 @@
                     </ng-template>
                 </p-cellEditor>
             </td>
-            <td colspan="2" pEditableColumn style="text-align:center">
+            <td colspan="2" rowspan="2">Velocidad de Sedimentación Globular(VSG)</td>
+            <td colspan="3" pEditableColumn>
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="data.vsg2hora" required>
+                        <input pInputText type="text" [(ngModel)]="data.vsg1hora" required>
                     </ng-template>
                     <ng-template pTemplate="output">
-                        {{data.vsg2hora | currency:'mm/2°hora':'symbol':'1.1-1':'fr'}}
+                        {{data.vsg1hora | currency:'mm/1°hora':'symbol':'1.1-1':'fr'}}
                     </ng-template>
                 </p-cellEditor>
             </td>
@@ -99,7 +148,16 @@
                     </ng-template>
                 </p-cellEditor>
             </td>
-            <td colspan="4" style="text-align:center">CONSTANTES CORPUSCULARES</td>
+            <td colspan="2" pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.vsg2hora" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.vsg2hora | currency:'mm/2°hora':'symbol':'1.1-1':'fr'}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
         </tr>
         <tr>
             <td>Factor Rh:</td>
@@ -114,28 +172,7 @@
                 </p-cellEditor>
             </td>
             <td colspan="4" style="text-align:center">FORMULA LEUCOCITARIA</td>
-            <td>V.C.M.</td>
-            <td pEditableColumn style="text-align:center">
-                <p-cellEditor>
-                    <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="data.vcm" required>
-                    </ng-template>
-                    <ng-template pTemplate="output">
-                        {{data.vcm}}
-                    </ng-template>
-                </p-cellEditor>
-            </td>
-            <td>V.R.</td>
-            <td pEditableColumn style="text-align:center">
-                <p-cellEditor>
-                    <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="data.vrVcm" required>
-                    </ng-template>
-                    <ng-template pTemplate="output">
-                        {{data.vrVcm}}
-                    </ng-template>
-                </p-cellEditor>
-            </td>
+            <td colspan="4" style="text-align:center">CONSTANTES CORPUSCULARES</td>
         </tr>
         <tr>
             <td>Tiempo de Sangría:</td>
@@ -171,14 +208,14 @@
                     </ng-template>
                 </p-cellEditor>
             </td>
-            <td>C.H.C.M.</td>
+            <td>V.C.M.</td>
             <td pEditableColumn style="text-align:center">
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="data.chcm" required>
+                        <input pInputText type="text" [(ngModel)]="data.vcm" required>
                     </ng-template>
                     <ng-template pTemplate="output">
-                        {{data.chcm}}
+                        {{data.vcm}}
                     </ng-template>
                 </p-cellEditor>
             </td>
@@ -186,10 +223,10 @@
             <td pEditableColumn style="text-align:center">
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="data.vrChcm" required>
+                        <input pInputText type="text" [(ngModel)]="data.vrVcm" required>
                     </ng-template>
                     <ng-template pTemplate="output">
-                        {{data.vrChcm}}
+                        {{data.vrVcm}}
                     </ng-template>
                 </p-cellEditor>
             </td>
@@ -228,14 +265,14 @@
                     </ng-template>
                 </p-cellEditor>
             </td>
-            <td>H.C.M.</td>
+            <td>C.H.C.M.</td>
             <td pEditableColumn style="text-align:center">
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="data.hcm" required>
+                        <input pInputText type="text" [(ngModel)]="data.chcm" required>
                     </ng-template>
                     <ng-template pTemplate="output">
-                        {{data.hcm}}
+                        {{data.chcm}}
                     </ng-template>
                 </p-cellEditor>
             </td>
@@ -243,10 +280,10 @@
             <td pEditableColumn style="text-align:center">
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="data.vrHcm" required>
+                        <input pInputText type="text" [(ngModel)]="data.vrChcm" required>
                     </ng-template>
                     <ng-template pTemplate="output">
-                        {{data.vrHcm}}
+                        {{data.vrChcm}}
                     </ng-template>
                 </p-cellEditor>
             </td>
@@ -293,6 +330,28 @@
                     </ng-template>
                     <ng-template pTemplate="output">
                         {{data.eosinofilos | currency:'%':'symbol':'1.1-1':'fr'}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>H.C.M.</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.hcm" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.hcm}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>V.R.</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.vrHcm" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.vrHcm}}
                     </ng-template>
                 </p-cellEditor>
             </td>
@@ -395,3 +454,9 @@
         </tr>
     </ng-template>
 </p-table>
+<div class="flex justify-content-end">
+    <button style="background-color: #0c3866" class=""
+            pButton type="button"
+            (click)="Guardar()">Guardar
+    </button>
+</div>
