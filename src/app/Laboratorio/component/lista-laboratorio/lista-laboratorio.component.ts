@@ -114,16 +114,15 @@ export class ListaLaboratorioComponent implements OnInit {
           });
         }
         break;
-        case "ORINA":
+        case "URUANALISIS":
         {
           this.ref = this.dialog.open(LabOrinaComponent, {
-            header: "LABORATORIO CLINICO - ORINA",
+            header: "LABORATORIO CLINICO - URUANALISIS",
             width: "70%",
             data: dataAux,
           });
           console.log("DATA", data);
           this.ref.onClose.subscribe((data: any) => {
-            // this.buscarCuposPorPersonal();
           });
         }
         break;

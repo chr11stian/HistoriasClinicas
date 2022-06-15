@@ -24,3 +24,27 @@ export interface Parasitologia {
     gotaGruesaDxMalaria?:string|number,
     frotisLesionDLeishmaniosis?:string|number
 }
+export interface Orina{
+    volumen?:string|number,
+    color?:string|number,
+    aspecto?:string|number,
+    ph?:string|number,
+    densidad?:string|number,
+    proteinas?:string|number,
+    glucosa?:string|number,
+    urobilinogeno?:string|number,
+    bilirrubinas?:string|number,
+    acidoAscorbico?:string|number,
+    sangreHb?:string|number,
+    nitritos?:string|number,
+    cuerposCetonicos?:string|number,
+    celulasEpiteliales?:string|number,
+    leucocitos?:string|number,
+    piocitos?:string|number,
+    hematies?:string|number,
+    cilindros?:string|number,
+    bacterias?:string|number,
+    levaduras?:string|number,
+    cristales?:string|number,
+    otros?:string|number,
+}
