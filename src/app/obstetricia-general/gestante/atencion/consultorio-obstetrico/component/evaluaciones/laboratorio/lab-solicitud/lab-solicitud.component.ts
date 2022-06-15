@@ -8,6 +8,7 @@ import { PrestacionService } from "../../../../../../../../mantenimientos/servic
 import { CieService } from "../../../../../../../services/cie.service";
 import { AddLaboratorio, Laboratorio, ExamenAuxiliar } from 'src/app/cred/citas/atencion-cred/consulta-principal/models/examenesAuxiliares';
 import { ExamenesAuxiliaresService } from 'src/app/cred/citas/atencion-cred/consulta-principal/services/examenes-auxiliares.service';
+import Swal from 'sweetalert2';
 
 @Component({
     selector: 'app-lab-solicitud',
@@ -37,7 +38,7 @@ export class LabSolicitudComponent implements OnInit {
     subTipoLaboratorio: any;
     listaDeCIE: any;
     LugarExamen: any;
-    examName: Laboratory[]=[];
+    examName: Laboratory[] = [];
     auxExamList: ExamenAuxiliar[] = [];
     listaHematologia: Laboratory[] = [{ subTipe: 'HEMATOLOGIA', examen: 'HEMOGLOBINA' }, { subTipe: 'HEMATOLOGIA', examen: 'HEMATOCRITO' }, { subTipe: 'HEMATOLOGIA', examen: 'HEMOGRAMA COMPLETO' }, { subTipe: 'HEMATOLOGIA', examen: 'TIEMPO DE COAGULACIÓN' }, { subTipe: 'HEMATOLOGIA', examen: 'TIEMPO DE SANGRIA' }, { subTipe: 'HEMATOLOGIA', examen: 'V.S.G.' }, { subTipe: 'HEMATOLOGIA', examen: 'RECUENTO DE PLAQUETAS' }, { subTipe: 'HEMATOLOGIA', examen: 'RECUENTO DE GLÓBULOS ROJOS' }, { subTipe: 'HEMATOLOGIA', examen: 'RECUENTO DE GLOB BLANCOS' }, { subTipe: 'HEMATOLOGIA', examen: 'CONSTANTES CORPUSCULARES' }, { subTipe: 'HEMATOLOGIA', examen: 'COMPATIBILIDAD SANGUINEA' }];
     listaInmunologia: Laboratory[] = [{ subTipe: 'INMUNOLOGIA', examen: 'GRUPO SANGUINEO Y FACTOR Rh' }, { subTipe: 'INMUNOLOGIA', examen: 'PROTEINA "C" REACTIVA' }, { subTipe: 'INMUNOLOGIA', examen: 'REACCIÓN DE WIDAL' }, { subTipe: 'INMUNOLOGIA', examen: 'FACTOR REUMATOIDEO' }, { subTipe: 'INMUNOLOGIA', examen: 'R.P.R. y/O Prueba Rápida de Sífilis' }, { subTipe: 'INMUNOLOGIA', examen: 'V.I.H. (Prueba Rápida)' }, { subTipe: 'INMUNOLOGIA', examen: 'ANTÍGENO DE SUPREFICIE HEPATITIS B' }, { subTipe: 'INMUNOLOGIA', examen: 'BHCG (TEST DE EMBARAZO)' }, { subTipe: 'INMUNOLOGIA', examen: 'ANTIESTREPTOLISINAS (ASO)' }, { subTipe: 'INMUNOLOGIA', examen: 'ANTÍGENO ' }];
@@ -73,12 +74,9 @@ export class LabSolicitudComponent implements OnInit {
         }
 
         this.idConsulta = this.dataConsulta.id;
-
-        this.LugarExamen = [
-            { nombre: "CONSULTORIO" },
-            { nombre: "LABORATORIO" },
-        ]
-
+        this.examenAuxiliarService.getExamListLaboratory().then(res => {
+            console.log('lista de examenes ', res);
+        })
 
     }
 
@@ -196,54 +194,67 @@ export class LabSolicitudComponent implements OnInit {
         console.log("opcion", opcion)
     }
 
-    hem1() {
-        // this.h1 = null;
-        // if (this.formSolicitudLab.value.hemoglobina[0] != undefined) {
-        //     this.h1 = {
-        //         tipoLaboratorio: "EXAMEN_LABORATORIO",
-        //         subTipe: "HEMATOLOGÍA",
-        //         nombreExamen: this.formSolicitudLab.value.hemoglobina[0],
-        //         nombreExamenSIS: "",
-        //         cie10SIS: "85015",
-        //         nombreUPS: "",
-        //         nombreUPSaux: "",
-        //         codPrestacion: "",
-        //         codigoSIS: "",
-        //         codigoHIS: "HIS",
-        //         tipoDx: "",
-        //         lab: "",
-        //         lugarExamen: "CONSULTORIO",
-        //         labExterno: false,
-        //     }
-        // }
+    async add() {
+        Swal.fire({
+            title: '¿Esta seguro que desea guardar?',
+            html: 'Se guardaran las solicitudes de laboratorio',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Guardar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    icon: 'success',
+                    title:'Exito',
+                    showConfirmButton: false,
+                    timer:1500
+                })
+                this.closeDialog();
+            }
+            else {
+                Swal.fire({
+                    title:'Cancelado.',
+                    icon:'error',
+                    showConfirmButton: false,
+                    timer:1500
+                })
+            }
+        })
 
-        console.log(this.formSolicitudLab.value.HEMATOLOGIA);
+        // for (let i = 0; i < this.examName.length; i++) {
+        //     let auxExam: ExamenAuxiliar = {
+        //         tipoLaboratorio: 'EXAMEN_LABORATORIO',
+        //         subTipo: this.examName[i].subTipe,
+        //         nombreExamen: this.examName[i].examen,
+        //         codPrestacion: '',
+        //         codigoSIS: '',
+        //         codigoHIS: '',
+        //         lugarExamen: 'LABORATORIO',
+        //         labExterno: ''
+        //     }
+        //     this.auxExamList.push(auxExam);
+        // }
+        // this.solicitudLaboratorio = {
+        //     servicio: '',
+        //     nroCama: '',
+        //     examenesAuxiliares: this.auxExamList
+        // }
+        // await this.examenAuxiliarService.postPromiseAddServiciosLaboratorio(this.dataConsulta.id, this.solicitudLaboratorio).then(res => {
+        //     console.log('se guardo ', res);
+        // });
+
     }
 
-    async add() {
-        // console.log('data de soli ', this.examName);
-
-        for (let i = 0; i < this.examName.length; i++) {
-            let auxExam: ExamenAuxiliar = {
-                tipoLaboratorio: 'EXAMEN_LABORATORIO',
-                subTipo: this.examName[i].subTipe,
-                nombreExamen: this.examName[i].examen,
-                codPrestacion: '',
-                codigoSIS: '',
-                codigoHIS: '',
-                lugarExamen: 'LABORATORIO',
-                labExterno: ''
-            }
-            this.auxExamList.push(auxExam);
-        }
-        this.solicitudLaboratorio = {
-            servicio: '',
-            nroCama: '',
-            examenesAuxiliares: this.auxExamList
-        }
-        await this.examenAuxiliarService.postPromiseAddServiciosLaboratorio(this.dataConsulta.id, this.solicitudLaboratorio).then(res => {
-            console.log('se guardo ', res);
-        });
+    labPeticiones() {
+        let examNameLabel: string;
+        this.examName.forEach(item => {
+            examNameLabel = `${item.examen}`;
+            return examNameLabel;
+        })
+    }
+    closeDialog() {
         this.ref.close();
     }
 }

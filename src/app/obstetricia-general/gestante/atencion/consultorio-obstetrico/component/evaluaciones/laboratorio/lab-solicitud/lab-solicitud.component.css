@@ -81,3 +81,7 @@ p-toolbar >>> .p-toolbar {
     background-position: 50% 50%;
     margin: auto;
 }
+
+::ng-deep .swal2-container {
+    z-index: 1000000;
+}
