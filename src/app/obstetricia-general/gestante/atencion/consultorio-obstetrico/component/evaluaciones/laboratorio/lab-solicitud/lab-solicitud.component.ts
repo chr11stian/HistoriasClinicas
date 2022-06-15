@@ -73,7 +73,7 @@ export class LabSolicitudComponent implements OnInit {
             console.log("entre a edicion consulta", this.nroAtencion)
         }
 
-        this.idConsulta = this.dataConsulta.id;
+        // this.idConsulta = this.dataConsulta.id;
         this.examenAuxiliarService.getExamListLaboratory().then(res => {
             console.log('lista de examenes ', res);
         })
