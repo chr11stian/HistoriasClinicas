@@ -11,7 +11,6 @@ export class LaboratoriosService {
 
     constructor(private http: HttpClient) {
     }
-
     getSolicitudLaboratorio(idIpres, data) {
         return this.http.post(`${this.base_url}/${this.bd}/examenesAuxiliares/listar/examen/laboratorio/${idIpres}`, data)
     }

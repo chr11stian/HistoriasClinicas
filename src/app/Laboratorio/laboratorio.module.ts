@@ -6,13 +6,17 @@ import {ToolbarModule} from "primeng/toolbar";
 import {PrimeModule} from "../shared/prime/prime.module";
 import { LabInmunologiaComponent } from './component/lab-inmunologia/lab-inmunologia.component';
 import { LabHematologiaComponent } from './component/lab-hematologia/lab-hematologia.component';
+import { LabParasitologiaComponent } from './component/lab-parasitologia/lab-parasitologia.component';
+import { LabOrinaComponent } from './component/lab-orina/lab-orina.component';
 
 
 @NgModule({
     declarations: [
         ListaLaboratorioComponent,
         LabInmunologiaComponent,
-        LabHematologiaComponent
+        LabHematologiaComponent,
+        LabParasitologiaComponent,
+        LabOrinaComponent
     ],
     imports: [
         CommonModule,
