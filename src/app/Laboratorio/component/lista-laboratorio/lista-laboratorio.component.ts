@@ -65,15 +65,12 @@ export class ListaLaboratorioComponent implements OnInit {
 
     /**Abre el dialog dependiendo a los exemenes de laboratorio**/
     openDialogLab(data) {
-        let dataAux = {
-            data: data,
-        }
         switch (data.datosLaboratorio.subTipo) {
             case "HEMATOLOGIA": {
                 this.ref = this.dialog.open(LabHematologiaComponent, {
-                    header: "LABORATORIO CLINICO - HEMATOLOGIA",
+                    header: "LABORATORIO CLÍNICO - HEMATOLOGÍA",
                     width: '90%',
-                    data: dataAux,
+                    data: data,
                 });
                 console.log("DATAS", data)
                 this.ref.onClose.subscribe((data: any) => {
@@ -86,7 +83,7 @@ export class ListaLaboratorioComponent implements OnInit {
                 this.ref = this.dialog.open(LabInmunologiaComponent, {
                     header: "LABORATORIO CLINICO - INMUNOLOGIA",
                     width: '70%',
-                    data: dataAux,
+                    data: data,
                 });
                 console.log("DATA", data)
                 this.ref.onClose.subscribe((data: any) => {
