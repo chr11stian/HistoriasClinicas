@@ -3,6 +3,7 @@ import { Parasitologia } from '../../interfaces/parasitologia.interface';
 import {registerLocaleData} from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { ParasitologiaService } from '../../services/parasitologia.service';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 registerLocaleData(localeFr, 'fr');
 @Component({
   selector: 'app-lab-parasitologia',
@@ -11,7 +12,10 @@ registerLocaleData(localeFr, 'fr');
 })
 export class LabParasitologiaComponent implements OnInit {
 
-  constructor(private parasitologiaService:ParasitologiaService) { }
+  constructor(private parasitologiaService:ParasitologiaService,
+              private config:DynamicDialogConfig,
+              private ref:DynamicDialogRef) { }
+  idLaboratorio:string=''
    data :Parasitologia[] = [{
     resultadosAnalisis:"",
     resultadosTipoMuestra:"",
@@ -36,11 +40,14 @@ export class LabParasitologiaComponent implements OnInit {
     gotaGruesaDxMalaria:"",
     frotisLesionDLeishmaniosis:""
   }]
+  idConsulta:string
   ngOnInit(): void {
+    const aux=this.config.data
+    this.idConsulta=aux.data.id
   } 
   guardar(){
-    console.log('resultado:',this.data[0]);
-    const request={
+    // console.log('resultado:',this.data[0]);
+    const inputRequest={
         "nroMuestra":"una cipcion",
         "resultado":{
           "clave":" resultados",
@@ -51,40 +58,39 @@ export class LabParasitologiaComponent implements OnInit {
         "resultadoExamen":"aaaa",
       
         "examenMacroscopico":{
-          "color":"examen Macroscopico",
-          "consistencia":"examen Macroscopico",
-          "pH":"examen Macroscopico",
-          "reaccion":"examen Macroscopico",
-          "mucus":"examen Macroscopico",
-          "sangre":"examen Macroscopico",
-          "restosAlimenticios":"examen Macroscopico"
+          "color":this.data[0].color,
+          "consistencia":this.data[0].consistencia,
+          "pH":this.data[0].ph,
+          "reaccion":this.data[0].reaccion,
+          "mucus":this.data[0].mucus,
+          "sangre":this.data[0].sangre,
+          "restosAlimenticios":this.data[0].restosAlimenticios
         },
         "examenMicroscopico":{
           "reaccionInflamatorio":"examen Microscopico",
-          "filamentosMucoides":"examen Microscopico",
-          "leucocitos":"examen Microscopico",
-          "hematies":"examen Microscopico",
-          "cuerposGrasos":"examen Microscopico",	
-          "levaduras":"examen Microscopico",
-          "bacterias":"examen Microscopico",
+          "filamentosMucoides":this.data[0].filamentosMucoides,
+          "leucocitos":this.data[0].leucocitos,
+          "hematies":this.data[0].hematies,
+          "cuerposGrasos":this.data[0].cuerposGrasos,	
+          "levaduras":this.data[0].levaduras,
+          "bacterias":this.data[0].bacterias,
           "cocosBacilos":"examen Microscopico",
           "formasParasitarias":"examen Microscopico",
-          "huevosDe":["examen Microscopico"],       
-          "quistesDe":["examen Microscopico"],
-          "trofozoitosDe":["examen Microscopico"],
-          "larvasDe":["examen Microscopico"]
+          "huevosDe":[this.data[0].huevosDe],       
+          "quistesDe":[this.data[0].quistesDe],
+          "trofozoitosDe":[this.data[0].trofozoitosDe],
+          "larvasDe":[this.data[0].larvasDe]
         },	
-        "sangreOcultaHeces":"laboratorio parasitologia",
-        "gotaGruesa":"laboratorio parasitologia",
-        "frotisLesion":"laboratorio parasitologia",
+        "sangreOcultaHeces":this.data[0].sangreOcultaHeces,
+        "gotaGruesa":this.data[0].gotaGruesaDxMalaria,
+        "frotisLesion":this.data[0].frotisLesionDLeishmaniosis,
     }
-    this.parasitologiaService.PostParasitologia('asdw',request).subscribe((resp)=>{
-      console.log(resp);
-      
+    this.parasitologiaService.PostParasitologia(this.idConsulta,inputRequest).subscribe((resp)=>{
+      console.log('satifactorio.......');
     })
-    
   }
   cancelar(){
+    this.ref.close();
   }
 
 }
