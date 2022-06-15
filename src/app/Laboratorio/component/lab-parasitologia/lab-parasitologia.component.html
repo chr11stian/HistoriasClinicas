@@ -1,0 +1,329 @@
+<p-table
+    [value]="data"
+    dataKey="id"
+    responsiveLayout="scroll"
+    styleClass="p-datatable-gridlines"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th colspan="7">Resultados</th>
+      </tr>
+    </ng-template>
+    <ng-template let-data pTemplate="body" let-editing="editing">
+      <tr>
+        <td colspan="2">Resultados:Análisi:</td>
+        <td pEditableColumn colspan="2">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input
+                pInputText
+                type="text"
+                [(ngModel)]="data.resultadosAnalisis"
+              />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ data.resultadosAnalisis }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td colspan="1">Tipo de muestra:</td>
+        <td pEditableColumn colspan="2">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input
+                pInputText
+                type="text"
+                [(ngModel)]="data.resultadosTipoMuestra"
+              />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ data.resultadosTipoMuestra }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" class="text-center">EXÁMEN MACROSCÓPICO</td>
+        <td colspan="5" class="text-center">EXAMEN MICROSCOPICO(100X,400X)</td>
+      </tr>
+      <!-- nueva fila -->
+      <tr>
+        <td colspan="1">Color:</td>
+        <td colspan="1" pEditableColumn>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="data.color" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ data.color }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td colspan="2" class="text-center">Reaccion Inflamatoria:</td>
+        <td colspan="3" class="text-center">Formas Parasitarias:</td>
+      </tr>
+      <!-- nueva fila -->
+      <tr>
+        <td>Consistencia:</td>
+        <td pEditableColumn>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="data.consistencia" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ data.consistencia }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>Filamentos mucoides</td>
+        <td pEditableColumn>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input
+                pInputText
+                type="text"
+                [(ngModel)]="data.filamentosMucoides"
+              />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ data.filamentosMucoides }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td rowspan="2">Se observa HUEVOS DE:</td>
+        <td rowspan="2" pEditableColumn>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="data.huevosDe" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ data.huevosDe }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+      </tr>
+      <tr>
+        <td>pH:</td>
+        <td pEditableColumn>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="data.ph" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ data.ph }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>leucocitos</td>
+        <td pEditableColumn>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="data.leucocitos" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{data.leucocitos | currency:' x c.m ':'symbol':'1.1-2':'fr'}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+      </tr>
+      <tr>
+        <td>Reacción</td>
+        <td pEditableColumn>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="data.reaccion" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ data.reaccion }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>Hematiés</td>
+        <td pEditableColumn>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="data.hematies" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ data.hematies | currency:' x c.m ':'symbol':'1.1-2':'fr'}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td rowspan="2">QUISTES DE:</td>
+        <td colspan="2" rowspan="2" pEditableColumn>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="data.quistesDe" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ data.quistesDe }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+      </tr>
+      <tr>
+        <td>Mucus:</td>
+        <td pEditableColumn>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="data.mucus" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ data.mucus }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>Cuerpos Grasos:</td>
+        <td pEditableColumn>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="data.cuerposGrasos" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ data.cuerposGrasos }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+      </tr>
+      <!-- nueva fila     -->
+      <tr>
+        <td>Sangre:</td>
+        <td pEditableColumn>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="data.sangre" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ data.sangre }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>Levaduras</td>
+        <td pEditableColumn>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="data.levaduras" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ data.levaduras }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td rowspan="2">TROFOZOITOS DE:</td>
+        <td pEditableColumn colspan="2" rowspan="2">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="data.trofozoitosDe" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ data.trofozoitosDe }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+      </tr>
+      <tr>
+        <td>Restos Alimenticios:</td>
+        <td pEditableColumn>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input
+                pInputText
+                type="text"
+                [(ngModel)]="data.restosAlimenticios"
+              />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ data.restosAlimenticios }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>Bacterias:</td>
+        <td pEditableColumn>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="data.bacterias" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ data.bacterias }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td rowspan="2">LARVAS DE:</td>
+        <td pEditableColumn rowspan="2" colspan="2">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="data.larvasDe" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ data.larvasDe }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">SANGRE OCULTA EN HECES:</td>
+        <td pEditableColumn colspan="2">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input
+                pInputText
+                type="text"
+                [(ngModel)]="data.sangreOcultaHeces"
+              />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ data.sangreOcultaHeces }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">GOTA GRUESA:(Dx.MAlaria)</td>
+        <td pEditableColumn colspan="5">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input
+                pInputText
+                type="text"
+                [(ngModel)]="data.gotaGruesaDxMalaria"
+              />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ data.gotaGruesaDxMalaria }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">FROTIS DE LESIÓN:(Dx.Leishmaniosis)</td>
+        <td pEditableColumn colspan="5">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input
+                pInputText
+                type="text"
+                [(ngModel)]="data.frotisLesionDLeishmaniosis"
+              />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ data.frotisLesionDLeishmaniosis }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+<div class="footer mt-3 flex justify-content-end">
+  <button pButton (click)="cancelar()" label="Cancelar" class="p-button-danger mr-3">
+
+  </button>
+  <button pButton (click)="guardar()" style="background-color: #0c3866;" label="Guardar">
+
+  </button>
+</div>

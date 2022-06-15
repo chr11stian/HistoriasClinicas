@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
-import {LabSolicitudComponent} from "./lab-solicitud/lab-solicitud.component";
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import { Component, OnInit } from '@angular/core';
+import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
+import { LabSolicitudComponent } from "./lab-solicitud/lab-solicitud.component";
+import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 
 @Component({
     selector: 'app-laboratorio',
@@ -11,10 +11,13 @@ import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 })
 export class LaboratorioComponent implements OnInit {
     ref: DynamicDialogRef;
-
+    dataConsulta: any;
     constructor(public dialog: DialogService,
-                private form: FormBuilder) {
+        private form: FormBuilder) {
+        this.dataConsulta = JSON.parse(localStorage.getItem('datosConsultaActual'));
     }
+
+
 
     ngOnInit(): void {
 
@@ -23,10 +26,10 @@ export class LaboratorioComponent implements OnInit {
     openDialogSolicitud() {
         this.ref = this.dialog.open(LabSolicitudComponent, {
             header: "SOLICITUD DE EXAMENES DE LABORATORIO",
-            width: "90%",
-            height: "800px",
+            width: "60%",
+            height: "90%",
             // contentStyle: {
-            //     "max-height": "800px",
+            //     "max-height": "92%",
             //     overflow: "auto",
             // },
         })
