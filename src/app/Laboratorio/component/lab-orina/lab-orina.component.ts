@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { DynamicDialogConfig, DynamicDialogRef } from "primeng/dynamicdialog";
 import { Orina } from "../../interfaces/parasitologia.interface";
 import { ParasitologiaService } from "../../services/parasitologia.service";
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: "app-lab-orina",
@@ -9,6 +10,7 @@ import { ParasitologiaService } from "../../services/parasitologia.service";
   styleUrls: ["./lab-orina.component.css"],
 })
 export class LabOrinaComponent implements OnInit {
+  cabeceraFG:FormGroup
   constructor(
     private parasitologiaService: ParasitologiaService,
     private ref: DynamicDialogRef,
@@ -19,6 +21,12 @@ export class LabOrinaComponent implements OnInit {
     const aux = this.config.data;
     this.idLaboratorio = aux.data.id;
     // console.log(this.idConsulta);
+  }
+  buildForm(){
+    this.cabeceraFG=new FormGroup({ 
+      apellidosNombres:new FormControl('',Validators.required)
+
+    })
   }
   data: Orina[] = [
     {
@@ -82,14 +90,14 @@ export class LabOrinaComponent implements OnInit {
       cristales: this.data[0].cristales,
       otros: this.data[0].otros,
     };
-    // this.parasitologiaService
-    //   .PostOrina(this.idLaboratorio, {})
-    //   .subscribe(() => {
-    //     console.log("afirmattivo");
-    //   });
+     this.parasitologiaService
+       .PostOrina(this.idLaboratorio, inputRequest)
+       .subscribe(() => {
+         console.log("afirmattivo");
+       });
 
 
-    console.log(inputRequest);
+    // console.log(inputRequest);
     
   }
 }

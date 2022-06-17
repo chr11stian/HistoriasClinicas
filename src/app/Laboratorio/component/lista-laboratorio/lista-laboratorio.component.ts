@@ -104,13 +104,15 @@ export class ListaLaboratorioComponent implements OnInit {
       case "PARASITOLOGIA":
         {
           this.ref = this.dialog.open(LabParasitologiaComponent, {
-            header: "LABORATORIO CLINICO - Parasitologia",
-            width: "70%",
+            header: "LABORATORIO CLINICO - PARASITOLOGIA",
+            width: "90%",
             data: dataAux,
           });
           console.log("DATA", data);
-          this.ref.onClose.subscribe((data: any) => {
-            // this.buscarCuposPorPersonal();
+          this.ref.onClose.subscribe((data: string) => {//confirmado,cancelado and indefined
+            if(data=='confirmado'){
+              this.listaLab()
+            }
           });
         }
         break;
