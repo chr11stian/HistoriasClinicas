@@ -1,6 +1,18 @@
 <div class="grid">
-    <div class="col-4" *ngFor="let exam of examGroup">
-        <p-fieldset legend={{exam.nombreGrupo}} class="atencion" >
+    <div class="col-12 pt-2">
+        <p-toolbar>
+            <ng-template pTemplate="left">
+                <h3 class="mt-2">EXÁMENES DE LA IPRESS</h3>
+            </ng-template>
+
+            <ng-template pTemplate="right" class="button">
+                <button class="button-agregar" icon="pi pi-save" pButton type="button" label="Guardar" (click)="save()"></button>
+            </ng-template>
+        </p-toolbar>
+    </div>
+
+    <div class="col-3" *ngFor="let exam of examGroup">
+        <p-fieldset legend={{exam.nombreGrupo}} class="atencion">
             <div *ngFor="let item of exam.listaExam" class="p-field-checkbox grid">
                 <div class="col-9">
                     <span [for]="item">{{ item.nombreExamen }}</span>
@@ -12,5 +24,4 @@
             </div>
         </p-fieldset>
     </div>
-    
 </div>
