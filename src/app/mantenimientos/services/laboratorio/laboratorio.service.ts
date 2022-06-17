@@ -32,4 +32,19 @@ export class LaboratorioService {
       .then(data => { return data; })
       .catch(error => { return error.error });
   }
+
+  getIpressExamListLaboratory(){
+    return this.http.get<any>(`${this.base_url}/${this.bd}/ipress/laboratorios/listar`)
+      .toPromise()
+      .then(res => <any>res)
+      .then(data => { return data; })
+      .catch(error => { return error.error });
+  }
+  putAddLaboratoryIpress(data){
+    return this.http.put<any>(`${this.base_url}/${this.bd}/ipress/laboratorio/save`,data)
+      .toPromise()
+      .then(res => <any>res.object)
+      .then(data => { return data; })
+      .catch(error => { return error.error });
+  }
 }
