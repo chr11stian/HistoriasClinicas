@@ -22,4 +22,8 @@ export class LaboratoriosService {
     guardarLaboratorioInmunologico(idSolicitudLaboratorio, data) {
         return this.http.post(`${this.base_url}/${this.bd}/examenesAuxiliares/inmunologia/${idSolicitudLaboratorio}`, data)
     }
+
+    guardarLaboratorioBioquimica(idSolicitudLaboratorio, data) {
+        return this.http.post(`${this.base_url}/${this.bd}/examenesAuxiliares/bioquimica/${idSolicitudLaboratorio}`, data)
+    }
 }
