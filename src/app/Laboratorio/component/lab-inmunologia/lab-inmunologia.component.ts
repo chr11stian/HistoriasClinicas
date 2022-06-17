@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {DialogService, DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
+import {Component, Input, OnInit} from '@angular/core';
+import {registerLocaleData} from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+import {LaboratoriosService} from "../../services/laboratorios.service";
+import {DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {DatePipe} from "@angular/common";
-import {
-    ServicesService
-} from "../../../obstetricia-general/gestante/atencion/consultorio-obstetrico/component/evaluaciones/laboratorio/services-lab/services.service";
-import Swal from "sweetalert2";
+
+registerLocaleData(localeFr, 'fr');
 
 @Component({
     selector: 'app-lab-inmunologia',
@@ -13,133 +13,129 @@ import Swal from "sweetalert2";
     styleUrls: ['./lab-inmunologia.component.css']
 })
 export class LabInmunologiaComponent implements OnInit {
+    dataInmunologia: inmunologiaInterface[]
     formInmunologia: FormGroup;
-    DataInmunologia: any;
-    datePipe = new DatePipe('en-US');
-    fechaActual = new Date();
-    idIpres: string = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
+    data: any
+    fecha: Date = new Date()
 
-    constructor(private ref: DynamicDialogRef,
-                private dialog: DialogService,
+    constructor(private laboratoriosService: LaboratoriosService,
                 private fb: FormBuilder,
-                private servicesService: ServicesService,
-                private config: DynamicDialogConfig,) {
-        this.DataInmunologia = config.data.data;
-        console.log(this.DataInmunologia);
+                private ref: DynamicDialogRef,
+                public config: DynamicDialogConfig) {
+        this.data = config.data;
     }
-
 
     ngOnInit(): void {
-        this.buildForm();
-        this.formInmunologia.get('Fecha').setValue(this.fechaActual);
-        this.recuperarDataFormulario();
-    }
+        this.dataInmunologia = [{
+            reaccionWidal: 0,
+            proteinaCReactiva: 0,
+            agTiphyco_o: 0,
+            factorReumatoideo: 0,
+            agTiphyco_h: 0,
+            antiestreptolisinasO: 0,
+            agTiphyco_a: 0,
+            rpr: 0,
+            agTiphyco_b: 0,
+            sifilis: 0,
+            HBsAg: 0,
+            vih12: 0,
+            grupoSanguineo: 0,
+            psaTotal: 0,
+            factorRH: 0,
+            otros: 0,
+            bhcg: {
+                resultado: 0,
+                muestra: 0,
+                reactivo: 0,
+            },
+            tipoMuestra: 0
+        }]
+        this.buildForm()
+        this.cargarData()
 
-    recuperarDataFormulario() {
-        this.formInmunologia.get('apellidosNombres').setValue(this.DataInmunologia.datosPaciente.apePaterno + ' ' + this.DataInmunologia.datosPaciente.apeMaterno + ' ' + this.DataInmunologia.datosPaciente.primerNombre + ' ' + this.DataInmunologia.datosPaciente.otrosNombres);
-        this.formInmunologia.get('edad').setValue(this.DataInmunologia.datosPaciente.edad);
-        this.formInmunologia.get('HCL').setValue(this.DataInmunologia.datosPaciente.nroHcl);
-        this.formInmunologia.get('servicio').setValue(this.DataInmunologia.datosLaboratorio.servicio);
-        this.formInmunologia.get('camaNro').setValue(this.DataInmunologia.datosPaciente.nroCama);
-        this.formInmunologia.get('nroSIS').setValue(this.DataInmunologia.datosPaciente.codSeguro);
-        this.formInmunologia.get('LugarExamen').setValue(this.DataInmunologia.datosPaciente.codSeguro);
-        this.formInmunologia.get('solicitante').setValue(this.DataInmunologia.profesionalAcargo.apePaterno + ' ' + this.DataInmunologia.profesionalAcargo.apeMaterno + ' ' + this.DataInmunologia.profesionalAcargo.primerNombre + ' ' + this.DataInmunologia.profesionalAcargo.otrosNombres);
-    }
-
-
-    guardarInmunologia() {
-        const data = {
-            codigo: '',
-            nombre: this.DataInmunologia.datosPaciente.apePaterno + ' ' + this.DataInmunologia.datosPaciente.apeMaterno + ' ' + this.DataInmunologia.datosPaciente.primerNombre + ' ' + this.DataInmunologia.datosPaciente.otrosNombres,
-            // cie10: this.DataInmunologia.datosLaboratorio.cie10SIS,
-            cie10: '1010102',
-            codigoHIS: this.DataInmunologia.datosLaboratorio.codigoHIS,
-            labExterno: false,
-            consultorio: this.DataInmunologia.datosLaboratorio.servicio,
-            nroMuestra: '',
-            Solicitante: this.DataInmunologia.profesionalAcargo.apePaterno + ' ' + this.DataInmunologia.profesionalAcargo.apeMaterno + ' ' + this.DataInmunologia.profesionalAcargo.primerNombre + ' ' + this.DataInmunologia.profesionalAcargo.otrosNombres,
-            fechaHoraTomaMuestra: this.datePipe.transform(this.formInmunologia.value.Fecha, 'yyyy-MM-dd'),
-            resultados: this.formInmunologia.value.resultados,
-            tipoMuestra: this.formInmunologia.value.tipoMuestra,
-            lugarExamen: this.formInmunologia.value.LugarExamen,
-            reaccionWidal: this.formInmunologia.value.reaccionWidal,
-            agTiphyco_o: this.formInmunologia.value.TiphycoO,
-            agTiphyco_h: this.formInmunologia.value.TiphycoH,
-            agTiphyco_a: this.formInmunologia.value.ParaTiphycoA,
-            agTiphyco_b: this.formInmunologia.value.ParaTiphycoB,
-            HBsAg: this.formInmunologia.value.HBsAg,
-            grupoSanguineo: this.formInmunologia.value.GrupoSanguineo,
-            factorRH: this.formInmunologia.value.FactorRH,
-
-            proteinaCReactiva: this.formInmunologia.value.ProteinaReactivaPCR,
-            factorReumatoideo: this.formInmunologia.value.FactorReumatoide,
-            antiestreptolisinasO: this.formInmunologia.value.AntiestreptolisinasASO,
-            rpr: this.formInmunologia.value.RPR,
-            sifilis: this.formInmunologia.value.Sifilis,
-            vih12: this.formInmunologia.value.VIH12,
-            psaTotal: this.formInmunologia.value.PSAtotal,
-            otros: this.formInmunologia.value.otros,
-            LaboratorioInmuTestEmbarazo: {
-                resultado: this.formInmunologia.value.BHCGresultado,
-                muestra: this.formInmunologia.value.BHCGmuestra,
-                reactivo: this.formInmunologia.value.BHCGreactivo,
-            }
-        }
-
-        console.log("DATA", data);
-        // this.servicesService.addInmunologia(this.DataInmunologia.id, this.idIpres, data).subscribe((res: any) => {
-        //     console.log('SOLICITUD LAB', res);
-        //     Swal.fire({
-        //         icon: 'success',
-        //         title: 'Registro',
-        //         text: 'El resgistro fue con exito',
-        //         showConfirmButton: false,
-        //         target: document.getElementById('swal'),
-        //         timer: 2000,
-        //     })
-        // })
     }
 
     buildForm() {
-        this.formInmunologia = this.fb.group({
+        this.formInmunologia = new FormGroup({
             apellidosNombres: new FormControl(''),
             edad: new FormControl(''),
-            HCL: new FormControl(''),
-            servicio: new FormControl(''),
-            camaNro: new FormControl(''),
-            nroSIS: new FormControl(''),
-
-            solicitante: new FormControl(''),
+            nroCama: new FormControl(''),
+            nroHistoria: new FormControl(''),
+            nroSis: new FormControl(''),
+            horaMuestra: new FormControl(''),
             nroMuestra: new FormControl(''),
-            LugarExamen: new FormControl(''),
-
-            resultados: new FormControl(''),
-            tipoMuestra: new FormControl(''),
-            Fecha: new FormControl(''),
-
-            reaccionWidal: new FormControl(''),
-            TiphycoO: new FormControl(''),
-            TiphycoH: new FormControl(''),
-            ParaTiphycoA: new FormControl(''),
-            ParaTiphycoB: new FormControl(''),
-            HBsAg: new FormControl(''),
-            GrupoSanguineo: new FormControl(''),
-            FactorRH: new FormControl(''),
-
-            ProteinaReactivaPCR: new FormControl(''),
-            FactorReumatoide: new FormControl(''),
-            AntiestreptolisinasASO: new FormControl(''),
-            RPR: new FormControl(''),
-            Sifilis: new FormControl(''),
-            VIH12: new FormControl(''),
-            PSAtotal: new FormControl(''),
-            otros: new FormControl(''),
-
-            BHCGresultado: new FormControl(''),
-            BHCGmuestra: new FormControl(''),
-            BHCGreactivo: new FormControl(''),
-
-
+            solicitante: new FormControl(''),
         })
     }
+
+    cargarData() {
+        console.log('XL',this.data)
+        this.formInmunologia.get('apellidosNombres').setValue(this.data.datosPaciente.apePaterno + ' ' + this.data.datosPaciente.apeMaterno + ' ' + this.data.datosPaciente.primerNombre + ' ' + this.data.datosPaciente.otrosNombres);
+        this.formInmunologia.get('edad').setValue(this.data.datosPaciente.edad);
+        this.formInmunologia.get('nroHistoria').setValue(this.data.datosPaciente.nroHcl);
+        this.formInmunologia.get('nroCama').setValue(this.data.datosPaciente.nroCama);
+        this.formInmunologia.get('solicitante').setValue(this.data.profesionalAcargo.apePaterno + ' ' + this.data.profesionalAcargo.apeMaterno + ' ' + this.data.profesionalAcargo.primerNombre + ' ' + this.data.profesionalAcargo.otrosNombres);
+        this.formInmunologia.get('horaMuestra').setValue(this.fecha)
+    }
+
+    Guardar() {
+        let aux: inmunologiaInterface = {
+            reaccionWidal: this.dataInmunologia[0].reaccionWidal,
+            proteinaCReactiva: this.dataInmunologia[0].proteinaCReactiva,
+            agTiphyco_o: this.dataInmunologia[0].agTiphyco_o,
+            factorReumatoideo:this.dataInmunologia[0].factorReumatoideo,
+            agTiphyco_h: this.dataInmunologia[0].agTiphyco_h,
+            antiestreptolisinasO: this.dataInmunologia[0].antiestreptolisinasO,
+            agTiphyco_a: this.dataInmunologia[0].agTiphyco_a,
+            rpr: this.dataInmunologia[0].rpr,
+            agTiphyco_b: this.dataInmunologia[0].agTiphyco_b,
+            sifilis: this.dataInmunologia[0].sifilis,
+            HBsAg: this.dataInmunologia[0].HBsAg,
+            vih12: this.dataInmunologia[0].vih12,
+            grupoSanguineo: this.dataInmunologia[0].grupoSanguineo,
+            psaTotal: this.dataInmunologia[0].psaTotal,
+            factorRH: this.dataInmunologia[0].factorRH,
+            otros: this.dataInmunologia[0].otros,
+            bhcg: {
+                resultado: this.dataInmunologia[0].bhcg.resultado,
+                muestra: this.dataInmunologia[0].bhcg.muestra,
+                reactivo: this.dataInmunologia[0].bhcg.reactivo,
+            },
+            tipoMuestra: this.dataInmunologia[0].tipoMuestra,
+            nroMuestra: this.formInmunologia.value.nroMuestra,
+        }
+        this.laboratoriosService.guardarLaboratorioInmunologico(this.config.data.id, aux).subscribe((r: any) => {
+            console.log(r)
+        })
+        this.ref.close()
+    }
+}
+
+export interface inmunologiaInterface {
+    nroMuestra?: string | number
+    resultadoExamen?: string | number
+    tipoMuestra?: string | number
+
+    reaccionWidal?: string | number
+    proteinaCReactiva?: string | number
+    agTiphyco_o?: string | number
+    factorReumatoideo?: string | number
+    agTiphyco_h?: string | number
+    antiestreptolisinasO?: string | number
+    agTiphyco_a?: string | number
+    rpr?: string | number
+    agTiphyco_b?: string | number
+    sifilis?: string | number
+    HBsAg?: string | number
+    vih12?: string | number
+    grupoSanguineo?: string | number
+    psaTotal?: string | number
+    factorRH?: string | number
+    otros?: string | number
+    bhcg?: bhcgInterface
+}
+export interface bhcgInterface{
+    resultado?: string | number
+    muestra?: string | number
+    reactivo?: string | number
 }

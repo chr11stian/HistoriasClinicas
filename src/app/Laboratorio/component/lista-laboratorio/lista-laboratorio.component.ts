@@ -92,8 +92,8 @@ export class ListaLaboratorioComponent implements OnInit {
         {
           this.ref = this.dialog.open(LabInmunologiaComponent, {
             header: "LABORATORIO CLINICO - INMUNOLOGIA",
-            width: "70%",
-            data: dataAux,
+            width: "90%",
+            data: data,
           });
           console.log("DATA", data);
           this.ref.onClose.subscribe((data: any) => {
