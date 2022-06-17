@@ -2,8 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {registerLocaleData} from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import {LaboratoriosService} from "../../services/laboratorios.service";
-import {GraphInterface} from "../../../shared/models/graph.interface";
-import {DynamicDialogConfig} from "primeng/dynamicdialog";
+import {DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 
 registerLocaleData(localeFr, 'fr');
@@ -21,6 +20,7 @@ export class LabHematologiaComponent implements OnInit {
 
     constructor(private laboratoriosService: LaboratoriosService,
                 private fb: FormBuilder,
+                private ref: DynamicDialogRef,
                 public config: DynamicDialogConfig) {
         this.data = config.data;
     }
@@ -81,6 +81,7 @@ export class LabHematologiaComponent implements OnInit {
     }
 
     cargarData() {
+        console.log('XL',this.data)
         this.formHematologia.get('apellidosNombres').setValue(this.data.datosPaciente.apePaterno + ' ' + this.data.datosPaciente.apeMaterno + ' ' + this.data.datosPaciente.primerNombre + ' ' + this.data.datosPaciente.otrosNombres);
         this.formHematologia.get('edad').setValue(this.data.datosPaciente.edad);
         this.formHematologia.get('nroHistoria').setValue(this.data.datosPaciente.nroHcl);
@@ -124,11 +125,13 @@ export class LabHematologiaComponent implements OnInit {
             reticulocitosVR: this.dataHematologia[0].reticulocitosVR,
             nSegmentados: this.dataHematologia[0].nSegmentados,
             compatibilidadSanguinea: this.dataHematologia[0].compatibilidadSanguinea,
-            tipoMuestra: this.dataHematologia[0].tipoMuestra
+            tipoMuestra: this.dataHematologia[0].tipoMuestra,
+            nroMuestra: this.formHematologia.value.nroMuestra,
         }
         this.laboratoriosService.guardarLaboratorioHematologico(this.config.data.id, aux).subscribe((r: any) => {
             console.log(r)
         })
+        this.ref.close()
     }
 }
 

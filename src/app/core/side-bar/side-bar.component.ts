@@ -143,6 +143,11 @@ const menu_geresa = [
                 label: "Medicamentos",
                 routerLink: "mantenimientos/medicamentos",
             },
+            {
+                icon: "pi pi-file",
+                label: "Laboratorio",
+                routerLink: "mantenimientos/laboratorio",
+            },
         ],
     },
 ];
@@ -330,13 +335,20 @@ const administracion2 = {
         },
         {
             icon: "pi pi-file",
+            label: "Ipress Laboratorio",
+            routerLink: "admision/ipress-laboratorio",
+        },
+        {
+            icon: "pi pi-file",
             label: "Ups Auxiliar",
             routerLink: "mantenimientos/ups-aux",
-        }, {
+        },
+        {
             icon: "pi pi-file",
             label: "His",
             routerLink: "admision/ipress-his",
-        }
+        },
+        
     ],
 }
 const triaje = {

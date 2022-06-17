@@ -29,6 +29,7 @@ import { DialogPacienteComponent } from './paciente/dialog-paciente/dialog-pacie
 import { IpressTarifarioComponent } from './ipress-tarifario/ipress-tarifario.component';
 import { IpressFarmaciaComponent } from './ipress-farmacia/component/ipress-farmacia.component';
 import {HisComponent} from "./his/his.component";
+import { IpressLaboratorioComponent } from './ipress-laboratorio/ipress-laboratorio.component';
 
 @NgModule({
     declarations: [
@@ -45,7 +46,8 @@ import {HisComponent} from "./his/his.component";
         DialogPacienteComponent,
         IpressTarifarioComponent,
         IpressFarmaciaComponent,
-        HisComponent
+        HisComponent,
+        IpressLaboratorioComponent
     ],
     exports: [
         PersonalSaludComponent,
