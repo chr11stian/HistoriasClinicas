@@ -29,6 +29,7 @@ import {PrestacionComponent} from "./component/prestacion/prestacion.component";
 import {AntecedentesPacienteComponent} from "./component/antecedentes-paciente/antecedentes-paciente.component";
 import {MedicamentosComponent} from "./component/medicamentos/medicamentos.component";
 import {UpsAuxIpressComponent} from "./component/ups-aux-ipress/ups-aux-ipress.component";
+import { LaboratorioComponent } from "./component/laboratorio/laboratorio.component";
 
 const routes: Routes = [
   {
@@ -136,6 +137,10 @@ const routes: Routes = [
   {
     path: "prestacion",
     component: PrestacionComponent,
+  },
+  {
+    path: "laboratorio",
+    component: LaboratorioComponent,
   },
 ];
 

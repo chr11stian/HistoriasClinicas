@@ -23,7 +23,9 @@
     font-size: 12px;
     text-align: center;
 }
-
+::ng-deep p-calendar {
+    text-align: center;
+}
 .footer {
     text-align: right;
     background: transparent;

@@ -60,9 +60,9 @@
                     <th style="text-align: center; font-size: 11px">APELLIDOS</th>
                     <th style="text-align: center; font-size: 11px">NOMBRES</th>
                     <th style="text-align: center; font-size: 11px">FECHA REGISTRO</th>
-                    <th style="text-align: center; font-size: 11px">SERVICIO</th>
+                    <th style="text-align: center; font-size: 11px">TIPO DE EXAMEN</th>
                     <th style="text-align: center; font-size: 11px">NOMBRE DEL EXAMEN</th>
-
+                    <th style="text-align: center; font-size: 11px">RESULTADOS</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
@@ -72,11 +72,11 @@
                     <td style="text-align: center; font-size: 11px">{{ rowData.datosPaciente.apeMaterno}}</td>
                     <td style="text-align: center; font-size: 11px">{{ rowData.datosPaciente.primerNombre}}</td>
                     <td style="text-align: center; font-size: 11px">{{ rowData.fechaRegistro}}</td>
-                    <td style="text-align: center; font-size: 11px">{{ rowData.datosLaboratorio.servicio}}</td>
+                    <td style="text-align: center; font-size: 11px">{{ rowData.datosLaboratorio.subTipo}}</td>
                     <td style="text-align: center; font-size: 11px">{{ rowData.datosLaboratorio.nombreExamen}}</td>
 
                     <td style="text-align: center">
-                        <button pButton pRipple type="button" label="Resultados"
+                        <button pButton pRipple type="button" label="Registrar"
                                 class="p-button-secondary"
                                 style="font-size: 11px" (click)="openDialogLab(rowData)"></button>
                     </td>

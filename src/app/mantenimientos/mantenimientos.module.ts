@@ -40,6 +40,7 @@ import { ModalMedicamentosComponent } from './component/medicamentos/modal-medic
 import { ModalAntecedentesComponent } from './component/antecedentes-paciente/modal-antecedentes/modal-antecedentes.component';
 import { ProcedimientoComponent } from './component/procedimiento/procedimiento.component';
 import { UpsAuxIpressComponent } from './component/ups-aux-ipress/ups-aux-ipress.component';
+import { LaboratorioComponent } from './component/laboratorio/laboratorio.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { UpsAuxIpressComponent } from './component/ups-aux-ipress/ups-aux-ipress
     ModalMedicamentosComponent,
     ModalAntecedentesComponent,
     ProcedimientoComponent,
-    UpsAuxIpressComponent
+    UpsAuxIpressComponent,
+    LaboratorioComponent
   ],
 
   exports: [TipoPersonalComponent, UbicacionComponent],

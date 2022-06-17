@@ -13,5 +13,9 @@ export class ParasitologiaService {
   PostParasitologia(id,data){
     return this.http.post(`${this.base_url}/${this.bd}/examenesAuxiliares/parasitologia/${id}`,data)
   }
+  PostOrina(id,data){
+    // :localhost:3012/api/hce/examenesAuxiliares/uroanalisis/{laboratorio}
+    return this.http.post(`${this.base_url}/${this.bd}/examenesAuxiliares/uroanalisis/${id}`,data)
+  }
 }
 
