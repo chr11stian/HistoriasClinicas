@@ -119,10 +119,10 @@ export class LabParasitologiaComponent implements OnInit {
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
-         this.parasitologiaService
-           .PostParasitologia(this.idConsulta, inputRequest)
-           .subscribe((resp) => {
-            this.ref.close('confirmado')//confirmado o cancelado
+        this.parasitologiaService
+          .PostParasitologia(this.idConsulta, inputRequest)
+          .subscribe((resp) => {
+            this.ref.close("confirmado"); //confirmado o cancelado
             Swal.fire({
               icon: "success",
               title: "Exito!",
@@ -135,6 +135,6 @@ export class LabParasitologiaComponent implements OnInit {
     });
   }
   cancelar() {
-    this.ref.close('cancelado');
+    this.ref.close("cancelado");
   }
 }
