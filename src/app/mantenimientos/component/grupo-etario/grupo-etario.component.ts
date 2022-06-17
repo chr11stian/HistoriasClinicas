@@ -170,7 +170,7 @@ export class GrupoEtarioComponent implements OnInit {
       if (valor===this.sexoList[i].value) return this.sexoList[i].label;
     }
   }
-  ngOnInit(): void {
+  ngOnInit(): void {  
   }
 
 }

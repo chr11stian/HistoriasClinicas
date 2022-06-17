@@ -73,7 +73,7 @@ export class LabSolicitudComponent implements OnInit {
             console.log("entre a edicion consulta", this.nroAtencion)
         }
 
-        // this.idConsulta = this.dataConsulta.id;
+        this.idConsulta = this.dataConsulta.id;
         this.examenAuxiliarService.getExamListLaboratory().then(res => {
             console.log('lista de examenes ', res);
         })
@@ -211,7 +211,29 @@ export class LabSolicitudComponent implements OnInit {
                     showConfirmButton: false,
                     timer:1500
                 })
-                this.closeDialog();
+                for (let i = 0; i < this.examName.length; i++) {
+                    let auxExam: ExamenAuxiliar = {
+                        tipoLaboratorio: 'EXAMEN_LABORATORIO',
+                        subTipo: this.examName[i].subTipe,
+                        nombreExamen: this.examName[i].examen,
+                        codPrestacion: '',
+                        codigoSIS: '',
+                        codigoHIS: '',
+                        lugarExamen: 'LABORATORIO',
+                        labExterno: ''
+                    }
+                    this.auxExamList.push(auxExam);
+                }
+                this.solicitudLaboratorio = {
+                    servicio: '',
+                    nroCama: '',
+                    examenesAuxiliares: this.auxExamList
+                }
+                this.examenAuxiliarService.postPromiseAddServiciosLaboratorio(this.dataConsulta.id, this.solicitudLaboratorio).then(res => {
+                    console.log('se guardo ', res);
+                    this.closeDialog();
+                });
+                
             }
             else {
                 Swal.fire({
@@ -223,27 +245,7 @@ export class LabSolicitudComponent implements OnInit {
             }
         })
 
-        // for (let i = 0; i < this.examName.length; i++) {
-        //     let auxExam: ExamenAuxiliar = {
-        //         tipoLaboratorio: 'EXAMEN_LABORATORIO',
-        //         subTipo: this.examName[i].subTipe,
-        //         nombreExamen: this.examName[i].examen,
-        //         codPrestacion: '',
-        //         codigoSIS: '',
-        //         codigoHIS: '',
-        //         lugarExamen: 'LABORATORIO',
-        //         labExterno: ''
-        //     }
-        //     this.auxExamList.push(auxExam);
-        // }
-        // this.solicitudLaboratorio = {
-        //     servicio: '',
-        //     nroCama: '',
-        //     examenesAuxiliares: this.auxExamList
-        // }
-        // await this.examenAuxiliarService.postPromiseAddServiciosLaboratorio(this.dataConsulta.id, this.solicitudLaboratorio).then(res => {
-        //     console.log('se guardo ', res);
-        // });
+        
 
     }
 

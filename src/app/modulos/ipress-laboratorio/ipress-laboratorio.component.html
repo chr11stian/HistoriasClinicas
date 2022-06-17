@@ -1,0 +1,16 @@
+<div class="grid">
+    <div class="col-4" *ngFor="let exam of examGroup">
+        <p-fieldset legend={{exam.nombreGrupo}} class="atencion" >
+            <div *ngFor="let item of exam.listaExam" class="p-field-checkbox grid">
+                <div class="col-9">
+                    <span [for]="item">{{ item.nombreExamen }}</span>
+                </div>
+                <div class="col-3">
+                    <p-checkbox [inputId]="item" name="item" [value]="item" [(ngModel)]="examName">
+                    </p-checkbox>
+                </div>
+            </div>
+        </p-fieldset>
+    </div>
+    
+</div>
