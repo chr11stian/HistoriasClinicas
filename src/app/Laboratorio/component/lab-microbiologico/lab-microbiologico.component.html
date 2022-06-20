@@ -1,0 +1,178 @@
+<form [formGroup]="formMicrobiologico">
+    <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
+        <div class="grid m-2">
+            <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
+                <div class="grid">
+                    <div class="col-12 md:col-6 lg:col-8 flex align-items-center">
+                        <div class="col-fixed" style="width:140px"><span>Apellidos y Nombres:</span></div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="apellidosNombres"/>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-4 flex align-items-center">
+                        <div class="col-fixed" style="width:50px"><span>Edad:</span></div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="edad"/>
+                    </div>
+
+                    <div class="col-12 md:col-6 lg:col-7 flex align-items-center">
+                        <div class="col-fixed" style="width:90px"><span>Solicitante:</span></div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="solicitante"/>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-5 flex align-items-center">
+                        <div class="col-fixed" style="width:120px"><span>Hora de Muestra:</span></div>
+                        <p-calendar
+                                class="w-full text-center justify-content-center"
+                                [timeOnly]="true"
+                                [ngModel]="fecha"
+                                formControlName="horaMuestra"
+                                inputId="timeonly">
+                        </p-calendar>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-3 flex align-items-center">
+                        <div class="col-fixed" style="width:70px"><span>N° H.CL:</span></div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="nroHistoria"/>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-3 flex align-items-center">
+                        <div class="col-fixed" style="width:70px"><span>N° S.I.S:</span></div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="nroSis"/>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-3 flex align-items-center">
+                        <div class="col-fixed" style="width:90px"><span>N° Muestra:</span></div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="nroMuestra"/>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-3 flex align-items-center">
+                        <div class="col-fixed" style="width:70px"><span>N° Cama:</span></div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="nroCama"/>
+                    </div>
+                </div>
+                <p-divider align="center" type="dashed">
+                </p-divider>
+            </div>
+        </div>
+    </div>
+</form>
+<form [formGroup]="formMicrobiologicoBody">
+    <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
+        <div class="grid m-2">
+            <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
+                <div class="col-12 text-center"
+                     style="margin-top:-40px; font-size: 1.5rem; text-decoration: underline;">ANALISIS DIRECTO
+                </div>
+                <div class="grid">
+                    <div class="col-12 md:col-4 lg:col-4 flex align-items-center">
+                        <div class="col-fixed" style="width:110px"><span>Leucocitos:&nbsp; &nbsp;a&nbsp; &nbsp;</span>
+                        </div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="leucocitos"/>
+                    </div>
+                    <div class="col-12 md:col-8 lg:col-8 flex align-items-center">
+                        <div class="col-fixed" style="width:90px"><span>x &nbsp; &nbsp; &nbsp;   Campo:</span></div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="campoLeucocitos"/>
+                    </div>
+                    <div class="col-12 md:col-4 lg:col-4 flex align-items-center">
+                        <div class="col-fixed" style="width:105px"><span>Hematies:&nbsp; &nbsp;a&nbsp; &nbsp;</span>
+                        </div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="hematies"/>
+                    </div>
+                    <div class="col-12 md:col-8 lg:col-8 flex align-items-center">
+                        <div class="col-fixed" style="width:90px"><span>x &nbsp; &nbsp; &nbsp;   Campo:</span></div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="campoHematies"/>
+                    </div>
+                    <div class="col-12 md:col-12 lg:col-12 flex align-items-center">
+                        <div class="col-fixed" style="width:80px"><span>Piocitos:</span>
+                        </div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="piocitos"/>
+                    </div>
+                    <div class="col-12 md:col-12 lg:col-12 flex align-items-center">
+                        <div class="col-fixed" style="width:80px"><span>Bacterias:</span>
+                        </div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="bacterias"/>
+                    </div>
+                    <div class="col-12 md:col-12 lg:col-12 flex align-items-center">
+                        <div class="col-fixed" style="width:120px"><span>Células Epiteliales:</span>
+                        </div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="celulasEpiteliales"/>
+                    </div>
+                    <div class="col-12 md:col-12 lg:col-12 flex align-items-center">
+                        <div class="col-fixed" style="width:150px"><span>Trichomonas Vaginalis:</span>
+                        </div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="trichomonasVaginalis"/>
+                    </div>
+                    <div class="col-12 md:col-12 lg:col-12 flex align-items-center">
+                        <div class="col-fixed" style="width:130px"><span>Hifas - Pseudohifas:</span>
+                        </div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="hifasPseudohifas"/>
+                    </div>
+                    <div class="col-12 md:col-12 lg:col-12 flex align-items-center">
+                        <div class="col-fixed" style="width:80px"><span>Levaduras:</span>
+                        </div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="levaduras"/>
+                    </div>
+                    <div class="col-12 md:col-12 lg:col-12 flex align-items-center">
+                        <div class="col-fixed" style="width:60px"><span>Otros:</span>
+                        </div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="otrosAnalisis"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
+                <div class="col-12 text-center"
+                     style="font-size: 1.5rem; text-decoration: underline;">COLORACIÓN GRAM
+                </div>
+                <div class="grid">
+                    <div class="col-12 md:col-12 lg:col-12 flex align-items-center">
+                        <div class="col-fixed" style="width:150px"><span>Bacilos GRAM Positivos:</span>
+                        </div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="bacilosGramPositivos"/>
+                    </div>
+                    <div class="col-12 md:col-12 lg:col-12 flex align-items-center">
+                        <div class="col-fixed" style="width:160px"><span>Bacilos GRAM Negativos:</span>
+                        </div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="bacilosGramNegativos"/>
+                    </div>
+                    <div class="col-12 md:col-12 lg:col-12 flex align-items-center">
+                        <div class="col-fixed" style="width:150px"><span>Cocos GRAM Positivos:</span>
+                        </div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="cocosGramPositivos"/>
+                    </div>
+                    <div class="col-12 md:col-12 lg:col-12 flex align-items-center">
+                        <div class="col-fixed" style="width:155px"><span>Cocos GRAM Negativos:</span>
+                        </div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="cocosGramNegativos"/>
+                    </div>
+                    <div class="col-12 md:col-4 lg:col-4 flex align-items-center">
+                        <div class="col-fixed" style="width:110px"><span>Gardnerella:&nbsp; &nbsp;a&nbsp; &nbsp;</span>
+                        </div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="gardnerella"/>
+                    </div>
+                    <div class="col-12 md:col-8 lg:col-8 flex align-items-center">
+                        <div class="col-fixed" style="width:90px"><span>x &nbsp; &nbsp; &nbsp;   Campo:</span></div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="campoGardnerella"/>
+                    </div>
+                    <div class="col-12 md:col-4 lg:col-4 flex align-items-center">
+                        <div class="col-fixed" style="width:105px"><span>Mobiluncus:&nbsp; &nbsp;a&nbsp; &nbsp;</span>
+                        </div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="mobiluncus"/>
+                    </div>
+                    <div class="col-12 md:col-8 lg:col-8 flex align-items-center">
+                        <div class="col-fixed" style="width:90px"><span>x &nbsp; &nbsp; &nbsp;   Campo:</span></div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="campoMobiluncus"/>
+                    </div>
+                    <div class="col-12 md:col-12 lg:col-12 flex align-items-center">
+                        <div class="col-fixed" style="width:120px"><span>Flora Doderlein:</span>
+                        </div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="floraDoderlein"/>
+                    </div>
+                    <div class="col-12 md:col-12 lg:col-12 flex align-items-center">
+                        <div class="col-fixed" style="width:60px"><span>Otros:</span>
+                        </div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="otrosColoracion"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="flex justify-content-end">
+    <button style="background-color: #0c3866" class=""
+            pButton type="button"
+            (click)="Guardar()">Guardar
+    </button>
+</div>

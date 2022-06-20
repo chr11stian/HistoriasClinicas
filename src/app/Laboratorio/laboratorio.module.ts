@@ -9,6 +9,7 @@ import { LabHematologiaComponent } from './component/lab-hematologia/lab-hematol
 import { LabParasitologiaComponent } from './component/lab-parasitologia/lab-parasitologia.component';
 import { LabOrinaComponent } from './component/lab-orina/lab-orina.component';
 import { LabBioquimicaComponent } from './component/lab-bioquimica/lab-bioquimica.component';
+import { LabMicrobiologicoComponent } from './component/lab-microbiologico/lab-microbiologico.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { LabBioquimicaComponent } from './component/lab-bioquimica/lab-bioquimic
         LabHematologiaComponent,
         LabParasitologiaComponent,
         LabOrinaComponent,
-        LabBioquimicaComponent
+        LabBioquimicaComponent,
+        LabMicrobiologicoComponent
     ],
     imports: [
         CommonModule,

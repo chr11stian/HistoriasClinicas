@@ -99,7 +99,7 @@ export class LabBioquimicaComponent implements OnInit {
       tipoMuestra: this.dataBioquimica[0].tipoMuestra,
       nroMuestra: this.formBioquimica.value.nroMuestra,
     }
-    this.laboratoriosService.guardarLaboratorioInmunologico(this.config.data.id, aux).subscribe((r: any) => {
+    this.laboratoriosService.guardarLaboratorioBioquimica(this.config.data.id, aux).subscribe((r: any) => {
       console.log(r)
     })
     this.ref.close()

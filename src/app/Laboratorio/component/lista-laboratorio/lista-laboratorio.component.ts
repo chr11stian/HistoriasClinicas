@@ -11,6 +11,7 @@ import { registerLocaleData } from "@angular/common";
 import localeFr from "@angular/common/locales/fr";
 import { LabOrinaComponent } from "../lab-orina/lab-orina.component";
 import {LabBioquimicaComponent} from "../lab-bioquimica/lab-bioquimica.component";
+import { LabMicrobiologicoComponent } from "../lab-microbiologico/lab-microbiologico.component";
 
 registerLocaleData(localeFr, "fr");
 
@@ -102,6 +103,21 @@ export class ListaLaboratorioComponent implements OnInit {
           });
         }
         break;
+
+      case "MICROBIOLOGICO":
+      {
+        this.ref = this.dialog.open(LabMicrobiologicoComponent, {
+          header: "LABORATORIO CLINICO - MICROBIOLOGICO",
+          width: "60%",
+          data: data,
+        });
+        console.log("DATA", data);
+        this.ref.onClose.subscribe((data: any) => {
+          // this.buscarCuposPorPersonal();
+        });
+      }
+        break;
+
       case "BIOQUIMICA":
       {
         this.ref = this.dialog.open(LabBioquimicaComponent, {
