@@ -62,19 +62,15 @@ export class PagoLaboratorioComponent implements OnInit {
 
     this.buildForm();
     this.formCaja.get('fechaBusqueda').setValue(this.datafecha);
-    //this.getListaEcografiasPendientes();
+    this.getListaOrdenesLaboratorio();
     this.getUPS();
   }
 
   /** Selecciona  un servicio y fecha y lista las ofertas para reservar un cupo **/
-  getListaEcografiasPendientes() {
-    let data = {
-      fechaAtencion: this.datePipe.transform(this.formCaja.value.fechaBusqueda, 'yyyy-MM-dd')
-    }
-    console.log('DATA', data);
-    this.servicesService.getListaPendientesEcografias(this.idIpress).subscribe((res: any) => {
+  getListaOrdenesLaboratorio() {
+    this.servicesService.getListaOrdenesLaboratorioPendientes().subscribe((res: any) => {
       this.DataPendientesPago = res.object;
-      console.log('LISTA DE ECOGRAFIAS PENDIENTES', this.DataPendientesPago);
+      console.log('LISTA DE LABOS PENDIENTES', this.DataPendientesPago);
     })
   }
   buildForm() {
@@ -90,6 +86,7 @@ export class PagoLaboratorioComponent implements OnInit {
       tipoSeguro: new FormControl(''),
       edad: new FormControl(''),
       precioTotal: new FormControl(''),
+
     })
     this.formProcedimiento = this.fb.group({
       cantidad: new FormControl('1'),
@@ -136,16 +133,31 @@ export class PagoLaboratorioComponent implements OnInit {
     return cadena;
   }
   pagar() {
+    let examenesLabo = [];
+    this.procedimientosPagar.forEach((elto) => {
+      examenesLabo.push({
+        ups: "LABORATORIO",
+        codigo: elto.nombreExamen,
+        descripcion: elto.nombreExamen,
+        tipo: "PROCEDIMIENTO",
+        idCupo: null,
+        cantidad: 1,
+        precioUnitario: parseFloat(elto.precio),
+        importe: parseFloat(elto.precio),
+      })
+      this.servicesService.guardarPagoExamenLabo(elto.idExamen).subscribe((res: any) => {});
+    }
+    )
+    console.log("esto pasa por caja", examenesLabo);
     let datos = {
       tipo: "R",
       tipoDocReceptor: this.tipoDocReceptor,
       nroDocReceptor: this.nroDocReceptor,
       apellidos: this.formCaja.value.apePaterno,
       nombres: this.formCaja.value.nombres,
-      detalle: this.procedimientosPagar,
+      detalle: examenesLabo,
       importeTotal: this.formCaja.value.precioTotal
     }
-
     this.servicesService.pagarRecibo(this.idIpress, this.nroCaja, datos).subscribe((res: any) => {
       Swal.fire({
         icon: 'success',
@@ -155,7 +167,7 @@ export class PagoLaboratorioComponent implements OnInit {
         timer: 1500,
       })
       this.Dialogpagos = false;
-      //this.getListaEcografiasPendientes();
+      this.getListaOrdenesLaboratorio();
     });
   }
 
@@ -245,13 +257,24 @@ export class PagoLaboratorioComponent implements OnInit {
     psFloat = parseFloat(strNumber);
     return !isNaN(strNumber) && !isNaN(psFloat);
   }
-  openModal() {
-    this.Dialogpagos = true;
+  openModal(event) {
+    this.idPagoCaja = event.id;
+    console.log("ID PAGO", this.idPagoCaja);
+
+    this.formCaja.get('nroDoc').setValue(event.datosPaciente.nroDoc);
+    this.formCaja.get('apePaterno').setValue(event.datosPaciente.apePaterno + " " + event.datosPaciente.apeMaterno);
+    this.formCaja.get('nombres').setValue(event.datosPaciente.primerNombre + " " + event.datosPaciente.otrosNombres);
+    this.formCaja.get('edad').setValue(event.datosPaciente.edad + " años");
+    //this.formCaja.get('servicio').setValue("LABORATORIO");
     this.formCaja.get('nroCaja').setValue(this.nroCaja);
     this.formCaja.get('fechaRecibo').setValue(new Date().toLocaleString());
+
     this.servicesService.obtenerNumeracionCaja(this.idIpress, this.nroCaja).subscribe((res: any) => {
       this.formCaja.get('nroBoleta').setValue(res.object.contadorRecibos + 1);
     })
+    this.procedimientosPagar = event.examenes;
+    this.calcularTotalRecibo(this.procedimientosPagar);
+    this.Dialogpagos = true;
   }
 
   close() {
@@ -301,50 +324,10 @@ export class PagoLaboratorioComponent implements OnInit {
     else {
       let cont = 0;
       for (let i = 0; i < lista.length; i++) {
-        cont += lista[i].importe;
+        cont += parseFloat(lista[i].precio);
       }
       this.formCaja.get("precioTotal").setValue(cont);
     }
-  }
-
-  canceledProcedimiento() {
-    this.Dialogprocedimientos = false;
-  }
-  eliminarProcedimiento(rowIndex) {
-    Swal.fire({
-      showCancelButton: true,
-      confirmButtonText: 'Eliminar',
-      icon: 'warning',
-      title: 'Estas seguro de eliminar este procedimiento',
-      text: '',
-      showConfirmButton: true,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.procedimientosPagar.splice(rowIndex, 1);
-        this.calcularTotalRecibo(this.procedimientosPagar);
-        Swal.fire({
-          icon: 'success',
-          title: 'Eliminado correctamente',
-          text: '',
-          showConfirmButton: false,
-          timer: 1500
-        })
-      }
-    })
-  }
-  onChangeTarifa() {
-    let data = {
-      idIpress: this.idIpress,
-      ups: this.formProcedimiento.value.ups,
-      tipo: this.formProcedimiento.value.tipo
-    }
-    this.tarifarioService.filtrarTarifasXServicioTipo(data).subscribe((res: any) => {
-      this.procedimientos = res.object;
-    })
-  }
-  onChangeDescripcion() {
-    this.formProcedimiento.get("codigo").setValue(this.formProcedimiento.value.descripcion.codigo);
-    this.formProcedimiento.get("precio").setValue(this.formProcedimiento.value.descripcion.costo);
   }
 
   ngOnInit(): void {

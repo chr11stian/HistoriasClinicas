@@ -6,8 +6,6 @@
             </div>
             <div class="col-12 md:col-6 lg:col-10 p-field" style="text-align:center;"></div>
             <div class="col-12 md:col-6 lg:col-2 p-field" style="text-align:center;">
-                <button pButton pRipple label="Crear pago" icon="pi pi-plus" class="p-button-help"
-                    (click)="openModal()"></button>
             </div>
         </div>
         <br>
@@ -32,13 +30,11 @@
                 <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
                     <tr>
                         <th style="text-align: center">Nro</th>
-                        <th pSortableColumn="DNI">DNI</th>
+                        <th pSortableColumn="DNI" style="text-align: center">DNI</th>
                         <th style="text-align: center">APELLIDOS</th>
                         <th style="text-align: center">NOMBRES</th>
-                        <th style="text-align: center">HORA ATENCION</th>
-                        <th style="text-align: center">FECHA ATENCION</th>
-                        <th style="text-align: center">SERVICIO</th>
-                        <th style="text-align: center">ESTADO</th>
+                        <th style="text-align: center">FECHA REGISTRO</th>
+                        <th style="text-align: center">ESTADO PAGO</th>
                         <th style="text-align: center">ACCION</th>
 
                     </tr>
@@ -46,13 +42,13 @@
                 <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                     <tr>
                         <td style="text-align: center">{{ rowIndex + 1 }}</td>
-                        <td style="text-align: center">{{ rowData.paciente.nroDoc }}</td>
-                        <td style="text-align: center">{{ rowData.paciente.apellidos }}</td>
-                        <td style="text-align: center">{{ rowData.paciente.nombre}}</td>
-                        <td style="text-align: center">{{ rowData.horaAtencion}}</td>
-                        <td style="text-align: center">{{ rowData.fechaAtencion}}</td>
-                        <td style="text-align: center">{{ rowData.ipress.servicio}}</td>
-                        <td style="text-align: center">{{ rowData.detallePago}}</td>
+                        <td style="text-align: center">{{ rowData.datosPaciente.nroDoc }}</td>
+                        <td style="text-align: center">{{ rowData.datosPaciente.apePaterno+"
+                            "+rowData.datosPaciente.apeMaterno}}</td>
+                        <td style="text-align: center">{{ rowData.datosPaciente.primerNombre+"
+                            "+rowData.datosPaciente.otrosNombres}}</td>
+                        <td style="text-align: center">{{ rowData.examenes[0].fechaRegistro}}</td>
+                        <td style="text-align: center">{{ rowData.examenes[0].estadoPago}}</td>
                         <td style="text-align: center">
                             <button pButton pRipple type="button" label="Pagar" class="p-button-raised p-button-success"
                                 (click)="openModal(rowData)"></button>
@@ -103,7 +99,7 @@
         <div class="col-8">
             <p-panel>
                 <ng-template pTemplate="header" class="text-center">
-                    <h3 class="m-2 text-pink-600">PAGO POR PROCEDIMIENTOS</h3>
+                    <h3 class="m-2 text-pink-600">PAGO POR ORDEN DE LABORATORIO</h3>
                 </ng-template>
                 <ng-template pTemplate>
                     <form [formGroup]='formCaja'>
@@ -123,12 +119,8 @@
                             <div class="col-6 md:col-6 lg:col-6 p-field pt-0">
                                 <div class="">
                                     <label class="">Documento de identidad: </label>
-                                    <div class="p-inputgroup">
-                                        <input type="text" class="inputfield w-full" pInputText placeholder="DNI"
-                                            formControlName="nroDoc">
-                                        <button type="button" pButton pRipple icon="pi pi-search"
-                                            (click)="buscarPacienteDatos()" class="p-button-danger"></button>
-                                    </div>
+                                    <input type="text" class="inputfield w-full" pInputText placeholder="DNI"
+                                        formControlName="nroDoc" >
                                 </div>
                             </div>
                             <div class="col-6 md:col-6 lg:col-6 p-field pt-0">
@@ -158,46 +150,33 @@
     </div>
     <div class="grid align-items-center">
         <div class="col-12">
-            <p-table [value]="procedimientosPagar" styleClass="p-datatable-sm" responsiveLayout="scroll" [scrollable]="true" scrollHeight="160px">
+            <p-table [value]="procedimientosPagar" styleClass="p-datatable-sm" responsiveLayout="scroll"
+                [scrollable]="true" scrollHeight="160px">
                 <ng-template pTemplate="caption">
                     <div class="grid align-items-center">
                         <div class="col-10 align-items-center">
                             <label>Detalle:</label>
                         </div>
                         <div class="col-2">
-                            <button pButton pRipple label="Proced." icon="pi pi-plus" class="h-2rem p-button-help"
-                                (click)="openModalProcedimiento()" styleClass="p-button-sm"></button>
                         </div>
                     </div>
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
                         <th>Nro</th>
-                        <th>UPS</th>
-                        <th>Codigo</th>
-                        <th>Descripcion</th>
-                        <th>Tipo</th>
-                        <th>Cantidad</th>
-                        <th>Precio unitario</th>
-                        <th>Importe</th>
-                        <th>Accion</th>
+                        <th>Examen</th>
+                        <th>Sub Tipo</th>
+                        <th>Fecha registro</th>
+                        <th>Precio</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                     <tr>
                         <td>{{rowIndex + 1}}</td>
-                        <td>{{rowData.ups}}</td>
-                        <td>{{rowData.codigo}}</td>
-                        <td>{{rowData.descripcion}}</td>
-                        <td>{{rowData.tipo}}</td>
-                        <td>{{rowData.cantidad}}</td>
-                        <td>{{rowData.precioUnitario}}</td>
-                        <td>{{rowData.importe}}</td>
-                        <td style="text-align: center;width: 5rem; display: flex">
-                            <button pButton (click)="eliminarProcedimiento(rowData)" pTooltip="Eliminar" pRipple
-                                type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
-                            </button>
-                        </td>
+                        <td>{{rowData.nombreExamen}}</td>
+                        <td>{{rowData.subTipo}}</td>
+                        <td>{{rowData.fechaRegistro}}</td>
+                        <td>{{rowData.precio}}</td>
                     </tr>
                 </ng-template>
             </p-table>
@@ -205,7 +184,7 @@
         <div class="col-10 text-right">
             <label>Importe total:</label>
         </div>
-        <div class="col-2 p-0" >
+        <div class="col-2 p-0">
             <form [formGroup]='formCaja'>
                 <p-inputNumber placeholder="Precio" formControlName='precioTotal' suffix=" Soles" mode="decimal"
                     [minFractionDigits]="2" required>
@@ -216,62 +195,5 @@
     <ng-template pTemplate=footer>
         <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="close()"></button>
         <button pButton type="button" label="Guardar" (click)="pagar()"></button>
-    </ng-template>
-</p-dialog>
-<p-dialog [(visible)]="Dialogprocedimientos" [style]="{width: '680px'}" [modal]="true" styleClass="p-fluid" autoZIndex>
-    <ng-template pTemplate="header">
-        <h3>Agregar procedimiento</h3>
-    </ng-template>
-
-    <ng-template pTemplate="body">
-        <form [formGroup]='formProcedimiento'>
-            <div class="p-fluid grid flex justify-content-center">
-                <div class="p-field col-12 md:col-8">
-                    <label id="codigo">Servicio:</label>
-                    <p-dropdown placeholder="Nombre UPS" class="inputRedondo"
-                        dropdownIcon="pi pi-chevron-down" appendTo="body"
-                        inputId="dropdown" [options]="UPSList" formControlName="ups" optionLabel="nombreUPS"
-                        optionValue="nombreUPS" required autofocus>
-                    </p-dropdown>
-                </div>
-                <div class="p-field col-12 md:col-4">
-                    <label id="nombre">Tipo de servicio:</label>
-                    <p-dropdown placeholder="Tipo" class="inputRedondo" [showTransitionOptions]="'300ms'"
-                        dropdownIcon="pi pi-chevron-down" appendTo="body" inputId="dropdown" [options]="tiposPagosCaja"
-                        formControlName="tipo" (onChange)="onChangeTarifa()" required>
-                    </p-dropdown>
-                </div>
-            </div>
-            <div class="p-fluid grid flex justify-content-center">
-                <div class="p-field col-12 md:col-12">
-                    <label id="nombre">Descripcion:</label>
-                    <p-dropdown placeholder="Descripcion" class="inputRedondo"
-                        dropdownIcon="pi pi-chevron-down" appendTo="body"
-                        inputId="dropdown" [options]="procedimientos" formControlName="descripcion" optionLabel="descripcion"
-                        required (onChange)="onChangeDescripcion()" >
-                    </p-dropdown>
-                </div>
-            </div>
-            <div class="p-fluid grid flex justify-content-center">
-                <div class="p-field col-6 md:col-4">
-                    <label id="nombre">Codigo:</label>
-                    <input type="text" pInputText formControlName='codigo' required />
-                </div>
-                <div class="p-field col-6 md:col-4">
-                    <label id="nombre">Cantidad:</label>
-                    <input type="text" pInputText formControlName='cantidad' required />
-                </div>
-                <div class="p-field col-6 md:col-4">
-                    <label id="nombre">Precio:</label>
-                    <p-inputNumber placeholder="Costo" formControlName='precio' suffix=" Soles" mode="decimal"
-                        [minFractionDigits]="2" required>
-                    </p-inputNumber>
-                </div>
-            </div>
-        </form>
-    </ng-template>
-    <ng-template pTemplate=footer>
-        <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="canceledProcedimiento()"></button>
-        <button pButton type="button" label="Guardar" (click)="enviarProcedimientoLista()"></button>
     </ng-template>
 </p-dialog>
