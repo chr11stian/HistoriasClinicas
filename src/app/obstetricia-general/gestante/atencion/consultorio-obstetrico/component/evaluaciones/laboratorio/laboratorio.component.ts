@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
-import {LabSolicitudComponent} from "./lab-solicitud/lab-solicitud.component";
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import { Component, OnInit } from '@angular/core';
+import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
+import { LabSolicitudComponent } from "./lab-solicitud/lab-solicitud.component";
+import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import {
     LabHematologiaComponent
 } from "../../../../../../../Laboratorio/component/lab-hematologia/lab-hematologia.component";
@@ -17,8 +17,9 @@ import {
 import {
     LabParasitologiaComponent
 } from "../../../../../../../Laboratorio/component/lab-parasitologia/lab-parasitologia.component";
-import {LabOrinaComponent} from "../../../../../../../Laboratorio/component/lab-orina/lab-orina.component";
-import {LaboratoriosService} from "../../../../../../../Laboratorio/services/laboratorios.service";
+import { LabOrinaComponent } from "../../../../../../../Laboratorio/component/lab-orina/lab-orina.component";
+import { LaboratoriosService } from "../../../../../../../Laboratorio/services/laboratorios.service";
+import { ExamenesAuxiliaresService } from 'src/app/cred/citas/atencion-cred/consulta-principal/services/examenes-auxiliares.service';
 
 @Component({
     selector: 'app-laboratorio',
@@ -32,11 +33,16 @@ export class LaboratorioComponent implements OnInit {
     usuario: any
     dataExamenesRealizados: any;
     loading: boolean = true;
+    idConsulta: string
+    listaExamen: any[] = [];
 
     constructor(public dialog: DialogService,
-                private form: FormBuilder,
-                private laboratoriosService: LaboratoriosService) {
+        private form: FormBuilder,
+        private laboratoriosService: LaboratoriosService,
+        private examenAuxiliarService: ExamenesAuxiliaresService) {
         this.dataConsulta = JSON.parse(localStorage.getItem('datosConsultaActual'));
+        this.idConsulta = JSON.parse(localStorage.getItem('IDConsulta'));
+        this.listarPeticiones();
     }
 
 
@@ -162,5 +168,11 @@ export class LaboratorioComponent implements OnInit {
             }
                 break;
         }
+    }
+    listarPeticiones() {
+        this.examenAuxiliarService.getListarPeticiones(this.idConsulta).then(res => {
+            this.listaExamen = res.object.examenesAuxiliares
+            console.log('lista examenes ', this.listaExamen);
+        })
     }
 }

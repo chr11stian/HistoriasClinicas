@@ -69,10 +69,10 @@ export class ExamenesAuxiliaresService {
       .then(data => { return data; })
       .catch(error => { return error.error });
   }
-  getistarPeticiones(idConsulta: string) {
+  getListarPeticiones(idConsulta: string) {
     return this.http.get<any>(`${this.urlServer}/${this.bd}/consultageneral/listar/solicitud/examen/${idConsulta}`)
       .toPromise()
-      .then(res => <any>res.object)
+      .then(res => <any>res)
       .then(data => { return data; })
       .catch(error => { return error.error });
   }

@@ -93,7 +93,6 @@ export class LabSolicitudComponent implements OnInit {
         })
     }
 
-
     recuperaDataPaciente() {
         this.formSolicitudLab.get('edad').setValue(this.dataConsulta.anioEdad);
         this.formSolicitudLab.get('HCL').setValue(this.dataConsulta.nroHcl);
@@ -268,6 +267,7 @@ export class LabSolicitudComponent implements OnInit {
             this.closeDialog();
         });
     }
+    
 }
 
 interface Laboratory {
