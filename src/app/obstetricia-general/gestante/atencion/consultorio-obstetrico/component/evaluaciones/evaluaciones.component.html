@@ -10,13 +10,18 @@
             </ng-template>
         </p-toolbar>
         <div class="mt-1">
-            <p-tabView >
-                <p-tabPanel header="ECOGRAFIAS">
-                    <app-ecografias></app-ecografias>
-                </p-tabPanel>
+            <p-tabView>
                 <p-tabPanel header="LABORATORIO">
-                    <app-laboratorio></app-laboratorio>
+                    <ng-template pTemplate="content">
+                        <app-laboratorio></app-laboratorio>
+                    </ng-template>
                 </p-tabPanel>
+                <p-tabPanel header="ECOGRAFIAS">
+                    <ng-template pTemplate="content">
+                        <app-ecografias></app-ecografias>
+                    </ng-template>
+                </p-tabPanel>
+
             </p-tabView>
         </div>
     </div>

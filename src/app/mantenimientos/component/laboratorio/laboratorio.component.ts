@@ -18,6 +18,7 @@ export class LaboratorioComponent implements OnInit {
   dataLabo: DataLabo;
   laboExamList: any;
   listaSubTipos: string[] = ['HEMATOLOGIA', 'BIOQUIMICA', 'MICROBIOLOGIA', 'INMUNOLOGIA', 'UROANALISIS', 'PARASITOLOGIA', 'OTROS EXAMENES'];
+  idLabo: string;
 
   constructor(
     private laboratorioService: LaboratorioService
@@ -58,6 +59,7 @@ export class LaboratorioComponent implements OnInit {
   addExamDialog() {
     this.addExam = true;
     this.formLaboratorio.reset();
+    this.isUpdate = false;
   }
   canceled() {
     this.addExam = false;
@@ -86,7 +88,30 @@ export class LaboratorioComponent implements OnInit {
       this.canceled();
     }))
   }
-  editarDatos() {
+  editarDatos(rowData) {
+    this.isUpdate = true;
+    console.log('data to edit ', rowData);
+    this.addExam = true;
+    this.formLaboratorio.patchValue({ subTipo: rowData.subTipo });
+    this.formLaboratorio.patchValue({ nombre: rowData.nombreExamen });
+    this.formLaboratorio.patchValue({ estado: rowData.estado });
+    this.idLabo = rowData.id;
+  }
+  saveEditExams() {
+    this.dataLabo = {
+      tipoLaboratorio: 'EXAMEN_LABORATORIO',
+      subTipo: this.formLaboratorio.value.subTipo,
+      nombreExamen: this.formLaboratorio.value.nombre,
+      estado: this.formLaboratorio.value.estado,
+    }
+    console.log('data to edit ', this.dataLabo, ' id ', this.idLabo);
+    this.laboratorioService.putLaboratorio(this.idLabo, this.dataLabo).then(res=>{
+      console.log('se edito correctamente');
+      this.listarExamName();
+      this.canceled();
+    })
+  }
+  eliminar(rowData) {
 
   }
 }
