@@ -113,8 +113,8 @@
     <ng-template pTemplate="header"> </ng-template>
     <ng-template pTemplate="body" let-data>
       <tr>
-        <td colspan="2">Volumen:</td>
-        <td colspan="2" pEditableColumn>
+        <td colspan="2" style="width: 13;">Volumen:</td>
+        <td colspan="2" style="width: 20;" pEditableColumn class="p-fluid"> 
           <p-cellEditor>
             <ng-template pTemplate="input">
               <input pInputText type="text" [(ngModel)]="data.volumen" />
@@ -124,8 +124,8 @@
             </ng-template>
           </p-cellEditor>
         </td>
-        <td colspan="2">Color:</td>
-        <td colspan="2" pEditableColumn>
+        <td colspan="2" style="width:1">Color:</td>
+        <td colspan="2" style="width: 20;" pEditableColumn class="p-fluid">
           <p-cellEditor>
             <ng-template pTemplate="input">
               <input pInputText type="text" [(ngModel)]="data.color" />
@@ -135,8 +135,8 @@
             </ng-template>
           </p-cellEditor>
         </td>
-        <td colspan="2">Aspecto:</td>
-        <td colspan="2" pEditableColumn>
+        <td colspan="2" style="width:13">Aspecto:</td>
+        <td colspan="2" style="width: 20;" pEditableColumn class="p-fluid">
           <p-cellEditor>
             <ng-template pTemplate="input">
               <input pInputText type="text" [(ngModel)]="data.aspecto" />
@@ -152,8 +152,8 @@
         <td colspan="6">SEDIMENTO:</td>
       </tr>
       <tr>
-        <td colspan="3">ph</td>
-        <td colspan="3" pEditableColumn>
+        <td colspan="3" style="width:20%">ph</td>
+        <td colspan="3" pEditableColumn style="width:30%" class="p-fluid">
           <p-cellEditor>
             <ng-template pTemplate="input">
               <input pInputText type="text" [(ngModel)]="data.ph" />
@@ -163,8 +163,8 @@
             </ng-template>
           </p-cellEditor>
         </td>
-        <td colspan="3">Células Epiteliales</td>
-        <td colspan="3" pEditableColumn>
+        <td colspan="3" style="width:20%">Células Epiteliales </td>
+        <td colspan="3" style="width:30%" pEditableColumn>
           <p-cellEditor>
             <ng-template pTemplate="input">
               <input
