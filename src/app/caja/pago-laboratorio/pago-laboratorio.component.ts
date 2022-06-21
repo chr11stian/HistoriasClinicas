@@ -153,10 +153,10 @@ export class PagoLaboratorioComponent implements OnInit {
       tipo: "R",
       tipoDocReceptor: this.tipoDocReceptor,
       nroDocReceptor: this.nroDocReceptor,
-      apellidos: this.formCaja.value.apePaterno,
-      nombres: this.formCaja.value.nombres,
+      apellidos: this.formCaja.getRawValue().apePaterno,
+      nombres: this.formCaja.getRawValue().nombres,
       detalle: examenesLabo,
-      importeTotal: this.formCaja.value.precioTotal
+      importeTotal: this.formCaja.getRawValue().precioTotal
     }
     this.servicesService.pagarRecibo(this.idIpress, this.nroCaja, datos).subscribe((res: any) => {
       Swal.fire({
@@ -274,6 +274,15 @@ export class PagoLaboratorioComponent implements OnInit {
     })
     this.procedimientosPagar = event.examenes;
     this.calcularTotalRecibo(this.procedimientosPagar);
+
+    this.formCaja.get('nroDoc').disable();
+    this.formCaja.get('apePaterno').disable();
+    this.formCaja.get('nombres').disable();
+    this.formCaja.get('edad').disable();
+    this.formCaja.get('nroCaja').disable();
+    this.formCaja.get('fechaRecibo').disable();
+    this.formCaja.get('precioTotal').disable();
+    this.formCaja.get('nroBoleta').disable();
     this.Dialogpagos = true;
   }
 
@@ -299,24 +308,7 @@ export class PagoLaboratorioComponent implements OnInit {
   openModalProcedimiento() {
     this.Dialogprocedimientos = true;
   }
-  enviarProcedimientoLista() {
-    var proce = {
-      ups: this.formProcedimiento.value.ups,
-      codigo: this.formProcedimiento.value.codigo,
-      descripcion: this.formProcedimiento.value.descripcion.descripcion,
-      tipo: this.formProcedimiento.value.tipo,
-      idCupo: null,
-      cantidad: parseInt(this.formProcedimiento.value.cantidad),
-      precioUnitario: parseFloat(this.formProcedimiento.value.precio),
-      importe: parseInt(this.formProcedimiento.value.cantidad) * parseFloat(this.formProcedimiento.value.precio)
-    }
-    console.log(proce);
-    this.procedimientosPagar.push(proce);
-    this.Dialogprocedimientos = false;
-    this.formProcedimiento.reset();
-    this.procedimientos = [];
-    this.calcularTotalRecibo(this.procedimientosPagar);
-  }
+  
   calcularTotalRecibo(lista) {
     if (lista.length == 0) {
       this.formCaja.get("precioTotal").setValue("0");
