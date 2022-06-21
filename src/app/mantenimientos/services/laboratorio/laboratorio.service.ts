@@ -47,8 +47,8 @@ export class LaboratorioService {
       .then(data => { return data; })
       .catch(error => { return error.error });
   }
-  deleteLaboratorio(idExamen: string, data) {
-    return this.http.put<any>(`${this.base_url}/${this.bd}/ipress/laboratorios/delete/${idExamen}`, data)
+  deleteLaboratorio(idExamen: string) {
+    return this.http.get<any>(`${this.base_url}/${this.bd}/ipress/laboratorios/delete/${idExamen}`)
       .toPromise()
       .then(res => <any>res)
       .then(data => { return data; })

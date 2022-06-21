@@ -105,13 +105,40 @@ export class LaboratorioComponent implements OnInit {
       estado: this.formLaboratorio.value.estado,
     }
     console.log('data to edit ', this.dataLabo, ' id ', this.idLabo);
-    this.laboratorioService.putLaboratorio(this.idLabo, this.dataLabo).then(res=>{
+    this.laboratorioService.putLaboratorio(this.idLabo, this.dataLabo).then(res => {
       console.log('se edito correctamente');
       this.listarExamName();
       this.canceled();
+      Swal.fire({
+        title: 'Se edito correctamente',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 1500
+      })
     })
   }
   eliminar(rowData) {
+    // console.log('data to delete ', rowData);
+    Swal.fire({
+      title: '¿Esta seguro que desea eliminar el examen?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.laboratorioService.deleteLaboratorio(rowData.id).then(res => {
+          Swal.fire({
+            title: 'Se elimino correctamente',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        })
+      }
+    })
 
   }
 }

@@ -63,7 +63,7 @@ export class LaboratorioComponent implements OnInit {
         })
         this.ref.onClose.subscribe((data: any) => {
             console.log('data de otro dialog ', data)
-            // if (data !== undefined) this.recuperarIntervalos();
+            this.listarPeticiones();
         })
     }
 
