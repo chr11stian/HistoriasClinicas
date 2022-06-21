@@ -56,4 +56,10 @@ export class ServicesService {
     cerrarCajaDiario(request){
         return this.http.put(`${this.base_url}/${this.bd}/caja/cerrarCaja`,request)
     }
+    getListaOrdenesLaboratorioPendientes(){
+        return this.http.get(`${this.base_url}/${this.bd}/examenesAuxiliares/caja/lista/examenes`)
+    }
+    guardarPagoExamenLabo(idExa){
+        return this.http.get(`${this.base_url}/${this.bd}/examenesAuxiliares/caja/pagar/examen/${idExa}`)
+    }
 }
