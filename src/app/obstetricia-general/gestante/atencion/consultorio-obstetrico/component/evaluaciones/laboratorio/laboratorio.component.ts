@@ -77,9 +77,12 @@ export class LaboratorioComponent implements OnInit {
         switch (data.datosLaboratorio.subTipo) {
             case "HEMATOLOGIA": {
                 this.ref = this.dialog.open(LabHematologiaComponent, {
-                    header: "LABORATORIO CLINICO - HEMATOLOGIA",
+                    header: "RESULTADO DEL LABORATORIO CLINICO - HEMATOLOGIA",
                     width: "90%",
-                    data: data
+                    data: {
+                        data: data,
+                        edit: true
+                    },
                 });
                 console.log("DATAS", data);
                 this.ref.onClose.subscribe((data: any) => {
@@ -90,9 +93,12 @@ export class LaboratorioComponent implements OnInit {
 
             case "INMUNOLOGIA": {
                 this.ref = this.dialog.open(LabInmunologiaComponent, {
-                    header: "LABORATORIO CLINICO - INMUNOLOGIA",
+                    header: "RESULTADO DEL LABORATORIO CLINICO - INMUNOLOGIA",
                     width: "90%",
-                    data: data,
+                    data: {
+                        data: data,
+                        edit: true
+                    },
                 });
                 console.log("DATA", data);
                 this.ref.onClose.subscribe((data: any) => {
@@ -119,9 +125,12 @@ export class LaboratorioComponent implements OnInit {
 
             case "BIOQUIMICA": {
                 this.ref = this.dialog.open(LabBioquimicaComponent, {
-                    header: "LABORATORIO CLINICO - BIOQUIMICA",
+                    header: "RESULTADO DEL LABORATORIO CLINICO - BIOQUIMICA",
                     width: "90%",
-                    data: data,
+                    data: {
+                        data: data,
+                        edit: true
+                    },
                 });
                 console.log("DATA", data);
                 this.ref.onClose.subscribe((data: any) => {
