@@ -1,0 +1,306 @@
+<form [formGroup]="formBioquimica">
+    <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
+        <div class="grid m-2">
+            <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
+                <div class="grid">
+                    <div class="col-12 md:col-6 lg:col-6 flex align-items-center">
+                        <div class="col-fixed" style="width:140px"><span>Apellidos y Nombres:</span></div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="apellidosNombres"/>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
+                        <div class="col-fixed" style="width:50px"><span>Edad:</span></div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="edad"/>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
+                        <div class="col-fixed" style="width:70px"><span>N° H.CL:</span></div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="nroHistoria"/>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
+                        <div class="col-fixed" style="width:70px"><span>N° S.I.S:</span></div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="nroSis"/>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-5 flex align-items-center">
+                        <div class="col-fixed" style="width:90px"><span>Solicitante:</span></div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="solicitante"/>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-3 flex align-items-center">
+                        <div class="col-fixed" style="width:120px"><span>Hora de Muestra:</span></div>
+                        <p-calendar
+                                class="w-full text-center justify-content-center"
+                                [timeOnly]="true"
+                                [ngModel]="fecha"
+                                formControlName="horaMuestra"
+                                inputId="timeonly">
+                        </p-calendar>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
+                        <div class="col-fixed" style="width:90px"><span>N° Muestra:</span></div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="nroMuestra"/>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
+                        <div class="col-fixed" style="width:70px"><span>N° Cama:</span></div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="nroCama"/>
+                    </div>
+                </div>
+                <p-divider align="center" type="dashed">
+                </p-divider>
+            </div>
+        </div>
+    </div>
+</form>
+<p-table [value]="dataBioquimica" responsiveLayout="scroll" styleClass="p-datatable-gridlines">
+    <ng-template pTemplate="header">
+        <tr>
+            <th colspan="9" style="text-align:center">Resultados: Análisis Bioquimicos</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-data let-editing="editing">
+        <tr>
+            <td style="text-align:center">Examen</td>
+            <td style="text-align:center">Resultados</td>
+            <td style="text-align:center; width: 150px">Valor de Referencia</td>
+            <td style="text-align:center">Examen</td>
+            <td style="text-align:center">Resultados</td>
+            <td style="text-align:center; width: 150px">Valor de Referencia</td>
+            <td style="text-align:center">Examen</td>
+            <td style="text-align:center">Resultados</td>
+            <td style="text-align:center; width: 130px">Valor de Referencia</td>
+        </tr>
+        <tr>
+            <td>Glicemia:</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.glicemia" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.glicemia | currency:'mg/dl.':'symbol':'1.1-1':'fr' }}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td style="text-align: center">70 - 110 mg/dl</td>
+            <td>Ácido Úrico:</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.acido_urico" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.acido_urico | currency:'mg/dl.':'symbol':'1.1-1':'fr' }}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td style="text-align: center">Varón:2.5-6.0 mg/dl Mujer:2.0-5.0 mg/dl</td>
+            <td>Billirrubina Total:</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.bilirrubinaTotal" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.bilirrubinaTotal | currency:'mg/dl.':'symbol':'1.1-1':'fr' }}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td style="text-align: center">1 - 1.2 mg/dl</td>
+        </tr>
+        <tr>
+            <td>Urea:</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.urea" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.urea | currency:'mg/dl.':'symbol':'1.1-1':'fr' }}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td style="text-align: center">20 - 45 mg/dl</td>
+            <td>Proteinas total:</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.proteinasTotal" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.proteinasTotal | currency:'mg/dl.':'symbol':'1.1-1':'fr' }}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td style="text-align: center">0.61-0.79 mg/dl</td>
+            <td>Billirrubina Directa:</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.billirubinaDirecta" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.billirubinaDirecta | currency:'mg/dl.':'symbol':'1.1-1':'fr' }}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td style="text-align: center">0.0 - 0.3 mg/dl</td>
+        </tr>
+        <tr>
+            <td>Creatinina:</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.creatinina" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.creatinina | currency:'mg/dl.':'symbol':'1.1-1':'fr' }}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td style="text-align: center">Varón:0.7-1.4 mg/dl Mujer:0.6-1.1 mg/dl</td>
+            <td>Albúmina:</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.albumina" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.albumina | currency:'mg/dl.':'symbol':'1.1-1':'fr' }}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td style="text-align: center">0.35-0.48 mg/dl</td>
+            <td>Billirrubina Indirecta:</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.billirubinaIndirecta" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.billirubinaIndirecta | currency:'mg/dl.':'symbol':'1.1-1':'fr' }}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td style="text-align: center">0.1 - 0.9 mg/dl</td>
+        </tr>
+        <tr>
+            <td>Colesterol total:</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.colesterol_total" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.colesterol_total | currency:'mg/dl.':'symbol':'1.1-1':'fr' }}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td style="text-align: center">140 - 200 mg/dl</td>
+            <td>Calcio:</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.calcio" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.calcio | currency:'mg/dl.':'symbol':'1.1-1':'fr' }}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td style="text-align: center">8.5-10.5 mg/dl</td>
+            <td>Fosfatasa Alcalina:</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.fosfatasaAlcalina" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.fosfatasaAlcalina | currency:'Ul/dl.':'symbol':'1.1-1':'fr' }}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td style="text-align: center">Adu. 68-240 Ul/l Niñ. 100-400 Ul/l</td>
+        </tr>
+        <tr>
+            <td>HDL Colesterol:</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.HDLcolesterol" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.HDLcolesterol | currency:'mg/dl.':'symbol':'1.1-1':'fr' }}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td style="text-align: center">40 - 60 mg/dl</td>
+            <td>Amilasa:</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.amilasa" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.amilasa | currency:'mg/dl.':'symbol':'1.1-1':'fr' }}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td style="text-align: center">&lt; 120 UA/dl</td>
+        </tr>
+        <tr>
+            <td>HDL Colesterol:</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.LDLcolesterol" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.LDLcolesterol | currency:'mg/dl.':'symbol':'1.1-1':'fr' }}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td style="text-align: center">&lt; 129 mg/dl</td>
+            <td>T.G.O.:</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.tgo" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.tgo | currency:'U/I':'symbol':'1.1-1':'fr' }}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td style="text-align: center">hasta 12 U/l</td>
+        </tr>
+        <tr>
+            <td>Triglicéridos:</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.trigliceridos" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.trigliceridos | currency:'mg/dl.':'symbol':'1.1-1':'fr' }}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td style="text-align: center">25-155 mg/dl</td>
+            <td>T.G.P.:</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.tgp" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.tgp | currency:'U/I':'symbol':'1.1-1':'fr' }}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td style="text-align: center">hasta 12 U/l</td>
+        </tr>
+    </ng-template>
+</p-table>
+<div class="flex justify-content-end">
+    <button style="background-color: #0c3866" class=""
+            pButton type="button"
+            (click)="Guardar()">Guardar
+    </button>
+</div>

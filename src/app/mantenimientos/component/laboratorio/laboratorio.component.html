@@ -9,8 +9,8 @@
                 (click)="addExamDialog()"></button>
         </ng-template>
     </p-toolbar>
-    <p-table [value]="laboExamList" #dt styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
-        [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+    <p-table [value]="laboExamList" #dt styleClass="p-datatable-gridlines" [rows]="10"
+        [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
         currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
         <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
             <tr>
@@ -51,8 +51,10 @@
             <div class="grid pt-3">
                 <div class="p-field col-4">
                     <label id="descripcion">Tipo</label>
-                    <input type="text" pInputText formControlName='subTipo' required
-                        oninput="this.value=this.value.toUpperCase()" />
+                    <!-- <input type="text" pInputText formControlName='subTipo' required
+                        oninput="this.value=this.value.toUpperCase()" /> -->
+                    <p-dropdown placeholder="Seleccionar" [options]="listaSubTipos" formControlName="subTipo" appendTo="body">
+                    </p-dropdown>
                 </div>
                 <div class="p-field col-8">
                     <label id="descripcion">Nombre Examen</label>

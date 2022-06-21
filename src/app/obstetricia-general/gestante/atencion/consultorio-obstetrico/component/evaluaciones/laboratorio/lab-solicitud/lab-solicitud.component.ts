@@ -19,6 +19,8 @@ export class LabSolicitudComponent implements OnInit {
     formSolicitudLab: FormGroup;
     listaSolicitud: any[] = [];
     listaSolicitud2: any[] = [];
+    examGroup: Group[] = [];
+    // examName: ExamLab[] = [];
     ListaLab: any;
     dataConsulta: any;
     idConsulta: string;
@@ -38,7 +40,7 @@ export class LabSolicitudComponent implements OnInit {
     subTipoLaboratorio: any;
     listaDeCIE: any;
     LugarExamen: any;
-    examName: Laboratory[] = [];
+    examName: ExamLab[] = [];
     auxExamList: ExamenAuxiliar[] = [];
     listaHematologia: Laboratory[] = [{ subTipe: 'HEMATOLOGIA', examen: 'HEMOGLOBINA' }, { subTipe: 'HEMATOLOGIA', examen: 'HEMATOCRITO' }, { subTipe: 'HEMATOLOGIA', examen: 'HEMOGRAMA COMPLETO' }, { subTipe: 'HEMATOLOGIA', examen: 'TIEMPO DE COAGULACIÓN' }, { subTipe: 'HEMATOLOGIA', examen: 'TIEMPO DE SANGRIA' }, { subTipe: 'HEMATOLOGIA', examen: 'V.S.G.' }, { subTipe: 'HEMATOLOGIA', examen: 'RECUENTO DE PLAQUETAS' }, { subTipe: 'HEMATOLOGIA', examen: 'RECUENTO DE GLÓBULOS ROJOS' }, { subTipe: 'HEMATOLOGIA', examen: 'RECUENTO DE GLOB BLANCOS' }, { subTipe: 'HEMATOLOGIA', examen: 'CONSTANTES CORPUSCULARES' }, { subTipe: 'HEMATOLOGIA', examen: 'COMPATIBILIDAD SANGUINEA' }];
     listaInmunologia: Laboratory[] = [{ subTipe: 'INMUNOLOGIA', examen: 'GRUPO SANGUINEO Y FACTOR Rh' }, { subTipe: 'INMUNOLOGIA', examen: 'PROTEINA "C" REACTIVA' }, { subTipe: 'INMUNOLOGIA', examen: 'REACCIÓN DE WIDAL' }, { subTipe: 'INMUNOLOGIA', examen: 'FACTOR REUMATOIDEO' }, { subTipe: 'INMUNOLOGIA', examen: 'R.P.R. y/O Prueba Rápida de Sífilis' }, { subTipe: 'INMUNOLOGIA', examen: 'V.I.H. (Prueba Rápida)' }, { subTipe: 'INMUNOLOGIA', examen: 'ANTÍGENO DE SUPREFICIE HEPATITIS B' }, { subTipe: 'INMUNOLOGIA', examen: 'BHCG (TEST DE EMBARAZO)' }, { subTipe: 'INMUNOLOGIA', examen: 'ANTIESTREPTOLISINAS (ASO)' }, { subTipe: 'INMUNOLOGIA', examen: 'ANTÍGENO ' }];
@@ -66,18 +68,15 @@ export class LabSolicitudComponent implements OnInit {
             //guardar en el ls el nroAtencion
             let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaNueva'));
             this.nroAtencion = nroAtencion;
-            console.log("entre a nueva consulta", this.nroAtencion)
+            // console.log("entre a nueva consulta", this.nroAtencion)
         } else {
             let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaEditar'));
             this.nroAtencion = nroAtencion;
-            console.log("entre a edicion consulta", this.nroAtencion)
+            // console.log("entre a edicion consulta", this.nroAtencion)
         }
 
         this.idConsulta = this.dataConsulta.id;
-        this.examenAuxiliarService.getExamListLaboratory().then(res => {
-            console.log('lista de examenes ', res);
-        })
-
+        this.listarExamenes();
     }
 
     ngOnInit(): void {
@@ -205,63 +204,91 @@ export class LabSolicitudComponent implements OnInit {
             confirmButtonText: 'Guardar'
         }).then((result) => {
             if (result.isConfirmed) {
-                Swal.fire({
-                    icon: 'success',
-                    title:'Exito',
-                    showConfirmButton: false,
-                    timer:1500
-                })
-                for (let i = 0; i < this.examName.length; i++) {
-                    let auxExam: ExamenAuxiliar = {
-                        tipoLaboratorio: 'EXAMEN_LABORATORIO',
-                        subTipo: this.examName[i].subTipe,
-                        nombreExamen: this.examName[i].examen,
-                        codPrestacion: '',
-                        codigoSIS: '',
-                        codigoHIS: '',
-                        lugarExamen: 'LABORATORIO',
-                        labExterno: ''
-                    }
-                    this.auxExamList.push(auxExam);
-                }
-                this.solicitudLaboratorio = {
-                    servicio: '',
-                    nroCama: '',
-                    examenesAuxiliares: this.auxExamList
-                }
-                this.examenAuxiliarService.postPromiseAddServiciosLaboratorio(this.dataConsulta.id, this.solicitudLaboratorio).then(res => {
-                    console.log('se guardo ', res);
-                    this.closeDialog();
-                });
-                
+                this.savePeticiones()
             }
             else {
                 Swal.fire({
-                    title:'Cancelado.',
-                    icon:'error',
+                    title: 'Cancelado.',
+                    icon: 'error',
                     showConfirmButton: false,
-                    timer:1500
+                    timer: 1500
                 })
             }
         })
-
-        
-
+    }Dialog() {
+        this.ref.close();
     }
+    makeObjExam(rptaExam) {
+        let table: any[] = [];
 
-    labPeticiones() {
-        let examNameLabel: string;
-        this.examName.forEach(item => {
-            examNameLabel = `${item.examen}`;
-            return examNameLabel;
+        rptaExam.filter((item, index) => {
+            table.push(item.subTipo);
+        })
+        let listaExamenes = table.filter((item, index) => {
+            return table.indexOf(item) === index;
+        })
+        for (let i = 0; i < listaExamenes.length; i++) {
+            let auxData = {
+                nombreGrupo: listaExamenes[i],
+                listaExam: []
+            }
+            this.examGroup.push(auxData);
+            for (let j = 0; j < rptaExam.length; j++) {
+                if (listaExamenes[i] == rptaExam[j].subTipo) {
+                    let auxExam: ExamLab = {
+                        subTipo: rptaExam[j].subTipo,
+                        nombreExamen: rptaExam[j].nombreExamen
+                    }
+                    this.examGroup[i].listaExam.push(auxExam)
+                }
+            }
+        }
+        console.log('lista de examenes ', this.examGroup);
+    }
+    listarExamenes() {
+        this.examenAuxiliarService.getExamListLaboratory().then(res => {
+            console.log('examenes disponibles ', res);
+            this.makeObjExam(res);
         })
     }
-    closeDialog() {
-        this.ref.close();
+    savePeticiones() {
+        for (let i = 0; i < this.examName.length; i++) {
+            let auxExam: ExamenAuxiliar = {
+                tipoLaboratorio: 'EXAMEN_LABORATORIO',
+                subTipo: this.examName[i].subTipo,
+                nombreExamen: this.examName[i].nombreExamen,
+                codPrestacion: '',
+                codigoSIS: '',
+                codigoHIS: '',
+                lugarExamen: 'LABORATORIO',
+                labExterno: ''
+            }
+            this.auxExamList.push(auxExam);
+        }
+        this.solicitudLaboratorio = {
+            servicio: '',
+            nroCama: '',
+            examenesAuxiliares: this.auxExamList
+        }
+        console.log('data to save ', this.solicitudLaboratorio);
+        this.examenAuxiliarService.postPromiseAddServiciosLaboratorio(this.dataConsulta.id, this.solicitudLaboratorio).then(res => {
+            console.log('se guardo ', res);
+            this.ref.close();
+        });
     }
 }
 
 interface Laboratory {
     subTipe: string,
     examen: string
+}
+interface Group {
+    nombreGrupo: string,
+    listaExam: ExamLab[]
+}
+interface ExamLab {
+    subTipo: string,
+    nombreExamen: string,
+    codigoHIS?: string,
+    codigoSIS?: string,
 }

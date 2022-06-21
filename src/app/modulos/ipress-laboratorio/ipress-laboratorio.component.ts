@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { LaboratorioService } from 'src/app/mantenimientos/services/laboratorio/laboratorio.service';
 
 @Component({
@@ -10,15 +11,27 @@ export class IpressLaboratorioComponent implements OnInit {
 
   examGroup: Group[] = [];
   examName: ExamLab[] = [];
+  addExam: boolean = false;
+  listSubTipos: string[] = []
+  formLaboIpress: FormGroup;
+  listExamsByTipe: any[] = [];
 
   constructor(
     private laboratorioService: LaboratorioService
   ) {
-    this.listarExamenesGeresa();
     this.listarExamenesIpress();
+    this.listarExamenesGeresa();
+    this.inicializarForm()
   }
 
   ngOnInit(): void {
+  }
+  inicializarForm() {
+    this.formLaboIpress = new FormGroup({
+      subTipo: new FormControl(''),
+      nombreExamen: new FormControl(''),
+      precio: new FormControl('')
+    })
   }
 
   makeObjExam(rptaExam) {
@@ -48,7 +61,6 @@ export class IpressLaboratorioComponent implements OnInit {
         }
       }
     }
-    console.log('lista de examenes ', this.examGroup);
   }
 
   async listarExamenesGeresa() {
@@ -59,7 +71,15 @@ export class IpressLaboratorioComponent implements OnInit {
   async listarExamenesIpress() {
     await this.laboratorioService.getIpressExamListLaboratory().then(res => {
       let auxExams = res.object;
+      let table: any[] = [];
       console.log('lista de examenes de la ipress', auxExams);
+      auxExams.filter(item => {
+        table.push(item.subTipo)
+      })
+      this.listSubTipos = table.filter((item, index) => {
+        return table.indexOf(item) === index;
+      })
+      console.log('lista de subtipos ', this.listSubTipos);
       for (let i = 0; i < auxExams.length; i++) {
         let auxData = {
           tipoLaboratorio: auxExams[i].tipoLaboratorio,
@@ -74,6 +94,21 @@ export class IpressLaboratorioComponent implements OnInit {
   }
   save() {
     console.log('examenes ', this.examName);
+  }
+
+  openAddExamDialog() {
+    this.addExam = true;
+  }
+  changeTipe(event) {
+    this.listExamsByTipe = [];
+    console.log('change value ', event.value);
+    this.examGroup.filter(item => {
+      if (item.nombreGrupo == event.value)
+        item.listaExam.map(item => {
+          this.listExamsByTipe.push(item)
+        })
+    })
+    console.log('lista de examenes ', this.listExamsByTipe);
   }
 }
 

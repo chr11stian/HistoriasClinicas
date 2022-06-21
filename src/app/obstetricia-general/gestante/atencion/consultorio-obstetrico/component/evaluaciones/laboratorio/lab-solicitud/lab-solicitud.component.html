@@ -169,27 +169,27 @@
                     </div> -->
                     <div class="col-12 md:col-6 lg:col-3 p-field flex flex-column">
                         <label>APELLIDOS Y NOMBRES:</label>
-                        <input type="text" pInputText class="inputText" formControlName="apellidosNombres"/>
+                        <input type="text" pInputText class="inputText" formControlName="apellidosNombres" />
                     </div>
                     <div class="col-12 md:col-6 lg:col-1 p-field flex flex-column">
                         <label>EDAD:</label>
-                        <input type="text" pInputText class="inputText" formControlName="edad"/>
+                        <input type="text" pInputText class="inputText" formControlName="edad" />
                     </div>
                     <div class="col-12 md:col-6 lg:col-1 p-field flex flex-column">
                         <label>HCL:</label>
-                        <input type="text" pInputText class="inputText" formControlName="HCL"/>
+                        <input type="text" pInputText class="inputText" formControlName="HCL" />
                     </div>
                     <div class="col-12 md:col-6 lg:col-3 p-field flex flex-column">
                         <label>SERVICIO:</label>
-                        <input type="text" pInputText class="inputText" formControlName="servicio"/>
+                        <input type="text" pInputText class="inputText" formControlName="servicio" />
                     </div>
                     <div class="col-12 md:col-6 lg:col-2 p-field flex flex-column">
                         <label>CAMA NRO:</label>
-                        <input type="text" pInputText class="inputText" formControlName="camaNro"/>
+                        <input type="text" pInputText class="inputText" formControlName="camaNro" />
                     </div>
                     <div class="col-12 md:col-6 lg:col-2 p-field flex flex-column">
                         <label>DX. PRESUNTIVO:</label>
-                        <input type="text" pInputText class="inputText" formControlName="DxPresuntivo"/>
+                        <input type="text" pInputText class="inputText" formControlName="DxPresuntivo" />
                     </div>
                 </div>
             </div>
@@ -199,87 +199,11 @@
 </div>
 <div class="col-12">
     <div class="grid">
-        <div class="col-4">
-            <p-fieldset legend="HEMATOLOGÍA" class="atencion">
-                <div *ngFor="let item of listaHematologia" class="p-field-checkbox grid">
+        <div class="col-3" *ngFor="let exam of examGroup">
+            <p-fieldset legend={{exam.nombreGrupo}} class="atencion">
+                <div *ngFor="let item of exam.listaExam" class="p-field-checkbox grid">
                     <div class="col-9">
-                        <span [for]="item" class="text-sm">{{ item.examen }}</span>
-                    </div>
-                    <div class="col-3">
-                        <p-checkbox [inputId]="item" name="item" [value]="item" [(ngModel)]="examName">
-                        </p-checkbox>
-                    </div>
-                </div>
-            </p-fieldset>
-        </div>
-        <div class="col-4">
-            <p-fieldset legend="INMUNOLOGÍA" class="atencion">
-                <div *ngFor="let item of listaInmunologia" class="p-field-checkbox grid">
-                    <div class="col-9">
-                        <span [for]="item" class="text-sm">{{ item.examen }}</span>
-                    </div>
-                    <div class="col-3">
-                        <p-checkbox [inputId]="item" name="item" [value]="item" [(ngModel)]="examName">
-                        </p-checkbox>
-                    </div>
-                </div>
-            </p-fieldset>
-        </div>
-        <div class="col-4">
-            <p-fieldset legend="BIOQUÍMICA" class="atencion">
-                <div *ngFor="let item of listaBioquimica" class="p-field-checkbox grid">
-                    <div class="col-9">
-                        <span [for]="item" class="text-sm">{{ item.examen }}</span>
-                    </div>
-                    <div class="col-3">
-                        <p-checkbox [inputId]="item" name="item" [value]="item" [(ngModel)]="examName">
-                        </p-checkbox>
-                    </div>
-                </div>
-            </p-fieldset>
-        </div>
-        <div class="col-4">
-            <p-fieldset legend="UROANÁLISIS" class="atencion">
-                <div *ngFor="let item of listaUroanalisis" class="p-field-checkbox grid">
-                    <div class="col-9">
-                        <span [for]="item" class="text-sm">{{ item.examen }}</span>
-                    </div>
-                    <div class="col-3">
-                        <p-checkbox [inputId]="item" name="item" [value]="item" [(ngModel)]="examName">
-                        </p-checkbox>
-                    </div>
-                </div>
-            </p-fieldset>
-        </div>
-        <div class="col-4">
-            <p-fieldset legend="MICROBIOLOGÍA" class="atencion">
-                <div *ngFor="let item of listaMircobiologia" class="p-field-checkbox grid">
-                    <div class="col-9">
-                        <span [for]="item" class="text-sm">{{ item.examen }}</span>
-                    </div>
-                    <div class="col-3">
-                        <p-checkbox [inputId]="item" name="item" [value]="item" [(ngModel)]="examName">
-                        </p-checkbox>
-                    </div>
-                </div>
-            </p-fieldset>
-            <p-fieldset legend="OTROS EXÁMENES" class="atencion">
-                <div *ngFor="let item of listaOtrosExamenes" class="p-field-checkbox grid">
-                    <div class="col-9">
-                        <span [for]="item" class="text-sm">{{ item.examen }}</span>
-                    </div>
-                    <div class="col-3">
-                        <p-checkbox [inputId]="item" name="item" [value]="item" [(ngModel)]="examName">
-                        </p-checkbox>
-                    </div>
-                </div>
-            </p-fieldset>
-        </div>
-        <div class="col-4">
-            <p-fieldset legend="PARASITOLOGÍA" class="atencion">
-                <div *ngFor="let item of listaParasitologia" class="p-field-checkbox grid">
-                    <div class="col-9">
-                        <span [for]="item" class="text-sm">{{ item.examen }}</span>
+                        <span [for]="item">{{ item.nombreExamen }}</span>
                     </div>
                     <div class="col-3">
                         <p-checkbox [inputId]="item" name="item" [value]="item" [(ngModel)]="examName">
