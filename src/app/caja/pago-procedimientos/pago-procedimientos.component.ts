@@ -16,7 +16,7 @@ import { ServicesService } from '../services/services.service';
 export class PagoProcedimientosComponent implements OnInit {
 
   DataPendientesPago: any;
-  idIpress= "";
+  idIpress = "";
   ipressNombre = "";
   ipressRenaes = "";
   ipressDireccion = "";
@@ -137,7 +137,7 @@ export class PagoProcedimientosComponent implements OnInit {
     return cadena;
   }
   pagar() {
-    let datos={
+    let datos = {
       tipo: "R",
       tipoDocReceptor: this.tipoDocReceptor,
       nroDocReceptor: this.nroDocReceptor,
@@ -250,9 +250,12 @@ export class PagoProcedimientosComponent implements OnInit {
     this.Dialogpagos = true;
     this.formCaja.get('nroCaja').setValue(this.nroCaja);
     this.formCaja.get('fechaRecibo').setValue(new Date().toLocaleString());
-    this.servicesService.obtenerNumeracionCaja(this.idIpress,this.nroCaja).subscribe((res: any) => {
-      this.formCaja.get('nroBoleta').setValue(res.object.contadorRecibos+1);
-  })
+    this.servicesService.obtenerNumeracionCaja(this.idIpress, this.nroCaja).subscribe((res: any) => {
+      this.formCaja.get('nroBoleta').setValue(res.object.contadorRecibos + 1);
+    })
+    this.formCaja.get('nroCaja').disable();
+    this.formCaja.get('fechaRecibo').disable();
+    this.formCaja.get('nroBoleta').disable();
   }
 
   close() {
@@ -266,7 +269,7 @@ export class PagoProcedimientosComponent implements OnInit {
     this.Dialogpagos = false;
     //this.getListaEcografiasPendientes();
     this.formCaja.reset();
-    this.procedimientosPagar=[];
+    this.procedimientosPagar = [];
   }
 
   getUPS() {
@@ -295,14 +298,14 @@ export class PagoProcedimientosComponent implements OnInit {
     this.procedimientos = [];
     this.calcularTotalRecibo(this.procedimientosPagar);
   }
-  calcularTotalRecibo(lista){
-    if (lista.length ==0){
+  calcularTotalRecibo(lista) {
+    if (lista.length == 0) {
       this.formCaja.get("precioTotal").setValue("0");
     }
-    else{
-      let cont=0;
-      for (let i=0;i<lista.length;i++){
-        cont+=lista[i].importe;
+    else {
+      let cont = 0;
+      for (let i = 0; i < lista.length; i++) {
+        cont += lista[i].importe;
       }
       this.formCaja.get("precioTotal").setValue(cont);
     }
@@ -343,7 +346,7 @@ export class PagoProcedimientosComponent implements OnInit {
       this.procedimientos = res.object;
     })
   }
-  onChangeDescripcion(){
+  onChangeDescripcion() {
     this.formProcedimiento.get("codigo").setValue(this.formProcedimiento.value.descripcion.codigo);
     this.formProcedimiento.get("precio").setValue(this.formProcedimiento.value.descripcion.costo);
   }
