@@ -10,6 +10,8 @@ import { LabParasitologiaComponent } from "../lab-parasitologia/lab-parasitologi
 import { registerLocaleData } from "@angular/common";
 import localeFr from "@angular/common/locales/fr";
 import { LabOrinaComponent } from "../lab-orina/lab-orina.component";
+import {LabBioquimicaComponent} from "../lab-bioquimica/lab-bioquimica.component";
+import { LabMicrobiologicoComponent } from "../lab-microbiologico/lab-microbiologico.component";
 
 registerLocaleData(localeFr, "fr");
 
@@ -92,14 +94,42 @@ export class ListaLaboratorioComponent implements OnInit {
         {
           this.ref = this.dialog.open(LabInmunologiaComponent, {
             header: "LABORATORIO CLINICO - INMUNOLOGIA",
-            width: "70%",
-            data: dataAux,
+            width: "90%",
+            data: data,
           });
           console.log("DATA", data);
           this.ref.onClose.subscribe((data: any) => {
             // this.buscarCuposPorPersonal();
           });
         }
+        break;
+
+      case "MICROBIOLOGICO":
+      {
+        this.ref = this.dialog.open(LabMicrobiologicoComponent, {
+          header: "LABORATORIO CLINICO - MICROBIOLOGICO",
+          width: "60%",
+          data: data,
+        });
+        console.log("DATA", data);
+        this.ref.onClose.subscribe((data: any) => {
+          // this.buscarCuposPorPersonal();
+        });
+      }
+        break;
+
+      case "BIOQUIMICA":
+      {
+        this.ref = this.dialog.open(LabBioquimicaComponent, {
+          header: "LABORATORIO CLINICO - BIOQUIMICA",
+          width: "90%",
+          data: data,
+        });
+        console.log("DATA", data);
+        this.ref.onClose.subscribe((data: any) => {
+          // this.buscarCuposPorPersonal();
+        });
+      }
         break;
       case "PARASITOLOGIA":
         {

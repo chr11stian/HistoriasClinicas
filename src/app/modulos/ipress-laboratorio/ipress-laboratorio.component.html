@@ -1,6 +1,19 @@
-<div class="grid">
-    <div class="col-4" *ngFor="let exam of examGroup">
-        <p-fieldset legend={{exam.nombreGrupo}} class="atencion" >
+<!-- <div class="grid">
+    <div class="col-12 mt-4">
+        <p-toolbar>
+            <ng-template pTemplate="left">
+                <h3 class="mt-2">EXÁMENES DE LA IPRESS</h3>
+            </ng-template>
+
+            <ng-template pTemplate="right" class="button">
+                <button class="button-agregar" icon="pi pi-save" pButton type="button" label="Guardar"
+                    (click)="save()"></button>
+            </ng-template>
+        </p-toolbar>
+    </div>
+
+    <div class="col-3" *ngFor="let exam of examGroup">
+        <p-fieldset legend={{exam.nombreGrupo}} class="atencion">
             <div *ngFor="let item of exam.listaExam" class="p-field-checkbox grid">
                 <div class="col-9">
                     <span [for]="item">{{ item.nombreExamen }}</span>
@@ -12,5 +25,73 @@
             </div>
         </p-fieldset>
     </div>
-    
+</div> -->
+<div class="grid">
+    <div class="col-12">
+        <p-toolbar>
+            <ng-template pTemplate="left">
+                <h3 class="p-m-0">Lista Exámenes de Ipress</h3>
+            </ng-template>
+            <ng-template pTemplate="right">
+                <button pButton pRipple label="Agregar Examen" icon="pi pi-plus" pButton type="button"
+                    class="button-agregar" (click)="openAddExamDialog()"></button>
+            </ng-template>
+        </p-toolbar>
+        <p-table [value]="examName" styleClass="p-datatable-gridlines">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Nro</th>
+                    <th>Nombre Examen</th>
+                    <th>Tipo</th>
+                    <th>Estado</th>
+                    <th>Acción</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-i="rowIndex">
+                <tr>
+                    <td>{{rowIndex + 1}}</td>
+                    <td>{{rowData.nombreExamen}}</td>
+                    <td>{{rowData.subTipo}}</td>
+                    <td>{{rowData.estado}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
 </div>
+<!-- DIALOG'S -->
+<p-dialog [(visible)]="addExam" [style]="{width: '50%'}" [modal]="true" styleClass="p-fluid" autoZIndex>
+    <ng-template pTemplate="header">
+        <h3>Agregar Examen</h3>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <form [formGroup]='formLaboIpress'>
+            <div class="grid pt-3">
+                <div class="p-field col-4">
+                    <label id="descripcion">Tipo:</label>
+                    <!-- <input type="text" pInputText formControlName='subTipo' required
+                        oninput="this.value=this.value.toUpperCase()" /> -->
+                    <p-dropdown placeholder="Seleccionar" [options]="listSubTipos" formControlName="subTipo" appendTo="body" (onChange)="changeTipe($event)">
+                    </p-dropdown>
+                </div>
+                <div class="p-field col-6">
+                    <label id="descripcion">Nombre del Examen:</label>
+                    <!-- <input type="text" pInputText formControlName='nombre' required
+                        oninput="this.value=this.value.toUpperCase()" /> -->
+                        <p-dropdown placeholder="Seleccionar" [options]="listExamsByTipe" formControlName="nombreExamen" appendTo="body" optionLabel="nombreExamen" optionValue="nombreExamen">
+                        </p-dropdown>
+                </div>
+                <div class="col-2">
+                    <label>Precio:</label>
+                    <input type="number" pInputText formControlName='precio' placeholder="Precio"
+                        class="p-fluid inputfield w-full">
+                </div>
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="canceled()"></button>
+        <button *ngIf="!isUpdate" pButton type="button" label="Guardar" (click)="saveForm()"></button>
+        <button *ngIf="isUpdate" pButton type="button" label="Guardarrrr" (click)="editarDatos()"></button>
+    </ng-template>
+</p-dialog>

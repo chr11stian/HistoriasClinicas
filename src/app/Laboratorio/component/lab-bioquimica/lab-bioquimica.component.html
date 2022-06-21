@@ -1,4 +1,4 @@
-<form [formGroup]="formInmunologia">
+<form [formGroup]="formBioquimica">
     <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
         <div class="grid m-2">
             <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
@@ -48,249 +48,253 @@
         </div>
     </div>
 </form>
-<p-table [value]="dataInmunologia" responsiveLayout="scroll" styleClass="p-datatable-gridlines">
+<p-table [value]="dataBioquimica" responsiveLayout="scroll" styleClass="p-datatable-gridlines">
     <ng-template pTemplate="header">
         <tr>
-            <th colspan="6" style="text-align:center">Resultados: Análisis Inmunológicos</th>
+            <th colspan="9" style="text-align:center">Resultados: Análisis Bioquimicos</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-data let-editing="editing">
         <tr>
-            <td>Reaccion de Widal:</td>
-            <td pEditableColumn style="text-align:center">
-                <p-cellEditor>
-                    <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="data.reaccionWidal" required>
-                    </ng-template>
-                    <ng-template pTemplate="output">
-                        {{data.reaccionWidal }}
-                    </ng-template>
-                </p-cellEditor>
-            </td>
-            <td>Proteína C.Reactiva-PCR:</td>
-            <td pEditableColumn style="text-align:center">
-                <p-cellEditor>
-                    <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="data.proteinaCReactiva" required>
-                    </ng-template>
-                    <ng-template pTemplate="output">
-                        {{data.proteinaCReactiva}}
-                    </ng-template>
-                </p-cellEditor>
-            </td>
-            <td>Tipo de Muestra:</td>
-            <td pEditableColumn style="text-align:center">
-                <p-cellEditor>
-                    <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="data.tipoMuestra" required>
-                    </ng-template>
-                    <ng-template pTemplate="output">
-                        {{data.tipoMuestra}}
-                    </ng-template>
-                </p-cellEditor>
-            </td>
+            <td style="text-align:center">Examen</td>
+            <td style="text-align:center">Resultados</td>
+            <td style="text-align:center; width: 150px">Valor de Referencia</td>
+            <td style="text-align:center">Examen</td>
+            <td style="text-align:center">Resultados</td>
+            <td style="text-align:center; width: 150px">Valor de Referencia</td>
+            <td style="text-align:center">Examen</td>
+            <td style="text-align:center">Resultados</td>
+            <td style="text-align:center; width: 130px">Valor de Referencia</td>
         </tr>
         <tr>
-            <td>Ag. Típhyco "O":</td>
+            <td>Glicemia:</td>
             <td pEditableColumn style="text-align:center">
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="data.agTiphyco_o" required>
+                        <input pInputText type="text" [(ngModel)]="data.glicemia" required>
                     </ng-template>
                     <ng-template pTemplate="output">
-                        {{data.agTiphyco_o | currency:'dils.':'symbol':'1.1-1':'fr'}}
+                        {{data.glicemia | currency:'mg/dl.':'symbol':'1.1-1':'fr' }}
                     </ng-template>
                 </p-cellEditor>
             </td>
-            <td>Factor Reumatoideo:</td>
+            <td style="text-align: center">70 - 110 mg/dl</td>
+            <td>Ácido Úrico:</td>
             <td pEditableColumn style="text-align:center">
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="data.factorReumatoideo" required>
+                        <input pInputText type="text" [(ngModel)]="data.acido_urico" required>
                     </ng-template>
                     <ng-template pTemplate="output">
-                        {{data.factorReumatoideo}}
+                        {{data.acido_urico | currency:'mg/dl.':'symbol':'1.1-1':'fr' }}
                     </ng-template>
                 </p-cellEditor>
             </td>
-            <td colspan="2" style="text-align:center">B-HCG (Test de Embarazo)</td>
+            <td style="text-align: center">Varón:2.5-6.0 mg/dl Mujer:2.0-5.0 mg/dl</td>
+            <td>Billirrubina Total:</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.bilirrubinaTotal" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.bilirrubinaTotal | currency:'mg/dl.':'symbol':'1.1-1':'fr' }}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td style="text-align: center">1 - 1.2 mg/dl</td>
         </tr>
         <tr>
-            <td>Ag. Típhyco "H":</td>
+            <td>Urea:</td>
             <td pEditableColumn style="text-align:center">
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="data.agTiphyco_h" required>
+                        <input pInputText type="text" [(ngModel)]="data.urea" required>
                     </ng-template>
                     <ng-template pTemplate="output">
-                        {{data.agTiphyco_h | currency:'dils.':'symbol':'1.1-1':'fr'}}
+                        {{data.urea | currency:'mg/dl.':'symbol':'1.1-1':'fr' }}
                     </ng-template>
                 </p-cellEditor>
             </td>
-            <td>Antiestreptolisinas "O" ASO:</td>
+            <td style="text-align: center">20 - 45 mg/dl</td>
+            <td>Proteinas total:</td>
             <td pEditableColumn style="text-align:center">
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="data.antiestreptolisinasO" required>
+                        <input pInputText type="text" [(ngModel)]="data.proteinasTotal" required>
                     </ng-template>
                     <ng-template pTemplate="output">
-                        {{data.antiestreptolisinasO}}
+                        {{data.proteinasTotal | currency:'mg/dl.':'symbol':'1.1-1':'fr' }}
                     </ng-template>
                 </p-cellEditor>
             </td>
-            <td>Resultado:</td>
+            <td style="text-align: center">0.61-0.79 mg/dl</td>
+            <td>Billirrubina Directa:</td>
             <td pEditableColumn style="text-align:center">
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="data.bhcg.resultado" required>
+                        <input pInputText type="text" [(ngModel)]="data.billirubinaDirecta" required>
                     </ng-template>
                     <ng-template pTemplate="output">
-                        {{data.bhcg.resultado}}
+                        {{data.billirubinaDirecta | currency:'mg/dl.':'symbol':'1.1-1':'fr' }}
                     </ng-template>
                 </p-cellEditor>
             </td>
+            <td style="text-align: center">0.0 - 0.3 mg/dl</td>
         </tr>
         <tr>
-            <td>Ag. Paratíphyco "A":</td>
+            <td>Creatinina:</td>
             <td pEditableColumn style="text-align:center">
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="data.agTiphyco_a" required>
+                        <input pInputText type="text" [(ngModel)]="data.creatinina" required>
                     </ng-template>
                     <ng-template pTemplate="output">
-                        {{data.agTiphyco_a  | currency:'dils.':'symbol':'1.1-1':'fr'}}
+                        {{data.creatinina | currency:'mg/dl.':'symbol':'1.1-1':'fr' }}
                     </ng-template>
                 </p-cellEditor>
             </td>
-            <td>R.P.R.:</td>
+            <td style="text-align: center">Varón:0.7-1.4 mg/dl Mujer:0.6-1.1 mg/dl</td>
+            <td>Albúmina:</td>
             <td pEditableColumn style="text-align:center">
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="data.rpr" required>
+                        <input pInputText type="text" [(ngModel)]="data.albumina" required>
                     </ng-template>
                     <ng-template pTemplate="output">
-                        {{data.rpr | currency:'dils.':'symbol':'1.1-1':'fr'}}
+                        {{data.albumina | currency:'mg/dl.':'symbol':'1.1-1':'fr' }}
                     </ng-template>
                 </p-cellEditor>
             </td>
-            <td>Muestra:</td>
+            <td style="text-align: center">0.35-0.48 mg/dl</td>
+            <td>Billirrubina Indirecta:</td>
             <td pEditableColumn style="text-align:center">
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="data.bhcg.muestra" required>
+                        <input pInputText type="text" [(ngModel)]="data.billirubinaIndirecta" required>
                     </ng-template>
                     <ng-template pTemplate="output">
-                        {{data.bhcg.muestra}}
+                        {{data.billirubinaIndirecta | currency:'mg/dl.':'symbol':'1.1-1':'fr' }}
                     </ng-template>
                 </p-cellEditor>
             </td>
+            <td style="text-align: center">0.1 - 0.9 mg/dl</td>
         </tr>
         <tr>
-            <td>Ag Paratíphyco "B":</td>
+            <td>Colesterol total:</td>
             <td pEditableColumn style="text-align:center">
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="data.agTiphyco_b" required>
+                        <input pInputText type="text" [(ngModel)]="data.colesterol_total" required>
                     </ng-template>
                     <ng-template pTemplate="output">
-                        {{data.agTiphyco_b | currency:'dils.':'symbol':'1.1-1':'fr'}}
+                        {{data.colesterol_total | currency:'mg/dl.':'symbol':'1.1-1':'fr' }}
                     </ng-template>
                 </p-cellEditor>
             </td>
-            <td>Sifilis (prueba rápida):</td>
+            <td style="text-align: center">140 - 200 mg/dl</td>
+            <td>Calcio:</td>
             <td pEditableColumn style="text-align:center">
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="data.sifilis" required>
+                        <input pInputText type="text" [(ngModel)]="data.calcio" required>
                     </ng-template>
                     <ng-template pTemplate="output">
-                        {{data.sifilis}}
+                        {{data.calcio | currency:'mg/dl.':'symbol':'1.1-1':'fr' }}
                     </ng-template>
                 </p-cellEditor>
             </td>
-            <td>Reactivo:</td>
+            <td style="text-align: center">8.5-10.5 mg/dl</td>
+            <td>Fosfatasa Alcalina:</td>
             <td pEditableColumn style="text-align:center">
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="data.bhcg.reactivo" required>
+                        <input pInputText type="text" [(ngModel)]="data.fosfatasaAlcalina" required>
                     </ng-template>
                     <ng-template pTemplate="output">
-                        {{data.bhcg.reactivo}}
+                        {{data.fosfatasaAlcalina | currency:'Ul/dl.':'symbol':'1.1-1':'fr' }}
                     </ng-template>
                 </p-cellEditor>
             </td>
+            <td style="text-align: center">Adu. 68-240 Ul/l Niñ. 100-400 Ul/l</td>
         </tr>
         <tr>
-            <td>HBsAg:</td>
+            <td>HDL Colesterol:</td>
             <td pEditableColumn style="text-align:center">
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="data.HBsAg" required>
+                        <input pInputText type="text" [(ngModel)]="data.HDLcolesterol" required>
                     </ng-template>
                     <ng-template pTemplate="output">
-                        {{data.HBsAg}}
+                        {{data.HDLcolesterol | currency:'mg/dl.':'symbol':'1.1-1':'fr' }}
                     </ng-template>
                 </p-cellEditor>
             </td>
-            <td>V.I.H.1 y V.I.H.2 (prueba rápida):</td>
+            <td style="text-align: center">40 - 60 mg/dl</td>
+            <td>Amilasa:</td>
             <td pEditableColumn style="text-align:center">
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="data.vih12" required>
+                        <input pInputText type="text" [(ngModel)]="data.amilasa" required>
                     </ng-template>
                     <ng-template pTemplate="output">
-                        {{data.vih12}}
+                        {{data.amilasa | currency:'mg/dl.':'symbol':'1.1-1':'fr' }}
                     </ng-template>
                 </p-cellEditor>
             </td>
+            <td style="text-align: center">&lt; 120 UA/dl</td>
         </tr>
         <tr>
-            <td>Grupo sanguíneo:</td>
+            <td>HDL Colesterol:</td>
             <td pEditableColumn style="text-align:center">
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="data.grupoSanguineo" required>
+                        <input pInputText type="text" [(ngModel)]="data.LDLcolesterol" required>
                     </ng-template>
                     <ng-template pTemplate="output">
-                        {{data.grupoSanguineo}}
+                        {{data.LDLcolesterol | currency:'mg/dl.':'symbol':'1.1-1':'fr' }}
                     </ng-template>
                 </p-cellEditor>
             </td>
-            <td>PSA Total (prueba rápida)</td>
+            <td style="text-align: center">&lt; 129 mg/dl</td>
+            <td>T.G.O.:</td>
             <td pEditableColumn style="text-align:center">
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="data.psaTotal" required>
+                        <input pInputText type="text" [(ngModel)]="data.tgo" required>
                     </ng-template>
                     <ng-template pTemplate="output">
-                        {{data.psaTotal}}
+                        {{data.tgo | currency:'U/I':'symbol':'1.1-1':'fr' }}
                     </ng-template>
                 </p-cellEditor>
             </td>
+            <td style="text-align: center">hasta 12 U/l</td>
         </tr>
         <tr>
-            <td>Factor Rh:</td>
+            <td>Triglicéridos:</td>
             <td pEditableColumn style="text-align:center">
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="data.factorRH" required>
+                        <input pInputText type="text" [(ngModel)]="data.trigliceridos" required>
                     </ng-template>
                     <ng-template pTemplate="output">
-                        {{data.factorRH}}
+                        {{data.trigliceridos | currency:'mg/dl.':'symbol':'1.1-1':'fr' }}
                     </ng-template>
                 </p-cellEditor>
             </td>
-            <td>Otros:</td>
+            <td style="text-align: center">25-155 mg/dl</td>
+            <td>T.G.P.:</td>
             <td pEditableColumn style="text-align:center">
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="data.otros" required>
+                        <input pInputText type="text" [(ngModel)]="data.tgp" required>
                     </ng-template>
                     <ng-template pTemplate="output">
-                        {{data.otros}}
+                        {{data.tgp | currency:'U/I':'symbol':'1.1-1':'fr' }}
                     </ng-template>
                 </p-cellEditor>
             </td>
+            <td style="text-align: center">hasta 12 U/l</td>
         </tr>
     </ng-template>
 </p-table>
