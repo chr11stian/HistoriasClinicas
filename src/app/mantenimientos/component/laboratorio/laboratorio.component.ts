@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 import { LaboratorioService } from '../../services/laboratorio/laboratorio.service';
 
 @Component({
@@ -16,6 +17,7 @@ export class LaboratorioComponent implements OnInit {
   stateOptions = ['ACTIVADO', 'DESACTIVADO'];
   dataLabo: DataLabo;
   laboExamList: any;
+  listaSubTipos: string[] = ['HEMATOLOGIA', 'BIOQUIMICA', 'MICROBIOLOGIA', 'INMUNOLOGIA', 'UROANALISIS', 'PARASITOLOGIA', 'OTROS EXAMENES'];
 
   constructor(
     private laboratorioService: LaboratorioService
@@ -64,7 +66,22 @@ export class LaboratorioComponent implements OnInit {
     this.recuperarData();
     console.log('data to save ', this.dataLabo);
     this.laboratorioService.postSaveLaboratorio(this.dataLabo).then((res => {
-      console.log('se guardo correctamente ', res);
+      if (res.cod == "2010") {
+        Swal.fire({
+          title: 'Ya se agrego ese examen.',
+          icon: 'warning',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        this.canceled();
+        return
+      }
+      Swal.fire({
+        title: 'Se agrego el examen correctamente',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 1500
+      })
       this.listarExamName();
       this.canceled();
     }))
