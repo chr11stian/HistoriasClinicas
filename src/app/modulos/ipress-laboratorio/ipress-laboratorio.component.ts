@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { LaboratorioService } from 'src/app/mantenimientos/services/laboratorio/laboratorio.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-ipress-laboratorio',
@@ -15,6 +16,8 @@ export class IpressLaboratorioComponent implements OnInit {
   listSubTipos: string[] = []
   formLaboIpress: FormGroup;
   listExamsByTipe: any[] = [];
+  dataLabo: any[] = [];
+  listaExamenes: string[] = [];
 
   constructor(
     private laboratorioService: LaboratorioService
@@ -35,27 +38,31 @@ export class IpressLaboratorioComponent implements OnInit {
   }
 
   makeObjExam(rptaExam) {
+    // console.log('input de examenes ', rptaExam);
     let table: any[] = [];
 
     rptaExam.filter((item, index) => {
       table.push(item.subTipo);
     })
-    let listaExamenes = table.filter((item, index) => {
+    
+    this.listaExamenes = table.filter((item, index) => {
       return table.indexOf(item) === index;
     })
-    for (let i = 0; i < listaExamenes.length; i++) {
+    console.log('input de examenes ', this.listaExamenes);
+    for (let i = 0; i < this.listaExamenes.length; i++) {
       let auxData = {
-        nombreGrupo: listaExamenes[i],
+        nombreGrupo: this.listaExamenes[i],
         listaExam: []
       }
       this.examGroup.push(auxData);
       for (let j = 0; j < rptaExam.length; j++) {
-        if (listaExamenes[i] == rptaExam[j].subTipo) {
+        if (this.listaExamenes[i] == rptaExam[j].subTipo) {
           let auxExam: ExamLab = {
             tipoLaboratorio: rptaExam[j].tipoLaboratorio,
             subTipo: rptaExam[j].subTipo,
             nombreExamen: rptaExam[j].nombreExamen,
-            estado: rptaExam[j].estado
+            estado: rptaExam[j].estado,
+            id: rptaExam[j].id
           }
           this.examGroup[i].listaExam.push(auxExam)
         }
@@ -71,8 +78,8 @@ export class IpressLaboratorioComponent implements OnInit {
   async listarExamenesIpress() {
     await this.laboratorioService.getIpressExamListLaboratory().then(res => {
       let auxExams = res.object;
+      console.log('print todos ', auxExams);
       let table: any[] = [];
-      console.log('lista de examenes de la ipress', auxExams);
       auxExams.filter(item => {
         table.push(item.subTipo)
       })
@@ -85,7 +92,9 @@ export class IpressLaboratorioComponent implements OnInit {
           tipoLaboratorio: auxExams[i].tipoLaboratorio,
           subTipo: auxExams[i].subTipo,
           nombreExamen: auxExams[i].nombreExamen,
-          estado: 'ACTIVADO'
+          estado: 'ACTIVADO',
+          id: auxExams[i].id,
+          precio: auxExams[i].precio
         }
         this.examName.push(auxData)
       }
@@ -93,22 +102,53 @@ export class IpressLaboratorioComponent implements OnInit {
     })
   }
   save() {
-    console.log('examenes ', this.examName);
+    this.recuperarData();
+    console.log('data to save ', this.dataLabo);
+    this.laboratorioService.putAddLaboratoryIpress(this.dataLabo).then(res => {
+      // if (res.cod) {
+        
+      // }
+      console.log('se guardo correctamente');
+      this.examName = [];
+      this.listarExamenesIpress();
+      this.addExam = false;
+      Swal.fire({
+        title: 'Se guardo correctamente.',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      
+    })
   }
 
   openAddExamDialog() {
+    this.formLaboIpress.reset();
     this.addExam = true;
   }
   changeTipe(event) {
     this.listExamsByTipe = [];
-    console.log('change value ', event.value);
+    console.log('change value ', event);
     this.examGroup.filter(item => {
-      if (item.nombreGrupo == event.value)
+      if (item.nombreGrupo == event)
         item.listaExam.map(item => {
-          this.listExamsByTipe.push(item)
+          this.listExamsByTipe.push(item);
         })
     })
     console.log('lista de examenes ', this.listExamsByTipe);
+  }
+  recuperarData() {
+    let auxData = {
+      laboratorio_id: this.formLaboIpress.value.nombreExamen,
+      precio: this.formLaboIpress.value.precio,
+    }
+    this.dataLabo.push(auxData)
+  }
+  saveEdit() {
+    // this.laboratorioService.
+  }
+  eliminar() {
+
   }
 }
 
@@ -123,4 +163,5 @@ interface ExamLab {
   codigoHIS?: string,
   codigoSIS?: string,
   estado: string,
+  id: string
 }

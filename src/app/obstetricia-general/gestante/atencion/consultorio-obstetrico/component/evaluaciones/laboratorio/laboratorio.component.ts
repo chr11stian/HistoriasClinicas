@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
-import {LabSolicitudComponent} from "./lab-solicitud/lab-solicitud.component";
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import { Component, OnInit } from '@angular/core';
+import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
+import { LabSolicitudComponent } from "./lab-solicitud/lab-solicitud.component";
+import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import {
     LabHematologiaComponent
 } from "../../../../../../../Laboratorio/component/lab-hematologia/lab-hematologia.component";
@@ -17,8 +17,9 @@ import {
 import {
     LabParasitologiaComponent
 } from "../../../../../../../Laboratorio/component/lab-parasitologia/lab-parasitologia.component";
-import {LabOrinaComponent} from "../../../../../../../Laboratorio/component/lab-orina/lab-orina.component";
-import {LaboratoriosService} from "../../../../../../../Laboratorio/services/laboratorios.service";
+import { LabOrinaComponent } from "../../../../../../../Laboratorio/component/lab-orina/lab-orina.component";
+import { LaboratoriosService } from "../../../../../../../Laboratorio/services/laboratorios.service";
+import { ExamenesAuxiliaresService } from 'src/app/cred/citas/atencion-cred/consulta-principal/services/examenes-auxiliares.service';
 
 @Component({
     selector: 'app-laboratorio',
@@ -32,11 +33,16 @@ export class LaboratorioComponent implements OnInit {
     usuario: any
     dataExamenesRealizados: any;
     loading: boolean = true;
+    idConsulta: string
+    listaExamen: any[] = [];
 
     constructor(public dialog: DialogService,
-                private form: FormBuilder,
-                private laboratoriosService: LaboratoriosService) {
+        private form: FormBuilder,
+        private laboratoriosService: LaboratoriosService,
+        private examenAuxiliarService: ExamenesAuxiliaresService) {
         this.dataConsulta = JSON.parse(localStorage.getItem('datosConsultaActual'));
+        this.idConsulta = JSON.parse(localStorage.getItem('IDConsulta'));
+        this.listarPeticiones();
     }
 
 
@@ -49,11 +55,11 @@ export class LaboratorioComponent implements OnInit {
         this.ref = this.dialog.open(LabSolicitudComponent, {
             header: "SOLICITUD DE EXAMENES DE LABORATORIO",
             width: "60%",
-            height: "90%",
-            // contentStyle: {
-            //     "max-height": "92%",
-            //     overflow: "auto",
-            // },
+            // height: "90%",
+            contentStyle: {
+                "max-height": "92%",
+                overflow: "auto",
+            },
         })
         this.ref.onClose.subscribe((data: any) => {
             console.log('data de otro dialog ', data)
@@ -77,9 +83,12 @@ export class LaboratorioComponent implements OnInit {
         switch (data.datosLaboratorio.subTipo) {
             case "HEMATOLOGIA": {
                 this.ref = this.dialog.open(LabHematologiaComponent, {
-                    header: "LABORATORIO CLINICO - HEMATOLOGIA",
+                    header: "RESULTADO DEL LABORATORIO CLINICO - HEMATOLOGIA",
                     width: "90%",
-                    data: data
+                    data: {
+                        data: data,
+                        edit: true
+                    },
                 });
                 console.log("DATAS", data);
                 this.ref.onClose.subscribe((data: any) => {
@@ -90,9 +99,12 @@ export class LaboratorioComponent implements OnInit {
 
             case "INMUNOLOGIA": {
                 this.ref = this.dialog.open(LabInmunologiaComponent, {
-                    header: "LABORATORIO CLINICO - INMUNOLOGIA",
+                    header: "RESULTADO DEL LABORATORIO CLINICO - INMUNOLOGIA",
                     width: "90%",
-                    data: data,
+                    data: {
+                        data: data,
+                        edit: true
+                    },
                 });
                 console.log("DATA", data);
                 this.ref.onClose.subscribe((data: any) => {
@@ -119,9 +131,12 @@ export class LaboratorioComponent implements OnInit {
 
             case "BIOQUIMICA": {
                 this.ref = this.dialog.open(LabBioquimicaComponent, {
-                    header: "LABORATORIO CLINICO - BIOQUIMICA",
+                    header: "RESULTADO DEL LABORATORIO CLINICO - BIOQUIMICA",
                     width: "90%",
-                    data: data,
+                    data: {
+                        data: data,
+                        edit: true
+                    },
                 });
                 console.log("DATA", data);
                 this.ref.onClose.subscribe((data: any) => {
@@ -153,5 +168,11 @@ export class LaboratorioComponent implements OnInit {
             }
                 break;
         }
+    }
+    listarPeticiones() {
+        this.examenAuxiliarService.getListarPeticiones(this.idConsulta).then(res => {
+            this.listaExamen = res.object.examenesAuxiliares
+            console.log('lista examenes ', this.listaExamen);
+        })
     }
 }

@@ -42,14 +42,6 @@ export class LabSolicitudComponent implements OnInit {
     LugarExamen: any;
     examName: ExamLab[] = [];
     auxExamList: ExamenAuxiliar[] = [];
-    listaHematologia: Laboratory[] = [{ subTipe: 'HEMATOLOGIA', examen: 'HEMOGLOBINA' }, { subTipe: 'HEMATOLOGIA', examen: 'HEMATOCRITO' }, { subTipe: 'HEMATOLOGIA', examen: 'HEMOGRAMA COMPLETO' }, { subTipe: 'HEMATOLOGIA', examen: 'TIEMPO DE COAGULACIÓN' }, { subTipe: 'HEMATOLOGIA', examen: 'TIEMPO DE SANGRIA' }, { subTipe: 'HEMATOLOGIA', examen: 'V.S.G.' }, { subTipe: 'HEMATOLOGIA', examen: 'RECUENTO DE PLAQUETAS' }, { subTipe: 'HEMATOLOGIA', examen: 'RECUENTO DE GLÓBULOS ROJOS' }, { subTipe: 'HEMATOLOGIA', examen: 'RECUENTO DE GLOB BLANCOS' }, { subTipe: 'HEMATOLOGIA', examen: 'CONSTANTES CORPUSCULARES' }, { subTipe: 'HEMATOLOGIA', examen: 'COMPATIBILIDAD SANGUINEA' }];
-    listaInmunologia: Laboratory[] = [{ subTipe: 'INMUNOLOGIA', examen: 'GRUPO SANGUINEO Y FACTOR Rh' }, { subTipe: 'INMUNOLOGIA', examen: 'PROTEINA "C" REACTIVA' }, { subTipe: 'INMUNOLOGIA', examen: 'REACCIÓN DE WIDAL' }, { subTipe: 'INMUNOLOGIA', examen: 'FACTOR REUMATOIDEO' }, { subTipe: 'INMUNOLOGIA', examen: 'R.P.R. y/O Prueba Rápida de Sífilis' }, { subTipe: 'INMUNOLOGIA', examen: 'V.I.H. (Prueba Rápida)' }, { subTipe: 'INMUNOLOGIA', examen: 'ANTÍGENO DE SUPREFICIE HEPATITIS B' }, { subTipe: 'INMUNOLOGIA', examen: 'BHCG (TEST DE EMBARAZO)' }, { subTipe: 'INMUNOLOGIA', examen: 'ANTIESTREPTOLISINAS (ASO)' }, { subTipe: 'INMUNOLOGIA', examen: 'ANTÍGENO ' }];
-    listaBioquimica: Laboratory[] = [{ subTipe: 'BIOQUÍMICA', examen: 'GLUCOSA' }, { subTipe: 'BIOQUÍMICA', examen: 'COLESTEROL TOTAL' }, { subTipe: 'BIOQUÍMICA', examen: 'TRIGLICERIDOS' }, { subTipe: 'BIOQUÍMICA', examen: 'UREA' }, { subTipe: 'BIOQUÍMICA', examen: 'CREATINA' }, { subTipe: 'BIOQUÍMICA', examen: 'T.G.O.' }, { subTipe: 'BIOQUÍMICA', examen: 'T.G.P.' }, { subTipe: 'BIOQUÍMICA', examen: 'BILIRRUBINAS TITAL Y FRACC' }, { subTipe: 'BIOQUÍMICA', examen: 'ALBÚMINA' }, { subTipe: 'BIOQUÍMICA', examen: 'FOSFATASA ALCALINA' }];
-    listaUroanalisis: Laboratory[] = [{ subTipe: 'UROANALISIS', examen: 'EXÁMEN COMPLETO DE ORINA' }, { subTipe: 'UROANALISIS', examen: 'SEDIMENTO URINARIO' }, { subTipe: 'UROANALISIS', examen: 'PROTEINURA CUANTITATIVA/CUALITATIVA' }, { subTipe: 'UROANALISIS', examen: 'TEST DE ÁCIDO SULFOSALICÍLICO' }];
-    listaMircobiologia: Laboratory[] = [{ subTipe: 'MICROBIOLOGÍA', examen: 'EXAMEN DIR. DE SECRETARIA VAG.' }, { subTipe: 'MICROBIOLOGÍA', examen: 'GRAM' }];
-    listaParasitologia: Laboratory[] = [{ subTipe: 'PARASITOLOGIA', examen: 'EX. PARASITOLÓGICO DIRECTO EN HECES' }, { subTipe: 'PARASITOLOGIA', examen: 'EX. PARASITÓLOGICO SERIADO EN HECES' }, { subTipe: 'PARASITOLOGIA', examen: 'TEST DE GRAHAM' }, { subTipe: 'PARASITOLOGIA', examen: 'COPROFUNCIONAL' }, { subTipe: 'PARASITOLOGIA', examen: 'THEVENOM EN HECES' }, { subTipe: 'PARASITOLOGIA', examen: 'REACCIÓN INFLAMATORIA/MOCO FECAL' }];
-    listaOtrosExamenes: Laboratory[] = [{ subTipe: 'OTROS EXAMENES', examen: 'BATERÍA DE LABORATORIO GESTANTE' }, { subTipe: 'OTROS EXAMENES', examen: 'TEST DE HELECHO' }];
-
 
     constructor(private ref: DynamicDialogRef,
         private DxService: ConsultasService,
@@ -74,8 +66,8 @@ export class LabSolicitudComponent implements OnInit {
             this.nroAtencion = nroAtencion;
             // console.log("entre a edicion consulta", this.nroAtencion)
         }
-
-        this.idConsulta = this.dataConsulta.id;
+        // console.log('data de id ', this.dataConsulta);
+        this.idConsulta = JSON.parse(localStorage.getItem('IDConsulta'));
         this.listarExamenes();
     }
 
@@ -100,7 +92,6 @@ export class LabSolicitudComponent implements OnInit {
             this.listaDeCIE = res.object
         })
     }
-
 
     recuperaDataPaciente() {
         this.formSolicitudLab.get('edad').setValue(this.dataConsulta.anioEdad);
@@ -215,7 +206,8 @@ export class LabSolicitudComponent implements OnInit {
                 })
             }
         })
-    }Dialog() {
+    }
+    closeDialog() {
         this.ref.close();
     }
     makeObjExam(rptaExam) {
@@ -272,10 +264,10 @@ export class LabSolicitudComponent implements OnInit {
         }
         console.log('data to save ', this.solicitudLaboratorio);
         this.examenAuxiliarService.postPromiseAddServiciosLaboratorio(this.dataConsulta.id, this.solicitudLaboratorio).then(res => {
-            console.log('se guardo ', res);
-            this.ref.close();
+            this.closeDialog();
         });
     }
+    
 }
 
 interface Laboratory {
