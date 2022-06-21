@@ -18,7 +18,8 @@ export class LabMicrobiologicoComponent implements OnInit {
                 private fb: FormBuilder,
                 private ref: DynamicDialogRef,
                 public config: DynamicDialogConfig) {
-        this.data = config.data;
+        console.log('conf', config.data.edit)
+        config.data.edit === undefined ? this.data = config.data : this.data = config.data.data;
     }
 
     ngOnInit(): void {
@@ -70,6 +71,31 @@ export class LabMicrobiologicoComponent implements OnInit {
         this.formMicrobiologico.get('nroCama').setValue(this.data.datosPaciente.nroCama);
         this.formMicrobiologico.get('solicitante').setValue(this.data.profesionalAcargo.apePaterno + ' ' + this.data.profesionalAcargo.apeMaterno + ' ' + this.data.profesionalAcargo.primerNombre + ' ' + this.data.profesionalAcargo.otrosNombres);
         this.formMicrobiologico.get('horaMuestra').setValue(this.fecha)
+        this.formMicrobiologico.get('nroMuestra').setValue(this.data.nroMuestra)
+
+        this.formMicrobiologicoBody.get('leucocitos').setValue(this.data.analisisDirecto.leucocitos)
+        this.formMicrobiologicoBody.get('campoLeucocitos').setValue(this.data.analisisDirecto.campoLeucocitos)
+        this.formMicrobiologicoBody.get('hematies').setValue(this.data.analisisDirecto.hematies)
+        this.formMicrobiologicoBody.get('campoHematies').setValue(this.data.analisisDirecto.campoHematies)
+        this.formMicrobiologicoBody.get('piocitos').setValue(this.data.analisisDirecto.piocitos)
+        this.formMicrobiologicoBody.get('bacterias').setValue(this.data.analisisDirecto.bacterias)
+        this.formMicrobiologicoBody.get('celulasEpiteliales').setValue(this.data.analisisDirecto.celulasEpiteliales)
+        this.formMicrobiologicoBody.get('trichomonasVaginalis').setValue(this.data.analisisDirecto.trichomonasVaginalis)
+        this.formMicrobiologicoBody.get('hifasPseudohifas').setValue(this.data.analisisDirecto.hifasPseudohifas)
+        this.formMicrobiologicoBody.get('levaduras').setValue(this.data.analisisDirecto.levaduras)
+        this.formMicrobiologicoBody.get('otrosAnalisis').setValue(this.data.analisisDirecto.otros)
+
+        this.formMicrobiologicoBody.get('bacilosGramPositivos').setValue(this.data.coloracionGram.bacilosGramPositivos)
+        this.formMicrobiologicoBody.get('bacilosGramNegativos').setValue(this.data.coloracionGram.bacilosGramNegativos)
+        this.formMicrobiologicoBody.get('cocosGramPositivos').setValue(this.data.coloracionGram.cocosGramPositivos)
+        this.formMicrobiologicoBody.get('cocosGramNegativos').setValue(this.data.coloracionGram.cocosGramNegativos)
+        this.formMicrobiologicoBody.get('gardnerella').setValue(this.data.coloracionGram.gardnerella)
+        this.formMicrobiologicoBody.get('campoGardnerella').setValue(this.data.coloracionGram.campoGardnerella)
+        this.formMicrobiologicoBody.get('mobiluncus').setValue(this.data.coloracionGram.mobiluncus)
+        this.formMicrobiologicoBody.get('campoMobiluncus').setValue(this.data.coloracionGram.campoMobiluncus)
+        this.formMicrobiologicoBody.get('floraDoderlein').setValue(this.data.coloracionGram.floraDoderlein)
+        this.formMicrobiologicoBody.get('otrosColoracion').setValue(this.data.coloracionGram.otros)
+
     }
 
     Guardar() {

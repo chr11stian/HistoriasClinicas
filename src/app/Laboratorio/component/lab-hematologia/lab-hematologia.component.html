@@ -383,10 +383,10 @@
             <td pEditableColumn style="text-align:center">
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="data.nAbastonados" required>
+                        <input pInputText type="text" [(ngModel)]="data.nabastonados" required>
                     </ng-template>
                     <ng-template pTemplate="output">
-                        {{data.nAbastonados | currency:'%':'symbol':'1.1-1':'fr'}}
+                        {{data.nabastonados | currency:'%':'symbol':'1.1-1':'fr'}}
                     </ng-template>
                 </p-cellEditor>
             </td>
@@ -429,10 +429,10 @@
             <td pEditableColumn style="text-align:center">
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="data.nSegmentados" required>
+                        <input pInputText type="text" [(ngModel)]="data.nsegmentados" required>
                     </ng-template>
                     <ng-template pTemplate="output">
-                        {{data.nSegmentados | currency:'%':'symbol':'1.1-1':'fr'}}
+                        {{data.nsegmentados | currency:'%':'symbol':'1.1-1':'fr'}}
                     </ng-template>
                 </p-cellEditor>
             </td>
@@ -455,8 +455,10 @@
     </ng-template>
 </p-table>
 <div class="flex justify-content-end">
-    <button style="background-color: #0c3866" class=""
-            pButton type="button"
-            (click)="Guardar()">Guardar
-    </button>
+    <ng-template [ngIf]="!config.data.edit">
+        <button [hidden]="config.data.edit" style="background-color: #0c3866" class=""
+                pButton type="button"
+                (click)="Guardar()">Guardar
+        </button>
+    </ng-template>
 </div>

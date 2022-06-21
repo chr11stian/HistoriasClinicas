@@ -30,4 +30,8 @@ export class LaboratoriosService {
     guardarLaboratorioMicrobiologico(idSolicitudLaboratorio, data){
         return this.http.post(`${this.base_url}/${this.bd}/examenesAuxiliares/microbiologico/${idSolicitudLaboratorio}`, data)
     }
+
+    getExamenesRealizados(nroDoc){
+        return this.http.get(`${this.base_url}/${this.bd}/examenesAuxiliares/listar/concluidos/${nroDoc}`)
+    }
 }

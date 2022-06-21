@@ -22,49 +22,12 @@ export class LabHematologiaComponent implements OnInit {
                 private fb: FormBuilder,
                 private ref: DynamicDialogRef,
                 public config: DynamicDialogConfig) {
-        this.data = config.data;
+        config.data.edit === undefined ? this.data = config.data : this.data = config.data.data;
     }
 
     ngOnInit(): void {
-        this.dataHematologia = [{
-            hemoglobina: 0,
-            rctoGlobulosRojos: 0,
-            hematocrito: 0,
-            rctoPlaquetas: 0,
-            vsg1hora: 0,
-            vsg2hora: 0,
-            grupoSanguineo: 0,
-            rctoGlobulosBlancos: 0,
-            factorRH: 0,
-            vcm: 0,
-            vrVcm: 0,
-            tiempoSangria: 0,
-            blastos: 0,
-            linfocitos: 0,
-            chcm: 0,
-            vrChcm: 0,
-            tiempoCoagulacion: 0,
-            juveniles: 0,
-            monocitos: 0,
-            hcm: 0,
-            vrHcm: 0,
-            tiempoProtrombina: 0,
-            tiempoProtrombinaVR: 0,
-            neutrofilos: 0,
-            eosinofilos: 0,
-            tiempoTromboplastina: 0,
-            tiempoTromboplastinaVR: 0,
-            nAbastonados: 0,
-            basofilos: 0,
-            reticulocitos: 0,
-            reticulocitosVR: 0,
-            nSegmentados: 0,
-            compatibilidadSanguinea: 0,
-            tipoMuestra: 0
-        }]
         this.buildForm()
         this.cargarData()
-
     }
 
     buildForm() {
@@ -81,13 +44,49 @@ export class LabHematologiaComponent implements OnInit {
     }
 
     cargarData() {
-        console.log('XL',this.data)
         this.formHematologia.get('apellidosNombres').setValue(this.data.datosPaciente.apePaterno + ' ' + this.data.datosPaciente.apeMaterno + ' ' + this.data.datosPaciente.primerNombre + ' ' + this.data.datosPaciente.otrosNombres);
         this.formHematologia.get('edad').setValue(this.data.datosPaciente.edad);
         this.formHematologia.get('nroHistoria').setValue(this.data.datosPaciente.nroHcl);
         this.formHematologia.get('nroCama').setValue(this.data.datosPaciente.nroCama);
         this.formHematologia.get('solicitante').setValue(this.data.profesionalAcargo.apePaterno + ' ' + this.data.profesionalAcargo.apeMaterno + ' ' + this.data.profesionalAcargo.primerNombre + ' ' + this.data.profesionalAcargo.otrosNombres);
         this.formHematologia.get('horaMuestra').setValue(this.fecha)
+        this.formHematologia.get('nroMuestra').setValue(this.data.nroMuestra)
+        this.dataHematologia = [{
+            hemoglobina: this.config.data.edit ? this.data.hemoglobina : 0,
+            rctoGlobulosRojos: this.config.data.edit ? this.data.rctoGlobulosRojos : 0,
+            hematocrito: this.config.data.edit ? this.data.hematocrito : 0,
+            rctoPlaquetas: this.config.data.edit ? this.data.rctoPlaquetas : 0,
+            vsg1hora: this.config.data.edit ? this.data.vsg1hora : 0,
+            vsg2hora: this.config.data.edit ? this.data.vsg2hora : 0,
+            grupoSanguineo: this.config.data.edit ? this.data.grupoSanguineo : 0,
+            rctoGlobulosBlancos: this.config.data.edit ? this.data.rctoGlobulosBlancos : 0,
+            factorRH: this.config.data.edit ? this.data.factorRH : 0,
+            vcm: this.config.data.edit ? this.data.vcm : 0,
+            vrVcm: this.config.data.edit ? this.data.vrVcm : 0,
+            tiempoSangria: this.config.data.edit ? this.data.tiempoSangria : 0,
+            blastos: this.config.data.edit ? this.data.blastos : 0,
+            linfocitos: this.config.data.edit ? this.data.linfocitos : 0,
+            chcm: this.config.data.edit ? this.data.chcm : 0,
+            vrChcm: this.config.data.edit ? this.data.vrChcm : 0,
+            tiempoCoagulacion: this.config.data.edit ? this.data.tiempoCoagulacion : 0,
+            juveniles: this.config.data.edit ? this.data.juveniles : 0,
+            monocitos: this.config.data.edit ? this.data.monocitos : 0,
+            hcm: this.config.data.edit ? this.data.hcm : 0,
+            vrHcm: this.config.data.edit ? this.data.vrHcm : 0,
+            tiempoProtrombina: this.config.data.edit ? this.data.tiempoProtrombina : 0,
+            tiempoProtrombinaVr: this.config.data.edit ? this.data.tiempoProtrombinaVr : 0,
+            neutrofilos: this.config.data.edit ? this.data.neutrofilos : 0,
+            eosinofilos: this.config.data.edit ? this.data.eosinofilos : 0,
+            tiempoTromboplastina: this.config.data.edit ? this.data.tiempoTromboplastina : 0,
+            tiempoTromboplastinaVr: this.config.data.edit ? this.data.tiempoTromboplastinaVr : 0,
+            nabastonados: this.config.data.edit ? this.data.nabastonados : 0,
+            basofilos: this.config.data.edit ? this.data.basofilos : 0,
+            reticulocitos: this.config.data.edit ? this.data.reticulocitos : 0,
+            reticulocitosVr: this.config.data.edit ? this.data.reticulocitosVr : 0,
+            nsegmentados: this.config.data.edit ? this.data.nsegmentados : 0,
+            compatibilidadSanguinea: this.config.data.edit ? this.data.compatibilidadSanguinea : 0,
+            tipoMuestra: this.config.data.edit ? this.data.tipoMuestra : 0,
+        }]
     }
 
     Guardar() {
@@ -114,16 +113,16 @@ export class LabHematologiaComponent implements OnInit {
             hcm: this.dataHematologia[0].hcm,
             vrHcm: this.dataHematologia[0].vrHcm,
             tiempoProtrombina: this.dataHematologia[0].tiempoProtrombina,
-            tiempoProtrombinaVR: this.dataHematologia[0].tiempoProtrombinaVR,
+            tiempoProtrombinaVr: this.dataHematologia[0].tiempoProtrombinaVr,
             neutrofilos: this.dataHematologia[0].neutrofilos,
             eosinofilos: this.dataHematologia[0].eosinofilos,
             tiempoTromboplastina: this.dataHematologia[0].tiempoTromboplastina,
-            tiempoTromboplastinaVR: this.dataHematologia[0].tiempoTromboplastinaVR,
-            nAbastonados: this.dataHematologia[0].nAbastonados,
+            tiempoTromboplastinaVr: this.dataHematologia[0].tiempoTromboplastinaVr,
+            nabastonados: this.dataHematologia[0].nabastonados,
             basofilos: this.dataHematologia[0].basofilos,
             reticulocitos: this.dataHematologia[0].reticulocitos,
-            reticulocitosVR: this.dataHematologia[0].reticulocitosVR,
-            nSegmentados: this.dataHematologia[0].nSegmentados,
+            reticulocitosVr: this.dataHematologia[0].reticulocitosVr,
+            nsegmentados: this.dataHematologia[0].nsegmentados,
             compatibilidadSanguinea: this.dataHematologia[0].compatibilidadSanguinea,
             tipoMuestra: this.dataHematologia[0].tipoMuestra,
             nroMuestra: this.formHematologia.value.nroMuestra,
@@ -160,16 +159,16 @@ export interface hematologiaInterface {
     hcm?: string | number
     vrHcm?: string | number
     tiempoProtrombina?: string | number
-    tiempoProtrombinaVR?: string | number
+    tiempoProtrombinaVr?: string | number
     neutrofilos?: string | number
     eosinofilos?: string | number
     tiempoTromboplastina?: string | number
-    tiempoTromboplastinaVR?: string | number
-    nAbastonados?: string | number
+    tiempoTromboplastinaVr?: string | number
+    nabastonados?: string | number
     basofilos?: string | number
     reticulocitos?: string | number
-    reticulocitosVR?: string | number
-    nSegmentados?: string | number
+    reticulocitosVr?: string | number
+    nsegmentados?: string | number
     compatibilidadSanguinea?: string | number
     hbConFactorCorrecion?: string | number
     factorCorreccion?: string | number
