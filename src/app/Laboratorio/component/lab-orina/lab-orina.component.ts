@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { DynamicDialogConfig, DynamicDialogRef } from "primeng/dynamicdialog";
 import { Orina } from "../../interfaces/parasitologia.interface";
 import { ParasitologiaService } from "../../services/parasitologia.service";
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl } from "@angular/forms";
 
 @Component({
   selector: "app-lab-orina",
@@ -10,23 +10,20 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ["./lab-orina.component.css"],
 })
 export class LabOrinaComponent implements OnInit {
-  cabeceraFG:FormGroup
+  idLaboratorio: string;
   constructor(
     private parasitologiaService: ParasitologiaService,
     private ref: DynamicDialogRef,
-    private config: DynamicDialogConfig
-  ) {}
-  idLaboratorio: string;
+    private config: DynamicDialogConfig){
+    this.buildForm();
+    }
+  dataRecibida:any
   ngOnInit(): void {
     const aux = this.config.data;
     this.idLaboratorio = aux.data.id;
-    // console.log(this.idConsulta);
-  }
-  buildForm(){
-    this.cabeceraFG=new FormGroup({ 
-      apellidosNombres:new FormControl('',Validators.required)
-
-    })
+    this.dataRecibida = this.config.data;
+    this.cargarDatos()
+  
   }
   data: Orina[] = [
     {
@@ -66,7 +63,7 @@ export class LabOrinaComponent implements OnInit {
       },
       observacionesLab: "aaa",
       resultadoExamen: "aaaa",
-      volumen:this.data[0].volumen,
+      volumen: this.data[0].volumen,
       color: this.data[0].color,
       aspecto: this.data[0].aspecto,
       ph: this.data[0].ph,
@@ -90,14 +87,39 @@ export class LabOrinaComponent implements OnInit {
       cristales: this.data[0].cristales,
       otros: this.data[0].otros,
     };
-     this.parasitologiaService
-       .PostOrina(this.idLaboratorio, inputRequest)
-       .subscribe(() => {
-         console.log("afirmattivo");
-       });
-
-
-    // console.log(inputRequest);
+    this.parasitologiaService
+      .PostOrina(this.idLaboratorio, inputRequest)
+      .subscribe(() => {
+        console.log("afirmattivo");
+      });
+  }
+  orinaFG: FormGroup;
+  buildForm() {
+    this.orinaFG = new FormGroup({
+      apellidosNombres: new FormControl("", Validators.required),
+      nroHCL: new FormControl("", Validators.required),
+      edad: new FormControl("", Validators.required),
+      nroSIS: new FormControl("", Validators.required),
+      solicitante: new FormControl("", Validators.required),
+      hour: new FormControl("", Validators.required),
+      nroMuestra: new FormControl("", Validators.required),
+      nroCama: new FormControl("", Validators.required),
+    });
+  }
+  cargarDatos(){
+    let dataPaciente=this.dataRecibida.data.datosPaciente
+    let dataSolicitante=this.dataRecibida.data.profesionalAcargo
+    console.log(dataSolicitante);
     
+    this.getFC('apellidosNombres').setValue(`${dataPaciente.apePaterno} ${dataPaciente.apeMaterno},${dataPaciente.primerNombre} ${dataPaciente.otrosNombres}`)
+    this.getFC('edad').setValue(dataPaciente.edad)
+    this.getFC('nroHCL').setValue(dataPaciente.nroHcl)
+     this.getFC('solicitante').setValue(`${dataSolicitante.apePaterno} ${dataSolicitante.apeMaterno},${dataSolicitante.primerNombre} ${dataSolicitante.otrosNombres}`)
+    
+    
+
+  }
+  getFC(control: string): AbstractControl {
+    return this.orinaFG.get(control);
   }
 }

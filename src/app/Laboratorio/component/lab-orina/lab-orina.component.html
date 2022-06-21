@@ -1,53 +1,106 @@
-<!-- <form [formGroup]="cabeceraFG">
+<form [formGroup]="orinaFG">
   <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
-      <div class="grid m-2">
-          <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
-              <div class="grid">
-                  <div class="col-12 md:col-6 lg:col-6 flex align-items-center">    
-                      <div class="col-fixed" style="width:140px"><span>Apellidos y Nombres:</span></div>
-                      <input type="text" pInputText class="w-full text-center" formControlName="apellidosNombres"/>
-                  </div>
-                  <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
-                      <div class="col-fixed" style="width:50px"><span>Edad:</span></div>
-                      <input type="text" pInputText class="w-full text-center" formControlName="edad"/>
-                  </div>
-                  <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
-                      <div class="col-fixed" style="width:70px"><span>N° H.CL:</span></div>
-                      <input type="text" pInputText class="w-full text-center" formControlName="nroHistoria"/>
-                  </div>
-                  <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
-                      <div class="col-fixed" style="width:70px"><span>N° S.I.S:</span></div>
-                      <input type="text" pInputText class="w-full text-center" formControlName="nroSis"/>
-                  </div>
-                  <div class="col-12 md:col-6 lg:col-5 flex align-items-center">
-                      <div class="col-fixed" style="width:90px"><span>Solicitante:</span></div>
-                      <input type="text" pInputText class="w-full text-center" formControlName="solicitante"/>
-                  </div>
-                  <div class="col-12 md:col-6 lg:col-3 flex align-items-center">
-                      <div class="col-fixed" style="width:120px"><span>Hora de Muestra:</span></div>
-                      <p-calendar
-                              class="w-full"
-                              [timeOnly]="true"
-                              [ngModel]="fecha"
-                              formControlName="hour"
-                              inputId="timeonly">
-                      </p-calendar>
-                  </div>
-                  <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
-                      <div class="col-fixed" style="width:90px"><span>N° Muestra:</span></div>
-                      <input type="text" pInputText class="w-full text-center" formControlName="nroMuestra"/>
-                  </div>
-                  <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
-                      <div class="col-fixed" style="width:70px"><span>N° Cama:</span></div>
-                      <input type="text" pInputText class="w-full text-center" formControlName="nroCama"/>
-                  </div>
-              </div>
-              <p-divider align="center" type="dashed">
-              </p-divider>
+    <div class="grid mt-2">
+      <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
+        <div class="grid">
+          <div class="col-12 md:col-6 lg:col-6 flex align-items-center">
+            <div class="col-fixed" style="width: 140px">
+              <span>Apellidos y Nombres:</span>
+            </div>
+            <input
+              disabled="true"
+              type="text"
+              pInputText
+              class="w-full text-center"
+              formControlName="apellidosNombres"
+             />
           </div>
+          <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
+            <div class="col-fixed" style="width: 50px"><span>Edad:</span></div>
+            <input
+              disabled="true"
+              type="text"
+              pInputText
+              class="w-full text-center"
+              formControlName="edad"
+            />
+          </div>
+          <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
+            <div class="col-fixed" style="width: 70px">
+              <span>N° H.CL:</span>
+            </div>
+            <input
+              disabled="true"
+              type="text"
+              pInputText
+              class="w-full text-center"
+              formControlName="nroHCL"
+            />
+          </div>
+          <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
+            <div class="col-fixed" style="width: 70px">
+              <span>N° S.I.S:</span>
+            </div>
+            <input
+              type="text"
+              pInputText
+              class="w-full text-center"
+              formControlName="nroSIS"
+            />
+          </div>
+          <div class="col-12 md:col-6 lg:col-5 flex align-items-center">
+            <div class="col-fixed" style="width: 90px">
+              <span>Solicitante:</span>
+            </div>
+            <input
+              disabled=true
+              type="text"
+              pInputText
+              class="w-full text-center"
+              formControlName="solicitante"
+            />
+          </div>
+          <div class="col-12 md:col-6 lg:col-3 flex align-items-center">
+            <div class="col-fixed" style="width: 120px">
+              <span>Hora de Muestra:</span>
+            </div>
+            <p-calendar
+              class="w-full"
+              [timeOnly]="true"
+              formControlName="hour"
+              inputId="timeonly"
+            >
+            </p-calendar>
+          </div>
+          <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
+            <div class="col-fixed" style="width: 90px">
+              <span>N° Muestra:</span>
+            </div>
+            <input
+              type="text"
+              pInputText
+              class="w-full text-center"
+              formControlName="nroMuestra"
+            />
+          </div>
+          <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
+            <div class="col-fixed" style="width: 70px">
+              <span>N° Cama:</span>
+            </div>
+            <input
+              type="text"
+              pInputText
+              class="w-full text-center"
+              formControlName="nroCama"
+            />
+          </div>
+        </div>
+        <p-divider align="center" type="dashed"> </p-divider>
       </div>
+    </div>
   </div>
-</form> -->
+</form>
+
 
 
 <div class="card">

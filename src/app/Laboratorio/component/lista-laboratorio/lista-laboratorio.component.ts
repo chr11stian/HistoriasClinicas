@@ -120,7 +120,7 @@ export class ListaLaboratorioComponent implements OnInit {
         {
           this.ref = this.dialog.open(LabOrinaComponent, {
             header: "LABORATORIO CLINICO - URUANALISIS",
-            width: "70%",
+            width: "90%",
             data: dataAux,
           });
           console.log("DATA", data);

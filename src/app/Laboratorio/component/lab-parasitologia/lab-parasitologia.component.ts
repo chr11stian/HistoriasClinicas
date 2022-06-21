@@ -4,7 +4,12 @@ import { registerLocaleData } from "@angular/common";
 import localeFr from "@angular/common/locales/fr";
 import { ParasitologiaService } from "../../services/parasitologia.service";
 import { DynamicDialogConfig, DynamicDialogRef } from "primeng/dynamicdialog";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  AbstractControl,
+} from "@angular/forms";
 import Swal from "sweetalert2";
 import { LoginComponent } from "../../../login/login.component";
 registerLocaleData(localeFr, "fr");
@@ -47,14 +52,16 @@ export class LabParasitologiaComponent implements OnInit {
     },
   ];
   idConsulta: string;
+  dataRecibida: any;
   ngOnInit(): void {
-    const aux = this.config.data;
-    this.idConsulta = aux.data.id;
+    this.dataRecibida = this.config.data;
+    this.idConsulta = this.dataRecibida.data.id;
     this.builform();
+    this.cargarDatos();
   }
-  parasitologiaFC: FormGroup;
+  parasitologiaFG: FormGroup;
   builform() {
-    this.parasitologiaFC = new FormGroup({
+    this.parasitologiaFG = new FormGroup({
       apellidosNombres: new FormControl("", Validators.required),
       edad: new FormControl("", Validators.required),
       nroHistoria: new FormControl("", Validators.required),
@@ -69,6 +76,23 @@ export class LabParasitologiaComponent implements OnInit {
       // LugarExamen:new FormControl('',Validators.required),
       // tipoMuestra:new FormControl('',Validators.required),
     });
+  }
+  getFC(control: string): AbstractControl {
+    return this.parasitologiaFG.get(control);
+  }
+  cargarDatos() {
+    let dataPaciente = this.dataRecibida.data.datosPaciente;
+    let dataSolicitante = this.dataRecibida.data.profesionalAcargo;
+    console.log(dataSolicitante);
+
+    this.getFC("apellidosNombres").setValue(
+      `${dataPaciente.apePaterno} ${dataPaciente.apeMaterno},${dataPaciente.primerNombre} ${dataPaciente.otrosNombres}`
+    );
+    this.getFC("edad").setValue(dataPaciente.edad);
+    this.getFC("nroHistoria").setValue(dataPaciente.nroHcl);
+    this.getFC("solicitante").setValue(
+      `${dataSolicitante.apePaterno} ${dataSolicitante.apeMaterno},${dataSolicitante.primerNombre} ${dataSolicitante.otrosNombres}`
+    );
   }
   guardar() {
     const inputRequest = {
