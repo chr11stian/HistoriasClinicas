@@ -19,12 +19,10 @@ registerLocaleData(localeFr, "fr");
   styleUrls: ["./lab-parasitologia.component.css"],
 })
 export class LabParasitologiaComponent implements OnInit {
-  constructor(
-    private parasitologiaService: ParasitologiaService,
-    private config: DynamicDialogConfig,
-    private ref: DynamicDialogRef
-  ) {}
   idLaboratorio: string = "";
+  idConsulta: string;
+  dataRecibida: any;
+  isPruebaTomada: boolean;
   data: Parasitologia[] = [
     {
       resultadosAnalisis: "",
@@ -51,25 +49,41 @@ export class LabParasitologiaComponent implements OnInit {
       frotisLesionDLeishmaniosis: "",
     },
   ];
-  idConsulta: string;
-  dataRecibida: any;
-  ngOnInit(): void {
-    this.dataRecibida = this.config.data;
-    this.idConsulta = this.dataRecibida.data.id;
+  constructor(
+    private parasitologiaService: ParasitologiaService,
+    private config: DynamicDialogConfig,
+    private ref: DynamicDialogRef
+  ) {
+    const aux = this.config.data;
+    this.idLaboratorio = aux.dataEnviada.id;
+    this.isPruebaTomada = aux.isPruebaTomada;
+    this.dataRecibida = aux.dataEnviada;
     this.builform();
-    this.cargarDatos();
+    this.cargarCabecera();
+  }
+  ngOnInit(): void {
+    this.cargarPrueba();
   }
   parasitologiaFG: FormGroup;
   builform() {
     this.parasitologiaFG = new FormGroup({
-      apellidosNombres: new FormControl("", Validators.required),
-      edad: new FormControl("", Validators.required),
-      nroHistoria: new FormControl("", Validators.required),
-      nroSis: new FormControl("", Validators.required),
-      solicitante: new FormControl("", Validators.required),
-      hour: new FormControl("", Validators.required),
-      nroMuestra: new FormControl("", Validators.required),
-      nroCama: new FormControl("", Validators.required),
+      apellidosNombres: new FormControl(
+        { value: "", disabled: true },
+        Validators.required
+      ),
+      edad: new FormControl({ value: "", disabled: true }, Validators.required),
+      nroHistoria: new FormControl(
+        { value: "", disabled: true },
+        Validators.required
+      ),
+      nroSis: new FormControl( { value: "", disabled: this.isPruebaTomada }, Validators.required),
+      solicitante: new FormControl(
+        { value: "", disabled: true },
+        Validators.required
+      ),
+      hour: new FormControl({ value: "", disabled:this.isPruebaTomada }, Validators.required),
+      nroMuestra: new FormControl( { value: "", disabled:this.isPruebaTomada }, Validators.required),
+      nroCama: new FormControl({ value: "", disabled:this.isPruebaTomada }, Validators.required),
 
       // resultados:new FormControl('',Validators.required),
       // servicio:new FormControl('',Validators.required),
@@ -80,9 +94,9 @@ export class LabParasitologiaComponent implements OnInit {
   getFC(control: string): AbstractControl {
     return this.parasitologiaFG.get(control);
   }
-  cargarDatos() {
-    let dataPaciente = this.dataRecibida.data.datosPaciente;
-    let dataSolicitante = this.dataRecibida.data.profesionalAcargo;
+  cargarCabecera() {
+    let dataPaciente = this.dataRecibida.datosPaciente;
+    let dataSolicitante = this.dataRecibida.profesionalAcargo;
     console.log(dataSolicitante);
 
     this.getFC("apellidosNombres").setValue(
@@ -93,6 +107,41 @@ export class LabParasitologiaComponent implements OnInit {
     this.getFC("solicitante").setValue(
       `${dataSolicitante.apePaterno} ${dataSolicitante.apeMaterno},${dataSolicitante.primerNombre} ${dataSolicitante.otrosNombres}`
     );
+  }
+  // aux: any;
+  cargarPrueba() {
+    this.parasitologiaService
+      .getOrina(this.idLaboratorio)
+      .subscribe((resp: any) => {
+        let aux = resp.object;
+        // this.aux = aux;
+        if (aux.estado === "CONCLUIDO") {
+          // this.data[0].resultadosAnalisis = aux;
+          // this.data[0].resultadosTipoMuestra = "";
+          this.data[0].color = aux.examenMacroscopico.color;
+          this.data[0].consistencia = aux.examenMacroscopico.consistencia;
+          this.data[0].ph = aux.examenMacroscopico.ph;
+          this.data[0].reaccion = aux.examenMacroscopico.reaccion;
+          this.data[0].mucus = aux.examenMacroscopico.mucus;
+          this.data[0].sangre = aux.examenMacroscopico.sangre;
+          this.data[0].restosAlimenticios =
+            aux.examenMacroscopico.restosAlimenticios;
+          this.data[0].filamentosMucoides =
+            aux.examenMicroscopico.filamentosMucoides;
+          this.data[0].leucocitos = aux.examenMicroscopico.leucocitos;
+          this.data[0].hematies = aux.examenMicroscopico.hematies;
+          this.data[0].cuerposGrasos = aux.examenMicroscopico.cuerposGrasos;
+          this.data[0].levaduras = aux.examenMicroscopico.levaduras;
+          this.data[0].bacterias = aux.examenMicroscopico.bacterias;
+          this.data[0].huevosDe = aux.examenMicroscopico.huevosDe[0];
+          this.data[0].quistesDe = aux.examenMicroscopico.quistesDe[0];
+          this.data[0].trofozoitosDe = aux.examenMicroscopico.trofozoitosDe[0];
+          this.data[0].larvasDe = aux.examenMicroscopico.larvasDe[0];
+          this.data[0].sangreOcultaHeces = aux.sangreOcultaHeces;
+          this.data[0].gotaGruesaDxMalaria = aux.gotaGruesa;
+          this.data[0].frotisLesionDLeishmaniosis = aux.frotisLesion;
+        }
+      });
   }
   guardar() {
     const inputRequest = {

@@ -136,9 +136,9 @@ export class ListaLaboratorioComponent implements OnInit {
         {
           this.ref = this.dialog.open(LabParasitologiaComponent, {
             header: "LABORATORIO CLINICO - PARASITOLOGIA",
-            width: "90%",
-            data: {data,
-              isPruebaTomada:false,}
+            width: "80%",
+            data: {dataEnviada:data,
+              isPruebaTomada:false}
           });
           console.log("DATA", data);
           this.ref.onClose.subscribe((data: string) => {//confirmado,cancelado and indefined

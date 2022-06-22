@@ -10,6 +10,7 @@ export class ParasitologiaService {
   bd = environment.bd;
 
   constructor(private http:HttpClient) { }
+  // servicios para laboratorios de parasitologia
   PostParasitologia(id,data){
     return this.http.post(`${this.base_url}/${this.bd}/examenesAuxiliares/parasitologia/${id}`,data)
   }

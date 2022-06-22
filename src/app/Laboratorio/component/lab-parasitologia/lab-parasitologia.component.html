@@ -8,17 +8,15 @@
               <span>Apellidos y Nombres:</span>
             </div>
             <input
-              disabled="true"
               type="text"
               pInputText
               class="w-full text-center"
               formControlName="apellidosNombres"
-             />
+            />
           </div>
           <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
             <div class="col-fixed" style="width: 50px"><span>Edad:</span></div>
             <input
-              disabled="true"
               type="text"
               pInputText
               class="w-full text-center"
@@ -30,7 +28,6 @@
               <span>N° H.CL:</span>
             </div>
             <input
-              disabled="true"
               type="text"
               pInputText
               class="w-full text-center"
@@ -53,7 +50,6 @@
               <span>Solicitante:</span>
             </div>
             <input
-              disabled=true
               type="text"
               pInputText
               class="w-full text-center"
@@ -65,6 +61,7 @@
               <span>Hora de Muestra:</span>
             </div>
             <p-calendar
+             
               class="w-full"
               [timeOnly]="true"
               formControlName="hour"
@@ -120,6 +117,7 @@
         <p-cellEditor>
           <ng-template pTemplate="input">
             <input
+              [disabled]="isPruebaTomada"
               pInputText
               type="text"
               [(ngModel)]="data.resultadosAnalisis"
@@ -135,6 +133,7 @@
         <p-cellEditor>
           <ng-template pTemplate="input">
             <input
+              [disabled]="isPruebaTomada"
               pInputText
               type="text"
               [(ngModel)]="data.resultadosTipoMuestra"
@@ -147,16 +146,25 @@
       </td>
     </tr>
     <tr>
-      <td colspan="2" class="text-center" style="width:25%">EXÁMEN MACROSCÓPICO</td>
-      <td colspan="5" class="text-center" style="width:75%">EXAMEN MICROSCOPICO(100X,400X)</td>
+      <td colspan="2" class="text-center" style="width: 25%">
+        EXÁMEN MACROSCÓPICO
+      </td>
+      <td colspan="5" class="text-center" style="width: 75%">
+        EXAMEN MICROSCOPICO(100X,400X)
+      </td>
     </tr>
     <!-- nueva fila -->
     <tr>
-      <td colspan="1" style="width:12.5%;" > Color:</td>
+      <td colspan="1" style="width: 12.5%">Color:</td>
       <td colspan="1" pEditableColumn>
         <p-cellEditor>
           <ng-template pTemplate="input">
-            <input pInputText type="text" [(ngModel)]="data.color" />
+            <input
+              [disabled]="isPruebaTomada"
+              pInputText
+              type="text"
+              [(ngModel)]="data.color"
+            />
           </ng-template>
           <ng-template pTemplate="output">
             {{ data.color }}
@@ -164,7 +172,9 @@
         </p-cellEditor>
       </td>
       <td colspan="2" class="text-center">Reaccion Inflamatoria:</td>
-      <td colspan="3" style="width: 50%" class="text-center">Formas Parasitarias:</td>
+      <td colspan="3" style="width: 50%" class="text-center">
+        Formas Parasitarias:
+      </td>
     </tr>
     <!-- nueva fila -->
     <tr>
@@ -172,18 +182,24 @@
       <td pEditableColumn>
         <p-cellEditor>
           <ng-template pTemplate="input">
-            <input pInputText type="text" [(ngModel)]="data.consistencia" />
+            <input
+              [disabled]="isPruebaTomada"
+              pInputText
+              type="text"
+              [(ngModel)]="data.consistencia"
+            />
           </ng-template>
           <ng-template pTemplate="output">
             {{ data.consistencia }}
           </ng-template>
         </p-cellEditor>
       </td>
-      <td style="width:12.5%">Filamentos mucoides</td>
+      <td style="width: 12.5%">Filamentos mucoides</td>
       <td pEditableColumn>
         <p-cellEditor>
           <ng-template pTemplate="input">
             <input
+              [disabled]="isPruebaTomada"
               pInputText
               type="text"
               [(ngModel)]="data.filamentosMucoides"
@@ -194,11 +210,21 @@
           </ng-template>
         </p-cellEditor>
       </td>
-      <td rowspan="2" style="width:15% ;"> <span style="font-weight:bold;font-size: 1.1rem;"> Se observa</span>  <br> HUEVOS DE:</td>
+      <td rowspan="2" style="width: 15%">
+        <span style="font-weight: bold; font-size: 1.1rem"> Se observa</span>
+        <br />
+        HUEVOS DE:
+      </td>
       <td rowspan="2" pEditableColumn class="p-fluid">
         <p-cellEditor>
           <ng-template pTemplate="input">
-            <input pInputText type="text" [(ngModel)]="data.huevosDe" class="p-fluid" />
+            <input
+              [disabled]="isPruebaTomada"
+              pInputText
+              type="text"
+              [(ngModel)]="data.huevosDe"
+              class="p-fluid"
+            />
           </ng-template>
           <ng-template pTemplate="output">
             {{ data.huevosDe }}
@@ -211,7 +237,12 @@
       <td pEditableColumn>
         <p-cellEditor>
           <ng-template pTemplate="input">
-            <input pInputText type="text" [(ngModel)]="data.ph" />
+            <input
+              [disabled]="isPruebaTomada"
+              pInputText
+              type="text"
+              [(ngModel)]="data.ph"
+            />
           </ng-template>
           <ng-template pTemplate="output">
             {{ data.ph }}
@@ -222,7 +253,12 @@
       <td pEditableColumn>
         <p-cellEditor>
           <ng-template pTemplate="input">
-            <input pInputText type="text" [(ngModel)]="data.leucocitos" />
+            <input
+              [disabled]="isPruebaTomada"
+              pInputText
+              type="text"
+              [(ngModel)]="data.leucocitos"
+            />
           </ng-template>
           <ng-template pTemplate="output">
             {{ data.leucocitos | currency: " x c.m ":"symbol":"1.1-2":"fr" }}
@@ -235,7 +271,12 @@
       <td pEditableColumn>
         <p-cellEditor>
           <ng-template pTemplate="input">
-            <input pInputText type="text" [(ngModel)]="data.reaccion" />
+            <input
+              [disabled]="isPruebaTomada"
+              pInputText
+              type="text"
+              [(ngModel)]="data.reaccion"
+            />
           </ng-template>
           <ng-template pTemplate="output">
             {{ data.reaccion }}
@@ -246,7 +287,12 @@
       <td pEditableColumn>
         <p-cellEditor>
           <ng-template pTemplate="input">
-            <input pInputText type="text" [(ngModel)]="data.hematies" />
+            <input
+              [disabled]="isPruebaTomada"
+              pInputText
+              type="text"
+              [(ngModel)]="data.hematies"
+            />
           </ng-template>
           <ng-template pTemplate="output">
             {{ data.hematies | currency: " x c.m ":"symbol":"1.1-2":"fr" }}
@@ -257,7 +303,12 @@
       <td colspan="2" rowspan="2" pEditableColumn class="p-fluid">
         <p-cellEditor>
           <ng-template pTemplate="input">
-            <input pInputText type="text" [(ngModel)]="data.quistesDe" />
+            <input
+              [disabled]="isPruebaTomada"
+              pInputText
+              type="text"
+              [(ngModel)]="data.quistesDe"
+            />
           </ng-template>
           <ng-template pTemplate="output">
             {{ data.quistesDe }}
@@ -270,7 +321,12 @@
       <td pEditableColumn>
         <p-cellEditor>
           <ng-template pTemplate="input">
-            <input pInputText type="text" [(ngModel)]="data.mucus" />
+            <input
+              [disabled]="isPruebaTomada"
+              pInputText
+              type="text"
+              [(ngModel)]="data.mucus"
+            />
           </ng-template>
           <ng-template pTemplate="output">
             {{ data.mucus }}
@@ -281,7 +337,12 @@
       <td pEditableColumn>
         <p-cellEditor>
           <ng-template pTemplate="input">
-            <input pInputText type="text" [(ngModel)]="data.cuerposGrasos" />
+            <input
+              [disabled]="isPruebaTomada"
+              pInputText
+              type="text"
+              [(ngModel)]="data.cuerposGrasos"
+            />
           </ng-template>
           <ng-template pTemplate="output">
             {{ data.cuerposGrasos }}
@@ -295,7 +356,12 @@
       <td pEditableColumn class="p-fluid">
         <p-cellEditor>
           <ng-template pTemplate="input">
-            <input pInputText type="text" [(ngModel)]="data.sangre" />
+            <input
+              [disabled]="isPruebaTomada"
+              pInputText
+              type="text"
+              [(ngModel)]="data.sangre"
+            />
           </ng-template>
           <ng-template pTemplate="output">
             {{ data.sangre }}
@@ -306,7 +372,12 @@
       <td pEditableColumn>
         <p-cellEditor>
           <ng-template pTemplate="input">
-            <input pInputText type="text" [(ngModel)]="data.levaduras" />
+            <input
+              [disabled]="isPruebaTomada"
+              pInputText
+              type="text"
+              [(ngModel)]="data.levaduras"
+            />
           </ng-template>
           <ng-template pTemplate="output">
             {{ data.levaduras }}
@@ -317,7 +388,12 @@
       <td pEditableColumn colspan="2" rowspan="2" class="p-fluid">
         <p-cellEditor>
           <ng-template pTemplate="input">
-            <input pInputText type="text" [(ngModel)]="data.trofozoitosDe" />
+            <input
+              [disabled]="isPruebaTomada"
+              pInputText
+              type="text"
+              [(ngModel)]="data.trofozoitosDe"
+            />
           </ng-template>
           <ng-template pTemplate="output">
             {{ data.trofozoitosDe }}
@@ -331,6 +407,7 @@
         <p-cellEditor>
           <ng-template pTemplate="input">
             <input
+              [disabled]="isPruebaTomada"
               pInputText
               type="text"
               [(ngModel)]="data.restosAlimenticios"
@@ -345,7 +422,12 @@
       <td pEditableColumn>
         <p-cellEditor>
           <ng-template pTemplate="input">
-            <input pInputText type="text" [(ngModel)]="data.bacterias" />
+            <input
+              [disabled]="isPruebaTomada"
+              pInputText
+              type="text"
+              [(ngModel)]="data.bacterias"
+            />
           </ng-template>
           <ng-template pTemplate="output">
             {{ data.bacterias }}
@@ -362,7 +444,12 @@
       <td pEditableColumn rowspan="2" colspan="2" class="p-fluid">
         <p-cellEditor>
           <ng-template pTemplate="input">
-            <input pInputText type="text" [(ngModel)]="data.larvasDe" />
+            <input
+              [disabled]="isPruebaTomada"
+              pInputText
+              type="text"
+              [(ngModel)]="data.larvasDe"
+            />
           </ng-template>
           <ng-template pTemplate="output">
             {{ data.larvasDe }}
@@ -371,11 +458,12 @@
       </td>
     </tr>
     <tr>
-      <td colspan="2" >SANGRE OCULTA EN HECES:</td>
+      <td colspan="2">SANGRE OCULTA EN HECES:</td>
       <td pEditableColumn colspan="2" class="p-fluid">
         <p-cellEditor>
           <ng-template pTemplate="input">
             <input
+              [disabled]="isPruebaTomada"
               pInputText
               type="text"
               [(ngModel)]="data.sangreOcultaHeces"
@@ -388,16 +476,16 @@
       </td>
     </tr>
     <tr>
-      <td colspan="2" >GOTA GRUESA:(Dx.MAlaria)</td>
-      <td  pEditableColumn colspan="5"  >
-        <div style="width:50%" class="p-fluid">
-
-          <p-cellEditor >
+      <td colspan="2">GOTA GRUESA:(Dx.MAlaria)</td>
+      <td pEditableColumn colspan="5">
+        <div style="width: 50%" class="p-fluid">
+          <p-cellEditor>
             <ng-template pTemplate="input">
               <input
-              pInputText
-              type="text"
-              [(ngModel)]="data.gotaGruesaDxMalaria"
+                [disabled]="isPruebaTomada"
+                pInputText
+                type="text"
+                [(ngModel)]="data.gotaGruesaDxMalaria"
               />
             </ng-template>
             <ng-template pTemplate="output">
@@ -410,25 +498,26 @@
     <tr>
       <td colspan="2">FROTIS DE LESIÓN:(Dx.Leishmaniosis)</td>
       <td pEditableColumn colspan="5">
-        <div style="width:50%" class="p-fluid">
+        <div style="width: 50%" class="p-fluid">
           <p-cellEditor>
             <ng-template pTemplate="input">
               <input
-              pInputText
-              type="text"
-              [(ngModel)]="data.frotisLesionDLeishmaniosis"
+                [disabled]="isPruebaTomada"
+                pInputText
+                type="text"
+                [(ngModel)]="data.frotisLesionDLeishmaniosis"
               />
             </ng-template>
             <ng-template pTemplate="output">
               {{ data.frotisLesionDLeishmaniosis }}
             </ng-template>
           </p-cellEditor>
-        </div> 
+        </div>
       </td>
     </tr>
   </ng-template>
 </p-table>
-<div class="footer mt-3 flex justify-content-end">
+<div *ngIf="!isPruebaTomada" class="footer mt-3 flex justify-content-end">
   <button
     pButton
     (click)="guardar()"
@@ -436,3 +525,6 @@
     label="Guardar"
   ></button>
 </div>
+<!-- <pre>
+  {{aux|json}}
+</pre> -->

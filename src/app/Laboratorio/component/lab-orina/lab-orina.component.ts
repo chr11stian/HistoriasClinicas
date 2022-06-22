@@ -32,48 +32,51 @@ export class LabOrinaComponent implements OnInit {
     this.idLaboratorio = aux.dataEnviada.id;
     this.isPrubaTomada = aux.isPruebaTomada;
     this.dataRecibida = aux.dataEnviada;
-    console.log('datos traidos',aux);
+    console.log("datos traidos", aux);
 
     this.buildForm();
     this.buildForm2();
   }
   ngOnInit(): void {
     this.cargarDatosCabecera();
-    this.cargarDatosPruebaTomada()
-    
+    this.cargarDatosPruebaTomada();
   }
-  cargarDatosPruebaTomada(){
+  // aux: any;
+  cargarDatosPruebaTomada() {
     if (true)
       this.parasitologiaService
         .getOrina(this.idLaboratorio)
         .subscribe((resp: any) => {
           let respuesta = resp.object;
-          this.getFC("volumen").setValue(respuesta.volumen);
-          this.getFC("color").setValue(respuesta.color);
-          this.getFC("aspecto").setValue(respuesta.aspecto);
-          this.getFC2("ph").setValue(respuesta.ph);
-          this.getFC2("densidad").setValue(respuesta.densidad);
-          this.getFC2("proteinas").setValue(respuesta.proteinas);
-          this.getFC2("glucosa").setValue(respuesta.glucosa);
-          this.getFC2("urobilinogeno").setValue(respuesta.urobilinogeno);
-          this.getFC2("bilirrubinas").setValue(respuesta.bilirubinas);
-          this.getFC2("acidoAscorbico").setValue(respuesta.acidoAscorbico);
-          this.getFC2("sangre").setValue(respuesta.sangreHb);
-          this.getFC2("nitritos").setValue(respuesta.nitritos);
-          this.getFC2("cuerposCetonicos").setValue(respuesta.cuerposCetonicos);
-          this.getFC2("celulasEpiteliales").setValue(
-            respuesta.celulasEpiteliales
-          );
-          this.getFC2("leucocitos").setValue(respuesta.leucocitos);
-          this.getFC2("piocitos").setValue(respuesta.piocitos);
-          this.getFC2("hematies").setValue(respuesta.hematies);
-          this.getFC2("cilindros").setValue(respuesta.cilindros);
-          this.getFC2("bacterias").setValue(respuesta.bacterias);
-          this.getFC2("levaduras").setValue(respuesta.levaduras);
-          this.getFC2("cristales").setValue(respuesta.cristales);
-          this.getFC2("otros").setValue(respuesta.otros);
+          // this.aux = respuesta;
+          if (respuesta.estado === "CONCLUIDO") {
+            // console.log('esta concluido0');
+            
+            this.getFC("volumen").setValue(respuesta.volumen);
+            this.getFC("color").setValue(respuesta.color);
+            this.getFC("aspecto").setValue(respuesta.aspecto);
+            this.getFC2("ph").setValue(respuesta.ph);
+            this.getFC2("densidad").setValue(respuesta.densidad);
+            this.getFC2("proteinas").setValue(respuesta.proteinas);
+            this.getFC2("glucosa").setValue(respuesta.glucosa);
+            this.getFC2("urobilinogeno").setValue(respuesta.urobilinogeno);
+            this.getFC2("bilirrubinas").setValue(respuesta.bilirubinas);
+            this.getFC2("acidoAscorbico").setValue(respuesta.acidoAscorbico);
+            this.getFC2("sangre").setValue(respuesta.sangreHb);
+            this.getFC2("nitritos").setValue(respuesta.nitritos);
+            this.getFC2("cuerposCetonicos").setValue(respuesta.cuerposCetonicos );
+            this.getFC2("celulasEpiteliales").setValue( respuesta.celulasEpiteliales
+            );
+            this.getFC2("leucocitos").setValue(respuesta.leucocitos);
+            this.getFC2("piocitos").setValue(respuesta.piocitos);
+            this.getFC2("hematies").setValue(respuesta.hematies);
+            this.getFC2("cilindros").setValue(respuesta.cilindros);
+            this.getFC2("bacterias").setValue(respuesta.bacterias);
+            this.getFC2("levaduras").setValue(respuesta.levaduras);
+            this.getFC2("cristales").setValue(respuesta.cristales);
+            this.getFC2("otros").setValue(respuesta.otros);
+          }
         });
-
   }
 
   guardar() {
@@ -137,8 +140,14 @@ export class LabOrinaComponent implements OnInit {
   }
   buildForm() {
     this.orinaFG = new FormGroup({
-      apellidosNombres: new FormControl({ value: "", disabled: true }, Validators.required),
-      nroHCL: new FormControl({ value: "", disabled: true },Validators.required),
+      apellidosNombres: new FormControl(
+        { value: "", disabled: true },
+        Validators.required
+      ),
+      nroHCL: new FormControl(
+        { value: "", disabled: true },
+        Validators.required
+      ),
       edad: new FormControl({ value: "", disabled: true }, Validators.required),
       nroSIS: new FormControl(
         { value: "", disabled: this.isPrubaTomada },
