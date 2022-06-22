@@ -22,37 +22,12 @@ export class LabInmunologiaComponent implements OnInit {
                 private fb: FormBuilder,
                 private ref: DynamicDialogRef,
                 public config: DynamicDialogConfig) {
-        this.data = config.data;
+        config.data.edit === undefined ? this.data = config.data : this.data = config.data.data;
     }
 
     ngOnInit(): void {
-        this.dataInmunologia = [{
-            reaccionWidal: 0,
-            proteinaCReactiva: 0,
-            agTiphyco_o: 0,
-            factorReumatoideo: 0,
-            agTiphyco_h: 0,
-            antiestreptolisinasO: 0,
-            agTiphyco_a: 0,
-            rpr: 0,
-            agTiphyco_b: 0,
-            sifilis: 0,
-            HBsAg: 0,
-            vih12: 0,
-            grupoSanguineo: 0,
-            psaTotal: 0,
-            factorRH: 0,
-            otros: 0,
-            bhcg: {
-                resultado: 0,
-                muestra: 0,
-                reactivo: 0,
-            },
-            tipoMuestra: 0
-        }]
         this.buildForm()
         this.cargarData()
-
     }
 
     buildForm() {
@@ -76,6 +51,31 @@ export class LabInmunologiaComponent implements OnInit {
         this.formInmunologia.get('nroCama').setValue(this.data.datosPaciente.nroCama);
         this.formInmunologia.get('solicitante').setValue(this.data.profesionalAcargo.apePaterno + ' ' + this.data.profesionalAcargo.apeMaterno + ' ' + this.data.profesionalAcargo.primerNombre + ' ' + this.data.profesionalAcargo.otrosNombres);
         this.formInmunologia.get('horaMuestra').setValue(this.fecha)
+        this.formInmunologia.get('nroMuestra').setValue(this.data.nroMuestra)
+        this.dataInmunologia = [{
+            reaccionWidal: this.config.data.edit ? this.data.reaccionWidal : 0,
+            proteinaCReactiva: this.config.data.edit ? this.data.proteinaCReactiva : 0,
+            agTiphyco_o: this.config.data.edit ? this.data.agTiphyco_o : 0,
+            factorReumatoideo: this.config.data.edit ? this.data.factorReumatoideo : 0,
+            agTiphyco_h: this.config.data.edit ? this.data.agTiphyco_h : 0,
+            antiestreptolisinasO: this.config.data.edit ? this.data.antiestreptolisinasO : 0,
+            agTiphyco_a: this.config.data.edit ? this.data.agTiphyco_a : 0,
+            rpr: this.config.data.edit ? this.data.rpr : 0,
+            agTiphyco_b: this.config.data.edit ? this.data.agTiphyco_b : 0,
+            sifilis: this.config.data.edit ? this.data.sifilis : 0,
+            hbsAg: this.config.data.edit ? this.data.hbsAg : 0,
+            vih12: this.config.data.edit ? this.data.vih12 : 0,
+            grupoSanguineo: this.config.data.edit ? this.data.grupoSanguineo : 0,
+            psaTotal: this.config.data.edit ? this.data.psaTotal : 0,
+            factorRH: this.config.data.edit ? this.data.factorRH : 0,
+            otros: this.config.data.edit ? this.data.otros : 0,
+            bhcg: {
+                resultado: this.config.data.edit ? this.data.bhcg.resultado : 0,
+                muestra: this.config.data.edit ? this.data.bhcg.muestra : 0,
+                reactivo: this.config.data.edit ? this.data.bhcg.reactivo : 0,
+            },
+            tipoMuestra: this.config.data.edit ? this.data.tipoMuestra : 0,
+        }]
     }
 
     Guardar() {
@@ -90,7 +90,7 @@ export class LabInmunologiaComponent implements OnInit {
             rpr: this.dataInmunologia[0].rpr,
             agTiphyco_b: this.dataInmunologia[0].agTiphyco_b,
             sifilis: this.dataInmunologia[0].sifilis,
-            HBsAg: this.dataInmunologia[0].HBsAg,
+            hbsAg: this.dataInmunologia[0].hbsAg,
             vih12: this.dataInmunologia[0].vih12,
             grupoSanguineo: this.dataInmunologia[0].grupoSanguineo,
             psaTotal: this.dataInmunologia[0].psaTotal,
@@ -126,7 +126,7 @@ export interface inmunologiaInterface {
     rpr?: string | number
     agTiphyco_b?: string | number
     sifilis?: string | number
-    HBsAg?: string | number
+    hbsAg?: string | number
     vih12?: string | number
     grupoSanguineo?: string | number
     psaTotal?: string | number

@@ -132,11 +132,11 @@ export class PagosComponent implements OnInit {
             tipo: "R",
             tipoDocReceptor: this.tipoDocReceptor,
             nroDocReceptor: this.nroDocReceptor,
-            apellidos: this.formCaja.value.apePaterno,
-            nombres: this.formCaja.value.nombres,
+            apellidos: this.formCaja.getRawValue().apePaterno,
+            nombres: this.formCaja.getRawValue().nombres,
             detalle: [
                 {
-                    ups: this.formCaja.value.servicio,
+                    ups: this.formCaja.getRawValue().servicio,
                     codigo: this.formCaja.value.codigoPago,
                     descripcion: this.formCaja.value.descripcionPago.descripcion,
                     tipo: this.formCaja.value.tipoPago,
@@ -185,6 +185,18 @@ export class PagosComponent implements OnInit {
         this.servicesService.obtenerNumeracionCaja(this.idIpress, this.nroCaja).subscribe((res: any) => {
             this.formCaja.get('nroBoleta').setValue(res.object.contadorRecibos + 1);
         })
+
+        this.formCaja.get('nroDoc').disable();
+        this.formCaja.get('apePaterno').disable();
+        this.formCaja.get('nombres').disable();
+        this.formCaja.get('edad').disable();
+        this.formCaja.get('estado').disable();
+        this.formCaja.get('servicio').disable();
+        this.formCaja.get('nroCaja').disable();
+        this.formCaja.get('fechaRecibo').disable();
+        this.formCaja.get('nroBoleta').disable();
+        this.formCaja.get('fechaAtencion').disable();
+        this.formCaja.get('horaAtencion').disable();
     }
 
     close() {

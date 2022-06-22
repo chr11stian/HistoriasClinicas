@@ -19,8 +19,8 @@ export class LabMicrobiologicoComponent implements OnInit {
                 private ref: DynamicDialogRef,
                 public config: DynamicDialogConfig) {
         console.log('conf', config.data.edit)
-        config.data.edit === false ? this.data = config.data : this.data = config.data.data;
-    }s
+        config.data.edit === undefined ? this.data = config.data : this.data = config.data.data;
+    }
 
     ngOnInit(): void {
         this.buildForm()
