@@ -8,17 +8,58 @@ p-panelmenu >>> .p-panelmenu-panel .p-panelmenu-header > a {
     border-right: none !important;
     border-left: 5px solid #AF0017; /*jiimmy*/
     /*border-left: 5px solid rgb(12 56 102); !*jiimmy*!*/
+    /*position: relative;
+    display: table-cell;
+    background-image: url("../../../assets/images/icon-menu.svg") !important;
+    color: transparent !important;
+    width: 40px;
+    height: 40px;
+    vertical-align: middle;*/
+    width: 30px;
 }
 
 
-p-panelmenu >>> .p-panelmenu-content .p-menuitem .p-menuitem-link {
+/*p-panelmenu >>> .p-panelmenu-content .p-menuitem .p-menuitem-link {
     padding: 0.75rem 3em;
 }
+
+p-panelmenu >>> .p-panelmenu .p-panelmenu-header > a .p-menuitem-icon {
+    margin-left: -2rem;
+}
+
+p-panelmenu >>> .p-panelmenu-panel .p-panelmenu-header .p-menuitem-icon {
+    font-size: 2rem;
+}
+
+p-panelmenu >>> .p-panelmenu-panel .p-panelmenu-header .p-panelmenu-icon {
+    color: transparent !important;
+}*/
 
 p-panelmenu >>> .p-panelmenu-panel .p-panelmenu-header > a:hover {
     background-color: #FBF3F4 !important;
     border-color: #AF0017 !important;
     color: #AF0017 !important;
+
+    /*background-image: url("../../../assets/images/white.png") !important;
+    position: relative;
+    display: table-cell;
+    width: 400px;*/
+}
+
+p-panelmenu >>> .p-panelmenu-panel .p-panelmenu-header .p-menuitem-text {
+
+}
+
+p-panelmenu >>> .p-panelmenu-panel .p-panelmenu-header .p-menuitem-text {
+
+}
+
+p-panelmenu >>> .p-panelmenu .p-panelmenu-content .p-menuitem .p-menuitem-link .p-menuitem-text {
+    color: #495057;
+}
+
+p-panelmenu >>> .p-panelmenu .p-menuitem-text:hover {
+
 }
 
 .p-panelmenu .p-panelmenu-content .p-menuitem .p-menuitem-link:not(.p-disabled):hover {
@@ -36,8 +77,9 @@ p-panelmenu >>> .p-panelmenu-header.p-highlight:not(.p-enabled) > a {
 /*}*/
 
 .size-panel-menu {
-    width: auto;
-    max-width: calc(100% - 200px);
+    width: 30px;
+    /*width: auto;
+    max-width: calc(100% - 200px);*/
 }
 
 p-autocomplete >>> .p-autocomplete {

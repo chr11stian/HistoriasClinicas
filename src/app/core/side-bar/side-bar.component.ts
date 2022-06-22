@@ -353,6 +353,7 @@ const administracion2 = {
 }
 const triaje = {
     label: "Triaje",
+    icon: "pi pi-save",
     items: [{
         icon: "pi pi-file",
         label: "Triaje",
@@ -381,6 +382,7 @@ const admision = {
 }
 const historias = {
     label: "Historias Clinicas",
+    icon: "pi pi-file",
     items: [
         {
             icon: "pi pi-file",
@@ -390,10 +392,10 @@ const historias = {
                     label: "Citas",
                     routerLink: "obstetricia-general/citas",
                 },
-                {
+                /*{
                     label: "Historia de Consultas",
                     routerLink: "obstetricia-general/historia-consultas",
-                },
+                },*/
             ]
         },
         {
@@ -405,11 +407,11 @@ const historias = {
                     icon: "pi pi-pw pi-file",
                     routerLink: "cred/citas",
                 },
-                {
+                /*{
                     label: "Consultas",
                     icon: "pi pi-pw pi-file",
                     routerLink: "cred/consulta-cred-general",
-                },
+                },*/
             ]
         },
         {
@@ -523,6 +525,7 @@ const historias = {
 }
 const laboratorio = {
     label: "Laboratorio",
+    icon: "pi pi-file",
     items: [{
         label: "Laboratorio",
         icon: "pi pi-pw pi-file",
@@ -531,6 +534,7 @@ const laboratorio = {
 }
 const reportes = {
     label: "Reportes",
+    icon: "pi pi-file",
     items: [{
         label: "Reportes HIS",
         icon: "pi pi-pw pi-file",

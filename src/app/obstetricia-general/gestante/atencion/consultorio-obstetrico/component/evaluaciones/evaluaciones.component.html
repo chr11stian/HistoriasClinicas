@@ -1,16 +1,17 @@
 <div class="p-card">
     <div class="evaluaciones">
-        <p-toolbar>
+        <!--<p-toolbar>
             <ng-template pTemplate="left">
-                <h3 class="mt-2">EVALUACIONES</h3>
+                <h3 class="mt-2"></h3>
             </ng-template>
 
             <ng-template pTemplate="right" class="button">
                 <button class="button-agregar" icon="pi pi-save" pButton type="button" label="Guardar"></button>
             </ng-template>
-        </p-toolbar>
+        </p-toolbar>-->
         <div class="mt-1">
-            <p-tabView>
+            <app-laboratorio></app-laboratorio>
+            <!--<p-tabView>
                 <p-tabPanel header="LABORATORIO">
                     <ng-template pTemplate="content">
                         <app-laboratorio></app-laboratorio>
@@ -21,8 +22,7 @@
                         <app-ecografias></app-ecografias>
                     </ng-template>
                 </p-tabPanel>
-
-            </p-tabView>
+            </p-tabView>-->
         </div>
     </div>
 </div>

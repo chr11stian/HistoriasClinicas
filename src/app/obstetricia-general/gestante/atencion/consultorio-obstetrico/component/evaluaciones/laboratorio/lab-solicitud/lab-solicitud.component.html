@@ -5,7 +5,32 @@
             </div>
             <div class="col-10">
                 <div class="grid">
-                    <div class="col-12 md:col-6 lg:col-3 p-field flex flex-column">
+                    <div class="col-12 md:col-6 lg:col-8 flex align-items-center">
+                        <div class="col-fixed" style="width:140px"><span>Apellidos y Nombres:</span></div>
+                        <input type="text" pInputText class="w-full text-center"
+                               formControlName="apellidosNombres"/>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
+                        <div class="col-fixed" style="width:50px"><span>Edad:</span></div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="edad"/>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
+                        <div class="col-fixed" style="width:70px"><span>N° Cama:</span></div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="camaNro"/>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-4 flex align-items-center">
+                        <div class="col-fixed" style="width:80px"><span>Servicio:</span></div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="servicio"/>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-4 flex align-items-center">
+                        <div class="col-fixed" style="width:70px"><span>N° H.CL:</span></div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="HCL"/>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-4 flex align-items-center">
+                        <div class="col-fixed" style="width:100px"><span>Dx. Presuntivo:</span></div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="DxPresuntivo"/>
+                    </div>
+                    <!--<div class="col-12 md:col-6 lg:col-3 p-field flex flex-column">
                         <label>APELLIDOS Y NOMBRES:</label>
                         <input type="text" pInputText class="inputText" formControlName="apellidosNombres" />
                     </div>
@@ -28,22 +53,24 @@
                     <div class="col-12 md:col-6 lg:col-2 p-field flex flex-column">
                         <label>DX. PRESUNTIVO:</label>
                         <input type="text" pInputText class="inputText" formControlName="DxPresuntivo" />
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </div>
+        <p-divider align="center" type="dashed">
+        </p-divider>
     </form>
 
 </div>
 <div class="col-12">
     <div class="grid">
-        <div class="col-3" *ngFor="let exam of examGroup">
+        <div class="col-12 md:col-6 lg:col-3" *ngFor="let exam of examGroup">
             <p-fieldset legend={{exam.nombreGrupo}} class="atencion">
-                <div *ngFor="let item of exam.listaExam" class="p-field-checkbox grid">
-                    <div class="col-9">
+                <div *ngFor="let item of exam.listaExam" class="p-field-checkbox grid align-items-center">
+                    <div class="col-10">
                         <span [for]="item">{{ item.nombreExamen }}</span>
                     </div>
-                    <div class="col-3">
+                    <div class="col-2">
                         <p-checkbox [inputId]="item" name="item" [value]="item" [(ngModel)]="examName">
                         </p-checkbox>
                     </div>
@@ -52,7 +79,13 @@
         </div>
     </div>
 </div>
-<div class="footer">
+<div class="flex justify-content-end">
+    <button style="background-color: #0c3866" class=""
+            pButton type="button"
+            (click)="add()">Guardar
+    </button>
+</div>
+<!--<div class="footer">
     <button pButton type="button" (click)="add()" label="Guardar" class="p-button-primary mt-4 mr-2"></button>
     <button pButton type="button" label="Cancelar" class="p-button-danger mt-4"></button>
-</div>
+</div>-->

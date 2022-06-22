@@ -54,7 +54,7 @@ export class LaboratorioComponent implements OnInit {
     openDialogSolicitud() {
         this.ref = this.dialog.open(LabSolicitudComponent, {
             header: "SOLICITUD DE EXAMENES DE LABORATORIO",
-            width: "60%",
+            width: "70%",
             // height: "90%",
             contentStyle: {
                 "max-height": "92%",

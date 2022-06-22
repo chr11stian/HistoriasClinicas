@@ -23,23 +23,24 @@
 <!--</div>-->
 
 <div class="menu">
-  <span class="p-input-icon-right fondo">
-    <i class="pi pi-search text-center"></i>
-    <p-autoComplete [type]="'search'"
-                    [group]="true"
-                    [(ngModel)]="selectedRoute"
-                    [minLength]="3"
-                    [suggestions]="filteredRoutes"
-                    (onSelect)="onSelect($event)"
-                    placeholder="Busqueda"
-                    (completeMethod)="filterGroupedRoute($event)"
-                    field="label"
-    >
-    </p-autoComplete>
-  </span>
-    <p-panelMenu [multiple]="false"
-                 responsive="true"
-                 [model]="items"
-                 class="size-panel-menu">
+    <!--<span class="p-input-icon-right fondo">
+      <i class="pi pi-search text-center"></i>
+      <p-autoComplete [type]="'search'"
+                      [group]="true"
+                      [(ngModel)]="selectedRoute"
+                      [minLength]="3"
+                      [suggestions]="filteredRoutes"
+                      (onSelect)="onSelect($event)"
+                      placeholder="Busqueda"
+                      (completeMethod)="filterGroupedRoute($event)"
+                      field="label"
+      >
+      </p-autoComplete>
+    </span>-->
+    <p-panelMenu
+            [multiple]=" false"
+            responsive="true"
+            [model]="items"
+            class="size-panel-menu">
     </p-panelMenu>
 </div>
