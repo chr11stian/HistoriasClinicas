@@ -158,7 +158,7 @@ export class LabParasitologiaComponent implements OnInit {
       }
     });
   }
-  cancelar() {
-    this.ref.close("cancelado");
-  }
+  // cancelar() {
+  //   this.ref.close("cancelado");
+  // }
 }

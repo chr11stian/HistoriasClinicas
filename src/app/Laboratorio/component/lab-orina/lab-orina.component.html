@@ -8,17 +8,15 @@
               <span>Apellidos y Nombres:</span>
             </div>
             <input
-              disabled="true"
               type="text"
               pInputText
               class="w-full text-center"
               formControlName="apellidosNombres"
-             />
+            />
           </div>
           <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
             <div class="col-fixed" style="width: 50px"><span>Edad:</span></div>
             <input
-              disabled="true"
               type="text"
               pInputText
               class="w-full text-center"
@@ -30,7 +28,6 @@
               <span>N° H.CL:</span>
             </div>
             <input
-              disabled="true"
               type="text"
               pInputText
               class="w-full text-center"
@@ -53,7 +50,6 @@
               <span>Solicitante:</span>
             </div>
             <input
-              disabled=true
               type="text"
               pInputText
               class="w-full text-center"
@@ -96,308 +92,179 @@
           </div>
         </div>
         <p-divider align="center" type="dashed"> </p-divider>
+        <!-- tres campos start -->
+        <div class="grid">
+          <div class="col-4 flex ">
+            <div class="col-fixed" style="width:25%"> 
+              <span>Volumen:</span>    
+            </div>
+            <input type="text" pInputText formControlName="volumen"  class="w-full text-center"/>
+          </div>
+          <div class="col-4 flex justify-content-center">
+            <div class="col-fixed" style="width: 25%;">
+              <span>Color:</span>
+            </div>
+            <input type="text" pInputText formControlName="color"  class="w-full text-center"/>
+          </div>
+          <div class="col-4 flex justify-content-center">
+            <div class="col-fixed" style="width: 25%;">
+              <span>Aspecto:</span>
+            </div>
+            <input type="text" pInputText formControlName="aspecto" class="w-full text-center"/>
+          </div>
+        </div>
+        <!-- tres campos end -->
       </div>
     </div>
   </div>
 </form>
-
-
-
-<div class="card">
-  <p-table
-    [value]="data"
-    dataKey="id"
-    responsiveLayout="scroll"
-    styleClass="p-datatable-gridlines"
-  >
-    <ng-template pTemplate="header"> </ng-template>
-    <ng-template pTemplate="body" let-data>
-      <tr>
-        <td colspan="2" style="width: 13;">Volumen:</td>
-        <td colspan="2" style="width: 20;" pEditableColumn class="p-fluid"> 
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <input pInputText type="text" [(ngModel)]="data.volumen" />
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{ data.volumen }}
-            </ng-template>
-          </p-cellEditor>
-        </td>
-        <td colspan="2" style="width:1">Color:</td>
-        <td colspan="2" style="width: 20;" pEditableColumn class="p-fluid">
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <input pInputText type="text" [(ngModel)]="data.color" />
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{ data.color }}
-            </ng-template>
-          </p-cellEditor>
-        </td>
-        <td colspan="2" style="width:13">Aspecto:</td>
-        <td colspan="2" style="width: 20;" pEditableColumn class="p-fluid">
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <input pInputText type="text" [(ngModel)]="data.aspecto" />
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{ data.aspecto }}
-            </ng-template>
-          </p-cellEditor>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="6"></td>
-        <td colspan="6">SEDIMENTO:</td>
-      </tr>
-      <tr>
-        <td colspan="3" style="width:20%">ph</td>
-        <td colspan="3" pEditableColumn style="width:30%" class="p-fluid">
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <input pInputText type="text" [(ngModel)]="data.ph" />
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{ data.ph }}
-            </ng-template>
-          </p-cellEditor>
-        </td>
-        <td colspan="3" style="width:20%">Células Epiteliales </td>
-        <td colspan="3" style="width:30%" pEditableColumn>
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <input
-                pInputText
-                type="text"
-                [(ngModel)]="data.celulasEpiteliales"
-              />
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{ data.celulasEpiteliales }}
-            </ng-template>
-          </p-cellEditor>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="3">Densidad</td>
-        <td colspan="3" pEditableColumn>
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <input pInputText type="text" [(ngModel)]="data.densidad" />
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{ data.densidad }}
-            </ng-template>
-          </p-cellEditor>
-        </td>
-        <td colspan="3">Leucocitos</td>
-        <td colspan="3" pEditableColumn>
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <input pInputText type="text" [(ngModel)]="data.leucocitos" />
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{ data.leucocitos }}
-            </ng-template>
-          </p-cellEditor>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="3">Proteinas</td>
-        <td colspan="3" pEditableColumn>
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <input pInputText type="text" [(ngModel)]="data.proteinas" />
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{ data.proteinas }}
-            </ng-template>
-          </p-cellEditor>
-        </td>
-        <td colspan="3">Piocitos</td>
-        <td colspan="3" pEditableColumn>
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <input pInputText type="text" [(ngModel)]="data.piocitos" />
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{ data.piocitos }}
-            </ng-template>
-          </p-cellEditor>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="3">Glucosa</td>
-        <td colspan="3" pEditableColumn>
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <input pInputText type="text" [(ngModel)]="data.glucosa" />
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{ data.glucosa }}
-            </ng-template>
-          </p-cellEditor>
-        </td>
-        <td colspan="3">Hematies</td>
-        <td colspan="3" pEditableColumn>
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <input pInputText type="text" [(ngModel)]="data.hematies" />
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{ data.hematies }}
-            </ng-template>
-          </p-cellEditor>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="3">Urobilinógeno</td>
-        <td colspan="3" pEditableColumn>
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <input pInputText type="text" [(ngModel)]="data.urobilinogeno" />
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{ data.urobilinogeno }}
-            </ng-template>
-          </p-cellEditor>
-        </td>
-        <td colspan="3">Cilindros</td>
-        <td colspan="3" pEditableColumn>
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <input pInputText type="text" [(ngModel)]="data.cilindros" />
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{ data.cilindros }}
-            </ng-template>
-          </p-cellEditor>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="3">Bilirrubinas</td>
-        <td colspan="3" pEditableColumn>
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <input pInputText type="text" [(ngModel)]="data.bilirrubinas" />
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{ data.bilirrubinas }}
-            </ng-template>
-          </p-cellEditor>
-        </td>
-        <td colspan="3">Bacterias</td>
-        <td colspan="3" pEditableColumn>
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <input pInputText type="text" [(ngModel)]="data.bacterias" />
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{ data.bacterias }}
-            </ng-template>
-          </p-cellEditor>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="3">Acido Ascorbico</td>
-        <td colspan="3" pEditableColumn>
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <input pInputText type="text" [(ngModel)]="data.acidoAscorbico" />
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{ data.acidoAscorbico }}
-            </ng-template>
-          </p-cellEditor>
-        </td>
-        <td colspan="3">Levaduras</td>
-        <td colspan="3" pEditableColumn>
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <input pInputText type="text" [(ngModel)]="data.levaduras" />
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{ data.levaduras }}
-            </ng-template>
-          </p-cellEditor>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="3">Sangre(Hb)</td>
-        <td colspan="3" pEditableColumn>
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <input pInputText type="text" [(ngModel)]="data.sangreHb" />
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{ data.sangreHb }}
-            </ng-template>
-          </p-cellEditor>
-        </td>
-        <td colspan="3">Cristales</td>
-        <td colspan="3" pEditableColumn>
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <input pInputText type="text" [(ngModel)]="data.cristales" />
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{ data.cristales }}
-            </ng-template>
-          </p-cellEditor>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="3">Nitritos</td>
-        <td colspan="3" pEditableColumn>
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <input pInputText type="text" [(ngModel)]="data.nitritos" />
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{ data.nitritos }}
-            </ng-template>
-          </p-cellEditor>
-        </td>
-        <td colspan="3">Otros</td>
-        <td colspan="3" pEditableColumn>
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <input pInputText type="text" [(ngModel)]="data.otros" />
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{ data.otros }}
-            </ng-template>
-          </p-cellEditor>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="3">Cuerpos Cetonicos</td>
-        <td colspan="3" pEditableColumn>
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <input pInputText type="text" [(ngModel)]="data.cuerposCetonicos" />
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{ data.cuerposCetonicos }}
-            </ng-template>
-          </p-cellEditor>
-        </td>
-      </tr>
-    </ng-template>
-  </p-table>
-</div>
-<div class="footer mt-3 flex justify-content-end">
-  <button
+<form [formGroup]="orinaFG2">
+  <div class="grid">
+    <div class="col-6"></div>
+    <div class="col-6">
+      <span style="font-weight:bold;">
+        SEDIMENTO:
+      </span> 
+    </div>
+  </div>
+  <div class="grid">
+    <div class="col-6">
+      <div class="flex mb-2">
+        <div class="col-fixed "  style="width:15%"> 
+          <span>P.H.</span>    
+        </div>
+        <input type="text" pInputText formControlName="ph"  class="w-full text-center"/>
+      </div>
+      <div class="flex mb-2">
+        <div class="col-fixed" style="width:25%"> 
+          <span>Densidad</span>    
+        </div>
+        <input type="text" pInputText formControlName="densidad"  class="w-full text-center"/>
+      </div>
+      <div class="flex mb-2">
+        <div class="col-fixed" style="width:25%"> 
+          <span>Proteinas</span>    
+        </div>
+        <input type="text" pInputText formControlName="proteinas"  class="w-full text-center"/>
+      </div>
+      <div class="flex mb-2">
+        <div class="col-fixed" style="width:25%"> 
+          <span>Glucosa</span>    
+        </div>
+        <input type="text" pInputText formControlName="glucosa"  class="w-full text-center"/>
+      </div>
+      <div class="flex mb-2">
+        <div class="col-fixed" style="width:30%"> 
+          <span>Urobilinógeno</span>    
+        </div>
+        <input type="text" pInputText formControlName="urobilinogeno"  class="w-full text-center"/>
+      </div>
+      <div class="flex mb-2">
+        <div class="col-fixed" style="width:30%"> 
+          <span>Bilirrubinas</span>    
+        </div>
+        <input type="text" pInputText formControlName="bilirrubinas"  class="w-full text-center"/>
+      </div>
+      <div class="flex mb-2">
+        <div class="col-fixed" style="width:30%"> 
+          <span>Acido Ascorbico</span>    
+        </div>
+        <input type="text" pInputText formControlName="acidoAscorbico"  class="w-full text-center"/>
+      </div>
+      <div class="flex mb-2">
+        <div class="col-fixed" style="width:25%"> 
+          <span>Sangre(Hb)</span>    
+        </div>
+        <input type="text" pInputText formControlName="sangre"  class="w-full text-center"/>
+      </div>
+      <div class="flex mb-2">
+        <div class="col-fixed" style="width:25%"> 
+          <span>Nitritos</span>    
+        </div>
+        <input type="text" pInputText formControlName="nitritos"  class="w-full text-center"/>
+      </div>
+      <div class="flex mb-2">
+        <div class="col-fixed" style="width:30%"> 
+          <span>Cuerpos Cetonicos</span>    
+        </div>
+        <input type="text" pInputText formControlName="cuerposCetonicos"  class="w-full text-center"/>
+      </div>
+    </div>
+    <!-- la otra fila -->
+    <div class="col-6">
+      <div class="flex mb-2">
+        <div class="col-fixed" style="width:30%"> 
+          <span>Celulas Epiteliales</span>    
+        </div>
+        <input type="text" pInputText formControlName="celulasEpiteliales"  class="w-full text-center"/>
+      </div>
+      <div class="flex mb-2">
+        <div class="col-fixed" style="width:25%"> 
+          <span>Leucocitos</span>    
+        </div>
+        <input type="text" pInputText formControlName="leucocitos"  class="w-full text-center"/>
+      </div>
+      <div class="flex mb-2">
+        <div class="col-fixed" style="width:25%"> 
+          <span>Piocitos</span>    
+        </div>
+        <input type="text" pInputText formControlName="piocitos"  class="w-full text-center"/>
+      </div>
+      <div class="flex mb-2">
+        <div class="col-fixed" style="width:25%"> 
+          <span>Hematies</span>    
+        </div>
+        <input type="text" pInputText formControlName="hematies"  class="w-full text-center"/>
+      </div>
+      <div class="flex mb-2">
+        <div class="col-fixed" style="width:25%"> 
+          <span>Cilindros</span>    
+        </div>
+        <input type="text" pInputText formControlName="cilindros"  class="w-full text-center"/>
+      </div>
+      <div class="flex mb-2">
+        <div class="col-fixed" style="width:25%"> 
+          <span>Bacterias</span>    
+        </div>
+        <input type="text" pInputText formControlName="bacterias"  class="w-full text-center"/>
+      </div>
+      <div class="flex mb-2" >
+        <div class="col-fixed" style="width:25%"> 
+          <span>Levaduras</span>    
+        </div>
+        <input type="text" pInputText formControlName="levaduras"  class="w-full text-center"/>
+      </div>
+      <div class="flex mb-2">
+        <div class="col-fixed" style="width:25%"> 
+          <span>Cristales</span>    
+        </div>
+        <input type="text" pInputText formControlName="cristales"  class="w-full text-center"/>
+      </div>
+      <div class="flex mb-2">
+        <div class="col-fixed" style="width:15%"> 
+          <span>Otros</span>    
+        </div>
+        <input type="text" pInputText formControlName="otros"  class="w-full text-center"/>
+      </div>
+    </div>
+    <!-- fin -->
+  </div>
+</form>
+<div *ngIf="!isPrubaTomada" class="footer mt-3 flex justify-content-end">
+  <!-- <button
     pButton
     (click)="cancelar()"
     label="Cancelar"
     class="p-button-danger mr-3"
-  ></button>
-  <button
+  ></button> -->
+  <button 
     pButton
     (click)="guardar()"
     style="background-color: #0c3866"
     label="Guardar"
   ></button>
 </div>
+
+<!-- <pre>
+  {{aux|json}}
+</pre> -->

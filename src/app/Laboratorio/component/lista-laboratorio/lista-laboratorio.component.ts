@@ -72,9 +72,10 @@ export class ListaLaboratorioComponent implements OnInit {
 
   /**Abre el dialog dependiendo a los exemenes de laboratorio**/
   openDialogLab(data) {
-    let dataAux = {
-      data: data,
-    };
+    // let dataAux = {
+    //   data: data,
+    //   isPruebaTomada:false
+    // };
     switch (data.datosLaboratorio.subTipo) {
       case "HEMATOLOGIA":
         {
@@ -136,7 +137,8 @@ export class ListaLaboratorioComponent implements OnInit {
           this.ref = this.dialog.open(LabParasitologiaComponent, {
             header: "LABORATORIO CLINICO - PARASITOLOGIA",
             width: "90%",
-            data: dataAux,
+            data: {data,
+              isPruebaTomada:false,}
           });
           console.log("DATA", data);
           this.ref.onClose.subscribe((data: string) => {//confirmado,cancelado and indefined
@@ -150,11 +152,15 @@ export class ListaLaboratorioComponent implements OnInit {
         {
           this.ref = this.dialog.open(LabOrinaComponent, {
             header: "LABORATORIO CLINICO - URUANALISIS",
-            width: "90%",
-            data: dataAux,
+            width: "70%",
+            data: {dataEnviada:data,
+              isPruebaTomada:false}
           });
-          console.log("DATA", data);
-          this.ref.onClose.subscribe((data: any) => {
+          // console.log("DATA", data);
+          this.ref.onClose.subscribe((data: string) => {
+            if(data=='confirmado'){
+              this.listaLab()
+            }
           });
         }
         break;

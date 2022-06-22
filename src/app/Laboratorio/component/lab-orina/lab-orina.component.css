@@ -1,0 +1,4 @@
+::ng-deep .swal2-container {
+    z-index:1100;
+    /* z-index of dialgo in prime ng */
+}
