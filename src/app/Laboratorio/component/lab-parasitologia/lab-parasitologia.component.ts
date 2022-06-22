@@ -81,7 +81,7 @@ export class LabParasitologiaComponent implements OnInit {
         { value: "", disabled: true },
         Validators.required
       ),
-      hour: new FormControl({ value: "", disabled:this.isPruebaTomada }, Validators.required),
+      hour: new FormControl({ value: new Date(), disabled:this.isPruebaTomada }, Validators.required),
       nroMuestra: new FormControl( { value: "", disabled:this.isPruebaTomada }, Validators.required),
       nroCama: new FormControl({ value: "", disabled:this.isPruebaTomada }, Validators.required),
 
@@ -182,30 +182,33 @@ export class LabParasitologiaComponent implements OnInit {
       gotaGruesa: this.data[0].gotaGruesaDxMalaria,
       frotisLesion: this.data[0].frotisLesionDLeishmaniosis,
     };
-    Swal.fire({
-      title: "Estas Seguro de Guardar el Laboratorio",
-      icon: "warning",
-      showCancelButton: true,
-      cancelButtonColor: "#D32F2F",
-      confirmButtonColor: "#0c3866",
-      confirmButtonText: "Guardar",
-      cancelButtonText: "Cancelar",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.parasitologiaService
-          .PostParasitologia(this.idConsulta, inputRequest)
-          .subscribe((resp) => {
-            this.ref.close("confirmado"); //confirmado o cancelado
-            Swal.fire({
-              icon: "success",
-              title: "Exito!",
-              text: "Se guardo el laboratorio",
-              showConfirmButton: false,
-              timer: 2000,
-            });
-          });
-      }
-    });
+    console.log('input Request',inputRequest);
+    
+     Swal.fire({
+       title: "Estas Seguro de Guardar el Laboratorio",
+       icon: "warning",
+       showCancelButton: true,
+       cancelButtonColor: "#D32F2F",
+       confirmButtonColor: "#0c3866",
+       confirmButtonText: "Guardar",
+       cancelButtonText: "Cancelar",
+       allowOutsideClick: false
+     }).then((result) => {
+       if (result.isConfirmed) {
+         this.parasitologiaService
+           .PostParasitologia(this.idConsulta, inputRequest)
+           .subscribe((resp) => {
+             this.ref.close("confirmado"); //confirmado o cancelado
+             Swal.fire({
+               icon: "success",
+               title: "Exito!",
+               text: "Se guardo el laboratorio",
+               showConfirmButton: false,
+               timer: 2000,
+             });
+           });
+       }
+     });
   }
   // cancelar() {
   //   this.ref.close("cancelado");

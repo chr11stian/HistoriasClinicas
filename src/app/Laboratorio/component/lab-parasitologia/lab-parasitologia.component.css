@@ -2,6 +2,6 @@
     z-index: 2000;
   } */
 ::ng-deep .swal2-container {
-    z-index:1100;
-    /* z-index of dialgo in prime ng */
+    z-index:1101;
+    /* z-index of dialgo in prime ng 1101 */
 }
