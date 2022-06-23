@@ -263,11 +263,11 @@ export class LabSolicitudComponent implements OnInit {
             examenesAuxiliares: this.auxExamList
         }
         console.log('data to save ', this.solicitudLaboratorio);
-        this.examenAuxiliarService.postPromiseAddServiciosLaboratorio(this.dataConsulta.id, this.solicitudLaboratorio).then(res => {
+        this.examenAuxiliarService.postPromiseAddServiciosLaboratorio(this.idConsulta, this.solicitudLaboratorio).then(res => {
             this.closeDialog();
         });
     }
-    
+
 }
 
 interface Laboratory {

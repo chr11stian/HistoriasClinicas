@@ -1,14 +1,14 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {ObstetriciaGeneralService} from "../../../../../services/obstetricia-general.service";
-import {ConsultasService} from "../../services/consultas.service";
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import { ObstetriciaGeneralService } from "../../../../../services/obstetricia-general.service";
+import { ConsultasService } from "../../services/consultas.service";
 import Swal from "sweetalert2";
 import {
     FiliancionService
 } from "../../../h-clinica-materno-perinatal/services/filiancion-atenciones/filiancion.service";
-import {DatePipe} from "@angular/common";
-import {MessageService} from "primeng/api";
-import {image} from "../../../../../../../assets/images/image.const";
+import { DatePipe } from "@angular/common";
+import { MessageService } from "primeng/api";
+import { image } from "../../../../../../../assets/images/image.const";
 
 @Component({
     selector: 'app-datos-generales',
@@ -117,10 +117,10 @@ export class DatosGeneralesComponent implements OnInit {
     familiares2: any;
 
     constructor(private form: FormBuilder,
-                private obstetriciaGeneralService: ObstetriciaGeneralService,
-                private consultasService: ConsultasService,
-                private filiancionService: FiliancionService,
-                private messageService: MessageService,) {
+        private obstetriciaGeneralService: ObstetriciaGeneralService,
+        private consultasService: ConsultasService,
+        private filiancionService: FiliancionService,
+        private messageService: MessageService,) {
 
         this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
         this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
@@ -148,28 +148,28 @@ export class DatosGeneralesComponent implements OnInit {
 
         /** OTRAS OPCIONES**/
         this.opciones = [
-            {name: 'SI', boleano: true},
-            {name: 'NO', boleano: false}
+            { name: 'SI', boleano: true },
+            { name: 'NO', boleano: false }
         ];
 
         //opciones de vacunas previas///
 
         this.familiares = [
-            {nombrefamiliar: 'Padre'},
-            {nombrefamiliar: 'Madre'},
-            {nombrefamiliar: 'Hermano'},
-            {nombrefamiliar: 'Hermana'},
-            {nombrefamiliar: 'Abuelo'},
-            {nombrefamiliar: 'Otros'},
+            { nombrefamiliar: 'Padre' },
+            { nombrefamiliar: 'Madre' },
+            { nombrefamiliar: 'Hermano' },
+            { nombrefamiliar: 'Hermana' },
+            { nombrefamiliar: 'Abuelo' },
+            { nombrefamiliar: 'Otros' },
         ];
 
         this.familiares2 = [
-            {nombrefamiliar: 'PADRE'},
-            {nombrefamiliar: 'MADRE'},
-            {nombrefamiliar: 'HERMANO'},
-            {nombrefamiliar: 'HERMANA'},
-            {nombrefamiliar: 'ABUELO'},
-            {nombrefamiliar: 'OTROS'},
+            { nombrefamiliar: 'PADRE' },
+            { nombrefamiliar: 'MADRE' },
+            { nombrefamiliar: 'HERMANO' },
+            { nombrefamiliar: 'HERMANA' },
+            { nombrefamiliar: 'ABUELO' },
+            { nombrefamiliar: 'OTROS' },
         ];
 
     }
@@ -313,7 +313,7 @@ export class DatosGeneralesComponent implements OnInit {
         this.consultasService.getConsultas(data).subscribe((res: any) => {
             this.dataConsultas = res.object
             localStorage.removeItem('IDConsulta');
-            localStorage.setItem('IDConsulta', JSON.stringify(this.dataConsultas.id));
+            // localStorage.setItem('IDConsulta', JSON.stringify(this.dataConsultas.id));
         })
     }
 
@@ -808,27 +808,28 @@ export class DatosGeneralesComponent implements OnInit {
         }
 
         if (this.dataConsultas == null) {
-            this.consultasService.addConsultas(this.nroFetos, this.data).subscribe(result => {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Se guardo con exito',
-                        text: '',
-                        showConfirmButton: false,
-                        timer: 1500,
-                    })
-                    this.getConsultasID();
-                }
+            this.consultasService.addConsultas(this.nroFetos, this.data).subscribe((result: any) => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Se guardo con exito',
+                    showConfirmButton: false,
+                    timer: 1500,
+                })
+                // this.getConsultasID();
+                localStorage.setItem('IDConsulta', JSON.stringify(result.object.id));
+                // console.log('data de creacion ', result);
+            }
             )
         } else {
             this.consultasService.updateConsultas(this.nroFetos, this.data).subscribe((result: any) => {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Actualizo con exito',
-                        text: '',
-                        showConfirmButton: false,
-                        timer: 1500,
-                    });
-                }
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Actualizo con exito',
+                    text: '',
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+            }
             );
         }
     }
