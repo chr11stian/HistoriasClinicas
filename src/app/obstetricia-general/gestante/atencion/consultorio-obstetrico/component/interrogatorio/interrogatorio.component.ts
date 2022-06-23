@@ -312,7 +312,7 @@ export class InterrogatorioComponent implements OnInit {
                 indicador = "GIP"
               }
               else {
-                (gananciaPeso > auxiliar.min && gananciaPeso < res.auxiliar.med) ? indicador = "GAP" : indicador = "GEP"
+                (gananciaPeso > auxiliar.min && gananciaPeso < auxiliar.med) ? indicador = "GAP" : indicador = "GEP"
               }
             }
             else {
