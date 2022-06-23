@@ -1,112 +1,169 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {DatePipe} from "@angular/common";
-import {LaboratoriosService} from "../../services/laboratorios.service";
-import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import { DatePipe } from "@angular/common";
+import { LaboratoriosService } from "../../services/laboratorios.service";
+import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
 import Swal from "sweetalert2";
-import {LabHematologiaComponent} from "../lab-hematologia/lab-hematologia.component";
-import {LabInmunologiaComponent} from "../lab-inmunologia/lab-inmunologia.component";
+import { LabHematologiaComponent } from "../lab-hematologia/lab-hematologia.component";
+import { LabInmunologiaComponent } from "../lab-inmunologia/lab-inmunologia.component";
+import { LabParasitologiaComponent } from "../lab-parasitologia/lab-parasitologia.component";
+import { registerLocaleData } from "@angular/common";
+import localeFr from "@angular/common/locales/fr";
+import { LabOrinaComponent } from "../lab-orina/lab-orina.component";
+import {LabBioquimicaComponent} from "../lab-bioquimica/lab-bioquimica.component";
+import { LabMicrobiologicoComponent } from "../lab-microbiologico/lab-microbiologico.component";
+
+registerLocaleData(localeFr, "fr");
 
 @Component({
-    selector: 'app-lista-laboratorio',
-    templateUrl: './lista-laboratorio.component.html',
-    styleUrls: ['./lista-laboratorio.component.css'],
-    providers: [DialogService],
+  selector: "app-lista-laboratorio",
+  templateUrl: "./lista-laboratorio.component.html",
+  styleUrls: ["./lista-laboratorio.component.css"],
+  providers: [DialogService],
 })
 export class ListaLaboratorioComponent implements OnInit {
-    formListaLabo: FormGroup;
-    datePipe = new DatePipe('en-US');
-    fechaActual = new Date();
-    idIpres = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
-    DataLisLab: any;
-    loading: boolean = true;
-    ref: DynamicDialogRef;
+  formListaLabo: FormGroup;
+  datePipe = new DatePipe("en-US");
+  fechaActual = new Date();
+  idIpres = JSON.parse(localStorage.getItem("usuario")).ipress.idIpress;
+  DataLisLab: any;
 
+  loading: boolean = true;
+  ref: DynamicDialogRef;
 
-    constructor(private fb: FormBuilder,
-                private dialog: DialogService,
-                private laboratoriosService: LaboratoriosService
-    ) {
+  constructor(
+    private fb: FormBuilder,
+    private dialog: DialogService,
+    private laboratoriosService: LaboratoriosService
+  ) {}
 
+  ngOnInit(): void {
+    this.buildForm();
+    this.formListaLabo.get("fechaBusqueda").setValue(this.fechaActual);
+    this.listaLab();
+  }
 
-    }
+  buildForm() {
+    this.formListaLabo = this.fb.group({
+      fechaInicio: new FormControl(""),
+      fechaBusqueda: new FormControl(""),
+      tipoDoc: new FormControl(""),
+      nroDoc: new FormControl(""),
+    });
+  }
 
-    ngOnInit(): void {
-        this.buildForm();
-        this.formListaLabo.get('fechaBusqueda').setValue(this.fechaActual);
-        this.listaLab();
-    }
+  listaLab() {
+    let data = {
+      fecha: this.datePipe.transform(
+        this.formListaLabo.value.fechaBusqueda,
+        "yyyy-MM-dd"
+      ),
+    };
+    console.log("DATA ", data);
 
-    buildForm() {
-        this.formListaLabo = this.fb.group({
-            fechaInicio: new FormControl(''),
-            fechaBusqueda: new FormControl(''),
-            tipoDoc: new FormControl(''),
-            nroDoc: new FormControl(''),
-        })
-    }
+    this.laboratoriosService
+      .getSolicitudLaboratorio(this.idIpres, data)
+      .subscribe((res: any) => {
+        this.DataLisLab = res.object;
+        this.loading = false;
+        console.log("LISTA DE SOLICITUD ", this.DataLisLab);
+      });
+  }
 
-    listaLab() {
-        let data = {
-            fecha: this.datePipe.transform(this.formListaLabo.value.fechaBusqueda, 'yyyy-MM-dd')
-        }
-        console.log('DATA ', data);
-
-        this.laboratoriosService.getListaLab(this.idIpres, data).subscribe((res: any) => {
-            this.DataLisLab = res.object;
-            this.loading = false;
-            console.log('LISTA DE SOLICITUD ', this.DataLisLab);
-        })
-    }
-
-
-    /**Abre el dialog dependiendo a los exemenes de laboratorio**/
-    openDialogLab(data) {
-        let dataAux = {
+  /**Abre el dialog dependiendo a los exemenes de laboratorio**/
+  openDialogLab(data) {
+    // let dataAux = {
+    //   data: data,
+    //   isPruebaTomada:false
+    // };
+    switch (data.datosLaboratorio.subTipo) {
+      case "HEMATOLOGIA":
+        {
+          this.ref = this.dialog.open(LabHematologiaComponent, {
+            header: "LABORATORIO CLINICO - HEMATOLOGIA",
+            width: "90%",
             data: data,
+          });
+          console.log("DATAS", data);
+          this.ref.onClose.subscribe((data: any) => {
+            // this.buscarCuposPorPersonal();
+          });
         }
-        let opcion;
+        break;
 
-        //condion para devolver una opcion
-        if ((data.datosLaboratorio.subTipo == "INMUNOLOGÍA") || (data.datosLaboratorio.subTipo == "INMUNOLOGIA")) {
-            opcion = 0;
+      case "INMUNOLOGIA":
+        {
+          this.ref = this.dialog.open(LabInmunologiaComponent, {
+            header: "LABORATORIO CLINICO - INMUNOLOGIA",
+            width: "90%",
+            data: data,
+          });
+          console.log("DATA", data);
+          this.ref.onClose.subscribe((data: any) => {
+            // this.buscarCuposPorPersonal();
+          });
         }
-        if ((data.datosLaboratorio.subTipo == "HEMATOLOGÍA") || (data.datosLaboratorio.subTipo == "HEMATOLOGIA")) {
-            opcion = 1;
-        }
-        if ((data.datosLaboratorio.subTipo == "BIOQUÍMICA") || (data.datosLaboratorio.subTipo == "BIOQUIMICA")) {
-            opcion = 2;
-        }
+        break;
 
-        //opciones segun el laboratorio seleccione
-        switch (opcion) {
-            case 1: {
-                this.ref = this.dialog.open(LabHematologiaComponent, {
-                    header: "LABORATORIO CLINICO - HEMATOLOGIA",
-                    width: '70%',
-                    data: dataAux,
-                });
-                console.log("DATA", data)
-                this.ref.onClose.subscribe((data: any) => {
-                    // this.buscarCuposPorPersonal();
-                });
+      case "MICROBIOLOGICO":
+      {
+        this.ref = this.dialog.open(LabMicrobiologicoComponent, {
+          header: "LABORATORIO CLINICO - MICROBIOLOGICO",
+          width: "60%",
+          data: data,
+        });
+        console.log("DATA", data);
+        this.ref.onClose.subscribe((data: any) => {
+          // this.buscarCuposPorPersonal();
+        });
+      }
+        break;
+
+      case "BIOQUIMICA":
+      {
+        this.ref = this.dialog.open(LabBioquimicaComponent, {
+          header: "LABORATORIO CLINICO - BIOQUIMICA",
+          width: "90%",
+          data: data,
+        });
+        console.log("DATA", data);
+        this.ref.onClose.subscribe((data: any) => {
+          // this.buscarCuposPorPersonal();
+        });
+      }
+        break;
+      case "PARASITOLOGIA":
+        {
+          this.ref = this.dialog.open(LabParasitologiaComponent, {
+            header: "LABORATORIO CLINICO - PARASITOLOGIA",
+            width: "80%",
+            data: {dataEnviada:data,
+              isPruebaTomada:false}
+          });
+          console.log("DATA", data);
+          this.ref.onClose.subscribe((data: string) => {//confirmado,cancelado and indefined
+            if(data=='confirmado'){
+              this.listaLab()
             }
-                break
-
-            case 0: {
-                this.ref = this.dialog.open(LabInmunologiaComponent, {
-                    header: "LABORATORIO CLINICO - INMUNOLOGIA",
-                    width: '70%',
-                    data: dataAux,
-                });
-                console.log("DATA", data)
-                this.ref.onClose.subscribe((data: any) => {
-                    // this.buscarCuposPorPersonal();
-                });
-            }
-                break
+          });
         }
-
-        console.log("opcion", opcion)
+        break;
+        case "URUANALISIS":
+        {
+          this.ref = this.dialog.open(LabOrinaComponent, {
+            header: "LABORATORIO CLINICO - URUANALISIS",
+            width: "70%",
+            data: {dataEnviada:data,
+              isPruebaTomada:false}
+          });
+          // console.log("DATA", data);
+          this.ref.onClose.subscribe((data: string) => {
+            if(data=='confirmado'){
+              this.listaLab()
+            }
+          });
+        }
+        break;
     }
+  }
 }

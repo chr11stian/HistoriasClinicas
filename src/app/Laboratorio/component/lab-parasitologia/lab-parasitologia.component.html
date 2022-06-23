@@ -1,0 +1,532 @@
+<form [formGroup]="parasitologiaFG">
+  <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
+    <div class="grid mt-2">
+      <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
+        <div class="grid">
+          <div class="col-12 md:col-6 lg:col-6 flex align-items-center">
+            <div class="col-fixed" style="width: 140px">
+              <span>Apellidos y Nombres:</span>
+            </div>
+            <input
+              type="text"
+              pInputText
+              class="w-full text-center"
+              formControlName="apellidosNombres"
+            />
+          </div>
+          <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
+            <div class="col-fixed" style="width: 50px"><span>Edad:</span></div>
+            <input
+              type="text"
+              pInputText
+              class="w-full text-center"
+              formControlName="edad"
+            />
+          </div>
+          <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
+            <div class="col-fixed" style="width: 70px">
+              <span>N° H.CL:</span>
+            </div>
+            <input
+              type="text"
+              pInputText
+              class="w-full text-center"
+              formControlName="nroHistoria"
+            />
+          </div>
+          <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
+            <div class="col-fixed" style="width: 70px">
+              <span>N° S.I.S:</span>
+            </div>
+            <input
+              type="text"
+              pInputText
+              class="w-full text-center"
+              formControlName="nroSis"
+            />
+          </div>
+          <div class="col-12 md:col-6 lg:col-5 flex align-items-center">
+            <div class="col-fixed" style="width: 90px">
+              <span>Solicitante:</span>
+            </div>
+            <input
+              type="text"
+              pInputText
+              class="w-full text-center"
+              formControlName="solicitante"
+            />
+          </div>
+          <div class="col-12 md:col-6 lg:col-3 flex align-items-center">
+            <div class="col-fixed" style="width: 120px">
+              <span>Hora de Muestra:</span>
+            </div>
+            <p-calendar
+             
+              class="w-full"
+              [timeOnly]="true"
+              formControlName="hour"
+              inputId="timeonly"
+            >
+            </p-calendar>
+          </div>
+          <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
+            <div class="col-fixed" style="width: 90px">
+              <span>N° Muestra:</span>
+            </div>
+            <p-inputNumber
+              formControlName="nroMuestra"
+              class="text-center p-fluid"
+              mode="decimal"
+              inputId="withoutgrouping"
+              [useGrouping]="false"
+              [min]="1" [max]="10"
+            ></p-inputNumber>
+          </div>
+          <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
+            <div class="col-fixed" style="width: 70px">
+              <span>N° Cama:</span>
+            </div>
+            <input
+              type="text"
+              pInputText
+              class="w-full text-center"
+              formControlName="nroCama"
+            />
+          </div>
+        </div>
+        <p-divider align="center" type="dashed"> </p-divider>
+      </div>
+    </div>
+  </div>
+</form>
+
+<br />
+<p-table
+  [value]="data"
+  dataKey="id"
+  responsiveLayout="scroll"
+  styleClass="p-datatable-gridlines"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th colspan="7">Resultados</th>
+    </tr>
+  </ng-template>
+  <ng-template let-data pTemplate="body" let-editing="editing">
+    <tr>
+      <td colspan="2">Resultados:Análisis:</td>
+      <td pEditableColumn colspan="2">
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input
+              [disabled]="isPruebaTomada"
+              pInputText
+              type="text"
+              [(ngModel)]="data.resultadosAnalisis"
+            />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ data.resultadosAnalisis }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td colspan="1">Tipo de muestra:</td>
+      <td pEditableColumn colspan="2" class="p-fluid">
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input
+              [disabled]="isPruebaTomada"
+              pInputText
+              type="text"
+              [(ngModel)]="data.resultadosTipoMuestra"
+            />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ data.resultadosTipoMuestra }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" class="text-center" style="width: 25%">
+        EXÁMEN MACROSCÓPICO
+      </td>
+      <td colspan="5" class="text-center" style="width: 75%">
+        EXAMEN MICROSCOPICO(100X,400X)
+      </td>
+    </tr>
+    <!-- nueva fila -->
+    <tr>
+      <td colspan="1" style="width: 12.5%">Color:</td>
+      <td colspan="1" pEditableColumn>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input
+              [disabled]="isPruebaTomada"
+              pInputText
+              type="text"
+              [(ngModel)]="data.color"
+            />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ data.color }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td colspan="2" class="text-center">Reaccion Inflamatoria:</td>
+      <td colspan="3" style="width: 50%" class="text-center">
+        Formas Parasitarias:
+      </td>
+    </tr>
+    <!-- nueva fila -->
+    <tr>
+      <td>Consistencia:</td>
+      <td pEditableColumn>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input
+              [disabled]="isPruebaTomada"
+              pInputText
+              type="text"
+              [(ngModel)]="data.consistencia"
+            />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ data.consistencia }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td style="width: 12.5%">Filamentos mucoides</td>
+      <td pEditableColumn>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input
+              [disabled]="isPruebaTomada"
+              pInputText
+              type="text"
+              [(ngModel)]="data.filamentosMucoides"
+            />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ data.filamentosMucoides }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td rowspan="2" style="width: 15%">
+        <span style="font-weight: bold; font-size: 1.1rem"> Se observa</span>
+        <br />
+        HUEVOS DE:
+      </td>
+      <td rowspan="2" pEditableColumn class="p-fluid">
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input
+              [disabled]="isPruebaTomada"
+              pInputText
+              type="text"
+              [(ngModel)]="data.huevosDe"
+              class="p-fluid"
+            />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ data.huevosDe }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+    </tr>
+    <tr>
+      <td>pH:</td>
+      <td pEditableColumn>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input
+              [disabled]="isPruebaTomada"
+              pInputText
+              type="text"
+              [(ngModel)]="data.ph"
+            />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ data.ph }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td>leucocitos</td>
+      <td pEditableColumn>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input
+              [disabled]="isPruebaTomada"
+              pInputText
+              type="text"
+              [(ngModel)]="data.leucocitos"
+            />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ data.leucocitos | currency: " x c.m ":"symbol":"1.1-2":"fr" }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+    </tr>
+    <tr>
+      <td>Reacción</td>
+      <td pEditableColumn>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input
+              [disabled]="isPruebaTomada"
+              pInputText
+              type="text"
+              [(ngModel)]="data.reaccion"
+            />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ data.reaccion }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td>Hematiés</td>
+      <td pEditableColumn>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input
+              [disabled]="isPruebaTomada"
+              pInputText
+              type="text"
+              [(ngModel)]="data.hematies"
+            />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ data.hematies | currency: " x c.m ":"symbol":"1.1-2":"fr" }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td rowspan="2">QUISTES DE:</td>
+      <td colspan="2" rowspan="2" pEditableColumn class="p-fluid">
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input
+              [disabled]="isPruebaTomada"
+              pInputText
+              type="text"
+              [(ngModel)]="data.quistesDe"
+            />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ data.quistesDe }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+    </tr>
+    <tr>
+      <td>Mucus:</td>
+      <td pEditableColumn>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input
+              [disabled]="isPruebaTomada"
+              pInputText
+              type="text"
+              [(ngModel)]="data.mucus"
+            />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ data.mucus }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td>Cuerpos Grasos:</td>
+      <td pEditableColumn>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input
+              [disabled]="isPruebaTomada"
+              pInputText
+              type="text"
+              [(ngModel)]="data.cuerposGrasos"
+            />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ data.cuerposGrasos }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+    </tr>
+    <!-- nueva fila     -->
+    <tr>
+      <td>Sangre:</td>
+      <td pEditableColumn class="p-fluid">
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input
+              [disabled]="isPruebaTomada"
+              pInputText
+              type="text"
+              [(ngModel)]="data.sangre"
+            />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ data.sangre }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td>Levaduras</td>
+      <td pEditableColumn>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input
+              [disabled]="isPruebaTomada"
+              pInputText
+              type="text"
+              [(ngModel)]="data.levaduras"
+            />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ data.levaduras }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td rowspan="2">TROFOZOITOS DE:</td>
+      <td pEditableColumn colspan="2" rowspan="2" class="p-fluid">
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input
+              [disabled]="isPruebaTomada"
+              pInputText
+              type="text"
+              [(ngModel)]="data.trofozoitosDe"
+            />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ data.trofozoitosDe }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+    </tr>
+    <tr>
+      <td>Restos Alimenticios:</td>
+      <td pEditableColumn>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input
+              [disabled]="isPruebaTomada"
+              pInputText
+              type="text"
+              [(ngModel)]="data.restosAlimenticios"
+            />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ data.restosAlimenticios }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td>Bacterias:</td>
+      <td pEditableColumn>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input
+              [disabled]="isPruebaTomada"
+              pInputText
+              type="text"
+              [(ngModel)]="data.bacterias"
+            />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ data.bacterias }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td rowspan="2">LARVAS DE:</td>
+      <td pEditableColumn rowspan="2" colspan="2" class="p-fluid">
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input
+              [disabled]="isPruebaTomada"
+              pInputText
+              type="text"
+              [(ngModel)]="data.larvasDe"
+            />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ data.larvasDe }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">SANGRE OCULTA EN HECES:</td>
+      <td pEditableColumn colspan="2" class="p-fluid">
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input
+              [disabled]="isPruebaTomada"
+              pInputText
+              type="text"
+              [(ngModel)]="data.sangreOcultaHeces"
+            />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ data.sangreOcultaHeces }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">GOTA GRUESA:(Dx.MAlaria)</td>
+      <td pEditableColumn colspan="5">
+        <div style="width: 50%" class="p-fluid">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input
+                [disabled]="isPruebaTomada"
+                pInputText
+                type="text"
+                [(ngModel)]="data.gotaGruesaDxMalaria"
+              />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ data.gotaGruesaDxMalaria }}
+            </ng-template>
+          </p-cellEditor>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">FROTIS DE LESIÓN:(Dx.Leishmaniosis)</td>
+      <td pEditableColumn colspan="5">
+        <div style="width: 50%" class="p-fluid">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input
+                [disabled]="isPruebaTomada"
+                pInputText
+                type="text"
+                [(ngModel)]="data.frotisLesionDLeishmaniosis"
+              />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ data.frotisLesionDLeishmaniosis }}
+            </ng-template>
+          </p-cellEditor>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+<div *ngIf="!isPruebaTomada" class="footer mt-3 flex justify-content-end">
+  <button
+    pButton
+    (click)="guardar()"
+    style="background-color: #0c3866"
+    label="Guardar"
+  ></button>
+</div>
+<!-- <pre>
+  {{aux|json}}
+</pre> -->

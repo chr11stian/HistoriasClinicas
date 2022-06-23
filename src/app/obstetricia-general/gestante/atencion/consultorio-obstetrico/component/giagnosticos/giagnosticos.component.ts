@@ -256,7 +256,7 @@ export class GiagnosticosComponent implements OnInit {
         }
         console.log(data)
         //enviar una consulta para guardar diagnostico
-        this.DxService.guardarDiagnosticoDeGestante(this.nroHcl, this.nroEmbarazo, this.nroAtencion, data).subscribe(
+        this.DxService.guardarDiagnosticoDeGestante(this.nroHcl, this.nroEmbarazo, this.nroAtencion, data).then(
             (resp) => {
                 console.log(resp);
                 this.diagnosticoDialog = false;
@@ -283,7 +283,7 @@ export class GiagnosticosComponent implements OnInit {
         }
         console.log(data)
         //enviar una consulta para guardar diagnostico
-        this.DxService.actualizarDiagnosticoDeGestante(this.nroHcl, this.nroEmbarazo, this.nroAtencion, data).subscribe(
+        this.DxService.actualizarDiagnosticoDeGestante(this.nroHcl, this.nroEmbarazo, this.nroAtencion, data).then(
             (resp) => {
                 console.log(resp);
                 this.diagnosticoDialog = false;
@@ -575,9 +575,10 @@ export class GiagnosticosComponent implements OnInit {
     }
 
     filterCIE10(event) {
-        this.CieService.getCIEByDescripcion(event.query).subscribe((res: any) => {
-            this.listaDeCIE = res.object
-        })
+        this.CieService.getPromiseCIEbyDescripcionTipo('CX', event.query).then((res:any) => this.listaDeCIE = res.object);
+        // this.CieService.getCIEByDescripcionTipo('CX', event.query).subscribe((res: any) => {
+        //     this.listaDeCIE = res.object
+        // })
     }
 
     selectedOption(event, cieType) {

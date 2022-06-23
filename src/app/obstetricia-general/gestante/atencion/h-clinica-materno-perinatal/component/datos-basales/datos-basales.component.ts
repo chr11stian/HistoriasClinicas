@@ -884,7 +884,7 @@ export class DatosBasalesComponent implements OnInit {
     openDialogPatologias() {
         this.ref = this.dialog.open(DialogPatologiasMaternasComponent, {
             header: "PATOLOGIAS MATERNAS DIAGNOSTICADAS",
-            width: "40%",
+            width: "30%",
             height: "auto",
             contentStyle: {
                 "max-height": "500px",

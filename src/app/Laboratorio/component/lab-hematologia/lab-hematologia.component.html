@@ -1,38 +1,464 @@
-<div class="border2 m-2">
-    <form >
-        <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
-            <div class="grid m-2">
-                <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
-                    <div class="border">
-                        <div class="grid m-2">
-                            <div class="col-12 md:col-6 lg:col-3 p-field flex flex-column">
-                                <label>APELLIDOS Y NOMBRES:</label>
-                                <input type="text" pInputText class="inputTest" formControlName="apellidosNombres"/>
-                            </div>
-                            <div class="col-12 md:col-6 lg:col-1 p-field flex flex-column">
-                                <label>EDAD:</label>
-                                <input type="text" pInputText class="inputTest" formControlName="edad"/>
-                            </div>
-                            <div class="col-12 md:col-6 lg:col-1 p-field flex flex-column">
-                                <label>HCL:</label>
-                                <input type="text" pInputText class="inputTest" formControlName="HCL"/>
-                            </div>
-                            <div class="col-12 md:col-6 lg:col-3 p-field flex flex-column">
-                                <label>SERVICIO:</label>
-                                <input type="text" pInputText class="inputTest" formControlName="servicio"/>
-                            </div>
-                            <div class="col-12 md:col-6 lg:col-2 p-field flex flex-column">
-                                <label>CAMA NRO:</label>
-                                <input type="text" pInputText class="inputTest" formControlName="camaNro"/>
-                            </div>
-                            <div class="col-12 md:col-6 lg:col-2 p-field flex flex-column">
-                                <label>DX. PRESUNTIVO:</label>
-                                <input type="text" pInputText class="inputTest" formControlName="DxPresuntivo"/>
-                            </div>
-                        </div>
+<form [formGroup]="formHematologia">
+    <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
+        <div class="grid m-2">
+            <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
+                <div class="grid">
+                    <div class="col-12 md:col-6 lg:col-6 flex align-items-center">
+                        <div class="col-fixed" style="width:140px"><span>Apellidos y Nombres:</span></div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="apellidosNombres"/>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
+                        <div class="col-fixed" style="width:50px"><span>Edad:</span></div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="edad"/>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
+                        <div class="col-fixed" style="width:70px"><span>N° H.CL:</span></div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="nroHistoria"/>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
+                        <div class="col-fixed" style="width:70px"><span>N° S.I.S:</span></div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="nroSis"/>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-5 flex align-items-center">
+                        <div class="col-fixed" style="width:90px"><span>Solicitante:</span></div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="solicitante"/>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-3 flex align-items-center">
+                        <div class="col-fixed" style="width:120px"><span>Hora de Muestra:</span></div>
+                        <p-calendar
+                                class="w-full text-center justify-content-center"
+                                [timeOnly]="true"
+                                [ngModel]="fecha"
+                                formControlName="horaMuestra"
+                                inputId="timeonly">
+                        </p-calendar>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
+                        <div class="col-fixed" style="width:90px"><span>N° Muestra:</span></div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="nroMuestra"/>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
+                        <div class="col-fixed" style="width:70px"><span>N° Cama:</span></div>
+                        <input type="text" pInputText class="w-full text-center" formControlName="nroCama"/>
                     </div>
                 </div>
+                <p-divider align="center" type="dashed">
+                </p-divider>
             </div>
         </div>
-    </form>
+    </div>
+</form>
+<p-table [value]="dataHematologia" responsiveLayout="scroll" styleClass="p-datatable-gridlines">
+    <ng-template pTemplate="header">
+        <tr>
+            <th colspan="12" style="text-align:center">Resultados: Análisis Hematológico</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-data let-editing="editing">
+        <tr>
+            <td>Hemoglobina:</td>
+            <td colspan="3" pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.hemoglobina" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.hemoglobina | currency:' g/dl ':'symbol':'1.1-1':'fr'}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>Rcto. Globulos rojos:</td>
+            <td colspan="3" pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.rctoGlobulosRojos" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.rctoGlobulosRojos | currency:'/mm³':'symbol':'1.1-1':'fr'}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td colspan="2">Tipo de Muestra:</td>
+            <td colspan="3" pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.tipoMuestra" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.tipoMuestra}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+        </tr>
+        <tr>
+            <td>Hematocrito:</td>
+            <td colspan="3" pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.hematocrito" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.hematocrito | currency:'%':'symbol':'1.1-1':'fr'}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>Rcto. Plaquetas:</td>
+            <td colspan="3" pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.rctoPlaquetas" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.rctoPlaquetas | currency:'/mm³':'symbol':'1.1-1':'fr'}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td colspan="2" rowspan="2">Velocidad de Sedimentación Globular(VSG)</td>
+            <td colspan="3" pEditableColumn>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.vsg1hora" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.vsg1hora | currency:'mm/1°hora':'symbol':'1.1-1':'fr'}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+        </tr>
+        <tr>
+            <td>Grupo sanguíneo:</td>
+            <td colspan="3" pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.grupoSanguineo" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.grupoSanguineo}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>Rcto. Globulos Blancos:</td>
+            <td colspan="3" pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.rctoGlobulosBlancos" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.rctoGlobulosBlancos | currency:'/mm³':'symbol':'1.1-1':'fr'}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td colspan="2" pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.vsg2hora" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.vsg2hora | currency:'mm/2°hora':'symbol':'1.1-1':'fr'}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+        </tr>
+        <tr>
+            <td>Factor Rh:</td>
+            <td colspan="3" pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.factorRH" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.factorRH}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td colspan="4" style="text-align:center">FORMULA LEUCOCITARIA</td>
+            <td colspan="4" style="text-align:center">CONSTANTES CORPUSCULARES</td>
+        </tr>
+        <tr>
+            <td>Tiempo de Sangría:</td>
+            <td colspan="3" pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.tiempoSangria" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.tiempoSangria | currency:'seg':'symbol':'1.1-1':'fr'}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>Blastos:</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.blastos" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.blastos | currency:'%':'symbol':'1.1-1':'fr'}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>Linfocitos:</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.linfocitos" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.linfocitos | currency:'%':'symbol':'1.1-1':'fr'}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>V.C.M.</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.vcm" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.vcm}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>V.R.</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.vrVcm" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.vrVcm}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+        </tr>
+        <tr>
+            <td>Tiempo de Coagulación:</td>
+            <td colspan="3" pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.tiempoCoagulacion" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.tiempoCoagulacion | currency:'seg':'symbol':'1.1-1':'fr'}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>Juveniles:</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.juveniles" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.juveniles | currency:'%':'symbol':'1.1-1':'fr'}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>Monocitos:</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.monocitos" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.monocitos | currency:'%':'symbol':'1.1-1':'fr'}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>C.H.C.M.</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.chcm" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.chcm}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>V.R.</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.vrChcm" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.vrChcm}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+        </tr>
+        <tr>
+            <td>Tiempo de Protrombina:</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.tiempoProtrombina" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.tiempoProtrombina}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>V.R.</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.tiempoProtrombinaVr" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.tiempoProtrombinaVr}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>Neutrófilos:</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.neutrofilos" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.neutrofilos}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>Eosinófilos:</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.eosinofilos" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.eosinofilos | currency:'%':'symbol':'1.1-1':'fr'}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>H.C.M.</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.hcm" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.hcm}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>V.R.</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.vrHcm" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.vrHcm}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+        </tr>
+        <tr>
+            <td>Tiempo de Tromboplastina:</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.tiempoTromboplastina" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.tiempoTromboplastina}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>V.R.</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.tiempoTromboplastinaVr" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.tiempoTromboplastinaVr}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>Abastonados:</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.nabastonados" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.nabastonados | currency:'%':'symbol':'1.1-1':'fr'}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>Basófilos:</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.basofilos" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.basofilos | currency:'%':'symbol':'1.1-1':'fr'}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+        </tr>
+        <tr>
+            <td>Reticulocitos:</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.reticulocitos" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.reticulocitos}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>V.R.</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.reticulocitosVr" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.reticulocitosVr}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>N. Segmenentados:</td>
+            <td pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.nsegmentados" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.nsegmentados | currency:'%':'symbol':'1.1-1':'fr'}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Compatibilidad sanguínea</td>
+            <td colspan="7" pEditableColumn style="text-align:center">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="data.compatibilidadSanguinea" required>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{data.compatibilidadSanguinea}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+<div class="flex justify-content-end">
+    <ng-template [ngIf]="!config.data.edit">
+        <button [hidden]="config.data.edit" style="background-color: #0c3866" class=""
+                pButton type="button"
+                (click)="Guardar()">Guardar
+        </button>
+    </ng-template>
 </div>

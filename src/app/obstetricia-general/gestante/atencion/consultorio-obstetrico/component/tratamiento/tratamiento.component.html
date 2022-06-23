@@ -124,7 +124,7 @@
                     </div>
                     <div class="grid p-3 align-items-center">
                         <div *ngFor="let item of listaCalendarioSuplementos" class="col-6 md:col-3 text-center">
-                            <p-card  styleClass="p-card-shadow p-3 border-solid border-1">
+                            <p-card styleClass="p-card-shadow p-3 border-solid border-1">
                                 <ng-template pTemplate="header">
                                     <label>{{item.titulo}}</label>
                                     <p class="text-blue-800">({{item.dosis}})</p>
@@ -142,13 +142,41 @@
             <div class="col-12 md:col-6 lg:col-6 xl:col-6">
                 <p-fieldset legend="ÁCIDO FOLICO / SULFATO FERROSO">
                     <div class="grid">
+                        <div class="col-3 image1">
+                        </div>
+                        <div class="col-9">
+                            <div class="p-field-radiobutton m-2">
+                                <p-radioButton name="suple1" value="59401.03" formControlName="suple1" inputId="s1">
+                                </p-radioButton>
+                                <label for="city1" class="m-2">Suplementación de ácido fólico.</label>
+                            </div>
+                            <div class="p-field-radiobutton m-2">
+                                <p-radioButton name="suple1" value="99199.26" formControlName="suple1" inputId="s3">
+                                </p-radioButton>
+                                <label for="city3" class="m-2">Suplementación de sulfato ferroso y ácido fólico.</label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label>Nombre UPS:</label>
+                            <p-dropdown [options]="listaUps" formControlName="nombreUPS1" appendTo="body"
+                                optionLabel="nombreUPS" optionValue="nombreUPS" class="inputfield p-fluid w-full"
+                                placeholder="Seleccione nombre UPS">
+                            </p-dropdown>
+                        </div>
+                        <div class="col-6">
+                            <label>Nombre UPS Aux:</label>
+                            <p-dropdown [options]="listaUpsHis" formControlName="nombreUPSAux1" appendTo="body"
+                                optionLabel="nombreUPS" optionValue="nombreUPS" class="inputfield p-fluid w-full"
+                                placeholder="Seleccione nombre aux UPS">
+                            </p-dropdown>
+                        </div>
                         <div class="col-12">
                             <label>Diagnostico:</label>
                             <p-dropdown [options]="diagnosticosList" formControlName="diagnostico" appendTo="body"
                                 optionLabel="diagnosticoSIS" class="inputfield p-fluid w-full"
                                 placeholder="Seleccione diagnostico SIS"></p-dropdown>
                         </div>
-                        <div class="col-10">
+                        <div class="col-12">
                             <label>Medicamento:</label>
                             <p-autoComplete [suggestions]="aux" (completeMethod)="filterItems($event)" [itemSize]="34"
                                 appendTo="body" field="stringMedicamento" [minLength]="1"
@@ -157,79 +185,9 @@
                             </p-autoComplete>
                         </div>
                         <div class="col-2">
-                            <label>Stock:</label>
-                            <input type="number" pInputText formControlName='stock' placeholder="Stock"
-                                class="inputfield p-fluid w-full" required />
-                        </div>
-                        <div class="col-6">
-                            <p-fieldset legend="PROCEDIMIENTO HIS">
-                                <div class="grid mt-2">
-                                    <label>Procedimiento: </label>
-                                    <p-autoComplete [suggestions]="listaDeCIE" (completeMethod)="filterCIE10($event)"
-                                        appendTo="body" field="descripcionItem" [minLength]="1" class="areaText "
-                                        class="inputfield p-fluid w-full" formControlName="autocompleteHIS1"
-                                        (onSelect)="selectedOptionNameCIE($event,1)">
-                                    </p-autoComplete>
-                                    <textarea [rows]="5" class="inputfield w-full mt-2"
-                                        formControlName="diagnosticoHIS1" pInputTextarea disabled></textarea>
-                                </div>
-                                <div class="grid mt-2">
-                                    <label class="mr-2">CIE 10: </label>
-                                    <p-autoComplete formControlName="HISCIE1" [suggestions]="listaDeCIE"
-                                        (completeMethod)="filterCIE10($event)" field="codigoItem" [minLength]="1"
-                                        class="inputfield p-fluid w-full" (onSelect)="selectedOption($event,1)"
-                                        [forceSelection]="true" dataKey="codigoItem">
-                                    </p-autoComplete>
-                                </div>
-                            </p-fieldset>
-                        </div>
-                        <div class="col-6">
-                            <div class="grid">
-                                <div class="col-12">
-                                    <label>Nombre UPS:</label>
-                                    <p-dropdown [options]="listaUps" formControlName="nombreUPS1" appendTo="body"
-                                        optionLabel="nombreUPS" optionValue="nombreUPS"
-                                        class="inputfield p-fluid w-full" placeholder="Seleccione nombre UPS">
-                                    </p-dropdown>
-                                </div>
-                                <div class="col-12">
-                                    <label>Nombre UPS Aux:</label>
-                                    <p-dropdown [options]="listaUpsHis" formControlName="nombreUPSAux1" appendTo="body"
-                                        optionLabel="nombreUPS" optionValue="nombreUPS"
-                                        class="inputfield p-fluid w-full" placeholder="Seleccione nombre aux UPS">
-                                    </p-dropdown>
-                                </div>
-                                <div class="col-12">
-                                    <label>Nombre Suplemento:</label>
-                                    <input type="text" pInputText formControlName='acidoFolicoNombre'
-                                        placeholder="Nombre" class="p-fluid inputfield w-full">
-                                </div>
-                                <div class="col-12">
-                                    <label>Descripcion:</label>
-                                    <input type="text" pInputText formControlName='acidoFolicoDescripcion'
-                                        placeholder="Descripcion" class="p-fluid inputfield w-full">
-                                </div>
-                                <div class="col-6">
-                                    <label>Via Admi:</label>
-                                    <input type="text" pInputText formControlName='acidoFolicoViaAdministracion'
-                                        placeholder="Via adm." class="p-fluid inputfield w-full">
-                                </div>
-                                <div class="col-6">
-                                    <label>Fecha Venc:</label>
-                                    <input type="text" pInputText formControlName='acidoFolicoFechaVenc'
-                                        placeholder="Fecha venc." class="p-fluid inputfield w-full">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-2">
                             <label>Cantidad:</label>
                             <input type="number" pInputText formControlName='acidoFolicoCantidad' placeholder="Nro"
                                 class="p-fluid inputfield w-full">
-                        </div>
-                        <div class="col-3">
-                            <label>Dosis indicada:</label>
-                            <input type="text" pInputText formControlName='acidoFolicoDosisIndicaciones'
-                                placeholder="Dosis" class="p-fluid inputfield w-full">
                         </div>
                         <div class="col-2">
                             <label>Dosis nro:</label>
@@ -238,8 +196,10 @@
                         </div>
                         <div class="col-3">
                             <label>Frecuencia:</label>
-                            <input type="text" pInputText formControlName='acidoFolicoFrecuencia'
-                                placeholder="Frecuencia" class="p-fluid inputfield w-full">
+                            <p-dropdown [options]="listaIntervalos" formControlName="acidoFolicoFrecuencia"
+                                appendTo="body" optionLabel="name" optionValue="name" class="inputfield p-fluid w-full"
+                                placeholder="Seleccione frecuencia">
+                            </p-dropdown>
                         </div>
                         <div class="col-2">
                             <label>Lab:</label>
@@ -252,7 +212,7 @@
                                 class="p-fluid inputfield w-full">
                         </div>
 
-                        <div class="col-9">
+                        <div class="col-12">
                             <label>Indicacion:</label>
                             <input type="text" pInputText formControlName='acidoFolicoIndicacion'
                                 placeholder="Indicacion" class="p-fluid inputfield w-full">
@@ -263,13 +223,37 @@
             <div class="col-12 md:col-6 lg:col-6 xl:col-6">
                 <p-fieldset legend="CALCIO">
                     <div class="grid">
+                        <div class="col-3 image2">
+                        </div>
+                        <div class="col-9">
+                            <div class="p-field-radiobutton m-4">
+                                <p-radioButton name="suple2" value="59401.05" formControlName="suple2" inputId="s2">
+                                </p-radioButton>
+                                <label for="city1" class="m-2">Suplementación de calcio.</label>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="col-6">
+                            <label>Nombre UPS:</label>
+                            <p-dropdown [options]="listaUps" formControlName="nombreUPS2" appendTo="body"
+                                optionLabel="nombreUPS" optionValue="nombreUPS" class="inputfield p-fluid w-full"
+                                placeholder="Seleccione nombre UPS">
+                            </p-dropdown>
+                        </div>
+                        <div class="col-6">
+                            <label>Nombre UPS Aux:</label>
+                            <p-dropdown [options]="listaUpsHis" formControlName="nombreUPSAux2" appendTo="body"
+                                optionLabel="nombreUPS" optionValue="nombreUPS" class="inputfield p-fluid w-full"
+                                placeholder="Seleccione nombre UPS Aux">
+                            </p-dropdown>
+                        </div>
                         <div class="col-12">
                             <label>Diagnostico:</label>
                             <p-dropdown [options]="diagnosticosList" formControlName="diagnostico2" appendTo="body"
                                 optionLabel="diagnosticoSIS" class="inputfield p-fluid w-full"
                                 placeholder="Seleccione diagnostico SIS"></p-dropdown>
                         </div>
-                        <div class="col-10">
+                        <div class="col-12">
                             <label>Medicamento:</label>
                             <p-autoComplete [suggestions]="aux" (completeMethod)="filterItems($event)" [itemSize]="34"
                                 appendTo="body" field="stringMedicamento" [minLength]="1"
@@ -277,79 +261,10 @@
                                 (onSelect)="selectedOptionNameMedicamento($event,2)" [dropdown]="true">
                             </p-autoComplete>
                         </div>
-                        <div class="col-2">
-                            <label>Stock:</label>
-                            <input type="number" pInputText formControlName='stock2' placeholder="Stock"
-                                class="inputfield p-fluid w-full" required />
-                        </div>
-                        <div class="col-6">
-                            <p-fieldset legend="PROCEDIMIENTO HIS">
-                                <div class="grid mt-2">
-                                    <label>Procedimiento: </label>
-                                    <p-autoComplete [suggestions]="listaDeCIE" (completeMethod)="filterCIE10($event)"
-                                        appendTo="body" field="descripcionItem" [minLength]="1" class="areaText "
-                                        class="inputfield p-fluid w-full" formControlName="autocompleteHIS2"
-                                        (onSelect)="selectedOptionNameCIE($event,2)">
-                                    </p-autoComplete>
-                                    <textarea [rows]="5" class="inputfield w-full mt-2"
-                                        formControlName="diagnosticoHIS2" pInputTextarea disabled></textarea>
-                                </div>
-                                <div class="grid mt-2">
-                                    <label class="mr-2">CIE 10: </label>
-                                    <p-autoComplete formControlName="HISCIE2" [suggestions]="listaDeCIE"
-                                        (completeMethod)="filterCIE10($event)" field="codigoItem" [minLength]="1"
-                                        class="inputfield p-fluid w-full" (onSelect)="selectedOption($event,2)"
-                                        [forceSelection]="true" dataKey="codigoItem">
-                                    </p-autoComplete>
-                                </div>
-                            </p-fieldset>
-                        </div>
-                        <div class="col-6">
-                            <div class="grid">
-                                <div class="col-12">
-                                    <label>Nombre UPS:</label>
-                                    <p-dropdown [options]="listaUps" formControlName="nombreUPS2" appendTo="body"
-                                        optionLabel="nombreUPS" optionValue="nombreUPS"
-                                        class="inputfield p-fluid w-full" placeholder="Seleccione nombre UPS">
-                                    </p-dropdown>
-                                </div>
-                                <div class="col-12">
-                                    <label>Nombre UPS Aux:</label>
-                                    <p-dropdown [options]="listaUpsHis" formControlName="nombreUPSAux2" appendTo="body"
-                                        optionLabel="nombreUPS" optionValue="nombreUPS"
-                                        class="inputfield p-fluid w-full" placeholder="Seleccione nombre UPS Aux">
-                                    </p-dropdown>
-                                </div>
-                                <div class="col-12">
-                                    <label>Nombre Suplemento:</label>
-                                    <input type="text" pInputText formControlName='calcioNombre' placeholder="Nombre"
-                                        class="p-fluid inputfield w-full">
-                                </div>
-                                <div class="col-12">
-                                    <label>Descripcion:</label>
-                                    <input type="text" pInputText formControlName='calcioDescripcion'
-                                        placeholder="Descripcion" class="p-fluid inputfield w-full">
-                                </div>
-                                <div class="col-6">
-                                    <label>Via Admi:</label>
-                                    <input type="text" pInputText formControlName='calcioViaAdministracion'
-                                        placeholder="Via adm." class="p-fluid inputfield w-full">
-                                </div>
-                                <div class="col-6">
-                                    <label>Fecha Venc:</label>
-                                    <input type="text" pInputText formControlName='calcioFechaVenc'
-                                        placeholder="Fecha venc." class="p-fluid inputfield w-full">
-                                </div>
-                            </div>
-                        </div>
+
                         <div class="col-2">
                             <label>Cantidad:</label>
                             <input type="number" pInputText formControlName='calcioCantidad' placeholder="Nro"
-                                class="p-fluid inputfield w-full">
-                        </div>
-                        <div class="col-3">
-                            <label>Dosis indicada:</label>
-                            <input type="text" pInputText formControlName='calcioDosisIndicaciones' placeholder="Dosis"
                                 class="p-fluid inputfield w-full">
                         </div>
                         <div class="col-2">
@@ -359,8 +274,10 @@
                         </div>
                         <div class="col-3">
                             <label>Frecuencia:</label>
-                            <input type="text" pInputText formControlName='calcioFrecuencia' placeholder="Frecuencia"
-                                class="p-fluid inputfield w-full">
+                            <p-dropdown [options]="listaIntervalos" formControlName="calcioFrecuencia" appendTo="body"
+                                optionLabel="name" optionValue="name" class="inputfield p-fluid w-full"
+                                placeholder="Seleccione frecuencia">
+                            </p-dropdown>
                         </div>
                         <div class="col-2">
                             <label>Lab:</label>
@@ -373,7 +290,7 @@
                                 class="p-fluid inputfield w-full">
                         </div>
 
-                        <div class="col-9">
+                        <div class="col-12">
                             <label>Indicacion:</label>
                             <input type="text" pInputText formControlName='calcioIndicacion' placeholder="Indicacion"
                                 class="p-fluid inputfield w-full">

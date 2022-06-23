@@ -5,30 +5,54 @@ p-panelmenu >>> .p-panelmenu-panel .p-panelmenu-header > a {
     border-top: none !important;
     border-left: 5px solid #e7e7e7;
     border-bottom: none !important;
-    border-right: none !important;
+    border-radius: 0 5px 5px 0;
     border-left: 5px solid #AF0017; /*jiimmy*/
-    /*border-left: 5px solid rgb(12 56 102); !*jiimmy*!*/
+    width: 160px;
 }
 
+p-panelmenu >>> .p-panelmenu .p-panelmenu-content .p-menuitem .p-menuitem-link {
+    width: 160px;
+}
+
+p-panelmenu >>> .p-panelmenu .p-panelmenu-content {
+    padding: 0.25rem 0;
+    border: 1px solid #FFF;
+}
+
+p-panelmenu >>> .p-panelmenu .p-panelmenu-content .p-menuitem .p-menuitem-link .p-panelmenu-icon {
+    margin-left: -30px;
+}
 
 p-panelmenu >>> .p-panelmenu-content .p-menuitem .p-menuitem-link {
     padding: 0.75rem 3em;
 }
 
-p-panelmenu >>> .p-panelmenu-panel .p-panelmenu-header > a:hover {
-    background-color: #FBF3F4 !important;
-    border-color: #AF0017 !important;
-    color: #AF0017 !important;
+p-panelmenu >>> .p-panelmenu .p-panelmenu-header > a .p-menuitem-icon {
+    margin-left: -2rem;
 }
 
-.p-panelmenu .p-panelmenu-content .p-menuitem .p-menuitem-link:not(.p-disabled):hover {
-    background: #618cb6;
+p-panelmenu >>> .p-panelmenu-panel .p-panelmenu-header .p-menuitem-icon {
+    font-size: 2rem;
+}
+
+p-panelmenu >>> .p-panelmenu-panel .p-panelmenu-header .p-panelmenu-icon {
+    color: transparent !important;
+}
+
+p-panelmenu >>> .p-panelmenu-panel .p-panelmenu-header > a:hover {
+    background-color: #AF0017 !important;
+    border-color: #FBF3F4 !important;
+    color: #FBF3F4 !important;
+}
+
+p-panelmenu >>> .p-panelmenu-panel .p-panelmenu-header .p-menuitem-text {
+    color: white;
 }
 
 p-panelmenu >>> .p-panelmenu-header.p-highlight:not(.p-enabled) > a {
-    border-color: #AF0017;
-    background-color: #FBF3F4 !important;
-    color: #AF0017 !important;
+    border-color: #FBF3F4;
+    background-color: #AF0017 !important;
+    color: #FBF3F4 !important;
 }
 
 /*p-panelmenu>>> .pi-chevron-right:before {*/
@@ -36,8 +60,9 @@ p-panelmenu >>> .p-panelmenu-header.p-highlight:not(.p-enabled) > a {
 /*}*/
 
 .size-panel-menu {
-    width: auto;
-    max-width: calc(100% - 200px);
+    width: 30px;
+    /*width: auto;
+    max-width: calc(100% - 200px);*/
 }
 
 p-autocomplete >>> .p-autocomplete {
@@ -77,7 +102,7 @@ p-menu >>> .p-submenu-header {
 }
 
 p-menu >>> .p-menuitem-link:not(.p-disabled):hover .p-menuitem-text {
-    color: #333232;
+    color: #042079;
 
 }
 

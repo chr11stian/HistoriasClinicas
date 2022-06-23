@@ -5,10 +5,10 @@
     <ng-template pTemplate="right" class="button">
         <div class=" mr-8">
             <button pButton pRipple label="Ver Antecedentes" class="m-2" icon="pi pi-list"
-                    style="background-color: #3970b8" (click)="openAntecedentes()"></button>
+                style="background-color: #3970b8" (click)="openAntecedentes()"></button>
         </div>
         <button pButton pRipple label="Guardar" icon="pi pi-save" class="guardar mr-2" style="background-color: #0c3866"
-                (click)="Add_updateConsultas()"></button>
+            (click)="Add_updateConsultas()"></button>
     </ng-template>
 </p-toolbar>
 
@@ -22,32 +22,35 @@
                 <p class="text-4xl w-10">CONSULTA PERINATAL</p>
             </div>
         </div>
-        <p-fieldset legend="DATOS DE LA CONSULTA">
+        <p-fieldset legend="DATOS DE LA CONSULTA">s
             <form [formGroup]='formDatos_Generales'>
                 <div class="grid">
                     <div class="col-12 md:col-12 lg:col-12 p-field">
                         <div class="">
-                            <label class="">Nro de control prenatal: </label>
-                            <input type="text" pInputText class="inputfield w-full" formControlName="nroAtencion">
+                            <label>Nro de control prenatal: </label>
+                            <input type="text" pInputText class="inputfield w-full bg_color"
+                                formControlName="nroAtencion" disabled>
                         </div>
                     </div>
                     <div class="col-12 md:col-12 lg:col-12 p-field">
                         <div class="">
-                            <label class="">Nro control sis: </label>
-                            <input type="text" pInputText class="inputfield w-full" formControlName="nroControl">
+                            <label>Nro control sis: </label>
+                            <input type="text" pInputText class="inputfield w-full bg_color"
+                                formControlName="nroControl" disabled>
                         </div>
                     </div>
                     <div class="col-12 md:col-12 lg:col-12 p-field">
-                        <div class="">
+                        <div class="color_text">
                             <label class="">Nro Hcl: </label>
-                            <input type="text" pInputText class="inputfield w-full" formControlName="nroHcl">
+                            <input type="text" pInputText class="inputfield w-full bg_color" formControlName="nroHcl"
+                                disabled>
                         </div>
                     </div>
                     <div class="col-12 md:col-12 lg:col-12 p-fluid">
                         <label>Fecha / Hora: </label>
-                        <br/>
+                        <br />
                         <p-calendar formControlName="fecha" dateFormat="yy-mm-dd" [showTime]="true" [showSeconds]="true"
-                                    class="inputfield w-full">
+                            class="inputfield w-full">
                         </p-calendar>
                     </div>
                 </div>
@@ -62,29 +65,29 @@
                     <div class="col-12 md:col-6 lg:col-3 p-field">
                         <div class="">
                             <label class="">Documento de identidad: </label>
-                            <input type="text" pInputText class="inputfield w-full" style="text-transform:uppercase"
-                                   formControlName="nroDoc">
+                            <input type="text" pInputText class="inputfield w-full bg_color"
+                                style="text-transform:uppercase" formControlName="nroDoc" disabled>
                         </div>
                     </div>
                     <div class="col-12 md:col-6 lg:col-3 p-field">
                         <div class="">
                             <label class="">Apellido Paterno:</label>
-                            <input type="text" pInputText class="inputfield w-full" style="text-transform:uppercase"
-                                   formControlName="apePaterno">
+                            <input type="text" pInputText class="inputfield w-full bg_color"
+                                style="text-transform:uppercase" formControlName="apePaterno" disabled>
                         </div>
                     </div>
                     <div class="col-12 md:col-6 lg:col-3 p-field">
                         <div class="">
                             <label class="">Apellido Materno: </label>
-                            <input type="text" pInputText class="inputfield w-full" style="text-transform:uppercase"
-                                   formControlName="apeMaterno">
+                            <input type="text" pInputText class="inputfield w-full bg_color"
+                                style="text-transform:uppercase" formControlName="apeMaterno" disabled>
                         </div>
                     </div>
                     <div class="col-12 md:col-6 lg:col-3 p-field">
                         <div class="">
                             <label class="">Nombres: </label>
-                            <input type="text" pInputText class="inputfield w-full" style="text-transform:uppercase"
-                                   formControlName="nombres">
+                            <input type="text" pInputText class="inputfield w-full bg_color"
+                                style="text-transform:uppercase" formControlName="nombres" disabled>
                         </div>
                     </div>
                 </div>
@@ -92,40 +95,42 @@
                     <div class="col-12 md:col-6 lg:col-1 p-field">
                         <div class="">
                             <label class="">Edad: </label>
-                            <input type="text" pInputText class="inputfield w-full" formControlName="edad">
+                            <input type="text" pInputText class="inputfield w-full bg_color" formControlName="edad"
+                                disabled>
                         </div>
                     </div>
                     <div class="col-12 md:col-6 lg:col-2 p-field">
                         <div class="">
                             <label class="">Teléfono:</label>
-                            <input type="text" pInputText class="inputfield w-full" formControlName="telefono">
+                            <input type="text" pInputText class="inputfield w-full bg_color" formControlName="telefono"
+                                disabled>
                         </div>
                     </div>
                     <div class="col-12 md:col-6 lg:col-4 p-field">
                         <div class="">
                             <label>Grado de instrucción: </label>
-                            <input type="text" pInputText class="inputfield w-full" style="text-transform:uppercase"
-                                   formControlName="gradoInstruccion">
+                            <input type="text" pInputText class="inputfield w-full bg_color"
+                                style="text-transform:uppercase" formControlName="gradoInstruccion" disabled>
                         </div>
                     </div>
                     <div class="col-12 md:col-7 lg:col-5 p-field">
                         <div class="">
-                            <label class="">Ocupación:</label>
+                            <label>Ocupación:</label>
                             <input type="text" pInputText class="inputfield w-full" style="text-transform:uppercase"
-                                   formControlName="ocupacion">
+                                formControlName="ocupacion">
                         </div>
                     </div>
                     <div class="col-12 md:col-12 lg:col-12 p-field">
                         <div class="">
                             <label class="">Dirección: </label>
-                            <input type="text" pInputText class="inputfield w-full" style="text-transform:uppercase"
-                                   formControlName="direccion">
+                            <input type="text" pInputText class="inputfield w-full bg_color"
+                                style="text-transform:uppercase" formControlName="direccion" disabled>
                         </div>
                     </div>
                 </div>
             </form>
         </p-fieldset>
-        <br/>
+        <br />
         <p-fieldset legend="INFORMACION ACOMPAÑANTE">
             <form [formGroup]='formDatos_Generales'>
                 <div class="grid">
@@ -133,51 +138,50 @@
                         <div class="">
                             <label class="">Documento de identidad: </label>
                             <input type="text" pInputText class="inputfield w-full" formControlName="nroDocAcompaniante"
-                                   style="text-transform:uppercase" (blur)="traerDataReniec()">
+                                style="text-transform:uppercase">
                         </div>
                     </div>
                     <div class="col-12 md:col-6 lg:col-3 p-field">
                         <div class="">
                             <label class="">Apellidos:</label>
                             <input type="text" pInputText class="inputfield w-full"
-                                   formControlName="apellidosAcompaniante" style="text-transform:uppercase">
+                                formControlName="apellidosAcompaniante" style="text-transform:uppercase">
                         </div>
                     </div>
                     <div class="col-12 md:col-6 lg:col-3 p-field">
                         <div class="">
                             <label class="">Nombres: </label>
                             <input type="text" pInputText class="inputfield w-full"
-                                   formControlName="nombresAcompaniante" style="text-transform:uppercase">
+                                formControlName="nombresAcompaniante" style="text-transform:uppercase">
                         </div>
                     </div>
                     <div class="col-12 md:col-6 lg:col-1 p-field">
                         <div class="">
                             <label class="">Edad: </label>
                             <input type="number" pInputText class="inputfield w-full"
-                                   formControlName="edadAcompaniante">
+                                formControlName="edadAcompaniante">
                         </div>
                     </div>
                     <div class="col-12 md:col-6 lg:col-2 p-field">
                         <div class="">
                             <label class="">Telefono:</label>
                             <input type="number" pInputText class="inputfield w-full"
-                                   formControlName="telefonoAcompaniante">
+                                formControlName="telefonoAcompaniante">
                         </div>
                     </div>
                     <div class="col-12 md:col-6 lg:col-9 p-field">
                         <div class="">
                             <label class="">Dirección: </label>
                             <input type="text" pInputText class="inputfield w-full"
-                                   formControlName="direccionAcompaniante" style="text-transform:uppercase">
+                                formControlName="direccionAcompaniante" style="text-transform:uppercase">
                         </div>
                     </div>
                     <div class="col-12 md:col-6 lg:col-3 p-fluid">
                         <div class="">
                             <label class="">Lazo de parentesco:</label>
                             <p-dropdown [options]="familiares2" optionLabel="nombrefamiliar"
-                                        optionValue="nombrefamiliar" formControlName="lazoParentesco"
-                                        placeholder="Selecciona"
-                                        [showClear]="false" class="inputfield w-full">
+                                optionValue="nombrefamiliar" formControlName="lazoParentesco" placeholder="Selecciona"
+                                [showClear]="false" class="inputfield w-full">
                             </p-dropdown>
                         </div>
                     </div>
@@ -196,16 +200,17 @@
                                 <div class="p-inputgroup">
                                     <span class="col-4" style="text-align: right">FUR:</span>
                                     <p-calendar formControlName="FUR" dateFormat="yy-mm-dd"
-                                                placeholder="Fecha ultima regla"></p-calendar>
+                                        placeholder="Fecha ultima regla" [disabled]="true" class="calendar">
+                                    </p-calendar>
                                 </div>
                             </div>
                         </div>
                         <div class="grid">
                             <div class="col-12 md:col-12 lg:col-12 p-field">
                                 <div class="p-inputgroup">
-                                    <span class="col-4" style="text-align: right">FPP:</span>
+                                    <span class="col-4 span_calendar" style="text-align: right">FPP:</span>
                                     <p-calendar formControlName="FPP" dateFormat="yy-mm-dd"
-                                                placeholder="Fecha post parto  "></p-calendar>
+                                        placeholder="Fecha post parto" [disabled]="true" class="calendar"></p-calendar>
                                 </div>
                             </div>
                         </div>
@@ -215,7 +220,7 @@
                                 <div class="p-inputgroup">
                                     <span class="col-4" style="text-align: right">R. CAT:</span>
                                     <input type="text" pInputText class="" formControlName="RCAT"
-                                           placeholder="Regimen catamenial">
+                                        placeholder="Regimen catamenial">
                                 </div>
                             </div>
                         </div>
@@ -224,7 +229,7 @@
                             <div class="col-12 md:col-6 lg:col-3 p-field">
                                 <div class="p-inputgroup">
                                     <span class="col-4" style="text-align: right">G:</span>
-                                    <input class="col-8" type="text" pInputText formControlName="G">
+                                    <input class="col-8 bg_color" type="text" pInputText formControlName="G" disabled>
                                 </div>
                             </div>
 
@@ -232,12 +237,12 @@
                                 <div class="p-inputgroup">
                                     <span class="col-2" style="text-align: right">P:</span>
                                     <input type="text" id="txt1" pInputText formControlName="P1"
-                                           (keyup)="calcularGestas()">
+                                        (keyup)="calcularGestas()" class="bg_color" disabled>
                                     <input type="text" id="txt2" pInputText formControlName="P2"
-                                           (keyup)="calcularGestas()">
+                                        (keyup)="calcularGestas()" class="bg_color" disabled>
                                     <input type="text" id="txt3" pInputText formControlName="P3"
-                                           (keyup)="calcularGestas()">
-                                    <input type="text" pInputText formControlName="P4">
+                                        (keyup)="calcularGestas()" class="bg_color" disabled>
+                                    <input type="text" pInputText formControlName="P4" class="bg_color" disabled>
                                 </div>
                             </div>
                         </div>
@@ -247,7 +252,8 @@
                             <div class="col-12 md:col-6 lg:col-6 p-field" style="align-self: start">
                                 <div class="p-inputgroup">
                                     <span class="col-6 md:col-6 lg:col-5">Parto:</span>
-                                    <p-radioButton name="gesAnterior" formControlName="gesAnterior" value="parto">
+                                    <p-radioButton name="gesAnterior" formControlName="gesAnterior" value="parto"
+                                        [disabled]="true">
                                     </p-radioButton>
                                 </div>
 
@@ -255,7 +261,8 @@
                             <div class="col-12 md:col-6 lg:col-6 p-field" style="align-self: start">
                                 <div class="p-inputgroup">
                                     <span class="col-6 md:col-6 lg:col-5">Aborto:</span>
-                                    <p-radioButton name="gesAnterior" formControlName="gesAnterior" value="aborto">
+                                    <p-radioButton name="gesAnterior" formControlName="gesAnterior" value="aborto"
+                                        [disabled]="true">
                                     </p-radioButton>
                                 </div>
                             </div>
@@ -266,14 +273,15 @@
                             <div class="col-12 md:col-6 lg:col-12 p-field" style="align-self: start">
                                 <div class="p-inputgroup p-fluid">
                                     <span class="col-6" style="text-align: left">R.N. DE MAYOR PESO:</span>
-                                    <input class="col-5" type="text" pInputText formControlName="RNpesoMayor">
+                                    <input class="col-5 bg_color" type="text" pInputText formControlName="RNpesoMayor"
+                                        disabled>
                                     <span class="col-1">GR.</span>
                                 </div>
                             </div>
                         </div>
                     </form>
                 </p-fieldset>
-                <br/>
+                <br />
                 <p-fieldset legend="PSICOPROFILAXIS">
                     <form [formGroup]='formDatos_Generales'>
                         <div class="grid">
@@ -281,7 +289,7 @@
                                 <div class="p-inputgroup">
                                     <span class="col-7" style="text-align: right">Psicoprofilaxis:</span>
                                     <p-selectButton [options]=" opciones" optionLabel="name" optionValue="name"
-                                                    formControlName="Psicoprofilaxis"></p-selectButton>
+                                        formControlName="Psicoprofilaxis"></p-selectButton>
                                 </div>
                             </div>
                         </div>
@@ -297,7 +305,7 @@
                                 <div class="p-inputgroup">
                                     <span class="col-7" style="text-align: right">Fuma Cigarros:</span>
                                     <p-selectButton [options]=" opciones" optionLabel="name" optionValue="boleano"
-                                                    formControlName="FumaCigarros"></p-selectButton>
+                                        formControlName="FumaCigarros" [disabled]="true"></p-selectButton>
                                 </div>
                             </div>
                         </div>
@@ -306,13 +314,13 @@
                                 <div class="p-inputgroup">
                                     <span class="col-7" style="text-align: right">Drogas:</span>
                                     <p-selectButton [options]=" opciones" optionLabel="name" optionValue="boleano"
-                                                    formControlName="Drogas"></p-selectButton>
+                                        formControlName="Drogas" [disabled]="true"></p-selectButton>
                                 </div>
                             </div>
                         </div>
                     </form>
                 </p-fieldset>
-                <br/>
+                <br />
                 <p-fieldset legend="VACUNAS PREVIAS">
                     <form [formGroup]='formDatos_Generales'>
                         <div class="text-center">
@@ -321,7 +329,7 @@
                                     <div class="p-inputgroup">
                                         <span class="col-7" style="text-align: right">V. Antitetánica 1° Dosis:</span>
                                         <p-selectButton [options]="opciones" optionValue="boleano" optionLabel="name"
-                                                        formControlName="vAntitetánica1Dosis"></p-selectButton>
+                                            formControlName="vAntitetánica1Dosis" [disabled]="true"></p-selectButton>
                                     </div>
                                 </div>
                             </div>
@@ -330,7 +338,7 @@
                                     <div class="p-inputgroup">
                                         <span class="col-7" style="text-align: right">V. Antitetánica 2° Dosis:</span>
                                         <p-selectButton [options]="opciones" optionValue="boleano" optionLabel="name"
-                                                        formControlName="vAntitetánica2Dosis"></p-selectButton>
+                                            formControlName="vAntitetánica2Dosis" [disabled]="true"></p-selectButton>
                                     </div>
                                 </div>
                             </div>
@@ -339,7 +347,7 @@
                                     <div class="p-inputgroup">
                                         <span class="col-7" style="text-align: right">Rubeola:</span>
                                         <p-selectButton [options]="opciones" optionValue="boleano" optionLabel="name"
-                                                        formControlName="rubeola"></p-selectButton>
+                                            formControlName="rubeola" [disabled]="true"></p-selectButton>
                                     </div>
                                 </div>
                             </div>
@@ -348,7 +356,7 @@
                                     <div class="p-inputgroup">
                                         <span class="col-7" style="text-align: right">Hepatitis B:</span>
                                         <p-selectButton [options]="opciones" optionValue="boleano" optionLabel="name"
-                                                        formControlName="HepatitesB"></p-selectButton>
+                                            formControlName="HepatitesB" [disabled]="true"></p-selectButton>
                                     </div>
                                 </div>
                             </div>
@@ -357,7 +365,7 @@
                                     <div class="p-inputgroup">
                                         <span class="col-7" style="text-align: right">Papiloma V:</span>
                                         <p-selectButton [options]="opciones" optionValue="boleano" optionLabel="name"
-                                                        formControlName="PapilomaV"></p-selectButton>
+                                            formControlName="PapilomaV" [disabled]="true"></p-selectButton>
                                     </div>
                                 </div>
                             </div>
@@ -366,7 +374,7 @@
                                     <div class="p-inputgroup">
                                         <span class="col-7" style="text-align: right">Influenza:</span>
                                         <p-selectButton [options]="opciones" optionValue="boleano" optionLabel="name"
-                                                        formControlName="influenza"></p-selectButton>
+                                            formControlName="influenza" [disabled]="true"></p-selectButton>
                                     </div>
                                 </div>
                             </div>
@@ -375,7 +383,7 @@
                                     <div class="p-inputgroup">
                                         <span class="col-7" style="text-align: right">Covid-19:</span>
                                         <p-selectButton [options]="opciones" optionValue="boleano" optionLabel="name"
-                                                        formControlName="Covid19"></p-selectButton>
+                                            formControlName="Covid19" [disabled]="true" styleClass="vacPrev"></p-selectButton>
                                     </div>
                                 </div>
                             </div>
@@ -392,7 +400,7 @@
                                     <div class="p-inputgroup">
                                         <span class="col-8" style="text-align: right">Dificultad respiratoria:</span>
                                         <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
-                                                        formControlName="DificultadRespiratoria">
+                                            formControlName="DificultadRespiratoria">
                                         </p-selectButton>
                                     </div>
                                 </div>
@@ -400,9 +408,9 @@
                             <div class="grid">
                                 <div class="col-12 md:col-6 lg:col-12 p-field">
                                     <div class="p-inputgroup">
-                                        <span class="col-8" style="text-align: right">Hipertención Arterial:</span>
+                                        <span class="col-8" style="text-align: right">Hipertensión Arterial:</span>
                                         <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
-                                                        formControlName="HipertenciónArterial">
+                                            formControlName="HipertenciónArterial">
                                         </p-selectButton>
                                     </div>
                                 </div>
@@ -412,7 +420,7 @@
                                     <div class="p-inputgroup">
                                         <span class="col-8" style="text-align: right">Sangrado nasal:</span>
                                         <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
-                                                        formControlName="SangradoNasal">
+                                            formControlName="SangradoNasal">
                                         </p-selectButton>
                                     </div>
                                 </div>
@@ -422,7 +430,7 @@
                                     <div class="p-inputgroup">
                                         <span class="col-8" style="text-align: right">Deshidratación aguda:</span>
                                         <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
-                                                        formControlName="DeshidrataciónAguda">
+                                            formControlName="DeshidrataciónAguda">
                                         </p-selectButton>
                                     </div>
                                 </div>
@@ -432,7 +440,7 @@
                                     <div class="p-inputgroup">
                                         <span class="col-8" style="text-align: right">Compromiso del sensorio:</span>
                                         <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
-                                                        formControlName="CompromisoDelSensorio">
+                                            formControlName="CompromisoDelSensorio">
                                         </p-selectButton>
                                     </div>
                                 </div>
@@ -442,7 +450,7 @@
                                     <div class="p-inputgroup">
                                         <span class="col-8" style="text-align: right">Traumatismo Quemadura</span>
                                         <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
-                                                        formControlName="TraumatismoQuemadura">
+                                            formControlName="TraumatismoQuemadura">
                                         </p-selectButton>
                                     </div>
                                 </div>
@@ -452,7 +460,7 @@
                                     <div class="p-inputgroup">
                                         <span class="col-8" style="text-align: right">Abdomen agudo:</span>
                                         <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
-                                                        formControlName="AbdomenAgudo">
+                                            formControlName="AbdomenAgudo">
                                         </p-selectButton>
                                     </div>
                                 </div>
@@ -462,7 +470,7 @@
                                     <div class="p-inputgroup">
                                         <span class="col-8" style="text-align: right">Intoxicación Envenenamiento</span>
                                         <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
-                                                        formControlName="IntoxicaciónEnvenenamiento">
+                                            formControlName="IntoxicaciónEnvenenamiento">
                                         </p-selectButton>
                                     </div>
                                 </div>
@@ -472,7 +480,7 @@
                                     <div class="p-inputgroup">
                                         <span class="col-8" style="text-align: right">Fiebre alta</span>
                                         <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
-                                                        formControlName="FiebreAlta">
+                                            formControlName="FiebreAlta">
                                         </p-selectButton>
                                     </div>
                                 </div>
@@ -482,7 +490,7 @@
                                     <div class="p-inputgroup">
                                         <span class="col-8" style="text-align: right">Convulciones</span>
                                         <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
-                                                        formControlName="Convulciones">
+                                            formControlName="Convulciones">
                                         </p-selectButton>
                                     </div>
                                 </div>
@@ -492,7 +500,7 @@
                                     <div class="p-inputgroup">
                                         <span class="col-8" style="text-align: right">Sangrado genital</span>
                                         <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
-                                                        formControlName="SangradoGenital">
+                                            formControlName="SangradoGenital">
                                         </p-selectButton>
                                     </div>
                                 </div>
@@ -502,7 +510,7 @@
                                     <div class="p-inputgroup">
                                         <span class="col-8" style="text-align: right">Dolor de cabeza</span>
                                         <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
-                                                        formControlName="DolorDeCabeza">
+                                            formControlName="DolorDeCabeza">
                                         </p-selectButton>
                                     </div>
                                 </div>
@@ -512,7 +520,7 @@
                                     <div class="p-inputgroup">
                                         <span class="col-8" style="text-align: right">Edema</span>
                                         <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
-                                                        formControlName="Edema">
+                                            formControlName="Edema">
                                         </p-selectButton>
                                     </div>
                                 </div>
@@ -583,8 +591,8 @@
                             <div class="p-field col-4">
                                 <form [formGroup]='formAntecedentes'>
                                     <p-dropdown [options]="familiares" optionLabel="nombrefamiliar"
-                                                optionValue="nombrefamiliar" formControlName="nombrefamiliar1"
-                                                placeholder="Selec" [showClear]="false">
+                                        optionValue="nombrefamiliar" formControlName="nombrefamiliar1"
+                                        placeholder="Selec" [showClear]="false">
                                     </p-dropdown>
                                 </form>
                             </div>
@@ -595,14 +603,14 @@
                             </div>
                             <div class="col-2">
                                 <p-checkbox value="Enfer. Hepertens" [(ngModel)]="antecedentes3" name="EnferHepertens"
-                                            class="mt-1" class="amarillo">
+                                    class="mt-1" class="amarillo">
                                 </p-checkbox>
                             </div>
                             <div class="p-field col-4">
                                 <form [formGroup]='formAntecedentes'>
                                     <p-dropdown [options]="familiares" optionLabel="nombrefamiliar"
-                                                optionValue="nombrefamiliar" formControlName="nombrefamiliar2"
-                                                placeholder="Selec" [showClear]="false">
+                                        optionValue="nombrefamiliar" formControlName="nombrefamiliar2"
+                                        placeholder="Selec" [showClear]="false">
                                     </p-dropdown>
                                 </form>
                             </div>
@@ -613,13 +621,13 @@
                             </div>
                             <div class="col-2">
                                 <p-checkbox value="Epilepcia" [(ngModel)]="antecedentes4" class="mt-1" name="epilepcia"
-                                            class="amarillo"></p-checkbox>
+                                    class="amarillo"></p-checkbox>
                             </div>
                             <div class="p-field col-4">
                                 <form [formGroup]='formAntecedentes'>
                                     <p-dropdown [options]="familiares" optionLabel="nombrefamiliar"
-                                                optionValue="nombrefamiliar" formControlName="nombrefamiliar3"
-                                                placeholder="Selec" [showClear]="false">
+                                        optionValue="nombrefamiliar" formControlName="nombrefamiliar3"
+                                        placeholder="Selec" [showClear]="false">
                                     </p-dropdown>
                                 </form>
                             </div>
@@ -630,13 +638,13 @@
                             </div>
                             <div class="col-2">
                                 <p-checkbox value="Diabetes" [(ngModel)]="antecedentes5" class="mt-1" name="diabetes"
-                                            class="amarillo"></p-checkbox>
+                                    class="amarillo"></p-checkbox>
                             </div>
                             <div class="p-field col-4">
                                 <form [formGroup]='formAntecedentes'>
                                     <p-dropdown [options]="familiares" optionLabel="nombrefamiliar"
-                                                optionValue="nombrefamiliar" formControlName="nombrefamiliar4"
-                                                placeholder="Selec" [showClear]="false">
+                                        optionValue="nombrefamiliar" formControlName="nombrefamiliar4"
+                                        placeholder="Selec" [showClear]="false">
                                     </p-dropdown>
                                 </form>
                             </div>
@@ -647,14 +655,14 @@
                             </div>
                             <div class="col-2">
                                 <p-checkbox value="Enf. Congenitas" [(ngModel)]="antecedentes6" name="EnfCongenitas"
-                                            class="mt-1" class="amarillo">
+                                    class="mt-1" class="amarillo">
                                 </p-checkbox>
                             </div>
                             <div class="p-field col-4">
                                 <form [formGroup]='formAntecedentes'>
                                     <p-dropdown [options]="familiares" optionLabel="nombrefamiliar"
-                                                optionValue="nombrefamiliar" formControlName="nombrefamiliar5"
-                                                placeholder="Selec" [showClear]="false">
+                                        optionValue="nombrefamiliar" formControlName="nombrefamiliar5"
+                                        placeholder="Selec" [showClear]="false">
                                     </p-dropdown>
                                 </form>
                             </div>
@@ -665,14 +673,14 @@
                             </div>
                             <div class="col-2">
                                 <p-checkbox value="Emb. Multiple" [(ngModel)]="antecedentes7" class="mt-1"
-                                            name="EmbMultiple" class="amarillo">
+                                    name="EmbMultiple" class="amarillo">
                                 </p-checkbox>
                             </div>
                             <div class="p-field col-4">
                                 <form [formGroup]='formAntecedentes'>
                                     <p-dropdown [options]="familiares" optionLabel="nombrefamiliar"
-                                                optionValue="nombrefamiliar" formControlName="nombrefamiliar6"
-                                                placeholder="Selec" [showClear]="false">
+                                        optionValue="nombrefamiliar" formControlName="nombrefamiliar6"
+                                        placeholder="Selec" [showClear]="false">
                                     </p-dropdown>
                                 </form>
                             </div>
@@ -685,13 +693,13 @@
                             </div>
                             <div class="col-2">
                                 <p-checkbox value="Malaria" [(ngModel)]="antecedentes8" class="mt-1" name="malaria"
-                                            class="amarillo"></p-checkbox>
+                                    class="amarillo"></p-checkbox>
                             </div>
                             <div class="p-field col-4">
                                 <form [formGroup]='formAntecedentes'>
                                     <p-dropdown [options]="familiares" optionLabel="nombrefamiliar"
-                                                optionValue="nombrefamiliar" formControlName="nombrefamiliar7"
-                                                placeholder="Selec" [showClear]="false">
+                                        optionValue="nombrefamiliar" formControlName="nombrefamiliar7"
+                                        placeholder="Selec" [showClear]="false">
                                     </p-dropdown>
                                 </form>
                             </div>
@@ -702,13 +710,13 @@
                             </div>
                             <div class="col-2">
                                 <p-checkbox value="Hip. Arterial" [(ngModel)]="antecedentes9" name="HipArterial"
-                                            class="mt-1" class="amarillo"></p-checkbox>
+                                    class="mt-1" class="amarillo"></p-checkbox>
                             </div>
                             <div class="p-field col-4">
                                 <form [formGroup]='formAntecedentes'>
                                     <p-dropdown [options]="familiares" optionLabel="nombrefamiliar"
-                                                optionValue="nombrefamiliar" formControlName="nombrefamiliar8"
-                                                placeholder="Selec" [showClear]="false">
+                                        optionValue="nombrefamiliar" formControlName="nombrefamiliar8"
+                                        placeholder="Selec" [showClear]="false">
                                     </p-dropdown>
                                 </form>
                             </div>
@@ -719,13 +727,13 @@
                             </div>
                             <div class="col-2">
                                 <p-checkbox value="Hipo tiroidismo" [(ngModel)]="antecedentes10" name="HipoTiroidismo"
-                                            class="mt-1" class="amarillo"></p-checkbox>
+                                    class="mt-1" class="amarillo"></p-checkbox>
                             </div>
                             <div class="p-field col-4">
                                 <form [formGroup]='formAntecedentes'>
                                     <p-dropdown [options]="familiares" optionLabel="nombrefamiliar"
-                                                optionValue="nombrefamiliar" formControlName="nombrefamiliar9"
-                                                placeholder="Selec" [showClear]="false">
+                                        optionValue="nombrefamiliar" formControlName="nombrefamiliar9"
+                                        placeholder="Selec" [showClear]="false">
                                     </p-dropdown>
                                 </form>
                             </div>
@@ -736,13 +744,13 @@
                             </div>
                             <div class="col-2">
                                 <p-checkbox value="Neoplásica" [(ngModel)]="antecedentes11" name="neoplásica"
-                                            class="mt-1" class="amarillo"></p-checkbox>
+                                    class="mt-1" class="amarillo"></p-checkbox>
                             </div>
                             <div class="p-field col-4">
                                 <form [formGroup]='formAntecedentes'>
                                     <p-dropdown [options]="familiares" optionLabel="nombrefamiliar"
-                                                optionValue="nombrefamiliar" formControlName="nombrefamiliar10"
-                                                placeholder="Selec" [showClear]="false">
+                                        optionValue="nombrefamiliar" formControlName="nombrefamiliar10"
+                                        placeholder="Selec" [showClear]="false">
                                     </p-dropdown>
                                 </form>
                             </div>
@@ -753,13 +761,13 @@
                             </div>
                             <div class="col-2">
                                 <p-checkbox value="TBC Pulmonar" [(ngModel)]="antecedentes12" name="TBCPulmonar"
-                                            class="mt-1" class="amarillo"></p-checkbox>
+                                    class="mt-1" class="amarillo"></p-checkbox>
                             </div>
                             <div class="p-field col-4">
                                 <form [formGroup]='formAntecedentes'>
                                     <p-dropdown [options]="familiares" optionLabel="nombrefamiliar"
-                                                optionValue="nombrefamiliar" formControlName="nombrefamiliar11"
-                                                placeholder="Selec" [showClear]="false">
+                                        optionValue="nombrefamiliar" formControlName="nombrefamiliar11"
+                                        placeholder="Selec" [showClear]="false">
                                     </p-dropdown>
                                 </form>
                             </div>
@@ -777,8 +785,8 @@
                         </div>
                         <div class="col-8">
                             <input type="text" pInputText [(ngModel)]="otrosAntecedentesFamiliares"
-                                   style="text-transform:uppercase" (keyup)="eventoKeyupAntecedentesFamiliares()"
-                                   class="inputfield w-full">
+                                style="text-transform:uppercase" (keyup)="eventoKeyupAntecedentesFamiliares()"
+                                class="inputfield w-full">
                         </div>
                     </div>
                 </div>
@@ -1037,7 +1045,7 @@
                     </div>
                     <div class="col-8">
                         <input type="text" pInputText [(ngModel)]="otros2" style="text-transform:uppercase"
-                               (keyup)="eventoKeyupAntecedentesPersonales()" class="inputfield w-full">
+                            (keyup)="eventoKeyupAntecedentesPersonales()" class="inputfield w-full">
                     </div>
                 </div>
             </p-fieldset>

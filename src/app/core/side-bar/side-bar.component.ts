@@ -143,6 +143,11 @@ const menu_geresa = [
                 label: "Medicamentos",
                 routerLink: "mantenimientos/medicamentos",
             },
+            {
+                icon: "pi pi-file",
+                label: "Laboratorio",
+                routerLink: "mantenimientos/laboratorio",
+            },
         ],
     },
 ];
@@ -263,11 +268,11 @@ const administracion1 = {
             icon: "pi pi-pw pi-file",
             routerLink: "admision/personal-salud",
         },
-        {
+        /*{
             label: "Usuarios",
             icon: "pi pi-pw pi-file",
             routerLink: "admision/usuarios",
-        },
+        },*/
     ],
 }
 const administracion2 = {
@@ -330,17 +335,25 @@ const administracion2 = {
         },
         {
             icon: "pi pi-file",
+            label: "Ipress Laboratorio",
+            routerLink: "admision/ipress-laboratorio",
+        },
+        {
+            icon: "pi pi-file",
             label: "Ups Auxiliar",
             routerLink: "mantenimientos/ups-aux",
-        }, {
+        },
+        {
             icon: "pi pi-file",
             label: "His",
             routerLink: "admision/ipress-his",
-        }
+        },
+        
     ],
 }
 const triaje = {
     label: "Triaje",
+    icon: "pi pi-user-edit",
     items: [{
         icon: "pi pi-file",
         label: "Triaje",
@@ -369,6 +382,7 @@ const admision = {
 }
 const historias = {
     label: "Historias Clinicas",
+    icon: "pi pi-users",
     items: [
         {
             icon: "pi pi-file",
@@ -378,10 +392,10 @@ const historias = {
                     label: "Citas",
                     routerLink: "obstetricia-general/citas",
                 },
-                {
+                /*{
                     label: "Historia de Consultas",
                     routerLink: "obstetricia-general/historia-consultas",
-                },
+                },*/
             ]
         },
         {
@@ -393,11 +407,11 @@ const historias = {
                     icon: "pi pi-pw pi-file",
                     routerLink: "cred/citas",
                 },
-                {
+                /*{
                     label: "Consultas",
                     icon: "pi pi-pw pi-file",
                     routerLink: "cred/consulta-cred-general",
-                },
+                },*/
             ]
         },
         {
@@ -511,6 +525,7 @@ const historias = {
 }
 const laboratorio = {
     label: "Laboratorio",
+    icon: "pi pi-search",
     items: [{
         label: "Laboratorio",
         icon: "pi pi-pw pi-file",
@@ -519,10 +534,19 @@ const laboratorio = {
 }
 const reportes = {
     label: "Reportes",
+    icon: "pi pi-send",
     items: [{
         label: "Reportes HIS",
         icon: "pi pi-pw pi-file",
         routerLink: "reportes/reportes-his",
+    }]
+}
+const farmacia = {
+    label: "Farmacia",
+    items: [{
+        label: "Sistema Farmacia",
+        icon: "pi pi-pw pi-file",
+        routerLink: "admision/ipress-farmacia",
     }]
 }
 const menu_ipress = [];
@@ -563,6 +587,10 @@ export class SideBarComponent implements OnInit, DoCheck {
             menu_ipress.push(laboratorio)
             menu_ipress.push(reportes)
         }
+        if (this.rol.rol === 'ROL_4_4') {
+            menu_ipress.length = 0
+            menu_ipress.push(farmacia)
+        }
     }
 
     ngDoCheck() {
@@ -581,7 +609,7 @@ export class SideBarComponent implements OnInit, DoCheck {
 
     menu() {
         let token = JSON.parse(localStorage.getItem('token'));
-       // console.log('token en side bar', token)
+        // console.log('token en side bar', token)
         switch (token.roles) {
             case "GERESA":
                 this.items = menu_geresa;

@@ -1,11 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {ServicesService} from "../services-lab/services.service";
-import {number} from "echarts";
-import {ConsultasService} from "../../../../services/consultas.service";
-import {PrestacionService} from "../../../../../../../../mantenimientos/services/prestacion/prestacion.service";
-import {CieService} from "../../../../../../../services/cie.service";
+import { Component, OnInit } from '@angular/core';
+import { DynamicDialogConfig, DynamicDialogRef } from "primeng/dynamicdialog";
+import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import { ServicesService } from "../services-lab/services.service";
+import { number } from "echarts";
+import { ConsultasService } from "../../../../services/consultas.service";
+import { PrestacionService } from "../../../../../../../../mantenimientos/services/prestacion/prestacion.service";
+import { CieService } from "../../../../../../../services/cie.service";
+import { AddLaboratorio, Laboratorio, ExamenAuxiliar } from 'src/app/cred/citas/atencion-cred/consulta-principal/models/examenesAuxiliares';
+import { ExamenesAuxiliaresService } from 'src/app/cred/citas/atencion-cred/consulta-principal/services/examenes-auxiliares.service';
+import Swal from 'sweetalert2';
 
 @Component({
     selector: 'app-lab-solicitud',
@@ -16,6 +19,8 @@ export class LabSolicitudComponent implements OnInit {
     formSolicitudLab: FormGroup;
     listaSolicitud: any[] = [];
     listaSolicitud2: any[] = [];
+    examGroup: Group[] = [];
+    // examName: ExamLab[] = [];
     ListaLab: any;
     dataConsulta: any;
     idConsulta: string;
@@ -30,18 +35,22 @@ export class LabSolicitudComponent implements OnInit {
     diagnosticosList: string;
     listaDeCIESIS: string;
     estadoEdicion: boolean;
+    solicitudLaboratorio: Laboratorio
 
     subTipoLaboratorio: any;
     listaDeCIE: any;
     LugarExamen: any;
+    examName: ExamLab[] = [];
+    auxExamList: ExamenAuxiliar[] = [];
 
     constructor(private ref: DynamicDialogRef,
-                private DxService: ConsultasService,
-                public config: DynamicDialogConfig,
-                private servicesService: ServicesService,
-                private prestacionService: PrestacionService,
-                private CieService: CieService,
-                private form: FormBuilder) {
+        private DxService: ConsultasService,
+        public config: DynamicDialogConfig,
+        private servicesService: ServicesService,
+        private prestacionService: PrestacionService,
+        private CieService: CieService,
+        private form: FormBuilder,
+        private examenAuxiliarService: ExamenesAuxiliaresService) {
 
         /**Usando localStorage **/
         this.dataConsulta = JSON.parse(localStorage.getItem('datosConsultaActual'));
@@ -51,45 +60,15 @@ export class LabSolicitudComponent implements OnInit {
             //guardar en el ls el nroAtencion
             let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaNueva'));
             this.nroAtencion = nroAtencion;
-            console.log("entre a nueva consulta", this.nroAtencion)
+            // console.log("entre a nueva consulta", this.nroAtencion)
         } else {
             let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaEditar'));
             this.nroAtencion = nroAtencion;
-            console.log("entre a edicion consulta", this.nroAtencion)
+            // console.log("entre a edicion consulta", this.nroAtencion)
         }
-
-        this.idConsulta = this.dataConsulta.id;
-
-        this.LugarExamen=[
-            {nombre:"CONSULTORIO"},
-            {nombre:"LABORATORIO"},
-        ]
-        this.subTipoLaboratorio = [
-            {
-                nombre: "HEMATOLOGIA"
-            },
-            {
-                nombre: "INMUNOLOGIA"
-            },
-            {
-                nombre: "BIOQUIMICA"
-            },
-            {
-                nombre: "UROANALISIS"
-            },
-            {
-                nombre: "PARASITOLOGIA"
-            },
-            {
-                nombre: "MICROBIOLOGIA"
-            },
-            {
-                nombre: "OTROS EXAMENES"
-            },
-
-        ]
-
-
+        // console.log('data de id ', this.dataConsulta);
+        this.idConsulta = JSON.parse(localStorage.getItem('IDConsulta'));
+        this.listarExamenes();
     }
 
     ngOnInit(): void {
@@ -114,7 +93,6 @@ export class LabSolicitudComponent implements OnInit {
         })
     }
 
-
     recuperaDataPaciente() {
         this.formSolicitudLab.get('edad').setValue(this.dataConsulta.anioEdad);
         this.formSolicitudLab.get('HCL').setValue(this.dataConsulta.nroHcl);
@@ -135,26 +113,29 @@ export class LabSolicitudComponent implements OnInit {
             observaciones: new FormControl(''),
 
             /**EXAMENES**/
-            HEMATOLOGIA: new FormControl({value: '', disabled: false}),
-            INMUNOLOGIA: new FormControl({value: '', disabled: false}),
-            BIOQUIMICA: new FormControl({value: '', disabled: false}),
-            UROANALISIS: new FormControl({value: '', disabled: false}),
-            PARASITOLOGIA: new FormControl({value: '', disabled: false}),
-            MICRIBIOLOGIA: new FormControl({value: '', disabled: false}),
-            OTROSEXAMENES: new FormControl({value: '', disabled: false}),
+            HEMATOLOGIA: new FormControl({ value: '', disabled: false }),
+            INMUNOLOGIA: new FormControl({ value: '', disabled: false }),
+            BIOQUIMICA: new FormControl({ value: '', disabled: false }),
+            UROANALISIS: new FormControl({ value: '', disabled: false }),
+            PARASITOLOGIA: new FormControl({ value: '', disabled: false }),
+            MICRIBIOLOGIA: new FormControl({ value: '', disabled: false }),
+            OTROSEXAMENES: new FormControl({ value: '', disabled: false }),
 
-            examen: new FormControl({value: '', disabled: false}),
-            diagnostico: new FormControl({value: '', disabled: false}),
-            prestacion: new FormControl({value: '', disabled: false}),
-            codPrestacion: new FormControl({value: '', disabled: true}),
+            examen: new FormControl({ value: '', disabled: false }),
+            diagnostico: new FormControl({ value: '', disabled: false }),
+            prestacion: new FormControl({ value: '', disabled: false }),
+            codPrestacion: new FormControl({ value: '', disabled: true }),
 
-            autocompleteSIS: new FormControl({value: '', disabled: false}),
-            SISCIE: new FormControl({value: '', disabled: false}),
-            diagnosticoSIS: new FormControl({value: '', disabled: false}),
-            subTipo: new FormControl({value: '', disabled: false}),
-            HISCIE: new FormControl({value: '', disabled: false}),
-            diagnosticoHIS: new FormControl({value: '', disabled: false}),
-            autocompleteHIS: new FormControl({value: '', disabled: false}),
+            autocompleteSIS: new FormControl({ value: '', disabled: false }),
+            SISCIE: new FormControl({ value: '', disabled: false }),
+            diagnosticoSIS: new FormControl({ value: '', disabled: false }),
+            subTipe: new FormControl({ value: '', disabled: false }),
+            HISCIE: new FormControl({ value: '', disabled: false }),
+            diagnosticoHIS: new FormControl({ value: '', disabled: false }),
+            autocompleteHIS: new FormControl({ value: '', disabled: false }),
+
+            // NOMBRES DE EXAMENES
+
 
         })
     }
@@ -178,24 +159,24 @@ export class LabSolicitudComponent implements OnInit {
     selectedOptionNameCIE(event, cieType) {
         console.log('evento desde diagnos ', event);
         if (cieType == 0) {
-            this.formSolicitudLab.patchValue({diagnosticoSIS: event.value.procedimiento});
-            this.formSolicitudLab.patchValue({autocompleteSIS: ""});
-            this.formSolicitudLab.patchValue({SISCIE: event.value}, {emitEvent: false});
+            this.formSolicitudLab.patchValue({ diagnosticoSIS: event.value.procedimiento });
+            this.formSolicitudLab.patchValue({ autocompleteSIS: "" });
+            this.formSolicitudLab.patchValue({ SISCIE: event.value }, { emitEvent: false });
             console.log(event.value)
         }
         if (cieType == 1) {
-            this.formSolicitudLab.patchValue({diagnosticoHIS: event.descripcionItem});
-            this.formSolicitudLab.patchValue({autocompleteHIS: ""});
-            this.formSolicitudLab.patchValue({HISCIE: event}, {emitEvent: false});
+            this.formSolicitudLab.patchValue({ diagnosticoHIS: event.descripcionItem });
+            this.formSolicitudLab.patchValue({ autocompleteHIS: "" });
+            this.formSolicitudLab.patchValue({ HISCIE: event }, { emitEvent: false });
         }
     }
 
     selectedOption(event, cieType) {
         if (cieType == 0) {
-            this.formSolicitudLab.patchValue({diagnosticoSIS: event.value.procedimiento});
+            this.formSolicitudLab.patchValue({ diagnosticoSIS: event.value.procedimiento });
         }
         if (cieType == 1) {
-            this.formSolicitudLab.patchValue({diagnosticoHIS: event.descripcionItem});
+            this.formSolicitudLab.patchValue({ diagnosticoHIS: event.descripcionItem });
         }
     }
 
@@ -203,69 +184,103 @@ export class LabSolicitudComponent implements OnInit {
         console.log("opcion", opcion)
     }
 
-    hem1() {
-        // this.h1 = null;
-        // if (this.formSolicitudLab.value.hemoglobina[0] != undefined) {
-        //     this.h1 = {
-        //         tipoLaboratorio: "EXAMEN_LABORATORIO",
-        //         subTipo: "HEMATOLOGÍA",
-        //         nombreExamen: this.formSolicitudLab.value.hemoglobina[0],
-        //         nombreExamenSIS: "",
-        //         cie10SIS: "85015",
-        //         nombreUPS: "",
-        //         nombreUPSaux: "",
-        //         codPrestacion: "",
-        //         codigoSIS: "",
-        //         codigoHIS: "HIS",
-        //         tipoDx: "",
-        //         lab: "",
-        //         lugarExamen: "CONSULTORIO",
-        //         labExterno: false,
-        //     }
-        // }
-
-        console.log(this.formSolicitudLab.value.HEMATOLOGIA);
+    async add() {
+        Swal.fire({
+            title: '¿Esta seguro que desea guardar?',
+            html: 'Se guardaran las solicitudes de laboratorio',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Guardar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.savePeticiones()
+            }
+            else {
+                Swal.fire({
+                    title: 'Cancelado.',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+        })
     }
+    closeDialog() {
+        this.ref.close();
+    }
+    makeObjExam(rptaExam) {
+        let table: any[] = [];
 
-    add() {
-
-        this.listaSolicitud2 = [];
-        this.listaSolicitud = [];
-        // this.listaSolicitud.push(this.h1)
-        // this.listaSolicitud.push(this.h2)
-        // this.listaSolicitud.push(this.h3)
-        // this.listaSolicitud.push(this.h4)
-        // this.listaSolicitud.push(this.h5)
-        // this.listaSolicitud.push(this.h6)
-        // this.listaSolicitud.push(this.h7)
-        // console.log(this.listaSolicitud)
-        for (let i = 0; i <= this.listaSolicitud.length; i++) {
-            if (this.listaSolicitud[i] != undefined) {
-                this.listaSolicitud2.push(this.listaSolicitud[i]);
+        rptaExam.filter((item, index) => {
+            table.push(item.subTipo);
+        })
+        let listaExamenes = table.filter((item, index) => {
+            return table.indexOf(item) === index;
+        })
+        for (let i = 0; i < listaExamenes.length; i++) {
+            let auxData = {
+                nombreGrupo: listaExamenes[i],
+                listaExam: []
+            }
+            this.examGroup.push(auxData);
+            for (let j = 0; j < rptaExam.length; j++) {
+                if (listaExamenes[i] == rptaExam[j].subTipo) {
+                    let auxExam: ExamLab = {
+                        subTipo: rptaExam[j].subTipo,
+                        nombreExamen: rptaExam[j].nombreExamen
+                    }
+                    this.examGroup[i].listaExam.push(auxExam)
+                }
             }
         }
-
-
-        console.log("no se puede2")
-        this.listaSolicitud.push(this.formSolicitudLab.value.otro1);
-        this.listaSolicitud.push(this.formSolicitudLab.value.otro2);
-        this.listaSolicitud.push(this.formSolicitudLab.value.otro3);
-        this.listaSolicitud.push(this.formSolicitudLab.value.otro4);
-        this.listaSolicitud.push(this.formSolicitudLab.value.otro5);
-        this.listaSolicitud.push(this.formSolicitudLab.value.otro6);
-
-        console.log(this.listaSolicitud2)
-
-        const data = {
-            servicio: this.formSolicitudLab.value.servicio,
-            nroCama: this.formSolicitudLab.value.camaNro,
-            dxPresuntivo: this.formSolicitudLab.value.DxPresuntivo,
-            examenesAuxiliares: this.listaSolicitud2,
-            observaciones: this.formSolicitudLab.value.observaciones,
-        }
-        console.log("DATA", data)
-        // this.servicesService.addSolicitudLab(this.idConsulta, data).subscribe((res: any) => {
-        //     console.log('SOLICITUD LAB', res);
-        // })
+        console.log('lista de examenes ', this.examGroup);
     }
+    listarExamenes() {
+        this.examenAuxiliarService.getExamListLaboratory().then(res => {
+            console.log('examenes disponibles ', res);
+            this.makeObjExam(res);
+        })
+    }
+    savePeticiones() {
+        for (let i = 0; i < this.examName.length; i++) {
+            let auxExam: ExamenAuxiliar = {
+                tipoLaboratorio: 'EXAMEN_LABORATORIO',
+                subTipo: this.examName[i].subTipo,
+                nombreExamen: this.examName[i].nombreExamen,
+                codPrestacion: '',
+                codigoSIS: '',
+                codigoHIS: '',
+                lugarExamen: 'LABORATORIO',
+                labExterno: ''
+            }
+            this.auxExamList.push(auxExam);
+        }
+        this.solicitudLaboratorio = {
+            servicio: '',
+            nroCama: '',
+            examenesAuxiliares: this.auxExamList
+        }
+        console.log('data to save ', this.solicitudLaboratorio);
+        this.examenAuxiliarService.postPromiseAddServiciosLaboratorio(this.idConsulta, this.solicitudLaboratorio).then(res => {
+            this.closeDialog();
+        });
+    }
+
+}
+
+interface Laboratory {
+    subTipe: string,
+    examen: string
+}
+interface Group {
+    nombreGrupo: string,
+    listaExam: ExamLab[]
+}
+interface ExamLab {
+    subTipo: string,
+    nombreExamen: string,
+    codigoHIS?: string,
+    codigoSIS?: string,
 }

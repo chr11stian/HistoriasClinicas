@@ -40,10 +40,3 @@
     border: 1px solid #2570c4;
     border-radius: 10px;
 }
-
-label {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    /*font-weight: bold;*/
-    color: rgb(135 135 135);
-    font-size: 10px;
-}

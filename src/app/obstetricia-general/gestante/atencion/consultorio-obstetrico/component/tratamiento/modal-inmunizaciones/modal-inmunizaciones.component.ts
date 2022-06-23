@@ -50,6 +50,9 @@ export class ModalInmunizacionesComponent implements OnInit {
   tipoList: any;
   edadPaciente: any;
   sexoPaciente: any;
+  medicamentosConDatos: any[] = [];
+  aux: any;
+
   constructor(private form: FormBuilder,
     private ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
@@ -141,8 +144,8 @@ export class ModalInmunizacionesComponent implements OnInit {
   buildForm() {
     this.formInmunizaciones = this.form.group({
       nombre: new FormControl("", [Validators.required]),
-      nombreComercial: new FormControl("", [Validators.required]),
-      dosis: new FormControl("", [Validators.required]),
+      nombreComercial: new FormControl(""),
+      dosis: new FormControl(""),
       tipoDosis: new FormControl("", [Validators.required]),
       prestacion: new FormControl("", [Validators.required]),
       diagnostico: new FormControl("", [Validators.required]),
@@ -183,8 +186,8 @@ export class ModalInmunizacionesComponent implements OnInit {
   async enviarTratamientoInmunizaciones() {
     var data = {
       nombre: this.formInmunizaciones.value.nombre.nombre,
-      nombreComercial: this.formInmunizaciones.value.nombreComercial,
-      dosis: this.formInmunizaciones.value.dosis,
+      nombreComercial: '',
+      dosis: '',
       tipoDosis: this.formInmunizaciones.value.tipoDosis,
       codPrestacion: this.formInmunizaciones.value.diagnostico.codPrestacion,
       codProcedimientoSIS: this.formInmunizaciones.value.SISCIE.codigo,
@@ -219,8 +222,8 @@ export class ModalInmunizacionesComponent implements OnInit {
     var data = {
       id: this.idEdicion,
       nombre: this.formInmunizaciones.value.nombre.nombre,
-      nombreComercial: this.formInmunizaciones.value.nombreComercial,
-      dosis: this.formInmunizaciones.value.dosis,
+      nombreComercial: '',
+      dosis: '',
       tipoDosis: this.formInmunizaciones.value.tipoDosis,
       codPrestacion: this.formInmunizaciones.value.diagnostico.codPrestacion,
       codProcedimientoSIS: this.formInmunizaciones.value.SISCIE.codigo,
@@ -272,7 +275,7 @@ export class ModalInmunizacionesComponent implements OnInit {
       this.formInmunizaciones.get("ups").setValue(configuracion.nombreUPS);
       this.formInmunizaciones.get("subtitulo").setValue(configuracion.nombreUPSaux);
       this.formInmunizaciones.get("tipo").setValue(configuracion.tipoDx);
-      this.formInmunizaciones.get("dosis").setValue(configuracion.dosis);
+      // this.formInmunizaciones.get("dosis").setValue(configuracion.dosis);
       this.formInmunizaciones.get("tipoDosis").setValue(configuracion.tipoDosis);
       this.formInmunizaciones.get("diagnostico").setValue(this.diagnosticosList.find(elemento => elemento.cie10SIS == configuracion.cie10SIS));
       this.PrestacionService.getProcedimientoPorCodigo(this.formInmunizaciones.value.diagnostico.codPrestacion).subscribe((res: any) => {
@@ -318,9 +321,10 @@ export class ModalInmunizacionesComponent implements OnInit {
   }
 
   filterCIE10(event) {
-    this.CieService.getCIEByDescripcion(event.query).subscribe((res: any) => {
-      this.listaDeCIE = res.object
-    })
+    this.CieService.getPromiseCIEbyDescripcionTipo('CP', event.query).then((res:any) => this.listaDeCIE = res.object);
+    // this.CieService.getCIEByDescripcion(event.query).subscribe((res: any) => {
+    //   this.listaDeCIE = res.object
+    // })
   }
 
   selectedOption(event, cieType) {
@@ -355,8 +359,50 @@ export class ModalInmunizacionesComponent implements OnInit {
   }
 
   selectedOptionNameMedicamento(event) {
-    console.log('lista de medicamentos ', this.listaMedicamentos);
-    console.log('evento desde medicamentos ', event);
-    this.formInmunizaciones.patchValue({ nombreComercial: event.nombreComercial }, { emitEvent: false });
+    // console.log('lista de medicamentos ', this.listaMedicamentos);
+    // console.log('evento desde medicamentos ', event);
+    // this.formInmunizaciones.patchValue({ nombreComercial: event.nombreComercial }, { emitEvent: false });
   }
+
+
+  filterItems(event: any) {
+    let filtered: any[] = [];
+    let query = event.query;
+    console.log(this.medicamentosConDatos);
+    this.aux = this.medicamentosConDatos;
+    for (let i = 0; i < this.aux.length; i++) {
+      let item = this.aux[i];
+      if (item.stringMedicamento.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        filtered.push(item);
+      }
+    }
+    this.aux = filtered;
+    if (this.aux === []) {
+      console.log('no encontrado');
+      this.aux = this.medicamentosConDatos;
+
+    }
+  }
+
+  // selectedOptionNameMedicamento(event, n) {
+  //   console.log('lista de medicamentos ', this.medicamentosConDatos);
+  //   if (n == 1) {
+  //     this.codMedicamento1 = event.medicamento.codigo;
+  //     this.formRIEP.patchValue({ acidoFolicoDescripcion: event.medicamento.nombreComercial });
+  //     this.formRIEP.patchValue({ acidoFolicoNombre: event.medicamento.nombre });
+  //     this.formRIEP.patchValue({ acidoFolicoFechaVenc: event.fechaVenc });
+  //     this.formRIEP.patchValue({ acidoFolicoViaAdministracion: event.medicamento.viaAdministracion });
+  //     this.formRIEP.patchValue({ stock: event.stock });
+  //   }
+  //   if (n == 2) {
+  //     console.log(event);
+  //     this.codMedicamento2 = event.medicamento.codigo;
+  //     this.formRIEP.patchValue({ calcioDescripcion: event.medicamento.nombreComercial });
+  //     this.formRIEP.patchValue({ calcioNombre: event.medicamento.nombre });
+  //     this.formRIEP.patchValue({ calcioFechaVenc: event.fechaVenc });
+  //     this.formRIEP.patchValue({ calcioViaAdministracion: event.medicamento.viaAdministracion });
+  //     this.formRIEP.patchValue({ stock2: event.stock });
+  //   }
+
+  // }
 }
