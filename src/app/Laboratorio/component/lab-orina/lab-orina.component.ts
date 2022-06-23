@@ -9,9 +9,6 @@ import {
   AbstractControl,
 } from "@angular/forms";
 import Swal from "sweetalert2";
-import { PlanAtencionRespuesta } from "../../../cred/citas/atencion-cred/consulta-principal/models/consultaGeneral";
-import { LoginComponent } from "../../../login/login.component";
-
 @Component({
   selector: "app-lab-orina",
   templateUrl: "./lab-orina.component.html",
@@ -43,8 +40,8 @@ export class LabOrinaComponent implements OnInit {
   cargarDatosPruebaTomada() {
      Swal.fire({
        title:'<strong>Cargando Datos</strong>',
-       html: '<div style=font-family:Spartan>' + 'Espere un momento' + '</div>' + '</br>' +
-         '<i class="pi pi-spin pi-spinner p-m-3" style="font-size: 3rem"></i>',
+       html: '<div style=font-family:Spartan; >' + 'Espere un momento' + '</div>' + '</br>' +
+         '<i class="pi pi-spin pi-spinner" style="font-size: 2rem;height:2rem;width:2rem"></i>',
        showCancelButton: false,
        showConfirmButton: false,
        position: 'top',
@@ -52,11 +49,10 @@ export class LabOrinaComponent implements OnInit {
        allowOutsideClick: false
      })
     this.parasitologiaService.getOrina(this.idLaboratorio).subscribe((resp: any) => {
-        // setTimeout(() => {
-          Swal.close()
-        // }, 700)
+        setTimeout(() => {Swal.close()}, 500)
         let respuesta = resp.object;
         if (respuesta.estado === "CONCLUIDO") {
+          this.getFC('nroMuestra').setValue(respuesta.nroMuestra)
           this.getFC("volumen").setValue(respuesta.volumen);
           this.getFC("color").setValue(respuesta.color);
           this.getFC("aspecto").setValue(respuesta.aspecto);
@@ -87,7 +83,7 @@ export class LabOrinaComponent implements OnInit {
 
   guardar() {
     const inputRequest = {
-      nroMuestra: "una cipcion",
+      nroMuestra: this.getFC('nroMuestra').value,
       resultado: {
         clave: " resultados",
         valor: " resultados",
@@ -159,15 +155,15 @@ export class LabOrinaComponent implements OnInit {
         Validators.required
       ),
       solicitante: new FormControl(
-        { value: "", disabled: this.isPrubaTomada },
+        { value: "", disabled: true },
         Validators.required
       ),
       hour: new FormControl(
-        { value: "", disabled: this.isPrubaTomada },
+        { value: new Date(), disabled: this.isPrubaTomada },
         Validators.required
       ),
       nroMuestra: new FormControl(
-        { value: "", disabled: this.isPrubaTomada },
+        { value: 1, disabled: this.isPrubaTomada },
         Validators.required
       ),
       nroCama: new FormControl(

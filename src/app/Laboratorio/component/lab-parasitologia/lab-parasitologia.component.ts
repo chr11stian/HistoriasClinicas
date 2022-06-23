@@ -62,7 +62,7 @@ export class LabParasitologiaComponent implements OnInit {
     this.cargarCabecera();
   }
   ngOnInit(): void {
-    this.cargarPrueba();
+    this.cargarDatosPruebaTomada();
   }
   parasitologiaFG: FormGroup;
   builform() {
@@ -82,7 +82,7 @@ export class LabParasitologiaComponent implements OnInit {
         Validators.required
       ),
       hour: new FormControl({ value: new Date(), disabled:this.isPruebaTomada }, Validators.required),
-      nroMuestra: new FormControl( { value: "", disabled:this.isPruebaTomada }, Validators.required),
+      nroMuestra: new FormControl( { value: 1, disabled:this.isPruebaTomada }, Validators.required),
       nroCama: new FormControl({ value: "", disabled:this.isPruebaTomada }, Validators.required),
 
       // resultados:new FormControl('',Validators.required),
@@ -109,10 +109,21 @@ export class LabParasitologiaComponent implements OnInit {
     );
   }
   // aux: any;
-  cargarPrueba() {
+  cargarDatosPruebaTomada() {
+    Swal.fire({
+      title:'<strong>Cargando Datos</strong>',
+      html: '<div style=font-family:Spartan; >' + 'Espere un momento' + '</div>' + '</br>' +
+        '<i class="pi pi-spin pi-spinner" style="font-size: 2rem;height:2rem;width:2rem"></i>',
+      showCancelButton: false,
+      showConfirmButton: false,
+      position: 'top',
+      backdrop: `rgba(0,0,0,0.85) left top no-repeat`,
+      allowOutsideClick: false
+    })
     this.parasitologiaService
       .getOrina(this.idLaboratorio)
       .subscribe((resp: any) => {
+        setTimeout(() => {Swal.close()}, 500)
         let aux = resp.object;
         // this.aux = aux;
         if (aux.estado === "CONCLUIDO") {

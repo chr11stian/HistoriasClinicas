@@ -72,12 +72,20 @@
             <div class="col-fixed" style="width: 90px">
               <span>N° Muestra:</span>
             </div>
-            <input
+            <p-inputNumber
+              formControlName="nroMuestra"
+              class="text-center p-fluid"
+              mode="decimal"
+              inputId="withoutgrouping"
+              [useGrouping]="false"
+              [min]="1" [max]="10"
+            ></p-inputNumber>
+            <!-- <input
               type="text"
               pInputText
               class="w-full text-center"
               formControlName="nroMuestra"
-            />
+            /> -->
           </div>
           <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
             <div class="col-fixed" style="width: 70px">
@@ -94,23 +102,38 @@
         <p-divider align="center" type="dashed"> </p-divider>
         <!-- tres campos start -->
         <div class="grid">
-          <div class="col-4 flex ">
-            <div class="col-fixed" style="width:25%"> 
-              <span>Volumen:</span>    
+          <div class="col-4 flex">
+            <div class="col-fixed" style="width: 25%">
+              <span>Volumen:</span>
             </div>
-            <input type="text" pInputText formControlName="volumen"  class="w-full text-center"/>
+            <input
+              type="text"
+              pInputText
+              formControlName="volumen"
+              class="w-full text-center"
+            />
           </div>
           <div class="col-4 flex justify-content-center">
-            <div class="col-fixed" style="width: 25%;">
+            <div class="col-fixed" style="width: 25%">
               <span>Color:</span>
             </div>
-            <input type="text" pInputText formControlName="color"  class="w-full text-center"/>
+            <input
+              type="text"
+              pInputText
+              formControlName="color"
+              class="w-full text-center"
+            />
           </div>
           <div class="col-4 flex justify-content-center">
-            <div class="col-fixed" style="width: 25%;">
+            <div class="col-fixed" style="width: 25%">
               <span>Aspecto:</span>
             </div>
-            <input type="text" pInputText formControlName="aspecto" class="w-full text-center"/>
+            <input
+              type="text"
+              pInputText
+              formControlName="aspecto"
+              class="w-full text-center"
+            />
           </div>
         </div>
         <!-- tres campos end -->
@@ -122,129 +145,222 @@
   <div class="grid">
     <div class="col-6"></div>
     <div class="col-6">
-      <span style="font-weight:bold;">
-        SEDIMENTO:
-      </span> 
+      <span style="font-weight: bold"> SEDIMENTO: </span>
     </div>
   </div>
   <div class="grid">
     <div class="col-6">
       <div class="flex mb-2">
-        <div class="col-fixed "  style="width:15%"> 
-          <span>P.H.</span>    
+        <div class="col-fixed" style="width: 15%">
+          <span>P.H.</span>
         </div>
-        <input type="text" pInputText formControlName="ph"  class="w-full text-center"/>
+        <input
+          type="text"
+          pInputText
+          formControlName="ph"
+          class="w-full text-center"
+        />
       </div>
       <div class="flex mb-2">
-        <div class="col-fixed" style="width:25%"> 
-          <span>Densidad</span>    
+        <div class="col-fixed" style="width: 25%">
+          <span>Densidad</span>
         </div>
-        <input type="text" pInputText formControlName="densidad"  class="w-full text-center"/>
+        <input
+          type="text"
+          pInputText
+          formControlName="densidad"
+          class="w-full text-center"
+        />
       </div>
       <div class="flex mb-2">
-        <div class="col-fixed" style="width:25%"> 
-          <span>Proteinas</span>    
+        <div class="col-fixed" style="width: 25%">
+          <span>Proteinas</span>
         </div>
-        <input type="text" pInputText formControlName="proteinas"  class="w-full text-center"/>
+        <input
+          type="text"
+          pInputText
+          formControlName="proteinas"
+          class="w-full text-center"
+        />
       </div>
       <div class="flex mb-2">
-        <div class="col-fixed" style="width:25%"> 
-          <span>Glucosa</span>    
+        <div class="col-fixed" style="width: 25%">
+          <span>Glucosa</span>
         </div>
-        <input type="text" pInputText formControlName="glucosa"  class="w-full text-center"/>
+        <input
+          type="text"
+          pInputText
+          formControlName="glucosa"
+          class="w-full text-center"
+        />
       </div>
       <div class="flex mb-2">
-        <div class="col-fixed" style="width:30%"> 
-          <span>Urobilinógeno</span>    
+        <div class="col-fixed" style="width: 30%">
+          <span>Urobilinógeno</span>
         </div>
-        <input type="text" pInputText formControlName="urobilinogeno"  class="w-full text-center"/>
+        <input
+          type="text"
+          pInputText
+          formControlName="urobilinogeno"
+          class="w-full text-center"
+        />
       </div>
       <div class="flex mb-2">
-        <div class="col-fixed" style="width:30%"> 
-          <span>Bilirrubinas</span>    
+        <div class="col-fixed" style="width: 30%">
+          <span>Bilirrubinas</span>
         </div>
-        <input type="text" pInputText formControlName="bilirrubinas"  class="w-full text-center"/>
+        <input
+          type="text"
+          pInputText
+          formControlName="bilirrubinas"
+          class="w-full text-center"
+        />
       </div>
       <div class="flex mb-2">
-        <div class="col-fixed" style="width:30%"> 
-          <span>Acido Ascorbico</span>    
+        <div class="col-fixed" style="width: 30%">
+          <span>Acido Ascorbico</span>
         </div>
-        <input type="text" pInputText formControlName="acidoAscorbico"  class="w-full text-center"/>
+        <input
+          type="text"
+          pInputText
+          formControlName="acidoAscorbico"
+          class="w-full text-center"
+        />
       </div>
       <div class="flex mb-2">
-        <div class="col-fixed" style="width:25%"> 
-          <span>Sangre(Hb)</span>    
+        <div class="col-fixed" style="width: 25%">
+          <span>Sangre(Hb)</span>
         </div>
-        <input type="text" pInputText formControlName="sangre"  class="w-full text-center"/>
+        <input
+          type="text"
+          pInputText
+          formControlName="sangre"
+          class="w-full text-center"
+        />
       </div>
       <div class="flex mb-2">
-        <div class="col-fixed" style="width:25%"> 
-          <span>Nitritos</span>    
+        <div class="col-fixed" style="width: 25%">
+          <span>Nitritos</span>
         </div>
-        <input type="text" pInputText formControlName="nitritos"  class="w-full text-center"/>
+        <input
+          type="text"
+          pInputText
+          formControlName="nitritos"
+          class="w-full text-center"
+        />
       </div>
       <div class="flex mb-2">
-        <div class="col-fixed" style="width:30%"> 
-          <span>Cuerpos Cetonicos</span>    
+        <div class="col-fixed" style="width: 30%">
+          <span>Cuerpos Cetonicos</span>
         </div>
-        <input type="text" pInputText formControlName="cuerposCetonicos"  class="w-full text-center"/>
+        <input
+          type="text"
+          pInputText
+          formControlName="cuerposCetonicos"
+          class="w-full text-center"
+        />
       </div>
     </div>
     <!-- la otra fila -->
     <div class="col-6">
       <div class="flex mb-2">
-        <div class="col-fixed" style="width:30%"> 
-          <span>Celulas Epiteliales</span>    
+        <div class="col-fixed" style="width: 30%">
+          <span>Celulas Epiteliales</span>
         </div>
-        <input type="text" pInputText formControlName="celulasEpiteliales"  class="w-full text-center"/>
+        <input
+          type="text"
+          pInputText
+          formControlName="celulasEpiteliales"
+          class="w-full text-center"
+        />
       </div>
       <div class="flex mb-2">
-        <div class="col-fixed" style="width:25%"> 
-          <span>Leucocitos</span>    
+        <div class="col-fixed" style="width: 25%">
+          <span>Leucocitos</span>
         </div>
-        <input type="text" pInputText formControlName="leucocitos"  class="w-full text-center"/>
+        <input
+          type="text"
+          pInputText
+          formControlName="leucocitos"
+          class="w-full text-center"
+        />
       </div>
       <div class="flex mb-2">
-        <div class="col-fixed" style="width:25%"> 
-          <span>Piocitos</span>    
+        <div class="col-fixed" style="width: 25%">
+          <span>Piocitos</span>
         </div>
-        <input type="text" pInputText formControlName="piocitos"  class="w-full text-center"/>
+        <input
+          type="text"
+          pInputText
+          formControlName="piocitos"
+          class="w-full text-center"
+        />
       </div>
       <div class="flex mb-2">
-        <div class="col-fixed" style="width:25%"> 
-          <span>Hematies</span>    
+        <div class="col-fixed" style="width: 25%">
+          <span>Hematies</span>
         </div>
-        <input type="text" pInputText formControlName="hematies"  class="w-full text-center"/>
+        <input
+          type="text"
+          pInputText
+          formControlName="hematies"
+          class="w-full text-center"
+        />
       </div>
       <div class="flex mb-2">
-        <div class="col-fixed" style="width:25%"> 
-          <span>Cilindros</span>    
+        <div class="col-fixed" style="width: 25%">
+          <span>Cilindros</span>
         </div>
-        <input type="text" pInputText formControlName="cilindros"  class="w-full text-center"/>
+        <input
+          type="text"
+          pInputText
+          formControlName="cilindros"
+          class="w-full text-center"
+        />
       </div>
       <div class="flex mb-2">
-        <div class="col-fixed" style="width:25%"> 
-          <span>Bacterias</span>    
+        <div class="col-fixed" style="width: 25%">
+          <span>Bacterias</span>
         </div>
-        <input type="text" pInputText formControlName="bacterias"  class="w-full text-center"/>
-      </div>
-      <div class="flex mb-2" >
-        <div class="col-fixed" style="width:25%"> 
-          <span>Levaduras</span>    
-        </div>
-        <input type="text" pInputText formControlName="levaduras"  class="w-full text-center"/>
-      </div>
-      <div class="flex mb-2">
-        <div class="col-fixed" style="width:25%"> 
-          <span>Cristales</span>    
-        </div>
-        <input type="text" pInputText formControlName="cristales"  class="w-full text-center"/>
+        <input
+          type="text"
+          pInputText
+          formControlName="bacterias"
+          class="w-full text-center"
+        />
       </div>
       <div class="flex mb-2">
-        <div class="col-fixed" style="width:15%"> 
-          <span>Otros</span>    
+        <div class="col-fixed" style="width: 25%">
+          <span>Levaduras</span>
         </div>
-        <input type="text" pInputText formControlName="otros"  class="w-full text-center"/>
+        <input
+          type="text"
+          pInputText
+          formControlName="levaduras"
+          class="w-full text-center"
+        />
+      </div>
+      <div class="flex mb-2">
+        <div class="col-fixed" style="width: 25%">
+          <span>Cristales</span>
+        </div>
+        <input
+          type="text"
+          pInputText
+          formControlName="cristales"
+          class="w-full text-center"
+        />
+      </div>
+      <div class="flex mb-2">
+        <div class="col-fixed" style="width: 15%">
+          <span>Otros</span>
+        </div>
+        <input
+          type="text"
+          pInputText
+          formControlName="otros"
+          class="w-full text-center"
+        />
       </div>
     </div>
     <!-- fin -->
@@ -257,7 +373,7 @@
     label="Cancelar"
     class="p-button-danger mr-3"
   ></button> -->
-  <button 
+  <button
     pButton
     (click)="guardar()"
     style="background-color: #0c3866"

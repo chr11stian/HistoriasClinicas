@@ -73,12 +73,14 @@
             <div class="col-fixed" style="width: 90px">
               <span>N° Muestra:</span>
             </div>
-            <input
-              type="text"
-              pInputText
-              class="w-full text-center"
+            <p-inputNumber
               formControlName="nroMuestra"
-            />
+              class="text-center p-fluid"
+              mode="decimal"
+              inputId="withoutgrouping"
+              [useGrouping]="false"
+              [min]="1" [max]="10"
+            ></p-inputNumber>
           </div>
           <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
             <div class="col-fixed" style="width: 70px">
