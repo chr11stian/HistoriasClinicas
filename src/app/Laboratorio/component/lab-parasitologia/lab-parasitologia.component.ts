@@ -62,7 +62,7 @@ export class LabParasitologiaComponent implements OnInit {
     this.cargarCabecera();
   }
   ngOnInit(): void {
-    this.cargarPrueba();
+    this.cargarDatosPruebaTomada();
   }
   parasitologiaFG: FormGroup;
   builform() {
@@ -81,8 +81,8 @@ export class LabParasitologiaComponent implements OnInit {
         { value: "", disabled: true },
         Validators.required
       ),
-      hour: new FormControl({ value: "", disabled:this.isPruebaTomada }, Validators.required),
-      nroMuestra: new FormControl( { value: "", disabled:this.isPruebaTomada }, Validators.required),
+      hour: new FormControl({ value: new Date(), disabled:this.isPruebaTomada }, Validators.required),
+      nroMuestra: new FormControl( { value: 1, disabled:this.isPruebaTomada }, Validators.required),
       nroCama: new FormControl({ value: "", disabled:this.isPruebaTomada }, Validators.required),
 
       // resultados:new FormControl('',Validators.required),
@@ -109,10 +109,21 @@ export class LabParasitologiaComponent implements OnInit {
     );
   }
   // aux: any;
-  cargarPrueba() {
+  cargarDatosPruebaTomada() {
+    Swal.fire({
+      title:'<strong>Cargando Datos</strong>',
+      html: '<div style=font-family:Spartan; >' + 'Espere un momento' + '</div>' + '</br>' +
+        '<i class="pi pi-spin pi-spinner" style="font-size: 2rem;height:2rem;width:2rem"></i>',
+      showCancelButton: false,
+      showConfirmButton: false,
+      position: 'top',
+      backdrop: `rgba(0,0,0,0.85) left top no-repeat`,
+      allowOutsideClick: false
+    })
     this.parasitologiaService
       .getOrina(this.idLaboratorio)
       .subscribe((resp: any) => {
+        setTimeout(() => {Swal.close()}, 500)
         let aux = resp.object;
         // this.aux = aux;
         if (aux.estado === "CONCLUIDO") {
@@ -182,30 +193,33 @@ export class LabParasitologiaComponent implements OnInit {
       gotaGruesa: this.data[0].gotaGruesaDxMalaria,
       frotisLesion: this.data[0].frotisLesionDLeishmaniosis,
     };
-    Swal.fire({
-      title: "Estas Seguro de Guardar el Laboratorio",
-      icon: "warning",
-      showCancelButton: true,
-      cancelButtonColor: "#D32F2F",
-      confirmButtonColor: "#0c3866",
-      confirmButtonText: "Guardar",
-      cancelButtonText: "Cancelar",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.parasitologiaService
-          .PostParasitologia(this.idConsulta, inputRequest)
-          .subscribe((resp) => {
-            this.ref.close("confirmado"); //confirmado o cancelado
-            Swal.fire({
-              icon: "success",
-              title: "Exito!",
-              text: "Se guardo el laboratorio",
-              showConfirmButton: false,
-              timer: 2000,
-            });
-          });
-      }
-    });
+    console.log('input Request',inputRequest);
+    
+     Swal.fire({
+       title: "Estas Seguro de Guardar el Laboratorio",
+       icon: "warning",
+       showCancelButton: true,
+       cancelButtonColor: "#D32F2F",
+       confirmButtonColor: "#0c3866",
+       confirmButtonText: "Guardar",
+       cancelButtonText: "Cancelar",
+       allowOutsideClick: false
+     }).then((result) => {
+       if (result.isConfirmed) {
+         this.parasitologiaService
+           .PostParasitologia(this.idConsulta, inputRequest)
+           .subscribe((resp) => {
+             this.ref.close("confirmado"); //confirmado o cancelado
+             Swal.fire({
+               icon: "success",
+               title: "Exito!",
+               text: "Se guardo el laboratorio",
+               showConfirmButton: false,
+               timer: 2000,
+             });
+           });
+       }
+     });
   }
   // cancelar() {
   //   this.ref.close("cancelado");

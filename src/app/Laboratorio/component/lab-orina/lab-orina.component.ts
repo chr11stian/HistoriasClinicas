@@ -9,9 +9,6 @@ import {
   AbstractControl,
 } from "@angular/forms";
 import Swal from "sweetalert2";
-import { PlanAtencionRespuesta } from "../../../cred/citas/atencion-cred/consulta-principal/models/consultaGeneral";
-import { LoginComponent } from "../../../login/login.component";
-
 @Component({
   selector: "app-lab-orina",
   templateUrl: "./lab-orina.component.html",
@@ -32,56 +29,61 @@ export class LabOrinaComponent implements OnInit {
     this.idLaboratorio = aux.dataEnviada.id;
     this.isPrubaTomada = aux.isPruebaTomada;
     this.dataRecibida = aux.dataEnviada;
-    console.log("datos traidos", aux);
-
     this.buildForm();
     this.buildForm2();
+    this.cargarDatosCabecera();
   }
   ngOnInit(): void {
-    this.cargarDatosCabecera();
     this.cargarDatosPruebaTomada();
   }
   // aux: any;
   cargarDatosPruebaTomada() {
-    if (true)
-      this.parasitologiaService
-        .getOrina(this.idLaboratorio)
-        .subscribe((resp: any) => {
-          let respuesta = resp.object;
-          // this.aux = respuesta;
-          if (respuesta.estado === "CONCLUIDO") {
-            // console.log('esta concluido0');
-            
-            this.getFC("volumen").setValue(respuesta.volumen);
-            this.getFC("color").setValue(respuesta.color);
-            this.getFC("aspecto").setValue(respuesta.aspecto);
-            this.getFC2("ph").setValue(respuesta.ph);
-            this.getFC2("densidad").setValue(respuesta.densidad);
-            this.getFC2("proteinas").setValue(respuesta.proteinas);
-            this.getFC2("glucosa").setValue(respuesta.glucosa);
-            this.getFC2("urobilinogeno").setValue(respuesta.urobilinogeno);
-            this.getFC2("bilirrubinas").setValue(respuesta.bilirubinas);
-            this.getFC2("acidoAscorbico").setValue(respuesta.acidoAscorbico);
-            this.getFC2("sangre").setValue(respuesta.sangreHb);
-            this.getFC2("nitritos").setValue(respuesta.nitritos);
-            this.getFC2("cuerposCetonicos").setValue(respuesta.cuerposCetonicos );
-            this.getFC2("celulasEpiteliales").setValue( respuesta.celulasEpiteliales
-            );
-            this.getFC2("leucocitos").setValue(respuesta.leucocitos);
-            this.getFC2("piocitos").setValue(respuesta.piocitos);
-            this.getFC2("hematies").setValue(respuesta.hematies);
-            this.getFC2("cilindros").setValue(respuesta.cilindros);
-            this.getFC2("bacterias").setValue(respuesta.bacterias);
-            this.getFC2("levaduras").setValue(respuesta.levaduras);
-            this.getFC2("cristales").setValue(respuesta.cristales);
-            this.getFC2("otros").setValue(respuesta.otros);
-          }
-        });
+     Swal.fire({
+       title:'<strong>Cargando Datos</strong>',
+       html: '<div style=font-family:Spartan; >' + 'Espere un momento' + '</div>' + '</br>' +
+         '<i class="pi pi-spin pi-spinner" style="font-size: 2rem;height:2rem;width:2rem"></i>',
+       showCancelButton: false,
+       showConfirmButton: false,
+       position: 'top',
+       backdrop: `rgba(0,0,0,0.85) left top no-repeat`,
+       allowOutsideClick: false
+     })
+    this.parasitologiaService.getOrina(this.idLaboratorio).subscribe((resp: any) => {
+        setTimeout(() => {Swal.close()}, 500)
+        let respuesta = resp.object;
+        if (respuesta.estado === "CONCLUIDO") {
+          this.getFC('nroMuestra').setValue(respuesta.nroMuestra)
+          this.getFC("volumen").setValue(respuesta.volumen);
+          this.getFC("color").setValue(respuesta.color);
+          this.getFC("aspecto").setValue(respuesta.aspecto);
+          this.getFC2("ph").setValue(respuesta.ph);
+          this.getFC2("densidad").setValue(respuesta.densidad);
+          this.getFC2("proteinas").setValue(respuesta.proteinas);
+          this.getFC2("glucosa").setValue(respuesta.glucosa);
+          this.getFC2("urobilinogeno").setValue(respuesta.urobilinogeno);
+          this.getFC2("bilirrubinas").setValue(respuesta.bilirubinas);
+          this.getFC2("acidoAscorbico").setValue(respuesta.acidoAscorbico);
+          this.getFC2("sangre").setValue(respuesta.sangreHb);
+          this.getFC2("nitritos").setValue(respuesta.nitritos);
+          this.getFC2("cuerposCetonicos").setValue(respuesta.cuerposCetonicos);
+          this.getFC2("celulasEpiteliales").setValue(
+            respuesta.celulasEpiteliales
+          );
+          this.getFC2("leucocitos").setValue(respuesta.leucocitos);
+          this.getFC2("piocitos").setValue(respuesta.piocitos);
+          this.getFC2("hematies").setValue(respuesta.hematies);
+          this.getFC2("cilindros").setValue(respuesta.cilindros);
+          this.getFC2("bacterias").setValue(respuesta.bacterias);
+          this.getFC2("levaduras").setValue(respuesta.levaduras);
+          this.getFC2("cristales").setValue(respuesta.cristales);
+          this.getFC2("otros").setValue(respuesta.otros);
+        }
+      });
   }
 
   guardar() {
     const inputRequest = {
-      nroMuestra: "una cipcion",
+      nroMuestra: this.getFC('nroMuestra').value,
       resultado: {
         clave: " resultados",
         valor: " resultados",
@@ -121,11 +123,10 @@ export class LabOrinaComponent implements OnInit {
       confirmButtonColor: "#0c3866",
       confirmButtonText: "Guardar",
       cancelButtonText: "Cancelar",
+      allowOutsideClick: false
     }).then((result) => {
       if (result.isConfirmed) {
-        this.parasitologiaService
-          .PostOrina(this.idLaboratorio, inputRequest)
-          .subscribe((resp) => {
+        this.parasitologiaService.PostOrina(this.idLaboratorio, inputRequest).subscribe((resp) => {
             this.ref.close("confirmado"); //confirmado o cancelado
             Swal.fire({
               icon: "success",
@@ -154,15 +155,15 @@ export class LabOrinaComponent implements OnInit {
         Validators.required
       ),
       solicitante: new FormControl(
-        { value: "", disabled: this.isPrubaTomada },
+        { value: "", disabled: true },
         Validators.required
       ),
       hour: new FormControl(
-        { value: "", disabled: this.isPrubaTomada },
+        { value: new Date(), disabled: this.isPrubaTomada },
         Validators.required
       ),
       nroMuestra: new FormControl(
-        { value: "", disabled: this.isPrubaTomada },
+        { value: 1, disabled: this.isPrubaTomada },
         Validators.required
       ),
       nroCama: new FormControl(
