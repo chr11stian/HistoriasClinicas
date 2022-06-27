@@ -18,22 +18,22 @@
                      currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
                 <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
                     <tr>
-                        <th style="text-align: center" class="font-2">Nro</th>
+                        <th style="text-align: center;" class="font-2">Nro</th>
                         <!-- <th style="text-align: center" class="font-1">COD. PRESTACION</th> -->
                         <!-- <th style="text-align: center" class="font-1">CIE 10 SIS</th> -->
-                        <th style="text-align: center" class="font-2">Nombre Examen SIS</th>
-                        <th style="text-align: center" class="font-1">Tipo</th>
-                        <th style="text-align: center" class="font-2">Lugar Examen</th>
+                        <th style="text-align: center;" class="font-2">Nombre Examen SIS</th>
+                        <th style="text-align: center;" class="font-1">Tipo</th>
+                        <th style="text-align: center;" class="font-2">Lugar Examen</th>
                         <!-- <th style="text-align: center" class="font-2">TIPO</th> -->
                         <!-- <th style="text-align: center" class="font-2">ACCIÓN</th> -->
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                     <tr>
-                        <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                        <td style="text-align: center">{{ rowData.nombreExamen }}</td>
-                        <td style="text-align: center">{{ rowData.subTipo }}</td>
-                        <td style="text-align: center">{{ rowData.lugarExamen }}</td>
+                        <td style="text-align: center;" class="font-2">{{ rowIndex + 1 }}</td>
+                        <td style="text-align: center;">{{ rowData.nombreExamen }}</td>
+                        <td style="text-align: center;">{{ rowData.subTipo }}</td>
+                        <td style="text-align: center;">{{ rowData.lugarExamen }}</td>
                         <!-- <td style="text-align: center">{{ rowData.cie10HIS }}</td>
                         <td style="text-align: center">{{ rowData.diagnosticoHIS }}</td>
                         <td style="text-align: center">{{ rowData.tipo }}</td> -->
