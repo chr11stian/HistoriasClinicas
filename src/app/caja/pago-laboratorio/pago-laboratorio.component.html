@@ -163,20 +163,20 @@
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th>Nro</th>
-                        <th>Examen</th>
-                        <th>Sub Tipo</th>
-                        <th>Fecha registro</th>
-                        <th>Precio</th>
+                        <th class="flex-initial w-1">Nro</th>
+                        <th class="flex-initial w-4">Examen</th>
+                        <th class="flex-initial w-3">Sub Tipo</th>
+                        <th class="flex-initial w-2">Fecha registro</th>
+                        <th class="flex-initial w-2">Precio</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                     <tr>
-                        <td>{{rowIndex + 1}}</td>
-                        <td>{{rowData.nombreExamen}}</td>
-                        <td>{{rowData.subTipo}}</td>
-                        <td>{{rowData.fechaRegistro}}</td>
-                        <td>{{rowData.precio}}</td>
+                        <td class="flex-initial w-1">{{rowIndex + 1}}</td>
+                        <td class="flex-initial w-4">{{rowData.nombreExamen}}</td>
+                        <td class="flex-initial w-3">{{rowData.subTipo}}</td>
+                        <td class="flex-initial w-2">{{rowData.fechaRegistro}}</td>
+                        <td class="flex-initial w-2">{{rowData.precio}}</td>
                     </tr>
                 </ng-template>
             </p-table>
