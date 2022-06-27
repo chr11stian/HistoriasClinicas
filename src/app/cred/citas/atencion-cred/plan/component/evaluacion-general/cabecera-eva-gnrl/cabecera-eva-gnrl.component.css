@@ -22,7 +22,7 @@ p-toolbar >>> * {
 p-steps >>> * {
     text-align: center;
     font-size: small;
-    width: 100%;
+    /*width: 100%;*/
 }
 
 p-card >>> .p-card-body {
@@ -31,7 +31,7 @@ p-card >>> .p-card-body {
 
 :host >>> .p-steps .p-steps-item .p-menuitem-link .p-steps-number {
     border-radius: 0px;
-    width: 100%;
+    /*width: 100%;*/
     height: 50px;
     color: transparent;
     word-wrap: break-word;

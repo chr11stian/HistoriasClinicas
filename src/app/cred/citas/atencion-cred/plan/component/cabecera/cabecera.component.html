@@ -1,26 +1,28 @@
-<div class="card">
-    <div class="grid" style="margin-top:20px; margin-bottom:20px">
-        <div class="col-9" style="margin: 0 0 0 20px;">
-            <span style="font-size: 2em;">CONTROL DE CRECIMIENTO Y DESARROLLO</span>
+<div class="col-12" style="background: #f8f9fa; height: 100%">
+    <div class="card">
+        <div class="grid" style="margin-top:20px; margin-bottom:20px">
+            <div class="col-9" style="margin: 0 0 0 20px;">
+                <span style="font-size: 2em;">CONTROL DE CRECIMIENTO Y DESARROLLO</span>
+            </div>
         </div>
     </div>
-</div>
-<p-steps [model]="items" styleClass="step-custom" [readonly]="(!havenPlan)" [(activeIndex)]="indiceActivo"
-         (activeIndexChange)="ChangeStep($event)" >
+    <p-steps [model]="items" styleClass="step-custom" [readonly]="(!havenPlan)" [(activeIndex)]="indiceActivo"
+             (activeIndexChange)="ChangeStep($event)">
 
-</p-steps>
-<div class="stepsdemo-content" *ngIf="stepActivado ==0">
-    <app-datos-generales (onChangeIndice)="nextPage()" [isFirstConsulta]="!havenPlan"></app-datos-generales>
-</div>
-<div class="stepsdemo-content" *ngIf="stepActivado ==1">
-    <app-antecendentes (onChangeIndice)="nextPage()" [isFirstConsulta]="!havenPlan"></app-antecendentes>
-</div>
-<div class="stepsdemo-content" *ngIf="stepActivado ==2">
-    <app-plan-atencion-integral (onChangeIndice)="nextPage()" [isFirstConsulta]="!havenPlan"></app-plan-atencion-integral>
-</div>
-<div class="stepsdemo-content" *ngIf="stepActivado ==3">
-    <app-evaluacion-general (onChangeIndice)="nextPage()" [isFirstConsulta]="!havenPlan"></app-evaluacion-general>
-</div>
+    </p-steps>
+    <div class="stepsdemo-content" *ngIf="stepActivado ==0">
+        <app-datos-generales (onChangeIndice)="nextPage()" [isFirstConsulta]="!havenPlan"></app-datos-generales>
+    </div>
+    <div class="stepsdemo-content" *ngIf="stepActivado ==1">
+        <app-antecendentes (onChangeIndice)="nextPage()" [isFirstConsulta]="!havenPlan"></app-antecendentes>
+    </div>
+    <div class="stepsdemo-content" *ngIf="stepActivado ==2">
+        <app-plan-atencion-integral (onChangeIndice)="nextPage()"
+                                    [isFirstConsulta]="!havenPlan"></app-plan-atencion-integral>
+    </div>
+    <div class="stepsdemo-content" *ngIf="stepActivado ==3">
+        <app-evaluacion-general (onChangeIndice)="nextPage()" [isFirstConsulta]="!havenPlan"></app-evaluacion-general>
+    </div>
 
-
+</div>
 

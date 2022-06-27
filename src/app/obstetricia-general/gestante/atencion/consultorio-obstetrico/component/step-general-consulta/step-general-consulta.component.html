@@ -1,78 +1,79 @@
-<div class="card">
-    <p-card>
-        <div class="grid">
-            <div class="col-9" style="margin: 0 0 0 20px;">
-                <span style="font-size: 2em;">OBSTETRICIA> Consulta </span>
+<div class="col-12" style="background: #f8f9fa; height: 100%">
+    <div class="card">
+        <p-card>
+            <div class="grid">
+                <div class="col-9" style="margin: 0 0 0 20px;">
+                    <span style="font-size: 2em;">OBSTETRICIA> Consulta </span>
+                </div>
             </div>
-        </div>
-    </p-card>
-</div>
+        </p-card>
+    </div>
 
-<p-steps [model]="items" [readonly]="false" [(activeIndex)]="indiceActivo"
-         (activeIndexChange)="ChangeStep($event)" class="scrollmenu">
-</p-steps>
+    <p-steps [model]="items" [readonly]="false" [(activeIndex)]="indiceActivo"
+             (activeIndexChange)="ChangeStep($event)" class="scrollmenu">
+    </p-steps>
 
-<br>
-<div class="stepsdemo-content" *ngIf="stepName === 'datos'">
-    <p-card>
-        <ng-template pTemplate="content">
-            <app-datos-generales></app-datos-generales>
-        </ng-template>
-    </p-card>
-</div>
-<div class="stepsdemo-content" *ngIf="stepName === 'interrogatorio'">
-    <p-card>
-        <ng-template pTemplate="content">
-            <app-interrogatorio></app-interrogatorio>
-        </ng-template>
-    </p-card>
-</div>
+    <br>
+    <div class="stepsdemo-content" *ngIf="stepName === 'datos'">
+        <p-card>
+            <ng-template pTemplate="content">
+                <app-datos-generales></app-datos-generales>
+            </ng-template>
+        </p-card>
+    </div>
+    <div class="stepsdemo-content" *ngIf="stepName === 'interrogatorio'">
+        <p-card>
+            <ng-template pTemplate="content">
+                <app-interrogatorio></app-interrogatorio>
+            </ng-template>
+        </p-card>
+    </div>
 
-<div class="stepsdemo-content" *ngIf="stepName === 'tamizaje'">
-    <p-card>
-        <ng-template pTemplate="content">
-            <app-tamizaje-violencia></app-tamizaje-violencia>
-        </ng-template>
-    </p-card>
-</div>
+    <div class="stepsdemo-content" *ngIf="stepName === 'tamizaje'">
+        <p-card>
+            <ng-template pTemplate="content">
+                <app-tamizaje-violencia></app-tamizaje-violencia>
+            </ng-template>
+        </p-card>
+    </div>
 
-<div class="stepsdemo-content" *ngIf="stepName === 'diagnostico'">
-    <p-card>
-        <ng-template pTemplate="content">
-            <app-giagnosticos></app-giagnosticos>
-        </ng-template>
-    </p-card>
-</div>
-<div class="stepsdemo-content" *ngIf="stepName === 'evaluaciones'">
-    <p-card>
-        <ng-template pTemplate="content">
-            <app-evaluaciones></app-evaluaciones>
-        </ng-template>
-    </p-card>
-</div>
-<div class="stepsdemo-content" *ngIf="stepName === 'tratamiento'">
-    <p-card>
-        <ng-template pTemplate="content">
-            <app-tratamiento></app-tratamiento>
-        </ng-template>
-    </p-card>
-</div>
-<div class="stepsdemo-content" *ngIf="stepName === 'procedimientos'">
-    <p-card>
-        <ng-template pTemplate="content">
-            <app-procedimientos></app-procedimientos>
-        </ng-template>
-    </p-card>
-</div>
+    <div class="stepsdemo-content" *ngIf="stepName === 'diagnostico'">
+        <p-card>
+            <ng-template pTemplate="content">
+                <app-giagnosticos></app-giagnosticos>
+            </ng-template>
+        </p-card>
+    </div>
+    <div class="stepsdemo-content" *ngIf="stepName === 'evaluaciones'">
+        <p-card>
+            <ng-template pTemplate="content">
+                <app-evaluaciones></app-evaluaciones>
+            </ng-template>
+        </p-card>
+    </div>
+    <div class="stepsdemo-content" *ngIf="stepName === 'tratamiento'">
+        <p-card>
+            <ng-template pTemplate="content">
+                <app-tratamiento></app-tratamiento>
+            </ng-template>
+        </p-card>
+    </div>
+    <div class="stepsdemo-content" *ngIf="stepName === 'procedimientos'">
+        <p-card>
+            <ng-template pTemplate="content">
+                <app-procedimientos></app-procedimientos>
+            </ng-template>
+        </p-card>
+    </div>
 
-<div class="stepsdemo-content" *ngIf="stepName === 'finalizar'">
-    <p-card>
-        <ng-template pTemplate="content">
-            <app-resultados></app-resultados>
-        </ng-template>
-    </p-card>
+    <div class="stepsdemo-content" *ngIf="stepName === 'finalizar'">
+        <p-card>
+            <ng-template pTemplate="content">
+                <app-resultados></app-resultados>
+            </ng-template>
+        </p-card>
+    </div>
 </div>
-
 
 <!--<div class="stepsdemo-content" *ngIf="stepName === 'puerperio'">-->
 <!--    <p-card>-->
