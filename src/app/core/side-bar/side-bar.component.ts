@@ -353,7 +353,7 @@ const administracion2 = {
 }
 const triaje = {
     label: "Triaje",
-    icon: "pi pi-save",
+    icon: "pi pi-user-edit",
     items: [{
         icon: "pi pi-file",
         label: "Triaje",
@@ -382,7 +382,7 @@ const admision = {
 }
 const historias = {
     label: "Historias Clinicas",
-    icon: "pi pi-file",
+    icon: "pi pi-users",
     items: [
         {
             icon: "pi pi-file",
@@ -525,7 +525,7 @@ const historias = {
 }
 const laboratorio = {
     label: "Laboratorio",
-    icon: "pi pi-file",
+    icon: "pi pi-search",
     items: [{
         label: "Laboratorio",
         icon: "pi pi-pw pi-file",
@@ -534,7 +534,7 @@ const laboratorio = {
 }
 const reportes = {
     label: "Reportes",
-    icon: "pi pi-file",
+    icon: "pi pi-send",
     items: [{
         label: "Reportes HIS",
         icon: "pi pi-pw pi-file",
