@@ -78,7 +78,7 @@ export class StepGeneralComponent implements OnInit {
     this.items = [
       { label: 'Datos Generales', styleClass: 'icon' },
       { label: 'Motivo de Consulta', styleClass: 'icon1' },
-      { label: 'Evaluaciones', styleClass: 'icon2' },
+      { label: 'Exámenes Auxiliares', styleClass: 'icon2' },
       { label: 'Diagnóstico', styleClass: 'icon3' },
       // { label: 'Exámenes Auxiliares', styleClass: 'icon4' },
       { label: 'Tratamiento', styleClass: 'icon5' },
