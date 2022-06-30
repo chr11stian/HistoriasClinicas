@@ -1,163 +1,177 @@
-<div class="border">
-    <p-toolbar styleClass="p-mb-4">
-        <ng-template pTemplate="left">
-            <label class="m-1">HISTORIA CLINICA MATERNO PERINATAL</label>
-        </ng-template>
-        <ng-template pTemplate="right" class="button">
-            <label>Sr. Jimmy Pimente Cruz</label>
-        </ng-template>
-    </p-toolbar>
-    <p-steps [model]="items" [readonly]="false" [(activeIndex)]="indiceActivo" (activeIndexChange)="ChangeStep($event)"
-        class="m-4">
-    </p-steps>
+<div class="col-12" style="background: #f8f9fa; height: 100%">
+    <div class="border">
+        <p-toolbar styleClass="p-mb-4">
+            <ng-template pTemplate="left">
+                <label class="m-1">HISTORIA CLINICA MATERNO PERINATAL</label>
+            </ng-template>
+            <ng-template pTemplate="right" class="button">
+                <label></label>
+            </ng-template>
+        </p-toolbar>
+        <p-steps [model]="items" [readonly]="false" [(activeIndex)]="indiceActivo"
+                 (activeIndexChange)="ChangeStep($event)"
+                 class="m-4">
+        </p-steps>
 
 
-    <div class="stepsdemo-content m-4" *ngIf="stepName === 'datosgeneralesfiliacion'">
-        <p-card>
-            <ng-template pTemplate="header">
-                <p-toolbar>
-                    <ng-template pTemplate="left">
-                        <h3 class="mt-2">FILIACIÓN</h3>
-                    </ng-template>
-                    <ng-template pTemplate="right" class="button">
-                        <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
-                            class="guardar mr-2" (click)="nextPage()" style="background-color: #0c3866"></button>
-                    </ng-template>
-                </p-toolbar>
-            </ng-template>
-            <ng-template pTemplate="content">
-                <app-datos-generales-filiacion></app-datos-generales-filiacion>
-            </ng-template>
-        </p-card>
-    </div>
+        <div class="stepsdemo-content m-4" *ngIf="stepName === 'datosgeneralesfiliacion'">
+            <p-card>
+                <ng-template pTemplate="header">
+                    <p-toolbar>
+                        <ng-template pTemplate="left">
+                            <h3 class="mt-2">FILIACIÓN</h3>
+                        </ng-template>
+                        <ng-template pTemplate="right" class="button">
+                            <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
+                                    class="guardar mr-2" (click)="nextPage()"
+                                    style="background-color: #0c3866"></button>
+                        </ng-template>
+                    </p-toolbar>
+                </ng-template>
+                <ng-template pTemplate="content">
+                    <app-datos-generales-filiacion></app-datos-generales-filiacion>
+                </ng-template>
+            </p-card>
+        </div>
 
-    <div class="stepsdemo-content m-4" *ngIf="stepName === 'antecedentes'">
-        <p-card>
-            <ng-template pTemplate="header">
-                <p-toolbar>
-                    <ng-template pTemplate="left">
-                        <h3 class="mt-2">ANTECEDENTES</h3>
-                    </ng-template>
-                    <ng-template pTemplate="right" class="button">
-                        <button pButton pRipple label="Atras" icon="pi pi-angle-left" class="p-button-secondary mr-2"
-                            (click)="prevPage()"></button>
-                        <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
-                            class="guardar mr-2" (click)="nextPage()" style="background-color: #0c3866"></button>
-                    </ng-template>
-                </p-toolbar>
-            </ng-template>
-            <ng-template pTemplate="content">
-                <app-datos-generales-obtetricia></app-datos-generales-obtetricia>
-            </ng-template>
-        </p-card>
-    </div>
-
-
-    <div class="stepsdemo-conten m-4" *ngIf="stepName === 'basales'">
-        <p-card>
-            <ng-template pTemplate="header">
-                <p-toolbar>
-                    <ng-template pTemplate="left">
-                        <h3 class="mt-2">DATOS BASALES DEL EMBARAZO ACTUAL</h3>
-                    </ng-template>
-                    <ng-template pTemplate="right" class="button">
-                        <button pButton pRipple label="Atras" icon="pi pi-angle-left" class="p-button-secondary mr-2"
-                            (click)="prevPage()"></button>
-                        <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
-                            class="guardar mr-2" (click)="nextPage()" style="background-color: #0c3866"></button>
-                    </ng-template>
-                </p-toolbar>
-            </ng-template>
-            <ng-template pTemplate="content">
-                <app-datos-basales></app-datos-basales>
-            </ng-template>
-        </p-card>
-    </div>
+        <div class="stepsdemo-content m-4" *ngIf="stepName === 'antecedentes'">
+            <p-card>
+                <ng-template pTemplate="header">
+                    <p-toolbar>
+                        <ng-template pTemplate="left">
+                            <h3 class="mt-2">ANTECEDENTES</h3>
+                        </ng-template>
+                        <ng-template pTemplate="right" class="button">
+                            <button pButton pRipple label="Atras" icon="pi pi-angle-left"
+                                    class="p-button-secondary mr-2"
+                                    (click)="prevPage()"></button>
+                            <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
+                                    class="guardar mr-2" (click)="nextPage()"
+                                    style="background-color: #0c3866"></button>
+                        </ng-template>
+                    </p-toolbar>
+                </ng-template>
+                <ng-template pTemplate="content">
+                    <app-datos-generales-obtetricia></app-datos-generales-obtetricia>
+                </ng-template>
+            </p-card>
+        </div>
 
 
-    <div class="stepsdemo-content m-4" *ngIf="stepName === 'atenciones'">
-        <p-card>
-            <ng-template pTemplate="header">
-                <p-toolbar>
-                    <ng-template pTemplate="left">
-                        <h3 class="mt-2">ATENCIONES GESTACIONALES</h3>
-                    </ng-template>
-                    <ng-template pTemplate="right" class="button">
-                        <button pButton pRipple label="Atras" icon="pi pi-angle-left" class="p-button-secondary mr-2"
-                            (click)="prevPage()"></button>
-                        <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
-                            class="guardar mr-2" (click)="nextPage()" style="background-color: #0c3866"></button>
-                    </ng-template>
-                </p-toolbar>
-            </ng-template>
-            <ng-template pTemplate="content">
-                <app-atenciones></app-atenciones>
-            </ng-template>
-        </p-card>
-    </div>
+        <div class="stepsdemo-conten m-4" *ngIf="stepName === 'basales'">
+            <p-card>
+                <ng-template pTemplate="header">
+                    <p-toolbar>
+                        <ng-template pTemplate="left">
+                            <h3 class="mt-2">DATOS BASALES DEL EMBARAZO ACTUAL</h3>
+                        </ng-template>
+                        <ng-template pTemplate="right" class="button">
+                            <button pButton pRipple label="Atras" icon="pi pi-angle-left"
+                                    class="p-button-secondary mr-2"
+                                    (click)="prevPage()"></button>
+                            <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
+                                    class="guardar mr-2" (click)="nextPage()"
+                                    style="background-color: #0c3866"></button>
+                        </ng-template>
+                    </p-toolbar>
+                </ng-template>
+                <ng-template pTemplate="content">
+                    <app-datos-basales></app-datos-basales>
+                </ng-template>
+            </p-card>
+        </div>
 
 
-    <div class="stepsdemo-content m-4" *ngIf="stepName === 'partos'">
-        <p-card>
-            <ng-template pTemplate="header">
-                <p-toolbar>
-                    <ng-template pTemplate="left">
-                        <h3 class="mt-2">PARTOS O ABORTO</h3>
-                    </ng-template>
-                    <ng-template pTemplate="right" class="button">
-                        <button pButton pRipple label="Atras" icon="pi pi-angle-left" class="p-button-secondary mr-2"
-                            (click)="prevPage()"></button>
-                        <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
-                            class="guardar mr-2" (click)="nextPage()" style="background-color: #0c3866"></button>
-                    </ng-template>
-                </p-toolbar>
-            </ng-template>
-            <ng-template pTemplate="content">
-                <app-partos></app-partos>
-            </ng-template>
-        </p-card>
-    </div>
+        <div class="stepsdemo-content m-4" *ngIf="stepName === 'atenciones'">
+            <p-card>
+                <ng-template pTemplate="header">
+                    <p-toolbar>
+                        <ng-template pTemplate="left">
+                            <h3 class="mt-2">ATENCIONES GESTACIONALES</h3>
+                        </ng-template>
+                        <ng-template pTemplate="right" class="button">
+                            <button pButton pRipple label="Atras" icon="pi pi-angle-left"
+                                    class="p-button-secondary mr-2"
+                                    (click)="prevPage()"></button>
+                            <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
+                                    class="guardar mr-2" (click)="nextPage()"
+                                    style="background-color: #0c3866"></button>
+                        </ng-template>
+                    </p-toolbar>
+                </ng-template>
+                <ng-template pTemplate="content">
+                    <app-atenciones></app-atenciones>
+                </ng-template>
+            </p-card>
+        </div>
 
 
-    <div class="stepsdemo-content m-4" *ngIf="stepName === 'nacidos'">
-        <p-card>
-            <ng-template pTemplate="header">
-                <p-toolbar>
-                    <ng-template pTemplate="left">
-                        <h3 class="mt-2">RECIÉN NACIDOS</h3>
-                    </ng-template>
-                    <ng-template pTemplate="right" class="button">
-                        <button pButton pRipple label="Atras" icon="pi pi-angle-left" class="p-button-secondary mr-2"
-                            (click)="prevPage()"></button>
-                        <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
-                            class="guardar mr-2" (click)="nextPage()" style="background-color: #0c3866"></button>
-                    </ng-template>
-                </p-toolbar>
-            </ng-template>
-            <ng-template pTemplate="content">
-                <app-recien-nacido></app-recien-nacido>
-            </ng-template>
-        </p-card>
-    </div>
+        <div class="stepsdemo-content m-4" *ngIf="stepName === 'partos'">
+            <p-card>
+                <ng-template pTemplate="header">
+                    <p-toolbar>
+                        <ng-template pTemplate="left">
+                            <h3 class="mt-2">PARTOS O ABORTO</h3>
+                        </ng-template>
+                        <ng-template pTemplate="right" class="button">
+                            <button pButton pRipple label="Atras" icon="pi pi-angle-left"
+                                    class="p-button-secondary mr-2"
+                                    (click)="prevPage()"></button>
+                            <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
+                                    class="guardar mr-2" (click)="nextPage()"
+                                    style="background-color: #0c3866"></button>
+                        </ng-template>
+                    </p-toolbar>
+                </ng-template>
+                <ng-template pTemplate="content">
+                    <app-partos></app-partos>
+                </ng-template>
+            </p-card>
+        </div>
 
-    <div class="stepsdemo-content m-4" *ngIf="stepName === 'puerperio'">
-        <p-card>
-            <!-- <ng-template pTemplate="header">
-                <p-toolbar>
-                    <ng-template pTemplate="left">
-                        <h3 class="mt-2">PUERPERIO</h3>
-                    </ng-template>
-                    <ng-template pTemplate="right" class="button">
-                        <button pButton pRipple label="Atras" icon="pi pi-angle-left" class="p-button-secondary mr-2"
-                            (click)="prevPage()"></button>
-                        <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
-                            class="guardar mr-2" (click)="nextPage()" style="background-color: #0c3866"></button>
-                    </ng-template>
-                </p-toolbar>
-            </ng-template> -->
-            <ng-template pTemplate="content">
-                <app-puerperio></app-puerperio>
-            </ng-template>
-        </p-card>
+
+        <div class="stepsdemo-content m-4" *ngIf="stepName === 'nacidos'">
+            <p-card>
+                <ng-template pTemplate="header">
+                    <p-toolbar>
+                        <ng-template pTemplate="left">
+                            <h3 class="mt-2">RECIÉN NACIDOS</h3>
+                        </ng-template>
+                        <ng-template pTemplate="right" class="button">
+                            <button pButton pRipple label="Atras" icon="pi pi-angle-left"
+                                    class="p-button-secondary mr-2"
+                                    (click)="prevPage()"></button>
+                            <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
+                                    class="guardar mr-2" (click)="nextPage()"
+                                    style="background-color: #0c3866"></button>
+                        </ng-template>
+                    </p-toolbar>
+                </ng-template>
+                <ng-template pTemplate="content">
+                    <app-recien-nacido></app-recien-nacido>
+                </ng-template>
+            </p-card>
+        </div>
+
+        <div class="stepsdemo-content m-4" *ngIf="stepName === 'puerperio'">
+            <p-card>
+                <!-- <ng-template pTemplate="header">
+                    <p-toolbar>
+                        <ng-template pTemplate="left">
+                            <h3 class="mt-2">PUERPERIO</h3>
+                        </ng-template>
+                        <ng-template pTemplate="right" class="button">
+                            <button pButton pRipple label="Atras" icon="pi pi-angle-left" class="p-button-secondary mr-2"
+                                (click)="prevPage()"></button>
+                            <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
+                                class="guardar mr-2" (click)="nextPage()" style="background-color: #0c3866"></button>
+                        </ng-template>
+                    </p-toolbar>
+                </ng-template> -->
+                <ng-template pTemplate="content">
+                    <app-puerperio></app-puerperio>
+                </ng-template>
+            </p-card>
+        </div>
     </div>
 </div>
