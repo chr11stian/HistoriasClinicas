@@ -224,4 +224,9 @@ export class LabParasitologiaComponent implements OnInit {
   // cancelar() {
   //   this.ref.close("cancelado");
   // }
+  nroValido=true
+  imprimir(evento){
+    console.log(evento.value==null?false:true);
+    this.nroValido=evento.value==null?false:true
+  }
 }
