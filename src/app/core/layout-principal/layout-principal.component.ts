@@ -16,11 +16,11 @@ export class LayoutPrincipalComponent implements OnInit, DoCheck, OnDestroy {
     ocultar: string = ''
 
     constructor(private breakpointObserver: BreakpointObserver,
-                private router: Router,) {
-        this.reload()
+                private router: Router) {
     }
 
     reload() {
+        console.log('reload')
         this.router.routeReuseStrategy.shouldReuseRoute = function () {
             return false;
         };
@@ -33,7 +33,6 @@ export class LayoutPrincipalComponent implements OnInit, DoCheck, OnDestroy {
 
     ngDoCheck() {
         this.size_width()
-        console.log('size', this.size)
     }
 
     ngOnDestroy() {

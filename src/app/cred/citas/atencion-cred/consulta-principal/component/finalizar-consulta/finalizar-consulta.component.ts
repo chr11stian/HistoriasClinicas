@@ -278,12 +278,14 @@ export class FinalizarConsultaComponent implements OnInit, DoCheck {
             nroAcuerdo: this.FrmAcuerdo.value.acuerdo,
             descripcion: this.listAcuerdos[this.FrmAcuerdo.value.acuerdo-1].descripcion
         }
+
         //console.log(this.acuerdos)
         //console.log(this.acuerdosAux)
         if (this.acuerdos.find((rol) => rol.nroAcuerdo === this.FrmAcuerdo.value.acuerdo) === undefined)
             this.acuerdos.push(a);
         if (this.acuerdosAux.find((rol) => rol.nroAcuerdo === this.FrmAcuerdo.value.acuerdo) === undefined)
             this.acuerdosAux.push(b);
+
 
     }
 

@@ -43,3 +43,6 @@ package-lock.json
 .gitlab-ci.yml
 Dockerfile
 nginx.conf
+
+#Variables de entorno
+/src/environments/*
