@@ -38,15 +38,20 @@
             <div class="col-fixed" style="width: 70px">
               <span>N° S.I.S:</span>
             </div>
-            <input
-              type="text"
-              pInputText
-              class="w-full text-center"
-              formControlName="nroSis"
-            />
+            <div>
+              <input
+                type="text"
+                pInputText
+                class="w-full text-center"
+                formControlName="nroSis"
+              />
+              <div *ngIf="isInvalid2('nroSis')">
+                <span style="color: red">*Ingrese nro de Sis</span>
+              </div>
+            </div>
           </div>
           <div class="col-12 md:col-6 lg:col-5 flex align-items-center">
-            <div class="col-fixed" style="width: 90px">
+            <div class="col-fixed" style="width: 80px">
               <span>Solicitante:</span>
             </div>
             <input
@@ -60,38 +65,59 @@
             <div class="col-fixed" style="width: 120px">
               <span>Hora de Muestra:</span>
             </div>
-            <p-calendar
-             
-              class="w-full"
-              [timeOnly]="true"
-              formControlName="hour"
-              inputId="timeonly"
-            >
-            </p-calendar>
+            <div>
+              <p-calendar
+                class="w-full tex-center"
+                [timeOnly]="true"
+                formControlName="hour"
+                inputId="timeonly"
+                [inputStyle]="{ 'text-align': 'center' }"
+              >
+              </p-calendar>
+              <!-- <div>invalid:{{this.getFC('hour').invalid}}</div> -->
+              <div *ngIf="isInvalid2('hour')">
+                <span style="color: red">*Ingrese una hora correcta</span>
+              </div>
+            </div>
           </div>
           <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
             <div class="col-fixed" style="width: 90px">
               <span>N° Muestra:</span>
             </div>
-            <p-inputNumber
-              formControlName="nroMuestra"
-              class="text-center p-fluid"
-              mode="decimal"
-              inputId="withoutgrouping"
-              [useGrouping]="false"
-              [min]="1" [max]="10"
-            ></p-inputNumber>
+            <div>
+              <p-inputNumber
+                formControlName="nroMuestra"
+                class="text-center p-fluid"
+                mode="decimal"
+                inputId="withoutgrouping"
+                [useGrouping]="false"
+                [min]="1"
+                [max]="10"
+                [inputStyle]="{ 'text-align': 'center' }"
+                (onInput)="validarNro($event)"
+              ></p-inputNumber>
+              <div *ngIf="isInvalid('nroMuestra')">
+                <span style="color: red"
+                  >*Ingrese un Nro. muestra correcta</span
+                >
+              </div>
+            </div>
           </div>
           <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
             <div class="col-fixed" style="width: 70px">
               <span>N° Cama:</span>
             </div>
-            <input
-              type="text"
-              pInputText
-              class="w-full text-center"
-              formControlName="nroCama"
-            />
+            <div>
+              <input
+                type="text"
+                pInputText
+                class="w-full text-center"
+                formControlName="nroCama"
+              />
+              <div *ngIf="isInvalid2('nroCama')">
+                <span style="color: red">*Ingrese Nro. cama correcta</span>
+              </div>
+            </div>
           </div>
         </div>
         <p-divider align="center" type="dashed"> </p-divider>
@@ -99,6 +125,10 @@
     </div>
   </div>
 </form>
+<div>
+  <span style="font-weight: bold">invalid:</span>
+  {{ parasitologiaFG.invalid && isInvalido }}
+</div>
 
 <br />
 <p-table
@@ -123,6 +153,7 @@
               pInputText
               type="text"
               [(ngModel)]="data.resultadosAnalisis"
+              class="w-full"
             />
           </ng-template>
           <ng-template pTemplate="output">

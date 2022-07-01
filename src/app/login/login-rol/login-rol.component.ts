@@ -60,8 +60,12 @@ export class LoginRolComponent implements OnInit {
                 })
                 if (this.serviceLogin.listEscala[0].user === this.serviceLogin.listEscala[0].pass)
                     this.openPassword()
-                else
-                    this.router.navigate(['dashboard']);
+                else {
+                    this.router.navigate(['/dashboard/inicio']).then(() => {
+                        window.location.reload();
+                    })
+                }
+                //this.router.navigate(['dashboard']);
             }
         })
         this.ref.close()
