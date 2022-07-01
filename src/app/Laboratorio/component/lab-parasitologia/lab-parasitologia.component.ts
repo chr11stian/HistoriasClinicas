@@ -12,6 +12,7 @@ import {
 } from "@angular/forms";
 import Swal from "sweetalert2";
 import { LoginComponent } from "../../../login/login.component";
+import { IntervaloDialogoComponent } from '../../../obstetricia-general/gestante/atencion/plan-parto/intervalo-dialogo/intervalo-dialogo.component';
 registerLocaleData(localeFr, "fr");
 @Component({
   selector: "app-lab-parasitologia",
@@ -76,14 +77,14 @@ export class LabParasitologiaComponent implements OnInit {
         { value: "", disabled: true },
         Validators.required
       ),
-      nroSis: new FormControl( { value: "", disabled: this.isPruebaTomada }, Validators.required),
+      nroSis: new FormControl( { value: null, disabled: this.isPruebaTomada }, Validators.required),
       solicitante: new FormControl(
         { value: "", disabled: true },
         Validators.required
       ),
-      hour: new FormControl({ value: new Date(), disabled:this.isPruebaTomada }, Validators.required),
-      nroMuestra: new FormControl( { value: 1, disabled:this.isPruebaTomada }, Validators.required),
-      nroCama: new FormControl({ value: "", disabled:this.isPruebaTomada }, Validators.required),
+      hour: new FormControl({ value: null, disabled:this.isPruebaTomada }, Validators.required),
+      nroMuestra: new FormControl( { value: null, disabled:this.isPruebaTomada }, Validators.required),
+      nroCama: new FormControl({ value: null, disabled:this.isPruebaTomada }, Validators.required),
 
       // resultados:new FormControl('',Validators.required),
       // servicio:new FormControl('',Validators.required),
@@ -94,6 +95,8 @@ export class LabParasitologiaComponent implements OnInit {
   getFC(control: string): AbstractControl {
     return this.parasitologiaFG.get(control);
   }
+  
+ 
   cargarCabecera() {
     let dataPaciente = this.dataRecibida.datosPaciente;
     let dataSolicitante = this.dataRecibida.profesionalAcargo;
@@ -155,6 +158,11 @@ export class LabParasitologiaComponent implements OnInit {
       });
   }
   guardar() {
+    if(this.parasitologiaFG.invalid){
+      console.log('entramos al if');
+      this.parasitologiaFG.markAllAsTouched()
+      return 
+    }
     const inputRequest = {
       nroMuestra: "una cipcion",
       resultado: {
@@ -221,12 +229,21 @@ export class LabParasitologiaComponent implements OnInit {
        }
      });
   }
-  // cancelar() {
-  //   this.ref.close("cancelado");
-  // }
-  nroValido=true
-  imprimir(evento){
-    console.log(evento.value==null?false:true);
-    this.nroValido=evento.value==null?false:true
+  isInvalido=true
+  validarNro(evento){
+    // console.log(evento.value==null?false:true);
+    this.isInvalido=evento.value==null?true:false
+  }
+  // isInvalid(control: string): boolean {
+    //   const formC: AbstractControl = this.tipoTurnoFG.get(control);
+    //   return formC.invalid && (formC.dirty || formC.touched);
+    // }
+  isInvalid(control:string):boolean{
+    const formC:AbstractControl=this.getFC(control)
+    return this.isInvalido && (formC.dirty||formC.touched)
+  }
+  isInvalid2(control:string):boolean{
+    const formC:AbstractControl=this.getFC(control)
+    return formC.invalid && (formC.dirty || formC.touched)
   }
 }
