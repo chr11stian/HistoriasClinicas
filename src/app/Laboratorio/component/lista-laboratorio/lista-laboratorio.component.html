@@ -1,87 +1,89 @@
-<div class="p-panel">
-    <br>
-    <div class="grid">
-        <div class="col-12 md:col-6 lg:col-12 p-field" style="text-align:center;">
-            <label style="font-size: 16px;">LISTA DE SOLICITUD DE LABORATORIOS</label>
+<div style="background: #f8f9fa; height: 100%;">
+    <div class="p-panel">
+        <br>
+        <div class="grid">
+            <div class="col-12 md:col-6 lg:col-12 p-field" style="text-align:center;">
+                <label style="font-size: 16px;">LISTA DE SOLICITUD DE LABORATORIOS</label>
+            </div>
         </div>
+        <br>
+        <p-toolbar styleClass="p-mb-4">
+            <ng-template pTemplate="left">
+                <form [formGroup]="formListaLabo">
+                    <div class="grid">
+                        <div class="col-12 md:col-4 lg:col-3 p-fluid">
+                            <label class="">TIPO DOC</label>
+                            <p-dropdown [options]="listaDocumentosIdentidad"
+                                        formControlName="tipoDoc"
+                                        placeholder="Tipo Documento"
+                                        optionLabel="abreviatura"
+                                        optionValue="abreviatura"
+                                        [showClear]="false">
+                            </p-dropdown>
+                        </div>
+                        <div class="col-12 md:col-4 lg:col-5 p-field">
+                            <label class="">DOCUMENTO DEL PACIENTE</label>
+                            <div class="p-inputgroup">
+                                <input type="text" pInputText formControlName="nroDoc"/>
+                                <p-button icon="pi pi-search"></p-button>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-4 lg:col-4 p-field">
+                            <label class="">FILTRAR POR FECHA</label>
+                            <div class="p-inputgroup">
+                                <p-calendar dateFormat="yy-mm-dd"
+                                            formControlName="fechaBusqueda"
+                                            [readonlyInput]="true"
+                                            (onSelect)="listaLab()">
+                                </p-calendar>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </ng-template>
+            <ng-template pTemplate="right">
+                <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-success"></button>
+            </ng-template>
+        </p-toolbar>
     </div>
-    <br>
-    <p-toolbar styleClass="p-mb-4">
-        <ng-template pTemplate="left">
-            <form [formGroup]="formListaLabo">
-                <div class="grid">
-                    <div class="col-12 md:col-4 lg:col-3 p-fluid">
-                        <label class="">TIPO DOC</label>
-                        <p-dropdown [options]="listaDocumentosIdentidad"
-                                    formControlName="tipoDoc"
-                                    placeholder="Tipo Documento"
-                                    optionLabel="abreviatura"
-                                    optionValue="abreviatura"
-                                    [showClear]="false">
-                        </p-dropdown>
-                    </div>
-                    <div class="col-12 md:col-4 lg:col-5 p-field">
-                        <label class="">DOCUMENTO DEL PACIENTE</label>
-                        <div class="p-inputgroup">
-                            <input type="text" pInputText formControlName="nroDoc"/>
-                            <p-button icon="pi pi-search"></p-button>
-                        </div>
-                    </div>
-                    <div class="col-12 md:col-4 lg:col-4 p-field">
-                        <label class="">FILTRAR POR FECHA</label>
-                        <div class="p-inputgroup">
-                            <p-calendar dateFormat="yy-mm-dd"
-                                        formControlName="fechaBusqueda"
-                                        [readonlyInput]="true"
-                                        (onSelect)="listaLab()">
-                            </p-calendar>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </ng-template>
-        <ng-template pTemplate="right">
-            <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-success"></button>
-        </ng-template>
-    </p-toolbar>
+
+    <p-accordion>
+        <p-accordionTab header="LISTA DE PACIENTES CON CUPOS PARA EL DIA DE HOY" [selected]="true">
+            <p-table [value]="DataLisLab" #dt [globalFilterFields]="['fecha']" styleClass="p-datatable-gridlines "
+                     [rows]="10" [loading]="loading" responsiveLayout="scroll" class="CitasList"
+                     [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
+                     currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="text-align: center; font-size: 11px">Nro</th>
+                        <th style="text-align: center; font-size: 11px">DNI</th>
+                        <th style="text-align: center; font-size: 11px">APELLIDOS</th>
+                        <th style="text-align: center; font-size: 11px">NOMBRES</th>
+                        <th style="text-align: center; font-size: 11px">FECHA REGISTRO</th>
+                        <th style="text-align: center; font-size: 11px">TIPO DE EXAMEN</th>
+                        <th style="text-align: center; font-size: 11px">NOMBRE DEL EXAMEN</th>
+                        <th style="text-align: center; font-size: 11px">RESULTADOS</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                    <tr>
+                        <td style="text-align: center; font-size: 11px">{{ rowIndex + 1 }}</td>
+                        <td style="text-align: center; font-size: 11px">{{ rowData.datosPaciente.nroDoc}}</td>
+                        <td style="text-align: center; font-size: 11px">{{ rowData.datosPaciente.apeMaterno}}</td>
+                        <td style="text-align: center; font-size: 11px">{{ rowData.datosPaciente.primerNombre}}</td>
+                        <td style="text-align: center; font-size: 11px">{{ rowData.fechaRegistro}}</td>
+                        <td style="text-align: center; font-size: 11px">{{ rowData.datosLaboratorio.subTipo}}</td>
+                        <td style="text-align: center; font-size: 11px">{{ rowData.datosLaboratorio.nombreExamen}}</td>
+
+                        <td style="text-align: center">
+                            <button pButton pRipple type="button" label="Registrar"
+                                    class="p-button-secondary"
+                                    style="font-size: 11px" (click)="openDialogLab(rowData)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-accordionTab>
+    </p-accordion>
 </div>
-
-<p-accordion>
-    <p-accordionTab header="LISTA DE PACIENTES CON CUPOS PARA EL DIA DE HOY" [selected]="true">
-        <p-table [value]="DataLisLab" #dt [globalFilterFields]="['fecha']" styleClass="p-datatable-gridlines "
-                 [rows]="10" [loading]="loading" responsiveLayout="scroll" class="CitasList"
-                 [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
-                 currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
-
-            <ng-template pTemplate="header">
-                <tr>
-                    <th style="text-align: center; font-size: 11px">Nro</th>
-                    <th style="text-align: center; font-size: 11px">DNI</th>
-                    <th style="text-align: center; font-size: 11px">APELLIDOS</th>
-                    <th style="text-align: center; font-size: 11px">NOMBRES</th>
-                    <th style="text-align: center; font-size: 11px">FECHA REGISTRO</th>
-                    <th style="text-align: center; font-size: 11px">TIPO DE EXAMEN</th>
-                    <th style="text-align: center; font-size: 11px">NOMBRE DEL EXAMEN</th>
-                    <th style="text-align: center; font-size: 11px">RESULTADOS</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-                <tr>
-                    <td style="text-align: center; font-size: 11px">{{ rowIndex + 1 }}</td>
-                    <td style="text-align: center; font-size: 11px">{{ rowData.datosPaciente.nroDoc}}</td>
-                    <td style="text-align: center; font-size: 11px">{{ rowData.datosPaciente.apeMaterno}}</td>
-                    <td style="text-align: center; font-size: 11px">{{ rowData.datosPaciente.primerNombre}}</td>
-                    <td style="text-align: center; font-size: 11px">{{ rowData.fechaRegistro}}</td>
-                    <td style="text-align: center; font-size: 11px">{{ rowData.datosLaboratorio.subTipo}}</td>
-                    <td style="text-align: center; font-size: 11px">{{ rowData.datosLaboratorio.nombreExamen}}</td>
-
-                    <td style="text-align: center">
-                        <button pButton pRipple type="button" label="Registrar"
-                                class="p-button-secondary"
-                                style="font-size: 11px" (click)="openDialogLab(rowData)"></button>
-                    </td>
-                </tr>
-            </ng-template>
-        </p-table>
-    </p-accordionTab>
-</p-accordion>
