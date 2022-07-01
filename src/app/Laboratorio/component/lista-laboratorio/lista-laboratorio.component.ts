@@ -137,6 +137,7 @@ export class ListaLaboratorioComponent implements OnInit {
           this.ref = this.dialog.open(LabParasitologiaComponent, {
             header: "LABORATORIO CLINICO - PARASITOLOGIA",
             width: "80%",
+            height:'100%',
             data: {dataEnviada:data,
               isPruebaTomada:false}
           });
