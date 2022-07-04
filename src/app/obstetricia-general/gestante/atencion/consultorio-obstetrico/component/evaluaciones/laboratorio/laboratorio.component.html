@@ -5,17 +5,15 @@
         </ng-template>
         <ng-template pTemplate="right">
             <button pButton pRipple label="Agregar Solicitud" icon="pi pi-plus" pButton type="button"
-                    style="background-color: #0c3866"
-                    class="button-agregar" (click)="openDialogSolicitud()"></button>
+                style="background-color: #0c3866" class="button-agregar" (click)="openDialogSolicitud()"></button>
         </ng-template>
     </p-toolbar>
     <p-accordion>
         <p-accordionTab header="LISTA DE SOLICITUDES DE EXÁMENES DEL PACIENTE" [selected]="true">
 
             <p-table class="table-over" [value]="listaExamen" #dt styleClass="p-datatable-gridlines" [rows]="5"
-                     [rowsPerPageOptions]="[5, 10, 15]" [paginator]="true" [autoLayout]="true"
-                     [showCurrentPageReport]="true"
-                     currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+                [rowsPerPageOptions]="[5, 10, 15]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+                currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
                 <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
                     <tr>
                         <th style="text-align: center;" class="font-2">Nro</th>
@@ -56,16 +54,15 @@
             
         </ng-template>
     </p-toolbar> -->
-    <br/>
+    <br />
 </div>
 
 <p-accordion>
     <p-accordionTab header="LISTA DE RESULTADO DE EXAMENES REALIZADOS AL PACIENTE" [selected]="true">
         <p-table [value]="dataExamenesRealizados" #dt [globalFilterFields]="['fecha']"
-                 styleClass="p-datatable-gridlines "
-                 [rows]="5" responsiveLayout="scroll" class="CitasList"
-                 [rowsPerPageOptions]="[5, 10, 15]" [paginator]="true" [autoLayout]="true"
-                 currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+            styleClass="p-datatable-gridlines " [rows]="5" responsiveLayout="scroll" class="CitasList"
+            [rowsPerPageOptions]="[5, 10, 15]" [paginator]="true" [autoLayout]="true"
+            currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
 
             <ng-template pTemplate="header">
                 <tr>
@@ -84,9 +81,8 @@
                     <td style="text-align: center; font-size: 11px">{{ rowData.datosLaboratorio.nombreExamen}}</td>
 
                     <td style="text-align: center">
-                        <button pButton pRipple type="button" label="Ver"
-                                class="p-button-secondary"
-                                style="font-size: 11px" (click)="openDialogLab(rowData)"></button>
+                        <button pButton pRipple type="button" label="Ver" class="p-button-secondary"
+                            style="font-size: 11px" (click)="openDialogLab(rowData)"></button>
                     </td>
                 </tr>
             </ng-template>

@@ -355,26 +355,27 @@ const triaje = {
     label: "Triaje",
     icon: "pi pi-user-edit",
     items: [{
-        icon: "pi pi-file",
+        icon: "pi pi-book",
         label: "Triaje",
         routerLink: "admision/triaje",
     }]
 }
 const admision = {
     label: "Admision",
+    icon: "pi pi-sitemap",
     items: [
         {
-            icon: "pi pi-file",
+            icon: "pi pi-id-card",
             label: "Cupos",
             routerLink: "admision/atenciones",
         },
         {
             label: "Caja",
-            icon: "pi pi-pw pi-file",
+            icon: "pi pi-inbox",
             routerLink: "caja/abrir-caja",
         },
         {
-            icon: "pi pi-file",
+            icon: "pi pi-users",
             label: "Paciente",
             routerLink: "admision/paciente",
         }
@@ -385,11 +386,12 @@ const historias = {
     icon: "pi pi-users",
     items: [
         {
-            icon: "pi pi-file",
+            icon: "pi pi-chart-bar",
             label: "Obstetricia",
             items: [
                 {
                     label: "Citas",
+                    icon: "pi pi-home",
                     routerLink: "obstetricia-general/citas",
                 },
                 /*{
@@ -399,12 +401,12 @@ const historias = {
             ]
         },
         {
-            icon: "pi pi-file",
+            icon: "pi pi-chart-line",
             label: "Consultorio Niño/Niña Sano",
             items: [
                 {
                     label: "Citas",
-                    icon: "pi pi-pw pi-file",
+                    icon: "pi pi-home",
                     routerLink: "cred/citas",
                 },
                 /*{
@@ -415,39 +417,39 @@ const historias = {
             ]
         },
         {
-            icon: "pi pi-file",
+            icon: "pi pi-heart",
             label: "Medicina General",
             items: [
                 {
-                    icon: "pi pi-file",
+                    icon: "pi pi-calendar",
                     label: "Niño/Niña",
                     items: [
                         {
                             label: "Citas",
-                            icon: "pi pi-pw pi-file",
+                            icon: "pi pi-home",
                             routerLink: "consulta-generica/lista-cita/NIÑO_NIÑA",
                         }
                     ]
                 },
                 {
-                    icon: "pi pi-file",
+                    icon: "pi pi-cloud",
                     label: "Adolescente",
                     items: [
                         {
                             label: "Citas",
-                            icon: "pi pi-pw pi-file",
+                            icon: "pi pi-home",
                             routerLink: "consulta-generica/lista-cita/ADOLESCENTE",
 
                         }
                     ]
                 },
                 {
-                    icon: "pi pi-file",
+                    icon: "pi pi-comments",
                     label: "Joven",
                     items: [
                         {
                             label: "Citas",
-                            icon: "pi pi-pw pi-file",
+                            icon: "pi pi-home",
                             routerLink: "consulta-generica/lista-cita/JOVEN",
 
                         }
@@ -455,23 +457,23 @@ const historias = {
                 },
 
                 {
-                    icon: "pi pi-file",
+                    icon: "pi pi-briefcase",
                     label: "Adulto",
                     items: [
                         {
                             label: "Citas",
-                            icon: "pi pi-pw pi-file",
+                            icon: "pi pi-home",
                             routerLink: "consulta-generica/lista-cita/ADULTO",
                         },
                     ]
                 },
                 {
-                    icon: "pi pi-file",
+                    icon: "pi pi-clock",
                     label: "Adulto Mayor",
                     items: [
                         {
                             label: "Citas",
-                            icon: "pi pi-pw pi-file",
+                            icon: "pi pi-home",
                             routerLink: "consulta-generica/lista-cita/ADULTO MAYOR",
                         },
                     ]
@@ -481,23 +483,23 @@ const historias = {
 
 
         {
-            icon: "pi pi-file",
+            icon: "pi pi-tablet",
             label: "Odontologia",
             items: [
                 {
                     label: "Citas",
-                    icon: "pi pi-pw pi-file",
+                    icon: "pi pi-home",
                     routerLink: "consulta-generica/lista-cita/ODONTOLOGIA GENERAL",
                 }
             ]
         },
         {
-            icon: "pi pi-file",
+            icon: "pi pi-id-card",
             label: "Psicologia",
             items: [
                 {
                     label: "Citas",
-                    icon: "pi pi-pw pi-file",
+                    icon: "pi pi-home",
                     routerLink: "consulta-generica/lista-cita/PSICOLOGIA",
                 }
             ]
@@ -505,18 +507,18 @@ const historias = {
         },
 
         {
-            icon: "pi pi-file",
+            icon: "pi pi-globe",
             label: "Nutrición",
             items: [
                 {
                     label: "Citas",
-                    icon: "pi pi-pw pi-file",
+                    icon: "pi pi-home",
                     routerLink: "consulta-generica/lista-cita/NUTRICION",
                 },
             ]
         },
         {
-            icon: "pi pi-file",
+            icon: "pi pi-th-large",
             label: "FUA",
             routerLink: "fua/fua",
         },
@@ -528,7 +530,7 @@ const laboratorio = {
     icon: "pi pi-search",
     items: [{
         label: "Laboratorio",
-        icon: "pi pi-pw pi-file",
+        icon: "pi pi-pw pi-desktop",
         routerLink: "laboratorios/lista-laboratorio",
     }]
 }
@@ -537,15 +539,16 @@ const reportes = {
     icon: "pi pi-send",
     items: [{
         label: "Reportes HIS",
-        icon: "pi pi-pw pi-file",
+        icon: "pi pi-pw pi-paperclip",
         routerLink: "reportes/reportes-his",
     }]
 }
 const farmacia = {
     label: "Farmacia",
+    icon: "pi pi-print",
     items: [{
         label: "Sistema Farmacia",
-        icon: "pi pi-pw pi-file",
+        icon: "pi pi-sitemap",
         routerLink: "admision/ipress-farmacia",
     }]
 }
