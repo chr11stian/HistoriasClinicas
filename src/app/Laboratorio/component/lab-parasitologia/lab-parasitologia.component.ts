@@ -67,21 +67,11 @@ export class LabParasitologiaComponent implements OnInit {
   }
   parasitologiaFG: FormGroup;
   builform() {
-    this.parasitologiaFG = new FormGroup({
-      apellidosNombres: new FormControl(
-        { value: "", disabled: true },
-        Validators.required
-      ),
+    this.parasitologiaFG = new FormGroup({apellidosNombres: new FormControl({ value: "", disabled: true },Validators.required),
       edad: new FormControl({ value: "", disabled: true }, Validators.required),
-      nroHistoria: new FormControl(
-        { value: "", disabled: true },
-        Validators.required
-      ),
-      nroSis: new FormControl( { value: null, disabled: this.isPruebaTomada }, Validators.required),
-      solicitante: new FormControl(
-        { value: "", disabled: true },
-        Validators.required
-      ),
+      nroHistoria: new FormControl({ value: "", disabled: true },Validators.required ),
+      solicitante: new FormControl({ value: "", disabled: true }, Validators.required ),
+      nroSis: new FormControl( { value:null, disabled: this.isPruebaTomada }, Validators.required),
       hour: new FormControl({ value: null, disabled:this.isPruebaTomada }, Validators.required),
       nroMuestra: new FormControl( { value: null, disabled:this.isPruebaTomada }, Validators.required),
       nroCama: new FormControl({ value: null, disabled:this.isPruebaTomada }, Validators.required),
@@ -163,45 +153,43 @@ export class LabParasitologiaComponent implements OnInit {
       this.parasitologiaFG.markAllAsTouched()
       return 
     }
-    const inputRequest = {
-      nroMuestra: "una cipcion",
-      resultado: {
-        clave: " resultados",
-        valor: " resultados",
-        resultado: " resultados",
-      },
-      observacionesLab: "aaa",
-      resultadoExamen: "aaaa",
-
-      examenMacroscopico: {
-        color: this.data[0].color,
-        consistencia: this.data[0].consistencia,
-        pH: this.data[0].ph,
-        reaccion: this.data[0].reaccion,
-        mucus: this.data[0].mucus,
-        sangre: this.data[0].sangre,
-        restosAlimenticios: this.data[0].restosAlimenticios,
-      },
-      examenMicroscopico: {
-        reaccionInflamatorio: "examen Microscopico",
-        filamentosMucoides: this.data[0].filamentosMucoides,
-        leucocitos: this.data[0].leucocitos,
-        hematies: this.data[0].hematies,
-        cuerposGrasos: this.data[0].cuerposGrasos,
-        levaduras: this.data[0].levaduras,
-        bacterias: this.data[0].bacterias,
-        cocosBacilos: "examen Microscopico",
-        formasParasitarias: "examen Microscopico",
-        huevosDe: [this.data[0].huevosDe],
-        quistesDe: [this.data[0].quistesDe],
-        trofozoitosDe: [this.data[0].trofozoitosDe],
-        larvasDe: [this.data[0].larvasDe],
-      },
-      sangreOcultaHeces: this.data[0].sangreOcultaHeces,
-      gotaGruesa: this.data[0].gotaGruesaDxMalaria,
-      frotisLesion: this.data[0].frotisLesionDLeishmaniosis,
-    };
-    console.log('input Request',inputRequest);
+     const inputRequest = {
+       nroMuestra: "una cipcion",
+       resultado: {
+         clave: " resultados",
+         valor: " resultados",
+         resultado: " resultados",
+       },
+       observacionesLab: "aaa",
+       resultadoExamen: "aaaa",
+       examenMacroscopico: {
+         color: this.data[0].color,
+         consistencia: this.data[0].consistencia,
+         pH: this.data[0].ph,
+         reaccion: this.data[0].reaccion,
+         mucus: this.data[0].mucus,
+         sangre: this.data[0].sangre,
+         restosAlimenticios: this.data[0].restosAlimenticios,
+       },
+       examenMicroscopico: {
+         reaccionInflamatorio: "examen Microscopico",
+         filamentosMucoides: this.data[0].filamentosMucoides,
+         leucocitos: this.data[0].leucocitos,
+         hematies: this.data[0].hematies,
+         cuerposGrasos: this.data[0].cuerposGrasos,
+         levaduras: this.data[0].levaduras,
+         bacterias: this.data[0].bacterias,
+         cocosBacilos: "examen Microscopico",
+         formasParasitarias: "examen Microscopico",
+         huevosDe: [this.data[0].huevosDe],
+         quistesDe: [this.data[0].quistesDe],
+         trofozoitosDe: [this.data[0].trofozoitosDe],
+         larvasDe: [this.data[0].larvasDe],
+       },
+       sangreOcultaHeces: this.data[0].sangreOcultaHeces,
+       gotaGruesa: this.data[0].gotaGruesaDxMalaria,
+       frotisLesion: this.data[0].frotisLesionDLeishmaniosis,
+     };
     
      Swal.fire({
        title: "Estas Seguro de Guardar el Laboratorio",
@@ -214,7 +202,7 @@ export class LabParasitologiaComponent implements OnInit {
        allowOutsideClick: false
      }).then((result) => {
        if (result.isConfirmed) {
-         this.parasitologiaService
+         this.parasitologiaService  
            .PostParasitologia(this.idConsulta, inputRequest)
            .subscribe((resp) => {
              this.ref.close("confirmado"); //confirmado o cancelado
@@ -240,10 +228,10 @@ export class LabParasitologiaComponent implements OnInit {
     // }
   isInvalid(control:string):boolean{
     const formC:AbstractControl=this.getFC(control)
-    return this.isInvalido && (formC.dirty||formC.touched)
+    return this.isInvalido && (formC.touched)
   }
   isInvalid2(control:string):boolean{
     const formC:AbstractControl=this.getFC(control)
-    return formC.invalid && (formC.dirty || formC.touched)
+    return formC.invalid && (formC.touched)
   }
 }
