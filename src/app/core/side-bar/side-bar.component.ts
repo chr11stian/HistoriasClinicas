@@ -597,7 +597,7 @@ export class SideBarComponent implements OnInit, DoCheck {
     }
 
     ngDoCheck() {
-        this.rol = JSON.parse(localStorage.getItem('usuario'));
+        this.rol = JSON.parse(localStorage.getItem('roles'));
     }
 
     ngOnInit(): void {
