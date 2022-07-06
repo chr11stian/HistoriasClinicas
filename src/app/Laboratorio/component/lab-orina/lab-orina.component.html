@@ -1,4 +1,4 @@
-<form [formGroup]="orinaFG">
+<form [formGroup]="orinaFG" autocomplete="off">
   <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
     <div class="grid mt-2">
       <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
@@ -34,16 +34,23 @@
               formControlName="nroHCL"
             />
           </div>
-          <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
-            <div class="col-fixed" style="width: 70px">
-              <span>N° S.I.S:</span>
+          <div class="col-12 md:col-6 lg:col-2">
+            <div class="flex align-items-centers">
+              <div class="col-fixed" style="width: 70px">
+                <span>N° S.I.S:</span>
+              </div>
+              <div>
+                <input
+                  type="text"
+                  pInputText
+                  class="w-full text-center"
+                  formControlName="nroSIS"
+                />
+              </div>
             </div>
-            <input
-              type="text"
-              pInputText
-              class="w-full text-center"
-              formControlName="nroSIS"
-            />
+            <div *ngIf="isInvalid('nroSIS')">
+              <span class="dato-error">*Ingrese nro S.I.S correcto</span>
+            </div>
           </div>
           <div class="col-12 md:col-6 lg:col-5 flex align-items-center">
             <div class="col-fixed" style="width: 90px">
@@ -56,47 +63,67 @@
               formControlName="solicitante"
             />
           </div>
-          <div class="col-12 md:col-6 lg:col-3 flex align-items-center">
-            <div class="col-fixed" style="width: 120px">
-              <span>Hora de Muestra:</span>
+          <div class="col-12 md:col-6 lg:col-3">
+            <div class="flex align-items-center">
+              <div class="col-fixed" style="width: 120px">
+                <span>Hora de Muestra:</span>
+              </div>
+              <div>
+                <p-calendar
+                class="w-full"
+                [timeOnly]="true"
+                formControlName="hour"
+                inputId="timeonly"
+                >
+              </p-calendar>
             </div>
-            <p-calendar
-              class="w-full"
-              [timeOnly]="true"
-              formControlName="hour"
-              inputId="timeonly"
-            >
-            </p-calendar>
           </div>
-          <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
-            <div class="col-fixed" style="width: 90px">
-              <span>N° Muestra:</span>
-            </div>
-            <p-inputNumber
-              formControlName="nroMuestra"
-              class="text-center p-fluid"
-              mode="decimal"
-              inputId="withoutgrouping"
-              [useGrouping]="false"
-              [min]="1" [max]="10"
-            ></p-inputNumber>
-            <!-- <input
-              type="text"
-              pInputText
-              class="w-full text-center"
-              formControlName="nroMuestra"
-            /> -->
+              <div *ngIf="isInvalid('hour')">
+                <span class="dato-error">*Ingrese una hora correcta</span>
+              </div>
           </div>
-          <div class="col-12 md:col-6 lg:col-2 flex align-items-center">
-            <div class="col-fixed" style="width: 70px">
-              <span>N° Cama:</span>
+          <div class="col-12 md:col-6 lg:col-2 ">
+            <div class="flex align-items-center">
+              <div class="col-fixed" style="width: 90px">
+                <span>N° Muestra:</span>
+              </div>
+              <div>
+              <p-inputNumber
+                formControlName="nroMuestra"
+                class="text-center p-fluid"
+                mode="decimal"
+                inputId="withoutgrouping"
+                [useGrouping]="false"
+                [min]="1"
+                [max]="10"
+                (onInput)="validarNro($event)"
+                ></p-inputNumber>
+              </div>
             </div>
-            <input
-              type="text"
-              pInputText
-              class="w-full text-center"
-              formControlName="nroCama"
-            />
+            <div>
+              invalid:{{isInvalido}}-touched:{{getFC('nroMuestra').touched}}-dirty:{{getFC('nroMuestra').dirty}}
+            </div>
+            <div *ngIf="isInvalidNumerico('nroMuestra')">
+              <span class="dato-error">*Ingrese nro muestra correcto</span>
+            </div>
+          </div>
+          <div class="col-12 md:col-6 lg:col-2 ">
+            <div class="flex align-items-center">
+              <div class="col-fixed" style="width: 70px">
+                <span>N° Cama:</span>
+              </div>   
+              <div>
+                <input
+                type="text"
+                pInputText
+                class="w-full text-center"
+                formControlName="nroCama"
+                />
+              </div>
+            </div>
+            <div *ngIf="isInvalid('nroCama')">
+              <span class="dato-error">*Ingrese nro cama correcto</span>
+            </div>
           </div>
         </div>
         <p-divider align="center" type="dashed"> </p-divider>

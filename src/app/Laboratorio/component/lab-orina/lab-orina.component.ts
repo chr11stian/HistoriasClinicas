@@ -32,7 +32,7 @@ export class LabOrinaComponent implements OnInit {
     this.buildForm();
     this.buildForm2();
     this.cargarDatosCabecera();
-  }
+  }dw
   ngOnInit(): void {
     this.cargarDatosPruebaTomada();
   }
@@ -82,6 +82,11 @@ export class LabOrinaComponent implements OnInit {
   }
 
   guardar() {
+    if(this.orinaFG.invalid){
+      console.log('entramos al if');
+      this.orinaFG.markAllAsTouched()
+      return 
+    }
     const inputRequest = {
       nroMuestra: this.getFC('nroMuestra').value,
       resultado: {
@@ -141,128 +146,42 @@ export class LabOrinaComponent implements OnInit {
   }
   buildForm() {
     this.orinaFG = new FormGroup({
-      apellidosNombres: new FormControl(
-        { value: "", disabled: true },
-        Validators.required
-      ),
-      nroHCL: new FormControl(
-        { value: "", disabled: true },
-        Validators.required
-      ),
+      apellidosNombres: new FormControl({ value: "", disabled: true }, Validators.required),
+      nroHCL: new FormControl({ value: "", disabled: true },Validators.required),
       edad: new FormControl({ value: "", disabled: true }, Validators.required),
-      nroSIS: new FormControl(
-        { value: "", disabled: this.isPrubaTomada },
-        Validators.required
-      ),
-      solicitante: new FormControl(
-        { value: "", disabled: true },
-        Validators.required
-      ),
-      hour: new FormControl(
-        { value: new Date(), disabled: this.isPrubaTomada },
-        Validators.required
-      ),
-      nroMuestra: new FormControl(
-        { value: 1, disabled: this.isPrubaTomada },
-        Validators.required
-      ),
-      nroCama: new FormControl(
-        { value: "", disabled: this.isPrubaTomada },
-        Validators.required
-      ),
-      // tres mas
-      volumen: new FormControl(
-        { value: "", disabled: this.isPrubaTomada },
-        Validators.required
-      ),
-      color: new FormControl(
-        { value: "", disabled: this.isPrubaTomada },
-        Validators.required
-      ),
-      aspecto: new FormControl(
-        { value: "", disabled: this.isPrubaTomada },
-        Validators.required
-      ),
+      solicitante: new FormControl({ value: "", disabled: true },Validators.required),
+      
+      nroSIS: new FormControl({ value:null, disabled: this.isPrubaTomada },Validators.required),
+      hour: new FormControl({ value: null, disabled: this.isPrubaTomada },Validators.required),
+      nroMuestra: new FormControl({ value: null, disabled: this.isPrubaTomada },Validators.required),
+      nroCama: new FormControl({ value:null, disabled: this.isPrubaTomada },Validators.required),
+      
+      volumen: new FormControl({ value: "", disabled: this.isPrubaTomada }),
+      color: new FormControl({ value: "", disabled: this.isPrubaTomada }),
+      aspecto: new FormControl({ value: "", disabled: this.isPrubaTomada }),
     });
   }
   buildForm2() {
     this.orinaFG2 = new FormGroup({
-      ph: new FormControl(
-        { value: "", disabled: this.isPrubaTomada },
-        Validators.required
-      ),
-      densidad: new FormControl(
-        { value: "", disabled: this.isPrubaTomada },
-        Validators.required
-      ),
-      proteinas: new FormControl(
-        { value: "", disabled: this.isPrubaTomada },
-        Validators.required
-      ),
-      glucosa: new FormControl(
-        { value: "", disabled: this.isPrubaTomada },
-        Validators.required
-      ),
-      urobilinogeno: new FormControl(
-        { value: "", disabled: this.isPrubaTomada },
-        Validators.required
-      ),
-      bilirrubinas: new FormControl(
-        { value: "", disabled: this.isPrubaTomada },
-        Validators.required
-      ),
-      acidoAscorbico: new FormControl(
-        { value: "", disabled: this.isPrubaTomada },
-        Validators.required
-      ),
-      sangre: new FormControl(
-        { value: "", disabled: this.isPrubaTomada },
-        Validators.required
-      ),
-      nitritos: new FormControl(
-        { value: "", disabled: this.isPrubaTomada },
-        Validators.required
-      ),
-      cuerposCetonicos: new FormControl(
-        { value: "", disabled: this.isPrubaTomada },
-        Validators.required
-      ),
-      celulasEpiteliales: new FormControl(
-        { value: "", disabled: this.isPrubaTomada },
-        Validators.required
-      ),
-      leucocitos: new FormControl(
-        { value: "", disabled: this.isPrubaTomada },
-        Validators.required
-      ),
-      piocitos: new FormControl(
-        { value: "", disabled: this.isPrubaTomada },
-        Validators.required
-      ),
-      hematies: new FormControl(
-        { value: "", disabled: this.isPrubaTomada },
-        Validators.required
-      ),
-      cilindros: new FormControl(
-        { value: "", disabled: this.isPrubaTomada },
-        Validators.required
-      ),
-      bacterias: new FormControl(
-        { value: "", disabled: this.isPrubaTomada },
-        Validators.required
-      ),
-      levaduras: new FormControl(
-        { value: "", disabled: this.isPrubaTomada },
-        Validators.required
-      ),
-      cristales: new FormControl(
-        { value: "", disabled: this.isPrubaTomada },
-        Validators.required
-      ),
-      otros: new FormControl(
-        { value: "", disabled: this.isPrubaTomada },
-        Validators.required
-      ),
+      ph: new FormControl({ value: "", disabled: this.isPrubaTomada }, Validators.required),
+      densidad: new FormControl({ value: "", disabled: this.isPrubaTomada }, Validators.required),
+      proteinas: new FormControl({ value: "", disabled: this.isPrubaTomada }, Validators.required),
+      glucosa: new FormControl({ value: "", disabled: this.isPrubaTomada }, Validators.required),
+      urobilinogeno: new FormControl({ value: "", disabled: this.isPrubaTomada }, Validators.required),
+      bilirrubinas: new FormControl({ value: "", disabled: this.isPrubaTomada }, Validators.required),
+      acidoAscorbico: new FormControl({ value: "", disabled: this.isPrubaTomada }, Validators.required),
+      sangre: new FormControl({ value: "", disabled: this.isPrubaTomada }, Validators.required),
+      nitritos: new FormControl({ value: "", disabled: this.isPrubaTomada }, Validators.required),
+      cuerposCetonicos: new FormControl({ value: "", disabled: this.isPrubaTomada }, Validators.required),
+      celulasEpiteliales: new FormControl({ value: "", disabled: this.isPrubaTomada }, Validators.required),
+      leucocitos: new FormControl({ value: "", disabled: this.isPrubaTomada }, Validators.required),
+      piocitos: new FormControl({ value: "", disabled: this.isPrubaTomada }, Validators.required),
+      hematies: new FormControl({ value: "", disabled: this.isPrubaTomada }, Validators.required),
+      cilindros: new FormControl({ value: "", disabled: this.isPrubaTomada }, Validators.required),
+      bacterias: new FormControl({ value: "", disabled: this.isPrubaTomada }, Validators.required),
+      levaduras: new FormControl({ value: "", disabled: this.isPrubaTomada }, Validators.required),
+      cristales: new FormControl({ value: "", disabled: this.isPrubaTomada }, Validators.required),
+      otros: new FormControl({ value: "", disabled: this.isPrubaTomada }, Validators.required),
     });
   }
   cargarDatosCabecera() {
@@ -282,5 +201,18 @@ export class LabOrinaComponent implements OnInit {
   }
   getFC2(control: string): AbstractControl {
     return this.orinaFG2.get(control);
+  }
+  isInvalido=true
+  validarNro(evento){
+    // console.log(evento.value==null?false:true);
+    this.isInvalido=evento.value==null?true:false
+  }
+  isInvalidNumerico(control:string):boolean{
+    const formC:AbstractControl=this.getFC(control)
+    return this.isInvalido && (formC.touched || formC.dirty)
+  }
+  isInvalid(control:string):boolean{
+    const formC:AbstractControl=this.getFC(control)
+    return formC.invalid && (formC.touched || formC.dirty)
   }
 }
