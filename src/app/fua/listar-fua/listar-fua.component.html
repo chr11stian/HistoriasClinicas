@@ -67,7 +67,7 @@
         <ng-template pTemplate="right" class="button">
             <button pButton pRipple class="p-button-rounded p-button-info ">
                     <a style="color: white; font-weight: bold;"
-                    href="http://192.168.5.3:8200/jasperserver/rest_v2/reports/Reports/FUA/anexo1.pdf?idConsulta={{idConsulta}}"
+                    href="{{consultaID+idConsulta}}"
                     target="_blank">Descargar todo</a></button>
         </ng-template>
     </p-toolbar>
@@ -96,7 +96,7 @@
                     <span class="ml-1">
                         <button pButton pRipple class="p-button-rounded p-button-info">
                             <a style="color: white; font-weight: bold;"
-                                href="http://192.168.5.3:8200/jasperserver/rest_v2/reports/Reports/FUA/anexo1.pdf?idFua={{rowData.id}}"
+                                href="{{consultaFUA+rowData.id}}"
                                 target="_blank">Descargar FUA</a>
                         </button>
                     </span>
