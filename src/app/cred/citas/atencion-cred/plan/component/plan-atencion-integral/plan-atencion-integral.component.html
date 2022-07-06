@@ -5,6 +5,11 @@
                 <h3 class="mt-2">DATOS GENERALES NIÑO/NIÑA</h3>
             </ng-template>
             <ng-template pTemplate="right" class="button">
+                <button pButton pRipple class="guardar mr-2">
+                    <a style="color: white; font-weight: bold;"
+                       href="{{consulta}}"
+                       target="_blank">Reporte</a>
+                </button>
                 <button *ngIf="isFirstConsulta" pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
                         class="guardar mr-2" (click)="guardarDatosGenerales()" style="background-color: #0c3866"></button>
             </ng-template>

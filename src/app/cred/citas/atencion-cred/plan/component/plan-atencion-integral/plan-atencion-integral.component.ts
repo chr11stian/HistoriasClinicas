@@ -8,6 +8,7 @@ import {DialogService} from 'primeng/dynamicdialog'
     providers: [DialogService]
 })
 export class PlanAtencionIntegralComponent implements OnInit {
+    consulta: string= ""
     @Input() isFirstConsulta=false
     @Output() onChangeIndice:EventEmitter<number>=new EventEmitter<number>();
     stateOptions: any[]
@@ -23,6 +24,8 @@ export class PlanAtencionIntegralComponent implements OnInit {
 
 
     ngOnInit(): void {
+        this.consulta = 'http://190.108.93.145:8200/jasperserver/rest_v2/reports/Reports/v1/credninio/reporte_carnet_atencion_integral_salud_ninio.pdf?authorization='+
+            JSON.parse(localStorage.getItem("token")).token+'&nroHistoriaClinica='+JSON.parse(localStorage.getItem("documento")).nroDocumento
     }
 
 }

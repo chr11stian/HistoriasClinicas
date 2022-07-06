@@ -12,6 +12,8 @@ import { FuaService } from '../services/fua.service';
 export class ListarFuaComponent implements OnInit {
 
   data: any;
+  consultaFUA: string= 'http://190.108.93.145:8200/jasperserver/rest_v2/reports/Reports/v1/fuaid/anexo1.pdf?authorization='
+  consultaID: string = 'http://190.108.93.145:8200/jasperserver/rest_v2/reports/Reports/v1/fuaconsulta/fua_por_consulta.pdf?authorization='
   listDataFUA: any;
   listaDatosFUA: any;
   linkPDF: string;
@@ -50,6 +52,8 @@ export class ListarFuaComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.consultaFUA = this.consultaFUA+JSON.parse(localStorage.getItem("token")).token+'&idFua='
+    this.consultaID = this.consultaFUA+JSON.parse(localStorage.getItem("token")).token+'&idConsulta='
   }
 
   openFUA(rowData) {
@@ -64,9 +68,9 @@ export class ListarFuaComponent implements OnInit {
   }
   imprimirFUA(data) {
     console.log('data del listar ', data);
-    // this.fuaService.getReportFUA(data.id).subscribe((res: any) => {
+    this.fuaService.getReportFUA(data.id).subscribe((res: any) => {
 
-    // });
+    });
   }
   consolg(){
     this.listDataFUA.forEach(item => {
