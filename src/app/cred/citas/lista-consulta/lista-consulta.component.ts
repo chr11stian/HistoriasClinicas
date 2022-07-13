@@ -27,6 +27,8 @@ export class ListaConsultaComponent implements OnInit {
     data: dato
     fechaNacimiento: string
     sexo: string
+    downloadLink: string = 'http://190.108.93.145:8200/jasperserver/rest_v2/reports/Reports/v1/cartillacontrol/carnet_control.pdf?authorization=' + JSON.parse(localStorage.getItem('token')).token;
+    docPaciente: string = '&nroHistoriaClinica=' + JSON.parse(localStorage.getItem('documento')).nroDocumento;
 
     constructor(private form: FormBuilder,
         private obstetriciaGeneralService: ObstetriciaGeneralService,
@@ -92,7 +94,7 @@ export class ListaConsultaComponent implements OnInit {
         this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS))
 
         this.filiancionService.getPacienteNroDocFiliacion(this.data.tipoDoc, this.data.nroDocumento).subscribe((res: any) => {
-            console.log('code',res.object)
+            console.log('code', res.object)
             this.dataLifiado = res.object
             this.sexo = res.object.sexo
             this.fechaNacimiento = res.object.nacimiento.fechaNacimiento
@@ -153,8 +155,8 @@ export class ListaConsultaComponent implements OnInit {
         if (rowData.estadoAtencion == 2) {
             this.router.navigate(['dashboard/his/listar-his'], {
                 queryParams: {
-                    'idConsulta':rowData.id,
-                    'tipoConsulta':rowData.tipoConsulta
+                    'idConsulta': rowData.id,
+                    'tipoConsulta': rowData.tipoConsulta
                 }
             })
         }
@@ -169,8 +171,8 @@ export class ListaConsultaComponent implements OnInit {
                 if (result.isConfirmed) {
                     this.router.navigate(['dashboard/his/listar-his'], {
                         queryParams: {
-                            'idConsulta':rowData.id,
-                            'tipoConsulta':rowData.tipoConsulta
+                            'idConsulta': rowData.id,
+                            'tipoConsulta': rowData.tipoConsulta
                         }
                     })
                 } else if (result.isDenied) {
@@ -183,6 +185,9 @@ export class ListaConsultaComponent implements OnInit {
                 }
             })
         }
+    }
+    imprimirCarnetCRED() {
+        console.log('imprimir niño ' + this.downloadLink, this.docPaciente);
     }
 
 }

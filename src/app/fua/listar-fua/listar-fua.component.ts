@@ -48,7 +48,7 @@ export class ListarFuaComponent implements OnInit {
         });
       }
     })
-    this.linkPDF = "http://192.168.5.3:8200/jasperserver/rest_v2/reports/Reports/FUA/anexo1.pdf?idFua="
+    // this.linkPDF = "http://192.168.5.3:8200/jasperserver/rest_v2/reports/Reports/FUA/anexo1.pdf?idFua="
   }
 
   ngOnInit(): void {
