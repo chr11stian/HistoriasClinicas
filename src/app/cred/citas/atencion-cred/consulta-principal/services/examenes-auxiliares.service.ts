@@ -76,4 +76,11 @@ export class ExamenesAuxiliaresService {
       .then(data => { return data; })
       .catch(error => { return error.error });
   }
+  putAgregarExamenesConsulta(idConsulta, data) {
+    return this.http.post<any>(`${this.urlServer}/${this.bd}/examenesAuxiliares/agregar-laboratorio-consultorio-lab/${idConsulta}`, data)
+      .toPromise()
+      .then(res => <any>res.object)
+      .then(data => { return data; })
+      .catch(error => { return error.error });
+  }
 } 

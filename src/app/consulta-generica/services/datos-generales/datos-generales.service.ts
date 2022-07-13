@@ -32,4 +32,12 @@ export class DatosGeneralesService {
   getDatosTriajeByIdCupo(idCupo: string) {
     return this.http.get(`${this.base_url}/${this.bd}/cupo/obtener/triaje/cupo/id/${idCupo}`)
   }
+
+  getPromisePacienteByDoc(data) {
+    return this.http.post<any>(`${this.base_url}/${this.bd}/paciente/docId`, data)
+      .toPromise()
+      .then(res => <any>res)
+      .then(data => { return data; })
+      .catch(error => { return error.error });
+  }
 }
