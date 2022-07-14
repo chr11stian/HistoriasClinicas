@@ -4,7 +4,7 @@
         <div class="col-10">
             <p-panel>
                 <ng-template pTemplate="header">
-                    <label class="">GESTACIONES DEL PACIENTE</label>
+                    <label class="">GESTACIONES DEL PACIENTEeee</label>
                 </ng-template>
                 <div class="grid align-items-center">
                     <div class="col-4 md:col-4 md:col-1 lg:col-1">
@@ -30,7 +30,6 @@
                                 <label style="padding: 3px">{{nroHcl}}</label>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </p-panel>
@@ -70,10 +69,17 @@
                         <td style="text-align: center; font-size: 11px">{{ rowData.nroEmbarazo }}</td>
                         <td style="text-align: center; font-size: 11px">{{ rowData.estado }}</td>
                         <td style="text-align: center">
-                        <span class="p-buttonset">
-                            <button pButton pRipple class="p-button-success" routerLink="obstetricia" label="Atencion"
+                        <span class="">
+                            <button pButton pRipple class="p-button-rounded p-button-success" routerLink="obstetricia" label="Atencion"
                                     icon="pi pi-caret-right" (click)="gestacion(rowData)"
                                     style="font-size: 11px; height: 25px"></button>
+                        </span>
+                        <span class="ml-1">
+                            <button pButton pRipple class="p-button-rounded p-button-info">
+                                <a style="color: white; font-weight: bold;"
+                                    href="{{downloadLink + dataGestante}}"
+                                    target="_blank" (click)="imprimir()">Cartilla</a>
+                            </button>
                         </span>
                         </td>
                     </tr>
