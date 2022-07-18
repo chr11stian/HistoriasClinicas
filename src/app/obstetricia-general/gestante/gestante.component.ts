@@ -45,9 +45,10 @@ export class GestanteComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        console.log("evvvvvvvvv")
         this.DataCupos = JSON.parse(localStorage.getItem('datacupos'));
         this.DataCupos2 = JSON.parse(localStorage.getItem('PacienteSinCupo'));
-        // this.dataGestante = '&idObstretaDatos='+ this.DataCupos.id;
+        //this.dataGestante = '&idObstretaDatos='+JSON.parse(localStorage.getItem('gestacion')).id;
 
         if (this.DataCupos2 == null) {
             this.tipoDocRecuperado = this.DataCupos.paciente.tipoDoc
@@ -68,6 +69,7 @@ export class GestanteComponent implements OnInit {
     getpacientesFiliados(tipoDoc, nroDoc) {
         this.obstetriciaGeneralService.getPacienteFiliacion(tipoDoc, nroDoc).subscribe((res: any) => {
             this.pacientesFiliacion = res.object
+            console.log("pf",this.pacientesFiliacion)
             console.log('paciente con nro de gestacion ', this.pacientesFiliacion)
             if (this.pacientesFiliacion == null) {
                 this.filiacionUltimaPosicion = 'FINALIZADO';
