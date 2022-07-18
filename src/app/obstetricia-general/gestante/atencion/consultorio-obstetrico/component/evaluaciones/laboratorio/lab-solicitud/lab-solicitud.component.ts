@@ -42,6 +42,7 @@ export class LabSolicitudComponent implements OnInit {
     LugarExamen: any;
     examName: ExamLab[] = [];
     auxExamList: ExamenAuxiliar[] = [];
+    listSolicitudes: any[] = [];
 
     constructor(private ref: DynamicDialogRef,
         private DxService: ConsultasService,
@@ -69,6 +70,7 @@ export class LabSolicitudComponent implements OnInit {
         // console.log('data de id ', this.dataConsulta);
         this.idConsulta = JSON.parse(localStorage.getItem('IDConsulta'));
         this.listarExamenes();
+        this.listarSolicitudes()
     }
 
     ngOnInit(): void {
@@ -244,28 +246,52 @@ export class LabSolicitudComponent implements OnInit {
         })
     }
     savePeticiones() {
-        for (let i = 0; i < this.examName.length; i++) {
-            let auxExam: ExamenAuxiliar = {
-                tipoLaboratorio: 'EXAMEN_LABORATORIO',
-                subTipo: this.examName[i].subTipo,
-                nombreExamen: this.examName[i].nombreExamen,
-                codPrestacion: '',
-                codigoSIS: '',
-                codigoHIS: '',
-                lugarExamen: 'LABORATORIO',
-                labExterno: ''
+        if (this.listSolicitudes.length == 0) {
+            for (let i = 0; i < this.examName.length; i++) {
+                let auxExam: ExamenAuxiliar = {
+                    tipoLaboratorio: 'EXAMEN_LABORATORIO',
+                    subTipo: this.examName[i].subTipo,
+                    nombreExamen: this.examName[i].nombreExamen,
+                    codPrestacion: '',
+                    codigoSIS: '',
+                    codigoHIS: '',
+                    lugarExamen: 'LABORATORIO',
+                    labExterno: ''
+                }
+                this.auxExamList.push(auxExam);
             }
-            this.auxExamList.push(auxExam);
+            this.solicitudLaboratorio = {
+                servicio: '',
+                nroCama: '',
+                examenesAuxiliares: this.auxExamList
+            }
+            console.log('data to save ', this.solicitudLaboratorio);
+            this.examenAuxiliarService.postPromiseAddServiciosLaboratorio(this.idConsulta, this.solicitudLaboratorio).then(res => {
+                this.closeDialog();
+            });
+        } else {
+            // for (let i = 0; i < this.examName.length; i++) {
+            //     let auxExam: AddLaboratorio = {
+            //         servicio:'',
+            //         nroCama:'',
+            //         // examenAuxiliar:{
+            //         //     tipoLaboratorio:'EXAMEN_LABORATORIO',
+            //         //     subTipo: this.examName
+            //         // }
+            //     }
+                
+            // }
+        //    this.examenAuxiliarService.putAgregarExamenesConsulta(this.idConsulta).then(res=>{
+
+        //    })
         }
-        this.solicitudLaboratorio = {
-            servicio: '',
-            nroCama: '',
-            examenesAuxiliares: this.auxExamList
-        }
-        console.log('data to save ', this.solicitudLaboratorio);
-        this.examenAuxiliarService.postPromiseAddServiciosLaboratorio(this.idConsulta, this.solicitudLaboratorio).then(res => {
-            this.closeDialog();
-        });
+        
+    }
+    listarSolicitudes() {
+        this.examenAuxiliarService.getListarPeticiones(this.idConsulta).then(res => {
+            this.listSolicitudes = res.object.examenesAuxiliares;
+            console.log('lista de solicitudes ', this.listSolicitudes);
+        })
     }
 
 }

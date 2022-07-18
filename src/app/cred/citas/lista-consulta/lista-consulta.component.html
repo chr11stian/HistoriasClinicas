@@ -51,6 +51,12 @@
         <ng-template pTemplate="right">
             <button pButton pRipple class="p-button-info" label="Nueva Consulta" (click)="nuevaConsulta()"
                 style="background-color: #0c3866" icon="pi pi-book"></button>
+            <span class="pl-1">
+                <button pButton pRipple class="p-button-rounded p-button-info">
+                    <a style="color: white; font-weight: bold;" href="{{downloadLink + docPaciente}}" target="_blank"
+                        (click)="imprimirCarnetCRED()">Descargar Cartilla</a>
+                </button>
+            </span>
         </ng-template>
     </p-toolbar>
 
@@ -97,6 +103,7 @@
                         <button pButton pRipple class="p-button-rounded p-button-info" label="HIS"
                             (click)="irHIS(rowData)"></button>
                     </span>
+
                 </td>
             </tr>
         </ng-template>
