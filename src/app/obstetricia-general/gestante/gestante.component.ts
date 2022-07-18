@@ -69,7 +69,7 @@ export class GestanteComponent implements OnInit {
     getpacientesFiliados(tipoDoc, nroDoc) {
         this.obstetriciaGeneralService.getPacienteFiliacion(tipoDoc, nroDoc).subscribe((res: any) => {
             this.pacientesFiliacion = res.object
-            console.log("pf",this.pacientesFiliacion)
+            console.log("pf", this.pacientesFiliacion)
             console.log('paciente con nro de gestacion ', this.pacientesFiliacion)
             if (this.pacientesFiliacion == null) {
                 this.filiacionUltimaPosicion = 'FINALIZADO';
@@ -77,7 +77,7 @@ export class GestanteComponent implements OnInit {
                 let index = this.pacientesFiliacion.length - 1;
                 this.filiacionUltimaPosicion = this.pacientesFiliacion[index].estado;
                 console.log('ARREGLO ULTIMA POSICION', this.filiacionUltimaPosicion);
-                this.dataGestante = '&idObstretaDatos='+this.pacientesFiliacion[0].id;
+                // this.dataGestante = '&idObstretaDatos=' + this.pacientesFiliacion[0].id;
             }
         });
     }
@@ -120,8 +120,10 @@ export class GestanteComponent implements OnInit {
             this.imagePath = res.foto;
         });
     }
-    imprimir() {
-        console.log('link para imprimir ', this.downloadLink + this.dataGestante);
+    imprimir(rowData) {
+        console.log('data de tabla ', rowData)
+        this.dataGestante = '&idObstretaDatos=' + rowData.id;
+        // console.log('link para imprimir ', this.downloadLink + this.dataGestante);
         // let data = {
         //     tipoDoc: 'DNI',
         //     nroDoc: '73145986'
