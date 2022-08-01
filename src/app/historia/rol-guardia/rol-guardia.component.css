@@ -1,12 +1,9 @@
-p-table >>> .p-datatable table {
-  /*display:block;*/
-}
 :host ::ng-deep .p-datatable-header {
   font-size: 1.2rem;
   font-weight:normal;
   text-align: center;
 }
-::ng-deep .asignado .p-datatable .p-datatable-thead > tr > th {
+:host::ng-deep .asignado .p-datatable .p-datatable-thead > tr > th {
   text-align: center;
   font-size: 1rem;
   word-wrap: break-word;
@@ -14,7 +11,7 @@ p-table >>> .p-datatable table {
   font-weight: normal;
   min-width: 4rem;
 }
-::ng-deep .asignado .p-datatable .p-datatable-tbody > tr > td {
+:host::ng-deep .asignado .p-datatable .p-datatable-tbody > tr > td {
   text-align: center;
   font-size: 1rem;
   word-wrap: break-word;
@@ -23,7 +20,7 @@ p-table >>> .p-datatable table {
   padding-left: 0rem;
   padding-right: 0rem;
 }
-::ng-deep .primero .p-datatable .p-datatable-header{
+:host::ng-deep .primero .p-datatable .p-datatable-header{
   padding: 0.5rem;
 }
 .borde {
@@ -42,7 +39,7 @@ p-table >>> .p-datatable table {
   margin:0rem;
   border-radius: 1rem;
 }
-::ng-deep .dialogo .p-dialog-mask .p-element{
+:host::ng-deep .dialogo .p-dialog-mask .p-element{
   display: block;
 }
 span p{
@@ -66,7 +63,7 @@ span p{
   top: 0;
   border: solid 1px black !important;
 }
-  .frozenCol-th {
+.frozenCol-th {
     background: inherit;
   position: sticky;
   top: 0;
@@ -89,7 +86,7 @@ span p{
   border-top-left-radius: 3px;
 } */
 
-::ng-deep >>> .p-dialog .p-dialog-header .p-dialog-header-icon {
+:host::ng-deep >>> .p-dialog .p-dialog-header .p-dialog-header-icon {
   width: 2rem;
   height: 2rem;
   color: #f8f9fa;
@@ -100,8 +97,16 @@ span p{
   margin-right: 0.5rem;
 }
 
-
-host::ng-deep >>> .p-dialog .p-dialog-header .p-dialog-title {
+:host::ng-deep >>> .p-dialog .p-dialog-header .p-dialog-title {
   font-size: 1.2rem;
   text-align: right;
+}
+:host::ng-deep .p-dropdown-panel .p-dropdown-items:not(.dropdown-virtualscroll){
+  position:absolute;
+  /* top:-87px;
+  left:-67px; */
+  /* background-color: #fff; */
+  top:-7rem;
+  left:-4.5rem;
+  background-color: #fff;
 }
