@@ -344,9 +344,9 @@ export class TepsiComponent implements OnInit {
             const fecha: string[] = (this.getFC('fechaSelected').value).toISOString().split('T')
             const hora: string = fecha[1].split('.')[0];
             const requestInput = {
-                codigoCIE10: "",
-                codigoHIS: "",
-                codigoPrestacion: "",
+                codigoCIE10: "Z009",
+                codigoHIS: "Z009",
+                codigoPrestacion: "0001",
                 testTepsi: {
                     edad: {
                         anio: this.anioEdad,//todo debe ser la misma fecha recuperada
@@ -354,6 +354,7 @@ export class TepsiComponent implements OnInit {
                         dia: this.diaEdad
                     },
                     fechaAtencion: `${fecha[0]} ${hora}`,
+                    diagnostico:"N",
                     docExaminador: this.getFC('nombreExaminador').value,
                     resultadoTestTotal: {
                         puntajeBruto: this.resultadoA[0].puntajeBruto,
