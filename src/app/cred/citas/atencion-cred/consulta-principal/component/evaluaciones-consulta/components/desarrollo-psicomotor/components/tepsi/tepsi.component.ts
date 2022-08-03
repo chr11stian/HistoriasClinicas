@@ -15,7 +15,7 @@ import { UIChart } from 'primeng/chart';
     styleUrls: ['./tepsi.component.css']
 })
 export class TepsiComponent implements OnInit {
-    @ViewChild('chart') chart: UIChart; 
+     @ViewChild('chart') chart: UIChart; 
     resultadoA: resultado[] = [{
             puntajeBruto: 0,//test total
             puntajeT: 0,
@@ -128,9 +128,8 @@ export class TepsiComponent implements OnInit {
             datasets: [
                 {
                     label: 'Puntaje T Resultado Test Total',
-                    backgroundColor:this.determinaColor(),
-                    // data:this.traerPuntaje()
-                     data:[this.resultadoA[0].puntajeT, this.resultadoA[1].puntajeT, this.resultadoA[2].puntajeT, this.resultadoA[3].puntajeT]
+                    backgroundColor: this.determinaColor(),
+                    data: this.traerPuntaje(),
                 }
             ]
         };
