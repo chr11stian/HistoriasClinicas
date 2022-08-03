@@ -50,68 +50,15 @@ export class TepsiComponent implements OnInit {
     },
   ];
   chartData: any;
-
   horizontalOptions: any;
   displayTest: boolean[] = [false, false, false];
   arregloSubtest = [
     [
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-    ],
+      false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,],
     [
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-    ],
+      false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,],
     [
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-    ],
+      false,false,false,false,false,false,false,false,false,false,false,false,],
   ];
   subPreguntas = [
     [false, false, false, false, false, false, false, false],
@@ -140,10 +87,8 @@ export class TepsiComponent implements OnInit {
   data: dato;
   idConsulta: string;
   usuario: any;
-
   minimo: number[] = [5, 5, 3, 4, 2, 2, 2, 2, 2, 2, 2, 3, 2];
   indicePregunta: number[] = [3, 4, 6, 7, 12, 13, 14, 15, 16, 17, 18, 23, 24];
-
   constructor(
     private tepsiService: TepsiService,
     private messageService: MessageService
@@ -180,7 +125,6 @@ export class TepsiComponent implements OnInit {
 
   traerPuntaje() {
     const aux = this.resultadoA;
-    // console.log('a imprimir',aux[0].puntajeT,aux[1].puntajeT,aux[2].puntajeT,aux[3].puntajeT)
     return [aux[0].puntajeT, aux[1].puntajeT, aux[2].puntajeT, aux[3].puntajeT];
   }
 
@@ -257,11 +201,8 @@ export class TepsiComponent implements OnInit {
     this.chartData.datasets[0].backgroundColor = this.determinaColor();
     this.chartReferencia.refresh()
     // setTimeout(()=>{
-    // },100)
-    // console.log(this.chartData);
-    
+    // },200)
   }
-
   reconstruirTest(arreglo: any[]) {
     const aux = arreglo.map((element) => {
       return element.valor == 1 ? true : false;
@@ -306,11 +247,7 @@ export class TepsiComponent implements OnInit {
       );
       //Recuperamos los datos de las dos tablas total,subtests
       const tests = [
-        "resultadoTestTotal",
-        "subTestCoordinacion",
-        "subTestLenguaje",
-        "subTestMotricidad",
-      ];
+        "resultadoTestTotal","subTestCoordinacion","subTestLenguaje","subTestMotricidad"];
       this.resultadoA.forEach((elemento, index) => {
         const { puntajeBruto, puntajeT, categoria } = resultado[tests[index]];
         this.resultadoA[index] = { puntajeBruto, puntajeT, categoria };
@@ -334,35 +271,35 @@ export class TepsiComponent implements OnInit {
     return arregloAux;
   }
 
-  determinarRango(anioEdad: number, mesEdad: number, diaEdad: number): number {
+  determinarRango(anio: number, mes: number, dia: number): number {
     let auxRango;
     if (
-      (anioEdad == 2 && this.mesEdad <= 5) ||
-      (anioEdad == 2 && this.mesEdad == 6 && diaEdad == 0)
+      (anio == 2 && mes <= 5) ||
+      (anio == 2 && mes == 6 && dia == 0)
     ) {
       auxRango = 1;
     } else {
       if (
-        (anioEdad == 2 && this.mesEdad >= 6) ||
-        (anioEdad == 3 && this.mesEdad == 0 && diaEdad == 0)
+        (anio == 2 && mes >= 6) ||
+        (anio == 3 && mes == 0 && dia == 0)
       ) {
         auxRango = 2;
       } else {
         if (
-          (anioEdad == 3 && this.mesEdad <= 5) ||
-          (anioEdad == 3 && this.mesEdad == 6 && diaEdad == 0)
+          (anio == 3 && mes <= 5) ||
+          (anio == 3 && mes == 6 && dia == 0)
         ) {
           auxRango = 3;
         } else {
           if (
-            (anioEdad == 3 && this.mesEdad >= 6) ||
-            (anioEdad == 4 && this.mesEdad == 0 && diaEdad == 0)
+            (anio == 3 && mes >= 6) ||
+            (anio == 4 && mes == 0 && dia == 0)
           ) {
             auxRango = 4;
           } else {
             if (
-              (anioEdad == 4 && this.mesEdad <= 5) ||
-              (anioEdad == 4 && this.mesEdad == 6 && diaEdad == 0)
+              (anio == 4 && mes <= 5) ||
+              (anio == 4 && mes == 6 && dia == 0)
             ) {
               auxRango = 5;
             } else {
@@ -372,7 +309,6 @@ export class TepsiComponent implements OnInit {
         }
       }
     }
-    // this.rango = auxRango;
     return auxRango;
   }
 
