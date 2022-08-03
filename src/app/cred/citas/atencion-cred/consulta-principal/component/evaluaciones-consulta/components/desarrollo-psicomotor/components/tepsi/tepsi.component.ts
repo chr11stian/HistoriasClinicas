@@ -225,7 +225,7 @@ export class TepsiComponent implements OnInit {
         title: "Registro Tepsi Recuperado",
         text: "Evaluacion Tepsi recuperado",
         showConfirmButton: false,
-        timer: 2000,
+        timer: 3000,
       });
       const resultado = resp["object"]["testTepsi"];
       this.anioEdad = resultado["edad"]["anio"];
@@ -272,44 +272,43 @@ export class TepsiComponent implements OnInit {
   }
 
   determinarRango(anio: number, mes: number, dia: number): number {
-    let auxRango;
-    if (
-      (anio == 2 && mes <= 5) ||
-      (anio == 2 && mes == 6 && dia == 0)
-    ) {
-      auxRango = 1;
-    } else {
       if (
-        (anio == 2 && mes >= 6) ||
-        (anio == 3 && mes == 0 && dia == 0)
+         (anio==0 || anio==1 )||  /* fuera de rango  */
+        (anio == 2 && mes <= 5) ||
+        (anio == 2 && mes == 6 && dia == 0)
       ) {
-        auxRango = 2;
+        return 1;
       } else {
         if (
-          (anio == 3 && mes <= 5) ||
-          (anio == 3 && mes == 6 && dia == 0)
+          (anio == 2 && mes >= 6) ||
+          (anio == 3 && mes == 0 && dia == 0)
         ) {
-          auxRango = 3;
+          return  2;
         } else {
           if (
-            (anio == 3 && mes >= 6) ||
-            (anio == 4 && mes == 0 && dia == 0)
+            (anio == 3 && mes <= 5) ||
+            (anio == 3 && mes == 6 && dia == 0)
           ) {
-            auxRango = 4;
+            return  3;
           } else {
             if (
-              (anio == 4 && mes <= 5) ||
-              (anio == 4 && mes == 6 && dia == 0)
+              (anio == 3 && mes >= 6) ||
+              (anio == 4 && mes == 0 && dia == 0)
             ) {
-              auxRango = 5;
+              return  4;
             } else {
-              auxRango = 6;
+              if (
+                (anio == 4 && mes <= 5) ||
+                (anio == 4 && mes == 6 && dia == 0)
+              ) {
+                return  5;
+              } else {
+                return  6;
+              }
             }
           }
         }
       }
-    }
-    return auxRango;
   }
 
   getFC(control: string): AbstractControl {
@@ -369,10 +368,10 @@ export class TepsiComponent implements OnInit {
   }
 
   determinarCategoria(puntajeT: number) {
-    return puntajeT > 40 ? "Normal" : puntajeT >= 30 ? "Riesgo" : "Retraso";
+    return puntajeT < 30 ? "Retraso" : puntajeT < 40 ? "Riesgo" : "Normal";
   }
 
-  calcularTotal() {
+  calcularTotal() { 
     this.resultadoA[0].puntajeBruto =
       this.resultadoA[1].puntajeBruto +
       this.resultadoA[2].puntajeBruto +
@@ -477,7 +476,7 @@ export class TepsiComponent implements OnInit {
                 title: "Test Tepsi Actualizado Satifactoriamente",
                 text: "",
                 showConfirmButton: false,
-                timer: 1500,
+                timer: 3000,
               });
               // this.messageService.add({
               //     severity: 'success',
@@ -504,7 +503,7 @@ export class TepsiComponent implements OnInit {
                 title: "Test Tepsi Guardado Satifactoriamente",
                 text: "",
                 showConfirmButton: false,
-                timer: 1500,
+                timer: 3000,
               });
             },
             (error) => {
