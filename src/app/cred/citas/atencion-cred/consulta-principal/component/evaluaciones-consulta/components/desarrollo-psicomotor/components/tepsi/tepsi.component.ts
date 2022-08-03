@@ -1,471 +1,630 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
-import {TepsiService} from "../../services/tepsi.service";
-import {MessageService} from "primeng/api";
-import {ActivatedRoute} from "@angular/router";
-import {dato} from "../../../../../../../../models/data";
-import { puntaje, contenedorSubTest, resultado, itenTestResultado, listaPregunta } from '../models/tepsi';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  Validators,
+} from "@angular/forms";
+import { TepsiService } from "../../services/tepsi.service";
+import { MessageService } from "primeng/api";
+import { ActivatedRoute } from "@angular/router";
+import { dato } from "../../../../../../../../models/data";
+import {
+  puntaje,
+  contenedorSubTest,
+  resultado,
+  itenTestResultado,
+  listaPregunta,
+} from "../models/tepsi";
 import Swal from "sweetalert2";
-import localeFr from '@angular/common/locales/fr';
-import { UIChart } from 'primeng/chart';
+import localeFr from "@angular/common/locales/fr";
+import { UIChart } from "primeng/chart";
 
 @Component({
-    selector: 'app-tepsi',
-    templateUrl: './tepsi.component.html',
-    styleUrls: ['./tepsi.component.css']
+  selector: "app-tepsi",
+  templateUrl: "./tepsi.component.html",
+  styleUrls: ["./tepsi.component.css"],
 })
 export class TepsiComponent implements OnInit {
-     @ViewChild('chart') chart: UIChart; 
-    resultadoA: resultado[] = [{
-            puntajeBruto: 0,//test total
-            puntajeT: 0,
-            categoria: ''
-        },{
-            puntajeBruto: 0,//subtest coordinacion
-            puntajeT: 0,
-            categoria: ''
-        },{
-            puntajeBruto: 0,//subtest lenguaje
-            puntajeT: 0,
-            categoria: ''
-        },{
-            puntajeBruto: 0,//subtest motricidad
-            puntajeT: 0,
-            categoria: ''
-        }]
-    chartData: any;
-    horizontalOptions: any
-    displayTest: boolean[] = [false, false, false]
-    arregloSubtest = [[false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false, false, false, false, false]];
-    subPreguntas = [
-        [false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, false, false],
-        [false, false, false, false],
-        [false, false, false, false, false, false, false, false],
-        [false, false, false],
-        [false, false, false],
-        [false, false, false],
-        [false, false, false],
-        [false, false, false],
-        [false, false, false],
-        [false, false, false],
-        [false, false, false],
-        [false, false, false]]
-    tablaPuntajeTotal: puntaje[];
-    tablaSubTestG: contenedorSubTest[] = [];
-    datosGeneralesFG: FormGroup;
-    anioEdad: number;
-    mesEdad: number;
-    diaEdad: number;
-    rango: number = 0
-    fechaNacimiento = ''
-    attributeLocalS = 'documento'
-    data: dato
-    idConsulta: string
-    usuario: any
+  @ViewChild("chartH") chartReferencia: UIChart;
+  resultadoA: resultado[] = [
+    {
+      puntajeBruto: 0, //test total
+      puntajeT: 0,
+      categoria: "",
+    },
+    {
+      puntajeBruto: 0, //subtest coordinacion
+      puntajeT: 0,
+      categoria: "",
+    },  
+    {
+      puntajeBruto: 0, //subtest lenguaje
+      puntajeT: 0,
+      categoria: "",
+    },
+    {
+      puntajeBruto: 0, //subtest motricidad
+      puntajeT: 0,
+      categoria: "",
+    },
+  ];
+  chartData: any;
 
+  horizontalOptions: any;
+  displayTest: boolean[] = [false, false, false];
+  arregloSubtest = [
+    [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+    ],
+    [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+    ],
+    [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+    ],
+  ];
+  subPreguntas = [
+    [false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false],
+    [false, false, false, false],
+    [false, false, false, false, false, false, false, false],
+    [false, false, false],
+    [false, false, false],
+    [false, false, false],
+    [false, false, false],
+    [false, false, false],
+    [false, false, false],
+    [false, false, false],
+    [false, false, false],
+    [false, false, false],
+  ];
+  tablaPuntajeTotal: puntaje[];
+  tablaSubTestG: contenedorSubTest[] = [];
+  datosGeneralesFG: FormGroup;
+  anioEdad: number;
+  mesEdad: number;
+  diaEdad: number;
+  rango: number = 0;
+  fechaNacimiento = "";
+  attributeLocalS = "documento";
+  data: dato;
+  idConsulta: string;
+  usuario: any;
 
-    minimo: number[] = [5, 5, 3, 4, 2, 2, 2, 2, 2, 2, 2, 3, 2]
-    indicePregunta: number[] = [3, 4, 6, 7, 12, 13, 14, 15, 16, 17, 18, 23, 24]
+  minimo: number[] = [5, 5, 3, 4, 2, 2, 2, 2, 2, 2, 2, 3, 2];
+  indicePregunta: number[] = [3, 4, 6, 7, 12, 13, 14, 15, 16, 17, 18, 23, 24];
 
-    constructor(private tepsiService: TepsiService,
-                private messageService: MessageService) {
-        this.buildForm();
-        this.inicializarGrafico();
-        this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
-        this.idConsulta = this.data.idConsulta
-        this.usuario = JSON.parse(localStorage.getItem('usuario'))
-        this.getFC('nombreExaminador').setValue(`${this.usuario.nombres} ${this.usuario.apellidos}`)
-        this.anioEdad = this.data.anio;
-        this.mesEdad = this.data.mes;
-        this.diaEdad = this.data.dia
-        this.rango=this.determinarRango(this.anioEdad,this.mesEdad,this.diaEdad);
-        this.getTablaPuntaje();
-    }
+  constructor(
+    private tepsiService: TepsiService,
+    private messageService: MessageService
+  ) {
+    this.buildForm();
+    this.inicializarGrafico();
+    this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
+    this.idConsulta = this.data.idConsulta;
+    this.usuario = JSON.parse(localStorage.getItem("usuario"));
+    this.getFC("nombreExaminador").setValue(
+      `${this.usuario.nombres} ${this.usuario.apellidos}`
+    );
+    this.anioEdad = this.data.anio;
+    this.mesEdad = this.data.mes;
+    this.diaEdad = this.data.dia;
+    this.rango = this.determinarRango(
+      this.anioEdad,
+      this.mesEdad,
+      this.diaEdad
+    );
+    this.getTablaPuntaje();
+  }
 
-    ngOnInit(): void {
-        this.getTestTepsi();
-    }
+  ngOnInit(): void {
+    this.getTestTepsi();
+  }
 
-    buildForm() {
-        this.datosGeneralesFG = new FormGroup({
-            nombreExaminador: new FormControl('', Validators.required),
-            fechaSelected: new FormControl(new Date(), Validators.required)
-        })
-    }
+  buildForm() {
+    this.datosGeneralesFG = new FormGroup({
+      nombreExaminador: new FormControl("", Validators.required),
+      fechaSelected: new FormControl(new Date(), Validators.required),
+    });
+  }
 
-    traerPuntaje() {
-        const aux = this.resultadoA
-        // console.log('a imprimir',aux[0].puntajeT,aux[1].puntajeT,aux[2].puntajeT,aux[3].puntajeT)
-        return [aux[0].puntajeT, aux[1].puntajeT, aux[2].puntajeT, aux[3].puntajeT]
-    }
+  traerPuntaje() {
+    const aux = this.resultadoA;
+    // console.log('a imprimir',aux[0].puntajeT,aux[1].puntajeT,aux[2].puntajeT,aux[3].puntajeT)
+    return [aux[0].puntajeT, aux[1].puntajeT, aux[2].puntajeT, aux[3].puntajeT];
+  }
 
-    determinaColor() {
-        const aux = this.resultadoA
-        let color: string;
-        const arreglo = aux.map((item) => {
-            if (item.categoria == 'Normal') {
-                color = 'green';
+  determinaColor() {
+    const aux = this.resultadoA;
+    let color: string;
+    const arreglo = aux.map((item) => {
+      if (item.categoria == "Normal") {
+        color = "#0c3866";//blue
+      } else {
+        if (item.categoria == "Riesgo") {
+          color = "#F3D9DC";
+        } else {
+          color = "#D77F8A";
+        }
+      }
+
+      return color;
+    });
+
+    return arreglo;
+  }
+
+  inicializarGrafico() {
+    this.chartData = {
+      labels: [
+        "Test Total",
+        "Sub Test Coordinacion",
+        "Sub Test Lenguaje",
+        "Sub Test Motricidad",
+      ],
+      datasets: [
+        {
+          label: "Puntaje T Resultado Test Total",
+          backgroundColor: this.determinaColor(),
+          data: this.traerPuntaje(),
+        //   data:[12,12,14,15],
+        },
+      ],
+    };
+    this.horizontalOptions = {
+      indexAxis: "y",
+      plugins: {
+        legend: {
+          labels: {
+            color: "black",
+          },
+        },
+      },
+      scales: {
+        x: {
+          ticks: {
+            color: "black",
+          },
+          grid: {
+            color: "#AF0017",
+          },
+        },
+        y: {
+          ticks: {
+            min: 0,
+            max: 90,
+            color: "black",
+          },
+          grid: {
+            color: "#AF0017",
+          },
+        },
+      },
+    };
+  }
+  actualizarDataGraficar() {
+    this.chartData.datasets[0].data = this.traerPuntaje();
+    this.chartData.datasets[0].backgroundColor = this.determinaColor();
+    this.chartReferencia.refresh()
+    // setTimeout(()=>{
+    // },100)
+    // console.log(this.chartData);
+    
+  }
+
+  reconstruirTest(arreglo: any[]) {
+    const aux = arreglo.map((element) => {
+      return element.valor == 1 ? true : false;
+    });
+    return aux;
+  }
+
+  isUpdate: boolean = false;
+
+  getTestTepsi() {
+    this.tepsiService.getConsultaTepsi(this.idConsulta).then((resp) => {
+      //resp.cod==2122 => no hay registro
+      if (resp["cod"] == "2122") {
+        return;
+      }
+      // console.log('es un 2021');
+      this.isUpdate = true;
+      Swal.fire({
+        icon: "success",
+        title: "Registro Tepsi Recuperado",
+        text: "Evaluacion Tepsi recuperado",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      const resultado = resp["object"]["testTepsi"];
+      this.anioEdad = resultado["edad"]["anio"];
+      this.mesEdad = resultado["edad"]["mes"];
+      this.diaEdad = resultado["edad"]["dia"];
+      this.getFC("fechaSelected").setValue(
+        new Date(resultado["fechaAtencion"])
+      );
+      this.getFC("nombreExaminador").setValue(resultado["docExaminador"]);
+
+      this.arregloSubtest[0] = this.reconstruirTest(
+        resultado["subTestCoordinacion"]["listItemTest"]
+      );
+      this.arregloSubtest[1] = this.reconstruirTest(
+        resultado["subTestLenguaje"]["listItemTest"]
+      );
+      this.arregloSubtest[2] = this.reconstruirTest(
+        resultado["subTestMotricidad"]["listItemTest"]
+      );
+      //Recuperamos los datos de las dos tablas total,subtests
+      const tests = [
+        "resultadoTestTotal",
+        "subTestCoordinacion",
+        "subTestLenguaje",
+        "subTestMotricidad",
+      ];
+      this.resultadoA.forEach((elemento, index) => {
+        const { puntajeBruto, puntajeT, categoria } = resultado[tests[index]];
+        this.resultadoA[index] = { puntajeBruto, puntajeT, categoria };
+      });
+      this.actualizarDataGraficar();
+    });
+  }
+  resconstruirSubPreguntas(arregloLenguaje) {
+    this.subPreguntas.forEach((element, index) => {
+      this.subPreguntas[index] = this.recuperarTrueFalse(
+        arregloLenguaje[this.indicePregunta[index] - 1].listaPreguntas
+      );
+    });
+    console.log("respuesta", this.subPreguntas);
+  }
+
+  recuperarTrueFalse(arreglo) {
+    let arregloAux = arreglo.map((element) => {
+      return element.valor;
+    });
+    return arregloAux;
+  }
+
+  determinarRango(anioEdad: number, mesEdad: number, diaEdad: number): number {
+    let auxRango;
+    if (
+      (anioEdad == 2 && this.mesEdad <= 5) ||
+      (anioEdad == 2 && this.mesEdad == 6 && diaEdad == 0)
+    ) {
+      auxRango = 1;
+    } else {
+      if (
+        (anioEdad == 2 && this.mesEdad >= 6) ||
+        (anioEdad == 3 && this.mesEdad == 0 && diaEdad == 0)
+      ) {
+        auxRango = 2;
+      } else {
+        if (
+          (anioEdad == 3 && this.mesEdad <= 5) ||
+          (anioEdad == 3 && this.mesEdad == 6 && diaEdad == 0)
+        ) {
+          auxRango = 3;
+        } else {
+          if (
+            (anioEdad == 3 && this.mesEdad >= 6) ||
+            (anioEdad == 4 && this.mesEdad == 0 && diaEdad == 0)
+          ) {
+            auxRango = 4;
+          } else {
+            if (
+              (anioEdad == 4 && this.mesEdad <= 5) ||
+              (anioEdad == 4 && this.mesEdad == 6 && diaEdad == 0)
+            ) {
+              auxRango = 5;
             } else {
-                if (item.categoria == 'Riesgo') {
-                    color = '#F3D9DC'
-                } else {
-                    color = '#D77F8A'
-                }
+              auxRango = 6;
             }
-
-            return color
-        })
-
-        return arreglo
+          }
+        }
+      }
     }
+    // this.rango = auxRango;
+    return auxRango;
+  }
 
-    inicializarGrafico(){
-        this.chartData = {
-            labels: ['Test Total', 'Sub Test Coordinacion', 'Sub Test Lenguaje', 'Sub Test Motricidad'],
-            datasets: [
-                {
-                    label: 'Puntaje T Resultado Test Total',
-                    backgroundColor: this.determinaColor(),
-                    data: this.traerPuntaje(),
-                }
-            ]
-        };
-        this.horizontalOptions = {
-            indexAxis: 'y',
-            plugins: {
-                legend: {
-                    labels: {
-                        color: 'black',
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    ticks: {
-                        color: 'black'
-                    },
-                    grid: {
-                        color: '#AF0017'
-                    }
-                },
-                y: {
-                    ticks: {
-                        min: 0,
-                        max: 90,
-                        color: 'black'
-                    },
-                    grid: {
-                        color: '#AF0017'
-                    }
-                }
-            }
-        };
+  getFC(control: string): AbstractControl {
+    return this.datosGeneralesFG.get(control);
+  }
 
+  abrimosModal(index) {
+    console.log(index);
+    this.displayTest[index] = true;
+  }
+
+  evaluandoItem(index) {
+    let acumulador = this.calcularSumaArreglos(this.subPreguntas[index]);
+    console.log(acumulador);
+    if (acumulador >= this.minimo[index]) {
+      this.arregloSubtest[1][this.indicePregunta[index] - 1] = true;
+    } else {
+      this.arregloSubtest[1][this.indicePregunta[index] - 1] = false;
     }
-    Graficar() {
-        this.chartData.datasets.data = this.traerPuntaje()
-        this.chartData.datasets.backgroundColor=this.determinaColor()
-    }
+    this.calcularResultadoSubTest1(2);
+  }
 
-    reconstruirTest(arreglo: any[]) {
-        const aux = arreglo.map((element) => {
-            return element.valor == 1 ? true : false;
-        })
-        return aux
-    }
+  getTablaPuntaje() {
+    Swal.fire({
+      title: "Cargando Datos",
+      html: "Determinan Rango de evaluacion",
+    });
+    Swal.showLoading();
+    this.tepsiService.getTablaPuntaje1(this.rango).then((data) => {
+      this.tablaPuntajeTotal = data["object"]["tablaPuntajeTotal"];
+      this.tablaSubTestG.push({
+        subTest: data["object"]["tablaSubTestCoordinacion"],
+      });
+      this.tablaSubTestG.push({
+        subTest: data["object"]["tablaSubTestLenguaje"],
+      });
+      this.tablaSubTestG.push({
+        subTest: data["object"]["tablaSubTestMotricidad"],
+      });
+      this.calcularResultadoSubTest1(1);
+      this.calcularResultadoSubTest1(2);
+      this.calcularResultadoSubTest1(3);
+      this.calcularTotal();
+      this.actualizarDataGraficar();
+      Swal.close();
+    });
+  }
 
-    isUpdate: boolean = false
+  calcularSumaArreglos(arregloBoolean: boolean[]) {
+    let sumaAux = 0;
+    arregloBoolean.forEach((element) => {
+      if (element == true) {
+        sumaAux += 1;
+      }
+    });
+    return sumaAux;
+  }
 
-    getTestTepsi() {
-        this.tepsiService.getConsultaTepsi(this.idConsulta).then((resp) => {
-            //resp.cod==2122 => no hay registro
-            if (resp['cod'] == '2122') {
-                return
-            }
-            // console.log('es un 2021');
-            this.isUpdate = true;
-            Swal.fire({
-                icon: 'success',
-                title: 'Registro Tepsi Recuperado',
-                text: 'Evaluacion Tepsi recuperado',
+  determinarCategoria(puntajeT: number) {
+    return puntajeT > 40 ? "Normal" : puntajeT >= 30 ? "Riesgo" : "Retraso";
+  }
+
+  calcularTotal() {
+    this.resultadoA[0].puntajeBruto =
+      this.resultadoA[1].puntajeBruto +
+      this.resultadoA[2].puntajeBruto +
+      this.resultadoA[3].puntajeBruto;
+    const element = this.tablaPuntajeTotal.find((item: puntaje) => {
+      return this.resultadoA[0].puntajeBruto === parseInt(item.puntajeBruto);
+    });
+    this.resultadoA[0].puntajeT = parseInt(element.puntajeT);
+    this.resultadoA[0].categoria = this.determinarCategoria(
+      parseInt(element.puntajeT)
+    );
+  }
+
+  isResolve: boolean[] = [false, false, false]; //todo
+
+  calcularResultadoSubTest1(indexSubTest: number) {
+    //1,2,3
+    this.resultadoA[indexSubTest].puntajeBruto = this.calcularSumaArreglos(
+      this.arregloSubtest[indexSubTest - 1]
+    );
+    const element = this.tablaSubTestG[indexSubTest - 1].subTest.find(
+      (item: puntaje) => {
+        return (
+          this.resultadoA[indexSubTest].puntajeBruto ==
+          parseInt(item.puntajeBruto)
+        );
+      }
+    );
+    this.resultadoA[indexSubTest].puntajeT = parseInt(element.puntajeT);
+    this.resultadoA[indexSubTest].categoria = this.determinarCategoria(
+      parseInt(element.puntajeT)
+    );
+    this.calcularTotal();
+    this.actualizarDataGraficar();
+    // this.chartData=this.chartData;
+    
+    // console.log(this.chartData);
+    
+  }
+
+  save() {
+    const faltante = this.isResolve.filter((element) => {
+      return element == false;
+    });
+    if (faltante.length == 0) {
+      const fecha: string[] = this.getFC("fechaSelected")
+        .value.toISOString()
+        .split("T");
+      const hora: string = fecha[1].split(".")[0];
+      const requestInput = {
+        codigoCIE10: "Z009",
+        codigoHIS: "Z009",
+        codigoPrestacion: "0001",
+        testTepsi: {
+          edad: {
+            anio: this.anioEdad, //todo debe ser la misma fecha recuperada
+            mes: this.mesEdad,
+            dia: this.diaEdad,
+          },
+          fechaAtencion: `${fecha[0]} ${hora}`,
+          diagnostico: "N",
+          docExaminador: this.getFC("nombreExaminador").value,
+          resultadoTestTotal: {
+            puntajeBruto: this.resultadoA[0].puntajeBruto,
+            puntajeT: this.resultadoA[0].puntajeT,
+            categoria: this.resultadoA[0].categoria,
+          },
+          subTestCoordinacion: {
+            tipoSubTest: "COORDINACION",
+            puntajeBruto: this.resultadoA[1].puntajeBruto,
+            puntajeT: this.resultadoA[1].puntajeT,
+            categoria: this.resultadoA[1].categoria,
+            listItemTest: this.determinarArreglo("C", this.arregloSubtest[0]),
+          },
+          subTestLenguaje: {
+            tipoSubTest: "LENGUAJE",
+            puntajeBruto: this.resultadoA[2].puntajeBruto,
+            puntajeT: this.resultadoA[2].puntajeT,
+            categoria: this.resultadoA[2].categoria,
+            listItemTest: this.determinarArreglo2("L", this.arregloSubtest[1]),
+          },
+          subTestMotricidad: {
+            tipoSubTest: "MOTRICIDAD",
+            puntajeBruto: this.resultadoA[3].puntajeBruto,
+            puntajeT: this.resultadoA[3].puntajeT,
+            categoria: this.resultadoA[3].categoria,
+            listItemTest: this.determinarArreglo("M", this.arregloSubtest[2]),
+          },
+        },
+      };
+
+      console.log("request inpu", requestInput);
+      if (this.isUpdate) {
+        this.tepsiService
+          .putConsultaTepsi(this.idConsulta, requestInput)
+          .toPromise()
+          .then(
+            (resp) => {
+              console.log(resp);
+              Swal.fire({
+                icon: "success",
+                title: "Test Tepsi Actualizado Satifactoriamente",
+                text: "",
                 showConfirmButton: false,
-                timer: 2000
-              })
-            const resultado = resp['object']['testTepsi'];
-            this.anioEdad = resultado['edad']['anio']
-            this.mesEdad = resultado['edad']['mes']
-            this.diaEdad = resultado['edad']['dia']
-            this.getFC('fechaSelected').setValue(new Date(resultado['fechaAtencion']))
-            this.getFC('nombreExaminador').setValue(resultado['docExaminador'])
-
-            this.arregloSubtest[0] = this.reconstruirTest(resultado['subTestCoordinacion']['listItemTest']);
-            this.arregloSubtest[1] = this.reconstruirTest(resultado['subTestLenguaje']['listItemTest']);
-            this.arregloSubtest[2] = this.reconstruirTest(resultado['subTestMotricidad']['listItemTest']);
-            //Recuperamos los datos de las dos tablas total,subtests
-            const tests=['resultadoTestTotal','subTestCoordinacion','subTestLenguaje','subTestMotricidad']
-            this.resultadoA.forEach((elemento,index)=>{
-                const {puntajeBruto,puntajeT,categoria}=resultado[tests[index]]
-                this.resultadoA[index]={puntajeBruto,puntajeT,categoria}
-            })   
-            this.Graficar();
-        })
-    }
-    resconstruirSubPreguntas(arregloLenguaje) {
-        this.subPreguntas.forEach((element, index) => {
-            this.subPreguntas[index] = this.recuperarTrueFalse(arregloLenguaje[this.indicePregunta[index] - 1].listaPreguntas)
-        })
-        console.log('respuesta', this.subPreguntas);
-    }
-
-    recuperarTrueFalse(arreglo) {
-        let arregloAux = arreglo.map((element) => {
-            return element.valor;
-        })
-        return arregloAux
-    }
-
-    determinarRango(anioEdad:number,mesEdad:number,diaEdad:number) :number{
-        let auxRango;
-        if ((anioEdad == 2 && this.mesEdad <= 5) || (anioEdad == 2 && this.mesEdad == 6 && diaEdad == 0)) {
-            auxRango = 1;
-        } else {
-            if ((anioEdad == 2 && this.mesEdad >= 6) || (anioEdad == 3 && this.mesEdad == 0 && diaEdad == 0)) {
-                auxRango = 2;
-            } else {
-                if ((anioEdad == 3 && this.mesEdad <= 5) || (anioEdad == 3 && this.mesEdad == 6 && diaEdad == 0)) {
-                    auxRango = 3;
-                } else {
-                    if ((anioEdad == 3 && this.mesEdad >= 6) || (anioEdad == 4 && this.mesEdad == 0 && diaEdad == 0)) {
-                        auxRango = 4;
-                    } else {
-                        if ((anioEdad == 4 && this.mesEdad <= 5) || (anioEdad == 4 && this.mesEdad == 6 && diaEdad == 0)) {
-                            auxRango = 5;
-                        } else {
-                            auxRango = 6;
-                        }
-                    }
-                }
+                timer: 1500,
+              });
+              // this.messageService.add({
+              //     severity: 'success',
+              //     summary: 'Test Guardado',
+              //     detail: 'Registro Actualizado'
+              // });
+            },
+            (error) => {
+              console.log("error!!!!!!!!!!");
             }
-        }
-        // this.rango = auxRango;
-        return auxRango;
-    }
-
-    getFC(control: string): AbstractControl {
-        return this.datosGeneralesFG.get(control);
-    }
-
-    abrimosModal(index) {
-        console.log(index)
-        this.displayTest[index] = true
-    }
-
-    evaluandoItem(index) {
-        let acumulador = this.calcularSumaArreglos(this.subPreguntas[index]);
-        console.log(acumulador);
-        if (acumulador >= this.minimo[index]) {
-            this.arregloSubtest[1][this.indicePregunta[index] - 1] = true
-        } else {
-            this.arregloSubtest[1][this.indicePregunta[index] - 1] = false
-        }
-        this.calcularResultadoSubTest1(2)
-    }
-
-    getTablaPuntaje() {
-        Swal.fire({title: 'Cargando Datos'
-            ,html:'Determinan Rango de evaluacion'});
-        Swal.showLoading();
-        this.tepsiService.getTablaPuntaje1(this.rango).then((data) => {
-            this.tablaPuntajeTotal = data['object']['tablaPuntajeTotal'];
-            this.tablaSubTestG.push({subTest: data['object']['tablaSubTestCoordinacion']})
-            this.tablaSubTestG.push({subTest: data['object']['tablaSubTestLenguaje']})
-            this.tablaSubTestG.push({subTest: data['object']['tablaSubTestMotricidad']})
-            this.calcularResultadoSubTest1(1);
-            this.calcularResultadoSubTest1(2);
-            this.calcularResultadoSubTest1(3);
-            this.calcularTotal()
-            this.Graficar();
-            Swal.close();
-        });
-    }
-
-    calcularSumaArreglos(arregloBoolean: boolean[]) {
-        let sumaAux = 0
-        arregloBoolean.forEach((element) => {
-            if (element == true) {
-                sumaAux += 1;
+          );
+      } else {
+        this.tepsiService
+          .postConsultaTepsi(this.idConsulta, requestInput)
+          .subscribe(
+            (resp) => {
+              // this.messageService.add({
+              //     severity: 'success',
+              //     summary: 'Test Guardado',
+              //     detail: 'Registro Agregado'
+              // });
+              Swal.fire({
+                icon: "success",
+                title: "Test Tepsi Guardado Satifactoriamente",
+                text: "",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            },
+            (error) => {
+              console.log("error!!!!!!!!!!");
             }
-        })
-        return sumaAux;
+          );
+      }
+    } else {
+      this.messageService.add({
+        severity: "error",
+        summary: "Test no Guardado",
+        detail: "Debe llenar todos los Test ",
+      });
     }
+  }
 
-    determinarCategoria(puntajeT: number) {
-        return puntajeT>40?'Normal':puntajeT>=30?'Riesgo':'Retraso'
-    }
+  determinarArreglo(letra: string, arreglo: boolean[]): itenTestResultado[] {
+    const arregloAux = arreglo.map((element, index) => {
+      return { codigo: `${index + 1}${letra}`, valor: element ? 1 : 0 };
+    });
+    return arregloAux;
+  }
 
-    calcularTotal() {
-        this.resultadoA[0].puntajeBruto = this.resultadoA[1].puntajeBruto + this.resultadoA[2].puntajeBruto + this.resultadoA[3].puntajeBruto
-        const element = this.tablaPuntajeTotal.find((item: puntaje) => {
-            return this.resultadoA[0].puntajeBruto === parseInt(item.puntajeBruto)
-        })
-        this.resultadoA[0].puntajeT = parseInt(element.puntajeT)
-        this.resultadoA[0].categoria = this.determinarCategoria(parseInt(element.puntajeT));
-    }
+  determinarArreglo2(letra: string, arreglo: any[]): itenTestResultado[] {
+    // let arregloAux:[]=[];
+    // let auxPregunta;
+    // arreglo.forEach((item,index)=>{
+    //   auxPregunta={codigo:`${index+1}${letra}`,valor:item?1:0}
+    //   arregloAux.push(auxPregunta)
+    // })
+    const arregloAux: itenTestResultado[] = arreglo.map((element, index) => {
+      return { codigo: `${index + 1}${letra}`, valor: element ? 1 : 0 };
+    });
+    this.indicePregunta.forEach((element, index) => {
+      arregloAux[element - 1].listaPreguntas = this.construirEstructura(
+        this.subPreguntas[index]
+      );
+    });
+    return arregloAux;
+  }
 
-    isResolve: boolean[] = [false, false, false] //todo
+  construirEstructura(arreglo: boolean[]): listaPregunta[] {
+    const arregloAux = arreglo.map((element, index) => {
+      return { nroPregunta: index + 1, valor: element };
+    });
+    return arregloAux;
+  }
 
-    calcularResultadoSubTest1(indexSubTest: number) {//1,2,3
-        this.resultadoA[indexSubTest].puntajeBruto = this.calcularSumaArreglos(this.arregloSubtest[indexSubTest - 1])
-        const element = this.tablaSubTestG[indexSubTest - 1].subTest.find((item: puntaje) => {
-            return this.resultadoA[indexSubTest].puntajeBruto == parseInt(item.puntajeBruto)
-        })
-        this.resultadoA[indexSubTest].puntajeT = parseInt(element.puntajeT)
-        this.resultadoA[indexSubTest].categoria = this.determinarCategoria(parseInt(element.puntajeT))
-        this.calcularTotal();
-        this.Graficar();
-
-    }
-
-    save() {
-        const faltante = this.isResolve.filter((element) => {
-            return element == false;
-        })
-        if (faltante.length == 0) {
-            const fecha: string[] = (this.getFC('fechaSelected').value).toISOString().split('T')
-            const hora: string = fecha[1].split('.')[0];
-            const requestInput = {
-                codigoCIE10: "Z009",
-                codigoHIS: "Z009",
-                codigoPrestacion: "0001",
-                testTepsi: {
-                    edad: {
-                        anio: this.anioEdad,//todo debe ser la misma fecha recuperada
-                        mes: this.mesEdad,
-                        dia: this.diaEdad
-                    },
-                    fechaAtencion: `${fecha[0]} ${hora}`,
-                    diagnostico:"N",
-                    docExaminador: this.getFC('nombreExaminador').value,
-                    resultadoTestTotal: {
-                        puntajeBruto: this.resultadoA[0].puntajeBruto,
-                        puntajeT: this.resultadoA[0].puntajeT,
-                        categoria: this.resultadoA[0].categoria
-                    },
-                    subTestCoordinacion: {
-                        tipoSubTest: "COORDINACION",
-                        puntajeBruto: this.resultadoA[1].puntajeBruto,
-                        puntajeT: this.resultadoA[1].puntajeT,
-                        categoria: this.resultadoA[1].categoria,
-                        listItemTest: this.determinarArreglo('C', this.arregloSubtest[0])
-                    },
-                    subTestLenguaje: {
-                        tipoSubTest: "LENGUAJE",
-                        puntajeBruto: this.resultadoA[2].puntajeBruto,
-                        puntajeT: this.resultadoA[2].puntajeT,
-                        categoria: this.resultadoA[2].categoria,
-                        listItemTest: this.determinarArreglo2('L', this.arregloSubtest[1])
-                    },
-                    subTestMotricidad: {
-                        tipoSubTest: "MOTRICIDAD",
-                        puntajeBruto: this.resultadoA[3].puntajeBruto,
-                        puntajeT: this.resultadoA[3].puntajeT,
-                        categoria: this.resultadoA[3].categoria,
-                        listItemTest: this.determinarArreglo('M', this.arregloSubtest[2])
-                    }
-                }
-
-
-            }
-
-            console.log('request inpu', requestInput)
-            if (this.isUpdate) {
-                this.tepsiService.putConsultaTepsi(this.idConsulta, requestInput).toPromise().then((resp) => {
-                    console.log(resp)
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Test Tepsi Actualizado Satifactoriamente',
-                        text: '',
-                        showConfirmButton: false,
-                        timer: 1500,
-                    })
-                    // this.messageService.add({
-                    //     severity: 'success',
-                    //     summary: 'Test Guardado',
-                    //     detail: 'Registro Actualizado'
-                    // });
-                }, (error) => {
-                    console.log('error!!!!!!!!!!')
-                })
-
-            } else {
-                this.tepsiService.postConsultaTepsi(this.idConsulta, requestInput).subscribe((resp) => {
-                    // this.messageService.add({
-                    //     severity: 'success',
-                    //     summary: 'Test Guardado',
-                    //     detail: 'Registro Agregado'
-                    // });
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Test Tepsi Guardado Satifactoriamente',
-                        text: '',
-                        showConfirmButton: false    ,
-                        timer: 1500,
-                    })
-                }, (error) => {
-                    console.log('error!!!!!!!!!!')
-                })
-            }
-        } else {
-            this.messageService.add({
-                severity: 'error',
-                summary: 'Test no Guardado',
-                detail: 'Debe llenar todos los Test '
-            });
-        }
-    }
-
-    determinarArreglo(letra: string, arreglo: boolean[]): itenTestResultado[] {
-        const arregloAux = arreglo.map((element, index) => {
-            return {codigo: `${index + 1}${letra}`, valor: element ? 1 : 0}
-        })
-        return arregloAux
-    }
-
-    determinarArreglo2(letra: string, arreglo: any[]): itenTestResultado[] {
-        // let arregloAux:[]=[];
-        // let auxPregunta;
-        // arreglo.forEach((item,index)=>{
-        //   auxPregunta={codigo:`${index+1}${letra}`,valor:item?1:0}
-        //   arregloAux.push(auxPregunta)
-        // })
-        const arregloAux: itenTestResultado[] = arreglo.map((element, index) => {
-            return {codigo: `${index + 1}${letra}`, valor: element ? 1 : 0}
-        })
-        this.indicePregunta.forEach((element, index) => {
-            arregloAux[element - 1].listaPreguntas = this.construirEstructura(this.subPreguntas[index])
-        })
-        return arregloAux
-    }
-
-    construirEstructura(arreglo: boolean[]): listaPregunta[] {
-        const arregloAux = arreglo.map((element, index) => {
-            return {nroPregunta: index + 1, valor: element}
-        })
-        return arregloAux
-    }
-
-// ngOnChanges(changes: SimpleChanges): void {
+//   ngOnChanges(changes: any): void {
 //     if (changes.inputData.currentValue) {
 //       // update this.data here
 
-//      // then chart is getting updated
-//     //   setTimeout(() => {
-//     //     this.chart.reinit();
-//     //   }, 100);
+//       // then chart is getting updated
+//       setTimeout(() => {
+        
+//       }, 100);
 //     }
 //   }
-
 }
