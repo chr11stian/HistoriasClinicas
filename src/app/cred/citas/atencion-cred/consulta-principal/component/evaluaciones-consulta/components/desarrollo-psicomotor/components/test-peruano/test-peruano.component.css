@@ -61,6 +61,10 @@ p-dialog >>> .p-dialog .p-dialog-header .p-dialog-title {
 p-table >>> .p-datatable .p-datatable-thead > tr > th {
     padding: 3px;
 }
+p-table >>> .p-datatable .p-datatable-tfoot > tr > th {
+    padding: 3px;
+}
+
 .triangulo-1 {
     width: 0;
     height: 0;
