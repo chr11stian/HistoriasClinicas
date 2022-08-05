@@ -287,7 +287,7 @@
                 <tr *ngIf="datos.titulo ==='FECHA'" pFrozenColumn >
                     <td style="width:300px; height: 40px" class="titulotablaFecha" pFrozenColumn>{{datos.titulo}}</td>
                     <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
+                        <p-cellEditor *ngIf="edadMeses==0">
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:120px" [(ngModel)]="datos.valorRN" *ngIf="edadMeses==0"   [ngClass]="{'llenado':edadMeses==0,'debellenar':edadMeses!=0}">
 <!--                                                                <p-calendar class="style" [(ngModel)]="datos.valorRN" *ngIf="edadMeses==0"-->
@@ -295,36 +295,54 @@
 <!--                                                                            inputId="icon"></p-calendar>-->
                             </ng-template>
                             <ng-template pTemplate="output">
-                                {{datos.valorRN| date: 'dd-MM-yyyy HH:mm:ss'}}
+                                <div *ngIf="datos.valorRN;else alerta">
+                                    {{datos.valorRN| date: 'dd-MM-yyyy HH:mm:ss'}}
+                                </div>
+                                <ng-template #alerta>
+                                    Ingrese <br> Fecha
+                                    <i class="pi pi-pencil" style="font-size: 1rem"></i>
+                                </ng-template>
                             </ng-template>
                         </p-cellEditor>
                     </td>
                     <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
+                        <p-cellEditor *ngIf="edadMeses==1">
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor1M" *ngIf="edadMeses==1" [ngClass]="{'llenado':edadMeses==1,'debellenar':edadMeses!=1}">
                                 <!--                                <p-calendar [(ngModel)]="datos.valor1M" *ngIf="edadEditable<=1" [showIcon]="true"-->
                                 <!--                                            [showTime]="true" [showSeconds]="true" inputId="icon"></p-calendar>-->
                             </ng-template>
                             <ng-template pTemplate="output">
-                                {{datos.valor1M| date: 'dd-MM-yyyy HH:mm:ss'}}
+                                <div *ngIf="datos.valor1M;else alerta">
+                                    {{datos.valor1M| date: 'dd-MM-yyyy HH:mm:ss'}}
+                                </div>
+                                <ng-template #alerta>
+                                    Fecha
+                                    <i class="pi pi-pencil" style="font-size: 1rem"></i>
+                                </ng-template>
                             </ng-template>
                         </p-cellEditor>
                     </td>
                     <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
+                        <p-cellEditor *ngIf="edadMeses==2">
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor2M" *ngIf="edadMeses==2" [ngClass]="{'llenado':edadMeses==2,'debellenar':edadMeses!=2}">
                                 <!--                                <p-calendar [(ngModel)]="datos.valor2M" *ngIf="edadEditable<=2" [showIcon]="true"-->
                                 <!--                                            [showTime]="true" [showSeconds]="true" inputId="icon"></p-calendar>-->
                             </ng-template>
                             <ng-template pTemplate="output">
-                                {{datos.valor2M| date: 'dd-MM-yyyy HH:mm:ss'}}
+                                <div *ngIf="datos.valor2M;else alerta">
+                                    {{datos.valor2M| date: 'dd-MM-yyyy HH:mm:ss'}}
+                                </div>
+                                <ng-template #alerta>
+                                    Fecha
+                                    <i class="pi pi-pencil" style="font-size: 1rem"></i>
+                                </ng-template>
                             </ng-template>
                         </p-cellEditor>
                     </td>
                     <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
+                        <p-cellEditor *ngIf="edadMeses==3">
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor3M" *ngIf="edadMeses==3" [ngClass]="{'llenado':edadMeses==3,'debellenar':edadMeses!=3}">
                                 <!--                                <p-calendar style="top: 0px" [(ngModel)]="datos.valor3M" *ngIf="edadEditable<=3"-->
@@ -332,48 +350,72 @@
                                 <!--                                            inputId="icon"></p-calendar>-->
                             </ng-template>
                             <ng-template pTemplate="output">
-                                {{datos.valor3M| date: 'dd-MM-yyyy HH:mm:ss'}}
+                                <div *ngIf="datos.valor3M;else alerta">
+                                    {{datos.valor3M| date: 'dd-MM-yyyy HH:mm:ss'}}
+                                </div>
+                                <ng-template #alerta>
+                                    Fecha
+                                    <i class="pi pi-pencil" style="font-size: 1rem"></i>
+                                </ng-template>
                             </ng-template>
                         </p-cellEditor>
                     </td>
                     <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
+                        <p-cellEditor *ngIf="edadMeses==4">
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor4M" *ngIf="edadMeses==4" [ngClass]="{'llenado':edadMeses==4,'debellenar':edadMeses!=4}">
                                 <!--                                <p-calendar [(ngModel)]="datos.valor4M" *ngIf="edadEditable<=4" [showIcon]="true"-->
                                 <!--                                            [showTime]="true" [showSeconds]="true" inputId="icon"></p-calendar>-->
                             </ng-template>
                             <ng-template pTemplate="output">
-                                {{datos.valor4M| date: 'dd-MM-yyyy HH:mm:ss'}}
+                                <div *ngIf="datos.valor4M;else alerta">
+                                    {{datos.valor4M| date: 'dd-MM-yyyy HH:mm:ss'}}
+                                </div>
+                                <ng-template #alerta>
+                                    Fecha
+                                    <i class="pi pi-pencil" style="font-size: 1rem"></i>
+                                </ng-template>
                             </ng-template>
                         </p-cellEditor>
                     </td>
                     <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
+                        <p-cellEditor *ngIf="edadMeses==5">
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor5M" *ngIf="edadMeses==5" [ngClass]="{'llenado':edadMeses==5,'debellenar':edadMeses!=5}">
                                 <!--                                <p-calendar [(ngModel)]="datos.valor5M" *ngIf="edadEditable<=5" [showIcon]="true"-->
                                 <!--                                            [showTime]="true" [showSeconds]="true" inputId="icon"></p-calendar>-->
                             </ng-template>
                             <ng-template pTemplate="output">
-                                {{datos.valor5M| date: 'dd-MM-yyyy HH:mm:ss'}}
+                                <div *ngIf="datos.valor5M;else alerta">
+                                    {{datos.valor5M| date: 'dd-MM-yyyy HH:mm:ss'}}
+                                </div>
+                                <ng-template #alerta>
+                                    Fecha
+                                    <i class="pi pi-pencil" style="font-size: 1rem"></i>
+                                </ng-template>
                             </ng-template>
                         </p-cellEditor>
                     </td>
                     <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
+                        <p-cellEditor *ngIf="edadMeses==6">
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor6M" *ngIf="edadMeses==6" [ngClass]="{'llenado':edadMeses==6,'debellenar':edadMeses!=6}" >
                                 <!--                                <p-calendar [(ngModel)]="datos.valor6M" *ngIf="edadEditable<=6" [showIcon]="true"-->
                                 <!--                                            [showTime]="true" [showSeconds]="true" inputId="icon"></p-calendar>-->
                             </ng-template>
                             <ng-template pTemplate="output">
-                                {{datos.valor6M| date: 'dd-MM-yyyy HH:mm:ss'}}
+                                <div *ngIf="datos.valor6M;else alerta">
+                                    {{datos.valor6M| date: 'dd-MM-yyyy HH:mm:ss'}}
+                                </div>
+                                <ng-template #alerta>
+                                    Fecha
+                                    <i class="pi pi-pencil" style="font-size: 1rem"></i>
+                                </ng-template>
                             </ng-template>
                         </p-cellEditor>
                     </td>
                     <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
+                        <p-cellEditor *ngIf="edadMeses==7">
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor7M" *ngIf="edadMeses==7" [ngClass]="{'llenado':edadMeses==7,'debellenar':edadMeses!=7}">
 <!--                                <p-calendar class="style" [(ngModel)]="datos.valor7M" *ngIf="edadMeses==7"-->
@@ -381,36 +423,54 @@
 <!--                                            inputId="icon"></p-calendar>-->
                             </ng-template>
                             <ng-template pTemplate="output">
-                                {{datos.valor7M| date: 'dd-MM-yyyy HH:mm:ss'}}
+                                <div *ngIf="datos.valor7M;else alerta">
+                                    {{datos.valor7M| date: 'dd-MM-yyyy HH:mm:ss'}}
+                                </div>
+                                <ng-template #alerta>
+                                    Fecha
+                                    <i class="pi pi-pencil" style="font-size: 1rem"></i>
+                                </ng-template>
                             </ng-template>
                         </p-cellEditor>
                     </td>
                     <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
+                        <p-cellEditor *ngIf="edadMeses==8">
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor8M" *ngIf="edadMeses==8" [ngClass]="{'llenado':edadMeses==8,'debellenar':edadMeses!=8}">
                                 <!--                                <p-calendar [(ngModel)]="datos.valor8M" *ngIf="edadEditable<=8" [showIcon]="true"-->
                                 <!--                                            [showTime]="true" [showSeconds]="true" inputId="icon"></p-calendar>-->
                             </ng-template>
                             <ng-template pTemplate="output">
-                                {{datos.valor8M| date: 'dd-MM-yyyy HH:mm:ss'}}
+                                <div *ngIf="datos.valor8M;else alerta">
+                                    {{datos.valor8M| date: 'dd-MM-yyyy HH:mm:ss'}}
+                                </div>
+                                <ng-template #alerta>
+                                    Fecha
+                                    <i class="pi pi-pencil" style="font-size: 1rem"></i>
+                                </ng-template>
                             </ng-template>
                         </p-cellEditor>
                     </td>
                     <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
+                        <p-cellEditor *ngIf="edadMeses==9">
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor9M" *ngIf="edadMeses==9" [ngClass]="{'llenado':edadMeses==9,'debellenar':edadMeses!=9}" >
                                 <!--                                <p-calendar [(ngModel)]="datos.valor9M" *ngIf="edadEditable<=9" [showIcon]="true"-->
                                 <!--                                            [showTime]="true" [showSeconds]="true" inputId="icon"></p-calendar>-->
                             </ng-template>
                             <ng-template pTemplate="output">
-                                {{datos.valor9M| date: 'dd-MM-yyyy HH:mm:ss'}}
+                                <div *ngIf="datos.valor9M;else alerta">
+                                    {{datos.valor9M| date: 'dd-MM-yyyy HH:mm:ss'}}
+                                </div>
+                                <ng-template #alerta>
+                                    Fecha
+                                    <i class="pi pi-pencil" style="font-size: 1rem"></i>
+                                </ng-template>
                             </ng-template>
                         </p-cellEditor>
                     </td>
                     <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
+                        <p-cellEditor *ngIf="edadMeses==10">
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor10M" *ngIf="edadMeses==10" [ngClass]="{'llenado':edadMeses==10,'debellenar':edadMeses!=10}">
                                 <!--                                <p-calendar class="style" [(ngModel)]="datos.valor10M" *ngIf="edadEditable<=10"-->
@@ -418,175 +478,265 @@
                                 <!--                                            inputId="icon"></p-calendar>-->
                             </ng-template>
                             <ng-template pTemplate="output">
-                                {{datos.valor10M| date: 'dd-MM-yyyy HH:mm:ss'}}
+                                <div *ngIf="datos.valor10M;else alerta">
+                                    {{datos.valor10M| date: 'dd-MM-yyyy HH:mm:ss'}}
+                                </div>
+                                <ng-template #alerta>
+                                    Fecha
+                                    <i class="pi pi-pencil" style="font-size: 1rem"></i>
+                                </ng-template>
                             </ng-template>
                         </p-cellEditor>
                     </td>
                     <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
+                        <p-cellEditor *ngIf="edadMeses==11">
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor11M" *ngIf="edadMeses==11" [ngClass]="{'llenado':edadMeses==11,'debellenar':edadMeses!=11}">
                                 <!--                                <p-calendar [(ngModel)]="datos.valor11M" *ngIf="edadEditable<=11" [showIcon]="true"-->
                                 <!--                                            [showTime]="true" [showSeconds]="true" inputId="icon"></p-calendar>-->
                             </ng-template>
                             <ng-template pTemplate="output">
-                                {{datos.valor11M| date: 'dd-MM-yyyy HH:mm:ss'}}
+                                <div *ngIf="datos.valor11M;else alerta">
+                                    {{datos.valor11M| date: 'dd-MM-yyyy HH:mm:ss'}}
+                                </div>
+                                <ng-template #alerta>
+                                    Fecha
+                                    <i class="pi pi-pencil" style="font-size: 1rem"></i>
+                                </ng-template>
                             </ng-template>
                         </p-cellEditor>
                     </td>
                     <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
+                        <p-cellEditor *ngIf="edadMeses==12">
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor12M" *ngIf="edadMeses==12" [ngClass]="{'llenado':edadMeses==12,'debellenar':edadMeses!=12}" >
                                 <!--                                <p-calendar [(ngModel)]="datos.valor12M" *ngIf="edadEditable<=12" [showIcon]="true"-->
                                 <!--                                            [showTime]="true" [showSeconds]="true" inputId="icon"></p-calendar>-->
                             </ng-template>
                             <ng-template pTemplate="output">
-                                {{datos.valor12M | date: 'dd-MM-yyyy HH:mm:ss'}}
+                                <div *ngIf="datos.valor12M;else alerta">
+                                    {{datos.valor12M | date: 'dd-MM-yyyy HH:mm:ss'}}
+                                </div>
+                                <ng-template #alerta>
+                                    Fecha
+                                    <i class="pi pi-pencil" style="font-size: 1rem"></i>
+                                </ng-template>
                             </ng-template>
                         </p-cellEditor>
                     </td>
                     <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
+                        <p-cellEditor *ngIf="edadMeses==14">
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor14M" *ngIf="edadMeses==14" [ngClass]="{'llenado':edadMeses==14,'debellenar':edadMeses!=14}">
                                 <!--                                <p-calendar [(ngModel)]="datos.valor14M" *ngIf="edadEditable<=14" [showIcon]="true"-->
                                 <!--                                            [showTime]="true" [showSeconds]="true" inputId="icon"></p-calendar>-->
                             </ng-template>
                             <ng-template pTemplate="output">
-                                {{datos.valor14M | date: 'dd-MM-yyyy HH:mm:ss'}}
+                                <div *ngIf="datos.valor14M;else alerta">
+                                    {{datos.valor14M | date: 'dd-MM-yyyy HH:mm:ss'}}
+                                </div>
+                                <ng-template #alerta>
+                                    Fecha
+                                    <i class="pi pi-pencil" style="font-size: 1rem"></i>
+                                </ng-template>
                             </ng-template>
                         </p-cellEditor>
                     </td>
                     <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
+                        <p-cellEditor *ngIf="edadMeses==16">
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor16M" *ngIf="edadMeses==16" [ngClass]="{'llenado':edadMeses==16,'debellenar':edadMeses!=16}">
                                 <!--                                <p-calendar [(ngModel)]="datos.valor16M" *ngIf="edadEditable<=16" [showIcon]="true"-->
                                 <!--                                            [showTime]="true" [showSeconds]="true" inputId="icon"></p-calendar>-->
                             </ng-template>
                             <ng-template pTemplate="output">
-                                {{datos.valor16M | date: 'dd-MM-yyyy HH:mm:ss'}}
+                                <div *ngIf="datos.valor16M;else alerta">
+                                      {{datos.valor16M | date: 'dd-MM-yyyy HH:mm:ss'}}
+                                </div>
+                                <ng-template #alerta>
+                                    Fecha
+                                    <i class="pi pi-pencil" style="font-size: 1rem"></i>
+                                </ng-template>
                             </ng-template>
                         </p-cellEditor>
                     </td>
                     <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
+                        <p-cellEditor *ngIf="edadMeses==18">
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor18M" *ngIf="edadMeses==18" [ngClass]="{'llenado':edadMeses==18,'debellenar':edadMeses!=18}">
                                 <!--                                <p-calendar [(ngModel)]="datos.valor18M" *ngIf="edadEditable<=18" [showIcon]="true"-->
                                 <!--                                            [showTime]="true" [showSeconds]="true" inputId="icon"></p-calendar>-->
                             </ng-template>
                             <ng-template pTemplate="output">
-                                {{datos.valor18M| date: 'dd-MM-yyyy HH:mm:ss' }}
+                                <div *ngIf="datos.valor18M;else alerta">
+                                      {{datos.valor18M| date: 'dd-MM-yyyy HH:mm:ss' }}
+                                </div>
+                                <ng-template #alerta>
+                                    Fecha
+                                    <i class="pi pi-pencil" style="font-size: 1rem"></i>
+                                </ng-template>
                             </ng-template>
                         </p-cellEditor>
                     </td>
                     <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
+                        <p-cellEditor *ngIf="edadMeses==20">
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor20M" *ngIf="edadMeses==20" [ngClass]="{'llenado':edadMeses==20,'debellenar':edadMeses!=20}">
                                 <!--                                <p-calendar [(ngModel)]="datos.valor20M" *ngIf="edadEditable<=20" [showIcon]="true"-->
                                 <!--                                            [showTime]="true" [showSeconds]="true" inputId="icon"></p-calendar>-->
                             </ng-template>
                             <ng-template pTemplate="output">
-                                {{datos.valor20M | date: 'dd-MM-yyyy HH:mm:ss'}}
+                                <div *ngIf="datos.valor20M;else alerta">
+                                      {{datos.valor20M | date: 'dd-MM-yyyy HH:mm:ss'}}
+                                </div>
+                                <ng-template #alerta>
+                                    Fecha
+                                    <i class="pi pi-pencil" style="font-size: 1rem"></i>
+                                </ng-template>
                             </ng-template>
                         </p-cellEditor>
                     </td>
                     <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
+                        <p-cellEditor *ngIf="edadMeses==22">
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor22M" *ngIf="edadMeses==22" [ngClass]="{'llenado':edadMeses==22,'debellenar':edadMeses!=22}" >
                                 <!--                                <p-calendar [(ngModel)]="datos.valor22M" *ngIf="edadEditable<=22" [showIcon]="true"-->
                                 <!--                                            [showTime]="true" [showSeconds]="true" inputId="icon"></p-calendar>-->
                             </ng-template>
                             <ng-template pTemplate="output">
-                                {{datos.valor22M | date: 'dd-MM-yyyy HH:mm:ss'}}
+                                <div *ngIf="datos.valor22M;else alerta">
+                                      {{datos.valor22M | date: 'dd-MM-yyyy HH:mm:ss'}}
+                                </div>
+                                <ng-template #alerta>
+                                    Fecha
+                                    <i class="pi pi-pencil" style="font-size: 1rem"></i>
+                                </ng-template>
                             </ng-template>
                         </p-cellEditor>
                     </td>
                     <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
+                        <p-cellEditor *ngIf="edadMeses==24">
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor24M" *ngIf="edadMeses==24" [ngClass]="{'llenado':edadMeses==24,'debellenar':edadMeses!=24}" >
                                 <!--                                <p-calendar [(ngModel)]="datos.valor24M" *ngIf="edadEditable<=24" [showIcon]="true"-->
                                 <!--                                            [showTime]="true" [showSeconds]="true" inputId="icon"></p-calendar>-->
                             </ng-template>
                             <ng-template pTemplate="output">
-                                {{datos.valor24M | date: 'dd-MM-yyyy HH:mm:ss'}}
+                                <div *ngIf="datos.valor24M;else alerta">
+                                      {{datos.valor24M | date: 'dd-MM-yyyy HH:mm:ss'}}
+                                </div>
+                                <ng-template #alerta>
+                                    Fecha
+                                    <i class="pi pi-pencil" style="font-size: 1rem"></i>
+                                </ng-template>
                             </ng-template>
                         </p-cellEditor>
                     </td>
                     <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
+                        <p-cellEditor *ngIf="edadMeses==27">
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor27M" *ngIf="edadMeses==27" [ngClass]="{'llenado':edadMeses==27,'debellenar':edadMeses!=27}">
                                 <!--                                <p-calendar [(ngModel)]="datos.valor27M" *ngIf="edadEditable<=27" [showIcon]="true"-->
                                 <!--                                            [showTime]="true" [showSeconds]="true" inputId="icon"></p-calendar>-->
                             </ng-template>
                             <ng-template pTemplate="output">
-                                {{datos.valor27M | date: 'dd-MM-yyyy HH:mm:ss'}}
+                                <div *ngIf="datos.valor27M;else alerta">
+                                      {{datos.valor27M | date: 'dd-MM-yyyy HH:mm:ss'}}
+                                </div>
+                                <ng-template #alerta>
+                                    Fecha
+                                    <i class="pi pi-pencil" style="font-size: 1rem"></i>
+                                </ng-template>
                             </ng-template>
                         </p-cellEditor>
                     </td>
                     <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
+                        <p-cellEditor *ngIf="edadMeses==30">
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor30M" *ngIf="edadMeses==30" [ngClass]="{'llenado':edadMeses==30,'debellenar':edadMeses!=30}">
                                 <!--                                <p-calendar [(ngModel)]="datos.valor30M" *ngIf="edadEditable<=30" [showIcon]="true"-->
                                 <!--                                            [showTime]="true" [showSeconds]="true" inputId="icon"></p-calendar>-->
                             </ng-template>
                             <ng-template pTemplate="output">
-                                {{datos.valor30M | date: 'dd-MM-yyyy HH:mm:ss' }}
+                                <div *ngIf="datos.valor30M;else alerta">
+                                      {{datos.valor30M | date: 'dd-MM-yyyy HH:mm:ss' }}
+                                </div>
+                                <ng-template #alerta>
+                                    Fecha
+                                    <i class="pi pi-pencil" style="font-size: 1rem"></i>
+                                </ng-template>
                             </ng-template>
                         </p-cellEditor>
                     </td>
                     <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
+                        <p-cellEditor *ngIf="edadMeses==33">
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor33M" *ngIf="edadMeses==33" [ngClass]="{'llenado':edadMeses==33,'debellenar':edadMeses!=33}">
                                 <!--                                <p-calendar [(ngModel)]="datos.valor33M" *ngIf="edadEditable<=33" [showIcon]="true"-->
                                 <!--                                            [showTime]="true" [showSeconds]="true" inputId="icon"></p-calendar>-->
                             </ng-template>
                             <ng-template pTemplate="output">
-                                {{datos.valor33M | date: 'dd-MM-yyyy HH:mm:ss'}}
+                                <div *ngIf="datos.valor33M;else alerta">
+                                      {{datos.valor33M | date: 'dd-MM-yyyy HH:mm:ss'}}
+                                </div>
+                                <ng-template #alerta>
+                                    Fecha
+                                    <i class="pi pi-pencil" style="font-size: 1rem"></i>
+                                </ng-template>
                             </ng-template>
                         </p-cellEditor>
                     </td>
                     <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
+                        <p-cellEditor *ngIf="edadMeses==36">
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor36M" *ngIf="edadMeses==36" [ngClass]="{'llenado':edadMeses==36,'debellenar':edadMeses!=36}">
                                 <!--                                <p-calendar [(ngModel)]="datos.valor36M" *ngIf="edadEditable<=36" [showIcon]="true"-->
                                 <!--                                            [showTime]="true" [showSeconds]="true" inputId="icon"></p-calendar>-->
                             </ng-template>
                             <ng-template pTemplate="output">
-                                {{datos.valor36M | date: 'dd-MM-yyyy HH:mm:ss'}}
+                                <div *ngIf="datos.valor36M;else alerta">
+                                      {{datos.valor36M | date: 'dd-MM-yyyy HH:mm:ss'}}
+                                </div>
+                                <ng-template #alerta>
+                                    Fecha
+                                    <i class="pi pi-pencil" style="font-size: 1rem"></i>
+                                </ng-template>
                             </ng-template>
                         </p-cellEditor>
                     </td>
                     <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
+                        <p-cellEditor *ngIf="edadMeses==39">
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor39M" *ngIf="edadMeses==39" [ngClass]="{'llenado':edadMeses==39,'debellenar':edadMeses!=39}" >
                                 <!--                                <p-calendar [(ngModel)]="datos.valor39M" *ngIf="edadEditable<=39" [showIcon]="true"-->
                                 <!--                                            [showTime]="true" [showSeconds]="true" inputId="icon"></p-calendar>-->
                             </ng-template>
                             <ng-template pTemplate="output">
-                                {{datos.valor39M | date: 'dd-MM-yyyy HH:mm:ss' }}
+                                <div *ngIf="datos.valor39M;else alerta">
+                                      {{datos.valor39M | date: 'dd-MM-yyyy HH:mm:ss' }}
+                                </div>
+                                <ng-template #alerta>
+                                    Fecha
+                                    <i class="pi pi-pencil" style="font-size: 1rem"></i>
+                                </ng-template>
                             </ng-template>
                         </p-cellEditor>
                     </td>
                     <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
+                        <p-cellEditor *ngIf="edadMeses==42">
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor42M" *ngIf="edadMeses==42" [ngClass]="{'llenado':edadMeses==42,'debellenar':edadMeses!=42}" >
                                 <!--                                <p-calendar [(ngModel)]="datos.valor42M" *ngIf="edadEditable<=42" [showIcon]="true"-->
                                 <!--                                            [showTime]="true" [showSeconds]="true" inputId="icon"></p-calendar>-->
                             </ng-template>
                             <ng-template pTemplate="output">
-                                {{datos.valor42M | date: 'dd-MM-yyyy HH:mm:ss'}}
+                                <div *ngIf="datos.valor42M;else alerta">
+                                      {{datos.valor42M | date: 'dd-MM-yyyy HH:mm:ss'}}
+                                </div>
+                                <ng-template #alerta>
+                                    Fecha
+                                    <i class="pi pi-pencil" style="font-size: 1rem"></i>
+                                </ng-template>
                             </ng-template>
                         </p-cellEditor>
                     </td>

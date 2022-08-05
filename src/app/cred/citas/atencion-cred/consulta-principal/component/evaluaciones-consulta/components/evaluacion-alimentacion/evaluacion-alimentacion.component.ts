@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FechaEvaluacionAlimentacion, Product, Preguntas} from "../../../../../plan/component/evaluacion-general/models/EvaluacionAlimentacion";
+import { FechaEvaluacionAlimentacion, Product, Preguntas } from '../../../../../plan/component/evaluacion-general/models/EvaluacionAlimentacion';
 import {DatePipe} from "@angular/common";
 import {EvaluacionAlimentacionService} from "../../services/evaluacion-alimentacion.service";
 import Swal from "sweetalert2";
@@ -375,14 +375,14 @@ export class EvaluacionAlimentacionComponent implements OnInit {
 
     let cadena:EvaluacionAlimenticia = {
       nombreEvaluacion:'EVALUACION_ALIMENTACION',
-      codigoCIE10:cie10,
-      codigoHIS:'Z0017.01',
+      codigoCIE10:'Z0017',
+      codigoHIS:'Z0017',
       codigoPrestacion:'0001',
       evaluacionAlimentacionMes:
           {
-            docExaminador:'24242424',
             fechaRegistro: this.convertirFecha(this.evaluacionAlimenticia[0][prefijo]),
             edad:indice,
+            docExaminador:'24242424',
             listaPreguntas:listaAux,
             diagnostico:dx
           }
@@ -393,18 +393,34 @@ export class EvaluacionAlimentacionComponent implements OnInit {
 
     Swal.fire({
       title: 'Esta seguro que desea guardar este registro?',
-      showDenyButton: true,
+      showDenyButton: false,
       showCancelButton: true,
       confirmButtonText: 'Guardar',
-      denyButtonText: `No Guardar`,
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        if(this.encontro==true){
+          console.log('encontramos:',this.encontro);
+          
+        if(this.encontro){
+          
+          // agregamos validacion
+          // console.log('hay algo--->',this.evaluacionAlimenticia[0][prefijo]);
+          if(!this.evaluacionAlimenticia[0][prefijo]){
+            Swal.fire({
+              icon: 'error',
+              title: 'Ingrese la Fecha',
+              text: '¡Es necesaria la fecha!',
+              showConfirmButton: false,
+              timer: 1000,
+            })
+            return 
+          }
+          console.log('---------------------------------');
+          
           this.evalAlimenService.addEvaluacionAlimenticiaCred(this.data.idConsulta,cadena).subscribe((res: any) => {
             console.log('se guardo correctamente ', res.object);
             this.mostrarMensajeDiagnostico(dx);
-          })
+          })  
         }
         else{
           Swal.fire({
@@ -416,9 +432,10 @@ export class EvaluacionAlimentacionComponent implements OnInit {
           })
         }
 
-      } else if (result.isDenied) {
-        Swal.fire('No se guardo este registro', '', 'info')
       }
+      //  else if (result.isDenied) {
+      //   Swal.fire('No se guardo este registro', '', 'info')
+      // }
     })
   }
 
