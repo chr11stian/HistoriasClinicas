@@ -646,7 +646,7 @@ export class TestPeruanoComponent implements OnInit {
   }
 
   btnGuardar() {
-    this.addTestPeruano();
+    // this.addTestPeruano();
 
     let fecha = (this.datePipe.transform(this.recuperarFechaCampo(this.edadMeses), 'yyyy-MM-dd HH:mm:ss'));
     let diagnostico=this.encontrarDiagnostico(this.calificacion);
@@ -655,7 +655,7 @@ export class TestPeruanoComponent implements OnInit {
       codigoCIE10: "Z009",
       codigoHIS: "Z009",
       codigoPrestacion: '0001',
-      estadoEvaluacion:"",
+      // estadoEvaluacion:"",
       evaluacionDesarrolloMes: {
         docExaminador:'24242424',
         edad: this.edadMeses,
@@ -669,17 +669,34 @@ export class TestPeruanoComponent implements OnInit {
       edad: data.evaluacionDesarrolloMes.edad,
       diagnostico: data.evaluacionDesarrolloMes.diagnostico
     }
-    this.listaTestPeruano[0] = (cadena);
-    this.displayMaximizable = false;
+    // this.listaTestPeruano[0] = (cadena);
+    // this.displayMaximizable = false;
     Swal.fire({
       title: 'Esta seguro que desea guardar este registro?',
-      showDenyButton: true,
+      showConfirmButton:true,
+      showDenyButton: false,
       showCancelButton: true,
       confirmButtonText: 'Guardar',
-      denyButtonText: `No Guardar`,
+      cancelButtonText: `Cancelar`,
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
+        if(true){
+          // agregamos validacion
+          // console.log('hay algo--->',this.evaluacionAlimenticia[0][prefijo]);
+          if(!this.recuperarFechaCampo(this.edadMeses)){
+            Swal.fire({
+              icon: 'error',
+              title: 'Ingrese la Fecha',
+              text: '¡Es necesaria la fecha!',
+              showConfirmButton: false,
+              timer: 1000,
+            })
+            return 
+          }
+        }
+        console.log('dice k hay campo--->');
+        
         this.testDesarrollo.addTestPeruano(this.data.idConsulta, data).subscribe((res: any) => {
           console.log('se guardo correctamente ', res.object);
           Swal.fire({
@@ -692,8 +709,6 @@ export class TestPeruanoComponent implements OnInit {
         });
         Swal.fire('Guardado!', '', 'success')
         this.getTestPerunoBDTestPorConsulta();
-      } else if (result.isDenied) {
-        Swal.fire('No se guardo este registro', '', 'info')
       }
     })
     this.codigosArr = [];
@@ -733,7 +748,8 @@ export class TestPeruanoComponent implements OnInit {
         showConfirmButton: false,
         timer: 2000,
       })
-    } else {
+    } 
+    else {
       this.btnGuardar();
     }
   }
