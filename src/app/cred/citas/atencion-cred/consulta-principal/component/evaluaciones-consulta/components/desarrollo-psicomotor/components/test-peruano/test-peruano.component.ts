@@ -6,6 +6,7 @@ import {DatePipe} from "@angular/common";
 import {dato} from "../../../../../../../../models/data";
 import {ConsultaGeneralService} from "../../../../../../services/consulta-general.service";
 import {MessageService} from "primeng/api";
+import { LoginComponent } from '../../../../../../../../../../login/login.component';
 
 
 @Component({
@@ -646,8 +647,17 @@ export class TestPeruanoComponent implements OnInit {
   }
 
   btnGuardar() {
-    // this.addTestPeruano();
-
+    if(!this.recuperarFechaCampo(this.edadMeses)){
+      Swal.fire({
+        icon: 'error',
+        title: 'Ingrese fecha',
+        text: 'La fecha es requerida',
+        showConfirmButton: false,
+        timer: 2000,
+      })
+      return
+    }
+    this.addTestPeruano();
     let fecha = (this.datePipe.transform(this.recuperarFechaCampo(this.edadMeses), 'yyyy-MM-dd HH:mm:ss'));
     let diagnostico=this.encontrarDiagnostico(this.calificacion);
     const data = {
@@ -655,7 +665,7 @@ export class TestPeruanoComponent implements OnInit {
       codigoCIE10: "Z009",
       codigoHIS: "Z009",
       codigoPrestacion: '0001',
-      // estadoEvaluacion:"",
+      estadoEvaluacion:"",
       evaluacionDesarrolloMes: {
         docExaminador:'24242424',
         edad: this.edadMeses,
@@ -673,42 +683,41 @@ export class TestPeruanoComponent implements OnInit {
     // this.displayMaximizable = false;
     Swal.fire({
       title: 'Esta seguro que desea guardar este registro?',
-      showConfirmButton:true,
       showDenyButton: false,
       showCancelButton: true,
       confirmButtonText: 'Guardar',
-      cancelButtonText: `Cancelar`,
+      denyButtonText: `Cancelar`,
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        if(true){
-          // agregamos validacion
-          // console.log('hay algo--->',this.evaluacionAlimenticia[0][prefijo]);
-          if(!this.recuperarFechaCampo(this.edadMeses)){
+        this.testDesarrollo.addTestPeruano(this.data.idConsulta, data).subscribe((res: any) => {
+          console.log('respuesta del servidor',res);
+          
+          // console.log('se guardo correctamente ', res.object);
+          if(res.cod=='2121'){
+
+            Swal.fire({
+              icon: 'success',
+              title: 'Test Peruano',
+              text: 'Se guardo existosamente la evaluacion para la edad ' + this.edadMeses,
+              showConfirmButton: false,
+              timer: 2000,
+            })
+            this.getTestPerunoBDTestPorConsulta();
+          }
+          else{
             Swal.fire({
               icon: 'error',
-              title: 'Ingrese la Fecha',
-              text: '¡Es necesaria la fecha!',
+              title: 'Test Peruano',
+              text: 'Todas las filas deben estar marcadas',
               showConfirmButton: false,
-              timer: 1000,
+              timer: 2000,
             })
-            return 
+
           }
-        }
-        console.log('dice k hay campo--->');
-        
-        this.testDesarrollo.addTestPeruano(this.data.idConsulta, data).subscribe((res: any) => {
-          console.log('se guardo correctamente ', res.object);
-          Swal.fire({
-            icon: 'success',
-            title: 'Test Peruano',
-            text: 'Se guardo existosamente la evaluacion para la edad ' + this.edadMeses,
-            showConfirmButton: false,
-            timer: 2000,
-          })
+
         });
-        Swal.fire('Guardado!', '', 'success')
-        this.getTestPerunoBDTestPorConsulta();
+        // Swal.fire('Guardado!', '', 'success')
       }
     })
     this.codigosArr = [];
@@ -748,8 +757,7 @@ export class TestPeruanoComponent implements OnInit {
         showConfirmButton: false,
         timer: 2000,
       })
-    } 
-    else {
+    } else {
       this.btnGuardar();
     }
   }
