@@ -772,8 +772,12 @@ export class TestPeruanoComponent implements OnInit {
     });
   }
   cambiarEstado(codigo) {
-
+    console.log('codigo:',codigo);
+    console.log('tabla:',this.formDatos_TestPeruano.value);
+    console.log('arreglo:',this.codigosArr);
     console.log("item seleccionado:", codigo);
+
+      
     if(this.formDatos_TestPeruano.value[codigo]==true){ this.codigosArr.push(codigo);}
   }
   openNuevoTestPeruano(){
@@ -784,6 +788,13 @@ export class TestPeruanoComponent implements OnInit {
     this.estadoVisualizar=false;
     this.displayMaximizable =true;
   }
+  //de nuevo
+  listaMeses=[1,2,3,4,5,6,7,8,9,10,11,12,15,18,21,24,30]
+  prueba:string
+  ruta(sale:any,mes:number){
+    return sale[`img_${mes}`];
+  }
+  selectedValue:string
 }
 interface pregunta{
   codigo?:string,
