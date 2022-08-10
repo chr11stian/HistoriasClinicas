@@ -108,6 +108,16 @@ export class TestPeruanoComponent implements OnInit {
     });
     return arreglo;
   }
+  encontrarDiagnostico()
+  { 
+    let diagnostico='Normal'
+    const arreglo=this.arregloForm.value;
+    arreglo.forEach(element => {
+      if(element<this.edadMeses)
+      diagnostico='Retraso'
+    });
+    return diagnostico
+  }
   save() {
     console.log("estado", this.arregloForm.valid);
     if (!this.arregloForm.valid) {
@@ -128,7 +138,7 @@ export class TestPeruanoComponent implements OnInit {
       evaluacionDesarrolloMes: {
         edad: this.edadMeses,
         fecha: this.datePipe.transform(this.fecha, "yyyy-MM-dd HH:mm:ss"),
-        diagnostico: "Retraso",
+        diagnostico: this.encontrarDiagnostico(),
         docExaminador: "24242424",
         calificacion: this.arregloCalificacion(),
       },
@@ -167,5 +177,6 @@ export class TestPeruanoComponent implements OnInit {
   }
   pruebas() {
     console.log("estado Arreglo", this.arregloForm);
+    this.encontrarDiagnostico();
   }
 }
