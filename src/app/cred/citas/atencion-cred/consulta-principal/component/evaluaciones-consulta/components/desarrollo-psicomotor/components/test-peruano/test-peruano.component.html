@@ -84,28 +84,26 @@
                         <th style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #B573B6"><div style="font-size: 15px; font-weight: bold; ">30</div><div style="font-size: 15px; font-weight: bold;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-30"></div></div></th>
                     </tr>
                     <tr>
-                        <td style="background-color: #FF8300; border-radius: 15px; width: 80px; color:black; font-weight: bold; padding: 0px; margin: 0px;">FECHA</td>
-                        <td style="background-color: #FDC070" [ngClass]="{'fondorojo':edadMeses==1}"><p-calendar *ngIf="edadMeses==1" formControlName="f1"  showTime="true" showSeconds="true" dateFormat="dd-mm-yy" class="fondo1">   </p-calendar></td>
-                        <td style="background-color: #FFFF80" [ngClass]="{'fondorojo':edadMeses==2}"><p-calendar *ngIf="edadMeses==2" formControlName="f2" showTime="true" showSeconds="true" dateFormat="dd-mm-yy" class="fondo2"></p-calendar></td>
-                        <td style="background-color: #FDC070" [ngClass]="{'fondorojo':edadMeses==3}"><p-calendar *ngIf="edadMeses==3" formControlName="f3" showTime="true"  showSeconds="true"dateFormat="dd-mm-yy" class="fondo1"></p-calendar></td>
-                        <td style="background-color: #FFFF80" [ngClass]="{'fondorojo':edadMeses==4}"><p-calendar *ngIf="edadMeses==4" formControlName="f4" showTime="true"  showSeconds="true"dateFormat="dd-mm-yy" class="fondo2"></p-calendar></td>
-                        <td style="background-color: #FDC070" [ngClass]="{'fondorojo':edadMeses==5}"><p-calendar *ngIf="edadMeses==5" formControlName="f5" showTime="true" showSeconds="true" dateFormat="dd-mm-yy"   class="fondo1"></p-calendar></td>
-                        <td style="background-color: #FFFF80" [ngClass]="{'fondorojo':edadMeses==6}"><p-calendar *ngIf="edadMeses==6" formControlName="f6" showTime="true" showSeconds="true" dateFormat="dd-mm-yy" class="fondo2"></p-calendar></td>
-                        <td style="background-color: #FDC070" [ngClass]="{'fondorojo':edadMeses==7}"><p-calendar *ngIf="edadMeses==7" formControlName="f7" showTime="true" showSeconds="true" dateFormat="dd-mm-yy" class="fondo1"></p-calendar></td>
-                        <td style="background-color: #FFFF80" [ngClass]="{'fondorojo':edadMeses==8}"><p-calendar *ngIf="edadMeses==8" formControlName="f8" showTime="true" showSeconds="true" dateFormat="dd-mm-yy" class="fondo2"></p-calendar></td>
-                        <td style="background-color: #FDC070" [ngClass]="{'fondorojo':edadMeses==9}"><p-calendar *ngIf="edadMeses==9" formControlName="f9" showTime="true" showSeconds="true" dateFormat="dd-mm-yy" class="fondo1"></p-calendar></td>
-                        <td style="background-color: #FFFF80" [ngClass]="{'fondorojo':edadMeses==10}"><p-calendar *ngIf="edadMeses==10" formControlName="f10" showTime="true" showSeconds="true" dateFormat="dd-mm-yy"  class="fondo2"></p-calendar></td>
-                        <td style="background-color: #FDC070" [ngClass]="{'fondorojo':edadMeses==11}"><p-calendar *ngIf="edadMeses==11" formControlName="f11" showTime="true" showSeconds="true" dateFormat="dd-mm-yy" showSeconds="true" class="fondo1"></p-calendar></td>
-                        <td style="background-color: #FFFF80" [ngClass]="{'fondorojo':edadMeses==12}"><p-calendar *ngIf="edadMeses==12" formControlName="f12" showTime="true" showSeconds="true" dateFormat="dd-mm-yy" class="fondo2"></p-calendar></td>
-                        <td style="background-color: #FDC070" [ngClass]="{'fondorojo':edadMeses==15}"><p-calendar *ngIf="edadMeses==15" formControlName="f15" showTime="true" showSeconds="true" dateFormat="dd-mm-yy" class="fondo1"></p-calendar></td>
-                        <td style="background-color: #FFFF80" [ngClass]="{'fondorojo':edadMeses==18}"><p-calendar *ngIf="edadMeses==18" formControlName="f18" showTime="true" showSeconds="true" dateFormat="dd-mm-yy" class="fondo2"></p-calendar></td>
-                        <td style="background-color: #FDC070" [ngClass]="{'fondorojo':edadMeses==21}"><p-calendar *ngIf="edadMeses==21" formControlName="f21" showTime="true" showSeconds="true" dateFormat="dd-mm-yy" class="fondo1"></p-calendar></td>
-                        <td style="background-color: #FFFF80" [ngClass]="{'fondorojo':edadMeses==24}"><p-calendar *ngIf="edadMeses==24" formControlName="f24" showTime="true" showSeconds="true" dateFormat="dd-mm-yy" class="fondo2"></p-calendar></td>
-                        <td style="background-color: #FDC070" [ngClass]="{'fondorojo':edadMeses==30}"><p-calendar *ngIf="edadMeses==30" formControlName="f30" showTime="true" showSeconds="true" dateFormat="dd-mm-yy" class="fondo1"></p-calendar></td>
+                        <th style="background-color: #FF8300; border-radius: 15px; width: 80px; color:black; font-weight: bold; padding: 0px; margin: 0px;">FECHA</th>
+                        <th style="background-color: #FDC070" [ngClass]="{'fondorojo':edadMeses==1}"><p-calendar *ngIf="edadMeses==1" formControlName="f1"  showTime="true" showSeconds="true" dateFormat="dd-mm-yy" class="fondo1">   </p-calendar></th>
+                        <th style="background-color: #FFFF80" [ngClass]="{'fondorojo':edadMeses==2}"><p-calendar *ngIf="edadMeses==2" formControlName="f2" showTime="true" showSeconds="true" dateFormat="dd-mm-yy" class="fondo2"></p-calendar></th>
+                        <th style="background-color: #FDC070" [ngClass]="{'fondorojo':edadMeses==3}"><p-calendar *ngIf="edadMeses==3" formControlName="f3" showTime="true"  showSeconds="true"dateFormat="dd-mm-yy" class="fondo1"></p-calendar></th>
+                        <th style="background-color: #FFFF80" [ngClass]="{'fondorojo':edadMeses==4}"><p-calendar *ngIf="edadMeses==4" formControlName="f4" showTime="true"  showSeconds="true"dateFormat="dd-mm-yy" class="fondo2"></p-calendar></th>
+                        <th style="background-color: #FDC070" [ngClass]="{'fondorojo':edadMeses==5}"><p-calendar *ngIf="edadMeses==5" formControlName="f5" showTime="true" showSeconds="true" dateFormat="dd-mm-yy"   class="fondo1"></p-calendar></th>
+                        <th style="background-color: #FFFF80" [ngClass]="{'fondorojo':edadMeses==6}"><p-calendar *ngIf="edadMeses==6" formControlName="f6" showTime="true" showSeconds="true" dateFormat="dd-mm-yy" class="fondo2"></p-calendar></th>
+                        <th style="background-color: #FDC070" [ngClass]="{'fondorojo':edadMeses==7}"><p-calendar *ngIf="edadMeses==7" formControlName="f7" showTime="true" showSeconds="true" dateFormat="dd-mm-yy" class="fondo1"></p-calendar></th>
+                        <th style="background-color: #FFFF80" [ngClass]="{'fondorojo':edadMeses==8}"><p-calendar *ngIf="edadMeses==8" formControlName="f8" showTime="true" showSeconds="true" dateFormat="dd-mm-yy" class="fondo2"></p-calendar></th>
+                        <th style="background-color: #FDC070" [ngClass]="{'fondorojo':edadMeses==9}"><p-calendar *ngIf="edadMeses==9" formControlName="f9" showTime="true" showSeconds="true" dateFormat="dd-mm-yy" class="fondo1"></p-calendar></th>
+                        <th style="background-color: #FFFF80" [ngClass]="{'fondorojo':edadMeses==10}"><p-calendar *ngIf="edadMeses==10" formControlName="f10" showTime="true" showSeconds="true" dateFormat="dd-mm-yy"  class="fondo2"></p-calendar></th>
+                        <th style="background-color: #FDC070" [ngClass]="{'fondorojo':edadMeses==11}"><p-calendar *ngIf="edadMeses==11" formControlName="f11" showTime="true" showSeconds="true" dateFormat="dd-mm-yy" showSeconds="true" class="fondo1"></p-calendar></th>
+                        <th style="background-color: #FFFF80" [ngClass]="{'fondorojo':edadMeses==12}"><p-calendar *ngIf="edadMeses==12" formControlName="f12" showTime="true" showSeconds="true" dateFormat="dd-mm-yy" class="fondo2"></p-calendar></th>
+                        <th style="background-color: #FDC070" [ngClass]="{'fondorojo':edadMeses==15}"><p-calendar *ngIf="edadMeses==15" formControlName="f15" showTime="true" showSeconds="true" dateFormat="dd-mm-yy" class="fondo1"></p-calendar></th>
+                        <th style="background-color: #FFFF80" [ngClass]="{'fondorojo':edadMeses==18}"><p-calendar *ngIf="edadMeses==18" formControlName="f18" showTime="true" showSeconds="true" dateFormat="dd-mm-yy" class="fondo2"></p-calendar></th>
+                        <th style="background-color: #FDC070" [ngClass]="{'fondorojo':edadMeses==21}"><p-calendar *ngIf="edadMeses==21" formControlName="f21" showTime="true" showSeconds="true" dateFormat="dd-mm-yy" class="fondo1"></p-calendar></th>
+                        <th style="background-color: #FFFF80" [ngClass]="{'fondorojo':edadMeses==24}"><p-calendar *ngIf="edadMeses==24" formControlName="f24" showTime="true" showSeconds="true" dateFormat="dd-mm-yy" class="fondo2"></p-calendar></th>
+                        <th style="background-color: #FDC070" [ngClass]="{'fondorojo':edadMeses==30}"><p-calendar *ngIf="edadMeses==30" formControlName="f30" showTime="true" showSeconds="true" dateFormat="dd-mm-yy" class="fondo1"></p-calendar></th>
                     </tr>
                 </ng-template>
-
-
                 <ng-template pTemplate="body" let-rowIndex="rowIndex" let-sale>
                     <tr>
                         <td  style="padding: 0px;" pFrozenColumn>
@@ -156,7 +154,7 @@
     </div>
 
     <ng-template pTemplate="footer">
-        <button pButton pRipple type="button" label="Guardar" class="p-button-success" icon="pi pi-save" (click)="pruebas()" [disabled]="estadoVisualizar" iconPos="right"></button>
+        <button pButton pRipple type="button" label="Guardar" class="p-button-success" icon="pi pi-save" (click)="save()" [disabled]="estadoVisualizar" iconPos="right"></button>
         <button pButton pRipple type="button" label="Cancelar" class="p-button-danger" icon="pi pi-times" (click)="displayMaximizable=false" iconPos="right"></button>
     </ng-template>
 
