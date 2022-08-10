@@ -18,7 +18,7 @@
                     icon="pi pi-eye" class="p-button-rounded p-button-help m-1">
             </button>
             <button pButton pRipple label="Agregar" iconPos="right" icon="pi pi-plus-circle"
-                    class="guardar mr-2" (click)="openNuevoTestPeruano()" [disabled]="enableAgregar"  style="background-color: #0c3866"></button>
+                    class="guardar mr-2" (click)="displayDialog=true" [disabled]="enableAgregar"  style="background-color: #0c3866"></button>
         </ng-template>
     </p-toolbar>
     <p-table class="table-over" [value]="listaTestPeruano" #dt styleClass="p-datatable-gridlines" [rows]="10"
@@ -53,10 +53,10 @@
     </p-table>
 </div>
 
-<p-dialog header="TEST DE DESARROLLO PSICOMOTOR PERUANO" [(visible)]="displayMaximizable" [modal]="true" [style]="{width: '80vw'}" [maximizable]="true" [draggable]="false" [resizable]="false">
+<p-dialog header="TEST DE DESARROLLO PSICOMOTOR PERUANO" [(visible)]="displayDialog" [modal]="true" [style]="{width: '80vw'}" [maximizable]="true" [draggable]="false" [resizable]="false">
 
     <div class="tabla">
-        <form>
+        <form [formGroup]="arregloForm">
             <p-table responsiveLayout="scroll"
                      [value]="imagenes"
                      scrollDirection="both"
@@ -117,14 +117,13 @@
                                     <div style="font-size: small; width: 110px; padding-bottom: 10px;" class="white-space-normal">
                                         {{sale.texto}}
                                     </div>
-                                    <!-- <div style="background-color: #FF6601; color: white; border-radius: 15px; font-weight: bold;" class="flex surface-overlay">
-                                    </div> -->
                                 </div>
                                 <p style="margin:auto 0" class="triangulo"></p>
                             </div>
                         </td>
                         <td *ngFor="let mes of listaMeses" style="border: 1px solid black; cursor: pointer"><img *ngIf="true;"class="button-menu" [src]="ruta(sale,mes)">
-                            <p-radioButton name="groupname" value="val1" [(ngModel)]="selectedValue"></p-radioButton>
+                            <!-- <p-radioButton [name]="sale.letter" [value]="mes" [(ngModel)]="arreglo[rowIndex]"></p-radioButton> -->
+                            <p-radioButton [name]="rowIndex" [value]="mes" [formControlName]="rowIndex"></p-radioButton>
                         </td>
                     </tr>
                    
@@ -157,8 +156,8 @@
     </div>
 
     <ng-template pTemplate="footer">
-        <!-- <button pButton pRipple type="button" label="Guardar" class="p-button-success" icon="pi pi-save" (click)="btnGuardar()" [disabled]="estadoVisualizar" iconPos="right"></button>
-        <button pButton pRipple type="button" label="Cancelar" class="p-button-danger" icon="pi pi-times" (click)="displayMaximizable=false" iconPos="right"></button> -->
+        <button pButton pRipple type="button" label="Guardar" class="p-button-success" icon="pi pi-save" (click)="pruebas()" [disabled]="estadoVisualizar" iconPos="right"></button>
+        <button pButton pRipple type="button" label="Cancelar" class="p-button-danger" icon="pi pi-times" (click)="displayMaximizable=false" iconPos="right"></button>
     </ng-template>
 
 </p-dialog>
