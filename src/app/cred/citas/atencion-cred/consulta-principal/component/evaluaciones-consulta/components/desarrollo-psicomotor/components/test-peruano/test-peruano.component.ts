@@ -28,7 +28,8 @@ export class TestPeruanoComponent implements OnInit {
   imagenes: any[];
   listaTestPeruano: any[];
   edadMeses: number =0;
-  edadMax: number = 5;
+  edad:number=0;
+  // edadMax: number = 5;
   fecha: Date = new Date();
   datePipe = new DatePipe("en-US");
   data=JSON.parse(localStorage.getItem('documento'))
@@ -42,9 +43,32 @@ export class TestPeruanoComponent implements OnInit {
     this.testDesarrollo.getImagenes().then((data) => {
       this.imagenes = data;
     });
-    this.edadMeses=this.data.anio*12+this.data.mes
+    this.calcularEdades()
   }
-
+  calcularEdades(){
+    this.edad=this.data.anio*12+this.data.mes
+    this.edadMeses=this.edad;
+    if(this.edad>12){
+      if(this.edad<=15)
+        this.edadMeses=15
+      else{
+        if(this.edad<=18)
+        this.edadMeses=18
+        else{
+          if(this.edad<=21)
+          this.edadMeses=21
+          else{
+            if(this.edad<=24)
+            this.edadMeses=24
+            else
+            this.edadMeses=30
+          }
+          
+        }
+      }
+    }
+    
+  }
   ngOnInit(): void {}
   //rehaciendo
   ruta(sale: any, mes: number) {
