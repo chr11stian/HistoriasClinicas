@@ -19,6 +19,7 @@ import { RippleModule } from 'primeng/ripple';
 import { InputNumberModule } from "primeng/inputnumber";
 import {SelectButtonModule} from 'primeng/selectbutton';
 import {TreeSelectModule} from 'primeng/treeselect';
+import { LoadingSpinnerDialogComponent } from './loading-spinner-dialog/loading-spinner-dialog.component';
 
 @NgModule({
     declarations: [
@@ -26,6 +27,7 @@ import {TreeSelectModule} from 'primeng/treeselect';
         InicioComponent,
         SideBarComponent,
         TopMenuComponent,
+        LoadingSpinnerDialogComponent,
 
     ],
     exports: [

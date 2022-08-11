@@ -1,4 +1,31 @@
+::ng-deep .container {
+    display: grid;
+    /* background: blue; */
+    text-align: center;
+}
+
 .table-header {
     display: flex;
     justify-content: space-between;
+}
+
+::ng-deep .p-element .p-progress-spinner {
+    /* grid-column: 3 / span 2; */
+    z-index: 3;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+::ng-deep .container .spinnerText{
+    z-index: 5;
+    color:rgb(0, 0, 0);
+    font-size: 2rem;
+}
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    backdrop-filter: blur(2px);
 }

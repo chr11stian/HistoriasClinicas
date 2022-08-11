@@ -6,6 +6,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ConfirmationService} from 'primeng/api';
 import {AppRoutingModule} from './app-routing.module';
 import {NgxEchartsModule} from 'ngx-echarts';
+import {ToastModule} from 'primeng/toast';
 
 
 import {AppComponent} from './app.component';
@@ -43,6 +44,7 @@ import { PasswordComponent } from './login/password/password.component';
         ReactiveFormsModule,
         DividerModule,
         ToggleButtonModule,
+        ToastModule,
 
         NgxEchartsModule.forRoot({
             echarts: () => import('echarts'),
