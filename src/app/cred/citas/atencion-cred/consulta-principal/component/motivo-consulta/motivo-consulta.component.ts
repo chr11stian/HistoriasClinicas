@@ -3,6 +3,7 @@ import {FormControl, FormGroup} from '@angular/forms'
 import Swal from "sweetalert2";
 import {MotivosConsultaService} from "../../services/motivos-consulta.service";
 import {dato, motivoConsultaInterface, ExamenesFisico} from "../../../../models/data";
+import { SpinnerHandlerService } from 'src/app/core/services/spinner-handler.service';
 
 interface formControlInterface {
     pro: string,
@@ -135,11 +136,12 @@ export class MotivoConsultaComponent implements OnInit {
         },
     ]
     edad: number = 18;
-    // genero: string = 'FEMENINO';
-    genero: string = 'MASCULINO';
+    // // genero: string = 'FEMENINO';
+    // genero: string = 'MASCULINO';
     motivosConsulta: motivoConsultaInterface;
+    loading$ = this.spinnerHandler.showSpinner$;
 
-    constructor(private motivosService: MotivosConsultaService) {
+    constructor(private motivosService: MotivosConsultaService, public spinnerHandler: SpinnerHandlerService) {
         this.buildFG()
         this.recuperarMotivos()
     }
@@ -339,5 +341,9 @@ export class MotivoConsultaComponent implements OnInit {
             default:
                 break;
         }
+    }
+
+    openSpinner(){
+
     }
 }
