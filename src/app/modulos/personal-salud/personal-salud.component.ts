@@ -79,6 +79,7 @@ export class PersonalSaludComponent implements OnInit {
     ]
     datoLocalStore: dato;
     nroDocRow: string = '';
+    idPersonal: string = '';
 
     constructor(
         private personalservice: PersonalService,
@@ -540,14 +541,12 @@ export class PersonalSaludComponent implements OnInit {
     }
 
     newRolX(rowData) {
-        //if (rowData.roles !== null) {
-        this.rolesX = rowData.roles;
-        //}
-        console.log('data de roles ', rowData);
-        this.ipressservice.getRolPersonalIpress(rowData.id).then((res: any) => {
+
+        this.idPersonal = rowData.id;
+        console.log('data de personal ', this.idPersonal);
+        this.ipressservice.getRolPersonalIpress(this.idPersonal).then((res: any) => {
             this.rolesX = res.object[0].roles;
-            console.log('request roles by id ', res);
-        })
+        });
         this.nombrePersonal = `${rowData.apePaterno} ${rowData.apeMaterno}, ${rowData.primerNombre}`;
         this.idRolX = rowData.id;
         this.formRol.reset();
@@ -595,7 +594,7 @@ export class PersonalSaludComponent implements OnInit {
         this.formRol.get("nombreFuncion").setValue(rowData.nombreFuncion);
         this.formRol.get("ups").setValue(auxUPS[0].id);
         this.formRol.get("rolGuardia").setValue(rowData.rolGuardia);
-
+        // console.log('data row edit ', rowData, 'id personal ', this.idPersonal);
 
     }
 
@@ -760,6 +759,9 @@ export class PersonalSaludComponent implements OnInit {
                         timer: 1500,
                     });
                     this.rolesX.push(req);
+                    this.ipressservice.getRolPersonalIpress(this.idPersonal).then((res: any) => {
+                        this.rolesX = res.object[0].roles;
+                    });
                     this.getPersonal();
                     this.guardarNuevoRol();
                     this.isUpdateRolX = false;
@@ -784,8 +786,6 @@ export class PersonalSaludComponent implements OnInit {
             nroEspecialidad: this.formEspecialidad.value.nroEspecialidad,
             estado: this.estadoUpdateEspecialidad,
         };
-
-
         this.personalservice
             .editPersonalEspecialidad(this.idEspecialidad, req)
             .subscribe((result) => {
@@ -831,6 +831,9 @@ export class PersonalSaludComponent implements OnInit {
                 // this.getPersonalIdEspecialidad();
                 // this.getPersonal();
                 this.guardarNuevoRol();
+                this.ipressservice.getRolPersonalIpress(this.idPersonal).then((res: any) => {
+                    this.rolesX = res.object[0].roles;
+                });
                 this.isUpdateRolX = false;
             });
     }
