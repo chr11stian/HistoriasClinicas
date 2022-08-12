@@ -10,22 +10,17 @@
                             <div class="col-12 md:col-6 lg:col-2 p-fluid">
                                 <span class="">TIPO DOCUMENTO</span>
                                 <div class="">
-                                    <p-dropdown [options]="listaDocumentosIdentidad"
-                                                formControlName="tipoDoc"
-                                                placeholder="Tipo Documento"
-                                                optionLabel="abreviatura"
-                                                optionValue="abreviatura"
-                                                [showClear]="false">
+                                    <p-dropdown [options]="listaDocumentosIdentidad" formControlName="tipoDoc"
+                                        placeholder="Tipo Documento" optionLabel="abreviatura" optionValue="abreviatura"
+                                        [showClear]="false">
                                     </p-dropdown>
                                 </div>
                             </div>
                             <div class="col-12 md:col-6 lg:col-3 p-field">
                                 <span class="">NRO DOCUMENTO</span>
                                 <div class="p-inputgroup">
-                                    <input type="number" pInputText
-                                           formControlName="nroDoc"
-                                           placeholder="Nro documento" (blur)="pacienteByNroDoc()"
-                                           class="inputTest"/>
+                                    <input type="number" pInputText formControlName="nroDoc" placeholder="Nro documento"
+                                        (blur)="pacienteByNroDoc()" class="inputTest" />
                                     <p-button span="" icon="pi pi-search" (click)="pacienteByNroDoc()"></p-button>
                                 </div>
                                 <small class="p-error" *ngIf="isInvalid('nroDoc')">
@@ -41,36 +36,28 @@
                             <div class="col-12 md:col-6 lg:col-3 p-field">
                                 <span class="">APELLIDOS PATERNO</span>
                                 <div class="p-inputgroup">
-                                    <input type="text"
-                                           pInputText
-                                           formControlName="apePaterno" disabled/>
+                                    <input type="text" pInputText formControlName="apePaterno" disabled />
                                 </div>
                             </div>
 
                             <div class="col-12 md:col-6 lg:col-3 p-field">
                                 <span class="">APELLIDOS MATERNO</span>
                                 <div class="p-inputgroup">
-                                    <input type="text"
-                                           pInputText
-                                           formControlName="apeMaterno" disabled/>
+                                    <input type="text" pInputText formControlName="apeMaterno" disabled />
                                 </div>
                             </div>
 
                             <div class="col-12 md:col-6 lg:col-3 p-field">
                                 <span class="">NOMBRES</span>
                                 <div class="p-inputgroup">
-                                    <input type="text"
-                                           pInputText
-                                           formControlName="primerNombre" disabled/>
+                                    <input type="text" pInputText formControlName="primerNombre" disabled />
                                 </div>
                             </div>
 
                             <div class="col-12 md:col-6 lg:col-3 p-field">
                                 <span class="">OTRO NOMBRE</span>
                                 <div class="p-inputgroup">
-                                    <input type="text"
-                                           pInputText
-                                           formControlName="otrosNombres" disabled/>
+                                    <input type="text" pInputText formControlName="otrosNombres" disabled />
                                 </div>
                             </div>
                         </div>
@@ -78,34 +65,26 @@
                             <div class="col-12 md:col-6 lg:col-3 p-field">
                                 <span class="">SEXO</span>
                                 <div class="p-inputgroup">
-                                    <input type="text"
-                                           pInputText
-                                           formControlName="sexo" disabled/>
+                                    <input type="text" pInputText formControlName="sexo" disabled />
                                 </div>
                             </div>
                             <div class="col-12 md:col-6 lg:col-3 p-field">
                                 <span class="">ESTADO CIVIL</span>
                                 <div class="p-inputgroup">
-                                    <input type="text"
-                                           pInputText
-                                           formControlName="estadoCivil"/>
+                                    <input type="text" pInputText formControlName="estadoCivil" />
                                 </div>
                             </div>
                             <div class="col-12 md:col-6 lg:col-3 p-field">
                                 <span class="">FECHA NACIMIENTO</span>
                                 <div class="p-inputgroup">
-                                    <input type="date"
-                                           pInputText
-                                           formControlName="fechaNacimiento" disabled/>
+                                    <input type="date" pInputText formControlName="fechaNacimiento" disabled />
                                 </div>
                             </div>
 
                             <div class="col-12 md:col-6 lg:col-3 p-field">
                                 <span class="">NACIONALIDAD</span>
                                 <div class="p-inputgroup">
-                                    <input type="text"
-                                           pInputText
-                                           formControlName="nacionalidad" disabled/>
+                                    <input type="text" pInputText formControlName="nacionalidad" disabled />
                                 </div>
                             </div>
                         </div>
@@ -113,27 +92,21 @@
                             <div class="col-12 md:col-6 lg:col-6 p-field">
                                 <span class="">LUGAR DE NACIMIENTO</span>
                                 <div class="p-inputgroup">
-                                    <input type="text"
-                                           pInputText
-                                           formControlName="LugarNacimiento" disabled/>
+                                    <input type="text" pInputText formControlName="LugarNacimiento" disabled />
                                 </div>
                             </div>
 
                             <div class="col-12 md:col-6 lg:col-3 p-field">
                                 <span class="">GRADO DE INSTRUCCION</span>
                                 <div class="p-inputgroup">
-                                    <input type="text"
-                                           pInputText
-                                           formControlName="GradoInstrucion"/>
+                                    <input type="text" pInputText formControlName="GradoInstrucion" />
                                 </div>
                             </div>
 
                             <div class="col-12 md:col-6 lg:col-3 p-field">
                                 <span class="">DISCAPACIDAD</span>
                                 <div class="p-inputgroup">
-                                    <input type="text"
-                                           pInputText
-                                           formControlName="procedencia"/>
+                                    <input type="text" pInputText formControlName="procedencia" />
                                 </div>
                             </div>
                         </div>
@@ -142,9 +115,7 @@
                             <div class="col-12 md:col-6 lg:col-3 p-field">
                                 <span class="">TELEFONO / CELULAR</span>
                                 <div class="p-inputgroup">
-                                    <input type="text"
-                                           pInputText
-                                           formControlName="celular"/>
+                                    <input type="text" pInputText formControlName="celular" />
                                 </div>
                                 <small class="p-error" *ngIf="isInvalid('celular')">
                                     * Telefono es necesario
@@ -160,30 +131,21 @@
                                 <span>DEPARTAMENTO:</span>
                                 <div class="p-fluid">
                                     <p-dropdown inputId="dropdown" [autoDisplayFirst]="false"
-                                                [options]="dataDepartamentos"
-                                                formControlName="dpto"
-                                                (onChange)="selectedDepartamento()"
-                                                placeholder="Seleccione un Departamento"
-                                                [showClear]="false"
-                                                optionLabel="departamento"
-                                                optionValue="departamento"
-                                                defaultLabel="Seleccione un Departamento"
-                                                id="departamento">
+                                        [options]="dataDepartamentos" formControlName="dpto"
+                                        (onChange)="selectedDepartamento()" placeholder="Seleccione un Departamento"
+                                        [showClear]="false" optionLabel="departamento" optionValue="departamento"
+                                        defaultLabel="Seleccione un Departamento" id="departamento">
                                     </p-dropdown>
                                 </div>
                             </div>
                             <div class="col-12 md:col-6 lg:col-3 p-field">
                                 <span>PROVINCIA:</span>
                                 <div class="p-fluid">
-                                    <p-dropdown inputId="dropdown" [autoDisplayFirst]="false"
-                                                [options]="dataProvincia"
-                                                defaultLabel="Seleccione una provincia"
-                                                placeholder="Seleccione una provincia" id="provincia"
-                                                [showClear]="false"
-                                                formControlName="prov"
-                                                (onChange)="selectedProvincia()"
-                                                optionLabel="provincia"
-                                                optionValue="provincia">
+                                    <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="dataProvincia"
+                                        defaultLabel="Seleccione una provincia" placeholder="Seleccione una provincia"
+                                        id="provincia" [showClear]="false" formControlName="prov"
+                                        (onChange)="selectedProvincia()" optionLabel="provincia"
+                                        optionValue="provincia">
 
                                     </p-dropdown>
                                 </div>
@@ -191,15 +153,10 @@
                             <div class="col-12 md:col-6 lg:col-3 p-field">
                                 <span>DISTRITO:</span>
                                 <div class="p-fluid">
-                                    <p-dropdown inputId="dropdown" [autoDisplayFirst]="false"
-                                                [options]="dataDistrito"
-                                                formControlName="dist"
-                                                optionLabel="distrito"
-                                                optionValue="distrito"
-                                                defaultLabel="Seleccione un distrito"
-                                                placeholder="Seleccione un Distrito"
-                                                id="distrito" [showClear]="false"
-                                                (onChange)="selectedDistrito()">
+                                    <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="dataDistrito"
+                                        formControlName="dist" optionLabel="distrito" optionValue="distrito"
+                                        defaultLabel="Seleccione un distrito" placeholder="Seleccione un Distrito"
+                                        id="distrito" [showClear]="false" (onChange)="selectedDistrito()">
                                     </p-dropdown>
                                 </div>
                             </div>
@@ -207,13 +164,9 @@
                                 <span>CENTRO POBLADO:</span>
                                 <div class="p-fluid">
                                     <p-dropdown inputId="dropdown" [autoDisplayFirst]="false"
-                                                [options]="dataCentroPoblado"
-                                                formControlName="ccpp"
-                                                optionLabel="ccpp"
-                                                optionValue="ccpp"
-                                                defaultLabel="Seleccione un centroPoblado"
-                                                placeholder="Seleccione un centro poblado" id="ccpp"
-                                                [showClear]="false">
+                                        [options]="dataCentroPoblado" formControlName="ccpp" optionLabel="ccpp"
+                                        optionValue="ccpp" defaultLabel="Seleccione un centroPoblado"
+                                        placeholder="Seleccione un centro poblado" id="ccpp" [showClear]="false">
                                     </p-dropdown>
                                 </div>
                             </div>
@@ -222,9 +175,7 @@
                             <div class="col-12 md:col-6 lg:col-6 p-field">
                                 <span class="">DIRECCION</span>
                                 <div class="p-inputgroup">
-                                    <input type="text"
-                                           pInputText
-                                           formControlName="direccion"/>
+                                    <input type="text" pInputText formControlName="direccion" />
                                 </div>
                             </div>
                         </div>
@@ -235,31 +186,27 @@
                             <div class="col-12 md:col-6 lg:col-3 p-field">
                                 <label class="">TIPO SEGURO</label>
                                 <div class="p-inputgroup">
-                                    <input type="text"
-                                           pInputText
-                                           formControlName="tipoSeguro"/>
+                                    <input type="text" pInputText formControlName="tipoSeguro" />
                                 </div>
                             </div>
                             <div class="col-12 md:col-6 lg:col-2 flex flex-column p-fluid">
                                 <label class="">TIPO PAGO</label>
-                                <p-dropdown [options]="listEstadoPago"
-                                            appendTo="body" 
-                                            formControlName="detallePago"
-                                            placeholder="Seleccione"
-                                            optionLabel="name"
-                                            optionValue="value"
-                                            [showClear]="false"
-                                            (onChange)="tipoPagoChg()">
+                                <p-dropdown [options]="listEstadoPago" appendTo="body" formControlName="detallePago"
+                                    placeholder="Seleccione" optionLabel="name" optionValue="value" [showClear]="false"
+                                    (onChange)="tipoPagoChg()">
                                 </p-dropdown>
                             </div>
 
                             <div class="col-12 md:col-6 lg:col-3 p-field">
-                                <label class="">TRANSEUNTE</label>
-                                <div class="p-inputgroup">
+                                <label class="">PACIENTE</label>
+                                <!-- <div class="p-inputgroup">
                                     <input type="text"
                                            pInputText
                                            formControlName="transeunte"/>
-                                </div>
+                                </div> -->
+                                <p-dropdown [options]="listaTranseuntes" appendTo="body" formControlName="transeunte"
+                                    placeholder="Seleccione" class="inputfield p-fluid w-full">
+                                </p-dropdown>
                             </div>
                         </div>
                     </div>
@@ -313,25 +260,19 @@
                                 <div class="col-12 md:col-6 lg:col-3 p-field">
                                     <span class="">AÑOS</span>
                                     <div class="p-inputgroup">
-                                        <input type="text"
-                                               pInputText
-                                               formControlName="edadAnio"/>
+                                        <input type="text" pInputText formControlName="edadAnio" />
                                     </div>
                                 </div>
                                 <div class="col-12 md:col-6 lg:col-3 p-field">
                                     <span class="">MESES</span>
                                     <div class="p-inputgroup">
-                                        <input type="text"
-                                               pInputText
-                                               formControlName="edadMes"/>
+                                        <input type="text" pInputText formControlName="edadMes" />
                                     </div>
                                 </div>
                                 <div class="col-12 md:col-6 lg:col-3 p-field">
                                     <span class="">DIAS</span>
                                     <div class="p-inputgroup">
-                                        <input type="text"
-                                               pInputText
-                                               formControlName="edadDia"/>
+                                        <input type="text" pInputText formControlName="edadDia" />
                                     </div>
                                 </div>
                             </div>
@@ -346,7 +287,6 @@
 </div>
 
 <div class="footer">
-    <button pButton type="button" (click)="saveForm()" label="Guardar"
-            class="p-button-primary mt-4 mr-2"></button>
+    <button pButton type="button" (click)="saveForm()" label="Guardar" class="p-button-primary mt-4 mr-2"></button>
     <button pButton type="button" (click)="cerrar()" label="Cancelar" class="p-button-danger mt-4"></button>
 </div>
