@@ -255,17 +255,18 @@ const menu_microred = [
 
 const administracion1 = {
     label: "Administración",
+    icon: "pi pi-sitemap",
     items: [
 
         {
-            icon: "pi pi-file",
+            icon: "pi pi-desktop",
             label: "Rol Guardia",
             routerLink: "historia/rol-guardia",
         },
 
         {
             label: "Personal de Salud",
-            icon: "pi pi-pw pi-file",
+            icon: "pi pi-users",
             routerLink: "admision/personal-salud",
         },
         /*{
@@ -277,6 +278,7 @@ const administracion1 = {
 }
 const administracion2 = {
     label: "Mantenimientos",
+    icon: "pi pi-cog",
     items: [
         {
             label: "Ipress",

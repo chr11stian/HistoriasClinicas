@@ -54,6 +54,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
+import { AcuerdosCredComponent } from './component/tratamiento-consulta/components/acuerdos-cred/acuerdos-cred.component';
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -95,6 +96,7 @@ FullCalendarModule.registerPlugins([
         TratamientoInmunizacionModalComponent,
         ProcedimientosConsultaComponent,
         ProcedimientoDosajeHemoglobinaComponent,
+        AcuerdosCredComponent,
 
     ],
     imports: [

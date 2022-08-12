@@ -1,1 +1,14 @@
+<div class="container col-12" *ngIf="loading$ | async">
+  <div class="overlay"></div>
+  <h3 class="spinnerText col-12">Cargando...</h3>
+  <p-progressSpinner
+    [style]="{ width: '100px', height: '100px' }"
+    styleClass="custom-spinner"
+    strokeWidth="2"
+    fill="#EEEEEE"
+    animationDuration="1s"
+  ></p-progressSpinner>
+</div>
 <router-outlet></router-outlet>
+
+<!-- <p-progressSpinner ></p-progressSpinner> -->
