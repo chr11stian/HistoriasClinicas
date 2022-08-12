@@ -14,7 +14,6 @@ import { ConsultaGeneralService } from "../../../../../../services/consulta-gene
 import { MessageService } from "primeng/api";
 import { LoginComponent } from "../../../../../../../../../../login/login.component";
 import { AbstractControl } from "@angular/forms";
-
 @Component({
   selector: "app-test-peruano",
   templateUrl: "./test-peruano.component.html",
@@ -33,17 +32,55 @@ export class TestPeruanoComponent implements OnInit {
   fecha: Date = new Date();
   datePipe = new DatePipe("en-US");
   data=JSON.parse(localStorage.getItem('documento'))
+  hasTaken=false
+  arregloTest:any[]=[]
   constructor(
-    private testDesarrollo: TestPeruano,
+    private testPeruanoService: TestPeruano,
     private form: FormBuilder,
     private consultaGeneralService: ConsultaGeneralService,
-    private messageService: MessageService
-  ) {
-    this.buildFormArray();
-    this.testDesarrollo.getImagenes().then((data) => {
+    private messageService: MessageService) {
+    // this.buildFormArray();
+    this.buildFormArray()
+    this.testPeruanoService.getImagenes().then((data) => {
       this.imagenes = data;
     });
     this.calcularEdades()
+   
+  }
+  ngOnInit(): void {
+    this.getTestPeruano();
+  }
+  getTestPeruano(){
+    this.testPeruanoService.getTestPeruano(this.data.idConsulta).subscribe((resp:any)=>{
+      if(resp.cod=="2121"){
+        
+        this.hasTaken=true;
+        console.log('entro IF->>>>> :',this.hasTaken);
+        const ObjetoPeruano={
+          fecha:resp.object.evaluacionDesarrolloMes.fecha,
+          edad:resp.object.evaluacionDesarrolloMes.edad,
+          diagnostico:resp.object.evaluacionDesarrolloMes.diagnostico
+        }
+        this.arregloTest.push(ObjetoPeruano)
+        const calificacionArreglo:any[]=resp.object.evaluacionDesarrolloMes.calificacion;
+        calificacionArreglo.forEach((elemnet,index)=>{
+          this.getControl(index).setValue(elemnet.y)
+        })
+        // this.fecha=resp.object.evaluacionDesarrolloMes.fecha
+        this.fecha=  new Date(resp.object.evaluacionDesarrolloMes.fecha)
+        this.edadMeses=resp.object.evaluacionDesarrolloMes.edad
+        this.desabilitarRadios()
+        
+      }
+      else{
+        this.hasTaken=false
+        //trajimos del constructor
+      
+      }
+    })
+   
+
+
   }
   calcularEdades(){
     this.edad=this.data.anio*12+this.data.mes
@@ -69,25 +106,31 @@ export class TestPeruanoComponent implements OnInit {
     }
     
   }
-  ngOnInit(): void {}
+ 
   //rehaciendo
   ruta(sale: any, mes: number) {
     return sale[`img_${mes}`];
   }
+  desabilitarRadios(){
+    const arreglo=this.arregloForm.value;
+    arreglo.forEach((element,index) => {
+      this.getControl(index).disable()
+    });
+  }
   buildFormArray() {
     this.arregloForm = new FormArray([
-      new FormControl(null, Validators.required),
-      new FormControl(null, Validators.required),
-      new FormControl(null, Validators.required),
-      new FormControl(null, Validators.required),
-      new FormControl(null, Validators.required),
-      new FormControl(null, Validators.required),
-      new FormControl(null, Validators.required),
-      new FormControl(null, Validators.required),
-      new FormControl(null, Validators.required),
-      new FormControl(null, Validators.required),
-      new FormControl(null, Validators.required),
-      new FormControl(null, Validators.required),
+      new FormControl({value: null, disabled:false}, Validators.required),
+      new FormControl({value: null, disabled:false}, Validators.required),
+      new FormControl({value: null, disabled:false}, Validators.required),
+      new FormControl({value: null, disabled:false}, Validators.required),
+      new FormControl({value: null, disabled:false}, Validators.required),
+      new FormControl({value: null, disabled:false}, Validators.required),
+      new FormControl({value: null, disabled:false}, Validators.required),
+      new FormControl({value: null, disabled:false}, Validators.required),
+      new FormControl({value: null, disabled:false}, Validators.required),
+      new FormControl({value: null, disabled:false}, Validators.required),
+      new FormControl({value: null, disabled:false}, Validators.required),
+      new FormControl({value: null, disabled:false}, Validators.required),
     ]);
   }
   getControl(index: number): AbstractControl {
@@ -122,7 +165,7 @@ export class TestPeruanoComponent implements OnInit {
     console.log("estado", this.arregloForm.valid);
     if (!this.arregloForm.valid) {
       Swal.fire({
-        icon: "error",
+        icon: "info",
         title: "Test Peruano",
         text: "Todas las filas deben estar marcadas",
         showConfirmButton: false,
@@ -152,8 +195,8 @@ export class TestPeruanoComponent implements OnInit {
       denyButtonText: `Cancelar`,
     }).then((result) => {
       if (result.isConfirmed) {
-        // this.testDesarrollo.addTestPeruano(this.data.idConsulta, data).subscribe((res: any) => {
-        //   if(res.cod=='2121'){
+         this.testPeruanoService.addTestPeruano(this.data.idConsulta, data).subscribe((res: any) => {
+           if(res.cod=='2121'){
           Swal.fire({
             icon: 'success',
             title: 'Test Peruano',
@@ -161,17 +204,18 @@ export class TestPeruanoComponent implements OnInit {
             showConfirmButton: false,
             timer: 2000,
           })
-        //   }
-        //   else{
-        //     Swal.fire({
-        //       icon: 'error',
-        //       title: 'Test Peruano',
-        //       text: 'Error del servidor o ya existe un registro para el mes',
-        //       showConfirmButton: false,
-        //       timer: 2000,
-        //     })
-        //   }
-        // });
+            this.getTestPeruano()
+           }
+           else{
+             Swal.fire({
+               icon: 'error',
+               title: 'Test Peruano',
+               text: 'Error del servidor o ya existe un registro para el mes',
+               showConfirmButton: false,
+               timer: 2000,
+             })
+           }
+         });
       }
     })
   }
