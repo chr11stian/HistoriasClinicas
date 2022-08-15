@@ -80,6 +80,7 @@ export class PersonalSaludComponent implements OnInit {
     datoLocalStore: dato;
     nroDocRow: string = '';
     idPersonal: string = '';
+    dataEditRol: Edit;
 
     constructor(
         private personalservice: PersonalService,
@@ -596,8 +597,10 @@ export class PersonalSaludComponent implements OnInit {
         this.formRol.get("nombreFuncion").setValue(rowData.nombreFuncion);
         this.formRol.get("ups").setValue(auxUPS[0].id);
         this.formRol.get("rolGuardia").setValue(rowData.rolGuardia);
-        // console.log('data row edit ', rowData, 'id personal ', this.idPersonal);
-
+        this.dataEditRol = {
+            oldCodUPS: auxUPS[0].id,
+            oldNombreFuncion: rowData.nombreFuncion
+        }
     }
 
     tituloEspecialidad() {
@@ -813,14 +816,9 @@ export class PersonalSaludComponent implements OnInit {
             nombreFuncion: this.formRol.value.nombreFuncion,
             codUPS: this.formRol.value.ups,
             rolGuardia: this.formRol.value.rolGuardia,
-            // delete: this.formRol.value.delete,
-            // update: this.formRol.value.update,
-            // create: this.formRol.value.create,
-            // insert: this.formRol.value.insert,
-            // read: this.formRol.value.read,
+            oldCodUPS: this.dataEditRol.oldCodUPS,
+            oldNombreFuncion: this.dataEditRol.oldNombreFuncion
         }
-        console.log(req);
-
         this.personalservice.editRol(this.idRolX, req)
             .subscribe((result) => {
                 Swal.fire({
@@ -850,4 +848,8 @@ export class PersonalSaludComponent implements OnInit {
 export interface rol {
     nombre: string,
     codigo: string
+}
+interface Edit {
+    oldNombreFuncion: string,
+    oldCodUPS: string
 }

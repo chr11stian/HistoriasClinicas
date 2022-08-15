@@ -32,14 +32,14 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
     {
       groupName: 'HEMOGLOBINA',
       listaExamName: [
-        { examName: "TEST DE GRAHAM" },
-        { examName: '"PARASITO SERIADO' }
+        { subTipo: 'HEMOGLOBINA', examName: "DOSAJE DE HEMOGLOBINA" }
       ]
     },
     {
       groupName: 'PARASITOLOGIA',
       listaExamName: [
-        { examName: "DOSAJE DE HEMOGLOBINA" }
+        { subTipo: 'PARASITOLOGIA', examName: "TEST DE GRAHAM" },
+        { subTipo: 'PARASITOLOGIA', examName: 'PARASITO SERIADO' }
       ]
     },
   ];
@@ -53,7 +53,9 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
   lugarLab: Lugar = {};
   /**Fin ngModels */
   dataDialog: any;
-  reqLabo: ExamLab;
+  reqLabo: examName[] = [];
+  auxExamList: ExamenAuxiliar[] = [];
+  solicitudLaboratorio: Laboratorio;
   constructor(
     private auxExamService: ExamenesAuxiliaresService,
     public ref: DynamicDialogRef,
@@ -449,7 +451,27 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
     })
   }
   add() {
-    console.log('datos de exam req ', this.reqLabo);
+    this.reqLabo.forEach(item => {
+      let auxExam: ExamenAuxiliar = {
+        tipoLaboratorio: 'EXAMEN_LABORATORIO',
+        subTipo: item.subTipo,
+        nombreExamen: item.examName,
+        codPrestacion: '',
+        codigoSIS: '',
+        codigoHIS: '',
+        lugarExamen: 'LABORATORIO',
+        labExterno: ''
+      }
+      this.auxExamList.push(auxExam);
+    });
+    this.solicitudLaboratorio = {
+      servicio: '',
+      nroCama: '',
+      examenesAuxiliares: this.auxExamList
+    }
+    this.auxExamService.postPromiseAddServiciosLaboratorio(this.idConsulta, this.solicitudLaboratorio).then(res=>{
+
+    });
   }
 
 }
@@ -462,6 +484,7 @@ interface Lugar {
   lugarLab?: string;
 }
 interface examName {
+  subTipo: string,
   examName: string
 }
 interface ExamLab {

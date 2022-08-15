@@ -89,12 +89,13 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
     private ajusteHemoService: SuplementacionesMicronutrientesService
   ) {
     this.idConsulta = JSON.parse(localStorage.getItem("documento")).idConsulta;
-    this.recoverDataAuxialsExams();
+    // this.recoverDataAuxialsExams();
     let ipressAux = JSON.parse(localStorage.getItem("usuario")).ipress;
     console.log('data de usuario ', ipressAux);
     // this.ajusteHemoService.getFactorCorrepcionXipress(ipressAux.idIpress).subscribe((res: any) => {
     //   this.factorCorrection = res.object.factorAjuste;
     // });
+    this.listarPeticionesExamenes();
   }
 
   ngOnInit(): void { }
@@ -194,19 +195,19 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
       frotisLesion: new FormControl({ value: "", disabled: this.toShow }),
     });
   }
-  async recoverDataAuxialsExams() {
-    await this.auxExamService
-      .getPromiseListarResultadosLaboratorioByIdConsulta(this.idConsulta)
-      .then((data) => {
-        // console.log('data de examenes auxiliares de consulta ', data);
-        this.listaDataLaboRes = data;
-        if (data.length > 0) {
-          this.toEdit = true;
-        }
-      });
-    // console.log('to show ', this.toShow)
-    this.inicializarForm();
-  }
+  // async recoverDataAuxialsExams() {
+  //   await this.auxExamService
+  //     .getPromiseListarResultadosLaboratorioByIdConsulta(this.idConsulta)
+  //     .then((data) => {
+  //       // console.log('data de examenes auxiliares de consulta ', data);
+  //       this.listaDataLaboRes = data;
+  //       if (data.length > 0) {
+  //         this.toEdit = true;
+  //       }
+  //     });
+  //   // console.log('to show ', this.toShow)
+  //   this.inicializarForm();
+  // }
   openAddExamDialog() {
 
     // this.isUpdate = false;
@@ -464,19 +465,19 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
       this.setDataParasitologia(data.resultado.parasitologia);
     }
   }
-  agreeExamEdit() {
-    if (this.examLab.tipoExam == 2) {
-      this.recoverDataHematologia();
-      this.listaExamenesAux[this.indexEdit].resultado.hematologia =
-        this.dataHematologia;
-    }
-    if (this.examLab.tipoExam == 1) {
-      this.recoverDataParasitologia();
-      this.listaExamenesAux[this.indexEdit].resultado.parasitologia =
-        this.dataParasitologia;
-    }
-    this.addExamDialog = false;
-  }
+  // agreeExamEdit() {
+  //   if (this.examLab.tipoExam == 2) {
+  //     this.recoverDataHematologia();
+  //     this.listaExamenesAux[this.indexEdit].resultado.hematologia =
+  //       this.dataHematologia;
+  //   }
+  //   if (this.examLab.tipoExam == 1) {
+  //     this.recoverDataParasitologia();
+  //     this.listaExamenesAux[this.indexEdit].resultado.parasitologia =
+  //       this.dataParasitologia;
+  //   }
+  //   this.addExamDialog = false;
+  // }
   setdataHematologia(data) {
     this.resultKey = data.resultado.clave == "ANEMIA" ? true : false;
     this.resultValue = data.resultado.valor;
@@ -597,23 +598,23 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
     this.formParasitario.patchValue({ gotaGruesa: data.gotaGruesa });
     this.formParasitario.patchValue({ frotisLesion: data.frotisLesion });
   }
-  openDialogAddAuxiliarExam() {
-    let dataDialog = {
-      index: 1,
-    };
-    this.ref = this.dialog.open(DialogAddExamenesAuxiliaresComponent, {
-      header: "NUEVO EXAMEN AUXILIAR",
-      width: "65%",
-      data: dataDialog,
-    });
-    this.ref.onClose.subscribe((data: any) => {
-      console.log("data recibido desde el dialog ", data);
-      if (data != undefined) {
-        this.listaExamenesAux.push(data);
-      }
-      this.listaExamenesAux = [...this.listaExamenesAux];
-    });
-  }
+  // openDialogAddAuxiliarExam() {
+  //   let dataDialog = {
+  //     index: 1,
+  //   };
+  //   this.ref = this.dialog.open(DialogAddExamenesAuxiliaresComponent, {
+  //     header: "NUEVO EXAMEN AUXILIAR",
+  //     width: "65%",
+  //     data: dataDialog,
+  //   });
+  //   this.ref.onClose.subscribe((data: any) => {
+  //     console.log("data recibido desde el dialog ", data);
+  //     if (data != undefined) {
+  //       this.listaExamenesAux.push(data);
+  //     }
+  //     this.listaExamenesAux = [...this.listaExamenesAux];
+  //   });
+  // }
   openDialogShowAuxialExam(data) {
     let dataDialog = {
       index: 2,
@@ -629,6 +630,11 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
     let aux = this.formHematologia.value.hemoglobina
     console.log('hemo ', aux);
     this.formHematologia.patchValue({ hbConFactorCorrecion: this.formHematologia.value.hemoglobina - this.factorCorrection });
+  }
+  listarPeticionesExamenes() {
+    this.auxExamService.getListarPeticiones(this.idConsulta).then(res => {
+      this.listaExamenesAux = res.object.examenesAuxiliares;
+    });
   }
 }
 interface Examen {
