@@ -29,7 +29,7 @@ import { PasswordComponent } from './login/password/password.component';
         LoginComponent,
         NotFoundComponent,
         LoginRolComponent,
-        PasswordComponent,
+        PasswordComponent
     ],
     imports: [
         FullCalendarModule,

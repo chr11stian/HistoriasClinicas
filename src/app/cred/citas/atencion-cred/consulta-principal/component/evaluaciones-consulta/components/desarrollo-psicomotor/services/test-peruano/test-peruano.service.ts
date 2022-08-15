@@ -22,13 +22,13 @@ export class TestPeruano {
     addTestPeruano(id,data){
         return this.http.post(`${this.base_url}/${this.bd}/cred/consulta/evaluacion/testperuano/${id}`,data);
     }
-    updatePeruano(id,data) {
+    updatePeruano(id,data) {//no usar
         return this.http.put(`${this.base_url}/${this.bd}/cred/consulta/evaluacion/testperuano/${id}`, data);
     }
-    getTestPeruanoPlan(nroDoc){
+    getTestPeruanoPlan(nroDoc){//no lo usa
         return this.http.get(`${this.base_url}/${this.bd}/cred/evaluacion/desarrollo/0/30/meses/listar/${nroDoc}`);
     }
-    getUltimoTestPeruanoPorEdad(edad,nroDoc){
+    getUltimoTestPeruanoPorEdad(edad,nroDoc){ /* para K? */
         return this.http.get(`${this.base_url}/${this.bd}/cred/consulta/evaluacion/testperuano/esultimo/${edad}/${nroDoc}`);
     }
 
