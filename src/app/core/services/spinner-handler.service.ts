@@ -17,12 +17,13 @@ export class SpinnerHandlerService {
 
   constructor() { }
   show() {
-    this.showSpinner.next(true);
+    Promise.resolve().then(() => { this.showSpinner.next(true) });
     // Swal.fire('Please wait')
     // Swal.showLoading();
   }
   hide() {
-    this.showSpinner.next(  false);
+    Promise.resolve().then(() => { this.showSpinner.next(false) });
+
     // Swal.close();
   }
 

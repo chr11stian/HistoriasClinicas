@@ -110,6 +110,7 @@ export class EedpComponent implements OnInit {
   }
   async saveTest() {
     this.monthPoints = 0;
+    /** calcular el puntaje total */
     let ansMonth = this.arrayEdadEEDPSelected.map(item => {
       if (item.puntajeEEDP) {
         this.monthPoints += parseInt(this.puntaje);
@@ -199,28 +200,28 @@ export class EedpComponent implements OnInit {
       }
     }
     console.log('data eedp to save ', this.dataTestEEDP);
-    this.eedpService.postPromiseAddEEDP(this.idConsulta, this.dataTestEEDP).then(data => {
-
-      console.log('data before validation ', data);
-      if (data.cod == "2005") {
-        Swal.fire({
-          icon: 'error',
-          title: 'No es posible guardar otra vez para el mes ' + this.mesesTotal,
-          showConfirmButton: false,
-          timer: 1500
-        });
-        return
-      }
-      this.arrayRptas = data.testEedp.listaUltimasPreguntas;
-      this.evalResult = data.testEedp.diagnostico;
-      Swal.fire({
-        icon: 'success',
-        title: 'Se Guardo el test EEDP Correctamente',
-        showConfirmButton: false,
-        timer: 1500
-      });
-      this.tableStatus = true;
-    });
+    console.log('coeficiente de desarrollo ', this.coeficienteDesarrollo);
+    // this.eedpService.postPromiseAddEEDP(this.idConsulta, this.dataTestEEDP).then(data => {
+    //   console.log('data before validation ', data);
+    //   if (data.cod == "2005") {
+    //     Swal.fire({
+    //       icon: 'error',
+    //       title: 'No es posible guardar otra vez para el mes ' + this.mesesTotal,
+    //       showConfirmButton: false,
+    //       timer: 1500
+    //     });
+    //     return
+    //   }
+    //   this.arrayRptas = data.testEedp.listaUltimasPreguntas;
+    //   this.evalResult = data.testEedp.diagnostico;
+    //   Swal.fire({
+    //     icon: 'success',
+    //     title: 'Se Guardo el test EEDP Correctamente',
+    //     showConfirmButton: false,
+    //     timer: 1500
+    //   });
+    //   this.tableStatus = true;
+    // });
   }
 
   calculateArea(lista: ItemEEDP[], area: string): number {

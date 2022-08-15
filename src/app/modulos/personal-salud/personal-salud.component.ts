@@ -589,8 +589,10 @@ export class PersonalSaludComponent implements OnInit {
     }
 
     editarRolX(rowData) {
+        console.log('data to edit ', rowData);
         this.isUpdateRolX = true;
         const auxUPS = this.listaUpsX.filter(item => item.nombreUPS == rowData.nombreUPS)
+        console.log('aux ups ', auxUPS, 'lista de ups ', this.listaUpsX);
         this.formRol.get("nombreFuncion").setValue(rowData.nombreFuncion);
         this.formRol.get("ups").setValue(auxUPS[0].id);
         this.formRol.get("rolGuardia").setValue(rowData.rolGuardia);

@@ -209,14 +209,22 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   }
   openAddExamDialog() {
 
-    this.isUpdate = false;
-    this.examLab = {};
-    this.lugarLab = {};
-    this.inicializarForm();
-    this.addExamDialog = true;
-    this.resultKey = false;
-    this.resultValue = "";
-    this.result = "";
+    // this.isUpdate = false;
+    // this.examLab = {};
+    // this.lugarLab = {};
+    // this.inicializarForm();
+    // this.addExamDialog = true;
+    // this.resultKey = false;
+    // this.resultValue = "";
+    // this.result = "";
+    let dataDialog = {
+      index: 1,
+    }
+    this.ref = this.dialog.open(DialogAddExamenesAuxiliaresComponent, {
+      header: "NUEVO EXAMEN AUXILIAR",
+      width: "65%",
+      data: dataDialog,
+    });
   }
 
   agreeAddExamDialog() {
