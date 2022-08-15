@@ -92,9 +92,9 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
     this.recoverDataAuxialsExams();
     let ipressAux = JSON.parse(localStorage.getItem("usuario")).ipress;
     console.log('data de usuario ', ipressAux);
-    this.ajusteHemoService.getFactorCorrepcionXipress(ipressAux.idIpress).subscribe((res: any) => {
-      this.factorCorrection = res.object.factorAjuste;
-    });
+    // this.ajusteHemoService.getFactorCorrepcionXipress(ipressAux.idIpress).subscribe((res: any) => {
+    //   this.factorCorrection = res.object.factorAjuste;
+    // });
   }
 
   ngOnInit(): void { }
@@ -222,7 +222,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
     }
     this.ref = this.dialog.open(DialogAddExamenesAuxiliaresComponent, {
       header: "NUEVO EXAMEN AUXILIAR",
-      width: "65%",
+      width: "50%",
       data: dataDialog,
     });
   }

@@ -29,9 +29,19 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
   listaExamenesAux: ExamenAuxiliar[] = [];
   auxDataExam: ExamenAuxiliar;
   listaExamenes: Examen[] = [
-    { groupName: 1, examName: "TEST DE GRAHAM" },
-    { groupName: 2, examName: "DOSAJE DE HEMOGLOBINA" },
-    { groupName: 1, examName: "PARASITO SERIADO" },
+    {
+      groupName: 'HEMOGLOBINA',
+      listaExamName: [
+        { examName: "TEST DE GRAHAM" },
+        { examName: '"PARASITO SERIADO' }
+      ]
+    },
+    {
+      groupName: 'PARASITOLOGIA',
+      listaExamName: [
+        { examName: "DOSAJE DE HEMOGLOBINA" }
+      ]
+    },
   ];
   listaLugares: Lugar[] = [
     { index: 1, lugarLab: "CONSULTORIO" },
@@ -43,6 +53,7 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
   lugarLab: Lugar = {};
   /**Fin ngModels */
   dataDialog: any;
+  reqLabo: ExamLab;
   constructor(
     private auxExamService: ExamenesAuxiliaresService,
     public ref: DynamicDialogRef,
@@ -53,10 +64,10 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
     console.log("click en auxiliars exam");
 
     this.dataDialog = this.config.data.data;
-    console.log("data del otro dialog ", this.dataDialog.hemoglobina);
+    // console.log("data del otro dialog ", this.dataDialog.hemoglobina);
     if (this.config.data.index == 2) {
       console.log('opcion de ver ');
-      this.toShow = true;
+      // this.toShow = true;
       this.inicializarForm();
       // if (this.dataDialog.datosLaboratorio.subTipo == "HEMATOLOGIA") {
       //   this.examLab.tipoExam = 2;
@@ -437,13 +448,25 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
       console.log('data de examenes disponibles ', res);
     })
   }
+  add() {
+    console.log('datos de exam req ', this.reqLabo);
+  }
 
 }
 interface Examen {
-  groupName: number;
-  examName: string;
+  groupName: string;
+  listaExamName: examName[];
 }
 interface Lugar {
   index?: number;
   lugarLab?: string;
+}
+interface examName {
+  examName: string
+}
+interface ExamLab {
+  subTipo: string,
+  nombreExamen: string,
+  codigoHIS?: string,
+  codigoSIS?: string,
 }
