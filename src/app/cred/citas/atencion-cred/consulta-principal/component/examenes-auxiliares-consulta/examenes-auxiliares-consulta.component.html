@@ -88,7 +88,7 @@
     </div>
 </div>
 
-<p-dialog class="dialogo m-4" [(visible)]="addExamDialog" [style]="{width: '65%'}" [modal]="true" styleClass="p-fluid"
+<!-- <p-dialog class="dialogo m-4" [(visible)]="addExamDialog" [style]="{width: '65%'}" [modal]="true" styleClass="p-fluid"
     (onHide)="closeExamDialog()" class="auxExamCred">
     <ng-template pTemplate="header">
         <h3>NUEVO EXAMEN AUXILIAR</h3>
@@ -123,9 +123,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- <span class="mr-2">Resultado</span>
-                            <p-checkbox [(ngModel)]="result" binary="true" inputId="binary" class="pr-2">
-                            </p-checkbox> -->
                         </div>
                     </div>
                     <div class="col-2 mt-2" *ngIf="examLab.tipoExam == 2">
@@ -154,13 +151,11 @@
                     </div>
                 </div>
             </div>
-            <!-- Observaciones -->
             <div class="col-12" *ngIf="lugarLab.index == 1">
                 <label>Observaciones:</label>
                 <textarea [rows]="3" class="inputfield w-full mt-2" [(ngModel)]="observaciones" pInputTextarea
                     oninput="this.value=this.value.toUpperCase()"></textarea>
             </div>
-            <!-- CAMPOS DE HEMOGLOBINA EN CONSULTORIO -->
             <div class="p-fluid col-9" *ngIf="lugarLab.index == 1 && examLab.tipoExam == 2">
                 <form [formGroup]="formHematologia">
                     <div class="grid border">
@@ -189,7 +184,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="col-1"></div> -->
                         <div class="col-4">
                             <label>Hemoglobina con factor de correción:</label>
                             <div class="flex flex-row">
@@ -202,7 +196,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="col-1"></div> -->
                         <div class="col-4 mt-3">
                             <label>Hematocritos:</label>
                             <div class="flex flex-row">
@@ -218,7 +211,6 @@
                     </div>
                 </form>
             </div>
-            <!-- CAMPOS DE PARASITOLOGIA EN CONSULTORIO -->
             <div class="p-fluid mt-3 col-6" *ngIf="lugarLab.index == 1 && examLab.tipoExam == 1">
                 <form [formGroup]="formParasitario">
                     <div class="grid border">
@@ -247,9 +239,7 @@
                     </div>
                 </form>
             </div>
-
         </div>
-        <!-- FORM HEMATOLOGIA -->
         <form [formGroup]="formHematologia">
             <div class="grid" *ngIf="examLab.tipoExam == 2 && lugarLab.index == 2">
                 <div class="p-fluid col-12">
@@ -262,7 +252,8 @@
                         <div class="flex flex-row">
                             <div class="col-9 p-0">
                                 <input type="text" oninput="this.value=this.value.toUpperCase()" pInputText
-                                    placeholder="" class="inputfield w-full" formControlName="hemoglobina" (keyup)="calcularHemoFactor(value)">
+                                    placeholder="" class="inputfield w-full" formControlName="hemoglobina"
+                                    (keyup)="calcularHemoFactor(value)">
                             </div>
                             <div class="infoInput">
                                 g/dl
@@ -573,7 +564,6 @@
                 </div>
             </div>
         </form>
-        <!-- FORM PARACITARIO -->
         <form [formGroup]="formParasitario">
             <div class="grid" *ngIf="examLab.tipoExam == 1 && lugarLab.index == 2">
                 <div class="p-fluid col-12">
@@ -793,4 +783,5 @@
             (click)="agreeAddExamDialog()"></button>
         <button pButton type=" button" label="Cancelar" class="p-button-danger" (click)="closeExamDialog()"></button>
     </ng-template>
-</p-dialog>
+</p-dialog> -->
+

@@ -1,10 +1,7 @@
-<p-card>
-    <!-- <ng-template pTemplate="header">
-        <h3>NUEVO EXAMEN AUXILIAR</h3>
-    </ng-template> -->
-    <ng-template pTemplate="body">
-        <div class="grid mt-2">
-            <div class="p-fluid col-4">
+<!-- <p-card>
+    <ng-template pTemplate="body"> -->
+<!-- <div class="grid mt-2"> -->
+<!-- <div class="p-fluid col-4">
                 <label>Nombre Examen:</label>
                 <p-dropdown [options]="listaExamenes" [(ngModel)]="examLab" placeholder="SELECCIONA UN EXAMEN"
                     [showClear]="false" appendTo="body" optionLabel="nombreExam">
@@ -15,9 +12,9 @@
                 <p-dropdown [options]="listaLugares" [(ngModel)]="lugarLab" placeholder="SELECCIONA UN LUGAR"
                     [showClear]="false" appendTo="body" optionLabel="lugarLab">
                 </p-dropdown>
-            </div>
-            <!-- CAMPOS DE HEMOGLOBINA EN CONSULTORIO -->
-            <div class="p-fluid col-9" *ngIf="lugarLab.index == 1 && examLab.tipoExam == 2">
+            </div> -->
+<!-- CAMPOS DE HEMOGLOBINA EN CONSULTORIO -->
+<!-- <div class="p-fluid col-9" *ngIf="lugarLab.index == 1 && examLab.tipoExam == 2">
                 <form [formGroup]="formHematologia">
                     <div class="grid border">
                         <div class="col-4 mt-3">
@@ -32,7 +29,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="col-1"></div> -->
                         <div class="col-4">
                             <label>Hemoglobina con factor de correción:</label>
                             <div class="flex flex-row">
@@ -46,7 +42,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="col-1"></div> -->
                         <div class="col-4 mt-3">
                             <label>Hematocritos:</label>
                             <div class="flex flex-row">
@@ -61,9 +56,9 @@
                         </div>
                     </div>
                 </form>
-            </div>
-            <!-- CAMPOS DE PARASITOLOGIA EN CONSULTORIO -->
-            <div class="p-fluid mt-3 col-6" *ngIf="lugarLab.index == 1 && examLab.tipoExam == 1">
+            </div> -->
+<!-- CAMPOS DE PARASITOLOGIA EN CONSULTORIO -->
+<!-- <div class="p-fluid mt-3 col-6" *ngIf="lugarLab.index == 1 && examLab.tipoExam == 1">
                 <form [formGroup]="formParasitario">
                     <div class="grid border">
                         <div class="p-fluid col-6 campo">
@@ -95,10 +90,10 @@
                 <label>Obervaciones:</label>
                 <textarea [rows]="3" class="inputfield w-full mt-2" [(ngModel)]="observaciones" pInputTextarea
                     oninput="this.value=this.value.toUpperCase()"></textarea>
-            </div>
-        </div>
-        <!-- FORM HEMATOLOGIA -->
-        <form [formGroup]="formHematologia">
+            </div> -->
+<!-- </div> -->
+<!-- FORM HEMATOLOGIA -->
+<!-- <form [formGroup]="formHematologia">
             <div class="grid" *ngIf="examLab.tipoExam == 2 && lugarLab.index == 2">
                 <div class="p-fluid col-12">
                     <h2>RESULTADOS HEMATOLOGIA:</h2>
@@ -395,9 +390,9 @@
                     </div>
                 </div>
             </div>
-        </form>
-        <!-- FORM PARACITARIO -->
-        <form [formGroup]="formParasitario">
+        </form> -->
+<!-- FORM PARACITARIO -->
+<!-- <form [formGroup]="formParasitario">
             <div class="grid" *ngIf="examLab.tipoExam == 1 && lugarLab.index == 2">
                 <div class="p-fluid col-12">
                     <h2>RESULTADOS PARASITOLOGÍA:</h2>
@@ -608,19 +603,38 @@
                     </div>
                 </div>
             </div>
-        </form>
-        <div class="col-12 mt-5"></div>
-    </ng-template>
-    <!-- <div class="footer">
-        <button pButton type="button" label="Guardar" (click)="save()" class="p-button-danger mt-4"></button>
-        <button pButton type="button" label="Cancelar" (click)="canceled()"  class="p-button-danger mt-4"></button>
-    </div> -->
+        </form> -->
+<!-- </ng-template> -->
 
-
-    <div class="footer">
+<!-- <div class="footer">
         <button *ngIf="isUpdate" pButton type="button" label="Actualizar" (click)="agreeExamEdit()"></button>
         <button *ngIf="!isUpdate && !toShow" pButton type="button" label="Guardar" class="pr-2"
             (click)="agreeAddExamDialog()"></button>
         <button pButton type=" button" label="Cancelar" class="p-button-danger" (click)="closeExamDialog()"></button>
+    </div>
+</p-card> -->
+<p-card>
+    <div class="col-12">
+        <div class="grid">
+            <div class="col-12 md:col-6 lg:col-6" *ngFor="let exam of listaExamenes">
+                <p-fieldset legend={{exam.groupName}} class="atencion">
+                    <div *ngFor="let item of exam.listaExamName" class="p-field-checkbox grid align-items-center">
+                        <div class="col-10">
+                            <span [for]="item">{{ item.examName }}</span>
+                        </div>
+                        <div class="col-2">
+                            <p-checkbox [inputId]="item" name="item" [value]="item" [(ngModel)]="reqLabo">
+                            </p-checkbox>
+                        </div>
+                    </div>
+                </p-fieldset>
+            </div>
+        </div>
+    </div>
+    <div class="flex justify-content-end">
+        <button style="background-color: #0c3866" class=""
+                pButton type="button"
+                (click)="add()">Guardar
+        </button>
     </div>
 </p-card>
