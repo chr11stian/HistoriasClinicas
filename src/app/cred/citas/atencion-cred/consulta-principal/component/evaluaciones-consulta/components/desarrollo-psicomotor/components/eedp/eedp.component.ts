@@ -112,7 +112,7 @@ export class EedpComponent implements OnInit {
     this.fechaAtencion = this.datePipe.transform(dataEEDP.testEedp.fechaAtencion, 'dd/MM/yyyy');
     this.tableStatus = true;
   }
-
+  /**Guardar EEDP */
   async saveTest() {
     this.monthPoints = 0;
     /** calcular el puntaje total */
@@ -169,7 +169,14 @@ export class EedpComponent implements OnInit {
     /**CALCULAR RESULTADO */
     // console.log('coeficiente de desarrollo ', this.coeficienteDesarrollo);
     if (this.coeficienteDesarrollo == undefined) {
-      console.log('coeficiente indefinido ', this.coeficienteDesarrollo);
+      Swal.fire({
+        icon: 'error',
+        title: 'No se hallo el coeficiente de desarrollo, llene correctamente las casillas.',
+        text: 'Asegurese que este evaluando el mes correctamente.',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      return;
     }
     if (this.coeficienteDesarrollo >= 0.85)
       this.diagnostico = 'NORMAL'
