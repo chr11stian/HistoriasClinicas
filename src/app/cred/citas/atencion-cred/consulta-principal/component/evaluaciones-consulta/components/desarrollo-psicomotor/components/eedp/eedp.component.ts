@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { PacienteService } from 'src/app/core/services/paciente/paciente.service';
 import { EvalAlimenService } from 'src/app/cred/citas/atencion-cred/plan/component/evaluacion-general/service/eval-alimen.service';
 import Swal from 'sweetalert2';
+import { DesarrolloPsicomotorService } from '../../services/desarrollo-psicomotor.service';
 import { EedpService } from '../../services/eedp.service';
 import { AnswerEEDP, DatosConsulta, datosEEDPTabla, escalaEval_EEDP_0_4_anios, ItemEEDP, tablaComparativa, TestEEDP } from '../models/eedp';
 
@@ -55,6 +56,7 @@ export class EedpComponent implements OnInit {
     private evalAlimenService: EvalAlimenService,
     private testService: EvalAlimenService,
     private eedpService: EedpService,
+    private desarrolloPsicomotorService: DesarrolloPsicomotorService,
   ) {
     this.dataConsulta = JSON.parse(localStorage.getItem('documento'));
     this.dataExaminador = JSON.parse(localStorage.getItem('usuario'));
@@ -63,7 +65,8 @@ export class EedpComponent implements OnInit {
     this.dataTableEEDP();
     this.examinador = this.dataExaminador.apellidos + ', ' + this.dataExaminador.nombres;
     this.chronologicalAge = this.dataConsulta.anio * 360 + this.dataConsulta.mes * 30 + this.dataConsulta.dia;
-    this.mesesTotal = this.dataConsulta.anio * 12 + this.dataConsulta.mes;
+    // this.mesesTotal = this.dataConsulta.anio * 12 + this.dataConsulta.mes;
+    this.mesesTotal = this.overallAge(this.dataConsulta.anio, this.dataConsulta.mes)
     this.arrayRptas = [
       { clave: "C", numeroPregunta: 0 },
       { clave: "S", numeroPregunta: 0 },
@@ -217,27 +220,27 @@ export class EedpComponent implements OnInit {
     }
     console.log('data eedp to save ', this.dataTestEEDP);
 
-    // this.eedpService.postPromiseAddEEDP(this.idConsulta, this.dataTestEEDP).then(data => {
-    //   console.log('data before validation ', data);
-    //   if (data.cod == "2005") {
-    //     Swal.fire({
-    //       icon: 'error',
-    //       title: 'No es posible guardar otra vez para el mes ' + this.mesesTotal,
-    //       showConfirmButton: false,
-    //       timer: 1500
-    //     });
-    //     return
-    //   }
-    //   this.arrayRptas = data.testEedp.listaUltimasPreguntas;
-    //   this.evalResult = data.testEedp.diagnostico;
-    //   Swal.fire({
-    //     icon: 'success',
-    //     title: 'Se Guardo el test EEDP Correctamente',
-    //     showConfirmButton: false,
-    //     timer: 1500
-    //   });
-    //   this.tableStatus = true;
-    // });
+    this.eedpService.postPromiseAddEEDP(this.idConsulta, this.dataTestEEDP).then(data => {
+      console.log('data before validation ', data);
+      if (data.cod == "2005") {
+        Swal.fire({
+          icon: 'error',
+          title: 'No es posible guardar otra vez para el mes ' + this.mesesTotal,
+          showConfirmButton: false,
+          timer: 1500
+        });
+        return
+      }
+      this.arrayRptas = data.testEedp.listaUltimasPreguntas;
+      this.evalResult = data.testEedp.diagnostico;
+      Swal.fire({
+        icon: 'success',
+        title: 'Se Guardo el test EEDP Correctamente',
+        showConfirmButton: false,
+        timer: 1500
+      });
+      this.tableStatus = true;
+    });
   }
 
   calculateArea(lista: ItemEEDP[], area: string): number {
@@ -271,9 +274,6 @@ export class EedpComponent implements OnInit {
           return
         this.listaPreguntas.push(prevArray);
       }
-      // if (prevArray.puntajeTotalEedp == parseInt(this.puntaje) * 5) {
-      //   this.mentalMonth = prevArray.edad;
-      // }
     } else
       console.log('indefinido');
   }
@@ -301,20 +301,33 @@ export class EedpComponent implements OnInit {
     }
   }
 
-  confirmSaveTest() {
-    Swal.fire({
-      title: 'Esta Seguro que Desea Guardar los Cambios?',
-      icon: 'question',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Confirmar',
-      cancelButtonText: 'Cancelar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.saveTest();
+  async confirmSaveTest() {
+    await this.desarrolloPsicomotorService.verifyEvaluatedMonth(this.mesesTotal, this.dataConsulta.nroDocumento).then(res => {
+      if (res) {
+        Swal.fire({
+          icon: 'info',
+          title: 'Ya se guardo una evaluación para este mes',
+          showConfirmButton: false,
+          timer: 2000
+        });
+        return
+      } else {
+        Swal.fire({
+          title: 'Esta Seguro que Desea Guardar los Cambios?',
+          icon: 'question',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Confirmar',
+          cancelButtonText: 'Cancelar'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.saveTest();
+          }
+        })
       }
-    })
+    });
+
   }
   dataTableEEDP() {
     this.eedpService.getDatosTablaEEDP().then(res => {
@@ -322,35 +335,28 @@ export class EedpComponent implements OnInit {
       console.log('data de tabla res eedp ', this.dataTabla);
     });
   }
-  dataConsoleToPerderTiempo() {
-    this.mesesTotal.toFixed(2)
-  }
 
   estimateMonthEEDP(actualYear: number, actualMonth: number): number {
     let EEDPMonth: number = 0;
     let indexMonth: number = 0;
-    actualYear == 0 ? EEDPMonth = actualMonth : EEDPMonth = 12 * actualYear
-      + actualMonth;
+    EEDPMonth = this.overallAge(actualYear, actualMonth);
     if (EEDPMonth == 11)
-      EEDPMonth = 12
+      EEDPMonth = 12;
     if (EEDPMonth == 13 || EEDPMonth == 14)
-      EEDPMonth = 15
+      EEDPMonth = 15;
     if (EEDPMonth == 16 || EEDPMonth == 17)
-      EEDPMonth = 18
+      EEDPMonth = 18;
     if (EEDPMonth == 19 || EEDPMonth == 20)
-      EEDPMonth = 21
+      EEDPMonth = 21;
     if (EEDPMonth == 22 || EEDPMonth == 23)
-      EEDPMonth = 24
-    console.log('mes actual para eedp ', EEDPMonth);
-    // console.log('eedp month ', this.items.indexOf(item => item.edadNro == 10));
+      EEDPMonth = 24;
 
-    // this.items.indexOf(item => {
-    //   console.log('items de eedp ', item);
-    //   item.edadNro == EEDPMonth
-    // })
-    indexMonth = this.items.map((item: any) => { return item.edadNro }).indexOf(EEDPMonth)
-    indexMonth--
+    indexMonth = this.items.map((item: any) => { return item.edadNro }).indexOf(EEDPMonth);
+    indexMonth--;
+
     return indexMonth;
-
+  }
+  overallAge(year: number, month: number): number {
+    return 12 * year + month;
   }
 }
