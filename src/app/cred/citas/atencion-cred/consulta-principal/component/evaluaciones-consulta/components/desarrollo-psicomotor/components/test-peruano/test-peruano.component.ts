@@ -223,4 +223,23 @@ export class TestPeruanoComponent implements OnInit {
     console.log("estado Arreglo", this.arregloForm);
     this.encontrarDiagnostico();
   }
+  Colores=[
+    "#4C4C4C",
+    "#F0047F",
+    "#FF6601",
+    "#F30E19",
+    "#F93D5A",
+    "#FEA61D",
+    "#F5923B",
+    "#DD360C",
+    "#DD6910",
+    "#5BBA7D",
+    "#5AB543",
+    "#9BC922",
+    "#5EAA29",
+    "#62C2BB",
+    "#5C97C6",
+    "#5E64AD",
+    "#B573B6",
+  ]
 }
