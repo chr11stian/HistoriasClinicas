@@ -88,8 +88,4 @@ export class InterceptorService implements HttpInterceptor {
       )
   }
 
-  openDialog() {
-    // this.messageService.add({key: 'c', sticky: true, severity:'info', summary:'Are you sure?', detail:'Confirm to proceed'});
-  }
-
 }
