@@ -21,16 +21,13 @@ export class TestDesarrolloComponent implements OnInit {
   listaTestPeruano: any[];
   datePipe = new DatePipe("en-US");
   data=JSON.parse(localStorage.getItem('documento'))
-  // fecha: Date = new Date();
   fechas=[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]
-
   isTodo=true;
   constructor(private testPeruanoService: TestPeruano,) {
     this.buildFormArray() 
     this.testPeruanoService.getImagenes().then((data) => {
       this.imagenes = data;
     });
-   
   }
   ngOnInit(): void {
     this.getTestPeruanoPlan();
@@ -69,11 +66,8 @@ export class TestDesarrolloComponent implements OnInit {
           });
       })
       
-    }
-    
+    } 
   }
- 
-  //rehaciendo
   ruta(sale: any, mes: number) {
     return sale[`img_${mes}`];
   }
@@ -86,18 +80,29 @@ export class TestDesarrolloComponent implements OnInit {
       })
       this.arregloForm.addControl(`${i}`,aux)
     })
-    console.log('la matris',this.arregloForm); 
   }
-
   getControl(i:number,j:number):AbstractControl{  
     const A:any =this.arregloForm.get(`${i}`)
-    const B:any=A.controls[j]
+    const B:any=A.controls[j] 
     return B
   }
-  pruebas() {
-    console.log("arreglo fechas:",this.fechas);
-  }
-
-
-
+  Colores=[
+    "#4C4C4C",
+    "#F0047F",
+    "#FF6601",
+    "#F30E19",
+    "#F93D5A",
+    "#FEA61D",
+    "#F5923B",
+    "#DD360C",
+    "#DD6910",
+    "#5BBA7D",
+    "#5AB543",
+    "#9BC922",
+    "#5EAA29",
+    "#62C2BB",
+    "#5C97C6",
+    "#5E64AD",
+    "#B573B6",
+  ]
 }

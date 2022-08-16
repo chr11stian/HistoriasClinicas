@@ -86,13 +86,13 @@
                    </tr>
                    <tr>
                        <th style="background-color: #FF8300; border-radius: 15px; width: 80px; color:black; font-weight: bold; padding: 0px; margin: 0px;">FECHA</th>
-                       <th *ngFor="let mes of listaMeses;let i=index" [ngStyle]="{'background-color':i%2==1 ?'#FFFF80' : ' #FDC070' }">
-                        <div *ngIf="!isTodo;else casoContrario">
-                            <p-calendar *ngIf="mes==edad" [(ngModel)]="fechas[i]" disabled="true" [ngModelOptions]="{standalone: true}" showTime="true" showSeconds="true" dateFormat="dd-mm-yy" [ngClass]="{'fondo2':i%2==0,'fondo1':i%2==1}"></p-calendar>
-                        </div>
-                        <ng-template #casoContrario>
-                            <p-calendar  *ngIf="fechas[i]" [(ngModel)]="fechas[i]" disabled="true" [ngModelOptions]="{standalone: true}" showTime="true" showSeconds="true" dateFormat="dd-mm-yy" [ngClass]="{'fondo2':i%2==0,'fondo1':i%2==1}"></p-calendar>
-                        </ng-template>
+                       <th *ngFor="let mes of listaMeses;let i=index" style="background-color: white;">
+                            <div *ngIf="!isTodo;else casoContrario">
+                                <p-calendar *ngIf="mes==edad" [(ngModel)]="fechas[i]" disabled="true" [ngModelOptions]="{standalone: true}" showTime="true" showSeconds="true" dateFormat="dd-mm-yy"  [ngStyle]="{'background-color':Colores[i] }"></p-calendar>
+                            </div>
+                            <ng-template #casoContrario>
+                                <p-calendar  *ngIf="fechas[i]" [(ngModel)]="fechas[i]" disabled="true" [ngModelOptions]="{standalone: true}" showTime="true" showSeconds="true" dateFormat="dd-mm-yy"  [ngStyle]="{'background-color':Colores[i] }"></p-calendar>
+                            </ng-template>
 
                         </th>
                    </tr>
@@ -116,7 +116,10 @@
                            <img *ngIf="true;"class="button-menu" [src]="ruta(sale,mes)">
                            <!-- <p-radioButton [name]="sale.letter" [value]="mes" [(ngModel)]="arreglo[rowIndex]"></p-radioButton> -->
                            <!-- <p-radioButton [name]="rowIndex" [value]="mes" [formControlName]="rowIndex"  ></p-radioButton> -->
-                           <p-checkbox [formControlName]="j"  [binary]="true"></p-checkbox>
+                           <div *ngIf="getControl(rowIndex,j).value">    
+                                <!-- <div>{{getControl(rowIndex,j).value}}</div> -->
+                               <p-checkbox  [formControlName]="j"  [binary]="true"></p-checkbox>
+                            </div>
                            <!-- <input type="text"  [formControlName]="j"> -->
                        </td>
                    </tr>
@@ -150,9 +153,9 @@
    </div>
 
    <ng-template pTemplate="footer">
-    <button pButton  (click)="pruebas()"> 
+    <!-- <button pButton  (click)="pruebas()"> 
         Probar
-    </button>  
+    </button>   -->
    
    </ng-template>
 

@@ -1,3 +1,6 @@
+p-radiobutton >>> .p-radiobutton .p-radiobutton-icon {
+    content: url("src/assets/svg-icons/check-svgrepo-com.svg");
+ }
 :host ::ng-deep .fondorojo {
     background-color: #fcbfba !important;
 }
@@ -6,7 +9,7 @@ p-card >>> .p-card .p-card-title{
     margin: 0.5rem 0rem 0.5rem 0.5rem;
 }
 .tabla{
-    width:100%;
+    width:100%; 
 }
 ::ng-deep .fondo1 .p-calendar .p-inputtext{
 
