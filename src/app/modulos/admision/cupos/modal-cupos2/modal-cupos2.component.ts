@@ -65,6 +65,7 @@ export class ModalCupos2Component implements OnInit {
         { name: 'GRATUITO', value: 'GRATUITO' },
         { name: 'PENDIENTE ', value: 'PENDIENTE' }
     ];
+    listaTranseuntes: string[] = ['TRANSEUNTE', 'RECURRENTE'];
 
     public pacienteComponent: PacienteComponent;
 
@@ -455,7 +456,7 @@ export class ModalCupos2Component implements OnInit {
                 nroTelefono: this.formPacientesCupo.value.celular,
             },
 
-            transeunte: false,
+            transeunte: this.formPacientesCupo.value.transeunte == 'TRANSEUNTE' ? true : false,
             detallePago: this.detallePago,
             tipoConsulta: this.cuposService.tipoConsulta,
 
@@ -466,7 +467,7 @@ export class ModalCupos2Component implements OnInit {
             },
 
         };
-        console.log("guardar", req);
+        console.log("guardar cupo ", req);
         this.cuposService.saveCupos(req).subscribe(
             (result: any) => {
                 console.log(result.object);
@@ -633,7 +634,7 @@ export class ModalCupos2Component implements OnInit {
         const formC: AbstractControl = this.formPacientesCupo.get(control);
         return formC.invalid && (formC.dirty || formC.touched);
     }
-    tipoPagoChg(){
+    tipoPagoChg() {
 
         this.detallePago = this.formPacientesCupo.value.detallePago
         console.log('detalle Pago', this.detallePago);

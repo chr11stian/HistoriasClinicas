@@ -57,18 +57,8 @@ export class InterceptorService implements HttpInterceptor {
         },
       });
       this.spinnerHandler.show();
-      // this.spinnerHandler.handleRequest('plus');
-      // cloned = req.clone({
-      //     headers: req.headers.set("Authorization", "Bearer " + idToken)
-      // });
-      // if (!this.countRequest) {
-      //   // Swal.fire('Please wait')
-      //   // Swal.showLoading();
-      //   this.openDialog();
-      // }
       this.countRequest++;
     }
-    console.log("cloned ", cloned);
     return next.handle(cloned)
       .pipe(
         catchError((response) => {
@@ -96,10 +86,6 @@ export class InterceptorService implements HttpInterceptor {
           }
         })
       )
-  }
-
-  openDialog() {
-    // this.messageService.add({key: 'c', sticky: true, severity:'info', summary:'Are you sure?', detail:'Confirm to proceed'});
   }
 
 }
