@@ -89,8 +89,31 @@ export class EvaluacionAlimentacionComponent implements OnInit {
           "listaPreguntas":this.arregloCalificacion(),
           "diagnostico":this.calcularDiagnostico()
       }
-  }
-    console.log('todo el form control ',inputRequest)
+    }
+    // if(true){
+
+    //     Swal.fire({
+    //       icon: 'error',
+    //       title: 'Ingrese la Fecha',
+    //       text: '¡Es necesaria la fecha!',
+    //       showConfirmButton: false,
+    //       timer: 1000,
+    //     })
+    //     return 
+    //   }
+    Swal.fire({
+      title: 'Esta seguro que desea guardar este registro?',
+      showDenyButton: false,
+      showCancelButton: true,
+      confirmButtonText: 'Guardar',
+    }).then((result) => {
+      // if (result.isConfirmed) {
+      //   this.evalAlimenService.addEvaluacionAlimenticiaCred(this.data.idConsulta,cadena).subscribe((res: any) => {
+      //     console.log('se guardo correctamente ', res.object);
+      //     this.mostrarMensajeDiagnostico(dx);
+      //   })  
+      // }
+    })
   }
   arregloCalificacion() {
     const numeroColumna=this.edadMeses
