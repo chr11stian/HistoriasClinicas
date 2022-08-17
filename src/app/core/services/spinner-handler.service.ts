@@ -21,10 +21,10 @@ export class SpinnerHandlerService {
     // Swal.fire('Please wait')
     // Swal.showLoading();
   }
+
   hide() {
     Promise.resolve().then(() => { this.showSpinner.next(false) });
 
     // Swal.close();
   }
-
 }
