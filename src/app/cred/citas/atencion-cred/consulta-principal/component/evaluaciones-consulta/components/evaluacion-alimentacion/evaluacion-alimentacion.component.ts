@@ -13,9 +13,25 @@ import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/for
   styleUrls: ['./evaluacion-alimentacion.component.css']
 })
 export class EvaluacionAlimentacionComponent implements OnInit {
+  fecha:Date=new Date();
+  datePipe = new DatePipe("en-US");
+  data=JSON.parse(localStorage.getItem('documento'))
   arregloForm: FormGroup;
   evaluacionAlimenticia=[];
-  listaMesesEvaluar=['RN','1m','2m','3m','4m','5m','6m','7m','8m','9m','10m','11m','12m','14m','16m','18m','20m','22m','24m','27m','30m','33m','36m','39m','42m']
+  listaMesesEvaluar=[{texto:'RN',numero:0},{texto:'1m',numero:1}
+  ,{texto:'2m',numero:2},{texto:'3m',numero:3}
+  ,{texto:'4m',numero:4},{texto:'5m',numero:5}
+  ,{texto:'6m',numero:6},{texto:'7m',numero:7}
+  ,{texto:'8m',numero:8},{texto:'9m',numero:9}
+  ,{texto:'10m',numero:10},{texto:'11m',numero:11}
+  ,{texto:'12m',numero:12},{texto:'14m',numero:14}
+  ,{texto:'16m',numero:16},{texto:'18m',numero:18}
+  ,{texto:'20m',numero:20},{texto:'22m',numero:22}
+  ,{texto:'24m',numero:24},{texto:'27m',numero:27}
+  ,{texto:'30m',numero:30},{texto:'33m',numero:33}
+  ,{texto:'36m',numero:36},{texto:'39m',numero:39}
+  ,{texto:'42m',numero:42}
+]
   listaPreguntas=[
   {codigo:'PREG_1',titulo:'1. ¿El niño(a) esta recibiendo lactancia materna? (explorar)'},
   {codigo:'PREG_2',titulo:'2. ¿La tecnica de LM es adecuada? (explorar y observar)'},
@@ -36,8 +52,11 @@ export class EvaluacionAlimentacionComponent implements OnInit {
   {codigo:'OBS',titulo:'Observaciones'},
   {codigo:'DIAGNOSTICO',titulo:'Diagnostico'},
   ]
+  edadMeses:number=0;//edad real en meses
+  edad:number=0;//edad evaluada en el rango de edades
   constructor(){
     this.buildFormArray()
+    this.edadMeses=this.data.anio*12+this.data.mes    
   }
   ngOnInit(): void {
   } 
@@ -46,7 +65,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     this.listaPreguntas.forEach((element,i)=>{
       const aux=new FormArray([]);
       this.listaMesesEvaluar.forEach((element2,j)=>{
-        aux.push(new FormControl({value:null,disabled:true}))
+        aux.push(new FormControl({value:false,disabled:false }))
       })
       this.arregloForm.addControl(`${i}`,aux)
     })

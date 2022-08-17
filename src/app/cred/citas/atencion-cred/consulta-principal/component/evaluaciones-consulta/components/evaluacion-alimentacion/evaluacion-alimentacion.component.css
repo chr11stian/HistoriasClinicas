@@ -97,3 +97,19 @@ p-calendar >>> .p-button {
     text-align: center;
     word-wrap: break-word;
 } */
+:host::ng-deep .p-datatable .p-datatable-thead > tr > th.primeraFila {
+    display: flex;
+    width: 400px;
+    text-align: center;
+    /* border: 1px solid #b6b6b6; */
+    /* background-color: #dddddd; */
+    background-color: red;
+}
+:host::ng-deep .p-datatable .p-datatable-thead > tr > th.segundaFilaMas {
+    display: flex;
+    width: 400px;
+    text-align: center;
+    /* border: 1px solid #b6b6b6; */
+    /* background-color: #dddddd; */
+    background-color: blue;
+}

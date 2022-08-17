@@ -1,37 +1,45 @@
-<p-card>
-    <p-toolbar styleClass="p-mb-4">
-        <ng-template pTemplate="left">
-            <h3 class="p-m-0">EVALUACION DE LA ALIMENTACIÓN DE LA NIÑA Y EL NIÑO</h3>
-        </ng-template>
-    </p-toolbar>
-    <form [formGroup]="arregloForm">
-        <p-table
-        responsiveLayout="scroll"
-        [value]="listaPreguntas"
-        scrollDirection="both"
-        scrollHeight="100%" styleClass="mt-3"
-        [virtualRowHeight]="40" 
-        styleClass="p-datatable-gridlines">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th style="display: flex ;width:300px;">Edad                      </th>
-                    <th *ngFor="let mes of listaMesesEvaluar">{{mes}}</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-sale let-rowIndex="rowIndex">
-                <tr [formArrayName]="rowIndex">
-                    <td>
-                        {{sale.titulo}}
-                    </td>
-                    <td *ngFor="let mes of listaMesesEvaluar">
-                        <p-checkbox    [binary]="true"></p-checkbox>
-                    </td>
-                </tr>
 
-            </ng-template>
-        </p-table>
-    </form>
-</p-card>
+<p-toolbar styleClass="p-mb-4">
+    <ng-template pTemplate="left">
+        <h3 class="p-m-0">EVALUACION DE LA ALIMENTACIÓN DE LA NIÑA Y EL NIÑO</h3>
+    </ng-template>
+</p-toolbar>
+<form [formGroup]="arregloForm">
+    <p-table
+    responsiveLayout="scroll"
+    [value]="listaPreguntas"
+    scrollDirection="both"
+    scrollHeight="100%" styleClass="mt-3"
+    [virtualRowHeight]="40" 
+    styleClass="p-datatable-gridlines">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="display:flex;width:250px;">Edad</th>
+                <th *ngFor="let mes of listaMesesEvaluar">{{mes.texto}}</th>
+            </tr>
+            <tr>
+                <th>Fecha</th>
+                <th  *ngFor="let mes of listaMesesEvaluar">
+                    <p-calendar [(ngModel)]="fecha" [ngModelOptions]="{standalone: true}" dateFormat="dd-mm-yy"></p-calendar>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-sale let-rowIndex="rowIndex">
+            <tr [formArrayName]="rowIndex">
+                <td>
+                    {{sale.titulo}}
+                </td>
+                <!-- <td *ngFor="let mes of listaMesesEvaluar;let j=index"  style="background-color:red " > -->
+                    
+                    <td *ngFor="let mes of listaMesesEvaluar;let j=index"  [ngStyle]="{'background-color':mes.numero==edadMeses?'#fcbfba':'white'}">
+                    <p-toggleButton *ngIf="mes.numero==edadMeses" [formControlName]="j" [binary]="true" onIcon="pi pi-check" offIcon="pi pi-times"></p-toggleButton>
+                    <!-- <p-checkbox [formControlName]="j" [binary]="true"></p-checkbox> -->
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</form>
+
 <!-- <p-dialog header="RECUERDA QUE:" [(visible)]="displayPosition" [position]="position" [modal]="true" [style]="{width: '50vw'}"
           [draggable]="false" [resizable]="false">
     <h3> EL NIÑO(A) TIENE: {{edadMeses}}  MESES. </h3>
