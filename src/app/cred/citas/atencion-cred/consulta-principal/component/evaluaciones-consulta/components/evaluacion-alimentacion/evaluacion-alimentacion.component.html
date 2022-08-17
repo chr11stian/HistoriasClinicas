@@ -14,8 +14,8 @@
     styleClass="p-datatable-gridlines">
         <ng-template pTemplate="header">
             <tr>
-                <th style="display:flex;width:250px;">Edad</th>
-                <th *ngFor="let mes of listaMesesEvaluar">{{mes.texto}}</th>
+                <th style="display:flex;width:300px">Edad</th>
+                <th  *ngFor="let mes of listaMesesEvaluar">{{mes.texto}}</th>
             </tr>
             <tr>
                 <th>Fecha</th>
@@ -30,7 +30,7 @@
                     {{sale.titulo}}
                 </td>
                 <!-- <td *ngFor="let mes of listaMesesEvaluar;let j=index"  style="background-color:red " > -->
-                    
+                     
                     <td *ngFor="let mes of listaMesesEvaluar;let j=index"  [ngStyle]="{'background-color':mes.numero==edadMeses?'#fcbfba':'white'}">
                     <p-toggleButton *ngIf="mes.numero==edadMeses" [formControlName]="j" [binary]="true" onIcon="pi pi-check" offIcon="pi pi-times"></p-toggleButton>
                     <!-- <p-checkbox [formControlName]="j" [binary]="true"></p-checkbox> -->
@@ -39,6 +39,9 @@
         </ng-template>
     </p-table>
 </form>
+<button pButton (click)="save()" >
+    Guardar
+</button>
 
 <!-- <p-dialog header="RECUERDA QUE:" [(visible)]="displayPosition" [position]="position" [modal]="true" [style]="{width: '50vw'}"
           [draggable]="false" [resizable]="false">

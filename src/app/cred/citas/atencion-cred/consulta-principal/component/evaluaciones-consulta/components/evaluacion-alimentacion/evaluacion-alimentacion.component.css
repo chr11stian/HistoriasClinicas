@@ -113,3 +113,6 @@ p-calendar >>> .p-button {
     /* background-color: #dddddd; */
     background-color: blue;
 }
+::ng-deep  .p-datatable table {
+    width: auto;
+}

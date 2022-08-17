@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import {dato} from "../../../../../../models/data";
 import {MessageService} from "primeng/api";
 import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
+import { listaPregunta } from '../desarrollo-psicomotor/components/models/tepsi';
 
 @Component({
   selector: 'app-evaluacion-alimentacion',
@@ -74,5 +75,34 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     const A:any =this.arregloForm.get(`${i}`)
     const B:any=A.controls[j] 
     return B
+  }
+  save(){
+    const inputRequest={
+      nombreEvaluacion:"EVALUACION ALIMENTACION",
+      codigoCIE10:"Z0017",
+      codigoHIS:"Z0017",
+      codigoPrestacion:"0001",
+      evaluacionAlimentacionMes:{
+          "fechaRegistro": this.datePipe.transform(this.fecha,'yyyy-MM-dd HH:mm:ss'),
+          "edad": this.edadMeses,
+          "docExaminador":"24242424",
+          "listaPreguntas":this.arregloCalificacion(),
+          "diagnostico": "ALIMENTACION ADECUADA"
+      }
+  }
+    console.log('todo el form control ',inputRequest)
+  }
+  arregloCalificacion() {
+    const numeroColumna=this.edadMeses
+    const arreglo = [];
+    this.listaPreguntas.forEach((element,index)=>{
+      const objeto={
+        codigo:this.listaPreguntas[index].codigo,
+        estado:this.getControl(index,numeroColumna).value,
+        descripcion:this.listaPreguntas[index].titulo
+      }
+      arreglo.push(objeto)
+    })
+    return arreglo;
   }
 }
