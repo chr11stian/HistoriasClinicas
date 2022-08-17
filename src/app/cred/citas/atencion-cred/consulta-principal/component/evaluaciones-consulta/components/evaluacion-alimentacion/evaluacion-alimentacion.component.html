@@ -1,9 +1,42 @@
-
-<p-toolbar styleClass="p-mb-4">
-    <ng-template pTemplate="left">
-        <h3 class="p-m-0">EVALUACION DE LA ALIMENTACIÓN DE LA NIÑA Y EL NIÑO</h3>
+<p-table class="table-over" [value]="arregloTest" #dt styleClass="p-datatable-gridlines p-datatable-customers" [rows]="10"
+         [rowsPerPageOptions]="[10, 25, 50]"
+         [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+         currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+    <ng-template pTemplate="caption">
+            <div class="flex justify-content-between">
+                <div class="table-header mt-2">
+                    RESULTADOS DE EVALUACION DE LA ALIMENTACIÓN DE LA NIÑA Y EL NIÑO{{edadMeses}} meses
+                </div>
+                <div *ngIf="!hasTaken">
+                    <button pButton pRipple label="Evaluar Test" iconPos="right" icon="pi pi-plus-circle"
+                    class="guardar mr-2" (click)="displayDialog=true" [disabled]="false"  style="background-color: #0c3866"></button>
+                </div>
+            </div>
     </ng-template>
-</p-toolbar>
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="text-align: center" class="font-2">Nro</th>
+            <th style="text-align: center" class="font-2">FECHA</th>
+            <th style="text-align: center" class="font-2">EDAD TOMADA EL TEST</th>
+            <th style="text-align: center" class="font-2">DIAGNÓSTICO</th>
+            <th style="text-align: center" class="font-2">ACCIÓN</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+        <tr>
+            <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+            <td style="text-align: center">{{ rowData.fecha | date: 'dd-MM-yyyy HH:mm:ss'}}</td>
+            <td style="text-align: center">{{ rowData.edad }} (meses)</td>
+            <td style="text-align: center">{{ rowData.diagnostico }}</td>
+            <td style="text-align: center">
+                <button pButton (click)="displayDialog=true" pTooltip="Ver Test" pRipple type="button"
+                        icon="pi pi-eye" class="p-button-rounded p-button-help m-1">
+                </button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+<p-dialog header="EVALUACION DE LA ALIMENTACIÓN DE LA NIÑA Y EL NIÑO" [(visible)]="displayDialog" [modal]="true" [style]="{width: '80vw'}" [maximizable]="true" [draggable]="false" [resizable]="false">
 <form [formGroup]="arregloForm">
     <p-table
     responsiveLayout="scroll"
@@ -11,10 +44,11 @@
     scrollDirection="both"
     scrollHeight="100%" styleClass="mt-3"
     [virtualRowHeight]="40" 
-    styleClass="p-datatable-gridlines">
+    styleClass="p-datatable-gridlines"
+    >
         <ng-template pTemplate="header">
             <tr>
-                <th style="display:flex;width:300px">Edad</th>
+                <th style="width:50%;">Edad</th>
                 <th  *ngFor="let mes of listaMesesEvaluar">{{mes.texto}}</th>
             </tr>
             <tr>
@@ -37,11 +71,14 @@
                 </td>
             </tr>
         </ng-template>
+        <ng-template pTemplate="footer">
+        
+        <button *ngIf="!hasTaken" pButton pRipple type="button" label="Guardar" style="background-color: #0c3866;" icon="pi pi-save" (click)="save()" iconPos="right"></button>
+        <!-- <button pButton pRipple type="button" label="Cancelar" class="p-button-danger" icon="pi pi-times" (click)="pruebas()" iconPos="right"></button> -->
+    </ng-template>
     </p-table>
 </form>
-<button pButton (click)="save()" >
-    Guardar
-</button>
+</p-dialog>
 
 <!-- <p-dialog header="RECUERDA QUE:" [(visible)]="displayPosition" [position]="position" [modal]="true" [style]="{width: '50vw'}"
           [draggable]="false" [resizable]="false">

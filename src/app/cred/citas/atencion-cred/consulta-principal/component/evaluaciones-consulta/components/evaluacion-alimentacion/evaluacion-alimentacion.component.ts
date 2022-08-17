@@ -54,12 +54,14 @@ export class EvaluacionAlimentacionComponent implements OnInit {
   ]
   edadMeses:number=0;//edad real en meses
   edad:number=0;//edad evaluada en el rango de edades
-  constructor(){
+  displayDialog:boolean=false;
+  constructor(private evaluacionAlimentacionService: EvaluacionAlimentacionService){
     this.buildFormArray()
-    // this.edadMeses=this.data.anio*12+this.data.mes   
-    this.edadMeses=0; 
+    this.edadMeses=this.data.anio*12+this.data.mes   
+    // this.edadMeses=0; 
   }
   ngOnInit(): void {
+      this.getTestAlimentacion()
   } 
   buildFormArray() {
     this.arregloForm = new FormGroup({});
@@ -75,6 +77,30 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     const A:any =this.arregloForm.get(`${i}`)
     const B:any=A.controls[j] 
     return B
+  }
+  hasTaken:boolean=false
+  arregloTest=[]
+  getTestAlimentacion(){
+    this.evaluacionAlimentacionService.getEvaluacionAlimenticiaCred(this.data.idConsulta).subscribe((resp:any)=>{
+      if(resp.cod=='2121' && resp.object!=null){
+        this.hasTaken=true
+        const ObjetoAlimentacion={
+          fecha:resp.object.evaluacionAlimentacionMes.fechaRegistro,
+          edad:resp.object.evaluacionAlimentacionMes.edad,
+          diagnostico:resp.object.evaluacionAlimentacionMes.diagnostico
+        }
+        this.arregloTest.push(ObjetoAlimentacion)
+        const preguntasArreglo:any[]=resp.object.evaluacionAlimentacionMes.listaPreguntas;
+        preguntasArreglo.forEach((element,index)=>{
+          this.getControl(index,resp.object.evaluacionAlimentacionMes.edad).setValue(element.estado)
+        })
+        this.fecha=new Date(resp.object.evaluacionAlimentacionMes.fechaRegistro)
+        this.edadMeses=resp.object.evaluacionAlimentacionMes.edad
+        this.desabilitarCheckButton();
+      }
+      
+    })
+
   }
   save(){
     const inputRequest={
@@ -107,12 +133,11 @@ export class EvaluacionAlimentacionComponent implements OnInit {
       showCancelButton: true,
       confirmButtonText: 'Guardar',
     }).then((result) => {
-      // if (result.isConfirmed) {
-      //   this.evalAlimenService.addEvaluacionAlimenticiaCred(this.data.idConsulta,cadena).subscribe((res: any) => {
-      //     console.log('se guardo correctamente ', res.object);
-      //     this.mostrarMensajeDiagnostico(dx);
-      //   })  
-      // }
+      if (result.isConfirmed) {
+        this.evaluacionAlimentacionService.addEvaluacionAlimenticiaCred(this.data.idConsulta,inputRequest).subscribe((res: any) => {
+            
+        })  
+      }
     })
   }
   arregloCalificacion() {
@@ -169,6 +194,12 @@ export class EvaluacionAlimentacionComponent implements OnInit {
       }
       else return 'NINO CON ALIMENTACION COMPLEMENTARIA INADECUADA'
     }
+
+  }
+  desabilitarCheckButton(){
+    this.listaPreguntas.forEach((element,index)=>{
+      this.getControl(index,this.edadMeses).disable()
+    })
 
   }
 }
