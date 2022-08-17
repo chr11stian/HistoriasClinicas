@@ -51,13 +51,13 @@ export class EvaluacionAlimentacionComponent implements OnInit {
   {codigo:'PREG_15',titulo:'15. ¿Es el niño(a) beneficiario de algún programa de apoyo social? (Especificar)'},
   {codigo:'PREG_16',titulo:'16. ¿Cuántos sobres de micronutrientes consumio en el mes?'},
   {codigo:'OBS',titulo:'Observaciones'},
-  {codigo:'DIAGNOSTICO',titulo:'Diagnostico'},
   ]
   edadMeses:number=0;//edad real en meses
   edad:number=0;//edad evaluada en el rango de edades
   constructor(){
     this.buildFormArray()
-    this.edadMeses=this.data.anio*12+this.data.mes    
+    // this.edadMeses=this.data.anio*12+this.data.mes   
+    this.edadMeses=0; 
   }
   ngOnInit(): void {
   } 
@@ -87,7 +87,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
           "edad": this.edadMeses,
           "docExaminador":"24242424",
           "listaPreguntas":this.arregloCalificacion(),
-          "diagnostico": "ALIMENTACION ADECUADA"
+          "diagnostico":this.calcularDiagnostico()
       }
   }
     console.log('todo el form control ',inputRequest)
@@ -104,5 +104,48 @@ export class EvaluacionAlimentacionComponent implements OnInit {
       arreglo.push(objeto)
     })
     return arreglo;
+  }
+  calcularCie10(dx){
+
+    if(dx == 'NINO CON LACTANCIA MATERNA CONTINUADA'){
+      return 'Z0016'
+    }else{
+      if(dx == 'PROBLEMA NO ESPECIFICADO DE LA ALIMENTACION DEL RECIEN NACIDO'){
+        return 'P929'
+      }
+      else{
+        if(dx == 'NINO CON ALIMENTACION COMPLEMENTARIA ADECUADA') {
+          return 'Z0017'
+        }
+        else{
+          return 'SINCIE'
+        }
+      }
+    }
+}
+  calcularDiagnostico(){
+    if(this.edadMeses<=6)
+    {
+      if(this.getControl(0,this.edadMeses).value==true && this.getControl(1,this.edadMeses).value==true && this.getControl(2,this.edadMeses).value==true && this.getControl(3,this.edadMeses).value!=true && this.getControl(4,this.edadMeses).value!=true && this.getControl(5,this.edadMeses).value!=true){
+          return 'NINO CON LACTANCIA MATERNA CONTINUADA'
+      }
+      else 
+      return 'PROBLEMA NO ESPECIFICADO DE LA ALIMENTACION DEL RECIEN NACIDO'
+    }
+    else
+    {
+      if(this.edadMeses>=7 && this.edadMeses <=22){
+          if(this.getControl(0,this.edadMeses).value==true  && this.getControl(3,this.edadMeses).value==true && this.getControl(4,this.edadMeses).value==true && this.getControl(5,this.edadMeses).value==true && this.getControl(6,this.edadMeses).value==true && this.getControl(7,this.edadMeses).value==true && this.getControl(8,this.edadMeses).value==true && this.getControl(9,this.edadMeses).value==true && this.getControl(1,this.edadMeses).value==true && this.getControl(1,this.edadMeses).value==true && this.getControl(1,this.edadMeses).value==true && this.getControl(1,this.edadMeses).value==true){
+            return 'NINO CON ALIMENTACION COMPLEMENTARIA ADECUADA'
+          }
+          else return 'NINO CON ALIMENTACION COMPLEMENTARIA INADECUADA'
+      }
+      else
+      if(this.getControl(6,this.edadMeses).value==true && this.getControl(7,this.edadMeses).value==true && this.getControl(8,this.edadMeses).value==true && this.getControl(9,this.edadMeses).value==true && this.getControl(1,this.edadMeses).value==true && this.getControl(1,this.edadMeses).value==true && this.getControl(1,this.edadMeses).value==true && this.getControl(1,this.edadMeses).value==true){
+        return 'NINO CON ALIMENTACION COMPLEMENTARIA ADECUADA'
+      }
+      else return 'NINO CON ALIMENTACION COMPLEMENTARIA INADECUADA'
+    }
+
   }
 }
