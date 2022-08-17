@@ -14,7 +14,7 @@
   z-index: 3;
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
-
+  
 }
 
 ::ng-deep .container .title-spinner {
@@ -22,7 +22,7 @@
   color: #545D63;
   font-size: 2rem;
 
-  /* transform: translateX(-50%) translateY(-50%); */
+  /* transform: translateX(-50%) translateY(-50%);  */
 }
 
 .overlay {
@@ -59,26 +59,27 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.53);
 }
+::ng-deep .load-sinner .p-dialog .p-dialog-content{
+  border-radius: 25%;
+}
 
-/* ::ng-deep .container .spinner-text {
+/* ::ng-deep .container .spinner-text{
   transition: all 0.5s;
   animation: animate 2s infinite;
 }
-
 ::ng-deep .container .spinner-text h3:nth-child(1) {
   animation-delay: 0;
 }
-
 ::ng-deep .container .spinner-text h3:nth-child(2) {
-  animation-delay: 1s;
+  animation-delay: 0.1s;
 }
 
 ::ng-deep .container .spinner-text h3:nth-child(3) {
-  animation-delay: 2s;
+  animation-delay: 0.2s;
 }
 
 ::ng-deep .container .spinner-text h3:nth-child(4) {
-  animation-delay: 3s;
+  animation-delay: 0.3s;
 }
 
 @keyframes animate {
@@ -88,7 +89,7 @@
   }
 
   25% {
-    transform: translateX(-1rem);
+    transform: translateY(-1rem);
     margin-left: 0.8rem;
   }
 

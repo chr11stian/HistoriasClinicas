@@ -1,12 +1,12 @@
 <div class="container col-12" *ngIf="loading$ | async">
-  <p-dialog [(visible)]="display" [modal]="true" class="loadSpinner" [showHeader]="false" [style]="{width: '30rem'}">
+  <p-dialog [(visible)]="display" [modal]="true" class="load-spinner" [showHeader]="false" [style]="{width: '30rem'}">
     <div class="title-spinner flex flex-row">
-      <h3 class="col-6 text-right">Cargando</h3>
+      <h3 class="col-7 text-right">Cargando</h3>
       <h3 class="col-1 spinner-text">.</h3>
       <h3 class="col-1 spinner-text">.</h3>
       <h3 class="col-1 spinner-text">.</h3>
     </div>
-    <p-progressSpinner [style]="{ width: '100px', height: '100px' }" styleClass="custom-spinner" strokeWidth="2"
+    <p-progressSpinner [style]="{ width: '10em', height: '10em' }" styleClass="custom-spinner" strokeWidth="2"
       fill="#EEEEEE" animationDuration="1s"></p-progressSpinner>
   </p-dialog>
 </div>

@@ -82,7 +82,7 @@ export class InterceptorService implements HttpInterceptor {
         finalize(() => {
           this.countRequest--;
           if (this.countRequest == 0) {
-            // this.spinnerHandler.hide();
+            this.spinnerHandler.hide();
           }
         })
       )
