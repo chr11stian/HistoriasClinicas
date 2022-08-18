@@ -1,8 +1,8 @@
-import {Component, OnInit} from "@angular/core";
-import {PersonalService} from "../../core/services/personal-services/personal.service";
-import {FormBuilder, Validators, FormGroup} from "@angular/forms";
+import { Component, OnInit } from "@angular/core";
+import { PersonalService } from "../../core/services/personal-services/personal.service";
+import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 import Swal from "sweetalert2";
-import {Personal} from "src/app/core/models/personal.models";
+import { Personal } from "src/app/core/models/personal.models";
 import {
     DocumentoIdentidadService
 } from "src/app/mantenimientos/services/documento-identidad/documento-identidad.service";
@@ -12,20 +12,20 @@ import {
     Especialidad,
     TipoPersonal,
 } from "src/app/core/models/mantenimiento.models";
-import {TipoPersonalService} from "src/app/mantenimientos/services/tipo-personal/tipo-personal.service";
-import {EspecialidadService} from "src/app/mantenimientos/services/especialidad/especialidad.service";
+import { TipoPersonalService } from "src/app/mantenimientos/services/tipo-personal/tipo-personal.service";
+import { EspecialidadService } from "src/app/mantenimientos/services/especialidad/especialidad.service";
 import {
     ColegioProfesionalService
 } from "src/app/mantenimientos/services/colegio-profesional/colegio-profesional.service";
-import {DatePipe, getLocaleDateFormat} from "@angular/common";
-import {TipoContratoService} from "src/app/mantenimientos/services/tipo-contrato/tipo-contrato.service";
-import {IpressService} from "src/app/core/services/ipress/ipress.service";
-import {RolGuardiaService} from "src/app/core/services/rol-guardia/rol-guardia.service";
-import {image} from '../../../assets/images/image.const';
-import {TipoUpsService} from "src/app/mantenimientos/services/tipo-ups.service";
-import {UsuarioService} from "../usuarios/services/usuario.service";
-import {LoginService} from "../../login/services/login.service";
-import {dato} from "../../cred/citas/models/data";
+import { DatePipe, getLocaleDateFormat } from "@angular/common";
+import { TipoContratoService } from "src/app/mantenimientos/services/tipo-contrato/tipo-contrato.service";
+import { IpressService } from "src/app/core/services/ipress/ipress.service";
+import { RolGuardiaService } from "src/app/core/services/rol-guardia/rol-guardia.service";
+import { image } from '../../../assets/images/image.const';
+import { TipoUpsService } from "src/app/mantenimientos/services/tipo-ups.service";
+import { UsuarioService } from "../usuarios/services/usuario.service";
+import { LoginService } from "../../login/services/login.service";
+import { dato } from "../../cred/citas/models/data";
 
 @Component({
     selector: "app-personal-salud",
@@ -61,7 +61,6 @@ export class PersonalSaludComponent implements OnInit {
     estadoUpdateEspecialidad: boolean;
     ipressList: any[];
     datosPersonales: any[];
-
     especialidades: any[];
     rolesX: any[] = [];
     rolesSistema: any[] = []
@@ -78,8 +77,10 @@ export class PersonalSaludComponent implements OnInit {
         //"ASISTENCIAL",
         //"ADMINISTRATIVO"
     ]
-    datoLocalStore: dato
-    nroDocRow: string = ''
+    datoLocalStore: dato;
+    nroDocRow: string = '';
+    idPersonal: string = '';
+    dataEditRol: Edit;
 
     constructor(
         private personalservice: PersonalService,
@@ -107,8 +108,8 @@ export class PersonalSaludComponent implements OnInit {
         this.getNombreRoles();
 
         this.stateOptions = [
-            {label: "Activo", value: true},
-            {label: "Inactivo", value: false},
+            { label: "Activo", value: true },
+            { label: "Inactivo", value: false },
         ];
         this.domicilioList = [
             {
@@ -238,9 +239,9 @@ export class PersonalSaludComponent implements OnInit {
 
     getPersonal() {
         this.personalservice.getPersonalIpress(this.idIpress).subscribe((res: any) => {
-        //this.personalservice.getPersonal().subscribe((res: any) => {
+            //this.personalservice.getPersonal().subscribe((res: any) => {
             this.data = res.object;
-            console.log("data",this.data)
+            console.log("data", this.data)
         });
     }
 
@@ -254,7 +255,7 @@ export class PersonalSaludComponent implements OnInit {
     }
 
     buscarNombre(id) {
-        return this.listaUpsX.find(elemento => elemento.id == id)?.nombreUPS||'UPS ELIMINADA';
+        return this.listaUpsX.find(elemento => elemento.id == id)?.nombreUPS || 'UPS ELIMINADA';
     }
 
     saveForm() {
@@ -292,10 +293,10 @@ export class PersonalSaludComponent implements OnInit {
                 abreviatura: tipoPersonalSelected.abreviatura,
             },
             colegioProfesional:
-                {
-                    codigo: colegioSelected.codigo,
-                    nombre: colegioSelected.nombre,
-                },
+            {
+                codigo: colegioSelected.codigo,
+                nombre: colegioSelected.nombre,
+            },
             colegiatura: this.form.value.colegiatura,
             estado: this.form.value.estado,
             detalleIpress: {
@@ -419,10 +420,10 @@ export class PersonalSaludComponent implements OnInit {
                 abreviatura: tipoPersonalSelected.abreviatura,
             },
             colegioProfesional:
-                {
-                    codigo: colegioSelected.codigo,
-                    nombre: colegioSelected.nombre,
-                },
+            {
+                codigo: colegioSelected.codigo,
+                nombre: colegioSelected.nombre,
+            },
             colegiatura: this.form.value.colegiatura,
             estado: this.form.value.estado,
             detalleIpress: {
@@ -541,10 +542,12 @@ export class PersonalSaludComponent implements OnInit {
     }
 
     newRolX(rowData) {
-        //if (rowData.roles !== null) {
-        this.rolesX = rowData.roles;        
-        //}
-        console.log(this.rolesX);
+
+        this.idPersonal = rowData.id;
+        console.log('data de personal ', this.idPersonal);
+        this.ipressservice.getRolPersonalIpress(this.idPersonal).then((res: any) => {
+            this.rolesX = res.object[0].roles;
+        });
         this.nombrePersonal = `${rowData.apePaterno} ${rowData.apeMaterno}, ${rowData.primerNombre}`;
         this.idRolX = rowData.id;
         this.formRol.reset();
@@ -587,18 +590,17 @@ export class PersonalSaludComponent implements OnInit {
     }
 
     editarRolX(rowData) {
-        console.log("editar", rowData);
+        console.log('data to edit ', rowData);
         this.isUpdateRolX = true;
+        const auxUPS = this.listaUpsX.filter(item => item.nombreUPS == rowData.nombreUPS)
+        console.log('aux ups ', auxUPS, 'lista de ups ', this.listaUpsX);
         this.formRol.get("nombreFuncion").setValue(rowData.nombreFuncion);
-        this.formRol.get("ups").setValue(rowData.codUPS);
+        this.formRol.get("ups").setValue(auxUPS[0].id);
         this.formRol.get("rolGuardia").setValue(rowData.rolGuardia);
-        // this.formRol.get("delete").setValue(rowData.delete);
-        // this.formRol.get("update").setValue(rowData.update);
-        // this.formRol.get("create").setValue(rowData.create);
-        // this.formRol.get("insert").setValue(rowData.insert);
-        // this.formRol.get("read").setValue(rowData.read);
-        // this.estadoUpdateRol = rowData.estado;
-
+        this.dataEditRol = {
+            oldCodUPS: auxUPS[0].id,
+            oldNombreFuncion: rowData.nombreFuncion
+        }
     }
 
     tituloEspecialidad() {
@@ -636,6 +638,8 @@ export class PersonalSaludComponent implements OnInit {
 
     eliminarRolX(rowData, index) {
         this.isUpdateRolX = false;
+        console.log('rowData delete ', rowData);
+        const auxUPS = this.listaUpsX.filter(item => item.nombreUPS == rowData.nombreUPS)
         Swal.fire({
             showCancelButton: true,
             confirmButtonText: "Eliminar",
@@ -646,7 +650,7 @@ export class PersonalSaludComponent implements OnInit {
         }).then((result) => {
             if (result.isConfirmed) {
                 this.personalservice
-                    .deleteRol(this.idRolX, rowData.codUPS)
+                    .deleteRol(this.idRolX, auxUPS[0].id)
                     .subscribe((result) => {
                         Swal.fire({
                             icon: "success",
@@ -671,7 +675,7 @@ export class PersonalSaludComponent implements OnInit {
     guardarRolSistema() {
         let permisos: any[] = []
         this.rolesSistema.map((r: any) => {
-            permisos.push({permisos: '4' + r.codigo})
+            permisos.push({ permisos: '4' + r.codigo })
         })
         let data = {
             tipoDoc: "DNI",
@@ -760,6 +764,9 @@ export class PersonalSaludComponent implements OnInit {
                         timer: 1500,
                     });
                     this.rolesX.push(req);
+                    this.ipressservice.getRolPersonalIpress(this.idPersonal).then((res: any) => {
+                        this.rolesX = res.object[0].roles;
+                    });
                     this.getPersonal();
                     this.guardarNuevoRol();
                     this.isUpdateRolX = false;
@@ -784,8 +791,6 @@ export class PersonalSaludComponent implements OnInit {
             nroEspecialidad: this.formEspecialidad.value.nroEspecialidad,
             estado: this.estadoUpdateEspecialidad,
         };
-
-
         this.personalservice
             .editPersonalEspecialidad(this.idEspecialidad, req)
             .subscribe((result) => {
@@ -811,14 +816,9 @@ export class PersonalSaludComponent implements OnInit {
             nombreFuncion: this.formRol.value.nombreFuncion,
             codUPS: this.formRol.value.ups,
             rolGuardia: this.formRol.value.rolGuardia,
-            // delete: this.formRol.value.delete,
-            // update: this.formRol.value.update,
-            // create: this.formRol.value.create,
-            // insert: this.formRol.value.insert,
-            // read: this.formRol.value.read,
+            oldCodUPS: this.dataEditRol.oldCodUPS,
+            oldNombreFuncion: this.dataEditRol.oldNombreFuncion
         }
-        console.log(req);
-
         this.personalservice.editRol(this.idRolX, req)
             .subscribe((result) => {
                 Swal.fire({
@@ -831,6 +831,9 @@ export class PersonalSaludComponent implements OnInit {
                 // this.getPersonalIdEspecialidad();
                 // this.getPersonal();
                 this.guardarNuevoRol();
+                this.ipressservice.getRolPersonalIpress(this.idPersonal).then((res: any) => {
+                    this.rolesX = res.object[0].roles;
+                });
                 this.isUpdateRolX = false;
             });
     }
@@ -845,4 +848,8 @@ export class PersonalSaludComponent implements OnInit {
 export interface rol {
     nombre: string,
     codigo: string
+}
+interface Edit {
+    oldNombreFuncion: string,
+    oldCodUPS: string
 }

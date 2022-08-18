@@ -1,84 +1,90 @@
-
 p-dropdown >>> * {
-    width: 150px;
+  width: 150px;
 }
 
 p-card >>> .p-card-body {
-    font-size: small;
+  font-size: small;
 }
 
 p-tabview >>> .p-tabview-title {
-    font-size: small;
+  font-size: small;
 }
 
 p-tabview >>> .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-    background: #af0017;
-    border-color: #af0017;
-    color: #ffffff;
+  background: #af0017;
+  border-color: #af0017;
+  color: #ffffff;
 }
 
-p-tabview >>> .p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
-    outline: 0 none;
-    outline-offset: 0;
-    box-shadow: 0 0 0 0.2rem #dcb4b4;
+p-tabview
+  >>> .p-tabview
+  .p-tabview-nav
+  li
+  .p-tabview-nav-link:not(.p-disabled):focus {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: 0 0 0 0.2rem #dcb4b4;
 }
 
 p-tabview >>> .p-tabview .p-tabview-panels {
-    height: 650px;
+  height: 650px;
 }
 
 :host >>> .p-steps-item {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 :host >>> .p-steps {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 :host >>> .p-steps .p-steps-item .p-menuitem-link .p-steps-number {
-    border-radius: 0;
-    width: 110px;
-    height: 50px;
-    color: transparent;
-    background: white;
-    border: 1px solid green;
+  border-radius: 0;
+  width: 110px;
+  height: 50px;
+  color: transparent;
+  background: white;
+  border: 1px solid green;
 }
 
-:host >>> .p-steps .p-steps-item.p-steps-current .p-menuitem-link .p-steps-number {
-    border: 1px solid rgb(10, 79, 163);
+:host
+  >>> .p-steps
+  .p-steps-item.p-steps-current
+  .p-menuitem-link
+  .p-steps-number {
+  border: 1px solid rgb(10, 79, 163);
 }
 
 :host >>> .p-steps .p-steps-item .p-menuitem-link .p-steps-title {
+  z-index: 2;
 
-    z-index: 2;
+  color: green;
+  width: 80px;
+  white-space: normal;
+  text-align: center;
+  align-items: center;
 
-    color: green;
-    width: 80px;
-    white-space: normal;
-    text-align: center;
-    align-items: center;
-
-    position: absolute;
-    left: 50%;
-    top: 35%;
-    transform: translate(-50%, -50%);
+  position: absolute;
+  left: 50%;
+  top: 35%;
+  transform: translate(-50%, -50%);
 }
 
 :host >>> .p-steps .p-steps-item.p-highlight .p-steps-title {
-    color: rgb(10, 79, 163);
-    width: 80px;
-    white-space: normal;
-    text-align: center;
-    align-items: center;
+  color: rgb(10, 79, 163);
+  width: 80px;
+  white-space: normal;
+  text-align: center;
+  align-items: center;
 
-    position: absolute;
-    left: 50%;
-    top: 35%;
-    transform: translate(-50%, -50%);
+  position: absolute;
+  left: 50%;
+  top: 35%;
+  transform: translate(-50%, -50%);
 }
 
 :host >>> .p-steps .p-steps-item:before {
-    margin-top: -4px;
+  margin-top: -4px;
 }
 
 /* :host::ng-deep .p-steps.step-custom .p-steps-item .p-steps-number {
@@ -93,23 +99,28 @@ p-tabview >>> .p-tabview .p-tabview-panels {
 } */
 
 p-selectbutton >>> .p-selectbutton .p-button.p-highlight {
-    background: #0c3866;
-    border-color: #0c3866;
+  background: #0c3866;
+  border-color: #0c3866;
 }
 
 p-calendar >>> .p-button {
-    background: #0c3866;
-    border: 1px solid #0c3866;
-    align-self: center;
+  background: #0c3866;
+  border: 1px solid #0c3866;
+  align-self: center;
 }
 
 .guardar {
-    background: #0c3866;
-    border-color: #0c3866;
-    align-items: center;
+  background: #0c3866;
+  border-color: #0c3866;
+  align-items: center;
 }
 
 p-toolbar >>> * {
-    align-self: center;
+  align-self: center;
 }
-
+::ng-deep .dialogo .p-dialog-header {
+  display: none;
+}
+::ng-deep .dialogo .p-dialog-content {
+  border-radius: 10px;
+}

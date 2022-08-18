@@ -6,6 +6,7 @@ import {
   Validators,
 } from "@angular/forms";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
+import { RolGuardiaService } from "src/app/core/services/rol-guardia/rol-guardia.service";
 import Swal from "sweetalert2";
 import { SuplementacionesMicronutrientesService } from "../../../plan/component/plan-atencion-integral/services/suplementaciones-micronutrientes/suplementaciones-micronutrientes.service";
 import {
@@ -16,8 +17,12 @@ import {
   Parasitologia,
   ResultadoLaboratorio,
 } from "../../models/examenesAuxiliares";
+import { dato, outputTriajeInterface, proxCita } from "../../../../models/data";
+import { ConsultaGeneralService } from "../../services/consulta-general.service";
 import { ExamenesAuxiliaresService } from "../../services/examenes-auxiliares.service";
 import { DialogAddExamenesAuxiliaresComponent } from "./dialog-add-examenes-auxiliares/dialog-add-examenes-auxiliares.component";
+import { DatePipe } from "@angular/common";
+import { MenuItem, MessageService } from "primeng/api";
 
 @Component({
   selector: "app-examenes-auxiliares-consulta",
@@ -81,29 +86,127 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   indexEdit: number;
   toEdit: boolean = false;
   factorCorrection: number;
+  //--Interconsulta
+  data;
+  attributeLocalS = "documento";
+  tooltipItems: MenuItem[];
+  interconsulta: proxCita[] = [];
+  listInterconsulta: proxCita[] = [];
+  dialogInterconsulta: boolean;
+  formInterconsulta: FormGroup;
+  isUpdates: boolean = false;
+  datePipe = new DatePipe("en-US");
+  fecha: Date;
+  servicios: string[] = [];
+  loadings: boolean = false;
+  urgencia = [
+    { name: "Nivel 1", code: "Nivel 1" },
+    { name: "Nivel 2", code: "Nivel 2" },
+    { name: "Nivel 3", code: "Nivel 3" },
+    { name: "Nivel 4", code: "Nivel 4" },
+    { name: "Nivel 5", code: "Nivel 5" },
+  ];
 
   constructor(
+    private rolGuardiaService: RolGuardiaService,
+    private consultaGeneralService: ConsultaGeneralService,
     private fb: FormBuilder,
     private auxExamService: ExamenesAuxiliaresService,
     private dialog: DialogService,
     private ajusteHemoService: SuplementacionesMicronutrientesService
   ) {
     this.idConsulta = JSON.parse(localStorage.getItem("documento")).idConsulta;
-    this.recoverDataAuxialsExams();
+    // this.recoverDataAuxialsExams();
     let ipressAux = JSON.parse(localStorage.getItem("usuario")).ipress;
-    console.log('data de usuario ', ipressAux);
-    this.ajusteHemoService.getFactorCorrepcionXipress(ipressAux.idIpress).subscribe((res: any) => {
-      this.factorCorrection = res.object.factorAjuste;
+    console.log("data de usuario ", ipressAux);
+    // this.ajusteHemoService.getFactorCorrepcionXipress(ipressAux.idIpress).subscribe((res: any) => {
+    //   this.factorCorrection = res.object.factorAjuste;
+    // });
+    this.listarPeticionesExamenes();
+  }
+  build() {
+    /* Interconsulta */
+    this.formInterconsulta = new FormGroup({
+      fecha: new FormControl({ value: null, disabled: false }, []),
+      motivo: new FormControl({ value: "", disabled: false }, []),
+      servicio: new FormControl({ value: "", disabled: false }, []),
+      urgencia: new FormControl({ value: "", disabled: false }, []),
     });
   }
-
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.build();
+    this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
+    /* interconsulta */
+    this.ListaServicios();
+    this.tooltipItems = [
+      {
+        tooltipOptions: {
+          tooltipLabel: "Reporte",
+          tooltipPosition: "left",
+        },
+        icon: "pi pi-desktop",
+        command: (event: Event) => {
+          this.open();
+        },
+      },
+      {
+        tooltipOptions: {
+          tooltipLabel: "Reporte",
+          tooltipPosition: "left",
+        },
+        icon: "pi pi-desktop",
+        command: (event: Event) => {
+          this.open();
+        },
+      },
+      {
+        tooltipOptions: {
+          tooltipLabel: "Reporte",
+          tooltipPosition: "left",
+        },
+        icon: "pi pi-desktop",
+        command: (event: Event) => {
+          this.open();
+        },
+      },
+      {
+        tooltipOptions: {
+          tooltipLabel: "Reporte",
+          tooltipPosition: "left",
+        },
+        icon: "pi pi-desktop",
+        command: (event: Event) => {
+          this.open();
+        },
+      },
+      {
+        tooltipOptions: {
+          tooltipLabel: "Interconsulta",
+          tooltipPosition: "left",
+        },
+        icon: "pi pi-external-link",
+        command: (event: Event) => {
+          this.open();
+        },
+      },
+    ];
+    /* lista interconsulta */
+    this.listaInterconsulta();
+  }
   inicializarForm() {
     this.formHematologia = new FormGroup({
-      hemoglobina: new FormControl({ value: "", disabled: this.toShow }, { validators: [Validators.required] }),
-      hbConFactorCorrecion: new FormControl({ value: "", disabled: this.toShow }, { validators: [Validators.required] }
+      hemoglobina: new FormControl(
+        { value: "", disabled: this.toShow },
+        { validators: [Validators.required] }
       ),
-      factorCorreccion: new FormControl({ value: this.factorCorrection, disabled: this.toShow }),
+      hbConFactorCorrecion: new FormControl(
+        { value: "", disabled: this.toShow },
+        { validators: [Validators.required] }
+      ),
+      factorCorreccion: new FormControl({
+        value: this.factorCorrection,
+        disabled: this.toShow,
+      }),
       hematocrito: new FormControl({ value: "", disabled: this.toShow }),
       grupoSanguineo: new FormControl({ value: "", disabled: this.toShow }),
       factorRH: new FormControl({ value: "", disabled: this.toShow }),
@@ -194,29 +297,36 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
       frotisLesion: new FormControl({ value: "", disabled: this.toShow }),
     });
   }
-  async recoverDataAuxialsExams() {
-    await this.auxExamService
-      .getPromiseListarResultadosLaboratorioByIdConsulta(this.idConsulta)
-      .then((data) => {
-        // console.log('data de examenes auxiliares de consulta ', data);
-        this.listaDataLaboRes = data;
-        if (data.length > 0) {
-          this.toEdit = true;
-        }
-      });
-    // console.log('to show ', this.toShow)
-    this.inicializarForm();
-  }
+  // async recoverDataAuxialsExams() {
+  //   await this.auxExamService
+  //     .getPromiseListarResultadosLaboratorioByIdConsulta(this.idConsulta)
+  //     .then((data) => {
+  //       // console.log('data de examenes auxiliares de consulta ', data);
+  //       this.listaDataLaboRes = data;
+  //       if (data.length > 0) {
+  //         this.toEdit = true;
+  //       }
+  //     });
+  //   // console.log('to show ', this.toShow)
+  //   this.inicializarForm();
+  // }
   openAddExamDialog() {
-
-    this.isUpdate = false;
-    this.examLab = {};
-    this.lugarLab = {};
-    this.inicializarForm();
-    this.addExamDialog = true;
-    this.resultKey = false;
-    this.resultValue = "";
-    this.result = "";
+    // this.isUpdate = false;
+    // this.examLab = {};
+    // this.lugarLab = {};
+    // this.inicializarForm();
+    // this.addExamDialog = true;
+    // this.resultKey = false;
+    // this.resultValue = "";
+    // this.result = "";
+    let dataDialog = {
+      index: 1,
+    };
+    this.ref = this.dialog.open(DialogAddExamenesAuxiliaresComponent, {
+      header: "NUEVO EXAMEN AUXILIAR",
+      width: "50%",
+      data: dataDialog,
+    });
   }
 
   agreeAddExamDialog() {
@@ -247,7 +357,8 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
         codigoSIS: "",
         codPrestacion: "",
         cie10: "",
-        codigoHIS: this.examLab.nombreExam == "TEST DE GRAHAM" ? "87178" : "87177.01",
+        codigoHIS:
+          this.examLab.nombreExam == "TEST DE GRAHAM" ? "87178" : "87177.01",
         lugarExamen: this.lugarLab.lugarLab,
         resultado: {
           parasitologia: this.dataParasitologia,
@@ -262,7 +373,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
     this.listaExamenesAux = [...this.listaExamenesAux];
     this.addExamDialog = false;
 
-    console.log('lista de examenes ', this.listaExamenesAux);
+    console.log("lista de examenes ", this.listaExamenesAux);
   }
 
   deleteExamItem(index) {
@@ -320,7 +431,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
         resultado: this.result,
       },
       observacionesLaboratorio: this.observaciones,
-      resultadoExamen: this.formHematologia.value.hbConFactorCorrecion
+      resultadoExamen: this.formHematologia.value.hbConFactorCorrecion,
     };
   }
   recoverDataParasitologia() {
@@ -366,7 +477,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
       frotisLesion: this.formParasitario.value.frotisLesion,
 
       resultado: {
-        resultado: this.result
+        resultado: this.result,
       },
       observacionesLaboratorio: this.observaciones,
     };
@@ -414,14 +525,16 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
         observaciones: "",
       };
       console.log("data to dave de verdad ", this.dataExamenesAuxiliares);
-      this.auxExamService.postExamenesAuxiliares(this.idConsulta, this.dataExamenesAuxiliares).subscribe((res: any) => {
-        Swal.fire({
-          icon: "success",
-          title: "Se guardo correctamente el examen",
-          showConfirmButton: false,
-          timer: 1500,
+      this.auxExamService
+        .postExamenesAuxiliares(this.idConsulta, this.dataExamenesAuxiliares)
+        .subscribe((res: any) => {
+          Swal.fire({
+            icon: "success",
+            title: "Se guardo correctamente el examen",
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
-      });
     }
   }
   openShowDataAuxiliarsExams(data, index) {
@@ -456,19 +569,19 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
       this.setDataParasitologia(data.resultado.parasitologia);
     }
   }
-  agreeExamEdit() {
-    if (this.examLab.tipoExam == 2) {
-      this.recoverDataHematologia();
-      this.listaExamenesAux[this.indexEdit].resultado.hematologia =
-        this.dataHematologia;
-    }
-    if (this.examLab.tipoExam == 1) {
-      this.recoverDataParasitologia();
-      this.listaExamenesAux[this.indexEdit].resultado.parasitologia =
-        this.dataParasitologia;
-    }
-    this.addExamDialog = false;
-  }
+  // agreeExamEdit() {
+  //   if (this.examLab.tipoExam == 2) {
+  //     this.recoverDataHematologia();
+  //     this.listaExamenesAux[this.indexEdit].resultado.hematologia =
+  //       this.dataHematologia;
+  //   }
+  //   if (this.examLab.tipoExam == 1) {
+  //     this.recoverDataParasitologia();
+  //     this.listaExamenesAux[this.indexEdit].resultado.parasitologia =
+  //       this.dataParasitologia;
+  //   }
+  //   this.addExamDialog = false;
+  // }
   setdataHematologia(data) {
     this.resultKey = data.resultado.clave == "ANEMIA" ? true : false;
     this.resultValue = data.resultado.valor;
@@ -518,7 +631,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
     this.formHematologia.patchValue({ vrHcm: data.vrHcm });
   }
   setDataParasitologia(data) {
-    this.result = data.resultado.resultado
+    this.result = data.resultado.resultado;
     this.formParasitario.patchValue({ color: data.examenMacroscopico.color });
     this.formParasitario.patchValue({
       consistencia: data.examenMacroscopico.consistencia,
@@ -589,23 +702,23 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
     this.formParasitario.patchValue({ gotaGruesa: data.gotaGruesa });
     this.formParasitario.patchValue({ frotisLesion: data.frotisLesion });
   }
-  openDialogAddAuxiliarExam() {
-    let dataDialog = {
-      index: 1,
-    };
-    this.ref = this.dialog.open(DialogAddExamenesAuxiliaresComponent, {
-      header: "NUEVO EXAMEN AUXILIAR",
-      width: "65%",
-      data: dataDialog,
-    });
-    this.ref.onClose.subscribe((data: any) => {
-      console.log("data recibido desde el dialog ", data);
-      if (data != undefined) {
-        this.listaExamenesAux.push(data);
-      }
-      this.listaExamenesAux = [...this.listaExamenesAux];
-    });
-  }
+  // openDialogAddAuxiliarExam() {
+  //   let dataDialog = {
+  //     index: 1,
+  //   };
+  //   this.ref = this.dialog.open(DialogAddExamenesAuxiliaresComponent, {
+  //     header: "NUEVO EXAMEN AUXILIAR",
+  //     width: "65%",
+  //     data: dataDialog,
+  //   });
+  //   this.ref.onClose.subscribe((data: any) => {
+  //     console.log("data recibido desde el dialog ", data);
+  //     if (data != undefined) {
+  //       this.listaExamenesAux.push(data);
+  //     }
+  //     this.listaExamenesAux = [...this.listaExamenesAux];
+  //   });
+  // }
   openDialogShowAuxialExam(data) {
     let dataDialog = {
       index: 2,
@@ -618,9 +731,93 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
     });
   }
   calcularHemoFactor(value) {
-    let aux = this.formHematologia.value.hemoglobina
-    console.log('hemo ', aux);
-    this.formHematologia.patchValue({ hbConFactorCorrecion: this.formHematologia.value.hemoglobina - this.factorCorrection });
+    let aux = this.formHematologia.value.hemoglobina;
+    console.log("hemo ", aux);
+    this.formHematologia.patchValue({
+      hbConFactorCorrecion:
+        this.formHematologia.value.hemoglobina - this.factorCorrection,
+    });
+  }
+  listarPeticionesExamenes() {
+    this.auxExamService.getListarPeticiones(this.idConsulta).then((res) => {
+      this.listaExamenesAux = res.object.examenesAuxiliares;
+    });
+  }
+  /* interconsulta */
+  open(): void {
+    this.isUpdates = false;
+    this.formInterconsulta.reset();
+    this.formInterconsulta.get("fecha").setValue("");
+    this.formInterconsulta.get("motivo").setValue("");
+    this.formInterconsulta.get("servicio").setValue("");
+    this.formInterconsulta.get("urgencia").setValue("");
+    this.dialogInterconsulta = true;
+  }
+  ListaServicios() {
+    let idIpress = JSON.parse(localStorage.getItem("usuario")).ipress.idIpress;
+    this.rolGuardiaService
+      .getServiciosPorIpress(idIpress)
+      .subscribe((res: any) => {
+        this.servicios = res.object;
+        console.log("LISTA DE SERVICIOS DE IPRESSS", this.servicios);
+      });
+  }
+
+  eliminarInterconsulta(id, index) {
+    this.listInterconsulta.splice(index, 1);
+    console.log();
+    this.consultaGeneralService
+      .deleteInterconsulta(this.data.idConsulta, id)
+      .subscribe((r: any) => {
+        console.log(r.object);
+      });
+  }
+  listaInterconsulta() {
+    this.consultaGeneralService
+      .listInterconsulta(this.data.idConsulta)
+      .subscribe((r: any) => {
+        this.listInterconsulta = r.object;
+      });
+  }
+  agregarInterconsulta() {
+    this.loadings = true;
+    setTimeout(() => (this.loadings = false), 1000);
+    /* agregar */
+    if (
+      this.formInterconsulta.value.fecha != null &&
+      this.formInterconsulta.value.motivo != "" &&
+      this.formInterconsulta.value.servicio != ""
+    ) {
+      let interconsulta: proxCita = {
+        fecha: this.datePipe.transform(
+          this.formInterconsulta.value.fecha,
+          "yyyy-MM-dd"
+        ),
+        motivo: this.formInterconsulta.value.motivo.toUpperCase(),
+        servicio: this.formInterconsulta.value.servicio,
+        nivelUrgencia: this.formInterconsulta.value.urgencia,
+      };
+      this.consultaGeneralService
+        .addInterconsulta(this.data.idConsulta, interconsulta)
+        .subscribe((r: any) => {
+          this.listInterconsulta = r.object;
+        });
+      Swal.fire({
+        icon: "success",
+        title: "Agregado correctamente",
+        text: "",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } else {
+      Swal.fire({
+        icon: "warning",
+        title: "Datos incompletos",
+        text: "",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
   }
 }
 interface Examen {

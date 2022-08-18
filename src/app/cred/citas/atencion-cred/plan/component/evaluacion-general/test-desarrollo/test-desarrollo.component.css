@@ -1,3 +1,7 @@
+:host ::ng-deep .fondorojo {
+   background-color: #fcbfba !important;
+}
+
 p-card >>> .p-card .p-card-title{
    margin: 0.5rem 0rem 0.5rem 0.5rem;
 }
@@ -6,18 +10,23 @@ p-card >>> .p-card .p-card-title{
 }
 ::ng-deep .fondo1 .p-calendar .p-inputtext{
 
-   flex: 1 1 auto;
-   width: 1%;
-   background: #FDC070;
+    flex: 1 1 auto;
+    width: 1%;
+    background: #FDC070;
 
 }
 ::ng-deep .fondo2 .p-calendar .p-inputtext{
-   /**/
+/**/
    flex: 1 1 auto;
    width: 1%;
    background: #FFFF80;
 
 }
+/*colores de las fechas */
+
+
+
+
 .caja {
    color: white;
    border-radius:10px;
@@ -57,6 +66,10 @@ p-dialog >>> .p-dialog .p-dialog-header .p-dialog-title {
 p-table >>> .p-datatable .p-datatable-thead > tr > th {
    padding: 3px;
 }
+p-table >>> .p-datatable .p-datatable-tfoot > tr > th {
+   padding: 3px;
+}
+
 .triangulo-1 {
    width: 0;
    height: 0;
@@ -176,6 +189,126 @@ p-table >>> .p-datatable .p-datatable-thead > tr > th {
    border-left: 15px solid transparent;
    border-right: 15px solid transparent;
 }
+/* ultima fila */
+.triangulo-1-b{
+   width: 0;
+   height: 0;
+   border-bottom: 8px solid #4C4C4C;
+   border-left: 15px solid transparent;
+   border-right: 15px solid transparent;
+}
+.triangulo-2-b{
+   width: 0;
+   height: 0;
+   border-bottom: 8px solid #F0047F;
+   border-left: 15px solid transparent;
+   border-right: 15px solid transparent;
+}
+.triangulo-3-b{
+   width: 0;
+   height: 0;
+   border-bottom: 8px solid #FF6601;
+   border-left: 15px solid transparent;
+   border-right: 15px solid transparent;
+}
+.triangulo-4-b{
+   width: 0;
+   height: 0;
+   border-bottom: 8px solid #F30E19;
+   border-left: 15px solid transparent;
+   border-right: 15px solid transparent;
+}
+.triangulo-5-b{
+   width: 0;
+   height: 0;
+   border-bottom: 8px solid #F93D5A;
+   border-left: 15px solid transparent;
+   border-right: 15px solid transparent;
+}
+.triangulo-6-b{
+   width: 0;
+   height: 0;
+   border-bottom: 8px solid #FEA61D;
+   border-left: 15px solid transparent;
+   border-right: 15px solid transparent;
+}
+.triangulo-7-b{
+   width: 0;
+   height: 0;
+   border-bottom: 8px solid #F5923B;
+   border-left: 15px solid transparent;
+   border-right: 15px solid transparent;
+}
+.triangulo-8-b{
+   width: 0;
+   height: 0;
+   border-bottom: 8px solid #DD360C;
+   border-left: 15px solid transparent;
+   border-right: 15px solid transparent;
+}
+.triangulo-9-b{
+   width: 0;
+   height: 0;
+   border-bottom: 8px solid #DD6910;
+   border-left: 15px solid transparent;
+   border-right: 15px solid transparent;
+}
+.triangulo-10-b {
+   width: 0;
+   height: 0;
+   border-bottom: 8px solid #5BBA7D;
+   border-left: 15px solid transparent;
+   border-right: 15px solid transparent;
+}
+.triangulo-11-b {
+   width: 0;
+   height: 0;
+   border-bottom: 8px solid #5AB543;
+   border-left: 15px solid transparent;
+   border-right: 15px solid transparent;
+}
+.triangulo-12-b {
+   width: 0;
+   height: 0;
+   border-bottom: 8px solid #9BC922;
+   border-left: 15px solid transparent;
+   border-right: 15px solid transparent;
+}
+.triangulo-15-b {
+   width: 0;
+   height: 0;
+   border-bottom: 8px solid #5EAA29;
+   border-left: 15px solid transparent;
+   border-right: 15px solid transparent;
+}
+.triangulo-18-b {
+   width: 0;
+   height: 0;
+   border-bottom: 8px solid #62C2BB;
+   border-left: 15px solid transparent;
+   border-right: 15px solid transparent;
+}
+.triangulo-21-b {
+   width: 0;
+   height: 0;
+   border-bottom: 8px solid #5C97C6;
+   border-left: 15px solid transparent;
+   border-right: 15px solid transparent;
+}
+.triangulo-24-b {
+   width: 0;
+   height: 0;
+   border-bottom: 8px solid #5E64AD;
+   border-left: 15px solid transparent;
+   border-right: 15px solid transparent;
+}
+.triangulo-30-b {
+   width: 0;
+   height: 0;
+   border-bottom: 8px solid #B573B6;
+   border-left: 15px solid transparent;
+   border-right: 15px solid transparent;
+}
 p-calendar >>> .p-calendar .p-datepicker {
    width: 250px;
 }
@@ -270,4 +403,20 @@ p-calendar >>> .p-calendar .p-datepicker {
    background: darkcyan;
    border-color: darkcyan;
    color: #ffffff;
+}
+
+::ng-deep  .p-datatable table {
+   width: auto;
+}
+
+::ng-deep  .p-datatable .p-datatable-thead > tr > th {
+   text-align: center !important;
+   border: 1px solid #b6b6b6;
+   background-color: #dddddd;
+   padding: 0.3rem;
+}
+::ng-deep .p-datatable .p-datatable-tbody > tr > td {
+   text-align: center;
+   font-size: medium;
+   word-wrap: break-word;
 }

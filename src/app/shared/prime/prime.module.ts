@@ -42,7 +42,8 @@ import {InputMaskModule} from 'primeng/inputmask';
 import {FullCalendarModule} from "primeng/fullcalendar";
 import { FormsModule } from '@angular/forms';
 import {TimelineModule} from 'primeng/timeline';
-
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import {SpeedDialModule} from 'primeng/speeddial';
 const importsApi = [
     TimelineModule,
     FullCalendarModule,
@@ -98,7 +99,9 @@ const importsApi = [
     DividerModule,
     SplitterModule,
     InputMaskModule,
-    FormsModule
+    FormsModule,
+    ProgressSpinnerModule,
+    SpeedDialModule
 ];
 
 @NgModule({

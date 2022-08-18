@@ -459,13 +459,13 @@
                                             formControlName="ups"
                                             optionLabel="nombreUPS" optionValue="id" id="tipoid"
                                             placeholder="Seleccione especialidad"
-                                            [appendTo]="dropdown"
+                                            [appendTo]="body"
                                             >
                                 </p-dropdown>
                                 <p-dropdown *ngIf="isUpdateRol" class="inputRedondo" [showTransitionOptions]="'300ms'"
                                             dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="listaUpsX"
                                             formControlName="ups"
-                                            optionLabel="id" optionValue="nombre" id="tipoid">
+                                            optionLabel="id" optionValue="nombre" id="tipoid" appendTo="body">
                                 </p-dropdown>
                             </div>
                         </div>
@@ -477,35 +477,6 @@
                                                 optionValue="value">
                                 </p-selectButton>
                             </div>
-                            <!-- <div class="p-field col-6">
-                              <label>Borrar:</label>
-                              <p-selectButton [options]="stateOptions" formControlName="delete" optionLabel="label"
-                                optionValue="value">
-                              </p-selectButton>
-                            </div>
-                            <div class="p-field col-6">
-                              <label>Actualizar:</label>
-                              <p-selectButton [options]="stateOptions" formControlName="update" optionLabel="label"
-                                optionValue="value">
-                              </p-selectButton>
-                            </div>
-                            <div class="p-field col-6">
-                              <label>Crear:</label>
-                              <p-selectButton [options]="stateOptions" formControlName="create" optionLabel="label"
-                                optionValue="value">
-                              </p-selectButton>
-                            </div>
-                            <div class="p-field col-6">
-                              <label>Insertar:</label>
-                              <p-selectButton [options]="stateOptions" formControlName="insert" optionLabel="label"
-                                optionValue="value">
-                              </p-selectButton>
-                            </div>
-                            <div class="p-field col-6">
-                              <label>Leer:</label>
-                              <p-selectButton [options]="stateOptions" formControlName="read" optionLabel="label" optionValue="value">
-                              </p-selectButton>
-                            </div> -->
                         </div>
                     </form>
                     <br/>
@@ -545,7 +516,7 @@
                         <tr style="text-align: center">
                             <td style="text-align: center">{{ rowIndex + 1 }}</td>
                             <td style="text-align: center">{{ rowData.nombreFuncion }}</td>
-                            <td style="text-align: center">{{ buscarNombre(rowData.codUPS) }}</td>
+                            <td style="text-align: center">{{ rowData.nombreUPS }}</td>
                             <td style="text-align: center">
                                 <p-tag *ngIf="rowData.rolGuardia" styleClass="p-mr-2" severity="success" value="Activo"
                                        [rounded]="true">

@@ -29,9 +29,19 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
   listaExamenesAux: ExamenAuxiliar[] = [];
   auxDataExam: ExamenAuxiliar;
   listaExamenes: Examen[] = [
-    { tipoExam: 1, nombreExam: "TEST DE GRAHAM" },
-    { tipoExam: 2, nombreExam: "DOSAJE DE HEMOGLOBINA" },
-    { tipoExam: 1, nombreExam: "PARASITO SERIADO" },
+    {
+      groupName: 'HEMOGLOBINA',
+      listaExamName: [
+        { subTipo: 'HEMOGLOBINA', examName: "DOSAJE DE HEMOGLOBINA" }
+      ]
+    },
+    {
+      groupName: 'PARASITOLOGIA',
+      listaExamName: [
+        { subTipo: 'PARASITOLOGIA', examName: "TEST DE GRAHAM" },
+        { subTipo: 'PARASITOLOGIA', examName: 'PARASITO SERIADO' }
+      ]
+    },
   ];
   listaLugares: Lugar[] = [
     { index: 1, lugarLab: "CONSULTORIO" },
@@ -39,40 +49,43 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
   ];
   /**ngModels */
   observaciones: string;
-  examLab: Examen = {};
+  examLab: Examen;
   lugarLab: Lugar = {};
   /**Fin ngModels */
   dataDialog: any;
+  reqLabo: examName[] = [];
+  auxExamList: ExamenAuxiliar[] = [];
+  solicitudLaboratorio: Laboratorio;
   constructor(
     private auxExamService: ExamenesAuxiliaresService,
     public ref: DynamicDialogRef,
-    public config: DynamicDialogConfig
+    public config: DynamicDialogConfig,
   ) {
     this.idConsulta = JSON.parse(localStorage.getItem("documento")).idConsulta;
     this.recoverDataAuxialsExams();
     console.log("click en auxiliars exam");
 
     this.dataDialog = this.config.data.data;
-    console.log("data del otro dialog ", this.dataDialog.hemoglobina);
+    // console.log("data del otro dialog ", this.dataDialog.hemoglobina);
     if (this.config.data.index == 2) {
       console.log('opcion de ver ');
-      this.toShow = true;
+      // this.toShow = true;
       this.inicializarForm();
-      if (this.dataDialog.datosLaboratorio.subTipo == "HEMATOLOGIA") {
-        this.examLab.tipoExam = 2;
-        this.lugarLab.index = 2;
-        // this.setdataHematologia(this.dataDialog);
-        this.formHematologia.patchValue({ hemoglobina: this.dataDialog.hemoglobina });
-      }
-      if (this.dataDialog.datosLaboratorio.subTipo == "PARASITOLOGIA") {
-        this.examLab.tipoExam = 1;
-        this.lugarLab.index = 2;
-        this.setDataParasitologia(this.dataDialog);
-      }
+      // if (this.dataDialog.datosLaboratorio.subTipo == "HEMATOLOGIA") {
+      //   this.examLab.tipoExam = 2;
+      //   this.lugarLab.index = 2;
+      //   // this.setdataHematologia(this.dataDialog);
+      //   this.formHematologia.patchValue({ hemoglobina: this.dataDialog.hemoglobina });
+      // }
+      // if (this.dataDialog.datosLaboratorio.subTipo == "PARASITOLOGIA") {
+      //   this.examLab.tipoExam = 1;
+      //   this.lugarLab.index = 2;
+      //   this.setDataParasitologia(this.dataDialog);
+      // }
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
   async recoverDataAuxialsExams() {
     await this.auxExamService
       .getPromiseListarResultadosLaboratorioByIdConsulta(this.idConsulta)
@@ -85,6 +98,7 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
       });
     // console.log('to show ', this.toShow)
     this.inicializarForm();
+    this.listarExamenesDisponibles();
   }
 
   inicializarForm() {
@@ -192,7 +206,7 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
       hemoglobina: this.formHematologia.value.hemoglobina,
 
       hbConFactorCorrecion: 0,
-    factorCorreccion:0,
+      factorCorreccion: 0,
 
       hematocrito: this.formHematologia.get("hematocrito").value,
       grupoSanguineo: this.formHematologia.value.grupoSanguineo,
@@ -269,50 +283,50 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
       frotisLesion: this.formParasitario.value.frotisLesion,
     };
   }
-  agreeAddExamDialog() {
-    // let auxDataExam: ExamenAuxiliar;
-    if (this.examLab.tipoExam == 2) {
-      this.recoverDataHematologia();
-      this.auxDataExam = {
-        tipoLaboratorio: "EXAMEN_LABORATORIO",
-        subTipo: "HEMATOLOGIA",
-        nombreExamen: "HEMOGLOBINA",
-        codigoSIS: "",
-        codPrestacion: "",
-        cie10: "",
-        codigoHIS: "",
-        lugarExamen: this.lugarLab.lugarLab,
-        resultado: {
-          hematologia: this.dataHematologia,
-        },
-        labExterno: "false",
-      };
-    }
-    if (this.examLab.tipoExam == 1) {
-      this.recoverDataParasitologia();
-      this.auxDataExam = {
-        tipoLaboratorio: "EXAMEN_LABORATORIO",
-        subTipo: "PARASITOLOGIA",
-        nombreExamen: this.examLab.nombreExam,
-        codigoSIS: "",
-        codPrestacion: "",
-        cie10: "",
-        codigoHIS: "",
-        lugarExamen: this.lugarLab.lugarLab,
-        resultado: {
-          parasitologia: this.dataParasitologia,
-        },
-        labExterno: "false",
-      };
-    }
-    console.log("data de examens auxiliares ", this.auxDataExam);
-    this.ref.close(this.auxDataExam);
-    // if (this.auxDataExam != undefined) {
-    //   this.listaExamenesAux.push(this.auxDataExam);
-    // }
-    // // console.log('lista de examenes ', this.listaExamenesAux);
-    // this.listaExamenesAux = [...this.listaExamenesAux];
-  }
+  // agreeAddExamDialog() {
+  //   // let auxDataExam: ExamenAuxiliar;
+  //   if (this.examLab.tipoExam == 2) {
+  //     this.recoverDataHematologia();
+  //     this.auxDataExam = {
+  //       tipoLaboratorio: "EXAMEN_LABORATORIO",
+  //       subTipo: "HEMATOLOGIA",
+  //       nombreExamen: "HEMOGLOBINA",
+  //       codigoSIS: "",
+  //       codPrestacion: "",
+  //       cie10: "",
+  //       codigoHIS: "",
+  //       lugarExamen: this.lugarLab.lugarLab,
+  //       resultado: {
+  //         hematologia: this.dataHematologia,
+  //       },
+  //       labExterno: "false",
+  //     };
+  //   }
+  //   if (this.examLab.tipoExam == 1) {
+  //     this.recoverDataParasitologia();
+  //     this.auxDataExam = {
+  //       tipoLaboratorio: "EXAMEN_LABORATORIO",
+  //       subTipo: "PARASITOLOGIA",
+  //       nombreExamen: this.examLab.nombreExam,
+  //       codigoSIS: "",
+  //       codPrestacion: "",
+  //       cie10: "",
+  //       codigoHIS: "",
+  //       lugarExamen: this.lugarLab.lugarLab,
+  //       resultado: {
+  //         parasitologia: this.dataParasitologia,
+  //       },
+  //       labExterno: "false",
+  //     };
+  //   }
+  //   console.log("data de examens auxiliares ", this.auxDataExam);
+  //   this.ref.close(this.auxDataExam);
+  //   // if (this.auxDataExam != undefined) {
+  //   //   this.listaExamenesAux.push(this.auxDataExam);
+  //   // }
+  //   // // console.log('lista de examenes ', this.listaExamenesAux);
+  //   // this.listaExamenesAux = [...this.listaExamenesAux];
+  // }
   setdataHematologia(data) {
     this.formHematologia.patchValue({ hemoglobina: data.hemoglobina });
     this.formHematologia.patchValue({ hematocrito: data.hematocrito });
@@ -428,13 +442,54 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
     this.formParasitario.patchValue({ gotaGruesa: data.gotaGruesa });
     this.formParasitario.patchValue({ frotisLesion: data.frotisLesion });
   }
-  closeExamDialog() {}
+  closeExamDialog() { }
+
+  /**NUEVA VISTA DE LOS EXAMENES */
+  listarExamenesDisponibles() {
+    this.auxExamService.getExamListLaboratory().then(res => {
+      console.log('data de examenes disponibles ', res);
+    })
+  }
+  add() {
+    this.reqLabo.forEach(item => {
+      let auxExam: ExamenAuxiliar = {
+        tipoLaboratorio: 'EXAMEN_LABORATORIO',
+        subTipo: item.subTipo,
+        nombreExamen: item.examName,
+        codPrestacion: '',
+        codigoSIS: '',
+        codigoHIS: '',
+        lugarExamen: 'LABORATORIO',
+        labExterno: ''
+      }
+      this.auxExamList.push(auxExam);
+    });
+    this.solicitudLaboratorio = {
+      servicio: '',
+      nroCama: '',
+      examenesAuxiliares: this.auxExamList
+    }
+    this.auxExamService.postPromiseAddServiciosLaboratorio(this.idConsulta, this.solicitudLaboratorio).then(res=>{
+
+    });
+  }
+
 }
 interface Examen {
-  tipoExam?: number;
-  nombreExam?: string;
+  groupName: string;
+  listaExamName: examName[];
 }
 interface Lugar {
   index?: number;
   lugarLab?: string;
+}
+interface examName {
+  subTipo: string,
+  examName: string
+}
+interface ExamLab {
+  subTipo: string,
+  nombreExamen: string,
+  codigoHIS?: string,
+  codigoSIS?: string,
 }

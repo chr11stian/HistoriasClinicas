@@ -1,7 +1,7 @@
-import {HttpClient} from '@angular/common/http';
-import {Observable, pipe, Subject} from 'rxjs';
-import {Injectable} from '@angular/core';
-import {environment} from '../../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { Observable, pipe, Subject } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -90,23 +90,30 @@ export class IpressService {
     }
 
     //horarios
-    updateHorariosIpress(idIpress, req){
+    updateHorariosIpress(idIpress, req) {
         return this.http.put<any>(`${this.base_url}/${this.bd}/ipress/actualizarhorario/${idIpress}`, req)
     }
 
     //clasificaciones
-    listarClasificaciones(){
+    listarClasificaciones() {
         return this.http.get<any>(`${this.base_url}/${this.bd}/ipress/listarMantenimientoClasificaciones`)
     }
 
     //categorizaciones
-    listarCategorizaciones(){
+    listarCategorizaciones() {
         return this.http.get<any>(`${this.base_url}/${this.bd}/ipress/listarTipoDocCategorizacion`)
     }
 
     //buscar ambiente x servicio
-    buscarAmbientesXServicioXipress(data){
-       return this.http.post<any>(`${this.base_url}/${this.bd}/ipress/listarAmbientesXNombreUps`,data)
+    buscarAmbientesXServicioXipress(data) {
+        return this.http.post<any>(`${this.base_url}/${this.bd}/ipress/listarAmbientesXNombreUps`, data)
+    }
+
+    getRolPersonalIpress(idPersonal: String) {
+        return this.http.get<any>(`${this.base_url}/${this.bd}/personal/listarroles/${idPersonal}`)
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data; });
     }
 
 }
