@@ -107,8 +107,15 @@ export class ListaConsultaComponent implements OnInit {
     }
 
     irFUA(rowData) {
-        let message1 = "Esta Seguro de Generar FUA?, se dara como finalizado la consulta"
+        console.log('rowData de consulta ', rowData);
+        let dataFUA = {
+            idConsulta: rowData.id,
+            // estadoAtencion: rowData.estadoAtencion
+        }
+        localStorage.setItem('dataFUA', JSON.stringify(dataFUA));
+        let message1 = "Esta Seguro de Generar FUA?, se dara como finalizada la consulta"
         let message2 = "Esta Seguro de Generar FUA?, Debe revisar el tipo de Seguro"
+        //estadoAtencion: 2 => finalizado, 1 => consulta incompleta, 0 => interconsulta
         if (rowData.estadoAtencion == 0) {
             Swal.fire({
                 icon: 'warning',

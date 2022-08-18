@@ -79,7 +79,7 @@ export class InterceptorService implements HttpInterceptor {
       )
       .pipe(
         finalize(() => {
-          console.log('data res de interceptor ', cloned);
+          // console.log('data res de interceptor ', cloned);
           this.countRequest--;
           if (this.countRequest == 0) {
             this.spinnerHandler.hide();
