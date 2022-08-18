@@ -28,22 +28,19 @@ export class EedpComponent implements OnInit {
   fechaEvaluacion: string;
   evalResult: string = "";
   datePipe = new DatePipe('en-US');
-  nroDoc: any;
   totalPoints: number = 0;
   monthPoints: number = 0;
   itemEEDP: ItemEEDP;
   listaPreguntas: ItemEEDP[] = [];
   dataTestEEDP: TestEEDP;
   escaleEEDP: datosEEDPTabla;
-  chronologicalAge: any;
-  dataPatient: any;
-  mentalAge: any;
+  chronologicalAge: number;
   standardPoints: any;
   tablaPuntajeEstandar: any;
   coeficienteDesarrollo: any;
   mentalMonth: number = 1;
   diagnostico: any;
-  idConsulta: any;
+  idConsulta: string;
   dataTabla: any;
   arrayRptas: any[] = [];
   mesesTotal: number;
@@ -242,7 +239,7 @@ export class EedpComponent implements OnInit {
       this.tableStatus = true;
     });
   }
-
+  /**Calcular el area de las preguntas respondidas */
   calculateArea(lista: ItemEEDP[], area: string): number {
     let codArea;
     lista.forEach(item => {
@@ -257,11 +254,9 @@ export class EedpComponent implements OnInit {
     });
     return codArea;
   }
-
+  /**Cambiar la vista cada que selecciona un mes */
   async changeStep(index: number, edadNro: number, edad: string, prevArray: any) {
     this.monthPoints = 0;
-
-    console.log('arreglo anterior de test ', edadNro, 'index', index);
     this.indexSelected = index;
     this.edadNroSelected = edadNro;
     this.edadSelected = edad;
@@ -327,15 +322,14 @@ export class EedpComponent implements OnInit {
         })
       }
     });
-
   }
+  /**Tabla eedp agrupadas por area de evaluacion y preguntas de esa area*/
   dataTableEEDP() {
     this.eedpService.getDatosTablaEEDP().then(res => {
       this.dataTabla = res;
-      console.log('data de tabla res eedp ', this.dataTabla);
     });
   }
-
+  /**Calcular el index para asignar el mes que debe evaluarse */
   estimateMonthEEDP(actualYear: number, actualMonth: number): number {
     let EEDPMonth: number = 0;
     let indexMonth: number = 0;
@@ -356,7 +350,12 @@ export class EedpComponent implements OnInit {
 
     return indexMonth;
   }
+
   overallAge(year: number, month: number): number {
     return 12 * year + month;
+  }
+
+  postSaveEEDP(){
+    
   }
 }

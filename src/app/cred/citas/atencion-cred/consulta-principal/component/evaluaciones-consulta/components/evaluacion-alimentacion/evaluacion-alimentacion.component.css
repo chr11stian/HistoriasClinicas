@@ -8,7 +8,7 @@
 /*    border-color: #0c3866;*/
 /*    color: #ffffff;*/
 /*}*/
-:host ::ng-deep .fondorojo {
+/* :host ::ng-deep .fondorojo {
     background-color: #fcbfba !important;
 }
 p-dialog >>> .p-dialog .p-dialog-header {
@@ -70,13 +70,13 @@ p-dialog >>> .p-dialog .p-dialog-footer button {
     font-weight: bold;
     z-index:2;
 
-}
+} */
 /*:host ::ng-deep .p-datatable-frozen-tbody {*/
 /*    font-weight: bold;*/
 /*    z-index:2;*/
 /*    font-size: 15px;*/
 /*}*/
-p-calendar{
+/* p-calendar{
     z-index:99990;
 }
 p-calendar >>> .p-button {
@@ -84,7 +84,6 @@ p-calendar >>> .p-button {
     border: 1px solid #0c3866;
     align-self: center;
 }
-/****/
 ::ng-deep  .p-datatable table {
     width: auto;
 }
@@ -93,10 +92,65 @@ p-calendar >>> .p-button {
     text-align: center !important;
     border: 1px solid #b6b6b6;
     background-color: #dddddd;
-    /*padding: 0.3rem;*/
 }
 ::ng-deep .p-datatable .p-datatable-tbody > tr > td {
     text-align: center;
-    /*font-size: medium;*/
     word-wrap: break-word;
+} */
+:host::ng-deep .tablaModal .p-datatable .p-datatable-thead > tr  {
+    display: flex;
+    flex-direction: row;
 }
+:host::ng-deep .tablaModal .p-datatable .p-datatable-thead > tr  {
+    display: flex;
+    flex-direction: row;
+}
+:host::ng-deep .tablaModal .p-datatable .p-datatable-tbody > tr  {
+    display: flex;
+    flex-direction: row;
+}
+:host::ng-deep .tablaModal .p-datatable .p-datatable-tbody > tr  {
+    display: flex;
+    flex-direction: row;
+}
+:host::ng-deep .tablaModal .p-datatable .p-datatable-thead > tr > th {
+    text-align: center;
+    margin: 0px;
+    padding: 5px;
+}
+:host::ng-deep .tablaModal .p-datatable .p-datatable-tbody > tr > td {
+    text-align: center;
+    margin:0px;
+    padding: 5px;
+}
+::ng-deep  .p-datatable table {
+    width: auto;
+}
+/*stylos para poner frozen*/
+.frozenCol {
+    background: inherit;
+    grid-area: topright;
+    border: solid 1px black;
+    box-sizing: border-box;
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+  .frozenCol:after {
+    bottom: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border: solid 1px black !important;
+  }
+  .frozenCol-th {
+      background: inherit;
+    position: sticky;
+    top: 0;
+  }
+  .frozenCol-th::after {
+    position: absolute;
+    overflow-x: auto;
+  }
+  

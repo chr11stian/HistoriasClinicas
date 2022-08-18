@@ -66,15 +66,7 @@ export class PautaBreveComponent implements OnInit {
       this.dataPautaBreve = data;
       console.log('array de pauta breve ', this.dataPautaBreve);
       this.arrayEdadPautaBreveSelected = this.dataPautaBreve[this.indexSelected]
-      // this.puntaje = this.dataPautaBreve[this.indexSelected]
-    })
-
-    // await this.testService.getEscalaEEDParray().then(data => {
-    //   this.escalaEEDP = data;
-    //   let mes = this.edadNroSelected;
-    //   this.arrayEdadPautaBreveSelected = this.escalaEEDP[this.indexSelected];
-    //   this.puntaje = this.escalaEEDP[this.indexSelected][0].puntajeMaximo;
-    // });
+    });
   }
 
   async changeStep(index: number, edadNro: number, edad: string) {
