@@ -66,7 +66,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     this.listaPreguntas.forEach((element,i)=>{
       const aux=new FormArray([]);
       this.listaMesesEvaluar.forEach((element2,j)=>{
-        aux.push(new FormControl({value:false,disabled:false }))
+        aux.push(new FormControl({value:false,disabled:true }))
       })
       this.arregloForm.addControl(`${i}`,aux)
     })
@@ -85,43 +85,23 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     })
   }
   edadMeses=0;
-  openDialog(index){
+  openDialog(indexFila?:number){
     this.displayDialog=true;
     this.arregloForm.reset()
     this.fechas=[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]
-
-    if(!this.isTodo){
-        this.edadMeses=this.listaTestAlimentacionPlan[index].edad
-        const edadEvaluada=this.listaMesesEvaluar.find(element=>element.numero==this.edadMeses)
-        const indice=this.listaMesesEvaluar.indexOf(edadEvaluada)
-        this.fechas[indice]=new Date(this.listaTestAlimentacionPlan[index].fechaRegistro)
-        const test=this.listaTestAlimentacionPlan[index].listaPreguntas
-        test.forEach((element,index) => {
-        this.getControl(index,indice).setValue(element.estado)
-         });
-    }
-    else{
         this.listaTestAlimentacionPlan.forEach((fila,index)=>{
-            const edadMeses=this.listaTestAlimentacionPlan[index].edad
-            const edadEvaluada=this.listaMesesEvaluar.find(element=>element.numero==edadMeses)
-            const indice=this.listaMesesEvaluar.indexOf(edadEvaluada)
-            this.fechas[indice]=new Date(this.listaTestAlimentacionPlan[index].fechaRegistro)
-            const test=this.listaTestAlimentacionPlan[index].listaPreguntas
-            test.forEach((element,index) => {
-                this.getControl(index,indice).setValue(element.estado)
-            });
-          })
-
-    }
-    
-    
-
-  }
-  desabilitarCheckButton(){
-    // this.listaPreguntas.forEach((element,index)=>{
-    //   this.getControl(index,this.edadMeses).disable()
-    // })
-  }
+            if(this.isTodo ||  index==indexFila ){/* boton verTodo hace todas las itecionees,boton ver hace unicamente la iteraccion del  indexFila enviado*/    
+                const edadMeses=this.listaTestAlimentacionPlan[index].edad
+                const edadEvaluada=this.listaMesesEvaluar.find(element=>element.numero==edadMeses)
+                const indice=this.listaMesesEvaluar.indexOf(edadEvaluada)
+                this.fechas[indice]=new Date(this.listaTestAlimentacionPlan[index].fechaRegistro)
+                const test=this.listaTestAlimentacionPlan[index].listaPreguntas
+                test.forEach((element,index) => {
+                    this.getControl(index,indice).setValue(element.estado)
+                });
+            }
+        })    
+  }x
   sombrear(i,j){
     if((i>=6 && i<14 && j<7)||(i==15 && j<7) ) {
       return '#b6b6b6'
