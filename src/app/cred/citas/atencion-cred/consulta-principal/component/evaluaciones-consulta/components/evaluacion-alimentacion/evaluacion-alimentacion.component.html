@@ -38,46 +38,46 @@
     </p-table>
 <p-dialog header="EVALUACION DE LA ALIMENTACIÓN DE LA NIÑA Y EL NIÑO" [(visible)]="displayDialog" [modal]="true" [style]="{width: '80vw'}" [maximizable]="true" [draggable]="false" [resizable]="false">
 <form [formGroup]="arregloForm">
-    <p-table
-    responsiveLayout="scroll"
-    [value]="listaPreguntas"
-    scrollDirection="both"
-    scrollHeight="100%" styleClass="mt-3"
-    [virtualRowHeight]="40" 
-    styleClass="p-datatable-gridlines"
+    <p-table responsiveLayout="scroll"
+             [value]="listaPreguntas"
+            styleClass="p-datatable-gridlines p-datatable-customers"
+            scrollDirection="both"
+            scrollHeight="100%"
+            [virtualRowHeight]="40" 
+            class="tablaModal"
     >
+    <!-- [resizableColumns]="true" [autoLayout]="true" -->
         <ng-template pTemplate="header">
             <tr>
-                <th style="width:50%;">Edad</th>
-                <th  *ngFor="let mes of listaMesesEvaluar">{{mes.texto}}</th>
+                <th class="frozenCol"  [frozen]="true" pFrozenColumn p style="width:300px">Edad</th>
+                <th [ngStyle]="{'width':mes.numero==edadMeses?'108px':'60px'}" *ngFor="let mes of listaMesesEvaluar">{{mes.texto}}</th>
             </tr>
             <tr>
-                <th>Fecha</th>
-                <th  *ngFor="let mes of listaMesesEvaluar">
-                    <p-calendar [(ngModel)]="fecha" [ngModelOptions]="{standalone: true}" dateFormat="dd-mm-yy"></p-calendar>
+                <th class="frozenCol"  [frozen]="true" pFrozenColumn style="width:300px">Fecha</th>
+                <th [ngStyle]="{'width':mes.numero==edadMeses?'108px':'60px'}" *ngFor="let mes of listaMesesEvaluar">
+                    <p-calendar *ngIf="mes.numero==edadMeses" [(ngModel)]="fecha" [ngModelOptions]="{standalone: true}" dateFormat="dd-mm-yy"></p-calendar>
                 </th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-sale let-rowIndex="rowIndex">
             <tr [formArrayName]="rowIndex">
-                <td>
+                <td class="frozenCol"  [frozen]="true" pFrozenColumn style="width:300px;text-align: left;"> 
                     {{sale.titulo}}
                 </td>
-                <!-- <td *ngFor="let mes of listaMesesEvaluar;let j=index"  style="background-color:red " > -->
-                     
-                    <td *ngFor="let mes of listaMesesEvaluar;let j=index"  [ngStyle]="{'background-color':mes.numero==edadMeses?'#fcbfba':'white'}">
-                    <p-toggleButton *ngIf="mes.numero==edadMeses" [formControlName]="j" [binary]="true" onIcon="pi pi-check" offIcon="pi pi-times"></p-toggleButton>
-                    <!-- <p-checkbox [formControlName]="j" [binary]="true"></p-checkbox> -->
+                <td [ngStyle]="{'width':mes.numero==edadMeses?'108px':'60px','background-color':sombrear(rowIndex,j)}" *ngFor="let mes of listaMesesEvaluar;let j=index"  >
+                    <p-toggleButton *ngIf="mes.numero==edadMeses && sombrear(rowIndex,j)!='#b6b6b6'" [formControlName]="j" [binary]="true" onIcon="pi pi-check" offIcon="pi pi-times"></p-toggleButton>
                 </td>
             </tr>
         </ng-template>
-        <ng-template pTemplate="footer">
         
-        <button *ngIf="!hasTaken" pButton pRipple type="button" label="Guardar" style="background-color: #0c3866;" icon="pi pi-save" (click)="save()" iconPos="right"></button>
-        <!-- <button pButton pRipple type="button" label="Cancelar" class="p-button-danger" icon="pi pi-times" (click)="pruebas()" iconPos="right"></button> -->
-    </ng-template>
+    
     </p-table>
 </form>
+<ng-template pTemplate="footer">
+        
+    <button *ngIf="!hasTaken" pButton pRipple type="button" label="Guardar" style="background-color: #0c3866;" icon="pi pi-save" (click)="save()" iconPos="right"></button>
+    <!-- <button pButton pRipple type="button" label="Cancelar" class="p-button-danger" icon="pi pi-times" (click)="pruebas()" iconPos="right"></button> -->
+</ng-template>
 </p-dialog>
 
 <!-- <p-dialog header="RECUERDA QUE:" [(visible)]="displayPosition" [position]="position" [modal]="true" [style]="{width: '50vw'}"

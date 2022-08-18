@@ -84,6 +84,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     this.evaluacionAlimentacionService.getEvaluacionAlimenticiaCred(this.data.idConsulta).subscribe((resp:any)=>{
       if(resp.cod=='2121' && resp.object!=null){
         this.hasTaken=true
+        this.edadMeses=resp.object.evaluacionAlimentacionMes.edad//cambiamos al mes recuperado
         const ObjetoAlimentacion={
           fecha:resp.object.evaluacionAlimentacionMes.fechaRegistro,
           edad:resp.object.evaluacionAlimentacionMes.edad,
@@ -92,15 +93,12 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         this.arregloTest.push(ObjetoAlimentacion)
         const preguntasArreglo:any[]=resp.object.evaluacionAlimentacionMes.listaPreguntas;
         preguntasArreglo.forEach((element,index)=>{
-          this.getControl(index,resp.object.evaluacionAlimentacionMes.edad).setValue(element.estado)
+          this.getControl(index,this.edadMeses).setValue(element.estado)
         })
         this.fecha=new Date(resp.object.evaluacionAlimentacionMes.fechaRegistro)
-        this.edadMeses=resp.object.evaluacionAlimentacionMes.edad
         this.desabilitarCheckButton();
       }
-      
     })
-
   }
   save(){
     const inputRequest={
@@ -128,15 +126,23 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     //     return 
     //   }
     Swal.fire({
-      title: 'Esta seguro que desea guardar este registro?',
+      title: 'Esta seguro que desea guardar este test?',
+      icon: 'info',
       showDenyButton: false,
       showCancelButton: true,
       confirmButtonText: 'Guardar',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.evaluacionAlimentacionService.addEvaluacionAlimenticiaCred(this.data.idConsulta,inputRequest).subscribe((res: any) => {
-            
-        })  
+         this.evaluacionAlimentacionService.addEvaluacionAlimenticiaCred(this.data.idConsulta,inputRequest).subscribe((res: any) => {
+         Swal.fire({
+           icon: 'success',
+           title: 'Registro Agregado',
+           showConfirmButton: false,
+           timer: 1500,
+         })
+         this.displayDialog=false
+         this.getTestAlimentacion()
+        })
       }
     })
   }
@@ -200,6 +206,13 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     this.listaPreguntas.forEach((element,index)=>{
       this.getControl(index,this.edadMeses).disable()
     })
-
+  }
+  sombrear(i,j){
+    if((i>=6 && i<14 && j<7)||(i==15 && j<7) ) {
+      return '#b6b6b6'
+    }
+    else {
+      return 'white'
+    }
   }
 }
