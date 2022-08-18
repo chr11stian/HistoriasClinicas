@@ -26,6 +26,8 @@ import { UIChart } from "primeng/chart";
   styleUrls: ["./tepsi.component.css"],
 })
 export class TepsiComponent implements OnInit {
+  arregloTestTepsi:any[]=[]
+  displayDialog:boolean=false
   @ViewChild("chartH") chartReferencia: UIChart;
   resultadoA: resultado[] = [
     {
