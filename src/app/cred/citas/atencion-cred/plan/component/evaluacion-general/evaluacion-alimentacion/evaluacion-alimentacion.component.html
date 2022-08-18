@@ -1,468 +1,81 @@
-<p-card>
-    <p-toolbar styleClass="p-mb-4">
-        <ng-template pTemplate="left">
-            <h3 class="p-m-0">EVALUACION DE LA ALIMENTACIÓN DE LA NIÑA Y EL NIÑO</h3>
+<p-table class="table-over" [value]="listaTestAlimentacionPlan" #dt styleClass="p-datatable-gridlines p-datatable-customers" [rows]="10"
+         [rowsPerPageOptions]="[10, 25, 50]"
+         [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+         currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+    <ng-template pTemplate="caption">
+            <div class="flex justify-content-between">
+                <div class="table-header mt-2">
+                    RESULTADOS DE EVALUACION DE LA ALIMENTACIÓN DE LA NIÑA Y EL NIÑO{{edadMeses}} meses
+                </div>
+                <div *ngIf="!hasTaken">
+                    <button pButton pRipple label="Ver Todo" iconPos="left" icon="pi pi-eye"
+                    class="guardar mr-2" (click)="isTodo=true;openDialog()" [disabled]="false"  style="background-color: #0c3866"></button>
+                </div>
+            </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="text-align: center" class="font-2">Nro</th>
+            <th style="text-align: center" class="font-2">FECHA</th>
+            <th style="text-align: center" class="font-2">EDAD TOMADA EL TEST</th>
+            <th style="text-align: center" class="font-2">DIAGNÓSTICO</th>
+            <th style="text-align: center" class="font-2">ACCIÓN</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+        <tr>
+            <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+            <td style="text-align: center">{{ rowData.fechaRegistro | date: 'dd-MM-yyyy HH:mm:ss'}}</td>
+            <td style="text-align: center">{{ rowData.edad }} (meses)</td>
+            <td style="text-align: center">{{ rowData.diagnostico }}</td>
+            <td style="text-align: center">
+                <button pButton (click)="isTodo=false;openDialog(rowIndex)" pTooltip="Ver Test" pRipple type="button"
+                        icon="pi pi-eye" class="p-button-rounded p-button-help m-1">
+                </button>
+                </td>
+            </tr>
         </ng-template>
-    </p-toolbar>
-    <div>
-        <p-table
-                [scrollable]="true"
-                scrollHeight="100%"
-                scrollWidth="100%"
-                styleClass="p-datatable-gridlines"
-                [value]="evaluacionAlimenticia"
-                scrollDirection="both"
-                dataKey="id"
-                responsiveLayout="scroll"
-        >
-            <ng-template pTemplate="header">
-                <tr>
-                    <th style="width:300px; height: 30px ;justify-content:center" pFrozenColumn>EDAD</th>
-                    <th style="width:120px; height: 30px;justify-content:center">RN</th>
-                    <th style="width:120px; height: 30px;justify-content:center">1m</th>
-                    <th style="width:120px; height: 30px;justify-content:center">2m</th>
-                    <th style="width:120px; height: 30px;justify-content:center">3m</th>
-                    <th style="width:120px; height: 30px;justify-content:center">4m</th>
-                    <th style="width:120px; height: 30px;justify-content:center">5m</th>
-                    <th style="width:120px; height: 30px;justify-content:center">6m</th>
-                    <th style="width:120px; height: 30px;justify-content:center">7m</th>
-                    <th style="width:120px; height: 30px;justify-content:center">8m</th>
-                    <th style="width:120px; height: 30px;justify-content:center">9m</th>
-                    <th style="width:120px; height: 30px;justify-content:center">10m</th>
-                    <th style="width:120px; height: 30px;justify-content:center">11m</th>
-                    <th style="width:120px; height: 30px;justify-content:center">12m</th>
-                    <th style="width:120px; height: 30px;justify-content:center">14m</th>
-                    <th style="width:120px; height: 30px;justify-content:center">16m</th>
-                    <th style="width:120px; height: 30px;justify-content:center">18m</th>
-                    <th style="width:120px; height: 30px;justify-content:center">20m</th>
-                    <th style="width:120px; height: 30px;justify-content:center">22m</th>
-                    <th style="width:120px; height: 30px;justify-content:center">24m</th>
-                    <th style="width:120px; height: 30px;justify-content:center">27m</th>
-                    <th style="width:120px; height: 30px;justify-content:center">30m</th>
-                    <th style="width:120px; height: 30px;justify-content:center">33m</th>
-                    <th style="width:120px; height: 30px;justify-content:center">36m</th>
-                    <th style="width:120px; height: 30px;justify-content:center">39m</th>
-                    <th style="width:120px; height: 30px;justify-content:center">42m</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-datos>
-                <tr *ngIf="datos.titulo ==='FECHA'" pFrozenColumn >
-                    <td style="width:300px; height: 40px" class="titulotablaFecha" pFrozenColumn>{{datos.titulo}}</td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        {{datos.valorRN| date: 'dd-MM-yyyy HH:mm:ss'}}
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        {{datos.valor1M| date: 'dd-MM-yyyy HH:mm:ss'}}
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        {{datos.valor2M| date: 'dd-MM-yyyy HH:mm:ss'}}
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                            {{datos.valor3M| date: 'dd-MM-yyyy HH:mm:ss'}}
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        {{datos.valor4M| date: 'dd-MM-yyyy HH:mm:ss'}}
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        {{datos.valor5M| date: 'dd-MM-yyyy HH:mm:ss'}}
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        {{datos.valor6M| date: 'dd-MM-yyyy HH:mm:ss'}}
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        {{datos.valor7M| date: 'dd-MM-yyyy HH:mm:ss'}}
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        {{datos.valor8M| date: 'dd-MM-yyyy HH:mm:ss'}}
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        {{datos.valor9M| date: 'dd-MM-yyyy HH:mm:ss'}}
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        {{datos.valor10M| date: 'dd-MM-yyyy HH:mm:ss'}}
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        {{datos.valor11M| date: 'dd-MM-yyyy HH:mm:ss'}}
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        {{datos.valor12M | date: 'dd-MM-yyyy HH:mm:ss'}}
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        {{datos.valor14M | date: 'dd-MM-yyyy HH:mm:ss'}}
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        {{datos.valor16M | date: 'dd-MM-yyyy HH:mm:ss'}}
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                       {{datos.valor18M| date: 'dd-MM-yyyy HH:mm:ss' }}
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                       {{datos.valor20M | date: 'dd-MM-yyyy HH:mm:ss'}}
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        {{datos.valor22M | date: 'dd-MM-yyyy HH:mm:ss'}}
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        {{datos.valor24M | date: 'dd-MM-yyyy HH:mm:ss'}}
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        {{datos.valor27M | date: 'dd-MM-yyyy HH:mm:ss'}}
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        {{datos.valor30M | date: 'dd-MM-yyyy HH:mm:ss' }}
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        {{datos.valor33M | date: 'dd-MM-yyyy HH:mm:ss'}}
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        {{datos.valor36M | date: 'dd-MM-yyyy HH:mm:ss'}}
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        {{datos.valor39M | date: 'dd-MM-yyyy HH:mm:ss' }}
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        {{datos.valor42M | date: 'dd-MM-yyyy HH:mm:ss'}}
-                    </td>
-                </tr>
-                <tr *ngIf="datos.titulo !=='FECHA' && datos.titulo !== 'Diagnostico'" pFrozenColumn>
-                    <td *ngIf="datos.titulo !=='Observaciones'" style="width:300px; height: 40px"
-                        class="titulotabla" pFrozenColumn>{{datos.titulo}}</td>
-                    <td *ngIf="datos.titulo ==='Observaciones'" style="width:300px; height: 40px"
-                        class="titulotablaFecha" pFrozenColumn>{{datos.titulo}}</td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input" style="text-align: center">
-                                <p-toggleButton [(ngModel)]="datos.valorRN" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                            <ng-template pTemplate="output" style="text-align: center">
-                                <p-toggleButton [(ngModel)]="datos.valorRN"  onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input" style="text-align: center">
-                                <p-toggleButton [(ngModel)]="datos.valor1M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                            <ng-template pTemplate="output" style="text-align: center">
-                                <p-toggleButton [(ngModel)]="datos.valor1M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 40px ;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input" >
-                                <p-toggleButton [(ngModel)]="datos.valor2M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                            <ng-template pTemplate="output" >
-                                <p-toggleButton [(ngModel)]="datos.valor2M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-toggleButton [(ngModel)]="datos.valor3M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                <p-toggleButton [(ngModel)]="datos.valor3M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled> </p-toggleButton>
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-toggleButton [(ngModel)]="datos.valor4M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                <p-toggleButton [(ngModel)]="datos.valor4M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-toggleButton [(ngModel)]="datos.valor5M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                <p-toggleButton [(ngModel)]="datos.valor5M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-toggleButton [(ngModel)]="datos.valor6M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                <p-toggleButton [(ngModel)]="datos.valor6M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-toggleButton [(ngModel)]="datos.valor7M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                <p-toggleButton [(ngModel)]="datos.valor7M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-toggleButton [(ngModel)]="datos.valor8M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                <p-toggleButton [(ngModel)]="datos.valor8M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-toggleButton [(ngModel)]="datos.valor9M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                <p-toggleButton [(ngModel)]="datos.valor9M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-toggleButton [(ngModel)]="datos.valor10M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                <p-toggleButton [(ngModel)]="datos.valor10M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-toggleButton [(ngModel)]="datos.valor11M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                <p-toggleButton [(ngModel)]="datos.valor11M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-toggleButton [(ngModel)]="datos.valor12M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                <p-toggleButton [(ngModel)]="datos.valor12M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-toggleButton [(ngModel)]="datos.valor14M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                <p-toggleButton [(ngModel)]="datos.valor14M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-toggleButton [(ngModel)]="datos.valor16M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                <p-toggleButton [(ngModel)]="datos.valor16M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-toggleButton [(ngModel)]="datos.valor18M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                <p-toggleButton [(ngModel)]="datos.valor18M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-toggleButton [(ngModel)]="datos.valor20M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                <p-toggleButton [(ngModel)]="datos.valor20M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-toggleButton [(ngModel)]="datos.valor22M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                <p-toggleButton [(ngModel)]="datos.valor22M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-toggleButton [(ngModel)]="datos.valor24M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                <p-toggleButton [(ngModel)]="datos.valor24M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-toggleButton [(ngModel)]="datos.valor27M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                <p-toggleButton [(ngModel)]="datos.valor27M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-toggleButton [(ngModel)]="datos.valor30M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                <p-toggleButton [(ngModel)]="datos.valor30M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-toggleButton [(ngModel)]="datos.valor33M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                <p-toggleButton [(ngModel)]="datos.valor33M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-toggleButton [(ngModel)]="datos.valor36M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                <p-toggleButton [(ngModel)]="datos.valor36M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-toggleButton [(ngModel)]="datos.valor39M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                <p-toggleButton [(ngModel)]="datos.valor39M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-toggleButton [(ngModel)]="datos.valor42M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                <p-toggleButton [(ngModel)]="datos.valor42M" onIcon="pi pi-check"
-                                                offIcon="pi pi-times" disabled></p-toggleButton>
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                </tr>
-                <tr *ngIf="datos.titulo ==='Diagnostico'" pFrozenColumn>
-<!--                    <td *ngIf="datos.titulo !=='Diagnóstico'" style="width:300px; height: 80px"-->
-<!--                        class="titulotabla" pFrozenColumn pFrozenColumn>{{datos.titulo}} </td>-->
-                    <td *ngIf="datos.titulo ==='Diagnostico'" style="width:300px; height: 100px"
-                        class="titulotablaFecha" pFrozenColumn>{{datos.titulo}}</td>
-                    <td style="width:120px; height: 100px;justify-content:center" pEditableColumn>{{datos.valorRN}}</td>
-                    <td style="width:120px; height: 100px;justify-content:center" pEditableColumn>{{datos.valor1M}}</td>
-                    <td style="width:120px; height: 100px;justify-content:center" pEditableColumn>{{datos.valor2M}}</td>
-                    <td style="width:120px; height: 100px;justify-content:center" pEditableColumn>{{datos.valor3M}}</td>
-                    <td style="width:120px; height: 100px;justify-content:center" pEditableColumn>{{datos.valor4M}}</td>
-                    <td style="width:120px; height: 100px;justify-content:center" pEditableColumn>{{datos.valor5M}}</td>
-                    <td style="width:120px; height: 100px;justify-content:center" pEditableColumn>{{datos.valor6M}}</td>
-                    <td style="width:120px; height: 100px;justify-content:center" pEditableColumn>{{datos.valor7M}}</td>
-                    <td style="width:120px; height: 100px;justify-content:center" pEditableColumn>{{datos.valor8M}}</td>
-                    <td style="width:120px; height: 100px;justify-content:center" pEditableColumn>{{datos.valor9M}}</td>
-                    <td style="width:120px; height: 100px;justify-content:center" pEditableColumn>{{datos.valor10M}}</td>
-                    <td style="width:120px; height: 100px;justify-content:center" pEditableColumn>{{datos.valor11M}}</td>
-                    <td style="width:120px; height: 100px;justify-content:center" pEditableColumn>{{datos.valor12M}}</td>
-                    <td style="width:120px; height: 100px;justify-content:center" pEditableColumn>{{datos.valor14M}}</td>
-                    <td style="width:120px; height: 100px;justify-content:center" pEditableColumn>{{datos.valor16M}}</td>
-                    <td style="width:120px; height: 100px;justify-content:center" pEditableColumn>{{datos.valor18M}} </td>
-                    <td style="width:120px; height: 100px;justify-content:center" pEditableColumn>{{datos.valor20M}}</td>
-                    <td style="width:120px; height: 100px;justify-content:center" pEditableColumn>{{datos.valor22M}}</td>
-                    <td style="width:120px; height: 100px;justify-content:center" pEditableColumn>{{datos.valor24M}}</td>
-                    <td style="width:120px; height: 100px;justify-content:center" pEditableColumn>{{datos.valor27M}}</td>
-                    <td style="width:120px; height: 100px;justify-content:center" pEditableColumn>{{datos.valor30M}}</td>
-                    <td style="width:120px; height: 100px;justify-content:center" pEditableColumn>{{datos.valor33M}}</td>
-                    <td style="width:120px; height: 100px;justify-content:center" pEditableColumn>{{datos.valor36M}}</td>
-                    <td style="width:120px; height: 100px;justify-content:center" pEditableColumn>{{datos.valor39M}}</td>
-                    <td style="width:120px; height: 100px;justify-content:center" pEditableColumn>{{datos.valor42M}}</td>
-                </tr>
-            </ng-template>
-        </p-table>
-    </div>
-</p-card>
+    </p-table>
+<p-dialog header="EVALUACION DE LA ALIMENTACIÓN DE LA NIÑA Y EL NIÑO" [(visible)]="displayDialog" [modal]="true" [style]="{width: '80vw'}" [maximizable]="true" [draggable]="false" [resizable]="false">
+<form [formGroup]="arregloForm">
+    <p-table responsiveLayout="scroll"
+             [value]="listaPreguntas"
+            styleClass="p-datatable-gridlines p-datatable-customers"
+            scrollDirection="both"
+            scrollHeight="100%"
+            [virtualRowHeight]="40" 
+            class="tablaModal"
+    >
+    <!-- [resizableColumns]="true" [autoLayout]="true" -->
+        <ng-template pTemplate="header">
+            <tr>
+                <th class="frozenCol"  [frozen]="true" pFrozenColumn p style="width:300px">Edad</th>
+                <th [ngStyle]="{'width':fechas[i]?'108px':'60px'}" *ngFor="let mes of listaMesesEvaluar;let i=index">{{mes.texto}}</th>
+            </tr>
+            <tr>
+                <th class="frozenCol"  [frozen]="true" pFrozenColumn style="width:300px">Fecha</th>
+                <th [ngStyle]="{'width':fechas[i]?'108px':'60px'}" *ngFor="let mes of listaMesesEvaluar;let i=index">
+                    <!-- <div *ngIf="!isTodo;else casoContrario"> -->
+                        <!-- <p-calendar *ngIf="false" [(ngModel)]="fechas[i]" disabled="true" [ngModelOptions]="{standalone: true}" showTime="true" showSeconds="true" dateFormat="dd-mm-yy"  [ngStyle]="{'background-color':Colores[i] }"></p-calendar> -->
+                    <!-- </div> -->
+                    <!-- <ng-template #casoContrario> -->
+                        <p-calendar  *ngIf="fechas[i]" [(ngModel)]="fechas[i]" disabled="true" [ngModelOptions]="{standalone: true}" dateFormat="dd-mm-yy"></p-calendar>
+                    <!-- </ng-template>                -->
+                 </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-sale let-rowIndex="rowIndex">
+            <tr [formArrayName]="rowIndex">
+                <td class="frozenCol"  [frozen]="true" pFrozenColumn style="width:300px;text-align: left;"> 
+                    {{sale.titulo}}
+                </td>
+                <td [ngStyle]="{'width':fechas[j]?'108px':'60px','background-color':sombrear(rowIndex,j)}" *ngFor="let mes of listaMesesEvaluar;let j=index"  >
+                    <p-toggleButton *ngIf="fechas[j] && sombrear(rowIndex,j)!='#b6b6b6'" [formControlName]="j" [binary]="true" onIcon="pi pi-check" offIcon="pi pi-times"></p-toggleButton>
+                </td>
+            </tr>
+        </ng-template>
+        
+    
+    </p-table>
+</form>
+</p-dialog>
