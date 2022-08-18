@@ -11,6 +11,8 @@ import { SpinnerHandlerService } from './core/services/spinner-handler.service';
 })
 export class AppComponent implements OnInit {
     loading$ = this.spinnerHandler.showSpinner$;
+    display: boolean = true;
+
     constructor(private config: PrimeNGConfig, public spinnerHandler: SpinnerHandlerService, public cd: ChangeDetectorRef) {
         this.openLoading();
         // this.cd.detectChanges();

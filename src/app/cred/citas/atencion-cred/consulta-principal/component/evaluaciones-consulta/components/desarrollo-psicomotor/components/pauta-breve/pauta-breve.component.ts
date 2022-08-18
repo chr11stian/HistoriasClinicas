@@ -6,6 +6,7 @@ import { PautaBreveService } from '../../services/pauta-breve.service';
 import { datosEEDPTabla, tablaComparativa } from '../models/eedp';
 import { AnswerPB, EvaluationPB } from '../models/pautaBreve';
 import { DatosConsulta } from '../models/eedp';
+import { DesarrolloPsicomotorService } from '../../services/desarrollo-psicomotor.service';
 
 @Component({
   selector: 'app-pauta-breve',
@@ -37,6 +38,7 @@ export class PautaBreveComponent implements OnInit {
   constructor(
     private testService: EvalAlimenService,
     private pautaBreveService: PautaBreveService,
+    private desarrolloPsicomotorService: DesarrolloPsicomotorService,
   ) {
     this.getDatos();
     this.dataConsulta = JSON.parse(localStorage.getItem('documento'));
@@ -64,15 +66,7 @@ export class PautaBreveComponent implements OnInit {
       this.dataPautaBreve = data;
       console.log('array de pauta breve ', this.dataPautaBreve);
       this.arrayEdadPautaBreveSelected = this.dataPautaBreve[this.indexSelected]
-      // this.puntaje = this.dataPautaBreve[this.indexSelected]
-    })
-
-    // await this.testService.getEscalaEEDParray().then(data => {
-    //   this.escalaEEDP = data;
-    //   let mes = this.edadNroSelected;
-    //   this.arrayEdadPautaBreveSelected = this.escalaEEDP[this.indexSelected];
-    //   this.puntaje = this.escalaEEDP[this.indexSelected][0].puntajeMaximo;
-    // });
+    });
   }
 
   async changeStep(index: number, edadNro: number, edad: string) {
@@ -121,19 +115,31 @@ export class PautaBreveComponent implements OnInit {
     });
   }
 
-  confirmSaveTest() {
-    Swal.fire({
-      title: 'Esta Seguro que Desea Guardar los Cambios?',
-      icon: 'question',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Confirmar',
-      cancelButtonText: 'Cancelar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.saveTest();
+  async confirmSaveTest() {
+    await this.desarrolloPsicomotorService.verifyEvaluatedMonth(this.mesesTotal, this.dataConsulta.nroDocumento).then(res => {
+      if (res) {
+        Swal.fire({
+          icon: 'info',
+          title: 'Ya se guardo una evaluación para este mes',
+          showConfirmButton: false,
+          timer: 2000
+        });
+        return;
+      } else {
+        Swal.fire({
+          title: 'Esta Seguro que Desea Guardar los Cambios?',
+          icon: 'question',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Confirmar',
+          cancelButtonText: 'Cancelar'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.saveTest();
+          }
+        });
       }
-    })
+    });
   }
 }
