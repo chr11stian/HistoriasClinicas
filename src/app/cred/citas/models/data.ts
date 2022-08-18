@@ -246,6 +246,7 @@ export interface acuerdosCompromisosCRED{
     listaAcuerdosConMadre: listaAcuerdosConMadre[]
 }
 export interface proxCita {
+    idCupos?: string
     fecha: Date | string;
     motivo?: string;
     servicio?: string;

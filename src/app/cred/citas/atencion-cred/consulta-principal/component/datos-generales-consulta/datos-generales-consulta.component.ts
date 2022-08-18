@@ -236,6 +236,7 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
   ];
   //--Interconsulta
   interconsulta: proxCita[] = [];
+  listInterconsulta: proxCita[] = [];
   dialogInterconsulta: boolean;
   formInterconsulta: FormGroup;
   isUpdate: boolean = false;
@@ -506,14 +507,50 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    console.log("idConsulta ", this.consultaService.idConsulta);
+    this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
+    console.log("data", this.data);
+    if (this.data.idConsulta !== "") this.recuperarData(this.data.idConsulta);
+    this.buildForm();
+    /* interconsulta */
     this.ListaServicios();
     this.tooltipItems = [
       {
         tooltipOptions: {
-          tooltipLabel: "Upload",
+          tooltipLabel: "Reporte",
           tooltipPosition: "left",
         },
-        icon: "pi pi-upload",
+        icon: "pi pi-desktop",
+        command: (event: Event) => {
+          this.open();
+        },
+      },
+      {
+        tooltipOptions: {
+          tooltipLabel: "Reporte",
+          tooltipPosition: "left",
+        },
+        icon: "pi pi-desktop",
+        command: (event: Event) => {
+          this.open();
+        },
+      },
+      {
+        tooltipOptions: {
+          tooltipLabel: "Reporte",
+          tooltipPosition: "left",
+        },
+        icon: "pi pi-desktop",
+        command: (event: Event) => {
+          this.open();
+        },
+      },
+      {
+        tooltipOptions: {
+          tooltipLabel: "Reporte",
+          tooltipPosition: "left",
+        },
+        icon: "pi pi-desktop",
         command: (event: Event) => {
           this.open();
         },
@@ -529,13 +566,8 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
         },
       },
     ];
-
-    console.log("idConsulta ", this.consultaService.idConsulta);
-    this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
-    console.log("2");
-    console.log("data", this.data);
-    if (this.data.idConsulta !== "") this.recuperarData(this.data.idConsulta);
-    this.buildForm();
+    /* lista interconsulta */
+    this.listaInterconsulta();
   }
 
   save(): void {
@@ -570,40 +602,62 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
         console.log("LISTA DE SERVICIOS DE IPRESSS", this.servicios);
       });
   }
-  saveInterconsulta() {
-    let aux_: proxCita = {
-      fecha: this.datePipe.transform(
-        this.formInterconsulta.value.fecha,
-        "yyyy-MM-dd"
-      ),
-      motivo: this.formInterconsulta.value.motivo,
-      servicio: this.formInterconsulta.value.servicio,
-      nivelUrgencia: this.formInterconsulta.value.urgencia,
-    };
-    this.interconsulta.push(aux_);
-    /*
-    Swal.fire({
-        icon: 'success',
-        title: 'Agregado correctamente',
-        text: '',
-        showConfirmButton: false,
-        timer: 1500,
-    })
-    this.dialogInterconsulta = false;*/
+
+  eliminarInterconsulta(id, index) {
+    this.listInterconsulta.splice(index, 1);
+    console.log();
+    this.consultaGeneralService
+      .deleteInterconsulta(this.data.idConsulta, id)
+      .subscribe((r: any) => {
+        console.log(r.object);
+      });
   }
-  eliminarInterconsulta(index) {
-    this.interconsulta.splice(index, 1);
+  listaInterconsulta() {
+    this.consultaGeneralService
+      .listInterconsulta(this.data.idConsulta)
+      .subscribe((r: any) => {
+        this.listInterconsulta = r.object;
+      });
   }
-  load() {
+  agregarInterconsulta() {
     this.loading = true;
     setTimeout(() => (this.loading = false), 1000);
-    this.saveInterconsulta();
-    Swal.fire({
-      icon: "success",
-      title: "Agregado correctamente",
-      text: "",
-      showConfirmButton: false,
-      timer: 1500,
-    });
+    /* agregar */
+    if (
+      this.formInterconsulta.value.fecha != null &&
+      this.formInterconsulta.value.motivo != "" &&
+      this.formInterconsulta.value.servicio != ""
+    ) {
+      let interconsulta: proxCita = {
+        fecha: this.datePipe.transform(
+          this.formInterconsulta.value.fecha,
+          "yyyy-MM-dd"
+        ),
+        motivo: this.formInterconsulta.value.motivo.toUpperCase(),
+        servicio: this.formInterconsulta.value.servicio,
+        nivelUrgencia: this.formInterconsulta.value.urgencia,
+      };
+      this.consultaGeneralService
+        .addInterconsulta(this.data.idConsulta, interconsulta)
+        .subscribe((r: any) => {
+          this.listInterconsulta = r.object;
+        });
+      Swal.fire({
+        icon: "success",
+        title: "Agregado correctamente",
+        text: "",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+    else{
+      Swal.fire({
+        icon: "warning",
+        title: "Datos incompletos",
+        text: "",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
   }
 }

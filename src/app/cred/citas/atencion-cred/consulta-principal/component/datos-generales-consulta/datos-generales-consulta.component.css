@@ -15,7 +15,7 @@ p-calendar >>> .p-button {
 p-toolbar >>> * {
   align-self: center;
 }
-
+/* interconsulta */
 div#opc {
   position: static;
 }
@@ -23,13 +23,9 @@ p-speeddial >>> .p-button.p-button-icon-only.p-button-rounded {
   background: green;
   border-color: green;
 }
-:host ::ng-deep .speeddial-circle-demo {
-  top: calc(50% - 25rem);
-  left: calc(50% - 2rem);
-}
 :host ::ng-deep .speeddial-semi-circle .p-speeddial-direction-left {
   right: 0;
-  top: calc(50% - 25rem);
+  top: 300px;
 }
 :host ::ng-deep .button-agregar .p-button {
   background-color: #0c3866;

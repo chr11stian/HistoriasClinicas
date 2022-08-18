@@ -56,3 +56,19 @@
   margin-left: 0.4rem;
   /* background: red; */
 }
+
+/* interconsulta */
+div#opc {
+  position: static;
+}
+p-speeddial >>> .p-button.p-button-icon-only.p-button-rounded {
+  background: green;
+  border-color: green;
+}
+:host ::ng-deep .speeddial-semi-circle .p-speeddial-direction-left {
+  right: 0;
+  top: 300px;
+}
+:host ::ng-deep .button-agregar .p-button {
+  background-color: #0c3866;
+}

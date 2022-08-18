@@ -214,7 +214,7 @@
   <div class="speeddial-circle-demo">
     <div class="speeddial-semi-circle">
       <p-speedDial
-        showIcon="pi pi-cog"
+        showIcon="pi pi-desktop"
         hideIcon="pi pi-angle-double-down"
         [model]="tooltipItems"
         radius="80"
@@ -293,14 +293,14 @@
           label="Agregar"
           icon="pi pi-plus"
           [loading]="loading"
-          (onClick)="load()"
+          (onClick)="agregarInterconsulta()"
         ></p-button>
       </div>
     </div>
   </form>
   <p-table
     class="table-over"
-    [value]="interconsulta"
+    [value]="listInterconsulta"
     #dt
     styleClass="p-datatable-gridlines"
     [rows]="10"
@@ -333,14 +333,14 @@
             pRipple
             icon="pi pi-trash"
             class="p-button-rounded p-button-danger m-1"
-            (click)="eliminarInterconsulta(rowIndex)"
+            (click)="eliminarInterconsulta(rowData.idCupos,rowIndex)"
             pTooltip="Eliminar"
           ></button>
         </td>
       </tr>
     </ng-template>
   </p-table>
-  <ng-template pTemplate="footer">
+  <!--<ng-template pTemplate="footer">
     <button
       pButton
       type="button"
@@ -359,5 +359,5 @@
       label="Guardar"
       (click)="saveInterconsulta()"
     ></button>
-  </ng-template>
+  </ng-template>-->
 </p-dialog>
