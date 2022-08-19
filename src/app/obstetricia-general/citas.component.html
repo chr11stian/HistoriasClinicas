@@ -10,39 +10,43 @@
         <p-toolbar styleClass="p-mb-4">
             <ng-template pTemplate="left">
                 <form [formGroup]="formCitas">
-                    <div class="grid">
-                        <div class="col-12 md:col-4 lg:col-3 p-fluid">
-                            <label class="">TIPO DOC</label>
-                            <p-dropdown [options]="listaDocumentosIdentidad"
-                                        formControlName="tipoDoc"
-                                        placeholder="Tipo Documento"
-                                        optionLabel="abreviatura"
-                                        optionValue="abreviatura"
-                                        [showClear]="false">
-                            </p-dropdown>
-                        </div>
-                        <div class="col-12 md:col-4 lg:col-5 p-field">
-                            <label class="">DOCUMENTO DEL PACIENTE</label>
-                            <div class="p-inputgroup">
-                                <input type="text" pInputText formControlName="nroDoc"/>
-                                <p-button icon="pi pi-search" (click)="buscarCupoXdniFecha()"></p-button>
+                    <div class="col-12">
+                        <div class="grid">
+                            <div class="col-12 md:col-4 lg:col-4 p-fluid">
+                                <label class="">TIPO DOC</label>
+                                <p-dropdown [options]="listaDocumentosIdentidad" formControlName="tipoDoc"
+                                    placeholder="Tipo Documento" optionLabel="abreviatura" optionValue="abreviatura"
+                                    [showClear]="false">
+                                </p-dropdown>
                             </div>
-                        </div>
-                        <div class="col-12 md:col-4 lg:col-4 p-field">
-                            <label class="">FILTRAR POR FECHA</label>
-                            <div class="p-inputgroup">
-                                <p-calendar dateFormat="yy-mm-dd"
-                                            formControlName="fechaBusqueda"
-                                            [readonlyInput]="true"
-                                            (onSelect)="buscarCuposPorPersonal()">
-                                </p-calendar>
+                            <div class="col-12 md:col-4 lg:col-6 p-field">
+                                <label class="">DOCUMENTO DEL PACIENTE</label>
+                                <div class="p-inputgroup">
+                                    <input type="text" pInputText formControlName="nroDoc" />
+                                    <p-button icon="pi pi-search" (click)="buscarCupoXdniFecha()"></p-button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </form>
             </ng-template>
             <ng-template pTemplate="right">
-                <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-success"></button>
+                <div class="col-12">
+                    <div class="grid">
+                        <div class="col-12 md:col-4 lg:col-6">
+                            <label class="">FILTRAR POR FECHA</label>
+                            <div class="p-inputgroup">
+                                <p-calendar dateFormat="yy-mm-dd" formControlName="fechaBusqueda" [readonlyInput]="true"
+                                    (onSelect)="buscarCuposPorPersonal()">
+                                </p-calendar>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-4 lg:col-4 mt-4 pt-1">
+                            <button pButton pRipple label="Exportar" icon="pi pi-upload"
+                                class="p-button-success"></button>
+                        </div>
+                    </div>
+                </div>
             </ng-template>
         </p-toolbar>
     </div>
@@ -58,11 +62,10 @@
                     <td style="text-align: center">{{ rowData.primerNombre }}</td>
                     <td style="text-align: center">{{ rowData.celular }}</td>
                     <td style="text-align: right">
-                        <button pButton pRipple routerLink="gestante" (click)="enviarData2(rowData)"
-                                class="boton-azul" label="Atender"
-                                icon="pi pi-check"></button>
-                        <button pButton pRipple class="boton-mostaza" label="No Control"
-                                icon="pi pi-book" (click)="irConsultaNoControl(rowData)"></button>
+                        <button pButton pRipple routerLink="gestante" (click)="enviarData2(rowData)" class="boton-azul"
+                            label="Atender" icon="pi pi-check"></button>
+                        <button pButton pRipple class="boton-mostaza" label="No Control" icon="pi pi-book"
+                            (click)="irConsultaNoControl(rowData)"></button>
                     </td>
                 </tr>
             </ng-template>
@@ -74,9 +77,9 @@
         <p-accordion>
             <p-accordionTab header="LISTA DE PACIENTES CON CUPOS PARA EL DIA DE HOY" [selected]="true">
                 <p-table [value]="DataCupos" #dt [globalFilterFields]="['fecha']" styleClass="p-datatable-gridlines "
-                         [rows]="10" [loading]="loading" responsiveLayout="scroll" class="CitasList"
-                         [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
-                         currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+                    [rows]="10" [loading]="loading" responsiveLayout="scroll" class="CitasList"
+                    [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
+                    currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
 
                     <ng-template pTemplate="header">
                         <tr>
@@ -104,13 +107,11 @@
                             <td style="text-align: center; font-size: 11px">{{ rowData.paciente.nroTelefono}}</td>
 
                             <td style="text-align: center">
-                                <button pButton pRipple type="button" label="Gestante"
-                                        class="p-button-secondary"
-                                        (click)="enviarData(rowData)" style="font-size: 11px"
-                                        icon="pi pi-angle-double-right"></button>
+                                <button pButton pRipple type="button" label="Gestante" class="p-button-secondary"
+                                    (click)="enviarData(rowData)" style="font-size: 11px"
+                                    icon="pi pi-angle-double-right"></button>
                                 <button pButton pRipple type="button" (click)="openDialogTriaje(rowData)" label="Triaje"
-                                        class="p-button-help" style="font-size: 11px"
-                                        icon="pi pi-check-circle"></button>
+                                    class="p-button-help" style="font-size: 11px" icon="pi pi-check-circle"></button>
                                 <!-- <button pButton pRipple class="boton-mostaza" label="Consulta externa"
                                         icon="pi pi-book" (click)="irConsultaNoControl(rowData)"
                                         style="; font-size: 11px"></button> -->
@@ -123,9 +124,9 @@
 
             <p-accordionTab header="LISTA DE GESTANTES CON CITAS NO ATENDIDAS">
                 <p-table [value]="citas" #dt styleClass="p-datatable-gridlines" [rows]="5"
-                         [rowsPerPageOptions]="[5, 10, 50]"
-                         [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
-                         currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+                    [rowsPerPageOptions]="[5, 10, 50]" [paginator]="true" [autoLayout]="true"
+                    [showCurrentPageReport]="true"
+                    currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
 
                     <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
                         <tr>
@@ -149,12 +150,14 @@
                             <td style="text-align: center">{{ rowData.horario }}</td>
                             <td style="text-align: center">{{ rowData.fecha }}</td>
                             <td style="text-align: center">
-              <span class="p-buttonset">
-                <button pButton pRipple class="boton-azul" label="Reprogramar"
-                        icon="pi pi-undo"></button>
-                <button pButton pRipple class="boton-morado" label="Cancelar" icon="pi pi-times"></button>
-                <button pButton pRipple class="boton-red" label="Eliminar" icon="pi pi-trash"></button>
-              </span>
+                                <span class="p-buttonset">
+                                    <button pButton pRipple class="boton-azul" label="Reprogramar"
+                                        icon="pi pi-undo"></button>
+                                    <button pButton pRipple class="boton-morado" label="Cancelar"
+                                        icon="pi pi-times"></button>
+                                    <button pButton pRipple class="boton-red" label="Eliminar"
+                                        icon="pi pi-trash"></button>
+                                </span>
                             </td>
                         </tr>
                     </ng-template>
@@ -162,9 +165,9 @@
             </p-accordionTab>
             <p-accordionTab header="LISTA DE GESTANTES CON CITAS CANCELADAS">
                 <p-table [value]="citas" #dt styleClass="p-datatable-gridlines" [rows]="10"
-                         [rowsPerPageOptions]="[10, 25, 50]"
-                         [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
-                         currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+                    [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
+                    [showCurrentPageReport]="true"
+                    currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
 
                     <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
                         <tr>
@@ -188,10 +191,12 @@
                             <td style="text-align: center">{{ rowData.horario }}</td>
                             <td style="text-align: center">{{ rowData.fecha }}</td>
                             <td style="text-align: center">
-              <span class="p-buttonset">
-                <button pButton pRipple class="boton-azul" label="Reprogramar" icon="pi pi-undo"></button>
-                <button pButton pRipple class="boton-red" label="Eliminar" icon="pi pi-trash"></button>
-              </span>
+                                <span class="p-buttonset">
+                                    <button pButton pRipple class="boton-azul" label="Reprogramar"
+                                        icon="pi pi-undo"></button>
+                                    <button pButton pRipple class="boton-red" label="Eliminar"
+                                        icon="pi pi-trash"></button>
+                                </span>
                             </td>
                         </tr>
                     </ng-template>
