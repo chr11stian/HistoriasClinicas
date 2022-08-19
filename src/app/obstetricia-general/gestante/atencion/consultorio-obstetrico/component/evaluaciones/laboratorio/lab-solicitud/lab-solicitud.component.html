@@ -46,7 +46,7 @@
                         <span [for]="item">{{ item.nombreExamen }}</span>
                     </div>
                     <div class="col-2">
-                        <p-checkbox [inputId]="item" name="item" [value]="item" [(ngModel)]="examName">
+                        <p-checkbox [inputId]="item" name="item" [value]="item" [(ngModel)]="examName" [readonly]="item.saved">
                         </p-checkbox>
                     </div>
                 </div>
