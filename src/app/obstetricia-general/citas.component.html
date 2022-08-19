@@ -33,14 +33,18 @@
             <ng-template pTemplate="right">
                 <div class="col-12">
                     <div class="grid">
+
                         <div class="col-12 md:col-4 lg:col-6">
-                            <label class="">FILTRAR POR FECHA</label>
-                            <div class="p-inputgroup">
-                                <p-calendar dateFormat="yy-mm-dd" formControlName="fechaBusqueda" [readonlyInput]="true"
-                                    (onSelect)="buscarCuposPorPersonal()">
-                                </p-calendar>
-                            </div>
+                            <form [formGroup]="formCitas">
+                                <label class="">FILTRAR POR FECHA</label>
+                                <div class="p-inputgroup">
+                                    <p-calendar dateFormat="yy-mm-dd" formControlName="fechaBusqueda"
+                                        [readonlyInput]="true" (onSelect)="buscarCuposPorPersonal()">
+                                    </p-calendar>
+                                </div>
+                            </form>
                         </div>
+
                         <div class="col-12 md:col-4 lg:col-4 mt-4 pt-1">
                             <button pButton pRipple label="Exportar" icon="pi pi-upload"
                                 class="p-button-success"></button>
