@@ -19,6 +19,7 @@ import {
 import Swal from "sweetalert2";
 import localeFr from "@angular/common/locales/fr";
 import { UIChart } from "primeng/chart";
+import { diagnostico } from '../../../tamizajes/tamizajes.component';
 
 @Component({
   selector: "app-tepsi",
@@ -212,23 +213,29 @@ export class TepsiComponent implements OnInit {
     return aux;
   }
 
-  isUpdate: boolean = false;
+  hasTaken: boolean = false;
 
   getTestTepsi() {
-    this.tepsiService.getConsultaTepsi(this.idConsulta).then((resp) => {
+    this.tepsiService.getConsultaTepsi(this.idConsulta).then((resp:any) => {
       //resp.cod==2122 => no hay registro
-      if (resp["cod"] == "2122") {
+      if (resp.cod == "2122") {
         return;
       }
-      // console.log('es un 2021');
-      this.isUpdate = true;
-      Swal.fire({
-        icon: "success",
-        title: "Registro Tepsi Recuperado",
-        text: "Evaluacion Tepsi recuperado",
-        showConfirmButton: false,
-        timer: 3000,
-      });
+      
+      this.hasTaken = true;
+      const objetoTepsi={
+        fecha:resp.object.testTepsi.fechaAtencion,
+        edad:`${resp.object.testTepsi.edad.anio}años,${resp.object.testTepsi.edad.mes}meses,${resp.object.testTepsi.edad.dia}dias`,
+        diagnostico:resp.object.testTepsi.diagnostico
+      }
+      this.arregloTestTepsi.push(objetoTepsi)
+      // Swal.fire({
+      //   icon: "success",
+      //   title: "Registro Tepsi Recuperado",
+      //   text: "Evaluacion Tepsi recuperado",
+      //   showConfirmButton: false,
+      //   timer: 3000,
+      // });
       const resultado = resp["object"]["testTepsi"];
       this.anioEdad = resultado["edad"]["anio"];
       this.mesEdad = resultado["edad"]["mes"];
@@ -419,9 +426,8 @@ export class TepsiComponent implements OnInit {
       return element == false;
     });
     if (faltante.length == 0) {
-      const fecha: string[] = this.getFC("fechaSelected")
-        .value.toISOString()
-        .split("T");
+
+      const fecha: string[] = this.getFC("fechaSelected").value.toISOString().split("T");
       const hora: string = fecha[1].split(".")[0];
       const requestInput = {
         codigoCIE10: "Z009",
@@ -464,55 +470,47 @@ export class TepsiComponent implements OnInit {
           },
         },
       };
-
-      console.log("request inpu", requestInput);
-      if (this.isUpdate) {
-        this.tepsiService
-          .putConsultaTepsi(this.idConsulta, requestInput)
-          .toPromise()
-          .then(
-            (resp) => {
-              console.log(resp);
-              Swal.fire({
-                icon: "success",
-                title: "Test Tepsi Actualizado Satifactoriamente",
-                text: "",
-                showConfirmButton: false,
-                timer: 3000,
-              });
-              // this.messageService.add({
-              //     severity: 'success',
-              //     summary: 'Test Guardado',
-              //     detail: 'Registro Actualizado'
-              // });
-            },
-            (error) => {
-              console.log("error!!!!!!!!!!");
-            }
-          );
-      } else {
-        this.tepsiService
-          .postConsultaTepsi(this.idConsulta, requestInput)
-          .subscribe(
-            (resp) => {
-              // this.messageService.add({
-              //     severity: 'success',
-              //     summary: 'Test Guardado',
-              //     detail: 'Registro Agregado'
-              // });
-              Swal.fire({
-                icon: "success",
-                title: "Test Tepsi Guardado Satifactoriamente",
-                text: "",
-                showConfirmButton: false,
-                timer: 3000,
-              });
-            },
-            (error) => {
-              console.log("error!!!!!!!!!!");
-            }
-          );
-      }
+      /* start */
+      Swal.fire({
+        title: 'Esta seguro que desea guardar este registro?',
+        showDenyButton: false,
+        showCancelButton: true,
+        confirmButtonText: 'Guardar',
+        denyButtonText: `Cancelar`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+            this.tepsiService.postConsultaTepsi(this.idConsulta, requestInput)
+              .subscribe(
+                (resp:any) => {
+                  if(resp.cod!='2005'){
+                    Swal.fire({
+                      icon: "success",
+                      title: "Test Tepsi Guardado Satifactoriamente",
+                      text: "",
+                      showConfirmButton: false,
+                      timer: 3000,
+                    });
+                    this.getTestTepsi()
+                    this.displayDialog=false
+                  }
+                  else{
+                    Swal.fire({
+                      icon: "error",
+                      title: "Ya existe un test tepsi ",
+                      text: "Ya existe un test en la historia Clinica o solo se puede hacer un test por consulta",
+                      showConfirmButton: false,
+                      timer: 3000,
+                    });
+                  }
+                },
+                (error) => {
+                  console.log('error del servidor');  
+                }
+              );
+        }
+      })
+      /* end */
+      
     } else {
       this.messageService.add({
         severity: "error",

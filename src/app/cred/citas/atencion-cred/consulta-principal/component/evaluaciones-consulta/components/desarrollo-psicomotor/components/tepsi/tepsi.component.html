@@ -196,7 +196,7 @@
     </div>
 </div>
 <ng-template pTemplate="footer">    
-    <button *ngIf="!isUpdate" pButton pRipple type="button" label="Guardar" style="background-color: #0c3866;" icon="pi pi-save" (click)="save()" iconPos="right"></button>
+    <button *ngIf="!hasTaken" pButton pRipple type="button" label="Guardar" style="background-color: #0c3866;" icon="pi pi-save" (click)="save()" iconPos="right"></button>
 </ng-template>
 <!-- <div class="grid mb-3">
     <div class="col-12 flex justify-content-end">
