@@ -440,7 +440,7 @@ export class TepsiComponent implements OnInit {
             dia: this.diaEdad,
           },
           fechaAtencion: `${fecha[0]} ${hora}`,
-          diagnostico: "N",
+          diagnostico: this.resultadoA[0].categoria,
           docExaminador: this.getFC("nombreExaminador").value,
           resultadoTestTotal: {
             puntajeBruto: this.resultadoA[0].puntajeBruto,
