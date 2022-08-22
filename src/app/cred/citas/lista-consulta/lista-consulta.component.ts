@@ -8,6 +8,7 @@ import { ListaConsultaService } from '../services/lista-consulta.service';
 import { dato } from "src/app/cred/citas/models/data"
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import {DatePipe, formatDate} from '@angular/common';
 
 @Component({
     selector: 'app-lista-consulta',
@@ -15,6 +16,7 @@ import Swal from 'sweetalert2';
     styleUrls: ['./lista-consulta.component.css']
 })
 export class ListaConsultaComponent implements OnInit {
+    datePipe = new DatePipe('en-US');
     attributeLocalS = 'documento'
     dataConsulta: any;
     dataLifiado: any;
@@ -52,6 +54,7 @@ export class ListaConsultaComponent implements OnInit {
     }
 
     atencion(event) {
+        console.log("adffda",event)
         this.listaConsultaService.getConsulta(event.id).subscribe((r: any) => {
             this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS))
             let data: dato = {
@@ -64,7 +67,9 @@ export class ListaConsultaComponent implements OnInit {
                 sexo: this.sexo,
                 fechaNacimiento: this.fechaNacimiento,
                 hidden: true,
-                see: false
+                see: false,
+                fechaConsulta: event.fechaAtencion
+               
             }
             localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
             setTimeout(() => {
@@ -81,7 +86,8 @@ export class ListaConsultaComponent implements OnInit {
             sexo: this.sexo,
             fechaNacimiento: this.fechaNacimiento,
             hidden: true,
-            see: true
+            see: true,
+            fechaConsulta: this.datePipe.transform(new Date(), 'yyyy-MM-dd')
         }
         localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
         setTimeout(() => {
