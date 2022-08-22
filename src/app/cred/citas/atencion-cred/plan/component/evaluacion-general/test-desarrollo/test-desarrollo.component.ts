@@ -39,34 +39,27 @@ export class TestDesarrolloComponent implements OnInit {
       }
     })
   }
-  edad:number=0
   fechasEvaluadas=[]
-  openDialog(index?:number){
+  openDialog(indexFila?:number){
     this.displayDialog=true
     this.arregloForm.reset()
-    if(!this.isTodo){
-        const test=this.listaTestPeruano[index].calificacion
-        this.edad=this.listaTestPeruano[index].edad
-        const indice=this.listaMeses.find(element=>element==this.edad)
-        this.fechas[indice-1]=new Date(this.listaTestPeruano[index].fecha)
-        test.forEach((element,index) => {
-        this.getControl(element.x-1,element.y-1).setValue(true)
-         });
-    }
-    else{
-      this.listaTestPeruano.forEach((fila,index)=>{
-        const edad=this.listaTestPeruano[index].edad
-        const indice=this.listaMeses.find(element=>element==edad)
-        const fecha=this.listaTestPeruano[index].fecha
-        this.fechas[indice-1]=new Date(fecha)
-        this.fechasEvaluadas.push({indice})
-        const test=this.listaTestPeruano[index].calificacion
+    this.fechas=[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]
+    this.listaTestPeruano.forEach((fila,index)=>{
+        if(this.isTodo || indexFila==index){ /* boton ver Todo hace todas las iteciones ,boton ver test solo la iteracion del indexFila enviado  */
+          const edad=this.listaTestPeruano[index].edad
+          const elementoMes=this.listaMeses.find(element=>element==edad)
+          const indice=this.listaMeses.indexOf(elementoMes)
+          const fecha=this.listaTestPeruano[index].fecha
+          this.fechas[indice]=new Date(fecha)
+          this.fechasEvaluadas.push({indice})
+          const test=this.listaTestPeruano[index].calificacion
           test.forEach((element,index) => {
             this.getControl(element.x-1,element.y-1).setValue(true)
           });
+        }
       })
       
-    } 
+    
   }
   ruta(sale: any, mes: number) {
     return sale[`img_${mes}`];

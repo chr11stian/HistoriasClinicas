@@ -57,7 +57,7 @@ li {
   /* margin: auto; */
   /* flex: 100%; */
 }
-.imagen-ortolani{
+.imagen-ortolani {
   text-align: center;
   content: url("src\assets\images\ortolani.png");
   width: 26rem;
@@ -72,6 +72,21 @@ li {
 ::ng-deep .dialogo .p-dialog-content {
   border-radius: 10px;
 }
-h4{
+h4 {
   height: 0.8rem;
+}
+/* interconsulta */
+div#opc {
+  position: static;
+}
+p-speeddial >>> .p-button.p-button-icon-only.p-button-rounded {
+  background: green;
+  border-color: green;
+}
+:host ::ng-deep .speeddial-semi-circle .p-speeddial-direction-left {
+  right: 0;
+  top: 300px;
+}
+:host ::ng-deep .button-agregar .p-button {
+  background-color: #0c3866;
 }

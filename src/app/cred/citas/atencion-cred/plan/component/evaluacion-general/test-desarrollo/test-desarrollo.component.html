@@ -3,18 +3,6 @@
             [rowsPerPageOptions]="[10, 25, 50]"
             [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
             currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
-       <!-- <ng-template pTemplate="caption">
-          <ng-template pTemplate="left">
-              <span class="p-m-0">RESULTADOS DE TEST DESARROLLO PSICOMOTOR PERUANO</span>
-          </ng-template>
-          <ng-template pTemplate="right" class="button">
-              <button pButton pRipple label="Visualizar"  (click)="visualizar2()"  pRipple type="button"
-                      icon="pi pi-eye" class="p-button-rounded p-button-help m-1">
-              </button>
-              <button pButton pRipple label="Agregar" iconPos="right" icon="pi pi-plus-circle"
-                      class="guardar mr-2" (click)="displayDialog=true" [disabled]="enableAgregar"  style="background-color: #0c3866"></button>
-          </ng-template>
-       </ng-template> -->
        <ng-template pTemplate="caption">
                <div class="flex justify-content-between">
                    <div class="table-header mt-2">
@@ -42,8 +30,6 @@
                <td style="text-align: center">{{ rowData.edad }} (meses)</td>
                <td style="text-align: center">{{ rowData.diagnostico }}</td>
                <td style="text-align: center">
-<!--                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"-->
-<!--                            pTooltip="Editar" (click)="openEditar(rowData,rowIndex)"></button>-->
                    <button pButton (click)="isTodo=false;openDialog(rowIndex)" pTooltip="Ver Test" pRipple type="button"
                            icon="pi pi-eye" class="p-button-rounded p-button-help m-1">
                    </button>
@@ -87,13 +73,7 @@
                    <tr>
                        <th style="background-color: #FF8300; border-radius: 15px; width: 80px; color:black; font-weight: bold; padding: 0px; margin: 0px;">FECHA</th>
                        <th *ngFor="let mes of listaMeses;let i=index" style="background-color: white;">
-                            <div *ngIf="!isTodo;else casoContrario">
-                                <p-calendar *ngIf="mes==edad" [(ngModel)]="fechas[i]" disabled="true" [ngModelOptions]="{standalone: true}" showTime="true" showSeconds="true" dateFormat="dd-mm-yy"  [ngStyle]="{'background-color':Colores[i] }"></p-calendar>
-                            </div>
-                            <ng-template #casoContrario>
                                 <p-calendar  *ngIf="fechas[i]" [(ngModel)]="fechas[i]" disabled="true" [ngModelOptions]="{standalone: true}" showTime="true" showSeconds="true" dateFormat="dd-mm-yy"  [ngStyle]="{'background-color':Colores[i] }"></p-calendar>
-                            </ng-template>
-
                         </th>
                    </tr>
                </ng-template>
@@ -112,15 +92,12 @@
                                <p style="margin:auto 0" class="triangulo"></p>
                            </div>
                        </td>
-                       <td *ngFor="let mes of listaMeses;let j=index" style="border: 1px solid black; cursor: pointer"  [ngClass]="{'fondorojo':mes==edadMeses}">
+                       <td *ngFor="let mes of listaMeses;let j=index" style="border: 1px solid black; cursor: pointer"  [ngClass]="{'fondorojo':fechas[j]}">
                            <img *ngIf="true;"class="button-menu" [src]="ruta(sale,mes)">
-                           <!-- <p-radioButton [name]="sale.letter" [value]="mes" [(ngModel)]="arreglo[rowIndex]"></p-radioButton> -->
-                           <!-- <p-radioButton [name]="rowIndex" [value]="mes" [formControlName]="rowIndex"  ></p-radioButton> -->
+                          
                            <div *ngIf="getControl(rowIndex,j).value">    
-                                <!-- <div>{{getControl(rowIndex,j).value}}</div> -->
                                <p-checkbox  [formControlName]="j"  [binary]="true"></p-checkbox>
                             </div>
-                           <!-- <input type="text"  [formControlName]="j"> -->
                        </td>
                    </tr>
                   
@@ -151,14 +128,6 @@
        </form>
 
    </div>
-
-   <ng-template pTemplate="footer">
-    <!-- <button pButton  (click)="pruebas()"> 
-        Probar
-    </button>   -->
-   
-   </ng-template>
-
 </p-dialog>
 
 
