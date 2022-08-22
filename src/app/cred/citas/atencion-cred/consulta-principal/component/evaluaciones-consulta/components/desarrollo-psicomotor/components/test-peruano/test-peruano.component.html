@@ -1,5 +1,5 @@
 <div>
-    <p-table class="table-over" [value]="arregloTest" #dt styleClass="p-datatable-gridlines p-datatable-customers" [rows]="10"
+    <p-table class="table-over" [value]="arregloTest" #dt styleClass="" [rows]="10"
              [rowsPerPageOptions]="[10, 25, 50]"
              [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
              currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
@@ -85,8 +85,12 @@
                         <th style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #B573B6"><div style="font-size: 15px; font-weight: bold; ">30</div><div style="font-size: 15px; font-weight: bold;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-30"></div></div></th>
                     </tr>
                     <tr>
-                        <th style="background-color: #FF8300; border-radius: 15px; width: 80px; color:black; font-weight: bold; padding: 0px; margin: 0px;">FECHA</th>
-                        <th *ngFor="let mes of listaMeses;let i=index" style="background-color: white;"><p-calendar  *ngIf="edadMeses==mes" [(ngModel)]="fecha"  [ngModelOptions]="{standalone: true}" showTime="true" showSeconds="true" dateFormat="dd-mm-yy"></p-calendar></th>
+                        <th style="background-color:white;">
+                            <div style="text-align:center; background-color: #FF8300; border-radius: 15px; color:black; font-weight: bold; padding: 5px; margin:auto auto"> 
+                                FECHA
+                            </div>
+                        </th>
+                        <th *ngFor="let mes of listaMeses;let i=index" style="background-color: white;"><p-calendar  *ngIf="edadMeses==mes" [(ngModel)]="fecha"  [ngModelOptions]="{standalone: true}" showTime="true" showSeconds="true" dateFormat="dd-mm-yy" appendTo="body"></p-calendar></th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowIndex="rowIndex" let-sale>
@@ -104,7 +108,7 @@
                                 <p style="margin:auto 0" class="triangulo"></p>
                             </div>
                         </td>
-                        <td *ngFor="let mes of listaMeses" style="border: 1px solid black; cursor: pointer"  [ngClass]="{'fondorojo':mes==edadMeses}">
+                        <td *ngFor="let mes of listaMeses"  [ngClass]="{'fondorojo':mes==edadMeses}">
                             <img *ngIf="true;"class="button-menu" [src]="ruta(sale,mes)">
                             <!-- <p-radioButton [name]="sale.letter" [value]="mes" [(ngModel)]="arreglo[rowIndex]"></p-radioButton> -->
                             <p-radioButton *ngIf='mes<=edadMeses' [name]="rowIndex" [value]="mes" [formControlName]="rowIndex"  ></p-radioButton>

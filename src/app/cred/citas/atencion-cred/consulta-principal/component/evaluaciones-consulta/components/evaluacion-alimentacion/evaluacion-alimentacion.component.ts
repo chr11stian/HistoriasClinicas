@@ -209,7 +209,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
   }
   sombrear(i,j){
     if((i>=6 && i<14 && j<7)||(i==15 && j<7) ) {
-      return '#b6b6b6'
+      return '#dddddd'
     }
     else {
       return 'white'

@@ -1,4 +1,4 @@
-<p-table class="table-over" [value]="arregloTest" #dt styleClass="p-datatable-gridlines p-datatable-customers" [rows]="10"
+<p-table [value]="arregloTest" #dt styleClass="p-datatable-gridlines p-datatable-customers" [rows]="10"
          [rowsPerPageOptions]="[10, 25, 50]"
          [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
          currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
@@ -55,13 +55,13 @@
             <tr>
                 <th class="frozenCol"  [frozen]="true" pFrozenColumn style="width:300px">Fecha</th>
                 <th [ngStyle]="{'width':mes.numero==edadMeses?'108px':'60px'}" *ngFor="let mes of listaMesesEvaluar">
-                    <p-calendar *ngIf="mes.numero==edadMeses" [(ngModel)]="fecha" [ngModelOptions]="{standalone: true}" dateFormat="dd-mm-yy"></p-calendar>
+                    <p-calendar *ngIf="mes.numero==edadMeses" [(ngModel)]="fecha" [ngModelOptions]="{standalone: true}" dateFormat="dd-mm-yy" appendTo="body"></p-calendar>
                 </th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-sale let-rowIndex="rowIndex">
             <tr [formArrayName]="rowIndex">
-                <td class="frozenCol"  [frozen]="true" pFrozenColumn style="width:300px;text-align: left;"> 
+                <td class="frozenCol"  [frozen]="true" pFrozenColumn style="width:300px;text-align: left;padding:2px;"> 
                     {{sale.titulo}}
                 </td>
                 <td [ngStyle]="{'width':mes.numero==edadMeses?'108px':'60px','background-color':sombrear(rowIndex,j)}" *ngFor="let mes of listaMesesEvaluar;let j=index"  >
@@ -73,7 +73,7 @@
     
     </p-table>
 </form>
-<ng-template pTemplate="footer">
+<ng-template pTemplate="footer">    
         
     <button *ngIf="!hasTaken" pButton pRipple type="button" label="Guardar" style="background-color: #0c3866;" icon="pi pi-save" (click)="save()" iconPos="right"></button>
     <!-- <button pButton pRipple type="button" label="Cancelar" class="p-button-danger" icon="pi pi-times" (click)="pruebas()" iconPos="right"></button> -->

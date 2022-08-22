@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ConsultaGeneralService} from "../../../consulta-principal/services/consulta-general.service";
 import {ListaConsultaService} from "../../../../services/lista-consulta.service";
@@ -11,6 +11,7 @@ import {
     outputTriajeInterface,
     interconsultaInterface
 } from "../../../../models/data";
+import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 
 interface formInterface {
     pro: string,
@@ -361,16 +362,16 @@ export class TriajeCredComponent implements OnInit {
     buildForm(): void {
         /** Signos vitales */
         this.examFG = new FormGroup({
-            obsFC: new FormControl({value: '', disabled: false}),
-            TFC: new FormControl({value: null, disabled: false}, []),
-            PSFC: new FormControl({value: null, disabled: false}, []),
-            PDFC: new FormControl({value: null, disabled: false}, []),
-            FC: new FormControl({value: null, disabled: false}, []),
-            FRFC: new FormControl({value: null, disabled: false}, []),
-            PesoFC: new FormControl({value: null, disabled: false}, []),
-            TallaFC: new FormControl({value: null, disabled: false}, []),
-            imcFC: new FormControl({value: null, disabled: false}, []),
-            PCFC: new FormControl({value: null, disabled: false}, []),
+            obsFC: new FormControl({value: '', disabled: false},[]),
+            TFC: new FormControl({value: '', disabled: false}, [Validators.required]),
+            PSFC: new FormControl({value: '', disabled: false}, []),
+            PDFC: new FormControl({value: '', disabled: false}, []),
+            FC: new FormControl({value: '', disabled: false}, []),
+            FRFC: new FormControl({value: '', disabled: false}, [Validators.required]),
+            PesoFC: new FormControl({value: '', disabled: false}, [Validators.required]),
+            TallaFC: new FormControl({value: '', disabled: false}, [Validators.required]),
+            imcFC: new FormControl({value: '', disabled: true}, []),
+            PCFC: new FormControl({value: '', disabled: false}, [Validators.required]),
         })
         this.generalInfoFG = new FormGroup({
             name: new FormControl({value: '', disabled: true}, [Validators.required]),
@@ -472,6 +473,13 @@ export class TriajeCredComponent implements OnInit {
             perimetroCefalico: this.examFG.value.PCFC
 
         }
+    }
+    isInvalid(control:string):boolean{
+        const formControl:AbstractControl=this.getFC(control)
+        return formControl.invalid && (formControl.touched || formControl.dirty)
+    }
+    getFC(control:string):AbstractControl{
+        return this.examFG.get(control)
     }
 
     async save() {
@@ -672,6 +680,13 @@ export class TriajeCredComponent implements OnInit {
     }
 
     getConsultaPrincipal(): void {
+        /* start */
+        if(this.examFG.invalid){
+            console.log('entramos al if');
+            this.examFG.markAllAsTouched()
+            return 
+        }
+          /* end */
         if (this.data.idConsulta === '') {
             this.save()
         }
