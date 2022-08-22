@@ -61,7 +61,7 @@
         </ng-template>
         <ng-template pTemplate="body" let-sale let-rowIndex="rowIndex">
             <tr [formArrayName]="rowIndex">
-                <td class="frozenCol"  [frozen]="true" pFrozenColumn style="width:300px;text-align: left;"> 
+                <td class="frozenCol"  [frozen]="true" pFrozenColumn style="width:300px;text-align: left;padding:2px;"> 
                     {{sale.titulo}}
                 </td>
                 <td [ngStyle]="{'width':mes.numero==edadMeses?'108px':'60px','background-color':sombrear(rowIndex,j)}" *ngFor="let mes of listaMesesEvaluar;let j=index"  >
@@ -73,7 +73,7 @@
     
     </p-table>
 </form>
-<ng-template pTemplate="footer">
+<ng-template pTemplate="footer">    
         
     <button *ngIf="!hasTaken" pButton pRipple type="button" label="Guardar" style="background-color: #0c3866;" icon="pi pi-save" (click)="save()" iconPos="right"></button>
     <!-- <button pButton pRipple type="button" label="Cancelar" class="p-button-danger" icon="pi pi-times" (click)="pruebas()" iconPos="right"></button> -->
