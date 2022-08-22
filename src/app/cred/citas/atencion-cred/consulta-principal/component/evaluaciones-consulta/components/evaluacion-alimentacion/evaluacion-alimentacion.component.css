@@ -126,13 +126,9 @@ p-calendar >>> .p-button {
     padding: 5px;
 }
 :host::ng-deep .tablaModal .p-datatable{
-    /* border:1px solid red; */
     border-collapse: collapse !important;
     width: auto;
 
-}
-.tablaModal{
-    border-collapse: collapse;
 }
 /*stylos para poner frozen*/
 .frozenCol {

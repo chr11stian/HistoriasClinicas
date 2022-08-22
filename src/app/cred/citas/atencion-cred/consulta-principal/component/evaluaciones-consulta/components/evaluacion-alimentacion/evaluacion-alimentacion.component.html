@@ -55,7 +55,7 @@
             <tr>
                 <th class="frozenCol"  [frozen]="true" pFrozenColumn style="width:300px">Fecha</th>
                 <th [ngStyle]="{'width':mes.numero==edadMeses?'108px':'60px'}" *ngFor="let mes of listaMesesEvaluar">
-                    <p-calendar *ngIf="mes.numero==edadMeses" [(ngModel)]="fecha" [ngModelOptions]="{standalone: true}" dateFormat="dd-mm-yy"></p-calendar>
+                    <p-calendar *ngIf="mes.numero==edadMeses" [(ngModel)]="fecha" [ngModelOptions]="{standalone: true}" dateFormat="dd-mm-yy" appendTo="body"></p-calendar>
                 </th>
             </tr>
         </ng-template>
