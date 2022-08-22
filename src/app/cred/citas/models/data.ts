@@ -11,6 +11,7 @@ export interface dato {
     see?: boolean,
     nroConsulta?:number,
     ups?:string
+    fechaConsulta?:string
 }
 
 export interface outputTriajeInterface {
