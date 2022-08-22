@@ -215,9 +215,19 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
       nroCama: '',
       examenesAuxiliares: this.auxExamList
     }
-    this.auxExamService.postPromiseAddServiciosLaboratorio(this.idConsulta, this.solicitudLaboratorio).then(res=>{
-
+    this.auxExamService.postPromiseAddServiciosLaboratorio(this.idConsulta, this.solicitudLaboratorio).then(res => {
+      this.closeDialog();
     });
+  }
+
+  closeDialog() {
+    this.ref.close();
+  }
+
+  async listarSolicitudes() {
+    await this.auxExamService.getListarPeticiones(this.idConsulta).then(res => {
+
+    })
   }
 
 }
