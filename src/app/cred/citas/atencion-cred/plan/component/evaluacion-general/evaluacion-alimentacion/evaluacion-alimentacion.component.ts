@@ -84,7 +84,6 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         }
     })
   }
-  edadMeses=0;
   openDialog(indexFila?:number){
     this.displayDialog=true;
     this.arregloForm.reset()
