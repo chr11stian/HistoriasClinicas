@@ -10,6 +10,7 @@ import {
   ResultadoLaboratorio,
 } from "../../../models/examenesAuxiliares";
 import { DynamicDialogConfig, DynamicDialogRef } from "primeng/dynamicdialog";
+import Swal from "sweetalert2";
 
 @Component({
   selector: "app-dialog-add-examenes-auxiliares",
@@ -32,20 +33,16 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
     {
       groupName: 'HEMOGLOBINA',
       listaExamName: [
-        { subTipo: 'HEMOGLOBINA', examName: "DOSAJE DE HEMOGLOBINA" }
+        { subTipo: 'HEMOGLOBINA', examName: "DOSAJE DE HEMOGLOBINA", saved: false }
       ]
     },
     {
       groupName: 'PARASITOLOGIA',
       listaExamName: [
-        { subTipo: 'PARASITOLOGIA', examName: "TEST DE GRAHAM" },
-        { subTipo: 'PARASITOLOGIA', examName: 'PARASITO SERIADO' }
+        { subTipo: 'PARASITOLOGIA', examName: "TEST DE GRAHAM", saved: false },
+        { subTipo: 'PARASITOLOGIA', examName: 'PARASITO SERIADO', saved: false }
       ]
     },
-  ];
-  listaLugares: Lugar[] = [
-    { index: 1, lugarLab: "CONSULTORIO" },
-    { index: 2, lugarLab: "LABORATORIO" },
   ];
   /**ngModels */
   observaciones: string;
@@ -53,9 +50,12 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
   lugarLab: Lugar = {};
   /**Fin ngModels */
   dataDialog: any;
-  reqLabo: examName[] = [];
+  reqLabo: ExamName[] = [
+
+  ];
   auxExamList: ExamenAuxiliar[] = [];
   solicitudLaboratorio: Laboratorio;
+  listaSolicitudes: ExamLab[] = [];
   constructor(
     private auxExamService: ExamenesAuxiliaresService,
     public ref: DynamicDialogRef,
@@ -63,17 +63,19 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
   ) {
     this.idConsulta = JSON.parse(localStorage.getItem("documento")).idConsulta;
     this.recoverDataAuxialsExams();
-    console.log("click en auxiliars exam");
 
-    this.dataDialog = this.config.data.data;
-    if (this.config.data.index == 2) {
-      console.log('opcion de ver ');
-      // this.toShow = true;
-      this.inicializarForm();
+    this.dataDialog = this.config.data.auxExams;
+    console.log('data del dDIALOGGGGG ', this.dataDialog);
+    if (this.dataDialog != null) {
+      this.modelarData(this.dataDialog)
+      this.reworkDialog(this.listaExamenes, this.reqLabo);
     }
   }
 
-  ngOnInit(): void { }
+
+  ngOnInit(): void {
+    this.inicializarForm();
+  }
   async recoverDataAuxialsExams() {
     await this.auxExamService
       .getPromiseListarResultadosLaboratorioByIdConsulta(this.idConsulta)
@@ -86,7 +88,7 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
       });
     // console.log('to show ', this.toShow)
     this.inicializarForm();
-    this.listarExamenesDisponibles();
+    // this.listarExamenesDisponibles();
   }
 
   inicializarForm() {
@@ -191,12 +193,12 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
   }
 
   /**NUEVA VISTA DE LOS EXAMENES */
-  listarExamenesDisponibles() {
-    this.auxExamService.getExamListLaboratory().then(res => {
-      console.log('data de examenes disponibles ', res);
-    })
-  }
-  add() {
+  // listarExamenesDisponibles() {
+  //   this.auxExamService.getExamListLaboratory().then(res => {
+  //     console.log('data de examenes disponibles ', res);
+  //   })
+  // }
+  createLabRequest() {
     this.reqLabo.forEach(item => {
       let auxExam: ExamenAuxiliar = {
         tipoLaboratorio: 'EXAMEN_LABORATORIO',
@@ -219,33 +221,100 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
       this.closeDialog();
     });
   }
+  saveLabRequest() {
+
+    Swal.fire({
+      title: '¿Esta seguro que desea guardar?',
+      html: 'No se podra eliminar las solicitudes despues',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Guardar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (this.dataDialog == null) {
+          this.createLabRequest();
+        } else {
+          this.addAuxExam();
+        }
+      }
+      else {
+        Swal.fire({
+          title: 'Cancelado.',
+          icon: 'error',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
+    })
+  }
 
   closeDialog() {
     this.ref.close();
   }
 
-  async listarSolicitudes() {
-    await this.auxExamService.getListarPeticiones(this.idConsulta).then(res => {
-
+  modelarData(data: any[]): void {
+    data.forEach(item => {
+      let auxExam: ExamName = {
+        examName: item.nombreExamen,
+        subTipo: item.subTipo,
+        saved: true
+      }
+      this.reqLabo.push(auxExam);
     })
   }
 
+  reworkDialog(examList: Examen[], requiredExam: ExamName[]): void {
+    for (let i = 0; i < examList.length; i++) {
+      // examList[i].listaExamName.forEach(exam => {
+      for (let j = 0; j < requiredExam.length; j++) {
+        examList[i].listaExamName.map(item => {
+          if (item.examName == requiredExam[j].examName) return item.saved = true;
+          else return item
+        })
+      }
+    }
+  }
+
+  async addAuxExam() {
+    this.reqLabo.forEach(async item => {
+      if (!item.saved) {
+        let addExam: AddLaboratorio = {
+          servicio: '',
+          nroCama: '',
+          examenAuxiliar: {
+            tipoLaboratorio: 'EXAMEN_LABORATORIO',
+            subTipo: item.subTipo,
+            nombreExamen: item.examName,
+            codPrestacion: '',
+            codigoSIS: '',
+            codigoHIS: '',
+            lugarExamen: 'LABORATORIO',
+            labExterno: ''
+          }
+        }
+        await this.auxExamService.putAgregarExamenesConsulta(this.idConsulta, addExam).then(res => {
+          this.closeDialog();
+        })
+      }
+    })
+  }
 }
 interface Examen {
   groupName: string;
-  listaExamName: examName[];
+  listaExamName: ExamName[];
 }
 interface Lugar {
   index?: number;
   lugarLab?: string;
 }
-interface examName {
+interface ExamName {
   subTipo: string,
   examName: string
+  saved: boolean
 }
 interface ExamLab {
   subTipo: string,
   nombreExamen: string,
-  codigoHIS?: string,
-  codigoSIS?: string,
 }
