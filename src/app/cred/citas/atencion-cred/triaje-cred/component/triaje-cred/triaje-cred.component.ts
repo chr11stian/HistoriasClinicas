@@ -69,7 +69,7 @@ export class TriajeCredComponent implements OnInit {
         {pro: 'peso', label: 'Peso (kg)', nameFC: 'PesoFC'},
         {pro: 'talla', label: 'Talla (m)', nameFC: 'TallaFC'},
         {pro: 'imc', label: 'imc(kg/m2)', nameFC: 'imcFC'},
-        {pro: 'perimetroCefalico', label: 'PC (cm)', nameFC: 'PCFC'}
+        {pro: 'Perimetro Cefalico', label: 'PC (cm)', nameFC: 'PCFC'}
     ]
     list: formControlInterface[] = [
         {
