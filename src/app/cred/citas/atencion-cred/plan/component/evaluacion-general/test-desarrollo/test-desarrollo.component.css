@@ -416,6 +416,7 @@ p-calendar >>> .p-calendar .p-datepicker {
    padding: 0.3rem;
 }
 ::ng-deep .p-datatable .p-datatable-tbody > tr > td {
+   border: 1px solid #b6b6b6;
    text-align: center;
    font-size: medium;
    word-wrap: break-word;

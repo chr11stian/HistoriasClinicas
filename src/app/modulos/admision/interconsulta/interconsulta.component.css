@@ -1,0 +1,16 @@
+:host ::ng-deep .table-header {
+  display: flex;
+  justify-content: space-between;
+}
+p-table >>> .p-datatable .p-datatable-thead > tr > th {
+  text-align: center;
+  padding: 0.2rem;
+  border: 1px solid #b6b6b6;
+  background-color: #DDDDDD;
+}
+
+p-table >>> .p-datatable .p-datatable-tbody > tr > td {
+  text-align: center;
+  color: rgb(6, 51, 95);
+  border: 1px solid #b6b6b6;
+}

@@ -59,7 +59,7 @@
                         <!-- <p-calendar *ngIf="false" [(ngModel)]="fechas[i]" disabled="true" [ngModelOptions]="{standalone: true}" showTime="true" showSeconds="true" dateFormat="dd-mm-yy"  [ngStyle]="{'background-color':Colores[i] }"></p-calendar> -->
                     <!-- </div> -->
                     <!-- <ng-template #casoContrario> -->
-                        <p-calendar  *ngIf="fechas[i]" [(ngModel)]="fechas[i]" disabled="true" [ngModelOptions]="{standalone: true}" dateFormat="dd-mm-yy"></p-calendar>
+                        <p-calendar  *ngIf="fechas[i]" [(ngModel)]="fechas[i]" disabled="true" [ngModelOptions]="{standalone: true}" dateFormat="dd-mm-yy" appendTo="body"></p-calendar>
                     <!-- </ng-template>                -->
                  </th>
             </tr>
