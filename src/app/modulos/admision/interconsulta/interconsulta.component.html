@@ -1,1 +1,59 @@
-<p>interconsulta works!</p>
+<div class="col-12 flex justify-content-center mt-3">
+  <span class="text-2xl text-blue-700">INTERCONSULTA</span>
+</div>
+<p-table
+  [value]="listInterconsulta"
+  styleClass="p-datatable-gridlines" responsiveLayout="scroll"
+>
+  <ng-template pTemplate="caption">
+    <div class="table-header">
+        Lista de Interconsultas
+      <span class="p-input-icon-right">
+        <i class="pi pi-search"></i>
+        <input
+          pInputText
+          type="text"
+          (input)="dt.filterGlobal($event.target.value, 'contains')"
+          placeholder="Buscar..."
+        />
+      </span>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header" >
+    <tr>
+      <th class="text-center">Nro</th>
+      <th class="text-center">Servicio</th>
+      <th class="text-center">Paciente</th>
+      <th class="text-center">Fecha</th>
+      <th class="text-center">Acción</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+    <tr>
+      <th class="text-center">{{ rowIndex }}</th>
+      <th class="text-center">{{ rowData.ipress.servicio }}</th>
+      <th class="text-center">
+        {{ rowData.paciente.nombre + " " + rowData.paciente.apellidos }}
+      </th>
+      <th class="text-center">{{ rowData.fechaAtencion }}</th>
+      <th class="justify-content-center">
+        <button
+            pButton
+            pRipple
+            icon="pi pi-send"
+            class="p-button-rounded p-button-success m-1"
+            (click)="cupo()"
+            pTooltip="Generar Cupo"
+          ></button>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-danger m-1"
+            (click)="eliminar"
+            pTooltip="Eliminar"
+          ></button>
+      </th>
+    </tr>
+  </ng-template>
+</p-table>
