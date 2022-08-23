@@ -53,12 +53,14 @@ export class EvaluacionAlimentacionComponent implements OnInit {
   {codigo:'OBS',titulo:'Observaciones'},
   ]
   edadMeses:number=0;//edad con la que podria se evaluada menor posible
+  indexEdadMeses:number=0
   edadCalculada:number=0;//edad que real que se tiene en meses
   displayDialog:boolean=false;
   constructor(private evaluacionAlimentacionService: EvaluacionAlimentacionService){
     this.buildFormArray()
     this.edadCalculada=this.data.anio*12+this.data.mes
     this.determinarEdadEvaluada();
+    this.indexEdadMeses=this.listaMesesEvaluar.indexOf(this.listaMesesEvaluar.find((element)=>element.numero==this.edadMeses))
   }
   determinarEdadEvaluada(){
       if(this.edadCalculada<=12){
@@ -124,12 +126,12 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         }
         this.arregloTest.push(ObjetoAlimentacion)
         const preguntasArreglo:any[]=resp.object.evaluacionAlimentacionMes.listaPreguntas;
-        const indexEdad=this.listaMesesEvaluar.indexOf(this.listaMesesEvaluar.find((element)=>element.numero==this.edadMeses))
+        // const indexEdad=this.listaMesesEvaluar.indexOf(this.listaMesesEvaluar.find((element)=>element.numero==this.edadMeses))
         preguntasArreglo.forEach((element,index)=>{
-          this.getControl(index,indexEdad).setValue(element.estado)
+          this.getControl(index,this.indexEdadMeses).setValue(element.estado)
         })
         this.fecha=new Date(resp.object.evaluacionAlimentacionMes.fechaRegistro)
-        this.desabilitarCheckButton(indexEdad);
+        this.desabilitarCheckButton(this.indexEdadMeses);
       }
     })
   }
@@ -169,12 +171,11 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     })
   }
   arregloCalificacion() {
-    const numeroColumna=this.edadMeses
     const arreglo = [];
     this.listaPreguntas.forEach((element,index)=>{
       const objeto={
         codigo:this.listaPreguntas[index].codigo,
-        estado:this.getControl(index,numeroColumna).value,
+        estado:this.getControl(index,this.indexEdadMeses).value,
         descripcion:this.listaPreguntas[index].titulo
       }
       arreglo.push(objeto)
@@ -202,7 +203,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
   calcularDiagnostico(){
     if(this.edadMeses<=6)
     {
-      if(this.getControl(0,this.edadMeses).value==true && this.getControl(1,this.edadMeses).value==true && this.getControl(2,this.edadMeses).value==true && this.getControl(3,this.edadMeses).value!=true && this.getControl(4,this.edadMeses).value!=true && this.getControl(5,this.edadMeses).value!=true){
+      if(this.getControl(0,this.indexEdadMeses).value==true && this.getControl(1,this.indexEdadMeses).value==true && this.getControl(2,this.indexEdadMeses).value==true && this.getControl(3,this.indexEdadMeses).value!=true && this.getControl(4,this.indexEdadMeses).value!=true && this.getControl(5,this.indexEdadMeses).value!=true){
           return 'NINO CON LACTANCIA MATERNA CONTINUADA'
       }
       else 
@@ -210,14 +211,14 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     }
     else
     {
-      if(this.edadMeses>=7 && this.edadMeses <=22){
-          if(this.getControl(0,this.edadMeses).value==true  && this.getControl(3,this.edadMeses).value==true && this.getControl(4,this.edadMeses).value==true && this.getControl(5,this.edadMeses).value==true && this.getControl(6,this.edadMeses).value==true && this.getControl(7,this.edadMeses).value==true && this.getControl(8,this.edadMeses).value==true && this.getControl(9,this.edadMeses).value==true && this.getControl(1,this.edadMeses).value==true && this.getControl(1,this.edadMeses).value==true && this.getControl(1,this.edadMeses).value==true && this.getControl(1,this.edadMeses).value==true){
+      if(this.indexEdadMeses>=7 && this.indexEdadMeses <=22){
+          if(this.getControl(0,this.indexEdadMeses).value==true  && this.getControl(3,this.indexEdadMeses).value==true && this.getControl(4,this.indexEdadMeses).value==true && this.getControl(5,this.indexEdadMeses).value==true && this.getControl(6,this.indexEdadMeses).value==true && this.getControl(7,this.indexEdadMeses).value==true && this.getControl(8,this.indexEdadMeses).value==true && this.getControl(9,this.indexEdadMeses).value==true && this.getControl(1,this.indexEdadMeses).value==true && this.getControl(1,this.indexEdadMeses).value==true && this.getControl(1,this.indexEdadMeses).value==true && this.getControl(1,this.indexEdadMeses).value==true){
             return 'NINO CON ALIMENTACION COMPLEMENTARIA ADECUADA'
           }
           else return 'NINO CON ALIMENTACION COMPLEMENTARIA INADECUADA'
       }
       else
-      if(this.getControl(6,this.edadMeses).value==true && this.getControl(7,this.edadMeses).value==true && this.getControl(8,this.edadMeses).value==true && this.getControl(9,this.edadMeses).value==true && this.getControl(1,this.edadMeses).value==true && this.getControl(1,this.edadMeses).value==true && this.getControl(1,this.edadMeses).value==true && this.getControl(1,this.edadMeses).value==true){
+      if(this.getControl(6,this.indexEdadMeses).value==true && this.getControl(7,this.indexEdadMeses).value==true && this.getControl(8,this.indexEdadMeses).value==true && this.getControl(9,this.indexEdadMeses).value==true && this.getControl(1,this.indexEdadMeses).value==true && this.getControl(1,this.indexEdadMeses).value==true && this.getControl(1,this.indexEdadMeses).value==true && this.getControl(1,this.indexEdadMeses).value==true){
         return 'NINO CON ALIMENTACION COMPLEMENTARIA ADECUADA'
       }
       else return 'NINO CON ALIMENTACION COMPLEMENTARIA INADECUADA'
