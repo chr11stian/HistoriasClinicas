@@ -64,6 +64,7 @@ export class ModalCuposComponent implements OnInit {
     { name: "NIÑO O NIÑA", value: "NIÑO_NIÑA", ups: "MEDICINA GENERAL" },
   ];
   listActualTipoConsulta: tipoConsulta[] = [];
+  estado: boolean;
   constructor(
     private fb: FormBuilder,
     private rolGuardiaService: RolGuardiaService,
@@ -74,6 +75,7 @@ export class ModalCuposComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.estado = false;
     this.buildForm();
     this.getListaUps();
     this.formCuposOferta.get("fechaOferta").setValue(this.datafecha);
@@ -197,13 +199,19 @@ export class ModalCuposComponent implements OnInit {
   }
   /* interconsulta */
   inicioServicios() {
-    this.cuposService.data === undefined
-      ? this.formCuposOferta
-          .get("SelectUPSOferta")
-          .setValue(this.ServicoSelecionado)
-      : this.formCuposOferta
-          .get("SelectUPSOferta")
-          .setValue(this.cuposService.data.ipress.servicio);
+    console.log("e1", this.estado);
+    if (this.cuposService.data == undefined) {
+      this.estado = false;
+      this.formCuposOferta
+        .get("SelectUPSOferta")
+        .setValue(this.ServicoSelecionado);
+    } else {
+      this.estado = true;
+      this.formCuposOferta
+        .get("SelectUPSOferta")
+        .setValue(this.cuposService.data.ipress.servicio);
+    }
+    console.log("e2", this.estado);
   }
 }
 
