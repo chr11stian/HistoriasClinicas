@@ -52,13 +52,44 @@ export class EvaluacionAlimentacionComponent implements OnInit {
   {codigo:'PREG_16',titulo:'16. ¿Cuántos sobres de micronutrientes consumio en el mes?'},
   {codigo:'OBS',titulo:'Observaciones'},
   ]
-  edadMeses:number=0;//edad real en meses
-  edad:number=0;//edad evaluada en el rango de edades
+  edadMeses:number=0;//edad con la que podria se evaluada menor posible
+  edadCalculada:number=0;//edad que real que se tiene en meses
   displayDialog:boolean=false;
   constructor(private evaluacionAlimentacionService: EvaluacionAlimentacionService){
     this.buildFormArray()
-    this.edadMeses=this.data.anio*12+this.data.mes   
-    // this.edadMeses=0; 
+    this.edadCalculada=this.data.anio*12+this.data.mes
+    this.determinarEdadEvaluada();
+  }
+  determinarEdadEvaluada(){
+      if(this.edadCalculada<=12){
+        this.edadMeses=this.edadCalculada;
+      } else if(this.edadCalculada<=13){
+        this.edadMeses=12;
+      } else if(this.edadCalculada<=15){
+        this.edadMeses=14
+      } else if(this.edadCalculada<=17){
+        this.edadMeses=16
+      }else if(this.edadCalculada<=19){
+        this.edadMeses=18
+      }else if(this.edadCalculada<=21){
+        this.edadMeses=20
+      }else if(this.edadCalculada<=23){
+        this.edadMeses=22
+      }else if(this.edadCalculada<=26){
+        this.edadMeses=24
+      }else if(this.edadCalculada<=29){
+        this.edadMeses=27
+      }else if(this.edadCalculada<=32){
+        this.edadMeses=30
+      }else if(this.edadCalculada<=35){
+        this.edadMeses=33
+      }else if(this.edadCalculada<=38){
+        this.edadMeses=36
+      }else if(this.edadCalculada<=41){
+        this.edadMeses=39
+      }else if(this.edadCalculada==42){
+        this.edadMeses=42
+      } else this.edadMeses=43 /* no se habilita ningun mes */
   }
   ngOnInit(): void {
       this.getTestAlimentacion()
@@ -116,17 +147,6 @@ export class EvaluacionAlimentacionComponent implements OnInit {
           "diagnostico":this.calcularDiagnostico()
       }
     }
-    // if(true){
-
-    //     Swal.fire({
-    //       icon: 'error',
-    //       title: 'Ingrese la Fecha',
-    //       text: '¡Es necesaria la fecha!',
-    //       showConfirmButton: false,
-    //       timer: 1000,
-    //     })
-    //     return 
-    //   }
     Swal.fire({
       title: 'Esta seguro que desea guardar este test?',
       icon: 'info',
