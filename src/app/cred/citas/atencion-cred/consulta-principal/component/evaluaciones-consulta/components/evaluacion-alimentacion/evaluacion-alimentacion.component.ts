@@ -14,9 +14,9 @@ import { listaPregunta } from '../desarrollo-psicomotor/components/models/tepsi'
   styleUrls: ['./evaluacion-alimentacion.component.css']
 })
 export class EvaluacionAlimentacionComponent implements OnInit {
-  fecha:Date=new Date();
   datePipe = new DatePipe("en-US");
   data=JSON.parse(localStorage.getItem('documento'))
+  fecha:Date=new Date(this.datePipe.transform(this.data.fechaConsulta,'yyyy-MM-dd HH:mm:ss'))
   arregloForm: FormGroup;
   evaluacionAlimenticia=[];
   listaMesesEvaluar=[{texto:'RN',numero:0},{texto:'1m',numero:1}
@@ -80,6 +80,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
   }
   hasTaken:boolean=false
   arregloTest=[]
+
   getTestAlimentacion(){
     this.evaluacionAlimentacionService.getEvaluacionAlimenticiaCred(this.data.idConsulta).subscribe((resp:any)=>{
       if(resp.cod=='2121' && resp.object!=null){
@@ -92,11 +93,12 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         }
         this.arregloTest.push(ObjetoAlimentacion)
         const preguntasArreglo:any[]=resp.object.evaluacionAlimentacionMes.listaPreguntas;
+        const indexEdad=this.listaMesesEvaluar.indexOf(this.listaMesesEvaluar.find((element)=>element.numero==this.edadMeses))
         preguntasArreglo.forEach((element,index)=>{
-          this.getControl(index,this.edadMeses).setValue(element.estado)
+          this.getControl(index,indexEdad).setValue(element.estado)
         })
         this.fecha=new Date(resp.object.evaluacionAlimentacionMes.fechaRegistro)
-        this.desabilitarCheckButton();
+        this.desabilitarCheckButton(indexEdad);
       }
     })
   }
@@ -202,9 +204,9 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     }
 
   }
-  desabilitarCheckButton(){
+  desabilitarCheckButton(indexEdad){
     this.listaPreguntas.forEach((element,index)=>{
-      this.getControl(index,this.edadMeses).disable()
+      this.getControl(index,indexEdad).disable()
     })
   }
   sombrear(i,j){

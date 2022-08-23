@@ -70,7 +70,7 @@ export class ModalCupos2Component implements OnInit {
   listaTranseuntes: string[] = ["TRANSEUNTE", "RECURRENTE"];
 
   public pacienteComponent: PacienteComponent;
-
+  estado: boolean = false;
   constructor(
     private fb: FormBuilder,
     private documentoIdentidadService: DocumentoIdentidadService,
@@ -668,6 +668,7 @@ export class ModalCupos2Component implements OnInit {
           if (r.object != null || r.object != undefined) {
             this.cuposService.modal2.close();
             this.getCuposXservicio();
+            this.actualizarOfertaEstado();
             Swal.fire({
               icon: "success",
               title: "Cupo",
@@ -821,6 +822,7 @@ export class ModalCupos2Component implements OnInit {
   /* interconsulta */
   iniciarPaciente() {
     if (this.cuposService.data != undefined) {
+      this.estado = true;
       this.formPacientesCupo
         .get("nroDoc")
         .setValue(this.cuposService.data.paciente.nroDoc);

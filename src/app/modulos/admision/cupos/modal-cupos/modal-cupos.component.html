@@ -27,6 +27,7 @@
                                                     placeholder="Seleccione un servicio"
                                                     optionLabel="nombreUPS"
                                                     optionValue="nombreUPS"
+                                                    [disabled]="estado"
                                                     [showClear]="false"
                                                     (ngModelChange)="changeServicioSelected()"
                                                     class=" p-fluid w-full">
