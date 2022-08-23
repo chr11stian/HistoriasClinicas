@@ -1,3 +1,6 @@
+<p-card>
+
+
 <p-toolbar>
     <ng-template pTemplate="left">
         <h3 class="mt-2" style="font-size:2rem">TRIAJE CRED</h3>
@@ -72,6 +75,10 @@
                                 <input maxlength="6" type="number" pInputText [formControlName]="controlFC.nameFC"
                                        class="inputfield w-full text-center"/>
                             </ng-template>
+                            <div *ngIf="isInvalid(controlFC.nameFC)">
+                                <span class="dato-error">*Campo Obligatorio</span>
+                            </div>
+
                         </div>
                     </ng-container>
                 </div>
@@ -271,4 +278,4 @@
 </div>
 
 
-
+</p-card>
