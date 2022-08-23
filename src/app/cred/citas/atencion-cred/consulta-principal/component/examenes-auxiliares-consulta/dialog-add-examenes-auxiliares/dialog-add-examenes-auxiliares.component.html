@@ -623,7 +623,8 @@
                             <span [for]="item">{{ item.examName }}</span>
                         </div>
                         <div class="col-2">
-                            <p-checkbox [inputId]="item" name="item" [value]="item" [(ngModel)]="reqLabo">
+                            <p-checkbox [inputId]="item" name="item" [value]="item" [(ngModel)]="reqLabo"
+                                [readonly]="item.saved">
                             </p-checkbox>
                         </div>
                     </div>
@@ -632,9 +633,7 @@
         </div>
     </div>
     <div class="flex justify-content-end">
-        <button style="background-color: #0c3866" class=""
-                pButton type="button"
-                (click)="add()">Guardar
+        <button style="background-color: #0c3866" class="" pButton type="button" (click)="saveLabRequest()">Guardar
         </button>
     </div>
 </p-card>

@@ -63,3 +63,6 @@
     z-index: 100;
 }
 
+::ng-deep .swal2-container {
+  z-index: 1000000;
+}

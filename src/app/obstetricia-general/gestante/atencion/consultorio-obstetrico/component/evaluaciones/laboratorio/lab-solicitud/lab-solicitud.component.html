@@ -29,30 +29,6 @@
                         <div class="col-fixed" style="width:100px"><span>Dx. Presuntivo:</span></div>
                         <input type="text" pInputText class="w-full text-center" formControlName="DxPresuntivo"/>
                     </div>
-                    <!--<div class="col-12 md:col-6 lg:col-3 p-field flex flex-column">
-                        <label>APELLIDOS Y NOMBRES:</label>
-                        <input type="text" pInputText class="inputText" formControlName="apellidosNombres" />
-                    </div>
-                    <div class="col-12 md:col-6 lg:col-1 p-field flex flex-column">
-                        <label>EDAD:</label>
-                        <input type="text" pInputText class="inputText" formControlName="edad" />
-                    </div>
-                    <div class="col-12 md:col-6 lg:col-1 p-field flex flex-column">
-                        <label>HCL:</label>
-                        <input type="text" pInputText class="inputText" formControlName="HCL" />
-                    </div>
-                    <div class="col-12 md:col-6 lg:col-3 p-field flex flex-column">
-                        <label>SERVICIO:</label>
-                        <input type="text" pInputText class="inputText" formControlName="servicio" />
-                    </div>
-                    <div class="col-12 md:col-6 lg:col-2 p-field flex flex-column">
-                        <label>CAMA NRO:</label>
-                        <input type="text" pInputText class="inputText" formControlName="camaNro" />
-                    </div>
-                    <div class="col-12 md:col-6 lg:col-2 p-field flex flex-column">
-                        <label>DX. PRESUNTIVO:</label>
-                        <input type="text" pInputText class="inputText" formControlName="DxPresuntivo" />
-                    </div>-->
                 </div>
             </div>
         </div>
@@ -70,7 +46,7 @@
                         <span [for]="item">{{ item.nombreExamen }}</span>
                     </div>
                     <div class="col-2">
-                        <p-checkbox [inputId]="item" name="item" [value]="item" [(ngModel)]="examName">
+                        <p-checkbox [inputId]="item" name="item" [value]="item" [(ngModel)]="examName" [readonly]="item.saved">
                         </p-checkbox>
                     </div>
                 </div>

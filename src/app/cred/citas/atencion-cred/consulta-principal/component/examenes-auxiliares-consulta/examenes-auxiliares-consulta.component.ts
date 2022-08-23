@@ -320,13 +320,18 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
     // this.resultValue = "";
     // this.result = "";
     let dataDialog = {
-      index: 1,
+      auxExams: this.listaExamenesAux
     };
     this.ref = this.dialog.open(DialogAddExamenesAuxiliaresComponent, {
       header: "NUEVO EXAMEN AUXILIAR",
       width: "50%",
       data: dataDialog,
-    });
+    })
+    this.ref.onClose.subscribe((data: any) => {
+      console.log('se cerro el dialog');
+      this.listarPeticionesExamenes();
+    })
+
   }
 
   agreeAddExamDialog() {
