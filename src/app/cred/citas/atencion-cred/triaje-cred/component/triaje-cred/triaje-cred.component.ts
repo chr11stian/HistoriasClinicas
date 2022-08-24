@@ -1,8 +1,8 @@
-import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
-import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
-import {ActivatedRoute, Router} from "@angular/router";
-import {ConsultaGeneralService} from "../../../consulta-principal/services/consulta-general.service";
-import {ListaConsultaService} from "../../../../services/lista-consulta.service";
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { AbstractControl, FormControl, FormGroup, Validators } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import { ConsultaGeneralService } from "../../../consulta-principal/services/consulta-general.service";
+import { ListaConsultaService } from "../../../../services/lista-consulta.service";
 import Swal from "sweetalert2";
 import {
     dato,
@@ -53,14 +53,23 @@ export class TriajeCredComponent implements OnInit {
     id: string;
     bar
     attributeLocalS = 'documento'
-    anamnesisFC = new FormControl({value: '', disabled: false})
-    obsFC = new FormControl({value: '', disabled: false})
+    anamnesisFC = new FormControl({ value: '', disabled: false })
+    obsFC = new FormControl({ value: '', disabled: false })
     stateOptions = [
-        {label: 'Si', value: true},
-        {label: 'No', value: false}
+        { label: 'Si', value: true },
+        { label: 'No', value: false }
     ]
 
     dataExamFisicos: formInterface[] = [
+        { pro: 'temperatura', label: 'T (c°)', nameFC: 'TFC' },
+        { pro: 'presionSistolica', label: 'PS (pa)', nameFC: 'PSFC' },
+        { pro: 'presionDiastolica', label: 'PD (pa)', nameFC: 'PDFC' },
+        { pro: 'fc', label: 'FC (l*min):', nameFC: 'FC' },
+        { pro: 'fr', label: 'FR', nameFC: 'FRFC' },
+        { pro: 'peso', label: 'Peso (kg)', nameFC: 'PesoFC' },
+        { pro: 'talla', label: 'Talla (m)', nameFC: 'TallaFC' },
+        { pro: 'imc', label: 'imc(kg/m2)', nameFC: 'imcFC' },
+        { pro: 'perimetroCefalico', label: 'PC (cm)', nameFC: 'PCFC' },
         {pro: 'temperatura', label: 'T (c°)', nameFC: 'TFC'},
         {pro: 'presionSistolica', label: 'PS (pa)', nameFC: 'PSFC'},
         {pro: 'presionDiastolica', label: 'PD (pa)', nameFC: 'PDFC'},
@@ -262,8 +271,8 @@ export class TriajeCredComponent implements OnInit {
     botonGuardarVolver: string;
 
     constructor(private router: Router, private route: ActivatedRoute,
-                private consultaService: ListaConsultaService,
-                private consultaGeneralService: ConsultaGeneralService) {
+        private consultaService: ListaConsultaService,
+        private consultaGeneralService: ConsultaGeneralService) {
         this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
         (this.data.idConsulta !== '') ? this.recuperarData(this.data.idConsulta) : this.recuperarPersona()
         this.botonGuardarVolver = this.data.idConsulta == '' ? 'Guardar' : 'Volver'
@@ -362,27 +371,27 @@ export class TriajeCredComponent implements OnInit {
     buildForm(): void {
         /** Signos vitales */
         this.examFG = new FormGroup({
-            obsFC: new FormControl({value: '', disabled: false},[]),
-            TFC: new FormControl({value: '', disabled: false}, [Validators.required]),
-            PSFC: new FormControl({value: '', disabled: false}, []),
-            PDFC: new FormControl({value: '', disabled: false}, []),
-            FC: new FormControl({value: '', disabled: false}, []),
-            FRFC: new FormControl({value: '', disabled: false}, [Validators.required]),
-            PesoFC: new FormControl({value: '', disabled: false}, [Validators.required]),
-            TallaFC: new FormControl({value: '', disabled: false}, [Validators.required]),
-            imcFC: new FormControl({value: '', disabled: true}, []),
-            PCFC: new FormControl({value: '', disabled: false}, [Validators.required]),
+            obsFC: new FormControl({ value: '', disabled: false }, []),
+            TFC: new FormControl({ value: '', disabled: false }, [Validators.required]),
+            PSFC: new FormControl({ value: '', disabled: false }, []),
+            PDFC: new FormControl({ value: '', disabled: false }, []),
+            FC: new FormControl({ value: '', disabled: false }, []),
+            FRFC: new FormControl({ value: '', disabled: false }, [Validators.required]),
+            PesoFC: new FormControl({ value: '', disabled: false }, [Validators.required]),
+            TallaFC: new FormControl({ value: '', disabled: false }, [Validators.required]),
+            imcFC: new FormControl({ value: '', disabled: true }, []),
+            PCFC: new FormControl({ value: '', disabled: false }, [Validators.required]),
         })
         this.generalInfoFG = new FormGroup({
-            name: new FormControl({value: '', disabled: true}, [Validators.required]),
-            dateAttention: new FormControl({value: '', disabled: true}, [Validators.required]),
-            hour: new FormControl({value: null, disabled: false}, [Validators.required]),
-            year: new FormControl({value: null, disabled: true}, [Validators.required])
+            name: new FormControl({ value: '', disabled: true }, [Validators.required]),
+            dateAttention: new FormControl({ value: '', disabled: true }, [Validators.required]),
+            hour: new FormControl({ value: null, disabled: false }, [Validators.required]),
+            year: new FormControl({ value: null, disabled: true }, [Validators.required])
         })
         this.signoPeligroFG = new FormGroup({
-            presentSigns: new FormControl({value: false, disabled: false}, [Validators.required])
+            presentSigns: new FormControl({ value: false, disabled: false }, [Validators.required])
         })
-        const selectFC = new FormControl({value: null, disabled: false}, [])
+        const selectFC = new FormControl({ value: null, disabled: false }, [])
         this.twoMonths.forEach((v) => {
             this.signoPeligroFG.addControl(v.nameFC, selectFC)
         })
@@ -405,29 +414,29 @@ export class TriajeCredComponent implements OnInit {
             8: new FormControl(false),
         })
         this.twoMonthsMoreFG = new FormGroup({
-            1: new FormControl({value: false, disabled: false}, [Validators.required]),
-            2: new FormControl({value: false, disabled: false}, [Validators.required]),
-            3: new FormControl({value: false, disabled: false}, [Validators.required]),
-            4: new FormControl({value: false, disabled: false}, [Validators.required]),
-            5: new FormControl({value: false, disabled: false}, [Validators.required]),
+            1: new FormControl({ value: false, disabled: false }, [Validators.required]),
+            2: new FormControl({ value: false, disabled: false }, [Validators.required]),
+            3: new FormControl({ value: false, disabled: false }, [Validators.required]),
+            4: new FormControl({ value: false, disabled: false }, [Validators.required]),
+            5: new FormControl({ value: false, disabled: false }, [Validators.required]),
         })
         this.allYearFG = new FormGroup({
-            1: new FormControl({value: false, disabled: false}, [Validators.required]),
-            2: new FormControl({value: false, disabled: false}, [Validators.required]),
-            3: new FormControl({value: false, disabled: false}, [Validators.required]),
-            4: new FormControl({value: false, disabled: false}, [Validators.required]),
-            5: new FormControl({value: false, disabled: false}, [Validators.required]),
+            1: new FormControl({ value: false, disabled: false }, [Validators.required]),
+            2: new FormControl({ value: false, disabled: false }, [Validators.required]),
+            3: new FormControl({ value: false, disabled: false }, [Validators.required]),
+            4: new FormControl({ value: false, disabled: false }, [Validators.required]),
+            5: new FormControl({ value: false, disabled: false }, [Validators.required]),
         })
         /** form para factor de riesgo */
         this.factorRiesgoFG = new FormGroup({
             /** quien cuida al ninio */
-            cuidaNinio: new FormControl({value: null, disabled: false}, [Validators.required]),
+            cuidaNinio: new FormControl({ value: null, disabled: false }, [Validators.required]),
             /** participa el apdre en el cuidado del ninio: atributo tipo boolean*/
-            participaPadre: new FormControl({value: null, disabled: false}, [Validators.required]),
+            participaPadre: new FormControl({ value: null, disabled: false }, [Validators.required]),
             /** ninio recibe muestras de afecto : atributo tipo boolean */
-            recibeAfecto: new FormControl({value: null, disabled: false}, [Validators.required]),
+            recibeAfecto: new FormControl({ value: null, disabled: false }, [Validators.required]),
             /** detalle string*/
-            especificacion: new FormControl({value: null, disabled: false}, [Validators.required]),
+            especificacion: new FormControl({ value: null, disabled: false }, [Validators.required]),
         })
     }
 
@@ -474,21 +483,21 @@ export class TriajeCredComponent implements OnInit {
 
         }
     }
-    isInvalid(control:string):boolean{
-        const formControl:AbstractControl=this.getFC(control)
+    isInvalid(control: string): boolean {
+        const formControl: AbstractControl = this.getFC(control)
         return formControl.invalid && (formControl.touched || formControl.dirty)
     }
-    getFC(control:string):AbstractControl{
+    getFC(control: string): AbstractControl {
         return this.examFG.get(control)
     }
 
     async save() {
         // this.getPlan(this.data.nroDocumento);
-        let hayPlan:boolean=false;
-        await  this.consultaGeneralService.traerPlan(this.data.nroDocumento).toPromise().then(
+        let hayPlan: boolean = false;
+        await this.consultaGeneralService.traerPlan(this.data.nroDocumento).toPromise().then(
             result => {
-                console.log('respuesta traer plan',result)
-                hayPlan=result.cod === '2403'?true:false
+                console.log('respuesta traer plan', result)
+                hayPlan = result.cod === '2403' ? true : false
                 // console.log('cod', result.cod)
                 // if (result.cod === '2404') {
                 //     this.getNuevoPlan()
@@ -501,8 +510,8 @@ export class TriajeCredComponent implements OnInit {
                 console.log(err)
             }
         )
-        console.log('ya hay plan',hayPlan)
-        if (!hayPlan){
+        console.log('ya hay plan', hayPlan)
+        if (!hayPlan) {
             console.log('***entramos a crarle el plan****')
             await this.consultaGeneralService.crearPlan(
                 {
@@ -665,9 +674,11 @@ export class TriajeCredComponent implements OnInit {
     }
 
     imc() {
+        console.log('cambio el ng model');
         let peso = this.examFG.value.PesoFC
         let talla = this.examFG.value.TallaFC
-        this.examFG.get('imcFC').setValue(peso / (talla * talla))
+        let imc: number = (peso / (talla * talla));
+        this.examFG.get('imcFC').setValue(imc.toFixed(2))
     }
 
     cambio(e) {
@@ -681,12 +692,12 @@ export class TriajeCredComponent implements OnInit {
 
     getConsultaPrincipal(): void {
         /* start */
-        if(this.examFG.invalid){
+        if (this.examFG.invalid) {
             console.log('entramos al if');
             this.examFG.markAllAsTouched()
-            return 
+            return
         }
-          /* end */
+        /* end */
         if (this.data.idConsulta === '') {
             this.save()
         }
