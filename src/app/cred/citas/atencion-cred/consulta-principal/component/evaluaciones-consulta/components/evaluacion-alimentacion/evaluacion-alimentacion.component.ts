@@ -193,6 +193,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
           this.displayDialog=false
           this.inicializaVariables()
           this.getTestAlimentacionPlan()
+
           //determinamo
           
          })
@@ -264,7 +265,20 @@ export class EvaluacionAlimentacionComponent implements OnInit {
       return '#dddddd'
     }
     else {
+      if(j==this.indexEdadMeses)
+      return '#fcbfba'
+      else
       return 'white'
+    }
+  }
+  mostrarMensaje(){
+    if(!this.isAgregable && this.arregloTestXConsulta.length==0){
+      Swal.fire({
+        icon: 'warning',
+        title: `Ya existe evaluacion para el mes ${this.edadMeses}`,
+        showConfirmButton: false,
+        timer: 1500,
+      })
     }
   }
 }

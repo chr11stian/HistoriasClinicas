@@ -7,9 +7,9 @@
                 <div class="table-header mt-2">
                     RESULTADOS DE EVALUACION DE LA ALIMENTACIÓN DE LA NIÑA Y EL NIÑO ({{edadCalculada}})meses
                 </div>
-                <div *ngIf="true">
-                    <button pButton pRipple label="Evaluar Test" iconPos="right" icon="pi pi-plus-circle"
-                    class="guardar mr-2" (click)="displayDialog=true" [disabled]="false"  style="background-color: #0c3866"></button>
+                <div *ngIf="arregloTestXConsulta.length==0">
+                    <button pButton pRipple [label]="isAgregable?'Evaluar Test':'Ver Test'" iconPos="right" icon="pi pi-plus-circle"
+                    class="guardar mr-2" (click)="displayDialog=true;mostrarMensaje();" [disabled]="false"  style="background-color: #0c3866"></button>
                 </div>
             </div>
     </ng-template>
@@ -32,7 +32,7 @@
                 <button pButton (click)="displayDialog=true" pTooltip="Ver Test" pRipple type="button"
                         icon="pi pi-eye" class="p-button-rounded p-button-help m-1">
                 </button>
-                </td>
+            </td>
             </tr>
         </ng-template>
     </p-table>
@@ -64,7 +64,7 @@
                 <td class="frozenCol"  [frozen]="true" pFrozenColumn style="width:300px;text-align: left;padding:2px;"> 
                     {{sale.titulo}}
                 </td>
-                <td [ngStyle]="{'width':fechas[j]?'108px':'60px','background-color':sombrear(rowIndex,j),'background-color':j==indexEdadMeses?'#fcbfba':'white'}" *ngFor="let mes of listaMesesEvaluar;let j=index"  >
+                <td [ngStyle]="{'width':fechas[j]?'108px':'60px','background-color':sombrear(rowIndex,j)}" *ngFor="let mes of listaMesesEvaluar;let j=index"  >
                     <p-toggleButton *ngIf="fechas[j] && sombrear(rowIndex,j)!='#dddddd'" [formControlName]="j" [binary]="true" onIcon="pi pi-check" offIcon="pi pi-times"></p-toggleButton>
                 </td>
             </tr>
