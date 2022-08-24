@@ -14,6 +14,7 @@ export class CuposService {
   bd = environment.bd;
 
   data: interconsulta;
+  tab: number;
   ServicioSeleccionado = "";
   AmbienteSeleccionado = null;
   PersonalResponsableSeleccionado = null;
@@ -177,10 +178,13 @@ export class CuposService {
     );
   }
   /* interconsulta */
-  putInterconsultaCupo(data){
+  putInterconsultaCupo(data) {
     return this.http.put(
-        `${this.base_url}/${this.bd}/cupo/pasar/citas/cupos`,
-        data
-      );
+      `${this.base_url}/${this.bd}/cupo/pasar/citas/cupos`,
+      data
+    );
+  }
+  deleteInterconsulta(idConsulta) {
+  return this.http.delete( `${this.base_url}/${this.bd}/cupo/${idConsulta}`);
   }
 }

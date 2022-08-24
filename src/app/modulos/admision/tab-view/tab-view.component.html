@@ -1,5 +1,5 @@
 <div class="card">
-    <p-tabView>
+    <p-tabView (onChange)="handleChange($event)">
         <p-tabPanel header="GENERAR OFERTAS">
                 <app-generar-ofertas></app-generar-ofertas>
         </p-tabPanel>

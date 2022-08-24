@@ -199,19 +199,18 @@ export class ModalCuposComponent implements OnInit {
   }
   /* interconsulta */
   inicioServicios() {
-    console.log("e1", this.estado);
-    if (this.cuposService.data == undefined) {
+    if (this.cuposService.tab == 2) {
       this.estado = false;
       this.formCuposOferta
         .get("SelectUPSOferta")
         .setValue(this.ServicoSelecionado);
-    } else {
+    }
+    if (this.cuposService.tab == 4) {
       this.estado = true;
       this.formCuposOferta
         .get("SelectUPSOferta")
         .setValue(this.cuposService.data.ipress.servicio);
     }
-    console.log("e2", this.estado);
   }
 }
 

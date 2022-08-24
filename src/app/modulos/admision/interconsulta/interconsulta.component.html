@@ -3,11 +3,15 @@
 </div>
 <p-table
   [value]="listInterconsulta"
-  styleClass="p-datatable-gridlines" responsiveLayout="scroll"
+  styleClass="p-datatable-gridlines"
+  responsiveLayout="scroll"
+  [rows]="10"
+  [rowsPerPageOptions]="[10, 25, 50]"
+  [paginator]="true"
 >
   <ng-template pTemplate="caption">
     <div class="table-header">
-        Lista de Interconsultas
+      Lista de Interconsultas
       <span class="p-input-icon-right">
         <i class="pi pi-search"></i>
         <input
@@ -19,7 +23,7 @@
       </span>
     </div>
   </ng-template>
-  <ng-template pTemplate="header" >
+  <ng-template pTemplate="header">
     <tr>
       <th class="text-center">Nro</th>
       <th class="text-center">Servicio</th>
@@ -30,7 +34,7 @@
   </ng-template>
   <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
     <tr>
-      <th class="text-center">{{ rowIndex }}</th>
+      <th class="text-center">{{ rowIndex + 1 }}</th>
       <th class="text-center">{{ rowData.ipress.servicio }}</th>
       <th class="text-center">
         {{ rowData.paciente.nombre + " " + rowData.paciente.apellidos }}
@@ -38,21 +42,21 @@
       <th class="text-center">{{ rowData.fechaAtencion }}</th>
       <th class="justify-content-center">
         <button
-            pButton
-            pRipple
-            icon="pi pi-send"
-            class="p-button-rounded p-button-success m-1"
-            (click)="openCupos(rowData)"
-            pTooltip="Generar Cupo"
-          ></button>
-          <button
-            pButton
-            pRipple
-            icon="pi pi-trash"
-            class="p-button-rounded p-button-danger m-1"
-            (click)="eliminar"
-            pTooltip="Eliminar"
-          ></button>
+          pButton
+          pRipple
+          icon="pi pi-send"
+          class="p-button-rounded p-button-success m-1"
+          (click)="openCupos(rowData)"
+          pTooltip="Generar Cupo"
+        ></button>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-trash"
+          class="p-button-rounded p-button-danger m-1"
+          (click)="eliminarCupo(rowData, rowIndex)"
+          pTooltip="Eliminar"
+        ></button>
       </th>
     </tr>
   </ng-template>

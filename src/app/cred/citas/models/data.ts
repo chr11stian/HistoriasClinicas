@@ -1,24 +1,24 @@
 export interface dato {
-    hidden?: boolean,
-    nroDocumento?: string,
-    tipoDoc?: string,
-    idConsulta?: string,
-    dia?: number,
-    mes?: number,
-    anio?: number
-    sexo?: string,
-    fechaNacimiento?: string,
-    see?: boolean,
-    nroConsulta?:number,
-    ups?:string
-    fechaConsulta?:string
+    hidden?: boolean;
+    nroDocumento?: string;
+    tipoDoc?: string;
+    idConsulta?: string;
+    dia?: number;
+    mes?: number;
+    anio?: number;
+    sexo?: string;
+    fechaNacimiento?: string;
+    see?: boolean;
+    nroConsulta?: number;
+    ups?: string;
+    fechaConsulta?: string;
 }
 
 export interface outputTriajeInterface {
-    fecha: string,
-    anioEdad: number,
-    mesEdad: number,
-    diaEdad: number,
+    fecha: string;
+    anioEdad: number;
+    mesEdad: number;
+    diaEdad: number;
     signosVitales: SignosVitales;
     listaSignosAlarma: ListaSignosAlarma[];
     presentaSigno: boolean;
@@ -93,15 +93,15 @@ export interface ExamenesFisico {
 }
 
 export interface controlCrecimiento {
-    controlCrecimiento: interfaceCrecimiento[]
+    controlCrecimiento: interfaceCrecimiento[];
 }
 
 export interface inputCrecimiento {
-    nombreEvaluacion: string,
-    codigoCIE10: string,
-    codigoHIS: string,
-    codigoPrestacion: string,
-    controlCrecimientoDesaMes: interfaceCrecimiento
+    nombreEvaluacion: string;
+    codigoCIE10: string;
+    codigoHIS: string;
+    codigoPrestacion: string;
+    controlCrecimientoDesaMes: interfaceCrecimiento;
 }
 
 export interface interfaceCrecimiento {
@@ -116,11 +116,11 @@ export interface interfaceCrecimiento {
     estadoAplicado: boolean;
     fechaTentativa: string | Date;
     fecha: string | Date;
-    dias?: number,
-    diagnosticoPE: string,
-    diagnosticoTE: string,
-    diagnosticoPT: string,
-    diagnosticoPC: string
+    dias?: number;
+    diagnosticoPE: string;
+    diagnosticoTE: string;
+    diagnosticoPT: string;
+    diagnosticoPC: string;
 }
 
 export interface AntecedentesPerinatales {
@@ -176,20 +176,20 @@ export interface Parto {
 }
 
 export interface antecedentesPatologicos {
-    nombre: string,
+    nombre: string;
 }
 
 export interface antecedentesFamiliares {
-    nombre: string,
-    pariente: string,
-    fechaDiagnosticado: string,
-    edadAnio: number,
-    edadMes: number,
-    edadDia: number,
+    nombre: string;
+    pariente: string;
+    fechaDiagnosticado: string;
+    edadAnio: number;
+    edadMes: number;
+    edadDia: number;
 }
 
 export interface ReferenciaInterface {
-    id?: string
+    id?: string;
     fecha: Date | string;
     tipoSubsidio: string;
     coordinacion: Coordinacion;
@@ -219,13 +219,13 @@ export interface Personal {
 }
 
 export interface laboratorio {
-    datosLaboratorio: datosLaboratorio
+    datosLaboratorio: datosLaboratorio;
 }
 
 export interface datosLaboratorio {
-    tipoLaboratorio: string,
-    subTipo: string,
-    nombreExamen: string
+    tipoLaboratorio: string;
+    subTipo: string;
+    nombreExamen: string;
 }
 
 export interface ExamenesAuxiliares {
@@ -235,19 +235,18 @@ export interface ExamenesAuxiliares {
 }
 
 export interface acuerdosInterface {
-    acuerdosCompromisosCRED: acuerdosCompromisosCRED,
-    referencia: referencia;
-    proxCita: proxCita;
+    acuerdosCompromisosCRED: acuerdosCompromisosCRED;
+    referencia?: referencia;
+    proxCita?: proxCita;
     observacionesConsulta: string;
-    interconsultas: proxCita[];
+    interconsultas?: proxCita[];
 }
-
-export interface acuerdosCompromisosCRED{
-    edadMes: number,
-    listaAcuerdosConMadre: listaAcuerdosConMadre[]
+export interface acuerdosCompromisosCRED {
+    edadMes: number;
+    listaAcuerdosConMadre: listaAcuerdosConMadre[];
 }
 export interface proxCita {
-    idCupos?: string
+    idCupos?: string;
     fecha: Date | string;
     motivo?: string;
     servicio?: string;
@@ -288,19 +287,19 @@ export interface rolInterface {
     nombreEESS: string;
     permisos: string;
     rol: string;
-    nombreRol: string
+    nombreRol: string;
 }
 
 export interface escala {
-    user?: string,
-    pass?: string,
-    escala: string,
-    rol?: string[],
-    nombreRol?: string[]
-    list?: nombreRol[]
+    user?: string;
+    pass?: string;
+    escala: string;
+    rol?: string[];
+    nombreRol?: string[];
+    list?: nombreRol[];
 }
 
 export interface nombreRol {
-    rol: string,
-    nombreRol: string
+    rol: string;
+    nombreRol: string;
 }
