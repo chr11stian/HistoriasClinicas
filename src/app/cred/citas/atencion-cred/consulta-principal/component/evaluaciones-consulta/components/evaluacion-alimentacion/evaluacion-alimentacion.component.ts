@@ -7,18 +7,12 @@ import {dato} from "../../../../../../models/data";
 import {MessageService} from "primeng/api";
 import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
 import { listaPregunta } from '../desarrollo-psicomotor/components/models/tepsi';
-
 @Component({
   selector: 'app-evaluacion-alimentacion',
   templateUrl: './evaluacion-alimentacion.component.html',
   styleUrls: ['./evaluacion-alimentacion.component.css']
 })
 export class EvaluacionAlimentacionComponent implements OnInit {
-  datePipe = new DatePipe("en-US");
-  data=JSON.parse(localStorage.getItem('documento'))
-  fecha:Date=new Date(this.datePipe.transform(this.data.fechaConsulta,'yyyy-MM-dd HH:mm:ss'))
-  arregloForm: FormGroup;
-  evaluacionAlimenticia=[];
   listaMesesEvaluar=[{texto:'RN',numero:0},{texto:'1m',numero:1}
   ,{texto:'2m',numero:2},{texto:'3m',numero:3}
   ,{texto:'4m',numero:4},{texto:'5m',numero:5}
@@ -52,49 +46,32 @@ export class EvaluacionAlimentacionComponent implements OnInit {
   {codigo:'PREG_16',titulo:'16. ¿Cuántos sobres de micronutrientes consumio en el mes?'},
   {codigo:'OBS',titulo:'Observaciones'},
   ]
+  datePipe = new DatePipe("en-US");
+  data=JSON.parse(localStorage.getItem('documento'))
+  arregloForm: FormGroup;
+  evaluacionAlimenticia=[];
   edadMeses:number=0;//edad con la que podria se evaluada menor posible
   indexEdadMeses:number=0
   edadCalculada:number=0;//edad que real que se tiene en meses
   displayDialog:boolean=false;
+  fechas:any[]=[]
+  isAgregable:boolean
+  arregloTestXConsulta=[]
+  arregloTestXDNI=[]
   constructor(private evaluacionAlimentacionService: EvaluacionAlimentacionService){
+    this.inicializaVariables()
     this.buildFormArray()
     this.edadCalculada=this.data.anio*12+this.data.mes
     this.determinarEdadEvaluada();
     this.indexEdadMeses=this.listaMesesEvaluar.indexOf(this.listaMesesEvaluar.find((element)=>element.numero==this.edadMeses))
   }
-  determinarEdadEvaluada(){
-      if(this.edadCalculada<=12){
-        this.edadMeses=this.edadCalculada;
-      } else if(this.edadCalculada<=13){
-        this.edadMeses=12;
-      } else if(this.edadCalculada<=15){
-        this.edadMeses=14
-      } else if(this.edadCalculada<=17){
-        this.edadMeses=16
-      }else if(this.edadCalculada<=19){
-        this.edadMeses=18
-      }else if(this.edadCalculada<=21){
-        this.edadMeses=20
-      }else if(this.edadCalculada<=23){
-        this.edadMeses=22
-      }else if(this.edadCalculada<=26){
-        this.edadMeses=24
-      }else if(this.edadCalculada<=29){
-        this.edadMeses=27
-      }else if(this.edadCalculada<=32){
-        this.edadMeses=30
-      }else if(this.edadCalculada<=35){
-        this.edadMeses=33
-      }else if(this.edadCalculada<=38){
-        this.edadMeses=36
-      }else if(this.edadCalculada<=41){
-        this.edadMeses=39
-      }else if(this.edadCalculada==42){
-        this.edadMeses=42
-      } else this.edadMeses=43 /* no se habilita ningun mes */
+  inicializaVariables(){ 
+    this.fechas=[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]
+    this.isAgregable=false;
+    this.arregloTestXConsulta=[] /* 1 registro */
   }
   ngOnInit(): void {
-      this.getTestAlimentacion()
+      this.getTestAlimentacionPlan()
   } 
   buildFormArray() {
     this.arregloForm = new FormGroup({});
@@ -111,27 +88,76 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     const B:any=A.controls[j] 
     return B
   }
-  hasTaken:boolean=false
-  arregloTest=[]
-
+  determinarEdadEvaluada(){
+    if(this.edadCalculada<=12){
+      this.edadMeses=this.edadCalculada;
+    } else if(this.edadCalculada<=13){
+      this.edadMeses=12;
+    } else if(this.edadCalculada<=15){
+      this.edadMeses=14
+    } else if(this.edadCalculada<=17){
+      this.edadMeses=16
+    }else if(this.edadCalculada<=19){
+      this.edadMeses=18
+    }else if(this.edadCalculada<=21){
+      this.edadMeses=20
+    }else if(this.edadCalculada<=23){
+      this.edadMeses=22
+    }else if(this.edadCalculada<=26){
+      this.edadMeses=24
+    }else if(this.edadCalculada<=29){
+      this.edadMeses=27
+    }else if(this.edadCalculada<=32){
+      this.edadMeses=30
+    }else if(this.edadCalculada<=35){
+      this.edadMeses=33
+    }else if(this.edadCalculada<=38){
+      this.edadMeses=36
+    }else if(this.edadCalculada<=41){
+      this.edadMeses=39
+    }else if(this.edadCalculada==42){
+      this.edadMeses=42
+    } else this.edadMeses=43 /* no se habilita ningun mes */
+}
+  
+  getTestAlimentacionPlan(){
+    this.evaluacionAlimentacionService.getEvaluacionAlimenticiaCredPlan(this.data.nroDocumento).subscribe((resp:any)=>{
+        if(resp.cod=='2121'){
+            this.arregloTestXDNI=resp.object
+            this.arregloTestXDNI.forEach((fila,index)=>{
+                const edadMeses=fila.edad
+                const indexEdadMeses=this.listaMesesEvaluar.indexOf(this.listaMesesEvaluar.find(element=>element.numero==edadMeses))
+                this.fechas[indexEdadMeses]=new Date(fila.fechaRegistro)
+                const test=fila.listaPreguntas
+                test.forEach((element,index) => {
+                    this.getControl(index,indexEdadMeses).setValue(element.estado)
+                });
+                this.desabilitarCheckButton(indexEdadMeses)
+                /* probando */
+          })
+          
+        }
+        if(!this.fechas[this.indexEdadMeses] ){/* hay evaluacion ese mes? */
+             console.log('---->entramos en el if');
+             this.fechas[this.indexEdadMeses]=new Date(this.data.fechaConsulta)
+             this.isAgregable=true
+        }
+    })
+    this.getTestAlimentacion()
+    //determinamos si hay la posibilidad de agregar un test para el presente mes(vip)
+  
+    
+  }
   getTestAlimentacion(){
     this.evaluacionAlimentacionService.getEvaluacionAlimenticiaCred(this.data.idConsulta).subscribe((resp:any)=>{
       if(resp.cod=='2121' && resp.object!=null){
-        this.hasTaken=true
-        this.edadMeses=resp.object.evaluacionAlimentacionMes.edad//cambiamos al mes recuperado
         const ObjetoAlimentacion={
           fecha:resp.object.evaluacionAlimentacionMes.fechaRegistro,
           edad:resp.object.evaluacionAlimentacionMes.edad,
           diagnostico:resp.object.evaluacionAlimentacionMes.diagnostico
         }
-        this.arregloTest.push(ObjetoAlimentacion)
-        const preguntasArreglo:any[]=resp.object.evaluacionAlimentacionMes.listaPreguntas;
-        // const indexEdad=this.listaMesesEvaluar.indexOf(this.listaMesesEvaluar.find((element)=>element.numero==this.edadMeses))
-        preguntasArreglo.forEach((element,index)=>{
-          this.getControl(index,this.indexEdadMeses).setValue(element.estado)
-        })
-        this.fecha=new Date(resp.object.evaluacionAlimentacionMes.fechaRegistro)
-        this.desabilitarCheckButton(this.indexEdadMeses);
+        this.arregloTestXConsulta.push(ObjetoAlimentacion)
+        // this.isAgregable=false
       }
     })
   }
@@ -142,7 +168,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
       codigoHIS:"Z0017",
       codigoPrestacion:"0001",
       evaluacionAlimentacionMes:{
-          "fechaRegistro": this.datePipe.transform(this.fecha,'yyyy-MM-dd HH:mm:ss'),
+          "fechaRegistro": this.datePipe.transform(this.fechas[this.indexEdadMeses],'yyyy-MM-dd HH:mm:ss'),
           "edad": this.edadMeses,
           "docExaminador":"24242424",
           "listaPreguntas":this.arregloCalificacion(),
@@ -157,16 +183,19 @@ export class EvaluacionAlimentacionComponent implements OnInit {
       confirmButtonText: 'Guardar',
     }).then((result) => {
       if (result.isConfirmed) {
-         this.evaluacionAlimentacionService.addEvaluacionAlimenticiaCred(this.data.idConsulta,inputRequest).subscribe((res: any) => {
-         Swal.fire({
-           icon: 'success',
-           title: 'Registro Agregado',
-           showConfirmButton: false,
-           timer: 1500,
+          this.evaluacionAlimentacionService.addEvaluacionAlimenticiaCred(this.data.idConsulta,inputRequest).subscribe((res: any) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Registro Agregado',
+            showConfirmButton: false,
+            timer: 1500,
+          })
+          this.displayDialog=false
+          this.inicializaVariables()
+          this.getTestAlimentacionPlan()
+          //determinamo
+          
          })
-         this.displayDialog=false
-         this.getTestAlimentacion()
-        })
       }
     })
   }

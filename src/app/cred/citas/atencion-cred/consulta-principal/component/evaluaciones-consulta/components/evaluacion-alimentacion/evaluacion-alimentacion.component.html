@@ -1,4 +1,4 @@
-<p-table [value]="arregloTest" #dt styleClass="p-datatable-gridlines p-datatable-customers" [rows]="10"
+<p-table [value]="arregloTestXConsulta" #dt styleClass="p-datatable-gridlines p-datatable-customers" [rows]="10"
          [rowsPerPageOptions]="[10, 25, 50]"
          [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
          currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
@@ -7,7 +7,7 @@
                 <div class="table-header mt-2">
                     RESULTADOS DE EVALUACION DE LA ALIMENTACIÓN DE LA NIÑA Y EL NIÑO ({{edadCalculada}})meses
                 </div>
-                <div *ngIf="!hasTaken">
+                <div *ngIf="true">
                     <button pButton pRipple label="Evaluar Test" iconPos="right" icon="pi pi-plus-circle"
                     class="guardar mr-2" (click)="displayDialog=true" [disabled]="false"  style="background-color: #0c3866"></button>
                 </div>
@@ -50,12 +50,12 @@
         <ng-template pTemplate="header">
             <tr>
                 <th class="frozenCol"  [frozen]="true" pFrozenColumn p style="width:300px">Edad</th>
-                <th [ngStyle]="{'width':mes.numero==edadMeses?'108px':'60px'}" *ngFor="let mes of listaMesesEvaluar">{{mes.texto}}</th>
+                <th [ngStyle]="{'width':fechas[i]?'108px':'60px'}" *ngFor="let mes of listaMesesEvaluar;let i=index">{{mes.texto}}</th>
             </tr>
             <tr>
                 <th class="frozenCol"  [frozen]="true" pFrozenColumn style="width:300px">Fecha</th>
-                <th [ngStyle]="{'width':mes.numero==edadMeses?'108px':'60px'}" *ngFor="let mes of listaMesesEvaluar">
-                    <p-calendar *ngIf="mes.numero==edadMeses" [(ngModel)]="fecha" [ngModelOptions]="{standalone: true}" dateFormat="dd-mm-yy" appendTo="body"></p-calendar>
+                <th [ngStyle]="{'width':fechas[i]?'108px':'60px'}" *ngFor="let mes of listaMesesEvaluar;let i=index">
+                    <p-calendar *ngIf="fechas[i]" [(ngModel)]="fechas[i]" [ngModelOptions]="{standalone: true}" dateFormat="dd-mm-yy" appendTo="body" [disabled]="true"></p-calendar>
                 </th>
             </tr>
         </ng-template>
@@ -64,8 +64,8 @@
                 <td class="frozenCol"  [frozen]="true" pFrozenColumn style="width:300px;text-align: left;padding:2px;"> 
                     {{sale.titulo}}
                 </td>
-                <td [ngStyle]="{'width':mes.numero==edadMeses?'108px':'60px','background-color':sombrear(rowIndex,j)}" *ngFor="let mes of listaMesesEvaluar;let j=index"  >
-                    <p-toggleButton *ngIf="mes.numero==edadMeses && sombrear(rowIndex,j)!='#dddddd'" [formControlName]="j" [binary]="true" onIcon="pi pi-check" offIcon="pi pi-times"></p-toggleButton>
+                <td [ngStyle]="{'width':fechas[j]?'108px':'60px','background-color':sombrear(rowIndex,j),'background-color':j==indexEdadMeses?'#fcbfba':'white'}" *ngFor="let mes of listaMesesEvaluar;let j=index"  >
+                    <p-toggleButton *ngIf="fechas[j] && sombrear(rowIndex,j)!='#dddddd'" [formControlName]="j" [binary]="true" onIcon="pi pi-check" offIcon="pi pi-times"></p-toggleButton>
                 </td>
             </tr>
         </ng-template>
@@ -75,7 +75,7 @@
 </form>
 <ng-template pTemplate="footer">    
         
-    <button *ngIf="!hasTaken" pButton pRipple type="button" label="Guardar" style="background-color: #0c3866;" icon="pi pi-save" (click)="save()" iconPos="right"></button>
+    <button *ngIf="isAgregable" pButton pRipple type="button" label="Guardar" style="background-color: #0c3866;" icon="pi pi-save" (click)="save()" iconPos="right"></button>
     <!-- <button pButton pRipple type="button" label="Cancelar" class="p-button-danger" icon="pi pi-times" (click)="pruebas()" iconPos="right"></button> -->
 </ng-template>
 </p-dialog>
