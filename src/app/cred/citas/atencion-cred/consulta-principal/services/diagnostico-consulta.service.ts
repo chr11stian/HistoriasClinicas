@@ -51,6 +51,10 @@ export class DiagnosticoConsultaService {
 
     }
     /***procedimientos**/
+    saveProcedimiento(id,data) {
+        return this.http.post(`${this.urlServer}/${this.bd}/cred/consulta/procedimientos/save/${id}`, data)
+
+    }
     addProcedimiento(id,data) {
         return this.http.post(`${this.urlServer}/${this.bd}/cred/consulta/procedimiento/${id}`, data)
 
