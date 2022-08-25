@@ -96,11 +96,12 @@
                                <p style="margin:auto 0" class="triangulo"></p>
                            </div>
                        </td>
-                       <td *ngFor="let mes of listaMeses;let j=index" [ngClass]="{'fondorojo':fechas[j]}">
+                       <td *ngFor="let mes of listaMeses;let j=index" >
                            <img *ngIf="true;"class="button-menu" [src]="ruta(sale,mes)">
                           
                            <div *ngIf="getControl(rowIndex,j).value">    
-                               <p-checkbox  [formControlName]="j"  [binary]="true"></p-checkbox>
+                               <p-checkbox [formControlName]="j" [ngClass]="matrisColores[rowIndex][j]"  [binary]="true"></p-checkbox>
+                               <!-- <p-checkbox [ngClass]="forma" [ngClass]="determinarColorOtro(i,j)"  [formControlName]="j"  [binary]="true"></p-checkbox> -->
                             </div>
                        </td>
                    </tr>
