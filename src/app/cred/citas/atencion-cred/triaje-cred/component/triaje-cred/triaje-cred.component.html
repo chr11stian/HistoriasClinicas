@@ -1,26 +1,25 @@
 <p-card>
-
-
-<p-toolbar>
-    <ng-template pTemplate="left">
-        <h3 class="mt-2" style="font-size:2rem">TRIAJE CRED</h3>
-    </ng-template>
-    <ng-template pTemplate="right" class="button">
-    </ng-template>
-</p-toolbar>
-<p-fieldset legend="Información Básica" [toggleable]="true">
-    <form [formGroup]="generalInfoFG">
-        <div class="grid">
-            <div class="col-12 md:col-2 text-center mt-2">
-                Nombre completo:
-            </div>
-            <div class="col-12 md:col-10">
-                <input type="text"
-                       pInputText
+    <p-toolbar>
+        <ng-template pTemplate="left">
+            <h3 class="mt-2" style="font-size:2rem">TRIAJE CRED</h3>
+        </ng-template>
+        <ng-template pTemplate="right" class="button">
+        </ng-template>
+    </p-toolbar>
+    <br>
+    <p-fieldset legend="Información Básica" [toggleable]="true">
+        <form [formGroup]="generalInfoFG">
+            <div class="grid">
+                <div class="col-12 md:col-2 text-center mt-2">
+                    Nombre completo:
+                </div>
+                <div class="col-12 md:col-10">
+                    <input type="text"
+                    pInputText
                        formControlName="name"
                        class="inputfield w-full"
                        placeholder="Nombre del paciente "/>
-            </div>
+                    </div>
         </div>
         <div class="grid">
             <div class="col-12 md:col-2 text-center mt-2">
@@ -47,28 +46,28 @@
             </div>
             <div class="col-12 md:col-3">
                 <input type="text"
-                       pInputText
-                       formControlName="year"
+                pInputText
+                formControlName="year"
                        class="inputfield w-full"
                        placeholder="Edad del paciente"/>
             </div>
         </div>
     </form>
 </p-fieldset>
-
+<br>
 <p-fieldset legend="SIGNOS VITALES">
     <form [formGroup]="examFG">
         <div class="grid">
             <div class="col-12 md:col-12 justify-content-center">
                 <div class="grid align-items-center">
-                    <ng-container *ngFor="let controlFC of dataExamFisicos">
-                        <div class="col-6 md:col-1 text-right">
+                    <ng-container *ngFor="let controlFC of dataExamFisicos;let i=index">
+                        <div class="col-6 md:col-1 text-right font-bold">
                             {{controlFC.label}}
                         </div>
                         <div class="col-6 md:col-3">
                             <ng-container *ngIf="(controlFC.nameFC === 'TallaFC' || controlFC.nameFC === 'PesoFC'); else otros">
                                 <input (ngModelChange)="imc()" type="number" pInputText [formControlName]="controlFC.nameFC"
-                                       class="inputfield w-full text-center"
+                                class="inputfield w-full text-center"
                                 />
                             </ng-container>
                             <ng-template #otros>
@@ -76,7 +75,7 @@
                                        class="inputfield w-full text-center"/>
                             </ng-template>
                             <div *ngIf="isInvalid(controlFC.nameFC)">
-                                <span class="dato-error">*Campo Obligatorio</span>
+                                <span class="dato-error">*Campo {{dataExamFisicos[i].pro}} Obligatorio </span>
                             </div>
 
                         </div>
@@ -89,9 +88,10 @@
         <textarea class="inputfield w-full mb-2"  pInputTextarea></textarea>
     </form>
 </p-fieldset>
+<br>
 <p-fieldset legend="Descarte de signos de peligro"
             [toggleable]="true"
-            [formGroup]="signoPeligroFG">
+            [formGroup]="signoPeligroFG" >
     <div class="grid">
         <div class="col-10 md:col-10">
             <div class="grid">
@@ -148,8 +148,8 @@
                                             (onChange)="cambio($event)"
                                             [formControlName]="formC.index"
                                             optionValue="value">
-                            </p-selectButton>
-                        </div>
+                                        </p-selectButton>
+                                    </div>
                     </div>
                 </div>
             </form>
@@ -239,7 +239,7 @@
         </form>
     </div>
 </p-fieldset>
-
+<br>
 <p-fieldset legend="ANAMNESIS" [hidden]="!my" [toggleable]="true">
     <textarea class="inputfield w-full"
               [formControl]="anamnesisFC"
@@ -265,7 +265,7 @@
     <div [hidden]="!my">
 
         <button type="submit"
-                icon="pi"
+        icon="pi"
                 pButton
                 pRipple
                 (click)="getConsultaPrincipal()"
@@ -276,6 +276,4 @@
         </button>
     </div>
 </div>
-
-
 </p-card>

@@ -1,32 +1,21 @@
-:host ::ng-deep .fondorojo {
-   background-color: #fcbfba !important;
+
+::ng-deep .tablaPeruano .p-datatable table {
+   width: auto;
 }
-
-p-card >>> .p-card .p-card-title{
-   margin: 0.5rem 0rem 0.5rem 0.5rem;
+::ng-deep .tablaPeruano .p-datatable .p-datatable-thead > tr > th {
+   border: 1px solid #b6b6b6;
+   text-align: center ;
+   /* background-color: #dddddd; */
+   padding: 3px;
 }
-.tabla{
-   width:100%;
+::ng-deep .tablaPeruano .p-datatable .p-datatable-tbody > tr > td {
+   border: 1px solid #b6b6b6;
+   text-align: center;
+   padding: 3px;
 }
-::ng-deep .fondo1 .p-calendar .p-inputtext{
-
-    flex: 1 1 auto;
-    width: 1%;
-    background: #FDC070;
-
+::ng-deep .tablaPeruano .p-datatable .p-datatable-tfoot > tr > th {
+   padding: 3px;
 }
-::ng-deep .fondo2 .p-calendar .p-inputtext{
-/**/
-   flex: 1 1 auto;
-   width: 1%;
-   background: #FFFF80;
-
-}
-/*colores de las fechas */
-
-
-
-
 .caja {
    color: white;
    border-radius:10px;
@@ -41,35 +30,43 @@ p-card >>> .p-card .p-card-title{
    border-top: 13px solid transparent;
    border-bottom: 13px solid transparent;
 }
-p-table >>> .p-datatable .p-datatable-tbody > tr > td {
-   text-align: center;
-   font-size: small;
-   word-wrap: break-word;
-   padding: 2px;
-   /*background:red;*/
+/* COLORES DE LOS CALENDAR */
+::ng-deep .calendarioMes1 .p-calendar .p-inputtext{
+    background: #4C4C4C;color:white;
+}::ng-deep .calendarioMes2 .p-calendar .p-inputtext{
+   background: #F0047F;color:white;
+}::ng-deep .calendarioMes3 .p-calendar .p-inputtext{
+   background: #FF6601;color:white;
+}::ng-deep .calendarioMes4 .p-calendar .p-inputtext{
+   background: #F30E19;color:white;
+}::ng-deep .calendarioMes5 .p-calendar .p-inputtext{
+   background: #F93D5A;color:white;
+}::ng-deep .calendarioMes6 .p-calendar .p-inputtext{
+   background: #FEA61D;color:white;
+}::ng-deep .calendarioMes7 .p-calendar .p-inputtext{
+   background: #F5923B;color:white;
+}::ng-deep .calendarioMes8 .p-calendar .p-inputtext{
+   background: #DD360C;color:white;
+}::ng-deep .calendarioMes9 .p-calendar .p-inputtext{
+   background: #DD6910;color:white;
+}::ng-deep .calendarioMes10 .p-calendar .p-inputtext{
+   background: #5BBA7D;color:white;
+}::ng-deep .calendarioMes11 .p-calendar .p-inputtext{
+   background: #5AB543;color:white;
+}::ng-deep .calendarioMes12 .p-calendar .p-inputtext{
+   background: #9BC922;color:white;
+}::ng-deep .calendarioMes15 .p-calendar .p-inputtext{
+   background: #5EAA29;color:white;
+}::ng-deep .calendarioMes18 .p-calendar .p-inputtext{
+   background: #62C2BB;color:white;
+}::ng-deep .calendarioMes21 .p-calendar .p-inputtext{
+   background: #5C97C6;color:white;
+}::ng-deep .calendarioMes24 .p-calendar .p-inputtext{
+   background: #5E64AD;color:white;
+}::ng-deep .calendarioMes30 .p-calendar .p-inputtext{
+   background: #B573B6;color:white;
 }
-p-dialog >>> .p-dialog .p-dialog-header {
-   border-bottom: 0 none;
-   background: #0c3866;
-   color: #495057;
-   padding: 1.5rem;
-   border-top-right-radius: 3px;
-   border-top-left-radius: 3px;
-   z-index:89999;
-}
-p-dialog >>> .p-dialog .p-dialog-header .p-dialog-title {
-   font-weight: 600;
-   font-size: 1.25rem;
-   color: #ffffff;
-   z-index:89999;
-}
-p-table >>> .p-datatable .p-datatable-thead > tr > th {
-   padding: 3px;
-}
-p-table >>> .p-datatable .p-datatable-tfoot > tr > th {
-   padding: 3px;
-}
-
+/* TRIANGULOS SUPERIOR INFERIOR */
 .triangulo-1 {
    width: 0;
    height: 0;
@@ -309,115 +306,95 @@ p-table >>> .p-datatable .p-datatable-tfoot > tr > th {
    border-left: 15px solid transparent;
    border-right: 15px solid transparent;
 }
-p-calendar >>> .p-calendar .p-datepicker {
-   width: 250px;
-}
-
+/* COLORES CHECKBOX */
 ::ng-deep .nollenado .p-checkbox .p-checkbox-box.p-highlight {
    border-color: #0c3866;
    background: #0c3866;
 }
 
-::ng-deep .diagnostico1 .p-checkbox .p-checkbox-box.p-highlight{
-   background: red;
-   border-color: red;
-   color: #ffffff;
+::ng-deep .mes1 .p-checkbox .p-checkbox-box.p-highlight{
+   background: #4C4C4C;
+   border-color: #4C4C4C;
+   color: #4C4C4C;
 }
-::ng-deep .diagnostico2 .p-checkbox .p-checkbox-box.p-highlight{
-   background: green;
-   border-color: green;
-   color: #ffffff;
-}
-
-::ng-deep .diagnostico3 .p-checkbox .p-checkbox-box.p-highlight{
-   background: blue;
-   border-color: blue;
-   color: #ffffff;
-}
-::ng-deep .diagnostico4 .p-checkbox .p-checkbox-box.p-highlight{
-   background: orangered;
-   border-color: orangered;
-   color: #ffffff;
-}
-::ng-deep .diagnostico5 .p-checkbox .p-checkbox-box.p-highlight{
-   background: sandybrown;
-   border-color: sandybrown;
-   color: #ffffff;
-}
-::ng-deep .diagnostico6 .p-checkbox .p-checkbox-box.p-highlight{
+::ng-deep .mes2 .p-checkbox .p-checkbox-box.p-highlight{
    background: #F0047F;
    border-color: #F0047F;
-   color: #ffffff;
-}
-::ng-deep .diagnostico7 .p-checkbox .p-checkbox-box.p-highlight{
-   background: #acd03d;
-   border-color: #acd03d;
-   color: #ffffff;
-}
-::ng-deep .diagnostico8 .p-checkbox .p-checkbox-box.p-highlight{
-   background: lightslategrey;
-   border-color: lightslategrey;
-   color: #ffffff;
-}
-::ng-deep .diagnostico9 .p-checkbox .p-checkbox-box.p-highlight{
-   background: crimson;
-   border-color: crimson;
-   color: #ffffff;
-}
-::ng-deep .diagnostico10 .p-checkbox .p-checkbox-box.p-highlight{
-   background: violet;
-   border-color: violet;
-   color: #ffffff;
-}
-::ng-deep .diagnostico11 .p-checkbox .p-checkbox-box.p-highlight{
-   background: gray;
-   border-color: gray;
-   color: #ffffff;
-}
-::ng-deep .diagnostico12 .p-checkbox .p-checkbox-box.p-highlight{
-   background: forestgreen;
-   border-color: forestgreen;
-   color: #ffffff;
-}
-::ng-deep .diagnostico15 .p-checkbox .p-checkbox-box.p-highlight{
-   background: saddlebrown;
-   border-color: saddlebrown;
-   color: #ffffff;
-}
-::ng-deep .diagnostico18 .p-checkbox .p-checkbox-box.p-highlight{
-   background: blueviolet;
-   border-color: blueviolet;
-   color: #ffffff;
-}
-::ng-deep .diagnostico21 .p-checkbox .p-checkbox-box.p-highlight{
-   background: #af0017;
-   border-color: #af0017;
-   color: #ffffff;
-}
-::ng-deep .diagnostico24 .p-checkbox .p-checkbox-box.p-highlight{
-   background: olive;
-   border-color: olive;
-   color: #ffffff;
-}
-::ng-deep .diagnostico30 .p-checkbox .p-checkbox-box.p-highlight{
-   background: darkcyan;
-   border-color: darkcyan;
-   color: #ffffff;
+   color: #F0047F;
 }
 
-::ng-deep  .p-datatable table {
-   width: auto;
+::ng-deep .mes3 .p-checkbox .p-checkbox-box.p-highlight{
+   background: #FF6601;
+   border-color: #FF6601;
+   color: #FF6601;
 }
-
-::ng-deep  .p-datatable .p-datatable-thead > tr > th {
-   text-align: center !important;
-   border: 1px solid #b6b6b6;
-   background-color: #dddddd;
-   padding: 0.3rem;
+::ng-deep .mes4 .p-checkbox .p-checkbox-box.p-highlight{
+   background: #F30E19;
+   border-color: #F30E19;
+   color: #F30E19;
 }
-::ng-deep .p-datatable .p-datatable-tbody > tr > td {
-   border: 1px solid #b6b6b6;
-   text-align: center;
-   font-size: medium;
-   word-wrap: break-word;
+::ng-deep .mes5 .p-checkbox .p-checkbox-box.p-highlight{
+   background: #F93D5A;
+   border-color: #F93D5A;
+   color: #F93D5A;
+}
+::ng-deep .mes6 .p-checkbox .p-checkbox-box.p-highlight{
+   background: #FEA61D;
+   border-color: #FEA61D;
+   color: #FEA61D;
+}
+::ng-deep .mes7 .p-checkbox .p-checkbox-box.p-highlight{
+   background: #F5923B;
+   border-color: #F5923B;
+   color: #F5923B;
+}
+::ng-deep .mes8 .p-checkbox .p-checkbox-box.p-highlight{
+   background: #DD360C;
+   border-color: #DD360C;
+   color: #DD360C;
+}
+::ng-deep .mes9 .p-checkbox .p-checkbox-box.p-highlight{
+   background: #DD6910;
+   border-color: #DD6910;
+   color: #DD6910;
+}
+::ng-deep .mes10 .p-checkbox .p-checkbox-box.p-highlight{
+   background: #5BBA7D;
+   border-color: #5BBA7D;
+   color: #5BBA7D;
+}
+::ng-deep .mes11 .p-checkbox .p-checkbox-box.p-highlight{
+   background: #5AB543;
+   border-color: #5AB543;
+   color: #5AB543;
+}
+::ng-deep .mes12 .p-checkbox .p-checkbox-box.p-highlight{
+   background: #9BC922;
+   border-color: #9BC922;
+   color: #9BC922;
+}
+::ng-deep .mes15 .p-checkbox .p-checkbox-box.p-highlight{
+   background: #5EAA29;
+   border-color: #5EAA29;
+   color: #5EAA29;
+}
+::ng-deep .mes18 .p-checkbox .p-checkbox-box.p-highlight{
+   background: #62C2BB;
+   border-color: #62C2BB;
+   color: #62C2BB;
+}
+::ng-deep .mes21 .p-checkbox .p-checkbox-box.p-highlight{
+   background:#5C97C6 ;
+   border-color: #5C97C6;
+   color: #5C97C6;
+}
+::ng-deep .mes24 .p-checkbox .p-checkbox-box.p-highlight{
+   background: #5E64AD;
+   border-color: #5E64AD;
+   color: #5E64AD;
+}
+::ng-deep .mes30 .p-checkbox .p-checkbox-box.p-highlight{
+   background: #B573B6;
+   border-color: #B573B6;
+   color: #B573B6;
 }

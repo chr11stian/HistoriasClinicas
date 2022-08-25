@@ -131,7 +131,7 @@ export class SuplementacionCredComponent implements OnInit {
 
     correspondeMes(mesPivot, suplemento) {
         if (mesPivot == this.edadMes) {
-            // this.contador[suplemento] += 1;
+            this.contador[suplemento] += 1;
             return true;
         } else
             return false

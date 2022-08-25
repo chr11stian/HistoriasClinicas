@@ -96,11 +96,11 @@
                 </div>
             </div>
         </div>
-<!--        <div class="col-12" *ngIf="contador.sulfato==0">-->
-<!--            <span style="color:#FBC02D;font-size: 1.2rem" >-->
-<!--                No hay programacion de entrega de SULFATO para el presente mes-->
-<!--            </span>-->
-<!--        </div>-->
+         <div class="col-12" *ngIf="contador.sulfato==0">
+             <span style="color:#FBC02D;font-size: 1.2rem" >
+                 No hay programacion de entrega de SULFATO para el presente mes
+             </span>
+         </div>
     </p-fieldset>
 </div>
 <div>
@@ -178,11 +178,11 @@
                 </div>
             </div>
         </div>
-<!--        <div *ngIf="this.contador.micronutrientes==0">-->
-<!--            <span style="color:#FBC02D;font-size: 1.2rem" >-->
-<!--                No hay programacion de entrega de MICRONUTRIENTES para el presente mes-->
-<!--            </span>-->
-<!--        </div>-->
+       <div *ngIf="this.contador.micronutrientes==0">
+           <span style="color:#FBC02D;font-size: 1.2rem" >
+               No hay programacion de entrega de MICRONUTRIENTES para el presente mes
+           </span>
+       </div>
     </p-fieldset>
 </div>
 <div>
@@ -260,11 +260,11 @@
                 </div>
             </div>
         </div>
-<!--        <div *ngIf="this.contador.vitaminaA==0">-->
-<!--            <span style="color:#FBC02D;font-size: 1.2rem" >-->
-<!--                No hay programacion de entrega de VITAMINA A para el presente mes-->
-<!--            </span>-->
-<!--        </div>-->
+       <div *ngIf="this.contador.vitaminaA==0">
+           <span style="color:#FBC02D;font-size: 1.2rem" >
+               No hay programacion de entrega de VITAMINA A para el presente mes
+           </span>
+       </div>
     </p-fieldset>
 </div>
 <div>
@@ -355,6 +355,11 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div *ngIf="suplementacionTerapeutica.length==0;">
+            <span style="color:#FBC02D;font-size: 1.2rem" >
+                No hay programacion de entrega de SUPLEMENTACION TERAPEUTICA para el presente mes
+            </span>
         </div>
     </p-fieldset>
 </div>

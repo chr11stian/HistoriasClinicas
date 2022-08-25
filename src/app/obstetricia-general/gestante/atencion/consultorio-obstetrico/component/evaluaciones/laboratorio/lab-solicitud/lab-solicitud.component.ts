@@ -319,7 +319,7 @@ export class LabSolicitudComponent implements OnInit {
                 console.log('data de nombre ');
                 return item.saved = true;
               } else
-                return item.saved = false;
+                return item;
             })
           }
         }

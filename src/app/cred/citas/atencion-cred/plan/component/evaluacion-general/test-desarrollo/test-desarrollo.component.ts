@@ -5,6 +5,7 @@ import {dato} from "../../../../../models/data";
 import {DatePipe} from "@angular/common";
 import { TestPeruano } from '../../../../consulta-principal/component/evaluaciones-consulta/components/desarrollo-psicomotor/services/test-peruano/test-peruano.service';
 import Swal from 'sweetalert2';
+import { coloracionGramInterface } from '../../../../../../../Laboratorio/component/lab-microbiologico/lab-microbiologico.component';
 
 @Component({
   selector: 'app-test-desarrollo',
@@ -24,6 +25,7 @@ export class TestDesarrolloComponent implements OnInit {
   fechas=[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]
   isTodo=true;
   constructor(private testPeruanoService: TestPeruano,) {
+    this.construirMatrisColores()
     this.buildFormArray() 
     this.testPeruanoService.getImagenes().then((data) => {
       this.imagenes = data;
@@ -40,7 +42,20 @@ export class TestDesarrolloComponent implements OnInit {
     })
   }
   fechasEvaluadas=[]
+  matrisColores=[]
+  construirMatrisColores(){
+    this.matrisColores=[]
+    this.listaLetras.forEach((element,i)=>{
+      const fila=[]
+      this.listaMeses.forEach((element,j)=>{
+        fila.push('')
+      })
+      this.matrisColores.push(fila)
+    })
+    
+  }
   openDialog(indexFila?:number){
+    this.construirMatrisColores()
     this.displayDialog=true
     this.arregloForm.reset()
     this.fechas=[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]
@@ -53,13 +68,14 @@ export class TestDesarrolloComponent implements OnInit {
           this.fechas[indice]=new Date(fecha)
           this.fechasEvaluadas.push({indice})
           const test=this.listaTestPeruano[index].calificacion
-          test.forEach((element,index) => {
+          test.forEach((element,index) => {/* x=6,x=11 */
             this.getControl(element.x-1,element.y-1).setValue(true)
+            //debo hacer algo
+            this.matrisColores[element.x-1][element.y-1]=`mes${edad}`
           });
         }
       })
-      
-    
+      console.log(this.matrisColores);      
   }
   ruta(sale: any, mes: number) {
     return sale[`img_${mes}`];
@@ -79,23 +95,96 @@ export class TestDesarrolloComponent implements OnInit {
     const B:any=A.controls[j] 
     return B
   }
-  Colores=[
-    "#4C4C4C",
-    "#F0047F",
-    "#FF6601",
-    "#F30E19",
-    "#F93D5A",
-    "#FEA61D",
-    "#F5923B",
-    "#DD360C",
-    "#DD6910",
-    "#5BBA7D",
-    "#5AB543",
-    "#9BC922",
-    "#5EAA29",
-    "#62C2BB",
-    "#5C97C6",
-    "#5E64AD",
-    "#B573B6",
-  ]
+  determinarColor(j){
+    switch(j){
+      case 0:
+        return "calendarioMes1";
+        break;
+      case 1:
+        return "calendarioMes2";
+        break;
+      case 2:
+        return "calendarioMes3";
+        break;
+      case 3:
+        return "calendarioMes4";
+        break;
+      case 4:
+        return "calendarioMes5";
+        break;
+      case 5:
+        return "calendarioMes6";
+        break;
+      case 6:
+        return "calendarioMes7";
+        break;
+      case 7:
+        return "calendarioMes8";
+        break;
+      case 8:
+        return "calendarioMes9";
+        break;
+      case 9:
+        return "calendarioMes10";
+        break;
+      case 10:
+        return "calendarioMes11";
+        break;
+      case 11:
+        return "calendarioMes12";
+        break;
+      case 12:
+        return "calendarioMes15";
+        break;
+      case 13:
+        return "calendarioMes18";
+        break;
+      case 14:
+        return "calendarioMes21";
+        break;
+      case 15:
+        return "calendarioMes24";
+        break;
+      case 16:
+        default:
+        return "calendarioMes30";
+    }
+  }
+  determinarColorOtro(j){    
+    if(j==0){
+      return 'mes1'
+    }else if(j==1){
+      return 'mes2'
+    }else if(j==2){
+      return 'mes3'
+    }else if(j==3){
+      return 'mes4'
+    }else if(j==4){
+      return 'mes5'
+    }else if(j==5){
+      return 'mes6'
+    }else if(j==6){
+      return 'mes7'
+    }else if(j==7){
+      return 'mes8'
+    }else if(j==8){
+      return 'mes9'
+    }else if(j==9){
+      return 'mes10'
+    }else if(j==10){
+      return 'mes11'
+    }else if(j==11){
+      return 'mes12'
+    }else if(j==12){
+      return 'mes15'
+    }else if(j==13){
+      return 'mes18'
+    }else if(j==14){
+      return 'mes21'
+    }else if(j==15){
+      return 'mes24'
+    }else {
+      return 'mes30'
+    }
+  }
 }
