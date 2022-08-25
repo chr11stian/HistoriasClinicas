@@ -70,7 +70,7 @@
                     {{sale.titulo}}
                 </td>
                 <td [ngStyle]="{'width':fechas[j]?'108px':'60px','background-color':sombrear(rowIndex,j)}" *ngFor="let mes of listaMesesEvaluar;let j=index"  >
-                    <p-toggleButton *ngIf="fechas[j] && sombrear(rowIndex,j)!='#b6b6b6'" [formControlName]="j" [binary]="true" onIcon="pi pi-check" offIcon="pi pi-times"></p-toggleButton>
+                    <p-toggleButton *ngIf="fechas[j] && sombrear(rowIndex,j)!='#dddddd'" [formControlName]="j" [binary]="true" onIcon="pi pi-check" offIcon="pi pi-times"></p-toggleButton>
                 </td>
             </tr>
         </ng-template>
