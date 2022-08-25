@@ -1,32 +1,21 @@
-:host ::ng-deep .fondorojo {
-   background-color: #fcbfba !important;
+
+::ng-deep .tablaPeruano .p-datatable table {
+   width: auto;
 }
-
-p-card >>> .p-card .p-card-title{
-   margin: 0.5rem 0rem 0.5rem 0.5rem;
+::ng-deep .tablaPeruano .p-datatable .p-datatable-thead > tr > th {
+   border: 1px solid #b6b6b6;
+   text-align: center ;
+   /* background-color: #dddddd; */
+   padding: 3px;
 }
-.tabla{
-   width:100%;
+::ng-deep .tablaPeruano .p-datatable .p-datatable-tbody > tr > td {
+   border: 1px solid #b6b6b6;
+   text-align: center;
+   padding: 3px;
 }
-::ng-deep .fondo1 .p-calendar .p-inputtext{
-
-    flex: 1 1 auto;
-    width: 1%;
-    background: #FDC070;
-
+::ng-deep .tablaPeruano .p-datatable .p-datatable-tfoot > tr > th {
+   padding: 3px;
 }
-::ng-deep .fondo2 .p-calendar .p-inputtext{
-/**/
-   flex: 1 1 auto;
-   width: 1%;
-   background: #FFFF80;
-
-}
-/*colores de las fechas */
-
-
-
-
 .caja {
    color: white;
    border-radius:10px;
@@ -41,35 +30,43 @@ p-card >>> .p-card .p-card-title{
    border-top: 13px solid transparent;
    border-bottom: 13px solid transparent;
 }
-p-table >>> .p-datatable .p-datatable-tbody > tr > td {
-   text-align: center;
-   font-size: small;
-   word-wrap: break-word;
-   padding: 2px;
-   /*background:red;*/
+/* COLORES DE LOS CALENDAR */
+::ng-deep .calendarioMes1 .p-calendar .p-inputtext{
+    background: #4C4C4C;color:white;
+}::ng-deep .calendarioMes2 .p-calendar .p-inputtext{
+   background: #F0047F;color:white;
+}::ng-deep .calendarioMes3 .p-calendar .p-inputtext{
+   background: #FF6601;color:white;
+}::ng-deep .calendarioMes4 .p-calendar .p-inputtext{
+   background: #F30E19;color:white;
+}::ng-deep .calendarioMes5 .p-calendar .p-inputtext{
+   background: #F93D5A;color:white;
+}::ng-deep .calendarioMes6 .p-calendar .p-inputtext{
+   background: #FEA61D;color:white;
+}::ng-deep .calendarioMes7 .p-calendar .p-inputtext{
+   background: #F5923B;color:white;
+}::ng-deep .calendarioMes8 .p-calendar .p-inputtext{
+   background: #DD360C;color:white;
+}::ng-deep .calendarioMes9 .p-calendar .p-inputtext{
+   background: #DD6910;color:white;
+}::ng-deep .calendarioMes10 .p-calendar .p-inputtext{
+   background: #5BBA7D;color:white;
+}::ng-deep .calendarioMes11 .p-calendar .p-inputtext{
+   background: #5AB543;color:white;
+}::ng-deep .calendarioMes12 .p-calendar .p-inputtext{
+   background: #9BC922;color:white;
+}::ng-deep .calendarioMes15 .p-calendar .p-inputtext{
+   background: #5EAA29;color:white;
+}::ng-deep .calendarioMes18 .p-calendar .p-inputtext{
+   background: #62C2BB;color:white;
+}::ng-deep .calendarioMes21 .p-calendar .p-inputtext{
+   background: #5C97C6;color:white;
+}::ng-deep .calendarioMes24 .p-calendar .p-inputtext{
+   background: #5E64AD;color:white;
+}::ng-deep .calendarioMes30 .p-calendar .p-inputtext{
+   background: #B573B6;color:white;
 }
-p-dialog >>> .p-dialog .p-dialog-header {
-   border-bottom: 0 none;
-   background: #0c3866;
-   color: #495057;
-   padding: 1.5rem;
-   border-top-right-radius: 3px;
-   border-top-left-radius: 3px;
-   z-index:89999;
-}
-p-dialog >>> .p-dialog .p-dialog-header .p-dialog-title {
-   font-weight: 600;
-   font-size: 1.25rem;
-   color: #ffffff;
-   z-index:89999;
-}
-p-table >>> .p-datatable .p-datatable-thead > tr > th {
-   padding: 3px;
-}
-p-table >>> .p-datatable .p-datatable-tfoot > tr > th {
-   padding: 3px;
-}
-
+/* TRIANGULOS SUPERIOR INFERIOR */
 .triangulo-1 {
    width: 0;
    height: 0;
@@ -309,10 +306,7 @@ p-table >>> .p-datatable .p-datatable-tfoot > tr > th {
    border-left: 15px solid transparent;
    border-right: 15px solid transparent;
 }
-p-calendar >>> .p-calendar .p-datepicker {
-   width: 250px;
-}
-
+/* COLORES CHECKBOX */
 ::ng-deep .nollenado .p-checkbox .p-checkbox-box.p-highlight {
    border-color: #0c3866;
    background: #0c3866;
@@ -403,21 +397,4 @@ p-calendar >>> .p-calendar .p-datepicker {
    background: #B573B6;
    border-color: #B573B6;
    color: #B573B6;
-}
-
-::ng-deep  .p-datatable table {
-   width: auto;
-}
-
-::ng-deep  .p-datatable .p-datatable-thead > tr > th {
-   text-align: center !important;
-   border: 1px solid #b6b6b6;
-   background-color: #dddddd;
-   padding: 0.3rem;
-}
-::ng-deep .p-datatable .p-datatable-tbody > tr > td {
-   border: 1px solid #b6b6b6;
-   text-align: center;
-   font-size: medium;
-   word-wrap: break-word;
 }

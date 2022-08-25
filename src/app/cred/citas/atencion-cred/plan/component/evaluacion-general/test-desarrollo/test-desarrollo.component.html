@@ -48,7 +48,8 @@
                     [value]="imagenes"
                     scrollDirection="both"
                     scrollHeight="100%" styleClass="mt-3"
-                    [virtualRowHeight]="40" >
+                    [virtualRowHeight]="40" 
+                    class="tablaPeruano">
                <ng-template pTemplate="header">
                    <tr>
                        <th style="background-color: white; width: 40px; height: 30px;"><div></div><div></div></th>
@@ -77,7 +78,8 @@
                             </div>
                         </th>   
                         <th *ngFor="let mes of listaMeses;let i=index" style="background-color: white;">
-                            <p-calendar  *ngIf="fechas[i]" [(ngModel)]="fechas[i]" disabled="true" [ngModelOptions]="{standalone: true}" showTime="true" showSeconds="true" dateFormat="dd-mm-yy"  [ngStyle]="{'background-color':Colores[i] }" appendTo="body"></p-calendar>
+                            <p-calendar  *ngIf="fechas[i]" [(ngModel)]="fechas[i]" disabled="true" [ngModelOptions]="{standalone: true}" showTime="true" showSeconds="true" dateFormat="dd-mm-yy" [ngClass]="determinarColor(i)" appendTo="body"></p-calendar>
+                            <!-- <p-calendar  *ngIf="fechas[i]" [(ngModel)]="fechas[i]" disabled="true" [ngModelOptions]="{standalone: true}" showTime="true" showSeconds="true" dateFormat="dd-mm-yy"  [ngStyle]="{'background-color':Colores[i] }" appendTo="body"></p-calendar> -->
                         </th>
                    </tr>
                </ng-template>

@@ -95,83 +95,62 @@ export class TestDesarrolloComponent implements OnInit {
     const B:any=A.controls[j] 
     return B
   }
-  Colores=[
-    "#4C4C4C",
-    "#F0047F",
-    "#FF6601",
-    "#F30E19",
-    "#F93D5A",
-    "#FEA61D",
-    "#F5923B",
-    "#DD360C",
-    "#DD6910",
-    "#5BBA7D",
-    "#5AB543",
-    "#9BC922",
-    "#5EAA29",
-    "#62C2BB",
-    "#5C97C6",
-    "#5E64AD",
-    "#B573B6",
-  ]
   determinarColor(j){
-    let clase=''
     switch(j){
       case 0:
-      clase="mes1";
-      break;
+        return "calendarioMes1";
+        break;
       case 1:
-      clase="mes2";
-      break;
+        return "calendarioMes2";
+        break;
       case 2:
-      clase="mes3";
-      break;
+        return "calendarioMes3";
+        break;
       case 3:
-      clase="mes4";
-      break;
+        return "calendarioMes4";
+        break;
       case 4:
-      clase="mes5";
-      break;
+        return "calendarioMes5";
+        break;
       case 5:
-      clase="mes6";
-      break;
+        return "calendarioMes6";
+        break;
       case 6:
-      clase="mes7";
-      break;
+        return "calendarioMes7";
+        break;
       case 7:
-      clase="mes8";
-      break;
+        return "calendarioMes8";
+        break;
       case 8:
-      clase="mes9";
-      break;
+        return "calendarioMes9";
+        break;
       case 9:
-      clase="mes10";
-      break;
+        return "calendarioMes10";
+        break;
       case 10:
-      clase="mes11";
-      break;
+        return "calendarioMes11";
+        break;
       case 11:
-      clase="mes12";
-      break;
+        return "calendarioMes12";
+        break;
       case 12:
-      clase="mes15";
-      break;
+        return "calendarioMes15";
+        break;
       case 13:
-      clase="mes18";
-      break;
+        return "calendarioMes18";
+        break;
       case 14:
-      clase="mes21";
-      break;
+        return "calendarioMes21";
+        break;
       case 15:
-      clase="mes24";
-      break;
+        return "calendarioMes24";
+        break;
       case 16:
-      default:
-      clase="mes30";
+        default:
+        return "calendarioMes30";
     }
-    return clase
   }
-  determinarColorOtro(i,j){    
+  determinarColorOtro(j){    
     if(j==0){
       return 'mes1'
     }else if(j==1){
