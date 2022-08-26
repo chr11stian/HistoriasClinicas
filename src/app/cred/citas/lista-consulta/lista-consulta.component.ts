@@ -29,7 +29,7 @@ export class ListaConsultaComponent implements OnInit {
     data: dato
     fechaNacimiento: string
     sexo: string
-    downloadLink: string = 'http://190.108.93.145:8200/jasperserver/rest_v2/reports/Reports/v1/cartillacontrol/carnet_control.pdf?authorization=' + JSON.parse(localStorage.getItem('token')).token;
+    downloadLink: string = 'http://190.108.93.150:8200/jasperserver/rest_v2/reports/Reports/v1/cartillacontrol/carnet_control.pdf?authorization=' + JSON.parse(localStorage.getItem('token')).token;
     docPaciente: string = '&nroHistoriaClinica=' + JSON.parse(localStorage.getItem('documento')).nroDocumento;
 
     constructor(private form: FormBuilder,
