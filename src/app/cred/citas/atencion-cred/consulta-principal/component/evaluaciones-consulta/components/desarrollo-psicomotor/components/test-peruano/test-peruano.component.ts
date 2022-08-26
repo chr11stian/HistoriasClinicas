@@ -208,9 +208,9 @@ export class TestPeruanoComponent implements OnInit {
            }
            else{
              Swal.fire({
-               icon: 'error',
+               icon: 'info',
                title: 'Test Peruano',
-               text: 'Error del servidor o ya existe un registro para el mes',
+               text: `Ya existe evaluacion para el mes ${this.edadMeses}`,
                showConfirmButton: false,
                timer: 2000,
              })

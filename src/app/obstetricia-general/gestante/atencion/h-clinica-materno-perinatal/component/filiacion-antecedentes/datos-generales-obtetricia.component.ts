@@ -1,6 +1,5 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild,} from "@angular/core";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {Network, DataSet} from 'vis';
 import {FiliancionService} from "../../services/filiancion-atenciones/filiancion.service";
 import {ObstetriciaGeneralService} from "../../../../../services/obstetricia-general.service";
 import Swal from "sweetalert2";

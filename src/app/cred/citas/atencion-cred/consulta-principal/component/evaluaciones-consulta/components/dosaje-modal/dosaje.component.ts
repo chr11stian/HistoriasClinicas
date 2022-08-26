@@ -204,11 +204,21 @@ export class DosajeComponent implements OnInit {
     }
 
     botonGuardar() {
-       if (this.dosajeFG.valid && this.vistoBuenoDrop){
-           return true
-       }
-       else
-           return false
+        const evaluado = this.getFC('positivoAnemia').value
+        if(evaluado=='SI'){
+            if (this.dosajeFG.valid && this.vistoBuenoDrop)
+                return true 
+            else
+            return false 
+        }
+        else{
+            if (this.dosajeFG.valid){
+                return true
+            }
+            else
+                return false     
+        }
+       
     }
     vistoBuenoDrop:boolean=true
     yaEstoyHabilidado(){
