@@ -97,9 +97,14 @@ p-calendar >>> .p-button {
     text-align: center;
     word-wrap: break-word;
 } */
-:host::ng-deep .tablaModal .p-datatable .p-datatable-thead > tr  {
-    display: flex;
-    flex-direction: row;
+:host::ng-deep .tablaModal .p-datatable .p-datatable-thead > tr >th {
+    border:1px solid #b6b6b6;
+    /* height:45px; */
+}
+:host::ng-deep .tablaModal .p-datatable .p-datatable-tbody > tr >td {
+    border:1px solid #b6b6b6;
+    height:45px;
+    
 }
 :host::ng-deep .tablaModal .p-datatable .p-datatable-thead > tr  {
     display: flex;
@@ -109,10 +114,7 @@ p-calendar >>> .p-button {
     display: flex;
     flex-direction: row;
 }
-:host::ng-deep .tablaModal .p-datatable .p-datatable-tbody > tr  {
-    display: flex;
-    flex-direction: row;
-}
+
 :host::ng-deep .tablaModal .p-datatable .p-datatable-thead > tr > th {
     text-align: center;
     margin: 0px;
@@ -123,8 +125,10 @@ p-calendar >>> .p-button {
     margin:0px;
     padding: 5px;
 }
-::ng-deep  .p-datatable table {
+:host::ng-deep .tablaModal .p-datatable{
+    border-collapse: collapse !important;
     width: auto;
+
 }
 /*stylos para poner frozen*/
 .frozenCol {

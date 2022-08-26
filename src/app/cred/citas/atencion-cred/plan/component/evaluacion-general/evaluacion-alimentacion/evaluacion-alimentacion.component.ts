@@ -84,7 +84,6 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         }
     })
   }
-  edadMeses=0;
   openDialog(indexFila?:number){
     this.displayDialog=true;
     this.arregloForm.reset()
@@ -92,19 +91,18 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         this.listaTestAlimentacionPlan.forEach((fila,index)=>{
             if(this.isTodo ||  index==indexFila ){/* boton verTodo hace todas las itecionees,boton ver hace unicamente la iteraccion del  indexFila enviado*/    
                 const edadMeses=this.listaTestAlimentacionPlan[index].edad
-                const edadEvaluada=this.listaMesesEvaluar.find(element=>element.numero==edadMeses)
-                const indice=this.listaMesesEvaluar.indexOf(edadEvaluada)
-                this.fechas[indice]=new Date(this.listaTestAlimentacionPlan[index].fechaRegistro)
+                const indexEdadMeses=this.listaMesesEvaluar.indexOf(this.listaMesesEvaluar.find(element=>element.numero==edadMeses))
+                this.fechas[indexEdadMeses]=new Date(this.listaTestAlimentacionPlan[index].fechaRegistro)
                 const test=this.listaTestAlimentacionPlan[index].listaPreguntas
                 test.forEach((element,index) => {
-                    this.getControl(index,indice).setValue(element.estado)
+                    this.getControl(index,indexEdadMeses).setValue(element.estado)
                 });
             }
         })    
-  }x
+  }
   sombrear(i,j){
     if((i>=6 && i<14 && j<7)||(i==15 && j<7) ) {
-      return '#b6b6b6'
+      return '#dddddd'
     }
     else {
       return 'white'

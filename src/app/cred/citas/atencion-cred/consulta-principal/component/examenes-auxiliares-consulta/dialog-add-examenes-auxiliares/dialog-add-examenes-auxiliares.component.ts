@@ -10,6 +10,7 @@ import {
   ResultadoLaboratorio,
 } from "../../../models/examenesAuxiliares";
 import { DynamicDialogConfig, DynamicDialogRef } from "primeng/dynamicdialog";
+import Swal from "sweetalert2";
 
 @Component({
   selector: "app-dialog-add-examenes-auxiliares",
@@ -32,20 +33,16 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
     {
       groupName: 'HEMOGLOBINA',
       listaExamName: [
-        { subTipo: 'HEMOGLOBINA', examName: "DOSAJE DE HEMOGLOBINA" }
+        { subTipo: 'HEMOGLOBINA', examName: "DOSAJE DE HEMOGLOBINA", saved: false }
       ]
     },
     {
       groupName: 'PARASITOLOGIA',
       listaExamName: [
-        { subTipo: 'PARASITOLOGIA', examName: "TEST DE GRAHAM" },
-        { subTipo: 'PARASITOLOGIA', examName: 'PARASITO SERIADO' }
+        { subTipo: 'PARASITOLOGIA', examName: "TEST DE GRAHAM", saved: false },
+        { subTipo: 'PARASITOLOGIA', examName: 'PARASITO SERIADO', saved: false }
       ]
     },
-  ];
-  listaLugares: Lugar[] = [
-    { index: 1, lugarLab: "CONSULTORIO" },
-    { index: 2, lugarLab: "LABORATORIO" },
   ];
   /**ngModels */
   observaciones: string;
@@ -53,9 +50,12 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
   lugarLab: Lugar = {};
   /**Fin ngModels */
   dataDialog: any;
-  reqLabo: examName[] = [];
+  reqLabo: ExamName[] = [
+
+  ];
   auxExamList: ExamenAuxiliar[] = [];
   solicitudLaboratorio: Laboratorio;
+  listaSolicitudes: ExamLab[] = [];
   constructor(
     private auxExamService: ExamenesAuxiliaresService,
     public ref: DynamicDialogRef,
@@ -63,29 +63,19 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
   ) {
     this.idConsulta = JSON.parse(localStorage.getItem("documento")).idConsulta;
     this.recoverDataAuxialsExams();
-    console.log("click en auxiliars exam");
 
-    this.dataDialog = this.config.data.data;
-    // console.log("data del otro dialog ", this.dataDialog.hemoglobina);
-    if (this.config.data.index == 2) {
-      console.log('opcion de ver ');
-      // this.toShow = true;
-      this.inicializarForm();
-      // if (this.dataDialog.datosLaboratorio.subTipo == "HEMATOLOGIA") {
-      //   this.examLab.tipoExam = 2;
-      //   this.lugarLab.index = 2;
-      //   // this.setdataHematologia(this.dataDialog);
-      //   this.formHematologia.patchValue({ hemoglobina: this.dataDialog.hemoglobina });
-      // }
-      // if (this.dataDialog.datosLaboratorio.subTipo == "PARASITOLOGIA") {
-      //   this.examLab.tipoExam = 1;
-      //   this.lugarLab.index = 2;
-      //   this.setDataParasitologia(this.dataDialog);
-      // }
+    this.dataDialog = this.config.data.auxExams;
+    console.log('data del dDIALOGGGGG ', this.dataDialog);
+    if (this.dataDialog != null) {
+      this.modelarData(this.dataDialog)
+      this.reworkDialog(this.listaExamenes, this.reqLabo);
     }
   }
 
-  ngOnInit(): void { }
+
+  ngOnInit(): void {
+    this.inicializarForm();
+  }
   async recoverDataAuxialsExams() {
     await this.auxExamService
       .getPromiseListarResultadosLaboratorioByIdConsulta(this.idConsulta)
@@ -98,7 +88,7 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
       });
     // console.log('to show ', this.toShow)
     this.inicializarForm();
-    this.listarExamenesDisponibles();
+    // this.listarExamenesDisponibles();
   }
 
   inicializarForm() {
@@ -201,256 +191,14 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
       frotisLesion: new FormControl({ value: "", disabled: this.toShow }),
     });
   }
-  recoverDataHematologia() {
-    this.dataHematologia = {
-      hemoglobina: this.formHematologia.value.hemoglobina,
-
-      hbConFactorCorrecion: 0,
-      factorCorreccion: 0,
-
-      hematocrito: this.formHematologia.get("hematocrito").value,
-      grupoSanguineo: this.formHematologia.value.grupoSanguineo,
-      factorRH: this.formHematologia.value.factorRH,
-      tiempoSangria: this.formHematologia.value.tiempoSangria,
-      tiempoCoagulacion: this.formHematologia.value.tiempoCoagulacion,
-      tiempoProtrombina: this.formHematologia.value.tiempoProtrombina,
-      tiempoTromboplastina: this.formHematologia.value.tiempoTromboplastina,
-      reticulocitos: this.formHematologia.value.reticulocitos,
-      compatibilidadSanguinea:
-        this.formHematologia.value.compatibilidadSanguinea,
-      rctoGlobulosRojos: this.formHematologia.value.rctoGlobulosRojos,
-      rctoPlaquetas: this.formHematologia.value.rctoPlaquetas,
-      rctoGlobulosBlancos: this.formHematologia.value.rctoGlobulosBlancos,
-      blastos: this.formHematologia.value.blastos,
-      juveniles: this.formHematologia.value.juveniles,
-      neutrofilos: this.formHematologia.value.neutrofilos,
-      nabastonados: this.formHematologia.value.nAbastonados,
-      nsegmentados: this.formHematologia.value.nSegmentados,
-      linfocitos: this.formHematologia.value.linfocitos,
-      monocitos: this.formHematologia.value.monocitos,
-      eosinofilos: this.formHematologia.value.eosinofilos,
-      basofilos: this.formHematologia.value.basofilos,
-      vcm: this.formHematologia.value.vcm,
-      vrVcm: this.formHematologia.value.vrVcm,
-      chcm: this.formHematologia.value.chcm,
-      vrChcm: this.formHematologia.value.vrChcm,
-      hcm: this.formHematologia.value.hcm,
-      vrHcm: this.formHematologia.value.vrHcm,
-      vsg1hora: this.formHematologia.value.vsg1hora,
-      vsg2hora: this.formHematologia.value.vsg2hora,
-    };
-  }
-  recoverDataParasitologia() {
-    this.dataParasitologia = {
-      examenMacroscopico: {
-        color: this.formParasitario.value.color,
-        consistencia: this.formParasitario.value.consistencia,
-        ph: this.formParasitario.value.pH,
-        reaccion: this.formParasitario.value.reaccion,
-        mucus: this.formParasitario.value.mucus,
-        sangre: this.formParasitario.value.sangre,
-        restosAlimenticios: this.formParasitario.value.restosAlimenticios,
-      },
-      examenMicroscopico: {
-        reaccionInflamatorio: this.formParasitario.value.reaccionInflamatorio,
-        filamentosMucoides: this.formParasitario.value.filamentosMucoides,
-        leucocitos: this.formParasitario.value.leucocitos,
-        hematies: this.formParasitario.value.hematies,
-        cuerposGrasos: this.formParasitario.value.cuerposGrasos,
-        levaduras: this.formParasitario.value.levaduras,
-        bacterias: this.formParasitario.value.bacterias,
-        cocosBacilos: this.formParasitario.value.cocosBacilos,
-        formasParasitarias: this.formParasitario.value.formasParasitarias,
-        huevosDe: [
-          this.formParasitario.value.huevosDeValor1,
-          this.formParasitario.value.huevosDeValor2,
-        ],
-        quistesDe: [
-          this.formParasitario.value.quistesDeValor1,
-          this.formParasitario.value.quistesDeValor2,
-        ],
-        trofozoitosDe: [
-          this.formParasitario.value.trofozoitosDeValor1,
-          this.formParasitario.value.trofozoitosDeValor2,
-        ],
-        larvasDe: [
-          this.formParasitario.value.larvasDeValor1,
-          this.formParasitario.value.larvasDeValor2,
-        ],
-      },
-      sangreOcultaHeces: this.formParasitario.value.sangreOcultaHeces,
-      gotaGruesa: this.formParasitario.value.gotaGruesa,
-      frotisLesion: this.formParasitario.value.frotisLesion,
-    };
-  }
-  // agreeAddExamDialog() {
-  //   // let auxDataExam: ExamenAuxiliar;
-  //   if (this.examLab.tipoExam == 2) {
-  //     this.recoverDataHematologia();
-  //     this.auxDataExam = {
-  //       tipoLaboratorio: "EXAMEN_LABORATORIO",
-  //       subTipo: "HEMATOLOGIA",
-  //       nombreExamen: "HEMOGLOBINA",
-  //       codigoSIS: "",
-  //       codPrestacion: "",
-  //       cie10: "",
-  //       codigoHIS: "",
-  //       lugarExamen: this.lugarLab.lugarLab,
-  //       resultado: {
-  //         hematologia: this.dataHematologia,
-  //       },
-  //       labExterno: "false",
-  //     };
-  //   }
-  //   if (this.examLab.tipoExam == 1) {
-  //     this.recoverDataParasitologia();
-  //     this.auxDataExam = {
-  //       tipoLaboratorio: "EXAMEN_LABORATORIO",
-  //       subTipo: "PARASITOLOGIA",
-  //       nombreExamen: this.examLab.nombreExam,
-  //       codigoSIS: "",
-  //       codPrestacion: "",
-  //       cie10: "",
-  //       codigoHIS: "",
-  //       lugarExamen: this.lugarLab.lugarLab,
-  //       resultado: {
-  //         parasitologia: this.dataParasitologia,
-  //       },
-  //       labExterno: "false",
-  //     };
-  //   }
-  //   console.log("data de examens auxiliares ", this.auxDataExam);
-  //   this.ref.close(this.auxDataExam);
-  //   // if (this.auxDataExam != undefined) {
-  //   //   this.listaExamenesAux.push(this.auxDataExam);
-  //   // }
-  //   // // console.log('lista de examenes ', this.listaExamenesAux);
-  //   // this.listaExamenesAux = [...this.listaExamenesAux];
-  // }
-  setdataHematologia(data) {
-    this.formHematologia.patchValue({ hemoglobina: data.hemoglobina });
-    this.formHematologia.patchValue({ hematocrito: data.hematocrito });
-    this.formHematologia.patchValue({ grupoSanguineo: data.grupoSanguineo });
-    this.formHematologia.patchValue({ factorRH: data.factorRH });
-    this.formHematologia.patchValue({ tiempoSangria: data.tiempoSangria });
-    this.formHematologia.patchValue({
-      tiempoCoagulacion: data.tiempoCoagulacion,
-    });
-    this.formHematologia.patchValue({
-      tiempoProtrombina: data.tiempoProtrombina,
-    });
-    this.formHematologia.patchValue({
-      tiempoTromboplastina: data.tiempoTromboplastina,
-    });
-    this.formHematologia.patchValue({ reticulocitos: data.reticulocitos });
-    this.formHematologia.patchValue({
-      compatibilidadSanguinea: data.compatibilidadSanguinea,
-    });
-    this.formHematologia.patchValue({
-      rctoGlobulosRojos: data.rctoGlobulosRojos,
-    });
-    this.formHematologia.patchValue({ rctoPlaquetas: data.rctoPlaquetas });
-    this.formHematologia.patchValue({
-      rctoGlobulosBlancos: data.rctoGlobulosBlancos,
-    });
-    this.formHematologia.patchValue({ blastos: data.blastos });
-    this.formHematologia.patchValue({ juveniles: data.juveniles });
-    this.formHematologia.patchValue({ neutrofilos: data.neutrofilos });
-    this.formHematologia.patchValue({ nAbastonados: data.nabastonados });
-    this.formHematologia.patchValue({ nSegmentados: data.nsegmentados });
-    this.formHematologia.patchValue({ linfocitos: data.linfocitos });
-    this.formHematologia.patchValue({ monocitos: data.monocitos });
-    this.formHematologia.patchValue({ eosinofilos: data.eosinofilos });
-    this.formHematologia.patchValue({ basofilos: data.basofilos });
-    this.formHematologia.patchValue({ vsg1hora: data.vsg1hora });
-    this.formHematologia.patchValue({ vsg2hora: data.vsg2hora });
-    this.formHematologia.patchValue({ vcm: data.vcm });
-    this.formHematologia.patchValue({ vrVcm: data.vrVcm });
-    this.formHematologia.patchValue({ chcm: data.chcm });
-    this.formHematologia.patchValue({ vrChcm: data.vrChcm });
-    this.formHematologia.patchValue({ hcm: data.hcm });
-    this.formHematologia.patchValue({ vrHcm: data.vrHcm });
-  }
-  setDataParasitologia(data) {
-    this.formParasitario.patchValue({ color: data.examenMacroscopico.color });
-    this.formParasitario.patchValue({
-      consistencia: data.examenMacroscopico.consistencia,
-    });
-    this.formParasitario.patchValue({ pH: data.examenMacroscopico.ph });
-    this.formParasitario.patchValue({
-      reaccion: data.examenMacroscopico.reaccion,
-    });
-    this.formParasitario.patchValue({ mucus: data.examenMacroscopico.mucus });
-    this.formParasitario.patchValue({ sangre: data.examenMacroscopico.sangre });
-    this.formParasitario.patchValue({
-      restosAlimenticios: data.examenMacroscopico.restosAlimenticios,
-    });
-    this.formParasitario.patchValue({
-      reaccionInflamatorio: data.examenMicroscopico.reaccionInflamatorio,
-    });
-    this.formParasitario.patchValue({
-      filamentosMucoides: data.examenMicroscopico.filamentosMucoides,
-    });
-    this.formParasitario.patchValue({
-      leucocitos: data.examenMicroscopico.leucocitos,
-    });
-    this.formParasitario.patchValue({
-      hematies: data.examenMicroscopico.hematies,
-    });
-    this.formParasitario.patchValue({
-      cuerposGrasos: data.examenMicroscopico.cuerposGrasos,
-    });
-    this.formParasitario.patchValue({
-      levaduras: data.examenMicroscopico.levaduras,
-    });
-    this.formParasitario.patchValue({
-      bacterias: data.examenMicroscopico.bacterias,
-    });
-    this.formParasitario.patchValue({
-      cocosBacilos: data.examenMicroscopico.cocosBacilos,
-    });
-    this.formParasitario.patchValue({
-      formasParasitarias: data.examenMicroscopico.formasParasitarias,
-    });
-    this.formParasitario.patchValue({
-      huevosDeValor1: data.examenMicroscopico.huevosDe[0],
-    });
-    this.formParasitario.patchValue({
-      huevosDeValor2: data.examenMicroscopico.huevosDe[1],
-    });
-    this.formParasitario.patchValue({
-      quistesDeValor1: data.examenMicroscopico.quistesDe[0],
-    });
-    this.formParasitario.patchValue({
-      quistesDeValor2: data.examenMicroscopico.quistesDe[1],
-    });
-    this.formParasitario.patchValue({
-      trofozoitosDeValor1: data.examenMicroscopico.trofozoitosDe[0],
-    });
-    this.formParasitario.patchValue({
-      trofozoitosDeValor2: data.examenMicroscopico.trofozoitosDe[1],
-    });
-    this.formParasitario.patchValue({
-      larvasDeValor1: data.examenMicroscopico.larvasDe[0],
-    });
-    this.formParasitario.patchValue({
-      larvasDeValor2: data.examenMicroscopico.larvasDe[1],
-    });
-    this.formParasitario.patchValue({
-      sangreOcultaHeces: data.sangreOcultaHeces,
-    });
-    this.formParasitario.patchValue({ gotaGruesa: data.gotaGruesa });
-    this.formParasitario.patchValue({ frotisLesion: data.frotisLesion });
-  }
-  closeExamDialog() { }
 
   /**NUEVA VISTA DE LOS EXAMENES */
-  listarExamenesDisponibles() {
-    this.auxExamService.getExamListLaboratory().then(res => {
-      console.log('data de examenes disponibles ', res);
-    })
-  }
-  add() {
+  // listarExamenesDisponibles() {
+  //   this.auxExamService.getExamListLaboratory().then(res => {
+  //     console.log('data de examenes disponibles ', res);
+  //   })
+  // }
+  createLabRequest() {
     this.reqLabo.forEach(item => {
       let auxExam: ExamenAuxiliar = {
         tipoLaboratorio: 'EXAMEN_LABORATORIO',
@@ -469,27 +217,104 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
       nroCama: '',
       examenesAuxiliares: this.auxExamList
     }
-    this.auxExamService.postPromiseAddServiciosLaboratorio(this.idConsulta, this.solicitudLaboratorio).then(res=>{
-
+    this.auxExamService.postPromiseAddServiciosLaboratorio(this.idConsulta, this.solicitudLaboratorio).then(res => {
+      this.closeDialog();
     });
   }
+  saveLabRequest() {
 
+    Swal.fire({
+      title: '¿Esta seguro que desea guardar?',
+      html: 'No se podra eliminar las solicitudes despues',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Guardar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (this.dataDialog == null) {
+          this.createLabRequest();
+        } else {
+          this.addAuxExam();
+        }
+      }
+      else {
+        Swal.fire({
+          title: 'Cancelado.',
+          icon: 'error',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
+    })
+  }
+
+  closeDialog() {
+    this.ref.close();
+  }
+
+  modelarData(data: any[]): void {
+    data.forEach(item => {
+      let auxExam: ExamName = {
+        examName: item.nombreExamen,
+        subTipo: item.subTipo,
+        saved: true
+      }
+      this.reqLabo.push(auxExam);
+    })
+  }
+
+  reworkDialog(examList: Examen[], requiredExam: ExamName[]): void {
+    for (let i = 0; i < examList.length; i++) {
+      // examList[i].listaExamName.forEach(exam => {
+      for (let j = 0; j < requiredExam.length; j++) {
+        examList[i].listaExamName.map(item => {
+          if (item.examName == requiredExam[j].examName) return item.saved = true;
+          else return item
+        })
+      }
+    }
+  }
+
+  async addAuxExam() {
+    this.reqLabo.forEach(async item => {
+      if (!item.saved) {
+        let addExam: AddLaboratorio = {
+          servicio: '',
+          nroCama: '',
+          examenAuxiliar: {
+            tipoLaboratorio: 'EXAMEN_LABORATORIO',
+            subTipo: item.subTipo,
+            nombreExamen: item.examName,
+            codPrestacion: '',
+            codigoSIS: '',
+            codigoHIS: '',
+            lugarExamen: 'LABORATORIO',
+            labExterno: ''
+          }
+        }
+        await this.auxExamService.putAgregarExamenesConsulta(this.idConsulta, addExam).then(res => {
+          this.closeDialog();
+        })
+      }
+    })
+  }
 }
 interface Examen {
   groupName: string;
-  listaExamName: examName[];
+  listaExamName: ExamName[];
 }
 interface Lugar {
   index?: number;
   lugarLab?: string;
 }
-interface examName {
+interface ExamName {
   subTipo: string,
   examName: string
+  saved: boolean
 }
 interface ExamLab {
   subTipo: string,
   nombreExamen: string,
-  codigoHIS?: string,
-  codigoSIS?: string,
 }

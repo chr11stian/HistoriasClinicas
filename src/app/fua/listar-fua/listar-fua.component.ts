@@ -11,23 +11,29 @@ import { FuaService } from '../services/fua.service';
 })
 export class ListarFuaComponent implements OnInit {
 
-  data: any;
-  consultaFUA: string= 'http://190.108.93.145:8200/jasperserver/rest_v2/reports/Reports/v1/fuaid/anexo1.pdf?authorization='
-  consultaID: string = 'http://190.108.93.145:8200/jasperserver/rest_v2/reports/Reports/v1/fuaconsulta/fua_por_consulta.pdf?authorization='
-  listDataFUA: any;
+  data: Paciente = {
+    estadoAtencion:0,
+    fechaAtencion: '',
+    id:'',
+    nroDocumento:'',
+    tipoConsulta:''
+  };
+  consultaFUA: string = 'http://190.108.93.150:8200/jasperserver/rest_v2/reports/Reports/v1/fuaid/anexo1.pdf?authorization='
+  consultaID: string = 'http://190.108.93.150:8200/jasperserver/rest_v2/reports/Reports/v1/fuaconsulta/fua_por_consulta.pdf?authorization='
+  listDataFUA: FUA[] = [];
   listaDatosFUA: any;
   linkPDF: string;
-  idConsulta:string;
+  idConsulta: string;
   // "6231104446af060328998d19"
   constructor(
     private location: Location,
     private router: Router,
     private fuaService: FuaService,
   ) {
-    this.data = this.router.getCurrentNavigation().extras;
-    this.idConsulta = this.data.id;
-    console.log('data del otro componente ', this.data);
-    this.fuaService.getCrearRecuperarFUAxIdConsulta(this.data.id).subscribe((res: any) => {
+    let auxData: any = this.router.getCurrentNavigation();
+    auxData == null ? this.data.estadoAtencion = 2 : this.data.estadoAtencion = auxData.extras.estadoConsulta;
+    this.idConsulta = JSON.parse(localStorage.getItem("dataFUA")).idConsulta;
+    this.fuaService.getCrearRecuperarFUAxIdConsulta(this.idConsulta).subscribe((res: any) => {
       if (res.cod == "2004") {
         this.location.back();
         Swal.fire({
@@ -39,7 +45,7 @@ export class ListarFuaComponent implements OnInit {
         return;
       }
       this.listDataFUA = res.object;
-      if (this.data.estadoConsulta == 1) {
+      if (this.data.estadoAtencion == 1) {
         Swal.fire({
           icon: 'success',
           title: 'Se creo FUA correctamente',
@@ -52,12 +58,12 @@ export class ListarFuaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.consultaFUA = this.consultaFUA+JSON.parse(localStorage.getItem("token")).token+'&idFua='
-    this.consultaID = this.consultaFUA+JSON.parse(localStorage.getItem("token")).token+'&idConsulta='
+    this.consultaFUA = this.consultaFUA + JSON.parse(localStorage.getItem("token")).token + '&idFua='
+    this.consultaID = this.consultaFUA + JSON.parse(localStorage.getItem("token")).token + '&idConsulta='
   }
 
   openFUA(rowData) {
-    console.log('data de la lista ', rowData);
+    // console.log('data de la lista ', rowData);
     this.router.navigate(['dashboard/fua/fua']);
     let dataFUA = {
       idConsulta: rowData.idConsulta,
@@ -67,14 +73,20 @@ export class ListarFuaComponent implements OnInit {
     localStorage.setItem('dataFUA', JSON.stringify(dataFUA));
   }
   imprimirFUA(data) {
-    console.log('data del listar ', data);
-    this.fuaService.getReportFUA(data.id).subscribe((res: any) => {
+    // console.log('data del listar ', data);
+    // this.fuaService.getReportFUA(data.id).subscribe((res: any) => {
 
-    });
+    // });
   }
-  consolg(){
-    this.listDataFUA.forEach(item => {
-      console.log('data to set ', item)
-    });
-  }
+}
+
+interface Paciente {
+  estadoAtencion: number;
+  fechaAtencion: string;
+  id: string;
+  nroDocumento: string;
+  tipoConsulta: string;
+}
+interface FUA {
+  codPrestacion: string;
 }

@@ -3,7 +3,8 @@ export interface Laboratorio {
     nroCama: string,
     dxPresuntivo?: string,
     examenesAuxiliares?: ExamenAuxiliar[],
-    observaciones?: string
+    observaciones?: string,
+    fecha?: string
 }
 export interface AddLaboratorio {
     servicio: string,

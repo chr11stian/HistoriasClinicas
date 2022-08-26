@@ -145,7 +145,8 @@ export class CuposComponent implements OnInit, OnDestroy {
             modal: true,
             height: '750px',
             contentStyle: { "max-height": "500", "overflow": "auto" },
-            baseZIndex: 10000
+            baseZIndex: 10000,
+            data: true
         });
     }
 

@@ -62,8 +62,7 @@ export class InterceptorService implements HttpInterceptor {
     return next.handle(cloned)
       .pipe(
         catchError((response) => {
-          console.log("response", response);
-          // this.countRequest--;
+          console.log("Response de interceptor ", response);
 
           if (response instanceof HttpErrorResponse) {
             if ([400, 401, 403].indexOf(response.status) !== -1) {
@@ -80,6 +79,7 @@ export class InterceptorService implements HttpInterceptor {
       )
       .pipe(
         finalize(() => {
+          // console.log('data res de interceptor ', cloned);
           this.countRequest--;
           if (this.countRequest == 0) {
             this.spinnerHandler.hide();

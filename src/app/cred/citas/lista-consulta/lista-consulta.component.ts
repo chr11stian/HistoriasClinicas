@@ -8,6 +8,7 @@ import { ListaConsultaService } from '../services/lista-consulta.service';
 import { dato } from "src/app/cred/citas/models/data"
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import {DatePipe, formatDate} from '@angular/common';
 
 @Component({
     selector: 'app-lista-consulta',
@@ -15,6 +16,7 @@ import Swal from 'sweetalert2';
     styleUrls: ['./lista-consulta.component.css']
 })
 export class ListaConsultaComponent implements OnInit {
+    datePipe = new DatePipe('en-US');
     attributeLocalS = 'documento'
     dataConsulta: any;
     dataLifiado: any;
@@ -27,7 +29,7 @@ export class ListaConsultaComponent implements OnInit {
     data: dato
     fechaNacimiento: string
     sexo: string
-    downloadLink: string = 'http://190.108.93.145:8200/jasperserver/rest_v2/reports/Reports/v1/cartillacontrol/carnet_control.pdf?authorization=' + JSON.parse(localStorage.getItem('token')).token;
+    downloadLink: string = 'http://190.108.93.150:8200/jasperserver/rest_v2/reports/Reports/v1/cartillacontrol/carnet_control.pdf?authorization=' + JSON.parse(localStorage.getItem('token')).token;
     docPaciente: string = '&nroHistoriaClinica=' + JSON.parse(localStorage.getItem('documento')).nroDocumento;
 
     constructor(private form: FormBuilder,
@@ -52,6 +54,7 @@ export class ListaConsultaComponent implements OnInit {
     }
 
     atencion(event) {
+        console.log("adffda",event)
         this.listaConsultaService.getConsulta(event.id).subscribe((r: any) => {
             this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS))
             let data: dato = {
@@ -64,7 +67,9 @@ export class ListaConsultaComponent implements OnInit {
                 sexo: this.sexo,
                 fechaNacimiento: this.fechaNacimiento,
                 hidden: true,
-                see: false
+                see: false,
+                fechaConsulta: event.fechaAtencion
+               
             }
             localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
             setTimeout(() => {
@@ -81,7 +86,8 @@ export class ListaConsultaComponent implements OnInit {
             sexo: this.sexo,
             fechaNacimiento: this.fechaNacimiento,
             hidden: true,
-            see: true
+            see: true,
+            fechaConsulta: this.datePipe.transform(new Date(), 'yyyy-MM-dd')
         }
         localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
         setTimeout(() => {
@@ -107,8 +113,15 @@ export class ListaConsultaComponent implements OnInit {
     }
 
     irFUA(rowData) {
-        let message1 = "Esta Seguro de Generar FUA?, se dara como finalizado la consulta"
+        console.log('rowData de consulta ', rowData);
+        let dataFUA = {
+            idConsulta: rowData.id,
+            // estadoAtencion: rowData.estadoAtencion
+        }
+        localStorage.setItem('dataFUA', JSON.stringify(dataFUA));
+        let message1 = "Esta Seguro de Generar FUA?, se dara como finalizada la consulta"
         let message2 = "Esta Seguro de Generar FUA?, Debe revisar el tipo de Seguro"
+        //estadoAtencion: 2 => finalizado, 1 => consulta incompleta, 0 => interconsulta
         if (rowData.estadoAtencion == 0) {
             Swal.fire({
                 icon: 'warning',
