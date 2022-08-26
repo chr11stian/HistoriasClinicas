@@ -1,21 +1,25 @@
 <div class="col-12">
-  <p-tabView>
-    <p-tabPanel header="TEST PERUANO DEL DESARROLLO DEL NIÑO">
+  <p-tabView [(activeIndex)]="index" (onChange)="selectedTab()">
+    <p-tabPanel header="TEST PERUANO DEL DESARROLLO DEL NIÑO" [disabled]="disabledSelectedTab[0].disabled"
+      [selected]="disabledSelectedTab[0].selected">
       <ng-template pTemplate="content">
         <app-test-peruano></app-test-peruano>
       </ng-template>
     </p-tabPanel>
-    <p-tabPanel header="ESCALA DE EVALUACIÓN DEL DESARROLLO PSICOMOTOR (EEDP)">
+    <p-tabPanel header="ESCALA DE EVALUACIÓN DEL DESARROLLO PSICOMOTOR (EEDP)"
+      [disabled]="disabledSelectedTab[1].disabled" [selected]="disabledSelectedTab[1].selected">
       <ng-template pTemplate="content">
         <app-eedp></app-eedp>
       </ng-template>
     </p-tabPanel>
-    <p-tabPanel header="PAUTA BREVE">
+    <p-tabPanel header="PAUTA BREVE" [disabled]="disabledSelectedTab[2].disabled"
+      [selected]="disabledSelectedTab[2].selected">
       <ng-template pTemplate="content">
         <app-pauta-breve></app-pauta-breve>
       </ng-template>
     </p-tabPanel>
-    <p-tabPanel header="PROTOCOLO TEST DE DESARROLLO PSICOMOTOR TEPSI">
+    <p-tabPanel header="PROTOCOLO TEST DE DESARROLLO PSICOMOTOR TEPSI" [disabled]="disabledSelectedTab[3].disabled"
+      [selected]="disabledSelectedTab[3].selected">
       <ng-template pTemplate="content">
         <app-tepsi></app-tepsi>
       </ng-template>
