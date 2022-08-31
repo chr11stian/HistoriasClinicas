@@ -33,7 +33,6 @@ export class DesarrolloPsicomotorComponent implements OnInit {
       this.evaluations = res[0];
       this.evaluations.evaluacionDesarrollo_0_30 == null ? this.evaluations.evaluacionDesarrollo_0_30 = [] : '';
       this.evaluations.evaluacionEEDP == null ? this.evaluations.evaluacionEEDP = [] : '';
-      console.log('evaluation data ', this.evaluations);
       if (this.evaluations.evaluacionDesarrollo_0_30.length > 0) {
         this.disabledSelectedTab.map(item => {
           if (this.disabledSelectedTab.indexOf(item) != 0)
@@ -75,10 +74,6 @@ export class DesarrolloPsicomotorComponent implements OnInit {
 
   overallAge(year: number, month: number): number {
     return 12 * year + month;
-  }
-
-  selectedTab() {
-    console.log('opcion ', this.index);
   }
 }
 
