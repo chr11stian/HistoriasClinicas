@@ -172,7 +172,7 @@ export class EedpComponent implements OnInit {
       })
     });
     /**CALCULAR RESULTADO */
-    // console.log('coeficiente de desarrollo ', this.coeficienteDesarrollo);
+    console.log('coeficiente de desarrollo ', this.coeficienteDesarrollo);
     if (this.coeficienteDesarrollo == undefined) {
       Swal.fire({
         icon: 'error',

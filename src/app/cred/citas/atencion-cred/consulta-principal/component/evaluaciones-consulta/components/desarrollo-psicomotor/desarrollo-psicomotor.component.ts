@@ -13,6 +13,8 @@ export class DesarrolloPsicomotorComponent implements OnInit {
   index: number = 0;
   disabledSelectedTab: DisabledSelected[] = [{ disabled: false, selected: false }, { disabled: false, selected: false }, { disabled: false, selected: false }, { disabled: false, selected: false }];
   evaluations: any;
+  isEvaluated: boolean = false;
+  evaluationName: string;
 
 
   constructor(
@@ -29,13 +31,17 @@ export class DesarrolloPsicomotorComponent implements OnInit {
   searchMonthlyEvaluation(): void {
     this.evalPsicomotor.verifyMonthlyEvaluation(this.monthAge, this.paciente.nroDocumento).then(res => {
       this.evaluations = res[0];
-      console.log('evaluations data ', this.evaluations);
+      this.evaluations.evaluacionDesarrollo_0_30 == null ? this.evaluations.evaluacionDesarrollo_0_30 = [] : '';
+      this.evaluations.evaluacionEEDP == null ? this.evaluations.evaluacionEEDP = [] : '';
+      console.log('evaluation data ', this.evaluations);
       if (this.evaluations.evaluacionDesarrollo_0_30.length > 0) {
         this.disabledSelectedTab.map(item => {
           if (this.disabledSelectedTab.indexOf(item) != 0)
             item.disabled = true;
           this.disabledSelectedTab[0].selected = true;
         });
+        this.isEvaluated = true;
+        this.evaluationName = 'TEST PERUANO DEL DESARROLLO DEL NIÑO';
       }
       if (this.evaluations.evaluacionEEDP.length > 0) {
         this.disabledSelectedTab.map(item => {
@@ -43,6 +49,8 @@ export class DesarrolloPsicomotorComponent implements OnInit {
             item.disabled = true;
           this.disabledSelectedTab[1].selected = true;
         });
+        this.isEvaluated = true;
+        this.evaluationName = 'ESCALA DE EVALUACIÓN DEL DESARROLLO PSICOMOTOR (EEDP)';
       }
       if (this.evaluations.evaluacionPautaBreve != null) {
         this.disabledSelectedTab.map(item => {
@@ -50,6 +58,8 @@ export class DesarrolloPsicomotorComponent implements OnInit {
             item.disabled = true;
           this.disabledSelectedTab[2].selected = true;
         });
+        this.isEvaluated = true;
+        this.evaluationName = 'PAUTA BREVE';
       }
       if (this.evaluations.evaluacionTepsi != null) {
         this.disabledSelectedTab.map(item => {
@@ -57,6 +67,8 @@ export class DesarrolloPsicomotorComponent implements OnInit {
             item.disabled = true;
           this.disabledSelectedTab[3].selected = true;
         });
+        this.isEvaluated = true;
+        this.evaluationName = 'PROTOCOLO TEST DE DESARROLLO PSICOMOTOR TEPSI';
       }
     })
   }
