@@ -11,7 +11,7 @@ export class DesarrolloPsicomotorComponent implements OnInit {
   paciente: any;
   monthAge: number;
   index: number = 0;
-  disabledSelectedTab: DisabledSelected[] = [{ disabled: true, selected: false }, { disabled: false, selected: true }, { disabled: true, selected: false }, { disabled: true, selected: false }];
+  disabledSelectedTab: DisabledSelected[] = [{ disabled: false, selected: false }, { disabled: false, selected: false }, { disabled: false, selected: false }, { disabled: false, selected: false }];
   evaluations: any;
 
 
@@ -29,10 +29,35 @@ export class DesarrolloPsicomotorComponent implements OnInit {
   searchMonthlyEvaluation(): void {
     this.evalPsicomotor.verifyMonthlyEvaluation(this.monthAge, this.paciente.nroDocumento).then(res => {
       this.evaluations = res[0];
-      console.log('res de evaluation ', this.evaluations);
-      // if (this.evaluations[]) {
-
-      // }
+      console.log('evaluations data ', this.evaluations);
+      if (this.evaluations.evaluacionDesarrollo_0_30.length > 0) {
+        this.disabledSelectedTab.map(item => {
+          if (this.disabledSelectedTab.indexOf(item) != 0)
+            item.disabled = true;
+          this.disabledSelectedTab[0].selected = true;
+        });
+      }
+      if (this.evaluations.evaluacionEEDP.length > 0) {
+        this.disabledSelectedTab.map(item => {
+          if (this.disabledSelectedTab.indexOf(item) != 1)
+            item.disabled = true;
+          this.disabledSelectedTab[1].selected = true;
+        });
+      }
+      if (this.evaluations.evaluacionPautaBreve != null) {
+        this.disabledSelectedTab.map(item => {
+          if (this.disabledSelectedTab.indexOf(item) != 2)
+            item.disabled = true;
+          this.disabledSelectedTab[2].selected = true;
+        });
+      }
+      if (this.evaluations.evaluacionTepsi != null) {
+        this.disabledSelectedTab.map(item => {
+          if (this.disabledSelectedTab.indexOf(item) != 3)
+            item.disabled = true;
+          this.disabledSelectedTab[3].selected = true;
+        });
+      }
     })
   }
 
