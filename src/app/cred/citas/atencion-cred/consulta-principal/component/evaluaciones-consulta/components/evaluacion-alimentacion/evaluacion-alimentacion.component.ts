@@ -277,7 +277,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         icon: 'warning',
         title: `Ya existe evaluacion para el mes ${this.edadMeses}`,
         showConfirmButton: false,
-        timer: 1500,
+        timer: 2000,
       })
     }
   }

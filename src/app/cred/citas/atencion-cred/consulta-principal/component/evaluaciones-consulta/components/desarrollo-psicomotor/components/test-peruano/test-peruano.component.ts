@@ -29,9 +29,9 @@ export class TestPeruanoComponent implements OnInit {
   edadMeses: number =0;
   edad:number=0;
   // edadMax: number = 5;
-  fecha: Date = new Date();
   datePipe = new DatePipe("en-US");
   data=JSON.parse(localStorage.getItem('documento'))
+  fecha: Date = new Date(this.data.fechaConsulta);
   hasTaken=false
   arregloTest:any[]=[]
   constructor(
@@ -83,30 +83,25 @@ export class TestPeruanoComponent implements OnInit {
 
   }
   calcularEdades(){
-    this.edad=this.data.anio*12+this.data.mes
-    this.edadMeses=this.edad;
-    if(this.edad>12){
-      if(this.edad<=15)
-        this.edadMeses=15
-      else{
-        if(this.edad<=18)
-        this.edadMeses=18
-        else{
-          if(this.edad<=21)
-          this.edadMeses=21
-          else{
-            if(this.edad<=24)
-            this.edadMeses=24
-            else
-            this.edadMeses=30
-          }
-          
-        }
-      }
+    const edad=this.data.anio*12+this.data.mes
+    if(edad<=11 || edad>=31){
+      this.edadMeses=edad
     }
-    
+    else{
+        if(this.edad<=14)
+          this.edadMeses=12
+        else if(this.edad<=17)
+          this.edadMeses=15
+        else if(this.edad<=20)
+          this.edadMeses=18
+        else if(this.edad<=23)
+          this.edadMeses=21
+        else if(this.edad<=29)
+          this.edadMeses=24
+        else if(this.edad==30)
+          this.edadMeses=30
+        }
   }
- 
   //rehaciendo
   ruta(sale: any, mes: number) {
     return sale[`img_${mes}`];
@@ -208,9 +203,9 @@ export class TestPeruanoComponent implements OnInit {
            }
            else{
              Swal.fire({
-               icon: 'error',
+               icon: 'info',
                title: 'Test Peruano',
-               text: 'Error del servidor o ya existe un registro para el mes',
+               text: `Ya existe evaluacion para el mes ${this.edadMeses}`,
                showConfirmButton: false,
                timer: 2000,
              })

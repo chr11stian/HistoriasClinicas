@@ -4,15 +4,8 @@ import { registerLocaleData } from "@angular/common";
 import localeFr from "@angular/common/locales/fr";
 import { ParasitologiaService } from "../../services/parasitologia.service";
 import { DynamicDialogConfig, DynamicDialogRef } from "primeng/dynamicdialog";
-import {
-  FormGroup,
-  FormControl,
-  Validators,
-  AbstractControl,
-} from "@angular/forms";
+import {FormGroup,FormControl,Validators,AbstractControl} from "@angular/forms";
 import Swal from "sweetalert2";
-import { LoginComponent } from "../../../login/login.component";
-import { IntervaloDialogoComponent } from '../../../obstetricia-general/gestante/atencion/plan-parto/intervalo-dialogo/intervalo-dialogo.component';
 registerLocaleData(localeFr, "fr");
 @Component({
   selector: "app-lab-parasitologia",
@@ -21,7 +14,6 @@ registerLocaleData(localeFr, "fr");
 })
 export class LabParasitologiaComponent implements OnInit {
   idLaboratorio: string = "";
-  idConsulta: string;
   dataRecibida: any;
   isPruebaTomada: boolean;
   data: Parasitologia[] = [
@@ -56,9 +48,9 @@ export class LabParasitologiaComponent implements OnInit {
     private ref: DynamicDialogRef
   ) {
     const aux = this.config.data;
+    this.dataRecibida = aux.dataEnviada;
     this.idLaboratorio = aux.dataEnviada.id;
     this.isPruebaTomada = aux.isPruebaTomada;
-    this.dataRecibida = aux.dataEnviada;
     this.builform();
     this.cargarCabecera();
   }
@@ -203,7 +195,7 @@ export class LabParasitologiaComponent implements OnInit {
      }).then((result) => {
        if (result.isConfirmed) {
          this.parasitologiaService  
-           .PostParasitologia(this.idConsulta, inputRequest)
+           .PostParasitologia(this.idLaboratorio, inputRequest)
            .subscribe((resp) => {
              this.ref.close("confirmado"); //confirmado o cancelado
              Swal.fire({
