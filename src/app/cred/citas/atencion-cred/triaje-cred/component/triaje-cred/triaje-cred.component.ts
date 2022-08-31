@@ -522,7 +522,8 @@ export class TriajeCredComponent implements OnInit {
             obsSignosVitales: this.obsFC.value,
             presentaSigno: this.signoPeligroFG.get('presentSigns').value,
             factorRiesgo: this.factorRiesgoFG.value,
-            anamnesis: this.anamnesisFC.value
+            anamnesis: this.anamnesisFC.value,
+            servicio: 'ATENCION INTEGRAL DEL NINO',
         }
         if (req) {
             await this.consultaService.crearConsulta(this.data.nroDocumento, req).toPromise().then(

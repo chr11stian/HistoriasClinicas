@@ -34,6 +34,7 @@ export interface triajeInterface {
     factorRiesgo: FactorRiesgo;
     anamnesis: string;
     obsSignosVitales: string;
+    servicio?: string;
 }
 
 export interface interconsultaInterface {
