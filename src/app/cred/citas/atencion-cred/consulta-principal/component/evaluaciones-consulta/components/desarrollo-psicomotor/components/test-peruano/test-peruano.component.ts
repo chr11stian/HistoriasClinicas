@@ -85,7 +85,7 @@ export class TestPeruanoComponent implements OnInit {
   calcularEdades(){
     const edad=this.data.anio*12+this.data.mes
     if(edad<=11 || edad>=31){
-      this.edadMeses=|edad
+      this.edadMeses=edad
     }
     else{
         if(this.edad<=14)
