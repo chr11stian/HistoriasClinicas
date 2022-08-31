@@ -31,8 +31,8 @@
         </div>
         <!--        <div *ngIf="dataPreventivo.length>=1;else noCorresponde">-->
 
-        <div class="" *ngFor="let dosaje of dataPreventivo">
-            <div class="grid" *ngIf="dosaje.edadMes==edadMes">
+        <div class="" *ngFor="let dosaje of dataPreventivo" [ngStyle]="{'background-color': dosaje.edadMes==edadMes?'#fcbfba':'white'}">
+            <div class="grid">
                 <div class="col-1 text-center">
                     {{dosaje.edadMes}}
                 </div>
@@ -97,11 +97,11 @@
                 </div>
 
                 <div class="col-2 flex justify-content-around">
-                    <button *ngIf="!dosaje.estadoControlado;" (click)="agregarDosaje(dosaje)" pButton pRipple
+                    <button *ngIf="!dosaje.estadoControlado && dosaje.edadMes==edadMes" (click)="agregarDosaje(dosaje)" pButton pRipple
                             type="button" icon="pi pi-pencil"
                             pTooltip="Agregar Dosaje de Hemoglobina"
                             tooltipPosition="bottom"
-                            class="p-button-rounded p-button-warning p-button-outlined"></button>
+                            class="p-button-rounded p-button-info p-button-outlined"></button>
                     <!-- <button *ngIf="!dosaje.estadoControlado;" pButton pRipple
                             type="button" icon="pi pi-briefcase"
                             pTooltip="Solicitar Examen a Laboratorio"
@@ -110,11 +110,11 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="dataPreventivo.length==0">
+        <!-- <div *ngIf="dataPreventivo.length==0">
             <span style="color:#FBC02D;font-size: 1.2rem" >
                 No hay programacion de DOSAJE DE HEMOGLOBINA PREVENTIVO para el presente mes
             </span>
-        </div>
+        </div> -->
         
     </p-fieldset>
 </div>
@@ -137,8 +137,8 @@
         </div>
         <!--        <div *ngIf="dataPreventivo.length>=1;else noCorresponde">-->
 
-        <div class="" *ngFor="let dosaje of dataTerapeutico">
-            <div class="grid">
+        <div class="" *ngFor="let dosaje of dataTerapeutico" [ngStyle]="{'background-color': dosaje.edadMes==edadMes?'#fcbfba':'white'}">
+            <div class="grid" >
                 <div class="col-1 text-center">
                     {{dosaje.edadMes}}
                 </div>
@@ -204,11 +204,11 @@
 
                 <div class="col-2 flex justify-content-around">
 
-                    <button  *ngIf="!dosaje.estadoControlado" (click)="agregarDosaje(dosaje)" pButton pRipple
+                    <button  *ngIf="!dosaje.estadoControlado && dosaje.edadMes==edadMes"  (click)="agregarDosaje(dosaje)" pButton pRipple
                             type="button" icon="pi pi-pencil"
                             pTooltip="Agregar Dosaje de Hemoglobina"
                             tooltipPosition="bottom"
-                            class="p-button-rounded p-button-warning p-button-outlined"></button>
+                            class="p-button-rounded p-button-info p-button-outlined"></button>
                     <!-- <button *ngIf="!dosaje.estadoControlado;" pButton pRipple
                             type="button" icon="pi pi-briefcase"
                             pTooltip="Solicitar Examen a Laboratorio"
