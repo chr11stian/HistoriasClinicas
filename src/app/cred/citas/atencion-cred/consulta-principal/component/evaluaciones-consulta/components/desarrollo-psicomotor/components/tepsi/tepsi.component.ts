@@ -495,9 +495,9 @@ export class TepsiComponent implements OnInit {
                   }
                   else{
                     Swal.fire({
-                      icon: "error",
+                      icon: "info",
                       title: "Ya existe un test tepsi ",
-                      text: "Ya existe un test en la historia Clinica o solo se puede hacer un test por consulta",
+                      text: `Ya existe una evaluacion para el mes ${this.anioEdad*12+this.mesEdad}`,
                       showConfirmButton: false,
                       timer: 3000,
                     });

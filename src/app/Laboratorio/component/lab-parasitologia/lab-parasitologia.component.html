@@ -74,7 +74,6 @@
                 [inputStyle]="{ 'text-align': 'center' }"
               >
               </p-calendar>
-              <!-- <div>invalid:{{this.getFC('hour').invalid}}</div> -->
               <div *ngIf="isInvalid2('hour')">
                 <span style="color: red">*Ingrese una hora correcta</span>
               </div>
@@ -126,8 +125,6 @@
   </div>
 </form>
 <div>
-  <span style="font-weight: bold">invalid:</span>
-  {{ parasitologiaFG.get('nroSis).dirty }}
 </div>
 
 <br />

@@ -18,8 +18,8 @@ export class ListarFuaComponent implements OnInit {
     nroDocumento:'',
     tipoConsulta:''
   };
-  consultaFUA: string = 'http://192.168.5.3:8200/jasperserver/rest_v2/reports/Reports/v1/fuaid/anexo1.pdf?authorization='
-  consultaID: string = 'http://192.168.5.3:8200/jasperserver/rest_v2/reports/Reports/v1/fuaconsulta/fua_por_consulta.pdf?authorization='
+  consultaFUA: string = 'http://190.108.93.150:8200/jasperserver/rest_v2/reports/Reports/v1/fuaid/anexo1.pdf?authorization='
+  consultaID: string = 'http://190.108.93.150:8200/jasperserver/rest_v2/reports/Reports/v1/fuaconsulta/fua_por_consulta.pdf?authorization='
   listDataFUA: FUA[] = [];
   listaDatosFUA: any;
   linkPDF: string;
