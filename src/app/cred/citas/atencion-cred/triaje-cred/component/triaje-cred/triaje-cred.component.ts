@@ -11,6 +11,7 @@ import {
     outputTriajeInterface,
     interconsultaInterface
 } from "../../../../models/data";
+import {DatePipe, formatDate} from '@angular/common';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 
 interface formInterface {
@@ -31,6 +32,7 @@ interface formControlInterface {
     styleUrls: ['./triaje-cred.component.css']
 })
 export class TriajeCredComponent implements OnInit {
+    datePipe = new DatePipe('en-US');
     examFG: FormGroup;
     generalInfoFG: FormGroup
     signoPeligroFG: FormGroup
@@ -538,7 +540,8 @@ export class TriajeCredComponent implements OnInit {
                         dia: r.object.diaEdad,
                         sexo: this.data.sexo,
                         fechaNacimiento: this.data.fechaNacimiento,
-                        hidden: true
+                        hidden: true,
+                        fechaConsulta: this.datePipe.transform(new Date(), 'yyyy-MM-dd')
                     }
                     this.consultaService.idConsulta = r.object.id
                     localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
