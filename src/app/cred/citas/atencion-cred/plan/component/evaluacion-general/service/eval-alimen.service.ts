@@ -90,7 +90,7 @@ export class EvalAlimenService {
   getTablaComparativaMes(mes) {
     return this.http.get<any>(`${this.base_url}/${this.bd}/cred/tabla/eedp/${mes}`)
         .toPromise()
-        .then(res => <tablaComparativa[]>res.object)
+        .then(res => <tablaComparativa[]>res)
         .then(data => { return data; })
         .catch(error => { return error })
   }

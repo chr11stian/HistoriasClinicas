@@ -93,7 +93,7 @@ export class EedpComponent implements OnInit {
       this.indexSelected = this.estimateMonthEEDP(this.dataConsulta.anio, this.dataConsulta.mes);
       let mes = this.edadNroSelected;
       this.evalAlimenService.getTablaComparativaMes(mes).then(data => {
-        this.tablaComparativa = data;
+        this.tablaComparativa = data.object;
       });
       this.arrayEdadEEDPSelected = this.escalaEEDP[this.indexSelected];
       this.puntaje = this.escalaEEDP[this.indexSelected][0].puntajeMaximo;
@@ -162,7 +162,7 @@ export class EedpComponent implements OnInit {
     this.standardPoints = parseFloat((this.totalPoints / this.chronologicalAge).toFixed(2));
     console.log('puntos estandar ', this.standardPoints);
     await this.testService.getTablaComparativaMes(this.mesesTotal).then(data => {
-      this.tablaPuntajeEstandar = data;
+      this.tablaPuntajeEstandar = data.object;
       console.log('datos de la tabla puntaje estandar ', data);
       this.tablaPuntajeEstandar.forEach(item => {
         if (String(this.standardPoints) == item.em_ec) {
@@ -172,7 +172,7 @@ export class EedpComponent implements OnInit {
       })
     });
     /**CALCULAR RESULTADO */
-    // console.log('coeficiente de desarrollo ', this.coeficienteDesarrollo);
+    console.log('coeficiente de desarrollo ', this.coeficienteDesarrollo);
     if (this.coeficienteDesarrollo == undefined) {
       Swal.fire({
         icon: 'error',
