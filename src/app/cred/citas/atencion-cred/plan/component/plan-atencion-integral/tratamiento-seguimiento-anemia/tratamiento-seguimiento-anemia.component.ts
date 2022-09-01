@@ -38,7 +38,13 @@ export class TratamientoSeguimientoAnemiaComponent implements OnInit {
   }
   getDosajeTerapeutico(){
     this.suplementacionesMicronutrientesService.getDosajeHemoglobinaTerapeutico(this.nroDni).subscribe((resp)=>{
-      this.dataDosajeTerapeutico=resp.object
+      const auxTerapeutico=resp.object
+      if(auxTerapeutico==null){
+        this.dataDosajeTerapeutico=[]
+      }
+      else{
+        this.dataDosajeTerapeutico=resp.object
+      }
       this.transformTerapeutico();
     })
   }
