@@ -37,6 +37,7 @@ export class CitasComponent implements OnInit {
     verCitasDialog: boolean = false;
 
     /* citas */
+    tomorrow = new Date();
     listCitas: interconsulta[] = [];
     constructor(
         private serviceCupos: CuposService,
@@ -58,13 +59,15 @@ export class CitasComponent implements OnInit {
 
         this.getListaServiciosXIpress();
         this.getListaCitasXServicio();
+        console.log("ser", this.servicios);
+        this.listCita();
     }
 
     buildForm() {
         this.form = this.formBuilder.group({
             fechaFiltroInicio: [new Date()],
-            fechaFiltroFin: [new Date()],
-            servicio: [""],
+            fechaFiltroFin: [this.tomorrow],
+            servicio: ["ATENCION INTEGRAL DEL NINO"],
             nroDoc: [""],
         });
         this.formConfirmar = this.formBuilder.group({});
@@ -154,8 +157,24 @@ export class CitasComponent implements OnInit {
     }
 
     guardarReprogramacion() {}
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.listCita();
+        this.tomorrow.setDate(this.tomorrow.getDate() + 1);
+    }
     /* interconsulta */
+    listCita() {
+        let data = {
+            fecha: this.datePipe.transform(this.tomorrow, "yyyy-MM-dd"),
+            servicio: "ATENCION INTEGRAL DEL NINO",
+        };
+        console.log("data", data);
+        this.citasService
+            .listarCitasXservicio(data, this.idIpress)
+            .subscribe((res: any) => {
+                this.data = res.object;
+                this.listCitas = res.object;
+            });
+    }
     openCupos(data: interconsulta): void {
         this.serviceCupos.data = data;
         this.serviceCupos.modal1 = this.dialog.open(ModalCuposComponent, {

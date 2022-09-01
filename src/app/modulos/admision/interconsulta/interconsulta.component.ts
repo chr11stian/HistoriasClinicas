@@ -27,7 +27,7 @@ export class InterconsultaComponent implements OnInit {
     ngOnInit(): void {
         this.serviceInterconsulta.listInterconsulta().subscribe((r: any) => {
             this.listInterconsulta = r.object;
-            console.log(this.listInterconsulta);
+            //console.log(this.listInterconsulta);
         });
     }
 

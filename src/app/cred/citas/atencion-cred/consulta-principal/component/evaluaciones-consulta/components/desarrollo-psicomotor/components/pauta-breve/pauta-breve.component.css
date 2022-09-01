@@ -1,21 +1,24 @@
-p-table >>> .p-datatable table {
+p-table>>>.p-datatable table {
   width: auto;
 }
 
-p-table >>> .p-datatable .p-datatable-thead > tr > th {
+p-table>>>.p-datatable .p-datatable-thead>tr>th {
   text-align: center !important;
   border: 1px solid #b6b6b6;
   background-color: #dddddd;
   padding: 0.3rem;
 }
-p-table >>> .p-datatable .p-datatable-tbody > tr > td {
+
+p-table>>>.p-datatable .p-datatable-tbody>tr>td {
   text-align: center;
   font-size: medium;
   word-wrap: break-word;
 }
+
 input {
   text-align: center;
 }
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -23,7 +26,7 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-p-fieldset >>> .p-fieldset .p-fieldset-legend {
+p-fieldset>>>.p-fieldset .p-fieldset-legend {
   padding: 0.7rem;
   border: 1px solid #dee2e6;
   color: #495057;
@@ -37,17 +40,20 @@ p-fieldset >>> .p-fieldset .p-fieldset-legend {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
 .container_steps {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
 }
+
 .container_input_datos {
   display: flex;
   flex-direction: row;
   width: 100%;
 }
+
 .steps {
   display: flex;
   flex-direction: column;
@@ -74,6 +80,7 @@ input[type="number"] {
   align-items: center;
   height: 30%;
 }
+
 .steps-titulo-edadMes {
   color: #ffffff;
   font-size: 10px;
@@ -85,6 +92,7 @@ input[type="number"] {
   align-items: center;
   height: 65%;
 }
+
 .steps-titulo-edadNro {
   color: #ffffff;
   font-size: 26px;
@@ -111,25 +119,31 @@ input[type="number"] {
   width: 150px;
   margin-left: 8px;
 }
+
 .input_examinador {
   width: 250px;
   margin-left: 8px;
 }
+
 .label {
   font-weight: bold;
   font-size: 20px;
 }
+
 .label_fecha {
   font-weight: bold;
   font-size: 14px;
 }
+
 .titulo-1 {
   font-size: 1.1rem;
   color: #1769aa;
 }
+
 .descp-1 {
   font-weight: 640;
 }
+
 .border {
   border: 0.1rem solid #d4d4d4;
   border-radius: 10px;
@@ -137,8 +151,15 @@ input[type="number"] {
   /* margin-top: 0.25rem; */
   margin-bottom: 1.5rem;
 }
+
 .container_steps .ng-star-inserted,
 .div-titulo-nro .steps-titulo-edadNro,
 .div-titulo-mes .steps-titulo-edadMes {
   cursor: pointer;
+}
+
+::ng-deep .save .p-button {
+  background: #0c3866;
+  border-color: #0c3866;
+  align-items: center;
 }

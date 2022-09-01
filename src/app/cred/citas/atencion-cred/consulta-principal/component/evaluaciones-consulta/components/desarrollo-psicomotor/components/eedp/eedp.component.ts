@@ -70,7 +70,8 @@ export class EedpComponent implements OnInit {
       { clave: "L", numeroPregunta: 0 },
       { clave: "M", numeroPregunta: 0 }
     ];
-    this.edadNroSelected = this.dataConsulta.anio
+    this.edadNroSelected = this.mesesTotal - 1
+    console.log('eda nro selected ', this.edadNroSelected);
   }
 
   ngOnInit(): void {
@@ -82,11 +83,11 @@ export class EedpComponent implements OnInit {
       { edadNro: 10, edad: 'MESES' }, { edadNro: 12, edad: 'MESES' }, { edadNro: 15, edad: 'MESES' },
       { edadNro: 18, edad: 'MESES' }, { edadNro: 21, edad: 'MESES' }, { edadNro: 24, edad: 'MESES' }
     ]
-    this.getDatos();
+    this.getDatosInicialesEEDP();
     this.getEEDP();
   }
   /**Recuperar datos para armar la tabla de preguntas de EEDP, asi como calcular el mes de  evaluacion */
-  async getDatos() {
+  async getDatosInicialesEEDP() {
     await this.evalAlimenService.getEscalaEEDParray().then(data => {
       this.escalaEEDP = data;
       this.indexSelected = this.estimateMonthEEDP(this.dataConsulta.anio, this.dataConsulta.mes);
@@ -127,6 +128,8 @@ export class EedpComponent implements OnInit {
       }
       return auxAns;
     });
+    // console.log('puntos mensuales ', this.monthPoints);
+    console.log('edad selected ', this.edadNroSelected);
     this.itemEEDP = {
       edad: this.edadNroSelected,
       puntajeTotalEedp: this.monthPoints,
@@ -144,6 +147,7 @@ export class EedpComponent implements OnInit {
     } else {
       this.listaPreguntas.push(this.itemEEDP);
     }
+
     this.listaPreguntas.sort((a, b) => a.edad - b.edad);
     this.listaPreguntas.forEach(item => {
       this.totalPoints += item.puntajeTotalEedp;
@@ -154,6 +158,7 @@ export class EedpComponent implements OnInit {
       }
     }
     this.totalPoints = this.totalPoints + (this.mentalMonth - 1) * 30;
+    console.log('puntaje total ', this.totalPoints);
     this.standardPoints = parseFloat((this.totalPoints / this.chronologicalAge).toFixed(2));
     console.log('puntos estandar ', this.standardPoints);
     await this.testService.getTablaComparativaMes(this.mesesTotal).then(data => {
@@ -256,6 +261,7 @@ export class EedpComponent implements OnInit {
   }
   /**Cambiar la vista cada que selecciona un mes */
   async changeStep(index: number, edadNro: number, edad: string, prevArray: any) {
+    console.log('edad ', edadNro);
     this.monthPoints = 0;
     this.indexSelected = index;
     this.edadNroSelected = edadNro;
@@ -355,7 +361,7 @@ export class EedpComponent implements OnInit {
     return 12 * year + month;
   }
 
-  postSaveEEDP(){
-    
+  postSaveEEDP() {
+
   }
 }
