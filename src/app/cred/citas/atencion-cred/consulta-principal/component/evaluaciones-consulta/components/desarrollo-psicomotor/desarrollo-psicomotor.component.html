@@ -1,12 +1,12 @@
-<div class="evaluations-alert col-6 text-center" *ngIf="isEvaluated">
+<!-- <div class="evaluations-alert col-6 text-center" *ngIf="isEvaluated">
   <span class="title">YA SE REALIZO UNA EVALUACIÓN PARA ESTA EDAD</span> <br>
   <label class="text-1">Nombre de la evaluación: </label>
   <span class="text-2">{{evaluationName}}</span>
-</div>
+</div> -->
 <div class="col-12">
   <p-tabView [(activeIndex)]="index">
     <p-tabPanel header="TEST PERUANO DEL DESARROLLO DEL NIÑO" [disabled]="disabledSelectedTab[0].disabled"
-      [selected]="disabledSelectedTab[0].selected">
+      [selected]="!disabledSelectedTab[0].selected">
       <ng-template pTemplate="content">
         <app-test-peruano></app-test-peruano>
       </ng-template>
