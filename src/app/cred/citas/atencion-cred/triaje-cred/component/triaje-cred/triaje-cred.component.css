@@ -1,4 +1,3 @@
-
 p-dropdown >>> * {
     width: 150px;
 }
@@ -17,7 +16,11 @@ p-tabview >>> .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
     color: #ffffff;
 }
 
-p-tabview >>> .p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
+p-tabview
+    >>> .p-tabview
+    .p-tabview-nav
+    li
+    .p-tabview-nav-link:not(.p-disabled):focus {
     outline: 0 none;
     outline-offset: 0;
     box-shadow: 0 0 0 0.2rem #dcb4b4;
@@ -44,7 +47,11 @@ p-tabview >>> .p-tabview .p-tabview-panels {
     border: 1px solid green;
 }
 
-:host >>> .p-steps .p-steps-item.p-steps-current .p-menuitem-link .p-steps-number {
+:host
+    >>> .p-steps
+    .p-steps-item.p-steps-current
+    .p-menuitem-link
+    .p-steps-number {
     border: 1px solid rgb(10, 79, 163);
 }
 
@@ -94,11 +101,28 @@ p-calendar >>> .p-button {
 p-toolbar >>> * {
     align-self: center;
 }
-.dato-error{
+.dato-error {
     color: red;
 }
 
-::ng-deep .p-disabled, .p-component:disabled,
+::ng-deep .p-disabled,
+.p-component:disabled,
 ::ng-deep .p-calendar-disabled .p-inputtext {
     opacity: 1;
+}
+
+/* interconsulta */
+div#opc {
+    position: static;
+}
+p-speeddial >>> .p-button.p-button-icon-only.p-button-rounded {
+    background: green;
+    border-color: green;
+}
+:host ::ng-deep .speeddial-semi-circle .p-speeddial-direction-left {
+    right: 0;
+    top: 300px;
+}
+:host ::ng-deep .button-agregar .p-button {
+    background-color: #0c3866;
 }

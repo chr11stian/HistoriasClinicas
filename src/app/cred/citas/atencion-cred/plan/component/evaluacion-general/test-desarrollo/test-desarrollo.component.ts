@@ -6,6 +6,7 @@ import {DatePipe} from "@angular/common";
 import { TestPeruano } from '../../../../consulta-principal/component/evaluaciones-consulta/components/desarrollo-psicomotor/services/test-peruano/test-peruano.service';
 import Swal from 'sweetalert2';
 import { coloracionGramInterface } from '../../../../../../../Laboratorio/component/lab-microbiologico/lab-microbiologico.component';
+import { LoginComponent } from '../../../../../../../login/login.component';
 
 @Component({
   selector: 'app-test-desarrollo',
@@ -69,13 +70,15 @@ export class TestDesarrolloComponent implements OnInit {
           this.fechasEvaluadas.push({indice})
           const test=this.listaTestPeruano[index].calificacion
           test.forEach((element,index) => {/* x=6,x=11 */
-            this.getControl(element.x-1,element.y-1).setValue(true)
-            //debo hacer algo
-            this.matrisColores[element.x-1][element.y-1]=`mes${edad}`
+            const x=element.x-1
+            const y=this.listaMeses.indexOf(element.y)
+            this.getControl(x,y).setValue(true)
+            //para los colores
+            this.matrisColores[x][y]=`mes${edad}`
           });
         }
       })
-      console.log(this.matrisColores);      
+      // console.log(this.matrisColores);      
   }
   ruta(sale: any, mes: number) {
     return sale[`img_${mes}`];
