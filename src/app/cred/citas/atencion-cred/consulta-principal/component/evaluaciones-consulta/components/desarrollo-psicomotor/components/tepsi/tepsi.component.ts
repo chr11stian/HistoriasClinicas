@@ -96,11 +96,11 @@ export class TepsiComponent implements OnInit {
     private tepsiService: TepsiService,
     private messageService: MessageService
   ) {
-    this.buildForm();
-    this.inicializarGrafico();
     this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
     this.idConsulta = this.data.idConsulta;
     this.usuario = JSON.parse(localStorage.getItem("usuario"));
+    this.buildForm();
+    this.inicializarGrafico();
     this.getFC("nombreExaminador").setValue(
       `${this.usuario.nombres} ${this.usuario.apellidos}`
     );
@@ -122,8 +122,10 @@ export class TepsiComponent implements OnInit {
   buildForm() {
     this.datosGeneralesFG = new FormGroup({
       nombreExaminador: new FormControl("", Validators.required),
-      fechaSelected: new FormControl(new Date(), Validators.required),
+      fechaSelected: new FormControl(new Date(this.data.fechaConsulta), Validators.required),
     });
+    console.log('data-->',this.data);
+    
   }
 
   traerPuntaje() {
@@ -136,7 +138,7 @@ export class TepsiComponent implements OnInit {
     let color: string;
     const arreglo = aux.map((item) => {
       if (item.categoria == "Normal") {
-        color = "#0c3866";//blue
+        color = "#0C3866";//blue
       } else {
         if (item.categoria == "Riesgo") {
           color = "#F3D9DC";
