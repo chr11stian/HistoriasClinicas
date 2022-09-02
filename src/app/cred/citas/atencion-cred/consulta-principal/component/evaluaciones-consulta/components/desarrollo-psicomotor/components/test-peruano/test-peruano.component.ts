@@ -100,7 +100,7 @@ export class TestPeruanoComponent implements OnInit {
     }else if(this.edad==30){
       this.edadMeses=30
     }else 
-    this.edadMeses=31 /* no se habilita ningun mes */
+    this.edadMeses=0 /* no se habilita ningun mes */
     
     console.log('edad',this.edadMeses);
   }

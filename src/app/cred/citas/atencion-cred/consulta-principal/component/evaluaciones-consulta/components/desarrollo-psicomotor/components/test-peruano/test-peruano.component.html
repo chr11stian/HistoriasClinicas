@@ -145,7 +145,7 @@
 
     <ng-template pTemplate="footer">
         
-        <button *ngIf="!hasTaken" pButton pRipple type="button" label="Guardar" style="background-color: #0c3866;" icon="pi pi-save" (click)="save()" iconPos="right"></button>
+        <button *ngIf="!hasTaken && edadMeses!=0" pButton pRipple type="button" label="Guardar" style="background-color: #0c3866;" icon="pi pi-save" (click)="save()" iconPos="right"></button>
         <!-- <button pButton pRipple type="button" label="Cancelar" class="p-button-danger" icon="pi pi-times" (click)="pruebas()" iconPos="right"></button> -->
     </ng-template>
 
