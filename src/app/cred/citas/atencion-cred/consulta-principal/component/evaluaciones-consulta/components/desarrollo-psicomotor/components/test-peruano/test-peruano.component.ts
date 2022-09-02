@@ -83,24 +83,26 @@ export class TestPeruanoComponent implements OnInit {
 
   }
   calcularEdades(){
-    const edad=this.data.anio*12+this.data.mes
-    if(edad<=11 || edad>=31){
-      this.edadMeses=edad
-    }
-    else{
-        if(this.edad<=14)
-          this.edadMeses=12
-        else if(this.edad<=17)
-          this.edadMeses=15
-        else if(this.edad<=20)
-          this.edadMeses=18
-        else if(this.edad<=23)
-          this.edadMeses=21
-        else if(this.edad<=29)
-          this.edadMeses=24
-        else if(this.edad==30)
-          this.edadMeses=30
-        }
+    this.edad=this.data.anio*12+this.data.mes
+    
+    if(this.edad<=11){
+      this.edadMeses=this.edad
+    }else if(this.edad<=14){
+      this.edadMeses=12
+    }else if(this.edad<=17){
+      this.edadMeses=15
+    }else if(this.edad<=20){
+      this.edadMeses=18
+    }else if(this.edad<=23){
+      this.edadMeses=21
+    }else if(this.edad<=29){
+      this.edadMeses=24
+    }else if(this.edad==30){
+      this.edadMeses=30
+    }else 
+    this.edadMeses=31 /* no se habilita ningun mes */
+    
+    console.log('edad',this.edadMeses);
   }
   //rehaciendo
   ruta(sale: any, mes: number) {

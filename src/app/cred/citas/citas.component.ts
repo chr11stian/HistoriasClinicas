@@ -69,24 +69,6 @@ export class CitasComponent implements OnInit {
             {name: "OTROS", code: 4},
         ]
         this.citas = [
-            {
-                dni: "10101013",
-                apellidos: "ABARCA MELGAREJO",
-                nombres: "KATHERIN",
-                consultorio: "OBS01",
-                horario: "8:00AM",
-                fecha: "20/11/2021"
-            },
-            {
-                dni: 'DNI', /** no debe haber */
-                tipoDoc: 'DNI',
-                nroDoc: '10101013',
-                apellidos: 'CAMPOS RODRIGUEZ',
-                nombres: 'THIAGO ALEJANDRO',
-                consultorio: 'OBS01',
-                horario: '8:00AM',
-                fecha: '16/11/2021'
-            },
         ]
 
     }
