@@ -11,20 +11,6 @@ p-card >>> .p-card .p-card-title{
 .tabla{
     width:100%; 
 }
-::ng-deep .fondo1 .p-calendar .p-inputtext{
-
-     flex: 1 1 auto;
-     width: 1%;
-     background: #FDC070;
-
-}
-::ng-deep .fondo2 .p-calendar .p-inputtext{
-/**/
-    flex: 1 1 auto;
-    width: 1%;
-    background: #FFFF80;
-
-}
 .caja {
     color: white;
     border-radius:10px;
@@ -38,28 +24,6 @@ p-card >>> .p-card .p-card-title{
     border-left: 10px solid #FF6601;
     border-top: 13px solid transparent;
     border-bottom: 13px solid transparent;
-}
-p-table >>> .p-datatable .p-datatable-tbody > tr > td {
-    text-align: center;
-    font-size: small;
-    word-wrap: break-word;
-    padding: 2px;
-    /*background:red;*/
-}
-p-dialog >>> .p-dialog .p-dialog-header {
-    border-bottom: 0 none;
-    background: #0c3866;
-    color: #495057;
-    padding: 1.5rem;
-    border-top-right-radius: 3px;
-    border-top-left-radius: 3px;
-    z-index:89999;
-}
-p-dialog >>> .p-dialog .p-dialog-header .p-dialog-title {
-    font-weight: 600;
-    font-size: 1.25rem;
-    color: #ffffff;
-    z-index:89999;
 }
 p-table >>> .p-datatable .p-datatable-thead > tr > th {
     padding: 3px;
