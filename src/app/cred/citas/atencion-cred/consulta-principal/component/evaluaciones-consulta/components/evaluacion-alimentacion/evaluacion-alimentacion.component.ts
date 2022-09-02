@@ -260,7 +260,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
       this.getControl(index,indexEdad).disable()
     })
   }
-  sombrear(i,j){
+  sombrear(i,j):string{
     if((i>=6 && i<14 && j<7)||(i==15 && j<7) ) {
       return '#dddddd'
     }

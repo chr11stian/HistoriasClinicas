@@ -40,18 +40,25 @@ export class ProcedimientoDosajeHemoglobinaComponent implements OnInit {
   }
   getDosajePreventivo(){
     this.suplementacionesMicronutrientesService.getDosajeHemoglobina(this.nroDni).subscribe((resp)=>{
+      // const preventivo=resp.object
+      // this.dataPreventivo=preventivo.filter(element=>element.edadMes==this.edadMes)
+      // console.log('respuesta del servidor->>>>',this.dataPreventivo)
       this.dataPreventivo=resp.object
-      this.dataPreventivo=this.dataPreventivo.filter(element=>element.edadMes==this.edadMes)
-      console.log('respuesta del servidor->>>>',this.dataPreventivo)
-
       this.transform();
     })
   }
   getDosajeTerapeutico(){
     this.suplementacionesMicronutrientesService.getDosajeHemoglobinaTerapeutico(this.nroDni).subscribe((resp)=>{
-      this.dataTerapeutico=resp.object
-      this.dataTerapeutico=this.dataTerapeutico.filter(element=>element.edadMes==this.edadMes)
-      console.log('respuesta terapeutica->>>>',this.dataPreventivo)
+      const terapeutico=resp.object
+      if(terapeutico==null){
+        this.dataTerapeutico=[]
+      }
+      else{
+        this.dataTerapeutico=terapeutico
+      }
+      // console.log('arreglo terapeutico',resp);
+      
+      // this.dataTerapeutico=terapeutico.filter(element=>element.edadMes==this.edadMes)
       this.transformTerapeutico();
     })
   }
