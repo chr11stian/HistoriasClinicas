@@ -89,7 +89,7 @@ export class ListaConsultaComponent implements OnInit {
             fechaNacimiento: this.fechaNacimiento,
             hidden: true,
             see: true,
-            fechaConsulta: this.datePipe.transform(new Date(), 'yyyy-MM-dd')
+            fechaConsulta: this.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss')
         }
         localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
         setTimeout(() => {

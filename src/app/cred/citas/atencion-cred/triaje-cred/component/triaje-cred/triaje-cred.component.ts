@@ -780,7 +780,7 @@ export class TriajeCredComponent implements OnInit {
                         hidden: true,
                         fechaConsulta: this.datePipe.transform(
                             new Date(),
-                            "yyyy-MM-dd"
+                            "yyyy-MM-dd HH:mm:ss"
                         ),
                     };
                     this.consultaService.idConsulta = r.object.id;
