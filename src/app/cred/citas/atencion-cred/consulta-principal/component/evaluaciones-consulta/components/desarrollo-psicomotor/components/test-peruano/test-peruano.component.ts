@@ -37,43 +37,22 @@ export class TestPeruanoComponent implements OnInit {
     this.testPeruanoService.getImagenes().then((data) => {
       this.imagenes = data;
     });
+    // this.determinarEdadEvaluada();
+    // this.indexEdadMeses=this.listaMesesEvaluar.indexOf(this.listaMesesEvaluar.find((element)=>element.numero==this.edadMeses))
   }
   ngOnInit(): void {
     this.getTestPeruanoPlan();
-    this.getTestPeruanoXconsulta();
+    this.getTestPeruano();
   }
   getTestPeruanoPlan(){  
   this.testPeruanoService.getTestPeruanoPlan(this.data.nroDocumento).subscribe((resp:any)=>{
       if(resp.cod=="2121"){
         this.listaTestPeruano=resp.object
-      }
-    })
-  }
-  getTestPeruanoXconsulta(){
-    this.testPeruanoService.getTestPeruano(this.data.idConsulta).subscribe((resp:any)=>{
-      console.log('consulta',resp);
-    })
-  }
-  
-  fechasEvaluadas=[]
-  matrisColores=[]
-  construirMatrisColores(){
-    this.matrisColores=[]
-    this.listaLetras.forEach((element,i)=>{
-      const fila=[]
-      this.listaMeses.forEach((element,j)=>{
-        fila.push('')
-      })
-      this.matrisColores.push(fila)
-    })
-    
-  }
-  openDialog(indexFila?:number){
-    this.construirMatrisColores()
-    this.displayDialog=true
-    this.arregloForm.reset()
-    this.fechas=[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]
-    this.listaTestPeruano.forEach((fila,index)=>{
+        this.construirMatrisColores()
+        this.displayDialog=true
+        this.arregloForm.reset()
+        this.fechas=[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]
+        this.listaTestPeruano.forEach((fila,index)=>{
         if(this.isTodo ){ /* boton ver Todo hace todas las iteciones ,boton ver test solo la iteracion del indexFila enviado  */
           const edad=this.listaTestPeruano[index].edad
           const elementoMes=this.listaMeses.find(element=>element==edad)
@@ -90,7 +69,59 @@ export class TestPeruanoComponent implements OnInit {
           });
         }
       })
+      }
+      // if(!this.fechas[this.indexEdadMeses] ){/* hay evaluacion ese mes? */
+      //        console.log('---->entramos en el if');
+      //        this.fechas[this.indexEdadMeses]=new Date(this.data.fechaConsulta)
+      //        this.isAgregable=true
+      // }
+    })
   }
+  hasTaken:boolean=false;
+  arregloTestXConsulta:any[]=[]
+  getTestPeruano(){
+    this.testPeruanoService.getTestPeruano(this.data.idConsulta).subscribe((resp:any)=>{
+      if(resp.cod=="2121"){
+        this.hasTaken=true;  
+        const ObjetoPeruano={
+          fecha:resp.object.evaluacionDesarrolloMes.fecha,
+          edad:resp.object.evaluacionDesarrolloMes.edad,
+          diagnostico:resp.object.evaluacionDesarrolloMes.diagnostico
+        }
+        this.arregloTestXConsulta.push(ObjetoPeruano)
+        // const calificacionArreglo:any[]=resp.object.evaluacionDesarrolloMes.calificacion;
+        // calificacionArreglo.forEach((elemnet,index)=>{
+        //   this.getControl(index).setValue(elemnet.y)
+        // })
+        // // this.fecha=resp.object.evaluacionDesarrolloMes.fecha
+        // this.fecha=  new Date(resp.object.evaluacionDesarrolloMes.fecha)
+        // this.edadMeses=resp.object.evaluacionDesarrolloMes.edad
+        // this.desabilitarRadios()
+        
+      }
+      else{
+        this.hasTaken=false
+        //trajimos del constructor
+      }
+    })
+  }
+  
+  fechasEvaluadas=[]
+  matrisColores=[]
+  construirMatrisColores(){
+    this.matrisColores=[]
+    this.listaLetras.forEach((element,i)=>{
+      const fila=[]
+      this.listaMeses.forEach((element,j)=>{
+        fila.push('')
+      })
+      this.matrisColores.push(fila)
+    })
+    
+  }
+  // openDialog(indexFila?:number){
+    
+  // }
   ruta(sale: any, mes: number) {
     return sale[`img_${mes}`];
   }

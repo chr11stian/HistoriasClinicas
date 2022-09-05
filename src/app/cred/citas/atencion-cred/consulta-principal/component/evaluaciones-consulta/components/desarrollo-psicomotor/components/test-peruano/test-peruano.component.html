@@ -1,5 +1,5 @@
 <div>
-    <p-table class="table-over" [value]="listaTestPeruano" #dt styleClass="p-datatable-gridlines p-datatable-customers" [rows]="10"
+    <p-table class="table-over" [value]="arregloTestXConsulta" #dt styleClass="p-datatable-gridlines p-datatable-customers" [rows]="10"
              [rowsPerPageOptions]="[10, 25, 50]"
              [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
              currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
@@ -9,7 +9,7 @@
                         RESULTADOS DE TEST DESARROLLO PSICOMOTOR PERUANO 
                     </div>
                     <div>
-                        <button pButton pRipple label="Ver Todo" icon="pi pi-eye" (click)="isTodo=true;openDialog()"
+                        <button pButton pRipple  [label]="isAgregable?'Evaluar Test':'Ver Test'" icon="pi pi-eye" (click)="displayDialog=true;mostrarMensaje();"
                         class="guardar mr-2"  [disabled]="false"  style="background-color: #0c3866"></button>
                     </div>
                 </div>
@@ -30,7 +30,7 @@
                 <td style="text-align: center">{{ rowData.edad }} (meses)</td>
                 <td style="text-align: center">{{ rowData.diagnostico }}</td>
                 <td style="text-align: center">
-                    <button pButton (click)="isTodo=false;openDialog(rowIndex)" pTooltip="Ver Test" pRipple type="button"
+                    <button pButton (click)="displayDialog=true" pTooltip="Ver Test" pRipple type="button"
                             icon="pi pi-eye" class="p-button-rounded p-button-help m-1">
                     </button>
                 </td>
