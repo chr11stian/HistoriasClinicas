@@ -12,24 +12,25 @@ import { FuaService } from '../services/fua.service';
 export class ListarFuaComponent implements OnInit {
 
   data: Paciente = {
-    estadoAtencion:0,
+    estadoAtencion: 0,
     fechaAtencion: '',
-    id:'',
-    nroDocumento:'',
-    tipoConsulta:''
+    id: '',
+    nroDocumento: '',
+    tipoConsulta: ''
   };
   consultaFUA: string = 'http://192.168.5.3:8200/jasperserver/rest_v2/reports/Reports/v1/fuaid/anexo1.pdf?authorization='
   consultaID: string = 'http://192.168.5.3:8200/jasperserver/rest_v2/reports/Reports/v1/fuaconsulta/fua_por_consulta.pdf?authorization='
   listDataFUA: FUA[] = [];
-  listaDatosFUA: any;
   linkPDF: string;
   idConsulta: string;
+  isGeneratedFUA: boolean = false;
   // "6231104446af060328998d19"
   constructor(
     private location: Location,
     private router: Router,
     private fuaService: FuaService,
   ) {
+    // fua: creado => se crea con la primera parte, completado => cuando esta con datos completos , finaliado => cuando ya se hizo una impresion
     let auxData: any = this.router.getCurrentNavigation();
     auxData == null ? this.data.estadoAtencion = 2 : this.data.estadoAtencion = auxData.extras.estadoConsulta;
     this.idConsulta = JSON.parse(localStorage.getItem("dataFUA")).idConsulta;
@@ -45,6 +46,7 @@ export class ListarFuaComponent implements OnInit {
         return;
       }
       this.listDataFUA = res.object;
+      console.log('lista de fuas ', this.listDataFUA, res);
       if (this.data.estadoAtencion == 1) {
         Swal.fire({
           icon: 'success',
