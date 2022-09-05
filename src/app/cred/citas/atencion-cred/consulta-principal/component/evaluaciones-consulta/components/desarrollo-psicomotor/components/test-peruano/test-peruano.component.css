@@ -1,15 +1,39 @@
 p-radiobutton >>> .p-radiobutton .p-radiobutton-icon {
     content: url("src/assets/svg-icons/check-svgrepo-com.svg");
  }
-:host ::ng-deep .fondorojo {
+/* :host ::ng-deep .fondorojo {
     background-color: #fcbfba !important;
+} */
+
+/* p-card >>> .p-card .p-card-title{
+    margin: 0.5rem 0rem 0.5rem 0.5rem;
+} */
+
+/* p-table >>> .tabla .p-datatable .p-datatable-thead > tr > th {
+    padding: 3px;
+}
+p-table >>> .tabla .p-datatable .p-datatable-tfoot > tr > th {
+    padding: 3px;
+} */
+/* .tabla{
+    width:100%; 
+} */
+::ng-deep .tabla .p-datatable table {
+    width: auto;
 }
 
-p-card >>> .p-card .p-card-title{
-    margin: 0.5rem 0rem 0.5rem 0.5rem;
+::ng-deep .tabla .p-datatable .p-datatable-thead > tr > th {
+    text-align: center !important;
+    border: 1px solid #b6b6b6;
+    background-color: #dddddd;
+    padding: 0.3rem;
 }
-.tabla{
-    width:100%; 
+::ng-deep .tabla .p-datatable .p-datatable-tbody > tr > td {
+    border: 1px solid #b6b6b6;
+    text-align: center;
+    font-size: medium;
+    word-wrap: break-word;
+    padding: 0.3rem;
 }
 .caja {
     color: white;
@@ -25,13 +49,6 @@ p-card >>> .p-card .p-card-title{
     border-top: 13px solid transparent;
     border-bottom: 13px solid transparent;
 }
-p-table >>> .p-datatable .p-datatable-thead > tr > th {
-    padding: 3px;
-}
-p-table >>> .p-datatable .p-datatable-tfoot > tr > th {
-    padding: 3px;
-}
-
 .triangulo-1 {
     width: 0;
     height: 0;
@@ -365,21 +382,4 @@ p-calendar >>> .p-calendar .p-datepicker {
     background: darkcyan;
     border-color: darkcyan;
     color: #ffffff;
-}
-
-::ng-deep  .p-datatable table {
-    width: auto;
-}
-
-::ng-deep  .p-datatable .p-datatable-thead > tr > th {
-    text-align: center !important;
-    border: 1px solid #b6b6b6;
-    background-color: #dddddd;
-    padding: 0.3rem;
-}
-::ng-deep .p-datatable .p-datatable-tbody > tr > td {
-    border: 1px solid #b6b6b6;
-    text-align: center;
-    font-size: medium;
-    word-wrap: break-word;
 }

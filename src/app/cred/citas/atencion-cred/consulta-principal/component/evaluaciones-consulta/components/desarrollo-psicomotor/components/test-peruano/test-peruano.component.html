@@ -1,5 +1,5 @@
 <div>
-    <p-table class="table-over" [value]="arregloTest" #dt styleClass="" [rows]="10"
+    <p-table class="table-over" [value]="arregloTest" #dt styleClass="p-datatable-gridlines" [rows]="10"
              [rowsPerPageOptions]="[10, 25, 50]"
              [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
              currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
@@ -108,7 +108,7 @@
                                 <p style="margin:auto 0" class="triangulo"></p>
                             </div>
                         </td>
-                        <td *ngFor="let mes of listaMeses"  [ngClass]="{'fondorojo':mes==edadMeses}">
+                        <td *ngFor="let mes of listaMeses" >
                             <img *ngIf="true;"class="button-menu" [src]="ruta(sale,mes)">
                             <!-- <p-radioButton [name]="sale.letter" [value]="mes" [(ngModel)]="arreglo[rowIndex]"></p-radioButton> -->
                             <p-radioButton *ngIf='mes<=edadMeses' [name]="rowIndex" [value]="mes" [formControlName]="rowIndex"  ></p-radioButton>
