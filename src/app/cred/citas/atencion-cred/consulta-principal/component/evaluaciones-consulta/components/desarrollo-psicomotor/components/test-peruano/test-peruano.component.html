@@ -6,9 +6,9 @@
         <ng-template pTemplate="caption">
                 <div class="flex justify-content-between">
                     <div class="table-header mt-2">
-                        RESULTADOS DE TEST DESARROLLO PSICOMOTOR PERUANO 
-                    </div>
-                    <div>
+                        RESULTADOS DE TEST DESARROLLO PSICOMOTOR PERUANO {{edadMeses}} meses dwdw
+                    </div> 
+                    <div *ngIf="arregloTestXConsulta.length==0"> 
                         <button pButton pRipple  [label]="isAgregable?'Evaluar Test':'Ver Test'" icon="pi pi-eye" (click)="displayDialog=true;mostrarMensaje();"
                         class="guardar mr-2"  [disabled]="false"  style="background-color: #0c3866"></button>
                     </div>
@@ -79,7 +79,7 @@
                          </th>   
                          <th *ngFor="let mes of listaMeses;let i=index" style="background-color: white;">
                              <p-calendar  *ngIf="fechas[i]" [(ngModel)]="fechas[i]" disabled="true" [ngModelOptions]="{standalone: true}" showTime="true" showSeconds="true" dateFormat="dd-mm-yy" [ngClass]="determinarColor(i)" appendTo="body"></p-calendar>
-                             <!-- <p-calendar  *ngIf="fechas[i]" [(ngModel)]="fechas[i]" disabled="true" [ngModelOptions]="{standalone: true}" showTime="true" showSeconds="true" dateFormat="dd-mm-yy"  [ngStyle]="{'background-color':Colores[i] }" appendTo="body"></p-calendar> -->
+                             <!-- <p-calendar  [(ngModel)]="fechas[i]" disabled="true" [ngModelOptions]="{standalone: true}" showTime="true" showSeconds="true" dateFormat="dd-mm-yy" [ngClass]="determinarColor(i)" appendTo="body"></p-calendar> -->
                          </th>
                     </tr>
                 </ng-template>
@@ -99,6 +99,9 @@
                             </div>
                         </td>
                         <td *ngFor="let mes of listaMeses;let j=index" >
+                            <div [formGroup]="arregloFormRadio">
+                                <p-radioButton *ngIf='fechas[indexEdadMeses] && mes<=edadMeses' [name]="rowIndex" [value]="mes" [formControlName]="rowIndex"  ></p-radioButton>
+                            </div> 
                             <img *ngIf="true;"class="button-menu" [src]="ruta(sale,mes)">
                            
                             <div *ngIf="getControl(rowIndex,j).value">    

@@ -22,6 +22,7 @@ import { AbstractControl } from "@angular/forms";
 })
 export class TestPeruanoComponent implements OnInit {
   arregloForm: FormGroup;
+  arregloFormRadio:FormArray;
   displayDialog: boolean = false;
   listaMeses = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 18, 21, 24, 30]; //17
   listaLetras =["A","B","C","D","E","F","G","H","I","J","K","L"]//12
@@ -34,52 +35,70 @@ export class TestPeruanoComponent implements OnInit {
   constructor(private testPeruanoService: TestPeruano,) {
     this.construirMatrisColores()
     this.buildFormArray() 
+    this.buildFormArrayRadio();
     this.testPeruanoService.getImagenes().then((data) => {
       this.imagenes = data;
     });
-    // this.determinarEdadEvaluada();
-    // this.indexEdadMeses=this.listaMesesEvaluar.indexOf(this.listaMesesEvaluar.find((element)=>element.numero==this.edadMeses))
+    this.calcularEdades()
+    this.indexEdadMeses=this.listaMeses.indexOf(this.listaMeses.find((element)=>element==this.edadMeses))
   }
   ngOnInit(): void {
     this.getTestPeruanoPlan();
-    this.getTestPeruano();
+    this.getTestPeruanoConsulta();
   }
+  buildFormArrayRadio() {
+    this.arregloFormRadio = new FormArray([
+      new FormControl({value: null, disabled:false}, Validators.required),
+      new FormControl({value: null, disabled:false}, Validators.required),
+      new FormControl({value: null, disabled:false}, Validators.required),
+      new FormControl({value: null, disabled:false}, Validators.required),
+      new FormControl({value: null, disabled:false}, Validators.required),
+      new FormControl({value: null, disabled:false}, Validators.required),
+      new FormControl({value: null, disabled:false}, Validators.required),
+      new FormControl({value: null, disabled:false}, Validators.required),
+      new FormControl({value: null, disabled:false}, Validators.required),
+      new FormControl({value: null, disabled:false}, Validators.required),
+      new FormControl({value: null, disabled:false}, Validators.required),
+      new FormControl({value: null, disabled:false}, Validators.required),
+    ]);
+  }
+
   getTestPeruanoPlan(){  
   this.testPeruanoService.getTestPeruanoPlan(this.data.nroDocumento).subscribe((resp:any)=>{
       if(resp.cod=="2121"){
         this.listaTestPeruano=resp.object
         this.construirMatrisColores()
-        this.displayDialog=true
-        this.arregloForm.reset()
-        this.fechas=[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]
+        // this.displayDialog=true
+        // this.arregloForm.reset()
+        // this.fechas=[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]
         this.listaTestPeruano.forEach((fila,index)=>{
-        if(this.isTodo ){ /* boton ver Todo hace todas las iteciones ,boton ver test solo la iteracion del indexFila enviado  */
-          const edad=this.listaTestPeruano[index].edad
-          const elementoMes=this.listaMeses.find(element=>element==edad)
-          const indice=this.listaMeses.indexOf(elementoMes)
-          const fecha=this.listaTestPeruano[index].fecha
-          this.fechas[indice]=new Date(fecha)
-          this.fechasEvaluadas.push({indice})
-          const test=this.listaTestPeruano[index].calificacion
-          test.forEach((element,index) => {/* x=6,x=11 */
-            const x=element.x-1
-            const y=this.listaMeses.indexOf(element.y)
-            this.getControl(x,y).setValue(true)
-            this.matrisColores[x][y]=`mes${edad}`
-          });
-        }
+        const edad=this.listaTestPeruano[index].edad
+        const elementoMes=this.listaMeses.find(element=>element==edad)
+        const indice=this.listaMeses.indexOf(elementoMes)
+        const fecha=this.listaTestPeruano[index].fecha
+        this.fechas[indice]=new Date(fecha)
+        this.fechasEvaluadas.push({indice})
+        const test=this.listaTestPeruano[index].calificacion
+        test.forEach((element,index) => {/* x=6,x=11 */
+          const x=element.x-1
+          const y=this.listaMeses.indexOf(element.y)
+          this.getControl(x,y).setValue(true)
+          this.matrisColores[x][y]=`mes${edad}`
+        });
+        
       })
       }
-      // if(!this.fechas[this.indexEdadMeses] ){/* hay evaluacion ese mes? */
-      //        console.log('---->entramos en el if');
-      //        this.fechas[this.indexEdadMeses]=new Date(this.data.fechaConsulta)
-      //        this.isAgregable=true
-      // }
+      if(!this.fechas[this.indexEdadMeses] ){/* hay evaluacion ese mes? */
+             console.log('---->entramos en el if');
+             this.fechas[this.indexEdadMeses]=new Date(this.data.fechaConsulta)
+             this.isAgregable=true
+      }
     })
   }
+  isAgregable=false;
   hasTaken:boolean=false;
   arregloTestXConsulta:any[]=[]
-  getTestPeruano(){
+  getTestPeruanoConsulta(){
     this.testPeruanoService.getTestPeruano(this.data.idConsulta).subscribe((resp:any)=>{
       if(resp.cod=="2121"){
         this.hasTaken=true;  
@@ -99,10 +118,6 @@ export class TestPeruanoComponent implements OnInit {
         // this.desabilitarRadios()
         
       }
-      else{
-        this.hasTaken=false
-        //trajimos del constructor
-      }
     })
   }
   
@@ -119,9 +134,29 @@ export class TestPeruanoComponent implements OnInit {
     })
     
   }
-  // openDialog(indexFila?:number){
+  edad:number=0
+  edadMeses:number=0
+  indexEdadMeses:number=0
+  calcularEdades(){
+    this.edad=this.data.anio*12+this.data.mes
     
-  // }
+    if(this.edad<=11){
+      this.edadMeses=this.edad
+    }else if(this.edad<=14){
+      this.edadMeses=12
+    }else if(this.edad<=17){
+      this.edadMeses=15
+    }else if(this.edad<=20){
+      this.edadMeses=18
+    }else if(this.edad<=23){
+      this.edadMeses=21
+    }else if(this.edad<=29){
+      this.edadMeses=24
+    }else if(this.edad==30){
+      this.edadMeses=30
+    }else 
+    this.edadMeses=0 /* no se habilita ningun mes */
+  }
   ruta(sale: any, mes: number) {
     return sale[`img_${mes}`];
   }
@@ -230,6 +265,16 @@ export class TestPeruanoComponent implements OnInit {
       return 'mes24'
     }else {
       return 'mes30'
+    }
+  }
+  mostrarMensaje(){
+    if(!this.isAgregable && this.arregloTestXConsulta.length==0){
+      Swal.fire({
+        icon: 'warning',
+        title: `Ya existe evaluacion para el mes ${this.edadMeses}`,
+        showConfirmButton: false,
+        timer: 2000,
+      })
     }
   }
 }
