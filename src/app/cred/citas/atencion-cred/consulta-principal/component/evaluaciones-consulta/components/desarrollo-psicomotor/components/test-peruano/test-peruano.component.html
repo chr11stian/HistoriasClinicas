@@ -6,7 +6,7 @@
         <ng-template pTemplate="caption">
                 <div class="flex justify-content-between">
                     <div class="table-header mt-2">
-                        RESULTADOS DE TEST DESARROLLO PSICOMOTOR PERUANO {{edadMeses}} meses dwdw
+                        RESULTADOS DE TEST DESARROLLO PSICOMOTOR PERUANO {{edadMeses}} meses
                     </div> 
                     <div *ngIf="arregloTestXConsulta.length==0"> 
                         <button pButton pRipple  [label]="isAgregable?'Evaluar Test':'Ver Test'" icon="pi pi-eye" (click)="displayDialog=true;mostrarMensaje();"
@@ -41,7 +41,7 @@
  </div>
  
  <p-dialog header="TEST DE DESARROLLO PSICOMOTOR PERUANO" [(visible)]="displayDialog" [modal]="true" [style]="{width: '80vw'}" [maximizable]="true" [draggable]="false" [resizable]="false">
- 
+    <!-- start content -->
     <div class="tabla">
         <form [formGroup]="arregloForm">
             <p-table responsiveLayout="scroll"
@@ -98,9 +98,9 @@
                                 <p style="margin:auto 0" class="triangulo"></p>
                             </div>
                         </td>
-                        <td *ngFor="let mes of listaMeses;let j=index" >
+                        <td *ngFor="let mes of listaMeses;let j=index" [ngStyle]="{'background-color':j==indexEdadMeses?'#fcbfba':'white'}">
                             <div [formGroup]="arregloFormRadio">
-                                <p-radioButton *ngIf='fechas[indexEdadMeses] && mes<=edadMeses' [name]="rowIndex" [value]="mes" [formControlName]="rowIndex"  ></p-radioButton>
+                                <p-radioButton *ngIf='isAgregable && mes<=edadMeses' [name]="rowIndex" [value]="mes" [formControlName]="rowIndex"  ></p-radioButton>
                             </div> 
                             <img *ngIf="true;"class="button-menu" [src]="ruta(sale,mes)">
                            
@@ -136,6 +136,11 @@
                 </ng-template>
             </p-table>
         </form>
- 
     </div>
+    <!-- end content -->
+    <ng-template pTemplate="footer">
+        <button *ngIf="isAgregable" pButton pRipple type="button" label="Guardar" style="background-color: #0c3866;" icon="pi pi-save" (click)="save()" iconPos="right"></button>
+        <!-- <button pButton pRipple type="button" label="Cancelar" class="p-button-danger" icon="pi pi-times" (click)="pruebas()" iconPos="right"></button> -->
+    </ng-template>
+
  </p-dialog>

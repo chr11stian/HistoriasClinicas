@@ -277,4 +277,84 @@ export class TestPeruanoComponent implements OnInit {
       })
     }
   }
+  // para el los radios
+  getControlRadio(index: number): AbstractControl {
+    return this.arregloFormRadio.controls[index];
+  }
+  arregloCalificacion() {
+    let arreglo = [];
+    this.imagenes.forEach((element, index) => {
+      let objeto = {
+        // codigo: "A_10",
+        codigo: `${element.letter}_${this.getControlRadio(index).value}`,
+        descripcion: "",
+        actividad: element.texto,
+        x: index + 1,
+        y: this.getControlRadio(index).value,
+      };
+      arreglo.push(objeto);
+    });
+    return arreglo;
+  }
+  encontrarDiagnostico()
+  { 
+    let diagnostico='Normal'
+    const arreglo=this.arregloFormRadio.value;
+    arreglo.forEach(element => {
+      if(element<this.edadMeses)
+      diagnostico='Retraso'
+    });
+    return diagnostico
+  }
+  save() {
+    if (!this.arregloFormRadio.valid) {
+      Swal.fire({
+        icon: "info",
+        title: "Test Peruano",
+        text: "Todas las filas deben estar marcadas",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      return;
+    }
+    const inputRequest = {
+      nombreEvaluacion: "TEST_PERUANO",
+      codigoCIE10: "Z009",
+      codigoHIS: "Z009",
+      codigoPrestacion: "0001",
+      evaluacionDesarrolloMes: {
+        edad: this.edadMeses,
+        fecha: this.datePipe.transform(this.fechas[this.indexEdadMeses], "yyyy-MM-dd HH:mm:ss"),
+        diagnostico: this.encontrarDiagnostico(),
+        docExaminador: "24242424",
+        calificacion: this.arregloCalificacion(),
+      },
+    };
+    Swal.fire({
+      title: 'Esta seguro que desea guardar este registro?',
+      showDenyButton: false,
+      showCancelButton: true,
+      confirmButtonText: 'Guardar',
+      denyButtonText: `Cancelar`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+         this.testPeruanoService.addTestPeruano(this.data.idConsulta, inputRequest).subscribe((res: any) => {
+           if(res.cod=='2121'){
+              Swal.fire({
+                icon: 'success',
+                title: 'Test Peruano',
+                text: `Se guardo existosamente la evaluacion para la edad ${ this.edadMeses} meses`,
+                showConfirmButton: false,
+                timer: 2000,
+              })
+              this.displayDialog=false
+              this.isAgregable=false
+              this.getTestPeruanoPlan();
+              this.getTestPeruanoConsulta();
+              }
+          });
+       }
+    })
+  }
+
 }
