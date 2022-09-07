@@ -6,7 +6,7 @@
         <ng-template pTemplate="caption">
                 <div class="flex justify-content-between">
                     <div class="table-header mt-2">
-                        RESULTADOS DE TEST DESARROLLO PSICOMOTOR PERUANO {{edadMeses}} meses
+                        RESULTADOS DE TEST DESARROLLO PSICOMOTOR PERUANO ({{edad}}) meses
                     </div> 
                     <div *ngIf="arregloTestXConsulta.length==0"> 
                         <button pButton pRipple  [label]="isAgregable?'Evaluar Test':'Ver Test'" icon="pi pi-eye" (click)="displayDialog=true;mostrarMensaje();"

@@ -88,7 +88,7 @@ export class TestPeruanoComponent implements OnInit {
         
       })
       }
-      if(!this.fechas[this.indexEdadMeses] ){/* hay evaluacion ese mes? */
+      if(this.indexEdadMeses!=-1 && !this.fechas[this.indexEdadMeses] ){/* hay evaluacion ese mes? */
              console.log('---->entramos en el if');
              this.fechas[this.indexEdadMeses]=new Date(this.data.fechaConsulta)
              this.isAgregable=true
@@ -155,7 +155,7 @@ export class TestPeruanoComponent implements OnInit {
     }else if(this.edad==30){
       this.edadMeses=30
     }else 
-    this.edadMeses=0 /* no se habilita ningun mes */
+      this.edadMeses=this.edad /* no se habilita ningun mes */
   }
   ruta(sale: any, mes: number) {
     return sale[`img_${mes}`];
@@ -268,7 +268,7 @@ export class TestPeruanoComponent implements OnInit {
     }
   }
   mostrarMensaje(){
-    if(!this.isAgregable && this.arregloTestXConsulta.length==0){
+    if(!this.isAgregable && this.arregloTestXConsulta.length==0 && this.indexEdadMeses>=0){
       Swal.fire({
         icon: 'warning',
         title: `Ya existe evaluacion para el mes ${this.edadMeses}`,
