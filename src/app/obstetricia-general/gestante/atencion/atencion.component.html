@@ -1,67 +1,60 @@
-<div class="">
-    <p-panel>
-        <ng-template pTemplate="header">
+<div style="background: #f8f9fa;padding:20px 50px 20px 50px" >
+    <p-card >
+        <!-- <ng-template pTemplate="header">
             <h4 class="m-1">GESTANTE:</h4>
             <span class="m-1">{{nombreDelGestante}}</span>
-        </ng-template>
-
-        <div class="grid">
-            <div class="col-12 md:col-6 lg:col-9  p-field">
-                <div class="grid">
-                    <div class="col-3">
-                        <div class=" d-flex">
-                            <div class="imagen"></div>
-                        </div>
-                    </div>
-                    <div class="col-9">
-                        <h2 class="font1">{{titleBienvenida}}</h2>
-                        <p class="font2">{{contentBienvenida}}</p>
-                    </div>
+        </ng-template> -->
+        <div class="flex justify-content-center">
+            <div class="col-3">
+                <div class=" d-flex">
+                    <div class="imagen"></div>
                 </div>
             </div>
-            <div class="col-12 md:col-6 lg:col-3  p-field">
-                <div class="grid">
-                    <div class="col-12 md:col-2 lg:col-12" p-field>
-                        <button pButton pRipple type="button" routerLink="plan-atencion"
-                                icon="pi pi-plus-circle" label="PLAN DE ATENCIÓN INTEGRAL"
-                                class="p-button-raised p-button-secondary" (click)="ngOnDestroy()"></button>
-                    </div>
-                </div>
-                <div class="grid">
-                    <div class="col-12 md:col-6 lg:col-12" p-field>
-                        <button pButton pRipple type="button" routerLink="../../consulta"
-                                label="CONSULTAS PRENATALES" icon="pi pi-plus-circle"
-                                class="p-button-raised p-button-secondary"></button>
-                    </div>
-                </div>
-                <div class="grid">
-                    <div class="col-12 md:col-6 lg:col-12" p-field>
-                        <button pButton type="button" pRipple routerLink="examenes"
-                                label="OTROS EXAMENES" icon="pi pi-plus-circle"
-                                class="p-button-raised p-button-secondary"></button>
-                    </div>
-                </div>
-
-                <div class="grid">
-                    <div class="col-12 md:col-6 lg:col-12" p-field>
-                        <button pButton type="button" pRipple routerLink="../planParto"
-                                label="PLAN DE PARTO" icon="pi pi-plus-circle"
-                                class="p-button-raised p-button-secondary"></button>
-                    </div>
-                </div>
-
-                <!-- <div class="grid">
-                    <div class="col-12 md:col-6 lg:col-12" p-field>
-                        <button pButton type="button" pRipple routerLink="../fua"
-                                label="FUA" icon="pi pi-plus-circle"
-                                class="p-button-raised p-button-secondary"></button>
-                    </div>
-                </div> -->
+            <div class="col-8">
+                <h2 class="font1">{{titleBienvenida}}</h2>
+                <p class="font2">{{contentBienvenida}}</p>
             </div>
         </div>
-
-    </p-panel>
+    </p-card>
+    <div class="flex justify-content-between flex-wrap" style=margin-top:10px >
+        <div class="col-12 md:col-6 lg:col-4">
+            <button pButton 
+                    pRipple 
+                    type="button" 
+                    routerLink="plan-atencion"
+                    icon="pi pi-plus-circle" 
+                    label="PLAN DE ATENCIÓN INTEGRAL"
+                    class="p-button-raised p-button-secondary" 
+                    (click)="ngOnDestroy()">
+            </button>
+        </div>
+        <div class="col-12 md:col-6 lg:col-4">
+            <button pButton
+                    pRipple 
+                    type="button" 
+                    routerLink="../../consulta"
+                    label="CONSULTAS PRENATALES" 
+                    icon="pi pi-plus-circle"
+                    class="p-button-raised p-button-secondary">
+            </button>
+        </div>
+        <div class="col-12 md:col-6 lg:col-4">
+            <button pButton 
+                    type="button" 
+                    pRipple 
+                    routerLink="../planParto"
+                    label="PLAN DE PARTO" 
+                    icon="pi pi-plus-circle"
+                    class="p-button-raised p-button-secondary">
+                </button>
+        </div>
+    </div>
 </div>
-
-
+<!-- <div class="grid">
+    <div class="col-12 md:col-6 lg:col-12" p-field>
+        <button pButton type="button" pRipple routerLink="examenes"
+                label="OTROS EXAMENES" icon="pi pi-plus-circle"
+                class="p-button-raised p-button-secondary"></button>
+    </div>
+</div> -->
 

@@ -73,7 +73,7 @@
         text-align: center;
         background: #5B5B5B;
         border-radius: 10px;
-        margin-bottom: 30px;
+        /* margin-bottom: 30px; */
         display: flex;
     }
 }
@@ -169,4 +169,7 @@
     }
 
 
+}
+p-card >>> .p-card {
+  border-radius: 20px;
 }
