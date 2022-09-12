@@ -86,10 +86,10 @@ export class StepGeneralComponent implements OnInit, DoCheck {
             { label: "Datos Generales", styleClass: "icon" },
             { label: "Motivo de Consulta", styleClass: "icon1" },
             { label: "Evaluaciones", styleClass: "icon2" },
-            { label: "Diagnóstico", styleClass: "icon3" },
-            { label: "Exámenes Auxiliares", styleClass: "icon4" },
-            { label: "Tratamiento", styleClass: "icon5" },
-            { label: "Procedimientos", styleClass: "icon6" },
+            { label: "Exámenes Auxiliares", styleClass: "icon3" },
+            { label: "Diagnóstico", styleClass: "icon4" },
+            { label: "Procedimientos", styleClass: "icon5" },
+            { label: "Tratamiento", styleClass: "icon6" },
             { label: "Referencia Calendario", styleClass: "icon7" },
         ];
         this.getQueryParams();
@@ -185,18 +185,20 @@ export class StepGeneralComponent implements OnInit, DoCheck {
                 this.stepName = "finalizar";
                 break;
             case 6:
-                this.stepName = "procedimientos";
-                break;
-            case 5:
+                // this.stepName = "procedimientos";
                 this.stepName = "tratamiento";
                 break;
+            case 5:
+                // this.stepName = "tratamiento";
+                this.stepName = "procedimientos";
+                break;
             case 4:
-                this.stepName = "examenesAux";
-                // this.stepName = 'diagnostico'
+                // this.stepName = "examenesAux";
+                this.stepName = 'diagnostico'
                 break;
             case 3:
-                this.stepName = "diagnostico";
-                // this.stepName = 'examenesAux'
+                // this.stepName = "diagnostico";
+                this.stepName = 'examenesAux'
                 break;
             case 2:
                 this.stepName = "evaluaciones";
@@ -231,34 +233,30 @@ export class StepGeneralComponent implements OnInit, DoCheck {
                 break;
             case "evaluaciones":
                 // this.evaluacionesConsulta.save()
-                this.stepName = "diagnostico";
+                this.stepName = "examenesAux";
                 this.indiceActivo = 3;
                 break;
-
-            case "diagnostico":
-                this.diagnosticoConsulta.SaveDiagnostico();
-                this.stepName = "examenesAux";
+            case "examenesAux":
+                // this.examenesAuxConsulta.saveAuxiliarsExams();
+                this.stepName = "diagnostico";
                 this.indiceActivo = 4;
                 break;
-
-            case "examenesAux":
-                this.examenesAuxConsulta.saveAuxiliarsExams();
-                this.stepName = "tratamiento";
+            case "diagnostico":
+                // this.diagnosticoConsulta.SaveDiagnostico();
+                this.stepName = "procedimientos";
                 this.indiceActivo = 5;
+                break;
+            case "procedimientos":
+                // this.procedimientosConsulta.saveProcedimiento();
+                this.stepName = "tratamiento";
+                this.indiceActivo = 6;
                 break;
 
             case "tratamiento":
                 // this.tratamientoConsulta.save()
-                this.stepName = "procedimientos";
-                this.indiceActivo = 6;
-                break;
-
-            case "procedimientos":
-                this.procedimientosConsulta.saveProcedimiento();
                 this.stepName = "finalizar";
                 this.indiceActivo = 7;
                 break;
-
             case "finalizar":
                 this.finalizarConsulta.save();
                 break;
@@ -270,26 +268,27 @@ export class StepGeneralComponent implements OnInit, DoCheck {
         switch (this.stepName) {
             case "finalizar":
                 console.log("fi ", this.stepName);
-                this.stepName = "procedimientos";
+                this.stepName = "tratamiento";
                 this.indiceActivo = 6;
+                break;
+            case "tratamiento":
+                this.stepName = "procedimientos";
+                this.indiceActivo = 5;
                 break;
             case "procedimientos":
                 console.log("fi ", this.stepName);
-                this.stepName = "tratamiento";
-                this.indiceActivo = 5;
-                break;
-            case "tratamiento":
-                this.stepName = "examenesAux";
+                this.stepName = "diagnostico";
                 this.indiceActivo = 4;
                 break;
-            case "examenesAux":
-                this.stepName = "diagnostico";
+            case "diagnostico":
+                this.stepName = "examenesAux";
                 this.indiceActivo = 3;
                 break;
-            case "diagnostico":
+            case "examenesAux":
                 this.stepName = "evaluaciones";
                 this.indiceActivo = 2;
                 break;
+
             case "evaluaciones":
                 this.stepName = "motivo";
                 this.indiceActivo = 1;
@@ -440,24 +439,24 @@ export class StepGeneralComponent implements OnInit, DoCheck {
         return s == "RN"
             ? "recien nacido"
             : s == "Menor_1A"
-            ? "menor de un año"
-            : s == "1A"
-            ? "un año"
-            : s == "2A"
-            ? "dos años"
-            : s == "3A"
-            ? "tres años"
-            : s == "4A"
-            ? "cuatro años"
-            : s == "5A"
-            ? "cinco años"
-            : s == "6A"
-            ? "seis años"
-            : s == "7A"
-            ? "siete años"
-            : s == "8A"
-            ? "ocho años"
-            : "nueve años";
+                ? "menor de un año"
+                : s == "1A"
+                    ? "un año"
+                    : s == "2A"
+                        ? "dos años"
+                        : s == "3A"
+                            ? "tres años"
+                            : s == "4A"
+                                ? "cuatro años"
+                                : s == "5A"
+                                    ? "cinco años"
+                                    : s == "6A"
+                                        ? "seis años"
+                                        : s == "7A"
+                                            ? "siete años"
+                                            : s == "8A"
+                                                ? "ocho años"
+                                                : "nueve años";
     }
 }
 
