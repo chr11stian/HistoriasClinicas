@@ -12,6 +12,7 @@ import { AbrirCajaComponent } from './abrir-caja/abrir-caja.component';
 import { TabsCajaComponent } from './tabs-caja/tabs-caja.component';
 import { PagoLaboratorioComponent } from './pago-laboratorio/pago-laboratorio.component';
 
+
 @NgModule({
     declarations: [
         PagosComponent,
