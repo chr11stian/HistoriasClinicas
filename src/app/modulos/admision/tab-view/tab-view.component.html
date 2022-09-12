@@ -1,5 +1,5 @@
 <div class="card">
-    <p-tabView>
+    <p-tabView (onChange)="handleChange($event)">
         <p-tabPanel header="GENERAR OFERTAS">
                 <app-generar-ofertas></app-generar-ofertas>
         </p-tabPanel>
@@ -18,8 +18,8 @@
                 <app-citas></app-citas>
             </ng-template>
         </p-tabPanel>
-        <!--<p-tabPanel header="INTERCONSULTA">
+        <p-tabPanel header="INTERCONSULTA">
             <app-interconsulta></app-interconsulta>
-        </p-tabPanel>-->
+        </p-tabPanel>
     </p-tabView>
 </div>

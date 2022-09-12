@@ -34,7 +34,7 @@ export class GestanteComponent implements OnInit {
     dataPacientesReniec: any;
     imagePath: string = image;
     dataGestante: any;
-    downloadLink: string = 'http://190.108.93.145:8200/jasperserver/rest_v2/reports/Reports/v1/cartillacontrol/carnet_control.pdf?authorization=' + JSON.parse(localStorage.getItem('token')).token;
+    downloadLink: string = 'http://190.108.93.150:8200/jasperserver/rest_v2/reports/Reports/v1/cartillacontrol/carnet_control.pdf?authorization=' + JSON.parse(localStorage.getItem('token')).token;
     // token:string = JSON.parse(localStorage.getItem('token')).token;
 
 

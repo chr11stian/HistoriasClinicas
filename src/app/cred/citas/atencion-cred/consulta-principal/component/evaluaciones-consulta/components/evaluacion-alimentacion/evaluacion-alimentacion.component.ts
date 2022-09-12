@@ -7,18 +7,12 @@ import {dato} from "../../../../../../models/data";
 import {MessageService} from "primeng/api";
 import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
 import { listaPregunta } from '../desarrollo-psicomotor/components/models/tepsi';
-
 @Component({
   selector: 'app-evaluacion-alimentacion',
   templateUrl: './evaluacion-alimentacion.component.html',
   styleUrls: ['./evaluacion-alimentacion.component.css']
 })
 export class EvaluacionAlimentacionComponent implements OnInit {
-  fecha:Date=new Date();
-  datePipe = new DatePipe("en-US");
-  data=JSON.parse(localStorage.getItem('documento'))
-  arregloForm: FormGroup;
-  evaluacionAlimenticia=[];
   listaMesesEvaluar=[{texto:'RN',numero:0},{texto:'1m',numero:1}
   ,{texto:'2m',numero:2},{texto:'3m',numero:3}
   ,{texto:'4m',numero:4},{texto:'5m',numero:5}
@@ -52,16 +46,32 @@ export class EvaluacionAlimentacionComponent implements OnInit {
   {codigo:'PREG_16',titulo:'16. ¿Cuántos sobres de micronutrientes consumio en el mes?'},
   {codigo:'OBS',titulo:'Observaciones'},
   ]
-  edadMeses:number=0;//edad real en meses
-  edad:number=0;//edad evaluada en el rango de edades
+  datePipe = new DatePipe("en-US");
+  data=JSON.parse(localStorage.getItem('documento'))
+  arregloForm: FormGroup;
+  evaluacionAlimenticia=[];
+  edadMeses:number=0;//edad con la que podria se evaluada menor posible
+  indexEdadMeses:number=0
+  edadCalculada:number=0;//edad que real que se tiene en meses
   displayDialog:boolean=false;
+  fechas:any[]=[]
+  isAgregable:boolean
+  arregloTestXConsulta=[]
+  arregloTestXDNI=[]
   constructor(private evaluacionAlimentacionService: EvaluacionAlimentacionService){
+    this.inicializaVariables()
     this.buildFormArray()
-    this.edadMeses=this.data.anio*12+this.data.mes   
-    // this.edadMeses=0; 
+    this.edadCalculada=this.data.anio*12+this.data.mes
+    this.determinarEdadEvaluada();
+    this.indexEdadMeses=this.listaMesesEvaluar.indexOf(this.listaMesesEvaluar.find((element)=>element.numero==this.edadMeses))
+  }
+  inicializaVariables(){ 
+    this.fechas=[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]
+    this.isAgregable=false;
+    this.arregloTestXConsulta=[] /* 1 registro */
   }
   ngOnInit(): void {
-      this.getTestAlimentacion()
+      this.getTestAlimentacionPlan()
   } 
   buildFormArray() {
     this.arregloForm = new FormGroup({});
@@ -78,25 +88,76 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     const B:any=A.controls[j] 
     return B
   }
-  hasTaken:boolean=false
-  arregloTest=[]
+  determinarEdadEvaluada(){
+    if(this.edadCalculada<=12){
+      this.edadMeses=this.edadCalculada;
+    } else if(this.edadCalculada<=13){
+      this.edadMeses=12;
+    } else if(this.edadCalculada<=15){
+      this.edadMeses=14
+    } else if(this.edadCalculada<=17){
+      this.edadMeses=16
+    }else if(this.edadCalculada<=19){
+      this.edadMeses=18
+    }else if(this.edadCalculada<=21){
+      this.edadMeses=20
+    }else if(this.edadCalculada<=23){
+      this.edadMeses=22
+    }else if(this.edadCalculada<=26){
+      this.edadMeses=24
+    }else if(this.edadCalculada<=29){
+      this.edadMeses=27
+    }else if(this.edadCalculada<=32){
+      this.edadMeses=30
+    }else if(this.edadCalculada<=35){
+      this.edadMeses=33
+    }else if(this.edadCalculada<=38){
+      this.edadMeses=36
+    }else if(this.edadCalculada<=41){
+      this.edadMeses=39
+    }else if(this.edadCalculada==42){
+      this.edadMeses=42
+    } else this.edadMeses=43 /* no se habilita ningun mes */
+}
+  
+  getTestAlimentacionPlan(){
+    this.evaluacionAlimentacionService.getEvaluacionAlimenticiaCredPlan(this.data.nroDocumento).subscribe((resp:any)=>{
+        if(resp.cod=='2121'){
+            this.arregloTestXDNI=resp.object
+            this.arregloTestXDNI.forEach((fila,index)=>{
+                const edadMeses=fila.edad
+                const indexEdadMeses=this.listaMesesEvaluar.indexOf(this.listaMesesEvaluar.find(element=>element.numero==edadMeses))
+                this.fechas[indexEdadMeses]=new Date(fila.fechaRegistro)
+                const test=fila.listaPreguntas
+                test.forEach((element,index) => {
+                    this.getControl(index,indexEdadMeses).setValue(element.estado)
+                });
+                this.desabilitarCheckButton(indexEdadMeses)
+                /* probando */
+          })
+          
+        }
+        if(!this.fechas[this.indexEdadMeses] ){/* hay evaluacion ese mes? */
+             console.log('---->entramos en el if');
+             this.fechas[this.indexEdadMeses]=new Date(this.data.fechaConsulta)
+             this.isAgregable=true
+        }
+    })
+    this.getTestAlimentacion()
+    //determinamos si hay la posibilidad de agregar un test para el presente mes(vip)
+  
+    
+  }
   getTestAlimentacion(){
     this.evaluacionAlimentacionService.getEvaluacionAlimenticiaCred(this.data.idConsulta).subscribe((resp:any)=>{
       if(resp.cod=='2121' && resp.object!=null){
-        this.hasTaken=true
-        this.edadMeses=resp.object.evaluacionAlimentacionMes.edad//cambiamos al mes recuperado
         const ObjetoAlimentacion={
           fecha:resp.object.evaluacionAlimentacionMes.fechaRegistro,
           edad:resp.object.evaluacionAlimentacionMes.edad,
           diagnostico:resp.object.evaluacionAlimentacionMes.diagnostico
         }
-        this.arregloTest.push(ObjetoAlimentacion)
-        const preguntasArreglo:any[]=resp.object.evaluacionAlimentacionMes.listaPreguntas;
-        preguntasArreglo.forEach((element,index)=>{
-          this.getControl(index,this.edadMeses).setValue(element.estado)
-        })
-        this.fecha=new Date(resp.object.evaluacionAlimentacionMes.fechaRegistro)
-        this.desabilitarCheckButton();
+        this.arregloTestXConsulta.push(ObjetoAlimentacion)
+        // this.isAgregable=false
       }
     })
   }
@@ -107,24 +168,13 @@ export class EvaluacionAlimentacionComponent implements OnInit {
       codigoHIS:"Z0017",
       codigoPrestacion:"0001",
       evaluacionAlimentacionMes:{
-          "fechaRegistro": this.datePipe.transform(this.fecha,'yyyy-MM-dd HH:mm:ss'),
+          "fechaRegistro": this.datePipe.transform(this.fechas[this.indexEdadMeses],'yyyy-MM-dd HH:mm:ss'),
           "edad": this.edadMeses,
           "docExaminador":"24242424",
           "listaPreguntas":this.arregloCalificacion(),
           "diagnostico":this.calcularDiagnostico()
       }
     }
-    // if(true){
-
-    //     Swal.fire({
-    //       icon: 'error',
-    //       title: 'Ingrese la Fecha',
-    //       text: '¡Es necesaria la fecha!',
-    //       showConfirmButton: false,
-    //       timer: 1000,
-    //     })
-    //     return 
-    //   }
     Swal.fire({
       title: 'Esta seguro que desea guardar este test?',
       icon: 'info',
@@ -133,26 +183,29 @@ export class EvaluacionAlimentacionComponent implements OnInit {
       confirmButtonText: 'Guardar',
     }).then((result) => {
       if (result.isConfirmed) {
-         this.evaluacionAlimentacionService.addEvaluacionAlimenticiaCred(this.data.idConsulta,inputRequest).subscribe((res: any) => {
-         Swal.fire({
-           icon: 'success',
-           title: 'Registro Agregado',
-           showConfirmButton: false,
-           timer: 1500,
+          this.evaluacionAlimentacionService.addEvaluacionAlimenticiaCred(this.data.idConsulta,inputRequest).subscribe((res: any) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Registro Agregado',
+            showConfirmButton: false,
+            timer: 1500,
+          })
+          this.displayDialog=false
+          this.inicializaVariables()
+          this.getTestAlimentacionPlan()
+
+          //determinamo
+          
          })
-         this.displayDialog=false
-         this.getTestAlimentacion()
-        })
       }
     })
   }
   arregloCalificacion() {
-    const numeroColumna=this.edadMeses
     const arreglo = [];
     this.listaPreguntas.forEach((element,index)=>{
       const objeto={
         codigo:this.listaPreguntas[index].codigo,
-        estado:this.getControl(index,numeroColumna).value,
+        estado:this.getControl(index,this.indexEdadMeses).value,
         descripcion:this.listaPreguntas[index].titulo
       }
       arreglo.push(objeto)
@@ -180,7 +233,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
   calcularDiagnostico(){
     if(this.edadMeses<=6)
     {
-      if(this.getControl(0,this.edadMeses).value==true && this.getControl(1,this.edadMeses).value==true && this.getControl(2,this.edadMeses).value==true && this.getControl(3,this.edadMeses).value!=true && this.getControl(4,this.edadMeses).value!=true && this.getControl(5,this.edadMeses).value!=true){
+      if(this.getControl(0,this.indexEdadMeses).value==true && this.getControl(1,this.indexEdadMeses).value==true && this.getControl(2,this.indexEdadMeses).value==true && this.getControl(3,this.indexEdadMeses).value!=true && this.getControl(4,this.indexEdadMeses).value!=true && this.getControl(5,this.indexEdadMeses).value!=true){
           return 'NINO CON LACTANCIA MATERNA CONTINUADA'
       }
       else 
@@ -188,31 +241,44 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     }
     else
     {
-      if(this.edadMeses>=7 && this.edadMeses <=22){
-          if(this.getControl(0,this.edadMeses).value==true  && this.getControl(3,this.edadMeses).value==true && this.getControl(4,this.edadMeses).value==true && this.getControl(5,this.edadMeses).value==true && this.getControl(6,this.edadMeses).value==true && this.getControl(7,this.edadMeses).value==true && this.getControl(8,this.edadMeses).value==true && this.getControl(9,this.edadMeses).value==true && this.getControl(1,this.edadMeses).value==true && this.getControl(1,this.edadMeses).value==true && this.getControl(1,this.edadMeses).value==true && this.getControl(1,this.edadMeses).value==true){
+      if(this.indexEdadMeses>=7 && this.indexEdadMeses <=22){
+          if(this.getControl(0,this.indexEdadMeses).value==true  && this.getControl(3,this.indexEdadMeses).value==true && this.getControl(4,this.indexEdadMeses).value==true && this.getControl(5,this.indexEdadMeses).value==true && this.getControl(6,this.indexEdadMeses).value==true && this.getControl(7,this.indexEdadMeses).value==true && this.getControl(8,this.indexEdadMeses).value==true && this.getControl(9,this.indexEdadMeses).value==true && this.getControl(1,this.indexEdadMeses).value==true && this.getControl(1,this.indexEdadMeses).value==true && this.getControl(1,this.indexEdadMeses).value==true && this.getControl(1,this.indexEdadMeses).value==true){
             return 'NINO CON ALIMENTACION COMPLEMENTARIA ADECUADA'
           }
           else return 'NINO CON ALIMENTACION COMPLEMENTARIA INADECUADA'
       }
       else
-      if(this.getControl(6,this.edadMeses).value==true && this.getControl(7,this.edadMeses).value==true && this.getControl(8,this.edadMeses).value==true && this.getControl(9,this.edadMeses).value==true && this.getControl(1,this.edadMeses).value==true && this.getControl(1,this.edadMeses).value==true && this.getControl(1,this.edadMeses).value==true && this.getControl(1,this.edadMeses).value==true){
+      if(this.getControl(6,this.indexEdadMeses).value==true && this.getControl(7,this.indexEdadMeses).value==true && this.getControl(8,this.indexEdadMeses).value==true && this.getControl(9,this.indexEdadMeses).value==true && this.getControl(1,this.indexEdadMeses).value==true && this.getControl(1,this.indexEdadMeses).value==true && this.getControl(1,this.indexEdadMeses).value==true && this.getControl(1,this.indexEdadMeses).value==true){
         return 'NINO CON ALIMENTACION COMPLEMENTARIA ADECUADA'
       }
       else return 'NINO CON ALIMENTACION COMPLEMENTARIA INADECUADA'
     }
 
   }
-  desabilitarCheckButton(){
+  desabilitarCheckButton(indexEdad){
     this.listaPreguntas.forEach((element,index)=>{
-      this.getControl(index,this.edadMeses).disable()
+      this.getControl(index,indexEdad).disable()
     })
   }
   sombrear(i,j){
     if((i>=6 && i<14 && j<7)||(i==15 && j<7) ) {
-      return '#b6b6b6'
+      return '#dddddd'
     }
     else {
+      if(j==this.indexEdadMeses)
+      return '#fcbfba'
+      else
       return 'white'
+    }
+  }
+  mostrarMensaje(){
+    if(!this.isAgregable && this.arregloTestXConsulta.length==0){
+      Swal.fire({
+        icon: 'warning',
+        title: `Ya existe evaluacion para el mes ${this.edadMeses}`,
+        showConfirmButton: false,
+        timer: 1500,
+      })
     }
   }
 }

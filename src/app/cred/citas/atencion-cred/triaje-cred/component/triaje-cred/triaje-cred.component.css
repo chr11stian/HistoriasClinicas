@@ -94,3 +94,11 @@ p-calendar >>> .p-button {
 p-toolbar >>> * {
     align-self: center;
 }
+.dato-error{
+    color: red;
+}
+
+::ng-deep .p-disabled, .p-component:disabled,
+::ng-deep .p-calendar-disabled .p-inputtext {
+    opacity: 1;
+}
