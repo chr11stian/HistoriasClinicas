@@ -342,7 +342,7 @@
               <td style="text-align: center;">{{ rowData.tipoDiagnostico }}</td>
               <td style="text-align: center">
                 <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                  (click)="eliminarInterconsulta(rowData.idCupos,rowIndex)" pTooltip="Eliminar"></button>
+                  (click)="deleteItemOfArray(i,0)" pTooltip="Eliminar" tooltipPosition="top"></button>
               </td>
             </tr>
           </ng-template>
@@ -426,7 +426,7 @@
               <td style="text-align: center;">{{ rowData.lab }}</td>
               <td style="text-align: center">
                 <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                  (click)="eliminarInterconsulta(rowData.idCupos,rowIndex)" pTooltip="Eliminar"></button>
+                  (click)="deleteItemOfArray(i, 1)" pTooltip="Eliminar" tooltipPosition="top"></button>
               </td>
             </tr>
           </ng-template>

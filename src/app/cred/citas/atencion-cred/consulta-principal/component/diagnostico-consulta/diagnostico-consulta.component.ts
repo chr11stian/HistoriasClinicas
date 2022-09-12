@@ -176,6 +176,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
     /* lista interconsulta */
     this.listaInterconsulta();
     this.getUpsPerIpress();
+    this.recoverConsultationDiagnostic();
   }
 
   buildForm() {
@@ -432,8 +433,40 @@ export class DiagnosticoConsultaComponent implements OnInit {
   SaveDiagnostico(): void {
     this.mergeArrayDiagnostic(this.arrayDiagnosticFUA, this.arrayDiagnosticHIS, this.arrayDiagnosticSave);
     this.DiagnosticoService.postPromiseDiagnostico(this.patientData.idConsulta, this.arrayDiagnosticSave).then(res => {
-      console.log('data saved');
+
     })
+  }
+
+  recoverConsultationDiagnostic() {
+    this.DiagnosticoService.getPromiseDiagnosticPerConsultation(this.dataConsulta.idConsulta).then(res => {
+      let dataRes: DiagnosticSave[] = res.object;
+      dataRes.forEach(item => {
+        if (item.codPrestacion != null) {
+          let diagnostic: DiagnosticFUA = {
+            codPrestacion: item.codPrestacion,
+            diagnostico: item.diagnosticoSIS,
+            CIE10: item.cie10SIS,
+            tipoDiagnostico: item.tipo
+          }
+          this.arrayDiagnosticFUA.push(diagnostic);
+        } else {
+          let diagnostic: DiagnosticHIS = {
+            nombreUPS: item.nombreUPS,
+            nombreUPSaux: item.nombreUPSaux,
+            diagnosticoHIS: item.diagnosticoHIS,
+            tipoDiagnostico: item.tipo,
+            CIE10: item.cie10HIS,
+            lab: item.lab
+          }
+          this.arrayDiagnosticHIS.push(diagnostic);
+        }
+      })
+    })
+  }
+
+  deleteItemOfArray(index: number, type: number): void {
+    /**type:0=> lista de diagnosticos FUA; 1=> lista de diagnosticos HIS */
+    type == 0 ? this.arrayDiagnosticFUA.splice(index, 1) : this.arrayDiagnosticHIS.splice(index, 1);
   }
 }
 interface diagnosticoInterface {
