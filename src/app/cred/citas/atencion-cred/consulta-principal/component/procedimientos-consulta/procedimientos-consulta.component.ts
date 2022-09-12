@@ -15,6 +15,7 @@ import { DatePipe } from "@angular/common";
 import { dato, outputTriajeInterface, proxCita } from "../../../../models/data";
 import { ConsultaGeneralService } from "../../services/consulta-general.service";
 import { RolGuardiaService } from "src/app/core/services/rol-guardia/rol-guardia.service";
+import { Procedure, ProcedureFUA, ProcedureHIS, ProcedurePrestation, ProceduresSave } from "../../models/FUAHIS";
 // import { data } from "vis-network";
 
 @Component({
@@ -23,6 +24,8 @@ import { RolGuardiaService } from "src/app/core/services/rol-guardia/rol-guardia
     styleUrls: ["./procedimientos-consulta.component.css"],
 })
 export class ProcedimientosConsultaComponent implements OnInit {
+
+    //
     selectedProducts: resultados[];
     tablaResumenDx: resultados[] = [];
     attributeLocalS = "documento";
@@ -70,6 +73,17 @@ export class ProcedimientosConsultaComponent implements OnInit {
         { name: "Nivel 4", code: "Nivel 4" },
         { name: "Nivel 5", code: "Nivel 5" },
     ];
+
+    /**new var */
+    arrayDiagnosticType: any[] = [];
+    arrayUPS: UPS[] = [];
+    arrayUPSAux: UPSaux[] = [];
+    arrayProcedureHIS: ProcedureHIS[] = [];
+    arrayProcedureSIS: ProcedureFUA[] = [];
+    arrayPrestationCode: ProcedurePrestation[] = [];
+    listProcedures: Procedure[] = [];
+    arrayProcedureSave: ProceduresSave[] = [];
+
     constructor(
         private rolGuardiaService: RolGuardiaService,
         private consultaGeneralService: ConsultaGeneralService,
@@ -90,7 +104,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
         this.idIpress = JSON.parse(
             localStorage.getItem("usuario")
         ).ipress.idIpress;
-        this.tipoList = [
+        this.arrayDiagnosticType = [
             { label: "DEFINITIVO", value: "D" },
             { label: "PRESUNTIVO", value: "P" },
             { label: "REPETITIVO", value: "R" },
@@ -168,26 +182,35 @@ export class ProcedimientosConsultaComponent implements OnInit {
         ];
         /* lista interconsulta */
         this.listaInterconsulta();
+        this.recoverPrestationData();
     }
 
     buildForm() {
         this.formProcedimiento = this.formBuilder.group({
             nro: new FormControl(""),
             buscarPDxSIS: [""],
-            buscarPDxHIS: [""],
+
             diagnostico: new FormControl("", [Validators.required]),
             prestacion: new FormControl("", [Validators.required]),
             procedimientoSIS: new FormControl("", [Validators.required]),
-            procedimientoHIS: new FormControl("", [Validators.required]),
+
             codProcedimientoSIS: new FormControl("", [Validators.required]),
-            codProcedimientoHIS: new FormControl("", [Validators.required]),
             codPrestacion: new FormControl("", [Validators.required]),
-            nombreUPS: new FormControl("", [Validators.required]),
-            nombreUPSaux: new FormControl("", [Validators.required]),
-            lab: new FormControl("", [Validators.required]),
+
+
+
             tipoDiagnostico: new FormControl("", [Validators.required]),
             cie10SIS: new FormControl("", [Validators.required]),
             resultadoFUA: new FormControl("", [Validators.required]),
+
+            nombreUPS: new FormControl("", [Validators.required]),
+            nombreUPSaux: new FormControl("", [Validators.required]),
+            tipoDiagnosticoHIS: new FormControl(""),
+            tipoDiagnosticoSIS: new FormControl(""),
+            lab: new FormControl(""),
+            buscarPDxHIS: new FormControl(""),
+            codProcedimientoHIS: new FormControl("", [Validators.required]),
+            procedimientoHIS: new FormControl("", [Validators.required]),
         });
 
         /* Interconsulta */
@@ -198,29 +221,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
             urgencia: new FormControl({ value: "", disabled: false }, []),
         });
     }
-    /** Servicios para recuperar lista de ups Aux por ipress***/
-    recuperarUpsHis() {
-        let data = {
-            idIpress: this.idIpress,
-            edad: this.dataConsulta.anio,
-            sexo: this.dataConsulta.sexo,
-        };
-        this.DiagnosticoService.listaUpsHis(data).then(
-            (res: any) => (this.listaUpsHis = res.object)
-        );
-    }
-    /** Servicios para recuperar lista de ups Aux por ipress***/
-    recuperarUpsAuxHis() {
-        this.UpsAuxService.getUpsAuxPorIpress(this.idIpress).subscribe(
-            (r: any) => {
-                if (r.object != null) {
-                    this.listaUpsAuxHis = r.object.filter(
-                        (element) => element.estado == true
-                    );
-                }
-            }
-        );
-    }
+
 
     recuperarDxBD() {
         this.DiagnosticoService.getProcedimiento(
@@ -297,7 +298,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
             this.dataConsulta.idConsulta
         ).subscribe((r: any) => {
             //-- recupera laboratorios resumen
-            if (r.object != null || r.object != []) {
+            if (r.object != null || r.length > 0) {
                 this.loading = false;
                 for (let i = 0; i < r.object.length; i++) {
                     let resu0: string = " ";
@@ -345,7 +346,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
             this.dataConsulta.idConsulta
         ).subscribe((r: any) => {
             //-- recupera laboratorios resumen
-            if (r.object != null || r.object != []) {
+            if (r.object != null || r.length > 0) {
                 this.loading = false;
                 for (let i = 0; i < r.object.length; i++) {
                     let aux = {
@@ -368,7 +369,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
         this.DiagnosticoService.getTamizajesResumen(
             this.dataConsulta.idConsulta
         ).subscribe((r: any) => {
-            if (r.object != null || r.object != []) {
+            if (r.object != null || r.length > 0) {
                 this.loading = false;
                 for (let i = 0; i < r.object.length; i++) {
                     let aux = {
@@ -399,7 +400,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
             this.dataConsulta.idConsulta
         ).subscribe((r: any) => {
             //-- recupera laboratorios resumen
-            if (r.object != null || r.object != []) {
+            if (r.object != null || r.length > 0) {
                 this.loading = false;
                 for (let i = 0; i < r.object.length; i++) {
                     if (r.object[i].evaluacioAlimentacion) {
@@ -712,74 +713,6 @@ export class ProcedimientosConsultaComponent implements OnInit {
         });
     }
 
-    onChangePrestacion() {
-        let codigoPrestacion: any;
-        codigoPrestacion = this.formProcedimiento.value.prestacion.codigo;
-        this.formProcedimiento.patchValue({ procedimientoSIS: "" });
-        this.formProcedimiento.patchValue({ codigoSIS: "" });
-        this.PrestacionService.getDiagnosticoPorCodigo(
-            codigoPrestacion
-        ).subscribe((res: any) => {
-            this.listaDeCIESIS = res.object.procedimientos;
-
-            console.log(res.object);
-            if (res.object.denominacion == "ANIOS") {
-                if (
-                    this.dataConsulta.anio >= res.object.edadMin &&
-                    this.dataConsulta.anio <= res.object.edadMax
-                ) {
-                    this.listaDeCIESIS = res.object.procedimientos;
-                } else {
-                    this.messageService.add({
-                        severity: "error",
-                        summary: "Cuidado",
-                        detail: "No hay diagnosticos disponibles para la edad del niño(a) en esta Prestación.",
-                    });
-                }
-            }
-            if (res.object.denominacion == "MESES") {
-                let meses =
-                    this.dataConsulta.anio * 12 +
-                    this.dataConsulta.mes +
-                    this.dataConsulta.dia / 30;
-                if (
-                    meses >= res.object.edadMin &&
-                    meses <= res.object.edadMax
-                ) {
-                    this.listaDeCIESIS = res.object.procedimientos;
-                } else {
-                    this.messageService.add({
-                        severity: "error",
-                        summary: "Cuidado!",
-                        detail: "No hay diagnosticos disponibles para la edad del niño(a) en esta Prestación.",
-                    });
-                }
-            }
-            if (res.object.denominacion == "DIAS") {
-                if (this.dataConsulta.anio == 0 && this.dataConsulta.mes == 0) {
-                    if (
-                        this.dataConsulta.dia >= res.object.edadMin &&
-                        this.dataConsulta.dia <= res.object.edadMax
-                    ) {
-                        this.listaDeCIESIS = res.object.procedimientos;
-                    } else {
-                        this.messageService.add({
-                            severity: "error",
-                            summary: "Cuidado!",
-                            detail: "No hay diagnosticos disponibles para la edad del niño(a) en esta Prestación.",
-                        });
-                    }
-                } else {
-                    this.messageService.add({
-                        severity: "error",
-                        summary: "Cuidado!",
-                        detail: "No hay diagnosticos disponibles para la edad del niño(a) en esta Prestación.",
-                    });
-                }
-            }
-        });
-    }
-
     selectDxSIS(event) {
         console.log(this.formProcedimiento.value.buscarPDxSIS);
         this.formProcedimiento.patchValue({
@@ -1001,6 +934,103 @@ export class ProcedimientosConsultaComponent implements OnInit {
             });
         }
     }
+    recoverPrestationData(): void {
+        this.DiagnosticoService.getPrestationPerIdConsulta(this.dataConsulta.idConsulta).then(res => {
+            this.arrayPrestationCode = res.object;
+        });
+    }
+    onChangePrestacion() {
+        let prestation = this.formProcedimiento.value.prestacion;
+        this.listProcedures = prestation.procedimientos;
+        console.log('lista de proced ', this.listProcedures);
+    }
+
+    /** Servicios para recuperar lista de ups Aux por ipress***/
+    recuperarUpsHis() {
+        let data = {
+            idIpress: this.idIpress,
+            edad: this.dataConsulta.anio,
+            sexo: this.dataConsulta.sexo,
+        };
+        this.DiagnosticoService.listaUpsHis(data).then(
+            (res: any) => (this.arrayUPS = res.object)
+        );
+    }
+    /** Servicios para recuperar lista de ups Aux por ipress***/
+    recuperarUpsAuxHis() {
+        this.UpsAuxService.getUpsAuxPorIpress(this.idIpress).subscribe(
+            (r: any) => {
+                if (r.object != null) {
+                    this.arrayUPSAux = r.object.filter(
+                        (element) => element.estado == true
+                    );
+                }
+            }
+        );
+    }
+
+    agregateProcedureSIS(): void {
+        let procedureSIS: ProcedureFUA = {
+            codPrestacion: this.formProcedimiento.value.prestacion.codPrestacion,
+            tipoDiagnostico: this.formProcedimiento.value.tipoDiagnosticoSIS,
+            procedimientoSIS: this.formProcedimiento.value.procedimientoSIS,
+            cie10SIS: this.formProcedimiento.value.codProcedimientoSIS.codigo,
+            codProcedimientoSIS: this.formProcedimiento.value.codProcedimientoSIS.codigo,
+        }
+        this.arrayProcedureSIS.push(procedureSIS);
+    }
+
+    agregateProcedureHIS(): void {
+        let HISprocedure: ProcedureHIS = {
+            nombreUPS: this.formProcedimiento.value.nombreUPS.nombreUPS,
+            nombreUPSaux: this.formProcedimiento.value.nombreUPSaux.nombre,
+            tipoDiagnostico: this.formProcedimiento.value.tipoDiagnosticoHIS,
+            lab: this.formProcedimiento.value.lab,
+            codProcedimientoHIS: this.formProcedimiento.value.codProcedimientoHIS.codigoItem,
+            procedimientosHIS: this.formProcedimiento.value.procedimientoHIS,
+        }
+        this.arrayProcedureHIS.push(HISprocedure);
+    }
+    mergeArrayProcedures(procedimientoSIS: ProcedureFUA[], procedimientoHIS: ProcedureHIS[], procedimientos: ProceduresSave[]) {
+        procedimientoSIS.forEach(item => {
+            let auxProcedure: ProceduresSave = {
+                procedimientosSIS: item.procedimientoSIS,
+                codProcedimientoSIS: item.codProcedimientoSIS,
+                codPrestacion: item.codPrestacion,
+                cie10SIS: item.cie10SIS,
+                procedimientosHIS: null,
+                codProcedimientosHIS: null,
+                nombreUPS: null,
+                nombreUPSaux: null,
+                tipo: item.tipoDiagnostico,
+                lab: null
+            }
+            procedimientos.push(auxProcedure)
+        });
+        
+        procedimientoHIS.forEach(item => {
+            let auxProcedure: ProceduresSave = {
+                procedimientosSIS: null,
+                codProcedimientoSIS: null,
+                codPrestacion: null,
+                cie10SIS: null,
+                procedimientosHIS: item.procedimientosHIS,
+                codProcedimientosHIS: item.codProcedimientoHIS,
+                nombreUPS: item.nombreUPS,
+                nombreUPSaux: item.nombreUPSaux,
+                tipo: item.tipoDiagnostico,
+                lab: item.lab
+            }
+            procedimientos.push(auxProcedure)
+        })
+    }
+
+    saveProcedures(): void {
+        this.mergeArrayProcedures(this.arrayProcedureSIS, this.arrayProcedureHIS, this.arrayProcedureSave);
+        this.DiagnosticoService.postSaveProcedure(this.dataConsulta.idConsulta, this.arrayProcedureSave).then(res => {
+            console.log('data saved');
+        })
+    }
 }
 interface resultados {
     nombre?: string;
@@ -1016,4 +1046,16 @@ interface procedimiento {
     codPrestacion?: string;
     resultadoFua?: string;
     lab?: string;
+}
+interface UPS {
+    codUPS: string;
+    nombreUPS: string;
+}
+interface UPSaux {
+    estado: boolean;
+    nombre: string;
+}
+interface Lista {
+    label: string;
+    value: string;
 }
