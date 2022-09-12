@@ -15,7 +15,6 @@ import { DatePipe } from "@angular/common";
 import { dato, outputTriajeInterface, proxCita } from "../../../../models/data";
 import { ConsultaGeneralService } from "../../services/consulta-general.service";
 import { RolGuardiaService } from "src/app/core/services/rol-guardia/rol-guardia.service";
-import { data } from "vis-network";
 
 @Component({
     selector: "app-procedimientos-consulta",
