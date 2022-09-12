@@ -978,6 +978,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
             codProcedimientoSIS: this.formProcedimiento.value.codProcedimientoSIS.codigo,
         }
         this.arrayProcedureSIS.push(procedureSIS);
+        this.formProcedimiento.reset();
     }
 
     agregateProcedureHIS(): void {
@@ -990,6 +991,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
             procedimientosHIS: this.formProcedimiento.value.procedimientoHIS,
         }
         this.arrayProcedureHIS.push(HISprocedure);
+        this.formProcedimiento.reset();
     }
     mergeArrayProcedures(procedimientoSIS: ProcedureFUA[], procedimientoHIS: ProcedureHIS[], procedimientos: ProceduresSave[]) {
         procedimientoSIS.forEach(item => {
@@ -1007,7 +1009,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
             }
             procedimientos.push(auxProcedure)
         });
-        
+
         procedimientoHIS.forEach(item => {
             let auxProcedure: ProceduresSave = {
                 procedimientosSIS: null,
@@ -1022,14 +1024,19 @@ export class ProcedimientosConsultaComponent implements OnInit {
                 lab: item.lab
             }
             procedimientos.push(auxProcedure)
-        })
+        });
     }
 
     saveProcedures(): void {
         this.mergeArrayProcedures(this.arrayProcedureSIS, this.arrayProcedureHIS, this.arrayProcedureSave);
         this.DiagnosticoService.postSaveProcedure(this.dataConsulta.idConsulta, this.arrayProcedureSave).then(res => {
             console.log('data saved');
-        })
+        });
+    }
+
+    deleteItemOfArray(index: number, type: number): void {
+        /**type:0=> lista de diagnosticos FUA; 1=> lista de diagnosticos HIS */
+        type == 0 ? this.arrayProcedureSIS.splice(index, 1) : this.arrayProcedureHIS.splice(index, 1);
     }
 }
 interface resultados {
