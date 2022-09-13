@@ -11,18 +11,18 @@ export class PesoGestanteGraphService {
 
     getDataSobrepesoGestanteGraph() {
         return this.http
-            .get<any>('assets/data/sobrepesoGestanteGraph.json')
+            .get<any>('assets/data/graphSobrepesoGestante.json')
     }
 
     getDataPesoGestanteNormalGraph() {
         return this.http
-            .get<any>('assets/data/pesoNormalGestanteGraph.json')
+            .get<any>('assets/data/graphPesoNormalGestante.json')
     }
 
 
     getDataBajoPesoGestanteGraph() {
         return this.http
-            .get<any>('assets/data/bajoPesoGestanteGraph.json',{
+            .get<any>('assets/data/graphBajoPesoGestante.json',{
                 params:{
 
                 }
@@ -31,7 +31,7 @@ export class PesoGestanteGraphService {
 
     getDataObesidadGestanteGraph() {
         return this.http
-            .get<any>('assets/data/obesaGestanteGraph.json')
+            .get<any>('assets/data/graphObesaGestante.json')
     }
 
     getDataAlturaUterinaGraph(){

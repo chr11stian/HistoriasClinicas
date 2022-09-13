@@ -239,9 +239,8 @@
     </p-toolbar>
     <div class="border">
         <form [formGroup]='formDatos_Generales'>
-            <div class="grid m-2">
-                <div class="col-12 md:col-6 lg:col-4 p-field">
-                    <div class="grid">
+            <div class="grid m-2 ">
+                    <div class="grid col-12 md:col-6 lg:col-4 p-field">
                         <div class="col-4" style="text-align: right">
                             <label class="">Departamento:</label>
                         </div>
@@ -258,25 +257,8 @@
                             </p-dropdown>
                         </div>
                     </div>
-                    <div class="grid">
-                        <div class="col-4" style="text-align: right">
-                            <label class="">Nombre/N° Sector:</label>
-                        </div>
-                        <div class="col-8">
-                            <p-dropdown
-                                    inputId="dropdown2"
-                                    [options]="dataCentroPoblado"
-                                    formControlName="nombreNroSector"
-                                    placeholder="Seleccione un sector"
-                                    optionLabel="ccpp"
-                                    optionValue="ccpp"
-                                    class="p-fluid">
-                            </p-dropdown>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 md:col-6 lg:col-4 p-field">
-                    <div class="grid">
+
+                    <div class="grid col-12 md:col-6 lg:col-4 p-field">
                         <div class="col-4" style="text-align: right">
                             <label class="">Provincia:</label>
                         </div>
@@ -293,20 +275,8 @@
                             </p-dropdown>
                         </div>
                     </div>
-                    <div class="grid">
-                        <div class="p-inputgroup">
-                            <div class="col-4" style="text-align: right">
-                                <label class="m-1">Dirección:</label>
-                            </div>
-                            <div class="col-8">
-                                <input type="text" pInputText class="inputfield w-full" formControlName="direccion"
-                                       style="text-transform:uppercase">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 md:col-6 lg:col-4 p-field">
-                    <div class="grid">
+
+                    <div class="grid col-12 md:col-6 lg:col-4 p-field">
                         <div class="col-4" style="text-align: right">
                             <label class="">Distrito:</label>
                         </div>
@@ -323,8 +293,35 @@
                             </p-dropdown>
                         </div>
                     </div>
+
+                    <div class="grid col-12 md:col-6 lg:col-4 p-field">
+                        <div class="col-4" style="text-align: right">
+                            <label class="">Nombre/N° Sector:</label>
+                        </div>
+                        <div class="col-8">
+                            <p-dropdown
+                                    inputId="dropdown2"
+                                    [options]="dataCentroPoblado"
+                                    formControlName="nombreNroSector"
+                                    placeholder="Seleccione un sector"
+                                    optionLabel="ccpp"
+                                    optionValue="ccpp"
+                                    class="p-fluid">
+                            </p-dropdown>
+                        </div>
+                    </div>
+                    <div class="grid col-12 md:col-6 lg:col-4 p-field">
+                        <div class="p-inputgroup">
+                            <div class="col-4" style="text-align: right">
+                                <label class="m-1">Dirección:</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" pInputText class="inputfield w-full" formControlName="direccion"
+                                       style="text-transform:uppercase">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
         </form>
     </div>
     <br>
@@ -434,13 +431,13 @@
         </form>
     </div>
     <br>
-    <div class="grid">
+    <!-- <div class="grid">
         <div class="col-12 md:col-6 lg:col-12 p-field" style="text-align:right;">
             <button pButton pRipple label="Guardar" iconPos="right" icon="pi pi-angle-right"
                     (click)="agrgarFiliacionDatoPersonales()" class="guardar mr-2"
                     style="background-color: #0c3866"></button>
         </div>
-    </div>
+    </div> -->
 </div>
 
 

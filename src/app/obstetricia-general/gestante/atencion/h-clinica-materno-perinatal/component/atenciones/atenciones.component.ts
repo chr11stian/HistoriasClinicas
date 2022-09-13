@@ -57,10 +57,18 @@ export class AtencionesComponent implements OnInit {
     recuperarIMC(){
         this.atencionesService.getIMCgestante(this.Gestacion.nroHcl,this.Gestacion.nroEmbarazo).subscribe((res: any) => {
             let IMC = res.object.imc;
-            if (IMC>=18.5 && IMC<=24.9)this.estadoGestante ="normal"
-            if (IMC>=25.0 && IMC<=29.9)this.estadoGestante ="sobrepeso"
-            if (IMC<18.5)this.estadoGestante ="bajo_peso"
-            else this.estadoGestante ="obesidad"
+            if(IMC<18.5)
+                this.estadoGestante="bajo_peso"
+            else if(IMC<24.9)
+                this.estadoGestante="normal"
+            else if(IMC<29.9)
+                this.estadoGestante="sobrepeso"
+            else
+                this.estadoGestante="obesidad"
+            // if (IMC>=18.5 && IMC<=24.9)this.estadoGestante ="normal"
+            // if (IMC>=25.0 && IMC<=29.9)this.estadoGestante ="sobrepeso"
+            // if (IMC<18.5)this.estadoGestante ="bajo_peso"
+            // else this.estadoGestante ="obesidad"
         })
     }
     /***************Recuperar Datos de Atenciones*********************/

@@ -1,21 +1,24 @@
 <div style="background: #f8f9fa;padding:20px 50px 20px 50px" >
-    <p-card >
-        <!-- <ng-template pTemplate="header">
-            <h4 class="m-1">GESTANTE:</h4>
-            <span class="m-1">{{nombreDelGestante}}</span>
-        </ng-template> -->
-        <div class="flex justify-content-center">
-            <div class="col-3">
-                <div class=" d-flex">
-                    <div class="imagen"></div>
+
+
+        <p-card class="tarjeta">
+                <!-- <ng-template pTemplate="header">
+                    <h4 class="m-1">GESTANTE:</h4>
+                    <span class="m-1">{{nombreDelGestante}}</span>
+                </ng-template> -->
+            <div class="flex justify-content-center">
+                <div class="col-6 md:col-3">
+                    <div class="d-flex">
+                        <div class="imagen"></div>
+                    </div>
+                </div>
+                <div class="col-6 md:col-8">
+                    <h2 class="font1">{{titleBienvenida}}</h2>
+                    <p class="font2">{{contentBienvenida}}</p>
                 </div>
             </div>
-            <div class="col-8">
-                <h2 class="font1">{{titleBienvenida}}</h2>
-                <p class="font2">{{contentBienvenida}}</p>
-            </div>
-        </div>
-    </p-card>
+        </p-card>
+
     <div class="flex justify-content-between flex-wrap" style=margin-top:10px >
         <div class="col-12 md:col-6 lg:col-4">
             <button pButton 
