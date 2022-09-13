@@ -10,11 +10,12 @@ export class CitasService {
   bd = environment.bd;
   constructor(private http: HttpClient) { }
 
-  listarCitasXservicio(data){
-    return this.http.post(`${this.base_url}/${this.bd}/cupo/listarPendientes`, data)
+  listarCitasXservicio(data,idIpress){
+    return this.http.post(`${this.base_url}/${this.bd}/cupo/listar/citas/servicio/${idIpress}`, data)
   }
 
   cancelarCita(data){
     return this.http.post(`${this.base_url}/${this.bd}/cupo/cancelarProxCita`, data)
   }
+
 }

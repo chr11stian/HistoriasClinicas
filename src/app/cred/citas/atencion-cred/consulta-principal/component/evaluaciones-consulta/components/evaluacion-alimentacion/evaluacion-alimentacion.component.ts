@@ -260,7 +260,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
       this.getControl(index,indexEdad).disable()
     })
   }
-  sombrear(i,j){
+  sombrear(i,j):string{
     if((i>=6 && i<14 && j<7)||(i==15 && j<7) ) {
       return '#dddddd'
     }
@@ -277,7 +277,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         icon: 'warning',
         title: `Ya existe evaluacion para el mes ${this.edadMeses}`,
         showConfirmButton: false,
-        timer: 1500,
+        timer: 2000,
       })
     }
   }

@@ -38,8 +38,8 @@
             <div class="col-2 text-center" style="font-weight: bold">Estado</div>
             <div class="col-1 text-center" style="font-weight: bold">Accion</div>
         </div>
-        <div *ngFor="let sf of SF">
-            <div class="grid" *ngIf="correspondeMes(sf.edadMes,'sulfato')">
+        <div *ngFor="let sf of SF"  [ngStyle]="{'background-color': sf.edadMes==edadMes?'#fcbfba':'white'}">
+            <div class="grid">
                 <div class="col-1 text-center">
                     {{sf.edadMes}}
                 </div>
@@ -86,21 +86,21 @@
                     </ng-template>
                 </div>
                 <div class="col-1 text-center">
-                    <button *ngIf="!sf.estadoAdministrado;" (click)="isSuplementacion=true;agregarSuplementacion(sf)"
+                    <button *ngIf="!sf.estadoAdministrado && sf.edadMes==edadMes" (click)="isSuplementacion=true;agregarSuplementacion(sf)"
                             pButton
                             pRipple
                             type="button" icon="pi pi-pencil"
                             pTooltip="Agregar Suplementacion"
                             tooltipPosition="bottom"
-                            class="p-button-rounded p-button-warning p-button-outlined"></button>
+                            class="p-button-rounded p-button-info p-button-outlined"></button>
                 </div>
             </div>
         </div>
-         <div class="col-12" *ngIf="contador.sulfato==0">
+         <!-- <div class="col-12" *ngIf="contador.sulfato==0">
              <span style="color:#FBC02D;font-size: 1.2rem" >
                  No hay programacion de entrega de SULFATO para el presente mes
              </span>
-         </div>
+         </div> -->
     </p-fieldset>
 </div>
 <div>
@@ -119,8 +119,8 @@
             <div class="col-2 text-center" style="font-weight: bold">Estado</div>
             <div class="col-1 text-center" style="font-weight: bold">Accion</div>
         </div>
-        <div *ngFor="let mnm of MNM">
-            <div class="grid" *ngIf="correspondeMes(mnm.edadMes,'micronutrientes')">
+        <div *ngFor="let mnm of MNM"  [ngStyle]="{'background-color': mnm.edadMes==edadMes?'#fcbfba':'white'}" style="margin-bottom: 4px;">
+            <div class="grid" >
 
                 <div class="col-1 text-center">
                     {{mnm.edadMes}}
@@ -168,27 +168,28 @@
                     </ng-template>
                 </div>
                 <div class="col-1 text-center">
-                    <button *ngIf="!mnm.estadoAdministrado;" (click)="isSuplementacion=true; agregarSuplementacion(mnm)"
+                    <button *ngIf="!mnm.estadoAdministrado && mnm.edadMes==edadMes;" (click)="isSuplementacion=true; agregarSuplementacion(mnm)"
                             pButton
                             pRipple
                             type="button" icon="pi pi-pencil"
                             pTooltip="Agregar Suplementacion"
                             tooltipPosition="bottom"
-                            class="p-button-rounded p-button-warning p-button-outlined"></button>
+                            class="p-button-rounded p-button-info p-button-outlined"></button>
                 </div>
             </div>
         </div>
-       <div *ngIf="this.contador.micronutrientes==0">
+       <!-- <div *ngIf="this.contador.micronutrientes==0">
            <span style="color:#FBC02D;font-size: 1.2rem" >
                No hay programacion de entrega de MICRONUTRIENTES para el presente mes
            </span>
-       </div>
+       </div> -->
     </p-fieldset>
 </div>
 <div>
     <p-fieldset styleClass="mt-3">
         <ng-template pTemplate="header">
             <div>
+                
                 Suplementacion con VITAMINA A
             </div>
         </ng-template>
@@ -201,8 +202,8 @@
             <div class="col-2 text-center" style="font-weight: bold">Estado</div>
             <div class="col-1 text-center" style="font-weight: bold">Accion</div>
         </div>
-        <div class="" *ngFor="let va of vitaminaA">
-            <div class="grid" *ngIf="correspondeMes(va.edadMes,'vitaminaA')" >
+        <div class="" *ngFor="let va of vitaminaA"  [ngStyle]="{'background-color': va.edadMes==edadMes?'#fcbfba':'white'}">
+            <div class="grid">
 
                 <div class="col-1 text-center">
                     {{va.edadMes}}
@@ -250,21 +251,21 @@
                     </ng-template>
                 </div>
                 <div class="col-1 text-center">
-                    <button *ngIf="!va.estadoAdministrado;" (click)="isSuplementacion=false;agregarSuplementacion(va)"
+                    <button *ngIf="!va.estadoAdministrado && va.edadMes==edadMes" (click)="isSuplementacion=false;agregarSuplementacion(va)"
                             pButton
                             pRipple
                             type="button" icon="pi pi-pencil"
                             pTooltip="Agregar Suplementacion"
                             tooltipPosition="bottom"
-                            class="p-button-rounded p-button-warning p-button-outlined"></button>
+                            class="p-button-rounded p-button-info p-button-outlined"></button>
                 </div>
             </div>
         </div>
-       <div *ngIf="this.contador.vitaminaA==0">
+       <!-- <div *ngIf="this.contador.vitaminaA==0">
            <span style="color:#FBC02D;font-size: 1.2rem" >
                No hay programacion de entrega de VITAMINA A para el presente mes
            </span>
-       </div>
+       </div> -->
     </p-fieldset>
 </div>
 <div>
@@ -293,7 +294,7 @@
             <div class="col-2 text-center" style="font-weight: bold">Estado</div>
             <div class="col-1 text-center" style="font-weight: bold">Accion</div>
         </div>
-        <div *ngFor="let tera of suplementacionTerapeutica">
+        <div *ngFor="let tera of suplementacionTerapeutica"  [ngStyle]="{'background-color': tera.edadMes==edadMes?'#fcbfba':'white'}">
             <!--         [ngStyle]="{'background-color':va.edadMes==edadMes? 'rgba(175,0,23,0.4)' : 'white' }">-->
             <div class="grid" *ngIf="true">
 
@@ -345,20 +346,20 @@
                 <div class="col-1 text-center">
                     <div *ngIf="tera.edadMes==edadMes">
 
-                    <button *ngIf="!tera.estadoAdministrado;" (click)="isSuplementacion=false;agregarSuplementacion(tera)"
+                    <button *ngIf="!tera.estadoAdministrado && tera.edadMes==edadMes;" (click)="isSuplementacion=false;agregarSuplementacion(tera)"
                             pButton
                             pRipple
                             type="button" icon="pi pi-pencil"
                             pTooltip="Agregar Suplementacion"
                             tooltipPosition="bottom"
-                            class="p-button-rounded p-button-warning p-button-outlined"></button>
+                            class="p-button-rounded p-button-info p-button-outlined"></button>
                     </div>
                 </div>
             </div>
         </div>
         <div *ngIf="suplementacionTerapeutica.length==0;">
             <span style="color:#FBC02D;font-size: 1.2rem" >
-                No hay programacion de entrega de SUPLEMENTACION TERAPEUTICA para el presente mes
+                No hay programacion de entrega de SUPLEMENTACION TERAPEUTICA
             </span>
         </div>
     </p-fieldset>

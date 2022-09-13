@@ -205,7 +205,7 @@ export class ModalCuposComponent implements OnInit {
         .get("SelectUPSOferta")
         .setValue(this.ServicoSelecionado);
     }
-    if (this.cuposService.tab == 4) {
+    if (this.cuposService.tab == 4 || this.cuposService.tab == 3) {
       this.estado = true;
       this.formCuposOferta
         .get("SelectUPSOferta")

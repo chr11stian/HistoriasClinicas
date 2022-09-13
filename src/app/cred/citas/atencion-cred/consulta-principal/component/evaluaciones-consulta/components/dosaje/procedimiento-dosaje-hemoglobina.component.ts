@@ -25,6 +25,7 @@ export class ProcedimientoDosajeHemoglobinaComponent implements OnInit {
     mes:this.dataDocumento.mes,
     dia:this.dataDocumento.dia
   }
+  contador:number=0;
   constructor(private suplementacionesMicronutrientesService:SuplementacionesMicronutrientesService,
               private messageService: MessageService,
               public dialogService: DialogService) {
@@ -39,15 +40,25 @@ export class ProcedimientoDosajeHemoglobinaComponent implements OnInit {
   }
   getDosajePreventivo(){
     this.suplementacionesMicronutrientesService.getDosajeHemoglobina(this.nroDni).subscribe((resp)=>{
+      // const preventivo=resp.object
+      // this.dataPreventivo=preventivo.filter(element=>element.edadMes==this.edadMes)
+      // console.log('respuesta del servidor->>>>',this.dataPreventivo)
       this.dataPreventivo=resp.object
-      console.log('respuesta del servidor->>>>',this.dataPreventivo)
       this.transform();
     })
   }
   getDosajeTerapeutico(){
     this.suplementacionesMicronutrientesService.getDosajeHemoglobinaTerapeutico(this.nroDni).subscribe((resp)=>{
-      this.dataTerapeutico=resp.object
-      console.log('respuesta terapeutica->>>>',this.dataPreventivo)
+      const terapeutico=resp.object
+      if(terapeutico==null){
+        this.dataTerapeutico=[]
+      }
+      else{
+        this.dataTerapeutico=terapeutico
+      }
+      // console.log('arreglo terapeutico',resp);
+      
+      // this.dataTerapeutico=terapeutico.filter(element=>element.edadMes==this.edadMes)
       this.transformTerapeutico();
     })
   }
@@ -90,10 +101,10 @@ export class ProcedimientoDosajeHemoglobinaComponent implements OnInit {
           summary: "Exito",
           detail: "Dosaje Registrado satisfactoriamente",
         });
+        console.log('mensaje',mensaje)
+        this.getDosajePreventivo();
+        this.getDosajeTerapeutico();
       }
-      console.log('mensaje',mensaje)
-      this.getDosajePreventivo();
-      this.getDosajeTerapeutico();
     });
   }
   abrirModalLaboratorio(dosaje){
