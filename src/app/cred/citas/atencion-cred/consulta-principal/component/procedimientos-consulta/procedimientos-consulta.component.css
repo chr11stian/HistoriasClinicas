@@ -119,3 +119,13 @@ p-speeddial >>> .p-button.p-button-icon-only.p-button-rounded {
   transform: translate(-50%,-50%);
   font-weight: bold;
 }
+::ng-deep .procedure-panel .p-panel .p-panel-header {
+  background: #0c3866;
+  color: #FFF;
+  font-weight: bold;
+  font-size: 1.3rem;
+  font-style: oblique;
+}
+::ng-deep .summary .p-datatable .p-datatable-tbody > tr > td {
+  padding: 0.6rem 1rem; 
+}

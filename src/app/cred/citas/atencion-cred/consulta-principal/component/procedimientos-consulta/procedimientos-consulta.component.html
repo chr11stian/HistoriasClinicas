@@ -1,7 +1,7 @@
 <div class="grid">
     <div class="col-12">
-        <p-table [value]="tablaResumenDx" responsiveLayout="scroll" [(selection)]="selectedProducts" [loading]="loading"
-            [rowHover]="true" styleClass="p-datatable-gridlines">
+        <p-table [value]="tablaResumenDx" class="summary" responsiveLayout="scroll" [(selection)]="selectedProducts"
+            [loading]="loading" [rowHover]="true" styleClass="p-datatable-gridlines">
 
             <ng-template pTemplate="caption">
                 <div class="flex justify-content-between">
@@ -15,7 +15,7 @@
                     <th style="text-align: center" class="font-2">Nro</th>
                     <!--                    <th style="text-align: center" class="font-2">EDAD</th>-->
                     <th style="text-align: center" class="font-2">NOMBRE</th>
-                    <th style="text-align: center" class="font-2">EVALUACION</th>
+                    <th style="text-align: center" class="font-2">EVALUACIÓN</th>
                     <th style="text-align: center" class="font-2">RESULTADO</th>
                 </tr>
             </ng-template>
@@ -23,18 +23,9 @@
             <ng-template pTemplate="body" let-listaResumen let-rowIndex="rowIndex">
                 <tr class="p-selectable-row"
                     [ngClass]="{'fondoamarillo': listaResumen.nombre === 'INMUNIZACIONES','fondoverde':listaResumen.nombre === 'TAMIZAJES','fondoceleste':listaResumen.nombre === 'EVALUACIONES O TEST','fondogris':listaResumen.nombre === 'LABORATORIO','fondoSuplementacion':listaResumen.nombre === 'MNM'}">
-                    <td>
-                        {{rowIndex+1}}
-                    </td>
-                    <!--                    <td>-->
-                    <!--                        {{this.dataConsulta.anio }} (años) {{this.dataConsulta.mes }} (meses)    {{this.dataConsulta.dia }} (dias)-->
-                    <!--                    </td>-->
-                    <td>
-                        {{listaResumen.nombre}}
-                    </td>
-                    <td>
-                        {{listaResumen.evaluacion}}
-                    </td>
+                    <td style="text-align: center"> {{rowIndex+1}} </td>
+                    <td style="text-align: center"> {{listaResumen.nombre}} </td>
+                    <td style="text-align: center"> {{listaResumen.evaluacion}} </td>
                     <td style="text-transform:uppercase;text-align: center"
                         [ngClass]="{'rojo': listaResumen.resultado === 'POSITIVO' || listaResumen.resultado =='RETRASO' || listaResumen.resultado =='NINO CON ALIMENTACION COMPLEMENTARIA INADECUADA' || listaResumen.resultado =='Sobrepeso' || listaResumen.resultado =='Riesgo microcefalia'  }">
                         {{listaResumen.resultado}}
@@ -150,8 +141,8 @@
 <form [formGroup]='formProcedimiento'>
     <div class="grid">
         <div class="col-6">
-            <p-panel header="FUA" [toggleable]="true">
-                <div class="grid">
+            <p-panel header="FUA" class="procedure-panel">
+                <div class=" grid">
                     <div class="col-4 p-fluid">
                         <label>Cod Prestación:</label>
                         <p-dropdown inputId="dropdown" [options]="arrayPrestationCode" formControlName="prestacion"
@@ -168,7 +159,7 @@
                         </p-dropdown>
                     </div>
                 </div>
-                <div class="grid mt-2">
+                <div class="grid">
                     <div class="col-9 p-fluid">
                         <label>Procedimientos SIS</label>
                         <p-dropdown [options]="listProcedures" formControlName="buscarPDxSIS"
@@ -193,7 +184,7 @@
                             (click)="agregateProcedureSIS()"></button>
                     </div>
                 </div>
-                <div class="grid mt-2">
+                <div class="grid">
                     <div class="col-12 p-fluid">
                         <textarea style="text-transform:uppercase" rows="3" cols="30" pInputTextarea
                             formControlName="procedimientoSIS"></textarea>
@@ -229,7 +220,7 @@
             </p-panel>
         </div>
         <div class="col-6">
-            <p-panel header="HIS" [toggleable]="true">
+            <p-panel header="HIS" class="procedure-panel">
                 <div class="grid">
                     <div class="col-4 p-fluid">
                         <label>Nombre UPS:</label>
@@ -319,8 +310,8 @@
             </p-panel>
         </div>
         <div class="col-12">
-            <button pButton pRipple icon="pi pi-save" pButton type="button" style="background-color: #0c3866" label="Guardar"
-                class="save-button p-button-rounded" (click)="saveProcedures()"></button>
+            <button pButton pRipple icon="pi pi-save" pButton type="button" style="background-color: #0c3866"
+                label="Guardar" class="save-button p-button-rounded" (click)="saveProcedures()"></button>
         </div>
     </div>
-</form> 
+</form>
