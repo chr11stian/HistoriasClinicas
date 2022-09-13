@@ -44,8 +44,11 @@ export class DosajeComponent implements OnInit {
 
     getFactor() {
         this.dosajeService.getFactorCorrepcionXipress(this.idIpress).subscribe((resp) => {
-            this.factorAjuste = resp['object']['factorAjuste']
-            console.log('factor ajuste:', this.factorAjuste)
+            if(resp.object==null)
+                this.factorAjuste=0;
+            else{
+                this.factorAjuste = resp['object']['factorAjuste']
+            }   
         })
     }
 
@@ -204,11 +207,21 @@ export class DosajeComponent implements OnInit {
     }
 
     botonGuardar() {
-       if (this.dosajeFG.valid && this.vistoBuenoDrop){
-           return true
-       }
-       else
-           return false
+        const evaluado = this.getFC('positivoAnemia').value
+        if(evaluado=='SI'){
+            if (this.dosajeFG.valid && this.vistoBuenoDrop)
+                return true 
+            else
+            return false 
+        }
+        else{
+            if (this.dosajeFG.valid){
+                return true
+            }
+            else
+                return false     
+        }
+       
     }
     vistoBuenoDrop:boolean=true
     yaEstoyHabilidado(){
