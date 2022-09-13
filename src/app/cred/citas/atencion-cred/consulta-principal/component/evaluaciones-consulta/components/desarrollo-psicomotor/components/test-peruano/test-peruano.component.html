@@ -1,28 +1,16 @@
 <div>
-    <p-table class="table-over" [value]="arregloTest" #dt styleClass="" [rows]="10"
+    <p-table class="table-over" [value]="arregloTestXConsulta" #dt styleClass="p-datatable-gridlines p-datatable-customers" [rows]="10"
              [rowsPerPageOptions]="[10, 25, 50]"
              [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
              currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
-        <!-- <ng-template pTemplate="caption">
-           <ng-template pTemplate="left">
-               <span class="p-m-0">RESULTADOS DE TEST DESARROLLO PSICOMOTOR PERUANO</span>
-           </ng-template>
-           <ng-template pTemplate="right" class="button">
-               <button pButton pRipple label="Visualizar"  (click)="visualizar2()"  pRipple type="button"
-                       icon="pi pi-eye" class="p-button-rounded p-button-help m-1">
-               </button>
-               <button pButton pRipple label="Agregar" iconPos="right" icon="pi pi-plus-circle"
-                       class="guardar mr-2" (click)="displayDialog=true" [disabled]="enableAgregar"  style="background-color: #0c3866"></button>
-           </ng-template>
-        </ng-template> -->
         <ng-template pTemplate="caption">
                 <div class="flex justify-content-between">
                     <div class="table-header mt-2">
-                        RESULTADOS DE TEST DESARROLLO PSICOMOTOR PERUANO {{edad}} meses
-                    </div>
-                    <div *ngIf="!hasTaken">
-                        <button pButton pRipple label="Evaluar Test" iconPos="right" icon="pi pi-plus-circle"
-                        class="guardar mr-2" (click)="displayDialog=true" [disabled]="false"  style="background-color: #0c3866"></button>
+                        RESULTADOS DE TEST DESARROLLO PSICOMOTOR PERUANO ({{edad}}) meses
+                    </div> 
+                    <div *ngIf="arregloTestXConsulta.length==0"> 
+                        <button pButton pRipple  [label]="isAgregable?'Evaluar Test':'Ver Test'" icon="pi pi-eye" (click)="displayDialog=true;mostrarMensaje();"
+                        class="guardar mr-2"  [disabled]="false"  style="background-color: #0c3866"></button>
                     </div>
                 </div>
         </ng-template>
@@ -42,27 +30,26 @@
                 <td style="text-align: center">{{ rowData.edad }} (meses)</td>
                 <td style="text-align: center">{{ rowData.diagnostico }}</td>
                 <td style="text-align: center">
-<!--                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"-->
-<!--                            pTooltip="Editar" (click)="openEditar(rowData,rowIndex)"></button>-->
                     <button pButton (click)="displayDialog=true" pTooltip="Ver Test" pRipple type="button"
                             icon="pi pi-eye" class="p-button-rounded p-button-help m-1">
                     </button>
                 </td>
             </tr>
         </ng-template>
-
+ 
     </p-table>
-</div>
-
-<p-dialog header="TEST DE DESARROLLO PSICOMOTOR PERUANO" [(visible)]="displayDialog" [modal]="true" [style]="{width: '80vw'}" [maximizable]="true" [draggable]="false" [resizable]="false">
-
+ </div>
+ 
+ <p-dialog header="TEST DE DESARROLLO PSICOMOTOR PERUANO" [(visible)]="displayDialog" [modal]="true" [style]="{width: '80vw'}" [maximizable]="true" [draggable]="false" [resizable]="false">
+    <!-- start content -->
     <div class="tabla">
         <form [formGroup]="arregloForm">
             <p-table responsiveLayout="scroll"
                      [value]="imagenes"
                      scrollDirection="both"
                      scrollHeight="100%" styleClass="mt-3"
-                     [virtualRowHeight]="40" >
+                     [virtualRowHeight]="40" 
+                     class="tablaPeruano">
                 <ng-template pTemplate="header">
                     <tr>
                         <th style="background-color: white; width: 40px; height: 30px;"><div></div><div></div></th>
@@ -85,16 +72,19 @@
                         <th style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #B573B6"><div style="font-size: 15px; font-weight: bold; ">30</div><div style="font-size: 15px; font-weight: bold;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-30"></div></div></th>
                     </tr>
                     <tr>
-                        <th style="background-color:white;">
-                            <div style="text-align:center; background-color: #FF8300; border-radius: 15px; color:black; font-weight: bold; padding: 5px; margin:auto auto"> 
-                                FECHA
-                            </div>
-                        </th>
-                        <th *ngFor="let mes of listaMeses;let i=index" style="background-color: white;"><p-calendar  *ngIf="edadMeses==mes" [(ngModel)]="fecha"  [ngModelOptions]="{standalone: true}" showTime="true" showSeconds="true" dateFormat="dd-mm-yy" appendTo="body" disabled="true"></p-calendar></th>
+                         <th style="background-color:white;">
+                             <div style="text-align:center; background-color: #FF8300; border-radius: 15px; color:black; font-weight: bold; padding: 5px; margin:auto auto"> 
+                             FECHA
+                             </div>
+                         </th>   
+                         <th *ngFor="let mes of listaMeses;let i=index" style="background-color: white;">
+                             <p-calendar  *ngIf="fechas[i]" [(ngModel)]="fechas[i]" disabled="true" [ngModelOptions]="{standalone: true}" showTime="true" showSeconds="true" dateFormat="dd-mm-yy" [ngClass]="determinarColor(i)" appendTo="body"></p-calendar>
+                             <!-- <p-calendar  [(ngModel)]="fechas[i]" disabled="true" [ngModelOptions]="{standalone: true}" showTime="true" showSeconds="true" dateFormat="dd-mm-yy" [ngClass]="determinarColor(i)" appendTo="body"></p-calendar> -->
+                         </th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-rowIndex="rowIndex" let-sale>
-                    <tr>
+                <ng-template pTemplate="body" let-rowIndex="rowIndex" let-sale >
+                    <tr [formArrayName]="rowIndex">  
                         <td  style="padding: 0px;" pFrozenColumn>
                             <div class="flex" style="margin:auto 0">
                                 <div style="background-color: #FF6601; color: white; margin: 5px; border-radius: 15px; margin-right: 0px;">
@@ -108,10 +98,16 @@
                                 <p style="margin:auto 0" class="triangulo"></p>
                             </div>
                         </td>
-                        <td *ngFor="let mes of listaMeses"  [ngClass]="{'fondorojo':mes==edadMeses}">
+                        <td *ngFor="let mes of listaMeses;let j=index" [ngStyle]="{'background-color':j==indexEdadMeses?'#fcbfba':'white'}">
+                            <div [formGroup]="arregloFormRadio">
+                                <p-radioButton *ngIf='isAgregable && mes<=edadMeses' [name]="rowIndex" [value]="mes" [formControlName]="rowIndex"  ></p-radioButton>
+                            </div> 
                             <img *ngIf="true;"class="button-menu" [src]="ruta(sale,mes)">
-                            <!-- <p-radioButton [name]="sale.letter" [value]="mes" [(ngModel)]="arreglo[rowIndex]"></p-radioButton> -->
-                            <p-radioButton *ngIf='mes<=edadMeses' [name]="rowIndex" [value]="mes" [formControlName]="rowIndex"  ></p-radioButton>
+                           
+                            <div *ngIf="getControl(rowIndex,j).value">    
+                                <p-checkbox [formControlName]="j" [ngClass]="matrisColores[rowIndex][j]"  [binary]="true"></p-checkbox>
+                                <!-- <p-checkbox [ngClass]="forma" [ngClass]="determinarColorOtro(i,j)"  [formControlName]="j"  [binary]="true"></p-checkbox> -->
+                             </div>
                         </td>
                     </tr>
                    
@@ -140,30 +136,11 @@
                 </ng-template>
             </p-table>
         </form>
-
     </div>
-
+    <!-- end content -->
     <ng-template pTemplate="footer">
-        
-        <button *ngIf="!hasTaken && edadMeses!=0" pButton pRipple type="button" label="Guardar" style="background-color: #0c3866;" icon="pi pi-save" (click)="save()" iconPos="right"></button>
+        <button *ngIf="isAgregable" pButton pRipple type="button" label="Guardar" style="background-color: #0c3866;" icon="pi pi-save" (click)="save()" iconPos="right"></button>
         <!-- <button pButton pRipple type="button" label="Cancelar" class="p-button-danger" icon="pi pi-times" (click)="pruebas()" iconPos="right"></button> -->
     </ng-template>
 
-</p-dialog>
-
-<!-- <p-dialog header="RECUERDA QUE:" [(visible)]="displayPosition" [position]="position" [modal]="true" [style]="{width: '50vw'}"
-          [draggable]="false" [resizable]="false">
-    <h3> EL NIÑO(A) TIENE: {{edadEvaluar}} MESES. </h3>
-    <h4>
-        DEBES DE  REGISTRAR LA EVALUACIÓN DE LA ALIMENTACION DEL NIÑO(A)
-        CORRESPONDIENTE A SU EDAD, RECUERDE QUE SOLO PUEDE GUARDAR Y EDITAR MIENTRAS ESTE EN ESTA EDAD.</h4>
-    <p>Recuerda que si se encuentra en una edad que no este en el Test Peruano no se podra agregar un registro.</p>
-    <h3 style="text-align: center">GRACIAS</h3>
-    <ng-template pTemplate="footer">
-        <p-button icon="pi pi-check" label="Ok" styleClass="p-button-text"></p-button>
-    </ng-template>
-</p-dialog> -->
-
-
-
-
+ </p-dialog>

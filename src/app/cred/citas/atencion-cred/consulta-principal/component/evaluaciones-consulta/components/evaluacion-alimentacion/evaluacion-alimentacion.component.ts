@@ -52,7 +52,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
   evaluacionAlimenticia=[];
   edadMeses:number=0;//edad con la que podria se evaluada menor posible
   indexEdadMeses:number=0
-  edadCalculada:number=0;//edad que real que se tiene en meses
+  edad:number=0;//edad que real que se tiene en meses
   displayDialog:boolean=false;
   fechas:any[]=[]
   isAgregable:boolean
@@ -61,7 +61,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
   constructor(private evaluacionAlimentacionService: EvaluacionAlimentacionService){
     this.inicializaVariables()
     this.buildFormArray()
-    this.edadCalculada=this.data.anio*12+this.data.mes
+    this.edad=this.data.anio*12+this.data.mes
     this.determinarEdadEvaluada();
     this.indexEdadMeses=this.listaMesesEvaluar.indexOf(this.listaMesesEvaluar.find((element)=>element.numero==this.edadMeses))
   }
@@ -89,35 +89,35 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     return B
   }
   determinarEdadEvaluada(){
-    if(this.edadCalculada<=12){
-      this.edadMeses=this.edadCalculada;
-    } else if(this.edadCalculada<=13){
+    if(this.edad<=12){
+      this.edadMeses=this.edad;
+    } else if(this.edad<=13){
       this.edadMeses=12;
-    } else if(this.edadCalculada<=15){
+    } else if(this.edad<=15){
       this.edadMeses=14
-    } else if(this.edadCalculada<=17){
+    } else if(this.edad<=17){
       this.edadMeses=16
-    }else if(this.edadCalculada<=19){
+    }else if(this.edad<=19){
       this.edadMeses=18
-    }else if(this.edadCalculada<=21){
+    }else if(this.edad<=21){
       this.edadMeses=20
-    }else if(this.edadCalculada<=23){
+    }else if(this.edad<=23){
       this.edadMeses=22
-    }else if(this.edadCalculada<=26){
+    }else if(this.edad<=26){
       this.edadMeses=24
-    }else if(this.edadCalculada<=29){
+    }else if(this.edad<=29){
       this.edadMeses=27
-    }else if(this.edadCalculada<=32){
+    }else if(this.edad<=32){
       this.edadMeses=30
-    }else if(this.edadCalculada<=35){
+    }else if(this.edad<=35){
       this.edadMeses=33
-    }else if(this.edadCalculada<=38){
+    }else if(this.edad<=38){
       this.edadMeses=36
-    }else if(this.edadCalculada<=41){
+    }else if(this.edad<=41){
       this.edadMeses=39
-    }else if(this.edadCalculada==42){
+    }else if(this.edad==42){
       this.edadMeses=42
-    } else this.edadMeses=43 /* no se habilita ningun mes */
+    } else this.edadMeses=this.edad /* no se habilita ningun mes */
 }
   
   getTestAlimentacionPlan(){
@@ -137,7 +137,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
           })
           
         }
-        if(!this.fechas[this.indexEdadMeses] ){/* hay evaluacion ese mes? */
+        if(this.indexEdadMeses!=-1 && !this.fechas[this.indexEdadMeses]){/* hay evaluacion ese mes? */
              console.log('---->entramos en el if');
              this.fechas[this.indexEdadMeses]=new Date(this.data.fechaConsulta)
              this.isAgregable=true
@@ -272,7 +272,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     }
   }
   mostrarMensaje(){
-    if(!this.isAgregable && this.arregloTestXConsulta.length==0){
+    if(!this.isAgregable && this.arregloTestXConsulta.length==0 && this.indexEdadMeses!=-1){
       Swal.fire({
         icon: 'warning',
         title: `Ya existe evaluacion para el mes ${this.edadMeses}`,

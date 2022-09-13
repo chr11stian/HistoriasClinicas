@@ -6,11 +6,11 @@
     <ng-template pTemplate="caption">
             <div class="flex justify-content-between">
                 <div class="table-header mt-2">
-                    RESULTADOS DE TEST DESARROLLO PSICOMOTOR TEPSI
+                    RESULTADOS DE TEST DESARROLLO PSICOMOTOR TEPSI ({{anioEdad}}años,{{mesEdad}}meses,{{diaEdad}}dias)-clasificacion({{rango}})
                 </div>
                 <div *ngIf="!hasTaken">
                     <button pButton pRipple label="Evaluar Test" iconPos="right" icon="pi pi-plus-circle"
-                    class="guardar mr-2" (click)="displayDialog=true" [disabled]="false"  style="background-color: #0c3866"></button>
+                    class="guardar mr-2" (click)="mostrarMensaje()" [disabled]="false"  style="background-color: #0c3866"></button>
                 </div>
             </div>
     </ng-template>
@@ -27,7 +27,7 @@
         <tr>
             <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
             <td style="text-align: center">{{ rowData.fecha | date: 'dd-MM-yyyy HH:mm:ss'}}</td>
-            <td style="text-align: center">{{ rowData.edad }} (meses)</td>
+            <td style="text-align: center">{{ rowData.edad }}</td>
             <td style="text-align: center">{{ rowData.diagnostico }}</td>
             <td style="text-align: center">
                 <button pButton (click)="displayDialog=true" pTooltip="Ver Test" pRipple type="button"
@@ -72,9 +72,9 @@
                 </div>
                 <div class="col-8 p-fluid"><input formControlName="nombreExaminador" type="text" pInputText></div>
             </div>
-            <div class="grid">
+            <!-- <div class="grid">
                 {{rango}}
-            </div>
+            </div> -->
         </div>
 
         <!--    movemos los subtest-->
@@ -152,7 +152,7 @@
                             <div class="col-3 text-right align-self-center">Puntaje T
                             </div>
                             <div class="col-9">
-                                <div style="">
+                                <div >
                                     <div class="flex">
                                         <div style="width:2rem "></div>
                                         <div class="text-center" style="width:4rem;font-size: 0.8rem">RETRASO</div>
@@ -170,7 +170,7 @@
                                         <div class="color-3" style="justify-content: center;width: 4rem"></div>
                                         <div class="" style="justify-content: center;width: 2rem"></div>
                                     </div>
-                                    <div class="flex" style="">
+                                    <div class="flex">
                                         <div class="margenes text-center" style="width: 4rem">20</div>
                                         <div class="margenes text-center" style="width: 4rem">30</div>
                                         <div class="margenes text-center" style="width: 4rem">40</div>

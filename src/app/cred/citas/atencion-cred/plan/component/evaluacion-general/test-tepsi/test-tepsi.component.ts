@@ -95,7 +95,7 @@ export class TestTepsiComponent implements OnInit {
     let color:string;
     const arreglo=  aux.map((item)=>{
       if(item.categoria=='Normal'){
-        color='green';
+        color='#0C3866';
       }
       else{
         if(item.categoria=='Riesgo'){

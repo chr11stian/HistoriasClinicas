@@ -3,6 +3,7 @@ import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog'
 import {PesoGestanteGraphService} from '../../../../services/peso-gestante-graph.service'
 import {FillDataGraphService} from '../../../../../cred/services/fill-data-graph.service'
 import {GraphInterface} from '../../../../../shared/models/graph.interface'
+import { LoginComponent } from '../../../../../login/login.component';
 
 @Component({
     selector: 'app-peso-normal-embarazo-unico-multiple',
@@ -11,28 +12,21 @@ import {GraphInterface} from '../../../../../shared/models/graph.interface'
 })
 export class PesoEmbarazoUnicoMultipleComponent implements OnInit {
     data: GraphInterface
-
-    colors = [
-        'rgba(62,199,47,0.8)',
-        'rgba(245,93,25,0.85)',
-        'rgba(245,93,25,0.85)',
-        'rgba(255,0,0,0.86)',
-        '#170cee',
-        '#0e0e0e'
-    ]
-
+    colors = ['rgba(62,199,47,0.8)',
+              'rgba(245,93,25,0.85)',
+              'rgba(245,93,25,0.85)',
+              'rgba(255,0,0,0.86)',
+              '#170cee',
+              '#0e0e0e']
     names = ['max', 'maxMult', 'med', 'medMult', 'min', 'minMult']
-
     constructor(public ref: DynamicDialogRef,
                 private pesoGestanteGraphService: PesoGestanteGraphService,
                 private fillDataGraphService: FillDataGraphService,
                 public config: DynamicDialogConfig) {
     }
-
     ngOnInit(): void {
         this.classificationGraph()
     }
-
     classificationGraph() {
         const typeGraph: string = this.config.data.typeGraph
         switch (typeGraph) {
@@ -50,8 +44,6 @@ export class PesoEmbarazoUnicoMultipleComponent implements OnInit {
                 break
         }
     }
-
-
     weightObesidad() {
         this.pesoGestanteGraphService.getDataObesidadGestanteGraph().subscribe(
             result => {
@@ -59,7 +51,6 @@ export class PesoEmbarazoUnicoMultipleComponent implements OnInit {
             }
         )
     }
-
     weightBajoPeso(): void {
         this.colors = [
             'rgba(62,199,47,0.8)',
@@ -73,7 +64,6 @@ export class PesoEmbarazoUnicoMultipleComponent implements OnInit {
             }
         )
     }
-
     weightSobrepeso(): void {
         this.pesoGestanteGraphService.getDataSobrepesoGestanteGraph().subscribe(
             result => {
@@ -81,8 +71,6 @@ export class PesoEmbarazoUnicoMultipleComponent implements OnInit {
             }
         )
     }
-
-
     weightNormal(): void {
         this.pesoGestanteGraphService.getDataPesoGestanteNormalGraph().subscribe(
             result => {
@@ -90,7 +78,6 @@ export class PesoEmbarazoUnicoMultipleComponent implements OnInit {
             }
         )
     }
-
     fillData(data): void {
         const valueSerie = this.fillDataGraphService.fillDataGraphV2(
             data,
@@ -109,6 +96,7 @@ export class PesoEmbarazoUnicoMultipleComponent implements OnInit {
             series: valueSerie,
             typeAxisX: 'trimestre'
         }
+        console.log('data para la grafica',this.data);   
     }
 
 }
