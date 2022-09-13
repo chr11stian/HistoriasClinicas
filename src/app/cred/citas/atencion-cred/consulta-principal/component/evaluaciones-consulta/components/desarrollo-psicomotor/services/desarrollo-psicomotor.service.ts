@@ -17,4 +17,11 @@ export class DesarrolloPsicomotorService {
       .then(res => <any>res.object)
       .then(data => { return data; })
   }
+
+  verifyMonthlyEvaluation(month: number, nroHistoria: string) {
+    return this.http.get<any>(`${this.base_url}/${this.bd}/cred/consulta/evaluacion/realizadas/${month}/${nroHistoria}`)
+      .toPromise()
+      .then(res => <any>res.object)
+      .then(data => { return data; })
+  }
 }

@@ -18,7 +18,7 @@
         <ng-template pTemplate="caption">
                 <div class="flex justify-content-between">
                     <div class="table-header mt-2">
-                        RESULTADOS DE TEST DESARROLLO PSICOMOTOR PERUANO {{edadMeses}} meses
+                        RESULTADOS DE TEST DESARROLLO PSICOMOTOR PERUANO {{edad}} meses
                     </div>
                     <div *ngIf="!hasTaken">
                         <button pButton pRipple label="Evaluar Test" iconPos="right" icon="pi pi-plus-circle"
@@ -90,7 +90,7 @@
                                 FECHA
                             </div>
                         </th>
-                        <th *ngFor="let mes of listaMeses;let i=index" style="background-color: white;"><p-calendar  *ngIf="edadMeses==mes" [(ngModel)]="fecha"  [ngModelOptions]="{standalone: true}" showTime="true" showSeconds="true" dateFormat="dd-mm-yy" appendTo="body"></p-calendar></th>
+                        <th *ngFor="let mes of listaMeses;let i=index" style="background-color: white;"><p-calendar  *ngIf="edadMeses==mes" [(ngModel)]="fecha"  [ngModelOptions]="{standalone: true}" showTime="true" showSeconds="true" dateFormat="dd-mm-yy" appendTo="body" disabled="true"></p-calendar></th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowIndex="rowIndex" let-sale>
