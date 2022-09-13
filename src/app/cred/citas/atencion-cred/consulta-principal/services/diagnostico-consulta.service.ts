@@ -121,4 +121,11 @@ export class DiagnosticoConsultaService {
             .then(data => { return data; })
             .catch(error => { return error.error })
     }
+    getPromiseProcedimiento(idConsulta: string) {
+        return this.http.get(`${this.urlServer}/${this.bd}/cred/consulta/procedimiento/${idConsulta}`)
+            .toPromise()
+            .then(res => res)
+            .then(data => { return data; })
+            .catch(error => { return error.error })
+    }
 }   

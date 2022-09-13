@@ -53,12 +53,12 @@ export interface DiagnosticHIS {
     CIE10: string;
 }
 export interface ProceduresSave {
-    procedimientosSIS: string;
+    procedimientoSIS: string;
     codProcedimientoSIS: string;
     codPrestacion: string;
     cie10SIS: string;
-    procedimientosHIS: string;
-    codProcedimientosHIS: string;
+    procedimientoHIS: string;
+    codProcedimientoHIS: string;
     nombreUPS: string;
     nombreUPSaux: string;
     tipo: string;
@@ -73,7 +73,7 @@ export interface ProcedureFUA {
     tipoDiagnostico: string;
 }
 export interface ProcedureHIS {
-    procedimientosHIS: string;
+    procedimientoHIS: string;
     codProcedimientoHIS: string;
     nombreUPS: string;
     nombreUPSaux: string;

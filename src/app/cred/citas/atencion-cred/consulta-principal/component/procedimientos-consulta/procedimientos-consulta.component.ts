@@ -124,7 +124,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
         this.recuperarUpsHis();
         this.recuperarUpsAuxHis();
         this.recuperarPrestaciones();
-        this.recuperarDxBD();
+        // this.recuperarDxBD();
         this.listarDiagnosticos();
         /* interconsulta */
         this.ListaServicios();
@@ -183,6 +183,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
         /* lista interconsulta */
         this.listaInterconsulta();
         this.recoverPrestationData();
+        this.recoverSavedProcedureData();
     }
 
     buildForm() {
@@ -220,39 +221,6 @@ export class ProcedimientosConsultaComponent implements OnInit {
             servicio: new FormControl({ value: "", disabled: false }, []),
             urgencia: new FormControl({ value: "", disabled: false }, []),
         });
-    }
-
-
-    recuperarDxBD() {
-        this.DiagnosticoService.getProcedimiento(
-            this.dataConsulta.idConsulta
-        ).subscribe(
-            (res: any) => {
-                if (res.object != null) {
-                    console.log(res.object);
-                    this.hayDatos = true;
-                    this.procedimientos = res.object;
-                } else {
-                    this.procedimientos = [];
-                    Swal.fire({
-                        icon: "info",
-                        title: "INFORMACION",
-                        text: "Aún no hay registros guardados en Procedimientos",
-                        showConfirmButton: false,
-                        timer: 1500,
-                    });
-                }
-            },
-            (error) => {
-                Swal.fire({
-                    icon: "error",
-                    title: "ERROR",
-                    text: "Ocurrio un error al recuperar datos registrados anteriormente en esta consulta.",
-                    showConfirmButton: false,
-                    timer: 1500,
-                });
-            }
-        );
     }
 
     /********lista dx********/
@@ -988,7 +956,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
             tipoDiagnostico: this.formProcedimiento.value.tipoDiagnosticoHIS,
             lab: this.formProcedimiento.value.lab,
             codProcedimientoHIS: this.formProcedimiento.value.codProcedimientoHIS.codigoItem,
-            procedimientosHIS: this.formProcedimiento.value.procedimientoHIS,
+            procedimientoHIS: this.formProcedimiento.value.procedimientoHIS,
         }
         this.arrayProcedureHIS.push(HISprocedure);
         this.formProcedimiento.reset();
@@ -996,12 +964,12 @@ export class ProcedimientosConsultaComponent implements OnInit {
     mergeArrayProcedures(procedimientoSIS: ProcedureFUA[], procedimientoHIS: ProcedureHIS[], procedimientos: ProceduresSave[]) {
         procedimientoSIS.forEach(item => {
             let auxProcedure: ProceduresSave = {
-                procedimientosSIS: item.procedimientoSIS,
+                procedimientoSIS: item.procedimientoSIS,
                 codProcedimientoSIS: item.codProcedimientoSIS,
                 codPrestacion: item.codPrestacion,
                 cie10SIS: item.cie10SIS,
-                procedimientosHIS: null,
-                codProcedimientosHIS: null,
+                procedimientoHIS: null,
+                codProcedimientoHIS: null,
                 nombreUPS: null,
                 nombreUPSaux: null,
                 tipo: item.tipoDiagnostico,
@@ -1012,12 +980,12 @@ export class ProcedimientosConsultaComponent implements OnInit {
 
         procedimientoHIS.forEach(item => {
             let auxProcedure: ProceduresSave = {
-                procedimientosSIS: null,
+                procedimientoSIS: null,
                 codProcedimientoSIS: null,
                 codPrestacion: null,
                 cie10SIS: null,
-                procedimientosHIS: item.procedimientosHIS,
-                codProcedimientosHIS: item.codProcedimientoHIS,
+                procedimientoHIS: item.procedimientoHIS,
+                codProcedimientoHIS: item.codProcedimientoHIS,
                 nombreUPS: item.nombreUPS,
                 nombreUPSaux: item.nombreUPSaux,
                 tipo: item.tipoDiagnostico,
@@ -1028,8 +996,15 @@ export class ProcedimientosConsultaComponent implements OnInit {
     }
 
     saveProcedures(): void {
+        this.arrayProcedureSave = []
         this.mergeArrayProcedures(this.arrayProcedureSIS, this.arrayProcedureHIS, this.arrayProcedureSave);
-        this.DiagnosticoService.postSaveProcedure(this.dataConsulta.idConsulta, this.arrayProcedureSave).then(res => {
+        // console.log('data to save ', this.arrayProcedureSave);
+        let dataSave: DataSave = {
+            procedimientos: []
+        }
+        dataSave.procedimientos = this.arrayProcedureSave;
+        // console.log('data to save ', dataSave);
+        this.DiagnosticoService.postSaveProcedure(this.dataConsulta.idConsulta, dataSave).then(res => {
             console.log('data saved');
         });
     }
@@ -1037,6 +1012,34 @@ export class ProcedimientosConsultaComponent implements OnInit {
     deleteItemOfArray(index: number, type: number): void {
         /**type:0=> lista de diagnosticos FUA; 1=> lista de diagnosticos HIS */
         type == 0 ? this.arrayProcedureSIS.splice(index, 1) : this.arrayProcedureHIS.splice(index, 1);
+    }
+
+    recoverSavedProcedureData(): void {
+        this.DiagnosticoService.getPromiseProcedimiento(this.dataConsulta.idConsulta).then(res => {
+            let daraRes: ProceduresSave[] = res.object;
+            daraRes.forEach(item => {
+                if (item.codPrestacion != null) {
+                    let procedure: ProcedureFUA = {
+                        codPrestacion: item.codPrestacion,
+                        cie10SIS: item.cie10SIS,
+                        codProcedimientoSIS: item.codProcedimientoSIS,
+                        procedimientoSIS: item.procedimientoSIS,
+                        tipoDiagnostico: item.tipo
+                    }
+                    this.arrayProcedureSIS.push(procedure);
+                } else {
+                    let procedure: ProcedureHIS = {
+                        nombreUPS: item.nombreUPS,
+                        nombreUPSaux: item.nombreUPSaux,
+                        codProcedimientoHIS: item.codProcedimientoHIS,
+                        procedimientoHIS: item.procedimientoHIS,
+                        tipoDiagnostico: item.tipo,
+                        lab: item.lab
+                    }
+                    this.arrayProcedureHIS.push(procedure);
+                }
+            })
+        })
     }
 }
 interface resultados {
@@ -1065,4 +1068,7 @@ interface UPSaux {
 interface Lista {
     label: string;
     value: string;
+}
+interface DataSave {
+    procedimientos: ProceduresSave[];
 }
