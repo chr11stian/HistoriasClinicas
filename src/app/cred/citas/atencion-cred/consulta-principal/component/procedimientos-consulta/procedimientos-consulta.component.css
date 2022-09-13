@@ -32,9 +32,9 @@ p-toolbar >>> * {
   align-self: center;
 }
 
-.button-toolbar {
+/* .button-toolbar {
   margin: 5px;
-}
+} */
 
 .button-cancelar {
   background: #bf0d21;
@@ -108,4 +108,14 @@ p-speeddial >>> .p-button.p-button-icon-only.p-button-rounded {
 }
 :host ::ng-deep .button-agregar .p-button {
   background-color: #0c3866;
+}
+.add-button {
+  transform: translate(10%, 50%);
+  font-weight: bold;
+}
+.save-button{
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  font-weight: bold;
 }

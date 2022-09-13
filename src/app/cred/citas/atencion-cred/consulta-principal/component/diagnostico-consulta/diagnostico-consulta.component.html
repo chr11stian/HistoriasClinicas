@@ -278,11 +278,11 @@
 <form [formGroup]='formDiagnostico'>
   <div class="grid">
     <div class="col-6">
-      <p-panel header="FUA" [toggleable]="true">
+      <p-panel header="FUA" class="diagnostic-panel">
         <div class="grid">
           <div class="col-6 p-fluid">
             <label>Prestación:</label>
-            <p-dropdown inputId="dropdown" [options]="ListaPrestacion" formControlName="prestacion"
+            <p-dropdown inputId="dropdown" #dropdownPres [options]="ListaPrestacion" formControlName="prestacion"
               placeholder="Seleccionar" optionLabel="descripcion" defaultLabel="Seleccione:" appendTo="body"
               class="inputfield p-fluid w-full" (onChange)="onChangePrestacion()">
             </p-dropdown>
@@ -295,7 +295,7 @@
             </p-dropdown>
           </div>
         </div>
-        <div class="grid mt-2">
+        <div class="grid">
           <div class="col-12 p-fluid">
             <label>Diagnóstico SIS:</label>
             <p-dropdown [options]="arrayFuaDiagnostic" formControlName="diagnosticoFUA"
@@ -303,19 +303,19 @@
             </p-dropdown>
           </div>
         </div>
-        <div class="grid mt-2">
+        <div class="grid">
           <div class="col-9 p-fluid">
             <label>Código de procedimiento SIS: </label>
             <p-dropdown [options]="arrayFuaDiagnostic" formControlName="codCIE10SIS" appendTo="body" optionLabel="cie10"
               class="inputfield p-fluid w-full" placeholder="Seleccione" (onChange)="selectDxSIS($event)">
             </p-dropdown>
           </div>
-          <div class="col-3">
-            <button pButton pRipple icon="pi pi-plus" pButton type="button" style="background-color: #0c3866"
-              class="mt-4 p-button-rounded" (click)="agregateDiagnosticFUA()"></button>
+          <div class="col-3 agregate-div ">
+            <button pButton pRipple icon="pi pi-plus" pButton type="button" style="background-color: #0c3866" label="Agregar"
+              class="add-button p-button-rounded" (click)="agregateDiagnosticFUA()"></button>
           </div>
         </div>
-        <div class="grid mt-2">
+        <div class="grid">
           <div class="col-12 p-fluid">
             <textarea style="text-transform:uppercase" rows="3" cols="30" pInputTextarea
               formControlName="diagnosticoSIS"></textarea>
@@ -350,7 +350,7 @@
       </p-panel>
     </div>
     <div class="col-6">
-      <p-panel header="HIS" [toggleable]="true">
+      <p-panel header="HIS" class="diagnostic-panel">
         <div class="grid">
           <div class="col-4 p-fluid">
             <label>Nombre UPS:</label>
@@ -396,8 +396,8 @@
             </p-autoComplete>
           </div>
           <div class="col-3">
-            <button pButton pRipple icon="pi pi-plus" pButton type="button" style="background-color: #0c3866"
-              class="mt-4 p-button-rounded" (click)="agregateDiagnosticHIS()"></button>
+            <button pButton pRipple icon="pi pi-plus" pButton type="button" style="background-color: #0c3866" label="Agregar"
+              class="add-button p-button-rounded" (click)="agregateDiagnosticHIS()"></button>
           </div>
           <div class="col-12 p-fluid">
             <textarea style="text-transform:uppercase" rows="3" cols="30" pInputTextarea
@@ -432,10 +432,10 @@
           </ng-template>
         </p-table>
       </p-panel>
-      <div class="col-3">
-        <button pButton pRipple icon="pi pi-plus" pButton type="button" style="background-color: #0c3866"
-          class="mt-4 p-button-rounded" (click)="SaveDiagnostico()"></button>
-      </div>
+    </div>
+    <div class="col-12">
+      <button pButton pRipple icon="pi pi-save" label="Guardar" pButton type="button" style="background-color: #0c3866;" label="Guardar"
+        class="save-button p-button-rounded" (click)="SaveDiagnostico()"></button>
     </div>
   </div>
 </form>
