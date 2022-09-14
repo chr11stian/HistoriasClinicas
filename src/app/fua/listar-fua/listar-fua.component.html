@@ -66,9 +66,8 @@
         </ng-template>
         <ng-template pTemplate="right" class="button">
             <button pButton pRipple class="p-button-rounded p-button-info ">
-                    <a style="color: white; font-weight: bold;"
-                    href="{{consultaID+idConsulta}}"
-                    target="_blank">Descargar todo</a></button>
+                <a style="color: white; font-weight: bold;" href="{{consultaID+idConsulta}}" target="_blank">Descargar
+                    todo</a></button>
         </ng-template>
     </p-toolbar>
 
@@ -94,11 +93,12 @@
                             icon="pi pi-caret-right" (click)="openFUA(rowData)"></button>
                     </span>
                     <span class="ml-1">
-                        <button pButton pRipple class="p-button-rounded p-button-info">
-                            <a style="color: white; font-weight: bold;"
-                                href="{{consultaFUA+rowData.id}}"
-                                target="_blank">Descargar FUA</a>
-                        </button>
+                        <a style="color: white; font-weight: bold;" href="{{consultaFUA+rowData.id}}" target="_blank">
+                            <button pButton pRipple class="p-button-rounded p-button-info"
+                                [disabled]="!rowData.completed">
+                                Descargar FUA
+                            </button>
+                        </a>
                     </span>
                     <!-- <span class="pl-1">
                         <button pButton pRipple class="p-button-rounded p-button-info" label="Imprimir" 

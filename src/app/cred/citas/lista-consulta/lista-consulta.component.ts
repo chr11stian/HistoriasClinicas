@@ -5,10 +5,10 @@ import {
     FiliancionService
 } from "../../../obstetricia-general/gestante/atencion/h-clinica-materno-perinatal/services/filiancion-atenciones/filiancion.service";
 import { ListaConsultaService } from '../services/lista-consulta.service';
-import { dato } from "src/app/cred/citas/models/data"
-import { ActivatedRoute, Router } from '@angular/router';
+import { dato } from "src/app/cred/citas/models/data";
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import {DatePipe, formatDate} from '@angular/common';
+import { DatePipe, formatDate } from '@angular/common';
 
 @Component({
     selector: 'app-lista-consulta',
@@ -31,12 +31,12 @@ export class ListaConsultaComponent implements OnInit {
     sexo: string
     downloadLink: string = 'http://190.108.93.150:8200/jasperserver/rest_v2/reports/Reports/v1/cartillacontrol/carnet_control.pdf?authorization=' + JSON.parse(localStorage.getItem('token')).token;
     docPaciente: string = '&nroHistoriaClinica=' + JSON.parse(localStorage.getItem('documento')).nroDocumento;
+    isTodayCreated: boolean = false;
 
     constructor(private form: FormBuilder,
         private obstetriciaGeneralService: ObstetriciaGeneralService,
         private filiancionService: FiliancionService,
         private listaConsultaService: ListaConsultaService,
-        private route: ActivatedRoute,
         private router: Router) {
     }
 
@@ -49,12 +49,14 @@ export class ListaConsultaComponent implements OnInit {
     getpacientesFiliados(nroDoc) {
         this.listaConsultaService.getConsultasCRED(nroDoc).subscribe((r: any) => {
             this.dataConsulta = r.object;
-            // console.log('lista de consultas-------------->',this.dataConsulta)
+            let lastDateConsult = this.datePipe.transform(this.dataConsulta[0].fechaAtencion, 'dd-MM-yyyy');
+            let todayDate = this.datePipe.transform(new Date(), 'dd-MM-yyyy');
+            lastDateConsult == todayDate ? this.isTodayCreated = true : this.isTodayCreated = false;
         })
     }
 
     atencion(event) {
-        console.log("adffda",event)
+        console.log("adffda", event)
         this.listaConsultaService.getConsulta(event.id).subscribe((r: any) => {
             this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS))
             let data: dato = {
@@ -69,7 +71,7 @@ export class ListaConsultaComponent implements OnInit {
                 hidden: true,
                 see: false,
                 fechaConsulta: event.fechaAtencion
-               
+
             }
             localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
             setTimeout(() => {

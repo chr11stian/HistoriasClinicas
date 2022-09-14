@@ -12,24 +12,26 @@ import { FuaService } from '../services/fua.service';
 export class ListarFuaComponent implements OnInit {
 
   data: Paciente = {
-    estadoAtencion:0,
+    estadoAtencion: 0,
     fechaAtencion: '',
-    id:'',
-    nroDocumento:'',
-    tipoConsulta:''
+    id: '',
+    nroDocumento: '',
+    tipoConsulta: ''
   };
   consultaFUA: string = 'http://192.168.5.3:8200/jasperserver/rest_v2/reports/Reports/v1/fuaid/anexo1.pdf?authorization='
   consultaID: string = 'http://192.168.5.3:8200/jasperserver/rest_v2/reports/Reports/v1/fuaconsulta/fua_por_consulta.pdf?authorization='
   listDataFUA: FUA[] = [];
-  listaDatosFUA: any;
+  listDataFuaAux: FUA[] = []
   linkPDF: string;
   idConsulta: string;
+  isGeneratedFUA: boolean = false;
   // "6231104446af060328998d19"
   constructor(
     private location: Location,
     private router: Router,
     private fuaService: FuaService,
   ) {
+    // fua: creado => se crea con la primera parte, completado => cuando esta con datos completos , finaliado => cuando ya se hizo una impresion
     let auxData: any = this.router.getCurrentNavigation();
     auxData == null ? this.data.estadoAtencion = 2 : this.data.estadoAtencion = auxData.extras.estadoConsulta;
     this.idConsulta = JSON.parse(localStorage.getItem("dataFUA")).idConsulta;
@@ -53,6 +55,10 @@ export class ListarFuaComponent implements OnInit {
           timer: 2000
         });
       }
+      this.listDataFUA.map(item => {
+        item.estado == 'CREADO' ? item.completed = false : item.completed = true;
+        return item;
+      });
     })
     // this.linkPDF = "http://192.168.5.3:8200/jasperserver/rest_v2/reports/Reports/FUA/anexo1.pdf?idFua="
   }
@@ -89,4 +95,10 @@ interface Paciente {
 }
 interface FUA {
   codPrestacion: string;
+  estado: string;
+  completed?: boolean
+}
+interface AuxFUA {
+  codPrestacion: string,
+  completed: boolean
 }
