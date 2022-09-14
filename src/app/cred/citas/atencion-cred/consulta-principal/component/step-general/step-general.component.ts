@@ -274,9 +274,6 @@ export class StepGeneralComponent implements OnInit, DoCheck {
                         })
                     }
                 })
-
-
-
                 break;
             case "finalizar":
                 this.finalizarConsulta.save();

@@ -80,6 +80,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
     { name: "Nivel 4", code: "Nivel 4" },
     { name: "Nivel 5", code: "Nivel 5" },
   ];
+  // new vars
   patientData: Patient;
   ListaPrestacion: Prestation[] = [];
   arrayFuaDiagnostic: Diagnostic[] = [];
@@ -90,7 +91,8 @@ export class DiagnosticoConsultaComponent implements OnInit {
   arrayUPSAux: UPSaux[] = [];
   arrayDiagnosticSave: DiagnosticSave[] = [];
   // arrayCIE10Fua: Diagnostic[] = [];
-
+  fuaForm: FormGroup;
+  hisForm: FormGroup;
 
   constructor(
     private rolGuardiaService: RolGuardiaService,
@@ -185,7 +187,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
       buscarDxSIS: new FormControl({ value: "", disabled: false }),
       buscarDxHIS: new FormControl({ value: "", disabled: false }),
       tipoDiagnostico: new FormControl({ value: "", disabled: false }),
-      prestacion: new FormControl({ value: "", disabled: false }),
+
 
       nombreUPSaux: ["", [Validators.required]],
 
@@ -198,20 +200,37 @@ export class DiagnosticoConsultaComponent implements OnInit {
       ]),
       factorCondicional: new FormControl({ value: "", disabled: false }),
 
-      codCIE10SIS: new FormControl(''),
-      buscarPDxSIS: new FormControl(''),
-      procedimientoSIS: new FormControl(''),
-      tipoDiagnosticoFUA: new FormControl(''),
+      prestacion: new FormControl("", Validators.required),
+      tipoDiagnosticoFUA: new FormControl('', Validators.required),
       diagnosticoFUA: new FormControl(''),
-      nombreUPS: new FormControl({ value: "" }),
-      tipoDiagnosticoHIS: new FormControl({ value: "" }),
-      lab: new FormControl(''),
-      codProcedimientoHIS: new FormControl({ value: "" }),
-      buscarPDxHIS: new FormControl({ value: "" }),
-      procedimientoHIS: new FormControl(''),
+      codCIE10SIS: new FormControl(''),
       diagnosticoSIS: new FormControl(''),
+
+      nombreUPS: new FormControl(""),
       nombreUPSAux: new FormControl(''),
+      tipoDiagnosticoHIS: new FormControl(""),
+      lab: new FormControl(''),
+      buscarPDxHIS: new FormControl(""),
+      codProcedimientoHIS: new FormControl(""),
+      procedimientoHIS: new FormControl(''),
     });
+    this.fuaForm = new FormGroup({
+      prestacion: new FormControl("", Validators.required),
+      tipoDiagnosticoFUA: new FormControl('', Validators.required),
+      diagnosticoFUA: new FormControl(''),
+      codCIE10SIS: new FormControl('', Validators.required),
+      diagnosticoSIS: new FormControl('', Validators.required),
+    });
+    this.hisForm = new FormGroup({
+      nombreUPS: new FormControl("", Validators.required),
+      nombreUPSAux: new FormControl("", Validators.required),
+      tipoDiagnosticoHIS: new FormControl("", Validators.required),
+      lab: new FormControl(""),
+      buscarPDxHIS: new FormControl(""),
+      codProcedimientoHIS: new FormControl("", Validators.required),
+      procedimientoHIS: new FormControl("", Validators.required),
+    })
+
     /* Interconsulta */
     this.formInterconsulta = new FormGroup({
       fecha: new FormControl({ value: null, disabled: false }, []),
@@ -222,18 +241,21 @@ export class DiagnosticoConsultaComponent implements OnInit {
   }
 
   selectDxSIS(event) {
-    console.log(this.formDiagnostico.value.buscarDxSIS);
+    console.log(this.fuaForm.value.buscarDxSIS);
     console.log('select sis ', event);
-    this.formDiagnostico.patchValue({ diagnosticoSIS: event.value.diagnostico });
-    this.formDiagnostico.patchValue({ diagnosticoFUA: "" });
-    this.formDiagnostico.patchValue({ codCIE10SIS: event.value }, { emitEvent: false }
-    );
+    this.fuaForm.patchValue({
+      diagnosticoSIS: event.value.diagnostico,
+      diagnosticoFUA: "",
+      codCIE10SIS: event.value
+    });
   }
   /**SELECCION DE DIAGNOSTICO HIS O COD CIE HIS */
   selectedDxHIS(event: any, type: number) {
-    this.formDiagnostico.patchValue({ codProcedimientoHIS: event });
-    this.formDiagnostico.patchValue({ buscarPDxHIS: "" });
-    this.formDiagnostico.patchValue({ procedimientoHIS: event.descripcionItem });
+    this.hisForm.patchValue({
+      codProcedimientoHIS: event,
+      buscarPDxHIS: "",
+      procedimientoHIS: event.descripcionItem
+    });
 
   }
 
@@ -344,7 +366,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
   }
 
   onChangePrestacion() {
-    const dataPrestacion: Prestation = this.formDiagnostico.value.prestacion;
+    const dataPrestacion: Prestation = this.fuaForm.value.prestacion;
     this.arrayFuaDiagnostic = dataPrestacion.diagnostico;
   }
 
@@ -375,28 +397,35 @@ export class DiagnosticoConsultaComponent implements OnInit {
   }
 
   agregateDiagnosticFUA(): void {
-    let FUAdiagnostic: DiagnosticFUA = {
-      codPrestacion: this.formDiagnostico.value.prestacion.codigo,
-      tipoDiagnostico: this.formDiagnostico.value.tipoDiagnosticoFUA,
-      diagnostico: this.formDiagnostico.value.diagnosticoSIS,
-      CIE10: this.formDiagnostico.value.codCIE10SIS.cie10
-    }
-    this.arrayDiagnosticFUA.push(FUAdiagnostic);
-    this.formDiagnostico.reset();
+    if (this.fuaForm.valid) {
+      let FUAdiagnostic: DiagnosticFUA = {
+        codPrestacion: this.fuaForm.value.prestacion.codigo,
+        tipoDiagnostico: this.fuaForm.value.tipoDiagnosticoFUA,
+        diagnostico: this.fuaForm.value.diagnosticoSIS,
+        CIE10: this.fuaForm.value.codCIE10SIS.cie10
+      }
+      this.arrayDiagnosticFUA.push(FUAdiagnostic);
+      this.fuaForm.reset();
+    } else
+      this.missDataMessage();
   }
 
   agregateDiagnosticHIS(): void {
-    let HISdiagnostic: DiagnosticHIS = {
-      nombreUPS: this.formDiagnostico.value.nombreUPS.nombreUPS,
-      nombreUPSaux: this.formDiagnostico.value.nombreUPSAux.nombre,
-      tipoDiagnostico: this.formDiagnostico.value.tipoDiagnosticoHIS,
-      lab: this.formDiagnostico.value.lab,
-      diagnosticoHIS: this.formDiagnostico.value.procedimientoHIS,
-      CIE10: this.formDiagnostico.value.codProcedimientoHIS.codigoItem,
-    }
-    this.arrayDiagnosticHIS.push(HISdiagnostic);
-    this.formDiagnostico.reset();
+    if (this.hisForm.valid) {
+      let HISdiagnostic: DiagnosticHIS = {
+        nombreUPS: this.hisForm.value.nombreUPS.nombreUPS,
+        nombreUPSaux: this.hisForm.value.nombreUPSAux.nombre,
+        tipoDiagnostico: this.hisForm.value.tipoDiagnosticoHIS,
+        lab: this.hisForm.value.lab,
+        diagnosticoHIS: this.hisForm.value.procedimientoHIS,
+        CIE10: this.hisForm.value.codProcedimientoHIS.codigoItem,
+      }
+      this.arrayDiagnosticHIS.push(HISdiagnostic);
+      this.hisForm.reset();
+    } else
+      this.missDataMessage();
   }
+
   mergeArrayDiagnostic(diagnosticosSIS: DiagnosticFUA[], diagnosticosHIS: DiagnosticHIS[], diagnosticos: DiagnosticSave[]): void {
     diagnosticosSIS.forEach(item => {
       let auxDiagnostic: DiagnosticSave = {
@@ -430,16 +459,25 @@ export class DiagnosticoConsultaComponent implements OnInit {
     });
   }
 
-  SaveDiagnostico(): void {
+  async saveDiagnostico(): Promise<void> {
     this.mergeArrayDiagnostic(this.arrayDiagnosticFUA, this.arrayDiagnosticHIS, this.arrayDiagnosticSave);
-    this.DiagnosticoService.postPromiseDiagnostico(this.patientData.idConsulta, this.arrayDiagnosticSave).then(res => {
-
-    })
+    await this.DiagnosticoService.postPromiseDiagnostico(this.patientData.idConsulta, this.arrayDiagnosticSave).then(res => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Se guardo exitosamente',
+        text: '',
+        showConfirmButton: false,
+        timer: 2000
+      });
+    });
   }
 
-  recoverConsultationDiagnostic() {
+  recoverConsultationDiagnostic(): void {
     this.DiagnosticoService.getPromiseDiagnosticPerConsultation(this.dataConsulta.idConsulta).then(res => {
+
       let dataRes: DiagnosticSave[] = res.object;
+      if (dataRes == null)
+        return
       dataRes.forEach(item => {
         if (item.codPrestacion != null) {
           let diagnostic: DiagnosticFUA = {
@@ -467,6 +505,42 @@ export class DiagnosticoConsultaComponent implements OnInit {
   deleteItemOfArray(index: number, type: number): void {
     /**type:0=> lista de diagnosticos FUA; 1=> lista de diagnosticos HIS */
     type == 0 ? this.arrayDiagnosticFUA.splice(index, 1) : this.arrayDiagnosticHIS.splice(index, 1);
+  }
+
+  confirmToSave(): void {
+    Swal.fire({
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Guardar',
+      icon: 'question',
+      title: 'Guardar',
+      text: '¿Esta seguro que desea guardar los diagnosticos?',
+      showConfirmButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.saveDiagnostico();
+      } else {
+        Swal.fire({
+          icon: 'info',
+          title: 'No se guardo',
+          text: '',
+          showConfirmButton: false,
+          timer: 2000
+        });
+      }
+    })
+  }
+
+  missDataMessage(): void {
+    Swal.fire({
+      icon: 'info',
+      title: 'Falta llenar campos',
+      text: '',
+      showConfirmButton: false,
+      timer: 2000
+    });
   }
 }
 interface diagnosticoInterface {

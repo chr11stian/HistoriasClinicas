@@ -275,10 +275,11 @@
 
 
 
-<form [formGroup]='formDiagnostico'>
-  <div class="grid">
-    <div class="col-6">
-      <p-panel header="FUA" class="diagnostic-panel">
+<!-- <form [formGroup]='formDiagnostico'> -->
+<div class="grid">
+  <div class="col-6">
+    <p-panel header="FUA" class="diagnostic-panel">
+      <form [formGroup]="fuaForm">
         <div class="grid">
           <div class="col-6 p-fluid">
             <label>Prestación:</label>
@@ -311,8 +312,8 @@
             </p-dropdown>
           </div>
           <div class="col-3 agregate-div ">
-            <button pButton pRipple icon="pi pi-plus" pButton type="button" style="background-color: #0c3866" label="Agregar"
-              class="add-button p-button-rounded" (click)="agregateDiagnosticFUA()"></button>
+            <button pButton pRipple icon="pi pi-plus" pButton type="button" style="background-color: #0c3866"
+              label="Agregar" class="add-button p-button-rounded" (click)="agregateDiagnosticFUA()"></button>
           </div>
         </div>
         <div class="grid">
@@ -321,36 +322,37 @@
               formControlName="diagnosticoSIS"></textarea>
           </div>
         </div>
-
-        <p-table class="table-over" [value]="arrayDiagnosticFUA" #dt styleClass="p-datatable-gridlines" [rows]="10">
-          <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
-            <tr>
-              <th style="text-align: center;" class="font-2">Nro</th>
-              <th style="text-align: center;" class="font-2">Cod Prestación</th>
-              <th style="text-align: center;" class="font-1">Diagnóstico</th>
-              <th style="text-align: center;" class="font-2">CIE 10</th>
-              <th style="text-align: center;" class="font-2">Tipo Diagnóstico</th>
-              <th style="text-align: center" class="font-2">Acción</th>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-rowData let-i="rowIndex">
-            <tr>
-              <td style="text-align: center;" class="font-2">{{ i + 1 }}</td>
-              <td style="text-align: center;">{{ rowData.codPrestacion }}</td>
-              <td style="text-align: center;">{{ rowData.diagnostico }}</td>
-              <td style="text-align: center;">{{ rowData.CIE10 }}</td>
-              <td style="text-align: center;">{{ rowData.tipoDiagnostico }}</td>
-              <td style="text-align: center">
-                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                  (click)="deleteItemOfArray(i,0)" pTooltip="Eliminar" tooltipPosition="top"></button>
-              </td>
-            </tr>
-          </ng-template>
-        </p-table>
-      </p-panel>
-    </div>
-    <div class="col-6">
-      <p-panel header="HIS" class="diagnostic-panel">
+      </form>
+      <p-table class="table-over" [value]="arrayDiagnosticFUA" #dt styleClass="p-datatable-gridlines" [rows]="10">
+        <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+          <tr>
+            <th style="text-align: center;" class="font-2">Nro</th>
+            <th style="text-align: center;" class="font-2">Cod Prestación</th>
+            <th style="text-align: center;" class="font-1">Diagnóstico</th>
+            <th style="text-align: center;" class="font-2">CIE 10</th>
+            <th style="text-align: center;" class="font-2">Tipo Diagnóstico</th>
+            <th style="text-align: center" class="font-2">Acción</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-i="rowIndex">
+          <tr>
+            <td style="text-align: center;" class="font-2">{{ i + 1 }}</td>
+            <td style="text-align: center;">{{ rowData.codPrestacion }}</td>
+            <td style="text-align: center;">{{ rowData.diagnostico }}</td>
+            <td style="text-align: center;">{{ rowData.CIE10 }}</td>
+            <td style="text-align: center;">{{ rowData.tipoDiagnostico }}</td>
+            <td style="text-align: center">
+              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
+                (click)="deleteItemOfArray(i,0)" pTooltip="Eliminar" tooltipPosition="top"></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-panel>
+  </div>
+  <div class="col-6">
+    <p-panel header="HIS" class="diagnostic-panel">
+      <form [formGroup]="hisForm">
         <div class="grid">
           <div class="col-4 p-fluid">
             <label>Nombre UPS:</label>
@@ -359,7 +361,7 @@
             </p-dropdown>
           </div>
           <div class="col-4 p-fluid">
-            <label>Sub Titulo UPS:</label>
+            <label>Sub Título UPS:</label>
             <p-dropdown inputId="dropdown" [options]="arrayUPSAux" formControlName="nombreUPSAux"
               placeholder="Seleccionar" optionLabel="nombre" defaultLabel="Seleccione:" appendTo="body"
               class="inputfield p-fluid w-full">
@@ -396,46 +398,47 @@
             </p-autoComplete>
           </div>
           <div class="col-3">
-            <button pButton pRipple icon="pi pi-plus" pButton type="button" style="background-color: #0c3866" label="Agregar"
-              class="add-button p-button-rounded" (click)="agregateDiagnosticHIS()"></button>
+            <button pButton pRipple icon="pi pi-plus" pButton type="button" style="background-color: #0c3866"
+              label="Agregar" class="add-button p-button-rounded" (click)="agregateDiagnosticHIS()"></button>
           </div>
           <div class="col-12 p-fluid">
             <textarea style="text-transform:uppercase" rows="3" cols="30" pInputTextarea
               formControlName="procedimientoHIS"></textarea>
           </div>
         </div>
-        <p-table class="table-over" [value]="arrayDiagnosticHIS" #dt styleClass="p-datatable-gridlines" [rows]="10">
-          <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
-            <tr>
-              <th style="text-align: center;" class="font-2">Nro</th>
-              <th style="text-align: center;" class="font-2">UPS Auxiliar</th>
-              <th style="text-align: center;" class="font-1">Diagnóstico</th>
-              <th style="text-align: center;" class="font-2">CIE 10</th>
-              <th style="text-align: center;" class="font-2">Tipo Diagnóstico</th>
-              <th style="text-align: center;" class="font-2">Lab</th>
-              <th style="text-align: center" class="font-2">Acción</th>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-rowData let-i="rowIndex">
-            <tr>
-              <td style="text-align: center;" class="font-2">{{ i + 1 }}</td>
-              <td style="text-align: center;">{{ rowData.nombreUPSaux }}</td>
-              <td style="text-align: center;">{{ rowData.diagnosticoHIS }}</td>
-              <td style="text-align: center;">{{ rowData.CIE10 }}</td>
-              <td style="text-align: center;">{{ rowData.tipoDiagnostico }}</td>
-              <td style="text-align: center;">{{ rowData.lab }}</td>
-              <td style="text-align: center">
-                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                  (click)="deleteItemOfArray(i, 1)" pTooltip="Eliminar" tooltipPosition="top"></button>
-              </td>
-            </tr>
-          </ng-template>
-        </p-table>
-      </p-panel>
-    </div>
-    <div class="col-12">
-      <button pButton pRipple icon="pi pi-save" label="Guardar" pButton type="button" style="background-color: #0c3866;" label="Guardar"
-        class="save-button p-button-rounded" (click)="SaveDiagnostico()"></button>
-    </div>
+      </form>
+      <p-table class="table-over" [value]="arrayDiagnosticHIS" #dt styleClass="p-datatable-gridlines" [rows]="10">
+        <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+          <tr>
+            <th style="text-align: center;" class="font-2">Nro</th>
+            <th style="text-align: center;" class="font-2">UPS Auxiliar</th>
+            <th style="text-align: center;" class="font-1">Diagnóstico</th>
+            <th style="text-align: center;" class="font-2">CIE 10</th>
+            <th style="text-align: center;" class="font-2">Tipo Diagnóstico</th>
+            <th style="text-align: center;" class="font-2">Lab</th>
+            <th style="text-align: center" class="font-2">Acción</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-i="rowIndex">
+          <tr>
+            <td style="text-align: center;" class="font-2">{{ i + 1 }}</td>
+            <td style="text-align: center;">{{ rowData.nombreUPSaux }}</td>
+            <td style="text-align: center;">{{ rowData.diagnosticoHIS }}</td>
+            <td style="text-align: center;">{{ rowData.CIE10 }}</td>
+            <td style="text-align: center;">{{ rowData.tipoDiagnostico }}</td>
+            <td style="text-align: center;">{{ rowData.lab }}</td>
+            <td style="text-align: center">
+              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
+                (click)="deleteItemOfArray(i, 1)" pTooltip="Eliminar" tooltipPosition="top"></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-panel>
   </div>
-</form>
+  <div class="col-12">
+    <button pButton pRipple icon="pi pi-save" label="Guardar" pButton type="button" style="background-color: #0c3866;"
+      label="Guardar" class="save-button p-button-rounded" (click)="confirmToSave()"></button>
+  </div>
+</div>
+<!-- </form> -->
