@@ -2,8 +2,6 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms'
 import {PrimeModule} from '../shared/prime/prime.module'
-
-
 import {CoreRoutingModule} from './core-routing.module';
 import {LayoutPrincipalComponent} from './layout-principal/layout-principal.component';
 import {InicioComponent} from './inicio/inicio.component';
