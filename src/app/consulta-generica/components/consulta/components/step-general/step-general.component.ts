@@ -40,8 +40,11 @@ export class StepGeneralComponent implements OnInit {
     {code:'ODONTOLOGIA GENERAL',display:'ODONTOLOGIA'},
     {code:'PSICOLOGIA',display:'PSICOLOGIA'},
     {code:'NUTRICION',display:'NUTRICION'},
+    {code:'CONSULTA GESTANTE EXTERNA',display:'CONSULTORIO OBSTETRICO'},
   ]
   buscarTipoConsulta(codigo){
+    console.log('codigo',codigo);
+    
     const aux=this.listaTitulo.find((element)=>{
       return element.code==codigo
     })

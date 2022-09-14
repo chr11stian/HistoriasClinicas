@@ -39,8 +39,7 @@
                         <tr>
                             <td class="text-center">{{i+1}}</td>
                             <td class="text-center">{{row.nroDoc}}</td>
-                            <td class="text-center">{{row.datosPaciente.primerNombre+" "+row.datosPaciente.apePaterno+"
-                                "+row.datosPaciente.apeMaterno}}</td>
+                            <td class="text-center">{{row.apellidos+" "+row.nombres}}</td>
                             <td class="text-center">{{row.fecha}}</td>
                             <td class="text-center">{{row.nroAtencion}}</td>
                             <td style="text-align: center" *ngIf="row.estadoAtencion===1; else regular">
