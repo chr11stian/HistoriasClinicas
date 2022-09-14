@@ -21,7 +21,11 @@ body {
   color: var(--text-color);
 }
 .p-dialog .p-dialog-header {
-  background-color: #0c3866;
+  background-color: #0C3866;
   color: #ffffff;
   font-size: 1.2rem;
+  /* margin-bottom: 7rem; */
+}
+.p-dialog .p-dialog-content{
+  padding-top: 2rem;
 }

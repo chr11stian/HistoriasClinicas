@@ -5,11 +5,11 @@
     <ng-template pTemplate="caption">
             <div class="flex justify-content-between">
                 <div class="table-header mt-2">
-                    RESULTADOS DE EVALUACION DE LA ALIMENTACIÓN DE LA NIÑA Y EL NIÑO ({{edadCalculada}})meses
+                    RESULTADOS DE EVALUACION DE LA ALIMENTACIÓN DE LA NIÑA Y EL NIÑO ({{edad}})meses
                 </div>
                 <div *ngIf="arregloTestXConsulta.length==0">
                     <button pButton pRipple [label]="isAgregable?'Evaluar Test':'Ver Test'" iconPos="right" icon="pi pi-plus-circle"
-                    class="guardar mr-2" (click)="displayDialog=true;mostrarMensaje();" [disabled]="false"  style="background-color: #0c3866"></button>
+                    class="guardar mr-2" (click)="displayDialog=true;mostrarMensaje();" [disabled]="false"  style="background-color: #0C3866"></button>
                 </div>
             </div>
     </ng-template>
@@ -75,7 +75,7 @@
 </form>
 <ng-template pTemplate="footer">    
         
-    <button *ngIf="isAgregable" pButton pRipple type="button" label="Guardar" style="background-color: #0c3866;" icon="pi pi-save" (click)="save()" iconPos="right"></button>
+    <button *ngIf="isAgregable" pButton pRipple type="button" label="Guardar" style="background-color: #0C3866;" icon="pi pi-save" (click)="save()" iconPos="right"></button>
     <!-- <button pButton pRipple type="button" label="Cancelar" class="p-button-danger" icon="pi pi-times" (click)="pruebas()" iconPos="right"></button> -->
 </ng-template>
 </p-dialog>

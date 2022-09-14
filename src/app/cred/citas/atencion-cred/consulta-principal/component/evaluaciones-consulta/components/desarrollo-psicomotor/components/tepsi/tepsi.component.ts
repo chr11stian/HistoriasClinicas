@@ -96,22 +96,19 @@ export class TepsiComponent implements OnInit {
     private tepsiService: TepsiService,
     private messageService: MessageService
   ) {
-    this.buildForm();
-    this.inicializarGrafico();
     this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
     this.idConsulta = this.data.idConsulta;
     this.usuario = JSON.parse(localStorage.getItem("usuario"));
+    this.buildForm();
+    this.inicializarGrafico();
     this.getFC("nombreExaminador").setValue(
       `${this.usuario.nombres} ${this.usuario.apellidos}`
     );
     this.anioEdad = this.data.anio;
     this.mesEdad = this.data.mes;
     this.diaEdad = this.data.dia;
-    this.rango = this.determinarRango(
-      this.anioEdad,
-      this.mesEdad,
-      this.diaEdad
-    );
+    this.rango = this.determinarRango(this.anioEdad,this.mesEdad,this.diaEdad);
+    // this.rango = this.determinarRango(4,0,2);
     this.getTablaPuntaje();
   }
 
@@ -122,8 +119,10 @@ export class TepsiComponent implements OnInit {
   buildForm() {
     this.datosGeneralesFG = new FormGroup({
       nombreExaminador: new FormControl("", Validators.required),
-      fechaSelected: new FormControl(new Date(), Validators.required),
+      fechaSelected: new FormControl(new Date(this.data.fechaConsulta), Validators.required),
     });
+    console.log('data-->',this.data);
+    
   }
 
   traerPuntaje() {
@@ -134,9 +133,9 @@ export class TepsiComponent implements OnInit {
   determinaColor() {
     const aux = this.resultadoA;
     let color: string;
-    const arreglo = aux.map((item) => {
+    const arreglo = aux.map((item) => { 
       if (item.categoria == "Normal") {
-        color = "#0c3866";//blue
+        color = "#0C3866";//blue
       } else {
         if (item.categoria == "Riesgo") {
           color = "#F3D9DC";
@@ -279,45 +278,31 @@ export class TepsiComponent implements OnInit {
     });
     return arregloAux;
   }
-
+  fueraRango:boolean=false
   determinarRango(anio: number, mes: number, dia: number): number {
-      if (
-         (anio==0 || anio==1 )||  /* fuera de rango  */
-        (anio == 2 && mes <= 5) ||
-        (anio == 2 && mes == 6 && dia == 0)
-      ) {
-        return 1;
-      } else {
-        if (
-          (anio == 2 && mes >= 6) ||
-          (anio == 3 && mes == 0 && dia == 0)
-        ) {
-          return  2;
-        } else {
-          if (
-            (anio == 3 && mes <= 5) ||
-            (anio == 3 && mes == 6 && dia == 0)
-          ) {
-            return  3;
-          } else {
-            if (
-              (anio == 3 && mes >= 6) ||
-              (anio == 4 && mes == 0 && dia == 0)
-            ) {
-              return  4;
-            } else {
-              if (
-                (anio == 4 && mes <= 5) ||
-                (anio == 4 && mes == 6 && dia == 0)
-              ) {
-                return  5;
-              } else {
-                return  6;
-              }
-            }
-          }
-        }
+     /* fuera de rango  */
+    let rango
+    if ((anio==0 || anio ==1) ||(anio == 2 && mes <= 5) ||(anio == 2 && mes == 6 && dia == 0)){
+      if(anio<=1){
+        this.fueraRango=true
       }
+      rango=1;
+    } 
+    else if ((anio == 2 && mes >= 6) || (anio == 3 && mes == 0 && dia == 0)) 
+      rango=2;
+    else if ((anio == 3 && mes <= 5) || (anio == 3 && mes == 6 && dia == 0))
+      rango=3;
+    else if ((anio == 3 && mes >= 6) || (anio == 4 && mes == 0 && dia == 0)) 
+      rango=4;
+    else if ((anio == 4 && mes <= 5) || (anio == 4 && mes == 6 && dia == 0)) 
+      rango=5;
+    else{
+      if(anio>=5){
+        this.fueraRango=true
+      }
+      rango=6;
+    }
+    return rango;
   }
 
   getFC(control: string): AbstractControl {
@@ -550,6 +535,21 @@ export class TepsiComponent implements OnInit {
       return { nroPregunta: index + 1, valor: element };
     });
     return arregloAux;
+  }
+  mostrarMensaje(){
+    if(this.fueraRango){
+      Swal.fire({
+        icon: "info",
+        title: "Fuera de rango ",
+        text: `Esta evaluacion son para niños mayores de 2 años,0 meses,1 dia y menores a 5 años,0 meses,0 dias`,
+        showConfirmButton: false,
+        timer: 4000,
+      });
+    }
+    else{
+      this.displayDialog=true
+    }
+
   }
 
 //   ngOnChanges(changes: any): void {
