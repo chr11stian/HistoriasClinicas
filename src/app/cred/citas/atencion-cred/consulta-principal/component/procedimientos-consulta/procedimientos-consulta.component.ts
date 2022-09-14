@@ -15,11 +15,7 @@ import { DatePipe } from "@angular/common";
 import { dato, outputTriajeInterface, proxCita } from "../../../../models/data";
 import { ConsultaGeneralService } from "../../services/consulta-general.service";
 import { RolGuardiaService } from "src/app/core/services/rol-guardia/rol-guardia.service";
-<<<<<<< HEAD
-=======
 import { Procedure, ProcedureFUA, ProcedureHIS, ProcedurePrestation, ProceduresSave } from "../../models/FUAHIS";
-// import { data } from "vis-network";
->>>>>>> 52176076e3985d06d004231f12ea911a089501c3
 
 @Component({
     selector: "app-procedimientos-consulta",
