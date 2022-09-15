@@ -83,6 +83,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
     arrayPrestationCode: ProcedurePrestation[] = [];
     listProcedures: Procedure[] = [];
     arrayProcedureSave: ProceduresSave[] = [];
+    isSaved: boolean = false;
 
     fuaForm: FormGroup;
     hisForm: FormGroup;
@@ -1047,6 +1048,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
 
     recoverSavedProcedureData(): void {
         this.DiagnosticoService.getPromiseProcedimiento(this.dataConsulta.idConsulta).then(res => {
+
             let dataRes: ProceduresSave[] = res.object;
             if (dataRes == null) {
                 return
@@ -1072,12 +1074,12 @@ export class ProcedimientosConsultaComponent implements OnInit {
                     }
                     this.arrayProcedureHIS.push(procedure);
                 }
-            })
+                this.isSaved = true;
+            });
         })
     }
 
     confirmSave() {
-
         Swal.fire({
             showCancelButton: true,
             cancelButtonText: 'Cancelar',

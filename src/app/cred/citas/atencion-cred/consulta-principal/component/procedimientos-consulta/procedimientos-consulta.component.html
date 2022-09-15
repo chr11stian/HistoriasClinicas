@@ -158,8 +158,6 @@
                             class="inputfield p-fluid w-full">
                         </p-dropdown>
                     </div>
-                </div>
-                <div class="grid">
                     <div class="col-9 p-fluid">
                         <label>Procedimientos SIS</label>
                         <p-dropdown [options]="listProcedures" formControlName="buscarPDxSIS"
@@ -183,8 +181,6 @@
                             style="background-color: #0c3866" class="add-button p-button-rounded" label="Agregar"
                             (click)="agregateProcedureSIS()"></button>
                     </div>
-                </div>
-                <div class="grid">
                     <div class="col-12 p-fluid">
                         <textarea style="text-transform:uppercase" rows="3" cols="30" pInputTextarea
                             formControlName="procedimientoSIS"></textarea>
@@ -309,7 +305,7 @@
             </p-table>
         </p-panel>
     </div>
-    <div class="col-12">
+    <div class="col-12" *ngIf="!isSaved">
         <button pButton pRipple icon="pi pi-save" pButton type="button" style="background-color: #0c3866"
             label="Guardar" class="save-button p-button-rounded" (click)="confirmSave()"></button>
     </div>

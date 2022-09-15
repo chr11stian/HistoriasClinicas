@@ -436,7 +436,7 @@
       </p-table>
     </p-panel>
   </div>
-  <div class="col-12">
+  <div class="col-12" *ngIf="!isSaved">
     <button pButton pRipple icon="pi pi-save" label="Guardar" pButton type="button" style="background-color: #0c3866;"
       label="Guardar" class="save-button p-button-rounded" (click)="confirmToSave()"></button>
   </div>

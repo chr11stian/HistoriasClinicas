@@ -90,6 +90,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
   arrayUPS: UPS[] = [];
   arrayUPSAux: UPSaux[] = [];
   arrayDiagnosticSave: DiagnosticSave[] = [];
+  isSaved: boolean = false;
   // arrayCIE10Fua: Diagnostic[] = [];
   fuaForm: FormGroup;
   hisForm: FormGroup;
@@ -256,7 +257,6 @@ export class DiagnosticoConsultaComponent implements OnInit {
       buscarPDxHIS: "",
       procedimientoHIS: event.descripcionItem
     });
-
   }
 
   filterCIE10(event: any) {
@@ -498,7 +498,8 @@ export class DiagnosticoConsultaComponent implements OnInit {
           }
           this.arrayDiagnosticHIS.push(diagnostic);
         }
-      })
+      });
+      this.isSaved = true;
     })
   }
 
