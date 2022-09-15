@@ -460,7 +460,18 @@ export class DiagnosticoConsultaComponent implements OnInit {
   }
 
   async saveDiagnostico(): Promise<void> {
+    this.arrayDiagnosticSave = [];
     this.mergeArrayDiagnostic(this.arrayDiagnosticFUA, this.arrayDiagnosticHIS, this.arrayDiagnosticSave);
+    if (this.arrayDiagnosticSave.length < 1) {
+      Swal.fire({
+        icon: 'error',
+        title: 'No se agrego ningun procedimiento',
+        text: '',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      return;
+    }
     await this.DiagnosticoService.postPromiseDiagnostico(this.patientData.idConsulta, this.arrayDiagnosticSave).then(res => {
       Swal.fire({
         icon: 'success',

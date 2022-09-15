@@ -295,16 +295,12 @@
               appendTo="body" class="inputfield p-fluid w-full" (onChange)="onChangePrestacion()">
             </p-dropdown>
           </div>
-        </div>
-        <div class="grid">
           <div class="col-12 p-fluid">
             <label>Diagnóstico SIS:</label>
             <p-dropdown [options]="arrayFuaDiagnostic" formControlName="diagnosticoFUA"
               placeholder="Seleccionar un Procedimiento" optionLabel="diagnostico" (onChange)="selectDxSIS($event)">
             </p-dropdown>
           </div>
-        </div>
-        <div class="grid">
           <div class="col-9 p-fluid">
             <label>Código de procedimiento SIS: </label>
             <p-dropdown [options]="arrayFuaDiagnostic" formControlName="codCIE10SIS" appendTo="body" optionLabel="cie10"
@@ -315,8 +311,6 @@
             <button pButton pRipple icon="pi pi-plus" pButton type="button" style="background-color: #0c3866"
               label="Agregar" class="add-button p-button-rounded" (click)="agregateDiagnosticFUA()"></button>
           </div>
-        </div>
-        <div class="grid">
           <div class="col-12 p-fluid">
             <textarea style="text-transform:uppercase" rows="3" cols="30" pInputTextarea
               formControlName="diagnosticoSIS"></textarea>
