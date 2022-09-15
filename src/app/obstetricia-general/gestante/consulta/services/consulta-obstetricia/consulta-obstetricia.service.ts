@@ -14,6 +14,9 @@ export class ConsultaObstetriciaService {
   getDatosConsultasObstetricasListar(data) {
     return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/listar`, data)
   }
+  getDatosConsultasObstetricasListarPorFiliacion(idFiliacion) {
+    return this.http.get(`${this.base_url}/${this.bd}/obstetricia/consulta/listar/${idFiliacion}`)
+  }
   postDatoConsultaObstetrica(data,nroFetos) {
     return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/agregarConsulta/${nroFetos}`, data)
   }

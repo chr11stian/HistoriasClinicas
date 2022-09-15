@@ -21,6 +21,7 @@ export class ListarFuaComponent implements OnInit {
   consultaFUA: string = 'http://192.168.5.3:8200/jasperserver/rest_v2/reports/Reports/v1/fuaid/anexo1.pdf?authorization='
   consultaID: string = 'http://192.168.5.3:8200/jasperserver/rest_v2/reports/Reports/v1/fuaconsulta/fua_por_consulta.pdf?authorization='
   listDataFUA: FUA[] = [];
+  listDataFuaAux: FUA[] = []
   linkPDF: string;
   idConsulta: string;
   isGeneratedFUA: boolean = false;
@@ -46,7 +47,6 @@ export class ListarFuaComponent implements OnInit {
         return;
       }
       this.listDataFUA = res.object;
-      console.log('lista de fuas ', this.listDataFUA, res);
       if (this.data.estadoAtencion == 1) {
         Swal.fire({
           icon: 'success',
@@ -55,6 +55,10 @@ export class ListarFuaComponent implements OnInit {
           timer: 2000
         });
       }
+      this.listDataFUA.map(item => {
+        item.estado == 'CREADO' ? item.completed = false : item.completed = true;
+        return item;
+      });
     })
     // this.linkPDF = "http://192.168.5.3:8200/jasperserver/rest_v2/reports/Reports/FUA/anexo1.pdf?idFua="
   }
@@ -91,4 +95,10 @@ interface Paciente {
 }
 interface FUA {
   codPrestacion: string;
+  estado: string;
+  completed?: boolean
+}
+interface AuxFUA {
+  codPrestacion: string,
+  completed: boolean
 }

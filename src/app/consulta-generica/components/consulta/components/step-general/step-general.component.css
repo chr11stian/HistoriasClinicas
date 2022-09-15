@@ -31,18 +31,29 @@ p-tabview >>> .p-tabview .p-tabview-panels {
     cursor: pointer;
 }
 
-:host >>> .p-steps {
-    margin-bottom: 20px;
+p-steps.steps >>> .p-steps{
+    padding-bottom: 20px;
+    padding-top: 20px;
+    background-color: #f8f9fa;
+    /* background-color: #dee2e6; */
 }
 
-:host >>> .p-steps .p-steps-item .p-menuitem-link .p-steps-number {
-    border-radius: 0;
+p-steps.steps >>> .p-steps .p-steps-item .p-menuitem-link .p-steps-number {
+    border-radius: 10px;
     width: 110px;
     height: 50px;
     color: transparent;
     background: white;
     border: 1px solid green;
 }
+/* p-steps.steps.seleccionado>>>  .p-steps .p-steps-item .p-menuitem-link .p-steps-number {
+
+    background:red;
+}
+p-steps.steps.noSeleccionado>>>  .p-steps .p-steps-item .p-menuitem-link .p-steps-number {
+
+    background:white;
+} */
 
 :host >>> .p-steps .p-steps-item.p-steps-current .p-menuitem-link .p-steps-number {
     border: 1px solid rgb(10, 79, 163);
@@ -76,6 +87,7 @@ p-tabview >>> .p-tabview .p-tabview-panels {
     top: 35%;
     transform: translate(-50%, -50%);
 }
+
 
 :host >>> .p-steps .p-steps-item:before {
     margin-top: -4px;
