@@ -84,6 +84,9 @@ export class ProcedimientosConsultaComponent implements OnInit {
     listProcedures: Procedure[] = [];
     arrayProcedureSave: ProceduresSave[] = [];
 
+    fuaForm: FormGroup;
+    hisForm: FormGroup;
+
     constructor(
         private rolGuardiaService: RolGuardiaService,
         private consultaGeneralService: ConsultaGeneralService,
@@ -213,7 +216,22 @@ export class ProcedimientosConsultaComponent implements OnInit {
             codProcedimientoHIS: new FormControl("", [Validators.required]),
             procedimientoHIS: new FormControl("", [Validators.required]),
         });
-
+        this.fuaForm = new FormGroup({
+            prestacion: new FormControl("", Validators.required),
+            tipoDiagnosticoSIS: new FormControl("", Validators.required),
+            buscarPDxSIS: new FormControl(""),
+            codProcedimientoSIS: new FormControl("", Validators.required),
+            procedimientoSIS: new FormControl("", Validators.required),
+        })
+        this.hisForm = new FormGroup({
+            nombreUPS: new FormControl("", Validators.required),
+            nombreUPSaux: new FormControl("", Validators.required),
+            tipoDiagnosticoHIS: new FormControl("", Validators.required),
+            lab: new FormControl(""),
+            buscarPDxHIS: new FormControl(""),
+            codProcedimientoHIS: new FormControl("", Validators.required),
+            procedimientoHIS: new FormControl("", Validators.required),
+        })
         /* Interconsulta */
         this.formInterconsulta = new FormGroup({
             fecha: new FormControl({ value: null, disabled: false }, []),
@@ -479,14 +497,11 @@ export class ProcedimientosConsultaComponent implements OnInit {
     }
 
     selectedDxHIS(event: any) {
-        console.log("lista de cie ", this.listaDeCIEHIS);
-        console.log("evento desde diagnos ", event);
-        this.formProcedimiento.patchValue({
+        this.hisForm.patchValue({
             procedimientoHIS: event.descripcionItem,
+            buscarPDxHIS: "",
+            codProcedimientoHIS: event
         });
-        this.formProcedimiento.patchValue({ buscarPDxHIS: "" });
-        this.formProcedimiento.patchValue({ codProcedimientoHIS: event });
-        //
     }
 
     cancelProcedimiento() {
@@ -683,14 +698,11 @@ export class ProcedimientosConsultaComponent implements OnInit {
 
     selectDxSIS(event) {
         console.log(this.formProcedimiento.value.buscarPDxSIS);
-        this.formProcedimiento.patchValue({
+        this.fuaForm.patchValue({
             procedimientoSIS: event.value.procedimiento,
+            codProcedimientoSIS: event.value,
+            buscarPDxSIS: ""
         });
-        this.formProcedimiento.patchValue(
-            { codProcedimientoSIS: event.value },
-            { emitEvent: false }
-        );
-        this.formProcedimiento.patchValue({ buscarPDxSIS: "" });
     }
 
     async saveProcedimiento() {
@@ -908,7 +920,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
         });
     }
     onChangePrestacion() {
-        let prestation = this.formProcedimiento.value.prestacion;
+        let prestation = this.fuaForm.value.prestacion;
         this.listProcedures = prestation.procedimientos;
         console.log('lista de proced ', this.listProcedures);
     }
@@ -938,28 +950,35 @@ export class ProcedimientosConsultaComponent implements OnInit {
     }
 
     agregateProcedureSIS(): void {
-        let procedureSIS: ProcedureFUA = {
-            codPrestacion: this.formProcedimiento.value.prestacion.codPrestacion,
-            tipoDiagnostico: this.formProcedimiento.value.tipoDiagnosticoSIS,
-            procedimientoSIS: this.formProcedimiento.value.procedimientoSIS,
-            cie10SIS: this.formProcedimiento.value.codProcedimientoSIS.codigo,
-            codProcedimientoSIS: this.formProcedimiento.value.codProcedimientoSIS.codigo,
-        }
-        this.arrayProcedureSIS.push(procedureSIS);
-        this.formProcedimiento.reset();
+        if (this.fuaForm.valid) {
+            let procedureSIS: ProcedureFUA = {
+                codPrestacion: this.fuaForm.value.prestacion.codPrestacion,
+                tipoDiagnostico: this.fuaForm.value.tipoDiagnosticoSIS,
+                procedimientoSIS: this.fuaForm.value.procedimientoSIS,
+                cie10SIS: this.fuaForm.value.codProcedimientoSIS.codigo,
+                codProcedimientoSIS: this.fuaForm.value.codProcedimientoSIS.codigo,
+            }
+            this.arrayProcedureSIS.push(procedureSIS);
+            this.fuaForm.reset();
+        } else
+            this.missDataMessage();
     }
 
     agregateProcedureHIS(): void {
-        let HISprocedure: ProcedureHIS = {
-            nombreUPS: this.formProcedimiento.value.nombreUPS.nombreUPS,
-            nombreUPSaux: this.formProcedimiento.value.nombreUPSaux.nombre,
-            tipoDiagnostico: this.formProcedimiento.value.tipoDiagnosticoHIS,
-            lab: this.formProcedimiento.value.lab,
-            codProcedimientoHIS: this.formProcedimiento.value.codProcedimientoHIS.codigoItem,
-            procedimientoHIS: this.formProcedimiento.value.procedimientoHIS,
-        }
-        this.arrayProcedureHIS.push(HISprocedure);
-        this.formProcedimiento.reset();
+        if (this.hisForm.valid) {
+            let HISprocedure: ProcedureHIS = {
+                nombreUPS: this.hisForm.value.nombreUPS.nombreUPS,
+                nombreUPSaux: this.hisForm.value.nombreUPSaux.nombre,
+                tipoDiagnostico: this.hisForm.value.tipoDiagnosticoHIS,
+                lab: this.hisForm.value.lab,
+                codProcedimientoHIS: this.hisForm.value.codProcedimientoHIS.codigoItem,
+                procedimientoHIS: this.hisForm.value.procedimientoHIS,
+            }
+            this.arrayProcedureHIS.push(HISprocedure);
+            this.hisForm.reset();
+        } else
+            this.missDataMessage();
+
     }
     mergeArrayProcedures(procedimientoSIS: ProcedureFUA[], procedimientoHIS: ProcedureHIS[], procedimientos: ProceduresSave[]) {
         procedimientoSIS.forEach(item => {
@@ -998,14 +1017,26 @@ export class ProcedimientosConsultaComponent implements OnInit {
     saveProcedures(): void {
         this.arrayProcedureSave = []
         this.mergeArrayProcedures(this.arrayProcedureSIS, this.arrayProcedureHIS, this.arrayProcedureSave);
-        // console.log('data to save ', this.arrayProcedureSave);
-        let dataSave: DataSave = {
-            procedimientos: []
+        if (this.arrayProcedureSave.length < 1) {
+            Swal.fire({
+                icon: 'error',
+                title: 'No se agrego ningun procedimiento',
+                text: '',
+                showConfirmButton: false,
+                timer: 2000
+            });
+            return;
         }
+        let dataSave: DataSave = { procedimientos: [] };
         dataSave.procedimientos = this.arrayProcedureSave;
-        // console.log('data to save ', dataSave);
         this.DiagnosticoService.postSaveProcedure(this.dataConsulta.idConsulta, dataSave).then(res => {
-            console.log('data saved');
+            Swal.fire({
+                icon: 'success',
+                title: 'Se guardo exitosamente',
+                text: '',
+                showConfirmButton: false,
+                timer: 2000
+            });
         });
     }
 
@@ -1016,8 +1047,11 @@ export class ProcedimientosConsultaComponent implements OnInit {
 
     recoverSavedProcedureData(): void {
         this.DiagnosticoService.getPromiseProcedimiento(this.dataConsulta.idConsulta).then(res => {
-            let daraRes: ProceduresSave[] = res.object;
-            daraRes.forEach(item => {
+            let dataRes: ProceduresSave[] = res.object;
+            if (dataRes == null) {
+                return
+            }
+            dataRes.forEach(item => {
                 if (item.codPrestacion != null) {
                     let procedure: ProcedureFUA = {
                         codPrestacion: item.codPrestacion,
@@ -1040,6 +1074,43 @@ export class ProcedimientosConsultaComponent implements OnInit {
                 }
             })
         })
+    }
+
+    confirmSave() {
+
+        Swal.fire({
+            showCancelButton: true,
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Guardar',
+            icon: 'question',
+            title: 'Guardar',
+            text: '¿Esta seguro que desea guardar los diagnosticos?',
+            showConfirmButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.saveProcedures();
+            } else {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'No se guardo',
+                    text: '',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            }
+        });
+    }
+
+    missDataMessage(): void {
+        Swal.fire({
+            icon: 'info',
+            title: 'Falta llenar campos',
+            text: '',
+            showConfirmButton: false,
+            timer: 2000
+        });
     }
 }
 interface resultados {
