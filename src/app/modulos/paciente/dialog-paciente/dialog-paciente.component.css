@@ -81,13 +81,13 @@ input[type="number"] {
 }
 
 .footer {
-    text-align: right;
+    /* text-align: right; */
     background: transparent;
     position: absolute;
-    bottom: 0;
+    bottom: 15px;
+    right: 20px;
     width: 97%;
     height: 5em;
     color: white;
-    bottom: 0;
     z-index: 50;
 }
