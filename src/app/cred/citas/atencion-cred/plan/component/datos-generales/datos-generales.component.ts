@@ -26,6 +26,7 @@ export class DatosGeneralesComponent implements OnInit {
     stateOptions: any[]
     stateOptions1: any[]
     stateOptions2: any[]
+    listaEstadoCivil:any[]
 
     generalInfoFG: FormGroup
     apoderadoInfoFG: FormGroup
@@ -71,6 +72,14 @@ export class DatosGeneralesComponent implements OnInit {
             {label: "RH", value: true},
             {label: "NO", value: false},
         ]
+        this.listaEstadoCivil = [
+            {name:'SOLTERO',code:'SOLTERO'},
+            {name:'CASADO',code:'CASADO'},
+            {name:'CONVIVIENTE',code:'CONVIVIENTE'},
+            {name:'SEPARADO',code:'SEPARADO'},
+            {name:'DIVORCIADO',code:'DIVORCIADO'},
+            {name:'VIUDO',code:'VIUDO'}
+        ];
     }
 
     ngOnInit(): void {
@@ -93,13 +102,13 @@ export class DatosGeneralesComponent implements OnInit {
 
     build() {
         this.generalInfoFG = new FormGroup({
-            nombre: new FormControl({value: '', disabled: false}, [Validators.required]),
-            apellidos: new FormControl({value: '', disabled: false}, [Validators.required]),
-            sexo: new FormControl({value: null, disabled: false}),
-            lugar: new FormControl({value: '', disabled: false}, [Validators.required]),
-            fechaNacimiento: new FormControl({value: null, disabled: false}, [Validators.required]),
-            domicilio: new FormControl({value: '', disabled: false}, [Validators.required]),
-            dni: new FormControl({value: '', disabled: false}, [Validators.required]),
+            nombre: new FormControl({value: '', disabled: true}, [Validators.required]),
+            apellidos: new FormControl({value: '', disabled: true}, [Validators.required]),
+            sexo: new FormControl({value: null, disabled: true}),
+            lugar: new FormControl({value: '', disabled: true}, [Validators.required]),
+            fechaNacimiento: new FormControl({value: null, disabled: true}, [Validators.required]),
+            domicilio: new FormControl({value: '', disabled: true}, [Validators.required]),
+            dni: new FormControl({value: '', disabled: true}, [Validators.required]),
             GS: new FormControl({value: '', disabled: false}, [Validators.required]),
             RH: new FormControl({value: 'null', disabled: false}, [Validators.required]),
             gradoInstruccion: new FormControl({value: 'null', disabled: false}, [Validators.required]),
@@ -218,8 +227,8 @@ export class DatosGeneralesComponent implements OnInit {
             nroDoc: this.respuestaDatosGenerales.nroDoc,
             gs: this.generalInfoFG.value.GS,
             rh: this.generalInfoFG.value.RH,
-            gradoInstruccion: this.generalInfoFG.value.gradoInstruccion,
-            centroEducativo: this.generalInfoFG.value.centroEducativo,
+            gradoInstruccion: '',
+            centroEducativo: '',
             responsable: auxResponsable
         }
 
