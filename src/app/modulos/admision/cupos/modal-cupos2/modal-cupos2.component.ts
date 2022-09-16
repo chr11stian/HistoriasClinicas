@@ -618,9 +618,9 @@ export class ModalCupos2Component implements OnInit {
                     this.formPacientesCupo.get('apeMaterno').value,
                 tipoDoc: this.formPacientesCupo.value.tipoDoc,
                 nroDoc: this.formPacientesCupo.value.nroDoc,
-                edadAnio: this.formPacientesCupo.value.edadAnio,
-                edadMes: this.formPacientesCupo.value.edadMes,
-                edadDia: this.formPacientesCupo.value.edadDia,
+                edadAnio: this.formPacientesCupo.get('edadAnio').value,
+                edadMes: this.formPacientesCupo.get('edadMes').value,
+                edadDia: this.formPacientesCupo.get('edadDia').value,
                 nroHcl: this.dataPacientes.nroHcl,
                 sexo: this.formPacientesCupo.get('sexo').value,
                 nroTelefono: this.formPacientesCupo.value.celular,
@@ -642,6 +642,7 @@ export class ModalCupos2Component implements OnInit {
 
         if (this.cuposService.data == undefined) {
             console.log("guardar cupo ", req);
+            const result =null
             this.cuposService.saveCupos(req).subscribe((result: any) => {
                 console.log(result.object);
                 if (result.object != null || result.object != undefined) {
@@ -668,7 +669,7 @@ export class ModalCupos2Component implements OnInit {
                     });
                     return;
                 }
-            });
+             });
         } else {
             const reqInterconsulta = {
                 id: this.cuposService.data.id,
@@ -700,9 +701,9 @@ export class ModalCupos2Component implements OnInit {
                         this.formPacientesCupo.get('apeMaterno').value,
                     tipoDoc: this.formPacientesCupo.value.tipoDoc,
                     nroDoc: this.formPacientesCupo.value.nroDoc.toString(),
-                    edadAnio: this.formPacientesCupo.value.edadAnio,
-                    edadMes: this.formPacientesCupo.value.edadMes,
-                    edadDia: this.formPacientesCupo.value.edadDia,
+                    edadAnio: this.formPacientesCupo.get('edadAnio').value,
+                    edadMes: this.formPacientesCupo.get('edadMes').value,
+                    edadDia: this.formPacientesCupo.get('edadDia').value,
                     nroHcl: this.dataPacientes.nroHcl,
                     sexo: this.formPacientesCupo.get('sexo').value,
                     nroTelefono: this.formPacientesCupo.value.celular,
@@ -793,108 +794,104 @@ export class ModalCupos2Component implements OnInit {
     }
 
     /**Calcula la edad del paciente**/
-    calcularEdad1(fecha) {
-        /** Si la fecha es correcta, calculamos la edad*/
-        if (
-            typeof fecha != "string" &&
-            fecha &&
-            this.esNumero(fecha.getTime())
-        ) {
-            fecha = fecha.formatDate(fecha, "yyyy-MM-dd");
-        }
-        let values = fecha.split("-");
-        let dia = values[2];
-        let mes = values[1];
-        let ano = values[0];
+    // calcularEdad(fecha) {
+    //     /** Si la fecha es correcta, calculamos la edad*/
+    //     if (
+    //         typeof fecha != "string" &&
+    //         fecha &&
+    //         this.esNumero(fecha.getTime())
+    //     ) {
+    //         fecha = fecha.formatDate(fecha, "yyyy-MM-dd");
+    //     }
+    //     let values = fecha.split("-");
+    //     let dia = values[2];
+    //     let mes = values[1];
+    //     let ano = values[0];
 
-        // cogemos los valores actuales
-        let fecha_hoy = new Date();
-        let ahora_ano = fecha_hoy.getFullYear();
-        let ahora_mes = fecha_hoy.getMonth() + 1;
-        let ahora_dia = fecha_hoy.getDate();
+    //     // cogemos los valores actuales
+    //     let fecha_hoy = new Date();
+    //     let ahora_ano = fecha_hoy.getFullYear();
+    //     let ahora_mes = fecha_hoy.getMonth() + 1;
+    //     let ahora_dia = fecha_hoy.getDate();
 
-        // realizamos el calculo
-        this.edad = ahora_ano + 0 - ano;
-        if (ahora_mes < mes) {
-            this.edad--;
-        }
-        if (mes == ahora_mes && ahora_dia < dia) {
-            this.edad--;
-        }
-        if (this.edad > 0) {
-            this.edad -= 0;
-        }
+    //     // realizamos el calculo
+    //     this.edad = ahora_ano + 0 - ano;
+    //     if (ahora_mes < mes) {
+    //         this.edad--;
+    //     }
+    //     if (mes == ahora_mes && ahora_dia < dia) {
+    //         this.edad--;
+    //     }
+    //     if (this.edad > 0) {
+    //         this.edad -= 0;
+    //     }
 
-        // calculamos los meses
-        this.meses = 0;
+    //     // calculamos los meses
+    //     this.meses = 0;
 
-        if (ahora_mes > mes && dia > ahora_dia)
-            this.meses = ahora_mes - mes - 1;
-        else if (ahora_mes > mes) this.meses = ahora_mes - mes;
-        if (ahora_mes < mes && dia < ahora_dia)
-            this.meses = 12 - (mes - ahora_mes);
-        else if (ahora_mes < mes) this.meses = 12 - (mes - ahora_mes + 1);
-        if (ahora_mes == mes && dia > ahora_dia) this.meses = 11;
+    //     if (ahora_mes > mes && dia > ahora_dia)
+    //         this.meses = ahora_mes - mes - 1;
+    //     else if (ahora_mes > mes) this.meses = ahora_mes - mes;
+    //     if (ahora_mes < mes && dia < ahora_dia)
+    //         this.meses = 12 - (mes - ahora_mes);
+    //     else if (ahora_mes < mes) this.meses = 12 - (mes - ahora_mes + 1);
+    //     if (ahora_mes == mes && dia > ahora_dia) this.meses = 11;
 
-        // calculamos los dias
-        this.dias = 0;
-        if (ahora_dia > dia) this.dias = ahora_dia - dia;
-        if (ahora_dia < dia) {
-            let ultimoDiaMes = new Date(ahora_ano, ahora_mes - 1, 0);
-            this.dias = ultimoDiaMes.getDate() - (dia - ahora_dia);
-        }
-        return (
-            this.edad +
-            " años, " +
-            this.meses +
-            "meses y " +
-            this.dias +
-            " días"
-        );
+    //     // calculamos los dias
+    //     this.dias = 0;
+    //     if (ahora_dia > dia) this.dias = ahora_dia - dia;
+    //     if (ahora_dia < dia) {
+    //         let ultimoDiaMes = new Date(ahora_ano, ahora_mes - 1, 0);
+    //         this.dias = ultimoDiaMes.getDate() - (dia - ahora_dia);
+    //     }
+    //     return (
+    //         this.edad +
+    //         " años, " +
+    //         this.meses +
+    //         "meses y " +
+    //         this.dias +
+    //         " días"
+    //     );
+    // }
+     fecha_hoy = new Date();
+     calcularEdad(fecha: string) {
+         let fechaNacimiento: Date = new Date(fecha);
+         let dia = fechaNacimiento.getDate();
+         let mes = fechaNacimiento.getMonth() + 1;
+         let ano = fechaNacimiento.getFullYear()
+         // cogemos los valores actuales
+  
+         let ahora_ano = this.fecha_hoy.getFullYear();
+         let ahora_mes = this.fecha_hoy.getMonth() + 1;
+         let ahora_dia = this.fecha_hoy.getDate()
+         let edad = ahora_ano + 1900 - ano;
+         if (ahora_mes < mes) {
+             edad--;
+         }
+         if (mes == ahora_mes && ahora_dia < dia) {
+             edad--;
+         }
+         if (edad >= 1900) {
+             edad -= 1900;
+         
+         let meses = 0;
+         if (ahora_mes > mes && dia > ahora_dia) meses = ahora_mes - mes - 1;
+         else if (ahora_mes > mes) meses = ahora_mes - mes;
+         if (ahora_mes < mes && dia < ahora_dia) meses = 12 - (mes - ahora_mes);
+         else if (ahora_mes < mes) meses = 12 - (mes - ahora_mes + 1);
+         if (ahora_mes == mes && dia > ahora_dia) meses = 11
+         // calculamos los dias
+         let dias = 0;
+         if (ahora_dia > dia) dias = ahora_dia - dia;
+         if (ahora_dia < dia) {
+             let ultimoDiaMes: Date = new Date(ahora_ano, ahora_mes - 1, 0);
+             dias = ultimoDiaMes.getDate() - (dia - ahora_dia);
+         }
+         this.edad = edad;
+         this.meses = meses;
+         this.dias = dias;
+          }
     }
-    fecha_hoy = new Date();
-    calcularEdad(fecha: string) {
-        let fechaNacimiento: Date = new Date(fecha);
-        let dia = fechaNacimiento.getDate();
-        let mes = fechaNacimiento.getMonth() + 1;
-        let ano = fechaNacimiento.getFullYear();
-
-        // cogemos los valores actuales
-        
-        let ahora_ano = this.fecha_hoy.getFullYear();
-        let ahora_mes = this.fecha_hoy.getMonth() + 1;
-        let ahora_dia = this.fecha_hoy.getDate();
-
-        let edad = ahora_ano + 1900 - ano;
-        if (ahora_mes < mes) {
-            edad--;
-        }
-        if (mes == ahora_mes && ahora_dia < dia) {
-            edad--;
-        }
-        if (edad >= 1900) {
-            edad -= 1900;
-        }
-
-        let meses = 0;
-        if (ahora_mes > mes && dia > ahora_dia) meses = ahora_mes - mes - 1;
-        else if (ahora_mes > mes) meses = ahora_mes - mes;
-        if (ahora_mes < mes && dia < ahora_dia) meses = 12 - (mes - ahora_mes);
-        else if (ahora_mes < mes) meses = 12 - (mes - ahora_mes + 1);
-        if (ahora_mes == mes && dia > ahora_dia) meses = 11;
-
-        // calculamos los dias
-        let dias = 0;
-        if (ahora_dia > dia) dias = ahora_dia - dia;
-        if (ahora_dia < dia) {
-            let ultimoDiaMes: Date = new Date(ahora_ano, ahora_mes - 1, 0);
-            dias = ultimoDiaMes.getDate() - (dia - ahora_dia);
-        }
-        this.edad = edad;
-        this.meses = meses;
-        this.dias = dias;
-    }
-
     /**Lista de Cupos y citas sin importar el estado reservados por servicio **/
     getCuposXservicio() {
         let data = {
