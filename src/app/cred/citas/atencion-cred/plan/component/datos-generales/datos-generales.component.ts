@@ -60,8 +60,8 @@ export class DatosGeneralesComponent implements OnInit {
             "SUPERIOR"
         ]
         this.stateOptions = [
-            {label: "M", value: true},
-            {label: "F", value: false},
+            {label: "M", value: 'MASCULINO'},
+            {label: "F", value: 'FEMENINO'},
         ]
         this.stateOptions1 = [
             {label: "GS", value: true},
