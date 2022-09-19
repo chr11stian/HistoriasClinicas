@@ -128,4 +128,11 @@ export class DiagnosticoConsultaService {
             .then(data => { return data; })
             .catch(error => { return error.error })
     }
+
+    postDiagnosticToPregmant(idConsulta: string, data) {
+        return this.http.post(`${this.urlServer}/${this.bd}/obstetricia/consulta/agregar/diagnostico/${idConsulta}`, data)
+            .toPromise()
+            .then(res => res)
+            .then(data => { return data; })
+    }
 }   

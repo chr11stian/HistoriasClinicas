@@ -155,7 +155,7 @@
                 </div>
             </div>
         </div>
-        <p-toolbar>
+        <!-- <p-toolbar>
             <ng-template pTemplate="left">
                 <h3 class="mt-2">DIAGNÓSTICO</h3>
             </ng-template>
@@ -164,9 +164,6 @@
                     class="button-agregar" (click)="openDiagnostico()"></button>
             </ng-template>
         </p-toolbar>
-        <!-- <p-toolbar>
-            
-        </p-toolbar> -->
         <p-table class="table-over" [value]="diagnosticos" #dt styleClass="p-datatable-gridlines" [rows]="10"
             [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
             currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
@@ -201,14 +198,11 @@
                     </td>
                 </tr>
             </ng-template>
-        </p-table>
-        
-    </div>
-    <br>
-
+        </p-table> -->
+    </div><br>
 </div>
 <!--*************************DIALOGO AGREGAR Diagnosticosss***********************************-->
-<p-dialog [(visible)]="diagnosticoDialog" [modal]="true" [style]="{width: '780px',heigth:'400px'}">
+<!-- <p-dialog [(visible)]="diagnosticoDialog" [modal]="true" [style]="{width: '780px',heigth:'400px'}">
     <ng-template pTemplate="header">
         <h3>DIAGNOSTICOS</h3>
     </ng-template>
@@ -300,4 +294,175 @@
             (click)="saveActualizarDiagnostico(formTemplate)"></button>
     </ng-template>
 
-</p-dialog>
+</p-dialog> -->
+
+<div class="grid">
+    <div class="col-6">
+        <p-panel header="FUA" class="diagnostic-panel">
+            <form [formGroup]="fuaForm">
+                <div class="grid">
+                    <div class="col-6 p-fluid">
+                        <label>Prestación:</label>
+                        <p-dropdown inputId="dropdown" #dropdownPres [options]="arrayPrestation"
+                            formControlName="prestacion" placeholder="Seleccionar" optionLabel="descripcion"
+                            defaultLabel="Seleccione:" appendTo="body" class="inputfield p-fluid w-full"
+                            (onChange)="onChangePrestacion()">
+                        </p-dropdown>
+                    </div>
+                    <div class="col-6 p-fluid">
+                        <label>Tipo Diagnóstico:</label>
+                        <p-dropdown inputId="dropdown" [options]="arrayDiagnosticType"
+                            formControlName="tipoDiagnosticoFUA" placeholder="Seleccionar" optionLabel="label"
+                            optionValue="value" defaultLabel="Seleccione:" appendTo="body"
+                            class="inputfield p-fluid w-full" (onChange)="onChangePrestacion()">
+                        </p-dropdown>
+                    </div>
+                    <div class="col-12 p-fluid">
+                        <label>Diagnóstico SIS:</label>
+                        <p-dropdown [options]="arrayFuaDiagnostic" formControlName="diagnosticoFUA"
+                            placeholder="Seleccionar un Procedimiento" optionLabel="diagnostico"
+                            (onChange)="onchangeSIS($event)">
+                        </p-dropdown>
+                    </div>
+                    <div class="col-9 p-fluid">
+                        <label>Código de procedimiento SIS: </label>
+                        <p-dropdown [options]="arrayFuaDiagnostic" formControlName="codCIE10SIS" appendTo="body"
+                            optionLabel="cie10" class="inputfield p-fluid w-full" placeholder="Seleccione"
+                            (onChange)="onchangeSIS($event)">
+                        </p-dropdown>
+                    </div>
+                    <div class="col-3 agregate-div ">
+                        <button pButton pRipple icon="pi pi-plus" pButton type="button"
+                            style="background-color: #0c3866" label="Agregar" class="add-button p-button-rounded"
+                            (click)="agregateDiagnosticFUA()"></button>
+                    </div>
+                    <div class="col-12 p-fluid">
+                        <textarea style="text-transform:uppercase" rows="3" cols="30" pInputTextarea
+                            formControlName="diagnosticoSIS"></textarea>
+                    </div>
+                </div>
+            </form>
+            <p-table class="table-over" [value]="arrayDiagnosticFUA" #dt styleClass="p-datatable-gridlines" [rows]="10">
+                <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                    <tr>
+                        <th style="text-align: center;" class="font-2">Nro</th>
+                        <th style="text-align: center;" class="font-2">Cod Prestación</th>
+                        <th style="text-align: center;" class="font-1">Diagnóstico</th>
+                        <th style="text-align: center;" class="font-2">CIE 10</th>
+                        <th style="text-align: center;" class="font-2">Tipo Diagnóstico</th>
+                        <th style="text-align: center" class="font-2">Acción</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-i="rowIndex">
+                    <tr>
+                        <td style="text-align: center;" class="font-2">{{ i + 1 }}</td>
+                        <td style="text-align: center;">{{ rowData.codPrestacion }}</td>
+                        <td style="text-align: center;">{{ rowData.diagnostico }}</td>
+                        <td style="text-align: center;">{{ rowData.CIE10 }}</td>
+                        <td style="text-align: center;">{{ rowData.tipoDiagnostico }}</td>
+                        <td style="text-align: center">
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
+                                (click)="deleteItemOfArray(i,0)" pTooltip="Eliminar" tooltipPosition="top"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-panel>
+    </div>
+    <div class="col-6">
+        <p-panel header="HIS" class="diagnostic-panel">
+            <form [formGroup]="hisForm">
+                <div class="grid">
+                    <div class="col-4 p-fluid">
+                        <label>Nombre UPS:</label>
+                        <p-dropdown inputId="dropdown" [options]="arrayUPS" formControlName="nombreUPS"
+                            placeholder="Seleccionar" optionLabel="nombreUPS" defaultLabel="Seleccione:" appendTo="body"
+                            class="inputfield p-fluid w-full">
+                        </p-dropdown>
+                    </div>
+                    <div class="col-4 p-fluid">
+                        <label>Sub Título UPS:</label>
+                        <p-dropdown inputId="dropdown" [options]="arrayUPSAux" formControlName="nombreUPSAux"
+                            placeholder="Seleccionar" optionLabel="nombre" defaultLabel="Seleccione:" appendTo="body"
+                            class="inputfield p-fluid w-full">
+                        </p-dropdown>
+                    </div>
+                    <div class="col-3 p-fluid">
+                        <label>Tipo Diagnóstico:</label>
+                        <p-dropdown inputId="dropdown" [options]="arrayDiagnosticType"
+                            formControlName="tipoDiagnosticoHIS" placeholder="Seleccionar" optionLabel="label"
+                            optionValue="value" defaultLabel="Seleccione:" appendTo="body"
+                            class="inputfield p-fluid w-full">
+                        </p-dropdown>
+                    </div>
+                    <div class="col-1 md:col-3 lg:col-1 p-field">
+                        <div class="">
+                            <label class="">Lab: </label>
+                            <input type="text" pInputText class="inputfield w-full bg_color" formControlName="lab"
+                                oninput="this.value=this.value.toUpperCase()">
+                        </div>
+                    </div>
+                    <div class="col-12 p-fluid">
+                        <label>Diagnóstico HIS</label>
+                        <p-autoComplete [suggestions]="listaDeCIEHIS" (completeMethod)="filterCIE10($event)"
+                            appendTo="body" field="descripcionItem" [minLength]="1" class="areaText"
+                            class="inputfield p-fluid w-full" formControlName="buscarPDxHIS"
+                            (onSelect)="onChangeHIS($event)" [dropdown]="true"
+                            placeholder="Seleccionar un Procedimiento">
+                        </p-autoComplete>
+                    </div>
+                    <div class="col-9 p-fluid">
+                        <label>Código de procedimiento HIS (CIE 10): </label>
+                        <p-autoComplete [suggestions]="listaDeCIEHIS" (completeMethod)="filterCIE10($event)"
+                            appendTo="body" field="codigoItem" [minLength]="1" class="areaText"
+                            class="inputfield p-fluid w-full" formControlName="codProcedimientoHIS"
+                            (onSelect)="onChangeHIS($event)" [dropdown]="true"
+                            placeholder="Seleccionar un Diagnostico">
+                        </p-autoComplete>
+                    </div>
+                    <div class="col-3">
+                        <button pButton pRipple icon="pi pi-plus" pButton type="button"
+                            style="background-color: #0c3866" label="Agregar" class="add-button p-button-rounded"
+                            (click)="agregateDiagnosticHIS()"></button>
+                    </div>
+                    <div class="col-12 p-fluid">
+                        <textarea style="text-transform:uppercase" rows="3" cols="30" pInputTextarea
+                            formControlName="procedimientoHIS"></textarea>
+                    </div>
+                </div>
+            </form>
+            <p-table class="table-over" [value]="arrayDiagnosticHIS" #dt styleClass="p-datatable-gridlines" [rows]="10">
+                <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                    <tr>
+                        <th style="text-align: center;" class="font-2">Nro</th>
+                        <th style="text-align: center;" class="font-2">UPS Auxiliar</th>
+                        <th style="text-align: center;" class="font-1">Diagnóstico</th>
+                        <th style="text-align: center;" class="font-2">CIE 10</th>
+                        <th style="text-align: center;" class="font-2">Tipo Diagnóstico</th>
+                        <th style="text-align: center;" class="font-2">Lab</th>
+                        <th style="text-align: center" class="font-2">Acción</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-i="rowIndex">
+                    <tr>
+                        <td style="text-align: center;" class="font-2">{{ i + 1 }}</td>
+                        <td style="text-align: center;">{{ rowData.nombreUPSaux }}</td>
+                        <td style="text-align: center;">{{ rowData.diagnosticoHIS }}</td>
+                        <td style="text-align: center;">{{ rowData.CIE10 }}</td>
+                        <td style="text-align: center;">{{ rowData.tipoDiagnostico }}</td>
+                        <td style="text-align: center;">{{ rowData.lab }}</td>
+                        <td style="text-align: center">
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
+                                (click)="deleteItemOfArray(i, 1)" pTooltip="Eliminar" tooltipPosition="top"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-panel>
+    </div>
+    <div class="col-12" *ngIf="!isSaved">
+        <button pButton pRipple icon="pi pi-save" label="Guardar" pButton type="button"
+            style="background-color: #0c3866;" label="Guardar" class="save-button p-button-rounded"
+            (click)="confirmToSave()"></button>
+    </div>
+</div>

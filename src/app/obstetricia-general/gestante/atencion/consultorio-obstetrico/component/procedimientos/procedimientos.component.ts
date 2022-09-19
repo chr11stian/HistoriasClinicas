@@ -7,6 +7,10 @@ import Swal from "sweetalert2";
 import { MessageService } from "primeng/api";
 import { ModalProcedimientosComponent } from './modal-procedimientos/modal-procedimientos.component';
 import { IpressFarmaciaService } from 'src/app/modulos/ipress-farmacia/services/ipress-farmacia.service';
+import { Procedure, ProcedureFUA, ProcedureHIS, ProcedurePrestation, ProceduresSave } from 'src/app/cred/citas/atencion-cred/consulta-principal/models/FUAHIS';
+import { DiagnosticoConsultaService } from 'src/app/cred/citas/atencion-cred/consulta-principal/services/diagnostico-consulta.service';
+import { UpsAuxIpressService } from 'src/app/mantenimientos/services/ups-aux-ipress/ups-aux-ipress.service';
+import { CieService } from 'src/app/obstetricia-general/services/cie.service';
 @Component({
   selector: 'app-procedimientos',
   templateUrl: './procedimientos.component.html',
@@ -51,19 +55,44 @@ export class ProcedimientosComponent implements OnInit {
   diagnosticosList: any[] = [];
   resumen: any[] = [];
   resumenPendientes: any[] = [];
-  constructor(private formBuilder: FormBuilder,
+
+  /** New Vars */
+  arrayDiagnosticType: any[] = [];
+  arrayUPS: UPS[] = [];
+  arrayUPSAux: UPSaux[] = [];
+  arrayProcedureHIS: ProcedureHIS[] = [];
+  arrayProcedureSIS: ProcedureFUA[] = [];
+  arrayPrestationCode: ProcedurePrestation[] = [];
+  listProcedures: Procedure[] = [];
+  arrayProcedureSave: ProceduresSave[] = [];
+  isSaved: boolean = false;
+  idIpress: string;
+  listaDeCIEHIS: any[] = [];
+  patientData: Patient;
+
+  fuaForm: FormGroup;
+  hisForm: FormGroup;
+  constructor(
+    private formBuilder: FormBuilder,
     private dialog: DialogService,
     private messageService: MessageService,
     private tratamientoService: ConsultasService,
-    private farmaciaService: IpressFarmaciaService) {
+    private farmaciaService: IpressFarmaciaService,
+    private DiagnosticoService: DiagnosticoConsultaService,
+    private UpsAuxService: UpsAuxIpressService,
+    private cieService: CieService,
+  ) {
     //this.buildForm();
 
     /*********RECUPERAR DATOS*********/
     this.renIpress = JSON.parse(localStorage.getItem('usuario')).ipress.renipress;
-    console.log("renipress", this.renIpress)
+    // console.log("renipress", this.renIpress)
+    console.log('dataa de la ipressssssssssssssssss ', this.renIpress);
+    this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
     /*usando local storage*/
     this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
     this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
+    this.patientData = JSON.parse(localStorage.getItem('datacupos')).paciente;
 
     //estado para saber que estado usar en consultas
     this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
@@ -96,14 +125,44 @@ export class ProcedimientosComponent implements OnInit {
       this.nroAtencion = nroAtencion;
       console.log("entre a edicion consulta", this.nroAtencion)
     }
+    this.arrayDiagnosticType = [
+      { label: "DEFINITIVO", value: "D" },
+      { label: "PRESUNTIVO", value: "P" },
+      { label: "REPETITIVO", value: "R" },
+    ];
+    this.idConsulta = JSON.parse(localStorage.getItem('IDConsulta'));
     //this.recuperarDatos();
+    this.buildForm();
     this.traerDiagnosticosDeConsulta();
     this.traerListaResumen();
     this.traerListaResumenPendientes();
     this.recuperarProcedimientos();
+    this.recuperarProcedimientos();
+    this.recuperarUpsHis();
+    this.recuperarUpsAuxHis();
+    this.recoverPrestationData();
   }
 
   ngOnInit(): void {
+  }
+
+  buildForm() {
+    this.fuaForm = new FormGroup({
+      prestacion: new FormControl("", Validators.required),
+      tipoDiagnosticoSIS: new FormControl("", Validators.required),
+      buscarPDxSIS: new FormControl(""),
+      codProcedimientoSIS: new FormControl("", Validators.required),
+      procedimientoSIS: new FormControl("", Validators.required),
+    })
+    this.hisForm = new FormGroup({
+      nombreUPS: new FormControl("", Validators.required),
+      nombreUPSaux: new FormControl("", Validators.required),
+      tipoDiagnosticoHIS: new FormControl("", Validators.required),
+      lab: new FormControl(""),
+      buscarPDxHIS: new FormControl(""),
+      codProcedimientoHIS: new FormControl("", Validators.required),
+      procedimientoHIS: new FormControl("", Validators.required),
+    })
   }
 
   traerListaResumen() {
@@ -135,38 +194,6 @@ export class ProcedimientosComponent implements OnInit {
     })
   }
 
-  // recuperarDatos() {
-  //   this.recuperarNroFetos();
-  //   let aux = {
-  //     id: this.idConsulta,
-  //     nroHcl: this.nroHcl,
-  //     nroEmbarazo: this.nroEmbarazo,
-  //     nroAtencion: this.nroAtencion
-  //   }
-  //   this.tratamientoService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
-  //     this.dataConsulta = res.object;
-  //     console.log("data consulta:" + this.dataConsulta);
-
-  //     if (res['cod'] = '2401') {
-  //       if (this.dataConsulta != null) {
-  //         this.messageService.add({
-  //           severity: 'info',
-  //           summary: 'Recuperado',
-  //           detail: 'Registro recuperado satisfactoriamente'
-  //         });
-  //         if (this.dataConsulta.procedimientos != null) {
-  //           /* recuperar procedimientos*/
-  //           let p: number = 0;
-  //           while (p < this.dataConsulta.procedimientos.length) {
-  //             this.procedimientos.push(this.dataConsulta.procedimientos[p]);
-  //             p++;
-  //           }
-  //         }
-  //       }
-  //     } else { this.messageService.add({ severity: 'success', summary: 'Registros', detail: 'No hay datos ingresados todavía' }); }
-  //   }
-  //   );
-  // }
   recuperarNroFetos() {
     let idData = {
       id: this.idConsulta
@@ -187,12 +214,12 @@ export class ProcedimientosComponent implements OnInit {
         width: "980px",
         overflow: "auto",
       },
-    })
+    });
     this.ref.onClose.subscribe((data: any) => {
       console.log("data de modal PROCEDIMIENTOS", data)
-        this.recuperarProcedimientos();
-        this.traerListaResumenPendientes();
-    })
+      this.recuperarProcedimientos();
+      this.traerListaResumenPendientes();
+    });
   }
   openDialogProcedimientoConsejeria(nombre) {
     this.ref = this.dialog.open(ModalProcedimientosComponent, {
@@ -260,29 +287,202 @@ export class ProcedimientosComponent implements OnInit {
       this.procedimientos = res.object;
     })
   }
+  /** NEW  */
+  recoverPrestationData(): void {
+    this.DiagnosticoService.getPrestationPerIdConsulta(this.idConsulta).then(res => {
+      this.arrayPrestationCode = res.object;
+    });
+  }
+  onChangePrestacion() {
+    let prestation = this.fuaForm.value.prestacion;
+    this.listProcedures = prestation.procedimientos;
+    console.log('lista de proced ', this.listProcedures);
+  }
 
-  // guardarTodosDatos() {
-  //   const req = {
-  //     id: this.idConsulta,
-  //     nroHcl: this.nroHcl,
-  //     nroEmbarazo: this.nroEmbarazo,
-  //     nroAtencion: this.nroAtencion,
-  //     tipoDoc: this.tipoDocRecuperado,
-  //     nroDoc: this.nroDocRecuperado,
-  //     procedimientos: this.procedimientos,
-  //   }
-  //   this.tratamientoService.updateConsultas(this.nroFetos, req).subscribe(
-  //     (resp) => {
-  //       console.log(resp);
-  //       console.log(req);
-  //       Swal.fire({
-  //         icon: 'success',
-  //         title: 'Actualizado correctamente',
-  //         text: '',
-  //         showConfirmButton: false,
-  //         timer: 1500,
-  //       })
-  //     }
-  //   )
-  // }
+  selectDxSIS(event) {
+    this.fuaForm.patchValue({
+      procedimientoSIS: event.value.procedimiento,
+      codProcedimientoSIS: event.value,
+      buscarPDxSIS: ""
+    });
+  }
+
+  selectedOption(event: any) {
+    this.fuaForm.patchValue({
+      procedimientoSIS: event.value.procedimiento,
+    });
+  }
+
+  recuperarUpsHis() {
+    let data = {
+      idIpress: this.idIpress,
+      edad: this.patientData.edadAnio,
+      sexo: this.patientData.sexo,
+    };
+    this.DiagnosticoService.listaUpsHis(data).then(
+      (res: any) => (this.arrayUPS = res.object)
+    );
+  }
+  /** Servicios para recuperar lista de ups Aux por ipress***/
+  recuperarUpsAuxHis() {
+    this.UpsAuxService.getUpsAuxPorIpress(this.idIpress).subscribe(
+      (r: any) => {
+        if (r.object != null) {
+          this.arrayUPSAux = r.object.filter(
+            (element) => element.estado == true
+          );
+        }
+      }
+    );
+  }
+
+  filterCIE10(event: any) {
+    this.cieService
+      .getCIEByDescripcion(event.query)
+      .subscribe((res: any) => {
+        this.listaDeCIEHIS = res.object;
+      });
+  }
+
+  selectedDxHIS(event: any) {
+    this.hisForm.patchValue({
+      procedimientoHIS: event.descripcionItem,
+      buscarPDxHIS: "",
+      codProcedimientoHIS: event
+    });
+  }
+
+  agregateProcedureSIS(): void {
+    if (this.fuaForm.valid) {
+      let procedureSIS: ProcedureFUA = {
+        codPrestacion: this.fuaForm.value.prestacion.codPrestacion,
+        tipoDiagnostico: this.fuaForm.value.tipoDiagnosticoSIS,
+        procedimientoSIS: this.fuaForm.value.procedimientoSIS,
+        cie10SIS: this.fuaForm.value.codProcedimientoSIS.codigo,
+        codProcedimientoSIS: this.fuaForm.value.codProcedimientoSIS.codigo,
+      }
+      this.arrayProcedureSIS.push(procedureSIS);
+      this.fuaForm.reset();
+    } else
+      this.missDataMessage();
+  }
+
+  agregateProcedureHIS(): void {
+    if (this.hisForm.valid) {
+      let HISprocedure: ProcedureHIS = {
+        nombreUPS: this.hisForm.value.nombreUPS.nombreUPS,
+        nombreUPSaux: this.hisForm.value.nombreUPSaux.nombre,
+        tipoDiagnostico: this.hisForm.value.tipoDiagnosticoHIS,
+        lab: this.hisForm.value.lab,
+        codProcedimientoHIS: this.hisForm.value.codProcedimientoHIS.codigoItem,
+        procedimientoHIS: this.hisForm.value.procedimientoHIS,
+      }
+      this.arrayProcedureHIS.push(HISprocedure);
+      this.hisForm.reset();
+    } else
+      this.missDataMessage();
+
+  }
+  mergeArrayProcedures(procedimientoSIS: ProcedureFUA[], procedimientoHIS: ProcedureHIS[], procedimientos: ProceduresSave[]) {
+    procedimientoSIS.forEach(item => {
+      let auxProcedure: ProceduresSave = {
+        procedimientoSIS: item.procedimientoSIS,
+        codProcedimientoSIS: item.codProcedimientoSIS,
+        codPrestacion: item.codPrestacion,
+        cie10SIS: item.cie10SIS,
+        procedimientoHIS: null,
+        codProcedimientoHIS: null,
+        nombreUPS: null,
+        nombreUPSaux: null,
+        tipo: item.tipoDiagnostico,
+        lab: null
+      }
+      procedimientos.push(auxProcedure)
+    });
+
+    procedimientoHIS.forEach(item => {
+      let auxProcedure: ProceduresSave = {
+        procedimientoSIS: null,
+        codProcedimientoSIS: null,
+        codPrestacion: null,
+        cie10SIS: null,
+        procedimientoHIS: item.procedimientoHIS,
+        codProcedimientoHIS: item.codProcedimientoHIS,
+        nombreUPS: item.nombreUPS,
+        nombreUPSaux: item.nombreUPSaux,
+        tipo: item.tipoDiagnostico,
+        lab: item.lab
+      }
+      procedimientos.push(auxProcedure)
+    });
+  }
+
+  saveProcedures(): void {
+    this.arrayProcedureSave = []
+    this.mergeArrayProcedures(this.arrayProcedureSIS, this.arrayProcedureHIS, this.arrayProcedureSave);
+    if (this.arrayProcedureSave.length < 1) {
+      Swal.fire({
+        icon: 'error',
+        title: 'No se agrego ningun procedimiento',
+        text: '',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      return;
+    }
+    let dataSave: DataSave = { procedimientos: [] };
+    dataSave.procedimientos = this.arrayProcedureSave;
+    this.DiagnosticoService.postSaveProcedure(this.dataConsulta.idConsulta, dataSave).then(res => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Se guardo exitosamente',
+        text: '',
+        showConfirmButton: false,
+        timer: 2000
+      });
+    });
+  }
+
+  deleteItemOfArray(index: number, type: number): void {
+    /**type:0=> lista de diagnosticos FUA; 1=> lista de diagnosticos HIS */
+    type == 0 ? this.arrayProcedureSIS.splice(index, 1) : this.arrayProcedureHIS.splice(index, 1);
+  }
+
+  missDataMessage(): void {
+    Swal.fire({
+      icon: 'info',
+      title: 'Falta llenar campos',
+      text: '',
+      showConfirmButton: false,
+      timer: 2000
+    });
+  }
+}
+
+interface UPS {
+  codUPS: string;
+  nombreUPS: string;
+}
+interface UPSaux {
+  estado: boolean;
+  nombre: string;
+}
+interface Lista {
+  label: string;
+  value: string;
+}
+interface DataSave {
+  procedimientos: ProceduresSave[];
+}
+interface Patient {
+  apellidos: string,
+  edadAnio: number,
+  edadDia: number,
+  edadMes: number,
+  nombre: string,
+  nroDoc: string,
+  nroHcl: string,
+  nroTelefono: string,
+  sexo: string,
+  tipoDoc: string,
 }

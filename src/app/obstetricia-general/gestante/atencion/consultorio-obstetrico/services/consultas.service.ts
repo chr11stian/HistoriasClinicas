@@ -260,4 +260,11 @@ export class ConsultasService {
             .then(res => <any[]>res)
             .then(data => { return data; });
     }
+
+    getDiagnosticByIdConsulta(idConsulta: string) {
+        return this.http.get(`${this.base_url}/${this.bd}/obstetricia/consulta/listarDiagnostico/${idConsulta}`)
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data; });
+    }
 }

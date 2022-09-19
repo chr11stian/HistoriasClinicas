@@ -7,6 +7,8 @@ import { ConsultasService } from "../../services/consultas.service";
 import { DatePipe } from "@angular/common";
 import { MessageService } from "primeng/api";
 import { PrestacionService } from 'src/app/mantenimientos/services/prestacion/prestacion.service';
+import { Diagnostic, DiagnosticFUA, DiagnosticHIS, DiagnosticSave, Prestation } from 'src/app/cred/citas/atencion-cred/consulta-principal/models/FUAHIS';
+import { DiagnosticoConsultaService } from 'src/app/cred/citas/atencion-cred/consulta-principal/services/diagnostico-consulta.service';
 @Component({
     selector: 'app-giagnosticos',
     templateUrl: './giagnosticos.component.html',
@@ -79,16 +81,33 @@ export class GiagnosticosComponent implements OnInit {
     idIpress: any;
     edadPaciente: any;
     sexoPaciente: any;
+    /** new var */
+    fuaForm: FormGroup;
+    hisForm: FormGroup;
+    patientData: Patient;
+    arrayPrestation: Prestation[] = [];
+    arrayFuaDiagnostic: Diagnostic[] = [];
+    arrayDiagnosticType: Lista[] = []
+    arrayDiagnosticFUA: DiagnosticFUA[] = [];
+    arrayDiagnosticHIS: DiagnosticHIS[] = [];
+    arrayUPS: UPS[] = [];
+    arrayUPSAux: UPSaux[] = [];
+    arrayDiagnosticSave: DiagnosticSave[] = [];
+    isSaved: boolean = false;
+    listaDeCIEHIS: any[] = [];
+    idConsult: string;
     constructor(private formBuilder: FormBuilder,
         private PrestacionService: PrestacionService,
         private CieService: CieService,
         private messageService: MessageService,
-        private DxService: ConsultasService) {
+        private DxService: ConsultasService,
+        private DiagnosticoService: DiagnosticoConsultaService,
+    ) {
         this.buildForm();
 
         /*********RECUPERAR DATOS*********/
         this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
-        console.log("ipress", this.idIpress)
+        this.idConsult = JSON.parse(localStorage.getItem('IDConsulta'))
 
         /*usando local storage*/
         this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
@@ -121,12 +140,12 @@ export class GiagnosticosComponent implements OnInit {
             //guardar en el ls el nroAtencion
             let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaNueva'));
             this.nroAtencion = nroAtencion;
-            console.log("entre a nueva consulta", this.nroAtencion)
+            // console.log("entre a nueva consulta", this.nroAtencion)
         }
         else {
             let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaEditar'));
             this.nroAtencion = nroAtencion;
-            console.log("entre a edicion consulta", this.nroAtencion)
+            // console.log("entre a edicion consulta", this.nroAtencion)
         }
 
         /***************DATOS DE LOS DROPDOWNS*******************/
@@ -149,23 +168,27 @@ export class GiagnosticosComponent implements OnInit {
             { name: 'SI', boleano: true },
             { name: 'NO', boleano: false }
         ];
+        this.patientData = JSON.parse(localStorage.getItem('datacupos')).paciente;
+        console.log('patient data ', this.patientData);
+        this.arrayDiagnosticType = [
+            { label: "DEFINITIVO", value: "D" },
+            { label: "PRESUNTIVO", value: "P" },
+            { label: "REPETITIVO", value: "R" },
+        ];
     }
     ngOnInit() {
-        console.log("TipoDocRecuperado desde diagnostico", this.tipoDocRecuperado);
-        console.log("NroDocRecuparado desde diagnostico", this.nroDocRecuperado);
-        console.log("Nro de embarazo desde diagnostico", this.nroEmbarazo);
-        console.log("Id Consultorio Obstetrico desde diagnostico", this.idConsultoriObstetrico);
-        console.log("nroHcl desde diagnostico", this.nroHcl);
+        // console.log("TipoDocRecuperado desde diagnostico", this.tipoDocRecuperado);
+        // console.log("NroDocRecuparado desde diagnostico", this.nroDocRecuperado);
+        // console.log("Nro de embarazo desde diagnostico", this.nroEmbarazo);
+        // console.log("Id Consultorio Obstetrico desde diagnostico", this.idConsultoriObstetrico);
+        // console.log("nroHcl desde diagnostico", this.nroHcl);
         this.recuperarPrestaciones();
         this.recuperarNroFetos();
         this.recuperarDatosGuardados();
+        this.getUpsPerIpress();
+        this.recoverConsultationDiagnostic();
     }
-    recuperarPrestaciones() {
-        this.DxService.getPrestaciones().subscribe((res: any) => {
-            this.prestacionList = res.object;
-            console.log("prestaciones:", this.prestacionList);
-        })
-    }
+
     recuperarUpsHis() {
         let Data = {
             idIpress: this.idIpress,
@@ -191,6 +214,7 @@ export class GiagnosticosComponent implements OnInit {
     showModalDialog() {
         this.displayModal = true;
     }
+
     buildForm() {
         this.form = this.formBuilder.group({
             tipo: ['', [Validators.required]],
@@ -233,6 +257,22 @@ export class GiagnosticosComponent implements OnInit {
             visita: ['', [Validators.required]],
             fechaVisita: ['', [Validators.required]]
         });
+        this.fuaForm = new FormGroup({
+            prestacion: new FormControl("", Validators.required),
+            tipoDiagnosticoFUA: new FormControl('', Validators.required),
+            diagnosticoFUA: new FormControl(''),
+            codCIE10SIS: new FormControl('', Validators.required),
+            diagnosticoSIS: new FormControl('', Validators.required),
+        });
+        this.hisForm = new FormGroup({
+            nombreUPS: new FormControl("", Validators.required),
+            nombreUPSAux: new FormControl("", Validators.required),
+            tipoDiagnosticoHIS: new FormControl("", Validators.required),
+            lab: new FormControl(""),
+            buscarPDxHIS: new FormControl(""),
+            codProcedimientoHIS: new FormControl("", Validators.required),
+            procedimientoHIS: new FormControl("", Validators.required),
+        })
     }
 
     /*guardar datos de diagnosticos*/
@@ -566,16 +606,10 @@ export class GiagnosticosComponent implements OnInit {
         this.cronogramaDialog = false;
     }
 
-    onChangePrestacion() {
-        this.PrestacionService.getDiagnosticoPorCodigo(this.form.value.prestacion.codigo).subscribe((res: any) => {
-            this.listaDeCIESIS = res.object.diagnostico;
-            this.form.patchValue({ diagnosticoSIS: "" });
-            this.form.patchValue({ SISCIE: "" });
-        })
-    }
+
 
     filterCIE10(event) {
-        this.CieService.getPromiseCIEbyDescripcionTipo('CX', event.query).then((res:any) => this.listaDeCIE = res.object);
+        this.CieService.getPromiseCIEbyDescripcionTipo('CX', event.query).then((res: any) => this.listaDeCIEHIS = res.object);
         // this.CieService.getCIEByDescripcionTipo('CX', event.query).subscribe((res: any) => {
         //     this.listaDeCIE = res.object
         // })
@@ -605,4 +639,261 @@ export class GiagnosticosComponent implements OnInit {
             this.form.patchValue({ HISCIE: event }, { emitEvent: false });
         }
     }
+    /////////////////////////////////////////////////////////////////////////////
+    recuperarPrestaciones() {
+        this.DxService.getPrestaciones().subscribe((res: any) => {
+            this.arrayPrestation = res.object;
+            console.log("prestaciones:", this.arrayPrestation);
+            this.verifyPrestationPerAge(this.arrayPrestation, this.patientData);
+        })
+    }
+
+    verifyPrestationPerAge(arrayPrestaciones: Prestation[], paciente: Patient): void {
+        let monthAge = 12 * paciente.edadAnio + paciente.edadMes;
+        let yearAge = paciente.edadAnio;
+        let auxPrestacion: Prestation[] = [];
+        arrayPrestaciones.forEach(item => {
+            switch (item.denominacion) {
+                case 'ANIOS':
+                    if (item.edadMin <= yearAge && item.edadMax >= yearAge) {
+                        auxPrestacion.push(item);
+                    }
+                    break;
+                case 'MESES':
+                    if (item.edadMin <= monthAge && item.edadMax >= monthAge) {
+                        auxPrestacion.push(item);
+                    }
+                    break
+                default:
+                    console.log('caso no evaluado');
+                    break;
+            }
+        })
+        this.arrayPrestation = auxPrestacion.filter(item => item.diagnostico != null);
+        this.arrayPrestation.sort((a, b) => a.descripcion.localeCompare(b.descripcion));
+        // console.log('data de arreglo prestacion ', this.arrayPrestation);
+    }
+
+    getUpsPerIpress() {
+        let data = {
+            idIpress: this.idIpress,
+            edad: this.patientData.edadAnio,
+            sexo: this.patientData.sexo
+        }
+        this.DiagnosticoService.listaUpsHis(data).then((res: any) => {
+            this.arrayUPS = res.object;
+        });
+        this.DiagnosticoService.listaUpsAuxHisPerIpress(this.idIpress).then((res: any) => {
+            this.arrayUPSAux = res.object
+        })
+    }
+
+    onChangePrestacion() {
+        const dataPrestacion: Prestation = this.fuaForm.value.prestacion;
+        this.arrayFuaDiagnostic = dataPrestacion.diagnostico;
+    }
+
+    onchangeSIS(event): void {
+        this.fuaForm.patchValue({
+            diagnosticoSIS: event.value.diagnostico,
+            diagnosticoFUA: "",
+            codCIE10SIS: event.value
+        });
+    }
+    onChangeHIS(event): void {
+        this.hisForm.patchValue({
+            codProcedimientoHIS: event,
+            buscarPDxHIS: "",
+            procedimientoHIS: event.descripcionItem
+        });
+    }
+
+    agregateDiagnosticFUA(): void {
+        if (this.fuaForm.valid) {
+            let FUAdiagnostic: DiagnosticFUA = {
+                codPrestacion: this.fuaForm.value.prestacion.codigo,
+                tipoDiagnostico: this.fuaForm.value.tipoDiagnosticoFUA,
+                diagnostico: this.fuaForm.value.diagnosticoSIS,
+                CIE10: this.fuaForm.value.codCIE10SIS.cie10
+            }
+            this.arrayDiagnosticFUA.push(FUAdiagnostic);
+            this.fuaForm.reset();
+        } else
+            this.missDataMessage();
+    }
+    agregateDiagnosticHIS(): void {
+        if (this.hisForm.valid) {
+            let HISdiagnostic: DiagnosticHIS = {
+                nombreUPS: this.hisForm.value.nombreUPS.nombreUPS,
+                nombreUPSaux: this.hisForm.value.nombreUPSAux.nombre,
+                tipoDiagnostico: this.hisForm.value.tipoDiagnosticoHIS,
+                lab: this.hisForm.value.lab,
+                diagnosticoHIS: this.hisForm.value.procedimientoHIS,
+                CIE10: this.hisForm.value.codProcedimientoHIS.codigoItem,
+            }
+            this.arrayDiagnosticHIS.push(HISdiagnostic);
+            this.hisForm.reset();
+        } else
+            this.missDataMessage();
+    }
+    mergeArrayDiagnostic(diagnosticosSIS: DiagnosticFUA[], diagnosticosHIS: DiagnosticHIS[], diagnosticos: DiagnosticSave[]): void {
+        diagnosticosSIS.forEach(item => {
+            let auxDiagnostic: DiagnosticSave = {
+                nro: null,
+                diagnosticoHIS: null,
+                diagnosticoSIS: item.diagnostico,
+                cie10SIS: item.CIE10,
+                cie10HIS: null,
+                tipo: item.tipoDiagnostico,
+                codPrestacion: item.codPrestacion,
+                nombreUPS: null,
+                nombreUPSaux: null,
+                lab: null,
+            }
+            diagnosticos.push(auxDiagnostic)
+        });
+        diagnosticosHIS.forEach(item => {
+            let auxDiagnostic: DiagnosticSave = {
+                nro: null,
+                diagnosticoHIS: item.diagnosticoHIS,
+                diagnosticoSIS: null,
+                cie10SIS: null,
+                cie10HIS: item.CIE10,
+                tipo: item.tipoDiagnostico,
+                codPrestacion: null,
+                nombreUPS: item.nombreUPS,
+                nombreUPSaux: item.nombreUPSaux,
+                lab: item.lab,
+            }
+            diagnosticos.push(auxDiagnostic)
+        });
+    }
+
+    async saveDiagnostico(): Promise<void> {
+        this.arrayDiagnosticSave = [];
+        this.mergeArrayDiagnostic(this.arrayDiagnosticFUA, this.arrayDiagnosticHIS, this.arrayDiagnosticSave);
+        if (this.arrayDiagnosticSave.length < 1) {
+            Swal.fire({
+                icon: 'error',
+                title: 'No se agrego ningun procedimiento',
+                text: '',
+                showConfirmButton: false,
+                timer: 2000
+            });
+            return;
+        }
+        await this.DiagnosticoService.postDiagnosticToPregmant(this.idConsult, this.arrayDiagnosticSave).then(res => {
+            Swal.fire({
+                icon: 'success',
+                title: 'Se guardo exitosamente',
+                text: '',
+                showConfirmButton: false,
+                timer: 2000
+            });
+        })
+    }
+
+    confirmToSave(): void {
+        Swal.fire({
+            showCancelButton: true,
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Guardar',
+            icon: 'question',
+            title: 'Guardar',
+            text: '¿Esta seguro que desea guardar los diagnosticos?',
+            showConfirmButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.saveDiagnostico();
+            } else {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'No se guardo',
+                    text: '',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            }
+        })
+    }
+    recoverConsultationDiagnostic(): void {
+        this.DxService.getDiagnosticByIdConsulta(this.idConsult).then((res: any) => {
+
+            let dataRes: DiagnosticSave[] = res.object;
+            if (dataRes == null)
+                return
+            dataRes.forEach(item => {
+                if (item.codPrestacion != null) {
+                    let diagnostic: DiagnosticFUA = {
+                        codPrestacion: item.codPrestacion,
+                        diagnostico: item.diagnosticoSIS,
+                        CIE10: item.cie10SIS,
+                        tipoDiagnostico: item.tipo
+                    }
+                    this.arrayDiagnosticFUA.push(diagnostic);
+                } else {
+                    let diagnostic: DiagnosticHIS = {
+                        nombreUPS: item.nombreUPS,
+                        nombreUPSaux: item.nombreUPSaux,
+                        diagnosticoHIS: item.diagnosticoHIS,
+                        tipoDiagnostico: item.tipo,
+                        CIE10: item.cie10HIS,
+                        lab: item.lab
+                    }
+                    this.arrayDiagnosticHIS.push(diagnostic);
+                }
+            });
+            this.isSaved = true;
+        })
+    }
+
+    deleteItemOfArray(index: number, type: number): void {
+        /**type:0=> lista de diagnosticos FUA; 1=> lista de diagnosticos HIS */
+        type == 0 ? this.arrayDiagnosticFUA.splice(index, 1) : this.arrayDiagnosticHIS.splice(index, 1);
+    }
+
+    missDataMessage(): void {
+        Swal.fire({
+            icon: 'info',
+            title: 'Falta llenar campos',
+            text: '',
+            showConfirmButton: false,
+            timer: 2000
+        });
+    }
+    repeatDataMessage(): void {
+        Swal.fire({
+            icon: 'info',
+            title: 'Ya se agrego ese item',
+            text: '',
+            showConfirmButton: false,
+            timer: 2000
+        });
+    }
+}
+interface Lista {
+    label: string;
+    value: string;
+}
+interface UPS {
+    codUPS: string;
+    nombreUPS: string;
+}
+interface UPSaux {
+    estado: boolean;
+    nombre: string;
+}
+interface Patient {
+    apellidos: string,
+    edadAnio: number,
+    edadDia: number,
+    edadMes: number,
+    nombre: string,
+    nroDoc: string,
+    nroHcl: string,
+    nroTelefono: string,
+    sexo: string,
+    tipoDoc: string,
 }
