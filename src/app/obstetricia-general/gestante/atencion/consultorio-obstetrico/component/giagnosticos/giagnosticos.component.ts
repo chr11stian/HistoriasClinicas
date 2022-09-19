@@ -709,6 +709,7 @@ export class GiagnosticosComponent implements OnInit {
     }
 
     agregateDiagnosticFUA(): void {
+        let isAdded: boolean = false;
         if (this.fuaForm.valid) {
             let FUAdiagnostic: DiagnosticFUA = {
                 codPrestacion: this.fuaForm.value.prestacion.codigo,
@@ -716,12 +717,22 @@ export class GiagnosticosComponent implements OnInit {
                 diagnostico: this.fuaForm.value.diagnosticoSIS,
                 CIE10: this.fuaForm.value.codCIE10SIS.cie10
             }
-            this.arrayDiagnosticFUA.push(FUAdiagnostic);
-            this.fuaForm.reset();
+            this.arrayDiagnosticFUA.forEach(item => {
+                if (item.CIE10 === FUAdiagnostic.CIE10) {
+                    this.repeatDataMessage();
+                    isAdded = true;
+                }
+            })
+            if (!isAdded) {
+                this.arrayDiagnosticFUA.push(FUAdiagnostic);
+                this.fuaForm.reset();
+            }
+
         } else
             this.missDataMessage();
     }
     agregateDiagnosticHIS(): void {
+        let isAdded: boolean = false;
         if (this.hisForm.valid) {
             let HISdiagnostic: DiagnosticHIS = {
                 nombreUPS: this.hisForm.value.nombreUPS.nombreUPS,
@@ -731,8 +742,16 @@ export class GiagnosticosComponent implements OnInit {
                 diagnosticoHIS: this.hisForm.value.procedimientoHIS,
                 CIE10: this.hisForm.value.codProcedimientoHIS.codigoItem,
             }
-            this.arrayDiagnosticHIS.push(HISdiagnostic);
-            this.hisForm.reset();
+            this.arrayDiagnosticHIS.forEach(item => {
+                if (item.CIE10 === HISdiagnostic.CIE10) {
+                    this.repeatDataMessage();
+                    isAdded = true;
+                }
+            })
+            if (!isAdded) {
+                this.arrayDiagnosticHIS.push(HISdiagnostic);
+                this.hisForm.reset();
+            }
         } else
             this.missDataMessage();
     }
