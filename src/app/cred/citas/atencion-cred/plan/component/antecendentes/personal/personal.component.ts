@@ -421,6 +421,10 @@ export class PersonalComponent implements OnInit {
     }
 
     Agregar() {
+        if(this.personalFG.get('patologia').value==''){
+            return
+        }
+
         if (this.listPatologias.find((rol) => rol === this.personalFG.value.patologia.value) === undefined)
             this.listPatologias.push(this.personalFG.value.patologia.value);
         console.log(this.listPatologias)
