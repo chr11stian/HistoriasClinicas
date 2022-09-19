@@ -138,10 +138,10 @@
 
 <!-- Procedimiento - -->
 
-<form [formGroup]='formProcedimiento'>
-    <div class="grid">
-        <div class="col-6">
-            <p-panel header="FUA" class="procedure-panel">
+<div class="grid">
+    <div class="col-6">
+        <p-panel header="FUA" class="procedure-panel">
+            <form [formGroup]="fuaForm">
                 <div class=" grid">
                     <div class="col-4 p-fluid">
                         <label>Cod Prestación:</label>
@@ -158,8 +158,6 @@
                             class="inputfield p-fluid w-full">
                         </p-dropdown>
                     </div>
-                </div>
-                <div class="grid">
                     <div class="col-9 p-fluid">
                         <label>Procedimientos SIS</label>
                         <p-dropdown [options]="listProcedures" formControlName="buscarPDxSIS"
@@ -183,44 +181,42 @@
                             style="background-color: #0c3866" class="add-button p-button-rounded" label="Agregar"
                             (click)="agregateProcedureSIS()"></button>
                     </div>
-                </div>
-                <div class="grid">
                     <div class="col-12 p-fluid">
                         <textarea style="text-transform:uppercase" rows="3" cols="30" pInputTextarea
                             formControlName="procedimientoSIS"></textarea>
                     </div>
                 </div>
-
-                <p-table class="table-over" [value]="arrayProcedureSIS" #dt styleClass="p-datatable-gridlines"
-                    [rows]="10">
-                    <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
-                        <tr>
-                            <th style="text-align: center;" class="font-2">Nro</th>
-                            <th style="text-align: center;" class="font-2">CIE 10</th>
-                            <th style="text-align: center;" class="font-1">Procedimiento</th>
-                            <th style="text-align: center;" class="font-2">Cod Prestación</th>
-                            <th style="text-align: center;" class="font-2">Tipo Diagnóstico</th>
-                            <th style="text-align: center" class="font-2">Acción</th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-rowData let-i="rowIndex">
-                        <tr>
-                            <td style="text-align: center;" class="font-2">{{ i + 1 }}</td>
-                            <td style="text-align: center;">{{ rowData.cie10SIS }}</td>
-                            <td style="text-align: center;">{{ rowData.procedimientoSIS }}</td>
-                            <td style="text-align: center;">{{ rowData.codPrestacion }}</td>
-                            <td style="text-align: center;">{{ rowData.tipoDiagnostico }}</td>
-                            <td style="text-align: center">
-                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                                    (click)="deleteItemOfArray(i, 0)" pTooltip="Eliminar"></button>
-                            </td>
-                        </tr>
-                    </ng-template>
-                </p-table>
-            </p-panel>
-        </div>
-        <div class="col-6">
-            <p-panel header="HIS" class="procedure-panel">
+            </form>
+            <p-table class="table-over" [value]="arrayProcedureSIS" #dt styleClass="p-datatable-gridlines" [rows]="10">
+                <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                    <tr>
+                        <th style="text-align: center;" class="font-2">Nro</th>
+                        <th style="text-align: center;" class="font-2">CIE 10</th>
+                        <th style="text-align: center;" class="font-1">Procedimiento</th>
+                        <th style="text-align: center;" class="font-2">Cod Prestación</th>
+                        <th style="text-align: center;" class="font-2">Tipo Diagnóstico</th>
+                        <th style="text-align: center" class="font-2">Acción</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-i="rowIndex">
+                    <tr>
+                        <td style="text-align: center;" class="font-2">{{ i + 1 }}</td>
+                        <td style="text-align: center;">{{ rowData.cie10SIS }}</td>
+                        <td style="text-align: center;">{{ rowData.procedimientoSIS }}</td>
+                        <td style="text-align: center;">{{ rowData.codPrestacion }}</td>
+                        <td style="text-align: center;">{{ rowData.tipoDiagnostico }}</td>
+                        <td style="text-align: center">
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
+                                (click)="deleteItemOfArray(i, 0)" pTooltip="Eliminar"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-panel>
+    </div>
+    <div class="col-6">
+        <p-panel header="HIS" class="procedure-panel">
+            <form [formGroup]="hisForm">
                 <div class="grid">
                     <div class="col-4 p-fluid">
                         <label>Nombre UPS:</label>
@@ -279,39 +275,38 @@
                             formControlName="procedimientoHIS"></textarea>
                     </div>
                 </div>
-                <p-table class="table-over" [value]="arrayProcedureHIS" #dt styleClass="p-datatable-gridlines"
-                    [rows]="10">
-                    <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
-                        <tr>
-                            <th style="text-align: center;" class="font-2">Nro</th>
-                            <th style="text-align: center;" class="font-2">UPS Auxiliar</th>
-                            <th style="text-align: center;" class="font-1">Procedimiento</th>
-                            <th style="text-align: center;" class="font-2">CIE 10</th>
-                            <th style="text-align: center;" class="font-2">Tipo Diagnóstico</th>
-                            <th style="text-align: center;" class="font-2">Lab</th>
-                            <th style="text-align: center" class="font-2">Acción</th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-rowData let-i="rowIndex">
-                        <tr>
-                            <td style="text-align: center;" class="font-2">{{ i + 1 }}</td>
-                            <td style="text-align: center;">{{ rowData.nombreUPSaux }}</td>
-                            <td style="text-align: center;">{{ rowData.procedimientoHIS }}</td>
-                            <td style="text-align: center;">{{ rowData.codProcedimientoHIS }}</td>
-                            <td style="text-align: center;">{{ rowData.tipoDiagnostico }}</td>
-                            <td style="text-align: center;">{{ rowData.lab }}</td>
-                            <td style="text-align: center">
-                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                                    (click)="deleteItemOfArray(i, 1)" pTooltip="Eliminar"></button>
-                            </td>
-                        </tr>
-                    </ng-template>
-                </p-table>
-            </p-panel>
-        </div>
-        <div class="col-12">
-            <button pButton pRipple icon="pi pi-save" pButton type="button" style="background-color: #0c3866"
-                label="Guardar" class="save-button p-button-rounded" (click)="saveProcedures()"></button>
-        </div>
+            </form>
+            <p-table class="table-over" [value]="arrayProcedureHIS" #dt styleClass="p-datatable-gridlines" [rows]="10">
+                <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                    <tr>
+                        <th style="text-align: center;" class="font-2">Nro</th>
+                        <th style="text-align: center;" class="font-2">UPS Auxiliar</th>
+                        <th style="text-align: center;" class="font-1">Procedimiento</th>
+                        <th style="text-align: center;" class="font-2">CIE 10</th>
+                        <th style="text-align: center;" class="font-2">Tipo Diagnóstico</th>
+                        <th style="text-align: center;" class="font-2">Lab</th>
+                        <th style="text-align: center" class="font-2">Acción</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-i="rowIndex">
+                    <tr>
+                        <td style="text-align: center;" class="font-2">{{ i + 1 }}</td>
+                        <td style="text-align: center;">{{ rowData.nombreUPSaux }}</td>
+                        <td style="text-align: center;">{{ rowData.procedimientoHIS }}</td>
+                        <td style="text-align: center;">{{ rowData.codProcedimientoHIS }}</td>
+                        <td style="text-align: center;">{{ rowData.tipoDiagnostico }}</td>
+                        <td style="text-align: center;">{{ rowData.lab }}</td>
+                        <td style="text-align: center">
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
+                                (click)="deleteItemOfArray(i, 1)" pTooltip="Eliminar"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-panel>
     </div>
-</form>
+    <div class="col-12" *ngIf="!isSaved">
+        <button pButton pRipple icon="pi pi-save" pButton type="button" style="background-color: #0c3866"
+            label="Guardar" class="save-button p-button-rounded" (click)="confirmSave()"></button>
+    </div>
+</div>

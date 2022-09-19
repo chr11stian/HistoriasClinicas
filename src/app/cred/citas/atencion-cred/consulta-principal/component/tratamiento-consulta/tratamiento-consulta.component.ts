@@ -1,9 +1,8 @@
-import { his } from "./../../models/his";
-import { TratamientoConsultaService } from "./../../services/tratamiento-consulta.service";
+import { TratamientoConsultaService } from './../../services/tratamiento-consulta.service';
+import { his } from './../../models/his';
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import Swal from "sweetalert2";
-import { MotivosConsultaService } from "../../services/motivos-consulta.service";
 import {
     dato,
     motivoConsultaInterface,
@@ -14,6 +13,7 @@ import { DatePipe } from "@angular/common";
 import { RolGuardiaService } from "src/app/core/services/rol-guardia/rol-guardia.service";
 import { ConsultaGeneralService } from "../../services/consulta-general.service";
 import { MenuItem, MessageService } from "primeng/api";
+import { FinalizarConsultaService } from "../../services/finalizar-consulta.service";
 
 @Component({
     selector: "app-tratamiento-consulta",
@@ -46,12 +46,16 @@ export class TratamientoConsultaComponent implements OnInit {
     isUpdateHIS: boolean = false;
     formHIS: FormGroup;
     listHIS: his[] = [];
+    nexDate: NextDate;
     constructor(
+        private tratamientoService: TratamientoConsultaService,
         private rolGuardiaService: RolGuardiaService,
         private consultaGeneralService: ConsultaGeneralService,
-        private tratamientoService: TratamientoConsultaService
+        private finalizarConsulta: FinalizarConsultaService
     ) {
         this.build();
+        // this.nexDate = this.consultaGeneralService.fecha
+        console.log("proxima citaaaa ", this.nexDate);
     }
     build() {
         /* Interconsulta */
@@ -125,6 +129,7 @@ export class TratamientoConsultaComponent implements OnInit {
         /* his */
         this.cargarHis();
     }
+
     /* interconsulta */
     open(): void {
         this.isUpdate = false;
@@ -203,6 +208,17 @@ export class TratamientoConsultaComponent implements OnInit {
         }
     }
 
+    concludeConsultation(): void {
+        this.nexDate = {
+            fecha: this.consultaGeneralService.fecha,
+            motivo: null,
+        };
+        this.finalizarConsulta
+            .putNextAppointment(this.data.idConsulta, this.nexDate)
+            .then((res) => {
+                console.log("se guardo la proxima cita");
+            });
+    }
     /* his */
     his() {
         this.isUpdateHIS = false;
@@ -216,4 +232,9 @@ export class TratamientoConsultaComponent implements OnInit {
                 console.log("his", this.listHIS);
             });
     }
+}
+
+interface NextDate {
+    fecha: string;
+    motivo?: string;
 }
