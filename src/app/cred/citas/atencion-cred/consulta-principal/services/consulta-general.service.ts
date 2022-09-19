@@ -17,6 +17,7 @@ export class ConsultaGeneralService {
     bd = environment.bd;
     base_url = `${this.urlServer}/${this.bd}/cred`;
     fecha: string = "";
+    condicion: boolean;
 
     constructor(private http: HttpClient) {}
 

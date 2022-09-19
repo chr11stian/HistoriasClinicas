@@ -1,0 +1,65 @@
+export interface his {
+    actividad: string;
+    anio: number;
+    apeMaterno: string;
+    apePaterno: string;
+    ccpp: string;
+    codigoDigitador: string;
+    colegiatura: string;
+    conIngEs: string;
+    conIngSe: string;
+    created_at: string;
+    created_by: string;
+    deleted: boolean;
+    denominacionEdad: string;
+    dia: number;
+    diagnosticos: Diagnostico[];
+    distrito: string;
+    dniProfesional: string;
+    edad: number;
+    etnia: string;
+    fechaNacimiento: string;
+    fechaProceso: string;
+    fechaRegistro: string;
+    fechaRegistroHB: string;
+    financiamiento: string;
+    fum: string;
+    grupoRiesgo: string;
+    hb: string;
+    horaAtencion: string;
+    id: string;
+    idConsulta: string;
+    ipressDatos: string;
+    lote: string;
+    mes: string;
+    modified_at: string;
+    modified_by: string;
+    nombre: string;
+    nombreDigitador: string;
+    nombreIpress: string;
+    nombreProfesional: string;
+    nroDoc: string;
+    nroHcl: string;
+    pagina: number;
+    perimetroAbdominal: number;
+    perimetroCefalico: number;
+    personalDatos: string;
+    peso: number;
+    registroOpcional: string;
+    saludMaterna: string;
+    sector: string;
+    semanaGestacion: number;
+    sexo: string;
+    talla: number;
+    tipoDoc: string;
+    turno: string;
+    ups: string;
+    upsAuxiliar: string;
+}
+
+export interface Diagnostico {
+    cie_10: string;
+    diagnostico: string;
+    lab: string;
+    tipoDx: string;
+}
