@@ -115,6 +115,7 @@ export class DatosGeneralesComponent implements OnInit {
     antecedentesDialog: boolean;
 
     familiares2: any;
+    atentionNum: number;
 
     constructor(private form: FormBuilder,
         private obstetriciaGeneralService: ObstetriciaGeneralService,
@@ -144,6 +145,7 @@ export class DatosGeneralesComponent implements OnInit {
             this.idConsultoriObstetrico = this.Gestacion.id;
             this.nroEmbarazo = this.Gestacion.nroEmbarazo;
             this.nroHcl = this.Gestacion.nroHcl;
+            this.atentionNum = this.Gestacion.nroConsultas;
         }
 
         /** OTRAS OPCIONES**/
@@ -309,8 +311,8 @@ export class DatosGeneralesComponent implements OnInit {
             nroEmbarazo: this.nroEmbarazo,
             nroAtencion: this.nroAtencion
         }
-        console.log(data)
-        this.consultasService.getConsultas(data).subscribe((res: any) => {
+        console.log('data para buscar consulta ', data)
+        this.consultasService.getConsultas(this.Gestacion.id, data).then((res: any) => {
             this.dataConsultas = res.object
             localStorage.removeItem('IDConsulta');
             // localStorage.setItem('IDConsulta', JSON.stringify(this.dataConsultas.id));
@@ -322,9 +324,10 @@ export class DatosGeneralesComponent implements OnInit {
         let data = {
             nroHcl: this.dataPacientes.nroHcl,
             nroEmbarazo: this.nroEmbarazo,
-            nroAtencion: this.nroAtencion
+            nroAtencion: 1
         }
-        this.consultasService.getConsultas(data).subscribe((res: any) => {
+        console.log('dataaaaaaaaaa to consult ', data);
+        this.consultasService.getConsultas(this.Gestacion.id, data).then((res: any) => {
             this.dataConsultas = res.object
             if (this.dataConsultas !== null) {
                 localStorage.removeItem('dataConsultasID');
@@ -558,13 +561,14 @@ export class DatosGeneralesComponent implements OnInit {
             this.ageCalculator();//calcula la edad desde la fecha de nacimiento
             this.formDatos_Generales.get('edad').setValue(this.edad);
             this.formDatos_Generales.get('fecha').setValue(new Date());
-            this.getConsultas();//Recupera la consulta por HCL y Numero de embarazo
+            // this.getConsultas();//Recupera la consulta por HCL y Numero de embarazo
             let data = {
                 nroHcl: this.dataPacientes.nroHcl
             }
-            this.consultasService.getUltimaConsultaControl(data).subscribe((res: any) => {
+            let nroHcl = this.dataPacientes.nroHcl;
+            this.consultasService.getUltimaConsultaControl(this.idConsultoriObstetrico, nroHcl).then((res: any) => {
                 let informacion = res.object;
-
+                console.log('data de consultaaaaaaaaaaaaaaaa ', informacion);
                 if (!this.estadoEdicion) {
                     //guardar en el ls el nroAtencion
                     let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaNueva'));
@@ -577,10 +581,10 @@ export class DatosGeneralesComponent implements OnInit {
                     this.formDatos_Generales.get('nroControl').setValue(nroAtencion);
                     this.nroAtencion = nroAtencion;
                 }
+                console.log('NRO DE ATEncioonnnnnnn', this.nroAtencion);
                 this.getConsultas();
-
-                this.formDatos_Generales.get('ocupacion').setValue(informacion.ocupacion);
-
+                if (informacion.ocupacion != null)
+                    this.formDatos_Generales.get('ocupacion').setValue(informacion.ocupacion);
                 this.formDatos_Generales.get('nroHcl').setValue(informacion.nroHcl);
                 this.formDatos_Generales.get('FUR').setValue(informacion.fum);
                 this.formDatos_Generales.get('FPP').setValue(informacion.fechaProbableParto);
@@ -596,13 +600,19 @@ export class DatosGeneralesComponent implements OnInit {
                 this.formDatos_Generales.get('Drogas').setValue(informacion.drogas !== true ? false : true);
 
                 //vacunas previas
-                this.formDatos_Generales.get('vAntitetánica1Dosis').setValue(informacion.antitetanica.nroDosisPrevia > 0 || informacion.antitetanica.dosis[0].dosis !== null ? true : false);
-                this.formDatos_Generales.get('vAntitetánica2Dosis').setValue(informacion.antitetanica.nroDosisPrevia > 1 || informacion.antitetanica.dosis[1].dosis !== null ? true : false);
-                this.formDatos_Generales.get('rubeola').setValue(informacion.vacunasPrevias.find(item => item == "rubeola") ? true : false);
-                this.formDatos_Generales.get('HepatitesB').setValue(informacion.vacunasPrevias.find(item => item == "hepatitis B") ? true : false);
-                this.formDatos_Generales.get('PapilomaV').setValue(informacion.vacunasPrevias.find(item => item == "papiloma") ? true : false);
-                this.formDatos_Generales.get('influenza').setValue(informacion.vacunasPrevias.find(item => item == "influenza") ? true : false);
-                this.formDatos_Generales.get('Covid19').setValue(informacion.vacunasPrevias.find(item => item == "covid") ? true : false);
+                if (informacion.antitetanica != null) {
+                    this.formDatos_Generales.get('vAntitetánica1Dosis').setValue(informacion.antitetanica.nroDosisPrevia > 0 || informacion.antitetanica.dosis[0].dosis !== null ? true : false);
+                    this.formDatos_Generales.get('vAntitetánica2Dosis').setValue(informacion.antitetanica.nroDosisPrevia > 1 || informacion.antitetanica.dosis[1].dosis !== null ? true : false);
+                }
+                if (informacion.vacunasPrevias != null) {
+                    this.formDatos_Generales.get('rubeola').setValue(informacion.vacunasPrevias.find(item => item == "rubeola") ? true : false);
+                    this.formDatos_Generales.get('HepatitesB').setValue(informacion.vacunasPrevias.find(item => item == "hepatitis B") ? true : false);
+                    this.formDatos_Generales.get('PapilomaV').setValue(informacion.vacunasPrevias.find(item => item == "papiloma") ? true : false);
+                    this.formDatos_Generales.get('influenza').setValue(informacion.vacunasPrevias.find(item => item == "influenza") ? true : false);
+                    this.formDatos_Generales.get('Covid19').setValue(informacion.vacunasPrevias.find(item => item == "covid") ? true : false);
+                }
+
+
 
                 //antecedentes familiares
                 this.antecedentes1 = [informacion.antecedentesFamiliares[0].nombre];
@@ -808,7 +818,7 @@ export class DatosGeneralesComponent implements OnInit {
         }
 
         if (this.dataConsultas == null) {
-            this.consultasService.addConsultas(this.nroFetos, this.data).subscribe((result: any) => {
+            this.consultasService.addConsultas(this.nroFetos, this.Gestacion.id, this.data).then((result: any) => {
                 Swal.fire({
                     icon: 'success',
                     title: 'Se guardo con exito',
