@@ -25,3 +25,6 @@ body {
   color: #ffffff;
   font-size: 1.2rem;
 }
+.leaflet-popup-content img{
+  width: 100%;
+}

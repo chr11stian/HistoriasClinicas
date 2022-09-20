@@ -1,0 +1,13 @@
+<div class="p-field p-col-12 p-md-9 p-mt-4 p-mb-4">
+    <div class="map-container">
+      <div class="map-frame">
+        <div id="map"></div>
+      </div>
+    </div>
+</div>
+<span>
+  <div *ngFor="let aux of dataVisitas">
+  <p>{{aux.value.validator.latitud}}--{{aux.value.validator.longitud}}</p>
+  <p></p>
+  </div>
+</span>

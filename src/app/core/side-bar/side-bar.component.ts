@@ -554,7 +554,22 @@ const farmacia = {
         routerLink: "admision/ipress-farmacia",
     }]
 }
+const visitas={
+    label: "Visitas Domiciliarias ",
+    icon: "pi pi-home",
+    items: [{
+        label: "Niños",
+        icon: "pi pi-user",
+        routerLink: "visitas-domiciliarias/ninios",
+        },
+        {
+        label: "Gestantes",
+        icon: "pi pi-users",
+        routerLink: "visitas-domiciliarias/gestantes",
+    }]
+}
 const menu_ipress = [];
+
 
 
 @Component({
@@ -591,6 +606,7 @@ export class SideBarComponent implements OnInit, DoCheck {
             menu_ipress.push(historias)
             menu_ipress.push(laboratorio)
             menu_ipress.push(reportes)
+            menu_ipress.push(visitas)
         }
         if (this.rol.rol === 'ROL_4_4') {
             menu_ipress.length = 0

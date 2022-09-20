@@ -1,0 +1,17 @@
+.p-button-ver {
+    background: #af0017;
+    color: white;
+    border: 1px solid #af0017;
+}
+
+.p-button-reporte{
+    background: #af0017;
+    color: white;
+    border: 1px solid #af0017;
+}
+
+.busqueda{
+    display: grid;
+    grid-template-columns: 100px auto;
+}
+

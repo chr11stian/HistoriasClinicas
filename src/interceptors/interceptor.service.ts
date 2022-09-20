@@ -2,7 +2,8 @@ import { Component, Injectable } from "@angular/core";
 import {
   HttpErrorResponse,
   HttpEvent,
-  HttpHandler, HttpHeaders,
+  HttpHandler,
+  HttpHeaders,
   HttpInterceptor,
   HttpRequest,
 } from "@angular/common/http";
@@ -12,6 +13,7 @@ import { LoginService } from "src/app/login/services/login.service";
 import { FuaService } from "src/app/fua/services/fua.service";
 import Swal from "sweetalert2";
 import { SpinnerHandlerService } from "src/app/core/services/spinner-handler.service";
+import { VisitaDomiciliariaService } from "src/app/visita-domiciliaria/services/visita-domiciliaria.service";
 
 @Injectable({
   providedIn: "root",
@@ -21,11 +23,11 @@ export class InterceptorService implements HttpInterceptor {
   loading$ = this.spinnerHandler.showSpinner$;
 
   constructor(
+    private servioVisitaDomiciliaria: VisitaDomiciliariaService,
     private loginService: LoginService,
     private fuaService: FuaService,
-    private spinnerHandler: SpinnerHandlerService,
-  ) // private messageService: MessageService
-  { }
+    private spinnerHandler: SpinnerHandlerService // private messageService: MessageService
+  ) {}
 
   intercept(
     req: HttpRequest<any>,
@@ -33,33 +35,51 @@ export class InterceptorService implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     let cloned = req;
     let urlReq = cloned.url.split(":");
-    if (urlReq[0] == 'http') {
+    if (urlReq[0] == "http") {
       urlReq = urlReq[2].split("/");
     }
     let portNum = urlReq[0];
     // urlReq = urlReq[0];
     const idToken = JSON.parse(localStorage.getItem("token"));
-
+    const couchToken=this.servioVisitaDomiciliaria.getToken();
     if (idToken) {
-      let username: 'reporte';
-      let password: 'reporte@2022';
+      let username: "reporte";
+      let password: "reporte@2022";
       const headers = new HttpHeaders();
       // console.log('entro token', idToken)
       let jwtAuth: string = "Bearer " + idToken.token;
-      let basicAuth: string = "Basic " + btoa('reporte' + ":" + 'reporte@2022');
-      cloned = req.clone({
-        setHeaders: {
-          "Access-Control-Allow-Origin": "*",
-          Authorization: portNum == "8200" ? basicAuth : jwtAuth,
-          "Access-Control-Allow-Credentials": "true",
-          "Access-Control-Allow-Headers": "origin, content-type, accept, authorization",
-          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS, HEAD"
-        },
-      });
+      let basicAuth: string = "Basic " + btoa("reporte" + ":" + "reporte@2022");
+      let basicAuthCouch:string="Basic " + btoa("admin" + ":" + "GRDS2021");
+      //let basicAuth: string = "Basic " + btoa('admin' + ":" + 'GRDS2021');
+      //console.log("couch", this.servioVisitaDomiciliaria.couch);
+      //console.log('token',couchToken);
+      if (this.servioVisitaDomiciliaria.couch) {
+        cloned = req.clone({
+          setHeaders: {
+            Authorization:`Bearer ` + couchToken,
+         // Authorization:!couchToken ?`Bearer ` + couchToken:basicAuthCouch,
+          },
+        });
+        this.servioVisitaDomiciliaria.couch=false;
+        console.log('couch',this.servioVisitaDomiciliaria.couch)
+      } else {
+        cloned = req.clone({
+          setHeaders: {
+            "Access-Control-Allow-Origin": "*",
+            Authorization: portNum == "8200" ? basicAuth : jwtAuth,
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Headers":
+              "origin, content-type, accept, authorization",
+            "Access-Control-Allow-Methods":
+              "GET, POST, PUT, DELETE, OPTIONS, HEAD",
+          },
+        });
+      }
       this.spinnerHandler.show();
       this.countRequest++;
     }
-    return next.handle(cloned)
+    return next
+      .handle(cloned)
       .pipe(
         catchError((response) => {
           console.log("Response de interceptor ", response);
@@ -85,6 +105,6 @@ export class InterceptorService implements HttpInterceptor {
             this.spinnerHandler.hide();
           }
         })
-      )
+      );
   }
 }
