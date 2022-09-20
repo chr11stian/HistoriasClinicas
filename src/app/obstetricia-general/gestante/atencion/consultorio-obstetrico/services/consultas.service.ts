@@ -267,4 +267,18 @@ export class ConsultasService {
             .then(res => <any[]>res)
             .then(data => { return data; });
     }
+
+    postAddProcedures(idConsulta: string, data) {
+        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/agregarProcedimiento/${idConsulta}`, data)
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data; });
+    }
+
+    getListProceduresSaved(idConsulta:string){
+        return this.http.get(`${this.base_url}/${this.bd}/obstetricia/consulta/listarProcedimientos/${idConsulta}`)
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data; });
+    }
 }

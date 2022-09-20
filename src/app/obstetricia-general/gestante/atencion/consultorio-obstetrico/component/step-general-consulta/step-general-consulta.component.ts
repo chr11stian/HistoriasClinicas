@@ -60,6 +60,7 @@ export class StepGeneral_consultaComponent implements OnInit {
                 this.stepName = "diagnostico"
                 break
             case 2: {
+                console.log('data id consulta ', this.IDConsulta);
                 if (this.IDConsulta == null) {
                     Swal.fire({
                         icon: 'warning',

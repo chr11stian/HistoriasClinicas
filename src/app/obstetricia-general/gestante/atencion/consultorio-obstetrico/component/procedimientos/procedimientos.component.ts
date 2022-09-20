@@ -136,11 +136,12 @@ export class ProcedimientosComponent implements OnInit {
     this.traerDiagnosticosDeConsulta();
     this.traerListaResumen();
     this.traerListaResumenPendientes();
-    this.recuperarProcedimientos();
-    this.recuperarProcedimientos();
+    // this.recuperarProcedimientos();
+    // this.recuperarProcedimientos();
     this.recuperarUpsHis();
     this.recuperarUpsAuxHis();
     this.recoverPrestationData();
+    this.recoverSavedProcedureData();
   }
 
   ngOnInit(): void {
@@ -290,7 +291,9 @@ export class ProcedimientosComponent implements OnInit {
   /** NEW  */
   recoverPrestationData(): void {
     this.DiagnosticoService.getPrestationPerIdConsulta(this.idConsulta).then(res => {
+      let hash: any = {}
       this.arrayPrestationCode = res.object;
+      this.arrayPrestationCode = this.arrayPrestationCode.filter(item => hash[item.codPrestacion] ? false : hash[item.codPrestacion] = true);
     });
   }
   onChangePrestacion() {
@@ -353,6 +356,7 @@ export class ProcedimientosComponent implements OnInit {
   }
 
   agregateProcedureSIS(): void {
+    let isAdded: boolean = false;
     if (this.fuaForm.valid) {
       let procedureSIS: ProcedureFUA = {
         codPrestacion: this.fuaForm.value.prestacion.codPrestacion,
@@ -361,13 +365,22 @@ export class ProcedimientosComponent implements OnInit {
         cie10SIS: this.fuaForm.value.codProcedimientoSIS.codigo,
         codProcedimientoSIS: this.fuaForm.value.codProcedimientoSIS.codigo,
       }
-      this.arrayProcedureSIS.push(procedureSIS);
-      this.fuaForm.reset();
+      this.arrayProcedureSIS.forEach(item => {
+        if (item.cie10SIS === procedureSIS.cie10SIS) {
+          isAdded = true;
+          this.repeatDataMessage();
+        }
+      })
+      if (!isAdded) {
+        this.arrayProcedureSIS.push(procedureSIS);
+        this.fuaForm.reset();
+      }
     } else
       this.missDataMessage();
   }
 
   agregateProcedureHIS(): void {
+    let isAdded: boolean = false;
     if (this.hisForm.valid) {
       let HISprocedure: ProcedureHIS = {
         nombreUPS: this.hisForm.value.nombreUPS.nombreUPS,
@@ -377,8 +390,16 @@ export class ProcedimientosComponent implements OnInit {
         codProcedimientoHIS: this.hisForm.value.codProcedimientoHIS.codigoItem,
         procedimientoHIS: this.hisForm.value.procedimientoHIS,
       }
-      this.arrayProcedureHIS.push(HISprocedure);
-      this.hisForm.reset();
+      this.arrayProcedureHIS.forEach(item => {
+        if (item.codProcedimientoHIS === HISprocedure.codProcedimientoHIS) {
+          isAdded = true;
+          this.repeatDataMessage();
+        }
+      });
+      if (!isAdded) {
+        this.arrayProcedureHIS.push(HISprocedure);
+        this.hisForm.reset();
+      }
     } else
       this.missDataMessage();
 
@@ -432,7 +453,7 @@ export class ProcedimientosComponent implements OnInit {
     }
     let dataSave: DataSave = { procedimientos: [] };
     dataSave.procedimientos = this.arrayProcedureSave;
-    this.DiagnosticoService.postSaveProcedure(this.dataConsulta.idConsulta, dataSave).then(res => {
+    this.tratamientoService.postAddProcedures(this.idConsulta, this.arrayProcedureSave).then(res => {
       Swal.fire({
         icon: 'success',
         title: 'Se guardo exitosamente',
@@ -440,7 +461,67 @@ export class ProcedimientosComponent implements OnInit {
         showConfirmButton: false,
         timer: 2000
       });
+    })
+  }
+
+  confirmSave() {
+    Swal.fire({
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Guardar',
+      icon: 'question',
+      title: 'Guardar',
+      text: '¿Esta seguro que desea guardar los diagnosticos?',
+      showConfirmButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.saveProcedures();
+      } else {
+        Swal.fire({
+          icon: 'info',
+          title: 'No se guardo',
+          text: '',
+          showConfirmButton: false,
+          timer: 2000
+        });
+      }
     });
+  }
+
+  recoverSavedProcedureData(): void {
+    // this.tratamientoService.listarProcedimientosDeUnaConsulta(this.nroHcl, this.nroEmbarazo, this.nroAtencion)
+    this.tratamientoService.getListProceduresSaved(this.idConsulta).then((res: any) => {
+      let dataRes: ProceduresSave[] = res.object;
+      if (dataRes == null) {
+        return
+      }
+      dataRes.forEach(item => {
+        if (item.codPrestacion != null) {
+          let procedure: ProcedureFUA = {
+            codPrestacion: item.codPrestacion,
+            cie10SIS: item.cie10SIS,
+            codProcedimientoSIS: item.codProcedimientoSIS,
+            procedimientoSIS: item.procedimientoSIS,
+            tipoDiagnostico: item.tipo
+          }
+          this.arrayProcedureSIS.push(procedure);
+        } else {
+          let procedure: ProcedureHIS = {
+            nombreUPS: item.nombreUPS,
+            nombreUPSaux: item.nombreUPSaux,
+            codProcedimientoHIS: item.codProcedimientoHIS,
+            procedimientoHIS: item.procedimientoHIS,
+            tipoDiagnostico: item.tipo,
+            lab: item.lab
+          }
+          this.arrayProcedureHIS.push(procedure);
+        }
+        this.isSaved = true;
+      });
+
+    })
   }
 
   deleteItemOfArray(index: number, type: number): void {
@@ -452,6 +533,16 @@ export class ProcedimientosComponent implements OnInit {
     Swal.fire({
       icon: 'info',
       title: 'Falta llenar campos',
+      text: '',
+      showConfirmButton: false,
+      timer: 2000
+    });
+  }
+
+  repeatDataMessage(): void {
+    Swal.fire({
+      icon: 'info',
+      title: 'Ya se agrego ese item',
       text: '',
       showConfirmButton: false,
       timer: 2000

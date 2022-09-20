@@ -324,9 +324,8 @@ export class DatosGeneralesComponent implements OnInit {
         let data = {
             nroHcl: this.dataPacientes.nroHcl,
             nroEmbarazo: this.nroEmbarazo,
-            nroAtencion: 1
+            nroAtencion: this.atentionNum + 1
         }
-        console.log('dataaaaaaaaaa to consult ', data);
         this.consultasService.getConsultas(this.Gestacion.id, data).then((res: any) => {
             this.dataConsultas = res.object
             if (this.dataConsultas !== null) {
@@ -371,7 +370,6 @@ export class DatosGeneralesComponent implements OnInit {
             } else {
                 this.showInfo();
             }
-
         });
     }
 
@@ -715,6 +713,7 @@ export class DatosGeneralesComponent implements OnInit {
 
     //Agregar, actualizar datos de consultorio obstetrico
     Add_updateConsultas() {
+        console.log('data consulta ', this.dataConsultas);
         this.data = {
             fecha: this.datePipe.transform(this.formDatos_Generales.value.fecha, 'yyyy-MM-dd HH:mm:ss'),
             anioEdad: this.formDatos_Generales.value.edad,
@@ -736,7 +735,7 @@ export class DatosGeneralesComponent implements OnInit {
                 telefono: this.formDatos_Generales.value.telefonoAcompaniante
             },
 
-            nroAtencion: parseInt(this.formDatos_Generales.value.nroAtencion),
+            nroAtencion: (this.formDatos_Generales.value.nroAtencion),
             nroControlSis: this.formDatos_Generales.value.nroControlSis,
 
             fum: this.datePipe.transform(this.formDatos_Generales.value.FUR, 'yyyy-MM-dd'),
@@ -816,6 +815,7 @@ export class DatosGeneralesComponent implements OnInit {
                 },
             ],
         }
+        console.log('data to save datos generales ', this.data);
 
         if (this.dataConsultas == null) {
             this.consultasService.addConsultas(this.nroFetos, this.Gestacion.id, this.data).then((result: any) => {
