@@ -5,7 +5,10 @@ import { MessageService } from "primeng/api";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
 import { ImcService } from "src/app/obstetricia-general/services/imc.service";
 import { ObstetriciaGeneralService } from "src/app/obstetricia-general/services/obstetricia-general.service";
+import Swal from "sweetalert2";
+import { IntervaloPartoService } from "../../../plan-parto/services/intervalo-parto/intervalo-parto.service";
 import { ConsultasService } from "../../services/consultas.service";
+import { ModalPlanPartoComponent } from "../modal-plan-parto/modal-plan-parto.component";
 
 @Component({
   selector: "app-interrogatorio",
@@ -56,6 +59,7 @@ export class InterrogatorioComponent implements OnInit {
   ];
   interrogatorioData: any;
   ref: DynamicDialogRef;
+  refPlanParto:DynamicDialogRef
   fetalesExamDialog: boolean = false;
   examenesFetales: any;
   listaExamenesFetos: any[] = [];
@@ -88,7 +92,8 @@ export class InterrogatorioComponent implements OnInit {
     private messageService: MessageService,
     private obstetriciaService: ObstetriciaGeneralService,
     private router: Router,
-    private imcService: ImcService
+    private imcService: ImcService,
+    private intervaloPartoService:IntervaloPartoService
   ) {
     this.inicializarForm();
 
@@ -149,7 +154,7 @@ export class InterrogatorioComponent implements OnInit {
     console.log("Nro de embarazo desde interrogatorio", this.nroEmbarazo);
     console.log("Id Consultorio Obstetrico desde interrogatorio", this.idConsulta);
     this.loadData();
-
+    this.getPlanParto()
   }
 
   async getUltimaConsulta() {
@@ -721,6 +726,49 @@ export class InterrogatorioComponent implements OnInit {
     this.chkLatidos = event.checked;
     console.log('chked ', this.chkLatidos);
     this.chkLatidos! ? this.formExamenFetal.patchValue({ latidosCardiacos: null }) : '';
+  }
+  //plan parto
+  listaPlanParto:any[]=[]
+  dataEnviarPlanParto={}
+  getPlanParto(){
+    this.intervaloPartoService.getPlanbyIdFiliacion(this.Gestacion.id).subscribe((resp:any)=>{
+      if(resp.cod=='2040'){
+        const objeto={
+          fechaAtencion:resp.object.planItems[0].fecha,
+          edadGestacional:resp.object.planItems[0].items[0].valor
+        }
+        this.listaPlanParto.push(objeto)
+      }
+      this.dataEnviarPlanParto={
+        tienePlan:resp.cod=='2040'?true:false,
+        idFiliacion:this.Gestacion.id,
+        respuestaGetPlanParto:resp.object
+      }
+    })
+  }
+  openModal(){
+    this.refPlanParto = this.dialog.open(ModalPlanPartoComponent, {
+      data:this.dataEnviarPlanParto,
+      header: 'Agregar plan de Parto',
+      width: '80%'
+    });
+    this.refPlanParto.onClose.subscribe((mensaje)=>{
+      if(mensaje=='agregado'){
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Plan de Parto agregado',
+          text: 'Su registro fue creado con exito',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        this.listaPlanParto=[]
+        this.getPlanParto()
+      }
+
+      
+    })
+
   }
 }
 
