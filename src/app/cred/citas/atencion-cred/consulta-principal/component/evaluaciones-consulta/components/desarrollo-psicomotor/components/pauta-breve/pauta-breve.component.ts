@@ -47,6 +47,8 @@ export class PautaBreveComponent implements OnInit {
     this.mesesTotal = this.dataConsulta.anio * 12 + this.dataConsulta.mes
     this.fechaEvaluacion = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
     this.examinador = this.dataExaminador.apellidos + ', ' + this.dataExaminador.nombres;
+    console.log('meses totales ', this.mesesTotal);
+    // this.indexSelected = this.mesesTotal - 1;
     console.log('data de la consulta desde pauta breve ', this.dataConsulta);
   }
 

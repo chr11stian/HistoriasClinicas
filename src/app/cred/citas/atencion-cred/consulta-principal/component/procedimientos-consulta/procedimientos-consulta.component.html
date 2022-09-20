@@ -1,51 +1,34 @@
 <div class="grid">
     <div class="col-12">
-        <p-table [value]="tablaResumenDx"  responsiveLayout="scroll"
-                 [(selection)]="selectedProducts" [loading]="loading" [rowHover]="true" styleClass="p-datatable-gridlines">
+        <p-table [value]="tablaResumenDx" class="summary" responsiveLayout="scroll" [(selection)]="selectedProducts"
+            [loading]="loading" [rowHover]="true" styleClass="p-datatable-gridlines">
 
-        <ng-template pTemplate="caption">
+            <ng-template pTemplate="caption">
                 <div class="flex justify-content-between">
                     <div class="table-header mt-2">
                         RESUMEN DE RESULTADOS DE EVALUACIONES - TESTS - TAMIZAJES - INMUNIZACIONES - LABORATORIO
-                    </div>
-                    <div>
-                        <button pButton pRipple label="Agregar a Procedimientos" icon="pi pi-plus" class="p-button-danger"
-                                (click)="agregarToPx()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
                     </div>
                 </div>
             </ng-template>
             <ng-template pTemplate="header">
                 <tr>
                     <th style="text-align: center" class="font-2">Nro</th>
-<!--                    <th style="text-align: center" class="font-2">EDAD</th>-->
+                    <!--                    <th style="text-align: center" class="font-2">EDAD</th>-->
                     <th style="text-align: center" class="font-2">NOMBRE</th>
-                    <th style="text-align: center" class="font-2">EVALUACION</th>
+                    <th style="text-align: center" class="font-2">EVALUACIÓN</th>
                     <th style="text-align: center" class="font-2">RESULTADO</th>
-                    <th style="width: 3rem">
-                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                    </th>
                 </tr>
             </ng-template>
 
-            <ng-template pTemplate="body" let-listaResumen let-rowIndex="rowIndex" >
-                <tr class="p-selectable-row" [ngClass]="{'fondoamarillo': listaResumen.nombre === 'INMUNIZACIONES','fondoverde':listaResumen.nombre === 'TAMIZAJES','fondoceleste':listaResumen.nombre === 'EVALUACIONES O TEST','fondogris':listaResumen.nombre === 'LABORATORIO','fondoSuplementacion':listaResumen.nombre === 'MNM'}">
-                    <td>
-                        {{rowIndex+1}}
-                    </td>
-<!--                    <td>-->
-<!--                        {{this.dataConsulta.anio }} (años) {{this.dataConsulta.mes }} (meses)    {{this.dataConsulta.dia }} (dias)-->
-<!--                    </td>-->
-                    <td>
-                        {{listaResumen.nombre}}
-                    </td>
-                    <td>
-                        {{listaResumen.evaluacion}}
-                    </td >
-                    <td style="text-transform:uppercase;text-align: center"  [ngClass]="{'rojo': listaResumen.resultado === 'POSITIVO' || listaResumen.resultado =='RETRASO' || listaResumen.resultado =='NINO CON ALIMENTACION COMPLEMENTARIA INADECUADA' || listaResumen.resultado =='Sobrepeso' || listaResumen.resultado =='Riesgo microcefalia'  }">
+            <ng-template pTemplate="body" let-listaResumen let-rowIndex="rowIndex">
+                <tr class="p-selectable-row"
+                    [ngClass]="{'fondoamarillo': listaResumen.nombre === 'INMUNIZACIONES','fondoverde':listaResumen.nombre === 'TAMIZAJES','fondoceleste':listaResumen.nombre === 'EVALUACIONES O TEST','fondogris':listaResumen.nombre === 'LABORATORIO','fondoSuplementacion':listaResumen.nombre === 'MNM'}">
+                    <td style="text-align: center"> {{rowIndex+1}} </td>
+                    <td style="text-align: center"> {{listaResumen.nombre}} </td>
+                    <td style="text-align: center"> {{listaResumen.evaluacion}} </td>
+                    <td style="text-transform:uppercase;text-align: center"
+                        [ngClass]="{'rojo': listaResumen.resultado === 'POSITIVO' || listaResumen.resultado =='RETRASO' || listaResumen.resultado =='NINO CON ALIMENTACION COMPLEMENTARIA INADECUADA' || listaResumen.resultado =='Sobrepeso' || listaResumen.resultado =='Riesgo microcefalia'  }">
                         {{listaResumen.resultado}}
-                    </td>
-                    <td>
-                        <p-tableCheckbox [value]="listaResumen"></p-tableCheckbox>
                     </td>
                 </tr>
             </ng-template>
@@ -53,197 +36,83 @@
     </div>
     <br>
 
-<!--         Procedimientos-->
-    <div class="col-12 lg:col-12 md:col-12 col-fixed">
-        <p-table [value]="procedimientos" [rowHover]="true" styleClass="p-datatable-gridlines"
-                 responsiveLayout="scroll" [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,15]"
-                 [paginator]="true" currentPageReportTemplate="Mostrando {first} al {last} de {totalRecords} entradas"
-                 [filterDelay]="0">
-            <ng-template pTemplate="caption">
-                <div class="flex justify-content-between">
-                    <div class="table-header mt-2">
-                        2. PROCEDIMIENTOS
-                    </div>
-                    <div>
-                        <button pButton pRipple label="Agregar" icon="pi pi-plus-circle" class="guardar mr-2"
-                                style="background-color: #0c3866" (click)="openProcedimiento()"></button>
-                    </div>
-                </div>
-            </ng-template>
-            <ng-template pTemplate="header">
-                <tr>
-                    <th style="text-align: center" class="font-2">Nro</th>
-                    <th style="text-align: center" class="font-2">COD. PROCEDIMIENTO SIS</th>
-                    <th style="text-align: center" class="font-2">PROCEDIMIENTO SIS</th>
-                    <th style="text-align: center" class="font-1">COD. PROCEDIMIENTO HIS</th>
-                    <th style="text-align: center" class="font-2">PROCEDIMIENTO HIS</th>
-                    <th style="text-align: center" class="font-1">COD. PRESTACIÓN</th>
-                    <th style="text-align: center" class="font-2">CIE 10 SIS</th>
-                    <th style="text-align: center" class="font-2">SUBTITULO UPS</th>
-                    <th style="text-align: center" class="font-2">TIPO</th>
-                    <th style="text-align: center" class="font-2">LAB.</th>
-                    <th style="text-align: center" class="font-2">RESULTADO EXAM.</th>
-                    <th style="text-align: center" class="font-2">ACCIÓN</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-                <tr>
-                    <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                    <td style="text-align: center">{{ rowData.codProcedimientoSIS }}</td>
-                    <td style="text-align: center">{{ rowData.procedimientoSIS }}</td>
-                    <td style="text-align: center">{{ rowData.codProcedimientoHIS }}</td>
-                    <td style="text-align: center">{{ rowData.procedimientoHIS }}</td>
-                    <td style="text-align: center">{{ rowData.codPrestacion }}</td>
-                    <td style="text-align: center">{{ rowData.cie10SIS }}</td>
-                    <td style="text-align: center">{{ rowData.nombreUPSaux }}</td>
-                    <td style="text-align: center">{{ rowData.tipo }}</td>
-                    <td style="text-align: center">{{ rowData.lab }}</td>
-                    <td style="text-align: center">{{ rowData.resultadoFua }}</td>
-                    <td style="text-align: center">
-                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded m-1"
-                                (click)="editarDx(rowData,rowIndex)" pTooltip="Editar">
-                        </button>
-                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                                (click)="elimininarProcedimiento(rowIndex)" pTooltip="Eliminar">
-                        </button>
-
-                    </td>
-                </tr>
-            </ng-template>
-        </p-table>
-    </div>
-
 </div>
 
 <div id="opc">
     <div class="speeddial-circle-demo">
-      <div class="speeddial-semi-circle">
-        <p-speedDial
-          showIcon="pi pi-desktop"
-          hideIcon="pi pi-angle-double-down"
-          [model]="tooltipItems"
-          radius="80"
-          direction="left"
-          type="semi-circle"
-        ></p-speedDial>
-      </div>
+        <div class="speeddial-semi-circle">
+            <p-speedDial showIcon="pi pi-desktop" hideIcon="pi pi-angle-double-down" [model]="tooltipItems" radius="80"
+                direction="left" type="semi-circle"></p-speedDial>
+        </div>
     </div>
-  </div>
-  <!-- End Datos generales -->
-  <!-- Dialog Interconsulta --->
-  <p-dialog
-    header="INTERCONSULTA"
-    [(visible)]="dialogInterconsulta"
-    [modal]="true"
-    [style]="{ width: '60%' }"
-    [draggable]="false"
-    [resizable]="false"
-  >
+</div>
+<!-- End Datos generales -->
+<!-- Dialog Interconsulta --->
+<p-dialog header="INTERCONSULTA" [(visible)]="dialogInterconsulta" [modal]="true" [style]="{ width: '60%' }"
+    [draggable]="false" [resizable]="false">
     <form [formGroup]="formInterconsulta">
-      <div class="grid align-items-center">
-        <div class="col-12 flex align-items-center">
-          <div class="col-2 md:col-2">Fecha:</div>
-          <div class="col-10 md:col-10 p-fluid">
-            <p-calendar
-              class="w-full"
-              [ngModel]="fecha"
-              formControlName="fecha"
-              [showIcon]="true"
-              inputId="icon"
-            ></p-calendar>
-          </div>
+        <div class="grid align-items-center">
+            <div class="col-12 flex align-items-center">
+                <div class="col-2 md:col-2">Fecha:</div>
+                <div class="col-10 md:col-10 p-fluid">
+                    <p-calendar class="w-full" [ngModel]="fecha" formControlName="fecha" [showIcon]="true"
+                        inputId="icon"></p-calendar>
+                </div>
+            </div>
+            <div class="col-12 flex align-items-center">
+                <div class="col-6 md:col-2">Motivo:</div>
+                <div class="col-6 md:col-10">
+                    <textarea class="inputfield w-full" formControlName="motivo" pInputTextarea></textarea>
+                </div>
+            </div>
+            <div class="col-6 flex align-items-center">
+                <div class="col-3 md:col-3 p-fluid">Servicio:</div>
+                <div class="col-9 md:col-9 p-fluid">
+                    <p-dropdown class="w-full" [options]="servicios" formControlName="servicio"
+                        placeholder="Seleccione un servicio" optionLabel="nombreUPS" optionValue="nombreUPS"
+                        [showClear]="false" (onChange)="ListaServicios()">
+                    </p-dropdown>
+                </div>
+            </div>
+            <div class="col-4 flex align-items-center">
+                <div class="col-6 md:col-6 p-fluid">Nivel Urgencia:</div>
+                <div class="col-6 md:col-6 p-fluid">
+                    <p-dropdown class="w-full" [options]="urgencia" formControlName="urgencia" optionLabel="name"
+                        optionValue="code"></p-dropdown>
+                </div>
+            </div>
+            <div class="col-2 p-fluid">
+                <p-button class="w-full button-agregar" style="background-color: #0c3866" label="Agregar"
+                    icon="pi pi-plus" [loading]="loadings" (onClick)="agregarInterconsulta()"></p-button>
+            </div>
         </div>
-        <div class="col-12 flex align-items-center">
-          <div class="col-6 md:col-2">Motivo:</div>
-          <div class="col-6 md:col-10">
-            <textarea
-              class="inputfield w-full"
-              formControlName="motivo"
-              pInputTextarea
-            ></textarea>
-          </div>
-        </div>
-        <div class="col-6 flex align-items-center">
-          <div class="col-3 md:col-3 p-fluid">Servicio:</div>
-          <div class="col-9 md:col-9 p-fluid">
-            <p-dropdown
-              class="w-full"
-              [options]="servicios"
-              formControlName="servicio"
-              placeholder="Seleccione un servicio"
-              optionLabel="nombreUPS"
-              optionValue="nombreUPS"
-              [showClear]="false"
-              (onChange)="ListaServicios()"
-            >
-            </p-dropdown>
-          </div>
-        </div>
-        <div class="col-4 flex align-items-center">
-          <div class="col-6 md:col-6 p-fluid">Nivel Urgencia:</div>
-          <div class="col-6 md:col-6 p-fluid">
-            <p-dropdown
-              class="w-full"
-              [options]="urgencia"
-              formControlName="urgencia"
-              optionLabel="name"
-              optionValue="code"
-            ></p-dropdown>
-          </div>
-        </div>
-        <div class="col-2 p-fluid">
-          <p-button
-            class="w-full button-agregar"
-            style="background-color: #0c3866"
-            label="Agregar"
-            icon="pi pi-plus"
-            [loading]="loadings"
-            (onClick)="agregarInterconsulta()"
-          ></p-button>
-        </div>
-      </div>
     </form>
-    <p-table
-      class="table-over"
-      [value]="listInterconsulta"
-      #dt
-      styleClass="p-datatable-gridlines"
-      [rows]="10"
-      [rowsPerPageOptions]="[10, 25, 50]"
-      [paginator]="true"
-      [autoLayout]="true"
-      [showCurrentPageReport]="true"
-      currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
-    >
-      <ng-template pTemplate="header">
-        <tr>
-          <th style="text-align: center" class="font-2">Nro</th>
-          <th style="text-align: center" class="font-2">CITA</th>
-          <th style="text-align: center" class="font-2">MOTIVO</th>
-          <th style="text-align: center" class="font-2">SERVICIO</th>
-          <th style="text-align: center" class="font-2">NIVEL</th>
-          <th style="text-align: center" class="font-2">ACCIÓN</th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-        <tr>
-          <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-          <td style="text-align: center">{{ rowData.fecha }}</td>
-          <td style="text-align: center">{{ rowData.motivo }}</td>
-          <td style="text-align: center">{{ rowData.servicio }}</td>
-          <td style="text-align: center">{{ rowData.nivelUrgencia }}</td>
-          <td style="text-align: center">
-            <button
-              pButton
-              pRipple
-              icon="pi pi-trash"
-              class="p-button-rounded p-button-danger m-1"
-              (click)="eliminarInterconsulta(rowData.idCupos,rowIndex)"
-              pTooltip="Eliminar"
-            ></button>
-          </td>
-        </tr>
-      </ng-template>
+    <p-table class="table-over" [value]="listInterconsulta" #dt styleClass="p-datatable-gridlines" [rows]="10"
+        [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+        currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="text-align: center" class="font-2">Nro</th>
+                <th style="text-align: center" class="font-2">CITA</th>
+                <th style="text-align: center" class="font-2">MOTIVO</th>
+                <th style="text-align: center" class="font-2">SERVICIO</th>
+                <th style="text-align: center" class="font-2">NIVEL</th>
+                <th style="text-align: center" class="font-2">ACCIÓN</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+            <tr>
+                <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+                <td style="text-align: center">{{ rowData.fecha }}</td>
+                <td style="text-align: center">{{ rowData.motivo }}</td>
+                <td style="text-align: center">{{ rowData.servicio }}</td>
+                <td style="text-align: center">{{ rowData.nivelUrgencia }}</td>
+                <td style="text-align: center">
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
+                        (click)="eliminarInterconsulta(rowData.idCupos,rowIndex)" pTooltip="Eliminar"></button>
+                </td>
+            </tr>
+        </ng-template>
     </p-table>
     <!--<ng-template pTemplate="footer">
       <button
@@ -265,178 +134,179 @@
         (click)="saveInterconsulta()"
       ></button>
     </ng-template>-->
-  </p-dialog>
-  
-<!-- Procedimiento - -->
-<p-dialog header="INGRESAR UN PROCEDIMIENTO" [(visible)]="procedimientoDialog" [modal]="true" [style]="{width: '80%', height: '70%'}"
-          [draggable]="false" [resizable]="false">
-    <div class="card m-2" *ngIf="checked">
-        <p-toolbar>
-            <div class="p-toolbar-group-left">
-                <h3>RESUMEN DE EVALUACIONES, EXAMENES AUXILIARES Y TEST SELECCIONADOS</h3>
-            </div>
-        </p-toolbar>
-
-        <p-table [value]="selectedProducts">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th>NOMBRE</th>
-                    <th>EVALUACION</th>
-                    <th>RESULTADO</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-dxs>
-                <tr style="text-transform:uppercase;text-align: center">
-                    <td>{{dxs.nombre}}</td>
-                    <td>{{dxs.evaluacion}}</td>
-                    <td>{{dxs.resultado}}</td>
-
-                </tr>
-            </ng-template>
-        </p-table>
-    </div>
-    <form [formGroup]='formProcedimiento'>
-        <div class="grid mt-2 ">
-            <div class="col-6 p-fluid">
-                <label class="">CIE 10 SIS: </label>
-                <p-dropdown [options]="listaDiagnosticos" formControlName="diagnostico"
-                            placeholder="Seleccionar un Diagnostico"
-                            (onChange)="onChangeDiagnostico()"
-                            optionLabel="diagnosticoSIS">
-                    <ng-template let-diagnostico pTemplate="item">
-                        <div class="flex align-items-center">
-                            <div>{{diagnostico.cie10SIS}}-{{diagnostico.diagnosticoSIS}}</div>
-                        </div>
-                    </ng-template>
-                </p-dropdown>
-<!--                <p-dropdown  inputId="dropdown" [options]="listaDiagnosticos"-->
-<!--                             formControlName="diagnostico"-->
-<!--                             (onChange)="onChangeDiagnostico()"-->
-<!--                             optionLabel="diagnosticoSIS" placeholder="seleccionar"-->
-<!--                             defaultLabel="Seleccione:" >-->
-<!--                </p-dropdown>-->
-            </div>
-            <div class="col-6 p-fluid">
-                <label>Prestacion:</label>
-                <p-dropdown inputId="dropdown" [options]="ListaPrestacion" formControlName="prestacion"
-                            placeholder="Seleccionar" optionLabel="descripcion" defaultLabel="Seleccione:" appendTo="body"
-                            class="inputfield p-fluid w-full" (onChange)="onChangePrestacion()">
-                </p-dropdown>
-            </div>
-
-            <div class="col-3 p-fluid">
-                <label>NOMBRE UPS:</label>
-                <p-dropdown inputId="dropdown"  [options]="listaUpsHis" id="nombreUPS" formControlName="nombreUPS" optionLabel="nombreUPS" optionValue="nombreUPS"
-                            placeholder="Seleccionar" defaultLabel="Seleccione:" appendTo="body"
-                            class="inputfield p-fluid w-full" required>
-                </p-dropdown>
-
-            </div>
-            <div class="col-3 p-fluid">
-                <label>SUBTITULO UPS:</label>
-                <p-dropdown inputId="dropdown"  [options]="listaUpsAuxHis" id="nombreUPSaux" formControlName="nombreUPSaux" optionLabel="nombre"
-                            placeholder="Seleccionar" defaultLabel="Seleccione:" appendTo="body"
-                            class="inputfield p-fluid w-full">
-                </p-dropdown>
-
-            </div>
-
-            <div class="col-1 p-fluid">
-                <label>LAB:</label>
-                <input type="text" style="text-transform:uppercase"  pInputText class="inputfield p-fluid w-full" formControlName="lab"/>
-            </div>
-            <div class="col-3 p-fluid">
-                <label>RESULTADO EXAMEN:</label>
-                <input type="text" style="text-transform:uppercase"  pInputText class="inputfield p-fluid w-full" formControlName="resultadoFUA"/>
-            </div>
-
-            <div class="col-2 p-fluid">
-                <label>Tipo diagnostico:</label>
-                <p-dropdown inputId="dropdown" [options]="tipoList" formControlName="tipoDiagnostico" placeholder="Seleccione"
-                            optionLabel="label" optionValue="value" defaultLabel="Seleccione:" appendTo="body"
-                            class="inputfield p-fluid w-full">
-                </p-dropdown>
-            </div>
-
-            <div class="col-12 md:col-6 lg:col-6">
-                <p-fieldset legend="PROCEDIMIENTO SIS">
-                    <div class="grid mt-2">
-                        <div class="col-12 p-fluid">
-                            <p-dropdown [options]="listaDeCIESIS" formControlName="buscarPDxSIS" placeholder="Seleccionar un Procedimiento" optionLabel="procedimiento" (onChange)="selectDxSIS($event)" >
-                                <ng-template let-procedimientos pTemplate="item">
-                                    <div class="flex align-items-center">
-                                        <div>{{procedimientos.codigo}}-{{procedimientos.procedimiento}}</div>
-                                    </div>
-                                </ng-template>
-                            </p-dropdown>
-                        </div>
-                    </div>
-                    <div class="grid mt-2">
-                        <div class="col-12 p-fluid">
-                            <textarea style="text-transform:uppercase"  rows="5" cols="30" pInputTextarea formControlName="procedimientoSIS"></textarea>
-                        </div>
-                    </div>
-                    <div class="grid mt-2">
-                        <div class="col-12 p-fluid">
-                            <label>CODIGO PROCEDIMIENTO SIS: </label>
-                        </div>
-                        <div class="col-12 p-fluid">
-                            <div class="col-12 p-fluid">
-                                <p-dropdown   [options]="listaDeCIESIS" formControlName="codProcedimientoSIS" appendTo="body"
-                                              optionLabel="codigo" class="inputfield p-fluid w-full" placeholder="Seleccione"
-                                              (onChange)="selectedOption($event)"></p-dropdown>
-                                <!--                            <input style="text-transform:uppercase"   pInputText formControlName="cie10SIS">-->
-                            </div>
-<!--                            <input style="text-transform:uppercase"   pInputText formControlName="codProcedimientoSIS">-->
-                        </div>
-                    </div>
-                </p-fieldset>
-            </div>
-            <div class="col-6">
-                <p-fieldset legend="PROCEDIMIENTO HIS">
-                    <div class="grid mt-2">
-                        <div class="col-12 p-fluid">
-                            <p-autoComplete [suggestions]="listaDeCIEHIS" (completeMethod)="filterCIE10($event)"
-                                            appendTo="body" field="descripcionItem" [minLength]="1" class="areaText"
-                                            class="inputfield p-fluid w-full" formControlName="buscarPDxHIS"
-                                            (onSelect)="selectedDxHIS($event)" [dropdown]="true" placeholder="Seleccionar un Procedimiento">
-                            </p-autoComplete>
-                        </div>
-                    </div>
-                    <div class="grid mt-2">
-                        <div class="col-12 p-fluid">
-                            <textarea rows="5" cols="30" pInputTextarea formControlName="procedimientoHIS"></textarea>
-                        </div>
-                    </div>
-                    <div class="grid mt-2">
-                        <div class="col-12 p-fluid">
-                            <label>CODIGO PROCEDIMIENTO HIS (CIE 10): </label>
-                        </div>
-                        <div class="col-12 p-fluid">
-                            <p-autoComplete [suggestions]="listaDeCIEHIS" (completeMethod)="filterCIE10($event)"
-                                            appendTo="body" field="codigoItem" [minLength]="1" class="areaText"
-                                            class="inputfield p-fluid w-full" formControlName="codProcedimientoHIS"
-                                            (onSelect)="selectedDxHIS($event)" [dropdown]="true" placeholder="Seleccionar un Diagnostico">
-                            </p-autoComplete>
-                            <!--                     <input pInputText formControlName="cie10HIS">-->
-                        </div>
-                    </div>
-                </p-fieldset>
-            </div>
-
-
-
-        </div>
-    </form>
-    <ng-template pTemplate="footer">
-
-        <button *ngIf="isUpdate" class="button-agregar" icon="pi pi-pencil" pButton type="button"
-                label="Editar" (click)="getDatatoEditPx()"></button>
-        <button *ngIf="!isUpdate" class="button-agregar" icon="pi pi-save" pButton type="button"
-                label="Guardar" (click)="getDatatoSavePx()"></button>
-        <button pButton type="button" label="Cancelar" class="button-cancelar"
-                icon="pi pi-times" (click)="cancelProcedimiento()"></button>
-
-    </ng-template>
-
 </p-dialog>
+
+<!-- Procedimiento - -->
+
+<div class="grid">
+    <div class="col-6">
+        <p-panel header="FUA" class="procedure-panel">
+            <form [formGroup]="fuaForm">
+                <div class=" grid">
+                    <div class="col-4 p-fluid">
+                        <label>Cod Prestación:</label>
+                        <p-dropdown inputId="dropdown" [options]="arrayPrestationCode" formControlName="prestacion"
+                            placeholder="Seleccionar" optionLabel="codPrestacion" defaultLabel="Seleccione:"
+                            appendTo="body" class="inputfield p-fluid w-full" (onChange)="onChangePrestacion()">
+                        </p-dropdown>
+                    </div>
+                    <div class="col-3 p-fluid">
+                        <label>Tipo Diagnóstico:</label>
+                        <p-dropdown inputId="dropdown" [options]="arrayDiagnosticType"
+                            formControlName="tipoDiagnosticoSIS" placeholder="Seleccionar" optionLabel="label"
+                            optionValue="value" defaultLabel="Seleccione:" appendTo="body"
+                            class="inputfield p-fluid w-full">
+                        </p-dropdown>
+                    </div>
+                    <div class="col-9 p-fluid">
+                        <label>Procedimientos SIS</label>
+                        <p-dropdown [options]="listProcedures" formControlName="buscarPDxSIS"
+                            placeholder="Seleccionar un Procedimiento" optionLabel="procedimiento"
+                            (onChange)="selectDxSIS($event)">
+                            <ng-template let-procedimientos pTemplate="item">
+                                <div class="flex align-items-center">
+                                    <div>{{procedimientos.codigo}}-{{procedimientos.procedimiento}}</div>
+                                </div>
+                            </ng-template>
+                        </p-dropdown>
+                    </div>
+                    <div class="col-9 p-fluid">
+                        <label>Código Procedimiento SIS: </label>
+                        <p-dropdown [options]="listProcedures" formControlName="codProcedimientoSIS" appendTo="body"
+                            optionLabel="codigo" class="inputfield p-fluid w-full" placeholder="Seleccione"
+                            (onChange)="selectedOption($event)"></p-dropdown>
+                    </div>
+                    <div class="col-3">
+                        <button pButton pRipple icon="pi pi-plus" pButton type="button"
+                            style="background-color: #0c3866" class="add-button p-button-rounded" label="Agregar"
+                            (click)="agregateProcedureSIS()"></button>
+                    </div>
+                    <div class="col-12 p-fluid">
+                        <textarea style="text-transform:uppercase" rows="3" cols="30" pInputTextarea
+                            formControlName="procedimientoSIS"></textarea>
+                    </div>
+                </div>
+            </form>
+            <p-table class="table-over" [value]="arrayProcedureSIS" #dt styleClass="p-datatable-gridlines" [rows]="10">
+                <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                    <tr>
+                        <th style="text-align: center;" class="font-2">Nro</th>
+                        <th style="text-align: center;" class="font-2">CIE 10</th>
+                        <th style="text-align: center;" class="font-1">Procedimiento</th>
+                        <th style="text-align: center;" class="font-2">Cod Prestación</th>
+                        <th style="text-align: center;" class="font-2">Tipo Diagnóstico</th>
+                        <th style="text-align: center" class="font-2">Acción</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-i="rowIndex">
+                    <tr>
+                        <td style="text-align: center;" class="font-2">{{ i + 1 }}</td>
+                        <td style="text-align: center;">{{ rowData.cie10SIS }}</td>
+                        <td style="text-align: center;">{{ rowData.procedimientoSIS }}</td>
+                        <td style="text-align: center;">{{ rowData.codPrestacion }}</td>
+                        <td style="text-align: center;">{{ rowData.tipoDiagnostico }}</td>
+                        <td style="text-align: center">
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
+                                (click)="deleteItemOfArray(i, 0)" pTooltip="Eliminar"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-panel>
+    </div>
+    <div class="col-6">
+        <p-panel header="HIS" class="procedure-panel">
+            <form [formGroup]="hisForm">
+                <div class="grid">
+                    <div class="col-4 p-fluid">
+                        <label>Nombre UPS:</label>
+                        <p-dropdown inputId="dropdown" [options]="arrayUPS" formControlName="nombreUPS"
+                            placeholder="Seleccionar" optionLabel="nombreUPS" defaultLabel="Seleccione:" appendTo="body"
+                            class="inputfield p-fluid w-full">
+                        </p-dropdown>
+                    </div>
+                    <div class="col-4 p-fluid">
+                        <label>Sub Titulo UPS:</label>
+                        <p-dropdown inputId="dropdown" [options]="arrayUPSAux" formControlName="nombreUPSaux"
+                            placeholder="Seleccionar" optionLabel="nombre" defaultLabel="Seleccione:" appendTo="body"
+                            class="inputfield p-fluid w-full">
+                        </p-dropdown>
+                    </div>
+                    <div class="col-3 p-fluid">
+                        <label>Tipo Diagnóstico:</label>
+                        <p-dropdown inputId="dropdown" [options]="arrayDiagnosticType"
+                            formControlName="tipoDiagnosticoHIS" placeholder="Seleccionar" optionLabel="label"
+                            optionValue="value" defaultLabel="Seleccione:" appendTo="body"
+                            class="inputfield p-fluid w-full">
+                        </p-dropdown>
+                    </div>
+                    <div class="col-1 md:col-3 lg:col-1 p-field">
+                        <div class="">
+                            <label class="">Lab: </label>
+                            <input type="text" pInputText class="inputfield w-full bg_color" formControlName="lab"
+                                oninput="this.value=this.value.toUpperCase()">
+                        </div>
+                    </div>
+                    <div class="col-12 p-fluid">
+                        <label>Diagnóstico HIS</label>
+                        <p-autoComplete [suggestions]="listaDeCIEHIS" (completeMethod)="filterCIE10($event)"
+                            appendTo="body" field="descripcionItem" [minLength]="1" class="areaText"
+                            class="inputfield p-fluid w-full" formControlName="buscarPDxHIS"
+                            (onSelect)="selectedDxHIS($event)" [dropdown]="true"
+                            placeholder="Seleccionar un Procedimiento">
+                        </p-autoComplete>
+                    </div>
+                    <div class="col-9 p-fluid">
+                        <label>Código de procedimiento HIS (CIE 10): </label>
+                        <p-autoComplete [suggestions]="listaDeCIEHIS" (completeMethod)="filterCIE10($event)"
+                            appendTo="body" field="codigoItem" [minLength]="1" class="areaText"
+                            class="inputfield p-fluid w-full" formControlName="codProcedimientoHIS"
+                            (onSelect)="selectedDxHIS($event)" [dropdown]="true"
+                            placeholder="Seleccionar un Diagnostico">
+                        </p-autoComplete>
+                    </div>
+                    <div class="col-3">
+                        <button pButton pRipple icon="pi pi-plus" pButton type="button"
+                            style="background-color: #0c3866" class="add-button p-button-rounded" label="Agregar"
+                            (click)="agregateProcedureHIS()"></button>
+                    </div>
+                    <div class="col-12 p-fluid">
+                        <textarea style="text-transform:uppercase" rows="3" cols="30" pInputTextarea
+                            formControlName="procedimientoHIS"></textarea>
+                    </div>
+                </div>
+            </form>
+            <p-table class="table-over" [value]="arrayProcedureHIS" #dt styleClass="p-datatable-gridlines" [rows]="10">
+                <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                    <tr>
+                        <th style="text-align: center;" class="font-2">Nro</th>
+                        <th style="text-align: center;" class="font-2">UPS Auxiliar</th>
+                        <th style="text-align: center;" class="font-1">Procedimiento</th>
+                        <th style="text-align: center;" class="font-2">CIE 10</th>
+                        <th style="text-align: center;" class="font-2">Tipo Diagnóstico</th>
+                        <th style="text-align: center;" class="font-2">Lab</th>
+                        <th style="text-align: center" class="font-2">Acción</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-i="rowIndex">
+                    <tr>
+                        <td style="text-align: center;" class="font-2">{{ i + 1 }}</td>
+                        <td style="text-align: center;">{{ rowData.nombreUPSaux }}</td>
+                        <td style="text-align: center;">{{ rowData.procedimientoHIS }}</td>
+                        <td style="text-align: center;">{{ rowData.codProcedimientoHIS }}</td>
+                        <td style="text-align: center;">{{ rowData.tipoDiagnostico }}</td>
+                        <td style="text-align: center;">{{ rowData.lab }}</td>
+                        <td style="text-align: center">
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
+                                (click)="deleteItemOfArray(i, 1)" pTooltip="Eliminar"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-panel>
+    </div>
+    <div class="col-12" *ngIf="!isSaved">
+        <button pButton pRipple icon="pi pi-save" pButton type="button" style="background-color: #0c3866"
+            label="Guardar" class="save-button p-button-rounded" (click)="confirmSave()"></button>
+    </div>
+</div>

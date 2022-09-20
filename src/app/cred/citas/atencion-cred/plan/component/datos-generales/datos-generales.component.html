@@ -16,9 +16,9 @@
         <p-fieldset legend="Información Básica" [toggleable]="true">
             <form [formGroup]="generalInfoFG">
                 <div class="grid">
-                    <div class="col-12 flex justify-content-center">
+                    <!-- <div class="col-12 flex justify-content-center">
                         <span>Edad: {{this.edad}}</span>
-                    </div>
+                    </div> -->
                     <div class="col-6 flex align-items-center">
                         <div class="col-4">
                             <span class="text-right">Nombre:</span>
@@ -84,6 +84,7 @@
                         </div>
                         <div class="col-8">
                             <p-calendar
+                                    dateFormat="dd/mm/yy"
                                     formControlName="fechaNacimiento"
                                     [showIcon]="true"
                                     inputId="icon"
@@ -147,7 +148,7 @@
                             />
                         </div>
                     </div>
-                    <div class="col-6 flex align-items-center">
+                    <!-- <div class="col-6 flex align-items-center">
                         <div class="col-4">
                             <label
                             >Grado de instrucción:</label
@@ -174,12 +175,12 @@
                                     pInputText
                             />
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </form>
         </p-fieldset>
-
-        <p-fieldset legend="Datos de Apoderado" [toggleable]="true">
+        <br>
+        <p-fieldset legend="Datos de Apoderado" [toggleable]="true" class="mt-3">
             <form [formGroup]="apoderadoInfoFG">
                 <div class="grid">
                     <div class="col-5">
@@ -202,13 +203,20 @@
                             <span>Estado</span>
                         </div>
                         <div class="col-12 grid">
-                            <input
+                            <!-- <input
                                     formControlName="estadoPadre"
                                     type="text"
                                     placeholder="estado civil"
                                     class="inputfield w-full"
                                     pInputText
-                            />
+                            /> -->
+                            <p-dropdown
+                                    placeholder="Seleccionar"
+                                    [options]="listaEstadoCivil"
+                                    optionLabel="name"
+                                    optionValue="code"
+                                    formControlName="estadoPadre">
+                            </p-dropdown>
                         </div>
                     </div>
                     <div class="col-2 grid">
@@ -317,16 +325,23 @@
                     </div>
                     <div class="col-5 grid">
                         <div class="col-12 grid">
-                            <span>Estado</span>
+                            <span>Estado Civil</span>
                         </div>
                         <div class="col-12 grid">
-                            <input
+                            <!-- <input
                                     formControlName="estadoMadre"
                                     type="text"
                                     placeholder="estado civil"
                                     class="inputfield w-full"
                                     pInputText
-                            />
+                            /> -->
+                            <p-dropdown
+                                    placeholder="Seleccionar"
+                                    [options]="listaEstadoCivil"
+                                    optionLabel="name"
+                                    optionValue="code"
+                                    formControlName="estadoMadre">
+                            </p-dropdown>
                         </div>
                     </div>
                     <div class="col-2 grid">

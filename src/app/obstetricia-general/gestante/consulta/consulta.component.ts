@@ -130,11 +130,16 @@ export class ConsultaComponent implements OnInit {
 
     //recupera la lista de todas las atenciones prenatales
     recuperarConsultas() {
-        let data = {
-            "nroHcl": this.nroHcl,
-            "nroEmbarazo": this.nroEmbarazo
-        }
-        this.consultaObstetriciaService.getDatosConsultasObstetricasListar(data).subscribe((res: any) => {
+        // let data = {
+        //     "nroHcl": this.nroHcl,
+        //     "nroEmbarazo": this.nroEmbarazo
+        // }
+        // this.consultaObstetriciaService.getDatosConsultasObstetricasListar(data).subscribe((res: any) => {
+        //     console.log('trajo datos exito ', res)
+        //     this.consultas = res.object ? res.object : [];
+        //     this.loading = false;
+        // })
+        this.consultaObstetriciaService.getDatosConsultasObstetricasListarPorFiliacion(this.Gestacion.id).subscribe((res: any) => {
             console.log('trajo datos exito ', res)
             this.consultas = res.object ? res.object : [];
             this.loading = false;

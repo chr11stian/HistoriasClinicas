@@ -68,8 +68,17 @@
                                 </div>
                                 <div class="col-12 md:col-6 lg:col-3 p-field flex flex-column">
                                     <label>Sexo:</label>
-                                    <input type="text" pInputText formControlName="sexo" class="inputTest"
-                                           oninput="this.value=this.value.toUpperCase()"/>
+                                    <p-dropdown inputId="dropdown" 
+                                                [options]="listaSexo"
+                                                appendTo="body"
+                                                formControlName="sexo"
+                                                optionLabel="name"
+                                                optionValue="code"
+                                                placeholder="Seleccione Sexo"
+                                                class="p-fluid w-full">
+                                    </p-dropdown>
+                                    <!-- <input type="text" pInputText formControlName="sexo" class="inputTest"
+                                           oninput="this.value=this.value.toUpperCase()"/> -->
                                 </div>
                                 <div class="col-12 md:col-6 lg:col-3 p-field flex flex-column">
                                     <label>Grado Instrucción:</label>
@@ -266,12 +275,29 @@
             </div>
         </form>
     </div>
-    <div class="m-3">
+    <!-- <div class="m-3" style="display:flex">
         <button pButton type="button" label="Guardar" class="p-button-primary"
                 (click)="updateOEdith()"></button>
         <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="closeDialog()"></button>
-    </div>
+    </div> -->
 </div>
+
+<div class="footer">
+    <button
+      pButton
+      type="button"
+      (click)="updateOEdith()"
+      label="Guardar"
+      class="p-button-primary mt-4 mr-2"
+    ></button>
+    <button
+      pButton
+      type="button"
+      (click)="closeDialog()"
+      label="Cancelar"
+      class="p-button-danger mt-4"
+    ></button>
+  </div>
 
 
 

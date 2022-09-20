@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {environment} from "../../../../../../environments/environment";
-import {HttpClient} from "@angular/common/http";
-import {referencia} from "../../../models/data";
+import { Injectable } from '@angular/core';
+import { environment } from "../../../../../../environments/environment";
+import { HttpClient } from "@angular/common/http";
+import { referencia } from "../../../models/data";
 
 
 interface event {
@@ -34,7 +34,7 @@ export class FinalizarConsultaService {
         return this.http.get(`${this.urlServer}/${this.bd}/ipress/filtro/${item}`)
     }
 
-    updateReferencia( data) {
+    updateReferencia(data) {
         return this.http.put(`${this.urlServer}/${this.bd}/referencia/`, data)
     }
 
@@ -64,5 +64,17 @@ export class FinalizarConsultaService {
 
     getFinalizar(id) {
         return this.http.get(`${this.urlServer}/${this.bd}/cred/consulta/finconsulta/${id}`)
+    }
+    getPromiseListPlan(nroDoc: string) {
+        return this.http.get(`${this.urlServer}/${this.bd}/cred/recuperardatos/${nroDoc}`)
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data; });
+    }
+    putNextAppointment(idConsulta: string, data) {
+        return this.http.put(`${this.urlServer}/${this.bd}/cred/consulta/agregar/proxima/cita/${idConsulta}`, data)
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data; });
     }
 }

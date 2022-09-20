@@ -56,7 +56,6 @@
                     type="text"
                     pInputText
                     formControlName="apePaterno"
-                    disabled
                   />
                 </div>
               </div>
@@ -68,31 +67,28 @@
                     type="text"
                     pInputText
                     formControlName="apeMaterno"
-                    disabled
                   />
                 </div>
               </div>
 
               <div class="col-12 md:col-6 lg:col-3 p-field">
-                <span class="">NOMBRES</span>
+                <span class="">Primer Nombre</span>
                 <div class="p-inputgroup">
                   <input
                     type="text"
                     pInputText
                     formControlName="primerNombre"
-                    disabled
                   />
                 </div>
               </div>
 
               <div class="col-12 md:col-6 lg:col-3 p-field">
-                <span class="">OTRO NOMBRE</span>
+                <span class="">Otros Nombres</span>
                 <div class="p-inputgroup">
                   <input
                     type="text"
                     pInputText
                     formControlName="otrosNombres"
-                    disabled
                   />
                 </div>
               </div>
@@ -100,19 +96,21 @@
             <div class="grid m-2">
               <div class="col-12 md:col-6 lg:col-3 p-field">
                 <span class="">SEXO</span>
-                <div class="p-inputgroup">
+                <div class="p-fluid">
                   <input
                     type="text"
                     pInputText
                     formControlName="sexo"
-                    disabled
                   />
                 </div>
               </div>
               <div class="col-12 md:col-6 lg:col-3 p-field">
                 <span class="">ESTADO CIVIL</span>
                 <div class="p-inputgroup">
-                  <input type="text" pInputText formControlName="estadoCivil" />
+                  <input type="text" 
+                         pInputText 
+                         formControlName="estadoCivil" 
+                         />
                 </div>
               </div>
               <div class="col-12 md:col-6 lg:col-3 p-field">
@@ -122,7 +120,6 @@
                     type="date"
                     pInputText
                     formControlName="fechaNacimiento"
-                    disabled
                   />
                 </div>
               </div>
@@ -134,7 +131,6 @@
                     type="text"
                     pInputText
                     formControlName="nacionalidad"
-                    disabled
                   />
                 </div>
               </div>
@@ -147,7 +143,6 @@
                     type="text"
                     pInputText
                     formControlName="LugarNacimiento"
-                    disabled
                   />
                 </div>
               </div>
@@ -165,8 +160,11 @@
 
               <div class="col-12 md:col-6 lg:col-3 p-field">
                 <span class="">DISCAPACIDAD</span>
-                <div class="p-inputgroup">
-                  <input type="text" pInputText formControlName="procedencia" />
+                <div class="p-inputgroup">  
+                  <input type="text" 
+                         pInputText 
+                         formControlName="discapacidad" 
+                  />
                 </div>
               </div>
             </div>
@@ -175,7 +173,9 @@
               <div class="col-12 md:col-6 lg:col-3 p-field">
                 <span class="">TELEFONO / CELULAR</span>
                 <div class="p-inputgroup">
-                  <input type="text" pInputText formControlName="celular" />
+                  <input type="text" 
+                         pInputText 
+                         formControlName="celular" />
                 </div>
                 <small class="p-error" *ngIf="isInvalid('celular')">
                   * Telefono es necesario
@@ -388,6 +388,7 @@
 
 <div class="footer">
   <button
+    [disabled]="formPacientesCupo.invalid"
     pButton
     type="button"
     (click)="saveForm()"

@@ -18,15 +18,46 @@ p-toolbar >>> * {
 /* interconsulta */
 div#opc {
     position: static;
-  }
-  p-speeddial >>> .p-button.p-button-icon-only.p-button-rounded {
+}
+p-speeddial >>> .p-button.p-button-icon-only.p-button-rounded {
     background: green;
     border-color: green;
-  }
-  :host ::ng-deep .speeddial-semi-circle .p-speeddial-direction-left {
+}
+:host ::ng-deep .speeddial-semi-circle .p-speeddial-direction-left {
     right: 0;
     top: 300px;
-  }
-  :host ::ng-deep .button-agregar .p-button {
+}
+:host ::ng-deep .button-agregar .p-button {
     background-color: #0c3866;
-  }
+}
+
+:host ::ng-deep .table-over .p-table {
+    margin: 0;
+    padding: 0;
+}
+.divcero {
+    margin: 0;
+    padding: 0;
+}
+p-table >>> .p-datatable .p-datatable-thead > tr > th {
+    text-align: center;
+    font-size: small;
+    word-wrap: break-word;
+    padding: 0.2rem;
+    border: 1px solid #b6b6b6;
+    background-color: #dddddd;
+}
+p-table >>> .p-datatable .p-datatable-thead > tr > th {
+    text-align: center;
+    font-size: x-small;
+    word-wrap: break-word;
+    padding: 0.2rem;
+}
+
+p-table >>> .p-datatable .p-datatable-tbody > tr > td {
+    text-align: center;
+    font-size: x-small;
+    word-wrap: break-word;
+    color: rgb(6, 51, 95);
+    border: 1px solid #b6b6b6;
+}

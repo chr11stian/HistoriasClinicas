@@ -3,7 +3,7 @@
         <br>
         <div class="grid">
             <div class="col-12 md:col-6 lg:col-12 p-field" style="text-align:center;">
-                <label style="font-size: 16px;">LISTA DE PACIENTES EN OBSTETRICIA</label>
+                <label style="font-size: 16px;">LISTA DE PACIENTES EN OBSTETRICIA </label>
             </div>
         </div>
         <br>
@@ -93,8 +93,8 @@
                             <th style="text-align: center; font-size: 11px">NOMBRES</th>
                             <th style="text-align: center; font-size: 11px">HORA ATENCION</th>
                             <th style="text-align: center; font-size: 11px">FECHA ATENCION</th>
-                            <!--                        <th style="text-align: center; font-size: 11px">SERVICIO</th>-->
                             <th style="text-align: center; font-size: 11px">TELEFONO</th>
+                            <th style="text-align: center; font-size: 11px">CONSULTA</th>
                             <th style="text-align: center; font-size: 11px">ACCION</th>
 
                         </tr>
@@ -107,15 +107,21 @@
                             <td style="text-align: center; font-size: 11px">{{ rowData.paciente.nombre}}</td>
                             <td style="text-align: center; font-size: 11px">{{ rowData.horaAtencion}}</td>
                             <td style="text-align: center; font-size: 11px">{{ rowData.fechaAtencion}}</td>
-                            <!--                        <td style="text-align: center; font-size: 11px">{{ rowData.ipress.servicio}}</td>-->
                             <td style="text-align: center; font-size: 11px">{{ rowData.paciente.nroTelefono}}</td>
-
+                            <td style="text-align: center; font-size: 11px">{{ rowData.estadoObstetra}}</td>
                             <td style="text-align: center">
-                                <button pButton pRipple type="button" label="Gestante" class="p-button-secondary"
-                                    (click)="enviarData(rowData)" style="font-size: 11px"
-                                    icon="pi pi-angle-double-right"></button>
                                 <button pButton pRipple type="button" (click)="openDialogTriaje(rowData)" label="Triaje"
                                     class="p-button-help" style="font-size: 11px" icon="pi pi-check-circle"></button>
+                                    
+                                <button *ngIf="rowData.estadoObstetra=='EMBARAZADA';else sinPruebas " pButton pRipple type="button" label="Consulta Gestante" class="p-button-secondary"
+                                    (click)="enviarData(rowData)" style="font-size: 11px"
+                                    icon="pi pi-angle-double-right"></button>
+                                <ng-template #sinPruebas>
+                                    <button pButton pRipple type="button" label="Consulta Gestante Externa" class="p-button-primary"
+                                    (click)="redireccionarConsultaGeneral(rowData)" style="font-size: 11px"
+                                    icon="pi pi-angle-double-right"></button>
+
+                                </ng-template> 
                                 <!-- <button pButton pRipple class="boton-mostaza" label="Consulta externa"
                                         icon="pi pi-book" (click)="irConsultaNoControl(rowData)"
                                         style="; font-size: 11px"></button> -->

@@ -18,6 +18,11 @@ export class TratamientoConsultaService {
     constructor(private http: HttpClient) {
         // this.headers.append("Authorization":"B")
     }
+    getHIS(idConsulta) {
+        return this.http.get(
+            `${this.urlServer}/${this.bd}/his/generar/all/his/${idConsulta}`
+        );
+    }
     addTratamiento(id, data) {
         return this.http.post(
             `${this.urlServer}/${this.bd}/consulta/tratamiento/${id}`,

@@ -24,7 +24,12 @@ body {
   background-color: #0C3866;
   color: #ffffff;
   font-size: 1.2rem;
+  /* margin-bottom: 7rem; */
 }
+.p-dialog .p-dialog-content{
+  padding-top: 2rem;
+}
+
 .leaflet-popup-content img{
   width: 100%;
 }
