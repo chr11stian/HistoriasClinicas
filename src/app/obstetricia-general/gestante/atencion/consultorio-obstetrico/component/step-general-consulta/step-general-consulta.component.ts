@@ -34,9 +34,9 @@ export class StepGeneral_consultaComponent implements OnInit {
             { label: "Datos Generales" },
             { label: "Interrogatorio" },
             { label: "Tamizaje"},
-            { label: "Diagnosticos" },
             { label: "Exámenes Auxiliares" },
             { label: "Tratamientos" },
+            { label: "Diagnosticos" },
             { label: "Procedimientos" },
             { label: "Finalizar" },
         ]
@@ -51,13 +51,14 @@ export class StepGeneral_consultaComponent implements OnInit {
                 this.stepName = "procedimientos"
                 break
             case 5:
-                this.stepName = "tratamiento"
+                this.stepName = "diagnostico"
+                // this.stepName = "tratamiento"
                 break
             case 4:
-                this.stepName = "evaluaciones"
+                this.stepName = "tratamiento"
                 break
             case 3:
-                this.stepName = "diagnostico"
+                this.stepName = "evaluaciones"
                 break
             case 2: {
                 console.log('data id consulta ', this.IDConsulta);
