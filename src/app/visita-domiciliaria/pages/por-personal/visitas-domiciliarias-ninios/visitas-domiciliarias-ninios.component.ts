@@ -3,7 +3,7 @@ import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
 import { FormGroup, FormBuilder, FormControl,AbstractControl,Validators } from "@angular/forms";
 import { VisitaDomiciliariaService } from "../../../services/visita-domiciliaria.service";
 import { DialogRespuestasComponent } from "../../../components/dialog-respuestas/dialog-respuestas.component";
-
+import { MessageService } from "primeng/api";
 
 @Component({
   selector: "app-visitas-domiciliarias-ninios",
@@ -57,7 +57,8 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
   constructor(
     public dialog: DialogService,
     private servicioVisitas: VisitaDomiciliariaService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private messageService:MessageService,
   ) {
   }
 
@@ -122,8 +123,13 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
     //console.log(fecha);
     this.servicioVisitas.couch=true;
     this.servicioVisitas.buscarVisitaNiniosXAnioMes(fecha).subscribe((data)=>{
-      this.dataVisitas=data["rows"]
-      console.log('Busqueda por fecha',this.dataVisitas);
+      if(data['rows'].length>0){
+        this.dataVisitas=data["rows"]
+        console.log('Busqueda por fecha',this.dataVisitas);
+        this.messageService.add({ key: 'myMessage1', severity: 'sucess', summary: 'Exitoso', detail: 'Visitas Actualizada' });
+      }else{
+        this.messageService.add({ key: 'myMessage2', severity: 'error', summary: 'Error', detail: 'Usted no tiene visitas' });
+      }
     })
   }
 

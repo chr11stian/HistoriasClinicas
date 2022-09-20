@@ -27,16 +27,23 @@ export class MapVisitasComponent implements OnInit {
     this.initMap();
   }
 
-  async getdataVisitas() {
-    await this.dataVisitas?this.dataVisitas:[];
-  }
+   doSomething = async (value: any) => {
+    await new Promise(res => setTimeout(res,1000));
+  };
+  
+   doTheAsyncAwait = async () => {
+    console.log("start doTheAsyncAwait..");
+    await this.doSomething(this.dataVisitas);
+    console.log("finish doTheAsyncAwait..");
+    console.log('this data',this.dataVisitas);
+  };
 
   initMap() {
-  setTimeout(() => {
-    this.getdataVisitas(); 
+  this.doTheAsyncAwait();
+  console.log('me tortura',this.dataVisitas)
+  /*setTimeout(() => {
     console.log('la ',this.dataVisitas)
-    this.newDta=this.dataVisitas;
-  },100);
+  },100);*/
     console.log('from component map',this.dataVisitas)
     var iconDefault = L.icon({
       iconUrl: "assets/svg-marker/marker-visita-domiciliaria.svg",
@@ -57,8 +64,7 @@ export class MapVisitasComponent implements OnInit {
           '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       }
     );
-    console.log('new data',this.newDta);
-    this.newDta.map((aux) => {
+    this.dataVisitas.map((aux) => {
       /*  let imgUrl="https://res.cloudinary.com/dhcetqc1j/image/upload/v1650643076/omri-d-cohen-8X2SLD6mLjQ-unsplash_gntzwb.jpg"
         L.marker([aux.latitud, aux.longitud])
         .addTo(this.maps).bindPopup(`

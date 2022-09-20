@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, FormControl,AbstractControl,Validators } from "
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
 import { VisitaDomiciliariaService } from "src/app/visita-domiciliaria/services/visita-domiciliaria.service";
 import { DialogRespuestasComponent } from "../../../components/dialog-respuestas/dialog-respuestas.component";
-
+import { MessageService } from "primeng/api";
 @Component({
   selector: "app-visitas-domiciliarias-gestantes",
   templateUrl: "./visitas-domiciliarias-gestantes.component.html",
@@ -56,7 +56,8 @@ export class VisitasDomiciliariasGestantesComponent implements OnInit {
   constructor(
     public dialog: DialogService,
     private servicioVisitas: VisitaDomiciliariaService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private messageService:MessageService,
   ) {
   }
 
@@ -107,7 +108,7 @@ export class VisitasDomiciliariasGestantesComponent implements OnInit {
       data: data,
     });
   }
-  
+
   recuperarValores(){
     let busquedaAnio:string = this.formListaVisitas.value.busquedaAnio;
     let busquedaMes:string = this.formListaVisitas.value.busquedaMes;
@@ -122,8 +123,13 @@ export class VisitasDomiciliariasGestantesComponent implements OnInit {
     //console.log(fecha);
     this.servicioVisitas.couch=true;
     this.servicioVisitas.buscarVisitaNiniosXAnioMes(fecha).subscribe((data)=>{
+    if(data['rows'].length>0){
       this.dataVisitas=data["rows"]
       console.log('Busqueda por fecha',this.dataVisitas);
+      this.messageService.add({ key: 'myMessage1', severity: 'sucess', summary: 'Exitoso', detail: 'Visitas Actualizada' });
+    }else{
+      this.messageService.add({ key: 'myMessage2', severity: 'error', summary: 'Error', detail: 'Usted no tiene visitas' });
+    }
     })
   }
 
