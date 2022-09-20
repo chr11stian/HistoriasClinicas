@@ -60,6 +60,7 @@ export class StepGeneralComponent implements OnInit, DoCheck {
     listaAct: evento[] = [];
     dialog: boolean = false;
     datePipe = new DatePipe("en-US");
+    condicion: boolean;
 
     constructor(
         private acuerdosService: FinalizarConsultaService,
@@ -182,11 +183,11 @@ export class StepGeneralComponent implements OnInit, DoCheck {
                 break;
             case 4:
                 // this.stepName = "examenesAux";
-                this.stepName = 'diagnostico'
+                this.stepName = "diagnostico";
                 break;
             case 3:
                 // this.stepName = "diagnostico";
-                this.stepName = 'examenesAux'
+                this.stepName = "examenesAux";
                 break;
             case 2:
                 this.stepName = "evaluaciones";
@@ -241,7 +242,12 @@ export class StepGeneralComponent implements OnInit, DoCheck {
                 break;
 
             case "tratamiento":
-                // this.tratamientoConsulta.save()
+                this.tratamientoConsulta.his();
+               /*  if (this.consultaGeneralService.condicion === true) {
+                    // this.tratamientoConsulta.save()
+                    this.stepName = "finalizar";
+                    this.indiceActivo = 7;
+                } */
                 Swal.fire({
                     showCancelButton: true,
                     cancelButtonText: 'Cancelar',
@@ -326,10 +332,10 @@ export class StepGeneralComponent implements OnInit, DoCheck {
                     this.finalizarConsulta.save();
                     break;
                 case 6:
-                    // this.finalizarConsulta.save()
+                    //this.tratamientoConsulta.his();
                     break;
                 case 5:
-                    //this.tratamientoConsulta.save()
+                    //this.tratamientoConsulta.his()
                     break;
                 case 4:
                     // this.diagnosticoConsulta.save()
@@ -346,7 +352,7 @@ export class StepGeneralComponent implements OnInit, DoCheck {
                     break;
             }
             this.j = this.indiceActivo;
-        }
+        } 
     }
 
     async agenda() {
@@ -460,24 +466,24 @@ export class StepGeneralComponent implements OnInit, DoCheck {
         return s == "RN"
             ? "recien nacido"
             : s == "Menor_1A"
-                ? "menor de un año"
-                : s == "1A"
-                    ? "un año"
-                    : s == "2A"
-                        ? "dos años"
-                        : s == "3A"
-                            ? "tres años"
-                            : s == "4A"
-                                ? "cuatro años"
-                                : s == "5A"
-                                    ? "cinco años"
-                                    : s == "6A"
-                                        ? "seis años"
-                                        : s == "7A"
-                                            ? "siete años"
-                                            : s == "8A"
-                                                ? "ocho años"
-                                                : "nueve años";
+            ? "menor de un año"
+            : s == "1A"
+            ? "un año"
+            : s == "2A"
+            ? "dos años"
+            : s == "3A"
+            ? "tres años"
+            : s == "4A"
+            ? "cuatro años"
+            : s == "5A"
+            ? "cinco años"
+            : s == "6A"
+            ? "seis años"
+            : s == "7A"
+            ? "siete años"
+            : s == "8A"
+            ? "ocho años"
+            : "nueve años";
     }
 
     nextAppointment(event: evento[]): void {
