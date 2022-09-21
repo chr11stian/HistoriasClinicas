@@ -722,6 +722,7 @@
   <!-- <button *ngIf="!tienePlan" pButton type="button" (click)="guardar()" label="Guardar"
             class="p-button-primary mt-4 mr-2"></button> -->
   <button
+    *ngIf="!tienePlan"
     [disabled]="form.invalid"
     pButton
     type="button"

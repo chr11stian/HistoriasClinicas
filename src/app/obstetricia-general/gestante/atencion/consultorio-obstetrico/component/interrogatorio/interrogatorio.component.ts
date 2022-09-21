@@ -102,6 +102,7 @@ export class InterrogatorioComponent implements OnInit {
 
     this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
     this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
+    this.nroDeConsulta=(JSON.parse(localStorage.getItem('datosConsultaActual'))).nroAtencion;
 
     //estado para saber que estado usar en consultas
     this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
@@ -731,6 +732,7 @@ export class InterrogatorioComponent implements OnInit {
   //plan parto
   listaPlanParto:any[]=[]
   dataEnviarPlanParto={}
+  nroDeConsulta:number=0;
   getPlanParto(){
     this.intervaloPartoService.getPlanbyIdFiliacion(this.Gestacion.id).subscribe((resp:any)=>{
       if(resp.cod=='2040'){
