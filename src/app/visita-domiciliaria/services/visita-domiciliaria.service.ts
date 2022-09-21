@@ -11,7 +11,7 @@ export class VisitaDomiciliariaService {
   couch: boolean = false;
   bd = environment.bdCouch;
   base_url = environment.base_url_Couch;
-  base_url_view=environment.base_url_couch_view;
+  base_url_view = environment.base_url_couch_view;
   //id profesional
   id_user: string = JSON.parse(localStorage.getItem("usuario"));
   token =
@@ -33,7 +33,4 @@ export class VisitaDomiciliariaService {
       }
     );
   }
-
-  
-
 }
