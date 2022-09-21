@@ -501,7 +501,7 @@ export class GiagnosticosComponent implements OnInit {
 
         }
 
-        this.DxService.updateConsultas(this.nroFetos, req).subscribe(
+        this.DxService.updateConsultas(this.nroFetos, this.Gestacion.id, req).subscribe(
             (resp) => {
                 console.log(resp);
                 console.log(req);

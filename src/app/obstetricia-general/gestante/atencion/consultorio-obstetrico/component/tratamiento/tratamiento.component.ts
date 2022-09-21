@@ -195,7 +195,7 @@ export class TratamientoComponent implements OnInit {
       //suplementos
       suple1: new FormControl(""),
       suple2: new FormControl(""),
-  
+
       acidoFolicoNombre: new FormControl(""),
       acidoFolicoDescripcion: new FormControl(""),
       acidoFolicoViaAdministracion: new FormControl(""),
@@ -449,7 +449,7 @@ export class TratamientoComponent implements OnInit {
       recomendaciones: this.recomendaciones,
     }
     console.log("enviar req", req);
-    this.tratamientoService.updateConsultas(this.nroFetos, req).subscribe(
+    this.tratamientoService.updateConsultas(this.nroFetos, this.Gestacion.id, req).subscribe(
       (resp) => {
         console.log(resp);
         console.log(req);
@@ -490,7 +490,7 @@ export class TratamientoComponent implements OnInit {
 
           if (this.dataConsulta.tratamientosSuplementos != null) {
             if (this.dataConsulta.tratamientosSuplementos.acidoFolico !== null) {
-              
+
               this.formRIEP.get('acidoFolicoCantidad').setValue(this.dataConsulta.tratamientosSuplementos.acidoFolico.cantidad);
               //this.formRIEP.get('acidoFolicoDosisIndicaciones').setValue(this.dataConsulta.tratamientosSuplementos.acidoFolico.dosisIndicacion);
               this.formRIEP.get('acidoFolicoDosisNro').setValue(this.dataConsulta.tratamientosSuplementos.acidoFolico.dosis);
@@ -504,7 +504,7 @@ export class TratamientoComponent implements OnInit {
               this.formRIEP.get('diagnostico').setValue(this.diagnosticosList.find((elto) => elto.cie10SIS == this.dataConsulta.tratamientosSuplementos.acidoFolico.cie10SIS));
               this.CieService.getCIEByDescripcion(this.dataConsulta.tratamientosSuplementos.acidoFolico.codProcedimientoHIS).subscribe((res: any) => {
                 this.listaDeCIE = res.object;
-                console.log("este suplement",this.dataConsulta.tratamientosSuplementos.acidoFolico.codProcedimientoHIS)
+                console.log("este suplement", this.dataConsulta.tratamientosSuplementos.acidoFolico.codProcedimientoHIS)
                 this.formRIEP.get('suple1').setValue(this.dataConsulta.tratamientosSuplementos.acidoFolico.codProcedimientoHIS);
                 //this.formRIEP.patchValue({ HISCIE1: this.listaDeCIE.find(elemento => elemento.codigoItem == this.dataConsulta.tratamientosSuplementos.acidoFolico.codProcedimientoHIS) });
                 this.formRIEP.get("diagnosticoHIS1").setValue(this.listaDeCIE.find(elemento => elemento.codigoItem == this.dataConsulta.tratamientosSuplementos.acidoFolico.codProcedimientoHIS).descripcionItem);
@@ -531,7 +531,7 @@ export class TratamientoComponent implements OnInit {
                 this.formRIEP.get('diagnostico').setValue(this.diagnosticosList.find((elto) => elto.cie10SIS == this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.cie10SIS));
                 this.CieService.getCIEByDescripcion(this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.codProcedimientoHIS).subscribe((res: any) => {
                   this.listaDeCIE = res.object;
-                  console.log("este suplement",this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.codProcedimientoHIS)
+                  console.log("este suplement", this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.codProcedimientoHIS)
                   this.formRIEP.get('suple1').setValue(this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.codProcedimientoHIS);
                   //this.formRIEP.patchValue({ HISCIE1: this.listaDeCIE.find(elemento => elemento.codigoItem == this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.codProcedimientoHIS) });
                   this.formRIEP.get("diagnosticoHIS1").setValue(this.listaDeCIE.find(elemento => elemento.codigoItem == this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.codProcedimientoHIS).descripcionItem);
@@ -560,7 +560,7 @@ export class TratamientoComponent implements OnInit {
               this.formRIEP.get('diagnostico2').setValue(this.diagnosticosList.find((elto) => elto.cie10SIS == this.dataConsulta.tratamientosSuplementos.calcio.cie10SIS));
               this.CieService.getCIEByDescripcion(this.dataConsulta.tratamientosSuplementos.calcio.codProcedimientoHIS).subscribe((res: any) => {
                 this.listaDeCIE = res.object;
-                console.log("este suplement",this.dataConsulta.tratamientosSuplementos.calcio.codProcedimientoHIS)
+                console.log("este suplement", this.dataConsulta.tratamientosSuplementos.calcio.codProcedimientoHIS)
                 this.formRIEP.get('suple2').setValue(this.dataConsulta.tratamientosSuplementos.calcio.codProcedimientoHIS);
                 //this.formRIEP.patchValue({ HISCIE2: this.listaDeCIE.find(elemento => elemento.codigoItem == this.dataConsulta.tratamientosSuplementos.calcio.codProcedimientoHIS) });
                 this.formRIEP.get("diagnosticoHIS2").setValue(this.listaDeCIE.find(elemento => elemento.codigoItem == this.dataConsulta.tratamientosSuplementos.calcio.codProcedimientoHIS).descripcionItem);

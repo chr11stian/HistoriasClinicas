@@ -58,8 +58,8 @@ export class ResultadosComponent implements OnInit {
         private dialog: DialogService) {
         this.buildForm();
 
-        this.nombreResponsable= JSON.parse(localStorage.getItem('usuario')).nombres.split("-")[0]+"-"+JSON.parse(localStorage.getItem('usuario')).apellidos;
-        this.nroDocResponsable= JSON.parse(localStorage.getItem('usuario')).nroDocumento;
+        this.nombreResponsable = JSON.parse(localStorage.getItem('usuario')).nombres.split("-")[0] + "-" + JSON.parse(localStorage.getItem('usuario')).apellidos;
+        this.nroDocResponsable = JSON.parse(localStorage.getItem('usuario')).nroDocumento;
 
         /*********RECUPERAR DATOS*********/
         /*usando local storage*/
@@ -149,7 +149,7 @@ export class ResultadosComponent implements OnInit {
             };
         })
     }
-    
+
     guardarTodosDatos() {
         const req = {
             id: this.idConsulta,
@@ -161,15 +161,15 @@ export class ResultadosComponent implements OnInit {
             interconsultas: this.interconsultas,
             proxCita:
             {
-            fecha: this.datePipe.transform(this.form.value.proxCita, 'yyyy-MM-dd'),
-            motivo: "PRÓXIMA CITA",
-            servicio: "OBSTETRICIA",
-            estado: "TENTATIVO",
-            nivelUrgencia: "NORMAL"
+                fecha: this.datePipe.transform(this.form.value.proxCita, 'yyyy-MM-dd'),
+                motivo: "PRÓXIMA CITA",
+                servicio: "OBSTETRICIA",
+                estado: "TENTATIVO",
+                nivelUrgencia: "NORMAL"
             },
-            
+
         }
-        this.consultaService.updateConsultas(this.nroFetos, req).subscribe(
+        this.consultaService.updateConsultas(this.nroFetos, this.Gestacion.id, req).subscribe(
             (resp) => {
                 console.log(resp);
                 console.log(req);
@@ -269,11 +269,11 @@ export class ResultadosComponent implements OnInit {
         this.consultaService.getCronogramaGestante(this.nroHcl).subscribe((r: any) => {
             let aux = r.object
             console.log(aux)
-            this.consultaService.list=[];
+            this.consultaService.list = [];
             aux.map((r_: any) => {
                 this.consultaService.list.push({
-                    title: r_.descripcion+" - "+r_.tipo,
-                    start: r_.fecha+ " "+this.datePipe.transform(0, 'HH:mm:ss')
+                    title: r_.descripcion + " - " + r_.tipo,
+                    start: r_.fecha + " " + this.datePipe.transform(0, 'HH:mm:ss')
                 })
             })
         })

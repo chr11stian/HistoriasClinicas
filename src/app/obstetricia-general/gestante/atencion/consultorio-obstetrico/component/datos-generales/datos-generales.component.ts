@@ -116,6 +116,7 @@ export class DatosGeneralesComponent implements OnInit {
 
     familiares2: any;
     atentionNum: number;
+    isEdit: boolean = false;
 
     constructor(private form: FormBuilder,
         private obstetriciaGeneralService: ObstetriciaGeneralService,
@@ -125,12 +126,9 @@ export class DatosGeneralesComponent implements OnInit {
 
         this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
         this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
-
+        this.isEdit = JSON.parse(localStorage.getItem('consultaEditarEstado'));
         //estado para saber que estado usar en consultas
         this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
-
-        console.log("DATA PACIENTE 2 desde datos generales", this.dataPaciente2);
-        console.log("gestacion desde datos generales", this.Gestacion);
 
         if (this.Gestacion == null) {
             this.tipoDocRecuperado = this.dataPaciente2.tipoDoc;
@@ -321,7 +319,7 @@ export class DatosGeneralesComponent implements OnInit {
         let data = {
             nroHcl: this.dataPacientes.nroHcl,
             nroEmbarazo: this.nroEmbarazo,
-            nroAtencion: this.atentionNum + 1
+            nroAtencion: this.nroAtencion
         }
         this.consultasService.getConsultas(this.Gestacion.id, data).then((res: any) => {
             this.dataConsultas = res.object
@@ -812,7 +810,7 @@ export class DatosGeneralesComponent implements OnInit {
                 },
             ],
         }
-
+        console.log('data de consultaaaaaaaaaaaaaaaa ', JSON.stringify(this.data));
         if (this.dataConsultas == null) {
             this.consultasService.addConsultas(this.nroFetos, this.Gestacion.id, this.data).then((result: any) => {
                 Swal.fire({
@@ -825,7 +823,7 @@ export class DatosGeneralesComponent implements OnInit {
             }
             )
         } else {
-            this.consultasService.updateConsultas(this.nroFetos, this.data).subscribe((result: any) => {
+            this.consultasService.updateConsultas(this.nroFetos, this.Gestacion.id, this.data).subscribe((result: any) => {
                 Swal.fire({
                     icon: 'success',
                     title: 'Actualizo con exito',
