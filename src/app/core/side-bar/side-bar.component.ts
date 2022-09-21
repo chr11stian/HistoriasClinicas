@@ -560,12 +560,12 @@ const visitas={
     items: [{
         label: "Niños",
         icon: "pi pi-user",
-        routerLink: "visitas-domiciliarias/ninios",
+        routerLink: "visitas-domiciliarias/profesional-ninios",
         },
         {
         label: "Gestantes",
         icon: "pi pi-users",
-        routerLink: "visitas-domiciliarias/gestantes",
+        routerLink: "visitas-domiciliarias/profesional-gestantes",
     }]
 }
 const menu_ipress = [];

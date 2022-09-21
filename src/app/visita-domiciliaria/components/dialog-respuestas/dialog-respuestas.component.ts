@@ -17,15 +17,14 @@ export class DialogRespuestasComponent implements OnInit {
     console.log(this.data);
   }
   ngOnInit(): void {}
-
-  getDate(date: string) {
-    let dateString = new Date(date);
-    return (
-      dateString.getDate() +
-      "/" +
-      (dateString.getMonth() + 1) +
-      "/" +
-      dateString.getFullYear().toString().substring(2, 4)
-    );
+  
+  obtenerFecha(){
+    let fecha='2022-09-21T07:11:32.794141'
+    let mydate = new Date(fecha);
+    let dia=mydate.getDay();
+    let mes = mydate.getMonth();
+    let  anio=mydate.getFullYear();
+    console.log('la fecha es',`${dia}/${mes}/${anio}`)
+    //return `${dia}/${mes}/${anio}`
   }
 }

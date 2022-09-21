@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
 import { FormGroup, FormBuilder, FormControl,AbstractControl,Validators } from "@angular/forms";
-import { VisitaDomiciliariaService } from "../../../services/visita-domiciliaria.service";
 import { DialogRespuestasComponent } from "../../../components/dialog-respuestas/dialog-respuestas.component";
 import { MessageService } from "primeng/api";
+import { VisitaDomiciliariaService } from "../../../services/visita-domiciliaria.service";
 import { VisitaNinioService } from '../../../services/visita-ninio.service';
 
 @Component({
@@ -90,7 +90,7 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
 
   openDialogRespuestas(data: any[]) {
     this.ref = this.dialog.open(DialogRespuestasComponent, {
-      header: "Preguntas>Respuestas de la visita domiciliaria ejecutada",
+      header: "Preguntas>Respuestas de la visita domiciliaria del niño-niña ejecutada",
       width: "70%",
       // height: "800px",
       contentStyle: {
@@ -113,12 +113,13 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
     let fecha=`${busquedaAnio} ${busquedaMes}`;
     //console.log(fecha);
     this.servicioVisitas.couch=true;
-    this.servicioVisitas.buscarVisitaNiniosXAnioMes(fecha).subscribe((data)=>{
+    this.servicioVisitasNinios.buscarVisitaNiniosXAnioMes(fecha).subscribe((data)=>{
       if(data['rows'].length>0){
         this.dataVisitas=data["rows"]
         console.log('Busqueda por fecha',this.dataVisitas);
         this.messageService.add({ key: 'myMessage1', severity: 'success', summary: 'Exitoso', detail: 'Visitas Actualizada' });
       }else{
+        this.dataVisitas=[];
         this.messageService.add({ key: 'myMessage2', severity: 'error', summary: 'Error', detail: 'Usted no tiene visitas' });
       }
     })
@@ -128,7 +129,7 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
     let busquedaAnio:string = this.formListaVisitas.value.busquedaAnio;
     let fecha=busquedaAnio;
     this.servicioVisitas.couch=true;
-    this.servicioVisitas.buscarVisitaNiniosXAnio(fecha).subscribe((data)=>{
+    this.servicioVisitasNinios.buscarVisitaNiniosXAnio(fecha).subscribe((data)=>{
       this.dataVisitas=data["rows"]
       console.log('Busqueda por fecha',this.dataVisitas);
     })

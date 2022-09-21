@@ -3,7 +3,6 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { environment } from "../../../environments/environment";
 import { VisitasProfesionalNinios } from "../interfaces/visita_profesional_ninios";
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: "root",
@@ -35,31 +34,6 @@ export class VisitaDomiciliariaService {
     );
   }
 
-  getVisitasNiniosByProfesional(dni_profesional: string) {
-    return this.http.post<VisitasProfesionalNinios[]>(
-      `${this.base_url_view}/visita_domiciliaria_por_profesional_v1`,
-      {
-        keys: [dni_profesional],
-      }
-    );
-  }
-
-  buscarVisitaNiniosXAnioMes(fecha: string) {
-    return this.http.post<VisitasProfesionalNinios[]>(
-      `${this.base_url_view}/visita_domiciliaria_profesional_NinioXAnioXMes`,
-      {
-        keys: [fecha],
-      }
-    );
-  }
-
-  buscarVisitaNiniosXAnio(fecha: string) {
-    return this.http.post<VisitasProfesionalNinios[]>(
-      `${this.base_url_view}/visita_domiciliaria_profesional_NinioXAnio`,
-      {
-        keys: [fecha],
-      }
-    );
-  }
+  
 
 }

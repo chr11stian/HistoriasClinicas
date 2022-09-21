@@ -5,11 +5,11 @@ import { VisitasDomiciliariasGestantesComponent } from './pages/por-personal/vis
 
 const routes: Routes = [
     {
-      path:'ninios',
+      path:'profesional-ninios',
       component:VisitasDomiciliariasNiniosComponent,
     },
     {
-      path:'gestantes',
+      path:'profesional-gestantes',
       component:VisitasDomiciliariasGestantesComponent,
     },
 ];

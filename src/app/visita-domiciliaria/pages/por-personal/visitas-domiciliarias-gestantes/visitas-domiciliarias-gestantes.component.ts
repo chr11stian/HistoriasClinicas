@@ -57,7 +57,7 @@ export class VisitasDomiciliariasGestantesComponent implements OnInit {
   constructor(
     public dialog: DialogService,
     private servicioVisitasGestante: VisitaGestanteService,
-    private servicioVisitaDomiciliaria:VisitaDomiciliariaService,
+    private servicioVisitas:VisitaDomiciliariaService,
     private fb: FormBuilder,
     private messageService:MessageService,
   ) {
@@ -78,7 +78,7 @@ export class VisitasDomiciliariasGestantesComponent implements OnInit {
   
   listaVisitas() {
     let dni = "vp72753957";
-    this.servicioVisitaDomiciliaria.couch = true;
+    this.servicioVisitas.couch = true;
     this.servicioVisitasGestante
       .getVisitasGestantesXProfesional(dni)
       .subscribe((data) => {
@@ -87,33 +87,9 @@ export class VisitasDomiciliariasGestantesComponent implements OnInit {
       });
   }
 
-/*
-  datosVisitas() {
-    let dni = "vp72753957";
-    this.servicioVisitas.couch = true;
-    this.servicioVisitas
-      .getVisitasNiniosByProfesional(dni)
-      .subscribe((data) => {
-        this.dataVisitas = data["rows"];
-        console.log("visitas por profesional", data["rows"]);
-      });
-  }
-  
- 
-  listaVisitas() {
-    let dni = "vp72753957";
-    this.servicioVisitas.couch = true;
-    this.servicioVisitas
-      .getVisitasNiniosByProfesional(dni)
-      .subscribe((data) => {
-        this.dataVisitas = data["rows"];
-        console.log("Lista visitas", this.dataVisitas);
-      });
-  }
-
   openDialogRespuestas(data: any[]) {
     this.ref = this.dialog.open(DialogRespuestasComponent, {
-      header: "Preguntas > Respuestas de la visita domiciliaria ejecutada",
+      header: "Preguntas > Respuestas de la visita domiciliaria de la gestante ejecutada",
       width: "70%",
       // height: "800px",
       contentStyle: {
@@ -124,37 +100,22 @@ export class VisitasDomiciliariasGestantesComponent implements OnInit {
     });
   }
 
-  recuperarValores(){
-    let busquedaAnio:string = this.formListaVisitas.value.busquedaAnio;
-    let busquedaMes:string = this.formListaVisitas.value.busquedaMes;
-    console.log('Anio',busquedaAnio);
-    console.log('Mes',busquedaMes);
-  }
-
+  
   buscarVisitaAnioXMes(){
     let busquedaAnio:string = this.formListaVisitas.value.busquedaAnio;
     let busquedaMes:string = this.formListaVisitas.value.busquedaMes;
     let fecha=`${busquedaAnio} ${busquedaMes}`;
     //console.log(fecha);
     this.servicioVisitas.couch=true;
-    this.servicioVisitas.buscarVisitaNiniosXAnioMes(fecha).subscribe((data)=>{
-    if(data['rows'].length>0){
-      this.dataVisitas=data["rows"]
-      console.log('Busqueda por fecha',this.dataVisitas);
-      this.messageService.add({ key: 'myMessage1', severity: 'sucess', summary: 'Exitoso', detail: 'Visitas Actualizada' });
-    }else{
-      this.messageService.add({ key: 'myMessage2', severity: 'error', summary: 'Error', detail: 'Usted no tiene visitas' });
-    }
+    this.servicioVisitasGestante.buscarVisitaGestantesXAnioMes(fecha).subscribe((data)=>{
+      if(data['rows'].length>0){
+        this.dataVisitas=data["rows"]
+        console.log('Busqueda por fecha gestante',this.dataVisitas);
+        this.messageService.add({ key: 'myMessage1', severity: 'success', summary: 'Exitoso', detail: 'Visitas Actualizada' });
+      }else{
+        this.dataVisitas=[];
+        this.messageService.add({ key: 'myMessage2', severity: 'error', summary: 'Error', detail: 'Usted no tiene visitas' });
+      }
     })
   }
-
-  buscarVisitaXAnio(){
-    let busquedaAnio:string = this.formListaVisitas.value.busquedaAnio;
-    let fecha=busquedaAnio;
-    this.servicioVisitas.couch=true;
-    this.servicioVisitas.buscarVisitaNiniosXAnio(fecha).subscribe((data)=>{
-      this.dataVisitas=data["rows"]
-      console.log('Busqueda por fecha',this.dataVisitas);
-    })
-  }*/
 }

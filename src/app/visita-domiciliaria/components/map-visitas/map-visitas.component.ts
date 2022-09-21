@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
+import { getDateMeta } from "@fullcalendar/core";
 import * as L from "leaflet";
-
 
 @Component({
   selector: "app-map-visitas",
@@ -8,7 +8,7 @@ import * as L from "leaflet";
   styleUrls: ["./map-visitas.component.css"],
 })
 export class MapVisitasComponent implements OnInit {
- // @Input("dataVisitas") dataVisitas: any[] = [];
+  // @Input("dataVisitas") dataVisitas: any[] = [];
   @Input("listaVisitas1") listaVisitas1: any[] = [];
   @Input("dataVisitas") dataVisitas: any[];
 
@@ -19,32 +19,18 @@ export class MapVisitasComponent implements OnInit {
   maps: any;
   listAnimatedCircleIcon: any[] = [];
   listLineas: any[] = [];
-  newDta:any []=[];
-
+  newData: any[] = [];
   constructor() {}
 
   ngOnInit(): void {
-    this.initMap();
+    setTimeout(() => {
+      this.initMap();
+    }, 100);
   }
 
-   doSomething = async (value: any) => {
-    await new Promise(res => setTimeout(res,1000));
-  };
-  
-   doTheAsyncAwait = async () => {
-    console.log("start doTheAsyncAwait..");
-    await this.doSomething(this.dataVisitas);
-    console.log("finish doTheAsyncAwait..");
-    console.log('this data',this.dataVisitas);
-  };
-
   initMap() {
-  this.doTheAsyncAwait();
-  console.log('me tortura',this.dataVisitas)
-  /*setTimeout(() => {
-    console.log('la ',this.dataVisitas)
-  },100);*/
-    console.log('from component map',this.dataVisitas)
+    console.log("new data", this.newData);
+    console.log("from component map", this.dataVisitas);
     var iconDefault = L.icon({
       iconUrl: "assets/svg-marker/marker-visita-domiciliaria.svg",
       iconSize: [50, 50],
@@ -64,17 +50,21 @@ export class MapVisitasComponent implements OnInit {
           '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       }
     );
-    this.listaVisitas1.map((aux) => {
-        let imgUrl="https://res.cloudinary.com/dhcetqc1j/image/upload/v1650643076/omri-d-cohen-8X2SLD6mLjQ-unsplash_gntzwb.jpg"
-        L.marker([aux.latitud, aux.longitud])
-        .addTo(this.maps).bindPopup(`
-        <h4>Visita domiciliario 1</h4> 
-        <img src=${imgUrl} alt=""/>`);
-     /*   console.log(aux.value.validator.latitud)
-        console.log(aux.value.validator.longitud)
-      L.marker([aux.value.validator.latitud,aux.value.validator.longitud])
-        .addTo(this.maps);*/
-    });
-    titles.addTo(this.maps);
+      this.dataVisitas.map(async (aux) => {
+        let imgUrl =
+          "https://res.cloudinary.com/dhcetqc1j/image/upload/v1650643076/omri-d-cohen-8X2SLD6mLjQ-unsplash_gntzwb.jpg";
+        /* L.marker([aux.latitud, aux.longitud])
+          .addTo(this.maps).bindPopup(`
+          <h4>Visita domiciliario 1</h4> 
+          <img src=${imgUrl} alt=""/>`);*/
+        console.log(aux.value.validator.latitud);
+        console.log(aux.value.validator.longitud);
+        await L.marker([
+          aux.value.validator.latitud,
+          aux.value.validator.longitud,
+        ]).addTo(this.maps);
+      });
+      titles.addTo(this.maps);
+    
   }
 }

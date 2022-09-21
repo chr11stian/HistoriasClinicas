@@ -23,12 +23,11 @@
                     </div>
                     <div class="meses">
                         <p-selectButton [options]="meses"  optionValue="value" formControlName="busquedaMes"
-                                        optionLabel="label" ></p-selectButton>
+                                        optionLabel="label" (click)="buscarVisitaAnioXMes()" ></p-selectButton>
                     </div>
                 </div>
             </form>
             <!--MapStreet-->
-            <!--<app-map-visitas [listaVisitas1]="listaVisitas1"></app-map-visitas>-->
             <app-map-visitas [dataVisitas]="dataVisitas"></app-map-visitas>
         </p-card>
     </div>
@@ -60,10 +59,10 @@
                         <td style="text-align: center">{{RowData.value.fecha_creacion_documento}}</td>
                         <td style="text-align: center">{{RowData.value.direccion}}</td>
                         <td style="text-align: center">
-                            <button  pButton type="button" label="Ver"  icon="pi pi-eye"  class="p-button-ver" (click)="openDialogRespuestas(RowData.value.preguntas)"></button>
+                            <button  pButton type="button" label="Ver"  icon="pi pi-eye"   class="buttonAcciones" (click)="openDialogRespuestas(RowData.value.preguntas)"></button>
                         </td>
                         <td style="text-align: center">
-                            <button pButton type="button" label="Reporte" icon="pi pi-file-pdf" class="p-button-reporte"></button>
+                            <button pButton type="button" label="Reporte" icon="pi pi-file-pdf" class="buttonAcciones" ></button>
                         </td>
                     </tr>
                 </ng-template>

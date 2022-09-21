@@ -20,4 +20,22 @@ export class VisitaNinioService {
       }
     );
   }
+
+  buscarVisitaNiniosXAnioMes(fecha: string) {
+    return this.http.post<VisitasProfesionalNinios[]>(
+      `${this.base_url_view}/visita_domiciliaria_profesional_NinioXAnioXMes`,
+      {
+        keys: [fecha],
+      }
+    );
+  }
+
+  buscarVisitaNiniosXAnio(fecha: string) {
+    return this.http.post<VisitasProfesionalNinios[]>(
+      `${this.base_url_view}/visita_domiciliaria_profesional_NinioXAnio`,
+      {
+        keys: [fecha],
+      }
+    );
+  }
 }

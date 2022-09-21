@@ -50,14 +50,10 @@ export class InterceptorService implements HttpInterceptor {
       let jwtAuth: string = "Bearer " + idToken.token;
       let basicAuth: string = "Basic " + btoa("reporte" + ":" + "reporte@2022");
       let basicAuthCouch:string="Basic " + btoa("admin" + ":" + "GRDS2021");
-      //let basicAuth: string = "Basic " + btoa('admin' + ":" + 'GRDS2021');
-      //console.log("couch", this.servioVisitaDomiciliaria.couch);
-      //console.log('token',couchToken);
       if (this.servioVisitaDomiciliaria.couch) {
         cloned = req.clone({
           setHeaders: {
-            Authorization:`Bearer ` + couchToken,
-         // Authorization:!couchToken ?`Bearer `+couchToken:basicAuthCouch,
+          Authorization:`Bearer ` + couchToken,
           },
         });
         this.servioVisitaDomiciliaria.couch=false;
