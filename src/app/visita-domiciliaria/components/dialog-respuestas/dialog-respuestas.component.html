@@ -1,18 +1,20 @@
 <p-table [value]="data"   #dt styleClass="p-datatable-gridlines" [rows]="4">
         <ng-template pTemplate="header">
         <tr>
-            <th>Preguntas</th>
-            <th>Respuestas</th>
+            <th rowspan="2">FICHA:VISITA DOMICILIARIA NIÑOS Y NIÑAS</th>
+        </tr>
+        <tr>
+            <th style="text-align: center" >Preguntas</th>
+            <th style="text-align: center">Respuestas</th>
         </tr>
         </ng-template>
         <ng-template pTemplate="body"  let-RowData let-rowIndex="rowIndex">
                     <tr *ngFor="let objeto of RowData.respuestas,i as index">
                         <td style="text-align: left">{{objeto.pregunta}}</td>
-                        <td style="text-align: center">{{objeto.valores}}</td>
+                        <td style="text-align: center">{{objeto?.valores}}</td>
                     </tr>
         </ng-template>
         <ng-template pTemplate="footer">
-            <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" ></button>
-            <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" ></button>
+            <p-button icon="pi pi-check" (click)="displayBasic2=false" label="Ok" styleClass="p-button-text"></p-button>
         </ng-template>
     </p-table>

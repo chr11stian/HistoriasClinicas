@@ -64,16 +64,16 @@ export class MapVisitasComponent implements OnInit {
           '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       }
     );
-    this.dataVisitas.map((aux) => {
-      /*  let imgUrl="https://res.cloudinary.com/dhcetqc1j/image/upload/v1650643076/omri-d-cohen-8X2SLD6mLjQ-unsplash_gntzwb.jpg"
+    this.listaVisitas1.map((aux) => {
+        let imgUrl="https://res.cloudinary.com/dhcetqc1j/image/upload/v1650643076/omri-d-cohen-8X2SLD6mLjQ-unsplash_gntzwb.jpg"
         L.marker([aux.latitud, aux.longitud])
         .addTo(this.maps).bindPopup(`
         <h4>Visita domiciliario 1</h4> 
-        <img src=${imgUrl} alt=""/>`);*/
-        console.log(aux.value.validator.latitud)
+        <img src=${imgUrl} alt=""/>`);
+     /*   console.log(aux.value.validator.latitud)
         console.log(aux.value.validator.longitud)
       L.marker([aux.value.validator.latitud,aux.value.validator.longitud])
-        .addTo(this.maps);
+        .addTo(this.maps);*/
     });
     titles.addTo(this.maps);
   }

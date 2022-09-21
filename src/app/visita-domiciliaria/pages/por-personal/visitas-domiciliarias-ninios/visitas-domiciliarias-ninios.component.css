@@ -1,44 +1,44 @@
-.p-button-ver {
-    background: #af0017;
-    color: white;
-    border: 1px solid #af0017;
+.busqueda {
+  display: grid;
+  grid-template-columns: 100px auto;
 }
-
-.p-button-reporte{
-    background: #af0017;
-    color: white;
-    border: 1px solid #af0017;
-}
-
 p-selectbutton >>> .p-button.p-highlight {
-    color: #0b0b0b;
-    background: white;
-    border: 1px solid #af0017;
-    transition-duration: 0.4s;
-    align-self: center;
-    justify-self: center;
+  color: #212020;
+  background: white;
+  border: none;
+  text-decoration: none;
+  transition-duration: 0.4s all ease;
+  align-self: center;
+  justify-self: center;
+  box-shadow: 0px 0px 2px 2px #dbd9d9fd;
+  padding: 10px;
+  font-size: 12px;
+  cursor: pointer;
+  text-transform: uppercase;
 }
-
 p-selectbutton >>> .p-button.p-highlight:hover {
-    background-color: #d32f2f;
-    color: white;
+  background-color: #af0017;
+  color: white;
 }
-
-  
 p-dropdown >>> .p-dropdown-items-wrapper {
-    padding: 1px;
+  padding: 1px;
 }
 p-dropdown >>> .p-dropdown-clear-icon {
-    margin: -7px;
+  margin: -7px;
 }
 p-dropdown >>> .p-dropdown-label {
-    text-align: center;
+  text-align: center;
 }
 p-dropdown >>> .p-dropdown-clearable .p-dropdown-label {
-    padding-right: 0rem;
+  padding-right: 0rem;
 }
-
-.busqueda{
-    display: grid;
-    grid-template-columns: 100px auto;
+.buttonAcciones {
+  color: #af0017;
+  background: white;
+  border: 1px solid #af0017;
+}
+.buttonAcciones:hover {
+  background: #af0017;
+  color: white;
+  border: 1px solid #af0017;
 }

@@ -57,7 +57,7 @@ export class InterceptorService implements HttpInterceptor {
         cloned = req.clone({
           setHeaders: {
             Authorization:`Bearer ` + couchToken,
-         // Authorization:!couchToken ?`Bearer ` + couchToken:basicAuthCouch,
+         // Authorization:!couchToken ?`Bearer `+couchToken:basicAuthCouch,
           },
         });
         this.servioVisitaDomiciliaria.couch=false;

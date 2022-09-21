@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, FormControl,AbstractControl,Validators } from "
 import { VisitaDomiciliariaService } from "../../../services/visita-domiciliaria.service";
 import { DialogRespuestasComponent } from "../../../components/dialog-respuestas/dialog-respuestas.component";
 import { MessageService } from "primeng/api";
+import { VisitaNinioService } from '../../../services/visita-ninio.service';
 
 @Component({
   selector: "app-visitas-domiciliarias-ninios",
@@ -57,6 +58,7 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
   constructor(
     public dialog: DialogService,
     private servicioVisitas: VisitaDomiciliariaService,
+    private servicioVisitasNinios:VisitaNinioService,
     private fb: FormBuilder,
     private messageService:MessageService,
   ) {
@@ -66,17 +68,6 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
     this.buildForm();
     this.listaVisitas();
   
-  }
-
-  datosVisitas() {
-    let dni = "vp72753957";
-    this.servicioVisitas.couch = true;
-    this.servicioVisitas
-      .getVisitasNiniosByProfesional(dni)
-      .subscribe((data) => {
-        this.dataVisitas = data["rows"];
-        console.log("visitas por profesional", data["rows"]);
-      });
   }
 
   buildForm() {
@@ -89,8 +80,8 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
   listaVisitas() {
     let dni = "vp72753957";
     this.servicioVisitas.couch = true;
-    this.servicioVisitas
-      .getVisitasNiniosByProfesional(dni)
+    this.servicioVisitasNinios
+      .getVisitasNiniosXProfesional(dni)
       .subscribe((data) => {
         this.dataVisitas = data["rows"];
         console.log("Lista visitas", this.dataVisitas);
@@ -126,7 +117,7 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
       if(data['rows'].length>0){
         this.dataVisitas=data["rows"]
         console.log('Busqueda por fecha',this.dataVisitas);
-        this.messageService.add({ key: 'myMessage1', severity: 'sucess', summary: 'Exitoso', detail: 'Visitas Actualizada' });
+        this.messageService.add({ key: 'myMessage1', severity: 'success', summary: 'Exitoso', detail: 'Visitas Actualizada' });
       }else{
         this.messageService.add({ key: 'myMessage2', severity: 'error', summary: 'Error', detail: 'Usted no tiene visitas' });
       }

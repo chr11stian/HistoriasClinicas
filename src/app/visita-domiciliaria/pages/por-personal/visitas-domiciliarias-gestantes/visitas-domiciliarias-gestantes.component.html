@@ -23,7 +23,7 @@
                     </div>
                     <div class="meses">
                         <p-selectButton [options]="meses"  optionValue="value" formControlName="busquedaMes"
-                                        optionLabel="label" (click)=" buscarVisitaAnioXMes()"></p-selectButton>
+                                        optionLabel="label" ></p-selectButton>
                     </div>
                 </div>
             </form>
@@ -45,8 +45,6 @@
                     <th>Apellidos</th>
                     <th>Nro Visita</th>
                     <th>Fecha de la visita</th>
-                    <th>DNI Apoderado</th>
-                    <th>Nombre madre</th>
                     <th>Direccion</th>
                     <th>Respuestas</th>
                     <th>Acciones</th>
@@ -55,13 +53,11 @@
                 <ng-template pTemplate="body"  let-RowData let-rowIndex="rowIndex">
                     <tr>
                         <td style="text-align: center">{{rowIndex+1}}</td>
-                        <td style="text-align: center">{{RowData.value.dni_ninio}}</td>
-                        <td style="text-align: center">{{RowData.value.nombres_ninio}}</td>
-                        <td style="text-align: center">{{RowData.value.apellidos_ninio}}</td>
+                        <td style="text-align: center">{{RowData.value.dni_gestante}}</td>
+                        <td style="text-align: center">{{RowData.value.nombres_gestante}}</td>
+                        <td style="text-align: center">{{RowData.value.apellidos_gestante}}</td>
                         <td style="text-align: center">{{RowData.value.nroVisita}}</td>
                         <td style="text-align: center">{{RowData.value.fecha_creacion_documento}}</td>
-                        <td style="text-align: center">{{RowData.value.dni_apoderado}}</td>
-                        <td style="text-align: center">{{RowData.value.nombre_madre}}</td>
                         <td style="text-align: center">{{RowData.value.direccion}}</td>
                         <td style="text-align: center">
                             <button  pButton type="button" label="Ver"  icon="pi pi-eye"  class="p-button-ver" (click)="openDialogRespuestas(RowData.value.preguntas)"></button>

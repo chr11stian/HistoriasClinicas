@@ -1,9 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, FormControl,AbstractControl,Validators } from "@angular/forms";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
-import { VisitaDomiciliariaService } from "src/app/visita-domiciliaria/services/visita-domiciliaria.service";
 import { DialogRespuestasComponent } from "../../../components/dialog-respuestas/dialog-respuestas.component";
 import { MessageService } from "primeng/api";
+import { VisitaGestanteService } from '../../../services/visita-gestante.service';
+import { VisitaDomiciliariaService } from '../../../services/visita-domiciliaria.service';
+
 @Component({
   selector: "app-visitas-domiciliarias-gestantes",
   templateUrl: "./visitas-domiciliarias-gestantes.component.html",
@@ -13,7 +15,6 @@ import { MessageService } from "primeng/api";
 export class VisitasDomiciliariasGestantesComponent implements OnInit {
   ref: DynamicDialogRef;
   dataVisitas: any []  = [];
-  dataVisitas1: any[] = [];
   options: any;
   overlays: any[];
   formListaVisitas: FormGroup;
@@ -55,7 +56,8 @@ export class VisitasDomiciliariasGestantesComponent implements OnInit {
 
   constructor(
     public dialog: DialogService,
-    private servicioVisitas: VisitaDomiciliariaService,
+    private servicioVisitasGestante: VisitaGestanteService,
+    private servicioVisitaDomiciliaria:VisitaDomiciliariaService,
     private fb: FormBuilder,
     private messageService:MessageService,
   ) {
@@ -67,6 +69,25 @@ export class VisitasDomiciliariasGestantesComponent implements OnInit {
   
   }
 
+  buildForm() {
+    this.formListaVisitas = this.fb.group({
+      busquedaAnio: new FormControl("",[Validators.required]),
+      busquedaMes: new FormControl("",[Validators.required]),
+    });
+  }
+  
+  listaVisitas() {
+    let dni = "vp72753957";
+    this.servicioVisitaDomiciliaria.couch = true;
+    this.servicioVisitasGestante
+      .getVisitasGestantesXProfesional(dni)
+      .subscribe((data) => {
+        this.dataVisitas = data["rows"];
+        console.log("Lista visitas gestante", this.dataVisitas);
+      });
+  }
+
+/*
   datosVisitas() {
     let dni = "vp72753957";
     this.servicioVisitas.couch = true;
@@ -77,14 +98,8 @@ export class VisitasDomiciliariasGestantesComponent implements OnInit {
         console.log("visitas por profesional", data["rows"]);
       });
   }
-
-  buildForm() {
-    this.formListaVisitas = this.fb.group({
-      busquedaAnio: new FormControl("",[Validators.required]),
-      busquedaMes: new FormControl("",[Validators.required]),
-    });
-  }
   
+ 
   listaVisitas() {
     let dni = "vp72753957";
     this.servicioVisitas.couch = true;
@@ -141,5 +156,5 @@ export class VisitasDomiciliariasGestantesComponent implements OnInit {
       this.dataVisitas=data["rows"]
       console.log('Busqueda por fecha',this.dataVisitas);
     })
-  }
+  }*/
 }

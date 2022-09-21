@@ -22,7 +22,7 @@
                         </p-dropdown>
                     </div>
                     <div class="meses">
-                        <p-selectButton [options]="meses"  optionValue="value" formControlName="busquedaMes"
+                        <p-selectButton  [options]="meses"  optionValue="value" formControlName="busquedaMes"
                                         optionLabel="label" (click)=" buscarVisitaAnioXMes()"></p-selectButton>
                     </div>
                 </div>
@@ -64,10 +64,10 @@
                         <td style="text-align: center">{{RowData.value.nombre_madre}}</td>
                         <td style="text-align: center">{{RowData.value.direccion}}</td>
                         <td style="text-align: center">
-                            <button  pButton type="button" label="Ver"  icon="pi pi-eye"  class="p-button-ver" (click)="openDialogRespuestas(RowData.value.preguntas)"></button>
+                            <button  pButton type="button" label="Ver"  icon="pi pi-eye"  class="buttonAcciones" (click)="openDialogRespuestas(RowData.value.preguntas)"></button>
                         </td>
                         <td style="text-align: center">
-                            <button pButton type="button" label="Reporte" icon="pi pi-file-pdf" class="p-button-reporte"></button>
+                            <button pButton type="button" label="Reporte" icon="pi pi-file-pdf" class="buttonAcciones"></button>
                         </td>
                     </tr>
                 </ng-template>
@@ -78,7 +78,7 @@
             <p-table [value]="dataVisitas"   #dt styleClass="p-datatable-gridlines" [rows]="4"
             [rowsPerPageOptions]="[5, 10, 15]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
             currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
-                <ng-template pTemplate="header">
+                <ng-template  pTemplate="header">
                 <tr>
                     <th>Nro</th>
                     <th>DNI</th>
@@ -103,10 +103,10 @@
                         <td style="text-align: center">{{RowData.value.nombre_madre}}</td>
                         <td style="text-align: center">{{RowData.value.direccion}}</td>
                         <td style="text-align: center">
-                            <button  pButton type="button" label="Ver"  icon="pi pi-eye"  class="p-button-primary mt-4 mr-2" (click)="openDialogRespuestas(RowData.value.respuestas)"></button>
+                            <button  pButton type="button" label="Ver"  icon="pi pi-eye"  class="buttonAcciones" (click)="openDialogRespuestas(RowData.value.respuestas)"></button>
                         </td>
                         <td style="text-align: center">
-                            <button pButton type="button" label="Reporte" icon="pi pi-file-pdf" class="p-button-primary mt-4 mr-2"></button>
+                            <button pButton type="button" label="Reporte" icon="pi pi-file-pdf" class="buttonAcciones"></button>
                         </td>
                     </tr>
                 </ng-template>
