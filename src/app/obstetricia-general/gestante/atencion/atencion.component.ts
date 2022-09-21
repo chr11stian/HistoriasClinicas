@@ -1,9 +1,9 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {GestanteComponent} from "../gestante.component";
-import {ObstetriciaGeneralService} from "../../services/obstetricia-general.service";
-import {Subscription} from "rxjs";
-import {FiliancionService} from "./h-clinica-materno-perinatal/services/filiancion-atenciones/filiancion.service";
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from "@angular/router";
+import { GestanteComponent } from "../gestante.component";
+import { ObstetriciaGeneralService } from "../../services/obstetricia-general.service";
+import { Subscription } from "rxjs";
+import { FiliancionService } from "./h-clinica-materno-perinatal/services/filiancion-atenciones/filiancion.service";
 
 
 @Component({
@@ -35,11 +35,10 @@ export class AtencionComponent implements OnInit {
 
 
     constructor(private obstetriciaGeneralService: ObstetriciaGeneralService,
-                private filiancionService: FiliancionService) {
+        private filiancionService: FiliancionService) {
 
         this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
         this.DataFiliacionPaciente = JSON.parse(localStorage.getItem('dataPaciente'));
-        console.log("GESTACION", this.Gestacion);
 
 
         if (this.Gestacion == null) {
@@ -87,8 +86,12 @@ export class AtencionComponent implements OnInit {
             nroEmbarazo: this.nroEmbarazo,
             nroAtencion: 1,
         }
-        this.obstetriciaGeneralService.getConsultorioObstetrico(data).subscribe((res: any) => {
+        this.obstetriciaGeneralService.getConsultorioObstetrico(this.idRecuperado, data).then((res: any) => {
             this.dataConsultorioObstetrico = res.object
+            if (this.dataConsultorioObstetrico == null) {
+                console.log('no se encontro naa');
+                return
+            }
             console.log('Data Consultorio Obstetrico', this.dataConsultorioObstetrico)
             this.obstetriciaGeneralService.idConsultoriObstetrico = this.dataConsultorioObstetrico.id;
             // console.log('Data consultorio id', this.obstetriciaGeneralService.idConsultoriObstetrico);
