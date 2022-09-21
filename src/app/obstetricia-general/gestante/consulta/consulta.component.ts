@@ -44,13 +44,8 @@ export class ConsultaComponent implements OnInit {
         private router: Router
     ) {
         this.inicializarForm();
-
-        //localstorage datos
         this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
         this.DataFiliacionPaciente = JSON.parse(localStorage.getItem('dataPaciente'));
-        console.log("GESTACION desde lista consultas", this.Gestacion);
-
-
         if (this.Gestacion == null) {
             this.tipoDocRecuperado = this.DataFiliacionPaciente.tipoDoc;
             this.nroDocRecuperado = this.DataFiliacionPaciente.nroDoc;
@@ -71,11 +66,7 @@ export class ConsultaComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        console.log(this.consultas);
-        console.log("TipoDocRecuperado", this.tipoDocRecuperado);
-        console.log("NroDocRecuparado", this.nroDocRecuperado);
-        console.log("NroHCL", this.nroHcl);
-        console.log("Nro Embarazo", this.nroEmbarazo);
+        
     }
 
     inicializarForm() {
@@ -140,7 +131,6 @@ export class ConsultaComponent implements OnInit {
         //     this.loading = false;
         // })
         this.consultaObstetriciaService.getDatosConsultasObstetricasListarPorFiliacion(this.Gestacion.id).subscribe((res: any) => {
-            console.log('trajo datos exito ', res)
             this.consultas = res.object ? res.object : [];
             this.loading = false;
         })
@@ -154,7 +144,7 @@ export class ConsultaComponent implements OnInit {
         let data = {
             nroHcl: this.nroHcl
         }
-        this.consultasService.getUltimaConsultaControl(data).subscribe((res: any) => {
+        this.consultasService.getUltimaConsultaControl(this.idRecuperado, this.nroHcl).then((res: any) => {
             let informacion = res.object;
             //guardar en el ls el nroAtencion
             localStorage.setItem("nroConsultaNueva", informacion.nroUltimaAtencion + 1);
@@ -173,7 +163,6 @@ export class ConsultaComponent implements OnInit {
         localStorage.setItem('datosConsultaActual', JSON.stringify(event));
     }
     irFUA(rowData) {
-        console.log('data recibida ', rowData);
         let message1 = "Esta Seguro de Generar FUA?, se dara como finalizado la consulta"
         let message2 = "Esta Seguro de Generar FUA?, Debe revisar el tipo de Seguro"
         // this.router.navigate(['dashboard/fua/listar-fua'], rowData)
@@ -223,14 +212,14 @@ export class ConsultaComponent implements OnInit {
         if (rowData.estadoAtencion == 2) {
             this.router.navigate(['dashboard/his/listar-his'], {
                 queryParams: {
-                    'idConsulta':rowData.id,
-                     'tipoConsulta':rowData.tipoConsulta
+                    'idConsulta': rowData.id,
+                    'tipoConsulta': rowData.tipoConsulta
                 }
             })
         }
         if (rowData.estadoAtencion == 1) {
             Swal.fire({
-                title: message1 ,
+                title: message1,
                 showDenyButton: true,
                 confirmButtonText: 'Crear HIS',
                 denyButtonText: `Cancelar`,
@@ -239,8 +228,8 @@ export class ConsultaComponent implements OnInit {
                 if (result.isConfirmed) {
                     this.router.navigate(['dashboard/his/listar-his'], {
                         queryParams: {
-                            'idConsulta':rowData.id,
-                            'tipoConsulta':rowData.tipoConsulta
+                            'idConsulta': rowData.id,
+                            'tipoConsulta': rowData.tipoConsulta
                         }
                     })
                 } else if (result.isDenied) {

@@ -106,7 +106,7 @@
                             <td style="text-align: center; font-size: 11px">{{ rowData.paciente.apellidos }}</td>
                             <td style="text-align: center; font-size: 11px">{{ rowData.paciente.nombre}}</td>
                             <td style="text-align: center; font-size: 11px">{{ rowData.horaAtencion}}</td>
-                            <td style="text-align: center; font-size: 11px">{{ rowData.fechaAtencion}}</td>
+                            <td style="text-align: center; font-size: 11px">{{ rowData.fechaAtencion | date:'dd-MM-yyyy'}}</td>
                             <td style="text-align: center; font-size: 11px">{{ rowData.paciente.nroTelefono}}</td>
                             <td style="text-align: center; font-size: 11px">{{ rowData.estadoObstetra}}</td>
                             <td style="text-align: center">

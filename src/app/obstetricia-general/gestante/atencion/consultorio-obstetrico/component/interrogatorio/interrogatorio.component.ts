@@ -97,8 +97,6 @@ export class InterrogatorioComponent implements OnInit {
   ) {
     this.inicializarForm();
 
-    console.log("triaje traer a interrogatorio",);
-
     //this.idConsulta = this.obstetriciaService.idGestacion;
     //console.log('consulta ', this.obstetriciaService);
 
@@ -108,8 +106,9 @@ export class InterrogatorioComponent implements OnInit {
     //estado para saber que estado usar en consultas
     this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
 
-    console.log("DATA PACIENTE 2 desde datos generales", this.dataPaciente2);
-    console.log("gestacion desde datos generales", this.Gestacion);
+    // console.log("DATA PACIENTE 2 desde datos generales", this.dataPaciente2);
+    // console.log("gestacion desde datos generales", this.Gestacion);
+    this.formExamFisico.value.peso == undefined ? this.estadoEdicion = false : this.estadoEdicion = true;
 
     if (this.Gestacion == null) {
       this.tipoDocRecuperado = this.dataPaciente2.tipoDoc;
@@ -130,7 +129,6 @@ export class InterrogatorioComponent implements OnInit {
       //guardar en el ls el nroAtencion
       let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaNueva'));
       this.nroAtencion = nroAtencion;
-      console.log("entre a nueva consulta", this.nroAtencion);
       let triaje = JSON.parse(localStorage.getItem('datacupos'));
       this.form.get("temperatura").setValue(triaje.funcionesVitales.temperatura);
       this.form.get("presionSisto").setValue(triaje.funcionesVitales.presionSistolica);
@@ -143,7 +141,6 @@ export class InterrogatorioComponent implements OnInit {
     else {
       let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaEditar'));
       this.nroAtencion = nroAtencion;
-      console.log("entre a edicion consulta", this.nroAtencion)
     }
     this.getUltimaConsulta();
   }
@@ -214,12 +211,16 @@ export class InterrogatorioComponent implements OnInit {
       if (this.ultimaConsulta.examenesFisicos.length > 9) {
         this.form.patchValue({ examenFisicoOtro: this.ultimaConsulta.examenesFisicos[9].valor });
       }
+    } else {
+      this.calcularEdadGestacional(this.ultimaConsulta.fum);
+      console.log('estado editar true');
     }
 
 
   }
 
   calcularEdadGestacional(fum) {
+    console.log('FUMMMMMMMMMMMMMM ', fum);
     if (fum) {
       let today = new Date().getTime();
       let auxFUM = new Date(fum).getTime();

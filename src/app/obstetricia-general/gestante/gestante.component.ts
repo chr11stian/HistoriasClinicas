@@ -83,6 +83,7 @@ export class GestanteComponent implements OnInit {
     }
 
     gestacion(event) {
+        console.log('data to set ls ', event);
         localStorage.setItem('gestacion', JSON.stringify(event));
         localStorage.removeItem('dataPaciente');
         if (this.pacientesFiliacion.length == 0) {
