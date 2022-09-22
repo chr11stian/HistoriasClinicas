@@ -29,3 +29,7 @@ body {
 .p-dialog .p-dialog-content{
   padding-top: 2rem;
 }
+
+.leaflet-popup-content img{
+  width: 100%;
+}
