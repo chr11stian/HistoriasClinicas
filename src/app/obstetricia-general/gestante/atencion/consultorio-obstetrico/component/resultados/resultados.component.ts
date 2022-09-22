@@ -50,6 +50,7 @@ export class ResultadosComponent implements OnInit {
 
     nombreResponsable: any;
     nroDocResponsable: any;
+    consultationId: string;
 
     fecha: Date
     constructor(
@@ -60,6 +61,7 @@ export class ResultadosComponent implements OnInit {
 
         this.nombreResponsable = JSON.parse(localStorage.getItem('usuario')).nombres.split("-")[0] + "-" + JSON.parse(localStorage.getItem('usuario')).apellidos;
         this.nroDocResponsable = JSON.parse(localStorage.getItem('usuario')).nroDocumento;
+        this.consultationId = JSON.parse(localStorage.getItem('IDConsulta'));
 
         /*********RECUPERAR DATOS*********/
         /*usando local storage*/
@@ -199,7 +201,7 @@ export class ResultadosComponent implements OnInit {
             nroEmbarazo: this.nroEmbarazo,
             nroAtencion: this.nroAtencion
         }
-        this.consultaService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
+        this.consultaService.getConsultaPrenatalByEmbarazo(this.consultationId, aux).subscribe((res: any) => {
             this.dataConsulta = res.object;
             console.log("data consulta:" + this.dataConsulta);
 

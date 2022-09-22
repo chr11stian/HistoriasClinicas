@@ -80,7 +80,7 @@ export class TratamientoComponent implements OnInit {
   listaMedicamentos: any;
   codMedicamento1: any;
   codMedicamento2: any;
-  aux: any;
+  aux: any[] = [];
 
   diagnosticosList: any[] = [];
   listaDeCIE: any[] = [];
@@ -91,6 +91,7 @@ export class TratamientoComponent implements OnInit {
   sexoPaciente: any;
   events1: any[] = [];
   listaCalendarioSuplementos: any[] = [];
+  consultationId: string;
   constructor(private formBuilder: FormBuilder,
     private obstetriciaService: ObstetriciaGeneralService,
     private dialog: DialogService,
@@ -102,9 +103,10 @@ export class TratamientoComponent implements OnInit {
 
     /*********RECUPERAR DATOS*********/
     this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
-    console.log("ipress", this.idIpress)
+    // console.log("ipress", this.idIpress)
     this.renIpress = JSON.parse(localStorage.getItem('usuario')).ipress.renipress;
-    console.log("renipress", this.renIpress)
+    // console.log("renipress", this.renIpress);
+    this.consultationId = JSON.parse(localStorage.getItem('IDConsulta'));
 
     /*usando local storage*/
     this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
@@ -475,7 +477,7 @@ export class TratamientoComponent implements OnInit {
       nroAtencion: this.nroAtencion
     }
 
-    await this.tratamientoService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
+    await this.tratamientoService.getConsultaPrenatalByEmbarazo(this.consultationId, aux).subscribe((res: any) => {
       this.dataConsulta = res.object;
       console.log("data consulta:" + res.object);
 
@@ -732,7 +734,7 @@ export class TratamientoComponent implements OnInit {
       }
     }
     this.aux = filtered;
-    if (this.aux === []) {
+    if (this.aux.length == 0) {
       console.log('no encontrado');
       this.aux = this.medicamentosConDatos;
 
@@ -750,7 +752,7 @@ export class TratamientoComponent implements OnInit {
       }
     }
     this.aux = filtered;
-    if (this.aux === []) {
+    if (this.aux.length == 0) {
       console.log('no encontrado');
       this.aux = this.medicamentosConDatos;
 

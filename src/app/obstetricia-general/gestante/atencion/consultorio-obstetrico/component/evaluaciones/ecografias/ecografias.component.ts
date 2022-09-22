@@ -45,6 +45,7 @@ export class EcografiasComponent implements OnInit {
   nroConsultaGuardada: any;
   fechaConsulta: any = new Date();
   fechaInicio: any = new Date();
+  consultationId: string;
   constructor(private formBuilder: FormBuilder,
     private dialog: DialogService,
     private PrestacionService: PrestacionService,
@@ -54,7 +55,8 @@ export class EcografiasComponent implements OnInit {
 
     /*********RECUPERAR DATOS*********/
     this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
-    console.log("ipress", this.idIpress)  
+    console.log("ipress", this.idIpress)
+    this.consultationId = JSON.parse(localStorage.getItem('IDConsulta'));
 
     /*usando local storage*/
     this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
@@ -100,7 +102,7 @@ export class EcografiasComponent implements OnInit {
       nroEmbarazo: this.nroEmbarazo,
       nroAtencion: this.nroAtencion
     }
-    await this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
+    await this.DxService.getConsultaPrenatalByEmbarazo(this.consultationId, aux).subscribe((res: any) => {
       this.nroConsultaGuardada = res.object.id;
       this.DxService.listarSolicitudesEco(this.nroConsultaGuardada).then((res: any) => {
         this.solicitudesEco = res.object;
@@ -114,7 +116,7 @@ export class EcografiasComponent implements OnInit {
       nroEmbarazo: this.nroEmbarazo,
       nroAtencion: this.nroAtencion
     }
-    await this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
+    await this.DxService.getConsultaPrenatalByEmbarazo(this.consultationId, aux).subscribe((res: any) => {
       this.nroConsultaGuardada = res.object.id;
       this.DxService.listaConcluidosEco(this.nroConsultaGuardada).then((res: any) => {
         this.resultadosEco = res.object;
@@ -128,15 +130,15 @@ export class EcografiasComponent implements OnInit {
       nroEmbarazo: this.nroEmbarazo,
       nroAtencion: this.nroAtencion
     }
-    await this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
+    await this.DxService.getConsultaPrenatalByEmbarazo(this.consultationId, aux).subscribe((res: any) => {
       this.nroConsultaGuardada = res.object.id;
       this.fechaConsulta = this.datePipe.transform(res.object.fecha, 'yyyy-MM-dd');
       this.fechaInicio = this.datePipe.transform(res.object.fum, 'yyyy-MM-dd');
 
-      let data={
-        nroHcl:this.nroHcl,
-        fechaInicio:this.fechaInicio,
-        fechaFin:this.fechaConsulta
+      let data = {
+        nroHcl: this.nroHcl,
+        fechaInicio: this.fechaInicio,
+        fechaFin: this.fechaConsulta
 
       }
       this.DxService.listaHistorialEco(data).then((res: any) => {
@@ -197,7 +199,7 @@ export class EcografiasComponent implements OnInit {
           nroEmbarazo: this.nroEmbarazo,
           nroAtencion: this.nroAtencion
         }
-        this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
+        this.DxService.getConsultaPrenatalByEmbarazo(this.consultationId, aux).subscribe((res: any) => {
           this.nroConsultaGuardada = res.object.id;
           this.DxService.eliminarSolicitudEcografiasGestante(this.nroConsultaGuardada, data).subscribe(
             (resp) => {
