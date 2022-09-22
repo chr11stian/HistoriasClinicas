@@ -1,6 +1,6 @@
-import {Injectable, EventEmitter} from '@angular/core';
-import {environment} from "../../../environments/environment";
-import {HttpClient} from "@angular/common/http";
+import { Injectable, EventEmitter } from '@angular/core';
+import { environment } from "../../../environments/environment";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({
     providedIn: 'root'
@@ -28,7 +28,11 @@ export class ObstetriciaGeneralService {
         return this.http.get(`${this.base_url}/${this.bd}/filiacion/listarfiliacion/${tipoDoc}/${nroDoc}`)
     }
 
-    getConsultorioObstetrico(data) {
-        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/buscar/`, data)
+    getConsultorioObstetrico(idConsulta: string, data) {
+        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/buscar/${idConsulta}`, data)
+            .toPromise()
+            .then(res => res)
+            .then(data => { return data; })
+            .catch(error => { return error.error })
     }
 }

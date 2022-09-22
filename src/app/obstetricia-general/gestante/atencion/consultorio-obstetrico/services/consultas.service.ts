@@ -20,12 +20,20 @@ export class ConsultasService {
     constructor(private http: HttpClient) {
     }
 
-    getConsultas(data) {
-        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/buscar`, data)
+    getConsultas(idConsulta: string, data) {
+        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/buscar/${idConsulta}`, data)
+            .toPromise()
+            .then(res => res)
+            .then(data => { return data; })
+            .catch(error => { return error.error })
     }
 
-    addConsultas(nroFetos, data) {
-        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/agregarConsulta/${nroFetos}`, data)
+    addConsultas(nroFetos: number, idFiliacion: string, data) {
+        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/agregarConsulta/${nroFetos}/${idFiliacion}`, data)
+            .toPromise()
+            .then(res => res)
+            .then(data => { return data; })
+            .catch(error => { return error.error })
     }
     updateConsultas(nroFetos, data) {
         return this.http.put(`${this.base_url}/${this.bd}/obstetricia/consulta/actualizarConsulta/${nroFetos}`, data);
@@ -48,13 +56,17 @@ export class ConsultasService {
         return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/buscarInterrogatorioxid`, consulta)
     }
 
-    getUltimaConsultaControl(nroHcl) {
-        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/numeroUltimaConsulta`, nroHcl)
+    getUltimaConsultaControl(idFiliacion: string, nroHcl: string) {
+        return this.http.get(`${this.base_url}/${this.bd}/obstetricia/consulta/numeroUltimaConsulta/${idFiliacion}/${nroHcl}`)
+            .toPromise()
+            .then(res => res)
+            .then(data => { return data; })
+            .catch(error => { return error.error })
     }
-    getCronogramaGestante(nroHcl){
+    getCronogramaGestante(nroHcl) {
         return this.http.get(`${this.base_url}/${this.bd}/obstetricia/cronograma/${nroHcl}`)
     }
-    getPrestaciones(){
+    getPrestaciones() {
         return this.http.get(`${this.base_url}/${this.bd}/sis/prestacion/listar`)
     }
     getServiciosPorIpress(idIpress) {
@@ -63,189 +75,210 @@ export class ConsultasService {
 
 
     //diagnosticos
-    guardarDiagnosticoDeGestante(nroHcl,nroEmbarazo,nroAtencion,data){
+    guardarDiagnosticoDeGestante(nroHcl, nroEmbarazo, nroAtencion, data) {
         return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/agregarDiagnostico/${nroHcl}/${nroEmbarazo}/${nroAtencion}`, data)
-        .toPromise()
-        .then(res => <any[]>res)
-        .then(data => { return data; });
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data; });
     }
-    actualizarDiagnosticoDeGestante(nroHcl,nroEmbarazo,nroAtencion,data){
+    actualizarDiagnosticoDeGestante(nroHcl, nroEmbarazo, nroAtencion, data) {
         return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/actualizarDiagnostico/${nroHcl}/${nroEmbarazo}/${nroAtencion}`, data)
-        .toPromise()
-        .then(res => <any[]>res)
-        .then(data => { return data; });
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data; });
     }
-    eliminarDiagnosticoGestante(nroHcl,nroEmbarazo,nroAtencion,cie10SIS){
+    eliminarDiagnosticoGestante(nroHcl, nroEmbarazo, nroAtencion, cie10SIS) {
         return this.http.delete(`${this.base_url}/${this.bd}/obstetricia/consulta/eliminarDiagnostico/${nroHcl}/${nroEmbarazo}/${nroAtencion}/${cie10SIS}`)
     }
 
-     //inmunizaciones
-    guardarInmunizacionGestante(nroHcl,nroEmbarazo,nroAtencion,data){
+    //inmunizaciones
+    guardarInmunizacionGestante(nroHcl, nroEmbarazo, nroAtencion, data) {
         return this.http.post(`${this.base_url}/${this.bd}/inmunizacion/agregar/${nroHcl}/${nroEmbarazo}/${nroAtencion}`, data)
-        .toPromise()
-        .then(res => <any[]>res)
-        .then(data => { return data; });
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data; });
     }
-    editarInmunizacionGestante(nroHcl,nroEmbarazo,nroAtencion,data){
+    editarInmunizacionGestante(nroHcl, nroEmbarazo, nroAtencion, data) {
         return this.http.put(`${this.base_url}/${this.bd}/inmunizacion/actualizarPendiente/${nroHcl}/${nroEmbarazo}/${nroAtencion}`, data)
-        .toPromise()
-        .then(res => <any[]>res)
-        .then(data => { return data; });
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data; });
     }
-    eliminarInmunizacionGestante(idInmu){
+    eliminarInmunizacionGestante(idInmu) {
         return this.http.delete(`${this.base_url}/${this.bd}/inmunizacion/${idInmu}`)
     }
 
     //tratamientos
-    guardarTratamientoGestante(nroHcl,nroEmbarazo,nroAtencion,data){
+    guardarTratamientoGestante(nroHcl, nroEmbarazo, nroAtencion, data) {
         return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/agregarTratamiento/${nroHcl}/${nroEmbarazo}/${nroAtencion}`, data)
-        .toPromise()
-        .then(res => <any[]>res)
-        .then(data => { return data; });
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data; });
     }
-    editarTratamientoGestante(nroHcl,nroEmbarazo,nroAtencion,data){
+    editarTratamientoGestante(nroHcl, nroEmbarazo, nroAtencion, data) {
         return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/actualizarTratamiento/${nroHcl}/${nroEmbarazo}/${nroAtencion}`, data)
-        .toPromise()
-        .then(res => <any[]>res)
-        .then(data => { return data; });
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data; });
     }
-    eliminarTratamientoGestante(nroHcl,nroEmbarazo,nroAtencion,id){
+    eliminarTratamientoGestante(nroHcl, nroEmbarazo, nroAtencion, id) {
         return this.http.delete(`${this.base_url}/${this.bd}/obstetricia/consulta/eliminarTratamiento/${nroHcl}/${nroEmbarazo}/${nroAtencion}/${id}`)
     }
     //procedimientos
-    guardarProcedimientoGestante(nroHcl,nroEmbarazo,nroAtencion,data){
+    guardarProcedimientoGestante(nroHcl, nroEmbarazo, nroAtencion, data) {
         return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/agregarProcedimiento/${nroHcl}/${nroEmbarazo}/${nroAtencion}`, data)
-        .toPromise()
-        .then(res => <any[]>res)
-        .then(data => { return data; });
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data; });
     }
-    guardarProcedimientoGestanteConsejeria(nroHcl,nroEmbarazo,nroAtencion,consejeria,data){
+    guardarProcedimientoGestanteConsejeria(nroHcl, nroEmbarazo, nroAtencion, consejeria, data) {
         return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/agregarProcedimiento/${nroHcl}/${nroEmbarazo}/${nroAtencion}/${consejeria}`, data)
-        .toPromise()
-        .then(res => <any[]>res)
-        .then(data => { return data; });
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data; });
     }
-    editarProcedimientoGestante(nroHcl,nroEmbarazo,nroAtencion,data){
+    editarProcedimientoGestante(nroHcl, nroEmbarazo, nroAtencion, data) {
         return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/actualizarProcedimiento/${nroHcl}/${nroEmbarazo}/${nroAtencion}`, data)
-        .toPromise()
-        .then(res => <any[]>res)
-        .then(data => { return data; });
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data; });
     }
-    eliminarProcedimientoGestante(nroHcl,nroEmbarazo,nroAtencion,codProcedimientoHIS){
+    eliminarProcedimientoGestante(nroHcl, nroEmbarazo, nroAtencion, codProcedimientoHIS) {
         return this.http.delete(`${this.base_url}/${this.bd}/obstetricia/consulta/eliminarProcedimiento/${nroHcl}/${nroEmbarazo}/${nroAtencion}/${codProcedimientoHIS}`)
     }
 
     //procedimiento de imagenes
-    guardarSolicitudEcografiasGestante(id,data){
+    guardarSolicitudEcografiasGestante(id, data) {
         return this.http.post(`${this.base_url}/${this.bd}/examenesAuxiliares/agregar-ProcImg/${id}`, data)
-        .toPromise()
-        .then(res => <any[]>res)
-        .then(data => { return data; });
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data; });
     }
-    editarSolicitudEcografiasGestante(id,data){
+    editarSolicitudEcografiasGestante(id, data) {
         return this.http.put(`${this.base_url}/${this.bd}/examenesAuxiliares/actualizarProcImgPendiente/${id}`, data)
-        .toPromise()
-        .then(res => <any[]>res)
-        .then(data => { return data; });
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data; });
     }
-    eliminarSolicitudEcografiasGestante(id,data){
-        return this.http.put(`${this.base_url}/${this.bd}/examenesAuxiliares/eliminarProcImgPendiente/${id}`,data)
+    eliminarSolicitudEcografiasGestante(id, data) {
+        return this.http.put(`${this.base_url}/${this.bd}/examenesAuxiliares/eliminarProcImgPendiente/${id}`, data)
     }
-    guardarResultadoEcografiasGestante(data){
+    guardarResultadoEcografiasGestante(data) {
         return this.http.post(`${this.base_url}/${this.bd}/examenesAuxiliares/ecografiaObsAbdominal_EF`, data)
-        .toPromise()
-        .then(res => <any[]>res)
-        .then(data => { return data; });
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data; });
     }
-    editarResultadoEcografiasGestante(data){
+    editarResultadoEcografiasGestante(data) {
         return this.http.put(`${this.base_url}/${this.bd}/examenesAuxiliares/ecografiaObsAbdominal_EF`, data)
-        .toPromise()
-        .then(res => <any[]>res)
-        .then(data => { return data; });
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data; });
     }
-    
+
     //buscar por id ecografia
-    buscarEcografiaAbdominalId(id){
+    buscarEcografiaAbdominalId(id) {
         return this.http.get(`${this.base_url}/${this.bd}/examenesAuxiliares/ecografiaObsAbdominal_EF/${id}`)
-        .toPromise()
-        .then(res => <any[]>res)
-        .then(data => { return data; });
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data; });
     }
-     //listar
-    listarDiagnosticosDeUnaConsulta(nroHcl,nroEmbarazo,nroAtencion){
+    //listar
+    listarDiagnosticosDeUnaConsulta(nroHcl, nroEmbarazo, nroAtencion) {
         return this.http.get(`${this.base_url}/${this.bd}/obstetricia/consulta/listarDiagnostico/${nroHcl}/${nroEmbarazo}/${nroAtencion}`)
-        .toPromise()
-        .then(res => <any[]>res)
-        .then(data => { return data; });
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data; });
     }
-    listarInmunizacionesDeUnaConsulta(nroHcl,nroEmbarazo,nroAtencion){
+    listarInmunizacionesDeUnaConsulta(nroHcl, nroEmbarazo, nroAtencion) {
         return this.http.get(`${this.base_url}/${this.bd}/inmunizacion/${nroHcl}/${nroEmbarazo}/${nroAtencion}`)
-        .toPromise()
-        .then(res => <any[]>res)
-        .then(data => { return data; });
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data; });
     }
-    listarTratamientosDeUnaConsulta(nroHcl,nroEmbarazo,nroAtencion){
+    listarTratamientosDeUnaConsulta(nroHcl, nroEmbarazo, nroAtencion) {
         return this.http.get(`${this.base_url}/${this.bd}/obstetricia/consulta/listarTratamiento/${nroHcl}/${nroEmbarazo}/${nroAtencion}`)
-        .toPromise()
-        .then(res => <any[]>res)
-        .then(data => { return data; });
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data; });
     }
-    listarProcedimientosDeUnaConsulta(nroHcl,nroEmbarazo,nroAtencion){
+    listarProcedimientosDeUnaConsulta(nroHcl, nroEmbarazo, nroAtencion) {
         return this.http.get(`${this.base_url}/${this.bd}/obstetricia/consulta/listarProcedimientos/${nroHcl}/${nroEmbarazo}/${nroAtencion}`)
-        .toPromise()
-        .then(res => <any[]>res)
-        .then(data => { return data; });
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data; });
     }
-    listarSolicitudesEco(idConsulta){
+    listarSolicitudesEco(idConsulta) {
         return this.http.get(`${this.base_url}/${this.bd}/examenesAuxiliares/listarProcImg/${idConsulta}`)
-        .toPromise()
-        .then(res => <any[]>res)
-        .then(data => { return data; });
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data; });
     }
-    listaConcluidosEco(idConsulta){
+    listaConcluidosEco(idConsulta) {
         return this.http.get(`${this.base_url}/${this.bd}/examenesAuxiliares/listarProcImgConcluido/${idConsulta}`)
-        .toPromise()
-        .then(res => <any[]>res)
-        .then(data => { return data; });
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data; });
     }
-    listaHistorialEco(data){
-        return this.http.post(`${this.base_url}/${this.bd}/examenesAuxiliares/listarProcImgConcluidoHcl`,data)
-        .toPromise()
-        .then(res => <any[]>res)
-        .then(data => { return data; });
+    listaHistorialEco(data) {
+        return this.http.post(`${this.base_url}/${this.bd}/examenesAuxiliares/listarProcImgConcluidoHcl`, data)
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data; });
     }
-    listaUpsHis(data){
-        return this.http.post(`${this.base_url}/${this.bd}/ipress/listarups_his`,data)
-        .toPromise()
-        .then(res => <any[]>res)
-        .then(data => { return data; });
+    listaUpsHis(data) {
+        return this.http.post(`${this.base_url}/${this.bd}/ipress/listarups_his`, data)
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data; });
     }
-    listaUps(id){
+    listaUps(id) {
         return this.http.get(`${this.base_url}/${this.bd}/ipress/listarServicios/${id}`)
-        .toPromise()
-        .then(res => <any[]>res)
-        .then(data => { return data; });
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data; });
     }
 
-    listarResumen(data){
-        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/listaprocedimientos`,data)
-        .toPromise()
-        .then(res => <any[]>res)
-        .then(data => { return data; });
+    listarResumen(data) {
+        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/listaprocedimientos`, data)
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data; });
     }
-    
-    listaResumenPendientes(data){
-        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/listarProcedimientosFaltantes`,data)
-        .toPromise()
-        .then(res => <any[]>res)
-        .then(data => { return data; });
-    }
-    
 
-    listarSubTipoImagenes(){
+    listaResumenPendientes(data) {
+        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/listarProcedimientosFaltantes`, data)
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data; });
+    }
+
+
+    listarSubTipoImagenes() {
         return this.http.get(`${this.base_url}/${this.bd}/tools/procImagenes/subtipo`)
-        .toPromise()
-        .then(res => <any[]>res)
-        .then(data => { return data; });
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data; });
+    }
+
+    getDiagnosticByIdConsulta(idConsulta: string) {
+        return this.http.get(`${this.base_url}/${this.bd}/obstetricia/consulta/listarDiagnostico/${idConsulta}`)
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data; });
+    }
+
+    postAddProcedures(idConsulta: string, data) {
+        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/agregarProcedimiento/${idConsulta}`, data)
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data; });
+    }
+
+    getListProceduresSaved(idConsulta:string){
+        return this.http.get(`${this.base_url}/${this.bd}/obstetricia/consulta/listarProcedimientos/${idConsulta}`)
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data; });
     }
 }

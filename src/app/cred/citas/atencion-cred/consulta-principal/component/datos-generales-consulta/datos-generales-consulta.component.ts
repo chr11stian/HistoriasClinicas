@@ -234,6 +234,7 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
       nameFC: "palidezAll",
     },
   ];
+  ageValidation: number;
   //--Interconsulta
   interconsulta: proxCita[] = [];
   listInterconsulta: proxCita[] = [];
@@ -252,6 +253,7 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
     { name: "Nivel 5", code: "Nivel 5" },
   ];
 
+
   constructor(
     private rolGuardiaService: RolGuardiaService,
     private messageService: MessageService,
@@ -259,7 +261,11 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
     private route: ActivatedRoute,
     private consultaService: ListaConsultaService,
     private consultaGeneralService: ConsultaGeneralService
-  ) {}
+  ) {
+    let auxAge = JSON.parse(localStorage.getItem("documento"));
+    this.ageValidation = (12 * auxAge.anio + auxAge.mes);
+    console.log('data de doc ls ', this.ageValidation);
+  }
 
   buildForm(): void {
     /** Signos vitales */
@@ -378,7 +384,7 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
     });
   }
 
-  ngOnChanges(changes: SimpleChanges) {}
+  ngOnChanges(changes: SimpleChanges) { }
 
   recuperarData(id) {
     this.consultaGeneralService
@@ -650,7 +656,7 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
         timer: 1500,
       });
     }
-    else{
+    else {
       Swal.fire({
         icon: "warning",
         title: "Datos incompletos",
@@ -660,4 +666,9 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
       });
     }
   }
+}
+interface Age {
+  year: number,
+  month: number,
+  day: number
 }

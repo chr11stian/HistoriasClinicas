@@ -31,6 +31,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
 import {FullCalendarModule} from "@fullcalendar/angular";
+import { ModalPlanPartoComponent } from './component/modal-plan-parto/modal-plan-parto.component';
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -60,7 +61,8 @@ FullCalendarModule.registerPlugins([
         EcografiasComponent,
         LaboratorioComponent,
         LabSolicitudComponent,
-        CronogramaComponent
+        CronogramaComponent,
+        ModalPlanPartoComponent
     ],
     imports: [
         FullCalendarModule,

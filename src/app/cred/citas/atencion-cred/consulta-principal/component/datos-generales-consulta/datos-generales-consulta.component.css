@@ -1,32 +1,53 @@
-p-selectbutton >>> .p-selectbutton .p-button.p-highlight {
+p-selectbutton>>>.p-selectbutton .p-button.p-highlight {
   background: #0c3866;
   border-color: #0c3866;
 }
-p-calendar >>> .p-button {
+
+p-calendar>>>.p-button {
   background: #0c3866;
   border: 1px solid #0c3866;
   align-self: center;
 }
+
 .guardar {
   background: #0c3866;
   border-color: #0c3866;
   align-items: center;
 }
-p-toolbar >>> * {
+
+p-toolbar>>>* {
   align-self: center;
 }
+
 /* interconsulta */
 div#opc {
   position: static;
 }
-p-speeddial >>> .p-button.p-button-icon-only.p-button-rounded {
+
+p-speeddial>>>.p-button.p-button-icon-only.p-button-rounded {
   background: green;
   border-color: green;
 }
+
 :host ::ng-deep .speeddial-semi-circle .p-speeddial-direction-left {
   right: 0;
   top: 300px;
 }
+
 :host ::ng-deep .button-agregar .p-button {
   background-color: #0c3866;
+}
+
+::ng-deep .p-fieldset.p-fieldset-toggleable .p-fieldset-legend a {
+  padding: 0.25rem;
+}
+
+p-fieldset>>>.p-fieldset .p-fieldset-legend {
+  padding: 0.5rem;
+  border: 1px solid #dee2e6;
+  color: #495057;
+  background: #d8dee5;
+  font-weight: 600;
+  border-radius: 5px;
+  font-size: small;
 }

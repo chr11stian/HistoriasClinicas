@@ -31,4 +31,12 @@ export class IntervaloPartoService {
                 console.log('Error al crear un registro', error)
             })
     }
+    /* nuevos servicios para plan de parto */
+    getPlanbyIdFiliacion(idFiliacion) {
+        return this.http.get(`${this.base_url}/${this.bd}/obstetricia/planparto/buscar/${idFiliacion}`)
+    }
+    postPlanPartoByIdFiliacion(idFiliacion, data) {
+        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/planparto/save/${idFiliacion}`, data)
+    }
+
 }

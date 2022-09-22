@@ -14,6 +14,7 @@ import { ExamenesAuxiliaresConsultaComponent } from "../examenes-auxiliares-cons
 import { ProcedimientosConsultaComponent } from "../procedimientos-consulta/procedimientos-consulta.component";
 import { FinalizarConsultaService } from "../../services/finalizar-consulta.service";
 import { DatePipe } from "@angular/common";
+import Swal from "sweetalert2";
 
 @Component({
     selector: "app-step-general",
@@ -59,6 +60,7 @@ export class StepGeneralComponent implements OnInit, DoCheck {
     listaAct: evento[] = [];
     dialog: boolean = false;
     datePipe = new DatePipe("en-US");
+    condicion: boolean;
 
     constructor(
         private acuerdosService: FinalizarConsultaService,
@@ -94,19 +96,6 @@ export class StepGeneralComponent implements OnInit, DoCheck {
         ];
         this.getQueryParams();
         this.agenda();
-        console.log("a");
-        setTimeout(() => {
-            this.listaEventos.sort();
-            this.listaAct = this.listaEventos.filter(
-                (fecha) => fecha.start == this.listaEventos[0].start
-            );
-            let fecha = this.datePipe.transform(
-                new Date(this.listaAct[0].start),
-                "dd/MM/yyyy"
-            );
-            this.cita = "PRÓXIMA CITA: " + fecha;
-            this.consultaGeneralService.fecha = this.listaAct[0].start;
-        }, 10);
     }
 
     getQueryParams() {
@@ -194,11 +183,11 @@ export class StepGeneralComponent implements OnInit, DoCheck {
                 break;
             case 4:
                 // this.stepName = "examenesAux";
-                this.stepName = 'diagnostico'
+                this.stepName = "diagnostico";
                 break;
             case 3:
                 // this.stepName = "diagnostico";
-                this.stepName = 'examenesAux'
+                this.stepName = "examenesAux";
                 break;
             case 2:
                 this.stepName = "evaluaciones";
@@ -253,9 +242,44 @@ export class StepGeneralComponent implements OnInit, DoCheck {
                 break;
 
             case "tratamiento":
-                // this.tratamientoConsulta.save()
-                this.stepName = "finalizar";
-                this.indiceActivo = 7;
+                this.tratamientoConsulta.his();
+               /*  if (this.consultaGeneralService.condicion === true) {
+                    // this.tratamientoConsulta.save()
+                    this.stepName = "finalizar";
+                    this.indiceActivo = 7;
+                } */
+                Swal.fire({
+                    showCancelButton: true,
+                    cancelButtonText: 'Cancelar',
+                    confirmButtonText: 'Finalizar',
+                    icon: 'question',
+                    title: '¿Esta seguro que desea finalizar la consulta?',
+                    text: '',
+                    showConfirmButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.tratamientoConsulta.concludeConsultation();
+                        this.stepName = "finalizar";
+                        this.indiceActivo = 7;
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Se cerro la consulta',
+                            text: '',
+                            showConfirmButton: false,
+                            timer: 2000
+                        })
+                    } else {
+                        Swal.fire({
+                            icon: 'info',
+                            title: 'No se finalizo la consulta',
+                            text: '',
+                            showConfirmButton: false,
+                            timer: 2000
+                        })
+                    }
+                })
                 break;
             case "finalizar":
                 this.finalizarConsulta.save();
@@ -308,10 +332,10 @@ export class StepGeneralComponent implements OnInit, DoCheck {
                     this.finalizarConsulta.save();
                     break;
                 case 6:
-                    // this.finalizarConsulta.save()
+                    //this.tratamientoConsulta.his();
                     break;
                 case 5:
-                    //this.tratamientoConsulta.save()
+                    //this.tratamientoConsulta.his()
                     break;
                 case 4:
                     // this.diagnosticoConsulta.save()
@@ -328,18 +352,18 @@ export class StepGeneralComponent implements OnInit, DoCheck {
                     break;
             }
             this.j = this.indiceActivo;
-        }
+        } 
     }
 
-    agenda() {
+    async agenda() {
         let listaEventAux: evento[] = [];
         let index;
-        this.acuerdosService
-            .listPlan(this.data.nroDocumento)
-            .subscribe((r: any) => {
+        await this.acuerdosService
+            .getPromiseListPlan(this.data.nroDocumento)
+            .then((r: any) => {
                 let aux = r.object.planAtencion;
                 //--- proxima cita ---
-                console.log("agenda");
+                console.log("agenda", this.fecha);
                 index = 0;
                 aux.controlCrecimientoDesa.map((r_: any) => {
                     /* aux */
@@ -429,8 +453,11 @@ export class StepGeneralComponent implements OnInit, DoCheck {
                         });
                     }
                 });
+
             });
+
         this.listaEventos = listaEventAux;
+        this.nextAppointment(this.listaEventos);
     }
     citas() {
         this.dialog = true;
@@ -439,24 +466,32 @@ export class StepGeneralComponent implements OnInit, DoCheck {
         return s == "RN"
             ? "recien nacido"
             : s == "Menor_1A"
-                ? "menor de un año"
-                : s == "1A"
-                    ? "un año"
-                    : s == "2A"
-                        ? "dos años"
-                        : s == "3A"
-                            ? "tres años"
-                            : s == "4A"
-                                ? "cuatro años"
-                                : s == "5A"
-                                    ? "cinco años"
-                                    : s == "6A"
-                                        ? "seis años"
-                                        : s == "7A"
-                                            ? "siete años"
-                                            : s == "8A"
-                                                ? "ocho años"
-                                                : "nueve años";
+            ? "menor de un año"
+            : s == "1A"
+            ? "un año"
+            : s == "2A"
+            ? "dos años"
+            : s == "3A"
+            ? "tres años"
+            : s == "4A"
+            ? "cuatro años"
+            : s == "5A"
+            ? "cinco años"
+            : s == "6A"
+            ? "seis años"
+            : s == "7A"
+            ? "siete años"
+            : s == "8A"
+            ? "ocho años"
+            : "nueve años";
+    }
+
+    nextAppointment(event: evento[]): void {
+        event.sort();
+        let auxEvent: evento[] = event.filter(item => item.start == event[0].start);
+        let fecha = this.datePipe.transform(new Date(auxEvent[0].start), "dd/MM/yyyy");
+        this.cita = "PRÓXIMA CITA: " + fecha;
+        this.consultaGeneralService.fecha = auxEvent[0].start;
     }
 }
 

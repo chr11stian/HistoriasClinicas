@@ -5,7 +5,10 @@ import { MessageService } from "primeng/api";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
 import { ImcService } from "src/app/obstetricia-general/services/imc.service";
 import { ObstetriciaGeneralService } from "src/app/obstetricia-general/services/obstetricia-general.service";
+import Swal from "sweetalert2";
+import { IntervaloPartoService } from "../../../plan-parto/services/intervalo-parto/intervalo-parto.service";
 import { ConsultasService } from "../../services/consultas.service";
+import { ModalPlanPartoComponent } from "../modal-plan-parto/modal-plan-parto.component";
 
 @Component({
   selector: "app-interrogatorio",
@@ -56,6 +59,7 @@ export class InterrogatorioComponent implements OnInit {
   ];
   interrogatorioData: any;
   ref: DynamicDialogRef;
+  refPlanParto:DynamicDialogRef
   fetalesExamDialog: boolean = false;
   examenesFetales: any;
   listaExamenesFetos: any[] = [];
@@ -88,11 +92,10 @@ export class InterrogatorioComponent implements OnInit {
     private messageService: MessageService,
     private obstetriciaService: ObstetriciaGeneralService,
     private router: Router,
-    private imcService: ImcService
+    private imcService: ImcService,
+    private intervaloPartoService:IntervaloPartoService
   ) {
     this.inicializarForm();
-
-    console.log("triaje traer a interrogatorio",);
 
     //this.idConsulta = this.obstetriciaService.idGestacion;
     //console.log('consulta ', this.obstetriciaService);
@@ -103,8 +106,9 @@ export class InterrogatorioComponent implements OnInit {
     //estado para saber que estado usar en consultas
     this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
 
-    console.log("DATA PACIENTE 2 desde datos generales", this.dataPaciente2);
-    console.log("gestacion desde datos generales", this.Gestacion);
+    // console.log("DATA PACIENTE 2 desde datos generales", this.dataPaciente2);
+    // console.log("gestacion desde datos generales", this.Gestacion);
+    this.formExamFisico.value.peso == undefined ? this.estadoEdicion = false : this.estadoEdicion = true;
 
     if (this.Gestacion == null) {
       this.tipoDocRecuperado = this.dataPaciente2.tipoDoc;
@@ -125,7 +129,6 @@ export class InterrogatorioComponent implements OnInit {
       //guardar en el ls el nroAtencion
       let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaNueva'));
       this.nroAtencion = nroAtencion;
-      console.log("entre a nueva consulta", this.nroAtencion);
       let triaje = JSON.parse(localStorage.getItem('datacupos'));
       this.form.get("temperatura").setValue(triaje.funcionesVitales.temperatura);
       this.form.get("presionSisto").setValue(triaje.funcionesVitales.presionSistolica);
@@ -138,7 +141,6 @@ export class InterrogatorioComponent implements OnInit {
     else {
       let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaEditar'));
       this.nroAtencion = nroAtencion;
-      console.log("entre a edicion consulta", this.nroAtencion)
     }
     this.getUltimaConsulta();
   }
@@ -149,7 +151,7 @@ export class InterrogatorioComponent implements OnInit {
     console.log("Nro de embarazo desde interrogatorio", this.nroEmbarazo);
     console.log("Id Consultorio Obstetrico desde interrogatorio", this.idConsulta);
     this.loadData();
-
+    this.getPlanParto()
   }
 
   async getUltimaConsulta() {
@@ -209,12 +211,16 @@ export class InterrogatorioComponent implements OnInit {
       if (this.ultimaConsulta.examenesFisicos.length > 9) {
         this.form.patchValue({ examenFisicoOtro: this.ultimaConsulta.examenesFisicos[9].valor });
       }
+    } else {
+      this.calcularEdadGestacional(this.ultimaConsulta.fum);
+      console.log('estado editar true');
     }
 
 
   }
 
   calcularEdadGestacional(fum) {
+    console.log('FUMMMMMMMMMMMMMM ', fum);
     if (fum) {
       let today = new Date().getTime();
       let auxFUM = new Date(fum).getTime();
@@ -721,6 +727,49 @@ export class InterrogatorioComponent implements OnInit {
     this.chkLatidos = event.checked;
     console.log('chked ', this.chkLatidos);
     this.chkLatidos! ? this.formExamenFetal.patchValue({ latidosCardiacos: null }) : '';
+  }
+  //plan parto
+  listaPlanParto:any[]=[]
+  dataEnviarPlanParto={}
+  getPlanParto(){
+    this.intervaloPartoService.getPlanbyIdFiliacion(this.Gestacion.id).subscribe((resp:any)=>{
+      if(resp.cod=='2040'){
+        const objeto={
+          fechaAtencion:resp.object.planItems[0].fecha,
+          edadGestacional:resp.object.planItems[0].items[0].valor
+        }
+        this.listaPlanParto.push(objeto)
+      }
+      this.dataEnviarPlanParto={
+        tienePlan:resp.cod=='2040'?true:false,
+        idFiliacion:this.Gestacion.id,
+        respuestaGetPlanParto:resp.object
+      }
+    })
+  }
+  openModal(){
+    this.refPlanParto = this.dialog.open(ModalPlanPartoComponent, {
+      data:this.dataEnviarPlanParto,
+      header: 'Agregar plan de Parto',
+      width: '80%'
+    });
+    this.refPlanParto.onClose.subscribe((mensaje)=>{
+      if(mensaje=='agregado'){
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Plan de Parto agregado',
+          text: 'Su registro fue creado con exito',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        this.listaPlanParto=[]
+        this.getPlanParto()
+      }
+
+      
+    })
+
   }
 }
 

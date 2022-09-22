@@ -122,7 +122,6 @@ export class CitasComponent implements OnInit {
     getDocumentosIdentidad() {
         this.documentoIdentidadService.getDocumentosIdentidad().subscribe((res: any) => {
             this.listaDocumentosIdentidad = res.object;
-            console.log('docs ', this.listaDocumentosIdentidad);
         })
     }
 
@@ -139,7 +138,6 @@ export class CitasComponent implements OnInit {
             } else {
                 this.showSuccess();
             }
-            console.log('paciente por doc ', this.dataPaciente);
         });
 
     }
@@ -151,12 +149,10 @@ export class CitasComponent implements OnInit {
             nroDoc: this.formCitas.value.nroDoc,
             fecha: this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd')
         }
-        console.log("DATA DNI", data)
 
         await this.cuposService.buscarCupoPorDniFechaIpress(this.idIpressLapostaMedica, data)
             .then(result => {
                 this.DataCuposPaciente = result
-                console.log('LISTA DE CUPO DEL PACIENTE', result)
                 if (this.DataCuposPaciente == undefined) {
                     this.showInfo();
                     this.getPacientesXnroDocumento();
@@ -171,7 +167,6 @@ export class CitasComponent implements OnInit {
 
     /**Modulo para hacer cosultas no gestantes**/
     irConsultaNoControl(row) {
-        console.log('pasando data ', row);
         this.obstetriciaService.data = row;
     }
 
@@ -183,7 +178,6 @@ export class CitasComponent implements OnInit {
 
     enviarData(event) {
         // this.router.navigate(['/gestante']);
-        console.log("EVENTO", event)
         if (event.funcionesVitales == null) {
             Swal.fire({
                 icon: 'warning',
@@ -227,18 +221,27 @@ export class CitasComponent implements OnInit {
 
     /**Buscar lista de cupos que pertenece a un personal de salud**/
     async buscarCuposPorPersonal() {
-        let data = {
-            tipoDoc: this.tipoDocumento,
-            nroDoc: this.nroDocumento,
-            fecha: this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd'),
-            servicio: 'OBSTETRICIA'
+        // let data = {
+        //     tipoDoc: this.tipoDocumento,
+        //     nroDoc: this.nroDocumento,
+        //     fecha: this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd'),
+        //     servicio: 'OBSTETRICIA'
+        // }
+        // console.log("DATA DNI", data)
+        // await this.cuposService.buscarListaCuposPersonal(this.idIpressLapostaMedica, data)
+        //     .then((result: any) => {
+        //         this.DataCupos = result.object
+        //         this.loading = false;
+        //         console.log('LISTA DE CUPO DEL PACIENTE', result)
+        //     });
+        const inputRequest={
+            servicio:"OBSTETRICIA",
+            fecha:this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd')
         }
-        console.log("DATA DNI", data)
-        await this.cuposService.buscarListaCuposPersonal(this.idIpressLapostaMedica, data)
+        await this.cuposService.buscarListaCuposPersonalObstetricia(inputRequest)
             .then((result: any) => {
                 this.DataCupos = result.object
                 this.loading = false;
-                console.log('LISTA DE CUPO DEL PACIENTE', result)
             });
     }
 
@@ -263,6 +266,39 @@ export class CitasComponent implements OnInit {
         this.ref.onClose.subscribe((data: any) => {
             this.buscarCuposPorPersonal();
         });
+    }
+    redireccionarConsultaGeneral(rowData){
+        if (rowData.funcionesVitales == null) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Paciente',
+                text: 'Necesita pasar por triaje',
+                showConfirmButton: false,
+                timer: 1500,
+            })
+            return
+        }
+        let data: any =
+        {
+          ups:'OBSTETRICIA',
+          tipoConsulta:'CONSULTA GESTANTE EXTERNA',
+          nroDocumento: rowData.paciente.nroDoc,
+          tipoDoc: rowData.paciente.tipoDoc,
+          idConsulta: '',
+          sexo: rowData.paciente.sexo,
+          anio:rowData.paciente.edadAnio,
+          mes:rowData.paciente.edadMes,
+          dia:rowData.paciente.edadDia,
+          idCupo: rowData.id,
+          servicio:rowData.servicio
+        }
+        localStorage.setItem('documento', JSON.stringify(data));
+        this.router.navigate(['/dashboard/consulta-generica/lista-cita/lista-consulta'])
+        
+        // this.router.navigate(['dashboard/obstetricia-general/citas/gestante'], {queryParams: {id: null}})
+        // localStorage.setItem('datacupos', JSON.stringify(event));
+        // localStorage.removeItem('PacienteSinCupo');
+       
     }
 }
 

@@ -73,8 +73,12 @@ const routes: Routes = [
             },
             {
                 path: "consulta-generica",
-                loadChildren: () => import('src/app/consulta-generica/consulta-generica.module').then(n => n.ConsultaGenericaModule)
+                loadChildren: () => import('src/app/consulta-generica/consulta-generica.module').then(n => n.ConsultaGenericaModule),
             },
+            {
+                path:"visitas-domiciliarias",
+                loadChildren: () => import('src/app/visita-domiciliaria/visita-domiciliaria.module').then(n => n.VisitaDomiciliariaModule),
+            }
         ]
     }
 ];
