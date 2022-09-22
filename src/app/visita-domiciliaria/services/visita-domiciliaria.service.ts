@@ -15,7 +15,7 @@ export class VisitaDomiciliariaService {
   //id profesional
   id_user: string = JSON.parse(localStorage.getItem("usuario"));
   token =
-    "eyJraWQiOiJmb28iLCJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY2MzgwNzIyNX0.cacGjbndREWSu3uqKCWYmXQ1usAy6uA1rWoZGwg3u8s";
+    "eyJraWQiOiJmb28iLCJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY2MzkwMzAxMH0.8faNtpoes81sIhyxGj9yQpRE5WOv4hK-ZJmIFFdoV5o";
   constructor(private http: HttpClient) {}
 
   getToken() {
