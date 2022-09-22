@@ -40,8 +40,11 @@ export class StepGeneralComponent implements OnInit {
     {code:'ODONTOLOGIA GENERAL',display:'ODONTOLOGIA'},
     {code:'PSICOLOGIA',display:'PSICOLOGIA'},
     {code:'NUTRICION',display:'NUTRICION'},
+    {code:'CONSULTA GESTANTE EXTERNA',display:'CONSULTORIO OBSTETRICO'},
   ]
   buscarTipoConsulta(codigo){
+    console.log('codigo',codigo);
+    
     const aux=this.listaTitulo.find((element)=>{
       return element.code==codigo
     })
@@ -76,14 +79,14 @@ export class StepGeneralComponent implements OnInit {
 
   async ngOnInit() {
     this.items = [
-      { label: 'Datos Generales', styleClass: 'icon' },
-      { label: 'Motivo de Consulta', styleClass: 'icon1' },
-      { label: 'Exámenes Auxiliares', styleClass: 'icon2' },
-      { label: 'Diagnóstico', styleClass: 'icon3' },
-      // { label: 'Exámenes Auxiliares', styleClass: 'icon4' },
-      { label: 'Tratamiento', styleClass: 'icon5' },
-      { label: 'Procedimientos', styleClass: 'icon6' },
-      { label: 'Interconsulta', styleClass: 'icon7' },
+      { label: 'Datos Generales', styleClass: 'icon'  },
+      { label: 'Motivo de Consulta', styleClass: 'icon1'  },
+      { label: 'Exámenes Auxiliares', styleClass: 'icon2'  },
+      { label: 'Diagnóstico', styleClass: 'icon3'  },
+
+      { label: 'Tratamiento', styleClass: 'icon5'  },
+      { label: 'Procedimientos', styleClass: 'icon6'  },
+      { label: 'Interconsulta', styleClass: 'icon7'  },
     ]
     await this.getQueryParams()
   }

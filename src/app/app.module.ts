@@ -21,7 +21,7 @@ import {InterceptorService} from "../interceptors/interceptor.service";
 import {FullCalendarModule} from "primeng/fullcalendar";
 import { LoginRolComponent } from './login/login-rol/login-rol.component';
 import { PasswordComponent } from './login/password/password.component';
-
+import { VisitaDomiciliariaModule } from './visita-domiciliaria/visita-domiciliaria.module';
 
 @NgModule({
     declarations: [
@@ -29,7 +29,7 @@ import { PasswordComponent } from './login/password/password.component';
         LoginComponent,
         NotFoundComponent,
         LoginRolComponent,
-        PasswordComponent
+        PasswordComponent,
     ],
     imports: [
         FullCalendarModule,
@@ -45,6 +45,7 @@ import { PasswordComponent } from './login/password/password.component';
         DividerModule,
         ToggleButtonModule,
         ToastModule,
+        VisitaDomiciliariaModule,
 
         NgxEchartsModule.forRoot({
             echarts: () => import('echarts'),

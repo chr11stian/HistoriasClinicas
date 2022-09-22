@@ -55,13 +55,17 @@ export class DialogPacienteComponent implements OnInit {
     ];
 
     listaGradoInstruccion = [
-        'ANALFABETO',
+        'SIN ESTUDIOS',
         'PRIMARIA INCOMPLETA',
         'PRIMARIA COMPLETA',
         'SECUNDARIA INCOMPLETA',
         'SECUNDARIA COMPLETA',
         'SUPERIOR'
     ];
+    listaSexo=[
+        {name:'MASCULINO',code:'MASCULINO'},
+        {name:'FEMENINO',code:'FEMENINO'}
+    ]
 
     constructor(
         private fb: FormBuilder,

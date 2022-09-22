@@ -170,6 +170,18 @@ export class CuposService {
         return null;
       });
   }
+  buscarListaCuposPersonalObstetricia(data) {
+    return this.http
+      .post(`${this.base_url}/${this.bd}/cupo/listar/obstetra/cupos`,data)
+      .toPromise()
+      .then((result: any) => {
+        return result;
+      })
+      .catch((error) => {
+        console.log("No se encotro personal de salud");
+        return null;
+      });
+  }
 
   getTriadosServicioFecha(servicio, data) {
     return this.http.post(

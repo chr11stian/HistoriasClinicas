@@ -1,0 +1,44 @@
+.busqueda {
+  display: grid;
+  grid-template-columns: 100px auto;
+}
+p-selectbutton >>> .p-button.p-highlight {
+  color: #212020;
+  background: white;
+  border: none;
+  text-decoration: none;
+  transition-duration: 0.4s all ease;
+  align-self: center;
+  justify-self: center;
+  box-shadow: 0px 0px 2px 2px #dbd9d9fd;
+  padding: 10px;
+  font-size: 12px;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+p-selectbutton >>> .p-button.p-highlight:hover {
+  background-color: #af0017;
+  color: white;
+}
+p-dropdown >>> .p-dropdown-items-wrapper {
+  padding: 1px;
+}
+p-dropdown >>> .p-dropdown-clear-icon {
+  margin: -7px;
+}
+p-dropdown >>> .p-dropdown-label {
+  text-align: center;
+}
+p-dropdown >>> .p-dropdown-clearable .p-dropdown-label {
+  padding-right: 0rem;
+}
+.buttonAcciones {
+  color: #af0017;
+  background: white;
+  border: 1px solid #af0017;
+}
+.buttonAcciones:hover {
+  background: #af0017;
+  color: white;
+  border: 1px solid #af0017;
+}
