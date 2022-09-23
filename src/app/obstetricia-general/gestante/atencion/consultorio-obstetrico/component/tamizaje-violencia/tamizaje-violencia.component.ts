@@ -37,6 +37,7 @@ export class TamizajeViolenciaComponent implements OnInit {
     ListaTamizajes: any;
     DataCupos: any;
     DataCupos2: any;
+    datosConsultaActual:any
     Gestacion: any;
     Recupera_un_Tamizaje: any;
 
@@ -105,6 +106,8 @@ export class TamizajeViolenciaComponent implements OnInit {
         this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
         this.DataCupos = JSON.parse(localStorage.getItem('datacupos'));
         this.DataCupos2 = JSON.parse(localStorage.getItem('PacienteSinCupo'));
+        this.datosConsultaActual = JSON.parse(localStorage.getItem('datosConsultaActual'));
+
 
         if (this.DataCupos2 == null) {
             this.tipoDocRecuperado = this.DataCupos.paciente.tipoDoc
@@ -145,7 +148,7 @@ export class TamizajeViolenciaComponent implements OnInit {
             Telefono: new FormControl({value:'',disabled:true}),
             nroHcl: new FormControl({value:'',disabled:true}),
             Edad: new FormControl({value:'',disabled:true}),
-            Fecha: new FormControl({value:'',disabled:false}),//fecha atencion
+            Fecha: new FormControl({value:'',disabled:true}),//fecha atencion
 
             /**Preguntas respuestas**/
             Respuesta1: new FormControl({value:'',disabled:false}),
@@ -276,6 +279,9 @@ export class TamizajeViolenciaComponent implements OnInit {
             this.formDatos_Tamisaje.get('Edad').setValue(this.edad);
             this.formDatos_Tamisaje.get('Direccion').setValue(this.dataPacientes.domicilio.direccion + "," + this.dataPacientes.domicilio.departamento);
             this.formDatos_Tamisaje.get('Telefono').setValue(this.dataPacientes.celular);
+            // this.formDatos_Tamisaje.get('Fecha').setValue(this.datosConsultaActual.fecha);
+            this.formDatos_Tamisaje.get('Fecha').setValue(this.datePipe.transform(this.datosConsultaActual.fecha, 'yyyy-MM-dd'),);
+            
         });
     }
 
@@ -779,13 +785,13 @@ export class TamizajeViolenciaComponent implements OnInit {
             if(result.object[0]){
                 this.isUpdate=true            
                 this.tamisajeData = result.object[0]
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Datos recuperados',
-                    text: '',
-                    showConfirmButton: false,
-                    timer: 1500,
-                })
+                // Swal.fire({
+                //     icon: 'success',
+                //     title: 'Datos recuperados',
+                //     text: '',
+                //     showConfirmButton: false,
+                //     timer: 1500,
+                // })
                 /* datos generales */
                 this.formDatos_Tamisaje.get('Fecha').setValue(this.tamisajeData.fecha);
                 this.formDatos_Tamisaje.get('apePaterno').setValue(this.tamisajeData.apePaterno);
