@@ -1,0 +1,209 @@
+<div class="col-12">
+    <div class="grid">
+        <div class="col-6 md:col-6 sm:col-12">
+            <div class="exam border">
+                <div class="grid">
+                    <div class="col-2 col-offset-3">
+                        <label>Hg(%)</label>
+                    </div>
+                    <div class="col-2 ">
+                        <label>Factor correción</label>
+                    </div>
+                    <div class="col-5 text-center">
+                        <label>Fecha</label>
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="col-3">
+                        <label>Hemo 1</label>
+                    </div>
+                    <div class="col-2">
+                        <input pInputText class="w-full">
+                    </div>
+                    <div class="col-2">
+                        <input pInputText class="w-full">
+                    </div>
+                    <div class="col-5">
+                        <input type="date" pInputText class="w-full">
+                    </div>
+                    <div class="col-3">
+                        <label>Hemo 2</label>
+                    </div>
+                    <div class="col-2">
+                        <input pInputText class="w-full">
+                    </div>
+                    <div class="col-2">
+                        <input pInputText class="w-full">
+                    </div>
+                    <div class="col-5">
+                        <input type="date" pInputText class="w-full">
+                    </div>
+                    <div class="col-3">
+                        <label>Hemo 3</label>
+                    </div>
+                    <div class="col-2">
+                        <input pInputText class="w-full">
+                    </div>
+                    <div class="col-2">
+                        <input pInputText class="w-full">
+                    </div>
+                    <div class="col-5">
+                        <input type="date" pInputText class="w-full">
+                    </div>
+                </div>
+            </div><br>
+            <div class="border">
+                <div class="grid text-center">
+                    <div class="col-1 col-offset-5 title-text">No reactivo</div>
+                    <div class="col-1 title-text">Reactivo</div>
+                    <div class="col-1 title-text">No se hizo</div>
+                    <div class="col-1 title-text">No aplica</div>
+                    <div class="col-3 title-text">Fecha</div>
+                </div>
+                <div *ngFor="let item of firstGroupExams; index as i" class="p-field-checkbox grid align-items-center">
+                    <div class="col-5 text-right">
+                        <span [for]="item" class="font-semibold">{{item.nombre}}</span>
+                    </div>
+                    <div class="col-1 text-center">
+                        <p-checkbox [inputId]="i" name="item" [value]="item.nombre+'&'+item.valor1"
+                            [(ngModel)]="examName">
+                        </p-checkbox>
+                    </div>
+                    <div class="col-1 text-center">
+                        <p-checkbox [inputId]="i" name="item" [value]="item.nombre+'&'+item.valor2"
+                            [(ngModel)]="examName">
+                        </p-checkbox>
+                    </div>
+                    <div class="col-1 text-center">
+                        <p-checkbox [inputId]="i" name="item" [value]="item.nombre+'&'+item.valor3"
+                            [(ngModel)]="examName">
+                        </p-checkbox>
+                    </div>
+                    <div class="col-1 text-center">
+                        <p-checkbox [inputId]="i" name="item" [value]="item.nombre+'&'+item.valor4"
+                            [(ngModel)]="examName">
+                        </p-checkbox>
+                    </div>
+                    <div class="col-3">
+                        <span [for]="item">{{item.fecha}}</span>
+                    </div>
+                </div>
+            </div><br>
+            <div class="border">
+                <div class="grid text-center">
+                    <div class="col-1 col-offset-5 title-text">Nornal</div>
+                    <div class="col-1 title-text">Anormal</div>
+                    <div class="col-1 title-text">No se hizo</div>
+                    <div class="col-1 title-text">No aplica</div>
+                    <div class="col-3 title-text">Fecha</div>
+                </div>
+                <div *ngFor="let item of secondGroupExams; index as i" class="p-field-checkbox grid align-items-center">
+                    <div class="col-5 text-right">
+                        <span [for]="item" class="font-semibold">{{item.nombre}}</span>
+                    </div>
+                    <div class="col-1 text-center">
+                        <p-checkbox [inputId]="i" name="item" [value]="item.nombre+'&'+item.valor1"
+                            [(ngModel)]="examName">
+                        </p-checkbox>
+                    </div>
+                    <div class="col-1 text-center">
+                        <p-checkbox [inputId]="i" name="item" [value]="item.nombre+'&'+item.valor2"
+                            [(ngModel)]="examName">
+                        </p-checkbox>
+                    </div>
+                    <div class="col-1 text-center">
+                        <p-checkbox [inputId]="i" name="item" [value]="item.nombre+'&'+item.valor3"
+                            [(ngModel)]="examName">
+                        </p-checkbox>
+                    </div>
+                    <div class="col-1 text-center">
+                        <p-checkbox [inputId]="i" name="item" [value]="item.nombre+'&'+item.valor4"
+                            [(ngModel)]="examName">
+                        </p-checkbox>
+                    </div>
+                    <div class="col-3">
+                        <span [for]="item">{{item.fecha}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 md:col-6 sm:col-12">
+            <div class="border">
+                <div class="grid text-center">
+                    <div class="col-1 col-offset-5 title-text">Negativo</div>
+                    <div class="col-1 title-text">Positivo</div>
+                    <div class="col-1 title-text">No se hizo</div>
+                    <div class="col-1 title-text">No aplica</div>
+                    <div class="col-3 title-text">Fecha</div>
+                </div>
+                <div *ngFor="let item of thirdGroupExams; index as i" class="p-field-checkbox grid align-items-center">
+                    <div class="col-5 text-right">
+                        <span [for]="item" class="font-semibold">{{item.nombre}}</span>
+                    </div>
+                    <div class="col-1 text-center">
+                        <p-checkbox [inputId]="i" name="item" [value]="item.nombre+'&'+item.valor1"
+                            [(ngModel)]="examName">
+                        </p-checkbox>
+                    </div>
+                    <div class="col-1 text-center">
+                        <p-checkbox [inputId]="i" name="item" [value]="item.nombre+'&'+item.valor2"
+                            [(ngModel)]="examName">
+                        </p-checkbox>
+                    </div>
+                    <div class="col-1 text-center">
+                        <p-checkbox [inputId]="i" name="item" [value]="item.nombre+'&'+item.valor3"
+                            [(ngModel)]="examName">
+                        </p-checkbox>
+                    </div>
+                    <div class="col-1 text-center">
+                        <p-checkbox [inputId]="i" name="item" [value]="item.nombre+'&'+item.valor4"
+                            [(ngModel)]="examName">
+                        </p-checkbox>
+                    </div>
+                    <div class="col-3">
+                        <span [for]="item">{{item.fecha}}</span>
+                    </div>
+                </div>
+            </div><br>
+            <div class="border">
+                <div class="grid text-center">
+                    <div class="col-1 col-offset-5 title-text">Normal</div>
+                    <div class="col-1 title-text">Anormal</div>
+                    <div class="col-1 title-text">No se hizo</div>
+                    <div class="col-1 title-text">No aplica</div>
+                    <div class="col-3 title-text">Fecha</div>
+                </div>
+                <div *ngFor="let item of fourthGroupExams; index as i" class="p-field-checkbox grid align-items-center">
+                    <div class="col-5 text-right">
+                        <span [for]="item" class="font-semibold">{{item.nombre}}</span>
+                    </div>
+                    <div class="col-1 text-center">
+                        <p-checkbox [inputId]="i" name="item" [value]="item.nombre+'&'+item.valor1"
+                            [(ngModel)]="examName">
+                        </p-checkbox>
+                    </div>
+                    <div class="col-1 text-center">
+                        <p-checkbox [inputId]="i" name="item" [value]="item.nombre+'&'+item.valor2"
+                            [(ngModel)]="examName">
+                        </p-checkbox>
+                    </div>
+                    <div class="col-1 text-center">
+                        <p-checkbox [inputId]="i" name="item" [value]="item.nombre+'&'+item.valor3"
+                            [(ngModel)]="examName">
+                        </p-checkbox>
+                    </div>
+                    <div class="col-1 text-center">
+                        <p-checkbox [inputId]="i" name="item" [value]="item.nombre+'&'+item.valor4"
+                            [(ngModel)]="examName">
+                        </p-checkbox>
+                    </div>
+                    <div class="col-3">
+                        <span [for]="item">{{item.fecha}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button style="background-color: #0c3866" class="" pButton type="button" (click)="add()">Guardar
+        </button>
+    </div>
+</div>

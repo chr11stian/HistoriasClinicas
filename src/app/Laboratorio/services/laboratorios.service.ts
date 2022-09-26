@@ -40,4 +40,11 @@ export class LaboratoriosService {
             .then(res => res)
             .then(data => { return data; })
     }
+
+    getLaboExamsOfPregnancy(idFiliacion: string) {
+        return this.http.get(`${this.base_url}/${this.bd}/filiacion/get/examen/laboratorio/${idFiliacion}`)
+            .toPromise()
+            .then(res => res)
+            .then(data => { return data; })
+    }
 }
