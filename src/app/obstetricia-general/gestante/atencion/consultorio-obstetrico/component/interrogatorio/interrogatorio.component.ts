@@ -99,6 +99,9 @@ export class InterrogatorioComponent implements OnInit {
     this.inicializarForm();
     this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
     this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
+    this.nroDeConsulta=(JSON.parse(localStorage.getItem('datosConsultaActual'))).nroAtencion;
+
+    //estado para saber que estado usar en consultas
     this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
     this.consultationId = JSON.parse(localStorage.getItem('IDConsulta'));
     console.log('estado edicion ', this.estadoEdicion);
@@ -722,14 +725,15 @@ export class InterrogatorioComponent implements OnInit {
     this.chkLatidos! ? this.formExamenFetal.patchValue({ latidosCardiacos: null }) : '';
   }
   //plan parto
-  listaPlanParto: any[] = []
-  dataEnviarPlanParto = {}
-  getPlanParto() {
-    this.intervaloPartoService.getPlanbyIdFiliacion(this.Gestacion.id).subscribe((resp: any) => {
-      if (resp.cod == '2040') {
-        const objeto = {
-          fechaAtencion: resp.object.planItems[0].fecha,
-          edadGestacional: resp.object.planItems[0].items[0].valor
+  listaPlanParto:any[]=[]
+  dataEnviarPlanParto={}
+  nroDeConsulta:number=0;
+  getPlanParto(){
+    this.intervaloPartoService.getPlanbyIdFiliacion(this.Gestacion.id).subscribe((resp:any)=>{
+      if(resp.cod=='2040'){
+        const objeto={
+          fechaAtencion:resp.object.planItems[0].fecha,
+          edadGestacional:resp.object.planItems[0].items[0].valor
         }
         this.listaPlanParto.push(objeto)
       }
