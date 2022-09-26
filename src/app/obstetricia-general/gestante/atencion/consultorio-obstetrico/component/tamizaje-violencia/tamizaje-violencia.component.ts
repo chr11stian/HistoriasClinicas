@@ -435,6 +435,7 @@ export class TamizajeViolenciaComponent implements OnInit {
             apePaterno: this.formDatos_Tamisaje.get('apePaterno').value,
             apeMaterno: this.formDatos_Tamisaje.get('apeMaterno').value,
             fecha: this.datePipe.transform(this.formDatos_Tamisaje.get('Fecha').value, 'yyyy-MM-dd'),
+            // fecha: ('2022-09-26'),
             edad: this.formDatos_Tamisaje.get('Edad').value,
             direccion: this.formDatos_Tamisaje.get('Direccion').value,
             telefono: this.formDatos_Tamisaje.get('Telefono').value,
@@ -495,25 +496,33 @@ export class TamizajeViolenciaComponent implements OnInit {
         )
         }
         else{ 
-            this.tamizajeViolenciaService.addTamizajeViolencia(data).subscribe((result: any) => {
-                if (result.object == null) {
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'Registro',
-                        text: result.mensaje,
-                        showConfirmButton: false,
-                        timer: 1500,
-                    })
-                } else {
-                    this.getTamizajePorIDConsulta()
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Registro',
-                        text: result.mensaje,
-                        showConfirmButton: false,
-                        timer: 1500,
-                    })
+            this.tamizajeViolenciaService.addTamizajeViolencia(data).toPromise()
+            .then((result: any) => {
+                console.log("-intentamos-");
+                
+                if(result.Object==null){
+                    throw result
                 }
+                
+                this.getTamizajePorIDConsulta()
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Registro',
+                    text: result.mensaje,
+                    showConfirmButton: false,
+                    timer: 1500,
+                })
+                
+                
+             })
+             .catch((error)=>{
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Registro',
+                    text: error.cod="2010"?"no se puede evaluar en una misma fecha":"error",
+                    showConfirmButton: false,
+                    timer: 1500,
+                })
                 
              })
 
