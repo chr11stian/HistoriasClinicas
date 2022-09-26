@@ -81,7 +81,7 @@ export class ExamsInOfficeDialogComponent implements OnInit {
         title: 'Solo se selecciona un elemento de la fila',
         text: '',
         showConfirmButton: false,
-        // timer: 2000,
+        timer: 2000,
       })
     }
   }
