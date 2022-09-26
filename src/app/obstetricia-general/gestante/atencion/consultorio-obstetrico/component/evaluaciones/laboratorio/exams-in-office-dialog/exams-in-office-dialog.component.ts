@@ -60,8 +60,6 @@ export class ExamsInOfficeDialogComponent implements OnInit {
   add() {
     this.examsToSave = [];
     let aux: any[] = [];
-    // console.log('resultado ', this.hemoExamResult);
-    // console.log('other exams ', this.examName);
 
     this.examName.map(item => {
       let a = item.split('&')
@@ -75,7 +73,6 @@ export class ExamsInOfficeDialogComponent implements OnInit {
       // aux.push(a);
     });
     let isDuplicated: boolean = false;
-    // let dup: boolean = this.examsToSave.some((item, index, arry) =>console.log('arra ', arry));
     let duplex = new Set(this.examsToSave.map(item => item.nombre))
     duplex.size == this.examsToSave.length ? isDuplicated = false : isDuplicated = true;
     if (isDuplicated) {
