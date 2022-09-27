@@ -53,7 +53,6 @@ export class AtencionesComponent implements OnInit {
     }
     ngOnInit(): void {
         this.getAtencionesDeFiliacion();
-        this.recuperarDatosGraficoAlturaUterina();
         this.recuperarIMC();
     }
      /***************Recuperar Datos de Atenciones*********************/
@@ -69,6 +68,7 @@ export class AtencionesComponent implements OnInit {
                 })
                 this.listaAtenciones = res.object;
                 this.recuperarDatosGraficoPesoMadre();
+                this.recuperarDatosGraficoAlturaUterina();
             }
         })
         .catch(error=>{console.log(error);
@@ -100,11 +100,10 @@ export class AtencionesComponent implements OnInit {
 
     /*********Recuperar Datos  para el gráfico Altura uterina Madre*************/
     recuperarDatosGraficoAlturaUterina() {
-        this.atencionesService.getDatosGraficoAlturaUterina(this.idFiliacion).subscribe((res: any) => {
-            const datosAlturaUterina=res.object
-            datosAlturaUterina.forEach(element => {
-                this.datosGraficoAlturaUterina.push([element.edadGestacional, element.alturaUterina]);
-            });
+        this.listaAtenciones.forEach((item)=>{
+            if(item.edadGestacionalSemanas && item.evaluacionNutricional && item.evaluacionNutricional){
+                this.datosGraficoAlturaUterina.push([item.edadGestacionalSemanas,item.alturaUterina]);
+            }
         })
     }
 

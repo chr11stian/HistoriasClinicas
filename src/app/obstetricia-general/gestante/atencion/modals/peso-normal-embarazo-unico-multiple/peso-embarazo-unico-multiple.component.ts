@@ -90,7 +90,7 @@ export class PesoEmbarazoUnicoMultipleComponent implements OnInit {
             this.names,
             (this.config.data.dataPregmant as Array<number[]>),
             // {color: '#09fff9', name: 'gestante'},
-            {color: '#0c3866', name: 'gestante'},
+            {color: '#0c3866', name: 'Peso Madre'},
             this.colors,
             {xAxis: 'trimestre', yAxis: 'kg'}
         )
