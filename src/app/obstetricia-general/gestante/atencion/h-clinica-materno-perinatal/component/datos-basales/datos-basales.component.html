@@ -1,17 +1,4 @@
-<!-- <p-toolbar>
-    <ng-template pTemplate="left">
-        <span>DATOS BASALES DEL EMBARAZO ACTUAL</span>
-    </ng-template>
-    <ng-template pTemplate="right" class="button">
-        <button pButton pRipple label="Atras" icon="pi pi-angle-left" class="p-button-secondary mr-2"></button>
-        <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right" (click)="guardarDatos()"
-                class="guardar mr-2" style="background-color: #0c3866"></button>
-    </ng-template>
-</p-toolbar> -->
-<br>
-
-
-<div>
+<div class="col-12">
     <form [formGroup]='form'>
         <div class="grid">
             <div class="col-12 md:col-6 lg:col-2" style="align-self: start">
@@ -1376,6 +1363,7 @@
                                         <input type="date" pInputText formControlName='dateGotaGruesa' placeholder=""
                                             class="inputfield w-full">
                                     </div>
+                                    <p-speedDial (click)="openLaboResultDialog()"></p-speedDial>
                                 </div>
                             </div>
                             <br>
@@ -1497,8 +1485,6 @@
                                     <div class="col-1">
                                     </div>
                                     <div class="col-4 ml-3">
-                                        <!-- <p-calendar formControlName="datePap" [showIcon]="true" inputId="icon">
-                                        </p-calendar> -->
                                         <input type="date" pInputText formControlName='datePap' placeholder=""
                                             class="inputfield w-full">
                                     </div>
@@ -1524,14 +1510,11 @@
                                     <div class="col-1">
                                     </div>
                                     <div class="col-4 ml-3">
-                                        <!-- <p-calendar formControlName="dateIvaa" [showIcon]="true" inputId="icon">
-                                        </p-calendar> -->
                                         <input type="date" pInputText formControlName='dateIvaa' placeholder=""
                                             class="inputfield w-full">
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>

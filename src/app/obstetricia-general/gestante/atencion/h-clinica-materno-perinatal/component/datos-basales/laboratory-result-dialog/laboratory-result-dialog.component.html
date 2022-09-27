@@ -1,0 +1,29 @@
+<div class="grid">
+    <div class="col-12">
+        <p-table [value]="arrayResults" styleClass="p-datatable-gridlines " [rows]="5" responsiveLayout="scroll"
+            class="CitasList" [rowsPerPageOptions]="[5, 10, 15]" [paginator]="true" [autoLayout]="true"
+            currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="text-align: center; font-size: 11px">Nro</th>
+                    <th style="text-align: center; font-size: 11px">FECHA REGISTRO</th>
+                    <th style="text-align: center; font-size: 11px">TIPO DE EXAMEN</th>
+                    <th style="text-align: center; font-size: 11px">NOMBRE DEL EXAMEN</th>
+                    <th style="text-align: center; font-size: 11px">RESULTADOS</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                <tr>
+                    <td style="text-align: center; font-size: 11px">{{ rowIndex + 1 }}</td>
+                    <td style="text-align: center; font-size: 11px">{{ rowData.fechaRegistro}}</td>
+                    <td style="text-align: center; font-size: 11px">{{ rowData.datosLaboratorio.subTipo}}</td>
+                    <td style="text-align: center; font-size: 11px">{{ rowData.datosLaboratorio.nombreExamen}}</td>
+                    <td style="text-align: center">
+                        <button pButton pRipple type="button" label="Ver" class="p-button-secondary"
+                            style="font-size: 11px" (click)="openDialogLab(rowData)"></button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

@@ -501,7 +501,7 @@ export class GiagnosticosComponent implements OnInit {
 
         }
 
-        this.DxService.updateConsultas(this.nroFetos, req).subscribe(
+        this.DxService.updateConsultas(this.nroFetos, this.Gestacion.id, req).subscribe(
             (resp) => {
                 console.log(resp);
                 console.log(req);
@@ -523,7 +523,7 @@ export class GiagnosticosComponent implements OnInit {
             nroEmbarazo: this.nroEmbarazo,
             nroAtencion: this.nroAtencion
         }
-        this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
+        this.DxService.getConsultaPrenatalByEmbarazo(this.idConsult, aux).subscribe((res: any) => {
             this.dataAux = res.object;
             console.log("data consulta:" + this.dataAux);
 

@@ -59,7 +59,7 @@ export class InterrogatorioComponent implements OnInit {
   ];
   interrogatorioData: any;
   ref: DynamicDialogRef;
-  refPlanParto:DynamicDialogRef
+  refPlanParto: DynamicDialogRef
   fetalesExamDialog: boolean = false;
   examenesFetales: any;
   listaExamenesFetos: any[] = [];
@@ -85,6 +85,7 @@ export class InterrogatorioComponent implements OnInit {
   chkLatidos: boolean = false;
 
   estadoEditar: boolean;
+  consultationId: string;
   constructor(
     private fb: FormBuilder,
     public dialog: DialogService,
@@ -93,31 +94,23 @@ export class InterrogatorioComponent implements OnInit {
     private obstetriciaService: ObstetriciaGeneralService,
     private router: Router,
     private imcService: ImcService,
-    private intervaloPartoService:IntervaloPartoService
+    private intervaloPartoService: IntervaloPartoService
   ) {
     this.inicializarForm();
-
-    //this.idConsulta = this.obstetriciaService.idGestacion;
-    //console.log('consulta ', this.obstetriciaService);
-
     this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
     this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
     this.nroDeConsulta=(JSON.parse(localStorage.getItem('datosConsultaActual'))).nroAtencion;
 
     //estado para saber que estado usar en consultas
     this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
-
-    // console.log("DATA PACIENTE 2 desde datos generales", this.dataPaciente2);
-    // console.log("gestacion desde datos generales", this.Gestacion);
-    this.formExamFisico.value.peso == undefined ? this.estadoEdicion = false : this.estadoEdicion = true;
-
+    this.consultationId = JSON.parse(localStorage.getItem('IDConsulta'));
+    console.log('estado edicion ', this.estadoEdicion);
     if (this.Gestacion == null) {
       this.tipoDocRecuperado = this.dataPaciente2.tipoDoc;
       this.nroDocRecuperado = this.dataPaciente2.nroDoc;
       this.idConsulta = JSON.parse(localStorage.getItem('idGestacionRegistro'));
       this.nroEmbarazo = this.dataPaciente2.nroEmbarazo;
       this.nroHcl = this.dataPaciente2.nroHcl;
-
     } else {
       this.tipoDocRecuperado = this.Gestacion.tipoDoc;
       this.nroDocRecuperado = this.Gestacion.nroDoc;
@@ -138,10 +131,12 @@ export class InterrogatorioComponent implements OnInit {
       this.form.get("fr").setValue(triaje.funcionesVitales.fr);
       this.form.get("peso").setValue(triaje.funcionesVitales.peso);
       this.form.get("talla").setValue(triaje.funcionesVitales.talla);
+      // this.form.get("imc").setValue(Math.round(triaje.funcionesVitales.imc * 100) / 100);
     }
     else {
       let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaEditar'));
       this.nroAtencion = nroAtencion;
+
     }
     this.getUltimaConsulta();
   }
@@ -160,8 +155,6 @@ export class InterrogatorioComponent implements OnInit {
       id: this.idConsulta
       // nroHcl: this
     }
-
-    console.log('object data ', idData);
     const response: any = await this.consultaObstetricaService.getLastConsulById(idData);
     this.ultimaConsulta = response.object;
     this.nroFetos = this.ultimaConsulta.nroFetos;
@@ -170,58 +163,61 @@ export class InterrogatorioComponent implements OnInit {
     this.form.get("imc").setValue(this.ultimaConsulta.imc);
     this.form.get("pesoHabitual").setValue(this.ultimaConsulta.pesoHabitual);
     this.form.patchValue({ nroFetos: this.nroFetos });
-
-    if (!this.estadoEditar) {
-      this.calcularEdadGestacional(this.ultimaConsulta.fum);
-      this.calcularGanancia();
-      //funciones biologicas
-      this.form.patchValue({ apetito: this.ultimaConsulta.funcionesBiologicas[0].valor });
-      this.form.patchValue({ sed: this.ultimaConsulta.funcionesBiologicas[1].valor });
-      this.form.patchValue({ suenos: this.ultimaConsulta.funcionesBiologicas[2].valor });
-      this.form.patchValue({ estadoAnimo: this.ultimaConsulta.funcionesBiologicas[3].valor });
-      this.form.patchValue({ orina: this.ultimaConsulta.funcionesBiologicas[4].valor });
-      this.form.patchValue({ deposiciones: this.ultimaConsulta.funcionesBiologicas[5].valor });
-
-      this.form.patchValue({ apetitoDetalle: this.ultimaConsulta.funcionesBiologicas[0].detalle });
-      this.form.patchValue({ sedDetalle: this.ultimaConsulta.funcionesBiologicas[1].detalle });
-      this.form.patchValue({ suenosDetalle: this.ultimaConsulta.funcionesBiologicas[2].detalle });
-      this.form.patchValue({ estadoAnimoDetalle: this.ultimaConsulta.funcionesBiologicas[3].detalle });
-      this.form.patchValue({ orinaDetalle: this.ultimaConsulta.funcionesBiologicas[4].detalle });
-      this.form.patchValue({ deposicionesDetalle: this.ultimaConsulta.funcionesBiologicas[5].detalle });
-
-      //examenes fisicos
-      this.form.patchValue({ piel: this.ultimaConsulta.examenesFisicos[0].valor });
-      this.form.patchValue({ mucosas: this.ultimaConsulta.examenesFisicos[1].valor });
-      this.form.patchValue({ cabeza: this.ultimaConsulta.examenesFisicos[2].valor });
-      this.form.patchValue({ cuello: this.ultimaConsulta.examenesFisicos[3].valor });
-      this.form.patchValue({ cardioVasc: this.ultimaConsulta.examenesFisicos[4].valor });
-      this.form.patchValue({ pulmones: this.ultimaConsulta.examenesFisicos[5].valor });
-      this.form.patchValue({ mamas: this.ultimaConsulta.examenesFisicos[6].valor });
-      this.form.patchValue({ pezones: this.ultimaConsulta.examenesFisicos[7].valor });
-      this.form.patchValue({ abdomen: this.ultimaConsulta.examenesFisicos[8].valor });
-
-      this.form.patchValue({ pielDetalle: this.ultimaConsulta.examenesFisicos[0].detalle });
-      this.form.patchValue({ mucosasDetalle: this.ultimaConsulta.examenesFisicos[1].detalle });
-      this.form.patchValue({ cabezaDetalle: this.ultimaConsulta.examenesFisicos[2].detalle });
-      this.form.patchValue({ cuelloDetalle: this.ultimaConsulta.examenesFisicos[3].detalle });
-      this.form.patchValue({ cardioVascDetalle: this.ultimaConsulta.examenesFisicos[4].detalle });
-      this.form.patchValue({ pulmonesDetalle: this.ultimaConsulta.examenesFisicos[5].detalle });
-      this.form.patchValue({ mamasDetalle: this.ultimaConsulta.examenesFisicos[6].detalle });
-      this.form.patchValue({ pezonesDetalle: this.ultimaConsulta.examenesFisicos[7].detalle });
-      this.form.patchValue({ abdomenDetalle: this.ultimaConsulta.examenesFisicos[8].detalle });
-      if (this.ultimaConsulta.examenesFisicos.length > 9) {
-        this.form.patchValue({ examenFisicoOtro: this.ultimaConsulta.examenesFisicos[9].valor });
-      }
-    } else {
-      this.calcularEdadGestacional(this.ultimaConsulta.fum);
-      console.log('estado editar true');
+    this.calcularEdadGestacional(this.ultimaConsulta.fum);
+    if (this.estadoEditar) {
+      this.loadData();
     }
+
+    // if (!this.estadoEditar) {
+    //   this.calcularEdadGestacional(this.ultimaConsulta.fum);
+    //   this.calcularGanancia();
+    //   //funciones biologicas
+    //   this.form.patchValue({ apetito: this.ultimaConsulta.funcionesBiologicas[0].valor });
+    //   this.form.patchValue({ sed: this.ultimaConsulta.funcionesBiologicas[1].valor });
+    //   this.form.patchValue({ suenos: this.ultimaConsulta.funcionesBiologicas[2].valor });
+    //   this.form.patchValue({ estadoAnimo: this.ultimaConsulta.funcionesBiologicas[3].valor });
+    //   this.form.patchValue({ orina: this.ultimaConsulta.funcionesBiologicas[4].valor });
+    //   this.form.patchValue({ deposiciones: this.ultimaConsulta.funcionesBiologicas[5].valor });
+
+    //   this.form.patchValue({ apetitoDetalle: this.ultimaConsulta.funcionesBiologicas[0].detalle });
+    //   this.form.patchValue({ sedDetalle: this.ultimaConsulta.funcionesBiologicas[1].detalle });
+    //   this.form.patchValue({ suenosDetalle: this.ultimaConsulta.funcionesBiologicas[2].detalle });
+    //   this.form.patchValue({ estadoAnimoDetalle: this.ultimaConsulta.funcionesBiologicas[3].detalle });
+    //   this.form.patchValue({ orinaDetalle: this.ultimaConsulta.funcionesBiologicas[4].detalle });
+    //   this.form.patchValue({ deposicionesDetalle: this.ultimaConsulta.funcionesBiologicas[5].detalle });
+
+    //   //examenes fisicos
+    //   this.form.patchValue({ piel: this.ultimaConsulta.examenesFisicos[0].valor });
+    //   this.form.patchValue({ mucosas: this.ultimaConsulta.examenesFisicos[1].valor });
+    //   this.form.patchValue({ cabeza: this.ultimaConsulta.examenesFisicos[2].valor });
+    //   this.form.patchValue({ cuello: this.ultimaConsulta.examenesFisicos[3].valor });
+    //   this.form.patchValue({ cardioVasc: this.ultimaConsulta.examenesFisicos[4].valor });
+    //   this.form.patchValue({ pulmones: this.ultimaConsulta.examenesFisicos[5].valor });
+    //   this.form.patchValue({ mamas: this.ultimaConsulta.examenesFisicos[6].valor });
+    //   this.form.patchValue({ pezones: this.ultimaConsulta.examenesFisicos[7].valor });
+    //   this.form.patchValue({ abdomen: this.ultimaConsulta.examenesFisicos[8].valor });
+
+    //   this.form.patchValue({ pielDetalle: this.ultimaConsulta.examenesFisicos[0].detalle });
+    //   this.form.patchValue({ mucosasDetalle: this.ultimaConsulta.examenesFisicos[1].detalle });
+    //   this.form.patchValue({ cabezaDetalle: this.ultimaConsulta.examenesFisicos[2].detalle });
+    //   this.form.patchValue({ cuelloDetalle: this.ultimaConsulta.examenesFisicos[3].detalle });
+    //   this.form.patchValue({ cardioVascDetalle: this.ultimaConsulta.examenesFisicos[4].detalle });
+    //   this.form.patchValue({ pulmonesDetalle: this.ultimaConsulta.examenesFisicos[5].detalle });
+    //   this.form.patchValue({ mamasDetalle: this.ultimaConsulta.examenesFisicos[6].detalle });
+    //   this.form.patchValue({ pezonesDetalle: this.ultimaConsulta.examenesFisicos[7].detalle });
+    //   this.form.patchValue({ abdomenDetalle: this.ultimaConsulta.examenesFisicos[8].detalle });
+    //   if (this.ultimaConsulta.examenesFisicos.length > 9) {
+    //     this.form.patchValue({ examenFisicoOtro: this.ultimaConsulta.examenesFisicos[9].valor });
+    //   }
+    // } else {
+    //   this.calcularEdadGestacional(this.ultimaConsulta.fum);
+    //   console.log('estado editar true');
+    // }
 
 
   }
 
   calcularEdadGestacional(fum) {
-    console.log('FUMMMMMMMMMMMMMM ', fum);
     if (fum) {
       let today = new Date().getTime();
       let auxFUM = new Date(fum).getTime();
@@ -549,7 +545,7 @@ export class InterrogatorioComponent implements OnInit {
 
   guardarDatos() {
     this.recuperarDatos();
-    this.consultaObstetricaService.updateConsultas(this.form.value.nroFetos, this.interrogatorioData).subscribe((res: any) => {
+    this.consultaObstetricaService.updateConsultas(this.form.value.nroFetos, this.Gestacion.id, this.interrogatorioData).subscribe((res: any) => {
       this.messageService.add({
         severity: "success",
         summary: "Exito",
@@ -608,14 +604,13 @@ export class InterrogatorioComponent implements OnInit {
 
   loadData() {
     let auxData = {
-      // id: this.idConsulta,
       nroHcl: this.nroHcl,
       nroEmbarazo: this.nroEmbarazo,
       nroAtencion: this.nroAtencion
     }
     let Rpta;
     console.log('to recuperar ', auxData);
-    this.consultaObstetricaService.getInterrogatorioByEmbarazo(auxData).subscribe((res: any) => {
+    this.consultaObstetricaService.getInterrogatorioByEmbarazo(this.Gestacion.id, this.consultationId).then((res: any) => {
       Rpta = res.object[0];
       console.log("desde interrogatorio ", Rpta);
       if (Rpta.signosVitales == null) {
@@ -742,21 +737,21 @@ export class InterrogatorioComponent implements OnInit {
         }
         this.listaPlanParto.push(objeto)
       }
-      this.dataEnviarPlanParto={
-        tienePlan:resp.cod=='2040'?true:false,
-        idFiliacion:this.Gestacion.id,
-        respuestaGetPlanParto:resp.object
+      this.dataEnviarPlanParto = {
+        tienePlan: resp.cod == '2040' ? true : false,
+        idFiliacion: this.Gestacion.id,
+        respuestaGetPlanParto: resp.object
       }
     })
   }
-  openModal(){
+  openModal() {
     this.refPlanParto = this.dialog.open(ModalPlanPartoComponent, {
-      data:this.dataEnviarPlanParto,
+      data: this.dataEnviarPlanParto,
       header: 'Agregar plan de Parto',
       width: '80%'
     });
-    this.refPlanParto.onClose.subscribe((mensaje)=>{
-      if(mensaje=='agregado'){
+    this.refPlanParto.onClose.subscribe((mensaje) => {
+      if (mensaje == 'agregado') {
         Swal.fire({
           position: 'center',
           icon: 'success',
@@ -765,11 +760,11 @@ export class InterrogatorioComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         })
-        this.listaPlanParto=[]
+        this.listaPlanParto = []
         this.getPlanParto()
       }
 
-      
+
     })
 
   }

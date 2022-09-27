@@ -20,6 +20,7 @@ import {
 import { LabOrinaComponent } from "../../../../../../../Laboratorio/component/lab-orina/lab-orina.component";
 import { LaboratoriosService } from "../../../../../../../Laboratorio/services/laboratorios.service";
 import { ExamenesAuxiliaresService } from 'src/app/cred/citas/atencion-cred/consulta-principal/services/examenes-auxiliares.service';
+import { ExamsInOfficeDialogComponent } from './exams-in-office-dialog/exams-in-office-dialog.component';
 
 @Component({
     selector: 'app-laboratorio',
@@ -149,8 +150,10 @@ export class LaboratorioComponent implements OnInit {
                 this.ref = this.dialog.open(LabParasitologiaComponent, {
                     header: "LABORATORIO CLINICO - Parasitologia",
                     width: "70%",
-                    data: {dataEnviada:data,
-                        isPruebaTomada:true}
+                    data: {
+                        dataEnviada: data,
+                        isPruebaTomada: true
+                    }
                 });
                 console.log("DATA", data);
                 this.ref.onClose.subscribe((data: any) => {
@@ -162,8 +165,10 @@ export class LaboratorioComponent implements OnInit {
                 this.ref = this.dialog.open(LabOrinaComponent, {
                     header: "LABORATORIO CLINICO - URUANALISIS",
                     width: "70%",
-                    data: {dataEnviada:data,
-                        isPruebaTomada:true}
+                    data: {
+                        dataEnviada: data,
+                        isPruebaTomada: true
+                    }
                 });
                 console.log("DATA", data);
                 this.ref.onClose.subscribe((data: any) => {
@@ -172,10 +177,23 @@ export class LaboratorioComponent implements OnInit {
                 break;
         }
     }
+
     listarPeticiones() {
         this.examenAuxiliarService.getListarPeticiones(this.idConsulta).then(res => {
             this.listaExamen = res.object.examenesAuxiliares
             console.log('lista examenes ', this.listaExamen);
+        })
+    }
+
+    openExamsInOfficeDialog() {
+        this.ref = this.dialog.open(ExamsInOfficeDialogComponent, {
+            header: "EXÁMENES EN CONSULTORIO",
+            width: "70%",
+            // height: "90%",
+            contentStyle: {
+                "max-height": "92%",
+                overflow: "auto",
+            },
         })
     }
 }

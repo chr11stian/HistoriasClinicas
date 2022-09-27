@@ -47,7 +47,7 @@ export class ProcedImagenesComponent implements OnInit {
   nroConsultaGuardada: any;
   fechaConsulta: any = new Date();
   fechaInicio: any = new Date();
-
+  consultationId: string;
   constructor(
     private formBuilder: FormBuilder,
     private dialog: DialogService,
@@ -63,6 +63,7 @@ export class ProcedImagenesComponent implements OnInit {
     /*usando local storage*/
     this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
     let documento = JSON.parse(localStorage.getItem('documento'));
+    this.consultationId = JSON.parse(localStorage.getItem('documento'));
     // this.getdataPaciente(documento);
     this.edadPaciente = documento.anio;
     this.sexoPaciente = documento.sexo;
@@ -204,38 +205,38 @@ export class ProcedImagenesComponent implements OnInit {
     let data = {
       codigoHIS: index
     }
-    Swal.fire({
-      showCancelButton: true,
-      confirmButtonText: 'Eliminar',
-      icon: 'warning',
-      title: 'Estas seguro de eliminar este registro?',
-      text: '',
-      showConfirmButton: true,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        let aux = {
-          id: this.idConsulta,
-          nroHcl: this.nroHcl,
-          nroEmbarazo: this.nroEmbarazo,
-          nroAtencion: this.nroAtencion
-        }
-        this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
-          this.nroConsultaGuardada = res.object.id;
-          this.DxService.eliminarSolicitudEcografiasGestante(this.nroConsultaGuardada, data).subscribe(
-            (resp) => {
-              // this.recuperarEcografiasPendientes();
-              Swal.fire({
-                icon: 'success',
-                title: 'Eliminado correctamente',
-                text: '',
-                showConfirmButton: false,
-                timer: 1500
-              })
-            }
-          );
-        })
-      }
-    })
+    // Swal.fire({
+    //   showCancelButton: true,
+    //   confirmButtonText: 'Eliminar',
+    //   icon: 'warning',
+    //   title: 'Estas seguro de eliminar este registro?',
+    //   text: '',
+    //   showConfirmButton: true,
+    // }).then((result) => {
+    //   if (result.isConfirmed) {
+    //     let aux = {
+    //       id: this.idConsulta,
+    //       nroHcl: this.nroHcl,
+    //       nroEmbarazo: this.nroEmbarazo,
+    //       nroAtencion: this.nroAtencion
+    //     }
+    //     this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
+    //       this.nroConsultaGuardada = res.object.id;
+    //       this.DxService.eliminarSolicitudEcografiasGestante(this.nroConsultaGuardada, data).subscribe(
+    //         (resp) => {
+    //           // this.recuperarEcografiasPendientes();
+    //           Swal.fire({
+    //             icon: 'success',
+    //             title: 'Eliminado correctamente',
+    //             text: '',
+    //             showConfirmButton: false,
+    //             timer: 1500
+    //           })
+    //         }
+    //       );
+    //     })
+    //   }
+    // })
   }
 
   openResultadoEco() {

@@ -116,6 +116,7 @@ export class DatosGeneralesComponent implements OnInit {
 
     familiares2: any;
     atentionNum: number;
+    isEdit: boolean = false;
 
     constructor(private form: FormBuilder,
         private obstetriciaGeneralService: ObstetriciaGeneralService,
@@ -125,12 +126,9 @@ export class DatosGeneralesComponent implements OnInit {
 
         this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
         this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
-
+        this.isEdit = JSON.parse(localStorage.getItem('consultaEditarEstado'));
         //estado para saber que estado usar en consultas
         this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
-
-        console.log("DATA PACIENTE 2 desde datos generales", this.dataPaciente2);
-        console.log("gestacion desde datos generales", this.Gestacion);
 
         if (this.Gestacion == null) {
             this.tipoDocRecuperado = this.dataPaciente2.tipoDoc;
@@ -207,37 +205,37 @@ export class DatosGeneralesComponent implements OnInit {
             lazoParentesco: new FormControl(''),
 
             //Vacunas previas del paciente
-            vAntitetánica1Dosis: new FormControl(''),
+            vAntitetánica1Dosis: new FormControl({ value: '', disabled: true }),
             fecha1: new FormControl(''),
-            vAntitetánica2Dosis: new FormControl(''),
+            vAntitetánica2Dosis: new FormControl({ value: '', disabled: true }),
             fecha2: new FormControl(''),
-            rubeola: new FormControl(''),
+            rubeola: new FormControl({ value: '', disabled: true }),
             fecha3: new FormControl(''),
-            HepatitesB: new FormControl(''),
+            HepatitesB: new FormControl({ value: '', disabled: true }),
             fecha4: new FormControl(''),
-            PapilomaV: new FormControl(''),
+            PapilomaV: new FormControl({ value: '', disabled: true }),
             fecha5: new FormControl(''),
-            Covid19: new FormControl(''),
+            Covid19: new FormControl({ value: '', disabled: true }),
             fecha6: new FormControl(''),
-            influenza: new FormControl(''),
+            influenza: new FormControl({ value: '', disabled: true }),
 
             //Antecedentes Gineco Obstetrico
-            FUR: new FormControl(''),
-            FPP: new FormControl(''),
+            FUR: new FormControl({ value: '', disabled: true }),
+            FPP: new FormControl({ value: '', disabled: true }),
             RCAT: new FormControl(''),
-            G: new FormControl('',),
-            P1: new FormControl(''),
-            P2: new FormControl(''),
-            P3: new FormControl(''),
-            P4: new FormControl(''),
-            gesAnterior: new FormControl(''),
-            RNpesoMayor: new FormControl(''),
+            G: new FormControl({ value: '', disabled: true }),
+            P1: new FormControl({ value: '', disabled: true }),
+            P2: new FormControl({ value: '', disabled: true }),
+            P3: new FormControl({ value: '', disabled: true }),
+            P4: new FormControl({ value: '', disabled: true }),
+            gesAnterior: new FormControl({ value: '', disabled: true }),
+            RNpesoMayor: new FormControl({ value: '', disabled: true }),
 
             //ANTECEDENTES
             AntecedentesFamiliares: new FormControl(''),
             AntecedentesPersonales: new FormControl(''),
-            FumaCigarros: new FormControl(''),
-            Drogas: new FormControl(''),
+            FumaCigarros: new FormControl({ value: '', disabled: true }),
+            Drogas: new FormControl({ value: '', disabled: true }),
             Psicoprofilaxis: new FormControl(''),
 
             /****DESCARTE SIGNO DE ALARMA******/
@@ -286,16 +284,13 @@ export class DatosGeneralesComponent implements OnInit {
             nombrefamiliar11: new FormControl(''),
             nombrefamiliar12: new FormControl(''),
         });
+        // this.formDatos_Generales.get('FUR').disable();
     }
 
     ngOnInit(): void {
         this.buildForm();
         this.obternerFechaActual();
 
-        console.log("TipoDocRecuperado desde datos generales", this.tipoDocRecuperado);
-        console.log("NroDocRecuparado desde datos generales", this.nroDocRecuperado);
-        console.log("Nro de embarazo desde datos generales", this.nroEmbarazo);
-        console.log("Id Consultorio Obstetrico desde datos generales", this.idConsultoriObstetrico);
 
         /**Si la datos de consultorio esta en vacio recupera los datos del paciente***/
         /**Caso contrario recupera los datos de Consultorio***/
@@ -324,7 +319,7 @@ export class DatosGeneralesComponent implements OnInit {
         let data = {
             nroHcl: this.dataPacientes.nroHcl,
             nroEmbarazo: this.nroEmbarazo,
-            nroAtencion: this.atentionNum + 1
+            nroAtencion: this.nroAtencion
         }
         this.consultasService.getConsultas(this.Gestacion.id, data).then((res: any) => {
             this.dataConsultas = res.object
@@ -736,9 +731,9 @@ export class DatosGeneralesComponent implements OnInit {
             },
 
             nroAtencion: (this.formDatos_Generales.value.nroAtencion),
-            nroControlSis: this.formDatos_Generales.value.nroControlSis,
+            nroControlSis: this.formDatos_Generales.value.nroControl,
 
-            fum: this.datePipe.transform(this.formDatos_Generales.value.FUR, 'yyyy-MM-dd'),
+            fum: this.datePipe.transform(this.formDatos_Generales.getRawValue().FUR, 'yyyy-MM-dd'),
             rcat: this.formDatos_Generales.value.RCAT,
 
             psicoprofilaxis: {
@@ -815,8 +810,7 @@ export class DatosGeneralesComponent implements OnInit {
                 },
             ],
         }
-        console.log('data to save datos generales ', this.data);
-
+        console.log('data de consultaaaaaaaaaaaaaaaa ', JSON.stringify(this.data));
         if (this.dataConsultas == null) {
             this.consultasService.addConsultas(this.nroFetos, this.Gestacion.id, this.data).then((result: any) => {
                 Swal.fire({
@@ -825,13 +819,11 @@ export class DatosGeneralesComponent implements OnInit {
                     showConfirmButton: false,
                     timer: 1500,
                 })
-                // this.getConsultasID();
                 localStorage.setItem('IDConsulta', JSON.stringify(result.object.id));
-                // console.log('data de creacion ', result);
             }
             )
         } else {
-            this.consultasService.updateConsultas(this.nroFetos, this.data).subscribe((result: any) => {
+            this.consultasService.updateConsultas(this.nroFetos, this.Gestacion.id, this.data).subscribe((result: any) => {
                 Swal.fire({
                     icon: 'success',
                     title: 'Actualizo con exito',
