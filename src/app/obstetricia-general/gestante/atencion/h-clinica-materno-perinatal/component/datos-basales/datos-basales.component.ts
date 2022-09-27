@@ -50,11 +50,11 @@ export class DatosBasalesComponent implements OnInit {
     DataCupos: any;
     dialItems: MenuItem[];
 
-    constructor(private filiancionService: FiliancionService,
+    constructor(
+        private filiancionService: FiliancionService,
         private fb: FormBuilder,
         private datosBasalesService: DatosBasalesService,
         private obstetriciaService: ObstetriciaGeneralService,
-        private messageService: MessageService,
         private CieService: CieService,
         private dialog: DialogService,
         private imcService: ImcService,
@@ -74,11 +74,11 @@ export class DatosBasalesComponent implements OnInit {
         this.form.get('talla').setValue(this.DataCupos.funcionesVitales.talla);
         this.dialItems = [
             {
-                tooltipOptions:{
+                tooltipOptions: {
                     tooltipLabel: 'Laboratorios'
                 },
                 icon: 'pi pi-book',
-                command:()=>{
+                command: () => {
                     console.log('data de labossss');
                 }
             }
@@ -348,19 +348,19 @@ export class DatosBasalesComponent implements OnInit {
     recuperarHemoglobina() {
         this.hemoglobina = [
             {
-                descripcion: 'hemoglobina 1',
+                descripcion: 'HEMOGLOBINA 1',
                 hg: this.form.value.hg1,
                 conFactorCorrecion: this.form.value.conFactor1,
                 fecha: this.form.value.hemo1
             },
             {
-                descripcion: 'hemoglobina 2',
+                descripcion: 'HEMOGLOBINA 2',
                 hg: this.form.value.hg2,
                 conFactorCorrecion: this.form.value.conFactor2,
                 fecha: this.form.value.hemo2
             },
             {
-                descripcion: 'hemoglobina 3',
+                descripcion: 'HEMOGLOBINA 3',
                 hg: this.form.value.hg3,
                 conFactorCorrecion: this.form.value.conFactor3,
                 fecha: this.form.value.hemo3
@@ -384,19 +384,19 @@ export class DatosBasalesComponent implements OnInit {
                 valor: this.form.value.vdrl2,
                 fecha: this.form.value.dateVdrl2
             }, {
-                nombre: 'TPHA/VDRL (RPR reactivo)',
+                nombre: 'TPHA/VDRL (RPR REACTIVO)',
                 valor: this.form.value.tpha,
                 fecha: this.form.value.dateTpha
             }, {
-                nombre: 'VIH Prueba Rapida 1',
+                nombre: 'VIH PRUEBA RAPIDA 1',
                 valor: this.form.value.vih1,
                 fecha: this.form.value.dateVih1
             }, {
-                nombre: 'VIH Prueba Rapida 2',
+                nombre: 'VIH PRUEBA RAPIDA 2',
                 valor: this.form.value.vih2,
                 fecha: this.form.value.dateVih2
             }, {
-                nombre: 'PR Hepatitis',
+                nombre: 'PR HEPATITIS',
                 valor: this.form.value.hepatitis,
                 fecha: this.form.value.dateHepatitis
             }, {
@@ -408,47 +408,47 @@ export class DatosBasalesComponent implements OnInit {
                 valor: this.form.value.elisa2,
                 fecha: this.form.value.dateElisa2
             }, {
-                nombre: 'Glicemia 1',
+                nombre: 'GLICEMIA 1',
                 valor: this.form.value.glicemia1,
                 fecha: this.form.value.dateGlicemia1
             }, {
-                nombre: 'Glicemia 2',
+                nombre: 'GLICEMIA 2',
                 valor: this.form.value.glicemia2,
                 fecha: this.form.value.dateGlicemia2
             }, {
-                nombre: 'Tolerancia Glucosa',
+                nombre: 'TOLERANCIA GLUCOSA',
                 valor: this.form.value.glucosa,
                 fecha: this.form.value.dateGlucosa
             }, {
-                nombre: 'Ex. Comp Orina 1',
+                nombre: 'EX. COMP ORINA 1',
                 valor: this.form.value.orina1,
                 fecha: this.form.value.dateOrina1
             }, {
-                nombre: 'Ex. Comp Orina 2',
+                nombre: 'EX. COMP ORINA 2',
                 valor: this.form.value.orina2,
                 fecha: this.form.value.dateOrina2
             }, {
-                nombre: 'Ex. Comp Orina 3',
+                nombre: 'EX. COMP ORINA 3',
                 valor: this.form.value.orina3,
                 fecha: this.form.value.dateOrina3
             }, {
-                nombre: 'Bacteriuria',
+                nombre: 'BACTERIURIA',
                 valor: this.form.value.bacteriuria,
                 fecha: this.form.value.dateBacteriuria
             }, {
-                nombre: 'Nitritos',
+                nombre: 'NITRITOS',
                 valor: this.form.value.nitritos,
                 fecha: this.form.value.datevdrl1
             }, {
-                nombre: 'Urocultivo',
+                nombre: 'UROCULTIVO',
                 valor: this.form.value.urocultivo,
                 fecha: this.form.value.dateUrocultivo
             }, {
-                nombre: 'BK en Esputo',
+                nombre: 'BK EN ESPUTO',
                 valor: this.form.value.esputo,
                 fecha: this.form.value.dateEsputo
             }, {
-                nombre: 'Western Bolt/Ifi',
+                nombre: 'WESTERN BOLT/IFI',
                 valor: this.form.value.western,
                 fecha: this.form.value.dateWestern
             }, {
@@ -460,19 +460,19 @@ export class DatosBasalesComponent implements OnInit {
                 valor: this.form.value.torch,
                 fecha: this.form.value.dateTorch
             }, {
-                nombre: 'Gota Gruesa',
+                nombre: 'GOTA GRUESA',
                 valor: this.form.value.gotaGruesa,
                 fecha: this.form.value.dateGotaGruesa
             }, {
-                nombre: 'Proteinuria Cuantitativa',
+                nombre: 'PROTEINURIA CUANTITATIVA',
                 valor: this.form.value.proteinuriaCuanti,
                 fecha: this.form.value.dateProteinuriaCuanti
             }, {
-                nombre: 'Proteinuria Cualitativa',
+                nombre: 'PROTEINURIA CUALITATIVA',
                 valor: this.form.value.proteinuriaCuali,
                 fecha: this.form.value.dateProteinuriaCuali
             }, {
-                nombre: 'Secreción Vaginal',
+                nombre: 'SECRECION VAGINAL',
                 valor: this.form.value.secrecionVag,
                 fecha: this.form.value.dateSecrecionVag
             }, {
@@ -561,18 +561,18 @@ export class DatosBasalesComponent implements OnInit {
             this.form.patchValue({ 'hospitalizacion': this.rptaDatosBasales.hospitalizacion[0].hospitalizacion });
             this.form.patchValue({ 'dateHospitalizacion': this.rptaDatosBasales.hospitalizacion[0].fecha });
             this.form.patchValue({ 'diagnosticoHosp': this.rptaDatosBasales.hospitalizacion[0].diagnostico });
-
-            this.CieService.getCIEByCod(this.rptaDatosBasales.hospitalizacion[0].cie10).subscribe((resCIE: any) => {
-                this.form.patchValue({ 'hospitalizacionCIE': resCIE.object });
-            })
-
+            if (this.rptaDatosBasales.hospitalizacion[0].cie10 != "") {
+                this.CieService.getCIEByCod(this.rptaDatosBasales.hospitalizacion[0].cie10).subscribe((resCIE: any) => {
+                    this.form.patchValue({ 'hospitalizacionCIE': resCIE.object });
+                })
+            }
             this.form.patchValue({ 'dateEmergencia': this.rptaDatosBasales.emergencia.fecha });
             this.form.patchValue({ 'diagnosticoEmergenci': this.rptaDatosBasales.emergencia.diagnostico });
-
-            this.CieService.getCIEByCod(this.rptaDatosBasales.emergencia.cie10).subscribe((resCIE: any) => {
-                this.form.patchValue({ 'emergenciaCIE': resCIE.object });
-            });
-
+            if (this.rptaDatosBasales.emergencia.cie10 != "") {
+                this.CieService.getCIEByCod(this.rptaDatosBasales.emergencia.cie10).subscribe((resCIE: any) => {
+                    this.form.patchValue({ 'emergenciaCIE': resCIE.object });
+                });
+            }
             this.form.patchValue({ 'tamizaje': this.rptaDatosBasales.violenciaGenero.fichaTamizaje });
             this.form.patchValue({ 'violencia': this.rptaDatosBasales.violenciaGenero.violencia });
             this.form.patchValue({ 'dateViolencia': this.rptaDatosBasales.violenciaGenero.fecha });
@@ -915,8 +915,8 @@ export class DatosBasalesComponent implements OnInit {
         this.listaPatologiasMaternas.splice(index, 1);
     }
 
-    openLaboResultDialog(){
-        this.ref = this.dialog.open(LaboratoryResultDialogComponent,{
+    openLaboResultDialog() {
+        this.ref = this.dialog.open(LaboratoryResultDialogComponent, {
             header: "Resultados de Laboratorio",
             width: "70%",
             height: "auto",
