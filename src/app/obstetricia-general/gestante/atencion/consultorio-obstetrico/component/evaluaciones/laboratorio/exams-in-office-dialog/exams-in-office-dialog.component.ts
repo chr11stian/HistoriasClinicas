@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LaboratoriosService } from 'src/app/Laboratorio/services/laboratorios.service';
 import Swal from 'sweetalert2';
 
@@ -24,6 +24,11 @@ export class ExamsInOfficeDialogComponent implements OnInit {
   thirdGroupExams: OtherExam[] = [];
   fourthGroupExams: OtherExam[] = [];
   examsToSave: DataSave[] = [];
+  hemoForm = this.fb.group({
+    hemoglobina: this.fb.array([])
+  });
+  isHemoFormCreated: boolean = false;
+  dataHemoExam = [{ hg: '1', factorCorreccion: '1', fecha: '2022-09-08' }]
   constructor(
     private fb: FormBuilder,
     private laboratoryService: LaboratoriosService,
@@ -34,15 +39,44 @@ export class ExamsInOfficeDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // this.hemoForm.get('hemoglobina').setValue(this.dataHemoExam);
+    // this.hemoForm.patchValue({ hemoglobina: this.dataHemoExam });
+    // this.hemoForm.patchValue(this.dataHemoExam)
+    this.loadFormArray();
   }
 
-  buildFrom() {
-    // this.
+  get hemoglobina() {
+    return this.hemoForm.controls["hemoglobina"] as FormArray;
+  }
+
+  loadFormArray() {
+    this.dataHemoExam.forEach(item => {
+      const hemo = this.fb.group({
+        hg: [item.hg],
+        factorCorreccion: [item.factorCorreccion],
+        fecha: [item.fecha]
+      })
+      this.hemoglobina.push(hemo)
+    })
+  }
+
+  addHemo(): void {
+    const hemoForm = this.fb.group({
+      hg: ['', Validators.required],
+      factorCorreccion: ['', Validators.required],
+      fecha: ['']
+    });
+    this.hemoglobina.push(hemoForm);
+    this.isHemoFormCreated = true;
+  }
+
+  deleteHemoExam(index: number) {
+    this.hemoglobina.removeAt(index);
+    this.isHemoFormCreated = false;
   }
 
   async recoverExamsOfPregnancy() {
     await this.laboratoryService.getLaboExamsOfPregnancy(this.patientData.id).then((res: any) => {
-      console.log('respuestaaaaaaaaaaaaaaa ', res);
       this.arrayHemoExams = res.object.hemoglobina;
       this.arrayOtherExam = res.object.otrosExamenes;
       this.firstGroupExams = this.divideArray(this.arrayOtherExam, 0, 7);
@@ -104,6 +138,12 @@ export class ExamsInOfficeDialogComponent implements OnInit {
       // if(item.valor="")
     })
     return otherExams;
+  }
+
+
+
+  addHemo1() {
+    console.log('valor de la hemoglobina ', this.hemoForm.value.hemoglobina);
   }
 }
 
