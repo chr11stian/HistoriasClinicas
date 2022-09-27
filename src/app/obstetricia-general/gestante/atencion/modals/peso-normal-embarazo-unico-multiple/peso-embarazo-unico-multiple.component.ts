@@ -11,21 +11,33 @@ import { LoginComponent } from '../../../../../login/login.component';
     styleUrls: ['./peso-embarazo-unico-multiple.component.css']
 })
 export class PesoEmbarazoUnicoMultipleComponent implements OnInit {
+    listaClasificacion=[
+        {name:'bajo_peso',code:'bajo_peso'},
+        {name:'normal',code:'normal'},
+        {name:'sobrepeso',code:'sobrepeso'},
+        {name:'obesidad',code:'obesidad'}
+    ]
+    listaUnicoMultiple=[
+        {name:'unico',code:'unico', names:['max', 'med', 'min'],colors:['rgba(62,199,47,0.5)','rgba(245,93,25,0.5)','rgba(355,25,25,0.5)']},
+        {name:'multiple',code:'multiple', names: ['maxMult','medMult','minMult'],colors:['rgba(62,199,47,0.8)','rgba(245,93,25,0.85)','rgba(245,93,25,0.85)']}
+    ]
+    selectedUnicoMultiple=null
+    changeUnicoMultiple(){
+        this.names=this.selectedUnicoMultiple.names
+        this.colors=this.selectedUnicoMultiple.colors
+        this.classificationGraph()
+    }
     data: GraphInterface
-    colors = ['rgba(62,199,47,0.8)',
-              'rgba(245,93,25,0.85)',
-              'rgba(245,93,25,0.85)',
-              'rgba(255,0,0,0.86)',
-              '#170cee',
-              '#0e0e0e']
-    names = ['max', 'maxMult', 'med', 'medMult', 'min', 'minMult']
+    colors = []
+    names = []
     constructor(public ref: DynamicDialogRef,
                 private pesoGestanteGraphService: PesoGestanteGraphService,
                 private fillDataGraphService: FillDataGraphService,
                 public config: DynamicDialogConfig) {
+        this.selectedUnicoMultiple=this.listaUnicoMultiple[0]
     }
     ngOnInit(): void {
-        this.classificationGraph()
+        this.changeUnicoMultiple()
     }
     classificationGraph() {
         const typeGraph: string = this.config.data.typeGraph
@@ -52,12 +64,6 @@ export class PesoEmbarazoUnicoMultipleComponent implements OnInit {
         )
     }
     weightBajoPeso(): void {
-        this.colors = [
-            'rgba(62,199,47,0.8)',
-            'rgba(245,93,25,0.85)',
-            'rgba(245,93,25,0.85)',
-        ]
-        this.names = ['max', 'med', 'min']
         this.pesoGestanteGraphService.getDataBajoPesoGestanteGraph().subscribe(
             result => {
                 this.fillData(result['data'])
@@ -83,7 +89,8 @@ export class PesoEmbarazoUnicoMultipleComponent implements OnInit {
             data,
             this.names,
             (this.config.data.dataPregmant as Array<number[]>),
-            {color: '#09fff9', name: 'gestante'},
+            // {color: '#09fff9', name: 'gestante'},
+            {color: '#0c3866', name: 'gestante'},
             this.colors,
             {xAxis: 'trimestre', yAxis: 'kg'}
         )
