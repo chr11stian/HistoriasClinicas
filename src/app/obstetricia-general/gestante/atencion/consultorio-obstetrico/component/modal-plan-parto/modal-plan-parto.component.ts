@@ -18,8 +18,10 @@ export class ModalPlanPartoComponent implements OnInit {
   dataRecivida:any
   idFiliacion:string=''
   tienePlan:boolean=false
+  edadGestacional:number=0
   datePipe = new DatePipe('en-US');
   respuestaGetPlanParto:any
+  fecha:Date
   constructor(private config:DynamicDialogConfig,
               public ref: DynamicDialogRef,
               private intervaloPartoService:IntervaloPartoService) {
@@ -27,9 +29,12 @@ export class ModalPlanPartoComponent implements OnInit {
                       , {name: 'No', code: 'No'}];
     this.buildForm()
     this.buildForm2()
+    this.fecha=JSON.parse(localStorage.getItem("datosConsultaActual")).fecha
+
   }
   ngOnInit(): void {
     this.dataRecivida=this.config.data
+    this.edadGestacional=this.dataRecivida.edadGestacional
     this.idFiliacion=this.dataRecivida.idFiliacion
     this.respuestaGetPlanParto=this.dataRecivida.respuestaGetPlanParto
     this.getPlanParto()
@@ -87,7 +92,9 @@ export class ModalPlanPartoComponent implements OnInit {
   }
   getPlanParto(){
     // this.intervaloPartoService.getPlanbyIdFiliacion(this.idFiliacion).subscribe((resp:any)=>{
+      
       const datosPersonales=this.respuestaGetPlanParto
+    
       this.getFC('nombresApellidos').setValue(datosPersonales.nombreGestante)
       this.getFC('edad').setValue(datosPersonales.edad)
       this.getFC('HCL').setValue(datosPersonales.nroHcl)
@@ -103,6 +110,9 @@ export class ModalPlanPartoComponent implements OnInit {
       this.getFC('TelfComunidad').setValue(datosPersonales.telefonoComunidad!=null?datosPersonales.telefonoComunidad:'')
       this.getFC('nombrePromotorSalud').setValue(datosPersonales.nombrePromotorSalud!=null?datosPersonales.nombrePromotorSalud:'')
       this.getFC('tiempoLlegarEESS').setValue(datosPersonales.tiempoLlegarEess!=null?datosPersonales.tiempoLlegarEess:'')
+
+      this.getFC2('edadGestacional').setValue(this.dataRecivida.edadGestacional)
+      this.getFC2('fecha').setValue(new Date(this.fecha))
       if(this.dataRecivida.tienePlan){
         this.tienePlan=true
       }

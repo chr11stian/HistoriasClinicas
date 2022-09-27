@@ -738,6 +738,7 @@ export class InterrogatorioComponent implements OnInit {
         this.listaPlanParto.push(objeto)
       }
       this.dataEnviarPlanParto = {
+        edadGestacional:this.form.get("semanas").value,
         tienePlan: resp.cod == '2040' ? true : false,
         idFiliacion: this.Gestacion.id,
         respuestaGetPlanParto: resp.object
