@@ -35,9 +35,9 @@ export class StepGeneral_consultaComponent implements OnInit {
             { label: "Interrogatorio" },
             { label: "Tamizaje"},
             { label: "Exámenes Auxiliares" },
-            { label: "Tratamientos" },
             { label: "Diagnosticos" },
             { label: "Procedimientos" },
+            { label: "Tratamientos" },
             { label: "Finalizar" },
         ]
     }
@@ -48,14 +48,14 @@ export class StepGeneral_consultaComponent implements OnInit {
                 this.stepName = "finalizar"
                 break
             case 6:
-                this.stepName = "procedimientos"
+                this.stepName = "tratamiento"
                 break
             case 5:
-                this.stepName = "diagnostico"
+                this.stepName = "procedimientos"
                 // this.stepName = "tratamiento"
                 break
             case 4:
-                this.stepName = "tratamiento"
+                this.stepName = "diagnostico"
                 break
             case 3:
                 this.stepName = "evaluaciones"
