@@ -53,15 +53,24 @@ export class ExamsInOfficeDialogComponent implements OnInit {
     return this.hemoForm.controls["hemoglobina"] as FormArray;
   }
 
-  loadHemoglobinFormArray(hemoArray: HemoExam[]): void {
-    console.log('arreglos de hemo ', hemoArray);
+  loadHemoglobinFormArray(hemoArray: HemoExam[], laboExams: LaboratoryExam[]): void {
+    let hemoExam: string;
+    laboExams.forEach(item => {
+      let auxHemo = item.nombreExamen.split(" ");
+      if (auxHemo[0] == 'HEMOGLOBINA') {
+        hemoExam = item.nombreExamen;
+      }
+    });
     hemoArray.forEach(item => {
-      let auxFactorCorreccion = parseFloat(item.conFactorCorreccion);
-      let auxHg = parseFloat(item.hg);
+      let isDisabled: boolean;
+      item.descripcion == hemoExam ? isDisabled = false : isDisabled = true;
+      let auxFactorCorreccion = (item.conFactorCorreccion);
+      let auxHg = (item.hg);
+      isDisabled ? this.isHemoFormCreated : this.isHemoFormCreated = true;
       const hemo = this.fb.group({
-        hg: [auxHg],
-        factorCorreccion: [auxFactorCorreccion],
-        fecha: [item.fecha]
+        hg: [{ value: auxHg, disabled: isDisabled }],
+        factorCorreccion: [{ value: auxFactorCorreccion, disabled: isDisabled }],
+        fecha: [{ value: item.fecha, disabled: isDisabled }]
       })
       this.hemoglobina.push(hemo)
     })
@@ -78,28 +87,28 @@ export class ExamsInOfficeDialogComponent implements OnInit {
   }
 
   deleteHemoExam() {
-    let index = this.hemoForm.value.hemoglobina.length - 1;
-    // console.log('index ', this.);
+    let index = this.hemoForm.value.hemoglobina.length;
+    console.log('index ', index);
     this.hemoglobina.removeAt(index);
     this.isHemoFormCreated = false;
   }
 
   async recoverExamsOfPregnancy() {
     await this.laboratoryService.getLaboExamsOfPregnancy(this.patientData.id).then((res: any) => {
-      this.arrayHemoExams = res.object.hemoglobina;
+      this.arrayHemoExams = res.object.hemoglobina.filter(item => item.hg != 0);
       this.arrayOtherExam = res.object.otrosExamenes;
-      console.log('data de los otros examenes ', this.arrayOtherExam);
       this.firstGroupExams = this.divideArray(this.arrayOtherExam, 0, 7);
       this.secondGroupExams = this.divideArray(this.arrayOtherExam, 8, 10);
       this.thirdGroupExams = this.divideArray(this.arrayOtherExam, 11, 21);
       this.fourthGroupExams = this.divideArray(this.arrayOtherExam, 21, 26);
       // this.thirdGroupExams = this.arra
-      this.loadHemoglobinFormArray(this.arrayHemoExams);
-      this.firstGroupExams = this.transformArrayOtherExams(this.firstGroupExams, 'NO REACTIVO', 'REACTIVO', 'NO SE HIZO', 'NO APLICA', this.examsDoInConsultation);
-      this.secondGroupExams = this.transformArrayOtherExams(this.secondGroupExams, 'NORMAL', 'ANORMAL', 'NO SE HIZO', 'NO APLICA', this.examsDoInConsultation);
-      this.thirdGroupExams = this.transformArrayOtherExams(this.thirdGroupExams, 'NEGATIVO', 'POSITIVO', 'NO SE HIZO', 'NO APLICA', this.examsDoInConsultation);
-      this.fourthGroupExams = this.transformArrayOtherExams(this.fourthGroupExams, 'NORMAL', 'ANORMAL', 'NO SE HIZO', 'NO APLICA', this.examsDoInConsultation);
-      // this.selectSavedItems(this.arrayOtherExam);
+      setTimeout(() => {
+        this.loadHemoglobinFormArray(this.arrayHemoExams, this.examsDoInConsultation);
+        this.firstGroupExams = this.transformArrayOtherExams(this.firstGroupExams, 'NO REACTIVO', 'REACTIVO', 'NO SE HIZO', 'NO APLICA', this.examsDoInConsultation);
+        this.secondGroupExams = this.transformArrayOtherExams(this.secondGroupExams, 'NORMAL', 'ANORMAL', 'NO SE HIZO', 'NO APLICA', this.examsDoInConsultation);
+        this.thirdGroupExams = this.transformArrayOtherExams(this.thirdGroupExams, 'NEGATIVO', 'POSITIVO', 'NO SE HIZO', 'NO APLICA', this.examsDoInConsultation);
+        this.fourthGroupExams = this.transformArrayOtherExams(this.fourthGroupExams, 'NORMAL', 'ANORMAL', 'NO SE HIZO', 'NO APLICA', this.examsDoInConsultation);
+      }, 300);
     })
   }
 
@@ -107,18 +116,9 @@ export class ExamsInOfficeDialogComponent implements OnInit {
     await this.auxExamService.getListarPeticiones(this.consultationId).then(res => {
       this.examsDoInConsultation = res.object.examenesAuxiliares;
       this.examsDoInConsultation = this.examsDoInConsultation.filter(item => item.lugarExamen == "CONSULTORIO");
-      console.log('examenes de la consulta ', this.examsDoInConsultation);
+      // console.log('examenes en consultorio ', res.object);
     })
   }
-
-  // selectSavedItems(otherExams: OtherExam[]): void {
-  //   this.savedItems = otherExams.filter(item => item.valor != '')
-  //   // console.log('datos filtrados de otros examenes ', this.savedItems);
-  //   this.savedItems.forEach(item => {
-  //     let auxNgModel = item.nombre + '&' + item.valor;
-  //     this.examName.push(auxNgModel);
-  //   });
-  // }
 
   add(): void {
     this.examsToSave = [];
@@ -168,12 +168,20 @@ export class ExamsInOfficeDialogComponent implements OnInit {
         let auxNgModel = item.nombre + '&' + item.valor;
         this.examName.push(auxNgModel);
         item.saved = true;
+        // console.log('dataaaa ', item.nombre);
         consultationExam.forEach((exam) => {
-          console.log('iguales ', exam.nombreExamen, );
+          if (item.nombre === exam.nombreExamen) {
+            console.log('iguales ', exam.nombreExamen,);
+            item.saved = false;
+
+          }
         })
       }
     })
     return otherExams;
+  }
+  transformArrayHemoglobineExams(hemoExams: HemoExam[]) {
+
   }
 
   addHemo1() {

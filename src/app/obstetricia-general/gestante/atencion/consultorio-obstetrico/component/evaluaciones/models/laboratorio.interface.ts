@@ -1,7 +1,7 @@
 export interface HemoExam {
     descripcion: string,
-    hg: string,
-    conFactorCorreccion: string,
+    hg: number,
+    conFactorCorreccion: number,
     fecha: string
 }
 export interface OtherExam {
