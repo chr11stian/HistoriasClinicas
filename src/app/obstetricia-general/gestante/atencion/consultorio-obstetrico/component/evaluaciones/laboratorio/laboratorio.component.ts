@@ -181,7 +181,7 @@ export class LaboratorioComponent implements OnInit {
     listarPeticiones() {
         this.examenAuxiliarService.getListarPeticiones(this.idConsulta).then(res => {
             this.listaExamen = res.object.examenesAuxiliares
-            console.log('lista examenes ', this.listaExamen);
+            this.listaExamen = this.listaExamen.filter(item => item.lugarExamen == "LABORATORIO");
         })
     }
 

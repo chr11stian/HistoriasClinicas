@@ -350,19 +350,19 @@ export class DatosBasalesComponent implements OnInit {
             {
                 descripcion: 'HEMOGLOBINA 1',
                 hg: this.form.value.hg1,
-                conFactorCorrecion: this.form.value.conFactor1,
+                conFactorCorreccion: this.form.value.conFactor1,
                 fecha: this.form.value.hemo1
             },
             {
                 descripcion: 'HEMOGLOBINA 2',
                 hg: this.form.value.hg2,
-                conFactorCorrecion: this.form.value.conFactor2,
+                conFactorCorreccion: this.form.value.conFactor2,
                 fecha: this.form.value.hemo2
             },
             {
                 descripcion: 'HEMOGLOBINA 3',
                 hg: this.form.value.hg3,
-                conFactorCorrecion: this.form.value.conFactor3,
+                conFactorCorreccion: this.form.value.conFactor3,
                 fecha: this.form.value.hemo3
             },
         ]
@@ -640,6 +640,17 @@ export class DatosBasalesComponent implements OnInit {
             this.form.patchValue({ 'ivaa': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[26].valor });
             this.form.patchValue({ 'dateIvaa': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[26].fecha });
             this.listaPatologiasMaternas = this.rptaDatosBasales.patologiaMaternoDiagnosticado;
+            this.form.patchValue({
+                hg1: this.rptaDatosBasales.examenLaboratorio.hemoglobina[0].hg,
+                conFactor1: this.rptaDatosBasales.examenLaboratorio.hemoglobina[0].conFactorCorreccion,
+                hemo1: this.rptaDatosBasales.examenLaboratorio.hemoglobina[0].fecha,
+                hg2: this.rptaDatosBasales.examenLaboratorio.hemoglobina[1].hg,
+                conFactor2: this.rptaDatosBasales.examenLaboratorio.hemoglobina[1].conFactorCorreccion,
+                hemo2: this.rptaDatosBasales.examenLaboratorio.hemoglobina[1].fecha,
+                hg3: this.rptaDatosBasales.examenLaboratorio.hemoglobina[2].hg,
+                conFactor3: this.rptaDatosBasales.examenLaboratorio.hemoglobina[2].conFactorCorreccion,
+                hemo3: this.rptaDatosBasales.examenLaboratorio.hemoglobina[2].fecha,
+            })
         });
     }
 
