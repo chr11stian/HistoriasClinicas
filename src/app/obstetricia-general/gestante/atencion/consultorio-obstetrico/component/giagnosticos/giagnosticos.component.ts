@@ -420,101 +420,101 @@ export class GiagnosticosComponent implements OnInit {
     }
 
     guardarTodosDatos() {
-        this.enviarDatosRefProxCita();
-        const req = {
-            id: this.idConsultoriObstetrico,
-            nroHcl: this.nroHcl,
-            nroEmbarazo: this.nroEmbarazo,
-            nroAtencion: this.nroAtencion,
-            tipoDoc: this.tipoDocRecuperado,
-            nroDoc: this.nroDocRecuperado,
-            // referencia: this.referencia,
-            visitaDomiciliaria: this.visitaDomiciliaria,
-            planParto: this.planPartoReenfocada,
-            orientaciones: [
-                {
-                    consejeria: "Orientación y consejería signos de alarma",
-                    valor: this.form2.value.OrientaciónConsejeríaSignosAlarma,
-                    cie10: "3232"
-                },
-                {
-                    consejeria: "Consejería en enfermedades comunes",
-                    valor: this.form2.value.ConsejeríaEnfermedadesComunes,
-                    cie10: "1212"
-                },
-                {
-                    consejeria: "Sospechas de tuberculosis",
-                    valor: this.form2.value.SospechasTuberculosis,
-                    cie10: "2232"
-                },
-                {
-                    consejeria: "Infecciones de transmisión sexual",
-                    valor: this.form2.value.InfeccionesTransmisiónSexual,
-                    cie10: "4866"
-                },
-                {
-                    consejeria: "Orientación nutricional",
-                    valor: this.form2.value.OrientaciónNutricional,
-                    cie10: "3233"
-                },
-                {
-                    consejeria: "Orientación en planificación familiar",
-                    valor: this.form2.value.OrientaciónPlanificaiónFamiliar,
-                    cie10: "7779"
-                },
-                {
-                    consejeria: "Orientación en prevención de cáncer ginecológico",
-                    valor: this.form2.value.OrientaciónPrevenciónDeCancerGinecológico,
-                    cie10: "8889"
-                },
-                {
-                    consejeria: "Orientación y consej. Pretest. VIH",
-                    valor: this.form2.value.OrientaciónConsejeriaPretestVIH,
-                    cie10: "7777"
-                },
-                {
-                    consejeria: "Orientación y consej. Postest. VIH",
-                    valor: this.form2.value.OrientaciónConsejeriaPostestVIH,
-                    cie10: "7777"
-                },
-                {
-                    consejeria: "Consejería en estilos de vida saludable",
-                    valor: this.form2.value.OrientaciónEnEstilosDeVidaSaludable,
-                    cie10: "44545"
-                },
-                {
-                    consejeria: "Orientación al acompañante",
-                    valor: this.form2.value.OrientaciónAcompañante,
-                    cie10: "21212"
-                },
-                {
-                    consejeria: "Violencia intrafamiliar",
-                    valor: this.form2.value.ViolenciaFamiliar,
-                    cie10: "Z6381"
-                },
-                {
-                    consejeria: "Plan de parto",
-                    valor: this.form2.value.PlanDeParto,
-                    cie10: "U1692"
-                },
-            ],
+        // this.enviarDatosRefProxCita();
+        // const req = {
+        //     id: this.idConsultoriObstetrico,
+        //     nroHcl: this.nroHcl,
+        //     nroEmbarazo: this.nroEmbarazo,
+        //     nroAtencion: this.nroAtencion,
+        //     tipoDoc: this.tipoDocRecuperado,
+        //     nroDoc: this.nroDocRecuperado,
+        //     // referencia: this.referencia,
+        //     visitaDomiciliaria: this.visitaDomiciliaria,
+        //     planParto: this.planPartoReenfocada,
+        //     orientaciones: [
+        //         {
+        //             consejeria: "Orientación y consejería signos de alarma",
+        //             valor: this.form2.value.OrientaciónConsejeríaSignosAlarma,
+        //             cie10: "3232"
+        //         },
+        //         {
+        //             consejeria: "Consejería en enfermedades comunes",
+        //             valor: this.form2.value.ConsejeríaEnfermedadesComunes,
+        //             cie10: "1212"
+        //         },
+        //         {
+        //             consejeria: "Sospechas de tuberculosis",
+        //             valor: this.form2.value.SospechasTuberculosis,
+        //             cie10: "2232"
+        //         },
+        //         {
+        //             consejeria: "Infecciones de transmisión sexual",
+        //             valor: this.form2.value.InfeccionesTransmisiónSexual,
+        //             cie10: "4866"
+        //         },
+        //         {
+        //             consejeria: "Orientación nutricional",
+        //             valor: this.form2.value.OrientaciónNutricional,
+        //             cie10: "3233"
+        //         },
+        //         {
+        //             consejeria: "Orientación en planificación familiar",
+        //             valor: this.form2.value.OrientaciónPlanificaiónFamiliar,
+        //             cie10: "7779"
+        //         },
+        //         {
+        //             consejeria: "Orientación en prevención de cáncer ginecológico",
+        //             valor: this.form2.value.OrientaciónPrevenciónDeCancerGinecológico,
+        //             cie10: "8889"
+        //         },
+        //         {
+        //             consejeria: "Orientación y consej. Pretest. VIH",
+        //             valor: this.form2.value.OrientaciónConsejeriaPretestVIH,
+        //             cie10: "7777"
+        //         },
+        //         {
+        //             consejeria: "Orientación y consej. Postest. VIH",
+        //             valor: this.form2.value.OrientaciónConsejeriaPostestVIH,
+        //             cie10: "7777"
+        //         },
+        //         {
+        //             consejeria: "Consejería en estilos de vida saludable",
+        //             valor: this.form2.value.OrientaciónEnEstilosDeVidaSaludable,
+        //             cie10: "44545"
+        //         },
+        //         {
+        //             consejeria: "Orientación al acompañante",
+        //             valor: this.form2.value.OrientaciónAcompañante,
+        //             cie10: "21212"
+        //         },
+        //         {
+        //             consejeria: "Violencia intrafamiliar",
+        //             valor: this.form2.value.ViolenciaFamiliar,
+        //             cie10: "Z6381"
+        //         },
+        //         {
+        //             consejeria: "Plan de parto",
+        //             valor: this.form2.value.PlanDeParto,
+        //             cie10: "U1692"
+        //         },
+        //     ],
 
-        }
+        // }
 
-        this.DxService.updateConsultas(this.nroFetos, this.Gestacion.id, req).subscribe(
-            (resp) => {
-                console.log(resp);
-                console.log(req);
+        // this.DxService.updateConsultas(this.nroFetos, this.Gestacion.id, req).subscribe(
+        //     (resp) => {
+        //         console.log(resp);
+        //         console.log(req);
 
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Actualizado correctamente',
-                    text: '',
-                    showConfirmButton: false,
-                    timer: 1500,
-                })
-            }
-        )
+        //         Swal.fire({
+        //             icon: 'success',
+        //             title: 'Actualizado correctamente',
+        //             text: '',
+        //             showConfirmButton: false,
+        //             timer: 1500,
+        //         })
+        //     }
+        // )
     }
     recuperarDatosGuardados() {
         let aux = {
