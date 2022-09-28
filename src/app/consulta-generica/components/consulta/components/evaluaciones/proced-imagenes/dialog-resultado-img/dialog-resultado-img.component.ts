@@ -56,7 +56,7 @@ export class DialogResultadoImgComponent implements OnInit {
   opciones: any;
 
   ecoEdit: any;
-
+  consultationID: string;
   constructor(
     private form: FormBuilder,
     private ref: DynamicDialogRef,
@@ -76,6 +76,7 @@ export class DialogResultadoImgComponent implements OnInit {
     this.getdataPaciente(documento);
     this.edadPaciente = JSON.parse(localStorage.getItem('datacupos')).paciente.edadAnio;
     this.sexoPaciente = JSON.parse(localStorage.getItem('datacupos')).paciente.sexo;
+    this.consultationID = JSON.parse(localStorage.getItem('IDConsulta'));
     this.recuperarUpsHis();
     this.recuperarUPS();
     this.recuperarConsulta();
@@ -193,7 +194,7 @@ export class DialogResultadoImgComponent implements OnInit {
       nroEmbarazo: this.nroEmbarazo,
       nroAtencion: this.nroAtencion
     }
-    this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
+    this.DxService.getConsultaPrenatalByEmbarazo(this.consultationID, aux).subscribe((res: any) => {
       this.nroConsultaGuardada = res.object.id;
     })
   }
@@ -227,7 +228,7 @@ export class DialogResultadoImgComponent implements OnInit {
       nroEmbarazo: this.nroEmbarazo,
       nroAtencion: this.nroAtencion
     }
-    this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
+    this.DxService.getConsultaPrenatalByEmbarazo(this.consultationID, aux).subscribe((res: any) => {
       this.nroConsultaGuardada = res.object.id;
       var data = {
         idConsulta: this.nroConsultaGuardada,
@@ -278,7 +279,7 @@ export class DialogResultadoImgComponent implements OnInit {
       nroEmbarazo: this.nroEmbarazo,
       nroAtencion: this.nroAtencion
     }
-    this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
+    this.DxService.getConsultaPrenatalByEmbarazo(this.consultationID, aux).subscribe((res: any) => {
       this.nroConsultaGuardada = res.object.id;
       var data = {
         id: this.config.data.row.idExamAux,

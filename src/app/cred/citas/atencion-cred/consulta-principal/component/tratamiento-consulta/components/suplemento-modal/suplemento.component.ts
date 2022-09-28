@@ -28,8 +28,9 @@ export class SuplementoComponent implements OnInit {
   //   {name:'FERROSO SULFATO HEPTAHIDRATO-(FCO 15mg/5ml-180ml)',code:'03519'},
   // ]
   presentacionSFaTermino=[
-    {name:'Gotas Sulfato Ferroso-(SOL 50mg/ml 20ml)',codeSISMED:'28551',contenidoHierroElemental:'1 gota=1,25mg de Hierro elemental'},
-    {name:'Gotas Complejo Polimaltosado-(TAB 300MG)',codeSISMED:'03552',contenidoHierroElemental:'1 gota=2,5mg de Hierro elemental'},
+    {name:'Jarabe Sulfato Ferroso-(75mg/5mL)',codeSISMED:'28551',contenidoHierroElemental:'15mg/5ml de Hierro elemental'},
+    {name:'Ferrimax -(50mg/ml por 30ml)',codeSISMED:'28551',contenidoHierroElemental:''},
+    {name:'Gotas Sulfato Ferroso-(125mg/ml)',codeSISMED:'03552',contenidoHierroElemental:'25mg/ml de Hierro elemental'},
   ]
   presentacionMNM=[
     {name:'Micronutrientes:Sobre de 1 gramo en Polvo',codeSISMED:'sin codificacion',contenidoHierroElemental:'Hierro (12.5 mg de Hierro elemental)'},

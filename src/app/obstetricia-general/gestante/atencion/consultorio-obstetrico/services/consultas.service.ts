@@ -35,14 +35,18 @@ export class ConsultasService {
             .then(data => { return data; })
             .catch(error => { return error.error })
     }
-    updateConsultas(nroFetos, data) {
-        return this.http.put(`${this.base_url}/${this.bd}/obstetricia/consulta/actualizarConsulta/${nroFetos}`, data);
+    updateConsultas(nroFetos, idFiliacion: string, data) {
+        return this.http.put(`${this.base_url}/${this.bd}/obstetricia/consulta/actualizarConsulta/${nroFetos}/${idFiliacion}`, data);
     }
-    getConsultaPrenatalByEmbarazo(data) {
-        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/buscar/`, data);
+    getConsultaPrenatalByEmbarazo(idconsulta: string, data) {
+        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/buscar/${idconsulta}`, data);
     }
-    getInterrogatorioByEmbarazo(data) {
-        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/buscarInterrogatorio`, data);
+    getInterrogatorioByEmbarazo(idFiliacion: string, idConsulta: string) {
+        return this.http.get(`${this.base_url}/${this.bd}/obstetricia/consulta/buscarInterrogatorio/${idFiliacion}/${idConsulta}`)
+            .toPromise()
+            .then(res => res)
+            .then(data => { return data; })
+            .catch(error => { return error.error })
     }
     getUltimaConsultaById(idConsulta) {
         return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/numeroUltimaConsultaxid`, idConsulta)
@@ -275,7 +279,14 @@ export class ConsultasService {
             .then(data => { return data; });
     }
 
-    getListProceduresSaved(idConsulta:string){
+    getListProceduresSaved(idConsulta: string) {
+        return this.http.get(`${this.base_url}/${this.bd}/obstetricia/consulta/listarProcedimientos/${idConsulta}`)
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data; });
+    }
+
+    getRecoverInterrogationData(idFiliacion: string, idConsulta: string) {
         return this.http.get(`${this.base_url}/${this.bd}/obstetricia/consulta/listarProcedimientos/${idConsulta}`)
             .toPromise()
             .then(res => <any[]>res)

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, AbstractControl } from '@angular/forms';
+import { FormControl, FormGroup, AbstractControl, Validators } from '@angular/forms';
 import { DatePipe, formatDate } from '@angular/common';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { IntervaloPartoService } from '../../../plan-parto/services/intervalo-parto/intervalo-parto.service';
@@ -55,8 +55,8 @@ export class ModalPlanPartoComponent implements OnInit {
   }
   buildForm2() {
     this.form = new FormGroup({
-        fecha: new FormControl({value:new Date(),disabled:false}),
-        edadGestacional:new FormControl({value:'',disabled:false}),
+        fecha: new FormControl({value:new Date(),disabled:false},Validators.required),
+        edadGestacional:new FormControl({value:'',disabled:false},Validators.required),
         dondeParto:new FormControl({value:'',disabled:false}),
         quienAtenderaParto:new FormControl({value:'',disabled:false}),
         posicionParto:new FormControl({value:'',disabled:false}),

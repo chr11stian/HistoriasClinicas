@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {environment} from "../../../environments/environment";
-import {HttpClient} from "@angular/common/http";
+import { Injectable } from '@angular/core';
+import { environment } from "../../../environments/environment";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({
     providedIn: 'root'
@@ -27,11 +27,24 @@ export class LaboratoriosService {
         return this.http.post(`${this.base_url}/${this.bd}/examenesAuxiliares/bioquimica/${idSolicitudLaboratorio}`, data)
     }
 
-    guardarLaboratorioMicrobiologico(idSolicitudLaboratorio, data){
+    guardarLaboratorioMicrobiologico(idSolicitudLaboratorio, data) {
         return this.http.post(`${this.base_url}/${this.bd}/examenesAuxiliares/microbiologico/${idSolicitudLaboratorio}`, data)
     }
 
-    getExamenesRealizados(nroDoc){
+    getExamenesRealizados(nroDoc) {
         return this.http.get(`${this.base_url}/${this.bd}/examenesAuxiliares/listar/concluidos/${nroDoc}`)
+    }
+    getFinishedLaboExamsByNroDoc(nroDoc: string) {
+        return this.http.get(`${this.base_url}/${this.bd}/examenesAuxiliares/listar/concluidos/${nroDoc}`)
+            .toPromise()
+            .then(res => res)
+            .then(data => { return data; })
+    }
+
+    getLaboExamsOfPregnancy(idFiliacion: string) {
+        return this.http.get(`${this.base_url}/${this.bd}/filiacion/get/examen/laboratorio/${idFiliacion}`)
+            .toPromise()
+            .then(res => res)
+            .then(data => { return data; })
     }
 }

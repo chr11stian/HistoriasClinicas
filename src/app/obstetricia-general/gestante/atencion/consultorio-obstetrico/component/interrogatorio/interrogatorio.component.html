@@ -19,12 +19,12 @@
                                 class="funcionesVitales inputfield w-full">
                         </div>
                         <div class="col-3">
-                            <label class="ml-2">PA SISTO:</label>
+                            <label class="ml-2">PA Sisto:</label>
                             <input type="number" pInputText formControlName='presionSisto' placeholder=""
                                 class="funcionesVitales inputfield w-full">
                         </div>
                         <div class="col-3">
-                            <label class="ml-2">PA DIASTO:</label>
+                            <label class="ml-2">PA Diasto:</label>
                             <input type="number" pInputText formControlName='presionDisto' placeholder=""
                                 class="funcionesVitales inputfield w-full">
                         </div>
@@ -39,12 +39,12 @@
                                 class="funcionesVitales inputfield w-full">
                         </div>
                         <div class="col-3">
-                            <label class="ml-2">PESO (kg):</label>
+                            <label class="ml-2">Peso (kg):</label>
                             <input type="number" pInputText formControlName='peso' placeholder=""
                                 class="funcionesVitales inputfield w-full">
                         </div>
                         <div class="col-3">
-                            <label class="ml-2">TALLA (cm):</label>
+                            <label class="ml-2">Talla (cm):</label>
                             <input type="number" pInputText formControlName='talla' placeholder=""
                                 class="funcionesVitales inputfield w-full">
                         </div>
@@ -64,14 +64,7 @@
                                 <div class="col-8">
                                     <div class="grid">
                                         <div class="col-12">
-                                            <label class="ml-2 mt-3">Edad gestacional:</label>
-                                        </div>
-                                        <div class="col-4">
-                                            <input type="number" pInputText formControlName='dias' placeholder="Dias"
-                                                class="inputfield w-full">
-                                        </div>
-                                        <div class="mt-2 col-2 text-left">
-                                            <span class="font-italic">dias.</span>
+                                            <label class="mt-3">Edad gestacional:</label>
                                         </div>
                                         <div class="col-4">
                                             <input type="number" pInputText formControlName='semanas'
@@ -79,6 +72,13 @@
                                         </div>
                                         <div class="mt-2 col-2 text-left">
                                             <span class="font-italic">sem.</span>
+                                        </div>
+                                        <div class="col-4">
+                                            <input type="number" pInputText formControlName='dias' placeholder="Dias"
+                                                class="inputfield w-full">
+                                        </div>
+                                        <div class="mt-2 col-2 text-left">
+                                            <span class="font-italic">dia(s).</span>
                                         </div>
                                     </div>
                                 </div>
@@ -591,20 +591,22 @@
                         </div>
                         <br>
                         <div>
-                            <p-table [value]="listaPlanParto" #dt styleClass="p-datatable-gridlines p-datatable-customers" [rows]="10"
-                                    [rowsPerPageOptions]="[10, 25, 50]"
-                                    [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
-                                    currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+                            <p-table [value]="listaPlanParto" #dt
+                                styleClass="p-datatable-gridlines p-datatable-customers" [rows]="10"
+                                [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
+                                [showCurrentPageReport]="true"
+                                currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
                                 <ng-template pTemplate="caption">
-                                        <div class="flex justify-content-between">
-                                            <div class="table-header mt-2">
-                                                PLAN DE PARTO
-                                            </div>
-                                            <div *ngIf="!dataEnviarPlanParto.tienePlan">
-                                                <button pButton pRipple label="Agregar Plan" iconPos="right" icon="pi pi-plus-circle"
-                                                class="guardar mr-2" (click)="openModal()"  style="background-color: #0C3866"></button>
-                                            </div>
+                                    <div class="flex justify-content-between">
+                                        <div class="table-header mt-2">
+                                            PLAN DE PARTO
                                         </div>
+                                        <div *ngIf="!dataEnviarPlanParto.tienePlan">
+                                            <button pButton pRipple label="Agregar Plan" iconPos="right"
+                                                icon="pi pi-plus-circle" class="guardar mr-2" (click)="openModal()"
+                                                style="background-color: #0C3866"></button>
+                                        </div>
+                                    </div>
                                 </ng-template>
                                 <ng-template pTemplate="header">
                                     <tr>
@@ -617,15 +619,16 @@
                                 <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                                     <tr>
                                         <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                                        <td style="text-align: center">{{ rowData.fechaAtencion | date: 'dd-MM-yyyy'}}</td>
+                                        <td style="text-align: center">{{ rowData.fechaAtencion | date: 'dd-MM-yyyy'}}
+                                        </td>
                                         <td style="text-align: center">{{ rowData.edadGestacional }} (semanas)</td>
                                         <td style="text-align: center">
-                                            <button pButton  pTooltip="Ver Plan" pRipple type="button"
-                                                    icon="pi pi-eye" class="p-button-rounded p-button-help m-1" (click)="openModal()">
+                                            <button pButton pTooltip="Ver Plan" pRipple type="button" icon="pi pi-eye"
+                                                class="p-button-rounded p-button-help m-1" (click)="openModal()">
                                             </button>
                                         </td>
-                                        </tr>
-                                    </ng-template>
+                                    </tr>
+                                </ng-template>
                             </p-table>
                         </div>
                     </div>
@@ -719,7 +722,8 @@
                                 <span>X min</span>
                             </div>
                             <div class="col-3 mt-2 text-center">
-                                <p-checkbox binary="true" inputId="binary" class="mr-2" (onChange)="latidosNA($event)" formControlName="isChecked"></p-checkbox>
+                                <p-checkbox binary="true" inputId="binary" class="mr-2" (onChange)="latidosNA($event)"
+                                    formControlName="isChecked"></p-checkbox>
                                 <label for="binary">NA</label>
                             </div>
                         </div>

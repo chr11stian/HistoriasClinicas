@@ -54,6 +54,7 @@ export class EcografiaResultadoComponent implements OnInit {
   opciones: any;
 
   ecoEdit: any;
+  consultationId: string;
   constructor(private form: FormBuilder,
     private ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
@@ -69,10 +70,12 @@ export class EcografiaResultadoComponent implements OnInit {
     this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
     this.edadPaciente = JSON.parse(localStorage.getItem('datacupos')).paciente.edadAnio;
     this.sexoPaciente = JSON.parse(localStorage.getItem('datacupos')).paciente.sexo;
+    this.consultationId = JSON.parse(localStorage.getItem('IDConsulta'));
     this.recuperarUpsHis();
     this.recuperarUPS();
     this.recuperarConsulta();
     this.recuperarListaSubTipos();
+
     //estado para saber que estado usar en consultas
     this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
 
@@ -159,11 +162,11 @@ export class EcografiaResultadoComponent implements OnInit {
       resultados: new FormControl("", [Validators.required]),
     })
   }
-  async recuperarEcografiasId(){
+  async recuperarEcografiasId() {
     console.log("id de la eco", this.config.data.row.idExamAux);
     await this.DxService.buscarEcografiaAbdominalId(this.config.data.row.idExamAux).then((res: any) => {
       this.ecoEdit = res.object;
-      console.log("resultados",res);
+      console.log("resultados", res);
     })
   }
   recuperarConsulta() {
@@ -173,7 +176,7 @@ export class EcografiaResultadoComponent implements OnInit {
       nroEmbarazo: this.nroEmbarazo,
       nroAtencion: this.nroAtencion
     }
-    this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
+    this.DxService.getConsultaPrenatalByEmbarazo(this.consultationId, aux).subscribe((res: any) => {
       this.nroConsultaGuardada = res.object.id;
     })
   }
@@ -207,7 +210,7 @@ export class EcografiaResultadoComponent implements OnInit {
       nroEmbarazo: this.nroEmbarazo,
       nroAtencion: this.nroAtencion
     }
-    this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
+    this.DxService.getConsultaPrenatalByEmbarazo(this.consultationId, aux).subscribe((res: any) => {
       this.nroConsultaGuardada = res.object.id;
       var data = {
         idConsulta: this.nroConsultaGuardada,
@@ -258,11 +261,11 @@ export class EcografiaResultadoComponent implements OnInit {
       nroEmbarazo: this.nroEmbarazo,
       nroAtencion: this.nroAtencion
     }
-    this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
+    this.DxService.getConsultaPrenatalByEmbarazo(this.consultationId, aux).subscribe((res: any) => {
       this.nroConsultaGuardada = res.object.id;
       var data = {
-        id: this.config.data.row.idExamAux,    
-        idIpress:this.idIpress,
+        id: this.config.data.row.idExamAux,
+        idIpress: this.idIpress,
         idConsulta: this.nroConsultaGuardada,
         labExterno: this.formEcografiaResultado.value.labExterno,
         agregarafiliacion: true,
