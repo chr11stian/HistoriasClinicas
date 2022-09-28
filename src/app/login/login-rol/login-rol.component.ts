@@ -1,3 +1,4 @@
+import { Usuario } from "./../model/login.interface";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
@@ -25,11 +26,14 @@ export class LoginRolComponent implements OnInit {
         { name: "Consulta Externa", code: "Consulta Externa" },
         { name: "Apoyo al diagnóstico", code: "Apoyo al diagnóstico" },
     ];
+    /* nuevo login */
+    roles: string[] = [];
+    data: Usuario;
 
     constructor(
         private formBuilder: FormBuilder,
         private ref: DynamicDialogRef,
-        private serviceLogin: LoginService,
+        private loginService: LoginService,
         private router: Router,
         private dialog: DialogService,
         private breakpointObserver: BreakpointObserver
@@ -43,7 +47,7 @@ export class LoginRolComponent implements OnInit {
             });
     }
 
-    ingresar() {
+    /* ingresar() {
         let rol =
             this.formRol.value.rol === ""
                 ? this.rol[0]
@@ -75,7 +79,7 @@ export class LoginRolComponent implements OnInit {
                 )
                     this.openPassword();
                 else {
-                    /* lista de servicio por personal */
+                    // lista de servicio por personal 
                     this.serviceLogin
                         .listServiceStaff(credenciales.username)
                         .subscribe((r: any) => {
@@ -119,14 +123,18 @@ export class LoginRolComponent implements OnInit {
             }
         });
         this.ref.close();
-    }
+    } */
 
     ngOnInit(): void {
         this.size_width();
-        this.list = this.serviceLogin.listEscala;
+        /* this.list = this.serviceLogin.listEscala;
         console.log("list", this.list);
         this.formBuild();
-        this.buildEscala();
+        this.buildEscala(); */
+        /* nuevo login */
+        this.formBuild();
+        this.roles = this.loginService.roles;
+        this.data = <Usuario>JSON.parse(localStorage.getItem("usuario"));
     }
 
     buildEscala() {
@@ -148,14 +156,13 @@ export class LoginRolComponent implements OnInit {
     }
 
     cambio(e) {
-        console.log("", e);
-        this.searchEscala(e.value);
+        //this.searchEscala(e.value);
     }
 
     formBuild() {
         this.formRol = this.formBuilder.group({
-            escala: new FormControl("", []),
-            rol: new FormControl("", []),
+            // escala: new FormControl("", []),
+            rol: new FormControl(""),
         });
     }
 
@@ -173,5 +180,56 @@ export class LoginRolComponent implements OnInit {
         });
 
         this.ref.onClose.subscribe(() => {});
+    }
+    /* nuevo login*/
+    ingresarLogin() {
+        let rol =
+            this.formRol.value.rol === ""
+                ? this.roles[0]
+                : this.formRol.value.rol;
+        localStorage.setItem("rol", JSON.stringify(rol));
+        console.log("data", this.data);
+        this.loginService.listServiceStaff(this.data.nroDocumento).subscribe(
+            (res: any) => {
+                console.log("res", res);
+                if (res.object != null && rol != "ROLE_ENF_PERSONAL") {
+                    res.object[0].roles.map((aux) => {
+                        if (
+                            aux.nombreFuncion == "SERVICIOS ADMINISTRACION" &&
+                            aux.nombreUPS == "ATENCION INTEGRAL DEL NINO"
+                        ) {
+                            this.router
+                                .navigate(["/dashboard/cred/citas"])
+                                .then(() => {
+                                    window.location.reload();
+                                });
+                        } else if (
+                            aux.nombreFuncion == "SERVICIOS ADMINISTRACION" &&
+                            aux.nombreUPS == "OBSTETRICIA"
+                        ) {
+                            this.router
+                                .navigate([
+                                    "/dashboard/obstetricia-general/citas",
+                                ])
+                                .then(() => {
+                                    window.location.reload();
+                                });
+                        }
+                    });
+                } else {
+                    this.router.navigate(["/dashboard"]).then(() => {
+                        window.location.reload();
+                    });
+                }
+            },
+            (error) => {
+                if (error.status == 500 && rol) {
+                    this.router.navigate(["/dashboard"]).then(() => {
+                        window.location.reload();
+                    });
+                }
+            }
+        );
+        this.ref.close();
     }
 }

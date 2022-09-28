@@ -6,21 +6,47 @@
         </ng-template>
 
         <ng-template pTemplate="right" class="button">
-            <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-danger p-mr-2"
-                    (click)="openNew()"></button>
-            <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-primary"></button>
+            <button
+                pButton
+                pRipple
+                label="Nuevo"
+                icon="pi pi-plus"
+                class="p-button-danger p-mr-2"
+                (click)="openNew()"
+            ></button>
+            <button
+                pButton
+                pRipple
+                label="Exportar"
+                icon="pi pi-upload"
+                class="p-button-primary"
+            ></button>
         </ng-template>
     </p-toolbar>
-    <p-table [value]="data" #dt [globalFilterFields]="['nombres', 'nroDoc', 'apPaterno']"
-             styleClass="p-datatable-gridlines   " [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true"
-             [autoLayout]="true" currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+    <p-table
+        [value]="data"
+        #dt
+        [globalFilterFields]="['nombres', 'nroDoc', 'apPaterno']"
+        styleClass="p-datatable-gridlines   "
+        [rows]="10"
+        [rowsPerPageOptions]="[10, 25, 50]"
+        [paginator]="true"
+        [autoLayout]="true"
+        currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
+    >
         <ng-template pTemplate="caption">
             <div class="p-d-flex p-ai-center p-jc-between">
-        <span class="p-input-icon-left">
-          <i class="pi pi-search"></i>
-          <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
-                 placeholder="Buscar..."/>
-        </span>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input
+                        pInputText
+                        type="text"
+                        (input)="
+                            dt.filterGlobal($event.target.value, 'contains')
+                        "
+                        placeholder="Buscar..."
+                    />
+                </span>
             </div>
         </ng-template>
         <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
@@ -39,7 +65,7 @@
                 <th style="text-align: center">Estado</th>
                 <th style="text-align: center">Especialidad</th>
                 <th style="text-align: center">Rol</th>
-                <th style="text-align: center">Rol Sistema</th>
+                <th *ngIf="!root" style="text-align: center">Rol Sistema</th>
                 <th style="text-align: center; width: 120px">Acción</th>
             </tr>
         </ng-template>
@@ -48,52 +74,102 @@
                 <td style="text-align: center">{{ rowIndex + 1 }}</td>
                 <td style="text-align: center">{{ rowData.nroDoc }}</td>
                 <td style="text-align: center">
-                    {{ rowData.apePaterno + " " + rowData.apeMaterno.toUpperCase() }}
+                    {{
+                        rowData.apePaterno +
+                            " " +
+                            rowData.apeMaterno.toUpperCase()
+                    }}
                 </td>
                 <td style="text-align: center">
-                    {{ rowData.primerNombre + " " + rowData.otrosNombres.toUpperCase() }}
+                    {{
+                        rowData.primerNombre +
+                            " " +
+                            rowData.otrosNombres.toUpperCase()
+                    }}
                 </td>
                 <!-- <td style="text-align: center">{{ rowData.fechaNacimiento | date: "dd/MM/yyyy" }}</td> -->
                 <!-- <td style="text-align: center">{{ rowData.sexo }}</td> -->
                 <td style="text-align: center">
-                    {{ rowData.tipoPersonal ? rowData.tipoPersonal.nombre.toUpperCase() : "" }}
+                    {{
+                        rowData.tipoPersonal
+                            ? rowData.tipoPersonal.nombre.toUpperCase()
+                            : ""
+                    }}
                 </td>
                 <td style="text-align: center">
                     {{
-                    rowData.colegioProfesional
-                        ? rowData.colegioProfesional.nombre.toUpperCase()
-                        : ""
+                        rowData.colegioProfesional
+                            ? rowData.colegioProfesional.nombre.toUpperCase()
+                            : ""
                     }}
                 </td>
                 <!-- <td style="text-align: center">{{ rowData.colegiatura }}</td> -->
-                <td style="text-align: center">{{ rowData.contratoAbreviatura.toUpperCase() }}</td>
+                <td style="text-align: center">
+                    {{ rowData.contratoAbreviatura.toUpperCase() }}
+                </td>
                 <!-- <td style="text-align: center">{{ rowData.detalleIpress ? rowData.detalleIpress[0].eess : "" }}</td> -->
                 <td style="text-align: center">
-                    <p-tag *ngIf="rowData.estado" styleClass="p-mr-2" severity="success" value="Activo"
-                           [rounded]="true"></p-tag>
-                    <p-tag *ngIf="!rowData.estado" styleClass="p-mr-2" severity="danger" value="Inactivo"
-                           [rounded]="true">
+                    <p-tag
+                        *ngIf="rowData.estado"
+                        styleClass="p-mr-2"
+                        severity="success"
+                        value="Activo"
+                        [rounded]="true"
+                    ></p-tag>
+                    <p-tag
+                        *ngIf="!rowData.estado"
+                        styleClass="p-mr-2"
+                        severity="danger"
+                        value="Inactivo"
+                        [rounded]="true"
+                    >
                     </p-tag>
                 </td>
 
                 <td style="text-align: center">
-                    <button pButton pRipple icon="pi pi-briefcase" class="p-button-rounded p-button-help"
-                            (click)="newEspecialidad(rowData)"></button>
+                    <button
+                        pButton
+                        pRipple
+                        icon="pi pi-briefcase"
+                        class="p-button-rounded p-button-help"
+                        (click)="newEspecialidad(rowData)"
+                    ></button>
                 </td>
                 <td style="text-align: center">
-                    <button pButton pRipple icon="pi pi-sitemap" class="p-button-rounded p-button-help"
-                            (click)="newRolX(rowData)"></button>
+                    <button
+                        pButton
+                        pRipple
+                        icon="pi pi-sitemap"
+                        class="p-button-rounded p-button-help"
+                        (click)="newRolX(rowData)"
+                    ></button>
+                </td>
+                <td *ngIf="!root" style="text-align: center">
+                    <button
+                        pButton
+                        pRipple
+                        icon="pi pi-id-card"
+                        class="p-button-rounded p-button-help"
+                        (click)="newRolSistema(rowData)"
+                    ></button>
                 </td>
                 <td style="text-align: center">
-                    <button pButton pRipple icon="pi pi-id-card" class="p-button-rounded p-button-help"
-                            (click)="newRolSistema(rowData)"></button>
-                </td>
-                <td style="text-align: center">
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded m-1"
-                            (click)="editar(rowData)"></button>
-                    <button pButton (click)="eliminar(rowData)" pTooltip="Eliminar" pRipple type="button"
-                            icon="pi pi-trash"
-                            class="p-button-rounded p-button-danger m-1"></button>
+                    <button
+                        pButton
+                        pRipple
+                        icon="pi pi-pencil"
+                        class="p-button-rounded m-1"
+                        (click)="editar(rowData)"
+                    ></button>
+                    <button
+                        pButton
+                        (click)="eliminar(rowData)"
+                        pTooltip="Eliminar"
+                        pRipple
+                        type="button"
+                        icon="pi pi-trash"
+                        class="p-button-rounded p-button-danger m-1"
+                    ></button>
                 </td>
             </tr>
         </ng-template>
@@ -101,8 +177,13 @@
 </div>
 
 <!--PERSONAL DIALOG-->
-<p-dialog [(visible)]="personalDialog" [style]="{ width: '1000px', height: '1200px' }" [modal]="true"
-          styleClass="p-fluid" autoZIndex>
+<p-dialog
+    [(visible)]="personalDialog"
+    [style]="{ width: '1000px', height: '1200px' }"
+    [modal]="true"
+    styleClass="p-fluid"
+    autoZIndex
+>
     <ng-template pTemplate="header">
         <h3 class="m-0">{{ titulo() }}</h3>
     </ng-template>
@@ -113,27 +194,59 @@
                 <label>DNI o otra Identificacion:</label>
                 <div class="grid">
                     <div class="p-field col-2 pr-1">
-                        <p-dropdown *ngIf="!isUpdate" [showTransitionOptions]="'300ms'"
-                                    dropdownIcon="pi pi-chevron-right"
-                                    inputId="dropdown" [options]="docList" formControlName="tipoDoc"
-                                    optionLabel="abreviatura"
-                                    optionValue="abreviatura" placeholder="Tipo Documento" id="docid"
-                                    class="inputRedondo">
+                        <p-dropdown
+                            *ngIf="!isUpdate"
+                            [showTransitionOptions]="'300ms'"
+                            dropdownIcon="pi pi-chevron-right"
+                            inputId="dropdown"
+                            [options]="docList"
+                            formControlName="tipoDoc"
+                            optionLabel="abreviatura"
+                            optionValue="abreviatura"
+                            placeholder="Tipo Documento"
+                            id="docid"
+                            class="inputRedondo"
+                        >
                         </p-dropdown>
-                        <p-dropdown *ngIf="isUpdate" [showTransitionOptions]="'300ms'"
-                                    dropdownIcon="pi pi-chevron-right"
-                                    inputId="dropdown" [options]="docList" formControlName="tipoDoc"
-                                    optionLabel="abreviatura"
-                                    optionValue="abreviatura" id="docid" class="inputRedondo">
+                        <p-dropdown
+                            *ngIf="isUpdate"
+                            [showTransitionOptions]="'300ms'"
+                            dropdownIcon="pi pi-chevron-right"
+                            inputId="dropdown"
+                            [options]="docList"
+                            formControlName="tipoDoc"
+                            optionLabel="abreviatura"
+                            optionValue="abreviatura"
+                            id="docid"
+                            class="inputRedondo"
+                        >
                         </p-dropdown>
                     </div>
                     <div class="p-inputgroup col-2">
-                        <input type="text" pInputText formControlName="nroDoc" placeholder="Nro Documento"/>
-                        <button *ngIf="!isUpdate" type="button" pButton pRipple icon="pi pi-search"
-                                (click)="traerData()"
-                                class="p-button-outlined p-button-secondary"></button>
-                        <button *ngIf="isUpdate" type="button" pButton pRipple icon="pi pi-search"
-                                class="p-button-outlined p-button-secondary" [disabled]="isUpdate"></button>
+                        <input
+                            type="text"
+                            pInputText
+                            formControlName="nroDoc"
+                            placeholder="Nro Documento"
+                        />
+                        <button
+                            *ngIf="!isUpdate"
+                            type="button"
+                            pButton
+                            pRipple
+                            icon="pi pi-search"
+                            (click)="traerData()"
+                            class="p-button-outlined p-button-secondary"
+                        ></button>
+                        <button
+                            *ngIf="isUpdate"
+                            type="button"
+                            pButton
+                            pRipple
+                            icon="pi pi-search"
+                            class="p-button-outlined p-button-secondary"
+                            [disabled]="isUpdate"
+                        ></button>
                     </div>
                 </div>
             </div>
@@ -143,77 +256,137 @@
                     <b> Datos Personales</b>
                 </div>
             </p-divider>
-            <br/>
+            <br />
             <div class="grid">
                 <div class="col-9">
                     <div class="grid">
-                        <label class="col-9 p-0 pl-2">Apellidos y Nombres:</label>
+                        <label class="col-9 p-0 pl-2"
+                            >Apellidos y Nombres:</label
+                        >
                     </div>
                     <div class="grid">
                         <div class="p-field col-4">
-                            <input type="text" class="inputRedondo" placeholder="Ap. Paterno" pInputText
-                                   formControlName="apePaterno"
-                                   required/>
+                            <input
+                                type="text"
+                                class="inputRedondo"
+                                placeholder="Ap. Paterno"
+                                pInputText
+                                formControlName="apePaterno"
+                                required
+                            />
                         </div>
 
                         <div class="p-field col-4">
-                            <input type="text" class="inputRedondo" placeholder="Ap. Materno" pInputText
-                                   formControlName="apeMaterno"
-                                   required/>
+                            <input
+                                type="text"
+                                class="inputRedondo"
+                                placeholder="Ap. Materno"
+                                pInputText
+                                formControlName="apeMaterno"
+                                required
+                            />
                         </div>
 
                         <div class="p-field col-4">
-                            <input type="text" class="inputRedondo" placeholder="Nombres" pInputText
-                                   formControlName="nombres"
-                                   required/>
+                            <input
+                                type="text"
+                                class="inputRedondo"
+                                placeholder="Nombres"
+                                pInputText
+                                formControlName="nombres"
+                                required
+                            />
                         </div>
-
                     </div>
 
                     <div class="grid">
                         <div class="p-field col-4">
                             <label>Sexo:</label>
-                            <p-dropdown *ngIf="!isUpdate" [showTransitionOptions]="'300ms'" [options]="sexoList"
-                                        formControlName="sexo" placeholder="Sexo">
+                            <p-dropdown
+                                *ngIf="!isUpdate"
+                                [showTransitionOptions]="'300ms'"
+                                [options]="sexoList"
+                                formControlName="sexo"
+                                placeholder="Sexo"
+                            >
                             </p-dropdown>
-                            <p-dropdown *ngIf="isUpdate" [showTransitionOptions]="'300ms'" [options]="sexoList"
-                                        formControlName="sexo">
+                            <p-dropdown
+                                *ngIf="isUpdate"
+                                [showTransitionOptions]="'300ms'"
+                                [options]="sexoList"
+                                formControlName="sexo"
+                            >
                             </p-dropdown>
                         </div>
                         <div class="p-field col-4">
                             <label>Fecha Nacimiento:</label>
-                            <input class="inputRedondo" type="date" placeholder="Fecha Nacimiento" pInputText
-                                   formControlName="fechaNacimiento" required/>
+                            <input
+                                class="inputRedondo"
+                                type="date"
+                                placeholder="Fecha Nacimiento"
+                                pInputText
+                                formControlName="fechaNacimiento"
+                                required
+                            />
                         </div>
                         <div class="p-field col-4">
                             <label>Estado Civil:</label>
-                            <input class="inputRedondo" type="text" placeholder="Estado Civil" pInputText
-                                   formControlName="estadoCivil"/>
+                            <input
+                                class="inputRedondo"
+                                type="text"
+                                placeholder="Estado Civil"
+                                pInputText
+                                formControlName="estadoCivil"
+                            />
                         </div>
                         <div class="p-field col-4">
                             <label>Departamento:</label>
-                            <input class="inputRedondo" type="text" placeholder="Departamento" pInputText
-                                   formControlName="departamento"/>
+                            <input
+                                class="inputRedondo"
+                                type="text"
+                                placeholder="Departamento"
+                                pInputText
+                                formControlName="departamento"
+                            />
                         </div>
                         <div class="p-field col-4">
                             <label>Provincia:</label>
-                            <input class="inputRedondo" type="text" placeholder="Provincia" pInputText
-                                   formControlName="provincia"/>
+                            <input
+                                class="inputRedondo"
+                                type="text"
+                                placeholder="Provincia"
+                                pInputText
+                                formControlName="provincia"
+                            />
                         </div>
                         <div class="p-field col-4">
                             <label>Distrito:</label>
-                            <input class="inputRedondo" type="text" placeholder="Distrito" pInputText
-                                   formControlName="distrito"/>
+                            <input
+                                class="inputRedondo"
+                                type="text"
+                                placeholder="Distrito"
+                                pInputText
+                                formControlName="distrito"
+                            />
                         </div>
                         <div class="p-field col-12">
                             <label>Domicilio Actual:</label>
-                            <input class="inputRedondo" type="text" placeholder="Domicilio Actual" pInputText
-                                   formControlName="domicilioActual"/>
+                            <input
+                                class="inputRedondo"
+                                type="text"
+                                placeholder="Domicilio Actual"
+                                pInputText
+                                formControlName="domicilioActual"
+                            />
                         </div>
                     </div>
                 </div>
                 <div class="col-3">
-                    <img class="image" alt="Imagen" src="{{'data:image/jpg;base64,' + imagePath}}"/>
+                    <img
+                        class="image"
+                        alt="Imagen"
+                        src="{{ 'data:image/jpg;base64,' + imagePath }}"
+                    />
                 </div>
             </div>
             <p-divider align="left">
@@ -222,93 +395,175 @@
                     <b> Datos Profesionales</b>
                 </div>
             </p-divider>
-            <br/>
+            <br />
             <div class="grid">
                 <div class="p-field col-4 pt-0">
                     <label>Colegio Profesional:</label>
-                    <p-dropdown *ngIf="!isUpdate" placeholder="Colegio Profesional" class="inputRedondo"
-                                [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" inputId="dropdown"
-                                scrollHeight="100px"
-                                [options]="colegiosList" formControlName="colegioProfesional" optionLabel="nombre"
-                                optionValue="codigo"
-                                id="despecid" required>
+                    <p-dropdown
+                        *ngIf="!isUpdate"
+                        placeholder="Colegio Profesional"
+                        class="inputRedondo"
+                        [showTransitionOptions]="'300ms'"
+                        dropdownIcon="pi pi-chevron-down"
+                        inputId="dropdown"
+                        scrollHeight="100px"
+                        [options]="colegiosList"
+                        formControlName="colegioProfesional"
+                        optionLabel="nombre"
+                        optionValue="codigo"
+                        id="despecid"
+                        required
+                    >
                     </p-dropdown>
-                    <p-dropdown *ngIf="isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
-                                dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="colegiosList"
-                                scrollHeight="100px"
-                                formControlName="colegioProfesional" optionLabel="nombre" optionValue="codigo"
-                                id="despecid" required>
+                    <p-dropdown
+                        *ngIf="isUpdate"
+                        class="inputRedondo"
+                        [showTransitionOptions]="'300ms'"
+                        dropdownIcon="pi pi-chevron-down"
+                        inputId="dropdown"
+                        [options]="colegiosList"
+                        scrollHeight="100px"
+                        formControlName="colegioProfesional"
+                        optionLabel="nombre"
+                        optionValue="codigo"
+                        id="despecid"
+                        required
+                    >
                     </p-dropdown>
                 </div>
                 <div class="p-field col-4 pt-0">
                     <label>Colegiatura:</label>
-                    <input class="inputRedondo" type="text" placeholder="Colegiatura" pInputText
-                           formControlName="colegiatura"
-                           required/>
+                    <input
+                        class="inputRedondo"
+                        type="text"
+                        placeholder="Colegiatura"
+                        pInputText
+                        formControlName="colegiatura"
+                        required
+                    />
                 </div>
                 <div class="p-field col-4 pt-0">
                     <label>Tipo de Personal:</label>
-                    <p-dropdown *ngIf="!isUpdate" placeholder="Tipo de Personal" class="inputRedondo"
-                                [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" inputId="dropdown"
-                                [options]="tiposPersonalList" formControlName="tipoPersonal" optionLabel="nombre"
-                                optionValue="nombre"
-                                id="tipoid" scrollHeight="100px" required>
+                    <p-dropdown
+                        *ngIf="!isUpdate"
+                        placeholder="Tipo de Personal"
+                        class="inputRedondo"
+                        [showTransitionOptions]="'300ms'"
+                        dropdownIcon="pi pi-chevron-down"
+                        inputId="dropdown"
+                        [options]="tiposPersonalList"
+                        formControlName="tipoPersonal"
+                        optionLabel="nombre"
+                        optionValue="nombre"
+                        id="tipoid"
+                        scrollHeight="100px"
+                        required
+                    >
                     </p-dropdown>
-                    <p-dropdown *ngIf="isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
-                                dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="tiposPersonalList"
-                                formControlName="tipoPersonal" optionLabel="nombre" optionValue="nombre" id="tipoid"
-                                scrollHeight="100px"
-                                required>
+                    <p-dropdown
+                        *ngIf="isUpdate"
+                        class="inputRedondo"
+                        [showTransitionOptions]="'300ms'"
+                        dropdownIcon="pi pi-chevron-down"
+                        inputId="dropdown"
+                        [options]="tiposPersonalList"
+                        formControlName="tipoPersonal"
+                        optionLabel="nombre"
+                        optionValue="nombre"
+                        id="tipoid"
+                        scrollHeight="100px"
+                        required
+                    >
                     </p-dropdown>
                 </div>
             </div>
             <div class="grid">
                 <div class="p-field col-4">
                     <label>Tipo Contrato:</label>
-                    <p-dropdown *ngIf="!isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
-                                dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="tiposContratoList"
-                                formControlName="contratoAbreviatura" optionLabel="abreviatura"
-                                placeholder="Tipo de Contrato"
-                                optionValue="abreviatura" id="tipoid" scrollHeight="80px" required>
+                    <p-dropdown
+                        *ngIf="!isUpdate"
+                        class="inputRedondo"
+                        [showTransitionOptions]="'300ms'"
+                        dropdownIcon="pi pi-chevron-down"
+                        inputId="dropdown"
+                        [options]="tiposContratoList"
+                        formControlName="contratoAbreviatura"
+                        optionLabel="abreviatura"
+                        placeholder="Tipo de Contrato"
+                        optionValue="abreviatura"
+                        id="tipoid"
+                        scrollHeight="80px"
+                        required
+                    >
                     </p-dropdown>
-                    <p-dropdown *ngIf="isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
-                                dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="tiposContratoList"
-                                formControlName="contratoAbreviatura" optionLabel="abreviatura"
-                                optionValue="abreviatura" id="tipoid"
-                                scrollHeight="80px" required>
+                    <p-dropdown
+                        *ngIf="isUpdate"
+                        class="inputRedondo"
+                        [showTransitionOptions]="'300ms'"
+                        dropdownIcon="pi pi-chevron-down"
+                        inputId="dropdown"
+                        [options]="tiposContratoList"
+                        formControlName="contratoAbreviatura"
+                        optionLabel="abreviatura"
+                        optionValue="abreviatura"
+                        id="tipoid"
+                        scrollHeight="80px"
+                        required
+                    >
                     </p-dropdown>
                 </div>
                 <div class="p-field col-4">
                     <label>Ipress:</label>
-                    <!--<p-dropdown *ngIf="!isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
-                                dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="ipressList"
-                                formControlName="detalleIpress"
-                                optionLabel="nombreEESS" placeholder="Seleccione Ipress" optionValue="id"
-                                scrollHeight="80px" required>
+
+                    <p-dropdown
+                        *ngIf="root; else ipress"
+                        class="inputRedondo"
+                        [showTransitionOptions]="'300ms'"
+                        dropdownIcon="pi pi-chevron-down"
+                        inputId="dropdown"
+                        [options]="ipressList"
+                        formControlName="detalleIpress"
+                        optionLabel="nombreEESS"
+                        placeholder="Seleccione Ipress"
+                        optionValue="id"
+                        scrollHeight="80px"
+                        required
+                    >
                     </p-dropdown>
-                    <p-dropdown *ngIf="isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
-                                dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="ipressList"
-                                formControlName="detalleIpress"
-                                optionLabel="nombreEESS" [disabled]="true" optionValue="id" scrollHeight="80px"
-                                required>
-                    </p-dropdown>-->
-                    <input class="inputRedondo" type="text" pInputText disabled="true"
-                           formControlName="detalleIpress"
-                           required/>
+
+                    <ng-template #ipress>
+                        <input
+                            class="inputRedondo"
+                            type="text"
+                            pInputText
+                            formControlName="detalleIpress"
+                            disabled="true"
+                            required
+                        />
+                    </ng-template>
                 </div>
                 <div class="p-field col-4">
                     <label>Fecha Inicio:</label>
-                    <input class="inputRedondo" type="date" placeholder="Fecha Inicio" pInputText
-                           formControlName="fechaInicio"
-                           required/>
+                    <input
+                        class="inputRedondo"
+                        type="date"
+                        placeholder="Fecha Inicio"
+                        pInputText
+                        formControlName="fechaInicio"
+                        required
+                    />
                 </div>
             </div>
             <div class="grid">
                 <div class="p-field col-4"></div>
                 <div class="p-field col-4">
                     <label>Estado:</label>
-                    <p-selectButton [options]="stateOptions" formControlName="estado" optionLabel="label"
-                                    optionValue="value">
+                    <p-selectButton
+                        [options]="stateOptions"
+                        formControlName="estado"
+                        optionLabel="label"
+                        optionValue="value"
+                    >
                     </p-selectButton>
                 </div>
                 <div class="p-field col-4"></div>
@@ -317,15 +572,38 @@
     </ng-template>
 
     <ng-template pTemplate="footer">
-        <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="canceled()"></button>
-        <button *ngIf="!isUpdate" pButton type="button" label="Guardar" (click)="saveForm()"></button>
-        <button *ngIf="isUpdate" pButton type="button" label="Guardar" (click)="editarDatos()"></button>
+        <button
+            pButton
+            type="button"
+            label="Cancelar"
+            class="p-button-danger"
+            (click)="canceled()"
+        ></button>
+        <button
+            *ngIf="!isUpdate"
+            pButton
+            type="button"
+            label="Guardar"
+            (click)="saveForm()"
+        ></button>
+        <button
+            *ngIf="isUpdate"
+            pButton
+            type="button"
+            label="Guardar"
+            (click)="editarDatos()"
+        ></button>
     </ng-template>
 </p-dialog>
 
 <!--ESPECIALIDAD DIALOG-->
-<p-dialog [(visible)]="personalEspecialidadDialog" [style]="{ width: '1200px' }" [modal]="true" styleClass="p-fluid "
-          autoZIndex>
+<p-dialog
+    [(visible)]="personalEspecialidadDialog"
+    [style]="{ width: '1200px' }"
+    [modal]="true"
+    styleClass="p-fluid "
+    autoZIndex
+>
     <ng-template pTemplate="body">
         <div class="grid">
             <div class="col-4 mt-2">
@@ -335,85 +613,172 @@
                         <div class="p-fluid grid flex justify-content-center">
                             <div class="p-field col-12 md:col-12">
                                 <label id="nombre">Especialidad:</label>
-                                <p-dropdown *ngIf="!isUpdateEspecialidad" class="inputRedondo"
-                                            [showTransitionOptions]="'300ms'"
-                                            dropdownIcon="pi pi-chevron-down" inputId="dropdown"
-                                            [options]="especialidadesList"
-                                            formControlName="nombre" optionLabel="nombre" optionValue="nombre"
-                                            id="tipoid" required
-                                            placeholder="Selecciones Especialidad"
-                                            appendTo="body">
+                                <p-dropdown
+                                    *ngIf="!isUpdateEspecialidad"
+                                    class="inputRedondo"
+                                    [showTransitionOptions]="'300ms'"
+                                    dropdownIcon="pi pi-chevron-down"
+                                    inputId="dropdown"
+                                    [options]="especialidadesList"
+                                    formControlName="nombre"
+                                    optionLabel="nombre"
+                                    optionValue="nombre"
+                                    id="tipoid"
+                                    required
+                                    placeholder="Selecciones Especialidad"
+                                    appendTo="body"
+                                >
                                 </p-dropdown>
-                                <p-dropdown *ngIf="isUpdateEspecialidad" class="inputRedondo"
-                                            [showTransitionOptions]="'300ms'"
-                                            dropdownIcon="pi pi-chevron-down" inputId="dropdown"
-                                            [options]="especialidadesList"
-                                            formControlName="nombre" optionLabel="nombre" optionValue="nombre"
-                                            id="tipoid" required
-                                            appendTo="body">
+                                <p-dropdown
+                                    *ngIf="isUpdateEspecialidad"
+                                    class="inputRedondo"
+                                    [showTransitionOptions]="'300ms'"
+                                    dropdownIcon="pi pi-chevron-down"
+                                    inputId="dropdown"
+                                    [options]="especialidadesList"
+                                    formControlName="nombre"
+                                    optionLabel="nombre"
+                                    optionValue="nombre"
+                                    id="tipoid"
+                                    required
+                                    appendTo="body"
+                                >
                                 </p-dropdown>
                             </div>
                         </div>
                         <div class="p-fluid grid flex justify-content-center">
                             <div class="p-field col-12 md:col-12">
                                 <label id="nroEspe">Nro Especialidad:</label>
-                                <input type="text" pInputText formControlName="nroEspecialidad" required/>
+                                <input
+                                    type="text"
+                                    pInputText
+                                    formControlName="nroEspecialidad"
+                                    required
+                                />
                             </div>
                         </div>
                     </form>
-                    <br/>
+                    <br />
                     <div class="flex justify-content-end">
-                        <button *ngIf="!isUpdateEspecialidad" [disabled]="!formEspecialidad.valid" pButton type="button"
-                                label="Guardar" class="m-1 w-9rem" (click)="saveEspecialidad()"></button>
-                        <button *ngIf="isUpdateEspecialidad" [disabled]="!formEspecialidad.valid" pButton type="button"
-                                label="Guardar" class="m-1 w-9rem" (click)="saveEdicionEspecialidad()"></button>
-                        <button pButton type="button" label="Nuevo" icon="pi pi-plus"
-                                (click)="guardarNuevoEspecialidad()"
-                                pTooltip="Agregar especialidad" tooltipPosition="right"
-                                class="p-button-danger m-1 w-9rem"
-                                pRipple></button>
+                        <button
+                            *ngIf="!isUpdateEspecialidad"
+                            [disabled]="!formEspecialidad.valid"
+                            pButton
+                            type="button"
+                            label="Guardar"
+                            class="m-1 w-9rem"
+                            (click)="saveEspecialidad()"
+                        ></button>
+                        <button
+                            *ngIf="isUpdateEspecialidad"
+                            [disabled]="!formEspecialidad.valid"
+                            pButton
+                            type="button"
+                            label="Guardar"
+                            class="m-1 w-9rem"
+                            (click)="saveEdicionEspecialidad()"
+                        ></button>
+                        <button
+                            pButton
+                            type="button"
+                            label="Nuevo"
+                            icon="pi pi-plus"
+                            (click)="guardarNuevoEspecialidad()"
+                            pTooltip="Agregar especialidad"
+                            tooltipPosition="right"
+                            class="p-button-danger m-1 w-9rem"
+                            pRipple
+                        ></button>
                     </div>
                 </p-card>
             </div>
             <div class="col-8">
-                <p-table [value]="especialidades" #dt styleClass="p-datatable-gridlines" [rows]="10"
-                         [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
-                         currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
-                         [showCurrentPageReport]="true">
+                <p-table
+                    [value]="especialidades"
+                    #dt
+                    styleClass="p-datatable-gridlines"
+                    [rows]="10"
+                    [rowsPerPageOptions]="[10, 25, 50]"
+                    [paginator]="true"
+                    [autoLayout]="true"
+                    currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                    [showCurrentPageReport]="true"
+                >
                     <ng-template pTemplate="caption">
                         <div class="flex justify-content-between">
-                            <h3>Lista de Especialidades de {{ nombrePersonal }}</h3>
+                            <h3>
+                                Lista de Especialidades de {{ nombrePersonal }}
+                            </h3>
                         </div>
                     </ng-template>
-                    <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                    <ng-template
+                        pTemplate="header"
+                        styleClass="p-datatable-gridlines"
+                    >
                         <tr>
                             <th style="text-align: center">Nro</th>
                             <th style="text-align: center">Nombre</th>
                             <th style="text-align: center">Nro Especialidad</th>
-                            <th style="text-align: center; width: 8rem">Estado</th>
-                            <th style="text-align: center; width: 8rem">Acción</th>
+                            <th style="text-align: center; width: 8rem">
+                                Estado
+                            </th>
+                            <th style="text-align: center; width: 8rem">
+                                Acción
+                            </th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                    <ng-template
+                        pTemplate="body"
+                        let-rowData
+                        let-rowIndex="rowIndex"
+                    >
                         <tr style="text-align: center">
-                            <td style="text-align: center">{{ rowIndex + 1 }}</td>
-                            <td style="text-align: center">{{ rowData.nombre }}</td>
-                            <td style="text-align: center">{{ rowData.nroEspecialidad }}</td>
                             <td style="text-align: center">
-                                <p-tag *ngIf="rowData.estado" styleClass="p-mr-2" severity="success" value="Activo"
-                                       [rounded]="true">
+                                {{ rowIndex + 1 }}
+                            </td>
+                            <td style="text-align: center">
+                                {{ rowData.nombre }}
+                            </td>
+                            <td style="text-align: center">
+                                {{ rowData.nroEspecialidad }}
+                            </td>
+                            <td style="text-align: center">
+                                <p-tag
+                                    *ngIf="rowData.estado"
+                                    styleClass="p-mr-2"
+                                    severity="success"
+                                    value="Activo"
+                                    [rounded]="true"
+                                >
                                 </p-tag>
-                                <p-tag *ngIf="!rowData.estado" styleClass="p-mr-2" severity="danger" value="Inactivo"
-                                       [rounded]="true">
+                                <p-tag
+                                    *ngIf="!rowData.estado"
+                                    styleClass="p-mr-2"
+                                    severity="danger"
+                                    value="Inactivo"
+                                    [rounded]="true"
+                                >
                                 </p-tag>
                             </td>
                             <td>
-                                <button pButton (click)="editarEspecialidad(rowData)" pTooltip="Editar" pRipple
-                                        type="button"
-                                        icon="pi pi-pencil" class="p-button-rounded m-1"></button>
-                                <button pButton (click)="eliminarEspecialidad(rowData)" pTooltip="Eliminar" pRipple
-                                        type="button"
-                                        icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"></button>
+                                <button
+                                    pButton
+                                    (click)="editarEspecialidad(rowData)"
+                                    pTooltip="Editar"
+                                    pRipple
+                                    type="button"
+                                    icon="pi pi-pencil"
+                                    class="p-button-rounded m-1"
+                                ></button>
+                                <button
+                                    pButton
+                                    (click)="eliminarEspecialidad(rowData)"
+                                    pTooltip="Eliminar"
+                                    pRipple
+                                    type="button"
+                                    icon="pi pi-trash"
+                                    class="p-button-rounded p-button-danger m-1"
+                                ></button>
                             </td>
                         </tr>
                     </ng-template>
@@ -423,12 +788,23 @@
     </ng-template>
 
     <ng-template pTemplate="footer">
-        <button pButton type="button" label="Salir" class="m-1 w-5rem" (click)="close()"></button>
+        <button
+            pButton
+            type="button"
+            label="Salir"
+            class="m-1 w-5rem"
+            (click)="close()"
+        ></button>
     </ng-template>
 </p-dialog>
 <!--ROL DIALOG-->
-<p-dialog [(visible)]="personalRolDialogX" [style]="{ width: '1200px' }" [modal]="true" styleClass="p-fluid "
-          autoZIndex>
+<p-dialog
+    [(visible)]="personalRolDialogX"
+    [style]="{ width: '1200px' }"
+    [modal]="true"
+    styleClass="p-fluid "
+    autoZIndex
+>
     <ng-template pTemplate="body">
         <div class="grid">
             <div class="col-4 mt-2">
@@ -438,100 +814,197 @@
                         <div class="p-fluid grid flex justify-content-center">
                             <div class="p-field col-12 md:col-12">
                                 <label id="nroEspe">Nombre Funcion:</label>
-                                <p-dropdown *ngIf="!isUpdatRol" class="inputRedondo" [showTransitionOptions]="'300ms'"
-                                            dropdownIcon="pi pi-chevron-down" inputId="dropdown"
-                                            [options]="nombreRolOpciones"
-                                            formControlName="nombreFuncion" optionLabel="nombre" optionValue="nombre"
-                                            placeholder="Seleccione nombre funcion">
+                                <p-dropdown
+                                    *ngIf="!isUpdatRol"
+                                    class="inputRedondo"
+                                    [showTransitionOptions]="'300ms'"
+                                    dropdownIcon="pi pi-chevron-down"
+                                    inputId="dropdown"
+                                    [options]="nombreRolOpciones"
+                                    formControlName="nombreFuncion"
+                                    optionLabel="nombre"
+                                    optionValue="nombre"
+                                    placeholder="Seleccione nombre funcion"
+                                >
                                 </p-dropdown>
-                                <p-dropdown *ngIf="isUpdateRol" class="inputRedondo" [showTransitionOptions]="'300ms'"
-                                            dropdownIcon="pi pi-chevron-down" inputId="dropdown"
-                                            [options]="nombreRolOpciones"
-                                            optionValue="nombre" optionLabel="nombre" formControlName="nombreFuncion">
+                                <p-dropdown
+                                    *ngIf="isUpdateRol"
+                                    class="inputRedondo"
+                                    [showTransitionOptions]="'300ms'"
+                                    dropdownIcon="pi pi-chevron-down"
+                                    inputId="dropdown"
+                                    [options]="nombreRolOpciones"
+                                    optionValue="nombre"
+                                    optionLabel="nombre"
+                                    formControlName="nombreFuncion"
+                                >
                                 </p-dropdown>
                             </div>
                         </div>
                         <div class="p-fluid grid flex justify-content-center">
                             <div class="p-field col-12 md:col-12">
                                 <label id="nombre">Ups:</label>
-                                <p-dropdown *ngIf="!isUpdatRol" class="inputRedondo" [showTransitionOptions]="'300ms'"
-                                            dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="listaUpsX"
-                                            formControlName="ups"
-                                            optionLabel="nombreUPS" optionValue="id" id="tipoid"
-                                            placeholder="Seleccione especialidad"
-                                            [appendTo]="body"
-                                            >
+                                <p-dropdown
+                                    *ngIf="!isUpdatRol"
+                                    class="inputRedondo"
+                                    [showTransitionOptions]="'300ms'"
+                                    dropdownIcon="pi pi-chevron-down"
+                                    inputId="dropdown"
+                                    [options]="listaUpsX"
+                                    formControlName="ups"
+                                    optionLabel="nombreUPS"
+                                    optionValue="id"
+                                    id="tipoid"
+                                    placeholder="Seleccione especialidad"
+                                    [appendTo]="body"
+                                >
                                 </p-dropdown>
-                                <p-dropdown *ngIf="isUpdateRol" class="inputRedondo" [showTransitionOptions]="'300ms'"
-                                            dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="listaUpsX"
-                                            formControlName="ups"
-                                            optionLabel="id" optionValue="nombre" id="tipoid" appendTo="body">
+                                <p-dropdown
+                                    *ngIf="isUpdateRol"
+                                    class="inputRedondo"
+                                    [showTransitionOptions]="'300ms'"
+                                    dropdownIcon="pi pi-chevron-down"
+                                    inputId="dropdown"
+                                    [options]="listaUpsX"
+                                    formControlName="ups"
+                                    optionLabel="id"
+                                    optionValue="nombre"
+                                    id="tipoid"
+                                    appendTo="body"
+                                >
                                 </p-dropdown>
                             </div>
                         </div>
                         <div class="p-fluid grid flex justify-content-center">
                             <div class="p-field col-6">
                                 <label>Estado rol guardia:</label>
-                                <p-selectButton [options]="stateOptions" formControlName="rolGuardia"
-                                                optionLabel="label"
-                                                optionValue="value">
+                                <p-selectButton
+                                    [options]="stateOptions"
+                                    formControlName="rolGuardia"
+                                    optionLabel="label"
+                                    optionValue="value"
+                                >
                                 </p-selectButton>
                             </div>
                         </div>
                     </form>
-                    <br/>
+                    <br />
                     <div class="flex justify-content-end">
-                        <button *ngIf="!isUpdateRolX" [disabled]="!formRol.valid" pButton type="button" label="Guardar"
-                                class="m-1 w-9rem" (click)="saveRol()"></button>
-                        <button *ngIf="isUpdateRolX" [disabled]="!formRol.valid" pButton type="button" label="Guardar"
-                                class="m-1 w-9rem" (click)="saveEdicionRol()"></button>
-                        <button pButton type="button" label="Nuevo" icon="pi pi-plus" (click)="guardarNuevoRol()"
-                                pTooltip="Agregar especialidad" tooltipPosition="right"
-                                class="p-button-danger m-1 w-9rem"
-                                pRipple></button>
+                        <button
+                            *ngIf="!isUpdateRolX"
+                            [disabled]="!formRol.valid"
+                            pButton
+                            type="button"
+                            label="Guardar"
+                            class="m-1 w-9rem"
+                            (click)="saveRol()"
+                        ></button>
+                        <button
+                            *ngIf="isUpdateRolX"
+                            [disabled]="!formRol.valid"
+                            pButton
+                            type="button"
+                            label="Guardar"
+                            class="m-1 w-9rem"
+                            (click)="saveEdicionRol()"
+                        ></button>
+                        <button
+                            pButton
+                            type="button"
+                            label="Nuevo"
+                            icon="pi pi-plus"
+                            (click)="guardarNuevoRol()"
+                            pTooltip="Agregar especialidad"
+                            tooltipPosition="right"
+                            class="p-button-danger m-1 w-9rem"
+                            pRipple
+                        ></button>
                     </div>
                 </p-card>
             </div>
             <div class="col-8">
-                <p-table [value]="rolesX" #dt styleClass="p-datatable-gridlines" [rows]="10"
-                         [rowsPerPageOptions]="[10, 25, 50]"
-                         [paginator]="true" [autoLayout]="true"
-                         currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
-                         [showCurrentPageReport]="true">
+                <p-table
+                    [value]="rolesX"
+                    #dt
+                    styleClass="p-datatable-gridlines"
+                    [rows]="10"
+                    [rowsPerPageOptions]="[10, 25, 50]"
+                    [paginator]="true"
+                    [autoLayout]="true"
+                    currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                    [showCurrentPageReport]="true"
+                >
                     <ng-template pTemplate="caption">
                         <div class="flex justify-content-between">
                             <h3>Lista de roles de {{ nombrePersonal }}</h3>
                         </div>
                     </ng-template>
-                    <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                    <ng-template
+                        pTemplate="header"
+                        styleClass="p-datatable-gridlines"
+                    >
                         <tr>
                             <th style="text-align: center">Nro</th>
                             <th style="text-align: center">Nombre</th>
                             <th style="text-align: center">Rol del Personal</th>
                             <th style="text-align: center">Estado rol</th>
-                            <th style="text-align: center; width: 8rem">Acción</th>
+                            <th style="text-align: center; width: 8rem">
+                                Acción
+                            </th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                    <ng-template
+                        pTemplate="body"
+                        let-rowData
+                        let-rowIndex="rowIndex"
+                    >
                         <tr style="text-align: center">
-                            <td style="text-align: center">{{ rowIndex + 1 }}</td>
-                            <td style="text-align: center">{{ rowData.nombreFuncion }}</td>
-                            <td style="text-align: center">{{ rowData.nombreUPS }}</td>
                             <td style="text-align: center">
-                                <p-tag *ngIf="rowData.rolGuardia" styleClass="p-mr-2" severity="success" value="Activo"
-                                       [rounded]="true">
+                                {{ rowIndex + 1 }}
+                            </td>
+                            <td style="text-align: center">
+                                {{ rowData.nombreFuncion }}
+                            </td>
+                            <td style="text-align: center">
+                                {{ rowData.nombreUPS }}
+                            </td>
+                            <td style="text-align: center">
+                                <p-tag
+                                    *ngIf="rowData.rolGuardia"
+                                    styleClass="p-mr-2"
+                                    severity="success"
+                                    value="Activo"
+                                    [rounded]="true"
+                                >
                                 </p-tag>
-                                <p-tag *ngIf="!rowData.rolGuardia" styleClass="p-mr-2" severity="danger"
-                                       value="Inactivo"
-                                       [rounded]="true">
+                                <p-tag
+                                    *ngIf="!rowData.rolGuardia"
+                                    styleClass="p-mr-2"
+                                    severity="danger"
+                                    value="Inactivo"
+                                    [rounded]="true"
+                                >
                                 </p-tag>
                             </td>
                             <td>
-                                <button pButton (click)="editarRolX(rowData)" pTooltip="Editar" pRipple type="button"
-                                        icon="pi pi-pencil" class="p-button-rounded m-1"></button>
-                                <button pButton (click)="eliminarRolX(rowData,rowIndex)" pTooltip="Eliminar" pRipple
-                                        type="button"
-                                        icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"></button>
+                                <button
+                                    pButton
+                                    (click)="editarRolX(rowData)"
+                                    pTooltip="Editar"
+                                    pRipple
+                                    type="button"
+                                    icon="pi pi-pencil"
+                                    class="p-button-rounded m-1"
+                                ></button>
+                                <button
+                                    pButton
+                                    (click)="eliminarRolX(rowData, rowIndex)"
+                                    pTooltip="Eliminar"
+                                    pRipple
+                                    type="button"
+                                    icon="pi pi-trash"
+                                    class="p-button-rounded p-button-danger m-1"
+                                ></button>
                             </td>
                         </tr>
                     </ng-template>
@@ -541,57 +1014,112 @@
     </ng-template>
 
     <ng-template pTemplate="footer">
-        <button pButton type="button" label="Salir" class="m-1 w-5rem" (click)="closeRol()"></button>
+        <button
+            pButton
+            type="button"
+            label="Salir"
+            class="m-1 w-5rem"
+            (click)="closeRol()"
+        ></button>
     </ng-template>
 </p-dialog>
 
 <!--ROL SISTEMA DIALOG-->
 <form [formGroup]="formRoles">
-    <p-dialog [(visible)]="rolSistema" [style]="{ width: '600px' }" [modal]="true" styleClass="p-fluid "
-              autoZIndex>
+    <p-dialog
+        [(visible)]="rolSistema"
+        [style]="{ width: '600px' }"
+        [modal]="true"
+        styleClass="p-fluid "
+        autoZIndex
+    >
         <ng-template pTemplate="body">
             <div class="grid align-items-center">
-                <div class="col-12" style="text-align:center">
+                <div class="col-12" style="text-align: center">
                     <h3>Lista de roles del sistema de {{ nombrePersonal }}</h3>
                 </div>
                 <div class="col-12 p-fluid" style="text-align: center">
                     <label>Roles del Sistema:</label>
-                    <p-dropdown [options]="listaRol" placeholder="SELECCIONA UN ROL"
-                                formControlName="rol"
-                                [showClear]="false" appendTo="body" optionLabel="nombre">
+                    <p-dropdown
+                        [options]="listaRol"
+                        placeholder="SELECCIONA UN ROL"
+                        formControlName="rol"
+                        [showClear]="false"
+                        appendTo="body"
+                        optionLabel="nombre"
+                    >
                     </p-dropdown>
                     <div class="col flex justify-content-center">
-                        <button pButton type="button" label="Agregar Rol" icon="pi pi-plus"
-                                (click)="agregarRol()"
-                                pTooltip="Agregar Rol" tooltipPosition="right"
-                                class="p-button-danger m-1 w-9rem"
-                                pRipple></button>
+                        <button
+                            pButton
+                            type="button"
+                            label="Agregar Rol"
+                            icon="pi pi-plus"
+                            (click)="agregarRol()"
+                            pTooltip="Agregar Rol"
+                            tooltipPosition="right"
+                            class="p-button-danger m-1 w-9rem"
+                            pRipple
+                        ></button>
                     </div>
                 </div>
                 <div class="col-12">
-                    <p-table [value]="rolesSistema" #dt styleClass="p-datatable-gridlines" [rows]="10"
-                             [rowsPerPageOptions]="[10, 25, 50]"
-                             [paginator]="true" [autoLayout]="true"
-                             currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
-                             [showCurrentPageReport]="true">
-                        <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                    <p-table
+                        [value]="rolesSistema"
+                        #dt
+                        styleClass="p-datatable-gridlines"
+                        [rows]="10"
+                        [rowsPerPageOptions]="[10, 25, 50]"
+                        [paginator]="true"
+                        [autoLayout]="true"
+                        currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                        [showCurrentPageReport]="true"
+                    >
+                        <ng-template
+                            pTemplate="header"
+                            styleClass="p-datatable-gridlines"
+                        >
                             <tr>
                                 <th style="text-align: center">Nro</th>
-                                <th style="text-align: center">Rol del Sistema</th>
+                                <th style="text-align: center">
+                                    Rol del Sistema
+                                </th>
                                 <th style="text-align: center">Descripción</th>
-                                <th style="text-align: center; width: 8rem">Acción</th>
+                                <th style="text-align: center; width: 8rem">
+                                    Acción
+                                </th>
                             </tr>
                         </ng-template>
-                        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                        <ng-template
+                            pTemplate="body"
+                            let-rowData
+                            let-rowIndex="rowIndex"
+                        >
                             <tr style="text-align: center">
-                                <td style="text-align: center">{{ rowIndex + 1 }}</td>
-                                <td style="text-align: center">{{ rowData.nombre }}</td>
-                                <td style="text-align: center">{{ rowData.codigo }}</td>
+                                <td style="text-align: center">
+                                    {{ rowIndex + 1 }}
+                                </td>
+                                <td style="text-align: center">
+                                    {{ rowData.nombre }}
+                                </td>
+                                <td style="text-align: center">
+                                    {{ rowData.codigo }}
+                                </td>
                                 <td>
-                                    <button pButton (click)="eliminarRolSistema(rowData,rowIndex)" pTooltip="Eliminar"
-                                            pRipple type="button"
-                                            icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
-                                    </button>
+                                    <button
+                                        pButton
+                                        (click)="
+                                            eliminarRolSistema(
+                                                rowData,
+                                                rowIndex
+                                            )
+                                        "
+                                        pTooltip="Eliminar"
+                                        pRipple
+                                        type="button"
+                                        icon="pi pi-trash"
+                                        class="p-button-rounded p-button-danger m-1"
+                                    ></button>
                                 </td>
                             </tr>
                         </ng-template>
@@ -601,7 +1129,13 @@
         </ng-template>
 
         <ng-template pTemplate="footer">
-            <button pButton type="button" label="Agregar" class="m-1 w-5rem" (click)="guardarRolSistema()"></button>
+            <button
+                pButton
+                type="button"
+                label="Agregar"
+                class="m-1 w-5rem"
+                (click)="guardarRolSistema()"
+            ></button>
         </ng-template>
     </p-dialog>
 </form>

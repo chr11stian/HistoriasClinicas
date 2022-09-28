@@ -3,9 +3,7 @@ import { PersonalService } from "../../core/services/personal-services/personal.
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 import Swal from "sweetalert2";
 import { Personal } from "src/app/core/models/personal.models";
-import {
-    DocumentoIdentidadService
-} from "src/app/mantenimientos/services/documento-identidad/documento-identidad.service";
+import { DocumentoIdentidadService } from "src/app/mantenimientos/services/documento-identidad/documento-identidad.service";
 import {
     ColegioProfesional,
     DocumentoIdentidad,
@@ -14,14 +12,12 @@ import {
 } from "src/app/core/models/mantenimiento.models";
 import { TipoPersonalService } from "src/app/mantenimientos/services/tipo-personal/tipo-personal.service";
 import { EspecialidadService } from "src/app/mantenimientos/services/especialidad/especialidad.service";
-import {
-    ColegioProfesionalService
-} from "src/app/mantenimientos/services/colegio-profesional/colegio-profesional.service";
+import { ColegioProfesionalService } from "src/app/mantenimientos/services/colegio-profesional/colegio-profesional.service";
 import { DatePipe, getLocaleDateFormat } from "@angular/common";
 import { TipoContratoService } from "src/app/mantenimientos/services/tipo-contrato/tipo-contrato.service";
 import { IpressService } from "src/app/core/services/ipress/ipress.service";
 import { RolGuardiaService } from "src/app/core/services/rol-guardia/rol-guardia.service";
-import { image } from '../../../assets/images/image.const';
+import { image } from "../../../assets/images/image.const";
 import { TipoUpsService } from "src/app/mantenimientos/services/tipo-ups.service";
 import { UsuarioService } from "../usuarios/services/usuario.service";
 import { LoginService } from "../../login/services/login.service";
@@ -63,24 +59,25 @@ export class PersonalSaludComponent implements OnInit {
     datosPersonales: any[];
     especialidades: any[];
     rolesX: any[] = [];
-    rolesSistema: any[] = []
+    rolesSistema: any[] = [];
     listaUpsX: any[];
     personalDialog: boolean;
     personalEspecialidadDialog: boolean;
     personalRolDialogX: boolean;
-    rolSistema: boolean
+    rolSistema: boolean;
     datePipe = new DatePipe("en-US");
-    idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
-    iprees: string = JSON.parse(localStorage.getItem('usuario')).ipress.nombreEESS;
-    listaRol: rol[] = []
+    idIpress: string = "";
+    iprees: string = "";
+    listaRol: rol[] = [];
     nombreRolOpciones: any[] = [
         //"ASISTENCIAL",
         //"ADMINISTRATIVO"
-    ]
+    ];
     datoLocalStore: dato;
-    nroDocRow: string = '';
-    idPersonal: string = '';
+    nroDocRow: string = "";
+    idPersonal: string = "";
     dataEditRol: Edit;
+    root: boolean;
 
     constructor(
         private personalservice: PersonalService,
@@ -102,7 +99,7 @@ export class PersonalSaludComponent implements OnInit {
         this.getEspecialidades();
         this.getColegios();
         this.getTipoContratos();
-        //this.getIpress();
+        this.getIpress();
         this.getListaUps();
         this.getSexos();
         this.getNombreRoles();
@@ -185,6 +182,7 @@ export class PersonalSaludComponent implements OnInit {
     getIpress() {
         this.ipressservice.getIpress().subscribe((res: any) => {
             this.ipressList = res.object;
+            console.log("ipress", this.ipressList);
         });
     }
 
@@ -197,8 +195,8 @@ export class PersonalSaludComponent implements OnInit {
 
     buildForm() {
         this.formRoles = this.formBuilder.group({
-            rol: [""]
-        })
+            rol: [""],
+        });
         this.form = this.formBuilder.group({
             tipoDoc: ["", [Validators.required]],
             nroDoc: ["", [Validators.required]],
@@ -238,11 +236,14 @@ export class PersonalSaludComponent implements OnInit {
     }
 
     getPersonal() {
-        this.personalservice.getPersonalIpress(this.idIpress).subscribe((res: any) => {
-            //this.personalservice.getPersonal().subscribe((res: any) => {
-            this.data = res.object;
-            console.log("data", this.data)
-        });
+        this.personalservice
+            .getPersonalIpress(this.idIpress)
+            .subscribe((res: any) => {
+                //this.personalservice.getPersonal().subscribe((res: any) => {
+                this.data = res.object;
+                console.log("data", this.data);
+            });
+        //-- lista de administradores
     }
 
     getListaUps() {
@@ -250,12 +251,15 @@ export class PersonalSaludComponent implements OnInit {
             .getServiciosPorIpress(this.idIpress)
             .subscribe((resp) => {
                 this.listaUpsX = resp["object"];
-                console.log('upsX-->', this.listaUpsX)
+                console.log("upsX-->", this.listaUpsX);
             });
     }
 
     buscarNombre(id) {
-        return this.listaUpsX.find(elemento => elemento.id == id)?.nombreUPS || 'UPS ELIMINADA';
+        return (
+            this.listaUpsX.find((elemento) => elemento.id == id)?.nombreUPS ||
+            "UPS ELIMINADA"
+        );
     }
 
     saveForm() {
@@ -270,9 +274,9 @@ export class PersonalSaludComponent implements OnInit {
         let colegioSelected = this.colegiosList.find(
             (colegio) => colegio.codigo === this.form.value.colegioProfesional
         );
-        /*let ipressSelected = this.ipressList.find(
+        let ipressSelected = this.ipressList.find(
             (ipress) => ipress.id === this.form.value.detalleIpress
-        );*/
+        );
         console.log(this.form.value.fechaNacimiento);
         const req = {
             tipoDoc: this.form.value.tipoDoc,
@@ -292,8 +296,7 @@ export class PersonalSaludComponent implements OnInit {
                 esProfesional: tipoPersonalSelected.esProfesional,
                 abreviatura: tipoPersonalSelected.abreviatura,
             },
-            colegioProfesional:
-            {
+            colegioProfesional: {
                 codigo: colegioSelected.codigo,
                 nombre: colegioSelected.nombre,
             },
@@ -303,21 +306,53 @@ export class PersonalSaludComponent implements OnInit {
                 idIpress: this.idIpress,
                 eess: this.iprees,
                 fechaInicio:
-                    this.datePipe.transform(this.form.value.fechaInicio, "yyyy-MM-dd") +
-                    " 00:00:00",
+                    this.datePipe.transform(
+                        this.form.value.fechaInicio,
+                        "yyyy-MM-dd"
+                    ) + " 00:00:00",
             },
         };
         console.log(req);
+        let objectAdmin = {
+            tipoDoc: "DNI",
+            nroDoc: this.form.value.nroDoc,
+            apps: ["hce"],
+            escalas: [
+                {
+                    escala: "IPRESS",
+                    unidades: [ipressSelected.renipress],
+                },
+            ],
+        };
+
         if (req.nroDoc.trim() !== "") {
             this.personalservice.createPersonal(req).subscribe((result) => {
-                Swal.fire({
-                    icon: "success",
-                    title: "Agregado correctamente",
-                    text: "",
-                    showConfirmButton: false,
-                    timer: 1500,
-                });
-                this.getPersonal();
+                //--Agregar Admin
+                if (this.root) {
+                    this.loginService
+                        .createAdmin(objectAdmin)
+                        .subscribe((r: any) => {
+                            Swal.fire({
+                                icon: "success",
+                                title: "Administrador agregado correctamente",
+                                text: "",
+                                showConfirmButton: false,
+                                timer: 1500,
+                            });
+                        });
+                    //--listar administradores
+                }
+                if (!this.root) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Agregado correctamente",
+                        text: "",
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                    this.getPersonal();
+                }
+
                 this.personalDialog = false;
             });
         }
@@ -364,17 +399,37 @@ export class PersonalSaludComponent implements OnInit {
         this.form.get("tipoDoc").setValue(rowData.tipoDoc);
         this.form.get("apePaterno").setValue(rowData.apePaterno);
         this.form.get("apeMaterno").setValue(rowData.apeMaterno);
-        this.form.get("nombres").setValue(rowData.primerNombre + " " + rowData.otrosNombres);
+        this.form
+            .get("nombres")
+            .setValue(rowData.primerNombre + " " + rowData.otrosNombres);
         this.form.get("fechaNacimiento").setValue(rowData.fechaNacimiento);
-        this.form.get("tipoPersonal").setValue(rowData.tipoPersonal ? rowData.tipoPersonal.nombre : "");
-        this.form.get("colegioProfesional").setValue(rowData.colegioProfesional ? rowData.colegioProfesional.codigo : "");
+        this.form
+            .get("tipoPersonal")
+            .setValue(rowData.tipoPersonal ? rowData.tipoPersonal.nombre : "");
+        this.form
+            .get("colegioProfesional")
+            .setValue(
+                rowData.colegioProfesional
+                    ? rowData.colegioProfesional.codigo
+                    : ""
+            );
         this.form.get("colegiatura").setValue(rowData.colegiatura);
         this.form.get("estado").setValue(rowData.estado);
-        this.form.get("contratoAbreviatura").setValue(rowData.contratoAbreviatura);
+        this.form
+            .get("contratoAbreviatura")
+            .setValue(rowData.contratoAbreviatura);
         this.form.get("sexo").setValue(rowData.sexo);
         this.form.get("detalleIpress").setValue(this.iprees);
-        this.form.get("fechaInicio").setValue(rowData.detalleIpress ?
-            this.datePipe.transform(rowData.detalleIpress.fechaInicio, "yyyy-MM-dd") : "");
+        this.form
+            .get("fechaInicio")
+            .setValue(
+                rowData.detalleIpress
+                    ? this.datePipe.transform(
+                          rowData.detalleIpress.fechaInicio,
+                          "yyyy-MM-dd"
+                      )
+                    : ""
+            );
         this.idUpdate = rowData.id;
         this.form.get("estadoCivil").disable();
         this.form.get("distrito").disable();
@@ -396,9 +451,9 @@ export class PersonalSaludComponent implements OnInit {
         let colegioSelected = this.colegiosList.find(
             (colegio) => colegio.codigo === this.form.value.colegioProfesional
         );
-        /*let ipressSelected = this.ipressList.find(
+        let ipressSelected = this.ipressList.find(
             (ipress) => ipress.id === this.form.value.detalleIpress
-        );*/
+        );
         console.log(this.form.value.fechaNacimiento);
         const req = {
             id: this.idUpdate,
@@ -419,8 +474,7 @@ export class PersonalSaludComponent implements OnInit {
                 esProfesional: tipoPersonalSelected.esProfesional,
                 abreviatura: tipoPersonalSelected.abreviatura,
             },
-            colegioProfesional:
-            {
+            colegioProfesional: {
                 codigo: colegioSelected.codigo,
                 nombre: colegioSelected.nombre,
             },
@@ -432,8 +486,10 @@ export class PersonalSaludComponent implements OnInit {
                 idIpress: this.idIpress,
                 eess: this.iprees,
                 fechaInicio:
-                    this.datePipe.transform(this.form.value.fechaInicio, "yyyy-MM-dd") +
-                    " 00:00:00",
+                    this.datePipe.transform(
+                        this.form.value.fechaInicio,
+                        "yyyy-MM-dd"
+                    ) + " 00:00:00",
             },
         };
 
@@ -461,9 +517,11 @@ export class PersonalSaludComponent implements OnInit {
             showConfirmButton: true,
         }).then((result) => {
             if (result.isConfirmed) {
-                this.personalservice.deletePersonal(rowData.id).subscribe((result) => {
-                    this.getPersonal();
-                });
+                this.personalservice
+                    .deletePersonal(rowData.id)
+                    .subscribe((result) => {
+                        this.getPersonal();
+                    });
                 Swal.fire({
                     icon: "success",
                     title: "Eliminado correctamente",
@@ -502,35 +560,61 @@ export class PersonalSaludComponent implements OnInit {
     }
 
     traerData() {
-        this.personalservice.getDatosReniec(this.form.value.nroDoc).subscribe((res: any) => {
-            this.dataPIDE = res;
-            console.log(res);
-            this.imagePath = res.foto;
-            this.form.get("apePaterno").setValue(this.dataPIDE.apePaterno);
-            this.form.get("apeMaterno").setValue(this.dataPIDE.apeMaterno);
-            this.form.get("nombres").setValue(this.dataPIDE.nombres);
-            this.form.get("fechaNacimiento").setValue(this.dataPIDE.fecNacimiento == null ? "" : this.dataPIDE.fecNacimiento.split("T", 1)[0]);
-            this.form.get("sexo").setValue(this.dataPIDE.genero == "" ? "" : (this.dataPIDE.genero == "0" ? "FEMENINO" : "MASCULINO"));
-            this.form.get("domicilioActual").setValue(this.dataPIDE.direccion);
-            this.form.get("estadoCivil").setValue(this.dataPIDE.estadoCivil);
-            let aux = this.dataPIDE.ubigeo.split("/", 3);
-            this.form.get("departamento").setValue(aux[0]);
-            this.form.get("provincia").setValue(aux[1]);
-            this.form.get("distrito").setValue(aux[2]);
-        });
+        this.personalservice
+            .getDatosReniec(this.form.value.nroDoc)
+            .subscribe((res: any) => {
+                this.dataPIDE = res;
+                console.log(res);
+                this.imagePath = res.foto;
+                this.form.get("apePaterno").setValue(this.dataPIDE.apePaterno);
+                this.form.get("apeMaterno").setValue(this.dataPIDE.apeMaterno);
+                this.form.get("nombres").setValue(this.dataPIDE.nombres);
+                this.form
+                    .get("fechaNacimiento")
+                    .setValue(
+                        this.dataPIDE.fecNacimiento == null
+                            ? ""
+                            : this.dataPIDE.fecNacimiento.split("T", 1)[0]
+                    );
+                this.form
+                    .get("sexo")
+                    .setValue(
+                        this.dataPIDE.genero == ""
+                            ? ""
+                            : this.dataPIDE.genero == "0"
+                            ? "FEMENINO"
+                            : "MASCULINO"
+                    );
+                this.form
+                    .get("domicilioActual")
+                    .setValue(this.dataPIDE.direccion);
+                this.form
+                    .get("estadoCivil")
+                    .setValue(this.dataPIDE.estadoCivil);
+                let aux = this.dataPIDE.ubigeo.split("/", 3);
+                this.form.get("departamento").setValue(aux[0]);
+                this.form.get("provincia").setValue(aux[1]);
+                this.form.get("distrito").setValue(aux[2]);
+            });
     }
 
     traerDataEditar() {
-        this.personalservice.getDatosReniec(this.form.value.nroDoc).subscribe((res: any) => {
-            this.dataPIDE = res;
-            this.imagePath = res.foto;
-            this.form.get("domicilioActual").setValue(this.dataPIDE.direccion);
-            this.form.get("estadoCivil").setValue(this.dataPIDE.estadoCivil);
-            let aux = this.dataPIDE.ubigeo.split("/", 3);
-            this.form.get("departamento").setValue(aux[0]);
-            this.form.get("provincia").setValue(aux[1]);
-            this.form.get("distrito").setValue(aux[2]);
-        });
+        this.personalservice
+            .getDatosReniec(this.form.value.nroDoc)
+            .subscribe((res: any) => {
+                this.dataPIDE = res;
+                this.imagePath = res.foto;
+                this.form
+                    .get("domicilioActual")
+                    .setValue(this.dataPIDE.direccion);
+                this.form
+                    .get("estadoCivil")
+                    .setValue(this.dataPIDE.estadoCivil);
+                let aux = this.dataPIDE.ubigeo.split("/", 3);
+                this.form.get("departamento").setValue(aux[0]);
+                this.form.get("provincia").setValue(aux[1]);
+                this.form.get("distrito").setValue(aux[2]);
+            });
     }
 
     newEspecialidad(rowData) {
@@ -542,12 +626,13 @@ export class PersonalSaludComponent implements OnInit {
     }
 
     newRolX(rowData) {
-
         this.idPersonal = rowData.id;
-        console.log('data de personal ', this.idPersonal);
-        this.ipressservice.getRolPersonalIpress(this.idPersonal).then((res: any) => {
-            this.rolesX = res.object[0].roles;
-        });
+        console.log("data de personal ", this.idPersonal);
+        this.ipressservice
+            .getRolPersonalIpress(this.idPersonal)
+            .then((res: any) => {
+                this.rolesX = res.object[0].roles;
+            });
         this.nombrePersonal = `${rowData.apePaterno} ${rowData.apeMaterno}, ${rowData.primerNombre}`;
         this.idRolX = rowData.id;
         this.formRol.reset();
@@ -556,9 +641,9 @@ export class PersonalSaludComponent implements OnInit {
     }
 
     newRolSistema(rowData) {
-        console.log('row', rowData)
+        console.log("row", rowData);
         this.nroDocRow = rowData.nroDoc;
-        this.rolesSistema = []
+        this.rolesSistema = [];
         this.nombrePersonal = `${rowData.apePaterno} ${rowData.apeMaterno}, ${rowData.primerNombre}`;
         this.idRolX = rowData.id;
         this.formRol.reset();
@@ -590,17 +675,19 @@ export class PersonalSaludComponent implements OnInit {
     }
 
     editarRolX(rowData) {
-        console.log('data to edit ', rowData);
+        console.log("data to edit ", rowData);
         this.isUpdateRolX = true;
-        const auxUPS = this.listaUpsX.filter(item => item.nombreUPS == rowData.nombreUPS)
-        console.log('aux ups ', auxUPS, 'lista de ups ', this.listaUpsX);
+        const auxUPS = this.listaUpsX.filter(
+            (item) => item.nombreUPS == rowData.nombreUPS
+        );
+        console.log("aux ups ", auxUPS, "lista de ups ", this.listaUpsX);
         this.formRol.get("nombreFuncion").setValue(rowData.nombreFuncion);
         this.formRol.get("ups").setValue(auxUPS[0].id);
         this.formRol.get("rolGuardia").setValue(rowData.rolGuardia);
         this.dataEditRol = {
             oldCodUPS: auxUPS[0].id,
-            oldNombreFuncion: rowData.nombreFuncion
-        }
+            oldNombreFuncion: rowData.nombreFuncion,
+        };
     }
 
     tituloEspecialidad() {
@@ -638,8 +725,10 @@ export class PersonalSaludComponent implements OnInit {
 
     eliminarRolX(rowData, index) {
         this.isUpdateRolX = false;
-        console.log('rowData delete ', rowData);
-        const auxUPS = this.listaUpsX.filter(item => item.nombreUPS == rowData.nombreUPS)
+        console.log("rowData delete ", rowData);
+        const auxUPS = this.listaUpsX.filter(
+            (item) => item.nombreUPS == rowData.nombreUPS
+        );
         Swal.fire({
             showCancelButton: true,
             confirmButtonText: "Eliminar",
@@ -659,7 +748,7 @@ export class PersonalSaludComponent implements OnInit {
                             showConfirmButton: false,
                             timer: 1500,
                         });
-                        this.rolesX.splice(index, 1)
+                        this.rolesX.splice(index, 1);
                         this.getPersonalIdEspecialidad();
                         this.getPersonal();
                     });
@@ -668,32 +757,36 @@ export class PersonalSaludComponent implements OnInit {
     }
 
     agregarRol() {
-        if (this.rolesSistema.find((rol) => rol.nombre === this.formRoles.value.rol.nombre) === undefined)
-            this.rolesSistema.push(this.formRoles.value.rol)
+        if (
+            this.rolesSistema.find(
+                (rol) => rol.nombre === this.formRoles.value.rol.nombre
+            ) === undefined
+        )
+            this.rolesSistema.push(this.formRoles.value.rol);
     }
 
     guardarRolSistema() {
-        let permisos: any[] = []
+        let permisos: any[] = [];
         this.rolesSistema.map((r: any) => {
-            permisos.push({ permisos: '4' + r.codigo })
-        })
+            permisos.push({ permisos: "4" + r.codigo });
+        });
         let data = {
             tipoDoc: "DNI",
             nroDoc: this.nroDocRow,
             password: this.nroDocRow,
             apps: permisos,
-            estado: true
-        }
+            estado: true,
+        };
         this.loginService.crearRol(data).subscribe((r: any) => {
-            console.log(r)
+            console.log(r);
             Swal.fire({
                 icon: "success",
                 title: "Agregado correctamente",
                 text: "",
                 showConfirmButton: false,
                 timer: 1500,
-            })
-        })
+            });
+        });
     }
 
     eliminarRolSistema(rowData, index) {
@@ -706,7 +799,7 @@ export class PersonalSaludComponent implements OnInit {
             showConfirmButton: true,
         }).then((result) => {
             if (result.isConfirmed) {
-                this.rolesSistema.splice(index, 1)
+                this.rolesSistema.splice(index, 1);
             }
         });
     }
@@ -741,7 +834,11 @@ export class PersonalSaludComponent implements OnInit {
         var isRepeat;
         if (this.rolesX == null) this.rolesX = [];
         if (this.rolesX.length !== 0)
-            isRepeat = this.rolesX.find((rol) => rol.codUPS === this.formRol.value.ups) ? true : false;
+            isRepeat = this.rolesX.find(
+                (rol) => rol.codUPS === this.formRol.value.ups
+            )
+                ? true
+                : false;
         if (!isRepeat) {
             const req = {
                 nombreFuncion: this.formRol.value.nombreFuncion,
@@ -752,7 +849,7 @@ export class PersonalSaludComponent implements OnInit {
                 // create: this.formRol.value.create,
                 // insert: this.formRol.value.insert,
                 // read: this.formRol.value.read,
-            }
+            };
             this.personalservice
                 .addRolesPersonal(this.idRolX, req)
                 .subscribe((result) => {
@@ -764,9 +861,11 @@ export class PersonalSaludComponent implements OnInit {
                         timer: 1500,
                     });
                     this.rolesX.push(req);
-                    this.ipressservice.getRolPersonalIpress(this.idPersonal).then((res: any) => {
-                        this.rolesX = res.object[0].roles;
-                    });
+                    this.ipressservice
+                        .getRolPersonalIpress(this.idPersonal)
+                        .then((res: any) => {
+                            this.rolesX = res.object[0].roles;
+                        });
                     this.getPersonal();
                     this.guardarNuevoRol();
                     this.isUpdateRolX = false;
@@ -817,39 +916,50 @@ export class PersonalSaludComponent implements OnInit {
             codUPS: this.formRol.value.ups,
             rolGuardia: this.formRol.value.rolGuardia,
             oldCodUPS: this.dataEditRol.oldCodUPS,
-            oldNombreFuncion: this.dataEditRol.oldNombreFuncion
-        }
-        this.personalservice.editRol(this.idRolX, req)
-            .subscribe((result) => {
-                Swal.fire({
-                    icon: "success",
-                    title: "Editado correctamente",
-                    text: "",
-                    showConfirmButton: false,
-                    timer: 1500,
-                });
-                // this.getPersonalIdEspecialidad();
-                // this.getPersonal();
-                this.guardarNuevoRol();
-                this.ipressservice.getRolPersonalIpress(this.idPersonal).then((res: any) => {
+            oldNombreFuncion: this.dataEditRol.oldNombreFuncion,
+        };
+        this.personalservice.editRol(this.idRolX, req).subscribe((result) => {
+            Swal.fire({
+                icon: "success",
+                title: "Editado correctamente",
+                text: "",
+                showConfirmButton: false,
+                timer: 1500,
+            });
+            // this.getPersonalIdEspecialidad();
+            // this.getPersonal();
+            this.guardarNuevoRol();
+            this.ipressservice
+                .getRolPersonalIpress(this.idPersonal)
+                .then((res: any) => {
                     this.rolesX = res.object[0].roles;
                 });
-                this.isUpdateRolX = false;
-            });
+            this.isUpdateRolX = false;
+        });
     }
 
     ngOnInit(): void {
+        this.root =
+            JSON.parse(localStorage.getItem("rol")) === "ROLE_ADMININ_PERSONAL"
+                ? true
+                : false;
+        if (!this.root) {
+            this.idIpress = JSON.parse(
+                localStorage.getItem("usuario")
+            ).ipress.idIpress;
+            this.iprees = JSON.parse(localStorage.getItem("usuario")).ipress;
+        }
         this.loginService.getRol().subscribe((r: any) => {
-            this.listaRol = r.lista
-        })
+            this.listaRol = r.lista;
+        });
     }
 }
 
 export interface rol {
-    nombre: string,
-    codigo: string
+    nombre: string;
+    codigo: string;
 }
 interface Edit {
-    oldNombreFuncion: string,
-    oldCodUPS: string
+    oldNombreFuncion: string;
+    oldCodUPS: string;
 }
