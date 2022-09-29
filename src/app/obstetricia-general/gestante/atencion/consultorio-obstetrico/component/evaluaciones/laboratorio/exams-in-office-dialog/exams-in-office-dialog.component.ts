@@ -154,7 +154,7 @@ export class ExamsInOfficeDialogComponent implements OnInit {
       if (index >= initial && index <= final)
         auxArray.push(item)
     });
-    return auxArray
+    return auxArray;
   }
 
   transformArrayOtherExams(otherExams: OtherExam[], valor1: string, valor2: string, valor3: string, valor4: string, consultationExam: LaboratoryExam[]): OtherExam[] {
@@ -179,9 +179,6 @@ export class ExamsInOfficeDialogComponent implements OnInit {
       }
     })
     return otherExams;
-  }
-  transformArrayHemoglobineExams(hemoExams: HemoExam[]) {
-
   }
 
   addHemo1() {

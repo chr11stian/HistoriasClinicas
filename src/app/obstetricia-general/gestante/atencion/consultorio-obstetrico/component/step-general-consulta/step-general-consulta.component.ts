@@ -38,7 +38,7 @@ export class StepGeneral_consultaComponent implements OnInit {
             { label: "Diagnosticos" },
             { label: "Procedimientos" },
             { label: "Tratamientos" },
-            { label: "Finalizar" },
+            { label: "Referencia" },
         ]
     }
 
@@ -89,7 +89,7 @@ export class StepGeneral_consultaComponent implements OnInit {
 
     ChangeStep(event: number) {
         this.indiceActivo = event;
-        console.log("INDEX", this.indiceActivo)
+        // console.log("INDEX", this.indiceActivo)
         this.name()
     }
     
