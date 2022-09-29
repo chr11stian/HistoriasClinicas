@@ -92,6 +92,17 @@ export class PersonalSaludComponent implements OnInit {
         private tipoUpsService: TipoUpsService,
         private loginService: LoginService
     ) {
+        this.root =
+            JSON.parse(localStorage.getItem("rol")) === "ROLE_ADMININ_PERSONAL"
+                ? true
+                : false;
+        console.log("boolean", this.root);
+        if (!this.root) {
+            this.idIpress = JSON.parse(
+                localStorage.getItem("usuario")
+            ).ipress.idIpress;
+            this.iprees = JSON.parse(localStorage.getItem("usuario")).ipress;
+        }
         this.buildForm();
         this.getPersonal();
         this.getDocumentos();
@@ -643,10 +654,10 @@ export class PersonalSaludComponent implements OnInit {
     newRolSistema(rowData) {
         console.log("row", rowData);
         this.nroDocRow = rowData.nroDoc;
-        this.rolesSistema = [];
         this.nombrePersonal = `${rowData.apePaterno} ${rowData.apeMaterno}, ${rowData.primerNombre}`;
         this.idRolX = rowData.id;
         this.formRol.reset();
+        this.cargarRoles(rowData.nroDoc);
         this.rolSistema = true;
     }
 
@@ -939,25 +950,29 @@ export class PersonalSaludComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.root =
-            JSON.parse(localStorage.getItem("rol")) === "ROLE_ADMININ_PERSONAL"
-                ? true
-                : false;
-        if (!this.root) {
-            this.idIpress = JSON.parse(
-                localStorage.getItem("usuario")
-            ).ipress.idIpress;
-            this.iprees = JSON.parse(localStorage.getItem("usuario")).ipress;
-        }
         this.loginService.getRol().subscribe((r: any) => {
-            this.listaRol = r.lista;
+            this.listaRol = r;
         });
+    }
+
+    cargarRoles(dni) {
+        this.loginService.getRoles(dni).subscribe((r: any) => {
+            r.object.roles.map((r: any) => {
+                this.rolesSistema.push({ nombre: this.nombreRol(r) });
+            });
+        });
+    }
+    nombreRol(text) {
+        let a = this.listaRol.map((espe: any) => {
+            return espe.rol === text ? espe.nombre : "";
+        });
+        return a;
     }
 }
 
 export interface rol {
     nombre: string;
-    codigo: string;
+    rol: string;
 }
 interface Edit {
     oldNombreFuncion: string;

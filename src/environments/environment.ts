@@ -7,7 +7,7 @@ export const environment = {
     bd: "hce",
     bdCouch:'visitas_medicas',
 
-    baseUrl: "http://192.168.5.3:3012/api", //privada
+    baseUrl: "http://192.168.5.3:4040/api", //privada
     // baseUrl: "http://190.108.93.150:3012/api", //publica
 
     /**ACCESO AL LOGIN**/
@@ -15,7 +15,7 @@ export const environment = {
     // base_uri: "http://190.108.93.150:3010/login/hce",
 
     /*LOGIN*/
-    base_uri_: "http://192.168.5.3:3010",
+    base_uri_: "http://192.168.5.3:4040",
     // base_uri_: "http://190.108.93.150:3010",
 
     /**ACCESO A LOS DATOS DEL PIDE Y SIS**/

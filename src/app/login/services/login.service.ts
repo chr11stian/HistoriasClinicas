@@ -219,7 +219,8 @@ export class LoginService {
     }
 
     getRol() {
-        return this.http.get(`${this.base_uri_}/accesos/rol/all`);
+        //192.168.5.3:2020/permisos/hce/lista/rol
+        http: return this.http.get(`${this.base_new}/permisos/hce/lista/rol`);
     }
 
     crearRol(data) {
@@ -241,5 +242,11 @@ export class LoginService {
     }
     getRoot(data) {
         return this.http.post(`${this.base_new}/login/root`, data);
+    }
+    getRoles(dni) {
+        //192.168.5.3:2020/accesos/user/hce/45401485
+        return this.http.get(
+            `${this.base_new}/accesos/user/hce/${dni}`
+        );
     }
 }
