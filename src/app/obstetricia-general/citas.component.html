@@ -113,15 +113,16 @@
                                 <button pButton pRipple type="button" (click)="openDialogTriaje(rowData)" label="Triaje"
                                     class="p-button-help" style="font-size: 11px" icon="pi pi-check-circle"></button>
                                     
-                                <button *ngIf="rowData.estadoObstetra=='EMBARAZADA';else sinPruebas " pButton pRipple type="button" label="Consulta Gestante" class="p-button-secondary"
+                                <!-- <button *ngIf="rowData.estadoObstetra=='EMBARAZADA';else sinPruebas " pButton pRipple type="button" label="Consulta Gestante" class="p-button-secondary" -->
+                                <button *ngIf="true" pButton pRipple type="button" label="Consulta Gestante" class="p-button-secondary"
                                     (click)="redireccionarCitas(rowData)" style="font-size: 11px"
                                     icon="pi pi-angle-double-right"></button>
-                                <ng-template #sinPruebas>
+                                <!-- <ng-template #sinPruebas>
                                     <button pButton pRipple type="button" label="Consulta Gestante Externa" class="p-button-primary"
                                     (click)="redireccionarConsultaGeneral(rowData)" style="font-size: 11px"
                                     icon="pi pi-angle-double-right"></button>
 
-                                </ng-template> 
+                                </ng-template>  -->
                                 <!-- <button pButton pRipple class="boton-mostaza" label="Consulta externa"
                                         icon="pi pi-book" (click)="irConsultaNoControl(rowData)"
                                         style="; font-size: 11px"></button> -->
