@@ -38,7 +38,7 @@ export class PasswordComponent implements OnInit {
             this.messageService.add({severity: 'error', summary: 'Las contraseñas no coinciden'});
         } else {
             let dni = JSON.parse(localStorage.getItem('usuario')).nroDocumento;
-            this.serviceLogin.updatePassword(dni, {
+            /* this.serviceLogin.updatePassword(dni, {
                 oldPass: this.serviceLogin.listEscala[0].pass,
                 newPass: this.formRol.value.escala
             }).subscribe((r: any) => {
@@ -51,7 +51,7 @@ export class PasswordComponent implements OnInit {
                 })
                 this.router.navigate(['dashboard']);
                 this.ref.close()
-            })
+            }) */
 
         }
     }
