@@ -758,7 +758,6 @@ export class GiagnosticosComponent implements OnInit {
     mergeArrayDiagnostic(diagnosticosSIS: DiagnosticFUA[], diagnosticosHIS: DiagnosticHIS[], diagnosticos: DiagnosticSave[]): void {
         diagnosticosSIS.forEach(item => {
             let auxDiagnostic: DiagnosticSave = {
-                nro: null,
                 diagnosticoHIS: null,
                 diagnosticoSIS: item.diagnostico,
                 cie10SIS: item.CIE10,
@@ -773,7 +772,6 @@ export class GiagnosticosComponent implements OnInit {
         });
         diagnosticosHIS.forEach(item => {
             let auxDiagnostic: DiagnosticSave = {
-                nro: null,
                 diagnosticoHIS: item.diagnosticoHIS,
                 diagnosticoSIS: null,
                 cie10SIS: null,
@@ -801,7 +799,9 @@ export class GiagnosticosComponent implements OnInit {
             });
             return;
         }
+        console.log('body to save ', JSON.stringify(this.arrayDiagnosticSave));
         await this.DiagnosticoService.postDiagnosticToPregmant(this.idConsult, this.arrayDiagnosticSave).then(res => {
+            console.log('body to save ', JSON.stringify(this.arrayDiagnosticSave));
             Swal.fire({
                 icon: 'success',
                 title: 'Se guardo exitosamente',

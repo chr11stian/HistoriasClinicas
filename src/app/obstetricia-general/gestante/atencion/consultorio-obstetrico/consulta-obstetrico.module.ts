@@ -33,6 +33,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import {FullCalendarModule} from "@fullcalendar/angular";
 import { ModalPlanPartoComponent } from './component/modal-plan-parto/modal-plan-parto.component';
 import { ExamsInOfficeDialogComponent } from './component/evaluaciones/laboratorio/exams-in-office-dialog/exams-in-office-dialog.component';
+import { ModalShowHisComponent } from './component/tratamiento/modal-show-his/modal-show-his.component';
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -64,7 +65,8 @@ FullCalendarModule.registerPlugins([
         LabSolicitudComponent,
         CronogramaComponent,
         ModalPlanPartoComponent,
-        ExamsInOfficeDialogComponent
+        ExamsInOfficeDialogComponent,
+        ModalShowHisComponent
     ],
     imports: [
         FullCalendarModule,
