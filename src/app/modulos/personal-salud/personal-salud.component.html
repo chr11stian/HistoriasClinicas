@@ -1033,6 +1033,14 @@
         styleClass="p-fluid "
         autoZIndex
     >
+        <button
+            pButton
+            type="button"
+            label="Resetear Contraseña"
+            style="background-color: #0c3866"
+            (click)="resetPassword()"
+        ></button>
+
         <ng-template pTemplate="body">
             <div class="grid align-items-center">
                 <div class="col-12" style="text-align: center">
@@ -1103,9 +1111,9 @@
                                     {{ rowData.nombre }}
                                 </td>
                                 <td style="text-align: center">
-                                    {{ rowData.codigo }}
+                                    {{ rowData.descripcion }}
                                 </td>
-                                <td>
+                                <td class="flex justify-content-center">
                                     <button
                                         pButton
                                         (click)="
@@ -1127,13 +1135,12 @@
                 </div>
             </div>
         </ng-template>
-
         <ng-template pTemplate="footer">
             <button
                 pButton
                 type="button"
-                label="Agregar"
-                class="m-1 w-5rem"
+                label="Guardar"
+                style="background-color: #0c3866"
                 (click)="guardarRolSistema()"
             ></button>
         </ng-template>

@@ -7,6 +7,7 @@ import { escala, nombreRol } from "../../cred/citas/models/data";
 import { Router } from "@angular/router";
 import { PasswordComponent } from "../password/password.component";
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
+import { PersonalService } from "src/app/core/services/personal-services/personal.service";
 
 @Component({
     selector: "app-login-rol",
@@ -31,6 +32,7 @@ export class LoginRolComponent implements OnInit {
     data: Usuario;
 
     constructor(
+        private personalservice: PersonalService,
         private formBuilder: FormBuilder,
         private ref: DynamicDialogRef,
         private loginService: LoginService,
@@ -189,10 +191,10 @@ export class LoginRolComponent implements OnInit {
                 : this.formRol.value.rol;
         localStorage.setItem("rol", JSON.stringify(rol));
         console.log("data", this.data);
-        this.loginService.listServiceStaff(this.data.nroDocumento).subscribe(
+        this.personalservice.listServiceStaff(this.data.nroDocumento).subscribe(
             (res: any) => {
                 console.log("res", res);
-                if (res.object != null && rol != "ROLE_ENF_PERSONAL") {
+                if (res.object != null && rol === "ROLE_ENF_PERSONAL") {
                     res.object[0].roles.map((aux) => {
                         if (
                             aux.nombreFuncion == "SERVICIOS ADMINISTRACION" &&

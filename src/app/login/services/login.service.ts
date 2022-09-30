@@ -31,8 +31,89 @@ export class LoginService {
     public get currentUserValue(): rootInterface | userInterface {
         return this.currentUserSubject.value;
     }
+    user_logout() {
+        localStorage.removeItem("usuario");
+        localStorage.removeItem("token");
+        localStorage.clear();
+        this.router.navigate(["/login"]);
+        console.log("entro");
+    }
 
-    /*  user_login(body) {
+    getUser(body) {
+        return this.http.post<any>(`${this.base_uri}/modo`, body, {
+            headers: new HttpHeaders({
+                "Access-Control-Allow-Origin": "*",
+                "Content-Type": "application/json",
+            }),
+        });
+    }
+
+    ingresar_login(body, text) {
+        return this.http
+            .post<any>(`${this.base_new}/login/${text}`, body, {
+                headers: new HttpHeaders({
+                    "Access-Control-Allow-Origin": "*",
+                    "Content-Type": "application/json",
+                }),
+            })
+            .pipe(
+                map((user: rootInterface | userInterface) => {
+                    if (user) {
+                        const token = {
+                            token: user.token,
+                            usuario: user.usuario,
+                            tokenCouch: user.tokenCouch,
+                        };
+                        // console.log("token", token);
+                        this.currentUserSubject.next(token);
+
+                        localStorage.setItem(
+                            "usuario",
+                            JSON.stringify(user.usuario)
+                        );
+                        localStorage.setItem("token", JSON.stringify(token));
+                    }
+                    return user;
+                })
+            );
+    }
+
+    getRol() {
+        http: return this.http.get(`${this.base_new}/permisos/hce/lista/rol`);
+    }
+    getRoot(data) {
+        return this.http.post(`${this.base_new}/login/root`, data);
+    }
+    getRoles(dni) {
+        return this.http.get(`${this.base_new}/accesos/user/hce/${dni}`);
+    }
+    createAdmin(data) {
+        return this.http.post(`${this.base_new}/accesos/root/user`, data);
+    }
+
+    /* listServiceStaff(dni) {
+        return this.http.get(
+            `${this.baseUrl}/hce/personal/listarroles/DNI/${dni}`
+        );
+    }
+    crearRol(data) {
+        return this.http.post(`${this.base_uri_}/accesos/user`, data);
+    }
+
+    updatePassword(dni, data) {
+        return this.http.put(`${this.base_uri_}/accesos/user/${dni}`, data);
+    }
+    
+    resetPass(dni, data) {
+        return this.http.put(
+            `${this.base_new}/accesos/user/reset-pass/hce/${dni}`,
+            data
+        );
+    } */
+}
+
+/* version anterior */
+/*  user_login(body) {
         return this.http
             .post<any>(`${this.base_uri}`, body, {
                 headers: new HttpHeaders({
@@ -64,7 +145,7 @@ export class LoginService {
             );
     }
 */
-    login_quemado(credenciales) {
+    /* login_quemado(credenciales) {
         return this.http
             .get<any>("assets/login.json")
             .toPromise()
@@ -138,26 +219,8 @@ export class LoginService {
                     return data.login_fallido;
                 }
             });
-    }
-
-    user_logout() {
-        localStorage.removeItem("usuario");
-        localStorage.removeItem("token");
-        localStorage.clear();
-        this.router.navigate(["/login"]);
-        console.log("entro");
-    }
-
-    getUser(body) {
-        return this.http.post<any>(`${this.base_uri}/modo`, body, {
-            headers: new HttpHeaders({
-                "Access-Control-Allow-Origin": "*",
-                "Content-Type": "application/json",
-            }),
-        });
-    }
-
-    ingresar(body) {
+    } */
+    /* ingresar(body) {
         return this.http
             .post<any>(`${this.base_uri}`, body, {
                 headers: new HttpHeaders({
@@ -186,67 +249,4 @@ export class LoginService {
                     return user;
                 })
             );
-    }
-
-    ingresar_login(body, text) {
-        return this.http
-            .post<any>(`${this.base_new}/login/${text}`, body, {
-                headers: new HttpHeaders({
-                    "Access-Control-Allow-Origin": "*",
-                    "Content-Type": "application/json",
-                }),
-            })
-            .pipe(
-                map((user: rootInterface | userInterface) => {
-                    if (user) {
-                        const token = {
-                            token: user.token,
-                            usuario: user.usuario,
-                            tokenCouch: user.tokenCouch,
-                        };
-                        // console.log("token", token);
-                        this.currentUserSubject.next(token);
-
-                        localStorage.setItem(
-                            "usuario",
-                            JSON.stringify(user.usuario)
-                        );
-                        localStorage.setItem("token", JSON.stringify(token));
-                    }
-                    return user;
-                })
-            );
-    }
-
-    getRol() {
-        //192.168.5.3:2020/permisos/hce/lista/rol
-        http: return this.http.get(`${this.base_new}/permisos/hce/lista/rol`);
-    }
-
-    crearRol(data) {
-        return this.http.post(`${this.base_uri_}/accesos/user`, data);
-    }
-
-    updatePassword(dni, data) {
-        return this.http.put(`${this.base_uri_}/accesos/user/${dni}`, data);
-    }
-
-    listServiceStaff(dni) {
-        return this.http.get(
-            `${this.baseUrl}/hce/personal/listarroles/DNI/${dni}`
-        );
-    }
-
-    createAdmin(data) {
-        return this.http.post(`${this.base_new}/accesos/root/user`, data);
-    }
-    getRoot(data) {
-        return this.http.post(`${this.base_new}/login/root`, data);
-    }
-    getRoles(dni) {
-        //192.168.5.3:2020/accesos/user/hce/45401485
-        return this.http.get(
-            `${this.base_new}/accesos/user/hce/${dni}`
-        );
-    }
-}
+    } */

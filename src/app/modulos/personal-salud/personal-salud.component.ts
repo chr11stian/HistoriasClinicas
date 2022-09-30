@@ -22,11 +22,13 @@ import { TipoUpsService } from "src/app/mantenimientos/services/tipo-ups.service
 import { UsuarioService } from "../usuarios/services/usuario.service";
 import { LoginService } from "../../login/services/login.service";
 import { dato } from "../../cred/citas/models/data";
+import { DynamicDialogRef } from "primeng/dynamicdialog";
 
 @Component({
     selector: "app-personal-salud",
     templateUrl: "./personal-salud.component.html",
     styleUrls: ["./personal-salud.component.css"],
+    providers: [DynamicDialogRef],
 })
 export class PersonalSaludComponent implements OnInit {
     // Creacion del formulario
@@ -78,8 +80,10 @@ export class PersonalSaludComponent implements OnInit {
     idPersonal: string = "";
     dataEditRol: Edit;
     root: boolean;
-
+    description: any[] = [];
+    dniPersonal: string = "";
     constructor(
+        public ref: DynamicDialogRef,
         private personalservice: PersonalService,
         private documentoservice: DocumentoIdentidadService,
         private tipoPersonalservice: TipoPersonalService,
@@ -135,6 +139,38 @@ export class PersonalSaludComponent implements OnInit {
             },
         ];
         this.datosPersonales = [];
+        this.description = [
+            {
+                rol: "ROLE_ENF_PERSONAL",
+                description:
+                    "rol destinado para el personal de CRED y OBSTETRICIA",
+            },
+            {
+                rol: "VISITA_DOMICILIARIA_PROFESIONAL",
+                description:
+                    "rol destinado para el personal encargado de visita domiciliaria",
+            },
+            {
+                rol: "VISITA_DOMICILIARIA_ACTOR_SOCIAL",
+                description:
+                    "rol destinado para el personal que cumple labores de actor social",
+            },
+            {
+                rol: "ROLE_TEC_ADMINI_ADMIN",
+                description:
+                    "rol destinado para el personal que cumple las funciones de administrar los cupos",
+            },
+            {
+                rol: "ROLE_FARM_PERSONAL",
+                description:
+                    "rol destinado para el personal que cumple las labores dentro de la farmacia",
+            },
+            {
+                rol: "ROLE_LAB_PERSONAL",
+                description:
+                    "rol destinado para el personal que cumple las labores dentro del laboratorio",
+            },
+        ];
     }
 
     getNombreRoles() {
@@ -652,9 +688,11 @@ export class PersonalSaludComponent implements OnInit {
     }
 
     newRolSistema(rowData) {
+        this.rolesSistema = [];
         console.log("row", rowData);
         this.nroDocRow = rowData.nroDoc;
         this.nombrePersonal = `${rowData.apePaterno} ${rowData.apeMaterno}, ${rowData.primerNombre}`;
+        this.dniPersonal = rowData.nroDoc;
         this.idRolX = rowData.id;
         this.formRol.reset();
         this.cargarRoles(rowData.nroDoc);
@@ -773,22 +811,69 @@ export class PersonalSaludComponent implements OnInit {
                 (rol) => rol.nombre === this.formRoles.value.rol.nombre
             ) === undefined
         )
-            this.rolesSistema.push(this.formRoles.value.rol);
+            this.rolesSistema.push({
+                rol: this.formRoles.value.rol.rol,
+                nombre: this.nombreRol(this.formRoles.value.rol.rol),
+                descripcion: this.descripcionRol(this.formRoles.value.rol.rol),
+            });
     }
 
     guardarRolSistema() {
-        let permisos: any[] = [];
-        this.rolesSistema.map((r: any) => {
-            permisos.push({ permisos: "4" + r.codigo });
+        let apps: string[] = [];
+        let roles: string[] = [];
+        this.rolesSistema.map((e) => {
+            roles.push(e.rol);
+            if (
+                e.rol === "VISITA_DOMICILIARIA_PROFESIONAL" ||
+                e.rol === "VISITA_DOMICILIARIA_ACTOR_SOCIAL"
+            ) {
+                if (apps.findIndex((obj) => obj === "app-visita") === -1)
+                    apps.push("app-visita");
+            } else {
+                if (apps.findIndex((obj) => obj === "hce") === -1)
+                    apps.push("hce");
+            }
         });
-        let data = {
+        let body = {
             tipoDoc: "DNI",
             nroDoc: this.nroDocRow,
-            password: this.nroDocRow,
-            apps: permisos,
-            estado: true,
+            apps: apps,
+            roles: roles,
         };
-        this.loginService.crearRol(data).subscribe((r: any) => {
+        this.personalservice.getRoles(this.nroDocRow).subscribe(
+            (res: any) => {
+                this.personalservice
+                    .updateRol(this.nroDocRow, body)
+                    .subscribe((r: any) => {
+                        if (r.mensaje == "CORRECTO") {
+                            Swal.fire({
+                                icon: "success",
+                                title: "ROLES ACTUALIZADOS",
+                                text: "",
+                                showConfirmButton: false,
+                                timer: 1500,
+                            });
+                        }
+                    });
+            },
+            (error) => {
+                if (error.status == 400) {
+                    this.personalservice.saveRol(body).subscribe((rp: any) => {
+                        if (rp.mensaje == "CORRECTO") {
+                            Swal.fire({
+                                icon: "success",
+                                title: "ROLES GUARDADOS",
+                                text: "",
+                                showConfirmButton: false,
+                                timer: 1500,
+                            });
+                        }
+                    });
+                }
+            }
+        );
+        
+        /* this.personalservice.crearRol(data).subscribe((r: any) => {
             console.log(r);
             Swal.fire({
                 icon: "success",
@@ -797,7 +882,8 @@ export class PersonalSaludComponent implements OnInit {
                 showConfirmButton: false,
                 timer: 1500,
             });
-        });
+        }); */
+        this.ref.close()
     }
 
     eliminarRolSistema(rowData, index) {
@@ -958,15 +1044,36 @@ export class PersonalSaludComponent implements OnInit {
     cargarRoles(dni) {
         this.loginService.getRoles(dni).subscribe((r: any) => {
             r.object.roles.map((r: any) => {
-                this.rolesSistema.push({ nombre: this.nombreRol(r) });
+                this.rolesSistema.push({
+                    rol: r,
+                    nombre: this.nombreRol(r),
+                    descripcion: this.descripcionRol(r),
+                });
             });
         });
     }
+    descripcionRol(text) {
+        let a = this.description.find((espe) => espe.rol === text);
+        return a.description;
+    }
     nombreRol(text) {
-        let a = this.listaRol.map((espe: any) => {
-            return espe.rol === text ? espe.nombre : "";
-        });
-        return a;
+        let a = this.listaRol.find((espe) => espe.rol === text);
+        return a.nombre;
+    }
+    resetPassword() {
+        this.personalservice
+            .resetPass(this.dniPersonal, {})
+            .subscribe((r: any) => {
+                if (r.mensaje == "CORRECTO") {
+                    Swal.fire({
+                        icon: "success",
+                        title: "CONTRASEÑA RESETEADA...",
+                        text: "",
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                }
+            });
     }
 }
 
