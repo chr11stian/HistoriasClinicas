@@ -101,7 +101,6 @@ export class ExamsInOfficeDialogComponent implements OnInit {
       this.secondGroupExams = this.divideArray(this.arrayOtherExam, 8, 10);
       this.thirdGroupExams = this.divideArray(this.arrayOtherExam, 11, 21);
       this.fourthGroupExams = this.divideArray(this.arrayOtherExam, 21, 26);
-      // this.thirdGroupExams = this.arra
       setTimeout(() => {
         this.loadHemoglobinFormArray(this.arrayHemoExams, this.examsDoInConsultation);
         this.firstGroupExams = this.transformArrayOtherExams(this.firstGroupExams, 'NO REACTIVO', 'REACTIVO', 'NO SE HIZO', 'NO APLICA', this.examsDoInConsultation);

@@ -503,16 +503,16 @@ export class DatosBasalesComponent implements OnInit {
     guardarDatos() {
         this.recuperarDatos();
         console.log('data to save ', this.datosBasales);
-        this.datosBasalesService.postDatosBasalesById(this.idGestante, this.datosBasales).subscribe((res: any) => {
-            console.log('se guardo correctamente ', res.object);
-            Swal.fire({
-                icon: 'success',
-                title: 'Registro',
-                text: 'Fue creado con exito',
-                showConfirmButton: false,
-                timer: 1500,
-            })
-        });
+        // this.datosBasalesService.postDatosBasalesById(this.idGestante, this.datosBasales).subscribe((res: any) => {
+        //     console.log('se guardo correctamente ', res.object);
+        //     Swal.fire({
+        //         icon: 'success',
+        //         title: 'Registro',
+        //         text: 'Fue creado con exito',
+        //         showConfirmButton: false,
+        //         timer: 1500,
+        //     })
+        // });
     }
 
     loadData() {
@@ -573,12 +573,6 @@ export class DatosBasalesComponent implements OnInit {
                 ecografia3: this.rptaDatosBasales.fechaUltimaMestruacion.ecografias[2].semanas,
                 dateEco3: this.rptaDatosBasales.fechaUltimaMestruacion.ecografias[2].fecha,
             });
-            // this.form.patchValue({ 'ecografia1': this.rptaDatosBasales.fechaUltimaMestruacion.primeraEcografia });
-            // this.form.patchValue({ 'dateEco1': this.rptaDatosBasales.fechaUltimaMestruacion.fechaPrimeraEcografia });
-            // this.form.patchValue({ 'ecografia2': this.rptaDatosBasales.fechaUltimaMestruacion.segundaEcografia });
-            // this.form.patchValue({ 'dateEco2': this.rptaDatosBasales.fechaUltimaMestruacion.fechaSegundaEcografia });
-            // this.form.patchValue({ 'ecografia3': this.rptaDatosBasales.fechaUltimaMestruacion.terceraEcografia });
-            // this.form.patchValue({ 'dateEco3': this.rptaDatosBasales.fechaUltimaMestruacion.fechaTerceraEcografia });
             this.form.patchValue({ 'hospitalizacion': this.rptaDatosBasales.hospitalizacion[0].hospitalizacion });
             this.form.patchValue({ 'dateHospitalizacion': this.rptaDatosBasales.hospitalizacion[0].fecha });
             this.form.patchValue({ 'diagnosticoHosp': this.rptaDatosBasales.hospitalizacion[0].diagnostico });

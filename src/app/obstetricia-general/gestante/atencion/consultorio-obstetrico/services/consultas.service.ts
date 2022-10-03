@@ -292,4 +292,11 @@ export class ConsultasService {
             .then(res => <any[]>res)
             .then(data => { return data; });
     }
+
+    putNextAppointment(idConsulta: string, idFiliacion: string, data) {
+        return this.http.put(`${this.base_url}/${this.bd}/obstetricia/consulta/agregar/proxima/cita/${idConsulta}/${idFiliacion}`, data)
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data; });
+    }
 }
