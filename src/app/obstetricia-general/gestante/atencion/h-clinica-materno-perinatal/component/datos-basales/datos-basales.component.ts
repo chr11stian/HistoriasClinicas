@@ -49,6 +49,7 @@ export class DatosBasalesComponent implements OnInit {
     // dataPaciente2: any;
     DataCupos: any;
     dialItems: MenuItem[];
+    ultrasoundList: Ultrasound[] = [];
 
     constructor(
         private filiancionService: FiliancionService,
@@ -61,6 +62,8 @@ export class DatosBasalesComponent implements OnInit {
     ) {
         this.inicalizarForm();
         this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
+        let idConsulta = JSON.parse(localStorage.getItem('IDConsulta'));
+        console.log('id de consultaaaa ', idConsulta);
         /**Data cupos nos permite visualizar funciones vitales del paciente**/
         this.DataCupos = JSON.parse(localStorage.getItem('datacupos'));
 
@@ -235,10 +238,24 @@ export class DatosBasalesComponent implements OnInit {
         });
     }
 
+    recoverLastMenstruation(): void {
+        this.ultrasoundList = [{
+            semanas: this.form.value.ecografia1 == undefined ? null : parseInt(this.form.value.ecografia1),
+            fecha: this.form.value.dateEco1 == undefined ? null : this.form.value.dateEco1,
+        }, {
+            semanas: this.form.value.ecografia2 == undefined ? null : parseInt(this.form.value.ecografia2),
+            fecha: this.form.value.dateEco2 == undefined ? null : this.form.value.dateEco2,
+        }, {
+            semanas: this.form.value.ecografia3 == undefined ? null : parseInt(this.form.value.ecografia3),
+            fecha: this.form.value.dateEco3 == undefined ? null : this.form.value.dateEco3,
+        }];
+    }
+
     recuperarDatos() {
         this.recuperarExamenFisico();
         this.recuperarHemoglobina();
         this.recuperarOtrosExamenes();
+        this.recoverLastMenstruation();
         let vacPrev: string[] = [];
         let aux1: boolean = this.form.value.rubeola;
         let aux2: boolean = this.form.value.hepatitisB;
@@ -256,6 +273,7 @@ export class DatosBasalesComponent implements OnInit {
             vacPrev.push('influenza')
         if (aux5)
             vacPrev.push('covid')
+
 
         this.datosBasales = {
             pesoTalla: {
@@ -287,12 +305,7 @@ export class DatosBasalesComponent implements OnInit {
                 fum: this.form.value.dateFUM,
                 duda: this.form.value.duda,
                 fechaProbableParto: this.form.value.dateProbableParto,
-                primeraEcografia: this.form.value.ecografia1,
-                fechaPrimeraEcografia: this.form.value.dateEco1,
-                segundaEcografia: this.form.value.ecografia2,
-                fechaSegundaEcografia: this.form.value.dateEco2,
-                terceraEcografia: this.form.value.ecografia3,
-                fechaTerceraEcografia: this.form.value.dateEco3
+                ecografias: this.ultrasoundList
             },
             hospitalizacion: [{
                 hospitalizacion: this.form.value.hospitalizacion,
@@ -552,12 +565,20 @@ export class DatosBasalesComponent implements OnInit {
             } else {
                 this.form.patchValue({ 'dateProbableParto': "" });
             }
-            this.form.patchValue({ 'ecografia1': this.rptaDatosBasales.fechaUltimaMestruacion.primeraEcografia });
-            this.form.patchValue({ 'dateEco1': this.rptaDatosBasales.fechaUltimaMestruacion.fechaPrimeraEcografia });
-            this.form.patchValue({ 'ecografia2': this.rptaDatosBasales.fechaUltimaMestruacion.segundaEcografia });
-            this.form.patchValue({ 'dateEco2': this.rptaDatosBasales.fechaUltimaMestruacion.fechaSegundaEcografia });
-            this.form.patchValue({ 'ecografia3': this.rptaDatosBasales.fechaUltimaMestruacion.terceraEcografia });
-            this.form.patchValue({ 'dateEco3': this.rptaDatosBasales.fechaUltimaMestruacion.fechaTerceraEcografia });
+            this.form.patchValue({
+                ecografia1: this.rptaDatosBasales.fechaUltimaMestruacion.ecografias[0].semanas,
+                dateEco1: this.rptaDatosBasales.fechaUltimaMestruacion.ecografias[0].fecha,
+                ecografia2: this.rptaDatosBasales.fechaUltimaMestruacion.ecografias[1].semanas,
+                dateEco2: this.rptaDatosBasales.fechaUltimaMestruacion.ecografias[1].fecha,
+                ecografia3: this.rptaDatosBasales.fechaUltimaMestruacion.ecografias[2].semanas,
+                dateEco3: this.rptaDatosBasales.fechaUltimaMestruacion.ecografias[2].fecha,
+            });
+            // this.form.patchValue({ 'ecografia1': this.rptaDatosBasales.fechaUltimaMestruacion.primeraEcografia });
+            // this.form.patchValue({ 'dateEco1': this.rptaDatosBasales.fechaUltimaMestruacion.fechaPrimeraEcografia });
+            // this.form.patchValue({ 'ecografia2': this.rptaDatosBasales.fechaUltimaMestruacion.segundaEcografia });
+            // this.form.patchValue({ 'dateEco2': this.rptaDatosBasales.fechaUltimaMestruacion.fechaSegundaEcografia });
+            // this.form.patchValue({ 'ecografia3': this.rptaDatosBasales.fechaUltimaMestruacion.terceraEcografia });
+            // this.form.patchValue({ 'dateEco3': this.rptaDatosBasales.fechaUltimaMestruacion.fechaTerceraEcografia });
             this.form.patchValue({ 'hospitalizacion': this.rptaDatosBasales.hospitalizacion[0].hospitalizacion });
             this.form.patchValue({ 'dateHospitalizacion': this.rptaDatosBasales.hospitalizacion[0].fecha });
             this.form.patchValue({ 'diagnosticoHosp': this.rptaDatosBasales.hospitalizacion[0].diagnostico });
@@ -937,4 +958,8 @@ export class DatosBasalesComponent implements OnInit {
         });
         console.log('data de labos ');
     }
+}
+interface Ultrasound {
+    fecha: string,
+    semanas: number
 }

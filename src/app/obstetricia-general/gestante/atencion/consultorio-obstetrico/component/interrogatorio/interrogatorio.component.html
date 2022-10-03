@@ -53,6 +53,11 @@
                             <input type="number" pInputText formControlName='imc' placeholder=""
                                 class="funcionesVitales inputfield w-full">
                         </div>
+                        <div class="col-4 col-offset-8 text-right">
+                            <button pButton pRipple icon="pi pi-caret-right" type="button"
+                                label="Calcular ganancia" class="p-button-raised mt-3 button-agregar"
+                                (click)="calcularGanancia()"></button>
+                        </div>
                     </div>
                 </p-fieldset>
             </div>
@@ -82,11 +87,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-4 text-center">
+                                <!-- <div class="col-4 text-center">
                                     <button pButton pRipple icon="pi pi-check-circle" type="button"
                                         label="Calcular ganancia" class="p-button-raised mt-3 button-agregar"
                                         (click)="calcularGanancia()"></button>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div class="col-4">

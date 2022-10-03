@@ -34,6 +34,9 @@ export class ConsultaComponent implements OnInit {
     DataFiliacionPaciente: any;
 
     loading: boolean = true;
+    token: any = JSON.parse(localStorage.getItem('token'));
+    consultationId: string;
+    downloadLink: string;
     constructor(
         private fb: FormBuilder,
         private location: Location,
@@ -63,6 +66,7 @@ export class ConsultaComponent implements OnInit {
         // this.nroEmbarazo = this.obstetriciaGeneralService.nroEmbarazo;
         // this.nroHcl = this.obstetriciaGeneralService.nroHcl;
         this.recuperarConsultas();
+        this.downloadLink = 'http://192.168.5.3:8200/jasperserver/rest_v2/reports/Reports/v1/consultaid/consultabase.pdf?authorization=' + this.token.token + '&idConsulta=';
     }
 
     ngOnInit(): void {
