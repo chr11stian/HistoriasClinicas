@@ -4,22 +4,22 @@
             <div class="exam border">
                 <div class="grid">
                     <div class="col-2 col-offset-3">
-                        <label class=" title-text">Hg(%)</label>
+                        <span class=" title-text">Hg(%)</span>
                     </div>
                     <div class="col-2 ">
-                        <label class=" title-text">Factor correción</label>
+                        <span class=" title-text">Factor correción</span>
                     </div>
-                    <div class="col-5 text-center">
-                        <label class=" title-text">Fecha</label>
+                    <div class="col-3 text-center">
+                        <span class=" title-text">Fecha</span>
                     </div>
                 </div>
                 <div [formGroup]="hemoForm">
                     <ng-container formArrayName="hemoglobina">
                         <ng-container *ngFor="let hemoForm of hemoglobina.controls; let i = index">
                             <div class="col-12" [formGroup]="hemoForm">
-                                <div class="grid">
-                                    <div class="col-3">
-                                        <label>Hemoglobina {{i + 1}}</label>
+                                <div class="grid text-right">
+                                    <div class="col-3 mt-2 background-color">
+                                        <span class="font-semibold">Hemoglobina {{i + 1}}</span>
                                     </div>
                                     <div class="col-2">
                                         <input pInputText class="w-full" formControlName="hg">
@@ -27,7 +27,7 @@
                                     <div class="col-2">
                                         <input pInputText class="w-full" formControlName="factorCorreccion">
                                     </div>
-                                    <div class="col-5">
+                                    <div class="col-3">
                                         <input type="date" pInputText class="w-full" formControlName="fecha">
                                     </div>
                                 </div>
@@ -35,12 +35,12 @@
                         </ng-container>
                     </ng-container>
                 </div>
-                <div class="col-12" *ngIf="!isHemoFormCreated">
+                <div class="col-12 text-center" *ngIf="!isHemoFormCreated">
                     <button pButton pRipple icon="pi pi-plus" iconPos="left" type="button" (click)="addHemo()"
                         class="p-button-rounded">
                     </button>
                 </div>
-                <div class="col-12" *ngIf="isHemoFormCreated">
+                <div class="col-12 text-center" *ngIf="isHemoFormCreated">
                     <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger"
                         (click)="deleteHemoExam()"></button>
                 </div>
@@ -99,25 +99,25 @@
                     </div>
                     <div class="col-1 text-center">
                         <p-checkbox [inputId]="i" name="item" [value]="item.nombre+'&'+item.valor1"
-                            [(ngModel)]="examName">
+                            [(ngModel)]="examName" [disabled]="item.saved">
                         </p-checkbox>
                     </div>
                     <div class="col-1 text-center">
                         <p-checkbox [inputId]="i" name="item" [value]="item.nombre+'&'+item.valor2"
-                            [(ngModel)]="examName">
+                            [(ngModel)]="examName" [disabled]="item.saved">
                         </p-checkbox>
                     </div>
                     <div class="col-1 text-center">
                         <p-checkbox [inputId]="i" name="item" [value]="item.nombre+'&'+item.valor3"
-                            [(ngModel)]="examName">
+                            [(ngModel)]="examName" [disabled]="item.saved">
                         </p-checkbox>
                     </div>
                     <div class="col-1 text-center">
                         <p-checkbox [inputId]="i" name="item" [value]="item.nombre+'&'+item.valor4"
-                            [(ngModel)]="examName">
+                            [(ngModel)]="examName" [disabled]="item.saved">
                         </p-checkbox>
                     </div>
-                    <div class="col-3">
+                    <div class="col-3 text-center">
                         <span [for]="item">{{item.fecha}}</span>
                     </div>
                 </div>
@@ -143,20 +143,20 @@
                     </div>
                     <div class="col-1 text-center">
                         <p-checkbox [inputId]="i" name="item" [value]="item.nombre+'&'+item.valor2"
-                            [(ngModel)]="examName">
+                            [(ngModel)]="examName" [disabled]="item.saved">
                         </p-checkbox>
                     </div>
                     <div class="col-1 text-center">
                         <p-checkbox [inputId]="i" name="item" [value]="item.nombre+'&'+item.valor3"
-                            [(ngModel)]="examName">
+                            [(ngModel)]="examName" [disabled]="item.saved">
                         </p-checkbox>
                     </div>
                     <div class="col-1 text-center">
                         <p-checkbox [inputId]="i" name="item" [value]="item.nombre+'&'+item.valor4"
-                            [(ngModel)]="examName">
+                            [(ngModel)]="examName" [disabled]="item.saved">
                         </p-checkbox>
                     </div>
-                    <div class="col-3">
+                    <div class="col-3 text-center">
                         <span [for]="item">{{item.fecha}}</span>
                     </div>
                 </div>
@@ -175,25 +175,25 @@
                     </div>
                     <div class="col-1 text-center">
                         <p-checkbox [inputId]="i" name="item" [value]="item.nombre+'&'+item.valor1"
-                            [(ngModel)]="examName">
+                            [(ngModel)]="examName" [disabled]="item.saved">
                         </p-checkbox>
                     </div>
                     <div class="col-1 text-center">
                         <p-checkbox [inputId]="i" name="item" [value]="item.nombre+'&'+item.valor2"
-                            [(ngModel)]="examName">
+                            [(ngModel)]="examName" [disabled]="item.saved">
                         </p-checkbox>
                     </div>
                     <div class="col-1 text-center">
                         <p-checkbox [inputId]="i" name="item" [value]="item.nombre+'&'+item.valor3"
-                            [(ngModel)]="examName">
+                            [(ngModel)]="examName" [disabled]="item.saved">
                         </p-checkbox>
                     </div>
                     <div class="col-1 text-center">
                         <p-checkbox [inputId]="i" name="item" [value]="item.nombre+'&'+item.valor4"
-                            [(ngModel)]="examName">
+                            [(ngModel)]="examName" [disabled]="item.saved">
                         </p-checkbox>
                     </div>
-                    <div class="col-3">
+                    <div class="col-3 text-center">
                         <span [for]="item">{{item.fecha}}</span>
                     </div>
                 </div>
