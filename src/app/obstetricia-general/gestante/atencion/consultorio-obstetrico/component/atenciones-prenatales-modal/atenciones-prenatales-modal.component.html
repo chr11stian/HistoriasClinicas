@@ -1,0 +1,101 @@
+<p-table class="myTable table-over " [value]="listaAtenciones" #dt styleClass="p-datatable-gridlines" [rows]="10"
+        [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+        currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
+        [scrollable]="true"   scrollDirection="both">
+        <!--- INICIO CAMBIOS---->
+        <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+            <tr>
+                <th style="text-align: center;width:100px">ATENCION PRENATAL</th>
+                <th style="text-align: center;width:100px">Fecha Atención</th>
+                <th style="text-align: center;width:100px">Edad Gest.(Semanas)</th>
+                <th style="text-align: center;width:100px">Peso Madre (Kg)</th>
+                <th style="text-align: center;width:100px">Evaluación Nutricional</th>
+                <th style="text-align: center;width:100px">Temperatura<br>(°C)</th>
+                <th style="text-align: center;width:100px">Presión Arter.(mm.Hg)</th>
+                <th style="text-align: center;width:100px">Pulso Materno(por min.)</th>
+                <th style="text-align: center;width:100px">Altura Uterina(cm)</th>
+                <th style="text-align: center;width:120px">Situación(L/T/NA)</th>
+                <th style="text-align: center;width:100px">Presentación<br>(C/P/NA)</th>
+                <th style="text-align: center;width:100px">Posición<br>(D/I/NA)</th>
+                <th style="text-align: center;width:100px">F.C.F.<br>(por min./NA)</th>
+                <th style="text-align: center;width:150px">Mov.Fetal<br>(+/++/+++/SM/NA)</th>
+                <th style="text-align: center;width:120px">Proteinuaria Cualitativa<br>(+/++/+++/NSH)</th>
+                <th style="text-align: center;width:120px">Edema<br>(+/++/+++/SE)</th>
+                <th style="text-align: center;width:120px">Reflejo Osteotendinoso<br>(0,+/++/+++)</th>
+                <th style="text-align: center;width:100px">Ecografia<br>EG/Fecha</th>
+                <th style="text-align: center;width:100px">Consejeria Integral</th>
+                <th style="text-align: center;width:100px">Indic.Ac.Fólico</th>
+                <th style="text-align: center;width:120px">Indic.Fierro/Ac<br>Fólico(>=14sem)</th>
+                <th style="text-align: center;width:100px">Indic.Calcio</th>
+                <th style="text-align: center;width:100px">Interconsulta</th>
+                <th style="text-align: center;width:100px">Plan de Parto<br>/Reenfocada</th>
+                <th style="text-align: center;width:100px">Visita Domicil.<br>(Si/No/NA)</th>
+                <th style="text-align: center;width:100px">Próxima Cita</th>
+                <th style="text-align: center;width:100px">Responsable Atención</th>
+                <th style="text-align: center;width:100px">Establec. de atención</th>
+
+           
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+            <tr>
+                <td style="text-align: center;width:100px;width:100px" >{{ "Atención " + rowData.nroAtencion }}</td>
+                <td style="text-align: center;width:100px;width:100px" >{{ rowData.fechaAtencion }} </td>
+                <td style="text-align: center;width:100px;width:100px" >{{ rowData.edadGestacionalSemanas||0}} {{rowData.edadGestacionalDias||0}}/7 </td>
+                <td style="text-align: center;width:100px;width:100px" >{{ rowData.peso}}</td>
+                <td style="text-align: center;width:100px;width:100px" >{{rowData.evaluacionNutricional?.valor || "0"}}kg,"{{rowData.evaluacionNutricional?.indicador || ""}}" </td>
+                <td style="text-align: center;width:100px;width:100px" >{{ rowData.t}}</td>
+                <td style="text-align: center;width:100px;width:100px" >{{ rowData.presionSistolica + "/" + rowData.presionDiastolica}}</td>
+                <td style="text-align: center;width:100px;width:100px" >{{ rowData.fc}}</td>
+                <td style="text-align: center;width:100px;width:100px" >{{ rowData.alturaUterina}}</td>
+                <td style="text-align: center;width:120px;display:flex;flex-direction:column;padding:0px;justify-content: space-around;">
+                    <div *ngFor="let feto of rowData.examenesFetos;let i=index" >
+                        <span style="color:#AF0017">
+                            feto{{i+1}}:
+                        </span>
+                        {{feto.situacion}}
+                    </div>
+                </td>
+                <td style="text-align: center;width:100px;display:flex;flex-direction:column;padding:0px;justify-content: space-around;">
+                    <div *ngFor="let feto of rowData.examenesFetos">   
+                        {{feto.presentacion}}
+                    </div>
+                </td>
+                <td style="text-align: center;width:100px;display:flex;flex-direction:column;padding:0px;justify-content: space-around;">
+                    <div *ngFor="let feto of rowData.examenesFetos">   
+                        {{feto.posicion}}
+                    </div>
+                </td>
+                <td style="text-align: center;width:100px;display:flex;flex-direction:column;padding:0px;justify-content: space-around;">
+                    <div *ngFor="let feto of rowData.examenesFetos">   
+                        {{feto.fcf}}
+                    </div>
+                </td>
+                <td style="text-align: center;width:150px;display:flex;flex-direction:column;padding:0px;justify-content: space-around;">
+                    <div *ngFor="let feto of rowData.examenesFetos">   
+                        {{feto.movimientosFetales}}
+                    </div>
+                </td>
+                <td style="text-align: center;width:120px">{{rowData.proteinuria}}</td>
+                <td style="text-align: center;width:120px">{{rowData.edema}}</td>
+                <td style="text-align: center;width:120px">{{rowData.reflejoOsteotendinoso}}</td>
+                <td style="text-align: center;width:100px">Ecografia EG/Fecha?</td>
+                <td style="text-align: center;width:100px">Consejeria Integral?</td>
+                <td style="text-align: center;width:100px">{{rowData.acidoFolico?.cantidad ||"" }}</td>
+                <td style="text-align: center;width:120px">{{rowData.hierroYAcidoFolico?.cantidad||""}}</td>
+                <td style="text-align: center;width:100px">{{rowData.calcio?.cantidad||""}}</td>
+                <td  style="text-align: center;width:100px;display:flex;flex-direction:column;padding:0px;justify-content: space-around;">
+                    <div *ngFor="let interconsultas of rowData.interconsultas">   
+                        {{interconsultas}}
+                    </div>
+                </td>
+                <td style="text-align: center;width:100px">{{rowData.planParto}}</td>
+                <td style="text-align: center;width:100px">{{rowData.visitaDomiciliaria}}</td>
+                <td style="text-align: center;width:100px">{{rowData.proxCita}}</td>
+                <td style="text-align: center;width:100px">{{rowData.profesionalACargo.primerNombre}} {{rowData.profesionalACargo.apePaterno}} {{rowData.profesionalACargo.apePaterno}}</td>
+                <td style="text-align: center;width:100px">{{rowData.renipress}}</td>
+
+            </tr>
+        </ng-template>
+    </p-table>

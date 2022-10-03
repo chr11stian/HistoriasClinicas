@@ -18,14 +18,14 @@
         <ng-template pTemplate="right" class="button">
 
             <button pButton pRipple label="Graficar Peso Madre" icon="pi pi-file-o" icon="pi pi-chart-line"
-                class="button-graficar mr-2" pButton type="button" (click)="graficar('normal')"></button>
+                class="button-graficar mr-2" pButton type="button" (click)="graficarPesoMadre('normal')"></button>
             <button pButton pRipple label="Graficar Altura Uterina" icon="pi pi-file-o" icon="pi pi-chart-line"
-                class="button-graficar" pButton type="button" (click)="graficarAltura()"></button>
+                class="button-graficar" pButton type="button" (click)="graficarAlturaUterina()"></button>
             <!--            <button pButton pRipple label="Agregar Atención" icon="pi pi-plus" pButton type="button"-->
             <!--                    class="button-agregar" (click)="openDialogAtenciones()"></button>-->
         </ng-template>
     </p-toolbar>
-    <p-table class="table-over" [value]="atenciones" #dt styleClass="p-datatable-gridlines" [rows]="10"
+    <p-table class="table-over" [value]="listaAtenciones" #dt styleClass="p-datatable-gridlines" [rows]="10"
         [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
         currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
         <!--- INICIO CAMBIOS---->

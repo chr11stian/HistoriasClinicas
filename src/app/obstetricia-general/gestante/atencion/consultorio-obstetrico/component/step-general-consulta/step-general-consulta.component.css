@@ -129,3 +129,9 @@ p-tabview >>> .p-tabview .p-tabview-panels {
     overflow: auto;
     white-space: nowrap;
 }
+.flotante{
+    position: fixed;
+    top:400px;
+    right:55px;
+    z-index: 999999;
+} 
