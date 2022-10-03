@@ -4,6 +4,7 @@ import {ConfirmationService, MessageService} from "primeng/api";
 import {RolGuardiaService} from "src/app/core/services/rol-guardia/rol-guardia.service";
 import { Ipress } from '../../core/models/mantenimiento.models';
 import { DatePipe } from "@angular/common";
+import { environment } from "src/environments/environment";
 interface personalEstado{
   nroDoc:string,
   nombre:string,
@@ -17,6 +18,7 @@ interface personalEstado{
 })
 export class RolGuardiaComponent implements OnInit {
   /* start reporte input:authorization,ipress,fecha*/
+  base_url = environment.base_urlTx;
   authorization:string=''
   ipress:string=''
   fecha:string=''
@@ -78,14 +80,14 @@ export class RolGuardiaComponent implements OnInit {
   }
   /* reporte */
   descargarRuta(){
-    const route= "http://192.168.5.3:8200/jasperserver/rest_v2/reports/Reports/v1/rolgipress/rolguardiaipress.pdf"
+    const route= `${this.base_url}/jasperserver/rest_v2/reports/Reports/v1/rolgipress/rolguardiaipress.pdf`
     const authorization=`authorization=${this.token.token}`
     const ipress=`ipress=${this.idIpressZarzuela}`
     const fecha=`fecha=${this.datePipe.transform(this.fechaPivot, 'yyyy-MM-dd')}`
     return `${route}?${authorization}&${ipress}&${fecha}`
   }
   descargarRutaXservicio(){
-    const route= "http://192.168.5.3:8200/jasperserver/rest_v2/reports/Reports/v1/rolgservicio/rolguardiaservicio.pdf"
+    const route= `${this.base_url}/jasperserver/rest_v2/reports/Reports/v1/rolgservicio/rolguardiaservicio.pdf`
     const authorization=`authorization=${this.token.token}`
     const ipress=`ipress=${this.idIpressZarzuela}`
     const servicio=`servicio=${this.upsSeleccionada["nombreUPS"]}`
