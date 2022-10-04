@@ -7,7 +7,7 @@ export const environment = {
     bd: "hce",
     bdCouch:'visitas_medicas',
 
-    baseUrl: "http://192.168.5.3:4040/api", //privada
+    baseUrl: "http://192.168.5.3:3012/api", //privada
     // baseUrl: "http://190.108.93.150:3012/api", //publica
 
     /**ACCESO AL LOGIN**/
