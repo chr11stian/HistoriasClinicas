@@ -595,7 +595,7 @@
                             </p-table>
                         </div>
                         <br>
-                        <div>
+                        <div *ngIf="nroDeConsulta==1">
                             <p-table [value]="listaPlanParto" #dt
                                 styleClass="p-datatable-gridlines p-datatable-customers" [rows]="10"
                                 [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"

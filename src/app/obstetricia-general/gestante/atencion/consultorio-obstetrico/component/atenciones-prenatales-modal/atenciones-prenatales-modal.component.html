@@ -58,29 +58,41 @@
                     </div>
                 </td>
                 <td style="text-align: center;width:100px;display:flex;flex-direction:column;padding:0px;justify-content: space-around;">
-                    <div *ngFor="let feto of rowData.examenesFetos">   
+                    <div *ngFor="let feto of rowData.examenesFetos;let i=index">
+                        <span style="color:#AF0017">
+                            feto{{i+1}}:
+                        </span>   
                         {{feto.presentacion}}
                     </div>
                 </td>
                 <td style="text-align: center;width:100px;display:flex;flex-direction:column;padding:0px;justify-content: space-around;">
-                    <div *ngFor="let feto of rowData.examenesFetos">   
+                    <div *ngFor="let feto of rowData.examenesFetos;let i=index"> 
+                        <span style="color:#AF0017">
+                            feto{{i+1}}:
+                        </span>  
                         {{feto.posicion}}
                     </div>
                 </td>
                 <td style="text-align: center;width:100px;display:flex;flex-direction:column;padding:0px;justify-content: space-around;">
-                    <div *ngFor="let feto of rowData.examenesFetos">   
+                    <div *ngFor="let feto of rowData.examenesFetos;let i=index">
+                        <span style="color:#AF0017">
+                            feto{{i+1}}:
+                        </span>   
                         {{feto.fcf}}
                     </div>
                 </td>
                 <td style="text-align: center;width:150px;display:flex;flex-direction:column;padding:0px;justify-content: space-around;">
-                    <div *ngFor="let feto of rowData.examenesFetos">   
+                    <div *ngFor="let feto of rowData.examenesFetos;let i=index">
+                        <span style="color:#AF0017">
+                            feto{{i+1}}:
+                        </span>   
                         {{feto.movimientosFetales}}
                     </div>
                 </td>
                 <td style="text-align: center;width:120px">{{rowData.proteinuria}}</td>
                 <td style="text-align: center;width:120px">{{rowData.edema}}</td>
                 <td style="text-align: center;width:120px">{{rowData.reflejoOsteotendinoso}}</td>
-                <td style="text-align: center;width:100px">Ecografia EG/Fecha?</td>
+                <td style="text-align: center;width:100px">{{rowData.ecografia?.fecha||''}}</td>
                 <td style="text-align: center;width:100px">Consejeria Integral?</td>
                 <td style="text-align: center;width:100px">{{rowData.acidoFolico?.cantidad ||"" }}</td>
                 <td style="text-align: center;width:120px">{{rowData.hierroYAcidoFolico?.cantidad||""}}</td>

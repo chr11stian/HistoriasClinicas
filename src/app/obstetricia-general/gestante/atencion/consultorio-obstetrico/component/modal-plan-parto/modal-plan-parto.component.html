@@ -719,9 +719,7 @@
   </div>
 </form>
 <div class="footer">
-  <!-- <button *ngIf="!tienePlan" pButton type="button" (click)="guardar()" label="Guardar"
-            class="p-button-primary mt-4 mr-2"></button> -->
-  <button
+  <!-- <button
     *ngIf="!tienePlan"
     [disabled]="form.invalid"
     pButton
@@ -729,6 +727,14 @@
     (click)="guardar()"
     label="Guardar"
     class="p-button-primary mt-4 mr-2"
+  ></button> -->
+  <button
+    *ngIf="true"
+    [disabled]="form.invalid"
+    pButton
+    type="button"
+    (click)="guardar()"
+    label="Guardar"
+    class="p-button-primary mt-4 mr-2"
   ></button>
-  <!-- <button pButton type="button" (click)="closeDialog()" label="Cancelar" class="p-button-danger mt-4"></button> -->
 </div>
