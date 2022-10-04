@@ -10,9 +10,9 @@ export const environment = {
     bd: "hce",
     bdCouch: "visitas_medicas",
 
-    baseUrl: base + "4040/api",
+    baseUrl: base + "3012/api",
     base_uri: base + "3010/login/hce" /**ACCESO AL LOGIN**/,
-    base_uri_: base + "4040" /*LOGIN*/,
+    base_uri_: base + "3012" /*LOGIN*/,
     base_login: base + "2020" /* NUEVO LOGIN */,
     base_url_pide:
         base + "3011/pide/datos-sis" /**ACCESO A LOS DATOS DEL PIDE Y SIS**/,
