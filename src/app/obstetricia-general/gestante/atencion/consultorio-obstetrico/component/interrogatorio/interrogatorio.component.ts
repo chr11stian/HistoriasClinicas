@@ -100,7 +100,7 @@ export class InterrogatorioComponent implements OnInit {
     this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
     this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
     let dataconsulta = JSON.parse(localStorage.getItem('datosConsultaActual'));
-    this.nroDeConsulta = dataconsulta == null ? this.Gestacion.nroConsultas + 1 : dataconsulta.nroConsultas;
+    this.nroDeConsulta = dataconsulta == null ? this.Gestacion.nroConsultas + 1 : dataconsulta.nroAtencion;
     console.log('nro de consultas ', this.nroAtencion);
 
     //estado para saber que estado usar en consultas
