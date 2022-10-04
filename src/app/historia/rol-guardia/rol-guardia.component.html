@@ -1,5 +1,5 @@
-<div #calendarWrapper></div>
-<div #dropdown></div>
+<!-- <div #calendarWrapper></div>
+<div #dropdown></div> -->
 <!--<button-->
 <!--        pButton-->
 <!--        type="button"-->
@@ -159,7 +159,7 @@
               class="servicio"
               panelStyleClass="minWidthOverride"
               [options]="listaUps"
-              [appendTo]="dropdown"
+              appendTo="body"
               optionLabel="nombreUPS"
               placeholder="Seleccionar"
               styleClass="my-2 py-1"
@@ -276,7 +276,7 @@
           <p-dropdown
             #dd
             class="bordeDropTurno"
-            [appendTo]="dropdown"
+            appendTo="body"
             [options]="listaAmbienteXipres"
             [virtualScroll]="false"
             optionLabel="ambiente"
@@ -290,7 +290,7 @@
           <p-dropdown
             #dd
             class="bordeDropTurno"
-            [appendTo]="dropdown"
+            appendTo="body"
             [options]="listaTurno"
             [virtualScroll]="false"
             dataKey="abreviatura"
