@@ -1,10 +1,6 @@
 <div class="">
     <p-tabView class="">
-        <p-tabPanel
-            header="INMUNIZACION"
-            leftIcon="pi pi-user"
-            [selected]="true"
-        >
+        <p-tabPanel header="INMUNIZACION" leftIcon="pi pi-user" [selected]="true">
             <ng-template pTemplate="content">
                 <app-tratamiento-inmunizacion></app-tratamiento-inmunizacion>
             </ng-template>
@@ -29,103 +25,55 @@
 <div id="opc">
     <div class="speeddial-circle-demo">
         <div class="speeddial-semi-circle">
-            <p-speedDial
-                showIcon="pi pi-desktop"
-                hideIcon="pi pi-angle-double-down"
-                [model]="tooltipItems"
-                radius="80"
-                direction="left"
-                type="semi-circle"
-            ></p-speedDial>
+            <p-speedDial showIcon="pi pi-desktop" hideIcon="pi pi-angle-double-down" [model]="tooltipItems" radius="80"
+                direction="left" type="semi-circle"></p-speedDial>
         </div>
     </div>
 </div>
 <!-- End Datos generales -->
 <!-- Dialog Interconsulta --->
-<p-dialog
-    header="INTERCONSULTA"
-    [(visible)]="dialogInterconsulta"
-    [modal]="true"
-    [style]="{ width: '60%' }"
-    [draggable]="false"
-    [resizable]="false"
->
+<p-dialog header="INTERCONSULTA" [(visible)]="dialogInterconsulta" [modal]="true" [style]="{ width: '60%' }"
+    [draggable]="false" [resizable]="false">
     <form [formGroup]="formInterconsulta">
         <div class="grid align-items-center">
             <div class="col-12 flex align-items-center">
                 <div class="col-2 md:col-2">Fecha:</div>
                 <div class="col-10 md:col-10 p-fluid">
-                    <p-calendar
-                        class="w-full"
-                        [ngModel]="fecha"
-                        formControlName="fecha"
-                        [showIcon]="true"
-                        inputId="icon"
-                    ></p-calendar>
+                    <p-calendar class="w-full" [ngModel]="fecha" formControlName="fecha" [showIcon]="true"
+                        inputId="icon"></p-calendar>
                 </div>
             </div>
             <div class="col-12 flex align-items-center">
                 <div class="col-6 md:col-2">Motivo:</div>
                 <div class="col-6 md:col-10">
-                    <textarea
-                        class="inputfield w-full"
-                        formControlName="motivo"
-                        pInputTextarea
-                    ></textarea>
+                    <textarea class="inputfield w-full" formControlName="motivo" pInputTextarea></textarea>
                 </div>
             </div>
             <div class="col-6 flex align-items-center">
                 <div class="col-3 md:col-3 p-fluid">Servicio:</div>
                 <div class="col-9 md:col-9 p-fluid">
-                    <p-dropdown
-                        class="w-full"
-                        [options]="servicios"
-                        formControlName="servicio"
-                        placeholder="Seleccione un servicio"
-                        optionLabel="nombreUPS"
-                        optionValue="nombreUPS"
-                        [showClear]="false"
-                        (onChange)="ListaServicios()"
-                    >
+                    <p-dropdown class="w-full" [options]="servicios" formControlName="servicio"
+                        placeholder="Seleccione un servicio" optionLabel="nombreUPS" optionValue="nombreUPS"
+                        [showClear]="false" (onChange)="ListaServicios()">
                     </p-dropdown>
                 </div>
             </div>
             <div class="col-4 flex align-items-center">
                 <div class="col-6 md:col-6 p-fluid">Nivel Urgencia:</div>
                 <div class="col-6 md:col-6 p-fluid">
-                    <p-dropdown
-                        class="w-full"
-                        [options]="urgencia"
-                        formControlName="urgencia"
-                        optionLabel="name"
-                        optionValue="code"
-                    ></p-dropdown>
+                    <p-dropdown class="w-full" [options]="urgencia" formControlName="urgencia" optionLabel="name"
+                        optionValue="code"></p-dropdown>
                 </div>
             </div>
             <div class="col-2 p-fluid">
-                <p-button
-                    class="w-full button-agregar"
-                    style="background-color: #0c3866"
-                    label="Agregar"
-                    icon="pi pi-plus"
-                    [loading]="loading"
-                    (onClick)="agregarInterconsulta()"
-                ></p-button>
+                <p-button class="w-full button-agregar" style="background-color: #0c3866" label="Agregar"
+                    icon="pi pi-plus" [loading]="loading" (onClick)="agregarInterconsulta()"></p-button>
             </div>
         </div>
     </form>
-    <p-table
-        class="table-over"
-        [value]="listInterconsulta"
-        #dt
-        styleClass="p-datatable-gridlines"
-        [rows]="10"
-        [rowsPerPageOptions]="[10, 25, 50]"
-        [paginator]="true"
-        [autoLayout]="true"
-        [showCurrentPageReport]="true"
-        currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
-    >
+    <p-table class="table-over" [value]="listInterconsulta" #dt styleClass="p-datatable-gridlines" [rows]="10"
+        [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+        currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
         <ng-template pTemplate="header">
             <tr>
                 <th style="text-align: center" class="font-2">Nro</th>
@@ -146,16 +94,9 @@
                 <td style="text-align: center">{{ rowData.servicio }}</td>
                 <td style="text-align: center">{{ rowData.nivelUrgencia }}</td>
                 <td style="text-align: center">
-                    <button
-                        pButton
-                        pRipple
-                        icon="pi pi-trash"
-                        class="p-button-rounded p-button-danger m-1"
-                        (click)="
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1" (click)="
                             eliminarInterconsulta(rowData.idCupos, rowIndex)
-                        "
-                        pTooltip="Eliminar"
-                    ></button>
+                        " pTooltip="Eliminar"></button>
                 </td>
             </tr>
         </ng-template>
@@ -181,202 +122,179 @@
     ></button>
   </ng-template>-->
 </p-dialog>
-<p-dialog
-    header="HIS"
-    [(visible)]="dialogHIS"
-    [modal]="true"
-    [style]="{ width: '95%' }"
-    [draggable]="false"
-    [resizable]="false"
->
-    <form [formGroup]="formHIS">
-        <div *ngFor="let itemHIS of listHIS">
-            <div class="col-12 divcero">
-                <p-table
-                    class="table-over"
-                    [value]=[itemHIS]
-                    #dt
-                    styleClass="p-datatable-gridlines"
-                >
+<p-dialog header="HIS" [(visible)]="dialogHIS" [modal]="true" [style]="{ width: '95%' }" [draggable]="false"
+    [resizable]="false">
+    <div class="col-12 no-data-found" *ngIf="!existData">
+
+    </div>
+    <div *ngFor="let itemHIS of listHIS">
+        <div class="col-12 divcero">
+            <p-table class="table-over" [value]=[itemHIS] #dt styleClass="p-datatable-gridlines">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>AÑO</th>
+                        <th>MES</th>
+                        <th>NOMBRE DEL ESTABLECIMIENTO DE SALUD(IPRESS)</th>
+                        <th>UNIDAD PRESTADORA DE SERVICIOS(UPSS)</th>
+                        <th colspan="2">
+                            NOMBRE DEL RESPONSABLE DE ATENCION
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                    <tr>
+                        <td>{{ rowData.anio }}</td>
+                        <td>{{ rowData.mes }}</td>
+                        <td>{{ rowData.nombreIpress }}</td>
+                        <td>{{ rowData.upsAuxiliar }}</td>
+                        <td>DNI : {{ rowData.dniProfesional }}</td>
+                        <td>{{ rowData.nombreProfesional }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="6">
+                            NOMBRES Y APELLIDOS PACIENTE:
+                            {{
+                            rowData.nombre +
+                            " " +
+                            rowData.apePaterno +
+                            " " +
+                            rowData.apeMaterno
+                            }}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <div class="flex divcero">
+            <div class="col-6 divcero">
+                <p-table class="table-over" [value]=[itemHIS] #dt styleClass="p-datatable-gridlines">
                     <ng-template pTemplate="header">
                         <tr>
-                            <th>AÑO</th>
-                            <th>MES</th>
-                            <th>NOMBRE DEL ESTABLECIMIENTO DE SALUD(IPRESS)</th>
-                            <th>UNIDAD PRESTADORA DE SERVICIOS(UPSS)</th>
-                            <th colspan="2">
-                                NOMBRE DEL RESPONSABLE DE ATENCION
-                            </th>
+                            <th rowspan="3">DIA</th>
+                            <th>DNI</th>
+                            <th rowspan="2">FINANC.</th>
+                            <th rowspan="2">DISTRITO</th>
+                            <th rowspan="3">EDAD</th>
+                            <th rowspan="3">SEXO</th>
+                            <th rowspan="2">P. CEF</th>
+                            <th colspan="2" rowspan="1">EVALUA.</th>
+                            <th rowspan="3">ESTAB.</th>
+                            <th rowspan="3">SERVICIO</th>
+                        </tr>
+                        <tr>
+                            <th>HISTORIA</th>
+                            <th colspan="2">ANTROPOME.</th>
+                        </tr>
+                        <tr>
+                            <th>GESTANTE</th>
+                            <th>ETNIA</th>
+                            <th>CENTRO P.</th>
+                            <th>ABDOM.</th>
+                            <th colspan="2">HEMOGLOBI.</th>
                         </tr>
                     </ng-template>
-                    <ng-template
-                        pTemplate="body"
-                        let-rowData
-                        let-rowIndex="rowIndex"
-                    >
+                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                         <tr>
-                            <td>{{ rowData.anio }}</td>
-                            <td>{{ rowData.mes }}</td>
-                            <td>{{ rowData.nombreIpress }}</td>
-                            <td>{{ rowData.upsAuxiliar }}</td>
-                            <td>DNI : {{ rowData.dniProfesional }}</td>
-                            <td>{{ rowData.nombreProfesional }}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="6">
-                                NOMBRES Y APELLIDOS PACIENTE:
+                            <td rowspan="3">{{ rowData.dia }}</td>
+                            <td>{{ rowData.nroDoc }}</td>
+                            <td rowspan="2">
                                 {{
-                                    rowData.nombre +
-                                        " " +
-                                        rowData.apePaterno +
-                                        " " +
-                                        rowData.apeMaterno
+                                rowData.financiamiento === "null"
+                                ? ""
+                                : rowData.financiamiento
                                 }}
                             </td>
+                            <td rowspan="2">{{ rowData.distrito }}</td>
+                            <td rowspan="3">{{ rowData.edad }}</td>
+                            <td rowspan="3">
+                                {{
+                                rowData.sexo === "FEMENINO" ? "F" : "M"
+                                }}
+                            </td>
+                            <td rowspan="2">
+                                {{ rowData.perimetroCefalico }}
+                            </td>
+                            <td>PESO</td>
+                            <td>{{ rowData.peso }}</td>
+                            <td>N</td>
+                            <td>N</td>
+                        </tr>
+                        <tr>
+                            <td>{{ rowData.nroHcl }}</td>
+                            <td>TALLA</td>
+                            <td>{{ rowData.talla }}</td>
+                            <td>C</td>
+                            <td>C</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>{{ rowData.etnia }}</td>
+                            <td>{{ rowData.ccpp }}</td>
+                            <td>{{ rowData.perimentroAbdominal }}</td>
+                            <td>Hb</td>
+                            <td>
+                                {{
+                                rowData.hb === "null" ? "" : rowData.hb
+                                }}
+                            </td>
+                            <td>R</td>
+                            <td>R</td>
                         </tr>
                     </ng-template>
                 </p-table>
             </div>
-            <div class="flex divcero">
-                <div class="col-6 divcero">
-                    <p-table
-                        class="table-over"
-                        [value]=[itemHIS]
-                        #dt
-                        styleClass="p-datatable-gridlines"
-                    >
-                        <ng-template pTemplate="header">
-                            <tr>
-                                <th rowspan="3">DIA</th>
-                                <th>DNI</th>
-                                <th rowspan="2">FINANC.</th>
-                                <th rowspan="2">DISTRITO</th>
-                                <th rowspan="3">EDAD</th>
-                                <th rowspan="3">SEXO</th>
-                                <th rowspan="2">P. CEF</th>
-                                <th colspan="2" rowspan="1">EVALUA.</th>
-                                <th rowspan="3">ESTAB.</th>
-                                <th rowspan="3">SERVICIO</th>
-                            </tr>
-                            <tr>
-                                <th>HISTORIA</th>
-                                <th colspan="2">ANTROPOME.</th>
-                            </tr>
-                            <tr>
-                                <th>GESTANTE</th>
-                                <th>ETNIA</th>
-                                <th>CENTRO P.</th>
-                                <th>ABDOM.</th>
-                                <th colspan="2">HEMOGLOBI.</th>
-                            </tr>
-                        </ng-template>
-                        <ng-template
-                            pTemplate="body"
-                            let-rowData
-                            let-rowIndex="rowIndex"
-                        >
-                            <tr>
-                                <td rowspan="3">{{ rowData.dia }}</td>
-                                <td>{{ rowData.nroDoc }}</td>
-                                <td rowspan="2">
-                                    {{
-                                        rowData.financiamiento === "null"
-                                            ? ""
-                                            : rowData.financiamiento
-                                    }}
-                                </td>
-                                <td rowspan="2">{{ rowData.distrito }}</td>
-                                <td rowspan="3">{{ rowData.edad }}</td>
-                                <td rowspan="3">
-                                    {{
-                                        rowData.sexo === "FEMENINO" ? "F" : "M"
-                                    }}
-                                </td>
-                                <td rowspan="2">
-                                    {{ rowData.perimetroCefalico }}
-                                </td>
-                                <td>PESO</td>
-                                <td>{{ rowData.peso }}</td>
-                                <td>N</td>
-                                <td>N</td>
-                            </tr>
-                            <tr>
-                                <td>{{ rowData.nroHcl }}</td>
-                                <td>TALLA</td>
-                                <td>{{ rowData.talla }}</td>
-                                <td>C</td>
-                                <td>C</td>
-                            </tr>
-                            <tr>
+            <div class="col-6 divcero">
+                <p-table class="table-over" [value]=[itemHIS] #dt styleClass="p-datatable-gridlines">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th rowspan="3">
+                                DIAGNOSTICO MOTIVO DE CONSULTA Y/O ACTIVIDAD
+                                DE SALUD
+                            </th>
+                            <th rowspan="2" colspan="3">TIPO DIAG.</th>
+                            <th rowspan="3">LAB</th>
+                            <th rowspan="3">CODIGO CIE</th>
+                        </tr>
+                        <tr></tr>
+                        <tr>
+                            <th>P</th>
+                            <th>D</th>
+                            <th>R</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                        <tr *ngFor="let item of rowData.diagnosticos">
+                            <td>
+                                {{ item.diagnostico }}
+                            </td>
+                            <td *ngIf="item.tipoDx === 'P'; else tipo">
+                                x
+                            </td>
+                            <ng-template #tipo>
                                 <td></td>
-                                <td>{{ rowData.etnia }}</td>
-                                <td>{{ rowData.ccpp }}</td>
-                                <td>{{ rowData.perimentroAbdominal }}</td>
-                                <td>Hb</td>
-                                <td>
-                                    {{
-                                        rowData.hb === "null" ? "" : rowData.hb
-                                    }}
-                                </td>
-                                <td>R</td>
-                                <td>R</td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
-                </div>
-                <div class="col-6 divcero">
-                    <p-table
-                        class="table-over"
-                        [value]=[itemHIS]
-                        #dt
-                        styleClass="p-datatable-gridlines"
-                    >
-                        <ng-template pTemplate="header">
-                            <tr>
-                                <th rowspan="3">
-                                    DIAGNOSTICO MOTIVO DE CONSULTA Y/O ACTIVIDAD
-                                    DE SALUD
-                                </th>
-                                <th rowspan="2" colspan="3">TIPO DIAG.</th>
-                                <th rowspan="3">LAB</th>
-                                <th rowspan="3">CODIGO CIE</th>
-                            </tr>
-                            <tr></tr>
-                            <tr>
-                                <th>P</th>
-                                <th>D</th>
-                                <th>R</th>
-                            </tr>
-                        </ng-template>
-                        <ng-template
-                            pTemplate="body"
-                            let-rowData
-                            let-rowIndex="rowIndex"
-                        >
-                            <tr *ngFor="let item of rowData.diagnosticos">
-                                <td>
-                                    {{ item.diagnostico }}
-                                </td>
-                                <td *ngIf="item.tipoDx === 'P'; else tipo">
-                                    x
-                                </td>
-                                <ng-template #tipo><td></td></ng-template>
-                                <td *ngIf="item.tipoDx === 'D'; else tipo1">
-                                    x
-                                </td>
-                                <ng-template #tipo2><td></td></ng-template>
-                                <td *ngIf="item.tipoDx === 'R'; else tipo2">
-                                    x
-                                </td>
-                                <ng-template #tipo3><td></td></ng-template>
-                                <td>{{ item.lab }}</td>
-                                <td>{{ item.cie_10 }}</td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
-                </div>
+                            </ng-template>
+                            <td *ngIf="item.tipoDx === 'D'; else tipo1">
+                                x
+                            </td>
+                            <ng-template #tipo2>
+                                <td></td>
+                            </ng-template>
+                            <td *ngIf="item.tipoDx === 'R'; else tipo2">
+                                x
+                            </td>
+                            <ng-template #tipo3>
+                                <td></td>
+                            </ng-template>
+                            <td>{{ item.lab }}</td>
+                            <td>{{ item.cie_10 }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
             </div>
-            <br />
         </div>
-    </form>
+        <br />
+    </div>
+    <div class="col-12 footer">
+        <button pButton type="button" label="Cerrar Consulta" (click)="concludeConsultation()"></button>
+    </div>
 </p-dialog>

@@ -47,6 +47,7 @@ export class TratamientoConsultaComponent implements OnInit {
     formHIS: FormGroup;
     listHIS: his[] = [];
     nexDate: NextDate;
+    existData: boolean = false;
     constructor(
         private tratamientoService: TratamientoConsultaService,
         private rolGuardiaService: RolGuardiaService,
@@ -213,11 +214,40 @@ export class TratamientoConsultaComponent implements OnInit {
             fecha: this.consultaGeneralService.fecha,
             motivo: null,
         };
-        this.finalizarConsulta
-            .putNextAppointment(this.data.idConsulta, this.nexDate)
-            .then((res) => {
-                console.log("se guardo la proxima cita");
-            });
+        Swal.fire({
+            title: '¿Desea cerrar la consulta?',
+            text: "Ya no podra modificar nada en la consulta",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.finalizarConsulta
+                    .putNextAppointment(this.data.idConsulta, this.nexDate)
+                    .then((res: any) => {
+                        if (res.cod == '2126') {
+                            Swal.fire(
+                                'Exito!',
+                                'Se registro correctamente.',
+                                'success'
+                            );
+                            this.dialogHIS = false;
+                        } else {
+                            Swal.fire(
+                                'Error!',
+                                'No se registrar.',
+                                'error'
+                            );
+                        }
+
+                    });
+
+            }
+        })
+
     }
     /* his */
     his() {
@@ -230,8 +260,10 @@ export class TratamientoConsultaComponent implements OnInit {
             .subscribe((r: any) => {
                 this.listHIS = r.object;
                 console.log("his", this.listHIS);
+                this.listHIS == null ? this.existData = false : this.existData = true;
             });
     }
+
 }
 
 interface NextDate {

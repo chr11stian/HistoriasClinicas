@@ -810,7 +810,6 @@ export class DatosGeneralesComponent implements OnInit {
                 },
             ],
         }
-        console.log('data de consultaaaaaaaaaaaaaaaa ', JSON.stringify(this.data));
         if (this.dataConsultas == null) {
             this.consultasService.addConsultas(this.nroFetos, this.Gestacion.id, this.data).then((result: any) => {
                 Swal.fire({
