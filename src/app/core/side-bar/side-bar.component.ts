@@ -615,7 +615,6 @@ export class SideBarComponent implements OnInit, DoCheck {
             menu_ipress.push(historias);
             menu_ipress.push(laboratorio);
             menu_ipress.push(reportes);
-            menu_ipress.push(visitas);
         }
         if (this.rol === "ROLE_LAB_PERSONAL") {
             menu_ipress.length = 0;

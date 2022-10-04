@@ -30,7 +30,40 @@ export class LoginRolComponent implements OnInit {
     /* nuevo login */
     roles: string[] = [];
     data: Usuario;
-
+    description = [
+        {
+            rol: "ROLE_ENF_PERSONAL",
+            description: "Personal de Salud",
+        },
+        {
+            rol: "ROLE_TEC_ADMINI_PERSONAL",
+            description: "Administrador de Cupos",
+        },
+        {
+            rol: "VISITA_DOMICILIARIA_PROFESIONAL",
+            description: "Visita Domiciliaria",
+        },
+        {
+            rol: "VISITA_DOMICILIARIA_ACTOR_SOCIAL",
+            description: "Actor Social",
+        },
+        {
+            rol: "ROLE_TEC_ADMINI_ADMIN",
+            description: "Administrador del Sistema",
+        },
+        {
+            rol: "ROLE_FARM_PERSONAL",
+            description: "Farmaceutico",
+        },
+        {
+            rol: "ROLE_LAB_PERSONAL",
+            description: "Laboratorista",
+        },
+        {
+            rol: "ROLE_ADMIN",
+            description: "Administrador de Ipress",
+        },
+    ];
     constructor(
         private personalservice: PersonalService,
         private formBuilder: FormBuilder,
@@ -49,7 +82,117 @@ export class LoginRolComponent implements OnInit {
             });
     }
 
-    /* ingresar() {
+    ngOnInit(): void {
+        this.size_width();
+        /* nuevo login */
+        this.formBuild();
+        this.cargarRoles();//this.roles = this.loginService.roles;
+        this.data = <Usuario>JSON.parse(localStorage.getItem("usuario"));
+    }
+    cargarRoles() {
+        this.loginService.roles.map((obj) => {
+            let aux = this.description.find((r) => r.rol == obj);
+            this.roles.push(aux.description);
+        });
+    }
+    findRol(descripction: string) {
+        let aux = this.description.find((r) => r.description == descripction);
+        return aux.rol;
+    }
+
+    buildEscala() {
+        this.list.map((r: escala) => {
+            this.escala.push(r.escala);
+        });
+        this.rol = this.list[0].rol;
+        this.nombreRol = this.list[0].nombreRol;
+        this.listnombreRol = this.list[0].list;
+    }
+
+    searchEscala(s: string) {
+        this.list.map((r: escala) => {
+            if (s === r.escala) {
+                this.rol = r.rol;
+                this.nombreRol = r.nombreRol;
+            }
+        });
+    }
+
+    cambio(e) {
+        //this.searchEscala(e.value);
+    }
+
+    formBuild() {
+        this.formRol = this.formBuilder.group({
+            // escala: new FormControl("", []),
+            rol: new FormControl(""),
+        });
+    }
+
+    openPassword() {
+        this.ref = this.dialog.open(PasswordComponent, {
+            header: "Cambiar la contraseña",
+            height: "45%",
+            width: this.size ? "60%" : "25%",
+            style: {
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+            },
+        });
+
+        this.ref.onClose.subscribe(() => {});
+    }
+    /* nuevo login*/
+    ingresarLogin() {
+        let rol =
+            this.formRol.value.rol === ""
+                ? this.roles[0]
+                : this.formRol.value.rol;
+        localStorage.setItem("rol", JSON.stringify(this.findRol(rol)));
+        //console.log("data", this.data);
+        this.personalservice.listServiceStaff(this.data.nroDocumento).subscribe(
+            (res: any) => {
+                console.log("res", res);
+                if (res.object != null && rol === "ROLE_ENF_PERSONAL") {
+                    res.object[0].roles.map((aux) => {
+                        if (aux.nombreUPS == "ATENCION INTEGRAL DEL NINO") {
+                            //aux.nombreFuncion == "SERVICIOS ADMINISTRACION" &&
+                            this.router
+                                .navigate(["/dashboard/cred/citas"])
+                                .then(() => {
+                                    window.location.reload();
+                                });
+                        } else if (aux.nombreUPS == "OBSTETRICIA") {
+                            //aux.nombreFuncion == "SERVICIOS ADMINISTRACION" &&
+                            this.router
+                                .navigate([
+                                    "/dashboard/obstetricia-general/citas",
+                                ])
+                                .then(() => {
+                                    window.location.reload();
+                                });
+                        }
+                    });
+                } else {
+                    this.router.navigate(["/dashboard"]).then(() => {
+                        window.location.reload();
+                    });
+                }
+            },
+            (error) => {
+                if (error.status == 500 && rol) {
+                    this.router.navigate(["/dashboard"]).then(() => {
+                        window.location.reload();
+                    });
+                }
+            }
+        );
+        this.ref.close();
+    }
+}
+  /* ingresar() {
         let rol =
             this.formRol.value.rol === ""
                 ? this.rol[0]
@@ -126,112 +269,3 @@ export class LoginRolComponent implements OnInit {
         });
         this.ref.close();
     } */
-
-    ngOnInit(): void {
-        this.size_width();
-        /* this.list = this.serviceLogin.listEscala;
-        console.log("list", this.list);
-        this.formBuild();
-        this.buildEscala(); */
-        /* nuevo login */
-        this.formBuild();
-        this.roles = this.loginService.roles;
-        this.data = <Usuario>JSON.parse(localStorage.getItem("usuario"));
-    }
-
-    buildEscala() {
-        this.list.map((r: escala) => {
-            this.escala.push(r.escala);
-        });
-        this.rol = this.list[0].rol;
-        this.nombreRol = this.list[0].nombreRol;
-        this.listnombreRol = this.list[0].list;
-    }
-
-    searchEscala(s: string) {
-        this.list.map((r: escala) => {
-            if (s === r.escala) {
-                this.rol = r.rol;
-                this.nombreRol = r.nombreRol;
-            }
-        });
-    }
-
-    cambio(e) {
-        //this.searchEscala(e.value);
-    }
-
-    formBuild() {
-        this.formRol = this.formBuilder.group({
-            // escala: new FormControl("", []),
-            rol: new FormControl(""),
-        });
-    }
-
-    openPassword() {
-        this.ref = this.dialog.open(PasswordComponent, {
-            header: "Cambiar la contraseña",
-            height: "45%",
-            width: this.size ? "60%" : "25%",
-            style: {
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-            },
-        });
-
-        this.ref.onClose.subscribe(() => {});
-    }
-    /* nuevo login*/
-    ingresarLogin() {
-        let rol =
-            this.formRol.value.rol === ""
-                ? this.roles[0]
-                : this.formRol.value.rol;
-        localStorage.setItem("rol", JSON.stringify(rol));
-        console.log("data", this.data);
-        this.personalservice.listServiceStaff(this.data.nroDocumento).subscribe(
-            (res: any) => {
-                console.log("res", res);
-                if (res.object != null && rol === "ROLE_ENF_PERSONAL") {
-                    res.object[0].roles.map((aux) => {
-                        if (
-                            aux.nombreFuncion == "SERVICIOS ADMINISTRACION" &&
-                            aux.nombreUPS == "ATENCION INTEGRAL DEL NINO"
-                        ) {
-                            this.router
-                                .navigate(["/dashboard/cred/citas"])
-                                .then(() => {
-                                    window.location.reload();
-                                });
-                        } else if (
-                            aux.nombreFuncion == "SERVICIOS ADMINISTRACION" &&
-                            aux.nombreUPS == "OBSTETRICIA"
-                        ) {
-                            this.router
-                                .navigate([
-                                    "/dashboard/obstetricia-general/citas",
-                                ])
-                                .then(() => {
-                                    window.location.reload();
-                                });
-                        }
-                    });
-                } else {
-                    this.router.navigate(["/dashboard"]).then(() => {
-                        window.location.reload();
-                    });
-                }
-            },
-            (error) => {
-                if (error.status == 500 && rol) {
-                    this.router.navigate(["/dashboard"]).then(() => {
-                        window.location.reload();
-                    });
-                }
-            }
-        );
-        this.ref.close();
-    }
-}
