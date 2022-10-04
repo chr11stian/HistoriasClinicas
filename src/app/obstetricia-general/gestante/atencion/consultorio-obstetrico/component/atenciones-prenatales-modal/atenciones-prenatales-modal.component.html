@@ -92,7 +92,7 @@
                 <td style="text-align: center;width:120px">{{rowData.proteinuria}}</td>
                 <td style="text-align: center;width:120px">{{rowData.edema}}</td>
                 <td style="text-align: center;width:120px">{{rowData.reflejoOsteotendinoso}}</td>
-                <td style="text-align: center;width:100px">Ecografia EG/Fecha?</td>
+                <td style="text-align: center;width:100px">{{rowData.ecografia?.fecha||''}}</td>
                 <td style="text-align: center;width:100px">Consejeria Integral?</td>
                 <td style="text-align: center;width:100px">{{rowData.acidoFolico?.cantidad ||"" }}</td>
                 <td style="text-align: center;width:120px">{{rowData.hierroYAcidoFolico?.cantidad||""}}</td>
