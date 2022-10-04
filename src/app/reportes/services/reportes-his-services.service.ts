@@ -11,6 +11,12 @@ export class ReportesHisServicesService {
     bd = environment.bd;
     constructor(private http: HttpClient) {}
 
+    download(url: string) {
+        return this.http.get(url, {
+            responseType: "blob",
+        });
+    }
+
     getListHisForUpsAuxFecha(fecha, upsAux: string) {
         const params = new HttpParams({
             fromObject: {

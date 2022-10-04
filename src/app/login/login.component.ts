@@ -46,23 +46,6 @@ export class LoginComponent implements OnInit, DoCheck {
             });
     }
 
-    /*  Ingresar() {
-        let credenciales = {
-            username: this.usuario,
-            password: this.password,
-        };
-        this.loginService.user_login(credenciales).subscribe((resp) => {
-            console.log(resp);
-            if (resp.error) {
-                console.log("error");
-            }
-            if (resp.token) {
-                console.log("entro");
-                this.router.navigate(["dashboard"]);
-            }
-        });
-    } */
-
     userLogin() {
         let credenciales = {
             username: this.usuario,
@@ -159,7 +142,7 @@ export class LoginComponent implements OnInit, DoCheck {
     openRol() {
         this.ref = this.dialog.open(LoginRolComponent, {
             header: "USUARIO: " + this.usuario,
-            height: "45%",
+            height: "35%",
             width: this.size ? "60%" : "25%",
             style: {
                 position: "absolute",
@@ -172,3 +155,20 @@ export class LoginComponent implements OnInit, DoCheck {
         this.ref.onClose.subscribe(() => {});
     }
 }
+
+/*  Ingresar() {
+        let credenciales = {
+            username: this.usuario,
+            password: this.password,
+        };
+        this.loginService.user_login(credenciales).subscribe((resp) => {
+            console.log(resp);
+            if (resp.error) {
+                console.log("error");
+            }
+            if (resp.token) {
+                console.log("entro");
+                this.router.navigate(["dashboard"]);
+            }
+        });
+    } */
