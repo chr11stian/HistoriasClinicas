@@ -1,5 +1,8 @@
 <div class="col-12">
-    <div *ngFor="let itemHIS of listHIS">
+    <div class="col-12 no-data-found" *ngIf="!existData">
+
+    </div>
+    <div *ngFor="let itemHIS of listHIS" >
         <div class="col-12 divcero">
             <p-table class="table-over" [value]=[itemHIS] #dt styleClass="p-datatable-gridlines">
                 <ng-template pTemplate="header">
