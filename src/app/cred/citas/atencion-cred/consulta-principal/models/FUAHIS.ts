@@ -25,7 +25,7 @@ export interface Diagnostic {
     estado: string;
 }
 export interface DiagnosticSave {
-    nro: number;
+    nro?: number;
     diagnosticoHIS: string;
     diagnosticoSIS: string;
     cie10SIS: string;

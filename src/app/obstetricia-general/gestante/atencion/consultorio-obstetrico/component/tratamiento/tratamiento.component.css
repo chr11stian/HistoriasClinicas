@@ -89,3 +89,9 @@ p-panel>>>.p-panel .p-panel-content{
     background-position: 50% 50%;
     margin: auto;
 }
+
+.label-text{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

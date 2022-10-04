@@ -22,7 +22,7 @@ export class LabSolicitudComponent implements OnInit {
   examGroup: Group[] = [];
   // examName: ExamLab[] = [];
   ListaLab: any;
-  dataConsulta: any;
+  dataConsulta: PatientData;
   idConsulta: string;
   prestacion2: any;
 
@@ -44,6 +44,7 @@ export class LabSolicitudComponent implements OnInit {
   auxExamList: ExamenAuxiliar[] = [];
   listSolicitudes: ExamenAuxiliar[] = [];
   reqExamList: ExamenAuxiliar[] = [];
+  patientData: PatientData;
 
   constructor(private ref: DynamicDialogRef,
     private DxService: ConsultasService,
@@ -56,19 +57,17 @@ export class LabSolicitudComponent implements OnInit {
 
     /**Usando localStorage **/
     this.dataConsulta = JSON.parse(localStorage.getItem('datosConsultaActual'));
+    this.patientData = JSON.parse(localStorage.getItem('datacupos')).paciente;
     this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
     this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
     if (!this.estadoEdicion) {
       //guardar en el ls el nroAtencion
       let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaNueva'));
       this.nroAtencion = nroAtencion;
-      // console.log("entre a nueva consulta", this.nroAtencion)
     } else {
       let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaEditar'));
       this.nroAtencion = nroAtencion;
-      // console.log("entre a edicion consulta", this.nroAtencion)
     }
-    // console.log('data de id ', this.dataConsulta);
     this.idConsulta = JSON.parse(localStorage.getItem('IDConsulta'));
     this.listarExamenesDisponibles();
     // this.listarSolicitudes()
@@ -77,7 +76,7 @@ export class LabSolicitudComponent implements OnInit {
   ngOnInit(): void {
     this.buildForm();
     this.getPrestacion();
-    this.recuperaDataPaciente();
+    this.recuperaDataPaciente(this.patientData);
     this.traerDiagnosticosDeConsulta();
     this.listarSolicitudes()
   }
@@ -95,11 +94,21 @@ export class LabSolicitudComponent implements OnInit {
     })
   }
 
-  recuperaDataPaciente() {
-    this.formSolicitudLab.get('edad').setValue(this.dataConsulta.anioEdad);
-    this.formSolicitudLab.get('HCL').setValue(this.dataConsulta.nroHcl);
-    this.formSolicitudLab.get('servicio').setValue(this.dataConsulta.servicio);
-    this.formSolicitudLab.get('apellidosNombres').setValue(this.dataConsulta.datosPaciente.apePaterno + ' ' + this.dataConsulta.datosPaciente.apeMaterno + ' ' + this.dataConsulta.datosPaciente.primerNombre + ' ' + this.dataConsulta.datosPaciente.otrosNombres);
+  recuperaDataPaciente(patientData: PatientData) {
+    let apellidos: string = patientData.apellidos;
+    let nombres: string = patientData.nombre;
+    let aux: string[] = apellidos.split(',');
+    apellidos = '';
+    aux.forEach(item => apellidos = apellidos + ' ' + item);
+    aux = nombres.split(',');
+    nombres = '';
+    aux.forEach(item => nombres = nombres + ' ' + item);
+    this.formSolicitudLab.patchValue({
+      edad: patientData.edadAnio,
+      HCL: patientData.nroHcl,
+      servicio: 'OBSTETRICIA',
+      apellidosNombres: apellidos + ', ' + nombres
+    });
   }
 
   buildForm() {
@@ -159,7 +168,6 @@ export class LabSolicitudComponent implements OnInit {
   }
 
   selectedOptionNameCIE(event, cieType) {
-    console.log('evento desde diagnos ', event);
     if (cieType == 0) {
       this.formSolicitudLab.patchValue({ diagnosticoSIS: event.value.procedimiento });
       this.formSolicitudLab.patchValue({ autocompleteSIS: "" });
@@ -245,7 +253,6 @@ export class LabSolicitudComponent implements OnInit {
     })
   }
   savePeticiones() {
-    console.log('data to save ', this.listSolicitudes)
     if (this.listSolicitudes == null) {
       console.log('req to print ');
       for (let i = 0; i < this.examName.length; i++) {
@@ -271,63 +278,42 @@ export class LabSolicitudComponent implements OnInit {
       });
     } else {
       this.addAuxExam();
-      // console.log('req to update ', this.examName);
-      // for (let i = 0; i < this.examName.length; i++) {
-      //   // let auxExam: AddLaboratorio = {
-      //   //     servicio:'',
-      //   //     nroCama:'',
-      //   //     observaciones: '',
-      //   //     dxPresuntivo:'',
-      //   //     examenAuxiliar:{
-      //   //         tipoLaboratorio:'EXAMEN_LABORATORIO',
-      //   //         subTipo: this.
-      //   //     }
-
-      //   // examenAuxiliar:{
-      //   //     tipoLaboratorio:'EXAMEN_LABORATORIO',
-      //   //     subTipo: this.examName
-      //   // }
-      // }
-
     }
-    // this.examenAuxiliarService.putAgregarExamenesConsulta(this.idConsulta).then(res => {
-
-    // })
   }
 
   async listarSolicitudes() {
-    await this.examenAuxiliarService.getListarPeticiones(this.idConsulta).then(res => {
-      this.listSolicitudes = res.object.examenesAuxiliares;
-      // console.log('lista de examens solicitados ', this.listSolicitudes);
-      // this.reqExamList = this.listSolicitudes.
-      this.listSolicitudes.forEach(item => {
-        let auxExam: ExamLab = {
-          nombreExamen: item.nombreExamen,
-          subTipo: item.subTipo,
-          saved: true,
-          grupo: item.subTipo
-        }
+    // await this.examenAuxiliarService.getListarPeticiones(this.idConsulta).then(res => {
+    //   this.listSolicitudes = res.object.examenesAuxiliares;
+    //   // console.log('lista de examens solicitados ', this.listSolicitudes);
+    //   // this.reqExamList = this.listSolicitudes.
+    //   this.listSolicitudes.forEach(item => {
+    //     let auxExam: ExamLab = {
+    //       nombreExamen: item.nombreExamen,
+    //       subTipo: item.subTipo,
+    //       saved: true,
+    //       grupo: item.subTipo
+    //     }
 
-        this.examName.push(auxExam)
-      });
-      // console.log('ng model exam name', this.examName);
-      for (let i = 0; i < this.examGroup.length; i++) {
-        for (let j = 0; j < this.examName.length; j++) {
-          if (this.examName[j].grupo == this.examGroup[i].nombreGrupo) {
-            this.examGroup[i].listaExam.map(item => {
-              if (item.nombreExamen == this.examName[j].nombreExamen) {
-                console.log('data de nombre ');
-                return item.saved = true;
-              } else
-                return item;
-            })
-          }
-        }
-      }
+    //     this.examName.push(auxExam)
+    //   });
+    //   // console.log('ng model exam name', this.examName);
+    //   for (let i = 0; i < this.examGroup.length; i++) {
+    //     for (let j = 0; j < this.examName.length; j++) {
+    //       if (this.examName[j].grupo == this.examGroup[i].nombreGrupo) {
+    //         this.examGroup[i].listaExam.map(item => {
+    //           if (item.nombreExamen == this.examName[j].nombreExamen) {
+    //             console.log('data de nombre ');
+    //             return item.saved = true;
+    //           } else
+    //             return item;
+    //         })
+    //       }
+    //     }
+    //   }
 
-      console.log('lista de examenes DISPONIBLES ', this.examGroup);
-      console.log('ng model de exam name ', this.examName);
-    });
+    //   console.log('lista de examenes DISPONIBLES ', this.examGroup);
+    //   console.log('ng model de exam name ', this.examName);
+    // });
   }
   async addAuxExam() {
     for (let i = 0; i < this.examName.length; i++) {
@@ -371,4 +357,16 @@ interface ExamLab {
   nombreExamen: string,
   saved: boolean;
   grupo: string;
+}
+interface PatientData {
+  apellidos: string;
+  edadAnio: number;
+  edadMes: number;
+  edadDia: number;
+  nombre: string;
+  nroDoc: string;
+  tipoDoc: string
+  nroHcl: string;
+  nroTelefono: string,
+  sexo: string
 }

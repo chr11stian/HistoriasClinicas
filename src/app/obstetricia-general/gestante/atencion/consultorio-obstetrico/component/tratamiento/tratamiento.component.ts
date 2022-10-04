@@ -13,6 +13,7 @@ import { MedicamentosService } from 'src/app/mantenimientos/services/medicamento
 import { IpressFarmaciaService } from 'src/app/modulos/ipress-farmacia/services/ipress-farmacia.service';
 import { CieService } from 'src/app/obstetricia-general/services/cie.service';
 import { PrimeIcons } from 'primeng/api';
+import { ModalShowHisComponent } from './modal-show-his/modal-show-his.component';
 @Component({
   selector: 'app-tratamiento',
   templateUrl: './tratamiento.component.html',
@@ -92,13 +93,18 @@ export class TratamientoComponent implements OnInit {
   events1: any[] = [];
   listaCalendarioSuplementos: any[] = [];
   consultationId: string;
-  constructor(private formBuilder: FormBuilder,
+  showNextDate: boolean = false;
+  nextDateModel: string;
+
+  constructor(
+    private formBuilder: FormBuilder,
     private obstetriciaService: ObstetriciaGeneralService,
     private dialog: DialogService,
     private messageService: MessageService,
     private tratamientoService: ConsultasService,
     private farmaciaService: IpressFarmaciaService,
-    private CieService: CieService,) {
+    private CieService: CieService,
+  ) {
     this.buildForm();
 
     /*********RECUPERAR DATOS*********/
@@ -233,7 +239,7 @@ export class TratamientoComponent implements OnInit {
       HISCIE2: new FormControl(""),
       nombreUPS2: new FormControl(""),
       nombreUPSAux2: new FormControl(""),
-    })
+    });
   }
 
   ngOnInit(): void {
@@ -786,4 +792,26 @@ export class TratamientoComponent implements OnInit {
       this.formRIEP.patchValue({ HISCIE1: event }, { emitEvent: false });
     }
   }
+
+  closeConsultation(): void {
+    console.log('cerrar consulta ', this.nextDateModel);
+  }
+
+  openShowHisDialog(): void {
+    let data = {
+      fecha: this.nextDateModel
+    }
+    this.ref = this.dialog.open(ModalShowHisComponent, {
+      header: 'Ver HIS',
+      width: '90%',
+      data: data,
+    });
+    this.ref.onClose.subscribe(res => {
+      console.log('respuesta ', res);
+    })
+  }
+}
+interface NextDate {
+  fecha: string;
+  motivo?: string;
 }

@@ -72,7 +72,7 @@ export class LaboratorioComponent implements OnInit {
     cargarExamenesRealizados() {
         this.laboratoriosService.getExamenesRealizados(this.usuario.nroDoc).subscribe((r: any) => {
             this.dataExamenesRealizados = r.object
-            console.log('object', r.object)
+            // console.log('object', r.object)
         })
     }
 
@@ -180,8 +180,10 @@ export class LaboratorioComponent implements OnInit {
 
     listarPeticiones() {
         this.examenAuxiliarService.getListarPeticiones(this.idConsulta).then(res => {
-            this.listaExamen = res.object.examenesAuxiliares
-            console.log('lista examenes ', this.listaExamen);
+            if (res.object != null) {
+                this.listaExamen = res.object.examenesAuxiliares
+                this.listaExamen = this.listaExamen.filter(item => item.lugarExamen == "LABORATORIO");
+            }
         })
     }
 

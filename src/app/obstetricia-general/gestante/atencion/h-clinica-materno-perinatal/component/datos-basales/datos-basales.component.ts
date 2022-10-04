@@ -49,18 +49,21 @@ export class DatosBasalesComponent implements OnInit {
     // dataPaciente2: any;
     DataCupos: any;
     dialItems: MenuItem[];
+    ultrasoundList: Ultrasound[] = [];
 
-    constructor(private filiancionService: FiliancionService,
+    constructor(
+        private filiancionService: FiliancionService,
         private fb: FormBuilder,
         private datosBasalesService: DatosBasalesService,
         private obstetriciaService: ObstetriciaGeneralService,
-        private messageService: MessageService,
         private CieService: CieService,
         private dialog: DialogService,
         private imcService: ImcService,
     ) {
         this.inicalizarForm();
         this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
+        let idConsulta = JSON.parse(localStorage.getItem('IDConsulta'));
+        console.log('id de consultaaaa ', idConsulta);
         /**Data cupos nos permite visualizar funciones vitales del paciente**/
         this.DataCupos = JSON.parse(localStorage.getItem('datacupos'));
 
@@ -74,11 +77,11 @@ export class DatosBasalesComponent implements OnInit {
         this.form.get('talla').setValue(this.DataCupos.funcionesVitales.talla);
         this.dialItems = [
             {
-                tooltipOptions:{
+                tooltipOptions: {
                     tooltipLabel: 'Laboratorios'
                 },
                 icon: 'pi pi-book',
-                command:()=>{
+                command: () => {
                     console.log('data de labossss');
                 }
             }
@@ -235,10 +238,24 @@ export class DatosBasalesComponent implements OnInit {
         });
     }
 
+    recoverLastMenstruation(): void {
+        this.ultrasoundList = [{
+            semanas: this.form.value.ecografia1 == undefined ? null : parseInt(this.form.value.ecografia1),
+            fecha: this.form.value.dateEco1 == undefined ? null : this.form.value.dateEco1,
+        }, {
+            semanas: this.form.value.ecografia2 == undefined ? null : parseInt(this.form.value.ecografia2),
+            fecha: this.form.value.dateEco2 == undefined ? null : this.form.value.dateEco2,
+        }, {
+            semanas: this.form.value.ecografia3 == undefined ? null : parseInt(this.form.value.ecografia3),
+            fecha: this.form.value.dateEco3 == undefined ? null : this.form.value.dateEco3,
+        }];
+    }
+
     recuperarDatos() {
         this.recuperarExamenFisico();
         this.recuperarHemoglobina();
         this.recuperarOtrosExamenes();
+        this.recoverLastMenstruation();
         let vacPrev: string[] = [];
         let aux1: boolean = this.form.value.rubeola;
         let aux2: boolean = this.form.value.hepatitisB;
@@ -256,6 +273,7 @@ export class DatosBasalesComponent implements OnInit {
             vacPrev.push('influenza')
         if (aux5)
             vacPrev.push('covid')
+
 
         this.datosBasales = {
             pesoTalla: {
@@ -287,12 +305,7 @@ export class DatosBasalesComponent implements OnInit {
                 fum: this.form.value.dateFUM,
                 duda: this.form.value.duda,
                 fechaProbableParto: this.form.value.dateProbableParto,
-                primeraEcografia: this.form.value.ecografia1,
-                fechaPrimeraEcografia: this.form.value.dateEco1,
-                segundaEcografia: this.form.value.ecografia2,
-                fechaSegundaEcografia: this.form.value.dateEco2,
-                terceraEcografia: this.form.value.ecografia3,
-                fechaTerceraEcografia: this.form.value.dateEco3
+                ecografias: this.ultrasoundList
             },
             hospitalizacion: [{
                 hospitalizacion: this.form.value.hospitalizacion,
@@ -348,21 +361,21 @@ export class DatosBasalesComponent implements OnInit {
     recuperarHemoglobina() {
         this.hemoglobina = [
             {
-                descripcion: 'hemoglobina 1',
+                descripcion: 'HEMOGLOBINA 1',
                 hg: this.form.value.hg1,
-                conFactorCorrecion: this.form.value.conFactor1,
+                conFactorCorreccion: this.form.value.conFactor1,
                 fecha: this.form.value.hemo1
             },
             {
-                descripcion: 'hemoglobina 2',
+                descripcion: 'HEMOGLOBINA 2',
                 hg: this.form.value.hg2,
-                conFactorCorrecion: this.form.value.conFactor2,
+                conFactorCorreccion: this.form.value.conFactor2,
                 fecha: this.form.value.hemo2
             },
             {
-                descripcion: 'hemoglobina 3',
+                descripcion: 'HEMOGLOBINA 3',
                 hg: this.form.value.hg3,
-                conFactorCorrecion: this.form.value.conFactor3,
+                conFactorCorreccion: this.form.value.conFactor3,
                 fecha: this.form.value.hemo3
             },
         ]
@@ -384,19 +397,19 @@ export class DatosBasalesComponent implements OnInit {
                 valor: this.form.value.vdrl2,
                 fecha: this.form.value.dateVdrl2
             }, {
-                nombre: 'TPHA/VDRL (RPR reactivo)',
+                nombre: 'TPHA/VDRL (RPR REACTIVO)',
                 valor: this.form.value.tpha,
                 fecha: this.form.value.dateTpha
             }, {
-                nombre: 'VIH Prueba Rapida 1',
+                nombre: 'VIH PRUEBA RAPIDA 1',
                 valor: this.form.value.vih1,
                 fecha: this.form.value.dateVih1
             }, {
-                nombre: 'VIH Prueba Rapida 2',
+                nombre: 'VIH PRUEBA RAPIDA 2',
                 valor: this.form.value.vih2,
                 fecha: this.form.value.dateVih2
             }, {
-                nombre: 'PR Hepatitis',
+                nombre: 'PR HEPATITIS',
                 valor: this.form.value.hepatitis,
                 fecha: this.form.value.dateHepatitis
             }, {
@@ -408,47 +421,47 @@ export class DatosBasalesComponent implements OnInit {
                 valor: this.form.value.elisa2,
                 fecha: this.form.value.dateElisa2
             }, {
-                nombre: 'Glicemia 1',
+                nombre: 'GLICEMIA 1',
                 valor: this.form.value.glicemia1,
                 fecha: this.form.value.dateGlicemia1
             }, {
-                nombre: 'Glicemia 2',
+                nombre: 'GLICEMIA 2',
                 valor: this.form.value.glicemia2,
                 fecha: this.form.value.dateGlicemia2
             }, {
-                nombre: 'Tolerancia Glucosa',
+                nombre: 'TOLERANCIA GLUCOSA',
                 valor: this.form.value.glucosa,
                 fecha: this.form.value.dateGlucosa
             }, {
-                nombre: 'Ex. Comp Orina 1',
+                nombre: 'EX. COMP ORINA 1',
                 valor: this.form.value.orina1,
                 fecha: this.form.value.dateOrina1
             }, {
-                nombre: 'Ex. Comp Orina 2',
+                nombre: 'EX. COMP ORINA 2',
                 valor: this.form.value.orina2,
                 fecha: this.form.value.dateOrina2
             }, {
-                nombre: 'Ex. Comp Orina 3',
+                nombre: 'EX. COMP ORINA 3',
                 valor: this.form.value.orina3,
                 fecha: this.form.value.dateOrina3
             }, {
-                nombre: 'Bacteriuria',
+                nombre: 'BACTERIURIA',
                 valor: this.form.value.bacteriuria,
                 fecha: this.form.value.dateBacteriuria
             }, {
-                nombre: 'Nitritos',
+                nombre: 'NITRITOS',
                 valor: this.form.value.nitritos,
                 fecha: this.form.value.datevdrl1
             }, {
-                nombre: 'Urocultivo',
+                nombre: 'UROCULTIVO',
                 valor: this.form.value.urocultivo,
                 fecha: this.form.value.dateUrocultivo
             }, {
-                nombre: 'BK en Esputo',
+                nombre: 'BK EN ESPUTO',
                 valor: this.form.value.esputo,
                 fecha: this.form.value.dateEsputo
             }, {
-                nombre: 'Western Bolt/Ifi',
+                nombre: 'WESTERN BOLT/IFI',
                 valor: this.form.value.western,
                 fecha: this.form.value.dateWestern
             }, {
@@ -460,19 +473,19 @@ export class DatosBasalesComponent implements OnInit {
                 valor: this.form.value.torch,
                 fecha: this.form.value.dateTorch
             }, {
-                nombre: 'Gota Gruesa',
+                nombre: 'GOTA GRUESA',
                 valor: this.form.value.gotaGruesa,
                 fecha: this.form.value.dateGotaGruesa
             }, {
-                nombre: 'Proteinuria Cuantitativa',
+                nombre: 'PROTEINURIA CUANTITATIVA',
                 valor: this.form.value.proteinuriaCuanti,
                 fecha: this.form.value.dateProteinuriaCuanti
             }, {
-                nombre: 'Proteinuria Cualitativa',
+                nombre: 'PROTEINURIA CUALITATIVA',
                 valor: this.form.value.proteinuriaCuali,
                 fecha: this.form.value.dateProteinuriaCuali
             }, {
-                nombre: 'Secreción Vaginal',
+                nombre: 'SECRECION VAGINAL',
                 valor: this.form.value.secrecionVag,
                 fecha: this.form.value.dateSecrecionVag
             }, {
@@ -490,16 +503,16 @@ export class DatosBasalesComponent implements OnInit {
     guardarDatos() {
         this.recuperarDatos();
         console.log('data to save ', this.datosBasales);
-        this.datosBasalesService.postDatosBasalesById(this.idGestante, this.datosBasales).subscribe((res: any) => {
-            console.log('se guardo correctamente ', res.object);
-            Swal.fire({
-                icon: 'success',
-                title: 'Registro',
-                text: 'Fue creado con exito',
-                showConfirmButton: false,
-                timer: 1500,
-            })
-        });
+        // this.datosBasalesService.postDatosBasalesById(this.idGestante, this.datosBasales).subscribe((res: any) => {
+        //     console.log('se guardo correctamente ', res.object);
+        //     Swal.fire({
+        //         icon: 'success',
+        //         title: 'Registro',
+        //         text: 'Fue creado con exito',
+        //         showConfirmButton: false,
+        //         timer: 1500,
+        //     })
+        // });
     }
 
     loadData() {
@@ -552,27 +565,29 @@ export class DatosBasalesComponent implements OnInit {
             } else {
                 this.form.patchValue({ 'dateProbableParto': "" });
             }
-            this.form.patchValue({ 'ecografia1': this.rptaDatosBasales.fechaUltimaMestruacion.primeraEcografia });
-            this.form.patchValue({ 'dateEco1': this.rptaDatosBasales.fechaUltimaMestruacion.fechaPrimeraEcografia });
-            this.form.patchValue({ 'ecografia2': this.rptaDatosBasales.fechaUltimaMestruacion.segundaEcografia });
-            this.form.patchValue({ 'dateEco2': this.rptaDatosBasales.fechaUltimaMestruacion.fechaSegundaEcografia });
-            this.form.patchValue({ 'ecografia3': this.rptaDatosBasales.fechaUltimaMestruacion.terceraEcografia });
-            this.form.patchValue({ 'dateEco3': this.rptaDatosBasales.fechaUltimaMestruacion.fechaTerceraEcografia });
+            this.form.patchValue({
+                ecografia1: this.rptaDatosBasales.fechaUltimaMestruacion.ecografias[0].semanas,
+                dateEco1: this.rptaDatosBasales.fechaUltimaMestruacion.ecografias[0].fecha,
+                ecografia2: this.rptaDatosBasales.fechaUltimaMestruacion.ecografias[1].semanas,
+                dateEco2: this.rptaDatosBasales.fechaUltimaMestruacion.ecografias[1].fecha,
+                ecografia3: this.rptaDatosBasales.fechaUltimaMestruacion.ecografias[2].semanas,
+                dateEco3: this.rptaDatosBasales.fechaUltimaMestruacion.ecografias[2].fecha,
+            });
             this.form.patchValue({ 'hospitalizacion': this.rptaDatosBasales.hospitalizacion[0].hospitalizacion });
             this.form.patchValue({ 'dateHospitalizacion': this.rptaDatosBasales.hospitalizacion[0].fecha });
             this.form.patchValue({ 'diagnosticoHosp': this.rptaDatosBasales.hospitalizacion[0].diagnostico });
-
-            this.CieService.getCIEByCod(this.rptaDatosBasales.hospitalizacion[0].cie10).subscribe((resCIE: any) => {
-                this.form.patchValue({ 'hospitalizacionCIE': resCIE.object });
-            })
-
+            if (this.rptaDatosBasales.hospitalizacion[0].cie10 != "") {
+                this.CieService.getCIEByCod(this.rptaDatosBasales.hospitalizacion[0].cie10).subscribe((resCIE: any) => {
+                    this.form.patchValue({ 'hospitalizacionCIE': resCIE.object });
+                })
+            }
             this.form.patchValue({ 'dateEmergencia': this.rptaDatosBasales.emergencia.fecha });
             this.form.patchValue({ 'diagnosticoEmergenci': this.rptaDatosBasales.emergencia.diagnostico });
-
-            this.CieService.getCIEByCod(this.rptaDatosBasales.emergencia.cie10).subscribe((resCIE: any) => {
-                this.form.patchValue({ 'emergenciaCIE': resCIE.object });
-            });
-
+            if (this.rptaDatosBasales.emergencia.cie10 != "") {
+                this.CieService.getCIEByCod(this.rptaDatosBasales.emergencia.cie10).subscribe((resCIE: any) => {
+                    this.form.patchValue({ 'emergenciaCIE': resCIE.object });
+                });
+            }
             this.form.patchValue({ 'tamizaje': this.rptaDatosBasales.violenciaGenero.fichaTamizaje });
             this.form.patchValue({ 'violencia': this.rptaDatosBasales.violenciaGenero.violencia });
             this.form.patchValue({ 'dateViolencia': this.rptaDatosBasales.violenciaGenero.fecha });
@@ -640,6 +655,17 @@ export class DatosBasalesComponent implements OnInit {
             this.form.patchValue({ 'ivaa': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[26].valor });
             this.form.patchValue({ 'dateIvaa': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[26].fecha });
             this.listaPatologiasMaternas = this.rptaDatosBasales.patologiaMaternoDiagnosticado;
+            this.form.patchValue({
+                hg1: this.rptaDatosBasales.examenLaboratorio.hemoglobina[0].hg,
+                conFactor1: this.rptaDatosBasales.examenLaboratorio.hemoglobina[0].conFactorCorreccion,
+                hemo1: this.rptaDatosBasales.examenLaboratorio.hemoglobina[0].fecha,
+                hg2: this.rptaDatosBasales.examenLaboratorio.hemoglobina[1].hg,
+                conFactor2: this.rptaDatosBasales.examenLaboratorio.hemoglobina[1].conFactorCorreccion,
+                hemo2: this.rptaDatosBasales.examenLaboratorio.hemoglobina[1].fecha,
+                hg3: this.rptaDatosBasales.examenLaboratorio.hemoglobina[2].hg,
+                conFactor3: this.rptaDatosBasales.examenLaboratorio.hemoglobina[2].conFactorCorreccion,
+                hemo3: this.rptaDatosBasales.examenLaboratorio.hemoglobina[2].fecha,
+            })
         });
     }
 
@@ -915,8 +941,8 @@ export class DatosBasalesComponent implements OnInit {
         this.listaPatologiasMaternas.splice(index, 1);
     }
 
-    openLaboResultDialog(){
-        this.ref = this.dialog.open(LaboratoryResultDialogComponent,{
+    openLaboResultDialog() {
+        this.ref = this.dialog.open(LaboratoryResultDialogComponent, {
             header: "Resultados de Laboratorio",
             width: "70%",
             height: "auto",
@@ -926,4 +952,8 @@ export class DatosBasalesComponent implements OnInit {
         });
         console.log('data de labos ');
     }
+}
+interface Ultrasound {
+    fecha: string,
+    semanas: number
 }
