@@ -81,17 +81,13 @@ export class CitasComponent implements OnInit {
         ]
 
     }
-
-
     ngOnInit(): void {
-
         this.buildForm();
-
         this.formCitas.get('tipoDoc').setValue(this.TipoDoc);
         this.formCitas.get('fechaBusqueda').setValue(this.fechaActual);
         this.getDocumentosIdentidad();
         this.buscarCuposPorPersonal();
-        //this.getCuposXservicio();
+
     }
 
     buildForm() {
@@ -102,22 +98,6 @@ export class CitasComponent implements OnInit {
             nroDoc: new FormControl(''),
         })
     }
-
-    /**Lista de Cupos y citas sin importar el estado reservados por servicio **/
-    getCuposXservicio() {
-        let data = {
-            servicio: 'OBSTETRICIA',
-            fecha: this.formCitas.value.fechaBusqueda === '' ? this.datePipe.transform(new Date()) : this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd')
-        }
-        console.log('DATA OBS', data);
-
-        this.cuposService.getCuposServicioFecha(this.idIpressLapostaMedica, data).subscribe((res: any) => {
-            this.DataCupos = res.object;
-            this.loading = false;
-            console.log('LISTA DE CUPOS POR SERVICIO ', this.DataCupos);
-        })
-    }
-
     /**Lista los tipos de documentos de Identidad de un paciente**/
     getDocumentosIdentidad() {
         this.documentoIdentidadService.getDocumentosIdentidad().subscribe((res: any) => {
@@ -176,9 +156,8 @@ export class CitasComponent implements OnInit {
         localStorage.removeItem('datacupos');
     }
 
-    enviarData(event) {
-        // this.router.navigate(['/gestante']);
-        if (event.funcionesVitales == null) {
+    redireccionarCitas(rowData) {
+        if (rowData.funcionesVitales == null) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Paciente',
@@ -187,11 +166,10 @@ export class CitasComponent implements OnInit {
                 timer: 1500,
             })
             return
-        } else {
-            this.router.navigate(['dashboard/obstetricia-general/citas/gestante'], {queryParams: {id: null}})
-            localStorage.setItem('datacupos', JSON.stringify(event));
-            localStorage.removeItem('PacienteSinCupo');
-        }
+        } 
+        this.router.navigate(['dashboard/obstetricia-general/citas/gestante'], {queryParams: {id: null}})
+        localStorage.setItem('datacupos', JSON.stringify(rowData));
+        localStorage.removeItem('PacienteSinCupo');
     }
 
 
@@ -220,25 +198,12 @@ export class CitasComponent implements OnInit {
     }
 
     /**Buscar lista de cupos que pertenece a un personal de salud**/
-    async buscarCuposPorPersonal() {
-        // let data = {
-        //     tipoDoc: this.tipoDocumento,
-        //     nroDoc: this.nroDocumento,
-        //     fecha: this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd'),
-        //     servicio: 'OBSTETRICIA'
-        // }
-        // console.log("DATA DNI", data)
-        // await this.cuposService.buscarListaCuposPersonal(this.idIpressLapostaMedica, data)
-        //     .then((result: any) => {
-        //         this.DataCupos = result.object
-        //         this.loading = false;
-        //         console.log('LISTA DE CUPO DEL PACIENTE', result)
-        //     });
+    buscarCuposPorPersonal() {
         const inputRequest={
             servicio:"OBSTETRICIA",
             fecha:this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd')
         }
-        await this.cuposService.buscarListaCuposPersonalObstetricia(inputRequest)
+        this.cuposService.buscarListaCuposPersonalObstetricia(inputRequest)
             .then((result: any) => {
                 this.DataCupos = result.object
                 this.loading = false;

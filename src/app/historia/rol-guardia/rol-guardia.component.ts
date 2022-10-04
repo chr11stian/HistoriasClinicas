@@ -2,6 +2,9 @@ import {Component, OnInit} from "@angular/core";
 import {PersonalService} from "src/app/core/services/personal-services/personal.service";
 import {ConfirmationService, MessageService} from "primeng/api";
 import {RolGuardiaService} from "src/app/core/services/rol-guardia/rol-guardia.service";
+import { Ipress } from '../../core/models/mantenimiento.models';
+import { DatePipe } from "@angular/common";
+import { environment } from "src/environments/environment";
 interface personalEstado{
   nroDoc:string,
   nombre:string,
@@ -14,6 +17,13 @@ interface personalEstado{
   styleUrls: ["./rol-guardia.component.css"],
 })
 export class RolGuardiaComponent implements OnInit {
+  /* start reporte input:authorization,ipress,fecha*/
+  base_url = environment.base_urlTx;
+  authorization:string=''
+  ipress:string=''
+  fecha:string=''
+  datePipe = new DatePipe('en-US');
+  /* end reporte */
   listaPersonalEstado:personalEstado[]=[]
   displayAsignadoRol:boolean=false
   meses = [{mesNro: 1, mes: 'ENERO'},
@@ -46,12 +56,14 @@ export class RolGuardiaComponent implements OnInit {
   isAdelante:boolean
   isAdelante1:boolean
   auxiliar:any;
+  token:any
   constructor(
     private rolGuardiaService: RolGuardiaService,
     private personalService: PersonalService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService){
     this.auxiliar=JSON.parse(localStorage.getItem('usuario'))
+    this.token=JSON.parse(localStorage.getItem('token'))
     this.idIpressZarzuela=this.auxiliar.ipress.idIpress
     this.getPrimeraPantalla();
 
@@ -65,6 +77,22 @@ export class RolGuardiaComponent implements OnInit {
     // this.getListaAmbienteXipress()
   }
   ngOnInit(): void {
+  }
+  /* reporte */
+  descargarRuta(){
+    const route= `${this.base_url}/jasperserver/rest_v2/reports/Reports/v1/rolgipress/rolguardiaipress.pdf`
+    const authorization=`authorization=${this.token.token}`
+    const ipress=`ipress=${this.idIpressZarzuela}`
+    const fecha=`fecha=${this.datePipe.transform(this.fechaPivot, 'yyyy-MM-dd')}`
+    return `${route}?${authorization}&${ipress}&${fecha}`
+  }
+  descargarRutaXservicio(){
+    const route= `${this.base_url}/jasperserver/rest_v2/reports/Reports/v1/rolgservicio/rolguardiaservicio.pdf`
+    const authorization=`authorization=${this.token.token}`
+    const ipress=`ipress=${this.idIpressZarzuela}`
+    const servicio=`servicio=${this.upsSeleccionada["nombreUPS"]}`
+    const fecha=`fecha=${this.datePipe.transform(this.fechaPivot, 'yyyy-MM-dd')}`
+    return `${route}?${authorization}&${ipress}&${servicio}&${fecha}`
   }
   mesLetras() {
     const a = this.fechaPivot.getMonth() + 1;

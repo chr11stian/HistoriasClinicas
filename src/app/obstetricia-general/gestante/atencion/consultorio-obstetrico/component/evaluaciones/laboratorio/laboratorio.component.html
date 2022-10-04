@@ -4,6 +4,8 @@
             <h3 class="mt-2">LABORATORIO</h3>
         </ng-template>
         <ng-template pTemplate="right">
+            <button pButton pRipple label="Exámenes en consultorio" icon="pi pi-plus" pButton type="button"
+                style="background-color: #0c3866" class="button-agregar mr-2" (click)="openExamsInOfficeDialog()"></button>
             <button pButton pRipple label="Agregar Solicitud" icon="pi pi-plus" pButton type="button"
                 style="background-color: #0c3866" class="button-agregar" (click)="openDialogSolicitud()"></button>
         </ng-template>
@@ -17,13 +19,9 @@
                 <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
                     <tr>
                         <th style="text-align: center;" class="font-2">Nro</th>
-                        <!-- <th style="text-align: center" class="font-1">COD. PRESTACION</th> -->
-                        <!-- <th style="text-align: center" class="font-1">CIE 10 SIS</th> -->
                         <th style="text-align: center;" class="font-2">Nombre Examen SIS</th>
                         <th style="text-align: center;" class="font-1">Tipo</th>
                         <th style="text-align: center;" class="font-2">Lugar Examen</th>
-                        <!-- <th style="text-align: center" class="font-2">TIPO</th> -->
-                        <!-- <th style="text-align: center" class="font-2">ACCIÓN</th> -->
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
@@ -32,28 +30,11 @@
                         <td style="text-align: center;">{{ rowData.nombreExamen }}</td>
                         <td style="text-align: center;">{{ rowData.subTipo }}</td>
                         <td style="text-align: center;">{{ rowData.lugarExamen }}</td>
-                        <!-- <td style="text-align: center">{{ rowData.cie10HIS }}</td>
-                        <td style="text-align: center">{{ rowData.diagnosticoHIS }}</td>
-                        <td style="text-align: center">{{ rowData.tipo }}</td> -->
-                        <!-- <td style="text-align: center">
-                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded m-1"
-                                    (click)="editarSolicitudEco(rowData)" pTooltip="Editar">
-                            </button>
-                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                                    (click)="eliminarSolicitudEco(rowData)" pTooltip="Eliminar">
-                            </button>
-                        </td> -->
                     </tr>
                 </ng-template>
             </p-table>
         </p-accordionTab>
     </p-accordion>
-
-    <!-- <p-toolbar>
-        <ng-template pTemplate="right" class="button">
-            
-        </ng-template>
-    </p-toolbar> -->
     <br />
 </div>
 
@@ -79,7 +60,6 @@
                     <td style="text-align: center; font-size: 11px">{{ rowData.fechaRegistro}}</td>
                     <td style="text-align: center; font-size: 11px">{{ rowData.datosLaboratorio.subTipo}}</td>
                     <td style="text-align: center; font-size: 11px">{{ rowData.datosLaboratorio.nombreExamen}}</td>
-
                     <td style="text-align: center">
                         <button pButton pRipple type="button" label="Ver" class="p-button-secondary"
                             style="font-size: 11px" (click)="openDialogLab(rowData)"></button>

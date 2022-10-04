@@ -8,6 +8,7 @@ import {
 import {TamizajeViolenciaService} from "../../../../../services/tamizaje-violencia.service";
 import {ObstetriciaGeneralService} from "../../../../../services/obstetricia-general.service";
 import {number} from "echarts";
+import { LoginComponent } from '../../../../../../login/login.component';
 
 @Component({
     selector: 'app-tamizaje-violencia',
@@ -15,6 +16,7 @@ import {number} from "echarts";
     styleUrls: ['./tamizaje-violencia.component.css']
 })
 export class TamizajeViolenciaComponent implements OnInit {
+    indiceActivo:number=0
     opciones: any;
     opcionesA: any;
     opcionesB: any;
@@ -35,6 +37,7 @@ export class TamizajeViolenciaComponent implements OnInit {
     ListaTamizajes: any;
     DataCupos: any;
     DataCupos2: any;
+    datosConsultaActual:any
     Gestacion: any;
     Recupera_un_Tamizaje: any;
 
@@ -50,7 +53,7 @@ export class TamizajeViolenciaComponent implements OnInit {
     NivelRiesgo: string = "Sin puntaje";
 
     tabIndex = 0;
-    IDConsulta: string;
+    IdConsulta: string;
     p2A: string = 'SI';
     p5A: string = 'NO';
     armaBlacnca: any;
@@ -98,11 +101,13 @@ export class TamizajeViolenciaComponent implements OnInit {
             {arma: 'Otros'},
         ]
 
-        this.IDConsulta = JSON.parse(localStorage.getItem('IDConsulta'));
+        this.IdConsulta = JSON.parse(localStorage.getItem('IDConsulta'));
 
         this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
         this.DataCupos = JSON.parse(localStorage.getItem('datacupos'));
         this.DataCupos2 = JSON.parse(localStorage.getItem('PacienteSinCupo'));
+        this.datosConsultaActual = JSON.parse(localStorage.getItem('datosConsultaActual'));
+
 
         if (this.DataCupos2 == null) {
             this.tipoDocRecuperado = this.DataCupos.paciente.tipoDoc
@@ -124,27 +129,90 @@ export class TamizajeViolenciaComponent implements OnInit {
 
     ngOnInit(): void {
         this.buildForm();
-        this.formDatos_Tamisaje.get('Fecha').setValue(this.datafecha);
-        console.log("TipoDocRecuperado", this.tipoDocRecuperado);
-        console.log("NroDocRecuparado", this.nroDocRecuperado);
-        console.log("Nro de embarazo", this.nroEmbarazo);
-        console.log("ESTADO", this.estadoEmbarazo);
-        console.log("idConsulta", this.IDConsulta);
-        this.getpacienteByNroDoc();
-        this.obternerFechaActual();
-        this.getTamizajeNroDoc();
+        this.formDatos_Tamisaje.get('Fecha').setValue(this.datafecha);        
+        // this.getDataPacienteByNroDoc();
+        // this.fechaConvertido=this.datePipe.transform(new Date(),'dd-MM-yyyy')
+        // this.getTamizajeNroDoc();
+        this.getDataPacienteByNroDoc()
         this.getTamizajePorIDConsulta();
+    }
+    buildForm() {
+        this.formDatos_Tamisaje = this.form.group({
+            /**Datos personales**/
+            nroDoc: new FormControl({value:'',disabled:true}),
+            apePaterno: new FormControl({value:'',disabled:true}),
+            apeMaterno: new FormControl({value:'',disabled:true}),
+            nombres: new FormControl({value:'',disabled:true}),
+            Ocupacion: new FormControl({value:'',disabled:true}),
+            Direccion: new FormControl({value:'',disabled:true}),
+            Telefono: new FormControl({value:'',disabled:true}),
+            nroHcl: new FormControl({value:'',disabled:true}),
+            Edad: new FormControl({value:'',disabled:true}),
+            Fecha: new FormControl({value:'',disabled:true}),//fecha atencion
+
+            /**Preguntas respuestas**/
+            Respuesta1: new FormControl({value:'',disabled:false}),
+            Respuesta2: new FormControl({value:'',disabled:false}),
+            Respuesta3: new FormControl({value:'',disabled:false}),
+            Respuesta4: new FormControl({value:'',disabled:false}),
+            Respuesta5: new FormControl({value:'',disabled:false}),
+            Respuesta6: new FormControl({value:'',disabled:false}),
+            Respuesta7: new FormControl({value:'',disabled:false}),
+            Respuesta8: new FormControl({value:'',disabled:false}),
+
+            Respuesta9: new FormControl({value:'',disabled:false}),
+            Respuesta10: new FormControl({value:'',disabled:false}),
+            Respuesta11: new FormControl({value:'',disabled:false}),
+            Respuesta12: new FormControl({value:'',disabled:false}),
+            Respuesta13: new FormControl({value:'',disabled:false}),
+            Respuesta14: new FormControl({value:'',disabled:false}),
+            Respuesta15: new FormControl({value:'',disabled:false}),
+            Respuesta16: new FormControl({value:'',disabled:false}),
+            PuntajeTotal: new FormControl({value:'',disabled:false}),
+
+            /**Diagnostico y responsable**/
+            diagnostico: new FormControl({value:'',disabled:false}),
+            nroDodResponsable: new FormControl({value:'',disabled:false}),
+            ApellidosResponsable: new FormControl({value:'',disabled:false}),
+
+            respuestaValoracion1: new FormControl({value:'',disabled:false}),
+            respuestaValoracion2: new FormControl({value:'',disabled:false}),
+            respuestaValoracion2A: new FormControl({value:'',disabled:false}),
+            respuestaValoracion3: new FormControl({value:'',disabled:false}),
+            respuestaValoracion4: new FormControl({value:'',disabled:false}),
+            respuestaValoracion5: new FormControl({value:'',disabled:false}),
+            respuestaValoracion5A: new FormControl({value:'',disabled:false}),
+            respuestaValoracion6: new FormControl({value:'',disabled:false}),
+            respuestaValoracion7: new FormControl({value:'',disabled:false}),
+            respuestaValoracion8: new FormControl({value:'',disabled:false}),
+            respuestaValoracion9: new FormControl({value:'',disabled:false}),
+            respuestaValoracion10: new FormControl({value:'',disabled:false}),
+            respuestaValoracion11: new FormControl({value:'',disabled:false}),
+            respuestaValoracion12: new FormControl({value:'',disabled:false}),
+            respuestaValoracion12A: new FormControl({value:'',disabled:false}),
+            respuestaValoracion13: new FormControl({value:'',disabled:false}),
+            respuestaValoracion14: new FormControl({value:'',disabled:false}),
+            respuestaValoracion15: new FormControl({value:'',disabled:false}),
+            respuestaValoracion16: new FormControl({value:'',disabled:false}),
+            respuestaValoracion17: new FormControl({value:'',disabled:false}),
+            respuestaValoracion18: new FormControl({value:'',disabled:false}),
+            respuestaValoracion19: new FormControl({value:'',disabled:false}),
+            SumaTotalvalor: new FormControl({value: '', disabled: true}),
+            arma: new FormControl(),
+            observaciones: new FormControl({value:'',disabled:false}),
+            NivelRiesgo: new FormControl({value: '', disabled: true}),
+        })
     }
 
     tab(event) {
         this.tabIndex = event.index;
-        console.log("evento tab", this.tabIndex)
+      
     }
 
     /**Recupera un solo tamizaje al hacer un clic en el event**/
-    recuperarData(event) {
+    getTamizajePorIdConsulta() {
         this.Recupera_un_Tamizaje = event;
-        console.log("EVENT TAMIZAJE", this.Recupera_un_Tamizaje);
+      
 
         this.formDatos_Tamisaje.get('Fecha').setValue(this.Recupera_un_Tamizaje.fecha);
         this.formDatos_Tamisaje.get('apePaterno').setValue(this.Recupera_un_Tamizaje.apePaterno);
@@ -174,8 +242,8 @@ export class TamizajeViolenciaComponent implements OnInit {
         // this.formDatos_Tamisaje.get('Respuesta14').setValue(this.Recupera_un_Tamizaje.preguntasPosibleMaltrato[5].respuesta);
         // this.formDatos_Tamisaje.get('Respuesta15').setValue(this.Recupera_un_Tamizaje.preguntasPosibleMaltrato[6].respuesta);
 
-        this.formDatos_Tamisaje.get('nroDodResponsable').setValue(this.Recupera_un_Tamizaje.nroDocResponsable);
-        this.formDatos_Tamisaje.get('ApellidosResponsable').setValue(this.Recupera_un_Tamizaje.nombreResponsableAtencion);
+        // this.formDatos_Tamisaje.get('nroDodResponsable').setValue(this.Recupera_un_Tamizaje.nroDocResponsable);
+        // this.formDatos_Tamisaje.get('ApellidosResponsable').setValue(this.Recupera_un_Tamizaje.nombreResponsableAtencion);
 
         this.ListaTamizajeDialog = false;
     }
@@ -188,7 +256,6 @@ export class TamizajeViolenciaComponent implements OnInit {
         }
         this.tamizajeViolenciaService.GetTamizajeViolenciaNroDoc(data).subscribe((res: any) => {
             this.ListaTamizajes = res.object;
-            console.log('LISTA TAMIZAJES ', this.ListaTamizajes);
         })
     }
 
@@ -199,21 +266,22 @@ export class TamizajeViolenciaComponent implements OnInit {
     }
 
     /**Recuperar datos de un paciendo por su documento de identidad**/
-    getpacienteByNroDoc() {
+    getDataPacienteByNroDoc() {
         this.filiancionService.getPacienteNroDocFiliacion(this.tipoDocRecuperado, this.nroDocRecuperado).subscribe((res: any) => {
             this.dataPacientes = res.object
-            console.log('PACIENTES POR DOC ', this.dataPacientes)
+            this.formDatos_Tamisaje.get('nroDoc').setValue(this.dataPacientes.nroDoc);
+            this.formDatos_Tamisaje.get('nroHcl').setValue(this.dataPacientes.nroHcl);
             this.formDatos_Tamisaje.get('apePaterno').setValue(this.dataPacientes.apePaterno);
             this.formDatos_Tamisaje.get('apeMaterno').setValue(this.dataPacientes.apeMaterno);
             this.formDatos_Tamisaje.get('nombres').setValue(this.dataPacientes.primerNombre);
-            this.formDatos_Tamisaje.get('nroDoc').setValue(this.dataPacientes.nroDoc);
-            this.formDatos_Tamisaje.get('nroHcl').setValue(this.dataPacientes.nroHcl);
-            this.formDatos_Tamisaje.get('Telefono').setValue(this.dataPacientes.celular);
-            this.formDatos_Tamisaje.get('Direccion').setValue(this.dataPacientes.domicilio.direccion + "," + this.dataPacientes.domicilio.departamento);
             this.fechaConvertido = this.dataPacientes.nacimiento.fechaNacimiento;
-            console.log("nacimiento", this.fechaConvertido)
             this.ageCalculator();//calcula la edad desde la fecha de nacimiento
             this.formDatos_Tamisaje.get('Edad').setValue(this.edad);
+            this.formDatos_Tamisaje.get('Direccion').setValue(this.dataPacientes.domicilio.direccion + "," + this.dataPacientes.domicilio.departamento);
+            this.formDatos_Tamisaje.get('Telefono').setValue(this.dataPacientes.celular);
+            // this.formDatos_Tamisaje.get('Fecha').setValue(this.datosConsultaActual.fecha);
+            this.formDatos_Tamisaje.get('Fecha').setValue(this.datePipe.transform(this.datosConsultaActual.fecha, 'yyyy-MM-dd'),);
+            
         });
     }
 
@@ -223,114 +291,39 @@ export class TamizajeViolenciaComponent implements OnInit {
             const convertAge = new Date(this.fechaConvertido);
             const timeDiff = Math.abs(Date.now() - convertAge.getTime());
             this.edad = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365);
-            console.log("edad", this.edad);
         }
     }
 
     /***Recupera la el dia, el mes y el año de la fecha actual***/
-    obternerFechaActual() {
-        this.fecha = new Date();
-        let dd = this.fecha.getDate();
-        let mm = this.fecha.getMonth() + 1;
-        let yy = this.fecha.getFullYear();
-        this.fechaConvertido = dd + '-' + mm + '-' + yy;
-        console.log("FECHAS ACTUAL", this.fechaConvertido);
-    }
-
-    buildForm() {
-        this.formDatos_Tamisaje = this.form.group({
-            /**Datos personales**/
-            nroDoc: new FormControl(''),
-            apePaterno: new FormControl(''),
-            apeMaterno: new FormControl(''),
-            nombres: new FormControl(''),
-            Ocupacion: new FormControl(''),
-            Direccion: new FormControl(''),
-            Telefono: new FormControl(''),
-            nroHcl: new FormControl(''),
-            Edad: new FormControl(''),
-            Fecha: new FormControl(''),//fecha atencion
-
-            /**Preguntas respuestas**/
-            Respuesta1: new FormControl(''),
-            Respuesta2: new FormControl(''),
-            Respuesta3: new FormControl(''),
-            Respuesta4: new FormControl(''),
-            Respuesta5: new FormControl(''),
-            Respuesta6: new FormControl(''),
-            Respuesta7: new FormControl(''),
-            Respuesta8: new FormControl(''),
-
-            Respuesta9: new FormControl(''),
-            Respuesta10: new FormControl(''),
-            Respuesta11: new FormControl(''),
-            Respuesta12: new FormControl(''),
-            Respuesta13: new FormControl(''),
-            Respuesta14: new FormControl(''),
-            Respuesta15: new FormControl(''),
-            Respuesta16: new FormControl(''),
-            PuntajeTotal: new FormControl(''),
-
-            /**Diagnostico y responsable**/
-            diagnostico: new FormControl(''),
-            nroDodResponsable: new FormControl(''),
-            ApellidosResponsable: new FormControl(''),
-
-            respuestaValoracion1: new FormControl(''),
-            respuestaValoracion2: new FormControl(''),
-            respuestaValoracion2A: new FormControl(''),
-            respuestaValoracion3: new FormControl(''),
-            respuestaValoracion4: new FormControl(''),
-            respuestaValoracion5: new FormControl(''),
-            respuestaValoracion5A: new FormControl(''),
-            respuestaValoracion6: new FormControl(''),
-            respuestaValoracion7: new FormControl(''),
-            respuestaValoracion8: new FormControl(''),
-            respuestaValoracion9: new FormControl(''),
-            respuestaValoracion10: new FormControl(''),
-            respuestaValoracion11: new FormControl(''),
-            respuestaValoracion12: new FormControl(''),
-            respuestaValoracion12A: new FormControl(''),
-            respuestaValoracion13: new FormControl(''),
-            respuestaValoracion14: new FormControl(''),
-            respuestaValoracion15: new FormControl(''),
-            respuestaValoracion16: new FormControl(''),
-            respuestaValoracion17: new FormControl(''),
-            respuestaValoracion18: new FormControl(''),
-            respuestaValoracion19: new FormControl(''),
-            SumaTotalvalor: new FormControl({value: '', disabled: true}),
-            arma: new FormControl(''),
-            observaciones: new FormControl(''),
-            NivelRiesgo: new FormControl({value: '', disabled: true}),
-        })
-    }
+    
 
     calcularValoracion() {
-        console.log();
-        let p1 = this.formDatos_Tamisaje.value.respuestaValoracion1;
-        let p2 = this.formDatos_Tamisaje.value.respuestaValoracion2;
-        this.p2A = this.formDatos_Tamisaje.value.respuestaValoracion2A;
-        let p3 = this.formDatos_Tamisaje.value.respuestaValoracion3;
-        let p4 = this.formDatos_Tamisaje.value.respuestaValoracion4;
-        let p5 = this.formDatos_Tamisaje.value.respuestaValoracion5;
-        this.p5A = this.formDatos_Tamisaje.value.respuestaValoracion5A;
-        let p6 = this.formDatos_Tamisaje.value.respuestaValoracion6;
-        let p7 = this.formDatos_Tamisaje.value.respuestaValoracion7;
-        let p8 = this.formDatos_Tamisaje.value.respuestaValoracion8;
-        let p9 = this.formDatos_Tamisaje.value.respuestaValoracion9;
-        let p10 = this.formDatos_Tamisaje.value.respuestaValoracion10;
-        let p11 = this.formDatos_Tamisaje.value.respuestaValoracion11;
-        let p12 = this.formDatos_Tamisaje.value.respuestaValoracion12;
-        let p12A = this.formDatos_Tamisaje.value.respuestaValoracion12A;
-        let p13 = this.formDatos_Tamisaje.value.respuestaValoracion13;
-        let p14 = this.formDatos_Tamisaje.value.respuestaValoracion14;
-        let p15 = this.formDatos_Tamisaje.value.respuestaValoracion15;
-        let p16 = this.formDatos_Tamisaje.value.respuestaValoracion16;
-        let p17 = this.formDatos_Tamisaje.value.respuestaValoracion17;
-        let p18 = this.formDatos_Tamisaje.value.respuestaValoracion18;
-        let p19 = this.formDatos_Tamisaje.value.respuestaValoracion19;
+        let p1 = this.formDatos_Tamisaje.get('respuestaValoracion1').value;
+        let p2 = this.formDatos_Tamisaje.get('respuestaValoracion2').value;
+        this.p2A = this.formDatos_Tamisaje.get('respuestaValoracion2A').value;
+        // this.p2A!='SI'?this.formDatos_Tamisaje.get('respuestaValoracion3').disable():this.formDatos_Tamisaje.get('respuestaValoracion3').enable();
+        // this.formDatos_Tamisaje.get('respuestaValoracion3').setValue('4');
+        let p3 = this.formDatos_Tamisaje.get('respuestaValoracion3').value;
+        let p4 = this.formDatos_Tamisaje.get('respuestaValoracion4').value;
+        let p5 = this.formDatos_Tamisaje.get('respuestaValoracion5').value;
+        this.p5A = this.formDatos_Tamisaje.get('respuestaValoracion5').value;
+    
+        let p6 = this.formDatos_Tamisaje.get('respuestaValoracion6').value;
+        let p7 = this.formDatos_Tamisaje.get('respuestaValoracion7').value;
+        let p8 = this.formDatos_Tamisaje.get('respuestaValoracion8').value;
+        let p9 = this.formDatos_Tamisaje.get('respuestaValoracion9').value;
+        let p10 = this.formDatos_Tamisaje.get('respuestaValoracion10').value;
+        let p11 = this.formDatos_Tamisaje.get('respuestaValoracion11').value;
+        let p12 = this.formDatos_Tamisaje.get('respuestaValoracion12').value;
+        let p12A = this.formDatos_Tamisaje.get('respuestaValoracion12A').value;
+        let p13 = this.formDatos_Tamisaje.get('respuestaValoracion13').value;
+        let p14 = this.formDatos_Tamisaje.get('respuestaValoracion14').value;
+        let p15 = this.formDatos_Tamisaje.get('respuestaValoracion15').value;
+        let p16 = this.formDatos_Tamisaje.get('respuestaValoracion16').value;
+        let p17 = this.formDatos_Tamisaje.get('respuestaValoracion17').value;
+        let p18 = this.formDatos_Tamisaje.get('respuestaValoracion18').value;
+        let p19 = this.formDatos_Tamisaje.get('respuestaValoracion19').value;
 
-        console.log("Valor", this.p5A);
 
         // this.NivelRiesgo=
 
@@ -355,27 +348,44 @@ export class TamizajeViolenciaComponent implements OnInit {
         this.formDatos_Tamisaje.get('NivelRiesgo').setValue(this.NivelRiesgo);
 
     }
+    evaluamos(){
+        if(this.p2A!='SI'){
+            this.formDatos_Tamisaje.get('respuestaValoracion3').disable();
+            this.formDatos_Tamisaje.get('respuestaValoracion3').setValue('')}
+        else{
+            this.formDatos_Tamisaje.get('respuestaValoracion3').enable();
+        }
+    }
+    usaArmas=false
+    evaluar2(){
+        this.formDatos_Tamisaje.get('respuestaValoracion5').value==3?this.usaArmas=true:this.usaArmas=false
+    //     if(this.formDatos_Tamisaje.get('respuestaValoracion5').value==3){
+    //         this.usaArmas=true
+    //     }
+    //     else
+    //     {
+    //         this.usaArmas=false
+    //     }
+     }
 
     calcularPuntaje() {
-        let R9 = this.formDatos_Tamisaje.value.Respuesta9
-        let R10 = this.formDatos_Tamisaje.value.Respuesta10
-        let R11 = this.formDatos_Tamisaje.value.Respuesta11
-        let R12 = this.formDatos_Tamisaje.value.Respuesta12//
-        let R13 = this.formDatos_Tamisaje.value.Respuesta13
-        let R14 = this.formDatos_Tamisaje.value.Respuesta14
-        let R15 = this.formDatos_Tamisaje.value.Respuesta15//
-        let R16 = this.formDatos_Tamisaje.value.Respuesta16
+        let R9 = this.formDatos_Tamisaje.get('Respuesta9').value
+        let R10 = this.formDatos_Tamisaje.get('Respuesta10').value
+        let R11 = this.formDatos_Tamisaje.get('Respuesta11').value
+        let R12 = this.formDatos_Tamisaje.get('Respuesta12').value//
+        let R13 = this.formDatos_Tamisaje.get('Respuesta13').value
+        let R14 = this.formDatos_Tamisaje.get('Respuesta14').value
+        let R15 = this.formDatos_Tamisaje.get('Respuesta15').value//
+        let R16 = this.formDatos_Tamisaje.get('Respuesta16').value
 
         this.PuntajeTotal = Number(R9) + Number(R10) + Number(R11) + Number(R12) + Number(R13) + Number(R14) + Number(R15) + Number(R16)
         this.formDatos_Tamisaje.get('PuntajeTotal').setValue(this.PuntajeTotal);
 
         if ((Number(R12) == 2) || (Number(R12) == 3) || (Number(R15) == 2) || (Number(R15) == 3) || (this.PuntajeTotal > 15)) {
             this.resultadoTamizaje = "POSITIVO";
-            console.log("RESULTADO:", this.resultadoTamizaje)
         } else {
             if ((Number(R12 == 1)) || (Number(R15 == 1)) || (this.PuntajeTotal <= 15)) {
                 this.resultadoTamizaje = "NEGATIVO";
-                console.log("RESULTADO:", this.resultadoTamizaje)
             } else {
                 return
             }
@@ -386,168 +396,210 @@ export class TamizajeViolenciaComponent implements OnInit {
         this.Recupera_un_Tamizaje = null;
         this.formDatos_Tamisaje.reset();
         this.formDatos_Tamisaje.get('Fecha').setValue(this.datafecha);
-        this.getpacienteByNroDoc();
+        this.getDataPacienteByNroDoc();
     }
 
-    save() {
-        if (this.Recupera_un_Tamizaje != null) {
-            switch (this.tabIndex) {
-                case 0:
-                    this.UpdateTamizaje();
-                    break;
-                case 1:
-                    this.UpdateTamizaje2();
-                    break;
-                case 2:
-                    this.UpdateTamizajeValoracion();
-                    break;
-            }
-        } else {
-            this.saveTamizaje();
-        }
-    }
+    // save() {
+    //     if (this.Recupera_un_Tamizaje != null) {
+    //         switch (this.tabIndex) {
+    //             case 0:
+    //                 this.UpdateTamizaje1();
+    //                 break;
+    //             case 1:
+    //                 this.UpdateTamizaje2();
+    //                 break;
+    //             case 2:
+    //                 this.UpdateTamizajeValoracion();
+    //                 break;
+    //         }
+    //     } else {
+    //         this.saveTamizaje();
+    //     }
+    // }
 
     /**Registra datos, preguntas que se hace al paciente**/
-    saveTamizaje() {
+    guardarActualizar() {
         if ((this.estadoEmbarazo != "FINALIZADO") && (this.estadoEmbarazo != "")) {
             this.gestante = true;
         } else {
             this.gestante = false;
         }
-        console.log("estado", this.gestante);
         const data = {
-            idConsulta: this.IDConsulta,
+            idConsulta: this.IdConsulta,
             tipoDoc: this.dataPacientes.tipoDoc,
-            nroDoc: this.formDatos_Tamisaje.value.nroDoc,
-            nroHcl: this.formDatos_Tamisaje.value.nroHcl,
+            nroDoc: this.formDatos_Tamisaje.get('nroDoc').value,
+            nroHcl: this.formDatos_Tamisaje.get('nroHcl').value,
             gestante: this.gestante,
             nroEmbarazo: this.nroEmbarazo,
-            nombres: this.formDatos_Tamisaje.value.nombres,
-            apePaterno: this.formDatos_Tamisaje.value.apePaterno,
-            apeMaterno: this.formDatos_Tamisaje.value.apeMaterno,
-            fecha: this.datePipe.transform(this.formDatos_Tamisaje.value.Fecha, 'yyyy-MM-dd'),
-            edad: this.formDatos_Tamisaje.value.Edad,
-            direccion: this.formDatos_Tamisaje.value.Direccion,
-            telefono: this.formDatos_Tamisaje.value.Telefono,
+            nombres: this.formDatos_Tamisaje.get('nombres').value,
+            apePaterno: this.formDatos_Tamisaje.get('apePaterno').value,
+            apeMaterno: this.formDatos_Tamisaje.get('apeMaterno').value,
+            fecha: this.datePipe.transform(this.formDatos_Tamisaje.get('Fecha').value, 'yyyy-MM-dd'),
+            // fecha: ('2022-09-26'),
+            edad: this.formDatos_Tamisaje.get('Edad').value,
+            direccion: this.formDatos_Tamisaje.get('Direccion').value,
+            telefono: this.formDatos_Tamisaje.get('Telefono').value,
 
             preguntasMotivoConsulta: [
                 {
                     pregunta: "¿Como se siente con usted misma?",
-                    respuesta: this.formDatos_Tamisaje.value.Respuesta1,
+                    respuesta: this.formDatos_Tamisaje.get('Respuesta1').value,
                 },
                 {
                     pregunta: "¿Mantiene su apetito, sueño y deseo de realizar sus actividades como de costumbre?",
-                    respuesta: this.formDatos_Tamisaje.value.Respuesta2,
+                    respuesta: this.formDatos_Tamisaje.get('Respuesta2').value,
                 },
                 {
                     pregunta: "¿Toma algo (medicacon u otro que le hayan recomendado)?",
-                    respuesta: this.formDatos_Tamisaje.value.Respuesta3,
+                    respuesta: this.formDatos_Tamisaje.get('Respuesta3').value,
                 }
             ],
             preguntasRelacionesPareja: [
                 {
                     pregunta: "¿Cómo se siente en las relaciones cotidianas con su pareja o expareja?",
-                    respuesta: this.formDatos_Tamisaje.value.Respuesta4,
+                    respuesta: this.formDatos_Tamisaje.get('Respuesta4').value,
                 },
                 {
                     pregunta: "¿Cuáles son los desacuerdos más frecuentes que se dan con su pareja o expareja?",
-                    respuesta: this.formDatos_Tamisaje.value.Respuesta5,
+                    respuesta: this.formDatos_Tamisaje.get('Respuesta5').value,
                 },
                 {
                     pregunta: "Cómo manejan estos desacuerdos? ¿Llegan a las discuciones?",
-                    respuesta: this.formDatos_Tamisaje.value.Respuesta6,
+                    respuesta: this.formDatos_Tamisaje.get('Respuesta6').value,
                 },
                 {
                     pregunta: "Cómo manejan estos desacuerdos? ¿Llegan a las discuciones?",
-                    respuesta: this.formDatos_Tamisaje.value.Respuesta7,
+                    respuesta: this.formDatos_Tamisaje.get('Respuesta7').value,
                 },
                 {
                     pregunta: "¿Su pareja o expareja se enoja con facilidad o tiene arranques inesperados de cólera?",
-                    respuesta: this.formDatos_Tamisaje.value.Respuesta8,
+                    respuesta: this.formDatos_Tamisaje.get('Respuesta8').value,
                 }
             ],
 
             tipoDocResponsable: "DNI",
-            nroDocResponsable: this.formDatos_Tamisaje.value.nroDodResponsable,
-            nombreResponsableAtencion: this.formDatos_Tamisaje.value.ApellidosResponsable,
+            // nroDocResponsable: this.formDatos_Tamisaje.get('nroDodResponsable').value,
+            // nombreResponsableAtencion: this.formDatos_Tamisaje.get('ApellidosResponsable').value,
         }
-
-        console.log("DATA", data);
-
-        this.tamizajeViolenciaService.addTamizajeViolencia(data).subscribe((result: any) => {
-                console.log("DATA", result);
-                this.getTamizajeNroDoc();
-                if (result.object == null) {
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'Registro',
-                        text: result.mensaje,
-                        showConfirmButton: false,
-                        timer: 1500,
-                    })
-                } else {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Registro',
-                        text: result.mensaje,
-                        showConfirmButton: false,
-                        timer: 1500,
-                    })
-                }
-
+        
+        if(this.isUpdate){
+            this.tamizajeViolenciaService.UpdateTamizajeViolencia(this.tamisajeData.id, data).subscribe(result => {
+       
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Se Actualizo con exito',
+                    text: '',
+                    showConfirmButton: false,
+                    timer: 1500,
+                })
             }
         )
+        }
+        else{ 
+            this.tamizajeViolenciaService.addTamizajeViolencia(data).toPromise()
+            .then((result: any) => {
+                console.log("-intentamos-");
+                
+                if(result.Object==null){
+                    throw result
+                }
+                
+                this.getTamizajePorIDConsulta()
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Registro',
+                    text: result.mensaje,
+                    showConfirmButton: false,
+                    timer: 1500,
+                })
+                
+                
+             })
+             .catch((error)=>{
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Registro',
+                    text: error.cod="2010"?"no se puede evaluar en una misma fecha":"error",
+                    showConfirmButton: false,
+                    timer: 1500,
+                })
+                
+             })
+
+        }
+        // this.tamizajeViolenciaService.addTamizajeViolencia(data).subscribe((result: any) => {
+        //         this.getTamizajeNroDoc();
+        //         if (result.object == null) {
+        //             Swal.fire({
+        //                 icon: 'warning',
+        //                 title: 'Registro',
+        //                 text: result.mensaje,
+        //                 showConfirmButton: false,
+        //                 timer: 1500,
+        //             })
+        //         } else {
+        //             Swal.fire({
+        //                 icon: 'success',
+        //                 title: 'Registro',
+        //                 text: result.mensaje,
+        //                 showConfirmButton: false,
+        //                 timer: 1500,
+        //             })
+        //         }
+
+        //      }
+        // )
     }
 
-    UpdateTamizaje() {
+    UpdateTamizaje1() {
         const data2 = {
-            idConsulta: this.IDConsulta,
+            idConsulta: this.IdConsulta,
             tipoDoc: this.dataPacientes.tipoDoc,
-            nroDoc: this.formDatos_Tamisaje.value.nroDoc,
-            nroHcl: this.formDatos_Tamisaje.value.nroHcl,
+            nroDoc: this.formDatos_Tamisaje.get('nroDoc').value,
+            nroHcl: this.formDatos_Tamisaje.get('nroHcl').value,
             gestante: this.Recupera_un_Tamizaje.gestante,
-            nombres: this.formDatos_Tamisaje.value.nombres,
-            apePaterno: this.formDatos_Tamisaje.value.apePaterno,
-            apeMaterno: this.formDatos_Tamisaje.value.apeMaterno,
+            nombres: this.formDatos_Tamisaje.get('nombres').value,
+            apePaterno: this.formDatos_Tamisaje.get('apePaterno').value,
+            apeMaterno: this.formDatos_Tamisaje.get('apeMaterno').value,
             fecha: this.datePipe.transform(this.formDatos_Tamisaje.value.Fecha, 'yyyy-MM-dd'),
-            edad: this.formDatos_Tamisaje.value.Edad,
-            direccion: this.formDatos_Tamisaje.value.Direccion,
-            telefono: this.formDatos_Tamisaje.value.Telefono,
+            edad: this.formDatos_Tamisaje.get('Edad').value,
+            direccion: this.formDatos_Tamisaje.get('Direccion').value,
+            telefono: this.formDatos_Tamisaje.get('Telefono').value,
 
             preguntasMotivoConsulta: [
                 {
                     pregunta: "¿Como se siente con usted misma?",
-                    respuesta: this.formDatos_Tamisaje.value.Respuesta1,
+                    respuesta: this.formDatos_Tamisaje.get('Respuesta1').value,
                 },
                 {
                     pregunta: "¿Mantiene su apetito, sueño y deseo de realizar sus actividades como de costumbre?",
-                    respuesta: this.formDatos_Tamisaje.value.Respuesta2,
+                    respuesta: this.formDatos_Tamisaje.get('Respuesta2').value,
                 },
                 {
                     pregunta: "¿Toma algo (medicacon u otro que le hayan recomendado)?",
-                    respuesta: this.formDatos_Tamisaje.value.Respuesta3,
+                    respuesta: this.formDatos_Tamisaje.get('Respuesta3').value,
                 }
             ],
             preguntasRelacionesPareja: [
                 {
                     pregunta: "¿Cómo se siente en las relaciones cotidianas con su pareja o expareja?",
-                    respuesta: this.formDatos_Tamisaje.value.Respuesta4,
+                    respuesta: this.formDatos_Tamisaje.get('Respuesta4').value,
                 },
                 {
                     pregunta: "¿Cuáles son los desacuerdos más frecuentes que se dan con su pareja o expareja?",
-                    respuesta: this.formDatos_Tamisaje.value.Respuesta5,
+                    respuesta: this.formDatos_Tamisaje.get('Respuesta5').value,
                 },
                 {
                     pregunta: "Cómo manejan estos desacuerdos? ¿Llegan a las discuciones?",
-                    respuesta: this.formDatos_Tamisaje.value.Respuesta6,
+                    respuesta: this.formDatos_Tamisaje.get('Respuesta6').value,
                 },
                 {
                     pregunta: "Cómo manejan estos desacuerdos? ¿Llegan a las discuciones?",
-                    respuesta: this.formDatos_Tamisaje.value.Respuesta7,
+                    respuesta: this.formDatos_Tamisaje.get('Respuesta7').value,
                 },
                 {
                     pregunta: "¿Su pareja o expareja se enoja con facilidad o tiene arranques inesperados de cólera?",
-                    respuesta: this.formDatos_Tamisaje.value.Respuesta8,
+                    respuesta: this.formDatos_Tamisaje.get('Respuesta8').value,
                 }
             ],
 
@@ -556,11 +608,9 @@ export class TamizajeViolenciaComponent implements OnInit {
             // nombreResponsableAtencion: this.formDatos_Tamisaje.value.ApellidosResponsable,
 
         }
-        console.log("DATA UPDATE", data2);
 
         this.tamizajeViolenciaService.UpdateTamizajeViolencia(this.Recupera_un_Tamizaje.id, data2).subscribe(result => {
-                console.log("DATA UPDATE", result);
-                this.getTamizajeNroDoc();
+                this.getTamizajePorIDConsulta();
                 Swal.fire({
                     icon: 'success',
                     title: 'Se Actualizo con exito',
@@ -577,48 +627,43 @@ export class TamizajeViolenciaComponent implements OnInit {
             cuestionario: [
                 {
                     pregunta: "En general ¿Cómo describiría su relación de pareja?",
-                    respuesta: this.formDatos_Tamisaje.value.Respuesta9,
-
+                    respuesta: this.formDatos_Tamisaje.get('Respuesta9').value,
                 },
                 {
                     pregunta: "Usted y su pareja resuelven las discusiones con:",
-                    respuesta: this.formDatos_Tamisaje.value.Respuesta10,
+                    respuesta: this.formDatos_Tamisaje.get('Respuesta10').value,
                 },
                 {
                     pregunta: "Al terminar las discusiones usted ¿Se siente decaída o mal con usted misma?",
-                    respuesta: this.formDatos_Tamisaje.value.Respuesta11,
+                    respuesta: this.formDatos_Tamisaje.get('Respuesta11').value,
                 },
                 {
                     pregunta: "Las discusiones ¿terminan en golpes, patadas o empujones?",
-                    respuesta: this.formDatos_Tamisaje.value.Respuesta12,
+                    respuesta: this.formDatos_Tamisaje.get('Respuesta12').value,
                 },
                 {
                     pregunta: "¿Hay situaciones en las cuales ha sentido miedo de las reacciones de su pareja?",
-                    respuesta: this.formDatos_Tamisaje.value.Respuesta13,
+                    respuesta: this.formDatos_Tamisaje.get('Respuesta13').value,
                 },
                 {
                     pregunta: "Su pareja ¿controla el dinero que usted gasta, o la obliga a realizar trabajo en exceso?",
-                    respuesta: this.formDatos_Tamisaje.value.Respuesta14,
+                    respuesta: this.formDatos_Tamisaje.get('Respuesta14').value,
                 },
                 {
                     pregunta: " Su pareja ¿la insulta, grita, humilla o descalifica verbalmente?",
-                    respuesta: this.formDatos_Tamisaje.value.Respuesta15,
+                    respuesta: this.formDatos_Tamisaje.get('Respuesta15').value,
                 },
                 {
                     pregunta: "¿Se ha sentido obligada a tener relaciones sexuales con su pareja para evitar problemas?",
-                    respuesta: this.formDatos_Tamisaje.value.Respuesta16,
+                    respuesta: this.formDatos_Tamisaje.get('Respuesta16').value,
                 },
 
             ],
-            puntajeTotal: this.formDatos_Tamisaje.value.PuntajeTotal,
+            puntajeTotal: this.formDatos_Tamisaje.get('PuntajeTotal').value,
             diagnostico: this.resultadoTamizaje
 
         }
-        console.log("DATA UPDATE", data2);
-        console.log("ID", this.Recupera_un_Tamizaje.id);
-
-        this.tamizajeViolenciaService.UpdateTamizajeCuestionario(this.Recupera_un_Tamizaje.id, data2).subscribe(result => {
-                console.log("DATA UPDATE", result);
+        this.tamizajeViolenciaService.UpdateTamizajeCuestionario(this.tamisajeData.id, data2).subscribe(result => {
                 this.getTamizajeNroDoc();
                 Swal.fire({
                     icon: 'success',
@@ -633,108 +678,103 @@ export class TamizajeViolenciaComponent implements OnInit {
 
     UpdateTamizajeValoracion() {
         const data2 = {
-            id: this.Recupera_un_Tamizaje.id,
+            id: this.tamisajeData.id,
             cuestionario: [
                 {
                     pregunta: "¿En el último año, la violencia física contra usted ha aumentado en gravedad o frecuencia?",
-                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion1,
+                    respuesta: this.formDatos_Tamisaje.get('respuestaValoracion1').value,
                 },
                 {
                     pregunta: "¿Él tiene algún arma o podría conseguir un arma con facilidad? (pistola, cuchillo, machete, u otros)",
-                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion2,
+                    respuesta: this.formDatos_Tamisaje.get('respuestaValoracion2').value,
                 },
                 {
                     pregunta: "2a.- ¿Han vivido juntos durante el último año? [si dice NO, pasar a pregunta 4]",
-                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion2A,
+                    respuesta: this.formDatos_Tamisaje.get('respuestaValoracion2A').value,
                 },
                 {
                     pregunta: "Usted me dice que han vivido juntos en el último año. ¿Siguen viviendo juntos o lo ha dejado? [Si siguen viviendo juntos marcar SI; si lo ha dejado marcar NO]",
-                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion3,
+                    respuesta: this.formDatos_Tamisaje.get('respuestaValoracion3').value,
                 },
                 {
                     pregunta: "¿Actualmente, él tiene trabajo estable? [si ella no sabe, no marcar nada]",
-                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion4,
+                    respuesta: this.formDatos_Tamisaje.get('respuestaValoracion4').value,
                 },
                 {
                     pregunta: "¿Alguna vez él ha usado o la ha amenazado con un arma (pistola, cuchillo, machete u otros)?",
-                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion5,
+                    respuesta: this.formDatos_Tamisaje.get('respuestaValoracion5').value,
                 },
                 {
                     pregunta: "5a.- Si su respuesta fue “SI”, ¿fue con una pistola o cuchillo?",
-                    respuesta: this.formDatos_Tamisaje.value.arma,
+                    respuesta: this.formDatos_Tamisaje.get('arma').value,
                 },
                 {
                     pregunta: "¿La ha amenazado con matarla?",
-                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion6,
+                    respuesta: this.formDatos_Tamisaje.get('respuestaValoracion6').value,
                 },
                 {
                     pregunta: "¿Alguna vez usted lo denunció por violencia familiar (porque él le pegó) ante la comisaría, fiscalía, juzgado o ante alguna autoridad comunal?",
-                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion7,
+                    respuesta: this.formDatos_Tamisaje.get('respuestaValoracion7').value,
                 },
                 {
                     pregunta: "¿Él la ha obligado alguna vez a tener relaciones sexuales?",
-                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion8,
+                    respuesta: this.formDatos_Tamisaje.get('respuestaValoracion8').value,
                 },
                 {
                     pregunta: "¿Él ha intentado ahorcarla?",
-                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion9,
+                    respuesta: this.formDatos_Tamisaje.get('respuestaValoracion9').value,
                 },
                 {
                     pregunta: "¿Él consume drogas? Por ejemplo, como la marihuana, pasta básica, cocaína u otras",
-                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion10,
+                    respuesta: this.formDatos_Tamisaje.get('respuestaValoracion10').value,
                 },
                 {
                     pregunta: "¿Él es alcohólico o tiene problemas con el alcohol (trago o licor)?",
-                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion11,
+                    respuesta: this.formDatos_Tamisaje.get('respuestaValoracion11').value,
                 },
                 {
                     pregunta: "¿Le controla la mayoría o todas sus actividades diarias? Por ejemplo, no le deja que vea a sus familiares o amistades, le controla cuánto dinero puede gastar, etc.",
-                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion12,
+                    respuesta: this.formDatos_Tamisaje.get('respuestaValoracion12').value,
                 },
                 {
                     pregunta: "12a.- Si él trata de controlarla, pero ella no lo permite, márquelo aquí:",
-                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion12A,
+                    respuesta: this.formDatos_Tamisaje.get('respuestaValoracion12A').value,
                 },
                 {
                     pregunta: "¿Él se pone celoso de forma constante y violenta? Por ejemplo, le dice: “si no eres mía, no serás de nadie” u otras similares.",
-                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion13,
+                    respuesta: this.formDatos_Tamisaje.get('respuestaValoracion13').value,
                 },
                 {
                     pregunta: "¿Cuándo usted estuvo embarazada, alguna vez él la golpeó?",
-                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion14,
+                    respuesta: this.formDatos_Tamisaje.get('respuestaValoracion14').value,
                 },
                 {
                     pregunta: "¿Alguna vez él ha amenazado o ha intentado suicidarse?",
-                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion15,
+                    respuesta: this.formDatos_Tamisaje.get('respuestaValoracion15').value,
                 },
                 {
                     pregunta: "¿Él la ha amenazado con hacerle daño a sus hijos?",
-                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion16,
+                    respuesta: this.formDatos_Tamisaje.get('respuestaValoracion16').value,
                 },
                 {
                     pregunta: "¿Cree que él es capaz de matarla?",
-                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion17,
+                    respuesta: this.formDatos_Tamisaje.get('respuestaValoracion17').value,
                 },
                 {
                     pregunta: "¿Él realiza alguna de las siguientes acciones?: La llama insistentemente, le deja mensajes en su teléfono o en redes sociales o destruye sus cosas (celular, ropa u otro)",
-                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion18,
+                    respuesta: this.formDatos_Tamisaje.get('respuestaValoracion18').value,
                 },
                 {
                     pregunta: "¿Alguna vez usted ha intentado o ha amenazado con quitarse la vida?",
-                    respuesta: this.formDatos_Tamisaje.value.respuestaValoracion19,
+                    respuesta: this.formDatos_Tamisaje.get('respuestaValoracion19').value,
                 },
             ],
             puntajeTotal: this.PuntajeTotalValoracion,
             nivelRiesgo: this.NivelRiesgo,
-            observaciones: this.formDatos_Tamisaje.value.observaciones,
+            observaciones: this.formDatos_Tamisaje.get('observaciones').value,
 
         }
-
-        console.log("DATA UPDATE", data2);
-        console.log("ID", this.Recupera_un_Tamizaje.id);
-
-        this.tamizajeViolenciaService.UpdateTamizajeValorRiesgo(this.Recupera_un_Tamizaje.id, data2).subscribe(result => {
-                console.log("DATA UPDATE", result);
+        this.tamizajeViolenciaService.UpdateTamizajeValorRiesgo(this.tamisajeData.id, data2).subscribe(result => {
                 this.getTamizajeNroDoc();
                 Swal.fire({
                     icon: 'success',
@@ -746,79 +786,95 @@ export class TamizajeViolenciaComponent implements OnInit {
             }
         )
     }
+    tamisajeData:any
+    isUpdate=false
 
     getTamizajePorIDConsulta() {
-        this.tamizajeViolenciaService.GetTamizajePorIDConsulta(this.IDConsulta).subscribe((result: any) => {
-            this.Recupera_un_Tamizaje = result.object[0]
-            console.log("DATA Tamizaje por id COnsulta", this.Recupera_un_Tamizaje);
+        this.tamizajeViolenciaService.GetTamizajePorIDConsulta(this.IdConsulta).subscribe((result: any) => {
+            if(result.object[0]){
+                this.isUpdate=true            
+                this.tamisajeData = result.object[0]
+                // Swal.fire({
+                //     icon: 'success',
+                //     title: 'Datos recuperados',
+                //     text: '',
+                //     showConfirmButton: false,
+                //     timer: 1500,
+                // })
+                /* datos generales */
+                this.formDatos_Tamisaje.get('Fecha').setValue(this.tamisajeData.fecha);
+                this.formDatos_Tamisaje.get('apePaterno').setValue(this.tamisajeData.apePaterno);
+                this.formDatos_Tamisaje.get('apeMaterno').setValue(this.tamisajeData.apeMaterno);
+                this.formDatos_Tamisaje.get('nombres').setValue(this.tamisajeData.nombres);
+                this.formDatos_Tamisaje.get('nroDoc').setValue(this.tamisajeData.nroDoc);
+                this.formDatos_Tamisaje.get('nroHcl').setValue(this.tamisajeData.nroHcl);
+                this.formDatos_Tamisaje.get('Telefono').setValue(this.tamisajeData.telefono);
+                this.formDatos_Tamisaje.get('Edad').setValue(this.tamisajeData.edad);
+                /* preguntas relacionadas con motivo de consulta */
+                this.formDatos_Tamisaje.get('Respuesta1').setValue(this.tamisajeData.preguntasMotivoConsulta[0].respuesta);
+                this.formDatos_Tamisaje.get('Respuesta2').setValue(this.tamisajeData.preguntasMotivoConsulta[1].respuesta);
+                this.formDatos_Tamisaje.get('Respuesta3').setValue(this.tamisajeData.preguntasMotivoConsulta[2].respuesta);
+                /* preguntas relacionadas con su pareja o expareja */
+                this.formDatos_Tamisaje.get('Respuesta4').setValue(this.tamisajeData.preguntasRelacionesPareja[0].respuesta);
+                this.formDatos_Tamisaje.get('Respuesta5').setValue(this.tamisajeData.preguntasRelacionesPareja[1].respuesta);
+                this.formDatos_Tamisaje.get('Respuesta6').setValue(this.tamisajeData.preguntasRelacionesPareja[2].respuesta);
+                this.formDatos_Tamisaje.get('Respuesta7').setValue(this.tamisajeData.preguntasRelacionesPareja[3].respuesta);
+                this.formDatos_Tamisaje.get('Respuesta8').setValue(this.tamisajeData.preguntasRelacionesPareja[4].respuesta);
+                /* preguntas paciente II */
+                if(this.tamisajeData.cuestionarioPosibleViolencia){
 
-            this.formDatos_Tamisaje.get('Fecha').setValue(this.Recupera_un_Tamizaje.fecha);
-            this.formDatos_Tamisaje.get('apePaterno').setValue(this.Recupera_un_Tamizaje.apePaterno);
-            this.formDatos_Tamisaje.get('apeMaterno').setValue(this.Recupera_un_Tamizaje.apeMaterno);
-            this.formDatos_Tamisaje.get('nombres').setValue(this.Recupera_un_Tamizaje.nombres);
-            this.formDatos_Tamisaje.get('nroDoc').setValue(this.Recupera_un_Tamizaje.nroDoc);
-            this.formDatos_Tamisaje.get('nroHcl').setValue(this.Recupera_un_Tamizaje.nroHcl);
-            this.formDatos_Tamisaje.get('Telefono').setValue(this.Recupera_un_Tamizaje.telefono);
-            this.formDatos_Tamisaje.get('Edad').setValue(this.Recupera_un_Tamizaje.edad);
-
-            this.formDatos_Tamisaje.get('Respuesta1').setValue(this.Recupera_un_Tamizaje.preguntasMotivoConsulta[0].respuesta);
-            this.formDatos_Tamisaje.get('Respuesta2').setValue(this.Recupera_un_Tamizaje.preguntasMotivoConsulta[1].respuesta);
-            this.formDatos_Tamisaje.get('Respuesta3').setValue(this.Recupera_un_Tamizaje.preguntasMotivoConsulta[2].respuesta);
-
-
-            this.formDatos_Tamisaje.get('Respuesta4').setValue(this.Recupera_un_Tamizaje.preguntasRelacionesPareja[0].respuesta);
-            this.formDatos_Tamisaje.get('Respuesta5').setValue(this.Recupera_un_Tamizaje.preguntasRelacionesPareja[1].respuesta);
-            this.formDatos_Tamisaje.get('Respuesta6').setValue(this.Recupera_un_Tamizaje.preguntasRelacionesPareja[2].respuesta);
-            this.formDatos_Tamisaje.get('Respuesta7').setValue(this.Recupera_un_Tamizaje.preguntasRelacionesPareja[3].respuesta);
-            this.formDatos_Tamisaje.get('Respuesta8').setValue(this.Recupera_un_Tamizaje.preguntasRelacionesPareja[4].respuesta);
-
-            this.formDatos_Tamisaje.get('Respuesta9').setValue(this.Recupera_un_Tamizaje.cuestionarioPosibleViolencia.cuestionario[0].respuesta);
-            this.formDatos_Tamisaje.get('Respuesta10').setValue(this.Recupera_un_Tamizaje.cuestionarioPosibleViolencia.cuestionario[1].respuesta);
-            this.formDatos_Tamisaje.get('Respuesta11').setValue(this.Recupera_un_Tamizaje.cuestionarioPosibleViolencia.cuestionario[2].respuesta);
-            this.formDatos_Tamisaje.get('Respuesta12').setValue(this.Recupera_un_Tamizaje.cuestionarioPosibleViolencia.cuestionario[3].respuesta);
-            this.formDatos_Tamisaje.get('Respuesta13').setValue(this.Recupera_un_Tamizaje.cuestionarioPosibleViolencia.cuestionario[4].respuesta);
-            this.formDatos_Tamisaje.get('Respuesta14').setValue(this.Recupera_un_Tamizaje.cuestionarioPosibleViolencia.cuestionario[5].respuesta);
-            this.formDatos_Tamisaje.get('Respuesta15').setValue(this.Recupera_un_Tamizaje.cuestionarioPosibleViolencia.cuestionario[6].respuesta);
-            this.formDatos_Tamisaje.get('Respuesta16').setValue(this.Recupera_un_Tamizaje.cuestionarioPosibleViolencia.cuestionario[7].respuesta);
-            this.formDatos_Tamisaje.get('PuntajeTotal').setValue(this.Recupera_un_Tamizaje.cuestionarioPosibleViolencia.puntajeTotal);
-            this.resultadoTamizaje = this.Recupera_un_Tamizaje.cuestionarioPosibleViolencia.diagnostico;
-
-            this.formDatos_Tamisaje.get('respuestaValoracion1').setValue(this.Recupera_un_Tamizaje.fichaValoracionRiesgo.cuestionario[0].respuesta);
-            this.formDatos_Tamisaje.get('respuestaValoracion2').setValue(this.Recupera_un_Tamizaje.fichaValoracionRiesgo.cuestionario[1].respuesta);
-            this.formDatos_Tamisaje.get('respuestaValoracion2A').setValue(this.Recupera_un_Tamizaje.fichaValoracionRiesgo.cuestionario[2].respuesta);
-            this.formDatos_Tamisaje.get('respuestaValoracion3').setValue(this.Recupera_un_Tamizaje.fichaValoracionRiesgo.cuestionario[3].respuesta);
-            this.formDatos_Tamisaje.get('respuestaValoracion4').setValue(this.Recupera_un_Tamizaje.fichaValoracionRiesgo.cuestionario[4].respuesta);
-            this.formDatos_Tamisaje.get('respuestaValoracion5').setValue(this.Recupera_un_Tamizaje.fichaValoracionRiesgo.cuestionario[5].respuesta);
-            // this.formDatos_Tamisaje.get('respuestaValoracion5A').setValue(this.Recupera_un_Tamizaje.fichaValoracionRiesgo.cuestionario[6].respuesta);
-            this.formDatos_Tamisaje.get('respuestaValoracion6').setValue(this.Recupera_un_Tamizaje.fichaValoracionRiesgo.cuestionario[7].respuesta);
-            this.formDatos_Tamisaje.get('respuestaValoracion7').setValue(this.Recupera_un_Tamizaje.fichaValoracionRiesgo.cuestionario[8].respuesta);
-            this.formDatos_Tamisaje.get('respuestaValoracion8').setValue(this.Recupera_un_Tamizaje.fichaValoracionRiesgo.cuestionario[9].respuesta);
-            this.formDatos_Tamisaje.get('respuestaValoracion9').setValue(this.Recupera_un_Tamizaje.fichaValoracionRiesgo.cuestionario[10].respuesta);
-            this.formDatos_Tamisaje.get('respuestaValoracion10').setValue(this.Recupera_un_Tamizaje.fichaValoracionRiesgo.cuestionario[11].respuesta);
-            this.formDatos_Tamisaje.get('respuestaValoracion11').setValue(this.Recupera_un_Tamizaje.fichaValoracionRiesgo.cuestionario[12].respuesta);
-            this.formDatos_Tamisaje.get('respuestaValoracion12').setValue(this.Recupera_un_Tamizaje.fichaValoracionRiesgo.cuestionario[13].respuesta);
-            this.formDatos_Tamisaje.get('respuestaValoracion12A').setValue(this.Recupera_un_Tamizaje.fichaValoracionRiesgo.cuestionario[14].respuesta);
-            this.formDatos_Tamisaje.get('respuestaValoracion13').setValue(this.Recupera_un_Tamizaje.fichaValoracionRiesgo.cuestionario[15].respuesta);
-            this.formDatos_Tamisaje.get('respuestaValoracion14').setValue(this.Recupera_un_Tamizaje.fichaValoracionRiesgo.cuestionario[16].respuesta);
-            this.formDatos_Tamisaje.get('respuestaValoracion15').setValue(this.Recupera_un_Tamizaje.fichaValoracionRiesgo.cuestionario[17].respuesta);
-            this.formDatos_Tamisaje.get('respuestaValoracion16').setValue(this.Recupera_un_Tamizaje.fichaValoracionRiesgo.cuestionario[18].respuesta);
-            this.formDatos_Tamisaje.get('respuestaValoracion17').setValue(this.Recupera_un_Tamizaje.fichaValoracionRiesgo.cuestionario[19].respuesta);
-            this.formDatos_Tamisaje.get('respuestaValoracion18').setValue(this.Recupera_un_Tamizaje.fichaValoracionRiesgo.cuestionario[20].respuesta);
-            this.formDatos_Tamisaje.get('respuestaValoracion19').setValue(this.Recupera_un_Tamizaje.fichaValoracionRiesgo.cuestionario[21].respuesta);
-            this.formDatos_Tamisaje.get('SumaTotalvalor').setValue(this.Recupera_un_Tamizaje.fichaValoracionRiesgo.puntajeTotal);
-            this.formDatos_Tamisaje.get('NivelRiesgo').setValue(this.Recupera_un_Tamizaje.fichaValoracionRiesgo.nivelRiesgo);
-            this.formDatos_Tamisaje.get('observaciones').setValue(this.Recupera_un_Tamizaje.fichaValoracionRiesgo.observaciones);
-
-
-            let p5A_String = this.Recupera_un_Tamizaje.fichaValoracionRiesgo.cuestionario[6].respuesta;
-            if ((p5A_String == null) || (p5A_String == '')) {
-                this.p5A = 'NO';
-                this.formDatos_Tamisaje.get('respuestaValoracion5A').setValue(this.p5A);
-            } else {
-                this.formDatos_Tamisaje.get('arma').setValue(this.Recupera_un_Tamizaje.fichaValoracionRiesgo.cuestionario[6].respuesta);
-                this.p5A = 'SI';
-                this.formDatos_Tamisaje.get('respuestaValoracion5A').setValue(this.p5A);
+                    this.formDatos_Tamisaje.get('Respuesta9').setValue(this.tamisajeData.cuestionarioPosibleViolencia.cuestionario[0].respuesta);
+                    this.formDatos_Tamisaje.get('Respuesta10').setValue(this.tamisajeData.cuestionarioPosibleViolencia.cuestionario[1].respuesta);
+                    this.formDatos_Tamisaje.get('Respuesta11').setValue(this.tamisajeData.cuestionarioPosibleViolencia.cuestionario[2].respuesta);
+                    this.formDatos_Tamisaje.get('Respuesta12').setValue(this.tamisajeData.cuestionarioPosibleViolencia.cuestionario[3].respuesta);
+                    this.formDatos_Tamisaje.get('Respuesta13').setValue(this.tamisajeData.cuestionarioPosibleViolencia.cuestionario[4].respuesta);
+                    this.formDatos_Tamisaje.get('Respuesta14').setValue(this.tamisajeData.cuestionarioPosibleViolencia.cuestionario[5].respuesta);
+                    this.formDatos_Tamisaje.get('Respuesta15').setValue(this.tamisajeData.cuestionarioPosibleViolencia.cuestionario[6].respuesta);
+                    this.formDatos_Tamisaje.get('Respuesta16').setValue(this.tamisajeData.cuestionarioPosibleViolencia.cuestionario[7].respuesta);
+                    this.formDatos_Tamisaje.get('PuntajeTotal').setValue(this.tamisajeData.cuestionarioPosibleViolencia.puntajeTotal);
+                    this.resultadoTamizaje = this.tamisajeData.cuestionarioPosibleViolencia.diagnostico;
+                }
+                /* ficha de valoracion */
+                if(this.tamisajeData.fichaValoracionRiesgo){
+                    
+                    this.formDatos_Tamisaje.get('respuestaValoracion1').setValue(this.tamisajeData.fichaValoracionRiesgo.cuestionario[0].respuesta);
+                    this.formDatos_Tamisaje.get('respuestaValoracion2').setValue(this.tamisajeData.fichaValoracionRiesgo.cuestionario[1].respuesta);
+                    this.formDatos_Tamisaje.get('respuestaValoracion2A').setValue(this.tamisajeData.fichaValoracionRiesgo.cuestionario[2].respuesta);
+                    this.formDatos_Tamisaje.get('respuestaValoracion3').setValue(this.tamisajeData.fichaValoracionRiesgo.cuestionario[3].respuesta);
+                    this.formDatos_Tamisaje.get('respuestaValoracion4').setValue(this.tamisajeData.fichaValoracionRiesgo.cuestionario[4].respuesta);
+                    this.formDatos_Tamisaje.get('respuestaValoracion5').setValue(this.tamisajeData.fichaValoracionRiesgo.cuestionario[5].respuesta);
+                    this.evaluar2()
+                    this.formDatos_Tamisaje.get('arma').setValue(this.tamisajeData.fichaValoracionRiesgo.cuestionario[6].respuesta);
+                    this.formDatos_Tamisaje.get('respuestaValoracion6').setValue(this.tamisajeData.fichaValoracionRiesgo.cuestionario[7].respuesta);
+                    this.formDatos_Tamisaje.get('respuestaValoracion7').setValue(this.tamisajeData.fichaValoracionRiesgo.cuestionario[8].respuesta);
+                    this.formDatos_Tamisaje.get('respuestaValoracion8').setValue(this.tamisajeData.fichaValoracionRiesgo.cuestionario[9].respuesta);
+                    this.formDatos_Tamisaje.get('respuestaValoracion9').setValue(this.tamisajeData.fichaValoracionRiesgo.cuestionario[10].respuesta);
+                    this.formDatos_Tamisaje.get('respuestaValoracion10').setValue(this.tamisajeData.fichaValoracionRiesgo.cuestionario[11].respuesta);
+                    this.formDatos_Tamisaje.get('respuestaValoracion11').setValue(this.tamisajeData.fichaValoracionRiesgo.cuestionario[12].respuesta);
+                    this.formDatos_Tamisaje.get('respuestaValoracion12').setValue(this.tamisajeData.fichaValoracionRiesgo.cuestionario[13].respuesta);
+                    this.formDatos_Tamisaje.get('respuestaValoracion12A').setValue(this.tamisajeData.fichaValoracionRiesgo.cuestionario[14].respuesta);
+                    this.formDatos_Tamisaje.get('respuestaValoracion13').setValue(this.tamisajeData.fichaValoracionRiesgo.cuestionario[15].respuesta);
+                    this.formDatos_Tamisaje.get('respuestaValoracion14').setValue(this.tamisajeData.fichaValoracionRiesgo.cuestionario[16].respuesta);
+                    this.formDatos_Tamisaje.get('respuestaValoracion15').setValue(this.tamisajeData.fichaValoracionRiesgo.cuestionario[17].respuesta);
+                    this.formDatos_Tamisaje.get('respuestaValoracion16').setValue(this.tamisajeData.fichaValoracionRiesgo.cuestionario[18].respuesta);
+                    this.formDatos_Tamisaje.get('respuestaValoracion17').setValue(this.tamisajeData.fichaValoracionRiesgo.cuestionario[19].respuesta);
+                    this.formDatos_Tamisaje.get('respuestaValoracion18').setValue(this.tamisajeData.fichaValoracionRiesgo.cuestionario[20].respuesta);
+                    this.formDatos_Tamisaje.get('respuestaValoracion19').setValue(this.tamisajeData.fichaValoracionRiesgo.cuestionario[21].respuesta);
+                    this.formDatos_Tamisaje.get('observaciones').setValue(this.tamisajeData.fichaValoracionRiesgo.observaciones);
+                    this.formDatos_Tamisaje.get('NivelRiesgo').setValue(this.tamisajeData.fichaValoracionRiesgo.nivelRiesgo);
+                    this.formDatos_Tamisaje.get('SumaTotalvalor').setValue(this.tamisajeData.fichaValoracionRiesgo.puntajeTotal);
             }
+                
+            }
+            //  let p5A_String = this.Recupera_un_Tamizaje.fichaValoracionRiesgo.cuestionario[6].respuesta;
+            //  if ((p5A_String == null) || (p5A_String == '')) {
+            //      this.p5A = 'NO';
+            //      this.formDatos_Tamisaje.get('respuestaValoracion5A').setValue(this.p5A);
+            //  } else {
+            //      this.formDatos_Tamisaje.get('arma').setValue(this.Recupera_un_Tamizaje.fichaValoracionRiesgo.cuestionario[6].respuesta);
+            //      this.p5A = 'SI';
+            //      this.formDatos_Tamisaje.get('respuestaValoracion5A').setValue(this.p5A);
+            //  }
         })
     }
 }

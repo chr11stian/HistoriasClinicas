@@ -21,6 +21,7 @@ import {DialogPatologiasMaternasComponent} from "./component/datos-basales/dialo
 import {ScrollPanelModule} from "primeng/scrollpanel";
 import {ScrollTopModule} from "primeng/scrolltop";
 import {VirtualScrollerModule} from "primeng/virtualscroller";
+import { LaboratoryResultDialogComponent } from './component/datos-basales/laboratory-result-dialog/laboratory-result-dialog.component';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import {VirtualScrollerModule} from "primeng/virtualscroller";
         HemoglobinaDialogComponent,
         ModalAtencionesComponent,
         DialogPatologiasMaternasComponent,
+        LaboratoryResultDialogComponent,
 
     ],
     imports: [

@@ -1,23 +1,23 @@
-import {Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
-import {Observable, pipe, Subject} from "rxjs";
-import {tap} from "rxjs/operators";
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Observable, pipe, Subject } from "rxjs";
+import { tap } from "rxjs/operators";
 
-import {Personal} from "../../../core/models/personal.models";
-import {environment} from "../../../../environments/environment";
+import { Personal } from "../../../core/models/personal.models";
+import { environment } from "../../../../environments/environment";
 
 @Injectable({
     providedIn: "root",
 })
 export class PersonalService {
+    base_new = environment.base_login;
     base_url = environment.baseUrl;
     base_url_PIDE = environment.base_url_pide;
     bd = environment.bd;
     private _refresh = new Subject<void>();
     private personales: Personal[] = [];
 
-    constructor(private http: HttpClient) {
-    }
+    constructor(private http: HttpClient) {}
 
     getPersonal(): Observable<Personal[]> {
         return this.http.get<Personal[]>(
@@ -25,7 +25,7 @@ export class PersonalService {
         );
     }
 
-    getPersonalIpress(idIpress: string)  {
+    getPersonalIpress(idIpress: string) {
         return this.http.get(
             `${this.base_url}/${this.bd}/personal/listarpersonal/${idIpress}`
         );
@@ -91,7 +91,10 @@ export class PersonalService {
 
     //roles del personal
     addRolesPersonal(idPersonal, reqInput: any) {
-        return this.http.put(`${this.base_url}/${this.bd}/personal/ingresarrol/${idPersonal}`, reqInput)
+        return this.http.put(
+            `${this.base_url}/${this.bd}/personal/ingresarrol/${idPersonal}`,
+            reqInput
+        );
     }
 
     deleteRol(idPersonal, idUPS) {
@@ -109,12 +112,42 @@ export class PersonalService {
 
     //traer sexo
     getSexos() {
-        return this.http.get<any>(
-            `${this.base_url}/${this.bd}/tools/genero`
-        );
+        return this.http.get<any>(`${this.base_url}/${this.bd}/tools/genero`);
     }
 
     getDatosReniec(doc) {
-        return this.http.get(`${this.base_url}/${this.bd}/pide/datos-sis/${doc}`)
+        return this.http.get(
+            `${this.base_url}/${this.bd}/pide/datos-sis/${doc}`
+        );
     }
+
+    //roles
+    listServiceStaff(dni) {
+        return this.http.get(
+            `${this.base_url}/hce/personal/listarroles/DNI/${dni}`
+        );
+    }
+
+    resetPass(dni, data) {
+        return this.http.put(
+            `${this.base_new}/accesos/user/reset-pass/hce/${dni}`,
+            data
+        );
+    }
+    saveRol(data) {
+        return this.http.post(`${this.base_new}/accesos/user/hce`, data);
+    }
+    updateRol(dni, data) {
+        return this.http.put(`${this.base_new}/accesos/user/hce/${dni}`, data);
+    }
+    getRoles(dni) {
+        return this.http.get(`${this.base_new}/accesos/user/hce/${dni}`);
+    }
+    /* crearRol(data) {
+        return this.http.post(`${this.base_uri_}/accesos/user`, data);
+    }
+
+    updatePassword(dni, data) {
+        return this.http.put(`${this.base_uri_}/accesos/user/${dni}`, data);
+    } */
 }

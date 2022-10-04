@@ -5,6 +5,11 @@
                 <div class="col-9" style="margin: 0 0 0 20px;">
                     <span style="font-size: 2em;">OBSTETRICIA> Consulta </span>
                 </div>
+                <!-- <div class="col-3">
+                    <button pButton pRipple label="Ver" icon="pi pi-plus"
+                        class="button-agregar" (click)="openDialogAtencionesPrenatales()">
+                    </button>
+                </div>    -->
             </div>
         </p-card>
     </div>
@@ -12,7 +17,15 @@
     <p-steps [model]="items" [readonly]="false" [(activeIndex)]="indiceActivo"
              (activeIndexChange)="ChangeStep($event)" class="scrollmenu">
     </p-steps>
-
+    <div class="flotante">
+        <div class="speeddial-circle-demo">
+            <div class="speeddial-semi-circle">
+                <p-speedDial showIcon="pi pi-window-maximize" hideIcon="pi pi-window-minimize"  radius="80"
+                    direction="left" type="semi-circle" (onClick)="openDialogAtencionesPrenatales()">
+                </p-speedDial>
+            </div>
+        </div>
+    </div>
     <br>
     <div class="stepsdemo-content" *ngIf="stepName === 'datos'">
         <p-card>

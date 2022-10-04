@@ -429,7 +429,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
   mergeArrayDiagnostic(diagnosticosSIS: DiagnosticFUA[], diagnosticosHIS: DiagnosticHIS[], diagnosticos: DiagnosticSave[]): void {
     diagnosticosSIS.forEach(item => {
       let auxDiagnostic: DiagnosticSave = {
-        nro: null,
+        // nro: null,
         diagnosticoHIS: null,
         diagnosticoSIS: item.diagnostico,
         cie10SIS: item.CIE10,
@@ -444,7 +444,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
     });
     diagnosticosHIS.forEach(item => {
       let auxDiagnostic: DiagnosticSave = {
-        nro: null,
+        // nro: null,
         diagnosticoHIS: item.diagnosticoHIS,
         diagnosticoSIS: null,
         cie10SIS: null,

@@ -30,9 +30,9 @@ import { IpressTarifarioComponent } from './ipress-tarifario/ipress-tarifario.co
 import { IpressFarmaciaComponent } from './ipress-farmacia/component/ipress-farmacia.component';
 import {HisComponent} from "./his/his.component";
 import { IpressLaboratorioComponent } from './ipress-laboratorio/ipress-laboratorio.component';
-
 @NgModule({
     declarations: [
+        
         PersonalSaludComponent,
         UsuariosComponent,
         IpressComponent,
@@ -54,7 +54,6 @@ import { IpressLaboratorioComponent } from './ipress-laboratorio/ipress-laborato
         UsuariosComponent,
         IpressComponent,
         PacienteComponent,
-
     ],
 
     imports: [

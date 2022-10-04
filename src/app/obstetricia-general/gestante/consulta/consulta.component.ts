@@ -11,6 +11,7 @@ import { ObstetriciaGeneralService } from "../../services/obstetricia-general.se
 import { Router } from "@angular/router";
 import { ConsultasService } from "../atencion/consultorio-obstetrico/services/consultas.service";
 import Swal from "sweetalert2";
+import { environment } from "src/environments/environment";
 
 @Component({
     selector: "app-consulta",
@@ -34,6 +35,9 @@ export class ConsultaComponent implements OnInit {
     DataFiliacionPaciente: any;
 
     loading: boolean = true;
+    token: any = JSON.parse(localStorage.getItem('token'));
+    consultationId: string;
+    downloadLink: string;
     constructor(
         private fb: FormBuilder,
         private location: Location,
@@ -41,7 +45,7 @@ export class ConsultaComponent implements OnInit {
         private consultaObstetriciaService: ConsultaObstetriciaService,
         private obstetriciaGeneralService: ObstetriciaGeneralService,
         private consultasService: ConsultasService,
-        private router: Router
+        private router: Router,
     ) {
         this.inicializarForm();
         this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
@@ -63,10 +67,11 @@ export class ConsultaComponent implements OnInit {
         // this.nroEmbarazo = this.obstetriciaGeneralService.nroEmbarazo;
         // this.nroHcl = this.obstetriciaGeneralService.nroHcl;
         this.recuperarConsultas();
+        this.downloadLink = environment.base_urlTx + '/jasperserver/rest_v2/reports/Reports/v1/consultaid/consultabase.pdf?authorization=' + this.token.token + '&idConsulta=';
     }
 
     ngOnInit(): void {
-        
+        console.log('link to downnnnnnnnnnnnnnnnnnnn  ', this.downloadLink);
     }
 
     inicializarForm() {
