@@ -196,19 +196,15 @@ export class LoginRolComponent implements OnInit {
                 console.log("res", res);
                 if (res.object != null && rol === "ROLE_ENF_PERSONAL") {
                     res.object[0].roles.map((aux) => {
-                        if (
-                            aux.nombreFuncion == "SERVICIOS ADMINISTRACION" &&
-                            aux.nombreUPS == "ATENCION INTEGRAL DEL NINO"
-                        ) {
+                        if (aux.nombreUPS == "ATENCION INTEGRAL DEL NINO") {
+                            //aux.nombreFuncion == "SERVICIOS ADMINISTRACION" &&
                             this.router
                                 .navigate(["/dashboard/cred/citas"])
                                 .then(() => {
                                     window.location.reload();
                                 });
-                        } else if (
-                            aux.nombreFuncion == "SERVICIOS ADMINISTRACION" &&
-                            aux.nombreUPS == "OBSTETRICIA"
-                        ) {
+                        } else if (aux.nombreUPS == "OBSTETRICIA") {
+                            //aux.nombreFuncion == "SERVICIOS ADMINISTRACION" &&
                             this.router
                                 .navigate([
                                     "/dashboard/obstetricia-general/citas",

@@ -1,3 +1,4 @@
+import { environment } from "./../../../../environments/environment";
 import { upsAux } from "./../../../mantenimientos/component/ups-aux-ipress/ups-aux-ipress.component";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
@@ -30,6 +31,7 @@ export class HisReportesComponent implements OnInit {
     listaUpsAuxHis: any[] = [];
     diagnosticos: any;
     token: string = "";
+    linkHis: string = "";
 
     constructor(
         private fb: FormBuilder,
@@ -131,11 +133,7 @@ export class HisReportesComponent implements OnInit {
             this.dataHIS = result;
             console.log(result);
             console.log("LISTA DE CUPO DEL PACIENTE", result);
-            if (
-                this.dataHIS == undefined ||
-                this.dataHIS.object == null ||
-                this.dataHIS.object == []
-            ) {
+            if (this.dataHIS == undefined || this.dataHIS.object == null) {
                 this.showInfo();
             } else {
                 this.showSucces();
@@ -240,5 +238,41 @@ export class HisReportesComponent implements OnInit {
                 console.log(r);
             }
         );
+    }
+
+    alert() {
+        let fecha = this.formHIS.value.fechaBusqueda;
+        let ups = this.formHIS.value.upsAux;
+        //if (fecha == "" || ups == "") console.log("vacio");
+        this.HisServiceReporte.download(this.linkHis).subscribe((blob) => {
+            console.log("blob", blob);
+            const a = document.createElement("a");
+            const objectUrl = URL.createObjectURL(blob);
+            a.href = objectUrl;
+            a.download = "archive.zip";
+            a.click();
+            URL.revokeObjectURL(objectUrl);
+        });
+    }
+
+    linkHIS() {
+        let fecha = this.datePipe.transform(
+            this.formHIS.value.fechaBusqueda,
+            "yyyyMMdd"
+        );
+        let ups = this.formHIS.value.upsAux;
+        let urlJasper =
+            environment.base_urlTx +
+            "/jasperserver/rest_v2/reports/Reports/HIS/anexo1.pdf?";
+        //fecha=20220914&upsAux=ATENCION INTEGRAL DEL NINO&token=Bearer eyJhbGciOiJIUzUxMiJ9.eyJhcHAiOiJoY2UiLCJyb2xlIjoiUk9MRV9JUFJFU1NfUEVSU09OQUwiLCJkYXRhIjp7InJlbmlwcmVzcyI6IjAwMDI5NTE0IiwiaWRJcHJlc3MiOiI2MjcxMjYzYzY3N2E2NWY0ZWEzMTU2NGEiLCJucm9Eb2MiOiIzMTE5MDUyMyIsInRpcG9Eb2MiOiJETkkifSwic3ViIjoiMzExOTA1MjMiLCJpYXQiOjE2NjQzOTk0NDEsImV4cCI6MTY2NDQyODI0MX0.l4vO_I8iHcXMh9B7Ml2tzFn7p0XTTziJXiFrLwCmetZ5LST00Z57AH8F-b8M6V9J8wNK48cIrE0YLxeQXXig3w
+        this.linkHis =
+            urlJasper +
+            "fecha=" +
+            fecha +
+            "&upsAux=" +
+            ups +
+            "&token=Bearer " +
+            this.token;
+        console.log("link", this.linkHis);
     }
 }
