@@ -1,0 +1,188 @@
+<div class="col-12">
+    <div class="col-12 no-data-found" *ngIf="!existData">
+
+    </div>
+    <div *ngFor="let itemHIS of listHIS" >
+        <div class="col-12 divcero">
+            <p-table class="table-over" [value]=[itemHIS] #dt styleClass="p-datatable-gridlines">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>AÑO</th>
+                        <th>MES</th>
+                        <th>NOMBRE DEL ESTABLECIMIENTO DE SALUD(IPRESS)</th>
+                        <th>UNIDAD PRESTADORA DE SERVICIOS(UPSS)</th>
+                        <th colspan="2">
+                            NOMBRE DEL RESPONSABLE DE ATENCION
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                    <tr>
+                        <td>{{ rowData.anio }}</td>
+                        <td>{{ rowData.mes }}</td>
+                        <td>{{ rowData.nombreIpress }}</td>
+                        <td>{{ rowData.upsAuxiliar }}</td>
+                        <td>DNI : {{ rowData.dniProfesional }}</td>
+                        <td>{{ rowData.nombreProfesional }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="6">
+                            NOMBRES Y APELLIDOS PACIENTE:
+                            {{
+                            rowData.nombre +
+                            " " +
+                            rowData.apePaterno +
+                            " " +
+                            rowData.apeMaterno
+                            }}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <div class="grid divcero">
+            <div class="lg:col-6 md:col-12 sm:col-12 divcero">
+                <p-table class="table-over" [value]=[itemHIS] #dt styleClass="p-datatable-gridlines">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th rowspan="3">DIA</th>
+                            <th>DNI</th>
+                            <th rowspan="2">FINANC.</th>
+                            <th rowspan="2">DISTRITO</th>
+                            <th rowspan="3">EDAD</th>
+                            <th rowspan="3">SEXO</th>
+                            <th rowspan="2">P. CEF</th>
+                            <th colspan="2" rowspan="1">EVALUA.</th>
+                            <th rowspan="3">ESTAB.</th>
+                            <th rowspan="3">SERVICIO</th>
+                        </tr>
+                        <tr>
+                            <th>HISTORIA</th>
+                            <th colspan="2">ANTROPOME.</th>
+                        </tr>
+                        <tr>
+                            <th>GESTANTE</th>
+                            <th>ETNIA</th>
+                            <th>CENTRO P.</th>
+                            <th>ABDOM.</th>
+                            <th colspan="2">HEMOGLOBI.</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                        <tr>
+                            <td rowspan="3">{{ rowData.dia }}</td>
+                            <td>{{ rowData.nroDoc }}</td>
+                            <td rowspan="2">
+                                {{
+                                rowData.financiamiento === "null"
+                                ? ""
+                                : rowData.financiamiento
+                                }}
+                            </td>
+                            <td rowspan="2">{{ rowData.distrito }}</td>
+                            <td rowspan="3">{{ rowData.edad }}</td>
+                            <td rowspan="3">
+                                {{
+                                rowData.sexo === "FEMENINO" ? "F" : "M"
+                                }}
+                            </td>
+                            <td rowspan="2">
+                                {{ rowData.perimetroCefalico }}
+                            </td>
+                            <td>PESO</td>
+                            <td>{{ rowData.peso }}</td>
+                            <td>N</td>
+                            <td>N</td>
+                        </tr>
+                        <tr>
+                            <td>{{ rowData.nroHcl }}</td>
+                            <td>TALLA</td>
+                            <td>{{ rowData.talla }}</td>
+                            <td>C</td>
+                            <td>C</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>{{ rowData.etnia }}</td>
+                            <td>{{ rowData.ccpp }}</td>
+                            <td>{{ rowData.perimentroAbdominal }}</td>
+                            <td>Hb</td>
+                            <td>
+                                {{
+                                rowData.hb === "null" ? "" : rowData.hb
+                                }}
+                            </td>
+                            <td>R</td>
+                            <td>R</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            <div class="lg:col-6 md:col-12 sm:col-12 divcero">
+                <p-table class="table-over" [value]=[itemHIS] #dt styleClass="p-datatable-gridlines">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th rowspan="3">
+                                DIAGNOSTICO MOTIVO DE CONSULTA Y/O ACTIVIDAD
+                                DE SALUD
+                            </th>
+                            <th rowspan="2" colspan="3">TIPO DIAG.</th>
+                            <th rowspan="3">LAB</th>
+                            <th rowspan="3">CODIGO CIE</th>
+                        </tr>
+                        <tr></tr>
+                        <tr>
+                            <th>P</th>
+                            <th>D</th>
+                            <th>R</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                        <tr *ngFor="let item of rowData.diagnosticos">
+                            <td>
+                                {{ item.diagnostico }}
+                            </td>
+                            <td *ngIf="item.tipoDx === 'P'; else tipo">
+                                x
+                            </td>
+                            <ng-template #tipo>
+                                <td></td>
+                            </ng-template>
+                            <td *ngIf="item.tipoDx === 'D'; else tipo1">
+                                x
+                            </td>
+                            <ng-template #tipo2>
+                                <td></td>
+                            </ng-template>
+                            <td *ngIf="item.tipoDx === 'R'; else tipo2">
+                                x
+                            </td>
+                            <ng-template #tipo3>
+                                <td></td>
+                            </ng-template>
+                            <td>{{ item.lab }}</td>
+                            <td>{{ item.cie_10 }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+        <br />
+    </div>
+    <div class="col-12">
+        <div class="grid">
+            <div class="col-1 col-offset-9 label-text text-right">
+                <span class="font-semibold">Fecha prox. cita:</span>
+            </div>
+            <div class="col-1">
+                <input type="date" pInputText [(ngModel)]="nextDateModel" placeholder="Nro"
+                    class="p-fluid inputfield w-full">
+            </div>
+            <div class="col-1">
+                <button pButton pRipple icon="pi pi-save" label="Guardar" pButton type="button"
+                    style="background-color: #0c3866;" label="Guardar" class="save-button p-button-rounded"
+                    (click)="confirmToSave()"></button>
+            </div>
+        </div>
+    </div>
+</div>

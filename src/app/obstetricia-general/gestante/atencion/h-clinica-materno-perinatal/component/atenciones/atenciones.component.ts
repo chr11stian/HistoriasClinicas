@@ -7,6 +7,7 @@ import {AtencionesService} from "../../services/atenciones/Atenciones.service";
 import {ModalAtencionesComponent} from "./modal-atenciones/modal-atenciones.component";
 import {MessageService} from "primeng/api";
 import {AlturaUterinaComponent} from "../../../modals/altura-uterina/altura-uterina.component";
+import Swal from 'sweetalert2';
 
 @Component({
     selector: 'app-atenciones',
@@ -18,9 +19,9 @@ import {AlturaUterinaComponent} from "../../../modals/altura-uterina/altura-uter
 export class AtencionesComponent implements OnInit {
 
     form: FormGroup
-    atenciones: any[] = [];
-    datosGrafico: any[] = [];
-    datosGraficoAltura: any[] = [];
+    listaAtenciones: any[] = [];
+    datosGraficoPesoMadre: any[] = [];
+    datosGraficoAlturaUterina: any[] = [];
     datosGraficoY: any[] = [];
 
     // isUpdate: boolean = false;
@@ -28,11 +29,12 @@ export class AtencionesComponent implements OnInit {
     atencionGestanteDialog: boolean;
     ref: DynamicDialogRef;
     /**Datos a recuperar de la coleccion filiacion**/
-    idObstetricia = "";
+    idFiliacion = "";
 
     cols: any[];
     Gestacion: any;
     estadoGestante: string;
+    
     constructor(
         private formBuilder: FormBuilder,
         private dialogService: DialogService,
@@ -44,16 +46,34 @@ export class AtencionesComponent implements OnInit {
 
         // this.idObstetricia = this.obstetriciaService.idGestacion;
         if (this.Gestacion == null) {
-            this.idObstetricia = JSON.parse(localStorage.getItem('idGestacionRegistro'));
+            this.idFiliacion = JSON.parse(localStorage.getItem('idGestacionRegistro'));
         } else {
-            this.idObstetricia = this.Gestacion.id;
+            this.idFiliacion = this.Gestacion.id;
         }
     }
-
-    buildForm() {
-        this.form = this.formBuilder.group({})
+    ngOnInit(): void {
+        this.getAtencionesDeFiliacion();
+        this.recuperarIMC();
     }
-
+     /***************Recuperar Datos de Atenciones*********************/
+     getAtencionesDeFiliacion() {
+        this.atencionesService.getAtencionService(this.idFiliacion).toPromise().then((res: any) => {
+            if(res.object !=null){
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Registro',
+                    text: res.mensaje,
+                    showConfirmButton: false,
+                    timer: 1500,
+                })
+                this.listaAtenciones = res.object;
+                this.recuperarDatosGraficoPesoMadre();
+                this.recuperarDatosGraficoAlturaUterina();
+            }
+        })
+        .catch(error=>{console.log(error);
+         })
+    }
     recuperarIMC(){
         this.atencionesService.getIMCgestante(this.Gestacion.nroHcl,this.Gestacion.nroEmbarazo).subscribe((res: any) => {
             let IMC = res.object.imc;
@@ -65,61 +85,25 @@ export class AtencionesComponent implements OnInit {
                 this.estadoGestante="sobrepeso"
             else
                 this.estadoGestante="obesidad"
-            // if (IMC>=18.5 && IMC<=24.9)this.estadoGestante ="normal"
-            // if (IMC>=25.0 && IMC<=29.9)this.estadoGestante ="sobrepeso"
-            // if (IMC<18.5)this.estadoGestante ="bajo_peso"
-            // else this.estadoGestante ="obesidad"
         })
     }
-    /***************Recuperar Datos de Atenciones*********************/
-    recuperarDatosAtenciones() {
-        this.atencionesService.getAtencionService(this.idObstetricia).subscribe((res: any) => {
-            this.atenciones = res.object;
-            console.log("atenciones", this.atenciones);
-            if (this.atenciones != null || this.atenciones != undefined) {
-                this.messageService.add({
-                    severity: 'info',
-                    summary: 'Recuperado',
-                    detail: 'registro recuperado satisfactoriamente'
-                });
-            } else {
-                this.messageService.add({
-                    severity: 'info',
-                    summary: 'Recuperado',
-                    detail: 'no existe registro atenciones'
-                });
-            }
-
-        })
-    }
+   
 
     /*********Recuperar Datos  para el gráfico Peso Madre*************/
     recuperarDatosGraficoPesoMadre() {
-        this.atencionesService.getAtencionService(this.idObstetricia).subscribe((res: any) => {
-            let tamanio = res.object.length;
-            console.log("todo el objeto",res.object)
-            let i = 0;
-            while (i < tamanio) {
-                this.datosGrafico.push([res.object[i].edadGestacionalSemanas, res.object[i].evaluacionNutricional.valor]);
-                // this.datosGraficoY.push(res.object[i].alturaUterina)
-                i++;
+        this.listaAtenciones.forEach((item)=>{
+            if(item.edadGestacionalSemanas && item.evaluacionNutricional && item.evaluacionNutricional){
+                this.datosGraficoPesoMadre.push([item.edadGestacionalSemanas,item.evaluacionNutricional.valor]);
             }
-            console.log("alturas",this.datosGrafico)
         })
     }
 
     /*********Recuperar Datos  para el gráfico Altura uterina Madre*************/
     recuperarDatosGraficoAlturaUterina() {
-        this.atencionesService.getDatosGraficoAlturaUterina(this.idObstetricia).subscribe((res: any) => {
-            let tamanio = res.object.length;
-            console.log("todo el objeto",res.object)
-            let i = 0;
-            while (i < tamanio) {
-                this.datosGraficoAltura.push([res.object[i].edadGestacional, res.object[i].alturaUterina]);
-                // this.datosGraficoY.push(res.object[i].alturaUterina)
-                i++;
+        this.listaAtenciones.forEach((item)=>{
+            if(item.edadGestacionalSemanas && item.evaluacionNutricional && item.evaluacionNutricional){
+                this.datosGraficoAlturaUterina.push([item.edadGestacionalSemanas,item.alturaUterina]);
             }
-            console.log("alturas",this.datosGraficoAltura)
         })
     }
 
@@ -139,16 +123,15 @@ export class AtencionesComponent implements OnInit {
             data: aux
         })
         this.ref.onClose.subscribe((data: any) => {
-            console.log('datos de modal atenciones ', data)
             if (data !== undefined) {
-                this.atenciones.splice(data.index, 1, data.row);
+                this.listaAtenciones.splice(data.index, 1, data.row);
             }
             ;
         })
     }
 
     // /** grafica segun el tipo de grafico que se le manda tipoGrafico -> opciones: sobrepeso | normal | bajo_peso | obesidad */
-    graficar() {
+    graficarPesoMadre() {
         let tipoGrafico = this.estadoGestante
         let titleModal = ''
         switch (tipoGrafico) {
@@ -162,22 +145,21 @@ export class AtencionesComponent implements OnInit {
                 titleModal = 'Bajo Peso (IMC Pre-gestacional <18.5 kg/m2 ) / Embarazo único - Ganancia de peso'
                 break
             case 'obesidad':
-                titleModal = 'Obesidad (IMC Pre-gestacional = 30.0 kg/m2) / Embarazo único y múltiple - Ganancia de peso'
+                titleModal = 'Obesidad (IMC Pre-gestacional >= 30.0 kg/m2) / Embarazo único y múltiple - Ganancia de peso'
                 break
         }
         /* data  tipo de dato:Array<number[]>; ejemplo: [[semana,peso],...] ejmpl2: [[1,1.45],[2,1.46]]*/
-        this.openModal(this.datosGrafico, tipoGrafico, titleModal)
-        //** peso - edad gestacional*/
-    }
-
-    openModal(data: Array<number[]>, tipoGrafico: string, titleModal: string): void {
+        console.log('peso madre',this.datosGraficoPesoMadre);
+        const arreglo=[[1,1],[7,0.7],[13,1.3],[20,2.7],[26,4],[34,5.3],[40,7]]
+        console.log('ganancia',this.datosGraficoPesoMadre);
+        
         this.ref = this.dialogService.open(PesoEmbarazoUnicoMultipleComponent, {
             data: {
                 typeGraph: tipoGrafico,
-                dataPregmant: data
+                dataPregmant: this.datosGraficoPesoMadre
+                // dataPregmant: arreglo,
             },
             header: titleModal,
-            // width: '90%',
             height: '90%',
             width: '70%',
             style: {
@@ -186,21 +168,14 @@ export class AtencionesComponent implements OnInit {
             },
         })
     }
-
     /************+****grafico grafico Altura uterina********************/
-    graficarAltura() {
+    graficarAlturaUterina() {
         let titleModal = 'Grafico Altura Uterina';
-        this.openModalGraficoAltura(this.datosGraficoAltura, titleModal);
-
-    }
-
-    openModalGraficoAltura(data: Array<number[]>, titleModal: string): void {
         this.ref = this.dialogService.open(AlturaUterinaComponent, {
             data: {
-                dataPregmant: data
+                dataPregmant: this.datosGraficoAlturaUterina
             },
             header: titleModal,
-            // width: '90%',
             height: '90%',
             width: '70%',
             style: {
@@ -208,18 +183,6 @@ export class AtencionesComponent implements OnInit {
                 top: '17px',
             },
         })
-    }
-
-    ///******************************************/
-    ngOnInit(): void {
-        this.recuperarDatosAtenciones();
-        this.recuperarDatosGraficoAlturaUterina();
-        this.recuperarDatosGraficoPesoMadre();
-        this.recuperarIMC();
-    }
-
-    openNew() {
 
     }
-
 }

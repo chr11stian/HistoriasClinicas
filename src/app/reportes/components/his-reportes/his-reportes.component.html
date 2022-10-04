@@ -1,300 +1,624 @@
-<div style="background: #f8f9fa; height: 100%;">
-    <div class="p-panel">
-        <br>
-        <div class="grid">
-            <div class="col-12 md:col-6 lg:col-12 p-field" style="text-align:center;">
-                <span style="font-size: 1.5rem">LISTA DE HIS POR FECHA</span>
+<div style="background: #f8f9fa; height: 100%">
+    <br />
+    <div class="grid">
+        <div
+            class="col-12 md:col-6 lg:col-12 p-field"
+            style="text-align: center"
+        >
+            <span style="font-size: 1.5rem">REPORTE DE HIS</span>
+        </div>
+    </div>
+    <br />
+    <form [formGroup]="formHIS">
+        <div class="flex justify-content-center col-12">
+            <div class="flex col-4">
+                <div class="grid justify-content-center text-center col-6">
+                    <span class="text-align:center">UPS:</span>
+                    <p-dropdown
+                        inputId="dropdown"
+                        [options]="listaUpsAuxHis"
+                        id="upsAux"
+                        formControlName="upsAux"
+                        optionLabel="nombre"
+                        optionValue="nombre"
+                        placeholder="Seleccionar"
+                        defaultLabel="Seleccione:"
+                        appendTo="body"
+                        class="inputfield p-fluid w-full"
+                        (onChange)="linkHIS()"
+                    >
+                    </p-dropdown>
+                </div>
+                <div
+                    class="grid justify-content-center text-center p-fluid col-6 ml-2"
+                >
+                    <span class="text-center">FECHA:</span>
+                    <p-calendar
+                        dateFormat="yy-mm-dd"
+                        [showIcon]="true"
+                        formControlName="fechaBusqueda"
+                        [readonlyInput]="true"
+                        (onSelect)="linkHIS()"
+                        (onChange)="linkHIS()"
+                    >
+                    </p-calendar>
+                </div>
+            </div>
+
+            <div class="flex col-1 align-items-center">
+                <button
+                    pButton
+                    pRipple
+                    class="ml-2 p-button-rounded p-button-success"
+                >
+                    <a
+                        style="color: white; font-weight: bold"
+                        href="{{ linkHis }}"
+                        >Descargar</a
+                    >
+                </button>
             </div>
         </div>
-        <br>
-        <p-toolbar>
-            <ng-template pTemplate="left">
-                <form [formGroup]="formHIS">
-                    <div class="grid m-2">
-                        <div class="col-12 md:col-6 lg:col-6 p-fluid">
-                            <span class="">SUBTITULO UPS:</span>
-                            <p-dropdown inputId="dropdown" [options]="listaUpsAuxHis" id="upsAux"
-                                        formControlName="upsAux"
-                                        optionLabel="nombre" optionValue="nombre"
-                                        placeholder="Seleccionar" defaultLabel="Seleccione:"
-                                        appendTo="body"
-                                        class="inputfield p-fluid w-full">
-                            </p-dropdown>
+    </form>
+    <br />
+    <!-- <div id="outerContainer">
+        <div class="pdf-container">
+            <pdf-viewer
+                [src]="linkHis"
+                [rotation]="0"
+                [original-size]="false"
+                [show-all]="true"
+                [fit-to-page]="false"
+                [zoom]="1"
+                [zoom-scale]="'page-width'"
+                [stick-to-page]="false"
+                [render-text]="true"
+                [external-link-target]="'blank'"
+                [autoresize]="true"
+                [show-borders]="false"
+                style="width: 100%; height: 600px"
+            ></pdf-viewer>
+        </div>
+    </div> -->
+    <!-- <ng-template pTemplate="left">
+            <form [formGroup]="formHIS">
+                <div class="grid m-2">
+                    <div class="col-12 md:col-6 lg:col-6 p-fluid">
+                        <span class="">SUBTITULO UPS:</span>
+                        <p-dropdown
+                            inputId="dropdown"
+                            [options]="listaUpsAuxHis"
+                            id="upsAux"
+                            formControlName="upsAux"
+                            optionLabel="nombre"
+                            optionValue="nombre"
+                            placeholder="Seleccionar"
+                            defaultLabel="Seleccione:"
+                            appendTo="body"
+                            class="inputfield p-fluid w-full"
+                            (onChange)="linkHIS()"
+                        >
+                        </p-dropdown>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-6 p-fluid">
+                        <span class="">FECHA A BUSCAR:</span>
+                        <br />
+                        <p-calendar
+                            dateFormat="yy-mm-dd"
+                            [showIcon]="true"
+                            formControlName="fechaBusqueda"
+                            [readonlyInput]="true"
+                            (onSelect)="linkHIS()"
+                            (onChange)="linkHIS()"
+                        >
+                        </p-calendar>
+                    </div>
+                </div>
+            </form>
+        </ng-template>
+        <ng-template pTemplate="right">
+            <div class="col-12 p-fluid">
+                <button pButton pRipple class="p-button-rounded p-button-info">
+                    <a
+                        style="color: white; font-weight: bold"
+                        href="{{ linkHis }}"
+                        >Descargar</a
+                    >
+                </button>
+                <button
+                        pButton
+                        pRippleicon="pi pi-upload"
+                        class="p-button-success"
+                    >
+                        <a
+                            style="color: white; font-weight: bold"
+                            href="http://190.108.93.150:8200/jasperserver/rest_v2/reports/Reports/HIS/anexo1.pdf?upsAux=MATERNO"
+                            target="_blank"
+                            >Exportar HIS</a
+                        >
+                    </button>
+            </div>
+        </ng-template>
+    </p-toolbar> -->
+</div>
+
+<!-- <p-dialog
+    header="REPORTE HIS"
+    [(visible)]="displayMaximizable"
+    [modal]="true"
+    [style]="{ width: '80vw' }"
+    [maximizable]="true"
+    [draggable]="false"
+    [resizable]="false"
+>
+    <div class="tabla">
+        <form [formGroup]="formHISReporte">
+            <div class="grid m-2">
+                <div class="border2">
+                    <div class="grid m-1">
+                        <div class="col-1">
+                            <label>AÑO:</label>
+                            <input
+                                type="text"
+                                style="text-transform: uppercase"
+                                pInputText
+                                class="inputfield p-fluid w-full"
+                                formControlName="anio"
+                            />
                         </div>
-                        <div class="col-12 md:col-6 lg:col-6 p-fluid">
-                            <span class="">FECHA A BUSCAR:</span>
-                            <br>
-                            <p-calendar dateFormat="yy-mm-dd"
-                                        [showIcon]="true"
-                                        formControlName="fechaBusqueda"
-                                        [readonlyInput]="true"
-                                        (onSelect)="buscarHisPorFecha()">
-                            </p-calendar>
+                        <div class="col-2">
+                            <label>MES:</label>
+                            <input
+                                type="text"
+                                style="text-transform: uppercase"
+                                pInputText
+                                class="inputfield p-fluid w-full"
+                                formControlName="mes"
+                            />
+                        </div>
+                        <div class="col-3">
+                            <label>IPRESS:</label>
+                            <input
+                                type="text"
+                                style="text-transform: uppercase"
+                                pInputText
+                                class="inputfield p-fluid w-full"
+                                formControlName="ipress"
+                            />
+                        </div>
+                        <div class="col-3">
+                            <label>UPS:</label>
+                            <input
+                                type="text"
+                                style="text-transform: uppercase"
+                                pInputText
+                                class="inputfield p-fluid w-full"
+                                formControlName="ups"
+                            />
+                        </div>
+                        <div class="col-3">
+                            <label>UPS AUXILIAR:</label>
+                            <input
+                                type="text"
+                                style="text-transform: uppercase"
+                                pInputText
+                                class="inputfield p-fluid w-full"
+                                formControlName="upsAux"
+                            />
+                        </div>
+                    </div> -->
+<!--                   <div class="grid m-1">-->
+<!--                       <div class="col-3">-->
+<!--                           <label>NOMBRE DE DIGITADOR:</label>-->
+<!--                           <input type="text" style="text-transform:uppercase"  pInputText class="inputfield p-fluid w-full" formControlName="nombreDigitador"/>-->
+<!--                       </div>-->
+<!--                       <div class="col-2">-->
+<!--                           <label>CODIGO DIGITADOR:</label>-->
+<!--                           <input type="text" style="text-transform:uppercase"  pInputText class="inputfield p-fluid w-full" formControlName="codigoDigitador"/>-->
+<!--                       </div>-->
+<!--                       <div class="col-4">-->
+<!--                           <label>NOMBRE DEL RESPONSABLE DE ATENCION:</label>-->
+<!--                           <input type="text" style="text-transform:uppercase"  pInputText class="inputfield p-fluid w-full" formControlName="nombreResponsable"/>-->
+<!--                       </div>-->
+<!--                       <div class="col-3">-->
+<!--                           <label>CODIGO DEL PERSONAL:</label>-->
+<!--                           <input type="text" style="text-transform:uppercase"  pInputText class="inputfield p-fluid w-full" formControlName="codigoResponsable"/>-->
+<!--                       </div>-->
+<!--                   </div>-->
+<!--   <div class="grid m-1">
+                        <div class="col-1">
+                            <label>DIA:</label>
+                            <input
+                                type="text"
+                                style="text-transform: uppercase"
+                                pInputText
+                                class="inputfield p-fluid w-full"
+                                formControlName="dia"
+                            />
+                        </div>
+                        <div class="col-5">
+                            <label>NOMBRE DEL RESPONSABLE DE ATENCION:</label>
+                            <input
+                                type="text"
+                                style="text-transform: uppercase"
+                                pInputText
+                                class="inputfield p-fluid w-full"
+                                formControlName="nombreResponsable"
+                            />
+                        </div>
+                        <div class="col-3">
+                            <label>CODIGO DEL PERSONAL:</label>
+                            <input
+                                type="text"
+                                style="text-transform: uppercase"
+                                pInputText
+                                class="inputfield p-fluid w-full"
+                                formControlName="codigoResponsable"
+                            />
+                        </div>
+                        <div class="col-3">
+                            <label>DOC. DEL PERSONAL:</label>
+                            <input
+                                type="text"
+                                style="text-transform: uppercase"
+                                pInputText
+                                class="inputfield p-fluid w-full"
+                                formControlName="dniResponsable"
+                            />
                         </div>
                     </div>
-                </form>
-            </ng-template>
-            <ng-template pTemplate="right">
-                <div class="col-12 p-fluid">
-                    <button pButton pRippleicon="pi pi-upload"
-                            class="p-button-success">
-                        <a style="color: white; font-weight: bold;"
-                           href="http://190.108.93.150:8200/jasperserver/rest_v2/reports/Reports/HIS/anexo1.pdf?upsAux=MATERNO"
-                           target="_blank">Exportar HIS</a></button>
+                    <div class="grid m-1">
+                        <div class="col-1">
+                            <label>HORA:</label>
+                            <input
+                                type="text"
+                                style="text-transform: uppercase"
+                                pInputText
+                                class="inputfield p-fluid w-full"
+                                formControlName="hora"
+                            />
+                        </div>
+                        <div class="col-2">
+                            <label>HCL:</label>
+                            <input
+                                type="text"
+                                style="text-transform: uppercase"
+                                pInputText
+                                class="inputfield p-fluid w-full"
+                                formControlName="hcl"
+                            />
+                        </div>
+                        <div class="col-1">
+                            <label>FINAC:</label>
+                            <input
+                                type="text"
+                                style="text-transform: uppercase"
+                                pInputText
+                                class="inputfield p-fluid w-full"
+                                formControlName="financiamiento"
+                            />
+                        </div>
+                        <div class="col-2">
+                            <label>CCPP:</label>
+                            <input
+                                type="text"
+                                style="text-transform: uppercase"
+                                pInputText
+                                class="inputfield p-fluid w-full"
+                                formControlName="ccpp"
+                            />
+                        </div>
+                        <div class="col-1">
+                            <label>EDAD:</label>
+                            <input
+                                type="text"
+                                style="text-transform: uppercase"
+                                pInputText
+                                class="inputfield p-fluid w-full"
+                                formControlName="edad"
+                            />
+                        </div>
+                        <div class="col-1">
+                            <label>SEXO:</label>
+                            <input
+                                type="text"
+                                style="text-transform: uppercase"
+                                pInputText
+                                class="inputfield p-fluid w-full"
+                                formControlName="sexo"
+                            />
+                        </div>
+                        <div class="col-2">
+                            <label>GRUPO RIESGO:</label>
+                            <input
+                                type="text"
+                                style="text-transform: uppercase"
+                                pInputText
+                                class="inputfield p-fluid w-full"
+                                formControlName="grupoRiesgo"
+                            />
+                        </div>
+                        <div class="col-1">
+                            <label>CON_ING ES:</label>
+                            <input
+                                type="text"
+                                style="text-transform: uppercase"
+                                pInputText
+                                class="inputfield p-fluid w-full"
+                                formControlName="con_es"
+                            />
+                        </div>
+                        <div class="col-1">
+                            <label>CON_ING SE:</label>
+                            <input
+                                type="text"
+                                style="text-transform: uppercase"
+                                pInputText
+                                class="inputfield p-fluid w-full"
+                                formControlName="con_se"
+                            />
+                        </div>
+                    </div>
+                    <div class="grid m-1">
+                        <div class="col-2">
+                            <label>SALUD MATERNA:</label>
+                            <input
+                                type="text"
+                                style="text-transform: uppercase"
+                                pInputText
+                                class="inputfield p-fluid w-full"
+                                formControlName="saludMaterna"
+                            />
+                        </div>
+                        <div class="col-2">
+                            <label>NRO DOC.:</label>
+                            <input
+                                type="text"
+                                style="text-transform: uppercase"
+                                pInputText
+                                class="inputfield p-fluid w-full"
+                                formControlName="nroDoc"
+                            />
+                        </div>
+                        <div class="col-4">
+                            <label>ETNIA:</label>
+                            <input
+                                type="text"
+                                style="text-transform: uppercase"
+                                pInputText
+                                class="inputfield p-fluid w-full"
+                                formControlName="etnia"
+                            />
+                        </div>
+                        <div class="col-2">
+                            <label>REGISTRO OPCIONAL:</label>
+                            <input
+                                type="text"
+                                style="text-transform: uppercase"
+                                pInputText
+                                class="inputfield p-fluid w-full"
+                                formControlName="registroOpcional"
+                            />
+                        </div>
+                        <div class="col-2">
+                            <label>SEMANA GESTACION:</label>
+                            <input
+                                type="text"
+                                style="text-transform: uppercase"
+                                pInputText
+                                class="inputfield p-fluid w-full"
+                                formControlName="semanaGestacion"
+                            />
+                        </div>
+                    </div>
+                    <div class="grid m-1">
+                        <div class="col-2">
+                            <label>DISTRITO:</label>
+                            <input
+                                type="text"
+                                style="text-transform: uppercase"
+                                pInputText
+                                class="inputfield p-fluid w-full"
+                                formControlName="distrito"
+                            />
+                        </div>
+                        <div class="col-2">
+                            <label>SECTOR:</label>
+                            <input
+                                type="text"
+                                style="text-transform: uppercase"
+                                pInputText
+                                class="inputfield p-fluid w-full"
+                                formControlName="sector"
+                            />
+                        </div>
+                        <div class="col-2">
+                            <label>ACTIVIDAD:</label>
+                            <input
+                                type="text"
+                                style="text-transform: uppercase"
+                                pInputText
+                                class="inputfield p-fluid w-full"
+                                formControlName="codigoActividad"
+                            />
+                        </div>
+                        <div class="col-2">
+                            <label>PESO(KG):</label>
+                            <input
+                                type="text"
+                                style="text-transform: uppercase"
+                                pInputText
+                                class="inputfield p-fluid w-full"
+                                formControlName="peso"
+                            />
+                        </div>
+                        <div class="col-2">
+                            <label>TALLA(CM):</label>
+                            <input
+                                type="text"
+                                style="text-transform: uppercase"
+                                pInputText
+                                class="inputfield p-fluid w-full"
+                                formControlName="talla"
+                            />
+                        </div>
+                        <div class="col-2">
+                            <label>HB:</label>
+                            <input
+                                type="text"
+                                style="text-transform: uppercase"
+                                pInputText
+                                class="inputfield p-fluid w-full"
+                                formControlName="hb"
+                            />
+                        </div>
+                    </div>
+                    <div class="grid m-1">
+                        <div class="col-12">
+                            <p-table
+                                [value]="diagnosticos"
+                                #dt
+                                styleClass="p-datatable-gridlines"
+                            >
+                                <ng-template
+                                    pTemplate="header"
+                                    styleClass="p-datatable-gridlines"
+                                >
+                                    <tr>
+                                        <th style="text-align: center">N°</th>
+                                        <th style="text-align: center">
+                                            DIAGNOSTICOS O PROCEDIMIENTOS
+                                        </th>
+                                        <th style="text-align: center">
+                                            TIPO DX
+                                        </th>
+                                        <th style="text-align: center">
+                                            CONDICION
+                                        </th>
+                                        <th style="text-align: center">
+                                            CIE_CPT
+                                        </th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template
+                                    pTemplate="body"
+                                    let-rowData
+                                    let-rowIndex="rowIndex"
+                                >
+                                    <tr>
+                                        <td style="text-align: center">
+                                            {{ rowIndex + 1 }}
+                                        </td>
+                                        <td style="text-align: center">
+                                            {{ rowData.diagnostico }}
+                                        </td>
+                                        <td style="text-align: center">
+                                            {{ rowData.tipoDx }}
+                                        </td>
+                                        <td style="text-align: center">
+                                            {{ rowData.lab }}
+                                        </td>
+                                        <td style="text-align: center">
+                                            {{ rowData.cie_10 }}
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </div>
                 </div>
-            </ng-template>
-        </p-toolbar>
+            </div>
+        </form>
     </div>
 
-    <div>
-        <p-accordion>
-            <p-accordionTab header="LISTA DE HIS GENERADOS POR FECHA" [selected]="true">
-                <p-table [value]="dataReporteHis" #dt styleClass="p-datatable-gridlines">
+    <ng-template pTemplate="footer">
+        <button
+            pButton
+            pRipple
+            type="button"
+            label="Cerrar"
+            class="p-button-danger"
+            icon="pi pi-times"
+            (click)="displayMaximizable = false"
+            iconPos="right"
+        ></button>
+    </ng-template>
+</p-dialog>
+<p-toast></p-toast> -->
 
-                    <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+<!-- <button pButton (click)="download()">download</button> -->
+
+<!-- <p-toolbar>
+<!--  <div>
+        <p-accordion>
+            <p-accordionTab
+                header="LISTA DE HIS GENERADOS POR FECHA"
+                [selected]="true"
+            >
+                <p-table
+                    [value]="dataReporteHis"
+                    #dt
+                    styleClass="p-datatable-gridlines"
+                >
+                    <ng-template
+                        pTemplate="header"
+                        styleClass="p-datatable-gridlines"
+                    >
                         <tr>
                             <th style="text-align: center">N°</th>
-                            <th style="text-align: center">DOCUMENTO DE IDENTIDAD</th>
+                            <th style="text-align: center">
+                                DOCUMENTO DE IDENTIDAD
+                            </th>
                             <th style="text-align: center">APELLIDOS</th>
                             <th style="text-align: center">NOMBRES</th>
                             <th style="text-align: center">FECHA REGISTRO</th>
                             <th style="text-align: center">ACCIÓN</th>
-
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                    <ng-template
+                        pTemplate="body"
+                        let-rowData
+                        let-rowIndex="rowIndex"
+                    >
                         <tr>
-                            <td style="text-align: center">{{ rowIndex + 1 }}</td>
-                            <td style="text-align: center">{{ rowData.tipoDoc + ":" + rowData.nroDoc }}</td>
-                            <td style="text-align: center">{{ rowData.apePaterno + " " + rowData.apeMaterno}}</td>
-                            <td style="text-align: center">{{ rowData.nombre }}</td>
-                            <td style="text-align: center">{{ rowData.dia + "-" + rowData.mes + "-" + rowData.anio }}</td>
+                            <td style="text-align: center">
+                                {{ rowIndex + 1 }}
+                            </td>
+                            <td style="text-align: center">
+                                {{ rowData.tipoDoc + ":" + rowData.nroDoc }}
+                            </td>
+                            <td style="text-align: center">
+                                {{
+                                    rowData.apePaterno +
+                                        " " +
+                                        rowData.apeMaterno
+                                }}
+                            </td>
+                            <td style="text-align: center">
+                                {{ rowData.nombre }}
+                            </td>
+                            <td style="text-align: center">
+                                {{
+                                    rowData.dia +
+                                        "-" +
+                                        rowData.mes +
+                                        "-" +
+                                        rowData.anio
+                                }}
+                            </td>
                             <td style="text-align: right">
-                                <button pButton pRipple (click)="verHis(rowData)"
-                                        class="boton-azul" label="Ver HIS"
-                                        icon="pi pi-check"></button>
+                                <button
+                                    pButton
+                                    pRipple
+                                    (click)="verHis(rowData)"
+                                    class="boton-azul"
+                                    label="Ver HIS"
+                                    icon="pi pi-check"
+                                ></button>
                             </td>
                         </tr>
                     </ng-template>
                 </p-table>
             </p-accordionTab>
         </p-accordion>
-    </div>
-
-    <p-dialog header="REPORTE HIS" [(visible)]="displayMaximizable" [modal]="true" [style]="{width: '80vw'}"
-              [maximizable]="true" [draggable]="false" [resizable]="false">
-        <div class="tabla">
-            <form [formGroup]='formHISReporte'>
-                <div class="grid m-2">
-                    <div class="border2">
-                        <div class="grid m-1">
-                            <div class="col-1">
-                                <label>AÑO:</label>
-                                <input type="text" style="text-transform:uppercase" pInputText
-                                       class="inputfield p-fluid w-full" formControlName="anio"/>
-                            </div>
-                            <div class="col-2">
-                                <label>MES:</label>
-                                <input type="text" style="text-transform:uppercase" pInputText
-                                       class="inputfield p-fluid w-full" formControlName="mes"/>
-                            </div>
-                            <div class="col-3">
-                                <label>IPRESS:</label>
-                                <input type="text" style="text-transform:uppercase" pInputText
-                                       class="inputfield p-fluid w-full" formControlName="ipress"/>
-                            </div>
-                            <div class="col-3">
-                                <label>UPS:</label>
-                                <input type="text" style="text-transform:uppercase" pInputText
-                                       class="inputfield p-fluid w-full" formControlName="ups"/>
-                            </div>
-                            <div class="col-3">
-                                <label>UPS AUXILIAR:</label>
-                                <input type="text" style="text-transform:uppercase" pInputText
-                                       class="inputfield p-fluid w-full" formControlName="upsAux"/>
-                            </div>
-                        </div>
-                        <!--                   <div class="grid m-1">-->
-                        <!--                       <div class="col-3">-->
-                        <!--                           <label>NOMBRE DE DIGITADOR:</label>-->
-                        <!--                           <input type="text" style="text-transform:uppercase"  pInputText class="inputfield p-fluid w-full" formControlName="nombreDigitador"/>-->
-                        <!--                       </div>-->
-                        <!--                       <div class="col-2">-->
-                        <!--                           <label>CODIGO DIGITADOR:</label>-->
-                        <!--                           <input type="text" style="text-transform:uppercase"  pInputText class="inputfield p-fluid w-full" formControlName="codigoDigitador"/>-->
-                        <!--                       </div>-->
-                        <!--                       <div class="col-4">-->
-                        <!--                           <label>NOMBRE DEL RESPONSABLE DE ATENCION:</label>-->
-                        <!--                           <input type="text" style="text-transform:uppercase"  pInputText class="inputfield p-fluid w-full" formControlName="nombreResponsable"/>-->
-                        <!--                       </div>-->
-                        <!--                       <div class="col-3">-->
-                        <!--                           <label>CODIGO DEL PERSONAL:</label>-->
-                        <!--                           <input type="text" style="text-transform:uppercase"  pInputText class="inputfield p-fluid w-full" formControlName="codigoResponsable"/>-->
-                        <!--                       </div>-->
-                        <!--                   </div>-->
-                        <div class="grid m-1">
-                            <div class="col-1">
-                                <label>DIA:</label>
-                                <input type="text" style="text-transform:uppercase" pInputText
-                                       class="inputfield p-fluid w-full" formControlName="dia"/>
-                            </div>
-                            <div class="col-5">
-                                <label>NOMBRE DEL RESPONSABLE DE ATENCION:</label>
-                                <input type="text" style="text-transform:uppercase" pInputText
-                                       class="inputfield p-fluid w-full" formControlName="nombreResponsable"/>
-                            </div>
-                            <div class="col-3">
-                                <label>CODIGO DEL PERSONAL:</label>
-                                <input type="text" style="text-transform:uppercase" pInputText
-                                       class="inputfield p-fluid w-full" formControlName="codigoResponsable"/>
-                            </div>
-                            <div class="col-3">
-                                <label>DOC. DEL PERSONAL:</label>
-                                <input type="text" style="text-transform:uppercase" pInputText
-                                       class="inputfield p-fluid w-full" formControlName="dniResponsable"/>
-                            </div>
-                        </div>
-                        <div class="grid m-1">
-                            <div class="col-1">
-                                <label>HORA:</label>
-                                <input type="text" style="text-transform:uppercase" pInputText
-                                       class="inputfield p-fluid w-full" formControlName="hora"/>
-                            </div>
-                            <div class="col-2">
-                                <label>HCL:</label>
-                                <input type="text" style="text-transform:uppercase" pInputText
-                                       class="inputfield p-fluid w-full" formControlName="hcl"/>
-                            </div>
-                            <div class="col-1">
-                                <label>FINAC:</label>
-                                <input type="text" style="text-transform:uppercase" pInputText
-                                       class="inputfield p-fluid w-full" formControlName="financiamiento"/>
-                            </div>
-                            <div class="col-2">
-                                <label>CCPP:</label>
-                                <input type="text" style="text-transform:uppercase" pInputText
-                                       class="inputfield p-fluid w-full" formControlName="ccpp"/>
-                            </div>
-                            <div class="col-1">
-                                <label>EDAD:</label>
-                                <input type="text" style="text-transform:uppercase" pInputText
-                                       class="inputfield p-fluid w-full" formControlName="edad"/>
-                            </div>
-                            <div class="col-1">
-                                <label>SEXO:</label>
-                                <input type="text" style="text-transform:uppercase" pInputText
-                                       class="inputfield p-fluid w-full" formControlName="sexo"/>
-                            </div>
-                            <div class="col-2">
-                                <label>GRUPO RIESGO:</label>
-                                <input type="text" style="text-transform:uppercase" pInputText
-                                       class="inputfield p-fluid w-full" formControlName="grupoRiesgo"/>
-                            </div>
-                            <div class="col-1">
-                                <label>CON_ING ES:</label>
-                                <input type="text" style="text-transform:uppercase" pInputText
-                                       class="inputfield p-fluid w-full" formControlName="con_es"/>
-                            </div>
-                            <div class="col-1">
-                                <label>CON_ING SE:</label>
-                                <input type="text" style="text-transform:uppercase" pInputText
-                                       class="inputfield p-fluid w-full" formControlName="con_se"/>
-                            </div>
-                        </div>
-                        <div class="grid m-1">
-                            <div class="col-2">
-                                <label>SALUD MATERNA:</label>
-                                <input type="text" style="text-transform:uppercase" pInputText
-                                       class="inputfield p-fluid w-full" formControlName="saludMaterna"/>
-                            </div>
-                            <div class="col-2">
-                                <label>NRO DOC.:</label>
-                                <input type="text" style="text-transform:uppercase" pInputText
-                                       class="inputfield p-fluid w-full" formControlName="nroDoc"/>
-                            </div>
-                            <div class="col-4">
-                                <label>ETNIA:</label>
-                                <input type="text" style="text-transform:uppercase" pInputText
-                                       class="inputfield p-fluid w-full" formControlName="etnia"/>
-                            </div>
-                            <div class="col-2">
-                                <label>REGISTRO OPCIONAL:</label>
-                                <input type="text" style="text-transform:uppercase" pInputText
-                                       class="inputfield p-fluid w-full" formControlName="registroOpcional"/>
-                            </div>
-                            <div class="col-2">
-                                <label>SEMANA GESTACION:</label>
-                                <input type="text" style="text-transform:uppercase" pInputText
-                                       class="inputfield p-fluid w-full" formControlName="semanaGestacion"/>
-                            </div>
-                        </div>
-                        <div class="grid m-1">
-                            <div class="col-2">
-                                <label>DISTRITO:</label>
-                                <input type="text" style="text-transform:uppercase" pInputText
-                                       class="inputfield p-fluid w-full" formControlName="distrito"/>
-                            </div>
-                            <div class="col-2">
-                                <label>SECTOR:</label>
-                                <input type="text" style="text-transform:uppercase" pInputText
-                                       class="inputfield p-fluid w-full" formControlName="sector"/>
-                            </div>
-                            <div class="col-2">
-                                <label>ACTIVIDAD:</label>
-                                <input type="text" style="text-transform:uppercase" pInputText
-                                       class="inputfield p-fluid w-full" formControlName="codigoActividad"/>
-                            </div>
-                            <div class="col-2">
-                                <label>PESO(KG):</label>
-                                <input type="text" style="text-transform:uppercase" pInputText
-                                       class="inputfield p-fluid w-full" formControlName="peso"/>
-                            </div>
-                            <div class="col-2">
-                                <label>TALLA(CM):</label>
-                                <input type="text" style="text-transform:uppercase" pInputText
-                                       class="inputfield p-fluid w-full" formControlName="talla"/>
-                            </div>
-                            <div class="col-2">
-                                <label>HB:</label>
-                                <input type="text" style="text-transform:uppercase" pInputText
-                                       class="inputfield p-fluid w-full" formControlName="hb"/>
-                            </div>
-                        </div>
-                        <div class="grid m-1">
-                            <div class="col-12">
-                                <p-table [value]="diagnosticos" #dt styleClass="p-datatable-gridlines">
-
-                                    <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
-                                        <tr>
-                                            <th style="text-align: center">N°</th>
-                                            <th style="text-align: center">DIAGNOSTICOS O PROCEDIMIENTOS</th>
-                                            <th style="text-align: center">TIPO DX</th>
-                                            <th style="text-align: center">CONDICION</th>
-                                            <th style="text-align: center">CIE_CPT</th>
-                                        </tr>
-                                    </ng-template>
-                                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-                                        <tr>
-                                            <td style="text-align: center">{{ rowIndex + 1 }}</td>
-                                            <td style="text-align: center">{{ rowData.diagnostico }}</td>
-                                            <td style="text-align: center">{{ rowData.tipoDx}}</td>
-                                            <td style="text-align: center">{{ rowData.lab }}</td>
-                                            <td style="text-align: center">{{ rowData.cie_10 }}</td>
-                                        </tr>
-                                    </ng-template>
-                                </p-table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-
-        <ng-template pTemplate="footer">
-            <button pButton pRipple type="button" label="Cerrar" class="p-button-danger" icon="pi pi-times"
-                    (click)="displayMaximizable=false" iconPos="right"></button>
-        </ng-template>
-
-    </p-dialog>
-    <p-toast></p-toast>
-</div>
+    </div> -->

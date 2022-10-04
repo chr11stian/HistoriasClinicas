@@ -51,6 +51,7 @@ export class EcografiaSolicitudComponent implements OnInit {
 
   nroConsultaGuardada: any;
   listaSubTipos: any;
+  consultationId: string;
 
   constructor(private form: FormBuilder,
     private ref: DynamicDialogRef,
@@ -68,6 +69,7 @@ export class EcografiaSolicitudComponent implements OnInit {
     this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
     this.edadPaciente = JSON.parse(localStorage.getItem('datacupos')).paciente.edadAnio;
     this.sexoPaciente = JSON.parse(localStorage.getItem('datacupos')).paciente.sexo;
+    this.consultationId = JSON.parse(localStorage.getItem('IDConsulta'));
     this.recuperarUpsHis();
     this.recuperarUPS();
     this.recuperarConsulta();
@@ -150,7 +152,7 @@ export class EcografiaSolicitudComponent implements OnInit {
       nroEmbarazo: this.nroEmbarazo,
       nroAtencion: this.nroAtencion
     }
-    this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
+    this.DxService.getConsultaPrenatalByEmbarazo(this.consultationId, aux).subscribe((res: any) => {
       this.nroConsultaGuardada = res.object.id;
     })
   }
@@ -191,7 +193,7 @@ export class EcografiaSolicitudComponent implements OnInit {
       lab: this.formEcografiaSolicitud.value.lab,
       agregarafiliacion: true,
       cie10SIS: this.formEcografiaSolicitud.value.diagnostico.cie10SIS,
-      estadoPago:"PAGADO"
+      estadoPago: "PAGADO"
     }
 
     console.log(data);
@@ -202,7 +204,7 @@ export class EcografiaSolicitudComponent implements OnInit {
       nroEmbarazo: this.nroEmbarazo,
       nroAtencion: this.nroAtencion
     }
-    await this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
+    await this.DxService.getConsultaPrenatalByEmbarazo(this.consultationId, aux).subscribe((res: any) => {
       this.nroConsultaGuardada = res.object.id;
       this.DxService.guardarSolicitudEcografiasGestante(this.nroConsultaGuardada, data).then((res: any) => {
         Swal.fire({
@@ -240,7 +242,7 @@ export class EcografiaSolicitudComponent implements OnInit {
       nroEmbarazo: this.nroEmbarazo,
       nroAtencion: this.nroAtencion
     }
-    await this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
+    await this.DxService.getConsultaPrenatalByEmbarazo(this.consultationId, aux).subscribe((res: any) => {
       this.nroConsultaGuardada = res.object.id;
       this.DxService.editarSolicitudEcografiasGestante(this.nroConsultaGuardada, data).then((res: any) => {
         Swal.fire({

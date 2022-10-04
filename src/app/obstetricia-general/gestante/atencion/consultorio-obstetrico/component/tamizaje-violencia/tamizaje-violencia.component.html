@@ -1,5 +1,5 @@
 <div>
-    <p-toolbar>
+    <!-- <p-toolbar>
         <ng-template pTemplate="left">
             <form [formGroup]='formDatos_Tamisaje'>
                 <div class="">
@@ -9,17 +9,11 @@
             </form>
         </ng-template>
         <ng-template pTemplate="right" class="button">
-            <button pButton pRipple type="button" icon="pi pi-list" label="Lista tamizaje"
-                    (click)="openModal()" class="p-button-danger">
-            </button>
-            <button pButton pRipple type="button" icon="pi pi-broom" label="Nuevo"
-                    (click)="limpiarFormulario()" class="p-button-danger">
-            </button>
             <button pButton pRipple type="button" icon="pi pi-save" label="Guardar"
                     (click)="save()" class="p-button-danger">
             </button>
         </ng-template>
-    </p-toolbar>
+    </p-toolbar> -->
     <br>
     <div class="grid">
         <div class="col-12 md:col-6 lg:col-12 p-field" style="text-align:center;">
@@ -36,14 +30,22 @@
                         <div class="">
                             <label class="">Documento de identidad: </label>
                             <input type="text" pInputText class="inputfield w-full bg_color"
-                                   formControlName="nroDoc" placeholder="Nro documento" disabled>
+                                   formControlName="nroDoc" placeholder="Nro documento">
                         </div>
                     </div>
                     <div class="col-12 md:col-6 lg:col-3 p-field">
                         <div class="">
                             <label class="">Número de historia Clinica: </label>
                             <input type="text" pInputText class="inputfield w-full bg_color"
-                                   formControlName="nroHcl" placeholder="Nro historia clínica" dibsaled>
+                                   formControlName="nroHcl" placeholder="Nro historia clínica">
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-3 p-field">
+                        <div class="">
+                            <label class="">Fecha: </label>
+                            <!-- <p-calendar formControlName="Fecha" dateFormat="yy-mm-dd"></p-calendar> -->
+                            <input type="date" pInputText class="inputfield w-full bg_color"
+                                   formControlName="Fecha" placeholder="Nro historia clínica">
                         </div>
                     </div>
                 </div>
@@ -51,21 +53,21 @@
                     <div class="col-12 md:col-6 lg:col-4 p-field">
                         <div class="">
                             <label class="">Apellido Paterno:</label>
-                            <input type="text" pInputText class="inputfield w-full bg_color" disabled
+                            <input type="text" pInputText class="inputfield w-full bg_color"
                                    formControlName="apePaterno" placeholder="Apellido Paterno">
                         </div>
                     </div>
                     <div class="col-12 md:col-6 lg:col-4 p-field">
                         <div class="">
                             <label class="">Apellido Materno: </label>
-                            <input type="text" pInputText class="inputfield w-full bg_color" disabled
+                            <input type="text" pInputText class="inputfield w-full bg_color"
                                    formControlName="apeMaterno" placeholder="Apellido Materno">
                         </div>
                     </div>
                     <div class="col-12 md:col-6 lg:col-4 p-field">
                         <div class="">
                             <label class="">Nombres: </label>
-                            <input type="text" pInputText class="inputfield w-full bg_color" disabled
+                            <input type="text" pInputText class="inputfield w-full bg_color"
                                    formControlName="nombres" placeholder="Nombres">
                         </div>
                     </div>
@@ -74,7 +76,7 @@
                     <div class="col-12 md:col-6 lg:col-3 p-field">
                         <div class="">
                             <label class="">Edad: </label>
-                            <input type="text" pInputText class="inputfield w-full bg_color" disabled
+                            <input type="text" pInputText class="inputfield w-full bg_color"
                                    formControlName="Edad" placeholder="Edad">
                         </div>
                     </div>
@@ -82,7 +84,7 @@
                     <div class="col-12 md:col-6 lg:col-6 p-field">
                         <div class="">
                             <label class="">Dirección:</label>
-                            <input type="text" pInputText class="inputfield w-full bg_color" disabled
+                            <input type="text" pInputText class="inputfield w-full bg_color"
                                    formControlName="Direccion"
                                    placeholder="Direccion / Departamento / Provincia / Distrito">
                         </div>
@@ -90,7 +92,7 @@
                     <div class="col-12 md:col-6 lg:col-3 p-field">
                         <div class="">
                             <label class="">Telefono:</label>
-                            <input type="text" pInputText class="inputfield w-full bg_color" disabled
+                            <input type="text" pInputText class="inputfield w-full bg_color"
                                    formControlName="Telefono" placeholder="Telefono">
                         </div>
                     </div>
@@ -99,8 +101,8 @@
         </div>
     </form>
     <br>
-    <p-tabView (onChange)="tab($event)" styleClass="tabview-custom" class="tab">
-        <p-tabPanel header="Preguntas al Paciente I" leftIcon="pi pi-file" tooltip="Preguntas">
+    <p-tabView (onChange)="tab($event)" styleClass="tabview-custom" class="tab" [(activeIndex)]="indiceActivo">
+        <p-tabPanel header="Preguntas al Paciente I" leftIcon="pi pi-file" tooltip="Preguntas"  [disabled]="false">
             <div class="border">
                 <p class="texto-justificado m-3">El siguiente listado de preguntas se presenta con la finalidad de
                     indagar
@@ -217,7 +219,7 @@
                     </div>
                     <br>
                     <br>
-                    <p-fieldset class="infor3 m-2" legend="DIAGNOSTICO Y RESPONSABLE" [toggleable]="true">
+                    <!-- <p-fieldset class="infor3 m-2" legend="DIAGNOSTICO Y RESPONSABLE" [toggleable]="true">
                         <div class="grid">
                             <div class="col-12 md:col-6 lg:col-3 p-field">
                                 <div class="">
@@ -246,11 +248,21 @@
                             </div>
                         </div>
 
-                    </p-fieldset>
+                    </p-fieldset> -->
                 </form>
             </div>
+            <p-toolbar>
+                <ng-template pTemplate="left">
+                    <h3 class="mt-2"></h3>
+                </ng-template>
+                <ng-template pTemplate="right" class="button">
+                    <button pButton pRipple type="button" icon="pi pi-save" label="Guardar"
+                    (click)="guardarActualizar()" class="p-button-danger">
+                </button>
+                </ng-template>
+            </p-toolbar>
         </p-tabPanel>
-        <p-tabPanel header="Preguntas al Paciente II" leftIcon="pi pi-file" tooltip="Preguntas">
+        <p-tabPanel header="Preguntas al Paciente II" leftIcon="pi pi-file" tooltip="Preguntas" [disabled]="!isUpdate">
             <div class="border">
                 <p class="texto-justificado m-3">Para preguntar directamente a las usuarias sobre una posible violencia,
                     el profesional de la salud realiza las siguientes preguntas:</p>
@@ -680,9 +692,18 @@
                     </div>
                 </form>
             </div>
-
+            <p-toolbar>
+                <ng-template pTemplate="left">
+                    <h3 class="mt-2"></h3>
+                </ng-template>
+                <ng-template pTemplate="right" class="button">
+                    <button pButton pRipple type="button" icon="pi pi-save" label="Guardar"
+                    (click)="UpdateTamizaje2()" class="p-button-danger">
+                </button>
+                </ng-template>
+            </p-toolbar>
         </p-tabPanel>
-        <p-tabPanel header="Ficha de Valoración" leftIcon="pi pi-file" tooltip="Ficha de valoración">
+        <p-tabPanel header="Ficha de Valoración" leftIcon="pi pi-file" tooltip="Ficha de valoración" [disabled]="!isUpdate">
             <div class="border2">
                 <p class="texto-justificado m-3">Para preguntar directamente a las usuarias sobre una posible violencia,
                     el profesional de la salud realiza las siguientes preguntas:</p>
@@ -726,7 +747,9 @@
                                             <p-selectButton [options]="opciones" optionLabel="name"
                                                             optionValue="name"
                                                             formControlName="respuestaValoracion2A"
-                                                            (onChange)="calcularValoracion()"></p-selectButton>
+                                                            (onChange)="calcularValoracion();evaluamos();"
+                                                            
+                                                            ></p-selectButton>
                                         </div>
                                     </div>
                                 </div>
@@ -743,7 +766,7 @@
                                                             optionValue="label"
                                                             formControlName="respuestaValoracion3"
                                                             (onChange)="calcularValoracion()"
-                                                            [disabled]="p2A!='SI'"></p-selectButton>
+                                                            ></p-selectButton>
                                         </div>
                                     </div>
                                 </div>
@@ -772,7 +795,7 @@
                                             <p-selectButton [options]="opcionesC" optionLabel="name"
                                                             optionValue="label"
                                                             formControlName="respuestaValoracion5"
-                                                            (onChange)="calcularValoracion()"></p-selectButton>
+                                                            (onChange)="calcularValoracion();evaluar2()"></p-selectButton>
                                         </div>
                                     </div>
                                 </div>
@@ -785,12 +808,12 @@
                                                        type="text" pInputText
                                                        placeholder="Pistola o cuchillo"
                                                        formControlName="arma"
-                                                       *ngIf="p5A == 'SI'"/>
+                                                       *ngIf="usaArmas"/>    
                                             </div>
-                                            <p-selectButton [options]="opciones" optionLabel="name"
+                                            <!-- <p-selectButton [options]="opciones" optionLabel="name"
                                                             optionValue="name"
                                                             formControlName="respuestaValoracion5A"
-                                                            (onChange)="calcularValoracion()"></p-selectButton>
+                                                            (onChange)="calcularValoracion()"></p-selectButton> -->
                                         </div>
 
 
@@ -1048,12 +1071,22 @@
                     </div>
                 </form>
             </div>
+            <p-toolbar>
+                <ng-template pTemplate="left">
+                    <h3 class="mt-2"></h3>
+                </ng-template>
+                <ng-template pTemplate="right" class="button">
+                    <button pButton pRipple type="button" icon="pi pi-save" label="Guardar"
+                    (click)="UpdateTamizajeValoracion()" class="p-button-danger">
+                </button>
+                </ng-template>
+            </p-toolbar>
 
         </p-tabPanel>
     </p-tabView>
 </div>
 
-
+<!-- 
 <p-dialog [(visible)]="ListaTamizajeDialog" [style]="{width: '1200px', height: '600px'}" [modal]="true"
           [draggable]="false" [resizable]="false">
 
@@ -1108,5 +1141,5 @@
         </p-accordion>
     </div>
 
-</p-dialog>
+</p-dialog> -->
 

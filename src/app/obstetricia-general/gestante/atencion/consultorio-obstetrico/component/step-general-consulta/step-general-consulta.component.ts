@@ -1,14 +1,18 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {MenuItem} from "primeng/api"
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import Swal from "sweetalert2";
+import { AtencionesPrenatalesModalComponent } from '../atenciones-prenatales-modal/atenciones-prenatales-modal.component';
 
 @Component({
     selector: 'app-step-general-consulta',
     templateUrl: './step-general-consulta.component.html',
-    styleUrls: ['./step-general-consulta.component.css']
+    styleUrls: ['./step-general-consulta.component.css'],
+    providers:[DialogService]
 })
 export class StepGeneral_consultaComponent implements OnInit {
+    ref: DynamicDialogRef;
     options: data[]
     selectedOption: data
     items: MenuItem[]
@@ -18,7 +22,7 @@ export class StepGeneral_consultaComponent implements OnInit {
     data: any
     IDConsulta: string = null;
 
-    constructor() {
+    constructor(private dialog:DialogService) {
         this.options = [
             { name: "DNI", code: 1 },
             { name: "CARNET RN", code: 2 },
@@ -35,10 +39,10 @@ export class StepGeneral_consultaComponent implements OnInit {
             { label: "Interrogatorio" },
             { label: "Tamizaje"},
             { label: "Exámenes Auxiliares" },
-            { label: "Tratamientos" },
             { label: "Diagnosticos" },
             { label: "Procedimientos" },
-            { label: "Finalizar" },
+            { label: "Tratamientos" },
+            { label: "Referencia" },
         ]
     }
 
@@ -48,14 +52,14 @@ export class StepGeneral_consultaComponent implements OnInit {
                 this.stepName = "finalizar"
                 break
             case 6:
-                this.stepName = "procedimientos"
+                this.stepName = "tratamiento"
                 break
             case 5:
-                this.stepName = "diagnostico"
+                this.stepName = "procedimientos"
                 // this.stepName = "tratamiento"
                 break
             case 4:
-                this.stepName = "tratamiento"
+                this.stepName = "diagnostico"
                 break
             case 3:
                 this.stepName = "evaluaciones"
@@ -89,8 +93,19 @@ export class StepGeneral_consultaComponent implements OnInit {
 
     ChangeStep(event: number) {
         this.indiceActivo = event;
-        console.log("INDEX", this.indiceActivo)
+        // console.log("INDEX", this.indiceActivo)
         this.name()
+    }
+    openDialogAtencionesPrenatales(){
+        this.ref = this.dialog.open(AtencionesPrenatalesModalComponent, {
+            header: "ATENCIONES PRENATALES",
+            contentStyle:{
+            },
+            style:{
+                width:"80%"
+            },
+          })
+
     }
     
 }
