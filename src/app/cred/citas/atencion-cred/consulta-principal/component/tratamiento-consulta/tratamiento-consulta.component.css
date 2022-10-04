@@ -61,3 +61,25 @@ p-table >>> .p-datatable .p-datatable-tbody > tr > td {
     color: rgb(6, 51, 95);
     border: 1px solid #b6b6b6;
 }
+
+.footer {
+    text-align: right;
+    /* display: flexbox; */
+    /* text-align: center; */
+    background: rgb(255, 255, 255);
+    position: absolute;
+    /* margin-top: 2.5; */
+    bottom: 0;
+    width: 95%;
+    height: 5em;
+    color: white;
+    bottom: 0;
+    z-index: 100;
+}
+.no-data-found {
+    background-image: url(src\assets\images\no_data_found.svg);
+    width: 23rem;
+    height: 30rem;
+    display: block;
+    margin: auto;
+}

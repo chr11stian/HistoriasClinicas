@@ -101,12 +101,9 @@ span p{
   font-size: 1.2rem;
   text-align: right;
 }
-:host::ng-deep .p-dropdown-panel .p-dropdown-items:not(.dropdown-virtualscroll){
+/* :host::ng-deep .p-dropdown-panel .p-dropdown-items:not(.dropdown-virtualscroll){
   position:absolute;
-  /* top:-87px;
-  left:-67px; */
-  /* background-color: #fff; */
   top:-7rem;
   left:-4.5rem;
   background-color: #fff;
-}
+} */

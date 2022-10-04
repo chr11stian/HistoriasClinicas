@@ -248,38 +248,38 @@ export class StepGeneralComponent implements OnInit, DoCheck {
                     this.stepName = "finalizar";
                     this.indiceActivo = 7;
                 } */
-                Swal.fire({
-                    showCancelButton: true,
-                    cancelButtonText: 'Cancelar',
-                    confirmButtonText: 'Finalizar',
-                    icon: 'question',
-                    title: '¿Esta seguro que desea finalizar la consulta?',
-                    text: '',
-                    showConfirmButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        this.tratamientoConsulta.concludeConsultation();
-                        this.stepName = "finalizar";
-                        this.indiceActivo = 7;
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Se cerro la consulta',
-                            text: '',
-                            showConfirmButton: false,
-                            timer: 2000
-                        })
-                    } else {
-                        Swal.fire({
-                            icon: 'info',
-                            title: 'No se finalizo la consulta',
-                            text: '',
-                            showConfirmButton: false,
-                            timer: 2000
-                        })
-                    }
-                })
+                // Swal.fire({
+                //     showCancelButton: true,
+                //     cancelButtonText: 'Cancelar',
+                //     confirmButtonText: 'Finalizar',
+                //     icon: 'question',
+                //     title: '¿Esta seguro que desea finalizar la consulta?',
+                //     text: '',
+                //     showConfirmButton: true,
+                //     confirmButtonColor: '#3085d6',
+                //     cancelButtonColor: '#d33',
+                // }).then((result) => {
+                //     if (result.isConfirmed) {
+                //         this.tratamientoConsulta.concludeConsultation();
+                //         this.stepName = "finalizar";
+                //         this.indiceActivo = 7;
+                //         Swal.fire({
+                //             icon: 'success',
+                //             title: 'Se cerro la consulta',
+                //             text: '',
+                //             showConfirmButton: false,
+                //             timer: 2000
+                //         })
+                //     } else {
+                //         Swal.fire({
+                //             icon: 'info',
+                //             title: 'No se finalizo la consulta',
+                //             text: '',
+                //             showConfirmButton: false,
+                //             timer: 2000
+                //         })
+                //     }
+                // })
                 break;
             case "finalizar":
                 this.finalizarConsulta.save();

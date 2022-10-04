@@ -1,12 +1,12 @@
-import {Component, Input, OnInit, DoCheck} from "@angular/core";
-import {FilterService, MenuItem} from "primeng/api";
-import {Router} from "@angular/router";
+import { escala } from "./../../cred/citas/models/data";
+import { Component, Input, OnInit, DoCheck } from "@angular/core";
+import { FilterService, MenuItem } from "primeng/api";
+import { Router } from "@angular/router";
 
 const menu_geresa = [
     {
         label: "Administración",
         items: [
-
             {
                 icon: "pi pi-file",
                 label: "Rol Guardia",
@@ -23,10 +23,8 @@ const menu_geresa = [
                 icon: "pi pi-pw pi-file",
                 routerLink: "admision/usuarios",
             },
-
         ],
     },
-
 
     {
         label: "Mantenimientos",
@@ -156,7 +154,6 @@ const menu_red = [
     {
         label: "Administración",
         items: [
-
             {
                 icon: "pi pi-file",
                 label: "Rol Guardia",
@@ -173,10 +170,8 @@ const menu_red = [
                 icon: "pi pi-pw pi-file",
                 routerLink: "admision/usuarios",
             },
-
         ],
     },
-
 
     {
         label: "Mantenimientos",
@@ -204,7 +199,6 @@ const menu_microred = [
     {
         label: "Administración",
         items: [
-
             {
                 icon: "pi pi-file",
                 label: "Rol Guardia",
@@ -221,10 +215,8 @@ const menu_microred = [
                 icon: "pi pi-pw pi-file",
                 routerLink: "admision/usuarios",
             },
-
         ],
     },
-
 
     {
         label: "Mantenimientos",
@@ -257,7 +249,6 @@ const administracion1 = {
     label: "Administración",
     icon: "pi pi-sitemap",
     items: [
-
         {
             icon: "pi pi-desktop",
             label: "Rol Guardia",
@@ -275,7 +266,7 @@ const administracion1 = {
             routerLink: "admision/usuarios",
         },*/
     ],
-}
+};
 const administracion2 = {
     label: "Mantenimientos",
     icon: "pi pi-cog",
@@ -350,18 +341,19 @@ const administracion2 = {
             label: "His",
             routerLink: "admision/ipress-his",
         },
-        
     ],
-}
+};
 const triaje = {
     label: "Triaje",
     icon: "pi pi-user-edit",
-    items: [{
-        icon: "pi pi-book",
-        label: "Triaje",
-        routerLink: "admision/triaje",
-    }]
-}
+    items: [
+        {
+            icon: "pi pi-book",
+            label: "Triaje",
+            routerLink: "admision/triaje",
+        },
+    ],
+};
 const admision = {
     label: "Admision",
     icon: "pi pi-sitemap",
@@ -380,9 +372,9 @@ const admision = {
             icon: "pi pi-users",
             label: "Paciente",
             routerLink: "admision/paciente",
-        }
+        },
     ],
-}
+};
 const historias = {
     label: "Historias Clinicas",
     icon: "pi pi-users",
@@ -400,7 +392,7 @@ const historias = {
                     label: "Historia de Consultas",
                     routerLink: "obstetricia-general/historia-consultas",
                 },*/
-            ]
+            ],
         },
         {
             icon: "pi pi-chart-line",
@@ -416,7 +408,7 @@ const historias = {
                     icon: "pi pi-pw pi-file",
                     routerLink: "cred/consulta-cred-general",
                 },*/
-            ]
+            ],
         },
         {
             icon: "pi pi-heart",
@@ -429,9 +421,10 @@ const historias = {
                         {
                             label: "Citas",
                             icon: "pi pi-home",
-                            routerLink: "consulta-generica/lista-cita/NIÑO_NIÑA",
-                        }
-                    ]
+                            routerLink:
+                                "consulta-generica/lista-cita/NIÑO_NIÑA",
+                        },
+                    ],
                 },
                 {
                     icon: "pi pi-cloud",
@@ -440,10 +433,10 @@ const historias = {
                         {
                             label: "Citas",
                             icon: "pi pi-home",
-                            routerLink: "consulta-generica/lista-cita/ADOLESCENTE",
-
-                        }
-                    ]
+                            routerLink:
+                                "consulta-generica/lista-cita/ADOLESCENTE",
+                        },
+                    ],
                 },
                 {
                     icon: "pi pi-comments",
@@ -453,9 +446,8 @@ const historias = {
                             label: "Citas",
                             icon: "pi pi-home",
                             routerLink: "consulta-generica/lista-cita/JOVEN",
-
-                        }
-                    ]
+                        },
+                    ],
                 },
 
                 {
@@ -467,7 +459,7 @@ const historias = {
                             icon: "pi pi-home",
                             routerLink: "consulta-generica/lista-cita/ADULTO",
                         },
-                    ]
+                    ],
                 },
                 {
                     icon: "pi pi-clock",
@@ -476,13 +468,13 @@ const historias = {
                         {
                             label: "Citas",
                             icon: "pi pi-home",
-                            routerLink: "consulta-generica/lista-cita/ADULTO MAYOR",
+                            routerLink:
+                                "consulta-generica/lista-cita/ADULTO MAYOR",
                         },
-                    ]
+                    ],
                 },
             ],
         },
-
 
         {
             icon: "pi pi-tablet",
@@ -491,9 +483,10 @@ const historias = {
                 {
                     label: "Citas",
                     icon: "pi pi-home",
-                    routerLink: "consulta-generica/lista-cita/ODONTOLOGIA GENERAL",
-                }
-            ]
+                    routerLink:
+                        "consulta-generica/lista-cita/ODONTOLOGIA GENERAL",
+                },
+            ],
         },
         {
             icon: "pi pi-id-card",
@@ -503,9 +496,8 @@ const historias = {
                     label: "Citas",
                     icon: "pi pi-home",
                     routerLink: "consulta-generica/lista-cita/PSICOLOGIA",
-                }
-            ]
-
+                },
+            ],
         },
 
         {
@@ -517,60 +509,78 @@ const historias = {
                     icon: "pi pi-home",
                     routerLink: "consulta-generica/lista-cita/NUTRICION",
                 },
-            ]
+            ],
         },
         {
             icon: "pi pi-th-large",
             label: "FUA",
             routerLink: "fua/fua",
         },
-
     ],
-}
+};
 const laboratorio = {
     label: "Laboratorio",
     icon: "pi pi-search",
-    items: [{
-        label: "Laboratorio",
-        icon: "pi pi-pw pi-desktop",
-        routerLink: "laboratorios/lista-laboratorio",
-    }]
-}
+    items: [
+        {
+            label: "Laboratorio",
+            icon: "pi pi-pw pi-desktop",
+            routerLink: "laboratorios/lista-laboratorio",
+        },
+    ],
+};
 const reportes = {
     label: "Reportes",
     icon: "pi pi-send",
-    items: [{
-        label: "Reportes HIS",
-        icon: "pi pi-pw pi-paperclip",
-        routerLink: "reportes/reportes-his",
-    }]
-}
+    items: [
+        {
+            label: "Reportes HIS",
+            icon: "pi pi-pw pi-paperclip",
+            routerLink: "reportes/reportes-his",
+        },
+    ],
+};
 const farmacia = {
     label: "Farmacia",
     icon: "pi pi-print",
-    items: [{
-        label: "Sistema Farmacia",
-        icon: "pi pi-sitemap",
-        routerLink: "admision/ipress-farmacia",
-    }]
-}
-const visitas={
+    items: [
+        {
+            label: "Sistema Farmacia",
+            icon: "pi pi-sitemap",
+            routerLink: "admision/ipress-farmacia",
+        },
+    ],
+};
+const visitas = {
     label: "Visitas Domiciliarias ",
     icon: "pi pi-home",
-    items: [{
-        label: "Niños",
-        icon: "pi pi-user",
-        routerLink: "visitas-domiciliarias/profesional-ninios",
+    items: [
+        {
+            label: "Niños",
+            icon: "pi pi-user",
+            routerLink: "visitas-domiciliarias/profesional-ninios",
         },
         {
-        label: "Gestantes",
-        icon: "pi pi-users",
-        routerLink: "visitas-domiciliarias/profesional-gestantes",
-    }]
-}
+            label: "Gestantes",
+            icon: "pi pi-users",
+            routerLink: "visitas-domiciliarias/profesional-gestantes",
+        },
+    ],
+};
+const root = {
+    label: "Administración",
+    icon: "pi pi-home",
+    items: [
+        {
+            label: "Administradores",
+            icon: "pi pi-pw pi-file",
+            routerLink: "admision/personal-salud",
+        },
+    ],
+};
+
 const menu_ipress = [];
-
-
+const menu_root = [];
 
 @Component({
     selector: "app-side-bar",
@@ -583,55 +593,64 @@ export class SideBarComponent implements OnInit, DoCheck {
     filteredRoutes: any[];
     selectedRoute: any;
     @Input() active: boolean;
-    rol: any
+    rol: any;
 
     activeSubmenus: { [key: string]: boolean } = {};
 
-    constructor(private filterService: FilterService, private router: Router) {
-    }
+    constructor(private filterService: FilterService, private router: Router) {}
 
     build() {
-        if (this.rol.rol === 'ROL_4_7') {
-            menu_ipress.length = 0
-            menu_ipress.push(administracion1)
-            menu_ipress.push(administracion2)
+        if (this.rol === "ROLE_ADMIN") {
+            menu_ipress.length = 0;
+            menu_ipress.push(administracion1);
+            menu_ipress.push(administracion2);
         }
-        if (this.rol.rol === 'ROL_4_5') {
-            menu_ipress.length = 0
-            menu_ipress.push(admision)
+        if (this.rol === "ROLE_TEC_ADMINI_PERSONAL") {
+            menu_ipress.length = 0;
+            menu_ipress.push(admision);
         }
-        if (this.rol.rol === 'ROL_4_6') {
-            menu_ipress.length = 0
-            menu_ipress.push(triaje)
-            menu_ipress.push(historias)
-            menu_ipress.push(laboratorio)
-            menu_ipress.push(reportes)
-            menu_ipress.push(visitas)
+        if (this.rol === "ROLE_ENF_PERSONAL") {
+            menu_ipress.length = 0;
+            menu_ipress.push(triaje);
+            menu_ipress.push(historias);
+            menu_ipress.push(laboratorio);
+            menu_ipress.push(reportes);
         }
-        if (this.rol.rol === 'ROL_4_4') {
-            menu_ipress.length = 0
-            menu_ipress.push(farmacia)
+        if (this.rol === "ROLE_LAB_PERSONAL") {
+            menu_ipress.length = 0;
+            menu_ipress.push(laboratorio);     
+        }
+        if (this.rol === "ROLE_FARM_PERSONAL") {
+            menu_ipress.length = 0;
+            menu_ipress.push(farmacia);
+        }
+        if (this.rol === "VISITA_DOMICILIARIA_PROFESIONAL") {
+            menu_ipress.length = 0;
+            menu_ipress.push(visitas);
+        }
+        if (this.rol === "ROLE_ADMININ_PERSONAL") {
+            menu_root.length = 0;
+            menu_root.push(root);
         }
     }
 
     ngDoCheck() {
-        this.rol = JSON.parse(localStorage.getItem('usuario'));
+        this.rol = JSON.parse(localStorage.getItem("rol"));
     }
 
     ngOnInit(): void {
-        console.log('items', menu_ipress)
         setTimeout(() => {
-            this.build()
-        }, 100)
+            this.build();
+        }, 100);
         setTimeout(() => {
-            this.menu()
-        }, 100)
+            this.menu();
+        }, 100);
     }
 
     menu() {
-        let token = JSON.parse(localStorage.getItem('token'));
-        // console.log('token en side bar', token)
-        switch (token.roles) {
+        let data = JSON.parse(localStorage.getItem("usuario"));
+        if (data.escalas[0] == "sistema") this.items = menu_root;
+        switch (data.escalas[0].escala) {
             case "GERESA":
                 this.items = menu_geresa;
                 break;
