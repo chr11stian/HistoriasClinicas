@@ -20,6 +20,7 @@ export class ModalShowHisComponent implements OnInit {
   nextDateModel: string;
   dataSave: NextAppointment;
   dataPatient: Pregmant;
+  existData: boolean = false;
 
   constructor(
     private tratamientoService: TratamientoConsultaService,
@@ -41,7 +42,7 @@ export class ModalShowHisComponent implements OnInit {
       .getHIS(this.consultationId)
       .subscribe((r: any) => {
         this.listHIS = r.object;
-        console.log("his", this.listHIS);
+        this.listHIS == null ? this.existData = false : this.existData = true;
       });
   }
 
@@ -70,13 +71,7 @@ export class ModalShowHisComponent implements OnInit {
         })
       }
 
-    })
-    // this.finalizeConsultationService.putNextAppointment(this.consultationId, this.dataSave).then((res: any) => {
-    //   console.log('codigoooooooo ', res.cod);
-    //   // if (res.cod == ) {
-
-    //   // }
-    // })
+    });
   }
 
   confirmToSave(): void {
