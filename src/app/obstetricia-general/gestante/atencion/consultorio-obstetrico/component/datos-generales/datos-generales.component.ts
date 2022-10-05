@@ -347,7 +347,6 @@ export class DatosGeneralesComponent implements OnInit {
                 //RECUPERA LOS ANTECEDENTES
                 this.formDatos_Generales.get('Psicoprofilaxis').setValue(this.dataConsultas.psicoprofilaxis.estado);
 
-                //RECUPERA DESCARTE SIGNOS DE ALARMA
                 this.formDatos_Generales.get('DificultadRespiratoria').setValue(this.dataConsultas.listaSignosAlarma ? this.dataConsultas.listaSignosAlarma[0].valorSigno : null);
                 this.formDatos_Generales.get('HipertenciónArterial').setValue(this.dataConsultas.listaSignosAlarma ? this.dataConsultas.listaSignosAlarma[1].valorSigno : null);
                 this.formDatos_Generales.get('SangradoNasal').setValue(this.dataConsultas.listaSignosAlarma ? this.dataConsultas.listaSignosAlarma[2].valorSigno : null);
