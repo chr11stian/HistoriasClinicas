@@ -99,7 +99,7 @@
                 <td style="width:100px">{{rowData.calcio?.cantidad||""}}</td>
                 <td  style="width:100px;display:flex;flex-direction:column;padding:0px;justify-content: space-around;">
                     <div *ngFor="let interconsultas of rowData.interconsultas">   
-                        {{interconsultas}}
+                        {{interconsultas?.servicio||""}}
                     </div>
                 </td>
                 <td style="width:100px">{{rowData.planParto}}</td>
