@@ -453,14 +453,33 @@ export class ProcedimientosComponent implements OnInit {
     }
     let dataSave: DataSave = { procedimientos: [] };
     dataSave.procedimientos = this.arrayProcedureSave;
-    this.tratamientoService.postAddProcedures(this.idConsulta, this.arrayProcedureSave).then(res => {
-      Swal.fire({
-        icon: 'success',
-        title: 'Se guardo exitosamente',
-        text: '',
-        showConfirmButton: false,
-        timer: 2000
-      });
+    this.tratamientoService.postAddProcedures(this.idConsulta, this.arrayProcedureSave).then((res: any) => {
+      if (res.cod == '2001') {
+        Swal.fire({
+          icon: 'success',
+          title: 'Se guardo exitosamente',
+          text: '',
+          showConfirmButton: false,
+          timer: 2000
+        });
+        return;
+      }
+      if (res.cod == '2126') {
+        Swal.fire({
+          icon: 'success',
+          title: 'Se actualizó exitosamente',
+          showConfirmButton: false,
+          timer: 2000
+        });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'No se pudoo guardar.',
+          text: '',
+          showConfirmButton: false,
+          timer: 2000
+        });
+      }
     })
   }
 
