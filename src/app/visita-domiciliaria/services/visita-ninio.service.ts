@@ -13,29 +13,89 @@ export class VisitaNinioService {
 
   constructor(private http: HttpClient) {}
 
-  getVisitasNiniosXProfesional(dni_profesional: string) {
+  getVisitasNiniosXProfesionalTodo(idIpress: string, dni_profesional: string) {
     return this.http.post<VisitasProfesionalNinios[]>(
-      `${this.base_url_view}/visita_domiciliaria_XProfesionalNinio`,
+      `${this.base_url_view}/VPN_XProfesionalTodo`,
       {
-        keys: [dni_profesional],
+        keys: [[idIpress, dni_profesional]],
       }
     );
   }
 
-  buscarVisitaNiniosXAnioMes(fecha: string) {
+  getVisitasNiniosXProfesionalAnio(
+    idIpress: string,
+    dni_profesional: string,
+    anio: string
+  ) {
     return this.http.post<VisitasProfesionalNinios[]>(
-      `${this.base_url_view}/visita_domiciliaria_profesional_NinioXAnioXMes`,
+      `${this.base_url_view}/VPN_ProXAnio`,
       {
-        keys: [fecha],
+        keys: [[idIpress, dni_profesional, anio]],
       }
     );
   }
 
-  buscarVisitaNiniosXAnio(fecha: string) {
+  getVisitasNiniosXProfesionalMenores_4_Meses(
+    idIpress: string,
+    dni_profesional: string,
+    anio: string
+  ) {
     return this.http.post<VisitasProfesionalNinios[]>(
-      `${this.base_url_view}/visita_domiciliaria_profesional_NinioXAnio`,
+      `${this.base_url_view}/VPN_menores_4_meses`,
       {
-        keys: [fecha],
+        keys: [[idIpress, dni_profesional, anio]],
+      }
+    );
+  }
+
+  getVisitasNiniosXProfesionalMayores_4_Meses(
+    idIpress: string,
+    dni_profesional: string,
+    anio: string
+  ) {
+    return this.http.post<VisitasProfesionalNinios[]>(
+      `${this.base_url_view}/VPN_mayores_4_meses`,
+      {
+        keys: [[idIpress, dni_profesional, anio]],
+      }
+    );
+  }
+
+  getVisitasNiniosXProfesionalMenores_4_MesesFecha(
+    idIpress: string,
+    dni_profesional: string,
+    anio_mes: string
+  ) {
+    return this.http.post<VisitasProfesionalNinios[]>(
+      `${this.base_url_view}/VPN_mayores_4_meses_fecha`,
+      {
+        keys: [[idIpress, dni_profesional, anio_mes]],
+      }
+    );
+  }
+
+  getVisitasNiniosXProfesionalMayores_4_MesesFecha(
+    idIpress: string,
+    dni_profesional: string,
+    anio_mes: string
+  ) {
+    return this.http.post<VisitasProfesionalNinios[]>(
+      `${this.base_url_view}/VPN_menores_4_meses_fecha`,
+      {
+        keys: [[idIpress, dni_profesional, anio_mes]],
+      }
+    );
+  }
+
+  getVisitasNiniosXProfesionalXAnioXMesFecha(
+    idIpress: string,
+    dni_profesional: string,
+    anio_mes: string
+  ) {
+    return this.http.post<VisitasProfesionalNinios[]>(
+      `${this.base_url_view}/VPN_ProXAnioXMes`,
+      {
+        keys: [[idIpress, dni_profesional, anio_mes]],
       }
     );
   }
