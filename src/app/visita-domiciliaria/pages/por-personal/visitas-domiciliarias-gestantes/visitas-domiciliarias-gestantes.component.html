@@ -27,6 +27,8 @@
                     </div>
                 </div>
             </form>
+            <!--MapStreet-->
+            <app-map-visitas [dataVisitas]="dataVisitas"></app-map-visitas>
         </p-card>
     </div>
     <p-accordion>
@@ -68,9 +70,6 @@
         
         </p-accordionTab>
     </p-accordion>
-    <p-card>
-        <app-map-visitas [dataVisitas]="dataVisitas"></app-map-visitas>
-    </p-card>
 </div>
-<p-toast position="top-right" key="myMessage1"></p-toast>
-<p-toast position="top-right" key="myMessage2"></p-toast>
+<p-toast position="bottom-right" key="myMessage1"></p-toast>
+<p-toast position="bottom-right" key="myMessage2"></p-toast>

@@ -12,34 +12,14 @@ export class VisitaDomiciliariaService {
   bd = environment.bdCouch;
   base_url = environment.base_url_Couch;
   base_url_view = environment.base_url_couch_view;
-  base_url_images =environment.base_url_couch_images;
-  id_ipress = "";
-  dni_profesional = "";
-  token = JSON.parse(localStorage.getItem("token")).tokenCouch;
-  constructor(private http: HttpClient) {
-    this.id_ipress = JSON.parse(
-      localStorage.getItem("usuario")
-    ).ipress.renipress;
-    this.dni_profesional = JSON.parse(
-      localStorage.getItem("usuario")
-    ).nroDocumento;
-  }
+  //id profesional
+  id_user: string = JSON.parse(localStorage.getItem("usuario"));
+  token =
+    "eyJraWQiOiJmb28iLCJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY2MzgwNzIyNX0.cacGjbndREWSu3uqKCWYmXQ1usAy6uA1rWoZGwg3u8s";
+  constructor(private http: HttpClient) {}
+
   getToken() {
     return this.token;
-  }
-
-  getAnio(): string {
-    let fecha_hoy = new Date();
-    let anio = fecha_hoy.getFullYear();
-    return anio.toString();
-  }
-
-  getIdPersonal(): string {
-    return this.dni_profesional;
-  }
-
-  getIdIpress(): string {
-    return this.id_ipress;
   }
 
   mostrarVisitas(): Observable<any> {
@@ -52,9 +32,5 @@ export class VisitaDomiciliariaService {
         },
       }
     );
-  }
-
-  getImageURL(id: string) {
-    return `${this.base_url_images}/${id}`;
   }
 }

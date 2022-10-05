@@ -20,14 +20,26 @@ import { VisitaNinioService } from "../../../services/visita-ninio.service";
 })
 export class VisitasDomiciliariasNiniosComponent implements OnInit {
   ref: DynamicDialogRef;
-  dataVisitas: any[] = [];
-  dataVisitas_Menores_4_meses: any[] = [];
-  dataVisitas_Mayores_4_meses: any[] = [];
+  dataVisitas: [] = [];
   dataVisitas1: any[] = [];
+  options: any;
+  overlays: any[];
   formListaVisitas: FormGroup;
+  loading: boolean = true;
   selectedAnio: string = "";
   selectedMes: string = "";
-
+  //parte de prueba
+  listaVisitas1: any[] = [
+    { latitud: -13.52507, longitud: -71.93089 },
+    { latitud: -13.5307703, longitud: -71.9408312 },
+    { latitud: -13.530774, longitud: -71.9408339 },
+    { latitud: -13.58441, longitud: -71.91867 },
+    { latitud: -13.5307587, longitud: -71.9408254 },
+    { latitud: -13.53182, longitud: -71.93626 },
+    { latitud: -13.5307528, longitud: -71.940821 },
+    { latitud: -13.52591, longitud: -71.936 },
+  ];
+  formAntecedentes: FormGroup;
   meses = [
     { label: "Enero", value: 1 },
     { label: "Febrero", value: 2 },
@@ -42,9 +54,7 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
     { label: "Noviembre", value: 11 },
     { label: "Diciembre", value: 12 },
   ];
-
   anios = [
-    { anio: "todo" },
     { anio: "2022" },
     { anio: "2021" },
     { anio: "2020" },
@@ -62,9 +72,6 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
   ngOnInit(): void {
     this.buildForm();
     this.listaVisitas();
-    setTimeout(() => {
-      this.markersMapStreet();
-    }, 500);
   }
 
   buildForm() {
@@ -73,167 +80,77 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
       busquedaMes: new FormControl("", [Validators.required]),
     });
   }
-  //carga todas las visitas correspondientes al año actual
+
   listaVisitas() {
-    let idIpress = this.servicioVisitas.getIdIpress();
-    let dni = `vp${this.servicioVisitas.getIdPersonal()}`;
-    let anio = this.servicioVisitas.getAnio();
+    let dni = "vp72753957";
     this.servicioVisitas.couch = true;
     this.servicioVisitasNinios
-      .getVisitasNiniosXProfesionalMenores_4_Meses(idIpress, dni, anio)
+      .getVisitasNiniosXProfesional(dni)
       .subscribe((data) => {
-        this.dataVisitas_Menores_4_meses = data["rows"];
-        console.log("Lista visitas", this.dataVisitas_Menores_4_meses);
+        this.dataVisitas = data["rows"];
+        console.log("Lista visitas", this.dataVisitas);
       });
-    this.servicioVisitas.couch = true;
-    this.servicioVisitasNinios
-      .getVisitasNiniosXProfesionalMayores_4_Meses(idIpress, dni, anio)
-      .subscribe((data) => {
-        this.dataVisitas_Mayores_4_meses = data["rows"];
-        console.log("Lista visitas", this.dataVisitas_Mayores_4_meses);
-      });
-    this.dataVisitas = this.dataVisitas_Mayores_4_meses.concat(
-      this.dataVisitas_Menores_4_meses
-    );
-    console.log("el dni es", dni);
   }
-  //abre nuestro compoente dialog en el cual se muestran nuestras preguntas y respuestas
+
   openDialogRespuestas(data: any[]) {
     this.ref = this.dialog.open(DialogRespuestasComponent, {
       header:
         "Preguntas>Respuestas de la visita domiciliaria del niño-niña ejecutada",
       width: "70%",
-      height: "100%",
+      // height: "800px",
       contentStyle: {
-        "max-height": "93%",
+        "max-height": "92%",
         overflow: "auto",
       },
       data: data,
     });
   }
-  //metodo que fusiona los dos arrays de menores y mayores de cuatro años
-  //los cuales sirven para graficar los markers que iran en el mapa
-  markersMapStreet() {
-    this.dataVisitas = this.dataVisitas_Mayores_4_meses.concat(
-      this.dataVisitas_Menores_4_meses
-    );
-    console.log(this.dataVisitas);
+  recuperarValores() {
+    let busquedaAnio: string = this.formListaVisitas.value.busquedaAnio;
+    let busquedaMes: string = this.formListaVisitas.value.busquedaMes;
+    console.log("Anio", busquedaAnio);
+    console.log("Mes", busquedaMes);
   }
-  //metodo que nos devuelve la lista de Visitas por Año seleccionado
-  //se agrupa en dos listas:menores_4_meses y mayores_4_meses
-  verVisitasPorAnio(event) {
-    console.log("select por anio");
-    let idIpress = this.servicioVisitas.getIdIpress();
-    let dni = `vp${this.servicioVisitas.getIdPersonal()}`;
-    if (event.value == "todo") {
-      this.servicioVisitas.couch = true;
-      this.servicioVisitasNinios
-        .getVisitasNiniosXProfesionalTodo(idIpress, dni)
-        .subscribe((data) => {
-          if (data["rows"].length > 0) {
-            this.dataVisitas = data["rows"];
-            console.log("Busqueda por fecha", this.dataVisitas);
-            this.messageService.add({
-              key: "myMessage1",
-              severity: "success",
-              summary: "Exitoso",
-              detail: "Visitas Actualizada",
-            });
-          } else {
-            this.dataVisitas = [];
-            this.messageService.add({
-              key: "myMessage2",
-              severity: "error",
-              summary: "Error",
-              detail: "Usted no tiene visitas",
-            });
-          }
-          this.dataVisitas = data["rows"];
-          this.dataVisitas_Menores_4_meses = this.dataVisitas.filter((aux) => {
-            if (aux.value.hasOwnProperty("menor_cuatro_meses")) return aux;
-          });
 
-          this.dataVisitas_Mayores_4_meses = this.dataVisitas.filter((aux) => {
-            if (aux.value.hasOwnProperty("mayor_cuatro_meses")) return aux;
-          });
-        });
-    } else {
-      this.servicioVisitas.couch = true;
-      this.selectedAnio = event.value;
-      this.servicioVisitasNinios
-        .getVisitasNiniosXProfesionalAnio(idIpress, dni, this.selectedAnio)
-        .subscribe((data) => {
-          if (data["rows"].length > 0) {
-            this.dataVisitas = data["rows"];
-            console.log("Busqueda por fecha", this.dataVisitas);
-            this.messageService.add({
-              key: "myMessage1",
-              severity: "success",
-              summary: "Exitoso",
-              detail: "Visitas Actualizada",
-            });
-          } else {
-            this.dataVisitas = [];
-            this.messageService.add({
-              key: "myMessage2",
-              severity: "error",
-              summary: "Error",
-              detail: "Usted no tiene visitas",
-            });
-          }
-          this.dataVisitas = data;
+  buscarVisitaAnioXMes() {
+    let busquedaAnio: string = this.formListaVisitas.value.busquedaAnio;
+    let busquedaMes: string = this.formListaVisitas.value.busquedaMes;
+    let fecha = `${busquedaAnio} ${busquedaMes}`;
+    //console.log(fecha);
+    this.servicioVisitas.couch = true;
+    this.servicioVisitasNinios
+      .buscarVisitaNiniosXAnioMes(fecha)
+      .subscribe((data) => {
+        if (data["rows"].length > 0) {
           this.dataVisitas = data["rows"];
-          this.dataVisitas_Menores_4_meses = this.dataVisitas.filter((aux) => {
-            if (aux.value.hasOwnProperty("menor_cuatro_meses")) return aux;
+          console.log("Busqueda por fecha", this.dataVisitas);
+          this.messageService.add({
+            key: "myMessage1",
+            severity: "success",
+            summary: "Exitoso",
+            detail: "Visitas Actualizada",
           });
-
-          this.dataVisitas_Mayores_4_meses = this.dataVisitas.filter((aux) => {
-            if (aux.value.hasOwnProperty("mayor_cuatro_meses")) return aux;
+        } else {
+          this.dataVisitas = [];
+          this.messageService.add({
+            key: "myMessage2",
+            severity: "error",
+            summary: "Error",
+            detail: "Usted no tiene visitas",
           });
-        });
-    }
-    console.log("el dni es", dni);
+        }
+      });
   }
-  //metodo que nos devuelve la lista de Visitas por Mes seleccionado
-  //se agrupa en dos listas:menores_4_meses y mayores_4_meses
-  verVisitasPorMes(event) {
-    let idIpress = this.servicioVisitas.getIdIpress();
-    let dni = `vp${this.servicioVisitas.getIdPersonal()}`;
-    if (this.selectedAnio != "") {
-      this.servicioVisitas.couch = true;
-      this.selectedMes = event.value;
-      let fecha = `${this.selectedAnio} ${this.selectedMes}`;
-      this.servicioVisitasNinios
-        .getVisitasNiniosXProfesionalXAnioXMesFecha(idIpress, dni, fecha)
-        .subscribe((data) => {
-          if (data["rows"].length > 0) {
-            this.dataVisitas = data["rows"];
-            console.log("Busqueda por fecha", this.dataVisitas);
-            this.messageService.add({
-              key: "myMessage1",
-              severity: "success",
-              summary: "Exitoso",
-              detail: "Visitas Actualizada",
-            });
-          } else {
-            this.dataVisitas = [];
-            this.messageService.add({
-              key: "myMessage2",
-              severity: "error",
-              summary: "Error",
-              detail: "Usted no tiene visitas",
-            });
-          }
-          this.dataVisitas = data["rows"];
-          this.dataVisitas_Menores_4_meses = this.dataVisitas.filter((aux) => {
-            if (aux.value.hasOwnProperty("menor_cuatro_meses")) return aux;
-          });
 
-          this.dataVisitas_Mayores_4_meses = this.dataVisitas.filter((aux) => {
-            if (aux.value.hasOwnProperty("mayor_cuatro_meses")) return aux;
-          });
-        });
-    }
-    console.log("el dni es", dni);
+  buscarVisitaXAnio() {
+    let busquedaAnio: string = this.formListaVisitas.value.busquedaAnio;
+    let fecha = busquedaAnio;
+    this.servicioVisitas.couch = true;
+    this.servicioVisitasNinios
+      .buscarVisitaNiniosXAnio(fecha)
+      .subscribe((data) => {
+        this.dataVisitas = data["rows"];
+        console.log("Busqueda por fecha", this.dataVisitas);
+      });
   }
 }
