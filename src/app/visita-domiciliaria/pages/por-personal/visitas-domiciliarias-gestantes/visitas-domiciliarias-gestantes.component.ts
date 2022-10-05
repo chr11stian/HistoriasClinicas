@@ -21,23 +21,10 @@ import { VisitaDomiciliariaService } from "../../../services/visita-domiciliaria
 export class VisitasDomiciliariasGestantesComponent implements OnInit {
   ref: DynamicDialogRef;
   dataVisitas: any[] = [];
-  options: any;
-  overlays: any[];
   formListaVisitas: FormGroup;
-  loading: boolean = true;
   selectedAnio: string = "";
   selectedMes: string = "";
-  //parte de prueba
-  listaVisitas1: any[] = [
-    { latitud: -13.52507, longitud: -71.93089 },
-    { latitud: -13.5307703, longitud: -71.9408312 },
-    { latitud: -13.530774, longitud: -71.9408339 },
-    { latitud: -13.58441, longitud: -71.91867 },
-    { latitud: -13.5307587, longitud: -71.9408254 },
-    { latitud: -13.53182, longitud: -71.93626 },
-    { latitud: -13.5307528, longitud: -71.940821 },
-    { latitud: -13.52591, longitud: -71.936 },
-  ];
+
   formAntecedentes: FormGroup;
   meses = [
     { label: "Enero", value: 1 },
@@ -81,7 +68,9 @@ export class VisitasDomiciliariasGestantesComponent implements OnInit {
   }
 
   listaVisitas() {
-    let dni = "vp72753957";
+    // let idIpress =this.servicioVisitas.getIdIpress();
+    let dni = this.servicioVisitas.getIdPersonal();
+    //let anio=this.servicioVisitas.getAnio();
     this.servicioVisitas.couch = true;
     this.servicioVisitasGestante
       .getVisitasGestantesXProfesional(dni)

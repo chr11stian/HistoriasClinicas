@@ -155,7 +155,7 @@ export class LoginRolComponent implements OnInit {
         this.personalservice.listServiceStaff(this.data.nroDocumento).subscribe(
             (res: any) => {
                 console.log("res", res);
-                if (res.object != null && rol === "ROLE_ENF_PERSONAL") {
+                if (res.object != null && this.findRol(rol) === "ROLE_ENF_PERSONAL") {
                     res.object[0].roles.map((aux) => {
                         if (aux.nombreUPS == "ATENCION INTEGRAL DEL NINO") {
                             //aux.nombreFuncion == "SERVICIOS ADMINISTRACION" &&

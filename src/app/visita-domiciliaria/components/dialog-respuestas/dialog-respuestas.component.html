@@ -7,8 +7,8 @@
         </ng-template>
         <ng-template pTemplate="body"  let-RowData let-rowIndex="rowIndex">
                     <tr *ngFor="let objeto of RowData.respuestas,i as index">
-                        <td style="text-align: left">{{objeto.pregunta}}</td>
-                        <td style="text-align: center">{{objeto.valores}}</td>
-                    </tr>
+                        <td style="text-align: left; font-size: 12px; ">{{objeto.pregunta}}</td>
+                        <td style="text-align: left;font-size: 12px;">{{objeto.valores}}</td>
+                        </tr>
         </ng-template>
 </p-table>
