@@ -240,8 +240,8 @@ export class DatosBasalesComponent implements OnInit {
 
     recoverLastMenstruation(): void {
         this.ultrasoundList = [{
-            semanas: this.form.value.ecografia1 == undefined ? null : parseInt(this.form.value.ecografia1),
-            fecha: this.form.value.dateEco1 == undefined ? null : this.form.value.dateEco1,
+            semanas: this.form.value.ecografia1,
+            fecha: this.form.value.dateEco1,
         }, {
             semanas: this.form.value.ecografia2,
             fecha: this.form.value.dateEco2,
@@ -249,6 +249,7 @@ export class DatosBasalesComponent implements OnInit {
             semanas: this.form.value.ecografia3,
             fecha: this.form.value.dateEco3,
         }];
+        // this.ultrasoundList = this.ultrasoundList.filter(item => item.fe != null);
     }
 
     recuperarDatos() {
@@ -503,16 +504,16 @@ export class DatosBasalesComponent implements OnInit {
     guardarDatos() {
         this.recuperarDatos();
         console.log('data to save ', this.datosBasales);
-        this.datosBasalesService.postDatosBasalesById(this.idGestante, this.datosBasales).subscribe((res: any) => {
-            console.log('se guardo correctamente ', res.object);
-            Swal.fire({
-                icon: 'success',
-                title: 'Registro',
-                text: 'Fue creado con exito',
-                showConfirmButton: false,
-                timer: 1500,
-            })
-        });
+        // this.datosBasalesService.postDatosBasalesById(this.idGestante, this.datosBasales).subscribe((res: any) => {
+        //     console.log('se guardo correctamente ', res.object);
+        //     Swal.fire({
+        //         icon: 'success',
+        //         title: 'Registro',
+        //         text: 'Fue creado con exito',
+        //         showConfirmButton: false,
+        //         timer: 1500,
+        //     })
+        // });
     }
 
     loadData() {

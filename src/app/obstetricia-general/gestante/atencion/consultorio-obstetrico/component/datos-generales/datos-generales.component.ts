@@ -823,13 +823,24 @@ export class DatosGeneralesComponent implements OnInit {
             )
         } else {
             this.consultasService.updateConsultas(this.nroFetos, this.Gestacion.id, this.data).subscribe((result: any) => {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Actualizo con exito',
-                    text: '',
-                    showConfirmButton: false,
-                    timer: 1500,
-                });
+                if ([result.code == '2401']) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Actualizo con exito',
+                        text: '',
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'No se pudo actualizar.',
+                        text: '',
+                        showConfirmButton: false,
+                        timer: 2000,
+                    });
+                }
+
             }
             );
         }
