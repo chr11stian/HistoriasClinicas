@@ -1,4 +1,4 @@
-<div #drop></div>
+<!-- <div #drop></div>
 <div #date></div>
 
 <p-toolbar>
@@ -99,11 +99,11 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->
 
 <!-- dialogo para cronograma citas -->
 
-<p-dialog [(visible)]="cronogramaDialog" [style]="{width: '580px',heigth:'400px'}" [modal]="true">
+<!-- <p-dialog [(visible)]="cronogramaDialog" [style]="{width: '580px',heigth:'400px'}" [modal]="true">
     <ng-template pTemplate="header">
         <h3>CRONOGRAMA DE CITAS DE LA GESTANTE</h3>
     </ng-template>
@@ -132,4 +132,65 @@
     <ng-template pTemplate="footer">
         <button pButton type="button" label="Salir" class="p-button-danger" (click)="salirCronograma()"></button>
     </ng-template>
-</p-dialog>
+</p-dialog> -->
+<div class="flex">
+    <div class="col-12 md:col-12 lg:col-12">
+      <p-toolbar>
+        <ng-template pTemplate="left">
+          <span class="p-m-0">REFERENCIA</span>
+        </ng-template>
+        <ng-template pTemplate="right" class="button">
+          <button
+            pButton
+            pRipple
+            label="Referencia"
+            iconPos="right"
+            icon="pi pi-external-link"
+            class="guardar mr-2"
+            style="background-color: #0c3866"
+            (click)="openRefe()"
+          ></button>
+          <button
+            pButton
+            pRipple
+            label="Calendario"
+            iconPos="right"
+            icon="pi pi-calendar"
+            class="guardar mr-2"
+            style="background-color: #0c3866"
+            (click)="openCalendar()"
+          ></button>
+        </ng-template>
+      </p-toolbar>
+      <p-table
+        class="table-over"
+        [value]="[]"
+        #dt
+        styleClass="p-datatable-gridlines"
+        [rows]="10"
+        [rowsPerPageOptions]="[10, 25, 50]"
+        [paginator]="true"
+        [autoLayout]="true"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="text-align: center" class="font-2">FECHA</th>
+            <th style="text-align: center" class="font-2">CONSULTORIO</th>
+            <th style="text-align: center" class="font-2">MOTIVO</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+          <tr>
+            <td style="text-align: center">
+              {{ rowData.coordinacion.fechaAtendera }}
+            </td>
+            <td style="text-align: center">
+              {{ rowData.coordinacion.especialidad }}
+            </td>
+            <td style="text-align: center">{{ rowData.coordinacion.motivo }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>

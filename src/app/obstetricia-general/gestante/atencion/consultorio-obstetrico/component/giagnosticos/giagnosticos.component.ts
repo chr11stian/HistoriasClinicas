@@ -523,7 +523,7 @@ export class GiagnosticosComponent implements OnInit {
             nroEmbarazo: this.nroEmbarazo,
             nroAtencion: this.nroAtencion
         }
-        this.DxService.getConsultaPrenatalByEmbarazo(this.idConsult, aux).subscribe((res: any) => {
+        this.DxService.getConsultaPrenatalByEmbarazo(this.Gestacion.id, this.idConsult, aux).subscribe((res: any) => {
             this.dataAux = res.object;
             console.log("data consulta:" + this.dataAux);
 
@@ -609,7 +609,7 @@ export class GiagnosticosComponent implements OnInit {
 
 
     filterCIE10(event) {
-        this.CieService.getPromiseCIEbyDescripcionTipo('CX', event.query).then((res: any) => this.listaDeCIEHIS = res.object);
+        this.CieService.getPromiseCIEByDescripcion(event.query).then((res: any) => this.listaDeCIEHIS = res.object);
         // this.CieService.getCIEByDescripcionTipo('CX', event.query).subscribe((res: any) => {
         //     this.listaDeCIE = res.object
         // })
@@ -799,16 +799,33 @@ export class GiagnosticosComponent implements OnInit {
             });
             return;
         }
-        console.log('body to save ', JSON.stringify(this.arrayDiagnosticSave));
-        await this.DiagnosticoService.postDiagnosticToPregmant(this.idConsult, this.arrayDiagnosticSave).then(res => {
-            console.log('body to save ', JSON.stringify(this.arrayDiagnosticSave));
-            Swal.fire({
-                icon: 'success',
-                title: 'Se guardo exitosamente',
-                text: '',
-                showConfirmButton: false,
-                timer: 2000
-            });
+        await this.DiagnosticoService.postDiagnosticToPregmant(this.idConsult, this.arrayDiagnosticSave).then((res: any) => {
+            if (res.cod == '2001') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Se guardo exitosamente',
+                    text: '',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+                return;
+            }
+            if (res.cod == '2126') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Se actualizó exitosamente',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'No se pudoo guardar.',
+                    text: '',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            }
         })
     }
 
