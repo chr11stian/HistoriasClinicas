@@ -362,6 +362,7 @@ export class DatosBasalesComponent implements OnInit {
     recuperarHemoglobina() {
         this.hemoglobina = [
             {
+                // cie10sis: 85018
                 descripcion: 'HEMOGLOBINA 1',
                 hg: this.form.value.hg1,
                 conFactorCorreccion: this.form.value.conFactor1,
@@ -402,11 +403,11 @@ export class DatosBasalesComponent implements OnInit {
                 valor: this.form.value.tpha,
                 fecha: this.form.value.dateTpha
             }, {
-                nombre: 'VIH PRUEBA RAPIDA 1',
+                nombre: 'VIH PRUEBA RAPIDA 1',//86703
                 valor: this.form.value.vih1,
                 fecha: this.form.value.dateVih1
             }, {
-                nombre: 'VIH PRUEBA RAPIDA 2',
+                nombre: 'VIH PRUEBA RAPIDA 2',//86703
                 valor: this.form.value.vih2,
                 fecha: this.form.value.dateVih2
             }, {
@@ -490,7 +491,7 @@ export class DatosBasalesComponent implements OnInit {
                 valor: this.form.value.secrecionVag,
                 fecha: this.form.value.dateSecrecionVag
             }, {
-                nombre: 'PAP',
+                nombre: 'PAP',//88141
                 valor: this.form.value.pap,
                 fecha: this.form.value.datevdrl1
             }, {
