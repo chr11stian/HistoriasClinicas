@@ -202,7 +202,7 @@ export class ResultadosComponent implements OnInit {
             nroEmbarazo: this.nroEmbarazo,
             nroAtencion: this.nroAtencion
         }
-        this.consultaService.getConsultaPrenatalByEmbarazo(this.consultationId, aux).subscribe((res: any) => {
+        this.consultaService.getConsultaPrenatalByEmbarazo(this.Gestacion.id, this.consultationId, aux).subscribe((res: any) => {
             this.dataConsulta = res.object;
             console.log("data consulta:" + this.dataConsulta);
 

@@ -133,6 +133,5 @@ export class DiagnosticoConsultaService {
         return this.http.post(`${this.urlServer}/${this.bd}/obstetricia/consulta/agregar/diagnostico/${idConsulta}`, data)
             .toPromise()
             .then(res => res)
-            .then(data => { return data; })
     }
 }   

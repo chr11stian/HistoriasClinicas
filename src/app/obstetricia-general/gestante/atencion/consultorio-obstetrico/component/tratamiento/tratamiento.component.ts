@@ -483,7 +483,7 @@ export class TratamientoComponent implements OnInit {
       nroAtencion: this.nroAtencion
     }
 
-    await this.tratamientoService.getConsultaPrenatalByEmbarazo(this.consultationId, aux).subscribe((res: any) => {
+    await this.tratamientoService.getConsultaPrenatalByEmbarazo(this.Gestacion.id, this.consultationId, aux).subscribe((res: any) => {
       this.dataConsulta = res.object;
       console.log("data consulta:" + res.object);
 

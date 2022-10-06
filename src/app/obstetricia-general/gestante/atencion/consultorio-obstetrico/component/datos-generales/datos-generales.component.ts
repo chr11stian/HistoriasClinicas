@@ -347,7 +347,6 @@ export class DatosGeneralesComponent implements OnInit {
                 //RECUPERA LOS ANTECEDENTES
                 this.formDatos_Generales.get('Psicoprofilaxis').setValue(this.dataConsultas.psicoprofilaxis.estado);
 
-                //RECUPERA DESCARTE SIGNOS DE ALARMA
                 this.formDatos_Generales.get('DificultadRespiratoria').setValue(this.dataConsultas.listaSignosAlarma ? this.dataConsultas.listaSignosAlarma[0].valorSigno : null);
                 this.formDatos_Generales.get('HipertenciónArterial').setValue(this.dataConsultas.listaSignosAlarma ? this.dataConsultas.listaSignosAlarma[1].valorSigno : null);
                 this.formDatos_Generales.get('SangradoNasal').setValue(this.dataConsultas.listaSignosAlarma ? this.dataConsultas.listaSignosAlarma[2].valorSigno : null);
@@ -810,7 +809,6 @@ export class DatosGeneralesComponent implements OnInit {
                 },
             ],
         }
-        console.log('data de consultaaaaaaaaaaaaaaaa ', JSON.stringify(this.data));
         if (this.dataConsultas == null) {
             this.consultasService.addConsultas(this.nroFetos, this.Gestacion.id, this.data).then((result: any) => {
                 Swal.fire({
@@ -824,13 +822,24 @@ export class DatosGeneralesComponent implements OnInit {
             )
         } else {
             this.consultasService.updateConsultas(this.nroFetos, this.Gestacion.id, this.data).subscribe((result: any) => {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Actualizo con exito',
-                    text: '',
-                    showConfirmButton: false,
-                    timer: 1500,
-                });
+                if ([result.code == '2401']) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Actualizo con exito',
+                        text: '',
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'No se pudo actualizar.',
+                        text: '',
+                        showConfirmButton: false,
+                        timer: 2000,
+                    });
+                }
+
             }
             );
         }
