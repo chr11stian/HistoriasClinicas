@@ -25,7 +25,4 @@ export const environment = {
         base + "5984/visitas_medicas/f64691bc4d1c40e239602e3b1a0196f3",
    base_url_couch_pngestante_view:
         base + "5984/db_padron_nominal_gestante/_design/padron_nominal_gestante/_view"
-
 };
-
-รรฆ
