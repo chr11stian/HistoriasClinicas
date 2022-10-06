@@ -67,7 +67,7 @@ export class VisitaNinioService {
     anio_mes: string
   ) {
     return this.http.post<VisitasProfesionalNinios[]>(
-      `${this.base_url_view}/VPN_mayores_4_meses_fecha`,
+      `${this.base_url_view}/VPN_menores_4_meses_fecha`,
       {
         keys: [[idIpress, dni_profesional, anio_mes]],
       }
@@ -80,7 +80,7 @@ export class VisitaNinioService {
     anio_mes: string
   ) {
     return this.http.post<VisitasProfesionalNinios[]>(
-      `${this.base_url_view}/VPN_menores_4_meses_fecha`,
+      `${this.base_url_view}/VPN_mayores_4_meses_fecha`,
       {
         keys: [[idIpress, dni_profesional, anio_mes]],
       }
