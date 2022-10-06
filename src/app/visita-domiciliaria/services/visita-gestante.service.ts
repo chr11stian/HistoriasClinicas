@@ -15,7 +15,7 @@ export class VisitaGestanteService {
 
   getVisitasGestantesXProfesional(dni_profesional: string) {
     return this.http.post<VisitasProfesionalGestantes[]>(
-      `${this.base_url_view}/VPG_XProfesional`,
+      `${this.base_url_view}/visita_domiciliaria_XProfesionalGestante`,
       {
         keys: [dni_profesional],
       }
@@ -24,7 +24,7 @@ export class VisitaGestanteService {
 
   buscarVisitaGestantesXAnioMes(fecha: string) {
     return this.http.post<VisitasProfesionalGestantes[]>(
-      `${this.base_url_view}/VPG_XProfesional`,
+      `${this.base_url_view}/visita_domiciliaria_XProfesionalGestanteFecha`,
       {
         keys: [fecha],
       }

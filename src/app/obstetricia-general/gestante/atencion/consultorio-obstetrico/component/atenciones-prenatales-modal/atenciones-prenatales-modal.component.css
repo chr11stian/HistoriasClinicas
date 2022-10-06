@@ -4,3 +4,15 @@
 /* ::ng-deep .myTable .p-datatable table {
     transform:rotate(90deg);
  } */
+ p-table.myTable >>> .p-datatable .p-datatable-thead > tr > th {
+    padding:5px 0px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+ }
+ p-table.myTable >>> .p-datatable .p-datatable-tbody > tr > td {
+    padding:5px 0px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+ }

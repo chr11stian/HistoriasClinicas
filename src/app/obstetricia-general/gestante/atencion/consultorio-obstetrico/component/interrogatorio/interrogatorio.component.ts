@@ -548,11 +548,23 @@ export class InterrogatorioComponent implements OnInit {
   guardarDatos() {
     this.recuperarDatos();
     this.consultaObstetricaService.updateConsultas(this.form.value.nroFetos, this.Gestacion.id, this.interrogatorioData).subscribe((res: any) => {
-      this.messageService.add({
-        severity: "success",
-        summary: "Exito",
-        detail: res.mensaje
-      });
+      if ([res.code == '2401']) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Actualizo con exito',
+          text: '',
+          showConfirmButton: false,
+          timer: 2000,
+        });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'No se pudo actualizar.',
+          text: '',
+          showConfirmButton: false,
+          timer: 2000,
+        });
+      }
     });
   }
 
@@ -740,7 +752,7 @@ export class InterrogatorioComponent implements OnInit {
         this.listaPlanParto.push(objeto)
       }
       this.dataEnviarPlanParto = {
-        edadGestacional:this.form.get("semanas").value,
+        edadGestacional: this.form.get("semanas").value,
         tienePlan: resp.cod == '2040' ? true : false,
         idFiliacion: this.Gestacion.id,
         respuestaGetPlanParto: resp.object

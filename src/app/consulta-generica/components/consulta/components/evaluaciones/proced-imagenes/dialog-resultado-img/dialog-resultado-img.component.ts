@@ -194,7 +194,7 @@ export class DialogResultadoImgComponent implements OnInit {
       nroEmbarazo: this.nroEmbarazo,
       nroAtencion: this.nroAtencion
     }
-    this.DxService.getConsultaPrenatalByEmbarazo(this.consultationID, aux).subscribe((res: any) => {
+    this.DxService.getConsultaPrenatalByEmbarazo(this.Gestacion.id, this.consultationID, aux).subscribe((res: any) => {
       this.nroConsultaGuardada = res.object.id;
     })
   }
@@ -228,7 +228,7 @@ export class DialogResultadoImgComponent implements OnInit {
       nroEmbarazo: this.nroEmbarazo,
       nroAtencion: this.nroAtencion
     }
-    this.DxService.getConsultaPrenatalByEmbarazo(this.consultationID, aux).subscribe((res: any) => {
+    this.DxService.getConsultaPrenatalByEmbarazo(this.Gestacion.id, this.consultationID, aux).subscribe((res: any) => {
       this.nroConsultaGuardada = res.object.id;
       var data = {
         idConsulta: this.nroConsultaGuardada,
@@ -279,7 +279,7 @@ export class DialogResultadoImgComponent implements OnInit {
       nroEmbarazo: this.nroEmbarazo,
       nroAtencion: this.nroAtencion
     }
-    this.DxService.getConsultaPrenatalByEmbarazo(this.consultationID, aux).subscribe((res: any) => {
+    this.DxService.getConsultaPrenatalByEmbarazo(this.Gestacion.id, this.consultationID, aux).subscribe((res: any) => {
       this.nroConsultaGuardada = res.object.id;
       var data = {
         id: this.config.data.row.idExamAux,

@@ -30,4 +30,10 @@ export class CieService {
       .then(res => <any[]>res)
       .then(data => { return data; });
   }
+  getPromiseCIEByDescripcion(item) {
+    return this.http.get(`${this.base_url}/${this.bd}/cie10his/filtro/${item}`)
+      .toPromise()
+      .then(res => <any[]>res)
+      .then(data => { return data; });
+  }
 }
