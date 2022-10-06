@@ -38,7 +38,15 @@ p-dropdown >>> .p-dropdown-clearable .p-dropdown-label {
   border: 1px solid #af0017;
 }
 .buttonAcciones:hover {
-  background: #af0017;
+  color: #af0017;
+  background: white;
+  border: 1px solid #af0017;background: #af0017;
   color: white;
   border: 1px solid #af0017;
 }
+.a:hover{
+  outline: none;
+  color:white;
+}
+
+
