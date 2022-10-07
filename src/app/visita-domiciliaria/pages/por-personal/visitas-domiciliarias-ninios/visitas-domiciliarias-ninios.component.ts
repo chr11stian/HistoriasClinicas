@@ -244,10 +244,19 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
     console.log("el dni es", dni);
   }
 
-  visita(aux) {
+  visita_menor_cuatro_meses_reporte(aux) {
     this.visitaReporte =
       environment.base_urlTx +
-      "/jasperserver/rest_v2/reports/Reports/VISITA/menorcuatroninia_o/visita_nino_ninia_menor4meses.pdf?token=Bearer " +
+      "/jasperserver/rest_v2/reports/Reports/VISITA/menorcuatro/visita_nino_ninia_menor4meses.pdf?token=Bearer " +
+      this.servicioVisitas.getToken() +
+      "&visitaid=" +
+      aux.id;
+  }
+
+  visita_mayor_cuatro_meses_reporte(aux) {
+    this.visitaReporte =
+      environment.base_urlTx +
+      "/jasperserver/rest_v2/reports/Reports/VISITA/mayorcuatro/visita_nino_ninia_entre4_24meses.pdf?token=Bearer " +
       this.servicioVisitas.getToken() +
       "&visitaid=" +
       aux.id;
