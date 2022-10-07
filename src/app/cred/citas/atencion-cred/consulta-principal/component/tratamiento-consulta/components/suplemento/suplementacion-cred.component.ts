@@ -75,6 +75,8 @@ export class SuplementacionCredComponent implements OnInit {
         this.suplementacionTerapeutica.forEach((element) => {
             element.fechaTentativa = new Date(`${element.fechaTentativa} 00:00:00`);
             element.fecha = element.fecha != null ? new Date(`${element.fecha} 00:00:00`) : null;
+            element.codigosSis="99199.17"
+            /* agregamos campo codHis */
         });
     }
 
@@ -82,6 +84,7 @@ export class SuplementacionCredComponent implements OnInit {
         this.vitaminaA.forEach((element) => {
             element.fechaTentativa = new Date(`${element.fechaTentativa} 00:00:00`);
             element.fecha = element.fecha != null ? new Date(`${element.fecha} 00:00:00`) : null;
+            element.codigosSis="99199.27"
         });
     }
 
@@ -89,6 +92,10 @@ export class SuplementacionCredComponent implements OnInit {
         this.listaMicronutrientes.forEach((element) => {
             element.fechaTentativa = new Date(`${element.fechaTentativa} 00:00:00`);
             element.fecha = element.fecha != null ? new Date(`${element.fecha} 00:00:00`) : null;
+            if(element.nombre=="SF")
+                element.codigosSis='99199.17'
+            else
+                element.codigosSis="99199.19"
         });
         this.separacion()
     }

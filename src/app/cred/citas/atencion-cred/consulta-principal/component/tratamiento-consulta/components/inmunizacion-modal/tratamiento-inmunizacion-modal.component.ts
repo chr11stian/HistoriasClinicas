@@ -63,6 +63,7 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
       cantidad:new FormControl('0.1 CC',Validators.required),
       lote: new FormControl(null, [Validators.required]),
       fechaVencimiento: new FormControl('', [Validators.required]),
+      lab: new FormControl(''),
     })
   }
   getFC(control: string): AbstractControl {
@@ -71,6 +72,7 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
   getInmunizacion() {
     this.getFC('fechaTentativa').setValue(this.inmunizacion.fechaTentativa)
     this.getFC('fechaAplicacion').setValue(new Date());//o seteamos con la fecha de consulta
+    this.getFC('lab').setValue(this.inmunizacion.dosis);//o seteamos con la fecha de consulta
   }
 
   cambioEstado(valor) {
@@ -93,10 +95,13 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
       nombre: this.inmunizacion.nombre,
       nombreComercial:this.inmunizacion.nombre,
       dosis: this.inmunizacion.dosis,
-      tipoDosis: this.inmunizacion.tipoDosis,
+      tipoDosis: this.getFC('lab').value,/* lab */
+      tipoDx:'d',
+      nombreUPS:'Enfermeria',
+      nombreUPSAux:'Inmunizaciones',     
       codPrestacion: "001",//todo
-      codProcedimientoHIS: "16546",//todo ??no hay info
-      codProcedimientoSIS: "90471",//todo
+      codProcedimientoHIS: this.inmunizacion.codigoSis,//todo ??no hay info
+      codProcedimientoSIS: "",
       idIpressSolicitante: this.idIpress,//ya es dinamico recuperamos del usuario en le localStorage
       viaAdministracion: this.getFC('viaAdministracion').value,
       cantidad: this.getFC('cantidad').value,

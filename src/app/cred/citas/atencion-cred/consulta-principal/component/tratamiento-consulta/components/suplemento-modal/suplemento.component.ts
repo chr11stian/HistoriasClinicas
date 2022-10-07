@@ -74,9 +74,9 @@ export class SuplementoComponent implements OnInit {
   save() {
     let requestInput:any= {
         codPrestacion: "007", //duro no existe codprodedimiento para sis pero si como diagnostico
-        codSISMED: this.getFC('medicamento').value.code,
+        codSISMED: this.getFC('medicamento').value.codeSISMED,
         nroDiagnostico: 0, //deberia ir el codDiagnosticos sis incluido su sie(otras medidas profilacticas especificadas z29.8)
-        codProcedimientoHIS: "32323", //duro
+        codProcedimientoHIS: this.suplemento.codigosSis,
         codUPS: "324231", //duro
 
         nombre: this.suplemento.nombre,//SF
@@ -89,50 +89,52 @@ export class SuplementoComponent implements OnInit {
         fecha: this.obtenerFecha(this.getFC("fechaAplicacion").value),
         estadoAdministrado: true,
         edadMes: this.suplemento.edadMes,
-        fechaTentativa: "2021-10-25"
+        fechaTentativa: this.obtenerFecha(this.getFC("fechaTentativa").value),
     };
+    console.log('inputRequest',requestInput);
+    
 
-    if (this.suplemento.tipoSuplementacion=='TERAPEUTICO'){
-      requestInput.tipoSuplementacion='TERAPEUTICO'
-    }
-    // console.log('recivico',this.suplemento)
-    // console.log('enviado',requestInput)
-    this.confirmationService.confirm({
-      header: "Confirmación",
-      message: "Esta Seguro que desea guardar suplementacion",
-      icon: "pi  pi-exclamation-triangle ",
-      acceptLabel: "Si",
-      rejectLabel: "No",
-      key:'claveDialog',
-      accept: () => {
-        console.log('tipo suplementacion',this.suplemento.tipoSuplementacion)
-        if (this.suplemento.tipoSuplementacion=='PREVENTIVO'){
-          console.log('->>>>>>>>>>>>>>',this.isSuplementacion)
-          if (this.isSuplementacion){
-            this.SuplementacionService.PostSuplementacion(this.idConsulta,requestInput
-            ).subscribe(() => {
-              this.ref.close("agregado");
-            });
-          }
-          else{
-            this.SuplementacionService.PostVitaminaA(this.idConsulta,requestInput
-            ).subscribe(() => {
-              this.ref.close("agregado");
-            });
-          }
-        }
-        else{
-            this.SuplementacionService.PostSuplementacionXanemia(this.idConsulta,requestInput).subscribe((resp)=>{
-                this.ref.close('agregado')
-            })
-        }
+    // if (this.suplemento.tipoSuplementacion=='TERAPEUTICO'){
+    //   requestInput.tipoSuplementacion='TERAPEUTICO'
+    // }
+    // // console.log('recivico',this.suplemento)
+    // // console.log('enviado',requestInput)
+    // this.confirmationService.confirm({
+    //   header: "Confirmación",
+    //   message: "Esta Seguro que desea guardar suplementacion",
+    //   icon: "pi  pi-exclamation-triangle ",
+    //   acceptLabel: "Si",
+    //   rejectLabel: "No",
+    //   key:'claveDialog',
+    //   accept: () => {
+    //     console.log('tipo suplementacion',this.suplemento.tipoSuplementacion)
+    //     if (this.suplemento.tipoSuplementacion=='PREVENTIVO'){
+    //       console.log('->>>>>>>>>>>>>>',this.isSuplementacion)
+    //       if (this.isSuplementacion){
+    //         this.SuplementacionService.PostSuplementacion(this.idConsulta,requestInput
+    //         ).subscribe(() => {
+    //           this.ref.close("agregado");
+    //         });
+    //       }
+    //       else{
+    //         this.SuplementacionService.PostVitaminaA(this.idConsulta,requestInput
+    //         ).subscribe(() => {
+    //           this.ref.close("agregado");
+    //         });
+    //       }
+    //     }
+    //     else{
+    //         this.SuplementacionService.PostSuplementacionXanemia(this.idConsulta,requestInput).subscribe((resp)=>{
+    //             this.ref.close('agregado')
+    //         })
+    //     }
 
 
-      },
-      reject: () => {
-        // console.log("no se borro");
-      },
-    });
+    //   },
+    //   reject: () => {
+    //     // console.log("no se borro");
+    //   },
+    // });
   }
   obtenerFecha(fecha: Date) {
     const parte1 = fecha.toISOString().split("T");
