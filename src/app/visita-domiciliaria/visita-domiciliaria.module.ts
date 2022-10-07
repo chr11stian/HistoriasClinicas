@@ -8,6 +8,7 @@ import { BuscarVisitasComponent } from "./components/buscar-visitas/buscar-visit
 import { PrimeModule } from "../shared/prime/prime.module";
 import { DialogRespuestasComponent } from "./components/dialog-respuestas/dialog-respuestas.component";
 import { MapVisitasComponent } from "./components/map-visitas/map-visitas.component";
+import { EsFecha } from "./pipes/respuestas.pipe";
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { MapVisitasComponent } from "./components/map-visitas/map-visitas.compon
     BuscarVisitasComponent,
     DialogRespuestasComponent,
     MapVisitasComponent,
+    EsFecha,
   ],
   imports: [CommonModule, VisitaDomiciliariaRoutingModule, PrimeModule],
   exports: [VisitaDomiciliariaRoutingModule],

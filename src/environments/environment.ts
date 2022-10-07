@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 const base = "http://192.168.5.3:"; //privada
-// const base "http://190.108.93.150:"; //publica
+//const base="http://190.108.93.150:"; //publica
 
 export const environment = {
     production: false,
@@ -14,7 +14,7 @@ export const environment = {
     baseUrl: base + "3012/api",
     base_uri: base + "3010/login/hce" /**ACCESO AL LOGIN**/,
     base_uri_: base + "3012" /*LOGIN*/,
-    base_login: base + "2020" /* NUEVO LOGIN */,
+    base_login: base + "3010" /* NUEVO LOGIN */,
     base_url_pide:
         base + "3011/pide/datos-sis" /**ACCESO A LOS DATOS DEL PIDE Y SIS**/,
     base_urlTx: base + "8200" /***ACCESO A REPORTE TRATAMIENTOS****/,
