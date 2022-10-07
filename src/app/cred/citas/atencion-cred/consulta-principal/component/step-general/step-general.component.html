@@ -19,6 +19,15 @@
     (activeIndexChange)="ChangeStep($event)"
   >
   </p-steps>
+  <div class="flotante">
+    <div class="speeddial-circle-demo">
+        <div class="speeddial-semi-circle">
+            <p-speedDial [model]="tooltipItems" showIcon="pi pi-window-maximize" hideIcon="pi pi-window-minimize"  radius="80"
+                direction="left" type="semi-circle" >
+            </p-speedDial>
+        </div>
+    </div>
+  </div>
   <div class="stepsdemo-content" *ngIf="stepName === 'datos'">
     <p-card>
       <ng-template pTemplate="header">
