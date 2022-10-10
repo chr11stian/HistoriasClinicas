@@ -237,8 +237,6 @@ export class TratamientoInmunizacionComponent implements OnInit {
       const coincidenciaVacuna = this.listaVacunasCodigos.find(
         (items) => nombreVacuna == items.nombre
       );
-      console.log("coincidenciaVacuna", items, coincidenciaVacuna);
-
       items.codigoSis = coincidenciaVacuna.codigo;
     });
     console.log("mape", this.listaInmunizaciones);
