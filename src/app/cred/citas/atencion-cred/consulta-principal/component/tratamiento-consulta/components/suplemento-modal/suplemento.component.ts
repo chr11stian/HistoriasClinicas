@@ -10,6 +10,7 @@ import {
 import { SuplementacionesMicronutrientesService } from "../../../../../plan/component/plan-atencion-integral/services/suplementaciones-micronutrientes/suplementaciones-micronutrientes.service";
 import {dato} from "../../../../../../models/data";
 import {ConfirmationService} from "primeng/api";
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: "app-suplemento",
@@ -17,6 +18,7 @@ import {ConfirmationService} from "primeng/api";
   styleUrls: ["./suplemento.component.css"],
 })
 export class SuplementoComponent implements OnInit {
+  datePipe=new DatePipe('en-US')
   idConsulta:string
   dataDocumento:dato;
   suplemento: SuplementacionMicronutrientes;
@@ -62,6 +64,8 @@ export class SuplementoComponent implements OnInit {
       fechaAplicacion: new FormControl({value:'',disabled:true}, Validators.required),
       medicamento: new FormControl("", Validators.required),
       dosis: new FormControl("", Validators.required),
+      lab: new FormControl(""),
+      
     });
   }
   getFC(control: string): AbstractControl {
@@ -70,6 +74,9 @@ export class SuplementoComponent implements OnInit {
   getSuplementancion() {
     this.getFC("fechaTentativa").setValue(this.suplemento.fechaTentativa);
     this.getFC("fechaAplicacion").setValue(new Date());
+    this.getFC("lab").setValue(this.suplemento.dosis);
+    // console.log('dosis',this.suplemento.dosis);
+    
   }
   save() {
     let requestInput:any= {
@@ -77,8 +84,9 @@ export class SuplementoComponent implements OnInit {
         codSISMED: this.getFC('medicamento').value.codeSISMED,
         nroDiagnostico: 0, //deberia ir el codDiagnosticos sis incluido su sie(otras medidas profilacticas especificadas z29.8)
         codProcedimientoHIS: this.suplemento.codigosSis,
-        codUPS: "324231", //duro
-
+        codUPS: "Enfermeria", //duro
+        // nombreUPSAux: "", //duro
+        // lab:this.getFC('lab').value,
         nombre: this.suplemento.nombre,//SF
         descripcion: this.getFC('medicamento').value.name,//(mas conocido como el medicamento)aun por definir,//SF-SULFATO-FERROSO
         dosisIndicacion: this.getFC('dosis').value,//dosis campo abierto deberia se calculado 1/2cucharadita
@@ -86,10 +94,10 @@ export class SuplementoComponent implements OnInit {
         duracion: "6 mes",
         indicacion: "temor con citricos",//?evaluar campo
         dosis: this.suplemento.dosis,//nro de la dosis
-        fecha: this.obtenerFecha(this.getFC("fechaAplicacion").value),
+        fecha:this.datePipe.transform(this.getFC("fechaAplicacion").value,'yyyy-MM-dd'),
         estadoAdministrado: true,
         edadMes: this.suplemento.edadMes,
-        fechaTentativa: this.obtenerFecha(this.getFC("fechaTentativa").value),
+        fechaTentativa:this.datePipe.transform(this.getFC("fechaTentativa").value,'yyyy-MM-dd'),
     };
     console.log('inputRequest',requestInput);
     
@@ -135,11 +143,6 @@ export class SuplementoComponent implements OnInit {
     //     // console.log("no se borro");
     //   },
     // });
-  }
-  obtenerFecha(fecha: Date) {
-    const parte1 = fecha.toISOString().split("T");
-    const parte2 = parte1[1].split(".")[0];
-    return `${parte1[0]}`;
   }
   cancel() {
     // this.getFC('')
