@@ -23,8 +23,10 @@ export class StepGeneral_consultaComponent implements OnInit {
 
     data: any
     IDConsulta: string = null;
+    
 
     constructor(private dialog:DialogService) {
+    
         this.tooltipItems = [
             {
               tooltipOptions: {
@@ -134,6 +136,7 @@ export class StepGeneral_consultaComponent implements OnInit {
     }
     openDialogInterconsultaObstetricia(){
         this.ref = this.dialog.open(InteconsultaObstetriciaModalComponent, {
+            data:{idConsulta:this.IDConsulta},
             header: "INTERCONSULTA",
             contentStyle:{
             },

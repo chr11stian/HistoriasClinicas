@@ -25,12 +25,20 @@
                 <p-dropdown [options]="viaAdministracionList" formControlName="viaAdministracion" optionLabel="name" optionValue="code" ></p-dropdown>
             </div>
         </div>
-        <div class="col-6 grid">
+        <div class="col-3 grid">
             <div class="col-3">
                 Dosis:
             </div>
             <div class="col-9 p-fluid">
                 <p-dropdown [options]="dosisList" formControlName="cantidad" optionLabel="name" optionValue="code"  [style]="{'position': 'fixed', 'overflow': 'visible', 'z-index': '999'}" ></p-dropdown>
+            </div>
+        </div>
+        <div class="col-3 grid">
+            <div class="col-3">
+                Lab HIS:
+            </div>
+            <div class="col-9 p-fluid">
+                <input type="text" pInputText placeholder="lab" formControlName="lab">    
             </div>
         </div>
         <div class="col-6 grid">
