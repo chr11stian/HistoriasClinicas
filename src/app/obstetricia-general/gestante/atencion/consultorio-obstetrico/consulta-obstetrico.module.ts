@@ -35,6 +35,7 @@ import { ModalPlanPartoComponent } from './component/modal-plan-parto/modal-plan
 import { ExamsInOfficeDialogComponent } from './component/evaluaciones/laboratorio/exams-in-office-dialog/exams-in-office-dialog.component';
 import { ModalShowHisComponent } from './component/tratamiento/modal-show-his/modal-show-his.component';
 import { AtencionesPrenatalesModalComponent } from './component/atenciones-prenatales-modal/atenciones-prenatales-modal.component';
+import { InteconsultaObstetriciaModalComponent } from './component/inteconsulta-obstetricia-modal/inteconsulta-obstetricia-modal.component';
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -68,7 +69,8 @@ FullCalendarModule.registerPlugins([
         ModalPlanPartoComponent,
         ExamsInOfficeDialogComponent,
         ModalShowHisComponent,
-        AtencionesPrenatalesModalComponent
+        AtencionesPrenatalesModalComponent,
+        InteconsultaObstetriciaModalComponent
     ],
     imports: [
         FullCalendarModule,

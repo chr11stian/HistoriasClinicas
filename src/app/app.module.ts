@@ -22,6 +22,8 @@ import {FullCalendarModule} from "primeng/fullcalendar";
 import { LoginRolComponent } from './login/login-rol/login-rol.component';
 import { PasswordComponent } from './login/password/password.component';
 import { VisitaDomiciliariaModule } from './visita-domiciliaria/visita-domiciliaria.module';
+import { PnGestanteComponent } from './pn-gestante/components/pn-gestante/pn-gestante.component';
+import { PnGestanteDialogComponent } from './pn-gestante/components/pn-gestante-dialog/pn-gestante-dialog.component';
 
 @NgModule({
     declarations: [
@@ -30,6 +32,8 @@ import { VisitaDomiciliariaModule } from './visita-domiciliaria/visita-domicilia
         NotFoundComponent,
         LoginRolComponent,
         PasswordComponent,
+        PnGestanteComponent,
+        PnGestanteDialogComponent,
     ],
     imports: [
         FullCalendarModule,

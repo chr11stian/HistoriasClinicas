@@ -36,9 +36,8 @@ export class LoginService {
         localStorage.removeItem("token");
         localStorage.clear();
         this.router.navigate(["/login"]);
-        console.log("entro");
+        //console.log("entro");
     }
-
     getUser(body) {
         return this.http.post<any>(`${this.base_uri}/modo`, body, {
             headers: new HttpHeaders({
@@ -145,7 +144,7 @@ export class LoginService {
             );
     }
 */
-    /* login_quemado(credenciales) {
+/* login_quemado(credenciales) {
         return this.http
             .get<any>("assets/login.json")
             .toPromise()
@@ -220,7 +219,7 @@ export class LoginService {
                 }
             });
     } */
-    /* ingresar(body) {
+/* ingresar(body) {
         return this.http
             .post<any>(`${this.base_uri}`, body, {
                 headers: new HttpHeaders({

@@ -33,3 +33,9 @@ body {
 .leaflet-popup-content img{
   width: 100%;
 }
+/* :host ::ng-deep .boton-azul .p-button {
+  background-color: red;
+} */
+p-button.boton-azul .p-button {
+  background-color: red;
+}

@@ -12,29 +12,34 @@
                 <div class="busqueda">
                     <div class="anios">
                         <p-dropdown
+                                (onChange)="verVisitasPorAnio($event)"
                                 [options]="anios"
                                 optionLabel="anio" formControlName="busquedaAnio"
                                 optionValue="anio"
                                 placeholder="Año"
                                 [showClear]="false"
                                 [style]="{ width: '100%' }"
+                                [(ngModel)]="selectedAnio"
                                 >
                         </p-dropdown>
                     </div>
                     <div class="meses">
-                        <p-selectButton  [options]="meses"  optionValue="value" formControlName="busquedaMes"
-                                        optionLabel="label" (click)=" buscarVisitaAnioXMes()"></p-selectButton>
+                        <p-selectButton (onChange)="verVisitasPorMes($event)" 
+                                        [options]="meses"  
+                                        optionValue="value" 
+                                        [(ngModel)]="selectedMes"
+                                        formControlName="busquedaMes"
+                                        optionLabel="label"></p-selectButton>
                     </div>
                 </div>
             </form>
             <!--MapStreet-->
-         <app-map-visitas [dataVisitas]="dataVisitas"></app-map-visitas>
         </p-card>
     </div>
     <p-accordion>
-        <p-accordionTab header="VISITA DOMICILIARIA ENTRE LOS 0 A 4 MESES">
-            <p-table [value]="dataVisitas"   #dt styleClass="p-datatable-gridlines" [rows]="4"
-            [rowsPerPageOptions]="[5, 10, 15]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+        <p-accordionTab header="VISITA DOMICILIARIA ENTRE LOS 0 A 4 MESES-NÚMERO DE VISITAS:{{dataVisitas_Menores_4_meses.length}}">
+            <p-table [value]="dataVisitas_Menores_4_meses"   #dt styleClass="p-datatable-gridlines" [rows]="4"
+            [rowsPerPageOptions]="[10,20,30]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
             currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
                 <ng-template pTemplate="header">
                 <tr>
@@ -55,41 +60,46 @@
                     <tr>
                         <td style="text-align: center">{{rowIndex+1}}</td>
                         <td style="text-align: center">{{RowData.value.dni_ninio}}</td>
-                        <td style="text-align: center">{{RowData.value.nombres_ninio}}</td>
-                        <td style="text-align: center">{{RowData.value.apellidos_ninio}}</td>
+                        <td style="text-align: left">{{RowData.value.nombres_ninio}}</td>
+                        <td style="text-align: left">{{RowData.value.apellidos_ninio}}</td>
                         <td style="text-align: center">{{RowData.value.nroVisita}}</td>
-                        <td style="text-align: center">{{RowData.value.fecha_creacion_documento}}</td>
+                        <td style="text-align: center">{{RowData.value.fecha_creacion_documento | date:'dd/MM/yy'}}</td>
                         <td style="text-align: center">{{RowData.value.dni_apoderado}}</td>
-                        <td style="text-align: center">{{RowData.value.nombre_madre}}</td>
-                        <td style="text-align: center">{{RowData.value.direccion}}</td>
+                        <td style="text-align: left">{{RowData.value.nombre_madre}}</td>
+                        <td style="text-align: left">{{RowData.value.direccion}}</td>
                         <td style="text-align: center">
                             <button  pButton type="button" label="Ver"  icon="pi pi-eye"  class="buttonAcciones" (click)="openDialogRespuestas(RowData.value.preguntas)"></button>
                         </td>
                         <td style="text-align: center">
-                            <button pButton type="button" label="Reporte" icon="pi pi-file-pdf" class="buttonAcciones"></button>
+                            <button pButton  type="button"  class="buttonAcciones1" (click)="visita_menor_cuatro_meses_reporte(RowData)"
+                        ><a  style="color:#af0017;"
+                        href="{{visitaReporte}}"
+                            target="_blank">Reporte</a>
+                        </button>
                         </td>
                     </tr>
                 </ng-template>
             </p-table>
         
         </p-accordionTab>
-       <p-accordionTab header="VISITA DOMICILIARIA ENTRE LOS 4 A 24 MESES">
-            <p-table [value]="dataVisitas"   #dt styleClass="p-datatable-gridlines" [rows]="4"
-            [rowsPerPageOptions]="[5, 10, 15]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+    <p-accordionTab header="VISITA DOMICILIARIA ENTRE LOS 4 A 24 MESES-NÚMERO DE VISITAS:{{dataVisitas_Mayores_4_meses.length}}">
+            <p-table [value]="dataVisitas_Mayores_4_meses"   #dt styleClass="p-datatable-gridlines" [rows]="4"
+            [rowsPerPageOptions]="[10,20,30]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
             currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
                 <ng-template  pTemplate="header">
-                <tr>
-                    <th>Nro</th>
-                    <th>DNI</th>
-                    <th>Nombres</th>
-                    <th>Apellidos</th>
-                    <th>Nro Visita</th>
-                    <th>DNI Apoderado</th>
-                    <th>Nombre madre</th>
-                    <th>Direccion</th>
-                    <th>Respuestas</th>
-                    <th>Acciones</th>
-                </tr>
+                    <tr>
+                        <th>Nro</th>
+                        <th>DNI</th>
+                        <th>Nombres</th>
+                        <th>Apellidos</th>
+                        <th>Nro Visita</th>
+                        <th>Fecha de la visita</th>
+                        <th>DNI Apoderado</th>
+                        <th>Nombre madre</th>
+                        <th>Direccion</th>
+                        <th>Respuestas</th>
+                        <th>Acciones</th>
+                    </tr>
                 </ng-template>
                 <ng-template pTemplate="body"  let-RowData let-rowIndex="rowIndex">
                     <tr>
@@ -98,14 +108,19 @@
                         <td style="text-align: center">{{RowData.value.nombres_ninio}}</td>
                         <td style="text-align: center">{{RowData.value.apellidos_ninio}}</td>
                         <td style="text-align: center">{{RowData.value.nroVisita}}</td>
+                        <td style="text-align: center">{{RowData.value.fecha_creacion_documento | date:'dd/MM/yy'}}</td>
                         <td style="text-align: center">{{RowData.value.dni_apoderado}}</td>
                         <td style="text-align: center">{{RowData.value.nombre_madre}}</td>
-                        <td style="text-align: center">{{RowData.value.direccion}}</td>
+                        <td style="text-align: left">{{RowData.value.direccion}}</td>
                         <td style="text-align: center">
-                            <button  pButton type="button" label="Ver"  icon="pi pi-eye"  class="buttonAcciones" (click)="openDialogRespuestas(RowData.value.respuestas)"></button>
+                            <button pButton type="button" label="Ver"  icon="pi pi-eye"  class="buttonAcciones" (click)="openDialogRespuestas(RowData.value.preguntas)"></button>
                         </td>
                         <td style="text-align: center">
-                            <button pButton type="button" label="Reporte" icon="pi pi-file-pdf" class="buttonAcciones"></button>
+                            <button pButton type="button"  class="buttonAcciones1" (click)="visita_mayor_cuatro_meses_reporte(RowData)"
+                        ><a style="color:#af0017;"
+                        href="{{visitaReporte}}"
+                            target="_blank">Reporte</a>
+                        </button>
                         </td>
                     </tr>
                 </ng-template>
@@ -114,6 +129,10 @@
         </p-accordionTab>
         
     </p-accordion>
+    <p-card>
+        <app-map-visitas [dataVisitas]="dataVisitas"></app-map-visitas>
+    </p-card>
 </div>
-<p-toast position="bottom-right" key="myMessage1"></p-toast>
-<p-toast position="bottom-right" key="myMessage2"></p-toast>
+
+<p-toast position="top-right" key="myMessage1"></p-toast>
+<p-toast position="top-right" key="myMessage2"></p-toast>

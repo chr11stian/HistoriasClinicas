@@ -9,6 +9,7 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import Swal from "sweetalert2";
 import { DatePipe } from '@angular/common';
 import { CronogramaComponent } from './cronograma/cronograma.component';
+import { ModalReferenciaComponent } from 'src/app/cred/citas/atencion-cred/consulta-principal/component/finalizar-consulta/modal-referencia/modal-referencia.component';
 
 
 @Component({
@@ -292,6 +293,21 @@ export class ResultadosComponent implements OnInit {
             },
         })
     }
+    openRefe() {
+        this.ref = this.dialog.open(ModalReferenciaComponent, {
+          header: "HOJA DE REFERENCIA",
+          height: "100%",
+          width: "90%",
+          style: {
+            position: "absolute",
+            top: "17px",
+          },
+        });
+        // this.referencia = [];
+        // this.ref.onClose.subscribe((data: ReferenciaInterface) => {
+        //   if (data !== undefined) this.referencia.push(data);
+        // });
+      }
     ngDoCheck() {
         if (this.consultaService.proxCita !== '') {
             this.fecha = new Date(this.consultaService.proxCita)

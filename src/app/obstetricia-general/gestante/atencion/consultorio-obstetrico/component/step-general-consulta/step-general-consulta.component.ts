@@ -4,6 +4,7 @@ import {MenuItem} from "primeng/api"
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import Swal from "sweetalert2";
 import { AtencionesPrenatalesModalComponent } from '../atenciones-prenatales-modal/atenciones-prenatales-modal.component';
+import { InteconsultaObstetriciaModalComponent } from '../inteconsulta-obstetricia-modal/inteconsulta-obstetricia-modal.component';
 
 @Component({
     selector: 'app-step-general-consulta',
@@ -12,6 +13,7 @@ import { AtencionesPrenatalesModalComponent } from '../atenciones-prenatales-mod
     providers:[DialogService]
 })
 export class StepGeneral_consultaComponent implements OnInit {
+    tooltipItems: MenuItem[];
     ref: DynamicDialogRef;
     options: data[]
     selectedOption: data
@@ -21,8 +23,33 @@ export class StepGeneral_consultaComponent implements OnInit {
 
     data: any
     IDConsulta: string = null;
+    
 
     constructor(private dialog:DialogService) {
+    
+        this.tooltipItems = [
+            {
+              tooltipOptions: {
+                tooltipLabel: "Interconsulta",
+                tooltipPosition: "left",
+              },
+              icon: "pi pi-reply",
+              command: (event: Event) => {
+                this.openDialogInterconsultaObstetricia();
+              },
+            },
+            {
+                tooltipOptions: {
+                  tooltipLabel: "Atenciones Prenatales",
+                  tooltipPosition: "left",
+                },
+                icon: "pi pi-tablet",
+                command: (event: Event) => {
+                  this.openDialogAtencionesPrenatales();
+                },
+            },
+    
+          ];
         this.options = [
             { name: "DNI", code: 1 },
             { name: "CARNET RN", code: 2 },
@@ -99,6 +126,18 @@ export class StepGeneral_consultaComponent implements OnInit {
     openDialogAtencionesPrenatales(){
         this.ref = this.dialog.open(AtencionesPrenatalesModalComponent, {
             header: "ATENCIONES PRENATALES",
+            contentStyle:{
+            },
+            style:{
+                width:"80%"
+            },
+          })
+
+    }
+    openDialogInterconsultaObstetricia(){
+        this.ref = this.dialog.open(InteconsultaObstetriciaModalComponent, {
+            data:{idConsulta:this.IDConsulta},
+            header: "INTERCONSULTA",
             contentStyle:{
             },
             style:{

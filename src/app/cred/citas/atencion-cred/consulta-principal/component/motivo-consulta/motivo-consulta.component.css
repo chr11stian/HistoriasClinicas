@@ -87,6 +87,6 @@ p-speeddial >>> .p-button.p-button-icon-only.p-button-rounded {
   right: 0;
   top: 300px;
 }
-:host ::ng-deep .button-agregar .p-button {
+/* :host ::ng-deep .button-agregar .p-button {
   background-color: #0c3866;
-}
+} */

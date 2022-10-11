@@ -204,9 +204,10 @@ export class ExamsInOfficeDialogComponent implements OnInit {
       this.assignCIE10(allDataExams);
       this.examsToSave = this.buildArrayToSave(allDataExams, allHemoExams);
       console.log('data to save', this.examsToSave);
-      this.laboratoryService.postSaveLabExamInConsultation(this.consultationId, this.patientData.id, this.examsToSave).then(res => {
-        console.log('se guardo ', res);
-        this.ref.close();
+      this.laboratoryService.postSaveLabExamInConsultation(this.consultationId, this.patientData.id, this.examsToSave).then((res: any) => {
+        if (res.cod == "2126") {
+          this.ref.close();
+        }
       });
     }
   }

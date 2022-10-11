@@ -51,14 +51,17 @@ export class LoginComponent implements OnInit, DoCheck {
             username: this.usuario,
             password: this.password,
         };
+        console.log("credenciales", credenciales);
         /* this.loginService.getUser(credenciales).subscribe((r: any) => {
             this.listRol = r.modo;
             console.log("listRoles", this.listRol);
             this.buildRol();
         }); */
         /*  nuevo login */
+        
         this.loginService.ingresar_login(credenciales, "hce").subscribe(
             (user: userInterface) => {
+                console.log("user", user);
                 if (user) {
                     this.loginService.roles = user.usuario.roles;
                     this.openRol();
