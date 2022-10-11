@@ -47,4 +47,11 @@ export class LaboratoriosService {
             .then(res => res)
             .then(data => { return data; })
     }
+
+    postSaveLabExamInConsultation(idConsulta: string, idFiliacion: string, data) {
+        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/agregar/laboratorio/resultado/${idConsulta}/${idFiliacion}`, data)
+            .toPromise()
+            .then(res => res)
+            .then(data => { return data; })
+    }
 }

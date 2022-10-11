@@ -505,16 +505,24 @@ export class DatosBasalesComponent implements OnInit {
     guardarDatos() {
         this.recuperarDatos();
         console.log('data to save ', this.datosBasales);
-        // this.datosBasalesService.postDatosBasalesById(this.idGestante, this.datosBasales).subscribe((res: any) => {
-        //     console.log('se guardo correctamente ', res.object);
-        //     Swal.fire({
-        //         icon: 'success',
-        //         title: 'Registro',
-        //         text: 'Fue creado con exito',
-        //         showConfirmButton: false,
-        //         timer: 1500,
-        //     })
-        // });
+        this.datosBasalesService.postDatosBasalesById(this.idGestante, this.datosBasales).subscribe((res: any) => {
+            if ([res.cod == '2009']) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Registro',
+                    text: 'Fue creado con exito',
+                    showConfirmButton: false,
+                    timer: 2000,
+                })
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'No se pudo guardar datos basales',
+                    showConfirmButton: false,
+                    timer: 2000,
+                })
+            }
+        });
     }
 
     loadData() {

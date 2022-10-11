@@ -1,18 +1,21 @@
 export interface HemoExam {
     descripcion: string,
     hg: number,
+    lab: string,
     conFactorCorreccion: number,
     fecha: string
 }
 export interface OtherExam {
     nombre: string,
-    valor: string,
+    valor: string[],
     fecha: string,
+    lab?: string,
     valor1?: string,
     valor2?: string,
     valor3?: string,
     valor4?: string,
     saved?: boolean,
+    cie10?: string
 }
 export interface Pregmant {
     estado: string,
@@ -27,10 +30,20 @@ export interface HemoResult {
     hg: string,
     factorCorrec: string
 }
-export interface DataSave {
-    nombre: string,
+export interface DataExamSave {
+    nombreExamen: string,
+    nombreExamenSIS: string,
+    cie10SIS: string,
+    nombreUPS: string,
+    nombreUPSaux: string,
+    codPrestacion: string,
+    codigoSIS: string,
+    codigoHIS: string,
+    tipoDx: string,
+    lab: string,
     valor: string,
-    cie10?: string
+    factorCorreccion?: number,
+
 }
 export interface LaboratoryExam {
     nombreExamen: string
