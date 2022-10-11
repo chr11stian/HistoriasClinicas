@@ -669,6 +669,7 @@ export class PersonalSaludComponent implements OnInit {
     }
 
     newEspecialidad(rowData) {
+        console.log("rowdata",rowData)
         this.especialidades = rowData.especialidad;
         this.nombrePersonal = `${rowData.apePaterno} ${rowData.apeMaterno}, ${rowData.primerNombre}`;
         this.idEspecialidad = rowData.id;
@@ -693,7 +694,7 @@ export class PersonalSaludComponent implements OnInit {
 
     newRolSistema(rowData) {
         this.rolesSistema = [];
-        console.log("row", rowData);
+        //console.log("row", rowData);
         this.nroDocRow = rowData.nroDoc;
         this.nombrePersonal = `${rowData.apePaterno} ${rowData.apeMaterno}, ${rowData.primerNombre}`;
         this.dniPersonal = rowData.nroDoc;
@@ -749,6 +750,7 @@ export class PersonalSaludComponent implements OnInit {
     }
 
     eliminarEspecialidad(rowData) {
+        console.log("row",rowData)
         this.isUpdateEspecialidad = false;
         Swal.fire({
             showCancelButton: true,
@@ -760,7 +762,7 @@ export class PersonalSaludComponent implements OnInit {
         }).then((result) => {
             if (result.isConfirmed) {
                 this.personalservice
-                    .deletePersonalEspecialidad(this.idRolX, rowData.nombre)
+                    .deletePersonalEspecialidad(this.idEspecialidad, rowData.nombre)
                     .subscribe((result) => {
                         this.getPersonalIdEspecialidad();
                         this.getPersonal();

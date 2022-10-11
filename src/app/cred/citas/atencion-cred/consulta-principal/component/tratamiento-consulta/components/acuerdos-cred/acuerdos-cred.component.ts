@@ -40,7 +40,8 @@ export class AcuerdosCredComponent implements OnInit {
             .getListAcuerdo(this.data.idConsulta)
             .subscribe((r: any) => {
                 this.acuerdosAux =
-                    r.object.acuerdosCompromisosCRED.listaAcuerdosConMadre;
+                    r.object.acuerdosCompromisosCRED?.listaAcuerdosConMadre || [];
+                this.FrmObservacion.get("observaciones").setValue(r.object.observacionesConsulta)
             });
     }
     listaAcuerdos() {

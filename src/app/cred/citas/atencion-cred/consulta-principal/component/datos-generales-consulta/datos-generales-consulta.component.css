@@ -21,7 +21,10 @@ p-toolbar>>>* {
 
 /* interconsulta */
 div#opc {
-  position: static;
+    position:fixed;
+    top:400px;
+    right:55px;
+    z-index: 999999;
 }
 
 p-speeddial>>>.p-button.p-button-icon-only.p-button-rounded {
