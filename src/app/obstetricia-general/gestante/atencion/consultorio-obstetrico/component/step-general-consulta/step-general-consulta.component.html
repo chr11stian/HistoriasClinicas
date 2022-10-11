@@ -17,7 +17,7 @@
     <p-steps [model]="items" [readonly]="false" [(activeIndex)]="indiceActivo"
              (activeIndexChange)="ChangeStep($event)" class="scrollmenu">
     </p-steps>
-    <div class="flotante">
+    <div *ngIf="indiceActivo!=0" class="flotante" >
         <div class="speeddial-circle-demo">
             <div class="speeddial-semi-circle">
                 <p-speedDial [model]="tooltipItems" showIcon="pi pi-window-maximize" hideIcon="pi pi-window-minimize"  radius="80"
