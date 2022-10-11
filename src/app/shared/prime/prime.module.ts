@@ -44,6 +44,7 @@ import { FormsModule } from '@angular/forms';
 import {TimelineModule} from 'primeng/timeline';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {SpeedDialModule} from 'primeng/speeddial';
+import { PickListModule } from 'primeng/picklist';
 const importsApi = [
     TimelineModule,
     FullCalendarModule,
@@ -101,7 +102,8 @@ const importsApi = [
     InputMaskModule,
     FormsModule,
     ProgressSpinnerModule,
-    SpeedDialModule
+    SpeedDialModule,
+    PickListModule
 ];
 
 @NgModule({

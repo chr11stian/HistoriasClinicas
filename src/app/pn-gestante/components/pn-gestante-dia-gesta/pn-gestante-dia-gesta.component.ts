@@ -6,11 +6,11 @@ import {DatePipe} from '@angular/common';
 import Swal from'sweetalert2';
 
 @Component({
-  selector: 'app-pn-gestante-dialog',
-  templateUrl: './pn-gestante-dialog.component.html',
-  styleUrls: ['./pn-gestante-dialog.component.css']
+  selector: 'app-pn-gestante-dia-gesta',
+  templateUrl: './pn-gestante-dia-gesta.component.html',
+  styleUrls: ['./pn-gestante-dia-gesta.component.css']
 })
-export class PnGestanteDialogComponent implements OnInit {
+export class PnGestanteDiaGestaComponent implements OnInit {
   formGestante:FormGroup;
   isUpdate:boolean=false;
   dataGestante:any;
@@ -40,7 +40,6 @@ export class PnGestanteDialogComponent implements OnInit {
   fecha_reg:any;
   checked: boolean=false;
   existeGestante:boolean=false;
-  auxFPP:Date;
   //data personal
   auxNroDocPersonal:string=JSON.parse(localStorage.getItem('usuario')).nroDocumento;
   auxNombresPersonal:string=JSON.parse(localStorage.getItem('usuario')).nombres;
@@ -270,5 +269,5 @@ calcularFPP(event){
 selectedTipoDoc(event){
 }
   
-}
 
+}

@@ -2,8 +2,8 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-const base = "http://192.168.5.3:"; //privada
-//const base="http://190.108.93.150:"; //publica
+//const base = "http://192.168.5.3:"; //privada
+const base="http://190.108.93.150:"; //publica
 
 export const environment = {
     production: false,
@@ -25,7 +25,7 @@ export const environment = {
     base_url_couch_images:
         base + "5984/visitas_medicas/f64691bc4d1c40e239602e3b1a0196f3",
     base_url_couch_pngestante_view:
-        base + "5984/db_padron_nominal_gestante/_design/padron_nominal_gestante/_view",/**padron nominal view */
+        base + "5984/db_padron_nominal_gestante/_design/padron_nominal/_view",/**padron nominal view */
 };
 
 /*
