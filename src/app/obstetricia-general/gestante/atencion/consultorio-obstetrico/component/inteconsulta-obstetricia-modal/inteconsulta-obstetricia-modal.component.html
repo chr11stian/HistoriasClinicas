@@ -94,7 +94,7 @@
       <td style="text-align: center">{{ rowData.fecha }}</td>
       <td style="text-align: center">{{ rowData.motivo }}</td>
       <td style="text-align: center">{{ rowData.servicio }}</td>
-      <td style="text-align: center">{{ rowData.nivelUrgencia }}</td>
+      <td style="text-align: center">{{getNivel(rowData.nivelUrgencia)}}</td>
       <td style="text-align: center">
         <button
           pButton

@@ -20,11 +20,11 @@ export class InteconsultaObstetriciaModalComponent implements OnInit {
   loading:boolean=false
   idConsulta:''
   listaNivelUrgencia = [
-    { name: "Nivel 1", code: "Nivel 1" },
-    { name: "Nivel 2", code: "Nivel 2" },
-    { name: "Nivel 3", code: "Nivel 3" },
-    { name: "Nivel 4", code: "Nivel 4" },
-    { name: "Nivel 5", code: "Nivel 5" },
+    { name: "No urgente", code: "Nivel 5" },
+    { name: "Menos Urgente", code: "Nivel 4" },
+    { name: "Urgente", code: "Nivel 3" },
+    { name: "Emergencia", code: "Nivel 2" },
+    { name: "Reanimacion", code: "Nivel 1" },
   ];
 
   constructor(private rolGuardiaService: RolGuardiaService,
@@ -113,6 +113,12 @@ export class InteconsultaObstetriciaModalComponent implements OnInit {
   }
   changeServicios(){
 
+  }
+  getNivel(rowData){
+    const nivel= this.listaNivelUrgencia.find((item)=>{
+        return rowData==item.code
+    })
+    return nivel.name
   }
 
 }
