@@ -15,7 +15,7 @@ import { PnGestanteDiaGestaComponent } from './components/pn-gestante-dia-gesta/
     PnGestanteDialogComponent,
     SemanaGestacional,
     PnGestanteDiaCambioComponent,
-    PnGestanteDiaGestaComponent
+    PnGestanteDiaGestaComponent,
   ],
 
   imports: [

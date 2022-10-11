@@ -45,6 +45,7 @@ import {TimelineModule} from 'primeng/timeline';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {SpeedDialModule} from 'primeng/speeddial';
 import { PickListModule } from 'primeng/picklist';
+
 const importsApi = [
     TimelineModule,
     FullCalendarModule,

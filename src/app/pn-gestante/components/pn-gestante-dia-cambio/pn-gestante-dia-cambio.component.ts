@@ -41,11 +41,12 @@ export class PnGestanteDiaCambioComponent implements OnInit {
   fecha_reg:any;
   checked: boolean=false;
   existeGestante:boolean=false;
+  dataGestanteCambio:any;
   //data personal
   auxNroDocPersonal:string=JSON.parse(localStorage.getItem('usuario')).nroDocumento;
   auxNombresPersonal:string=JSON.parse(localStorage.getItem('usuario')).nombres;
   auxApellidosPersonal:string=JSON.parse(localStorage.getItem('usuario')).apellidos;
-  auxCodeessActual:string=JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
+  auxCodeessActual:string=JSON.parse(localStorage.getItem('usuario')).ipress.renipress;
   aux_eessActual:string=JSON.parse(localStorage.getItem('usuario')).ipress.nombreEESS;
   sis:any []=[
     {value:'SI'},
@@ -141,46 +142,62 @@ closeDialog(){
 saveForm(){
 this.pn_gestanteServicio.couch=true;
 this.recuperarDatos();
-this.pn_gestanteServicio.addGestante(this.dataGestante).subscribe((res:any)=>{
+console.log('dataGestanteCambiar',this.dataGestanteCambiar);
+console.log('dataGestante',this.dataGestante);
+// console.log("data gestante",this.dataGestanteEditar);
+console.log('_id',this.dataGestante.value._id)
+console.log('_rev',this.dataGestante.value._rev);
+this.pn_gestanteServicio.updatedGestante(this.dataGestante.value._id,this.dataGestanteCambiar,this.dataGestante.value._rev).subscribe((res:any)=>{
   this.closeDialog();
+  console.log('se actualizo correctamente',res);
   Swal.fire({
     icon:'success',
-    title:'Se guardo exitosamente',
+    title:'Se actualizo los datos correctamente',
     showConfirmButton:false,
-    timer:1500
+    timer:1500,
   })
-  console.log('Data',res);
 })
 this.mostrarPadronNominalGestantes();
+// this.pn_gestanteServicio.updatedGestante(this.dataGestante).subscribe((res:any)=>{
+//   this.closeDialog();
+//   Swal.fire({
+//     icon:'success',
+//     title:'Se guardo exitosamente',
+//     showConfirmButton:false,
+//     timer:1500
+//   })
+//   console.log('Data',res);
+// })
+//this.mostrarPadronNominalGestantes();
 }
 
 
 recuperarDatos(){
-this.dataGestante={
-  // tipoDoc:'padronNominal',
-  // nombres:this.formGestante.value.formNombresGestante,
-  // apellidos:this.formGestante.value.formApellidos,
-  // fechaNacimiento:this.datePipe.transform(this.formGestante.value.formFechaNacimiento,'yyyy/MM/dd'),
-  // tipoDocIdentidad:this.formGestante.value.formTipoDoc,
-  // nroDocIdentidad:this.formGestante.value.formNroDocGestante,
-  // telefono:this.formGestante.value.formTelefono,
-  // tieneSis:this.formGestante.value.formTieneSis,
-  // direccion:this.formGestante.value.formDireccion,
-  // referencia:this.formGestante.value.formReferencia,
-  // hcl2:this.formGestante.value.formHCL,
-  codEessAnterior:this.formGestante.value.formCod_eess_anterior,
-  eessAnterior:this.formGestante.value.form_eess_anterior,
-  codEessActual:this.formGestante.value.formCod_eess_actual,
-  eessActual:this.formGestante.value.form_eess_actual,
-  // fur:this.datePipe.transform(this.formGestante.value.formFur,'dd-MM-yyyy'),
-  // fpp:this.datePipe.transform(this.formGestante.value.formFpp,'dd-MM-yyyy'),
-  // morbilidad_potencial:this.formGestante.value.formMorbilidadPotencial,
-  // observaciones:this.formGestante.value.formObservaciones,
-  // dniPersonal:this.auxNroDocPersonal,
-  // personalEess:`${this.auxNombresPersonal}  ${this.auxApellidosPersonal}`,
-  // fechaReg:this.datePipe.transform(this.formGestante.value.formFechaRegistro,'dd-MM-yyyy'),
-  // nroGesta:[this.formGestante.value.formNroGesta],
-  // aborto:this.formGestante.value.formAborto,
+this.dataGestanteCambiar={
+  tipoDoc:'padronNominal',
+  nombres:this.dataGestante.nombres,
+  apellidos:this.dataGestante.apellidos,
+  fechaNacimiento:this.dataGestante.fechaNacimiento,
+  tipoDocIdentidad:this.dataGestante.tipoDocIdentidad,
+  nroDocIdentidad:this.dataGestante.nroDocIdentidad,
+  telefono:this.dataGestante.telefono,
+  tieneSis:this.dataGestante.tieneSis,
+  direccion:this.dataGestante.direccion,
+  referencia:this.dataGestante.referencia,
+  hcl2:this.dataGestante.hcl2,
+  codEessAnterior:this.dataGestante.codEessActual,
+  eessAnterior:this.dataGestante.eessActual,
+  codEessActual:this.auxCodeessActual,
+  eessActual:this.eess_actual,
+  fur:this.dataGestante.fur,
+  fpp:this.dataGestante.fpp,
+  morbilidadPotencial:this.dataGestante.morbilidadPotencial,
+  observaciones:this.dataGestante.observaciones,
+  dniPersonal:this.auxNroDocPersonal,
+  personalEess:`${this.auxNombresPersonal}  ${this.auxApellidosPersonal}`,
+  fechaReg:this.datePipe.transform(this.formGestante.value.formFechaRegistro,'dd-MM-yyyy'),
+  nroGesta:this.dataGestante.nroGesta,
+  aborto:this.dataGestante.aborto,
 }
 }
 
@@ -214,36 +231,29 @@ if((this.dataGestanteCambiar!=null) || (this.dataGestanteCambiar!==undefined)){
 }
 
 cargarDatosPadronNominal(){
+  this.pn_gestanteServicio.couch=true;
   let nroDoc: String = String(this.formGestante.value.formNroDocGestante);
-  if(nroDoc.length<=8){
-    console.log(nroDoc)
-    this.pn_gestanteServicio.couch=true;
-    this.pn_gestanteServicio.getGestanteDni(nroDoc).subscribe(
-      (data)=>{
-        console.log('DATA RECUPERADA :',data);
-        this.dataGestante=data['rows'];
-        this.formGestante.get('formNombresGestante').setValue(data['rows'].value.nombres);
-        this.formGestante.get('formApellidos').setValue(data['rows'].value.apellidos);
-        this.formGestante.get('formCod_eess_anterior').setValue(data['rows'].value.cod_eessActual);
-        this.formGestante.get('form_eess_anterior').setValue(data['rows'].value.eess_actual);
-        this.formGestante.get('formCod_eess_actual').setValue(this.auxCodeessActual);
-        this.formGestante.get('form_eess_actual').setValue(this.aux_eessActual);
-      }
-    );
-  
-  }
-}
-calcularFPP(event){
-  // let fur=this.formGestante.value.formFur;
-  console.log(event);
-  console.log(event.value);
+  this.pn_gestanteServicio.getGestanteDni(nroDoc).subscribe(
+    (data:any)=>{
+      console.log('DATA RECUPERADA :',data);
+      this.dataGestante=data.rows[0].value;
+      console.log('dataaaaaa ',this.dataGestante);
+      this.formGestante.get('formNombresGestante').setValue(this.dataGestante.nombres);
+      this.formGestante.get('formApellidos').setValue(this.dataGestante.apellidos);
+      this.formGestante.get('formCod_eess_anterior').setValue(this.dataGestante.cod_eessActual);
+      this.formGestante.get('form_eess_anterior').setValue(this.dataGestante.eess_actual);
+      this.formGestante.get('formCod_eess_actual').setValue(this.auxCodeessActual);
+      this.formGestante.get('form_eess_actual').setValue(this.aux_eessActual);
+    }
+  );
 }
 
-selectedTipoDoc(event){
+calcularFPP(fur:string):string{
+let myArr=fur.split("/")
+let dia=parseInt(myArr[0])+7;
+let mes=parseInt(myArr[1])-3
+let anio=parseInt(myArr[2])+1;
+return `${dia}/${mes}/${anio}`;
 }
-Cambio(){
-
-}
-  
-
+Cambio(){}
 }

@@ -140,7 +140,7 @@
                                 <input type="date" pInputText 
                                 placeholder="Fecha de ultima regla"
                                 formControlName="formFur"   
-                                (change)="calcularFPP($event)"
+                                (click)="calcularFPP($event)"
                                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                     </div>
                     <div class="field col">
@@ -148,6 +148,7 @@
                         <input type="date" pInputText  placeholder="Fecha de Probable parto"
                                 formControlName="formFpp"  
                                 disabled="true"
+                                [ngModel]="auxFPP"
                                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                     </div>
                 </div>
@@ -219,6 +220,7 @@
         (click)="saveoupdate()"
         label="Guardar"
         class="p-button-primary mt-4 mr-3"
+        [disabled]="gestanteRegistrado"
         ></button>
         <button
         pButton
@@ -228,3 +230,8 @@
         class="p-button-danger mt-4"
         ></button>
     </div>
+    <div>
+    <p-toast position="top-right" key="myMessage1"></p-toast>
+    <p-toast position="top-right" key="myMessage2"></p-toast>
+    </div>
+

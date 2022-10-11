@@ -18,6 +18,7 @@ export class PnGestanteComponent implements OnInit {
   updated:boolean=false;
   listaGestantes:any []=[];
   listaGestantesPuerpera:any []=[];
+  estado:any;
   ref:DynamicDialogRef;
 
   constructor(private fb:FormBuilder,

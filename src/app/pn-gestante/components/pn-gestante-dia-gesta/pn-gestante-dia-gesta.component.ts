@@ -104,7 +104,7 @@ inicializarForm(){
     formCod_eess_actual:new FormControl(''),
     form_eess_actual:new FormControl(''),
     formHCL:new FormControl(''),
-    formFechaRegistro:new FormControl(''),
+    formFechaRegistro:new FormControl(new Date()),
     formFur:new FormControl(''),
     formFpp:new FormControl(''),
     formDireccion:new FormControl(),
@@ -232,42 +232,44 @@ if((this.dataGestanteEditar!=null) || (this.dataGestanteEditar!==undefined)){
 }
 
 cargarDatosPadronNominal(){
+  this.pn_gestanteServicio.couch=true;
   let nroDoc: String = String(this.formGestante.value.formNroDocGestante);
-  if(nroDoc.length<=8){
-    console.log(nroDoc)
-    this.pn_gestanteServicio.couch=true;
-    this.pn_gestanteServicio.getGestanteDni(nroDoc).subscribe(
-      (data)=>{
-        console.log('DATA RECUPERADA :',data);
-        this.dataGestante=data['rows']
-        console.log('DATA GESTANTE',this.dataGestante)
-        if(data["rows"].length > 0){
-          Swal.fire({
-            icon:'success',
-            title:'La gestante ya se encuentra registrado',
-            showConfirmButton:false,
-            timer:1500,
-          }),
-          this.dataGestanteEditar=data['rows'];
-          this.editarDatos();
-        }
-      },(err)=>{
-        this.dataGestante=[];
-        console.log('Ups algo salio mal',this.dataGestante)
-      }
-      
-    );
-
+  this.pn_gestanteServicio.getGestanteDni(nroDoc).subscribe(
+    (data:any)=>{
+      console.log('DATA RECUPERADA :',data);
+      this.dataGestante=data.rows[0].value;
+      console.log('dataaaaaa ',this.dataGestante);
+      this.formGestante.get('formTipoDoc').setValue(this.dataGestante.tipoDocIdentidad);
+      this.formGestante.get('formNroDocGestante').setValue(this.dataGestante.dni);
+      this.formGestante.get('formTieneSis').setValue(this.dataGestante.tieneSis);
+      this.formGestante.get('formFechaNacimiento').setValue(this.datePipe.transform(this.dataGestante.fecha_nacimiento,'yyyy-MM-dd'));
+      this.formGestante.get('formEdad').setValue(this.dataGestante.edad);
+      this.formGestante.get('formNombresGestante').setValue(this.dataGestante.nombres);
+      this.formGestante.get('formApellidos').setValue(this.dataGestante.apellidos);
+      this.formGestante.get('formCod_eess_anterior').setValue(this.dataGestante.cod_eessAnterior);
+      this.formGestante.get('form_eess_anterior').setValue(this.dataGestante.eess_anterior);
+      this.formGestante.get('formCod_eess_actual').setValue(this.dataGestante.cod_eessActual);
+      this.formGestante.get('form_eess_actual').setValue(this.dataGestante.eess_actual);
+      this.formGestante.get('formHCL').setValue(this.dataGestante.nro_historial_clinica);
+      this.formGestante.get('formFechaRegistro').setValue(this.dataGestante.fechaReg);
+      this.formGestante.get('formFur').setValue(this.datePipe.transform(this.dataGestante.fur,'yyyy-MM-dd'));
+      this.formGestante.get('formFpp').setValue(this.datePipe.transform(this.dataGestante.fpp,'yyyy-MM-dd'));
+      this.formGestante.get('formDireccion').setValue(this.dataGestante.direccion);
+      this.formGestante.get('formReferencia').setValue(this.dataGestante.referencia);
+      this.formGestante.get('formTelefono').setValue(this.dataGestante.telefono);
+      this.formGestante.get('formMorbilidadPotencial').setValue(this.dataGestante.morbilidadPotencial);
+      this.formGestante.get('formObservaciones').setValue(this.dataGestante.observaciones);
+      this.formGestante.get('formGesta').setValue(this.dataGestante.numero_de_gestacion);
+      this.formGestante.get('formAborto').setValue(this.dataGestante.aborto);
+    }
+  );
+}
+calcularFPP(fur:string):string{
+  let myArr=fur.split("/")
+  let dia=parseInt(myArr[0])+7;
+  let mes=parseInt(myArr[1])-3
+  let anio=parseInt(myArr[2])+1;
+  return `${dia}/${mes}/${anio}`;
   }
-}
-calcularFPP(event){
-  // let fur=this.formGestante.value.formFur;
-  console.log(event);
-  console.log(event.value);
-}
-
-selectedTipoDoc(event){
-}
-  
 
 }

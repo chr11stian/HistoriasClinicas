@@ -4,11 +4,14 @@ import { PnGestanteService } from '../../services/pn-gestante.service';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import {DatePipe} from '@angular/common';
 import Swal from'sweetalert2';
+import {Message} from 'primeng//api';
+import {MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-pn-gestante-dialog',
   templateUrl: './pn-gestante-dialog.component.html',
-  styleUrls: ['./pn-gestante-dialog.component.css']
+  styleUrls: ['./pn-gestante-dialog.component.css'],
+  providers: [MessageService],
 })
 export class PnGestanteDialogComponent implements OnInit {
   formGestante:FormGroup;
@@ -40,7 +43,8 @@ export class PnGestanteDialogComponent implements OnInit {
   fecha_reg:any;
   checked: boolean=false;
   existeGestante:boolean=false;
-  auxFPP:Date;
+  gestanteRegistrado:boolean=false;
+  auxFPP:any;
   //data personal
   auxNroDocPersonal:string=JSON.parse(localStorage.getItem('usuario')).nroDocumento;
   auxNombresPersonal:string=JSON.parse(localStorage.getItem('usuario')).nombres;
@@ -78,7 +82,8 @@ export class PnGestanteDialogComponent implements OnInit {
   ];
   constructor(private fb:FormBuilder,
               private ref:DynamicDialogRef,
-              private pn_gestanteServicio:PnGestanteService) {
+              private pn_gestanteServicio:PnGestanteService,
+              private messageService:MessageService) {
               this.inicializarForm();
   }
 
@@ -125,6 +130,8 @@ mostrarPadronNominalGestantes(){
 
 closeDialog(){
   this.ref.close();
+  this.gestanteRegistrado=false;
+  console.log('gestanteRegistrado',this.gestanteRegistrado);
   this.mostrarPadronNominalGestantes();
 }
 
@@ -193,7 +200,7 @@ this.dataGestante={
   eessActual:this.formGestante.value.form_eess_actual,
   fur:this.datePipe.transform(this.formGestante.value.formFur,'dd-MM-yyyy'),
   fpp:this.datePipe.transform(this.formGestante.value.formFpp,'dd-MM-yyyy'),
-  morbilidad_potencial:this.formGestante.value.formMorbilidadPotencial,
+  morbilidadPotencial:this.formGestante.value.formMorbilidadPotencial,
   observaciones:this.formGestante.value.formObservaciones,
   dniPersonal:this.auxNroDocPersonal,
   personalEess:`${this.auxNombresPersonal}  ${this.auxApellidosPersonal}`,
@@ -233,39 +240,56 @@ if((this.dataGestanteEditar!=null) || (this.dataGestanteEditar!==undefined)){
 }
 
 cargarDatosPadronNominal(){
+  this.pn_gestanteServicio.couch=true;
   let nroDoc: String = String(this.formGestante.value.formNroDocGestante);
-  if(nroDoc.length<=8){
-    console.log(nroDoc)
-    this.pn_gestanteServicio.couch=true;
-    this.pn_gestanteServicio.getGestanteDni(nroDoc).subscribe(
-      (data)=>{
-        console.log('DATA RECUPERADA :',data);
-        this.dataGestante=data['rows']
-        console.log('DATA GESTANTE',this.dataGestante)
-        if(data["rows"].length > 0){
-          Swal.fire({
-            icon:'success',
-            title:'La gestante ya se encuentra registrado',
-            showConfirmButton:false,
-            timer:1500,
-          }),
-          this.dataGestanteEditar=data['rows'];
-          this.editarDatos();
-        }
-      },(err)=>{
-        this.dataGestante=[];
-        console.log('Ups algo salio mal',this.dataGestante)
+  this.pn_gestanteServicio.getGestanteDni(nroDoc).subscribe(
+    (data:any)=>{
+      console.log('DATA RECUPERADA :',data);
+      this.dataGestante=data.rows[0].value;
+      if(data['rows'].length>0){
+        this.gestanteRegistrado=true;
+        console.log('gestanteRegistrado',this.gestanteRegistrado);
+        this.messageService.add({
+          key: "myMessage1",
+          severity: "warn",
+          summary: "Data obtenida",
+          detail: "Gestante ya registrado en el padron nominal",
+        })
       }
-      
-    );
+    });
+      // console.log('dataaaaaa ',this.dataGestante);
+      // this.formGestante.get('formTipoDoc').setValue(this.dataGestante.tipoDocIdentidad);
+      // this.formGestante.get('formNroDocGestante').setValue(this.dataGestante.dni);
+      // this.formGestante.get('formTieneSis').setValue(this.dataGestante.tieneSis);
+      // this.formGestante.get('formFechaNacimiento').setValue(this.datePipe.transform(this.dataGestante.fecha_nacimiento,'yyyy-MM-dd'));
+      // this.formGestante.get('formEdad').setValue(this.dataGestante.edad);
+      // this.formGestante.get('formNombresGestante').setValue(this.dataGestante.nombres);
+      // this.formGestante.get('formApellidos').setValue(this.dataGestante.apellidos);
+      // this.formGestante.get('formCod_eess_anterior').setValue(this.dataGestante.cod_eessAnterior);
+      // this.formGestante.get('form_eess_anterior').setValue(this.dataGestante.eess_anterior);
+      // this.formGestante.get('formCod_eess_actual').setValue(this.dataGestante.cod_eessActual);
+      // this.formGestante.get('form_eess_actual').setValue(this.dataGestante.eess_actual);
+      // this.formGestante.get('formHCL').setValue(this.dataGestante.nro_historial_clinica);
+      // this.formGestante.get('formFechaRegistro').setValue(this.dataGestante.fechaReg);
+      // this.formGestante.get('formFur').setValue(this.datePipe.transform(this.dataGestante.fur,'yyyy-MM-dd'));
+      // this.formGestante.get('formFpp').setValue(this.datePipe.transform(this.dataGestante.fpp,'yyyy-MM-dd'));
+      // this.formGestante.get('formDireccion').setValue(this.dataGestante.direccion);
+      // this.formGestante.get('formReferencia').setValue(this.dataGestante.referencia);
+      // this.formGestante.get('formTelefono').setValue(this.dataGestante.telefono);
+      // this.formGestante.get('formMorbilidadPotencial').setValue(this.dataGestante.morbilidadPotencial);
+      // this.formGestante.get('formObservaciones').setValue(this.dataGestante.observaciones);
+      // this.formGestante.get('formGesta').setValue(this.dataGestante.numero_de_gestacion);
+      // this.formGestante.get('formAborto').setValue(this.dataGestante.aborto);
+}
 
+calcularFPP(fur:string){
+  let myArr=fur.split("/");
+  let dia=parseInt(myArr[0])+7;
+  let mes=parseInt(myArr[1])-3;
+  let anio=parseInt(myArr[2])+1;
+  this.auxFPP=`${dia}/${mes}/${anio}`;
+ // this.formGestante.get('formFpp').setValue(this.datePipe.transform(this.dataGestanteEditar.value.fpp,'yyyy-MM-dd'));
   }
-}
-calcularFPP(event){
-  // let fur=this.formGestante.value.formFur;
-  console.log(event);
-  console.log(event.value);
-}
 
 selectedTipoDoc(event){
 }

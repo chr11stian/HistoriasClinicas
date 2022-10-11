@@ -5,7 +5,7 @@
                     <div class="card">
                         <label class="ml-3 my-4">DATOS GENERALES DE LA GESTANTE</label>
                         <div class="formgrid grid mx-3">
-                                <div class="col-12 md:col-1">
+                              <div class="col-12 md:col-2">
                                     <label>Tipo Doc</label>
                                     <p-dropdown [options]="listaDocumentos" 
                                                 formControlName="formTipoDoc"
@@ -13,11 +13,10 @@
                                                 optionLabel="value" 
                                                 optionValue="value"
                                                 [showClear]="false" 
-                                                (onChange)="selectedTipoDoc($event)"
                                                 class="p-fluid w-full">
                                     </p-dropdown>
-                                </div>
-                                <div class="col-12 md:col-3">
+                              </div>
+                              <div class="col-12 md:col-3">
                                     <label for="DNI">DNI</label>
                                     <input id="DNI" type="number" pInputText placeholder="DNI"
                                                 formControlName="formNroDocGestante"
@@ -39,8 +38,8 @@
                         </div>
                         <div class="formgrid grid mx-3">
                               <div class="field col" >
-                                  <label>Cod. EE.SS Anterior:</label>
-                                  <input placeholder="Cod.EESS.Anterior" 
+                              <label>Cod. EE.SS Anterior:</label>
+                              <input placeholder="Cod.EESS.Anterior" 
                                           type="text" pInputText  class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                                           formControlName="formCod_eess_anterior" 
                                           oninput="this.value=this.value.toUpperCase()"
@@ -80,19 +79,19 @@
             </form>
             </div>
       <div class="footer">
-                <button
-                pButton
-                type="button"
-                (click)="Cambio()"
-                label="Gambiar EESS"
-                class="p-button-warning mt-4 mr-3"
-                ></button>
-                <button
-                pButton
-                type="button"
-                (click)="closeDialog()"
-                label="Cancelar"
-                class="p-button-danger mt-4"
-                ></button>
+            <button
+             pButton
+            type="button"
+            (click)="saveForm()"
+            label="Gambiar EESS"
+            class="p-button-warning mt-4 mr-3"
+            ></button>
+            <button
+            pButton
+            type="button"
+            (click)="closeDialog()"
+            label="Cancelar"
+            class="p-button-danger mt-4"
+            ></button>
       </div>
         
