@@ -24,5 +24,8 @@ export const environment = {
    base_url_couch_images:
         base + "5984/visitas_medicas/f64691bc4d1c40e239602e3b1a0196f3",
    base_url_couch_pngestante_view:
-        base + "5984/db_padron_nominal_gestante/_design/padron_nominal_gestante/_view"
+        base + "5984/db_padron_nominal_gestante/_design/padron_nominal_gestante/_view",
+   base_url_couch_gestante_update:
+        base + "5984/db_padron_nominal_gestante/_design/padron_nominal/_update"
+
 };
