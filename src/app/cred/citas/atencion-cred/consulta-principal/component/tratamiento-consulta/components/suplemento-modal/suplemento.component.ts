@@ -99,50 +99,50 @@ export class SuplementoComponent implements OnInit {
         edadMes: this.suplemento.edadMes,
         fechaTentativa:this.datePipe.transform(this.getFC("fechaTentativa").value,'yyyy-MM-dd'),
     };
-    console.log('inputRequest',requestInput);
+    // console.log('inputRequest',requestInput);
     
 
-    // if (this.suplemento.tipoSuplementacion=='TERAPEUTICO'){
-    //   requestInput.tipoSuplementacion='TERAPEUTICO'
-    // }
-    // // console.log('recivico',this.suplemento)
-    // // console.log('enviado',requestInput)
-    // this.confirmationService.confirm({
-    //   header: "Confirmación",
-    //   message: "Esta Seguro que desea guardar suplementacion",
-    //   icon: "pi  pi-exclamation-triangle ",
-    //   acceptLabel: "Si",
-    //   rejectLabel: "No",
-    //   key:'claveDialog',
-    //   accept: () => {
-    //     console.log('tipo suplementacion',this.suplemento.tipoSuplementacion)
-    //     if (this.suplemento.tipoSuplementacion=='PREVENTIVO'){
-    //       console.log('->>>>>>>>>>>>>>',this.isSuplementacion)
-    //       if (this.isSuplementacion){
-    //         this.SuplementacionService.PostSuplementacion(this.idConsulta,requestInput
-    //         ).subscribe(() => {
-    //           this.ref.close("agregado");
-    //         });
-    //       }
-    //       else{
-    //         this.SuplementacionService.PostVitaminaA(this.idConsulta,requestInput
-    //         ).subscribe(() => {
-    //           this.ref.close("agregado");
-    //         });
-    //       }
-    //     }
-    //     else{
-    //         this.SuplementacionService.PostSuplementacionXanemia(this.idConsulta,requestInput).subscribe((resp)=>{
-    //             this.ref.close('agregado')
-    //         })
-    //     }
+    if (this.suplemento.tipoSuplementacion=='TERAPEUTICO'){
+      requestInput.tipoSuplementacion='TERAPEUTICO'
+    }
+    // console.log('recivico',this.suplemento)
+    // console.log('enviado',requestInput)
+    this.confirmationService.confirm({
+      header: "Confirmación",
+      message: "Esta Seguro que desea guardar suplementacion",
+      icon: "pi  pi-exclamation-triangle ",
+      acceptLabel: "Si",
+      rejectLabel: "No",
+      key:'claveDialog',
+      accept: () => {
+        console.log('tipo suplementacion',this.suplemento.tipoSuplementacion)
+        if (this.suplemento.tipoSuplementacion=='PREVENTIVO'){
+          console.log('->>>>>>>>>>>>>>',this.isSuplementacion)
+          if (this.isSuplementacion){
+            this.SuplementacionService.PostSuplementacion(this.idConsulta,requestInput
+            ).subscribe(() => {
+              this.ref.close("agregado");
+            });
+          }
+          else{
+            this.SuplementacionService.PostVitaminaA(this.idConsulta,requestInput
+            ).subscribe(() => {
+              this.ref.close("agregado");
+            });
+          }
+        }
+        else{
+            this.SuplementacionService.PostSuplementacionXanemia(this.idConsulta,requestInput).subscribe((resp)=>{
+                this.ref.close('agregado')
+            })
+        }
 
 
-    //   },
-    //   reject: () => {
-    //     // console.log("no se borro");
-    //   },
-    // });
+      },
+      reject: () => {
+        // console.log("no se borro");
+      },
+    });
   }
   cancel() {
     // this.getFC('')

@@ -26,7 +26,6 @@ export class StepGeneral_consultaComponent implements OnInit {
     
 
     constructor(private dialog:DialogService) {
-    
         this.tooltipItems = [
             {
               tooltipOptions: {
