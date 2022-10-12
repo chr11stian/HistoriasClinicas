@@ -10,6 +10,7 @@ export class PnGestanteService {
   bd = environment.bd_pn_gestante;
   base_url = environment.base_url_Couch;
   base_url_view = environment.base_url_couch_pngestante_view;
+  base_url_update=environment.base_url_couch_gestante_update;
   id_ipress="";
   dni_profesional="";
   constructor(private http: HttpClient) {
@@ -70,6 +71,27 @@ getIdIpress(): string {
       `${this.base_url_view}/gestantes-dni`,
       {
         "keys": [`${dni}`],
+      })
+  }
+
+  cambioEESS(id:string,nuevo_codEessActual:string,nuevo_eessActual:string){
+    console.log(`${this.base_url_update}/cambiar_eess/id`);
+    return this.http.put(
+      `${this.base_url_update}/cambiar_eess/${id}`,
+      {
+        codEessActual:nuevo_codEessActual,
+        eessActual:nuevo_eessActual
+      })
+  }
+
+  actualizarNumeroGesta(id:string,nuevo_nroGesta:number,nuevo_fur:string,nuevo_fpp:string){
+    console.log( `${this.base_url_update}/actualizar_nroGesta/${id}`);
+    return this.http.put(
+      `${this.base_url_update}/actualizar_nroGesta/id`,
+      {
+        nroGesta:nuevo_nroGesta,
+        fur:nuevo_fur,
+        fpp:nuevo_fpp
       })
   }
 
