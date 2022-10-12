@@ -135,18 +135,16 @@ export class PnGestanteDiaCambioComponent implements OnInit {
       .subscribe((res: any) => {
         this.closeDialog();
         if(res['ok']==true){
-          console.log("se actualizo correctamente", res);
           Swal.fire({
             icon: "success",
-            title: "Se actualizo los datos correctamente",
+            title: "Se cambio de establecimiento correctamente",
             showConfirmButton: false,
             timer: 1500,
           });
         }else{
-          console.log("se actualizo correctamente", res);
           Swal.fire({
             icon: "error",
-            title: "No se pudo actualizar los datos correctamente",
+            title: "No se pudo cambiar de establecimiento  correctamente",
             showConfirmButton: false,
             timer: 1500,
           });

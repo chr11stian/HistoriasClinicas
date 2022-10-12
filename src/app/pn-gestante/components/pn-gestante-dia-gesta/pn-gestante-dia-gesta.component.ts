@@ -46,7 +46,7 @@ export class PnGestanteDiaGestaComponent implements OnInit {
   selectedAborto: boolean;
   auxFPP: any;
   auxFUR: any;
-  agregarNuevaGesta: boolean = true;
+  agregarNuevaGesta: boolean = false;
   auxFechaActual: Date = new Date();
   //data personal
   auxNroDocPersonal: string = JSON.parse(localStorage.getItem("usuario"))
@@ -91,13 +91,6 @@ export class PnGestanteDiaGestaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dataGestanteEditar = JSON.parse(
-      localStorage.getItem("gestanteLocalStorage")
-    );
-    console.log("Gestante seleccionado", this.dataGestanteEditar);
-    if (this.dataGestanteEditar !== null) {
-      this.editarDatos();
-    }
   }
   inicializarForm() {
     this.formGestante = this.fb.group({
@@ -120,15 +113,15 @@ export class PnGestanteDiaGestaComponent implements OnInit {
       ),
       formFur: new FormControl(""),
       formFpp: new FormControl(""),
-      formDireccion: new FormControl(),
-      formReferencia: new FormControl(),
+      formDireccion: new FormControl(""),
+      formReferencia: new FormControl(""),
       formTelefono: new FormControl(""),
-      formMorbilidadPotencial: new FormControl(),
+      formMorbilidadPotencial: new FormControl(""),
       formObservaciones: new FormControl(""),
     });
   }
   mostrarPadronNominalGestantes() {
-    let cod_ipress = "00002384";
+    let cod_ipress =this.auxCodeessActual;
     this.pn_gestanteServicio.couch = true;
     this.pn_gestanteServicio
       .mostrarPadronGestantes(cod_ipress)
@@ -140,34 +133,6 @@ export class PnGestanteDiaGestaComponent implements OnInit {
 
   closeDialog() {
     this.ref.close();
-    this.mostrarPadronNominalGestantes();
-  }
-
-  saveoupdate() {
-    if (this.dataGestanteEditar == null) {
-      this.saveForm();
-      this.mostrarPadronNominalGestantes();
-    } else {
-      this.editarGestante();
-      this.mostrarPadronNominalGestantes();
-    }
-  }
-
-  saveForm() {
-    this.pn_gestanteServicio.couch = true;
-    this.recuperarDatos();
-    this.pn_gestanteServicio
-      .addGestante(this.dataGestante)
-      .subscribe((res: any) => {
-        this.closeDialog();
-        Swal.fire({
-          icon: "success",
-          title: "Se guardo exitosamente",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        console.log("Data", res);
-      });
     this.mostrarPadronNominalGestantes();
   }
 
@@ -233,100 +198,9 @@ export class PnGestanteDiaGestaComponent implements OnInit {
         this.formGestante.value.formFechaRegistro,
         "dd-MM-yyyy"
       ),
-      nroGesta: [this.formGestante.value.formNroGesta],
+      nroGesta:this.formGestante.value.formNroGesta,
       aborto: this.formGestante.value.formAborto,
     };
-  }
-
-  editarDatos() {
-    let fullname = this.dataGestanteEditar.value.nombres.split(" ");
-    if (
-      this.dataGestanteEditar != null ||
-      this.dataGestanteEditar !== undefined
-    ) {
-      console.log("DATA RECUPERADO", this.dataGestanteEditar);
-      this.formGestante
-        .get("formTipoDoc")
-        .setValue(this.dataGestanteEditar.value.tipoDocIdentidad);
-      this.formGestante
-        .get("formNroDocGestante")
-        .setValue(this.dataGestanteEditar.value.nroDocIdentidad);
-      this.formGestante
-        .get("formTieneSis")
-        .setValue(this.dataGestanteEditar.value.tieneSis);
-      this.formGestante
-        .get("formFechaNacimiento")
-        .setValue(
-          this.datePipe.transform(
-            this.dataGestanteEditar.value.fecha_nacimiento,
-            "yyyy-MM-dd"
-          )
-        );
-      this.formGestante
-        .get("formEdad")
-        .setValue(this.dataGestanteEditar.value.edad);
-      this.formGestante
-        .get("formNombresGestante")
-        .setValue(this.dataGestanteEditar.value.nombres);
-      this.formGestante
-        .get("formApellidos")
-        .setValue(this.dataGestanteEditar.value.apellidos);
-      this.formGestante
-        .get("formCod_eess_anterior")
-        .setValue(this.dataGestanteEditar.value.cod_eessAnterior);
-      this.formGestante
-        .get("form_eess_anterior")
-        .setValue(this.dataGestanteEditar.value.eess_anterior);
-      this.formGestante
-        .get("formCod_eess_actual")
-        .setValue(this.dataGestanteEditar.value.cod_eessActual);
-      this.formGestante
-        .get("form_eess_actual")
-        .setValue(this.dataGestanteEditar.value.eess_actual);
-      this.formGestante
-        .get("formHCL")
-        .setValue(this.dataGestanteEditar.value.nro_historial_clinica);
-      this.formGestante
-        .get("formFechaRegistro")
-        .setValue(this.dataGestanteEditar.value.fechaReg);
-      this.formGestante
-        .get("formFur")
-        .setValue(
-          this.datePipe.transform(
-            this.dataGestanteEditar.value.fur,
-            "yyyy-MM-dd"
-          )
-        );
-      this.formGestante
-        .get("formFpp")
-        .setValue(
-          this.datePipe.transform(
-            this.dataGestanteEditar.value.fpp,
-            "yyyy-MM-dd"
-          )
-        );
-      this.formGestante
-        .get("formDireccion")
-        .setValue(this.dataGestanteEditar.value.direccion);
-      this.formGestante
-        .get("formReferencia")
-        .setValue(this.dataGestanteEditar.value.referencia);
-      this.formGestante
-        .get("formTelefono")
-        .setValue(this.dataGestanteEditar.value.telefono);
-      this.formGestante
-        .get("formMorbilidadPotencial")
-        .setValue(this.dataGestanteEditar.value.morbilidadPotencial);
-      this.formGestante
-        .get("formObservaciones")
-        .setValue(this.dataGestanteEditar.value.observaciones);
-      this.formGestante
-        .get("formGesta")
-        .setValue(this.dataGestanteEditar.value.numero_de_gestacion);
-      this.formGestante
-        .get("formAborto")
-        .setValue(this.dataGestanteEditar.value.aborto);
-    }
   }
 
   cargarDatosPadronNominal() {
@@ -342,7 +216,8 @@ export class PnGestanteDiaGestaComponent implements OnInit {
           .setValue(this.dataGestante.tipoDocIdentidad);
         this.formGestante
           .get("formNroDocGestante")
-          .setValue(this.dataGestante.dni);
+          .setValue(this.dataGestante.nroDocIdentidad
+            );
         this.formGestante
           .get("formTieneSis")
           .setValue(this.dataGestante.tieneSis);
@@ -407,11 +282,11 @@ export class PnGestanteDiaGestaComponent implements OnInit {
           .get("formAborto")
           .setValue(this.dataGestante.aborto == true ? "SI" : "NO");
         if (
-          this.dataGestante.fur > this.auxFechaActual ||
-          this.dataGestante.aborto
-        ) {
+          this.dataGestante.fpp > this.auxFechaActual || this.dataGestante.aborto==true) {
           this.agregarNuevaGesta = false;
-        } else {
+        } 
+        else {
+          this.agregarNuevaGesta = true;
           this.messageService.add({
             key: "myMessage1",
             severity: "warn",
@@ -440,7 +315,7 @@ export class PnGestanteDiaGestaComponent implements OnInit {
 
   agregarGesta() {
     this.pn_gestanteServicio.couch = true;
-    let nroGesta=this.formGestante.value.formNroDocGestante;
+    let nroGesta=this.formGestante.value.formGesta;
     let fur=this.formGestante.value.formFUR;
     // console.log("_id", this.dataGestante._id);
     // console.log("_rev", this.dataGestante._rev);

@@ -37,7 +37,7 @@ export class PnGestanteComponent implements OnInit {
     this.pn_gestanteServicio.couch = true;
     this.pn_gestanteServicio.mostrarPadronGestantes("00029514").subscribe(
       (data) => {
-        this.listaGestantes = data["rows"];
+        this.listaGestantes = data['rows'];
         this.listaGestantesPuerpera = this.listaGestantes.filter((aux) => {
           if (this.semanaGestacional(aux.value.fur) < 38) return aux;
         });
