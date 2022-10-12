@@ -4,11 +4,13 @@ import { PnGestanteService } from '../../services/pn-gestante.service';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import {DatePipe} from '@angular/common';
 import Swal from'sweetalert2';
+import {MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-pn-gestante-dia-gesta',
   templateUrl: './pn-gestante-dia-gesta.component.html',
-  styleUrls: ['./pn-gestante-dia-gesta.component.css']
+  styleUrls: ['./pn-gestante-dia-gesta.component.css'],
+  providers: [MessageService],
 })
 export class PnGestanteDiaGestaComponent implements OnInit {
   formGestante:FormGroup;
@@ -40,6 +42,12 @@ export class PnGestanteDiaGestaComponent implements OnInit {
   fecha_reg:any;
   checked: boolean=false;
   existeGestante:boolean=false;
+  auxFechaRegistro:Date=new Date();
+  selectedAborto:boolean;
+  auxFPP:any;
+  auxFUR:any;
+  agregarNuevaGesta:boolean=true;
+  auxFechaActual:Date=new Date();
   //data personal
   auxNroDocPersonal:string=JSON.parse(localStorage.getItem('usuario')).nroDocumento;
   auxNombresPersonal:string=JSON.parse(localStorage.getItem('usuario')).nombres;
@@ -50,9 +58,10 @@ export class PnGestanteDiaGestaComponent implements OnInit {
     {value:'SI'},
     {value:'NO'}
   ]
+
   aborto:any []=[
-    {value:"true"},
-    {value:"false"}
+    {label:'SI',value:true},
+    {label:'NO',value:false}
   ]
 
   estado_gestante:any []=[
@@ -77,7 +86,8 @@ export class PnGestanteDiaGestaComponent implements OnInit {
   ];
   constructor(private fb:FormBuilder,
               private ref:DynamicDialogRef,
-              private pn_gestanteServicio:PnGestanteService) {
+              private pn_gestanteServicio:PnGestanteService,
+              private messageService:MessageService) {
               this.inicializarForm();
   }
 
@@ -104,7 +114,7 @@ inicializarForm(){
     formCod_eess_actual:new FormControl(''),
     form_eess_actual:new FormControl(''),
     formHCL:new FormControl(''),
-    formFechaRegistro:new FormControl(new Date()),
+    formFechaRegistro:new FormControl(this.datePipe.transform(this.auxFechaRegistro,'yyyy-MM-dd')),
     formFur:new FormControl(''),
     formFpp:new FormControl(''),
     formDireccion:new FormControl(),
@@ -116,6 +126,7 @@ inicializarForm(){
 }
 mostrarPadronNominalGestantes(){
   let cod_ipress="00002384"
+  this.pn_gestanteServicio.couch=true;
   this.pn_gestanteServicio.mostrarPadronGestantes(cod_ipress).subscribe((res:any)=>{
     this.listaGestantes=res['rows'];
     console.log('lista de gestantes',this.listaGestantes);
@@ -207,7 +218,7 @@ let fullname=(this.dataGestanteEditar.value.nombres).split(' ');
 if((this.dataGestanteEditar!=null) || (this.dataGestanteEditar!==undefined)){
   console.log('DATA RECUPERADO',this.dataGestanteEditar);
     this.formGestante.get('formTipoDoc').setValue(this.dataGestanteEditar.value.tipoDocIdentidad);
-    this.formGestante.get('formNroDocGestante').setValue(this.dataGestanteEditar.value.dni);
+    this.formGestante.get('formNroDocGestante').setValue(this.dataGestanteEditar.value.nroDocIdentidad);
     this.formGestante.get('formTieneSis').setValue(this.dataGestanteEditar.value.tieneSis);
     this.formGestante.get('formFechaNacimiento').setValue(this.datePipe.transform(this.dataGestanteEditar.value.fecha_nacimiento,'yyyy-MM-dd'));
     this.formGestante.get('formEdad').setValue(this.dataGestanteEditar.value.edad);
@@ -228,12 +239,12 @@ if((this.dataGestanteEditar!=null) || (this.dataGestanteEditar!==undefined)){
     this.formGestante.get('formObservaciones').setValue(this.dataGestanteEditar.value.observaciones);
     this.formGestante.get('formGesta').setValue(this.dataGestanteEditar.value.numero_de_gestacion);
     this.formGestante.get('formAborto').setValue(this.dataGestanteEditar.value.aborto);
-}
+  }
 }
 
 cargarDatosPadronNominal(){
   this.pn_gestanteServicio.couch=true;
-  let nroDoc: String = String(this.formGestante.value.formNroDocGestante);
+  let nroDoc = this.formGestante.value.formNroDocGestante;
   this.pn_gestanteServicio.getGestanteDni(nroDoc).subscribe(
     (data:any)=>{
       console.log('DATA RECUPERADA :',data);
@@ -260,16 +271,35 @@ cargarDatosPadronNominal(){
       this.formGestante.get('formMorbilidadPotencial').setValue(this.dataGestante.morbilidadPotencial);
       this.formGestante.get('formObservaciones').setValue(this.dataGestante.observaciones);
       this.formGestante.get('formGesta').setValue(this.dataGestante.numero_de_gestacion);
-      this.formGestante.get('formAborto').setValue(this.dataGestante.aborto);
+      this.formGestante.get('formAborto').setValue(this.dataGestante.aborto==true?'SI':'NO');
+      if(this.dataGestante.fur>this.auxFechaActual || this.dataGestante.aborto){
+        this.agregarNuevaGesta=false;
+      }else{
+        this.messageService.add({
+          key: "myMessage1",
+          severity: "warn",
+          summary: "Data obtenida",
+          detail: "Gestante en proceso de gestacion",
+        })
+      }
     }
   );
 }
-calcularFPP(fur:string):string{
-  let myArr=fur.split("/")
-  let dia=parseInt(myArr[0])+7;
-  let mes=parseInt(myArr[1])-3
-  let anio=parseInt(myArr[2])+1;
-  return `${dia}/${mes}/${anio}`;
-  }
+
+calcularFPP(){
+  console.log(this.auxFUR);
+  let myArr=this.auxFUR.split('-');
+  console.log(myArr);
+  let dia=parseInt(myArr[2])+7;
+  let mes=Math.abs(parseInt(myArr[1])-3);
+  let anio=parseInt(myArr[0])+1;
+  this.auxFPP=`${dia}/${mes}/${anio}`;
+  console.log(this.auxFPP);
+  this.formGestante.get('formFpp').setValue(this.datePipe.transform(this.auxFPP,'yyyy-MM-dd'));
+}
+
+agregarGesta(){
+
+}
 
 }

@@ -118,6 +118,7 @@ inicializarForm(){
 }
 mostrarPadronNominalGestantes(){
   let cod_ipress="00002384"
+  this.pn_gestanteServicio.couch=true;
   this.pn_gestanteServicio.mostrarPadronGestantes(cod_ipress).subscribe((res:any)=>{
     this.listaGestantes=res['rows'];
     console.log('lista de gestantes',this.listaGestantes);
@@ -145,11 +146,11 @@ this.recuperarDatos();
 console.log('dataGestanteCambiar',this.dataGestanteCambiar);
 console.log('dataGestante',this.dataGestante);
 // console.log("data gestante",this.dataGestanteEditar);
-console.log('_id',this.dataGestante.value._id)
-console.log('_rev',this.dataGestante.value._rev);
-this.pn_gestanteServicio.updatedGestante(this.dataGestante.value._id,this.dataGestanteCambiar,this.dataGestante.value._rev).subscribe((res:any)=>{
-  this.closeDialog();
-  console.log('se actualizo correctamente',res);
+console.log('_id',this.dataGestante._id)
+console.log('_rev',this.dataGestante._rev);
+this.pn_gestanteServicio.updatedGestante(this.dataGestante._id,this.dataGestanteCambiar,this.dataGestante._rev).subscribe((res:any)=>{
+this.closeDialog();
+console.log('se actualizo correctamente',res);
   Swal.fire({
     icon:'success',
     title:'Se actualizo los datos correctamente',
@@ -158,17 +159,6 @@ this.pn_gestanteServicio.updatedGestante(this.dataGestante.value._id,this.dataGe
   })
 })
 this.mostrarPadronNominalGestantes();
-// this.pn_gestanteServicio.updatedGestante(this.dataGestante).subscribe((res:any)=>{
-//   this.closeDialog();
-//   Swal.fire({
-//     icon:'success',
-//     title:'Se guardo exitosamente',
-//     showConfirmButton:false,
-//     timer:1500
-//   })
-//   console.log('Data',res);
-// })
-//this.mostrarPadronNominalGestantes();
 }
 
 
@@ -188,14 +178,14 @@ this.dataGestanteCambiar={
   codEessAnterior:this.dataGestante.codEessActual,
   eessAnterior:this.dataGestante.eessActual,
   codEessActual:this.auxCodeessActual,
-  eessActual:this.eess_actual,
+  eessActual:this.aux_eessActual,
   fur:this.dataGestante.fur,
   fpp:this.dataGestante.fpp,
   morbilidadPotencial:this.dataGestante.morbilidadPotencial,
   observaciones:this.dataGestante.observaciones,
   dniPersonal:this.auxNroDocPersonal,
   personalEess:`${this.auxNombresPersonal}  ${this.auxApellidosPersonal}`,
-  fechaReg:this.datePipe.transform(this.formGestante.value.formFechaRegistro,'dd-MM-yyyy'),
+  fechaReg:this.dataGestante.fechaReg,
   nroGesta:this.dataGestante.nroGesta,
   aborto:this.dataGestante.aborto,
 }
@@ -206,14 +196,14 @@ let fullname=(this.dataGestanteCambiar.value.nombres).split(' ');
 if((this.dataGestanteCambiar!=null) || (this.dataGestanteCambiar!==undefined)){
   console.log('DATA RECUPERADO',this.dataGestanteCambiar);
     this.formGestante.get('formTipoDoc').setValue(this.dataGestanteCambiar.value.tipoDocIdentidad);
-    this.formGestante.get('formNroDocGestante').setValue(this.dataGestanteCambiar.value.dni);
+    this.formGestante.get('formNroDocGestante').setValue(this.dataGestanteCambiar.value.nroDocIdentidad);
     // this.formGestante.get('formTieneSis').setValue(this.dataGestanteEditar.value.tieneSis);
     // this.formGestante.get('formFechaNacimiento').setValue(this.datePipe.transform(this.dataGestanteEditar.value.fecha_nacimiento,'yyyy-MM-dd'));
     // this.formGestante.get('formEdad').setValue(this.dataGestanteEditar.value.edad);
     this.formGestante.get('formNombresGestante').setValue(this.dataGestanteCambiar.value.nombres);
     this.formGestante.get('formApellidos').setValue(this.dataGestanteCambiar.value.apellidos);
-    this.formGestante.get('formCod_eess_anterior').setValue(this.dataGestanteCambiar.value.cod_eessActual);
-    this.formGestante.get('form_eess_anterior').setValue(this.dataGestanteCambiar.value.eess_actual);
+    this.formGestante.get('formCod_eess_anterior').setValue(this.dataGestanteCambiar.value.codEessActual);
+    this.formGestante.get('form_eess_anterior').setValue(this.dataGestanteCambiar.value.eessActual);
     this.formGestante.get('formCod_eess_actual').setValue(this.auxCodeessActual);
     this.formGestante.get('form_eess_actual').setValue(this.aux_eessActual);
     // this.formGestante.get('formHCL').setValue(this.dataGestanteEditar.value.nro_historial_clinica);
@@ -240,8 +230,8 @@ cargarDatosPadronNominal(){
       console.log('dataaaaaa ',this.dataGestante);
       this.formGestante.get('formNombresGestante').setValue(this.dataGestante.nombres);
       this.formGestante.get('formApellidos').setValue(this.dataGestante.apellidos);
-      this.formGestante.get('formCod_eess_anterior').setValue(this.dataGestante.cod_eessActual);
-      this.formGestante.get('form_eess_anterior').setValue(this.dataGestante.eess_actual);
+      this.formGestante.get('formCod_eess_anterior').setValue(this.dataGestante.codEessActual);
+      this.formGestante.get('form_eess_anterior').setValue(this.dataGestante.eessActual);
       this.formGestante.get('formCod_eess_actual').setValue(this.auxCodeessActual);
       this.formGestante.get('form_eess_actual').setValue(this.aux_eessActual);
     }

@@ -62,7 +62,9 @@
                   <td style="text-align: center;">{{gestante.value.sis}}</td>
                   <td style="text-align: left;">{{gestante.value.direccion}}</td>
                   <td style="text-align: center;">
-                    <button pButton type="button"  iconPos="right" icon="pi pi-check" label="Activo"  class="p-button-success p-button-sm">
+                    <button pButton type="button"  
+                            iconPos="right" icon="pi pi-check" label="{{Estado}}"
+                      class="p-button-success p-button-sm">
                     </button>
                   </td>
                   <td style="text-align:center;">{{gestante.value.fur | SemanaGestacional }}</td>

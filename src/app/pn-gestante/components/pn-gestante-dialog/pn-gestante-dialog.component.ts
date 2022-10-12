@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder,FormControl,FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PnGestanteService } from '../../services/pn-gestante.service';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import {DatePipe} from '@angular/common';
@@ -45,19 +45,23 @@ export class PnGestanteDialogComponent implements OnInit {
   existeGestante:boolean=false;
   gestanteRegistrado:boolean=false;
   auxFPP:any;
+  auxFUR:any;
+  auxFechaRegistro:Date=new Date();
+  auxFechaActual:Date=new Date();
+  selectedAborto:boolean;
   //data personal
   auxNroDocPersonal:string=JSON.parse(localStorage.getItem('usuario')).nroDocumento;
   auxNombresPersonal:string=JSON.parse(localStorage.getItem('usuario')).nombres;
   auxApellidosPersonal:string=JSON.parse(localStorage.getItem('usuario')).apellidos;
-  auxCodeessActual:string=JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
+  auxCodeessActual:string=JSON.parse(localStorage.getItem('usuario')).ipress.renipress;
   aux_eessActual:string=JSON.parse(localStorage.getItem('usuario')).ipress.nombreEESS;
   sis:any []=[
     {value:'SI'},
     {value:'NO'}
   ]
   aborto:any []=[
-    {value:"true"},
-    {value:"false"}
+    {label:'SI',value:true},
+    {label:'NO',value:false}
   ]
 
   estado_gestante:any []=[
@@ -96,28 +100,28 @@ export class PnGestanteDialogComponent implements OnInit {
   }
 inicializarForm(){
   this.formGestante=this.fb.group({
-    formTipoDoc:new FormControl(''),
-    formNroDocGestante:new FormControl(''),
-    formTieneSis:new FormControl(''),
-    formFechaNacimiento:new FormControl(''),
-    formEdad:new FormControl(''),
-    formAborto:new FormControl(''),
-    formGesta:new FormControl(''),
-    formNombresGestante:new FormControl(''),
-    formApellidos:new FormControl(''),
-    formCod_eess_anterior:new FormControl(''),
-    form_eess_anterior:new FormControl(''),
-    formCod_eess_actual:new FormControl(''),
-    form_eess_actual:new FormControl(''),
-    formHCL:new FormControl(''),
-    formFechaRegistro:new FormControl(''),
-    formFur:new FormControl(''),
-    formFpp:new FormControl(''),
-    formDireccion:new FormControl(),
-    formReferencia:new FormControl(),
-    formTelefono:new FormControl(''),
-    formMorbilidadPotencial:new FormControl(),
-    formObservaciones:new FormControl(''),
+    formTipoDoc:new FormControl('',Validators.required),
+    formNroDocGestante:new FormControl('',Validators.required),
+    formTieneSis:new FormControl('',Validators.required),
+    formFechaNacimiento:new FormControl('',Validators.required),
+    formEdad:new FormControl('',Validators.required),
+    formAborto:new FormControl('',Validators.required),
+    formGesta:new FormControl('',Validators.required),
+    formNombresGestante:new FormControl('',Validators.required),
+    formApellidos:new FormControl('',Validators.required),
+    formCod_eess_anterior:new FormControl(this.auxCodeessActual,Validators.required),
+    form_eess_anterior:new FormControl(this.aux_eessActual,Validators.required),
+    formCod_eess_actual:new FormControl(this.auxCodeessActual,Validators.required),
+    form_eess_actual:new FormControl(this.eess_actual,Validators.required),
+    formHCL:new FormControl('',Validators.required),
+    formFechaRegistro:new FormControl(this.datePipe.transform(this.auxFechaRegistro,'yyyy-MM-dd')),
+    formFur:new FormControl('',Validators.required),
+    formFpp:new FormControl('',Validators.required),
+    formDireccion:new FormControl('',Validators.required),
+    formReferencia:new FormControl('',Validators.required),
+    formTelefono:new FormControl('',Validators.required),
+    formMorbilidadPotencial:new FormControl('',Validators.required),
+    formObservaciones:new FormControl('',Validators.required),
   })
 }
 mostrarPadronNominalGestantes(){
@@ -194,19 +198,19 @@ this.dataGestante={
   direccion:this.formGestante.value.formDireccion,
   referencia:this.formGestante.value.formReferencia,
   hcl2:this.formGestante.value.formHCL,
-  codEessAnterior:this.formGestante.value.formCod_eess_anterior,
-  eessAnterior:this.formGestante.value.form_eess_anterior,
-  codEessActual:this.formGestante.value.formCod_eess_actual,
-  eessActual:this.formGestante.value.form_eess_actual,
-  fur:this.datePipe.transform(this.formGestante.value.formFur,'dd-MM-yyyy'),
-  fpp:this.datePipe.transform(this.formGestante.value.formFpp,'dd-MM-yyyy'),
+  codEessAnterior:this.auxCodeessActual,
+  eessAnterior:this.aux_eessActual,
+  codEessActual:this.auxCodeessActual,
+  eessActual:this.aux_eessActual,
+  fur:this.datePipe.transform(this.formGestante.value.formFur,'dd/MM/yyyy'),
+  fpp:this.auxFPP,
   morbilidadPotencial:this.formGestante.value.formMorbilidadPotencial,
   observaciones:this.formGestante.value.formObservaciones,
   dniPersonal:this.auxNroDocPersonal,
   personalEess:`${this.auxNombresPersonal}  ${this.auxApellidosPersonal}`,
-  fechaReg:this.datePipe.transform(this.formGestante.value.formFechaRegistro,'dd-MM-yyyy'),
-  nroGesta:[this.formGestante.value.formNroGesta],
-  aborto:this.formGestante.value.formAborto,
+  fechaReg:this.datePipe.transform(this.formGestante.value.formFechaRegistro,'dd/MM/yyyy'),
+  nroGesta:[1],
+  aborto:this.selectedAborto,
 }
 }
 
@@ -215,16 +219,16 @@ let fullname=(this.dataGestanteEditar.value.nombres).split(' ');
 if((this.dataGestanteEditar!=null) || (this.dataGestanteEditar!==undefined)){
   console.log('DATA RECUPERADO',this.dataGestanteEditar);
     this.formGestante.get('formTipoDoc').setValue(this.dataGestanteEditar.value.tipoDocIdentidad);
-    this.formGestante.get('formNroDocGestante').setValue(this.dataGestanteEditar.value.dni);
+    this.formGestante.get('formNroDocGestante').setValue(this.dataGestanteEditar.value.nroDocIdentidad);
     this.formGestante.get('formTieneSis').setValue(this.dataGestanteEditar.value.tieneSis);
     this.formGestante.get('formFechaNacimiento').setValue(this.datePipe.transform(this.dataGestanteEditar.value.fecha_nacimiento,'yyyy-MM-dd'));
     this.formGestante.get('formEdad').setValue(this.dataGestanteEditar.value.edad);
     this.formGestante.get('formNombresGestante').setValue(this.dataGestanteEditar.value.nombres);
     this.formGestante.get('formApellidos').setValue(this.dataGestanteEditar.value.apellidos);
-    this.formGestante.get('formCod_eess_anterior').setValue(this.dataGestanteEditar.value.cod_eessAnterior);
-    this.formGestante.get('form_eess_anterior').setValue(this.dataGestanteEditar.value.eess_anterior);
-    this.formGestante.get('formCod_eess_actual').setValue(this.dataGestanteEditar.value.cod_eessActual);
-    this.formGestante.get('form_eess_actual').setValue(this.dataGestanteEditar.value.eess_actual);
+    this.formGestante.get('formCod_eess_anterior').setValue(this.auxCodeessActual);
+    this.formGestante.get('form_eess_anterior').setValue(this.aux_eessActual);
+    this.formGestante.get('formCod_eess_actual').setValue(this.auxCodeessActual);
+    this.formGestante.get('form_eess_actual').setValue(this.aux_eessActual);
     this.formGestante.get('formHCL').setValue(this.dataGestanteEditar.value.nro_historial_clinica);
     this.formGestante.get('formFechaRegistro').setValue(this.dataGestanteEditar.value.fechaReg);
     this.formGestante.get('formFur').setValue(this.datePipe.transform(this.dataGestanteEditar.value.fur,'yyyy-MM-dd'));
@@ -282,17 +286,18 @@ cargarDatosPadronNominal(){
       // this.formGestante.get('formAborto').setValue(this.dataGestante.aborto);
 }
 
-calcularFPP(fur:string){
-  let myArr=fur.split("/");
-  let dia=parseInt(myArr[0])+7;
-  let mes=parseInt(myArr[1])-3;
-  let anio=parseInt(myArr[2])+1;
+calcularFPP(){
+  console.log(this.auxFUR);
+  let myArr=this.auxFUR.split('-');
+  console.log(myArr);
+  let dia=parseInt(myArr[2])+7;
+  let mes=Math.abs(parseInt(myArr[1])-3);
+  let anio=parseInt(myArr[0])+1;
   this.auxFPP=`${dia}/${mes}/${anio}`;
- // this.formGestante.get('formFpp').setValue(this.datePipe.transform(this.dataGestanteEditar.value.fpp,'yyyy-MM-dd'));
-  }
-
-selectedTipoDoc(event){
+  console.log(this.auxFPP);
+  this.formGestante.get('formFpp').setValue(this.datePipe.transform(this.auxFPP,'yyyy-MM-dd'));
 }
+
   
 }
 

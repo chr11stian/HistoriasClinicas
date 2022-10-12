@@ -5,7 +5,7 @@
               <div class="card">
                   <label class="ml-3 my-4">DATOS GENERALES DE LA GESTANTE</label>
                   <div class="formgrid grid mx-3">
-                          <div class="col-12 md:col-1">
+                          <div class="col-12 md:col-2">
                               <label>Tipo Doc</label>
                               <p-dropdown [options]="listaDocumentos" 
                                           formControlName="formTipoDoc"
@@ -18,7 +18,7 @@
                           </div>
                           <div class="col-12 md:col-3">
                               <label for="DNI">DNI</label>
-                              <input id="DNI" type="number" pInputText placeholder="DNI"
+                              <input id="DNI" type="text" pInputText placeholder="DNI"
                                               formControlName="formNroDocGestante"
                                               (keyup)="cargarDatosPadronNominal()"
                                               class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"/>
@@ -58,8 +58,9 @@
                               <p-dropdown
                               formControlName="formAborto"
                               [options]="aborto"
-                              optionLabel="value" 
+                              optionLabel="label" 
                               optionValue="value"
+                              [(ngModel)]="selectedAborto"
                               placeholder="Aborto"
                               [showClear]="false"
                               class="p-fluid w-full"
@@ -141,7 +142,9 @@
                                   <input type="date" pInputText 
                                   placeholder="Fecha de ultima regla"
                                   formControlName="formFur"   
-                                  (change)="calcularFPP($event)"
+                                  (blur)="calcularFPP()"
+                                  [(ngModel)]="auxFUR"
+                                  disabled="agregarNuevaGesta"
                                   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                       </div>
                       <div class="field col">
@@ -149,6 +152,7 @@
                           <input type="date" pInputText  placeholder="Fecha de Probable parto"
                                   formControlName="formFpp"  
                                   disabled="true"
+                                  [ngModel]="auxFPP"
                                   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                       </div>
                   </div>
@@ -217,8 +221,9 @@
           <button
           pButton
           type="button"
-          (click)="saveoupdate()"
+          (click)="agregarGesta()"
           label="Guardar"
+          [disabled]="agregarNuevaGesta"
           class="p-button-primary mt-4 mr-3"
           ></button>
           <button
@@ -228,5 +233,8 @@
           label="Cancelar"
           class="p-button-danger mt-4"
           ></button>
+      </div>
+      <div>
+        <p-toast position="top-right" key="myMessage1"></p-toast>
       </div>
   
