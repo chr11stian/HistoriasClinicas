@@ -9,6 +9,7 @@ import { PnGestanteDialogComponent } from './components/pn-gestante-dialog/pn-ge
 import { SemanaGestacional } from './pipes/semana-gestacional';
 import { PnGestanteDiaCambioComponent } from './components/pn-gestante-dia-cambio/pn-gestante-dia-cambio.component';
 import { PnGestanteDiaGestaComponent } from './components/pn-gestante-dia-gesta/pn-gestante-dia-gesta.component';
+import { EstadoGestacional } from './pipes/estado-gestacional';
 @NgModule({
   declarations: [
     PnGestanteComponent,
@@ -16,6 +17,7 @@ import { PnGestanteDiaGestaComponent } from './components/pn-gestante-dia-gesta/
     SemanaGestacional,
     PnGestanteDiaCambioComponent,
     PnGestanteDiaGestaComponent,
+    EstadoGestacional,
   ],
 
   imports: [
