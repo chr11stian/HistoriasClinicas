@@ -14,7 +14,7 @@ export const environment = {
     baseUrl: base + "3012/api",
     base_uri: base + "3010/login/hce" /**ACCESO AL LOGIN**/,
     base_uri_: base + "3012" /*LOGIN*/,
-    base_login: base + "2020" /* NUEVO LOGIN */,
+    base_login: base + "3010" /* NUEVO LOGIN */,
     base_url_pide:
         base + "3011/pide/datos-sis" /**ACCESO A LOS DATOS DEL PIDE Y SIS**/,
     base_urlTx: base + "8200" /***ACCESO A REPORTE TRATAMIENTOS****/,
