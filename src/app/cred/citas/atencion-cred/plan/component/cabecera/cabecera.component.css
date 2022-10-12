@@ -36,12 +36,22 @@ p-tabview >>> .p-tabview .p-tabview-panels {
 }
 
 :host >>> .p-steps .p-steps-item .p-menuitem-link .p-steps-number {
-  border-radius: 0;
-  width: 170px;
-  height: 50px;
-  color: transparent;
-  background: white;
-  border: 1px solid green;
+    border-radius: 0px;
+    width: 110px;
+    height: 50px;
+    color: transparent;
+    background: white;
+    border: 1px solid green;
+    border-radius: 10px;
+    overflow: auto;
+    white-space: nowrap;
+}
+:host >>> .p-steps .p-steps-item .p-menuitem-link .p-steps-number:hover {
+  outline: 0 none;
+  outline-offset: 0;
+  border-radius: 10px;
+  box-shadow: 0 0 0 0.2rem #4c7831;
+  cursor: pointer;
 }
 
 :host >>> .p-steps .p-steps-item.p-steps-current .p-menuitem-link .p-steps-number {
@@ -49,10 +59,18 @@ p-tabview >>> .p-tabview .p-tabview-panels {
 }
 
 :host >>> .p-steps .p-steps-item .p-menuitem-link .p-steps-title {
-  margin-top: -35px;
   z-index: 2;
-  margin-bottom: 19px;
-  color: green;
+
+    color: green;
+    width: 80px;
+    white-space: normal;
+    text-align: center;
+    align-items: center;
+
+    position: absolute;
+    left: 50%;
+    top: 35%;
+    transform: translate(-50%, -50%);
 }
 
 :host >>> .p-steps .p-steps-item.p-highlight .p-steps-title {

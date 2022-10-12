@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
+import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { RolGuardiaService } from 'src/app/core/services/rol-guardia/rol-guardia.service';
 import { ConsultaGeneralService } from 'src/app/cred/citas/atencion-cred/consulta-principal/services/consulta-general.service';
 import Swal from 'sweetalert2';
@@ -12,22 +13,25 @@ import Swal from 'sweetalert2';
 })
 export class InteconsultaObstetriciaModalComponent implements OnInit {
   datePipe = new DatePipe('en-US');
-  consulta=JSON.parse(localStorage.getItem('datosConsultaActual'))
+  // consulta=JSON.parse(localStorage.getItem('datosConsultaActual'))
   interconsultaFG:FormGroup;
   listaServicios:any[]=[]
   listaInterconsulta:any[]=[]
   loading:boolean=false
+  idConsulta:''
   listaNivelUrgencia = [
-    { name: "Nivel 1", code: "Nivel 1" },
-    { name: "Nivel 2", code: "Nivel 2" },
-    { name: "Nivel 3", code: "Nivel 3" },
-    { name: "Nivel 4", code: "Nivel 4" },
-    { name: "Nivel 5", code: "Nivel 5" },
+    { name: "No urgente", code: "Nivel 5" },
+    { name: "Menos Urgente", code: "Nivel 4" },
+    { name: "Urgente", code: "Nivel 3" },
+    { name: "Emergencia", code: "Nivel 2" },
+    { name: "Reanimacion", code: "Nivel 1" },
   ];
 
   constructor(private rolGuardiaService: RolGuardiaService,
-              private consultaGeneralService: ConsultaGeneralService) { 
+              private consultaGeneralService: ConsultaGeneralService,
+              private config: DynamicDialogConfig) { 
     this.buildForm();
+    this.idConsulta=this.config.data.idConsulta
   }
 
   ngOnInit(): void {
@@ -56,7 +60,7 @@ export class InteconsultaObstetriciaModalComponent implements OnInit {
   }
   getListaInterconsulta() {
     this.consultaGeneralService
-      .listInterconsulta(this.consulta.id)
+      .listInterconsulta(this.idConsulta)
       .subscribe((r: any) => {
         this.listaInterconsulta = r.object;
       });
@@ -79,7 +83,8 @@ export class InteconsultaObstetriciaModalComponent implements OnInit {
       servicio:this.getFC('servicio').value,
       nivelUrgencia:this.getFC('urgencia').value
     }
-    this.consultaGeneralService .addInterconsulta(this.consulta.id, inputRequest)
+    
+    this.consultaGeneralService .addInterconsulta(this.idConsulta, inputRequest)
     .subscribe((r: any) => {
       Swal.fire({
         icon: "success",
@@ -90,13 +95,12 @@ export class InteconsultaObstetriciaModalComponent implements OnInit {
       });
       this.getListaInterconsulta()
       this.interconsultaFG.reset()
-      
     });
   }
   eliminarInterconsulta(rowData) {
     // this.listInterconsulta.splice(index, 1);
     // console.log();
-    this.consultaGeneralService.deleteInterconsulta(this.consulta.id, rowData.idCupos).subscribe((r: any) => {
+    this.consultaGeneralService.deleteInterconsulta(this.idConsulta, rowData.idCupos).subscribe((r: any) => {
       Swal.fire({
         icon: "success",
         title: "Elemento eliminado",
@@ -109,6 +113,12 @@ export class InteconsultaObstetriciaModalComponent implements OnInit {
   }
   changeServicios(){
 
+  }
+  getNivel(rowData){
+    const nivel= this.listaNivelUrgencia.find((item)=>{
+        return rowData==item.code
+    })
+    return nivel.name
   }
 
 }

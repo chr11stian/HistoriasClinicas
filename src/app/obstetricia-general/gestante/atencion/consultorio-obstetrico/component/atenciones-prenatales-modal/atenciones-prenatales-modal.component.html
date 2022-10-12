@@ -41,7 +41,7 @@
         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
             <tr>
                 <td style="width:100px" >{{ "Atención " + rowData.nroAtencion }}</td>
-                <td style="width:100px" >{{ rowData.fechaAtencion }} </td>
+                <td style="width:100px" >{{ rowData.fechaAtencion | date:'dd/MM/yyyy'}} </td>
                 <td style="width:80px" >{{ rowData.edadGestacionalSemanas||0}} {{rowData.edadGestacionalDias||0}}/7 </td>
                 <td style="width:70px" >{{ rowData.peso}}</td>
                 <td style="width:100px" >{{rowData.evaluacionNutricional?.valor || "0"}}kg,"{{rowData.evaluacionNutricional?.indicador || ""}}" </td>
@@ -92,19 +92,22 @@
                 <td style="width:80px">{{rowData.proteinuria}}</td>
                 <td style="width:80px">{{rowData.edema}}</td>
                 <td style="width:95px">{{rowData.reflejoOsteotendinoso}}</td>
-                <td style="width:100px">{{rowData.ecografia?.fecha||''}}</td>
+                <td style="width:100px">{{rowData.ecografia?.fecha||''| date:'dd/MM/yyyy'}}</td>
                 <!-- <td style="width:100px">Consejeria Integral?</td> -->
                 <td style="width:100px">{{rowData.acidoFolico?.cantidad ||"" }}</td>
                 <td style="width:120px">{{rowData.hierroYAcidoFolico?.cantidad||""}}</td>
                 <td style="width:100px">{{rowData.calcio?.cantidad||""}}</td>
                 <td  style="width:100px;display:flex;flex-direction:column;padding:0px;justify-content: space-around;">
-                    <div *ngFor="let interconsultas of rowData.interconsultas">   
+                    <div *ngFor="let interconsultas of rowData.interconsultas;let i=index">
+                        <span style="color:#AF0017">
+                            ups{{i+1}}:
+                        </span>      
                         {{interconsultas?.servicio||""}}
                     </div>
                 </td>
                 <td style="width:100px">{{rowData.planParto}}</td>
                 <td style="width:80px">{{rowData.visitaDomiciliaria}}</td>
-                <td style="width:100px">{{rowData.proxCita}}</td>
+                <td style="width:100px">{{rowData.proxCita|date:'dd/MM/yyyy'}}</td>
                 <td style="width:100px">{{rowData.profesionalACargo.primerNombre}} {{rowData.profesionalACargo.apePaterno}} {{rowData.profesionalACargo.apePaterno}}</td>
                 <td style="width:100px">{{rowData.renipress}}</td>
 

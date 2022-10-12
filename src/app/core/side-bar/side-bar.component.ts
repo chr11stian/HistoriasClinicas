@@ -392,6 +392,12 @@ const historias = {
                     label: "Historia de Consultas",
                     routerLink: "obstetricia-general/historia-consultas",
                 },*/
+                {
+                    label:"Padron nominal",
+                    icon:"pi pi-book",
+                    routerLink:"padron-nominal-gestante/mantenimiento",
+                    
+                },
             ],
         },
         {
@@ -564,6 +570,11 @@ const visitas = {
             label: "Gestantes",
             icon: "pi pi-users",
             routerLink: "visitas-domiciliarias/profesional-gestantes",
+        },
+        {
+            label:"Padron nominal",
+            icon:"pi pi-book",
+            routerLink:"padron-nominal-gestante/mantenimiento",
         },
     ],
 };
