@@ -93,7 +93,7 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
 
   save() {
     const requestInput = {
-      nombre: this.inmunizacion.nombre,
+      nombre: (this.inmunizacion.nombre),
       nombreComercial:this.inmunizacion.descripcion,
       dosis: this.inmunizacion.dosis,/* numero de dosis 1,2,3 */
       tipoDosis: this.getFC('lab').value,/* lab */

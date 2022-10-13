@@ -16,7 +16,7 @@ export class TratamientoInmunizacionComponent implements OnInit {
   listaVacunasCodigos = [
     {
       codigo: "90716",
-      nombre: "Varicela",
+      nombre: "VARICELA",
       descripcion:
         "VARICELA-VACUNA DE VIRUS VIVO ATENUADO (CEPA OKA), PROTEGE CONTRA LA INFECCION POR EL VIRUS DE LA VARICELA",
     },
@@ -63,7 +63,7 @@ export class TratamientoInmunizacionComponent implements OnInit {
     {
       codigo: "90723",
       // nombre: "Pentavalente1",
-      nombre: "Pentavalente",
+      nombre: "PENTAVALENTE",
       descripcion:
         "PENTAVALENTE-VACUNA PREVENTIVA PARA LA DIFTERIA, TÉTANOS, TOS FERINA (DPT), HAEMOPHILUS INFLUENZA TIPO B E INFECCIÓN POR HEPATITIS B-1RA DOSIS",
     },
@@ -82,7 +82,7 @@ export class TratamientoInmunizacionComponent implements OnInit {
     {
       codigo: "90681",
       // nombre: "Rotavirus1",
-      nombre: "Rotavirus",
+      nombre: "ROTAVIRUS",
       descripcion:
         "ROTAVIRUS-PREVIENE DIARREAS GRAVES EN LACTANTES Y NIÑOS PEQUEÑOS-1RA DOSIS",
     },
@@ -95,7 +95,7 @@ export class TratamientoInmunizacionComponent implements OnInit {
     {
       codigo: "90670",
       // nombre: "Neumococo1",
-      nombre: "Neumococo",
+      nombre: "NEUMOCOCO",
       descripcion:
         "NEUMOCOCO-PREVIENE LA OTITIS, SEPSIS, MENINGITIS Y NEUMONÍAS GRAVES-1RA DOSIS",
     },
@@ -114,7 +114,7 @@ export class TratamientoInmunizacionComponent implements OnInit {
     {
       codigo: "90657",
       // nombre: "Influenza1",
-      nombre: "Influenza",
+      nombre: "INFLUENZA",
       descripcion: "INFLUENZA-VACUNA CONTRA LA INFLUENZA-1RA DOSIS",
     },
     // {
@@ -233,10 +233,12 @@ export class TratamientoInmunizacionComponent implements OnInit {
   }
   determinamosCodigoSis() {
     this.listaInmunizaciones.forEach((items) => {
-      const nombreVacuna = items.nombre.split(/\d/)[0];
+      const nombreVacuna = (items.nombre.split(/\d/)[0]).toLocaleUpperCase();
       const coincidenciaVacuna = this.listaVacunasCodigos.find(
         (items) => nombreVacuna == items.nombre
       );
+      console.log('vacuna',nombreVacuna);
+      
       items.codigoSis = coincidenciaVacuna.codigo;
       // items.nombre=coincidenciaVacuna.nombre
     });
