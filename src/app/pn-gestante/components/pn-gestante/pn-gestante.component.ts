@@ -39,7 +39,7 @@ export class PnGestanteComponent implements OnInit {
       (data) => {
         this.listaGestantes = data['rows'];
         this.listaGestantesPuerpera = this.listaGestantes.filter((aux) => {
-          if (this.semanaGestacional(aux.value.fur) < 38) return aux;
+          if (this.semanaGestacional(aux.value.fur) < 38 && aux.value.aborto==false) return aux;
         });
         console.log("la data es :", data);
 
@@ -56,7 +56,7 @@ export class PnGestanteComponent implements OnInit {
     const ref = this.dialog.open(PnGestanteDialogComponent, {
       header: "AGREGAR NUEVA GESTANTE",
       width: "80%",
-      height: "80%",
+      height: "65%",
     });
     localStorage.removeItem("gestanteLocalStorage");
     this.ref.onClose.subscribe((data: any) => {
@@ -68,7 +68,11 @@ export class PnGestanteComponent implements OnInit {
     const ref = this.dialog.open(PnGestanteDiaGestaComponent, {
       header: "AGREGAR NUEVA GESTA",
       width: "80%",
-      height: "80%",
+      height: "65%",
+    });
+    localStorage.removeItem("gestanteLocalStorage");
+    this.ref.onClose.subscribe((data: any) => {
+    this.mostrarPadronNominalGestantes();
     });
   }
 
@@ -78,6 +82,10 @@ export class PnGestanteComponent implements OnInit {
       width: "70%",
       height: "50%",
     });
+    localStorage.removeItem("gestanteLocalStorage");
+    this.ref.onClose.subscribe((data: any) => {
+    this.mostrarPadronNominalGestantes();
+    });
   }
 
   editar(event) {
@@ -85,10 +93,10 @@ export class PnGestanteComponent implements OnInit {
     this.ref = this.dialog.open(PnGestanteDialogComponent, {
       header: "EDITAR DATOS DE LA GESTANTE",
       width: "80%",
-      height: "80%",
+      height: "70%",
     });
     this.ref.onClose.subscribe((data: any) => {
-      this.mostrarPadronNominalGestantes();
+    this.mostrarPadronNominalGestantes();
     });
   }
   dateDiference = function (date1, date2) {

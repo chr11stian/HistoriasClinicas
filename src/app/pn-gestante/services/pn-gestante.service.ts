@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { PNGestante } from '../interfaces/pn-gestante';
+import { GestanteModel } from '../interfaces/GestanteModel';
 @Injectable({
   providedIn: 'root'
 })
@@ -49,7 +50,7 @@ getIdIpress(): string {
       })
     }
 
-  addGestante(pn_gestante: PNGestante) {
+  addGestante(pn_gestante:GestanteModel) {
     return this.http.post(`${this.base_url}/${this.bd}`, pn_gestante);
   }
 
@@ -87,11 +88,20 @@ getIdIpress(): string {
   actualizarNumeroGesta(id:string,nuevo_nroGesta:number,nuevo_fur:string,nuevo_fpp:string){
     console.log( `${this.base_url_update}/actualizar_nroGesta/${id}`);
     return this.http.put(
-      `${this.base_url_update}/actualizar_nroGesta/id`,
+      `${this.base_url_update}/actualizar_nroGesta/${id}`,
       {
         nroGesta:nuevo_nroGesta,
         fur:nuevo_fur,
         fpp:nuevo_fpp
+      })
+  }
+
+  actualizarInformacionGestante(id:string,cambio_gestante:GestanteModel){
+    console.log( `${this.base_url_update}/actualizar_dataGestante/${id}`);
+    return this.http.put(
+      `${this.base_url_update}/actualizar_dataGestante/${id}`,
+      {
+        gestante:cambio_gestante,
       })
   }
 

@@ -137,14 +137,14 @@ export class PnGestanteDiaCambioComponent implements OnInit {
         if(res['ok']==true){
           Swal.fire({
             icon: "success",
-            title: "Se cambio de establecimiento correctamente",
+            title: "Se hizo el cambio de establecimiento correctamente",
             showConfirmButton: false,
             timer: 1500,
           });
         }else{
           Swal.fire({
             icon: "error",
-            title: "No se pudo cambiar de establecimiento  correctamente",
+            title: "No se pudo hacer el cambio de establecimiento correctamente",
             showConfirmButton: false,
             timer: 1500,
           });
@@ -155,12 +155,11 @@ export class PnGestanteDiaCambioComponent implements OnInit {
 
   cargarDatosPadronNominal() {
     this.pn_gestanteServicio.couch = true;
-    let nroDoc: String = String(this.formGestante.value.formNroDocGestante);
+    let nroDoc=this.formGestante.value.formNroDocGestante;
     if(nroDoc.length>=8){
       this.pn_gestanteServicio.getGestanteDni(nroDoc).subscribe((data: any) => {
         console.log("DATA RECUPERADA :", data);
         this.dataGestante = data.rows[0].value;
-        console.log("dataaaaaa ", this.dataGestante);
         this.formGestante
           .get("formNombresGestante")
           .setValue(this.dataGestante.nombres);

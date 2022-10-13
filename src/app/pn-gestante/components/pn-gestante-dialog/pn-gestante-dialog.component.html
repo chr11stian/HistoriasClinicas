@@ -7,7 +7,7 @@
                         <div class="col-12 md:col-2">
                             <label>Tipo Doc</label>
                             <p-dropdown [options]="listaDocumentos" 
-                                        formControlName="formTipoDoc"
+                                        formControlName="tipoDocIdentidad"
                                         placeholder="Seleccione tipo de documento" optionLabel="abreviatura"
                                         optionLabel="value" 
                                         optionValue="value"
@@ -15,17 +15,17 @@
                                         class="p-fluid w-full">
                             </p-dropdown>
                         </div>
-                        <div class="col-12 md:col-3">
+                        <div class="col-12 md:col-4">
                             <label for="DNI">DNI</label>
                             <input id="DNI" type="text" pInputText placeholder="DNI"
-                                            formControlName="formNroDocGestante"
-                                            (keyup)="cargarDatosPadronNominal()"
+                                            formControlName="nroDocIdentidad"
+                                            (keyup)="cargarDatosPadron()"
                                             class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"/>
                         </div>
                         <div class="col-12 md:col-3" >
                             <label>Tiene SIS:</label>
                                 <p-dropdown
-                                formControlName="formTieneSis"
+                                formControlName="tieneSis"
                                 [options]="sis"
                                 optionLabel="value" 
                                 optionValue="value"
@@ -40,7 +40,7 @@
                             <label>Fecha de nacimiento:</label>
                             <input placeholder="Fecha de Registro" 
                             type="date" pInputText 
-                            formControlName='formFechaNacimiento' 
+                            formControlName='fechaNacimiento' 
                             class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                         </div>
 
@@ -55,7 +55,7 @@
                     <div class="col-12 md:col-2" >
                         <label>Aborto:</label>
                             <p-dropdown
-                            formControlName="formAborto"
+                            formControlName="aborto"
                             [options]="aborto"
                             optionLabel="label" 
                             optionValue="value"
@@ -70,18 +70,18 @@
                         <label>NroGesta:</label>
                         <input placeholder="Nro gesta" 
                                type="number" pInputText  class="inputTest"
-                                formControlName="formGesta"  
+                                formControlName="nroGesta"  
                                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"/>
                     </div>
                     <div class="col-12 md:col-4" >
                         <label>Nombres:</label>
                         <input placeholder="Nombres" type="text" pInputText  class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-                        formControlName="formNombresGestante" oninput="this.value=this.value.toUpperCase()"/>
+                        formControlName="nombres" oninput="this.value=this.value.toUpperCase()"/>
                     </div>
                     <div class="col-12 md:col-4">
                         <label>Apellidos:</label>
                         <input placeholder="Apellidos" type="text" pInputText class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-                        formControlName="formApellidos" oninput="this.value=this.value.toUpperCase()"/>
+                        formControlName="apellidos" oninput="this.value=this.value.toUpperCase()"/>
                     </div>
             </div>
                 <div class="formgrid grid mx-3">
@@ -89,7 +89,7 @@
                         <label>Cod. EE.SS Anterior:</label>
                         <input placeholder="Cod.EESS.Anterior" 
                                 type="text" pInputText  class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-                                formControlName="formCod_eess_anterior" 
+                                formControlName="codEessAnterior" 
                                 oninput="this.value=this.value.toUpperCase()"
                                 disabled="true"/>
                     </div>
@@ -98,7 +98,7 @@
                         <input placeholder="EESS.Anterior" 
                                 type="text" pInputText 
                                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-                                formControlName="form_eess_anterior" 
+                                formControlName="eessAnterior" 
                                 oninput="this.value=this.value.toUpperCase()"
                                 disabled="true"/>
                     </div>
@@ -107,7 +107,7 @@
                         <input placeholder="Cod.EESS.Actual" 
                         type="text" pInputText  
                         class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-                        formControlName="formCod_eess_actual" 
+                        formControlName="codEessActual" 
                         oninput="this.value=this.value.toUpperCase()"
                         disabled="true"/>
                     </div>
@@ -116,7 +116,7 @@
                         <input placeholder="EESS.Actual" 
                         type="text" pInputText  
                         class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-                        formControlName="form_eess_actual" 
+                        formControlName="eessActual" 
                         oninput="this.value=this.value.toUpperCase()"
                         disabled="true"/>
                     </div>
@@ -125,13 +125,14 @@
                     <div class="field col">
                         <label>H. Clinica:</label>
                         <input placeholder="Historia clinica" 
-                        type="text" pInputText formControlName='formHCL' 
+                        type="text" pInputText formControlName='hcl2' 
                         class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                     </div>
                     <div class="field col">
                         <label>Fecha de registro:</label>
                         <input placeholder="Fecha de Registro" 
-                        type="date" pInputText formControlName='formFechaRegistro' 
+                        type="date" pInputText 
+                        formControlName='fechaReg' 
                         class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" 
                         disabled="true">
                     </div>
@@ -139,7 +140,7 @@
                         <label>FUR:</label>
                                 <input type="date" pInputText 
                                 placeholder="Fecha de ultima regla"
-                                formControlName="formFur"
+                                formControlName="fur"
                                 (blur)="calcularFPP()"
                                 [(ngModel)]="auxFUR"
                                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
@@ -147,7 +148,7 @@
                     <div class="field col">
                         <label>FPP:</label>
                         <input type="date" pInputText  placeholder="Fecha de Probable parto"
-                                formControlName="formFpp"  
+                                formControlName="fpp"  
                                 disabled="true"
                                 [(ngModel)]="auxFPP"
                                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
@@ -157,13 +158,13 @@
                     <div class="field col">
                         <label>Dirección:</label>
                         <input placeholder="direccion" type="text" pInputText  class="inputTest"
-                                formControlName="formDireccion"   oninput="this.value=this.value.toUpperCase()"
+                                formControlName="direccion"   oninput="this.value=this.value.toUpperCase()"
                                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"/>
                     </div>
                     <div class="field col">
                         <label>Referencia:</label>
                         <input placeholder="referencia" type="text" pInputText  class="inputTest"
-                                formControlName="formReferencia"   oninput="this.value=this.value.toUpperCase()"
+                                formControlName="referencia"   oninput="this.value=this.value.toUpperCase()"
                                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"/>
                     </div>
                 </div>
@@ -171,13 +172,13 @@
                         <div  class="col-12 md:col-2">
                             <label>Telefono:</label>
                             <input placeholder="Telefono" type="text" pInputText  class="inputTest"
-                                    formControlName="formTelefono"   oninput="this.value=this.value.toUpperCase()"
+                                    formControlName="telefono"   oninput="this.value=this.value.toUpperCase()"
                                     class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"/>
                         </div>
                         <div  class="col-12 md:col-5" >
                             <label>Morbilidad potencial:</label>
                             <p-dropdown
-                            formControlName="formMorbilidadPotencial"
+                            formControlName="morbilidadPotencial"
                             [options]="morbilidad_potencial_a"
                             optionLabel="value" 
                             optionValue="value"
@@ -190,7 +191,7 @@
                         <div  class="col-12 md:col-5">
                             <label>Observaciones:</label>
                             <input placeholder="Observaciones" type="text" pInputText  class="inputTest"
-                                    formControlName="formObservaciones"   oninput="this.value=this.value.toUpperCase()"
+                                    formControlName="observaciones"   oninput="this.value=this.value.toUpperCase()"
                                     class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"/>
                         </div>
                 </div>
@@ -218,10 +219,9 @@
         <button
         pButton
         type="button"
-        (click)="saveoupdate()"
+        (click)="updateOEdith()"
         label="Guardar"
         class="p-button-primary mt-4 mr-3"
-        [disabled]="gestanteRegistrado"
         ></button>
         <button
         pButton

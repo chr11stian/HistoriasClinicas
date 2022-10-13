@@ -100,7 +100,7 @@ export class PnGestanteDiaGestaComponent implements OnInit {
       formFechaNacimiento: new FormControl(""),
       formEdad: new FormControl(""),
       formAborto: new FormControl(""),
-      formGesta: new FormControl(""),
+      formGesta: new FormControl(0),
       formNombresGestante: new FormControl(""),
       formApellidos: new FormControl(""),
       formCod_eess_anterior: new FormControl(""),
@@ -138,69 +138,34 @@ export class PnGestanteDiaGestaComponent implements OnInit {
 
   editarGestante() {
     this.pn_gestanteServicio.couch = true;
-    this.recuperarDatos();
-    this.dataGestante;
-    console.log("data gestante", this.dataGestanteEditar);
-    console.log("_id", this.dataGestanteEditar.value._id);
-    console.log("_rev", this.dataGestanteEditar.value._rev);
+    let id= this.dataGestante._id;
+    let updateFur=this.formGestante.value.formFur;
+    let updateFpp=this.formGestante.value.formFpp;
+    let updateNroGesta=this.formGestante.value.formGesta;
+    // console.log("data gestante", this.dataGestanteEditar);
+    // console.log("_id", this.dataGestanteEditar.value._id);
+    // console.log("_rev", this.dataGestanteEditar.value._rev);
     this.pn_gestanteServicio
-      .updatedGestante(
-        this.dataGestanteEditar.value._id,
-        this.dataGestante,
-        this.dataGestanteEditar.value._rev
-      )
+      .actualizarNumeroGesta(id,updateNroGesta,updateFur,updateFpp)
       .subscribe((res: any) => {
         this.closeDialog();
-        console.log("se actualizo correctamente", res);
-        Swal.fire({
-          icon: "success",
-          title: "Se actualizo los datos correctamente",
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        if(res['ok']==true){
+          Swal.fire({
+            icon: "success",
+            title: "Se actualizo el número de gestacion correctamente",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }else{
+          Swal.fire({
+            icon: "error",
+            title: "No se pudo actualizar el número de gestacion correctamente",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
       });
     this.mostrarPadronNominalGestantes();
-  }
-
-  recuperarDatos() {
-    this.dataGestante = {
-      tipoDoc: "padronNominal",
-      nombres: this.formGestante.value.formNombresGestante,
-      apellidos: this.formGestante.value.formApellidos,
-      fechaNacimiento: this.datePipe.transform(
-        this.formGestante.value.formFechaNacimiento,
-        "yyyy/MM/dd"
-      ),
-      tipoDocIdentidad: this.formGestante.value.formTipoDoc,
-      nroDocIdentidad: this.formGestante.value.formNroDocGestante,
-      telefono: this.formGestante.value.formTelefono,
-      tieneSis: this.formGestante.value.formTieneSis,
-      direccion: this.formGestante.value.formDireccion,
-      referencia: this.formGestante.value.formReferencia,
-      hcl2: this.formGestante.value.formHCL,
-      codEessAnterior: this.formGestante.value.formCod_eess_anterior,
-      eessAnterior: this.formGestante.value.form_eess_anterior,
-      codEessActual: this.formGestante.value.formCod_eess_actual,
-      eessActual: this.formGestante.value.form_eess_actual,
-      fur: this.datePipe.transform(
-        this.formGestante.value.formFur,
-        "dd-MM-yyyy"
-      ),
-      fpp: this.datePipe.transform(
-        this.formGestante.value.formFpp,
-        "dd-MM-yyyy"
-      ),
-      morbilidad_potencial: this.formGestante.value.formMorbilidadPotencial,
-      observaciones: this.formGestante.value.formObservaciones,
-      dniPersonal: this.auxNroDocPersonal,
-      personalEess: `${this.auxNombresPersonal}  ${this.auxApellidosPersonal}`,
-      fechaReg: this.datePipe.transform(
-        this.formGestante.value.formFechaRegistro,
-        "dd-MM-yyyy"
-      ),
-      nroGesta:this.formGestante.value.formNroGesta,
-      aborto: this.formGestante.value.formAborto,
-    };
   }
 
   cargarDatosPadronNominal() {
@@ -281,9 +246,9 @@ export class PnGestanteDiaGestaComponent implements OnInit {
         this.formGestante
           .get("formAborto")
           .setValue(this.dataGestante.aborto == true ? "SI" : "NO");
-        if (
-          this.dataGestante.fpp > this.auxFechaActual || this.dataGestante.aborto==true) {
+        if (this.semanaGestacional(this.dataGestante.fur)>40 && this.dataGestante.fpp > this.auxFechaActual || this.dataGestante.aborto==true) {
           this.agregarNuevaGesta = false;
+
         } 
         else {
           this.agregarNuevaGesta = true;
@@ -299,26 +264,71 @@ export class PnGestanteDiaGestaComponent implements OnInit {
   
   }
 
-  calcularFPP() {
-    console.log(this.auxFUR);
-    let myArr = this.auxFUR.split("-");
-    console.log(myArr);
-    let dia = parseInt(myArr[2]) + 7;
-    let mes = Math.abs(parseInt(myArr[1]) - 3);
-    let anio = parseInt(myArr[0]) + 1;
-    this.auxFPP = `${dia}/${mes}/${anio}`;
-    console.log(this.auxFPP);
-    this.formGestante
-      .get("formFpp")
-      .setValue(this.datePipe.transform(this.auxFPP, "yyyy-MM-dd"));
+  dateDiference = function (date1, date2) {
+    date1 = Date.parse(date1);
+    let diffInMs = Math.abs(date2 - date1);
+    return diffInMs / (1000 * 60 * 60 * 24);
+  };
+
+  formatoFecha = function (fecha) {
+    var mydate = fecha.split("/");
+    return `${mydate[2]}-${mydate[1]}-${mydate[0]}`;
+  };
+
+  semanaGestacional(date: string) {
+    let fechaActual = Date.now();
+    let fur = this.formatoFecha(date);
+    let diference = this.dateDiference(fur, fechaActual) / 7;
+    let semanas = Math.floor(diference);
+    let dias = Math.floor(diference % 2);
+    return semanas;
+  }
+
+  calcularFPP(){
+    let fum: any = new DatePipe('en-CO').transform(this.auxFUR,'yyyy/MM/dd').split("/");
+    let newDay: any = parseInt(fum[2]) + 7;
+    let newMonth: any = parseInt(fum[1]) - 3;
+    let newYear: any = parseInt(fum[0]);
+  
+    if (newMonth == 2) {
+        if (newDay > 28 && newDay <= 30) {
+            newDay = newDay - 28;
+            newMonth = newMonth + 1;
+        }
+    }
+    if (parseInt(fum[1]) <= 3) {
+        newMonth = 12 + newMonth;
+    } else {
+        newYear = (newYear) + 1;
+    }
+    if (newDay > 30) {
+      
+        newDay = newDay - 30;
+        newMonth = newMonth + 1
+    }
+    if (newMonth > 12) {
+        newMonth = newMonth - 12
+        newYear = newYear + 1
+    }
+    if (newDay < 10) {
+        newDay = '0' + newDay
+    }
+    if (newMonth < 10) {
+        newMonth = '0' + newMonth
+    }
+    let auxBirth = newYear + '/' + newMonth + '/' + newDay ;
+    fum = new Date(fum);
+    fum.setMonth(fum.getMonth() + 9);
+    fum.setDate(fum.getDate() + 7);
+    console.log(fum);
+    this.formGestante.get('formFpp').setValue(this.datePipe.transform(auxBirth,'yyyy-MM-dd'));
+  
   }
 
   agregarGesta() {
     this.pn_gestanteServicio.couch = true;
     let nroGesta=this.formGestante.value.formGesta;
     let fur=this.formGestante.value.formFUR;
-    // console.log("_id", this.dataGestante._id);
-    // console.log("_rev", this.dataGestante._rev);
     this.pn_gestanteServicio
       .actualizarNumeroGesta(
         this.dataGestante._id,

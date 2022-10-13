@@ -7,7 +7,7 @@
                 </span>
             </div>
     </div>
-    <p-toolbar class="p-mb-4">
+    <p-toolbar  class="p-mb-4">
         <ng-template pTemplate="left" class="p-inputgroup">
                 <label>DNI:</label>
                 <input type="text" pInputText formControlName="nroDoc"/>
@@ -54,7 +54,7 @@
           <ng-template pTemplate="body" let-gestante style="text-align: center;" let-i="rowIndex">
               <tr>
                   <td style="text-align: center;">{{ i + 1 }}</td>
-                  <td style="text-align: center;">{{gestante.value.dni}}</td>
+                  <td style="text-align: center;">{{gestante.value.nroDocIdentidad}}</td>
                   <td style="text-align:left;">{{gestante.value.nombres}}</td>
                   <td style="text-align:left ;">{{gestante.value.apellidos}}</td>
                   <td style="text-align: center;">{{gestante.value.telefono}}</td>
