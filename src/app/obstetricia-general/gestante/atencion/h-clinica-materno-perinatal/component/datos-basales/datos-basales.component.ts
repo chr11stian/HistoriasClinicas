@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 import { FiliancionService } from "../../services/filiancion-atenciones/filiancion.service";
 
@@ -32,7 +32,7 @@ export class DatosBasalesComponent implements OnInit {
     ];
     city: any;
     examenFisico: any;
-    hemoglobina: any;
+    // hemoglobina: any;
     datosBasales: any;
     otrosExamenes: any;
     rptaDatosBasales: any;
@@ -50,6 +50,9 @@ export class DatosBasalesComponent implements OnInit {
     DataCupos: any;
     dialItems: MenuItem[];
     ultrasoundList: Ultrasound[] = [];
+    hemoForm = this.fb.group({
+        hemoglobina: this.fb.array([])
+    })
 
     constructor(
         private filiancionService: FiliancionService,
@@ -63,7 +66,6 @@ export class DatosBasalesComponent implements OnInit {
         this.inicalizarForm();
         this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
         let idConsulta = JSON.parse(localStorage.getItem('IDConsulta'));
-        console.log('id de consultaaaa ', idConsulta);
         /**Data cupos nos permite visualizar funciones vitales del paciente**/
         this.DataCupos = JSON.parse(localStorage.getItem('datacupos'));
 
@@ -91,6 +93,7 @@ export class DatosBasalesComponent implements OnInit {
     ngOnInit(): void {
         this.id = this.filiancionService.id;
         this.loadData();
+        this.loadDataHemoExams();
     }
 
     inicalizarForm() {
@@ -327,7 +330,7 @@ export class DatosBasalesComponent implements OnInit {
             },
             examenFisico: this.examenFisico,
             examenLaboratorio: {
-                hemoglobina: this.hemoglobina,
+                hemoglobina: this.addHemo(),
                 otrosExamenes: this.otrosExamenes
             },
             patologiaMaternoDiagnosticado: this.listaPatologiasMaternas,
@@ -360,32 +363,32 @@ export class DatosBasalesComponent implements OnInit {
     }
 
     recuperarHemoglobina() {
-        this.hemoglobina = [
-            {
-                // cie10sis: 85018
-                descripcion: 'HEMOGLOBINA 1',
-                hg: this.form.value.hg1,
-                conFactorCorreccion: this.form.value.conFactor1,
-                fecha: this.form.value.hemo1
-            },
-            {
-                descripcion: 'HEMOGLOBINA 2',
-                hg: this.form.value.hg2,
-                conFactorCorreccion: this.form.value.conFactor2,
-                fecha: this.form.value.hemo2
-            },
-            {
-                descripcion: 'HEMOGLOBINA 3',
-                hg: this.form.value.hg3,
-                conFactorCorreccion: this.form.value.conFactor3,
-                fecha: this.form.value.hemo3
-            },
-        ]
-        if (this.otrosExamHemo.length > 0) {
-            for (let i = 0; i < this.otrosExamHemo.length; i++) {
-                this.hemoglobina.push(this.otrosExamHemo[i]);
-            }
-        }
+        // this.hemoglobina = [
+        //     {
+        //         // cie10sis: 85018
+        //         descripcion: 'HEMOGLOBINA 1',
+        //         hg: this.form.value.hg1,
+        //         conFactorCorreccion: this.form.value.conFactor1,
+        //         fecha: this.form.value.hemo1
+        //     },
+        //     {
+        //         descripcion: 'HEMOGLOBINA 2',
+        //         hg: this.form.value.hg2,
+        //         conFactorCorreccion: this.form.value.conFactor2,
+        //         fecha: this.form.value.hemo2
+        //     },
+        //     {
+        //         descripcion: 'HEMOGLOBINA 3',
+        //         hg: this.form.value.hg3,
+        //         conFactorCorreccion: this.form.value.conFactor3,
+        //         fecha: this.form.value.hemo3
+        //     },
+        // ]
+        // if (this.otrosExamHemo.length > 0) {
+        //     for (let i = 0; i < this.otrosExamHemo.length; i++) {
+        //         this.hemoglobina.push(this.otrosExamHemo[i]);
+        //     }
+        // }
     }
 
     recuperarOtrosExamenes() {
@@ -529,7 +532,6 @@ export class DatosBasalesComponent implements OnInit {
         let auxVac;
         this.datosBasalesService.getDatosBasalesById(this.idGestante).subscribe((res: any) => {
             this.rptaDatosBasales = res.object;
-            console.log('datos de embarazo', this.rptaDatosBasales)
             if (this.rptaDatosBasales == null)
                 return
             auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "rubeola")
@@ -870,7 +872,6 @@ export class DatosBasalesComponent implements OnInit {
         let newMonth: any = parseInt(fum[1]) - 3;
         let newYear: any = parseInt(fum[0]);
 
-        console.log('enfrio ', newDay);
         if (newMonth == 2) {
             if (newDay > 28 && newDay <= 30) {
                 newDay = newDay - 28;
@@ -882,7 +883,6 @@ export class DatosBasalesComponent implements OnInit {
         } else {
             newYear = (newYear) + 1;
         }
-        console.log('enfrio 2 ', newDay);
         if (newDay > 30) {
             console.log('actual day ', newDay);
             newDay = newDay - 30;
@@ -962,8 +962,64 @@ export class DatosBasalesComponent implements OnInit {
         });
         console.log('data de labos ');
     }
+
+    get hemoglobina() {
+        return this.hemoForm.controls["hemoglobina"] as FormArray;
+    }
+
+    loadDataHemoExams(): void {
+        let hemoExam = [
+            {
+                hg: '1',
+                conFactorCorrecion: '2',
+                fecha: '2022-10-12'
+            }, {
+                hg: '1',
+                conFactorCorrecion: '2',
+                fecha: '2022-10-12'
+            }, {
+                hg: '1',
+                conFactorCorrecion: '2',
+                fecha: '2022-10-12'
+            }, {
+                hg: '1',
+                conFactorCorrecion: '2',
+                fecha: '2022-10-12'
+            }
+
+        ]
+        hemoExam.forEach(item => {
+            let arraAux = this.fb.group({
+                conFactorCorrecion: [{ value: item.conFactorCorrecion, disabled: true }],
+                fecha: [{ value: item.fecha, disabled: true }],
+                hg: [{ value: item.hg, disabled: true }]
+            })
+            this.hemoglobina.push(arraAux);
+        });
+        const hemoForm = this.fb.group({
+            hg: [''],
+            conFactorCorrecion: [''],
+            fecha: ['']
+        });
+        this.hemoglobina.push(hemoForm);
+    }
+
+    addHemo():Hemoglobin[] {
+        // console.log('hemo exam ', this.hemoForm.value.hemoglobina);
+        let hemoExam: Hemoglobin[] = this.hemoForm.getRawValue().hemoglobina;
+        if (hemoExam[0].hg == '') {
+            hemoExam = []
+        }
+        console.log('hemoooooo', hemoExam);
+        return hemoExam;
+    }
 }
 interface Ultrasound {
     fecha: string,
     semanas: number
+}
+interface Hemoglobin {
+    hg: string,
+    conFactorCorrecion: string,
+    fecha: string
 }

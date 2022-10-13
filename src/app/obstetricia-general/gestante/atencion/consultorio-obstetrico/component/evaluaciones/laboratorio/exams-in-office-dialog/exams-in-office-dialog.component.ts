@@ -48,8 +48,6 @@ export class ExamsInOfficeDialogComponent implements OnInit {
     this.consultationId = JSON.parse(localStorage.getItem('IDConsulta'));
     this.recoverExamsOfConsultation();
     this.recoverExamsOfPregnancy();
-
-
   }
 
   ngOnInit(): void {
@@ -64,37 +62,21 @@ export class ExamsInOfficeDialogComponent implements OnInit {
   }
 
   loadHemoglobinFormArray(hemoArray: HemoExam[], laboExams: LaboratoryExam[]): void {
-    let hemoExam: string;
-    laboExams.forEach(item => {
-      let auxHemo = item.nombreExamen.split(" ");
-      if (auxHemo[0] == 'HEMOGLOBINA') {
-        hemoExam = item.nombreExamen;
-      }
-    });
+    let auxLab:any = laboExams.filter(item => item.nombreExamen == 'DOSAJE DE HEMOGLOBINA');
+    auxLab = auxLab[0].lab;
     hemoArray.forEach(item => {
       let isDisabled: boolean;
-      item.descripcion == hemoExam ? isDisabled = false : isDisabled = true;
-      let auxFactorCorreccion = (item.conFactorCorreccion);
+      item.idConsulta == this.consultationId ? isDisabled = false : isDisabled = true;
+      let auxFactorCorreccion = String(item.conFactorCorreccion);
       let auxHg = (item.hg);
       isDisabled ? this.isHemoFormCreated : this.isHemoFormCreated = true;
       const hemo = this.fb.group({
         hg: [{ value: auxHg, disabled: isDisabled }],
-        factorCorreccion: [{ value: auxFactorCorreccion, disabled: isDisabled }],
-        fecha: [{ value: item.fecha, disabled: isDisabled }]
+        conFactorCorreccion: [{ value: auxFactorCorreccion, disabled: isDisabled }],
+        fecha: [{ value: item.fecha, disabled: isDisabled }],
+        lab: [{ value: isDisabled?'':auxLab, disabled: isDisabled }]
       })
       this.hemoglobina.push(hemo)
-    })
-  }
-
-  loadOtherExams(arrayExam: OtherExam[]) {
-    arrayExam.forEach(item => {
-      const otherExam = this.fb.group({
-        nombre: [{ value: item.nombre }],
-        valor1: [{ value: item.valor1 }],
-        valor2: [{ value: item.valor2 }],
-        valor3: [{ value: item.valor3 }]
-      })
-      this.otherExam.push(otherExam);
     })
   }
 
@@ -119,6 +101,7 @@ export class ExamsInOfficeDialogComponent implements OnInit {
   async recoverExamsOfPregnancy() {
     await this.laboratoryService.getLaboExamsOfPregnancy(this.patientData.id).then((res: any) => {
       this.arrayHemoExams = res.object.hemoglobina.filter(item => item.hg != 0);
+      console.log('array of hemo ', this.arrayHemoExams);
       this.arrayOtherExam = res.object.otrosExamenes;
       this.firstGroupExams = this.divideArray(this.arrayOtherExam, 0, 7, this.firstArrayLocalExam);
       this.secondGroupExams = this.divideArray(this.arrayOtherExam, 8, 10, this.secondArrayLocalExam);
@@ -140,8 +123,7 @@ export class ExamsInOfficeDialogComponent implements OnInit {
       }
       this.examsDoInConsultation = res.object.examenesAuxiliares;
       this.examsDoInConsultation = this.examsDoInConsultation.filter(item => item.lugarExamen == "CONSULTORIO");
-      // console.log('examenes en consultorio ', res.object);
-    })
+    });
   }
 
   divideArray(array: OtherExam[], initial: number, final: number, localExams: string[]): OtherExam[] {
@@ -172,8 +154,8 @@ export class ExamsInOfficeDialogComponent implements OnInit {
         item.saved = true;
         consultationExam.forEach((exam) => {
           if (item.nombre === exam.nombreExamen) {
-            console.log('iguales ', exam.nombreExamen,);
             item.saved = false;
+            item.lab = exam.lab;
           }
         })
       }
@@ -234,7 +216,6 @@ export class ExamsInOfficeDialogComponent implements OnInit {
 
   buildArrayToSave(arrayExam: OtherExam[], arrayHemo: HemoExam[]): DataExamSave[] {
     let auxData: DataExamSave[] = [];
-    console.log('array hemo ', arrayHemo);
     if (arrayHemo.length > 0) {
       arrayHemo.forEach(item => {
         let auxExam: DataExamSave = {

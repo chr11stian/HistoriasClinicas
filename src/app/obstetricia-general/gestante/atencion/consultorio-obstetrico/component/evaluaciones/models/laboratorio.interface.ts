@@ -3,7 +3,8 @@ export interface HemoExam {
     hg: number,
     lab: string,
     conFactorCorreccion: number,
-    fecha: string
+    fecha: string,
+    idConsulta:string
 }
 export interface OtherExam {
     nombre: string,
