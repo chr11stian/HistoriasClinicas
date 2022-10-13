@@ -11,6 +11,7 @@ import { DialogRespuestasComponent } from "../../../components/dialog-respuestas
 import { MessageService } from "primeng/api";
 import { VisitaDomiciliariaService } from "../../../services/visita-domiciliaria.service";
 import { VisitaNinioService } from "../../../services/visita-ninio.service";
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "app-visitas-domiciliarias-ninios",
@@ -27,7 +28,13 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
   formListaVisitas: FormGroup;
   selectedAnio: string = "";
   selectedMes: string = "";
-
+  id_vpn: string;
+  data: any;
+  visitaReporte: string = "";
+  // cantidad_visitas_menores_4_meses=this.dataVisitas_Menores_4_meses.length;
+  // cantidad_visitas_mayores_4_meses=this.dataVisitas_Mayores_4_meses.length;
+  cantidad_visitas_menores_4_meses:number;
+  cantidad_visitas_mayores_4_meses:number;
   meses = [
     { label: "Enero", value: 1 },
     { label: "Febrero", value: 2 },
@@ -65,6 +72,7 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
     setTimeout(() => {
       this.markersMapStreet();
     }, 500);
+    
   }
 
   buildForm() {
@@ -181,7 +189,6 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
               detail: "Usted no tiene visitas",
             });
           }
-          this.dataVisitas = data;
           this.dataVisitas = data["rows"];
           this.dataVisitas_Menores_4_meses = this.dataVisitas.filter((aux) => {
             if (aux.value.hasOwnProperty("menor_cuatro_meses")) return aux;
@@ -235,5 +242,23 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
         });
     }
     console.log("el dni es", dni);
+  }
+
+  visita_menor_cuatro_meses_reporte(aux) {
+    this.visitaReporte =
+      environment.base_urlTx +
+      "/jasperserver/rest_v2/reports/Reports/VISITA/menorcuatro/visita_nino_ninia_menor4meses.pdf?token=Bearer " +
+      this.servicioVisitas.getToken() +
+      "&visitaid=" +
+      aux.id;
+  }
+
+  visita_mayor_cuatro_meses_reporte(aux) {
+    this.visitaReporte =
+      environment.base_urlTx +
+      "/jasperserver/rest_v2/reports/Reports/VISITA/mayorcuatrohorizontal/visita_nino_niniamayor4meses.pdf?token=Bearer " +
+      this.servicioVisitas.getToken() +
+      "&visita=" +
+      aux.id;
   }
 }

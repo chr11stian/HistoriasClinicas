@@ -1,0 +1,80 @@
+<div  style="background: #f8f9fa; height: 100%;">
+    <div class="card">
+    <div class="flex" style="margin-top:20px; margin-bottom:20px">
+            <div class="col-12" style="text-align:center;">
+                <span style="font-size:2em ;">
+                    PADRON NOMINAL DE GESTANTES
+                </span>
+            </div>
+    </div>
+    <p-toolbar class="p-mb-4">
+        <ng-template pTemplate="left" class="p-inputgroup">
+                <label>DNI:</label>
+                <input type="text" pInputText formControlName="nroDoc"/>
+        </ng-template>
+        <ng-template pTemplate="right" class="button">
+            <button pButton 
+            pRipple label="Nueva gestante"
+            icon="pi pi-plus" 
+            class="p-button-danger mr-2"
+            (click)="openDialog()">
+            </button>
+            <button pButton 
+            pRipple label="Nueva gesta"
+            icon="pi pi-plus" 
+            class="p-button-help mr-2"
+            (click)="openDialogNuevaGesta()">
+            </button>
+            <button pButton 
+            pRipple label="Cambio EESS"
+            icon="pi pi-angle-double-right" 
+            class="p-button-info mr-2"
+            (click)="openDialogCambioEESS()">
+            </button>
+        </ng-template>
+    </p-toolbar>
+    <p-table #dt [value]="listaGestantesPuerpera" [rows]="10" [paginator]="true" [rowHover]="true" datakey="id"
+              responsiveLayout="scroll" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
+              currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+              styleClass="p-datatable-gridlines">
+          <ng-template pTemplate="header" style="text-align: center;">
+              <tr>
+                  <th style="text-align: center;">Nro</th>
+                  <th style="text-align: center;">Nro Doc</th>
+                  <th style="text-align: center;">Nombres</th>
+                  <th style="text-align: center;">Apellidos</th>
+                  <th style="text-align: center;">Telefono</th>
+                  <th style="text-align: center;">Tiene SIS</th>
+                  <th style="text-align: center;">Direccion</th>
+                  <th style="text-align: center;">Estado</th>
+                  <th style="text-align: center;">Semana gestacional</th>
+                  <th style="text-align: center;">Acciones</th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-gestante style="text-align: center;" let-i="rowIndex">
+              <tr>
+                  <td style="text-align: center;">{{ i + 1 }}</td>
+                  <td style="text-align: center;">{{gestante.value.dni}}</td>
+                  <td style="text-align:left;">{{gestante.value.nombres}}</td>
+                  <td style="text-align:left ;">{{gestante.value.apellidos}}</td>
+                  <td style="text-align: center;">{{gestante.value.telefono}}</td>
+                  <td style="text-align: center;">{{gestante.value.sis}}</td>
+                  <td style="text-align: left;">{{gestante.value.direccion}}</td>
+                  <td style="text-align: center;">
+                   
+                    <button pButton type="button"  
+                            iconPos="right" icon="pi pi-check" label=" {{gestante.value.fpp |EstadoGestacional}}"
+                      class="p-button-success p-button-sm">
+                    </button>
+                  </td>
+                  <td style="text-align:center;">{{gestante.value.fur | SemanaGestacional }}</td>
+                  <td style="text-align: center;width: 10em;">
+                    <button pButton (click)="editar(gestante)" pTooltip="Editar" pRipple type="button"
+                        icon="pi pi-pencil" class="p-button-rounded m-1">
+                    </button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    </div>
+  

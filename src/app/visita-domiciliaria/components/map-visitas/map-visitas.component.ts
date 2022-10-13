@@ -44,7 +44,7 @@ export class MapVisitasComponent implements OnInit {
         );
         
         this.dataVisitas.map((aux) => {
-          this.visitaService.couch = true;
+        this.visitaService.couch = true;
             L.marker(
                 [aux.value.validator.latitud, aux.value.validator.longitud],
                 { title: "Visita Domiciliaria" }

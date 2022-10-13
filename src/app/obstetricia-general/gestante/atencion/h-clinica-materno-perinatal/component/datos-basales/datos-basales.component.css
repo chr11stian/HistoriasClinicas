@@ -157,3 +157,10 @@ label {
 input:disabled{
     opacity: 1;
 }
+
+.title-text{
+    word-wrap: break-word;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}

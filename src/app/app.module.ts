@@ -22,6 +22,7 @@ import {FullCalendarModule} from "primeng/fullcalendar";
 import { LoginRolComponent } from './login/login-rol/login-rol.component';
 import { PasswordComponent } from './login/password/password.component';
 import { VisitaDomiciliariaModule } from './visita-domiciliaria/visita-domiciliaria.module';
+import { PnGestanteModule } from './pn-gestante/pn-gestante.module';
 
 @NgModule({
     declarations: [
@@ -46,6 +47,7 @@ import { VisitaDomiciliariaModule } from './visita-domiciliaria/visita-domicilia
         ToggleButtonModule,
         ToastModule,
         VisitaDomiciliariaModule,
+        PnGestanteModule,
 
         NgxEchartsModule.forRoot({
             echarts: () => import('echarts'),

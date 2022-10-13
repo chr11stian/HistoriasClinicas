@@ -17,6 +17,7 @@ export interface inmunizaciones {
   estadoAdministrado:boolean,
   fechaTentativa:Date,
   fechaAdministracion:Date,
+  codigoSis?:string
 }
 export interface ControlCrecimiento {
   edadMes: number;
@@ -35,9 +36,10 @@ export interface SuplementacionMicronutrientes {
   nombre: string;
   descripcion:string,
   dosis:number,
-  estadoAdministrado: boolean;
-  fechaTentativa: Date;
-  fecha?: Date;
+  estadoAdministrado: boolean,
+  fechaTentativa: Date,
+  fecha?: Date,
+  codigosSis?:string
 }
 export interface TratamientoSeguimientoAnemia {
   descripcionEdad?: string;

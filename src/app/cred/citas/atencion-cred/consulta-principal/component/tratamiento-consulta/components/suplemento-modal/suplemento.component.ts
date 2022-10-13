@@ -10,6 +10,7 @@ import {
 import { SuplementacionesMicronutrientesService } from "../../../../../plan/component/plan-atencion-integral/services/suplementaciones-micronutrientes/suplementaciones-micronutrientes.service";
 import {dato} from "../../../../../../models/data";
 import {ConfirmationService} from "primeng/api";
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: "app-suplemento",
@@ -17,6 +18,7 @@ import {ConfirmationService} from "primeng/api";
   styleUrls: ["./suplemento.component.css"],
 })
 export class SuplementoComponent implements OnInit {
+  datePipe=new DatePipe('en-US')
   idConsulta:string
   dataDocumento:dato;
   suplemento: SuplementacionMicronutrientes;
@@ -28,16 +30,16 @@ export class SuplementoComponent implements OnInit {
   //   {name:'FERROSO SULFATO HEPTAHIDRATO-(FCO 15mg/5ml-180ml)',code:'03519'},
   // ]
   presentacionSFaTermino=[
-    {name:'Jarabe Sulfato Ferroso-(75mg/5mL)',codeSISMED:'28551',contenidoHierroElemental:'15mg/5ml de Hierro elemental'},
-    {name:'Ferrimax -(50mg/ml por 30ml)',codeSISMED:'28551',contenidoHierroElemental:''},
-    {name:'Gotas Sulfato Ferroso-(125mg/ml)',codeSISMED:'03552',contenidoHierroElemental:'25mg/ml de Hierro elemental'},
+    {name:'Jarabe Sulfato Ferroso-(75mg/5mL)',codeSISMED:'28551',contenidoHierroElemental:'15mg/5ml de Hierro elemental',descripcion:'Sulfato Ferroso'},
+    {name:'Ferrimax -(50mg/ml por 30ml)',codeSISMED:'28551',contenidoHierroElemental:'',descripcion:'Sulfato Ferroso'},
+    {name:'Gotas Sulfato Ferroso-(125mg/ml)',codeSISMED:'03552',contenidoHierroElemental:'25mg/ml de Hierro elemental',descripcion:'Sulfato Ferroso'},
   ]
   presentacionMNM=[
-    {name:'Micronutrientes:Sobre de 1 gramo en Polvo',codeSISMED:'sin codificacion',contenidoHierroElemental:'Hierro (12.5 mg de Hierro elemental)'},
+    {name:'Micronutrientes:Sobre de 1 gramo en Polvo',codeSISMED:'sin codificacion',contenidoHierroElemental:'Hierro (12.5 mg de Hierro elemental)',descripcion:'Micrinutrientes'},
   ]
   presentacionVitaminaA=[
-    {name:'RETINOL VITAMINA A (CAP-100.000 UI (30mg))',codeSISMED:'08152',contenidoHierroElemental:''},
-    {name:'RETINOL VITAMINA A (CAP-200.000 UI (30mg))',codeSISMED:'08153',contenidoHierroElemental:''},
+    {name:'RETINOL VITAMINA A (CAP-100.000 UI (30mg))',codeSISMED:'08152',contenidoHierroElemental:'',descripcion:'Vitamina A'},
+    {name:'RETINOL VITAMINA A (CAP-200.000 UI (30mg))',codeSISMED:'08153',contenidoHierroElemental:'',descripcion:'Vitamina A'},
   ]
   isSuplementacion:boolean
   consumoDiario: string = "Consumo diario";
@@ -62,6 +64,8 @@ export class SuplementoComponent implements OnInit {
       fechaAplicacion: new FormControl({value:'',disabled:true}, Validators.required),
       medicamento: new FormControl("", Validators.required),
       dosis: new FormControl("", Validators.required),
+      lab: new FormControl(""),
+      
     });
   }
   getFC(control: string): AbstractControl {
@@ -70,75 +74,78 @@ export class SuplementoComponent implements OnInit {
   getSuplementancion() {
     this.getFC("fechaTentativa").setValue(this.suplemento.fechaTentativa);
     this.getFC("fechaAplicacion").setValue(new Date());
+    this.getFC("lab").setValue(this.suplemento.dosis);
+    // console.log('dosis',this.suplemento.dosis);
+    
   }
   save() {
     let requestInput:any= {
+        tipoSuplementacion:'PREVENTIVO',
         codPrestacion: "007", //duro no existe codprodedimiento para sis pero si como diagnostico
-        codSISMED: this.getFC('medicamento').value.code,
+        codSISMED: this.getFC('medicamento').value.codeSISMED,
         nroDiagnostico: 0, //deberia ir el codDiagnosticos sis incluido su sie(otras medidas profilacticas especificadas z29.8)
-        codProcedimientoHIS: "32323", //duro
-        codUPS: "324231", //duro
-
+        /*  para HIS */
+        codProcedimientoHIS: this.suplemento.codigosSis,
+        codUPS: "Enfermeria", //duro
+        nombreUPS:"Enfermeria",
+        nombreUPSaux: "CRED", //duro
+        /* ATRIBUTOS EN COMUN */
         nombre: this.suplemento.nombre,//SF
-        descripcion: this.getFC('medicamento').value.name,//(mas conocido como el medicamento)aun por definir,//SF-SULFATO-FERROSO
+        descripcion: this.getFC('medicamento').value.descripcion,//(mas conocido como el medicamento)aun por definir,//SF-SULFATO-FERROSO
         dosisIndicacion: this.getFC('dosis').value,//dosis campo abierto deberia se calculado 1/2cucharadita
         viaAdministracion: 'oral',//par
         duracion: "6 mes",
         indicacion: "temor con citricos",//?evaluar campo
         dosis: this.suplemento.dosis,//nro de la dosis
-        fecha: this.obtenerFecha(this.getFC("fechaAplicacion").value),
+        fecha:this.datePipe.transform(this.getFC("fechaAplicacion").value,'yyyy-MM-dd'),
         estadoAdministrado: true,
         edadMes: this.suplemento.edadMes,
-        fechaTentativa: "2021-10-25"
-    };
-
-    if (this.suplemento.tipoSuplementacion=='TERAPEUTICO'){
-      requestInput.tipoSuplementacion='TERAPEUTICO'
-    }
-    // console.log('recivico',this.suplemento)
-    // console.log('enviado',requestInput)
-    this.confirmationService.confirm({
-      header: "Confirmación",
-      message: "Esta Seguro que desea guardar suplementacion",
-      icon: "pi  pi-exclamation-triangle ",
-      acceptLabel: "Si",
-      rejectLabel: "No",
-      key:'claveDialog',
-      accept: () => {
-        console.log('tipo suplementacion',this.suplemento.tipoSuplementacion)
-        if (this.suplemento.tipoSuplementacion=='PREVENTIVO'){
-          console.log('->>>>>>>>>>>>>>',this.isSuplementacion)
-          if (this.isSuplementacion){
-            this.SuplementacionService.PostSuplementacion(this.idConsulta,requestInput
-            ).subscribe(() => {
-              this.ref.close("agregado");
-            });
+        fechaTentativa:this.datePipe.transform(this.getFC("fechaTentativa").value,'yyyy-MM-dd'),
+        /* para HIS */
+        lab:this.getFC('lab').value,
+        tipo:'D'
+      };
+      
+      if (this.suplemento.tipoSuplementacion=='TERAPEUTICO'){
+        requestInput.tipoSuplementacion='TERAPEUTICO'
+      }
+      this.confirmationService.confirm({
+        header: "Confirmación",
+        message: "Esta Seguro que desea guardar suplementacion",
+        icon: "pi  pi-exclamation-triangle ",
+        acceptLabel: "Si",
+        rejectLabel: "No",
+        key:'claveDialog',
+        accept: () => {
+          console.log('tipo suplementacion',this.suplemento.tipoSuplementacion)
+          if (this.suplemento.tipoSuplementacion=='PREVENTIVO'){
+            console.log('->>>>>>>>>>>>>>',this.isSuplementacion)
+            if (this.isSuplementacion){
+              this.SuplementacionService.PostSuplementacion(this.idConsulta,requestInput
+              ).subscribe(() => {
+                this.ref.close("agregado");
+              });
+            }
+            else{
+              this.SuplementacionService.PostVitaminaA(this.idConsulta,requestInput
+              ).subscribe(() => {
+                this.ref.close("agregado");
+              });
+            }
           }
           else{
-            this.SuplementacionService.PostVitaminaA(this.idConsulta,requestInput
-            ).subscribe(() => {
-              this.ref.close("agregado");
-            });
+              this.SuplementacionService.PostSuplementacionXanemia(this.idConsulta,requestInput).subscribe((resp)=>{
+                  this.ref.close('agregado')
+              })
           }
-        }
-        else{
-            this.SuplementacionService.PostSuplementacionXanemia(this.idConsulta,requestInput).subscribe((resp)=>{
-                this.ref.close('agregado')
-            })
-        }
 
 
-      },
-      reject: () => {
-        // console.log("no se borro");
-      },
-    });
-  }
-  obtenerFecha(fecha: Date) {
-    const parte1 = fecha.toISOString().split("T");
-    const parte2 = parte1[1].split(".")[0];
-    return `${parte1[0]}`;
-  }
+        },
+        reject: () => {
+          // console.log("no se borro");
+        },
+      });
+    }
   cancel() {
     // this.getFC('')
     this.ref.close("cancelado");

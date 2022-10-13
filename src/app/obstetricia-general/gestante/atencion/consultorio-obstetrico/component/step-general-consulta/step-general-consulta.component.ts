@@ -167,6 +167,7 @@ export class StepGeneral_consultaComponent implements OnInit {
     }
     openDialogInterconsultaObstetricia() {
         this.ref = this.dialog.open(InteconsultaObstetriciaModalComponent, {
+            data:{idConsulta:this.IDConsulta},
             header: "INTERCONSULTA",
             contentStyle: {},
             style: {
