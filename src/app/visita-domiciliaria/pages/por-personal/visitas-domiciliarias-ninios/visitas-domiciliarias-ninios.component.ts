@@ -256,9 +256,9 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
   visita_mayor_cuatro_meses_reporte(aux) {
     this.visitaReporte =
       environment.base_urlTx +
-      "/jasperserver/rest_v2/reports/Reports/VISITA/mayorcuatro/visita_nino_ninia_entre4_24meses.pdf?token=Bearer " +
+      "/jasperserver/rest_v2/reports/Reports/VISITA/mayorcuatrohorizontal/visita_nino_niniamayor4meses.pdf?token=Bearer " +
       this.servicioVisitas.getToken() +
-      "&visitaid=" +
+      "&visita=" +
       aux.id;
   }
 }
