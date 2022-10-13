@@ -78,6 +78,10 @@ const routes: Routes = [
             {
                 path:"visitas-domiciliarias",
                 loadChildren: () => import('src/app/visita-domiciliaria/visita-domiciliaria.module').then(n => n.VisitaDomiciliariaModule),
+            },
+            {
+                path:"padron-nominal-gestante",
+                loadChildren: () =>import('src/app/pn-gestante/pn-gestante.module').then(n=>n.PnGestanteModule), 
             }
         ]
     }

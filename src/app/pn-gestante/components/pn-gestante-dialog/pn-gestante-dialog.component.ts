@@ -1,20 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder,FormControl,FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PnGestanteService } from '../../services/pn-gestante.service';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import {DatePipe} from '@angular/common';
 import Swal from'sweetalert2';
+import {MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-pn-gestante-dialog',
   templateUrl: './pn-gestante-dialog.component.html',
-  styleUrls: ['./pn-gestante-dialog.component.css']
+  styleUrls: ['./pn-gestante-dialog.component.css'],
+  providers: [MessageService],
 })
 export class PnGestanteDialogComponent implements OnInit {
   formGestante:FormGroup;
+  isUpdate:boolean=false;
   dataGestante:any;
   dataGestanteEditar:any=null;
   listaGestantes:any []=[];
-  // datePipe = new DatePipe('en-US');
+  datePipe = new DatePipe('en-US');
   nombres:any;
   apellidos:any;
   hcl:any;
@@ -37,22 +41,57 @@ export class PnGestanteDialogComponent implements OnInit {
   personal_eess:any;
   fecha_reg:any;
   checked: boolean=false;
+  existeGestante:boolean=false;
+  gestanteRegistrado:boolean=false;
+  auxFPP:any;
+  auxFUR:any;
+  auxFechaRegistro:Date=new Date();
+  auxFechaActual:Date=new Date();
+  selectedAborto:boolean;
+  //data personal
+  auxNroDocPersonal:string=JSON.parse(localStorage.getItem('usuario')).nroDocumento;
+  auxNombresPersonal:string=JSON.parse(localStorage.getItem('usuario')).nombres;
+  auxApellidosPersonal:string=JSON.parse(localStorage.getItem('usuario')).apellidos;
+  auxCodeessActual:string=JSON.parse(localStorage.getItem('usuario')).ipress.renipress;
+  aux_eessActual:string=JSON.parse(localStorage.getItem('usuario')).ipress.nombreEESS;
   sis:any []=[
     {value:'SI'},
     {value:'NO'}
+  ]
+  aborto:any []=[
+    {label:'SI',value:true},
+    {label:'NO',value:false}
   ]
 
   estado_gestante:any []=[
     {value:'Activo'},
     {value:'Inactivo'}
   ]
+  morbilidad_potencial_a:any []=[
+    {value:'Gestante con antecedente de complicación obstetrica'},
+    {value:'Gestante adolescente'},
+    {value:'Primigista añosa'},
+    {value:'Multigesta y/o multipara'},
+    {value:'Gestantes con captación tardia'},
+    {value:'Gestante con rechazo al servicio de salud'},
+    {value:'Gestante traseunte'},
+    {value:'Gestante con TBC'},
+    {value:'Gestante con VIH/SIDA'},
+    {value:'Otra causa'},
+  ]
+
+  listaDocumentos:any []=[
+    {value:'DNI'},
+  ];
   constructor(private fb:FormBuilder,
               private ref:DynamicDialogRef,
-              private pn_gestanteServicio:PnGestanteService) {
-              this.inicializarForm();
+              private pn_gestanteServicio:PnGestanteService,
+              private messageService:MessageService) {
+              
   }
 
   ngOnInit(): void {
+    this.inicializarForm()
   this.dataGestanteEditar=JSON.parse(localStorage.getItem('gestanteLocalStorage'));
   console.log('Gestante seleccionado',this.dataGestanteEditar);
   if(this.dataGestanteEditar!==null){
@@ -61,30 +100,32 @@ export class PnGestanteDialogComponent implements OnInit {
   }
 inicializarForm(){
   this.formGestante=this.fb.group({
+    formTipoDoc:new FormControl(''),
     formNroDocGestante:new FormControl(''),
-    formEstado:new FormControl(''),
-    formNombresGestante:new FormControl(''),
-    formApellidoP:new FormControl(''),
-    formApellidoM:new FormControl(''),
-    formEdad:new FormControl(''),
-    formHCL:new FormControl(''),
-    fechaFUR:new FormControl(''),
-    fechaFPP:new FormControl(''),
     formTieneSis:new FormControl(''),
-    formTelefono:new FormControl(''),
+    formFechaNacimiento:new FormControl(''),
+    //formEdad:new FormControl(''),
+    formAborto:new FormControl(''),
+    formGesta:new FormControl(''),
+    formNombresGestante:new FormControl(''),
+    formApellidos:new FormControl(''),
+    formCod_eess_anterior:new FormControl(this.auxCodeessActual),
+    form_eess_anterior:new FormControl(this.aux_eessActual),
+    formCod_eess_actual:new FormControl(this.auxCodeessActual),
+    form_eess_actual:new FormControl(this.eess_actual),
+    formHCL:new FormControl(''),
+    formFechaRegistro:new FormControl(this.datePipe.transform(this.auxFechaRegistro,'yyyy-MM-dd')),
+    formFur:new FormControl(''),
+    formFpp:new FormControl(''),
     formDireccion:new FormControl(''),
     formReferencia:new FormControl(''),
+    formTelefono:new FormControl(''),
+    formMorbilidadPotencial:new FormControl(''),
     formObservaciones:new FormControl(''),
-    formNroDocPersonal:new FormControl(''),
-    formNombresPersonal:new FormControl(''),
-    formApellidosPersonalP:new FormControl(''),
-    formApellidosPersonalM:new FormControl(''),
-
   })
 }
 mostrarPadronNominalGestantes(){
-  let cod_ipress="00002384"
-  this.pn_gestanteServicio.mostrarPadronGestantes(cod_ipress).subscribe((res:any)=>{
+  this.pn_gestanteServicio.mostrarPadronGestantes(this.auxCodeessActual).subscribe((res:any)=>{
     this.listaGestantes=res['rows'];
     console.log('lista de gestantes',this.listaGestantes);
   })
@@ -92,6 +133,8 @@ mostrarPadronNominalGestantes(){
 
 closeDialog(){
   this.ref.close();
+  this.gestanteRegistrado=false;
+  console.log('gestanteRegistrado',this.gestanteRegistrado);
   this.mostrarPadronNominalGestantes();
 }
 
@@ -124,11 +167,11 @@ this.mostrarPadronNominalGestantes();
 editarGestante(){
 this.pn_gestanteServicio.couch=true;
 this.recuperarDatos();
-this.dataGestante._id=this.dataGestanteEditar._id;
+this.dataGestante;
 console.log("data gestante",this.dataGestanteEditar);
-console.log('_id',this.dataGestante._id)
-console.log('_rev',this.dataGestante._rev);
-this.pn_gestanteServicio.updatedGestante(this.dataGestanteEditar._id,this.dataGestante,this.dataGestanteEditar._rev).subscribe((res:any)=>{
+console.log('_id',this.dataGestanteEditar.value._id)
+console.log('_rev',this.dataGestanteEditar.value._rev);
+this.pn_gestanteServicio.updatedGestante(this.dataGestanteEditar.value._id,this.dataGestante,this.dataGestanteEditar.value._rev).subscribe((res:any)=>{
   this.closeDialog();
   console.log('se actualizo correctamente',res);
   Swal.fire({
@@ -143,58 +186,93 @@ this.mostrarPadronNominalGestantes();
 
 recuperarDatos(){
 this.dataGestante={
-  tipoDoc:'padron_nominal_gestante',
-  estado:this.formGestante.value.formNroDocGestante,
-  nombres_apellidos:`${this.formGestante.value.formNombresGestante}-${this.formGestante.value.formApellidoP}-${this.formGestante.value.formApellidoM}`,
-  hcl:this.formGestante.value.formHCL,
-  edad:this.formGestante.value.formEdad,
-  dni:this.formGestante.value. formNroDocGestante,
+  tipoDoc:'padronNominal',
+  nombres:this.formGestante.value.formNombresGestante,
+  apellidos:this.formGestante.value.formApellidos,
+  fechaNacimiento:this.datePipe.transform(this.formGestante.value.formFechaNacimiento,'yyyy/MM/dd'),
+  tipoDocIdentidad:this.formGestante.value.formTipoDoc,
+  nroDocIdentidad:this.formGestante.value.formNroDocGestante,
   telefono:this.formGestante.value.formTelefono,
-  tiene_sis:this.formGestante.value.formTieneSis,
+  tieneSis:this.formGestante.value.formTieneSis,
   direccion:this.formGestante.value.formDireccion,
   referencia:this.formGestante.value.formReferencia,
-  cod_eess_anterior:this.formGestante.value.formCod_eess_anterior,
-  eess_anterior:this.formGestante.value.form_eess_anterior,
-  cod_eess_actual:this.formGestante.value.formCod_eess_actual,
-  eess_actual:this.formGestante.value.form_eess_actual,
-  fur:this.formGestante.value.fechaFUR,
-  fpp:this.formGestante.value.fechaFPP,
-  morbilidad_potencial:this.formGestante.value.formMorbilidadPotencial,
+  hcl2:this.formGestante.value.formHCL,
+  codEessAnterior:this.auxCodeessActual,
+  eessAnterior:this.aux_eessActual,
+  codEessActual:this.auxCodeessActual,
+  eessActual:this.aux_eessActual,
+  fur:this.datePipe.transform(this.formGestante.value.formFur,'dd/MM/yyyy'),
+  fpp:this.auxFPP,
+  morbilidadPotencial:this.formGestante.value.formMorbilidadPotencial,
   observaciones:this.formGestante.value.formObservaciones,
-  dni_responsable:this.formGestante.value.formNroDocPersonal,
-  nombres_responsable:this.formGestante.value.formNombresPersonal,
-  appellidosp_responsable:this.formGestante.value.formApellidosPersonalP,
-  appellidosm_responsable:this.formGestante.value.formApellidosPersonalm,
-}
+  dniPersonal:this.auxNroDocPersonal,
+  personalEess:`${this.auxNombresPersonal}  ${this.auxApellidosPersonal}`,
+  fechaReg:this.datePipe.transform(this.formGestante.value.formFechaRegistro,'dd/MM/yyyy'),
+  nroGesta:[1],
+  aborto:this.selectedAborto,
+  }
 }
 
 editarDatos(){
-let fullname=(this.dataGestanteEditar.value.nombres).split(' ');
-let nombres=fullname[0];
-let apellidosP=fullname[1];
-let apellidosM=fullname[2];
-console.log(nombres,apellidosP,apellidosM);
 if((this.dataGestanteEditar!=null) || (this.dataGestanteEditar!==undefined)){
   console.log('DATA RECUPERADO',this.dataGestanteEditar);
-    this.formGestante.get('formNroDocGestante').setValue(this.dataGestanteEditar.value.dni);
-    this.formGestante.get('estado').setValue("Activo");
-    this.formGestante.get('nombres').setValue(nombres);
-    this.formGestante.get('apellidos_paterno').setValue(apellidosP);
-    this.formGestante.get('apellidos_materno').setValue(apellidosM);
-    this.formGestante.get('edad').setValue(this.dataGestanteEditar.value.edad);
-    this.formGestante.get('hcl').setValue(this.dataGestanteEditar.hcl);
-    // this.formGestante.get('fur').setValue(this.datePipe.transform(this.dataGestanteEditar.value.fur,'yyyy-MM-dd'));
-    // this.formGestante.get('fpp').setValue(this.datePipe.transform(this.dataGestanteEditar.value.fpp,'yyyy-MM-dd'));
-    this.formGestante.get('sis').setValue(this.dataGestanteEditar.value.sis);
-    this.formGestante.get('telefono').setValue(this.dataGestanteEditar.value.telefono);
-    this.formGestante.get('direccion').setValue(this.dataGestanteEditar.value.direccion);
-    this.formGestante.get('referencia').setValue(this.dataGestanteEditar.value.referencia);
-    this.formGestante.get('observaciones').setValue(this.dataGestanteEditar.value.observaciones);
-    //this.formGestante.get('dni_responsable').setValue(this.dataGestanteEditar.dni_responsable);
-   // this.formGestante.get('nombres_responsable').setValue(this.dataGestanteEditar.nombres_responsable);
-   // this.formGestante.get('appellidosp_responsable').setValue(this.dataGestanteEditar.appellidosp_responsable);
-   // this.formGestante.get('appellidosm_responsable').setValue(this.dataGestanteEditar.appellidosm_responsable);
+    this.formGestante.get('formTipoDoc').setValue(this.dataGestanteEditar.value.tipoDocIdentidad);
+    this.formGestante.get('formNroDocGestante').setValue(this.dataGestanteEditar.value.nroDocIdentidad);
+    this.formGestante.get('formTieneSis').setValue(this.dataGestanteEditar.value.tieneSis);
+    this.formGestante.get('formFechaNacimiento').setValue(this.datePipe.transform(this.dataGestanteEditar.value.fecha_nacimiento,'yyyy-MM-dd'));
+   // this.formGestante.get('formEdad').setValue(this.dataGestanteEditar.value.edad);
+    this.formGestante.get('formNombresGestante').setValue(this.dataGestanteEditar.value.nombres);
+    this.formGestante.get('formApellidos').setValue(this.dataGestanteEditar.value.apellidos);
+    this.formGestante.get('formCod_eess_anterior').setValue(this.auxCodeessActual);
+    this.formGestante.get('form_eess_anterior').setValue(this.aux_eessActual);
+    this.formGestante.get('formCod_eess_actual').setValue(this.auxCodeessActual);
+    this.formGestante.get('form_eess_actual').setValue(this.aux_eessActual);
+    this.formGestante.get('formHCL').setValue(this.dataGestanteEditar.value.nro_historial_clinica);
+    this.formGestante.get('formFechaRegistro').setValue(this.dataGestanteEditar.value.fechaReg);
+    this.formGestante.get('formFur').setValue(this.datePipe.transform(this.dataGestanteEditar.value.fur,'yyyy-MM-dd'));
+    this.formGestante.get('formFpp').setValue(this.datePipe.transform(this.dataGestanteEditar.value.fpp,'yyyy-MM-dd'));
+    this.formGestante.get('formDireccion').setValue(this.dataGestanteEditar.value.direccion);
+    this.formGestante.get('formReferencia').setValue(this.dataGestanteEditar.value.referencia);
+    this.formGestante.get('formTelefono').setValue(this.dataGestanteEditar.value.telefono);
+    this.formGestante.get('formMorbilidadPotencial').setValue(this.dataGestanteEditar.value.morbilidadPotencial);
+    this.formGestante.get('formObservaciones').setValue(this.dataGestanteEditar.value.observaciones);
+    this.formGestante.get('formGesta').setValue(this.dataGestanteEditar.value.numero_de_gestacion);
+    this.formGestante.get('formAborto').setValue(this.dataGestanteEditar.value.aborto);
 }
 }
 
+cargarDatosPadronNominal(){
+  this.pn_gestanteServicio.couch=true;
+  let nroDoc=this.formGestante.value.formNroDocGestante;
+  if(nroDoc>=8){
+    this.pn_gestanteServicio.getGestanteDni(nroDoc).subscribe(
+      (data:any)=>{
+        console.log('DATA RECUPERADA :',data);
+        this.dataGestante=data.rows[0].value;
+        if(data['rows'].length>0){
+          this.gestanteRegistrado=true;
+          console.log('gestanteRegistrado',this.gestanteRegistrado);
+          this.messageService.add({
+            key: "myMessage1",
+            severity: "warn",
+            summary: "Data obtenida",
+            detail: "Gestante ya registrado en el padron nominal",
+          })
+        }
+      });
+  }
 }
+
+calcularFPP(){
+  console.log(this.auxFUR);
+  let myArr=this.auxFUR.split('-');
+  console.log(myArr);
+  let dia=parseInt(myArr[2])+7;
+  let mes=Math.abs(parseInt(myArr[1])-3);
+  let anio=parseInt(myArr[0])+1;
+  this.auxFPP=`${dia}/${mes}/${anio}`;
+  console.log(this.auxFPP);
+  this.formGestante.get('formFpp').setValue(this.datePipe.transform(this.auxFPP,'yyyy-MM-dd'));
+}
+}
+

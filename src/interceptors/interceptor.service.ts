@@ -14,6 +14,7 @@ import { FuaService } from "src/app/fua/services/fua.service";
 import Swal from "sweetalert2";
 import { SpinnerHandlerService } from "src/app/core/services/spinner-handler.service";
 import { VisitaDomiciliariaService } from "src/app/visita-domiciliaria/services/visita-domiciliaria.service";
+import { PnGestanteService } from '../app/pn-gestante/services/pn-gestante.service';
 
 @Injectable({
     providedIn: "root",
@@ -24,6 +25,7 @@ export class InterceptorService implements HttpInterceptor {
 
     constructor(
         private servioVisitaDomiciliaria: VisitaDomiciliariaService,
+        private servicioPadronGestantes:PnGestanteService,
         private loginService: LoginService,
         private fuaService: FuaService,
         private spinnerHandler: SpinnerHandlerService // private messageService: MessageService
@@ -63,7 +65,18 @@ export class InterceptorService implements HttpInterceptor {
                 });
                 this.servioVisitaDomiciliaria.couch = false;
                 console.log("couch", this.servioVisitaDomiciliaria.couch);
-            } else {
+            }else if(this.servicioPadronGestantes.couch){
+                cloned = req.clone({
+                    setHeaders: {
+                        Authorization:
+                            `Bearer ` +
+                            this.servicioPadronGestantes.getToken(),
+                    },
+                });
+                this.servicioPadronGestantes.couch = false;
+                console.log("couch", this.servicioPadronGestantes.couch);
+            }
+            else {
                 cloned = req.clone({
                     setHeaders: {
                         "Access-Control-Allow-Origin": "*",

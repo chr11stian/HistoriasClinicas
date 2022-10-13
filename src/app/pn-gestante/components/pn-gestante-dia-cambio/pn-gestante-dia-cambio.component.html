@@ -1,0 +1,97 @@
+<!-- <app-pn-gestante-picklist> -->
+      <div class="border">
+            <div class="card">
+                <form [formGroup]="formGestante">
+                    <div class="card">
+                        <label class="ml-3 my-4">DATOS GENERALES DE LA GESTANTE</label>
+                        <div class="formgrid grid mx-3">
+                              <div class="col-12 md:col-2">
+                                    <label>Tipo Doc</label>
+                                    <p-dropdown [options]="listaDocumentos" 
+                                                formControlName="formTipoDoc"
+                                                placeholder="Seleccione tipo de documento" optionLabel="abreviatura"
+                                                optionLabel="value" 
+                                                optionValue="value"
+                                                [showClear]="false" 
+                                                class="p-fluid w-full">
+                                    </p-dropdown>
+                              </div>
+                              <div class="col-12 md:col-3">
+                                    <label for="DNI">DNI</label>
+                                    <input id="DNI" type="text" pInputText placeholder="DNI"
+                                                formControlName="formNroDocGestante"
+                                                (keyup)="cargarDatosPadronNominal()"
+                                                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"/>
+                                </div>
+                        </div>
+                        <div class="formgrid grid mx-3">
+                              <div class="col-12 md:col-6" >
+                                    <label>Nombres:</label>
+                                    <input placeholder="Nombres" type="text" pInputText  class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                                    formControlName="formNombresGestante" oninput="this.value=this.value.toUpperCase()"/>
+                              </div>
+                              <div class="col-12 md:col-6">
+                                    <label>Apellidos:</label>
+                                    <input placeholder="Apellidos" type="text" pInputText class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                                    formControlName="formApellidos" oninput="this.value=this.value.toUpperCase()"/>
+                              </div>
+                        </div>
+                        <div class="formgrid grid mx-3">
+                              <div class="field col" >
+                              <label>Cod. EE.SS Anterior:</label>
+                              <input placeholder="Cod.EESS.Anterior" 
+                                          type="text" pInputText  class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                                          formControlName="formCod_eess_anterior" 
+                                          oninput="this.value=this.value.toUpperCase()"
+                                          disabled="true"/>
+                              </div>
+                        <div class="formgrid grid mx-3">
+                              <div class="field col">
+                                    <label>EE.SS Anterior:</label>
+                                    <input placeholder="EESS.Anterior" 
+                                          type="text" pInputText 
+                                          class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                                          formControlName="form_eess_anterior" 
+                                          oninput="this.value=this.value.toUpperCase()"
+                                          disabled="true"/>
+                              </div>
+                              <div class="field col">
+                                    <label>Cod. EE.SS Actual:</label>
+                                    <input placeholder="Cod.EESS.Actual" 
+                                    type="text" pInputText  
+                                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                                    formControlName="formCod_eess_actual" 
+                                    oninput="this.value=this.value.toUpperCase()"
+                                    disabled="true"/>
+                              </div>
+                              <div class="field col">
+                                    <label>EE.SS Actual:</label>
+                                    <input placeholder="EESS.Actual" 
+                                    type="text" pInputText  
+                                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                                    formControlName="form_eess_actual" 
+                                    oninput="this.value=this.value.toUpperCase()"
+                                    disabled="true"/>
+                              </div>
+                        </div>
+                        </div>
+                  </div>
+            </form>
+            </div>
+      <div class="footer">
+            <button
+             pButton
+            type="button"
+            (click)="saveForm()"
+            label="Gambiar EESS"
+            class="p-button-warning mt-4 mr-3"
+            ></button>
+            <button
+            pButton
+            type="button"
+            (click)="closeDialog()"
+            label="Cancelar"
+            class="p-button-danger mt-4"
+            ></button>
+      </div>
+        
