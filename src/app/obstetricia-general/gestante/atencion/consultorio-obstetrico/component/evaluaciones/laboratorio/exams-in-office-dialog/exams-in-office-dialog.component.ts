@@ -76,8 +76,9 @@ export class ExamsInOfficeDialogComponent implements OnInit {
         fecha: [{ value: item.fecha, disabled: isDisabled }],
         lab: [{ value: isDisabled?'':auxLab, disabled: isDisabled }]
       })
-      this.hemoglobina.push(hemo)
-    })
+      this.hemoglobina.push(hemo);
+    });
+    this.addHemo();
   }
 
   addHemo(): void {
@@ -256,10 +257,6 @@ export class ExamsInOfficeDialogComponent implements OnInit {
       });
     }
     return auxData;
-  }
-
-  buildArrayToSaveHemoExam() {
-
   }
 
   addHemo1() {

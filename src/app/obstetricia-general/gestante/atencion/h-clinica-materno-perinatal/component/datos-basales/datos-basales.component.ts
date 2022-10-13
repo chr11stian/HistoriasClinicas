@@ -93,7 +93,7 @@ export class DatosBasalesComponent implements OnInit {
     ngOnInit(): void {
         this.id = this.filiancionService.id;
         this.loadData();
-        this.loadDataHemoExams();
+
     }
 
     inicalizarForm() {
@@ -277,8 +277,6 @@ export class DatosBasalesComponent implements OnInit {
             vacPrev.push('influenza')
         if (aux5)
             vacPrev.push('covid')
-
-
         this.datosBasales = {
             pesoTalla: {
                 imc: this.form.value.imc,
@@ -667,17 +665,8 @@ export class DatosBasalesComponent implements OnInit {
             this.form.patchValue({ 'ivaa': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[26].valor });
             this.form.patchValue({ 'dateIvaa': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[26].fecha });
             this.listaPatologiasMaternas = this.rptaDatosBasales.patologiaMaternoDiagnosticado;
-            this.form.patchValue({
-                hg1: this.rptaDatosBasales.examenLaboratorio.hemoglobina[0].hg,
-                conFactor1: this.rptaDatosBasales.examenLaboratorio.hemoglobina[0].conFactorCorreccion,
-                hemo1: this.rptaDatosBasales.examenLaboratorio.hemoglobina[0].fecha,
-                hg2: this.rptaDatosBasales.examenLaboratorio.hemoglobina[1].hg,
-                conFactor2: this.rptaDatosBasales.examenLaboratorio.hemoglobina[1].conFactorCorreccion,
-                hemo2: this.rptaDatosBasales.examenLaboratorio.hemoglobina[1].fecha,
-                hg3: this.rptaDatosBasales.examenLaboratorio.hemoglobina[2].hg,
-                conFactor3: this.rptaDatosBasales.examenLaboratorio.hemoglobina[2].conFactorCorreccion,
-                hemo3: this.rptaDatosBasales.examenLaboratorio.hemoglobina[2].fecha,
-            })
+            console.log('hemoglobina ', this.rptaDatosBasales.examenLaboratorio.hemoglobina);
+            this.loadDataHemoExams(this.rptaDatosBasales.examenLaboratorio.hemoglobina);
         });
     }
 
@@ -967,51 +956,35 @@ export class DatosBasalesComponent implements OnInit {
         return this.hemoForm.controls["hemoglobina"] as FormArray;
     }
 
-    loadDataHemoExams(): void {
-        let hemoExam = [
-            {
-                hg: '1',
-                conFactorCorrecion: '2',
-                fecha: '2022-10-12'
-            }, {
-                hg: '1',
-                conFactorCorrecion: '2',
-                fecha: '2022-10-12'
-            }, {
-                hg: '1',
-                conFactorCorrecion: '2',
-                fecha: '2022-10-12'
-            }, {
-                hg: '1',
-                conFactorCorrecion: '2',
-                fecha: '2022-10-12'
-            }
-
-        ]
+    loadDataHemoExams(hemoExam: Hemoglobin[]): void {
+        console.log('lista de examenes de hemo ', hemoExam);
         hemoExam.forEach(item => {
             let arraAux = this.fb.group({
-                conFactorCorrecion: [{ value: item.conFactorCorrecion, disabled: true }],
+                conFactorCorreccion: [{ value: (item.conFactorCorreccion), disabled: true }],
                 fecha: [{ value: item.fecha, disabled: true }],
-                hg: [{ value: item.hg, disabled: true }]
+                hg: [{ value: item.hg, disabled: true }],
+                idConsulta: [ item.idConsulta ]
             })
             this.hemoglobina.push(arraAux);
         });
         const hemoForm = this.fb.group({
             hg: [''],
-            conFactorCorrecion: [''],
+            conFactorCorreccion: [''],
             fecha: ['']
         });
         this.hemoglobina.push(hemoForm);
     }
 
-    addHemo():Hemoglobin[] {
+    addHemo(): Hemoglobin[] {
         // console.log('hemo exam ', this.hemoForm.value.hemoglobina);
         let hemoExam: Hemoglobin[] = this.hemoForm.getRawValue().hemoglobina;
-        if (hemoExam[0].hg == '') {
-            hemoExam = []
-        }
+        hemoExam = hemoExam.filter(item => item.hg != '')
+        hemoExam.map(item=>{
+            item.descripcion= 'DOSAJE DE HEMOGLOBINA'
+        })
         console.log('hemoooooo', hemoExam);
         return hemoExam;
+
     }
 }
 interface Ultrasound {
@@ -1020,6 +993,8 @@ interface Ultrasound {
 }
 interface Hemoglobin {
     hg: string,
-    conFactorCorrecion: string,
-    fecha: string
+    conFactorCorreccion: string,
+    fecha: string,
+    idConsulta?: string,
+    descripcion?: string
 }
