@@ -2,8 +2,8 @@
     <div class="card">
         <p-card>
             <div class="grid">
-                <div class="col-9" style="margin: 0 0 0 20px;">
-                    <span style="font-size: 2em;">OBSTETRICIA> Consulta </span>
+                <div class="col-9" style="margin: 0 0 0 20px">
+                    <span style="font-size: 2em">OBSTETRICIA> Consulta </span>
                 </div>
                 <!-- <div class="col-3">
                     <button pButton pRipple label="Ver" icon="pi pi-plus"
@@ -14,19 +14,30 @@
         </p-card>
     </div>
 
-    <p-steps [model]="items" [readonly]="false" [(activeIndex)]="indiceActivo"
-             (activeIndexChange)="ChangeStep($event)" class="scrollmenu">
+    <p-steps
+        [model]="items"
+        [readonly]="false"
+        [(activeIndex)]="indiceActivo"
+        (activeIndexChange)="ChangeStep($event)"
+        class="scrollmenu"
+    >
     </p-steps>
     <div class="flotante">
         <div class="speeddial-circle-demo">
             <div class="speeddial-semi-circle">
-                <p-speedDial [model]="tooltipItems" showIcon="pi pi-window-maximize" hideIcon="pi pi-window-minimize"  radius="80"
-                    direction="left" type="semi-circle" >
+                <p-speedDial
+                    [model]="tooltipItems"
+                    showIcon="pi pi-window-maximize"
+                    hideIcon="pi pi-window-minimize"
+                    radius="80"
+                    direction="left"
+                    type="semi-circle"
+                >
                 </p-speedDial>
             </div>
         </div>
     </div>
-    <br>
+    <br />
     <div class="stepsdemo-content" *ngIf="stepName === 'datos'">
         <p-card>
             <ng-template pTemplate="content">
@@ -88,10 +99,110 @@
     </div>
 </div>
 
-<!--<div class="stepsdemo-content" *ngIf="stepName === 'puerperio'">-->
-<!--    <p-card>-->
-<!--        <ng-template pTemplate="content">-->
-<!--&lt;!&ndash;            <app-puerperio></app-puerperio>&ndash;&gt;-->
-<!--        </ng-template>-->
-<!--    </p-card>-->
-<!--</div>-->
+<p-dialog
+    header="SOLICITUD DE INMUNIZACIONES"
+    [(visible)]="dialogInmunizaciones"
+    [modal]="true"
+    [style]="{ width: '60%' }"
+    [draggable]="false"
+    [resizable]="false"
+>
+    <!-- <form [formGroup]="formInmunizaciones">
+    </form> -->
+    <div class="col-12">
+        <div class="grid">
+            <div class="col-12">
+                <p-fieldset legend="Inmunizaciones" class="atencion">
+                    <div class="col-12 grid">
+                        <div
+                            *ngFor="let item of listInmunizaciones"
+                            class="col-4 flex justify-content-center"
+                        >
+                            <div class="col-2">
+                                <span>{{ item.nombre }}</span>
+                            </div>
+                            <div class="col-2">
+                                <!-- <p-checkbox
+                                    [inputId]="item"
+                                    name="item"
+                                    [value]="item.nombre"
+                                    [(ngModel)]="examName"
+                                    [readonly]="item.saved"
+                                    (onChange)="onChange(data.item)"
+                                >
+                                </p-checkbox> -->
+                                <p-checkbox
+                                    name="item"
+                                    [inputId]="item"
+                                    [value]="item.nombre"
+                                    [(ngModel)]="dataInmunizaciones"
+                                    (onChange)="checkValue(dataInmunizaciones)"
+                                >
+                                </p-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                </p-fieldset>
+            </div>
+        </div>
+    </div>
+    <div class="flex justify-content-center col-12">
+        <p-table
+            class="table-over"
+            [value]="dataInmunizaciones"
+            #dt
+            styleClass="p-datatable-gridlines"
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="text-align: center" class="font-2">Nro</th>
+                    <th style="text-align: center" class="font-2">
+                        INMUNIZACION
+                    </th>
+                    <th style="text-align: center" class="font-2">ACCIÓN</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                <tr>
+                    <td style="text-align: center" class="font-2">
+                        {{ rowIndex + 1 }}
+                    </td>
+                    <td style="text-align: center">{{ rowData }}</td>
+                    <td style="text-align: center">
+                        <button
+                            pButton
+                            pRipple
+                            icon="pi pi-trash"
+                            class="p-button-rounded m-1"
+                            style="background-color: #ce6969"
+                            (click)="
+                                eliminarInmunizacion(rowData.idCupos, rowIndex)
+                            "
+                            pTooltip="Eliminar"
+                        ></button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <ng-template pTemplate="footer">
+        <!-- <button
+            pButton
+            type="button"
+            label="Cancelar"
+            style="background-color: #0c3866"
+            class="button-cancelar"
+            icon="pi pi-times"
+            (click)="cancelInmunizaciones()"
+        ></button> -->
+        <button
+            class="button-agregar"
+            icon="pi pi-save"
+            style="background-color: #0c3866"
+            pButton
+            type="button"
+            label="Guardar"
+            (click)="saveInmunizaciones()"
+        ></button>
+    </ng-template>
+</p-dialog>

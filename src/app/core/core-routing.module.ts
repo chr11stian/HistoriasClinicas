@@ -68,6 +68,10 @@ const routes: Routes = [
                 loadChildren: () => import('src/app/Laboratorio/laboratorio.module').then(n => n.LaboratorioModule),
             },
             {
+                path: "inmunizacion",
+                loadChildren: () => import('src/app/inmunizacion/inmunizacion.module').then(n => n.InmunizacionModule),
+            },
+            {
                 path: "reportes",
                 loadChildren: () => import('src/app/reportes/reportes.module').then(n => n.ReportesModule),
             },
