@@ -438,6 +438,7 @@ export class PersonalSaludComponent implements OnInit {
     }
 
     editar(rowData) {
+        console.log('rowdata ', rowData);
         this.isUpdate = true;
         this.form.reset();
         this.imagePath = image;
