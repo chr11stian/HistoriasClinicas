@@ -99,7 +99,7 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
       tipoDosis: this.getFC('lab').value,/* lab */
       tipoDx:'D',
       nombreUPS:'Enfermeria',
-      nombreUPSAux:'Inmunizaciones',     
+      nombreUPSaux:"Inmunizaciones", 
       codPrestacion: "001",//todo
       codProcedimientoHIS: this.inmunizacion.codigoSis,//todo ??no hay info
       codProcedimientoSIS: "",
