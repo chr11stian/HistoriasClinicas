@@ -65,7 +65,9 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
     // this.recoverDataAuxialsExams();
 
     this.dataDialog = this.config.data.auxExams;
-    console.log('data del dDIALOGGGGG ', this.dataDialog);
+    console.log('data del dDIALOGGGGG ', this.dataDialog.length);
+    this.dataDialog.length == 0 ? this.toEdit = false : this.toEdit = true;
+    console.log('to edit ', this.toEdit);
     if (this.dataDialog != null) {
       this.modelarData(this.dataDialog)
       this.reworkDialog(this.listaExamenes, this.reqLabo);
@@ -74,7 +76,7 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
 
 
   ngOnInit(): void {
-    
+
   }
   createLabRequest() {
     this.reqLabo.forEach(item => {
@@ -112,14 +114,7 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
       confirmButtonText: 'Guardar'
     }).then((result) => {
       if (result.isConfirmed) {
-        // this.createLabRequest();
-        if (this.dataDialog == null) {
-          console.log('guardar');
-          // this.createLabRequest();
-        } else {
-          console.log('editar');
-          // this.addAuxExam();
-        }
+        this.toEdit ? this.addAuxExam() : this.createLabRequest();
       }
       else {
         Swal.fire({
@@ -180,7 +175,7 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
           this.closeDialog();
         })
       }
-      
+
     })
   }
 }

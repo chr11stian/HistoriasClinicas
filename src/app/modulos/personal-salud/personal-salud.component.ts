@@ -615,7 +615,7 @@ export class PersonalSaludComponent implements OnInit {
                 console.log(res);
                 this.imagePath = res.foto;
                 this.form.get("apePaterno").setValue(this.dataPIDE.apePaterno);
-                 this.form.get("apeMaterno").setValue(this.dataPIDE.apeMaterno);
+                this.form.get("apeMaterno").setValue(this.dataPIDE.apeMaterno);
                 this.form.get("nombres").setValue(this.dataPIDE.nombres);
                 this.form
                     .get("fechaNacimiento")
