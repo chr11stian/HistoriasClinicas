@@ -61,7 +61,7 @@ export class IpressComponent implements OnInit {
   UPSList: any[];
   tipoTurnosList: any[];
   tipoDocumentosList: any[];
-  categorizacionesList: any[]; 
+  categorizacionesList: any[];
   clasificacionesTipoList: any[];
   clasificacionesNombreList: any[];
   unidadesList: any[];
@@ -183,7 +183,9 @@ export class IpressComponent implements OnInit {
     })
   }
   changeRedSelectedEditar(rowData) {
+    console.log('otros row dataaaaaa ',rowData);
     this.redServiciosSaludService.getMicroRedServiciosSalud(this.form.value.red.idRed).subscribe((res: any) => {
+      console.log('change red selected ', res);
       this.microRedesList = res.object;
       if (this.microRedesList[0].idMicroRed == null) {
         this.microRedesList = [];
@@ -191,8 +193,8 @@ export class IpressComponent implements OnInit {
       this.form.get('microRed').setValue(this.microRedesList.find(microred => microred.idMicroRed === rowData.red.idMicroRed));
     })
   }
-  changeClasificacionTipo(){
-    this.clasificacionesNombreList=this.form.value.clasificacionTipo.clasificaciones;
+  changeClasificacionTipo() {
+    this.clasificacionesNombreList = this.form.value.clasificacionTipo.clasificaciones;
     console.log(this.form.value.clasificacionTipo.clasificaciones);
   }
   buildForm() {
@@ -492,23 +494,26 @@ export class IpressComponent implements OnInit {
   editar(rowData) {
     this.isUpdate = true;
     this.form.reset();
-    console.log(rowData);
+    console.log('row dataaaaaaaaa ', rowData);
+    console.log('lista de redes ', this.redesList);
     this.form.get('renipress').setValue(rowData.renipress);
     this.form.get('nombreEESS').setValue(rowData.nombreEESS);
     this.form.get('ruc').setValue(rowData.ruc);
-    this.form.get('categoria').setValue(rowData.categoria!==null?this.categoriasList.find(cat => cat.abreviatura === rowData.categoria.abreviatura):"");
+    this.form.get('categoria').setValue(rowData.categoria !== null ? this.categoriasList.find(cat => cat.abreviatura === rowData.categoria.abreviatura) : "");
     this.form.get('ubigeo').setValue(rowData.ubicacion.ubigeo);
     this.selectedEditar(rowData);
     this.form.get('direccion').setValue(rowData.ubicacion.direccion);
-    this.form.get('red').setValue(rowData.red!==null?this.redesList.find(red => red.nombreRed === rowData.red.nombreRed):"");
+    this.form.get('red').setValue(rowData.red !== null ? this.redesList.find(red => red.nombreRed === rowData.red.nombreRed) : "");
     this.changeRedSelectedEditar(rowData);
     //agregar clasificacion, categorizacion y unidad ejecutora aqui usando find
-    this.form.get('categorizacionTipo').setValue(rowData.categorizacion.tipoDocCategorizacion);
-    this.form.get('categorizacionNro').setValue(rowData.categorizacion.nroDocCategorizacion);
-    this.form.get('clasificacionTipo').setValue(rowData.clasificacion!==null?this.clasificacionesTipoList.find(clasi=>clasi.tipo === rowData.clasificacion.tipo):"");
+    if (rowData.categorizacion != null) {
+      this.form.get('categorizacionTipo').setValue(rowData.categorizacion.tipoDocCategorizacion);
+      this.form.get('categorizacionNro').setValue(rowData.categorizacion.nroDocCategorizacion);
+    }
+    this.form.get('clasificacionTipo').setValue(rowData.clasificacion !== null ? this.clasificacionesTipoList.find(clasi => clasi.tipo === rowData.clasificacion.tipo) : "");
     this.clasificacionesNombreList = this.form.value.clasificacionTipo.clasificaciones;
-    this.form.get('clasificacion').setValue(rowData.clasificacion.clasificacion);
-    this.form.get('unidad').setValue(rowData.unidadEjecutora!==null?this.unidadesList.find(uni => uni.nombre === rowData.unidadEjecutora.unidadEjecutora):"");
+    this.form.get('clasificacion').setValue(rowData.clasificacion!= null? rowData.clasificacion.clasificacion:'');
+    this.form.get('unidad').setValue(rowData.unidadEjecutora !== null ? this.unidadesList.find(uni => uni.nombre === rowData.unidadEjecutora.unidadEjecutora) : "");
 
     this.idUpdate = rowData.id;
     this.ipressDialog = true;
@@ -1528,7 +1533,7 @@ export class IpressComponent implements OnInit {
     this.isUpdateHorario = false;
     this.clickDisableHorarios();
     this.getIpress();
-    this.openHorario(this.horarios,this.idIpress);
+    this.openHorario(this.horarios, this.idIpress);
   }
 
   clickSalirHorarios() {

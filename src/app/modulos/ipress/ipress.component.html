@@ -359,7 +359,7 @@
     <ng-template pTemplate="footer">
         <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="canceled()"></button>
         <button *ngIf="!isUpdate" pButton type="button" label="Guardar" (click)="saveForm()"></button>
-        <button *ngIf="isUpdate" pButton type="button" label="Guardar" (click)="editarDatos()"></button>
+        <button *ngIf="isUpdate" pButton type="button" label="Guardar" (click)="editarDatos(rowData)"></button>
     </ng-template>
 </p-dialog>
 
