@@ -108,6 +108,7 @@ export class InmunizacionComponent implements OnInit {
             });
         });
         this.dataListPersonInmunizaciones = inmunizacion;
+        console.log("list",inmunizacion)
     }
     saveInmunizaciones() {
         this.dataListPersonInmunizaciones.map((aux) => {
@@ -135,6 +136,7 @@ export class InmunizacionComponent implements OnInit {
         this.tituloInmunizacion = "INMUNIZACION: " + inmunizacion.nombre;
         this.idInmunizacion = inmunizacion.id;
         this.dialogAplicaInmunizacion = true;
+        console.log("inmunizacion", inmunizacion);
     }
     inicializarForm() {
         this.formInmunizaciones.get("viaAdministracion").setValue("");
@@ -144,10 +146,14 @@ export class InmunizacionComponent implements OnInit {
     }
 
     updateInmunizacion() {
-        console.log("ind", this.idInmunizacion);
+        console.log("inmunizacion", this.idInmunizacion);
         let i = this.dataListPersonInmunizaciones.findIndex(
-            (aux) => (aux.id = this.idInmunizacion)
+            (aux) => (aux.id === this.idInmunizacion)
         );
+        this.dataListPersonInmunizaciones[i].tipoDx = "D";
+        this.dataListPersonInmunizaciones[i].estado = "administrado";
+        this.dataListPersonInmunizaciones[i].nombreUPS = "ENFERMERIA";
+        this.dataListPersonInmunizaciones[i].nombreUPSaux = "INMUNIZACIONES";
         this.dataListPersonInmunizaciones[i].cantidad =
             this.formInmunizaciones.value.cantidad;
         this.dataListPersonInmunizaciones[i].lote =
@@ -160,24 +166,21 @@ export class InmunizacionComponent implements OnInit {
             this.formInmunizaciones.value.dosis === ""
                 ? this.dosisList[0].name
                 : this.formInmunizaciones.value.dosis;
-        this.dataListPersonInmunizaciones[i].estado = "administrado";
         this.dataListPersonInmunizaciones[i].codPrestacion = "001";
+
         if (this.dataListPersonInmunizaciones[i].nombre === "DTPA") {
             this.dataListPersonInmunizaciones[i].cie10SIS = "90715";
-            this.dataListPersonInmunizaciones[i].cie10SIS = "DTPA";
             this.dataListPersonInmunizaciones[i].codProcedimientoHIS = "90715";
             this.dataListPersonInmunizaciones[i].nombreComercial =
                 "VACUNA PARA TÉTANOS TOXOIDE DIFTÉRICO Y VACUNA ACELULAR DE PERTUSIS (TDAP) CUANDO SE ADMINISTRA A INDIVIDUOS DE 7 AÑOS O MAS PARA USO INTRAMUSCULAR";
         }
         if (this.dataListPersonInmunizaciones[i].nombre === "DT") {
-            this.dataListPersonInmunizaciones[i].nombre = "DT";
             this.dataListPersonInmunizaciones[i].cie10SIS = "90714";
             this.dataListPersonInmunizaciones[i].codProcedimientoHIS = "90714";
             this.dataListPersonInmunizaciones[i].nombreComercial =
                 "TOXOIDE TETÁNICO Y DIFETÉRICO (TD) ADSOBIDO LIBRE DE PRESERVANTE CUANDO SE ADMINISTRA EN INDIVIDUOS DE 7 AÑOS O MAYORES PARA USO INTRAMUSCULAR";
         }
         if (this.dataListPersonInmunizaciones[i].nombre === "DPT") {
-            this.dataListPersonInmunizaciones[i].nombre = "DPT";
             this.dataListPersonInmunizaciones[i].cie10SIS = "90701";
             this.dataListPersonInmunizaciones[i].codProcedimientoHIS = "90701";
             this.dataListPersonInmunizaciones[i].nombreComercial =
