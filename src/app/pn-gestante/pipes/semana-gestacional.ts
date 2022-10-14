@@ -5,28 +5,21 @@ import { Pipe,PipeTransform } from '@angular/core';
 })
 
 export class SemanaGestacional implements PipeTransform{
-    transform(date:string):string {
-    let dateDiference = function (date1, date2) {
-            date1 = Date.parse(date1);
-            let diffInMs = Math.abs(date2 - date1);
-            return diffInMs / (1000 * 60 * 60 * 24);
+    transform(date:string):any{
+        if (date) {
+            let today = new Date().getTime();
+            let auxFUR = new Date(date).getTime();
+            auxFUR = auxFUR + 0;
+            let auxWeek = today - auxFUR;
+            let edadGestacional = Math.trunc(auxWeek / (1000 * 60 * 60 * 24));
+            let semanas=Math.trunc(edadGestacional / 7);
+            let dias=edadGestacional % 7
+            if(semanas>39){
+                return `finalizado`;
+            }else{
+                return `${semanas} semanas ${dias} dias`;
+            }
+        }
     }
-
-    let formatoFecha=function(fecha){
-            var mydate =fecha.split('/')
-            return `${mydate[2]}-${mydate[1]}-${mydate[0]}`;
-    }
-
-    let fechaActual = Date.now();
-    let fur=formatoFecha(date);
-    let diference =(dateDiference(fur, fechaActual)/7);
-    let semanas=Math.floor(diference);
-    let dias=Math.floor(diference%2)
-    if(semanas>38){
-        return `finalizado`;
-    }else{
-        return `${semanas} semanas ${dias} dias`;
-    }
-    
-    }
+            
 }

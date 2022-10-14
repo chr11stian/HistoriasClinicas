@@ -1,8 +1,10 @@
 import {Component, OnInit, Output, EventEmitter} from '@angular/core';
-import {FormGroup, FormBuilder, AbstractControl} from '@angular/forms';
+import { FormGroup, FormBuilder, AbstractControl, FormControl, Validators } from '@angular/forms';
 import {AntecedentesViviendaFormType, AntecedentesViviendaType} from '../../models/antecedentes.interface';
 import {AntecedenteViviendaService} from '../../../../../../services/antecedentes/antecedente-vivienda.service';
 import {dato} from "../../../../../models/data";
+import { identifierModuleUrl } from '@angular/compiler';
+import Swal from 'sweetalert2';
 
 @Component({
     selector: 'app-vivienda',
@@ -16,7 +18,8 @@ export class ViviendaComponent implements OnInit {
     attributeLocalS = 'documento'
     data: dato
     stateOptions: any[];
-    datosVivienda: AntecedentesViviendaType[];
+    datosVivienda:any;
+    isUpdate:boolean=false
 
     constructor(
         private formBuilder: FormBuilder,
@@ -29,13 +32,16 @@ export class ViviendaComponent implements OnInit {
         this.nroDoc = this.data.nroDocumento
     }
 
-    async getTablaDatos() {
-        await this.servicioVivienda.getDatosGenerales(this.nroDoc)
+    getAntecendentesVivienda() {
+        this.servicioVivienda.getDatosGenerales(this.nroDoc)
             .toPromise().then(res => <AntecedentesViviendaType[]>res['object'])
             .then(data => {
-                this.datosVivienda = data;
-                console.log(this.datosVivienda);
-                this.rellenarForm(this.datosVivienda);
+                this.isUpdate=true;
+                
+                this.getFC('agua').setValue(data[0].valor)
+                this.getFC('detalleAgua').setValue(data[0].especificar)
+                this.getFC('desague').setValue(data[0].valor)
+                this.getFC('detalleDesague').setValue(data[0].especificar)
             })
             .catch(error => {
                 return error;
@@ -49,10 +55,10 @@ export class ViviendaComponent implements OnInit {
 
     buildForm(): void {
         this.viviendaFG = this.formBuilder.group({
-            agua: [null],
-            detalleAgua: [''],
-            desague: [null],
-            detalleDesague: [''],
+            agua: new FormControl({value:'',disabled:false},[Validators.required]),
+            detalleAgua: new FormControl({value:'',disabled:false},[Validators.required]),
+            desague: new FormControl({value:'',disabled:false},[Validators.required]),
+            detalleDesague: new FormControl({value:'',disabled:false},[Validators.required]),
 
         })
     }
@@ -62,25 +68,54 @@ export class ViviendaComponent implements OnInit {
 
         this.getFC('agua').setValue(tabla[0].valor)
         this.getFC('detalleAgua').setValue(tabla[0].especificar)
-        this.getFC('desague').setValue(tabla[0].valor)
-        this.getFC('detalleDesague').setValue(tabla[0].especificar)
+        this.getFC('desague').setValue(tabla[1].valor)
+        this.getFC('detalleDesague').setValue(tabla[1].especificar)
     }
 
     ngOnInit(): void {
-        this.getTablaDatos();
+        this.getAntecendentesVivienda();
 
     }
 
     save() {
-        this.viviendaEmit.emit({
-            aguaPotable: this.getFC('agua').value,
-            aguaPotableDetalle: this.getFC('detalleAgua').value,
-            desague: this.getFC('desague').value,
-            desagueDetalle: this.getFC('detalleDesague').value
+        const inputRequest=[
+            {
+                descripcion:'tiene agua potable',
+                valor: this.getFC('agua').value,
+                especificar: this.getFC('detalleAgua').value
+            },
+            {
+                descripcion:'tiene desague',
+                valor: this.getFC('desague').value,
+                especificar: this.getFC('detalleDesague').value,
+            }
+        ]
+        if(!this.isUpdate){
 
-        })
-
-        console.log(this.viviendaFG);
+            this.servicioVivienda.addAntecedentesVivienda(this.nroDoc,inputRequest).subscribe(()=>{
+            
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Guardo el registro con correctamente',
+                        text: '',
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
+                
+                
+            })
+        }
+        else{
+            this.servicioVivienda.updateAntecedentesVivienda(this.nroDoc,inputRequest).subscribe(()=>{
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Registro actualizado correctamente',
+                    text: '',
+                    showConfirmButton: false,
+                    timer: 1500,
+                })
+            })
+        }
 
     }
 

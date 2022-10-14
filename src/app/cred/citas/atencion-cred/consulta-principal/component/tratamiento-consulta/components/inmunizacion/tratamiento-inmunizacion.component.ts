@@ -16,7 +16,7 @@ export class TratamientoInmunizacionComponent implements OnInit {
   listaVacunasCodigos = [
     {
       codigo: "90716",
-      nombre: "Varicela",
+      nombre: "VARICELA",
       descripcion:
         "VARICELA-VACUNA DE VIRUS VIVO ATENUADO (CEPA OKA), PROTEGE CONTRA LA INFECCION POR EL VIRUS DE LA VARICELA",
     },
@@ -63,7 +63,7 @@ export class TratamientoInmunizacionComponent implements OnInit {
     {
       codigo: "90723",
       // nombre: "Pentavalente1",
-      nombre: "Pentavalente",
+      nombre: "PENTAVALENTE",
       descripcion:
         "PENTAVALENTE-VACUNA PREVENTIVA PARA LA DIFTERIA, TÉTANOS, TOS FERINA (DPT), HAEMOPHILUS INFLUENZA TIPO B E INFECCIÓN POR HEPATITIS B-1RA DOSIS",
     },
@@ -82,7 +82,7 @@ export class TratamientoInmunizacionComponent implements OnInit {
     {
       codigo: "90681",
       // nombre: "Rotavirus1",
-      nombre: "Rotavirus",
+      nombre: "ROTAVIRUS",
       descripcion:
         "ROTAVIRUS-PREVIENE DIARREAS GRAVES EN LACTANTES Y NIÑOS PEQUEÑOS-1RA DOSIS",
     },
@@ -95,7 +95,7 @@ export class TratamientoInmunizacionComponent implements OnInit {
     {
       codigo: "90670",
       // nombre: "Neumococo1",
-      nombre: "Neumococo",
+      nombre: "NEUMOCOCO",
       descripcion:
         "NEUMOCOCO-PREVIENE LA OTITIS, SEPSIS, MENINGITIS Y NEUMONÍAS GRAVES-1RA DOSIS",
     },
@@ -114,7 +114,7 @@ export class TratamientoInmunizacionComponent implements OnInit {
     {
       codigo: "90657",
       // nombre: "Influenza1",
-      nombre: "Influenza",
+      nombre: "INFLUENZA",
       descripcion: "INFLUENZA-VACUNA CONTRA LA INFLUENZA-1RA DOSIS",
     },
     // {
@@ -233,11 +233,14 @@ export class TratamientoInmunizacionComponent implements OnInit {
   }
   determinamosCodigoSis() {
     this.listaInmunizaciones.forEach((items) => {
-      const nombreVacuna = items.nombre.split(/\d/)[0];
+      const nombreVacuna = (items.nombre.split(/\d/)[0]).toLocaleUpperCase();
       const coincidenciaVacuna = this.listaVacunasCodigos.find(
         (items) => nombreVacuna == items.nombre
       );
+      console.log('vacuna',nombreVacuna);
+      
       items.codigoSis = coincidenciaVacuna.codigo;
+      // items.nombre=coincidenciaVacuna.nombre
     });
     console.log("mape", this.listaInmunizaciones);
   }
@@ -281,268 +284,3 @@ export class TratamientoInmunizacionComponent implements OnInit {
     });
   }
 }
-const a = {
-  cod: "2403",
-  mensaje: "Consulta con éxito, recuperó registro",
-  cod_Http: "202 ACCEPTED",
-  object: [
-    {
-      descripcionEdad: "RN",
-      edadMes: 0,
-      nombre: "BCG",
-      descripcion:
-        "BCG-VACUNA LIOFILIZADA DEL BACILO DE CALMETTE-GUERIN CONTRA LA TUBERCULOSIS-DOSIS UNICA",
-      dosis: 1,
-      tipoDosis: "DU",
-      estadoAdministrado: false,
-      fechaTentativa: "2021-07-28",
-      fechaAdministracion: null,
-    },
-    {
-      descripcionEdad: "RN",
-      edadMes: 0,
-      nombre: "HVB",
-      descripcion:
-        "HVB-VACUNA HEPATITIS VIRAL B CONTRA LA HEPATITIS B-DOSIS UNICA",
-      dosis: 1,
-      tipoDosis: "DU",
-      estadoAdministrado: true,
-      fechaTentativa: "2021-08-21",
-      fechaAdministracion: "2022-10-06",
-    },
-    {
-      descripcionEdad: "Menor_1A",
-      edadMes: 2,
-      nombre: "IPV1",
-      descripcion: "IPV-VACUNA DE VIRUS POLIO INACTIVADO-1RA DOSIS",
-      dosis: 1,
-      tipoDosis: "1",
-      estadoAdministrado: false,
-      fechaTentativa: "2021-09-28",
-      fechaAdministracion: null,
-    },
-    {
-      descripcionEdad: "Menor_1A",
-      edadMes: 4,
-      nombre: "IPV2",
-      descripcion: "IPV-VACUNA DE VIRUS POLIO INACTIVADO-2DA DOSIS",
-      dosis: 2,
-      tipoDosis: "2",
-      estadoAdministrado: false,
-      fechaTentativa: "2021-11-28",
-      fechaAdministracion: null,
-    },
-    {
-      descripcionEdad: "Menor_1A",
-      edadMes: 6,
-      nombre: "APO3",
-      descripcion:
-        "APO-VACUNA ANTIPOLIOMIELÍTICA ORAL CONTRA LA POLIOMELITIS-3RA DOSIS",
-      dosis: 3,
-      tipoDosis: "3",
-      estadoAdministrado: false,
-      fechaTentativa: "2022-01-28",
-      fechaAdministracion: null,
-    },
-    {
-      descripcionEdad: "1A",
-      edadMes: 18,
-      nombre: "APO1R",
-      descripcion: "APO-VACUNA CONTRA LA POLIO ORAL-1ER REFUERZO",
-      dosis: 1,
-      tipoDosis: "RF1",
-      estadoAdministrado: false,
-      fechaTentativa: "2023-01-28",
-      fechaAdministracion: null,
-    },
-    {
-      descripcionEdad: "4A",
-      edadMes: 96,
-      nombre: "APO2R",
-      descripcion: "APO-VACUNA CONTRA LA POLIO ORAL-2DO REFUERZO",
-      dosis: 2,
-      tipoDosis: "RF2",
-      estadoAdministrado: false,
-      fechaTentativa: "2025-07-28",
-      fechaAdministracion: null,
-    },
-    {
-      descripcionEdad: "Menor_1A",
-      edadMes: 2,
-      nombre: "Pentavalente1",
-      descripcion:
-        "PENTAVALENTE-VACUNA PREVENTIVA PARA LA DIFTERIA, TÉTANOS, TOS FERINA (DPT), HAEMOPHILUS INFLUENZA TIPO B E INFECCIÓN POR HEPATITIS B-1RA DOSIS",
-      dosis: 1,
-      tipoDosis: "Intramuscular",
-      estadoAdministrado: true,
-      fechaTentativa: "2021-09-28",
-      fechaAdministracion: "2022-10-07",
-    },
-    {
-      descripcionEdad: "Menor_1A",
-      edadMes: 4,
-      nombre: "Pentavalente2",
-      descripcion:
-        "PENTAVALENTE-VACUNA PREVENTIVA PARA LA DIFTERIA, TÉTANOS, TOS FERINA (DPT), HAEMOPHILUS INFLUENZA TIPO B E INFECCIÓN POR HEPATITIS B-2DA DOSIS",
-      dosis: 2,
-      tipoDosis: "Intramuscular",
-      estadoAdministrado: false,
-      fechaTentativa: "2021-11-28",
-      fechaAdministracion: null,
-    },
-    {
-      descripcionEdad: "Menor_1A",
-      edadMes: 6,
-      nombre: "Pentavalente3",
-      descripcion:
-        "PENTAVALENTE-VACUNA PREVENTIVA PARA LA DIFTERIA, TÉTANOS, TOS FERINA (DPT), HAEMOPHILUS INFLUENZA TIPO B E INFECCIÓN POR HEPATITIS B-3RA DOSIS",
-      dosis: 3,
-      tipoDosis: "Intramuscular",
-      estadoAdministrado: false,
-      fechaTentativa: "2022-01-28",
-      fechaAdministracion: null,
-    },
-    {
-      descripcionEdad: "Menor_1A",
-      edadMes: 2,
-      nombre: "Rotavirus1",
-      descripcion:
-        "ROTAVIRUS-PREVIENE DIARREAS GRAVES EN LACTANTES Y NIÑOS PEQUEÑOS-1RA DOSIS",
-      dosis: 1,
-      tipoDosis: "1",
-      estadoAdministrado: true,
-      fechaTentativa: "2021-09-28",
-      fechaAdministracion: "2022-10-07",
-    },
-    {
-      descripcionEdad: "Menor_1A",
-      edadMes: 4,
-      nombre: "Rotavirus2",
-      descripcion:
-        "ROTAVIRUS-PREVIENE DIARREAS GRAVES EN LACTANTES Y NIÑOS PEQUEÑOS-2RA DOSIS",
-      dosis: 2,
-      tipoDosis: "2",
-      estadoAdministrado: false,
-      fechaTentativa: "2021-11-28",
-      fechaAdministracion: null,
-    },
-    {
-      descripcionEdad: "Menor_1A",
-      edadMes: 2,
-      nombre: "Neumococo1",
-      descripcion:
-        "NEUMOCOCO-PREVIENE LA OTITIS, SEPSIS, MENINGITIS Y NEUMONÍAS GRAVES-1RA DOSIS",
-      dosis: 1,
-      tipoDosis: "1",
-      estadoAdministrado: true,
-      fechaTentativa: "2021-09-28",
-      fechaAdministracion: "2022-10-07",
-    },
-    {
-      descripcionEdad: "Menor_1A",
-      edadMes: 4,
-      nombre: "Neumococo2",
-      descripcion:
-        "NEUMOCOCO-PREVIENE LA OTITIS, SEPSIS, MENINGITIS Y NEUMONÍAS GRAVES-2DA DOSIS",
-      dosis: 2,
-      tipoDosis: "2",
-      estadoAdministrado: false,
-      fechaTentativa: "2021-11-28",
-      fechaAdministracion: null,
-    },
-    {
-      descripcionEdad: "1A",
-      edadMes: 12,
-      nombre: "Neumococo3",
-      descripcion:
-        "NEUMOCOCO-PREVIENE LA OTITIS, SEPSIS, MENINGITIS Y NEUMONÍAS GRAVES-3RA DOSIS",
-      dosis: 3,
-      tipoDosis: "3",
-      estadoAdministrado: false,
-      fechaTentativa: "2022-07-28",
-      fechaAdministracion: null,
-    },
-    {
-      descripcionEdad: "Menor_1A",
-      edadMes: 6,
-      nombre: "Influenza1",
-      descripcion: "INFLUENZA-VACUNA CONTRA LA INFLUENZA-1RA DOSIS",
-      dosis: 1,
-      tipoDosis: "1",
-      estadoAdministrado: false,
-      fechaTentativa: "2022-01-28",
-      fechaAdministracion: null,
-    },
-    {
-      descripcionEdad: "Menor_1A",
-      edadMes: 7,
-      nombre: "Influenza2",
-      descripcion: "INFLUENZA-VACUNA CONTRA LA INFLUENZAL-2DA DOSIS",
-      dosis: 2,
-      tipoDosis: "2",
-      estadoAdministrado: false,
-      fechaTentativa: "2022-02-28",
-      fechaAdministracion: null,
-    },
-    {
-      descripcionEdad: "1A",
-      edadMes: 4,
-      nombre: "SPR1",
-      descripcion:
-        "SPR-VACUNA PREVIENE SARAMPIÓN, PAROTIDITIS O PAPERA Y RUBÉOLA-1RA DOSIS",
-      dosis: 1,
-      tipoDosis: "1",
-      estadoAdministrado: false,
-      fechaTentativa: "2021-11-28",
-      fechaAdministracion: null,
-    },
-    {
-      descripcionEdad: "1A",
-      edadMes: 12,
-      nombre: "SPR1R",
-      descripcion:
-        "SPR-VACUNA PREVIENE SARAMPIÓN, PAROTIDITIS O PAPERA Y RUBÉOLA-1ER REFUERZO",
-      dosis: 1,
-      tipoDosis: "RF1",
-      estadoAdministrado: false,
-      fechaTentativa: "2022-07-28",
-      fechaAdministracion: null,
-    },
-    {
-      descripcionEdad: "1A",
-      edadMes: 15,
-      nombre: "AMA",
-      descripcion:
-        "VACUNA ANTIAMARÍLICA-PREVIENE DEL VIRUS CAUSANTE DE LA FIEBRE AMARILLA",
-      dosis: 1,
-      tipoDosis: "DU",
-      estadoAdministrado: false,
-      fechaTentativa: "2022-10-28",
-      fechaAdministracion: null,
-    },
-    {
-      descripcionEdad: "1A",
-      edadMes: 18,
-      nombre: "DPT1R",
-      descripcion:
-        "DPT-VACUNA PREVENTIVA PARA LA DIFTERIA, TOS CONVULSIVA Y TÉTANOS-1ER REFUERZO",
-      dosis: 1,
-      tipoDosis: "RF1",
-      estadoAdministrado: false,
-      fechaTentativa: "2023-01-28",
-      fechaAdministracion: null,
-    },
-    {
-      descripcionEdad: "4A",
-      edadMes: 96,
-      nombre: "DPT2R",
-      descripcion:
-        "DPT-VACUNA PREVENTIVA PARA LA DIFTERIA, TOS CONVULSIVA Y TÉTANOS-2DO REFUERZO",
-      dosis: 2,
-      tipoDosis: "RF2",
-      estadoAdministrado: false,
-      fechaTentativa: "2025-07-28",
-      fechaAdministracion: null,
-    },
-  ],
-};

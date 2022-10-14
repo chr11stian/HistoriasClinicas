@@ -21,10 +21,10 @@ export class MapVisitasComponent implements OnInit {
             this.initMap();
         }, 500);
     }
-
+    //./assets/svg-marker/marker-visita-domiciliaria.svg
     initMap() {
         var iconDefault = L.icon({
-            iconUrl: "../../../../assets/svg-marker/marker-visita-domiciliaria.svg",
+            iconUrl: "./assets/svg-marker/marker-visita-domiciliaria.svg",
             iconSize: [30, 30],
             iconAnchor: [12, 41],
             shadowAnchor: [18, 26],

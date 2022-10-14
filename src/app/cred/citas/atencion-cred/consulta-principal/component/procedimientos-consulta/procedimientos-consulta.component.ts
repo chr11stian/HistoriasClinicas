@@ -951,6 +951,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
     }
 
     agregateProcedureSIS(): void {
+        let isAdded: boolean = false;
         if (this.fuaForm.valid) {
             let procedureSIS: ProcedureFUA = {
                 codPrestacion: this.fuaForm.value.prestacion.codPrestacion,
@@ -959,13 +960,22 @@ export class ProcedimientosConsultaComponent implements OnInit {
                 cie10SIS: this.fuaForm.value.codProcedimientoSIS.codigo,
                 codProcedimientoSIS: this.fuaForm.value.codProcedimientoSIS.codigo,
             }
-            this.arrayProcedureSIS.push(procedureSIS);
-            this.fuaForm.reset();
+            this.arrayProcedureSIS.forEach(item => {
+                if (item.cie10SIS === procedureSIS.cie10SIS) {
+                    isAdded = true;
+                    this.repeatDataMessage();
+                }
+            })
+            if (!isAdded) {
+                this.arrayProcedureSIS.push(procedureSIS);
+                this.fuaForm.reset();
+            }
         } else
             this.missDataMessage();
     }
 
     agregateProcedureHIS(): void {
+        let isAdded: boolean = false;
         if (this.hisForm.valid) {
             let HISprocedure: ProcedureHIS = {
                 nombreUPS: this.hisForm.value.nombreUPS.nombreUPS,
@@ -975,8 +985,16 @@ export class ProcedimientosConsultaComponent implements OnInit {
                 codProcedimientoHIS: this.hisForm.value.codProcedimientoHIS.codigoItem,
                 procedimientoHIS: this.hisForm.value.procedimientoHIS,
             }
-            this.arrayProcedureHIS.push(HISprocedure);
-            this.hisForm.reset();
+            this.arrayProcedureHIS.forEach(item => {
+                if (item.codProcedimientoHIS === HISprocedure.codProcedimientoHIS) {
+                    isAdded = true;
+                    this.repeatDataMessage();
+                }
+            });
+            if (!isAdded) {
+                this.arrayProcedureHIS.push(HISprocedure);
+                this.hisForm.reset();
+            }
         } else
             this.missDataMessage();
 
@@ -1109,6 +1127,16 @@ export class ProcedimientosConsultaComponent implements OnInit {
         Swal.fire({
             icon: 'info',
             title: 'Falta llenar campos',
+            text: '',
+            showConfirmButton: false,
+            timer: 2000
+        });
+    }
+
+    repeatDataMessage(): void {
+        Swal.fire({
+            icon: 'info',
+            title: 'Ya se agrego ese item',
             text: '',
             showConfirmButton: false,
             timer: 2000
