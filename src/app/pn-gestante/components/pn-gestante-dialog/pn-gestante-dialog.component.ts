@@ -35,7 +35,6 @@ export class PnGestanteDialogComponent implements OnInit {
   auxFPP:any;
   auxFUR:any;
   auxFechaRegistro:Date=new Date();
-  auxFechaActual:Date=new Date();
   selectedAborto:boolean;
   auxGestanteCambiar:any;
   listaGestantesPuerpera: any[] = [];
@@ -128,7 +127,7 @@ mostrarPadronNominalGestantes() {
     (data:any) => {
       this.listaGestantes = data['rows'];
       this.listaGestantesPuerpera = this.listaGestantes.filter((aux) => {
-        if (this.semanaGestacional(aux.value.fur) < 42 && aux.value.aborto==false) return aux;
+        if (this.semanaGestacional(aux.value.fur) < 44 && aux.value.aborto==false) return aux;
       });
       console.log("la data es :", data);
     },
@@ -234,7 +233,7 @@ editarDatos() {
 }
 
 cargarDatosPadron() {
-  let nroDoc:String=String(this.formGestante.value.nroDocIdentidad);
+  let nroDoc=this.formGestante.value.nroDocIdentidad;
   this.pn_gestanteServicio.couch=true;
   if (nroDoc.length >= 8){
     this.pn_gestanteServicio.getGestanteDni(nroDoc).subscribe((data: any) => {
@@ -394,24 +393,18 @@ EditarGestante() {
     });
 }
 
-dateDiference = function (date1, date2) {
-  date1 = Date.parse(date1);
-  let diffInMs = Math.abs(date2 - date1);
-  return diffInMs / (1000 * 60 * 60 * 24);
-};
-
-formatoFecha = function (fecha) {
-  var mydate = fecha.split("/");
-  return `${mydate[2]}-${mydate[1]}-${mydate[0]}`;
-};
-
-semanaGestacional(date: string) {
-  let fechaActual = Date.now();
-  let fur = this.formatoFecha(date);
-  let diference = this.dateDiference(fur, fechaActual) / 7;
-  let semanas = Math.floor(diference);
-  let dias = Math.floor(diference % 2);
-  return semanas;
+semanaGestacional(date:any):any {
+  if (date) {
+    let today = new Date().getTime();
+    let auxFUR = new Date(date).getTime();
+    auxFUR = auxFUR + 0;
+    let auxWeek = today - auxFUR;
+    let edadGestacional = Math.trunc(auxWeek / (1000 * 60 * 60 * 24));
+    let semanas=Math.trunc(edadGestacional / 7);
+    let dias=edadGestacional % 7
+    return semanas;
+  }
 }
+
 }
 

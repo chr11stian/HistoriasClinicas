@@ -27,7 +27,7 @@ export class PnGestanteDiaGestaComponent implements OnInit {
   auxFPP: any;
   auxFUR: any;
   agregarNuevaGesta: boolean = true;
-  auxFechaActual: Date = new Date();
+  FechaActual = new Date().getTime();
   sis: any[] = [{ value: "SI" }, { value: "NO" }];
   nuevaGesta:NuevaGesta;
   aborto: any[] = [
@@ -228,7 +228,8 @@ export class PnGestanteDiaGestaComponent implements OnInit {
         this.formGestante
           .get("formAborto")
           .setValue(this.dataGestante.aborto == true ? "SI" : "NO");
-        if (this.semanaGestacional(this.dataGestante.fur)>40) {
+          console.log(this.FechaActual)
+        if (this.semanaGestacional(this.dataGestante.fur)>40 || this.dataGestante.aborto==true || this.dataGestante.fpp>this.FechaActual) {
           this.agregarNuevaGesta = false;
           this.messageService.add({
             key: "myMessage1",
@@ -251,24 +252,17 @@ export class PnGestanteDiaGestaComponent implements OnInit {
   
   }
 
-  dateDiference = function (date1, date2) {
-    date1 = Date.parse(date1);
-    let diffInMs = Math.abs(date2 - date1);
-    return diffInMs / (1000 * 60 * 60 * 24);
-  };
-
-  formatoFecha = function (fecha) {
-    var mydate = fecha.split("/");
-    return `${mydate[2]}-${mydate[1]}-${mydate[0]}`;
-  };
-
-  semanaGestacional(date: string) {
-    let fechaActual = Date.now();
-    let fur = this.formatoFecha(date);
-    let diference = this.dateDiference(fur, fechaActual) / 7;
-    let semanas = Math.floor(diference);
-    let dias = Math.floor(diference % 2);
-    return semanas;
+  semanaGestacional(date: any):any {
+    if (date) {
+      let today = new Date().getTime();
+      let auxFUR = new Date(date).getTime();
+      auxFUR = auxFUR + 0;
+      let auxWeek = today - auxFUR;
+      let edadGestacional = Math.trunc(auxWeek / (1000 * 60 * 60 * 24));
+      let semanas=Math.trunc(edadGestacional / 7);
+      let dias=edadGestacional % 7
+      return semanas;
+    }
   }
 
   calcularFPP(){
