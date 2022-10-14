@@ -271,9 +271,9 @@ export class PersonalComponent implements OnInit {
         this.recuperarDatos();
         console.log('isEditable',this.isEditable);
         
-        if(!this.isEditable){
-            this.getFC('edadN').disable()
-        }
+        // if(!this.isEditable){
+        //     this.getFC('edadN').disable()
+        // }
     }
 
     cambio(e, nombre: string) {
@@ -358,15 +358,27 @@ export class PersonalComponent implements OnInit {
             },
         }
         this.antecedentesService.addAntecedentesPersonales(this.nroDoc, aux).subscribe(
-            (resp) => {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Guardo el registro correctamente',
-                    text: '',
-                    showConfirmButton: false,
-                    timer: 1500,
-                })
-                this.onPersonal.emit(true)
+            (resp:any) => {
+                if(resp.cod!="2105"){
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Guardo el registro correctamente',
+                        text: '',
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
+                    this.onPersonal.emit(true)
+                }
+                else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'No se guardo',
+                        text: '',
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
+
+                }
             }
         )
 
