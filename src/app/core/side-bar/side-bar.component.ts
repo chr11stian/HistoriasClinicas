@@ -1,3 +1,4 @@
+import { inmunizaciones } from './../../cred/citas/atencion-cred/plan/component/plan-atencion-integral/models/plan-atencion-integral.model';
 import { escala } from "./../../cred/citas/models/data";
 import { Component, Input, OnInit, DoCheck } from "@angular/core";
 import { FilterService, MenuItem } from "primeng/api";
@@ -535,6 +536,17 @@ const laboratorio = {
         },
     ],
 };
+const Inmunizacion = {
+    label: "Inmunizacion",
+    icon: "pi pi-folder",
+    items: [
+        {
+            label: "Inmunizacion",
+            icon: "pi pi-pw pi-desktop",
+            routerLink: "inmunizacion/Inmunizacion",
+        },
+    ],
+};
 const reportes = {
     label: "Reportes",
     icon: "pi pi-send",
@@ -625,6 +637,7 @@ export class SideBarComponent implements OnInit, DoCheck {
             menu_ipress.push(triaje);
             menu_ipress.push(historias);
             menu_ipress.push(laboratorio);
+            menu_ipress.push(Inmunizacion);
             menu_ipress.push(reportes);
         }
         if (this.rol === "ROLE_LAB_PERSONAL") {

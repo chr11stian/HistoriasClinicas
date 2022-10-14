@@ -48,7 +48,7 @@
     </div>
 
     <p-accordion>
-        <p-accordionTab header="LISTA DE PACIENTES CON CUPOS PARA EL DIA DE HOY" [selected]="true">
+        <p-accordionTab header="LISTA DE PACIENTES EN LABORATORIO PARA EL DIA DE HOY" [selected]="true">
             <p-table [value]="DataLisLab" #dt [globalFilterFields]="['fecha']" styleClass="p-datatable-gridlines "
                      [rows]="10" [loading]="loading" responsiveLayout="scroll" class="CitasList"
                      [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
