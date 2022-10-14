@@ -3,28 +3,35 @@
         <div class="flex align-items-center justify-content-center">
             <span>Antecedentes :</span>
             <div class="col-3">
-                <p-autoComplete placeholder="digite el antecedente" formControlName="patologia" [virtualScroll]="true" [suggestions]="listaAntecedentes"
-                                [itemSize]="34" (completeMethod)="filterItems($event)" field="codigo" [dropdown]="true">
-                </p-autoComplete>
+                <!-- <p-autoComplete placeholder="digite el antecedente" formControlName="enfermedad" [virtualScroll]="true" [suggestions]="listaAntecedentes"
+                                [itemSize]="34" (completeMethod)="filterItems($event)" field="code" [dropdown]="true">
+                </p-autoComplete> -->
+                <p-dropdown
+                        placeholder="seleccione"
+                        [options]="listaEnfermedades"
+                        formControlName="enfermedad"
+                        optionValue="code"
+                        optionLabel="name">
+                </p-dropdown>
             </div>
             <div class="col-2">
                 <p-dropdown
-                        [autoDisplayFirst]="false"
+                        placeholder="seleccione"
                         [options]="familiares"
-                        formControlName="quien"
+                        formControlName="pariente"
                         optionValue="code"
                         optionLabel="name">
                 </p-dropdown>
             </div>
             <div class="col-1">
-                <button style="background-color: #0c3866" class="button-agregar p-button-rounded" icon="pi pi-plus"
+                <button [disabled]="!familiarFG.valid" style="background-color: #0c3866" class="button-agregar p-button-rounded" icon="pi pi-plus"
                         pButton type="button"
-                        (click)="Agregar()"></button>
+                        (click)="agregarAlArreglo()"></button>
             </div>
         </div>
 
         <div class="col">
-            <p-table class="table-over" [value]="listPatologias" #dt
+            <p-table class="table-over" [value]="listaAntecedentes" #dt
                      styleClass="p-datatable-gridlines" [rows]="10"
                      [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
                      [showCurrentPageReport]="true"
@@ -54,7 +61,7 @@
         </div>
 
     </p-fieldset>
-    <div class="col col-offset-10">
+    <!-- <div class="col col-offset-10">
         <button 
                 type="submit"
                 pButton
@@ -64,14 +71,6 @@
                 (click)="save()"
                 style="background-color: #0c3866"
                 class="p-button-raised p-button-info"></button>
-        <!--<button type="submit"
-                icon="pi pi-times-circle"
-                pButton
-                pRipple
-                label="Cancelar"
-                (click)="limpiar()"
-                class="p-button-raised p-button-danger"
-        >
-        </button>-->
-    </div>
+        
+    </div> -->
 </div>
