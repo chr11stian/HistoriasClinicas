@@ -747,7 +747,7 @@ export class GiagnosticosComponent implements OnInit {
                     this.repeatDataMessage();
                     isAdded = true;
                 }
-            })
+            });
             if (!isAdded) {
                 this.arrayDiagnosticHIS.push(HISdiagnostic);
                 this.hisForm.reset();
@@ -834,9 +834,9 @@ export class GiagnosticosComponent implements OnInit {
             showCancelButton: true,
             cancelButtonText: 'Cancelar',
             confirmButtonText: 'Guardar',
-            icon: 'question',
-            title: 'Guardar',
-            text: '¿Esta seguro que desea guardar los diagnosticos?',
+            icon: this.isSaved ? 'info' : 'question',
+            title: this.isSaved ? 'Actualizar' : 'Guardar',
+            text: this.isSaved ? 'Se podria modificar los Procedimientos' : '¿Esta seguro que desea guardar los diagnosticos?',
             showConfirmButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',

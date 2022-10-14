@@ -1,0 +1,307 @@
+<div style="background: #f8f9fa; height: 100%">
+    <div class="p-panel">
+        <br />
+        <div class="grid">
+            <div
+                class="col-12 md:col-6 lg:col-12 p-field"
+                style="text-align: center"
+            >
+                <label style="font-size: 16px"
+                    >LISTA DE SOLICITUD DE INMUNIZACIONES</label
+                >
+            </div>
+        </div>
+        <br />
+        <p-toolbar styleClass="p-mb-4">
+            <ng-template pTemplate="left">
+                <form [formGroup]="formListaLabo">
+                    <div class="grid">
+                        <div class="col-12 md:col-4 lg:col-4 p-fluid">
+                            <label class="">TIPO DOC</label>
+                            <p-dropdown
+                                [options]="listaDocumentosIdentidad"
+                                formControlName="tipoDoc"
+                                placeholder="Tipo Documento"
+                                optionLabel="abreviatura"
+                                optionValue="abreviatura"
+                                [showClear]="false"
+                            >
+                            </p-dropdown>
+                        </div>
+                        <div class="col-12 md:col-4 lg:col-8 p-field">
+                            <label class="">DOCUMENTO DEL PACIENTE</label>
+                            <div class="p-inputgroup">
+                                <input
+                                    type="text"
+                                    pInputText
+                                    formControlName="nroDoc"
+                                />
+                                <p-button icon="pi pi-search"></p-button>
+                            </div>
+                        </div>
+                        <!-- <div class="col-12 md:col-4 lg:col-4 p-field">
+                            <label class="">FILTRAR POR FECHA</label>
+                            <div class="p-inputgroup">
+                                <p-calendar
+                                    dateFormat="yy-mm-dd"
+                                    formControlName="fechaBusqueda"
+                                    [readonlyInput]="true"
+                                    (onSelect)="listaLab()"
+                                >
+                                </p-calendar>
+                            </div>
+                        </div> -->
+                    </div>
+                </form>
+            </ng-template>
+            <ng-template pTemplate="right">
+                <button
+                    pButton
+                    pRipple
+                    label="Exportar"
+                    icon="pi pi-upload"
+                    class="p-button-success"
+                ></button>
+            </ng-template>
+        </p-toolbar>
+    </div>
+
+    <p-accordion>
+        <p-accordionTab
+            header="LISTA DE PACIENTES EN TOPICO PARA EL DIA DE HOY"
+            [selected]="true"
+        >
+            <p-table
+                [value]="dataInmunizaciones"
+                #dt
+                [globalFilterFields]="['fecha']"
+                styleClass="p-datatable-gridlines "
+                [rows]="10"
+                responsiveLayout="scroll"
+                class="CitasList"
+                [rowsPerPageOptions]="[10, 25, 50]"
+                [paginator]="true"
+                currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
+            >
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="text-align: center; font-size: 11px">Nro</th>
+                        <th style="text-align: center; font-size: 11px">DNI</th>
+                        <th style="text-align: center; font-size: 11px">
+                            APELLIDOS
+                        </th>
+                        <th style="text-align: center; font-size: 11px">
+                            NOMBRES
+                        </th>
+                        <th style="text-align: center; font-size: 11px">
+                            INMUNIZACION
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template
+                    pTemplate="body"
+                    let-rowData
+                    let-rowIndex="rowIndex"
+                >
+                    <tr>
+                        <td style="text-align: center; font-size: 11px">
+                            {{ rowIndex + 1 }}
+                        </td>
+                        <td style="text-align: center; font-size: 11px">
+                            {{ rowData.id }}
+                        </td>
+                        <td style="text-align: center; font-size: 11px">
+                            {{
+                                rowData.datosPaciente.apePaterno +
+                                    " " +
+                                    rowData.datosPaciente.apeMaterno
+                            }}
+                        </td>
+                        <td style="text-align: center; font-size: 11px">
+                            {{
+                                rowData.datosPaciente.primerNombre +
+                                    " " +
+                                    rowData.datosPaciente.otrosNombres
+                            }}
+                        </td>
+                        <td style="text-align: center">
+                            <button
+                                pButton
+                                pRipple
+                                type="button"
+                                label="Aplicar"
+                                class="p-button-secondary"
+                                style="font-size: 11px"
+                                (click)="openDialogInmunizacion(rowData)"
+                            ></button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-accordionTab>
+    </p-accordion>
+</div>
+
+<p-dialog
+    header="{{ tituloDialog }}"
+    [(visible)]="dialogInmunizaciones"
+    [modal]="true"
+    [style]="{ width: '40%' }"
+    [draggable]="false"
+    [resizable]="false"
+>
+    <!-- <form [formGroup]="formInmunizaciones">
+    </form> -->
+    <div class="flex justify-content-center col-12">
+        <p-table
+            class="table-over"
+            [value]="dataListPersonInmunizaciones"
+            #dt
+            styleClass="p-datatable-gridlines"
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="text-align: center" class="font-2">Nro</th>
+                    <th style="text-align: center" class="font-2">
+                        INMUNIZACION
+                    </th>
+                    <th style="text-align: center" class="font-2">
+                        ADMINISTRADO
+                    </th>
+                    <th style="text-align: center" class="font-2">ACCIÓN</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                <tr>
+                    <td style="text-align: center" class="font-2">
+                        {{ rowIndex + 1 }}
+                    </td>
+                    <td style="text-align: center">{{ rowData.nombre }}</td>
+                    <td style="text-align: center">
+                        <div
+                            *ngIf="
+                                rowData.estado === 'pendiente';
+                                else administrado
+                            "
+                        >
+                            <button
+                                pButton
+                                type="button"
+                                label="Pendiente"
+                                class="p-button-sm p-button-danger"
+                            ></button>
+                        </div>
+                        <ng-template #administrado>
+                            <button
+                                pButton
+                                type="button"
+                                label="Administrado"
+                                class="p-button-sm p-button-success"
+                            ></button>
+                        </ng-template>
+                    </td>
+
+                    <td style="text-align: center">
+                        <button
+                            pButton
+                            pRipple
+                            icon="pi pi-send"
+                            class="p-button-rounded m-1"
+                            style="background-color: #69ce7d"
+                            (click)="openDialogAplicarInmunizacion(rowData)"
+                            pTooltip="aplicar"
+                        ></button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <ng-template pTemplate="footer">
+        <button
+            class="button-agregar"
+            icon="pi pi-save"
+            style="background-color: #0c3866"
+            pButton
+            type="button"
+            label="Guardar"
+            (click)="saveInmunizaciones()"
+        ></button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog
+    header="{{ tituloInmunizacion }}"
+    [(visible)]="dialogAplicaInmunizacion"
+    [modal]="true"
+    [style]="{ width: '50%' }"
+    [draggable]="false"
+    [resizable]="false"
+>
+    <div class="flex justify-content-center col-12">
+        <form [formGroup]="formInmunizaciones">
+            <div class="flex justify-content-center col-12">
+                <div class="col-7 flex align-items-center">
+                    <div class="col-6">Administracion:</div>
+                    <div class="col-6 p-fluid">
+                        <p-dropdown
+                            class="w-full"
+                            [options]="viaAdministracionList"
+                            formControlName="viaAdministracion"
+                            optionLabel="name"
+                            optionValue="code"
+                        ></p-dropdown>
+                    </div>
+                </div>
+                <div class="col-5 flex align-items-center">
+                    <div class="col-5">Cantidad:</div>
+                    <div class="col-7 p-fluid">
+                        <p-dropdown
+                            class="w-full"
+                            [options]="dosisList"
+                            formControlName="cantidad"
+                            optionLabel="name"
+                            optionValue="code"
+                        ></p-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-content-center col-12">
+                <div class="col-6 flex align-items-center">
+                    <div class="col-4">Dosis:</div>
+                    <div class="col-8 p-fluid">
+                        <input
+                            class="w-full"
+                            type="int"
+                            pInputText
+                            placeholder="dosis"
+                            formControlName="dosis"
+                        />
+                    </div>
+                </div>
+                <div class="col-6 flex align-items-center">
+                    <div class="col-3">Lote:</div>
+                    <div class="col-9 p-fluid">
+                        <input
+                            class="w-full"
+                            type="text"
+                            pInputText
+                            placeholder="Lote"
+                            formControlName="lote"
+                        />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <ng-template pTemplate="footer">
+        <button
+            class="button-agregar"
+            icon="pi pi-save"
+            style="background-color: #0c3866"
+            pButton
+            type="button"
+            label="Guardar"
+            (click)="updateInmunizacion()"
+        ></button>
+    </ng-template>
+</p-dialog>

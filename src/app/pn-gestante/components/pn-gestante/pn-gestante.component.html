@@ -7,7 +7,7 @@
                 </span>
             </div>
     </div>
-    <p-toolbar class="p-mb-4">
+    <p-toolbar  class="p-mb-4">
         <ng-template pTemplate="left" class="p-inputgroup">
                 <label>DNI:</label>
                 <input type="text" pInputText formControlName="nroDoc"/>
@@ -54,16 +54,15 @@
           <ng-template pTemplate="body" let-gestante style="text-align: center;" let-i="rowIndex">
               <tr>
                   <td style="text-align: center;">{{ i + 1 }}</td>
-                  <td style="text-align: center;">{{gestante.value.dni}}</td>
+                  <td style="text-align: center;">{{gestante.value.nroDocIdentidad}}</td>
                   <td style="text-align:left;">{{gestante.value.nombres}}</td>
                   <td style="text-align:left ;">{{gestante.value.apellidos}}</td>
                   <td style="text-align: center;">{{gestante.value.telefono}}</td>
-                  <td style="text-align: center;">{{gestante.value.sis}}</td>
+                  <td style="text-align: center;">{{gestante.value.tieneSis}}</td>
                   <td style="text-align: left;">{{gestante.value.direccion}}</td>
                   <td style="text-align: center;">
-                   
-                    <button pButton type="button"  
-                            iconPos="right" icon="pi pi-check" label=" {{gestante.value.fpp |EstadoGestacional}}"
+                <button pButton type="button"  
+                            iconPos="right" icon="pi pi-check" label=" {{gestante.value.fur |EstadoGestacional}}"
                       class="p-button-success p-button-sm">
                     </button>
                   </td>
@@ -72,6 +71,9 @@
                     <button pButton (click)="editar(gestante)" pTooltip="Editar" pRipple type="button"
                         icon="pi pi-pencil" class="p-button-rounded m-1">
                     </button>
+                    <button pButton (click)="mostrar(gestante.value.nroGesta)" pTooltip="Ver" pRipple type="button"
+                    icon="pi pi-eye" class="p-button-rounded m-1">
+                </button>
                 </td>
             </tr>
         </ng-template>

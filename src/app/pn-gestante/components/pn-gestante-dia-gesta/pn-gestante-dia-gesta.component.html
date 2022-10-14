@@ -23,7 +23,7 @@
                                               (keyup)="cargarDatosPadronNominal()"
                                               class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"/>
                           </div>
-                          <div class="col-12 md:col-3" >
+                          <div class="col-12 md:col-2" >
                               <label>Tiene SIS:</label>
                                   <p-dropdown
                                   formControlName="formTieneSis"
@@ -71,7 +71,8 @@
                           <label>NroGesta:</label>
                           <input placeholder="Nro gesta" 
                                  type="number" pInputText  class="inputTest"
-                                  formControlName="formGesta"  
+                                  formControlName="formGesta" 
+                                  disabled="true" 
                                   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"/>
                       </div>
                       <div class="col-12 md:col-4" >
@@ -215,15 +216,14 @@
                         </div>
                 </div>
                 </div>-->
-          </form>
-      </div>
-      <div class="footer">
+        </form>
+    </div>
+    <div class="footer">
           <button
           pButton
           type="button"
-          (click)="agregarGesta()"
+          (click)="editarGestante()"
           label="Guardar"
-          [disabled]="agregarNuevaGesta"
           class="p-button-primary mt-4 mr-3"
           ></button>
           <button

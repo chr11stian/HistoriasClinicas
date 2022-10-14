@@ -7,6 +7,7 @@ import {
   InmunizacionesService
 } from "../../../../../plan/component/plan-atencion-integral/services/inmunizaciones/inmunizaciones.service";
 import {ConfirmationService, MessageService} from "primeng/api";
+import { NombreComercialUPS } from '../../../../../../../../core/models/mantenimiento.models';
 
 @Component({
   selector: 'app-tratamiento-inmunizacion-modal',
@@ -92,13 +93,13 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
 
   save() {
     const requestInput = {
-      nombre: this.inmunizacion.nombre,
-      nombreComercial:this.inmunizacion.nombre,
-      dosis: this.inmunizacion.dosis,
+      nombre: (this.inmunizacion.nombre),
+      nombreComercial:this.inmunizacion.descripcion,
+      dosis: this.inmunizacion.dosis,/* numero de dosis 1,2,3 */
       tipoDosis: this.getFC('lab').value,/* lab */
-      tipoDx:'d',
+      tipoDx:'D',
       nombreUPS:'Enfermeria',
-      nombreUPSAux:'Inmunizaciones',     
+      nombreUPSaux:"Inmunizaciones", 
       codPrestacion: "001",//todo
       codProcedimientoHIS: this.inmunizacion.codigoSis,//todo ??no hay info
       codProcedimientoSIS: "",
@@ -112,6 +113,7 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
       pertenecePAICRED : true
     }
     console.log('request->>>',requestInput)
+    // return
     this.confirmationService.confirm({
       header: "Confirmación",
       message: "Esta Seguro que desea guardar inmunizacion",

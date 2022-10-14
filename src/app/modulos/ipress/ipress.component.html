@@ -359,7 +359,7 @@
     <ng-template pTemplate="footer">
         <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="canceled()"></button>
         <button *ngIf="!isUpdate" pButton type="button" label="Guardar" (click)="saveForm()"></button>
-        <button *ngIf="isUpdate" pButton type="button" label="Guardar" (click)="editarDatos()"></button>
+        <button *ngIf="isUpdate" pButton type="button" label="Guardar" (click)="editarDatos(rowData)"></button>
     </ng-template>
 </p-dialog>
 
@@ -586,7 +586,7 @@
                                 <p-dropdown *ngIf="!isUpdateAmbiente" placeholder="Nombre UPS" class="inputRedondo"
                                     [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down"
                                     inputId="dropdown" [options]="UPSList" formControlName="nombreUPS"
-                                    optionValue="nombreUPS" optionLabel="nombreUPS" required>
+                                    optionValue="nombreUPS" optionLabel="nombreUPS" appendTo="body" required>
                                 </p-dropdown>
                                 <p-dropdown *ngIf="isUpdateAmbiente" class="inputRedondo"
                                     [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down"

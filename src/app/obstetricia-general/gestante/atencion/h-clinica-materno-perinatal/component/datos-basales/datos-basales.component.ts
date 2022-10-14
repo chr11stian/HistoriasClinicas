@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 import { FiliancionService } from "../../services/filiancion-atenciones/filiancion.service";
 
@@ -32,7 +32,7 @@ export class DatosBasalesComponent implements OnInit {
     ];
     city: any;
     examenFisico: any;
-    hemoglobina: any;
+    // hemoglobina: any;
     datosBasales: any;
     otrosExamenes: any;
     rptaDatosBasales: any;
@@ -50,6 +50,9 @@ export class DatosBasalesComponent implements OnInit {
     DataCupos: any;
     dialItems: MenuItem[];
     ultrasoundList: Ultrasound[] = [];
+    hemoForm = this.fb.group({
+        hemoglobina: this.fb.array([])
+    })
 
     constructor(
         private filiancionService: FiliancionService,
@@ -63,7 +66,6 @@ export class DatosBasalesComponent implements OnInit {
         this.inicalizarForm();
         this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
         let idConsulta = JSON.parse(localStorage.getItem('IDConsulta'));
-        console.log('id de consultaaaa ', idConsulta);
         /**Data cupos nos permite visualizar funciones vitales del paciente**/
         this.DataCupos = JSON.parse(localStorage.getItem('datacupos'));
 
@@ -91,6 +93,7 @@ export class DatosBasalesComponent implements OnInit {
     ngOnInit(): void {
         this.id = this.filiancionService.id;
         this.loadData();
+
     }
 
     inicalizarForm() {
@@ -274,8 +277,6 @@ export class DatosBasalesComponent implements OnInit {
             vacPrev.push('influenza')
         if (aux5)
             vacPrev.push('covid')
-
-
         this.datosBasales = {
             pesoTalla: {
                 imc: this.form.value.imc,
@@ -327,7 +328,7 @@ export class DatosBasalesComponent implements OnInit {
             },
             examenFisico: this.examenFisico,
             examenLaboratorio: {
-                hemoglobina: this.hemoglobina,
+                hemoglobina: this.addHemo(),
                 otrosExamenes: this.otrosExamenes
             },
             patologiaMaternoDiagnosticado: this.listaPatologiasMaternas,
@@ -360,31 +361,32 @@ export class DatosBasalesComponent implements OnInit {
     }
 
     recuperarHemoglobina() {
-        this.hemoglobina = [
-            {
-                descripcion: 'HEMOGLOBINA 1',
-                hg: this.form.value.hg1,
-                conFactorCorreccion: this.form.value.conFactor1,
-                fecha: this.form.value.hemo1
-            },
-            {
-                descripcion: 'HEMOGLOBINA 2',
-                hg: this.form.value.hg2,
-                conFactorCorreccion: this.form.value.conFactor2,
-                fecha: this.form.value.hemo2
-            },
-            {
-                descripcion: 'HEMOGLOBINA 3',
-                hg: this.form.value.hg3,
-                conFactorCorreccion: this.form.value.conFactor3,
-                fecha: this.form.value.hemo3
-            },
-        ]
-        if (this.otrosExamHemo.length > 0) {
-            for (let i = 0; i < this.otrosExamHemo.length; i++) {
-                this.hemoglobina.push(this.otrosExamHemo[i]);
-            }
-        }
+        // this.hemoglobina = [
+        //     {
+        //         // cie10sis: 85018
+        //         descripcion: 'HEMOGLOBINA 1',
+        //         hg: this.form.value.hg1,
+        //         conFactorCorreccion: this.form.value.conFactor1,
+        //         fecha: this.form.value.hemo1
+        //     },
+        //     {
+        //         descripcion: 'HEMOGLOBINA 2',
+        //         hg: this.form.value.hg2,
+        //         conFactorCorreccion: this.form.value.conFactor2,
+        //         fecha: this.form.value.hemo2
+        //     },
+        //     {
+        //         descripcion: 'HEMOGLOBINA 3',
+        //         hg: this.form.value.hg3,
+        //         conFactorCorreccion: this.form.value.conFactor3,
+        //         fecha: this.form.value.hemo3
+        //     },
+        // ]
+        // if (this.otrosExamHemo.length > 0) {
+        //     for (let i = 0; i < this.otrosExamHemo.length; i++) {
+        //         this.hemoglobina.push(this.otrosExamHemo[i]);
+        //     }
+        // }
     }
 
     recuperarOtrosExamenes() {
@@ -402,11 +404,11 @@ export class DatosBasalesComponent implements OnInit {
                 valor: this.form.value.tpha,
                 fecha: this.form.value.dateTpha
             }, {
-                nombre: 'VIH PRUEBA RAPIDA 1',
+                nombre: 'VIH PRUEBA RAPIDA 1',//86703
                 valor: this.form.value.vih1,
                 fecha: this.form.value.dateVih1
             }, {
-                nombre: 'VIH PRUEBA RAPIDA 2',
+                nombre: 'VIH PRUEBA RAPIDA 2',//86703
                 valor: this.form.value.vih2,
                 fecha: this.form.value.dateVih2
             }, {
@@ -490,7 +492,7 @@ export class DatosBasalesComponent implements OnInit {
                 valor: this.form.value.secrecionVag,
                 fecha: this.form.value.dateSecrecionVag
             }, {
-                nombre: 'PAP',
+                nombre: 'PAP',//88141
                 valor: this.form.value.pap,
                 fecha: this.form.value.datevdrl1
             }, {
@@ -504,23 +506,30 @@ export class DatosBasalesComponent implements OnInit {
     guardarDatos() {
         this.recuperarDatos();
         console.log('data to save ', this.datosBasales);
-        // this.datosBasalesService.postDatosBasalesById(this.idGestante, this.datosBasales).subscribe((res: any) => {
-        //     console.log('se guardo correctamente ', res.object);
-        //     Swal.fire({
-        //         icon: 'success',
-        //         title: 'Registro',
-        //         text: 'Fue creado con exito',
-        //         showConfirmButton: false,
-        //         timer: 1500,
-        //     })
-        // });
+        this.datosBasalesService.postDatosBasalesById(this.idGestante, this.datosBasales).subscribe((res: any) => {
+            if ([res.cod == '2009']) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Registro',
+                    text: 'Fue creado con exito',
+                    showConfirmButton: false,
+                    timer: 2000,
+                })
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'No se pudo guardar datos basales',
+                    showConfirmButton: false,
+                    timer: 2000,
+                })
+            }
+        });
     }
 
     loadData() {
         let auxVac;
         this.datosBasalesService.getDatosBasalesById(this.idGestante).subscribe((res: any) => {
             this.rptaDatosBasales = res.object;
-            console.log('datos de embarazo', this.rptaDatosBasales)
             if (this.rptaDatosBasales == null)
                 return
             auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "rubeola")
@@ -656,17 +665,8 @@ export class DatosBasalesComponent implements OnInit {
             this.form.patchValue({ 'ivaa': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[26].valor });
             this.form.patchValue({ 'dateIvaa': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[26].fecha });
             this.listaPatologiasMaternas = this.rptaDatosBasales.patologiaMaternoDiagnosticado;
-            this.form.patchValue({
-                hg1: this.rptaDatosBasales.examenLaboratorio.hemoglobina[0].hg,
-                conFactor1: this.rptaDatosBasales.examenLaboratorio.hemoglobina[0].conFactorCorreccion,
-                hemo1: this.rptaDatosBasales.examenLaboratorio.hemoglobina[0].fecha,
-                hg2: this.rptaDatosBasales.examenLaboratorio.hemoglobina[1].hg,
-                conFactor2: this.rptaDatosBasales.examenLaboratorio.hemoglobina[1].conFactorCorreccion,
-                hemo2: this.rptaDatosBasales.examenLaboratorio.hemoglobina[1].fecha,
-                hg3: this.rptaDatosBasales.examenLaboratorio.hemoglobina[2].hg,
-                conFactor3: this.rptaDatosBasales.examenLaboratorio.hemoglobina[2].conFactorCorreccion,
-                hemo3: this.rptaDatosBasales.examenLaboratorio.hemoglobina[2].fecha,
-            })
+            console.log('hemoglobina ', this.rptaDatosBasales.examenLaboratorio.hemoglobina);
+            this.loadDataHemoExams(this.rptaDatosBasales.examenLaboratorio.hemoglobina);
         });
     }
 
@@ -861,7 +861,6 @@ export class DatosBasalesComponent implements OnInit {
         let newMonth: any = parseInt(fum[1]) - 3;
         let newYear: any = parseInt(fum[0]);
 
-        console.log('enfrio ', newDay);
         if (newMonth == 2) {
             if (newDay > 28 && newDay <= 30) {
                 newDay = newDay - 28;
@@ -873,7 +872,6 @@ export class DatosBasalesComponent implements OnInit {
         } else {
             newYear = (newYear) + 1;
         }
-        console.log('enfrio 2 ', newDay);
         if (newDay > 30) {
             console.log('actual day ', newDay);
             newDay = newDay - 30;
@@ -953,8 +951,50 @@ export class DatosBasalesComponent implements OnInit {
         });
         console.log('data de labos ');
     }
+
+    get hemoglobina() {
+        return this.hemoForm.controls["hemoglobina"] as FormArray;
+    }
+
+    loadDataHemoExams(hemoExam: Hemoglobin[]): void {
+        console.log('lista de examenes de hemo ', hemoExam);
+        hemoExam.forEach(item => {
+            let arraAux = this.fb.group({
+                conFactorCorreccion: [{ value: (item.conFactorCorreccion), disabled: true }],
+                fecha: [{ value: item.fecha, disabled: true }],
+                hg: [{ value: item.hg, disabled: true }],
+                idConsulta: [ item.idConsulta ]
+            })
+            this.hemoglobina.push(arraAux);
+        });
+        const hemoForm = this.fb.group({
+            hg: [''],
+            conFactorCorreccion: [''],
+            fecha: ['']
+        });
+        this.hemoglobina.push(hemoForm);
+    }
+
+    addHemo(): Hemoglobin[] {
+        // console.log('hemo exam ', this.hemoForm.value.hemoglobina);
+        let hemoExam: Hemoglobin[] = this.hemoForm.getRawValue().hemoglobina;
+        hemoExam = hemoExam.filter(item => item.hg != '')
+        hemoExam.map(item=>{
+            item.descripcion= 'DOSAJE DE HEMOGLOBINA'
+        })
+        console.log('hemoooooo', hemoExam);
+        return hemoExam;
+
+    }
 }
 interface Ultrasound {
     fecha: string,
     semanas: number
+}
+interface Hemoglobin {
+    hg: string,
+    conFactorCorreccion: string,
+    fecha: string,
+    idConsulta?: string,
+    descripcion?: string
 }

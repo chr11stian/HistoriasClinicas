@@ -22,7 +22,7 @@
                                     <label>Número Doc:</label>
                                     <input type="number" pInputText placeholder="Ingrese el número de doc"
                                            formControlName="nroDoc"
-                                           (keyup)="cargarDatosReniec()" class="inputTest"/>
+                                           (keyup)="cargarDatosReniec()" class="inputTest" />
                                 </div>
                             </div>
                         </div>
@@ -33,7 +33,7 @@
                                 <div class="col-12 md:col-6 lg:col-3 p-field flex flex-column">
                                     <label>Primer Nombre:</label>
                                     <input type="text" pInputText formControlName="primerNombre" class="inputTest"
-                                           oninput="this.value=this.value.toUpperCase()"/>
+                                           oninput="this.value=this.value.toUpperCase()" (click)="validateDoc()" />
                                 </div>
                                 <div class="col-12 md:col-6 lg:col-3 p-field flex flex-column">
                                     <label>Otros Nombres:</label>

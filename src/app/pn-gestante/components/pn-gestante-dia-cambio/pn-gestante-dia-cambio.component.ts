@@ -17,41 +17,11 @@ export class PnGestanteDiaCambioComponent implements OnInit {
   dataGestanteCambiar: any = null;
   listaGestantes: any[] = [];
   datePipe = new DatePipe("en-US");
-  nombres: any;
-  apellidos: any;
-  hcl: any;
-  edad: any;
-  dni: any;
-  telefono: any;
-  tiene_sis: any;
-  direccion: any;
-  referencia: any;
-  cod_eess_anterior: any;
-  eess_anterior: any;
-  cod_eess_actual: any;
-  eess_actual: any;
-  fur: any;
-  fpp: any;
-  morbilidad_potencial: any;
-  edad_gestacional: any;
-  observaciones: any;
-  dni_personal: any;
-  personal_eess: any;
-  fecha_reg: any;
   checked: boolean = false;
   existeGestante: boolean = false;
   dataGestanteCambio: any;
   //data personal
-  auxNroDocPersonal: string = JSON.parse(localStorage.getItem("usuario"))
-    .nroDocumento;
-  auxNombresPersonal: string = JSON.parse(localStorage.getItem("usuario"))
-    .nombres;
-  auxApellidosPersonal: string = JSON.parse(localStorage.getItem("usuario"))
-    .apellidos;
-  auxCodeessActual: string = JSON.parse(localStorage.getItem("usuario")).ipress
-    .renipress;
-  aux_eessActual: string = JSON.parse(localStorage.getItem("usuario")).ipress
-    .nombreEESS;
+  
   sis: any[] = [{ value: "SI" }, { value: "NO" }];
   aborto: any[] = [{ value: "true" }, { value: "false" }];
 
@@ -84,30 +54,16 @@ export class PnGestanteDiaCambioComponent implements OnInit {
     this.formGestante = this.fb.group({
       formTipoDoc: new FormControl(""),
       formNroDocGestante: new FormControl(""),
-      // formTieneSis:new FormControl(''),
-      // formFechaNacimiento:new FormControl(''),
-      // formEdad:new FormControl(''),
-      // formAborto:new FormControl(''),
-      // formGesta:new FormControl(''),
       formNombresGestante: new FormControl(""),
       formApellidos: new FormControl(""),
       formCod_eess_anterior: new FormControl(""),
       form_eess_anterior: new FormControl(""),
       formCod_eess_actual: new FormControl(""),
       form_eess_actual: new FormControl(""),
-      // formHCL:new FormControl(''),
-      // formFechaRegistro:new FormControl(''),
-      // formFur:new FormControl(''),
-      // formFpp:new FormControl(''),
-      // formDireccion:new FormControl(),
-      // formReferencia:new FormControl(),
-      // formTelefono:new FormControl(''),
-      // formMorbilidadPotencial:new FormControl(),
-      // formObservaciones:new FormControl(''),
     });
   }
   mostrarPadronNominalGestantes() {
-    let cod_ipress = "00002384";
+    let cod_ipress =this.pn_gestanteServicio.getauxCodeessActual();
     this.pn_gestanteServicio.couch = true;
     this.pn_gestanteServicio
       .mostrarPadronGestantes(cod_ipress)
@@ -124,27 +80,25 @@ export class PnGestanteDiaCambioComponent implements OnInit {
 
   saveForm() {
     this.pn_gestanteServicio.couch = true;
-    // console.log("_id", this.dataGestante._id);
-    // console.log("_rev", this.dataGestante._rev);
     this.pn_gestanteServicio
       .cambioEESS(
         this.dataGestante._id,
-        this.auxCodeessActual,
-        this.aux_eessActual
+        this.pn_gestanteServicio.getauxCodeessActual(),
+        this.pn_gestanteServicio.getaux_eessActual()
       )
       .subscribe((res: any) => {
         this.closeDialog();
         if(res['ok']==true){
           Swal.fire({
             icon: "success",
-            title: "Se cambio de establecimiento correctamente",
+            title: "Se hizo el cambio de establecimiento correctamente",
             showConfirmButton: false,
             timer: 1500,
           });
         }else{
           Swal.fire({
             icon: "error",
-            title: "No se pudo cambiar de establecimiento  correctamente",
+            title: "No se pudo hacer el cambio de establecimiento correctamente",
             showConfirmButton: false,
             timer: 1500,
           });
@@ -155,12 +109,11 @@ export class PnGestanteDiaCambioComponent implements OnInit {
 
   cargarDatosPadronNominal() {
     this.pn_gestanteServicio.couch = true;
-    let nroDoc: String = String(this.formGestante.value.formNroDocGestante);
+    let nroDoc=this.formGestante.value.formNroDocGestante;
     if(nroDoc.length>=8){
       this.pn_gestanteServicio.getGestanteDni(nroDoc).subscribe((data: any) => {
         console.log("DATA RECUPERADA :", data);
         this.dataGestante = data.rows[0].value;
-        console.log("dataaaaaa ", this.dataGestante);
         this.formGestante
           .get("formNombresGestante")
           .setValue(this.dataGestante.nombres);
@@ -175,8 +128,8 @@ export class PnGestanteDiaCambioComponent implements OnInit {
           .setValue(this.dataGestante.eessActual);
         this.formGestante
           .get("formCod_eess_actual")
-          .setValue(this.auxCodeessActual);
-        this.formGestante.get("form_eess_actual").setValue(this.aux_eessActual);
+          .setValue(this.pn_gestanteServicio.getauxCodeessActual());
+        this.formGestante.get("form_eess_actual").setValue(this.pn_gestanteServicio.getaux_eessActual());
       });
     }
     

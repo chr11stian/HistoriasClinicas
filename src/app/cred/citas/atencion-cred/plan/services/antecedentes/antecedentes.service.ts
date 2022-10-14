@@ -19,6 +19,9 @@ export class AntecedentesService {
     addAntecedentesPersonalesPatologicos(data) {
         return this.http.post(`${this.base_url}/${this.bd}/antecedentes`, data)
     }
+    addAntecedentesFamiliares(data) {
+        return this.http.put(`${this.base_url}/${this.bd}/antecedentes/actualizarFam`, data)
+    }
 
     updateAntecedentesPersonalesPatologicos(data) {
         return this.http.put(`${this.base_url}/${this.bd}/antecedentes/actualizarPer`, data)

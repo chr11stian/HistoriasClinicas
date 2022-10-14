@@ -1,12 +1,12 @@
-import {DatePipe} from '@angular/common';
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {DynamicDialogRef} from 'primeng/dynamicdialog';
-import {PacienteService} from 'src/app/core/services/paciente/paciente.service';
-import {DocumentoIdentidadService} from 'src/app/mantenimientos/services/documento-identidad/documento-identidad.service';
-import {EtniaService} from 'src/app/mantenimientos/services/etnia/etnia.service';
-import {UbicacionService} from 'src/app/mantenimientos/services/ubicacion/ubicacion.service';
-import {image} from 'src/assets/images/image.const';
+import { DatePipe } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { PacienteService } from 'src/app/core/services/paciente/paciente.service';
+import { DocumentoIdentidadService } from 'src/app/mantenimientos/services/documento-identidad/documento-identidad.service';
+import { EtniaService } from 'src/app/mantenimientos/services/etnia/etnia.service';
+import { UbicacionService } from 'src/app/mantenimientos/services/ubicacion/ubicacion.service';
+import { image } from 'src/assets/images/image.const';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -39,6 +39,7 @@ export class DialogPacienteComponent implements OnInit {
     listaPacientes: any;
 
     dataPacienteEditar: any = null;
+    toEdit: boolean = false;
 
     listaEstadoCivil = [
         'SOLTERO',
@@ -62,9 +63,9 @@ export class DialogPacienteComponent implements OnInit {
         'SECUNDARIA COMPLETA',
         'SUPERIOR'
     ];
-    listaSexo=[
-        {name:'MASCULINO',code:'MASCULINO'},
-        {name:'FEMENINO',code:'FEMENINO'}
+    listaSexo = [
+        { name: 'MASCULINO', code: 'MASCULINO' },
+        { name: 'FEMENINO', code: 'FEMENINO' }
     ]
 
     constructor(
@@ -73,21 +74,23 @@ export class DialogPacienteComponent implements OnInit {
         private etniaService: EtniaService,
         private documentoIdentidadService: DocumentoIdentidadService,
         private ubicacionService: UbicacionService,
-        private ref: DynamicDialogRef
+        private ref: DynamicDialogRef,
+        public config: DynamicDialogConfig,
     ) {
+        this.config.data == undefined ? this.toEdit = false : this.toEdit = true;
         this.getDepartamentos();
         this.inicializarForm();
         this.cargarDocumentos();
         this.cargarEtnia();
-
     }
 
     ngOnInit(): void {
-        this.dataPacienteEditar = JSON.parse(localStorage.getItem('pacienteLocalStorage'));
-        console.log("PACIENTE SELECCIONADO", this.dataPacienteEditar)
+        this.dataPacienteEditar = this.config.data;
 
+        console.log('para editarrrrrrrrrrrrrr ', this.toEdit);
         if (this.dataPacienteEditar !== null) {
             this.editarDatos()
+            this.toEdit = true;
         }
     }
 
@@ -95,7 +98,6 @@ export class DialogPacienteComponent implements OnInit {
     getDepartamentos() {
         this.ubicacionService.getDepartamentos().subscribe((resp: any) => {
             this.dataDepartamentos = resp.object;
-            console.log("Departamento", this.dataDepartamentos);
         });
     }
 
@@ -104,7 +106,6 @@ export class DialogPacienteComponent implements OnInit {
         let depa = this.formPaciente.value.departamento;
         this.dataDepartamentos.forEach(object => {
             if (object.departamento === depa) {
-                console.log("Departamento:", object);
                 this.DepartamentoIDSelct = object.iddd
             }
         });
@@ -125,7 +126,6 @@ export class DialogPacienteComponent implements OnInit {
         let provinciaX = this.formPaciente.value.provincia;
         this.dataProvincia.forEach(object => {
             if (object.provincia === provinciaX) {
-                console.log("Provincia:", object);
                 this.ProvinciaIDSelct = object.idpp
             }
         });
@@ -165,7 +165,7 @@ export class DialogPacienteComponent implements OnInit {
         this.formPaciente = this.fb.group({
             idRed: new FormControl(''),
             tipoDoc: new FormControl(''),
-            nroDoc: new FormControl(''),
+            nroDoc: new FormControl({ value: '', disabled: this.toEdit }),
             primerNombre: new FormControl(''),
             otrosNombres: new FormControl(''),
             apPaterno: new FormControl(''),
@@ -202,14 +202,12 @@ export class DialogPacienteComponent implements OnInit {
         this.documentoIdentidadService.getDocumentosIdentidad().subscribe((res: any) => {
             this.listaDocumentos = res.object;
             this.formPaciente.get("tipoDoc").setValue(this.listaDocumentos[0].abreviatura);
-            console.log('documentos ident ', this.listaDocumentos)
         });
     }
 
     cargarEtnia() {
         this.etniaService.getEtnia().subscribe((res: any) => {
             this.dataEtnia = res.object;
-            console.log('lista de etnia ', this.dataEtnia)
         });
     }
 
@@ -224,12 +222,8 @@ export class DialogPacienteComponent implements OnInit {
             let nameAux = this.dataPacienteReniec.ubigeo.split("/");
             Departamento = nameAux[0];
         }
-        console.log("Departamento XXX", this.dataDepartamentos)
-
-        console.log("Departamento:", Departamento);
         this.dataDepartamentos.forEach(object => {
             if (object.departamento === Departamento) {
-                console.log("Departamento:", object);
                 this.DepartamentoIDSelct = object.iddd
             }
         });
@@ -238,7 +232,6 @@ export class DialogPacienteComponent implements OnInit {
         }
         this.ubicacionService.getProvincias(dpto).subscribe((res: any) => {
             this.dataProvincia = res.object;
-            console.log("PROVINCIA:", this.dataProvincia);
             this.listarUbicacionPacientedistritos();
         });
     }
@@ -282,7 +275,6 @@ export class DialogPacienteComponent implements OnInit {
         }
         this.dataDistrito.forEach(object => {
             if (object.distrito === Distrito) {
-                console.log("Distrito:", object);
                 this.DistritoIDSelct = object.iddis
             }
         });
@@ -303,7 +295,6 @@ export class DialogPacienteComponent implements OnInit {
             return
         console.log(nroDoc);
         this.pacienteService.getDataReniecPaciente(nroDoc).subscribe((res: any) => {
-            console.log('res de consulta reniec ', res);
             this.dataPacienteReniec = res;
             this.listarUbicacionPacienteProvincias();
             console.log(res.nombres);
@@ -362,11 +353,10 @@ export class DialogPacienteComponent implements OnInit {
             return;
         }
         let aux = this.formPaciente.value.etnia;
-        console.log('data de Etnia ', aux);
         this.dataPaciente = {
             nroHcl: this.formPaciente.value.HCL,
             tipoDoc: this.formPaciente.value.tipoDoc,
-            nroDoc: String(this.formPaciente.value.nroDoc),
+            nroDoc: String(this.formPaciente.getRawValue().nroDoc),
             primerNombre: this.formPaciente.value.primerNombre,
             otrosNombres: this.formPaciente.value.otrosNombres,
             apePaterno: this.formPaciente.value.apPaterno,
@@ -417,21 +407,28 @@ export class DialogPacienteComponent implements OnInit {
     /**Agrega un nuevo paciente**/
     saveForm() {
         this.recuperarDatos();
-        this.pacienteService.postPacientes(this.dataPaciente).subscribe((res: any) => {
-            this.closeDialog();
-            Swal.fire({
-                icon: 'success',
-                title: 'Se Registro Exitosamente',
-                showConfirmButton: false,
-                timer: 1500
-            })
-            console.log("RESPUESTA", res)
-        });
+        let auxVal: boolean = this.validateDoc();
+        if (auxVal) {
+            this.pacienteService.postPacientes(this.dataPaciente).subscribe((res: any) => {
+                this.closeDialog();
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Se Registro Exitosamente',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                console.log("RESPUESTA", res)
+            });
+        } else {
+            console.log('nose guarda');
+        }
+        
     }
 
     /**Actualiza datos de un paciente**/
     EditarPaciente() {
         this.recuperarDatos();
+        console.log('editarrrrrrr');
         this.dataPaciente.id = this.dataPacienteEditar.id;
         console.log(this.formPaciente.value.fechaNacimiento, 'data to edit ', this.dataPaciente);
         this.pacienteService.putPaciente(this.dataPaciente).subscribe((res: any) => {
@@ -444,7 +441,7 @@ export class DialogPacienteComponent implements OnInit {
                 timer: 1500
             })
         })
-        console.log('aceptar editar paciente')
+        // console.log('aceptar editar paciente')
     }
 
     /**Recupera todos los pacientes de la lista**/
@@ -505,7 +502,26 @@ export class DialogPacienteComponent implements OnInit {
             //     nombreMadre: new FormControl(''),
             //     ipress: new FormControl(''),
         }
-        return
+        return;
     }
+
+    validateDoc(): boolean {
+        let dni = String(this.formPaciente.value.nroDoc);
+        let tipoDoc = this.formPaciente.value.tipoDoc;
+        let validateDocument: boolean = true;
+        // console.log('tipo doc', tipoDoc, 'nro doc', dni);
+        if (dni.length < 8) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'El documento ingresado tiene menos de 8 digitos',
+                text: 'Ingrese correctamente por favor',
+                showConfirmButton: false,
+                timer: 2000
+            })
+            validateDocument = false;
+        }
+        return validateDocument;
+    }
+
 
 }

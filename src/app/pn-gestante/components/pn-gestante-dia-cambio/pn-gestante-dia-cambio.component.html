@@ -22,15 +22,15 @@
                                                 formControlName="formNroDocGestante"
                                                 (keyup)="cargarDatosPadronNominal()"
                                                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"/>
-                                </div>
+                              </div>
                         </div>
                         <div class="formgrid grid mx-3">
-                              <div class="col-12 md:col-6" >
+                              <div class="field col" >
                                     <label>Nombres:</label>
                                     <input placeholder="Nombres" type="text" pInputText  class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                                     formControlName="formNombresGestante" oninput="this.value=this.value.toUpperCase()"/>
                               </div>
-                              <div class="col-12 md:col-6">
+                              <div class="field col">
                                     <label>Apellidos:</label>
                                     <input placeholder="Apellidos" type="text" pInputText class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                                     formControlName="formApellidos" oninput="this.value=this.value.toUpperCase()"/>
