@@ -69,10 +69,12 @@ export class PacienteComponent implements OnInit {
         this.ref = this.dialog.open(DialogPacienteComponent, {
             header: "PACIENTE",
             width: "90%",
-            height: "100%"
+            height: "100%",
+            data: evemt
         })
         this.ref.onClose.subscribe((data: any) => {
             this.cargarPacientes();
+
         });
     }
 

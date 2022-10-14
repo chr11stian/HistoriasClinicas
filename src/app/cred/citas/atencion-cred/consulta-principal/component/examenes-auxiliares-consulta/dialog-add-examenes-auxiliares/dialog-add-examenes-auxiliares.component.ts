@@ -62,10 +62,12 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
     public config: DynamicDialogConfig,
   ) {
     this.idConsulta = JSON.parse(localStorage.getItem("documento")).idConsulta;
-    this.recoverDataAuxialsExams();
+    // this.recoverDataAuxialsExams();
 
     this.dataDialog = this.config.data.auxExams;
-    console.log('data del dDIALOGGGGG ', this.dataDialog);
+    console.log('data del dDIALOGGGGG ', this.dataDialog.length);
+    this.dataDialog.length == 0 ? this.toEdit = false : this.toEdit = true;
+    console.log('to edit ', this.toEdit);
     if (this.dataDialog != null) {
       this.modelarData(this.dataDialog)
       this.reworkDialog(this.listaExamenes, this.reqLabo);
@@ -74,130 +76,8 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.inicializarForm();
-  }
-  async recoverDataAuxialsExams() {
-    await this.auxExamService
-      .getPromiseListarResultadosLaboratorioByIdConsulta(this.idConsulta)
-      .then((data) => {
-        // console.log('data de examenes auxiliares de consulta ', data);
-        this.listaDataLaboRes = data;
-        if (data.length > 0) {
-          this.toEdit = true;
-        }
-      });
-    // console.log('to show ', this.toShow)
-    this.inicializarForm();
-    // this.listarExamenesDisponibles();
-  }
 
-  inicializarForm() {
-    this.formHematologia = new FormGroup({
-      hemoglobina: new FormControl(
-        { value: "", disabled: this.toShow },
-        { validators: [Validators.required] }
-      ),
-      hemoglobinaFactorCorrec: new FormControl(
-        { value: "", disabled: this.toShow },
-        { validators: [Validators.required] }
-      ),
-      hematocrito: new FormControl({ value: "", disabled: this.toShow }),
-      grupoSanguineo: new FormControl({ value: "", disabled: this.toShow }),
-      factorRH: new FormControl({ value: "", disabled: this.toShow }),
-      tiempoSangria: new FormControl({ value: "", disabled: this.toShow }),
-      tiempoCoagulacion: new FormControl({ value: "", disabled: this.toShow }),
-      tiempoProtrombina: new FormControl({ value: "", disabled: this.toShow }),
-      tiempoTromboplastina: new FormControl({
-        value: "",
-        disabled: this.toShow,
-      }),
-      reticulocitos: new FormControl({ value: "", disabled: this.toShow }),
-      compatibilidadSanguinea: new FormControl({
-        value: "",
-        disabled: this.toShow,
-      }),
-      rctoGlobulosRojos: new FormControl({ value: "", disabled: this.toShow }),
-      rctoPlaquetas: new FormControl({ value: "", disabled: this.toShow }),
-      rctoGlobulosBlancos: new FormControl({
-        value: "",
-        disabled: this.toShow,
-      }),
-      blastos: new FormControl({ value: "", disabled: this.toShow }),
-      juveniles: new FormControl({ value: "", disabled: this.toShow }),
-      neutrofilos: new FormControl({ value: "", disabled: this.toShow }),
-      nAbastonados: new FormControl({ value: "", disabled: this.toShow }),
-      nSegmentados: new FormControl({ value: "", disabled: this.toShow }),
-      linfocitos: new FormControl({ value: "", disabled: this.toShow }),
-      monocitos: new FormControl({ value: "", disabled: this.toShow }),
-      eosinofilos: new FormControl({ value: "", disabled: this.toShow }),
-      basofilos: new FormControl({ value: "", disabled: this.toShow }),
-      vcm: new FormControl({ value: "", disabled: this.toShow }),
-      vrVcm: new FormControl({ value: "", disabled: this.toShow }),
-      chcm: new FormControl({ value: "", disabled: this.toShow }),
-      vrChcm: new FormControl({ value: "", disabled: this.toShow }),
-      hcm: new FormControl({ value: "", disabled: this.toShow }),
-      vrHcm: new FormControl({ value: "", disabled: this.toShow }),
-      vsg1hora: new FormControl({ value: "", disabled: this.toShow }),
-      vsg2hora: new FormControl({ value: "", disabled: this.toShow }),
-    });
-    this.formParasitario = new FormGroup({
-      /**EXAMEN MACROSCOPICO */
-      color: new FormControl(
-        { value: "", disabled: this.toShow },
-        { validators: [Validators.required] }
-      ),
-      consistencia: new FormControl(
-        { value: "", disabled: this.toShow },
-        { validators: [Validators.required] }
-      ),
-      pH: new FormControl(
-        { value: "", disabled: this.toShow },
-        { validators: [Validators.required] }
-      ),
-      reaccion: new FormControl({ value: "", disabled: this.toShow }),
-      mucus: new FormControl({ value: "", disabled: this.toShow }),
-      sangre: new FormControl({ value: "", disabled: this.toShow }),
-      restosAlimenticios: new FormControl({ value: "", disabled: this.toShow }),
-      /**EXAMEN MICROSCOPICO */
-      reaccionInflamatorio: new FormControl({
-        value: "",
-        disabled: this.toShow,
-      }),
-      filamentosMucoides: new FormControl({ value: "", disabled: this.toShow }),
-      leucocitos: new FormControl({ value: "", disabled: this.toShow }),
-      hematies: new FormControl({ value: "", disabled: this.toShow }),
-      cuerposGrasos: new FormControl({ value: "", disabled: this.toShow }),
-      levaduras: new FormControl({ value: "", disabled: this.toShow }),
-      bacterias: new FormControl({ value: "", disabled: this.toShow }),
-      cocosBacilos: new FormControl({ value: "", disabled: this.toShow }),
-      formasParasitarias: new FormControl({ value: "", disabled: this.toShow }),
-      huevosDeValor1: new FormControl({ value: "", disabled: this.toShow }),
-      huevosDeValor2: new FormControl({ value: "", disabled: this.toShow }),
-      quistesDeValor1: new FormControl({ value: "", disabled: this.toShow }),
-      quistesDeValor2: new FormControl({ value: "", disabled: this.toShow }),
-      trofozoitosDeValor1: new FormControl({
-        value: "",
-        disabled: this.toShow,
-      }),
-      trofozoitosDeValor2: new FormControl({
-        value: "",
-        disabled: this.toShow,
-      }),
-      larvasDeValor1: new FormControl({ value: "", disabled: this.toShow }),
-      larvasDeValor2: new FormControl({ value: "", disabled: this.toShow }),
-      /**CAMPOS EXTRA*/
-      sangreOcultaHeces: new FormControl({ value: "", disabled: this.toShow }),
-      gotaGruesa: new FormControl({ value: "", disabled: this.toShow }),
-      frotisLesion: new FormControl({ value: "", disabled: this.toShow }),
-    });
   }
-
-  /**NUEVA VISTA DE LOS EXAMENES */
-  // listarExamenesDisponibles() {
-  //   this.auxExamService.getExamListLaboratory().then(res => {
-  //     console.log('data de examenes disponibles ', res);
-  //   })
-  // }
   createLabRequest() {
     this.reqLabo.forEach(item => {
       let auxExam: ExamenAuxiliar = {
@@ -217,6 +97,7 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
       nroCama: '',
       examenesAuxiliares: this.auxExamList
     }
+
     this.auxExamService.postPromiseAddServiciosLaboratorio(this.idConsulta, this.solicitudLaboratorio).then(res => {
       this.closeDialog();
     });
@@ -233,11 +114,7 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
       confirmButtonText: 'Guardar'
     }).then((result) => {
       if (result.isConfirmed) {
-        if (this.dataDialog == null) {
-          this.createLabRequest();
-        } else {
-          this.addAuxExam();
-        }
+        this.toEdit ? this.addAuxExam() : this.createLabRequest();
       }
       else {
         Swal.fire({
@@ -298,6 +175,7 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
           this.closeDialog();
         })
       }
+
     })
   }
 }
