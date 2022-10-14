@@ -632,16 +632,46 @@
                         <div class="col-12 md:col-12 md:col-6 lg:col-6" style="align-self: start">
                             <div class="border">
                                 <div class="grid m-2">
-                                    <div class="col-3"></div>
-                                    <div class="col-2 text-center">
-                                        <label class="text-sm">Hg(%)</label>
+                                    <div class="col-2 col-offset-3 text-center">
+                                        <label class="text-sm title-text">Hg(%)</label>
                                     </div>
                                     <div class="col-2 text-center">
-                                        <label class="text-sm">Con factor </label>
-                                        <label class="text-sm">de correción</label>
+                                        <label class="text-sm title-text">Con factor de correción</label>
+                                    </div>
+                                    <div class="col-2">
+                                        <label class="text-sm title-text">Fecha</label>
                                     </div>
                                 </div>
-                                <div class="grid m-2">
+                                <div [formGroup]="hemoForm">
+                                    <ng-container formArrayName="hemoglobina">
+                                        <ng-container *ngFor="let hemoForm of hemoglobina.controls; let i = index">
+                                            <div class="col-12" [formGroup]="hemoForm">
+                                                <div class="grid">
+                                                    <div class="col-3">
+                                                        <label class="text-sm"> HEMOGLOBINA {{i + 1}}</label>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <input type="text" pInputText formControlName='hg'
+                                                            placeholder="" class="inputfield w-full p-inputtext-sm">
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <input type="text" pInputText
+                                                            formControlName='conFactorCorreccion' placeholder=""
+                                                            class="inputfield w-full p-inputtext-sm">
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <input type="date" pInputText formControlName='fecha'
+                                                            placeholder="" class="inputfield w-full">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                    </ng-container>
+                                </div>
+                                <button pButton pRipple icon="pi pi-plus" iconPos="left" type="button" (click)="addHemo()"
+                        class="p-button-rounded">
+                    </button>
+                                <!-- <div class="grid m-2">
                                     <div class="col-3 text-right">
                                         <label class="text-sm">Hemoglobina 1:</label>
                                     </div>
@@ -671,8 +701,6 @@
                                             class="inputfield w-full p-inputtext-sm">
                                     </div>
                                     <div class="col-4">
-                                        <!-- <p-calendar formControlName="hemo2" [showIcon]="true" inputId="icon">
-                                        </p-calendar> -->
                                         <input type="date" pInputText formControlName='hemo2' placeholder=""
                                             class="inputfield w-full">
                                     </div>
@@ -690,8 +718,6 @@
                                             class="inputfield w-full p-inputtext-sm">
                                     </div>
                                     <div class="col-4">
-                                        <!-- <p-calendar formControlName="hemo3" [showIcon]="true" inputId="icon">
-                                        </p-calendar> -->
                                         <input type="date" pInputText formControlName='hemo3' placeholder=""
                                             class="inputfield w-full">
                                     </div>
@@ -703,21 +729,7 @@
                                     </div>
                                     <div class="col-7 text-left ">
                                     </div>
-                                    <!-- <div class="col-2">
-                                        <input type="text" pInputText formControlName='hg4' placeholder=""
-                                            class="inputfield w-full p-inputtext-sm">
-                                    </div>
-                                    <div class="col-2">
-                                        <input type="text" pInputText formControlName='conFactor4' placeholder=""
-                                            class="inputfield w-full p-inputtext-sm">
-                                    </div>
-                                    <div class="col-5">
-                                        <p-calendar formControlName="hemo4" [showIcon]="true" inputId="icon">
-                                        </p-calendar>
-                                        <input type="date" pInputText formControlName='hemo4' placeholder=""
-                                            class="inputfield w-full">
-                                    </div> -->
-                                </div>
+                                </div> -->
                             </div>
                             <br>
                             <div class="border">

@@ -23,7 +23,7 @@ export class DatosGeneralesComponent implements OnInit {
     data: dato
     attributeLocalS = 'documento'
     options: string[]
-    stateOptions: any[]
+    generoOptions: any[]
     stateOptions1: any[]
     stateOptions2: any[]
     listaEstadoCivil:any[]
@@ -60,7 +60,7 @@ export class DatosGeneralesComponent implements OnInit {
             "SECUNDARIA INCOMPLETA",
             "SUPERIOR"
         ]
-        this.stateOptions = [
+        this.generoOptions = [
             {label: "M", value: 'MASCULINO'},
             {label: "F", value: 'FEMENINO'},
         ]
@@ -218,7 +218,7 @@ export class DatosGeneralesComponent implements OnInit {
             codSeguro: this.respuestaDatosGenerales.codSeguro,
             apellidos: this.respuestaDatosGenerales.apellidos,
             nombres: this.respuestaDatosGenerales.nombres,
-            sexo: this.generalInfoFG.value.sexo,
+            sexo: this.generalInfoFG.get("sexo").value,
             edad: this.respuestaDatosGenerales.edad,
             fechaNacimiento: this.respuestaDatosGenerales.fechaNacimiento,
             lugarNacimiento: this.generalInfoFG.value.lugar,
@@ -255,7 +255,7 @@ export interface DatosGenerales {
     codSeguro: string;
     apellidos: string;
     nombres: string;
-    sexo: boolean;
+    sexo: string;
     edad: Edad;
     fechaNacimiento: Date;
     lugarNacimiento: string;

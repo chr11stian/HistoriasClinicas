@@ -40,6 +40,7 @@ export class PersonalComponent implements OnInit {
                 private route: ActivatedRoute,
                 private router: Router) {
         this.buildForm();
+        
         this.stateOptions = [{label: 'SI', value: true},
             {label: 'NO', value: false}];
 
@@ -268,6 +269,11 @@ export class PersonalComponent implements OnInit {
     ngOnInit(): void {
         this.getQueryParams()
         this.recuperarDatos();
+        console.log('isEditable',this.isEditable);
+        
+        if(!this.isEditable){
+            this.getFC('edadN').disable()
+        }
     }
 
     cambio(e, nombre: string) {
@@ -355,7 +361,7 @@ export class PersonalComponent implements OnInit {
             (resp) => {
                 Swal.fire({
                     icon: 'success',
-                    title: 'Guardo el registro con correctamente',
+                    title: 'Guardo el registro correctamente',
                     text: '',
                     showConfirmButton: false,
                     timer: 1500,

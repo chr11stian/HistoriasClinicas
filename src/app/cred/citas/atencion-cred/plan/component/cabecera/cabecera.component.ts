@@ -54,6 +54,8 @@ export class CabeceraComponent implements OnInit {
     havePlan(){
         this.consultaGeneralService.tienePlan(this.data.nroDocumento).subscribe((resp:any)=>{
             this.havenPlan=resp.object.planAtencion==null?false:true
+            console.log('haven plan',this.havenPlan);
+            
         })
     }
     ChangeStep(indice){
