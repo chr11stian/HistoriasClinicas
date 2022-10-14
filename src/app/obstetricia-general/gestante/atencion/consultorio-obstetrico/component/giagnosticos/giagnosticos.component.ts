@@ -747,7 +747,7 @@ export class GiagnosticosComponent implements OnInit {
                     this.repeatDataMessage();
                     isAdded = true;
                 }
-            })
+            });
             if (!isAdded) {
                 this.arrayDiagnosticHIS.push(HISdiagnostic);
                 this.hisForm.reset();

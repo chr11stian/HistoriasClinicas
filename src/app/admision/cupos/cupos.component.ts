@@ -91,8 +91,6 @@ export class CuposComponent implements OnInit {
             {icon: "pi pi-align-center", justify: "Center"},
             {icon: "pi pi-align-justify", justify: "Justify"}
         ];
-
-
     }
 
     ngOnInit(): void {
