@@ -35,15 +35,13 @@ export class PnGestanteComponent implements OnInit {
 
   mostrarPadronNominalGestantes() {
     this.pn_gestanteServicio.couch = true;
-    this.pn_gestanteServicio.mostrarPadronGestantes("00029514").subscribe(
-      (data) => {
+    this.pn_gestanteServicio.mostrarPadronGestantes(this.pn_gestanteServicio.getauxCodeessActual()).subscribe(
+      (data:any) => {
         this.listaGestantes = data['rows'];
         this.listaGestantesPuerpera = this.listaGestantes.filter((aux) => {
-          if (this.semanaGestacional(aux.value.fur) < 38 && aux.value.aborto==false) return aux;
+          if (this.semanaGestacional(aux.value.fur)<44 && aux.value.aborto==false) return aux;
         });
         console.log("la data es :", data);
-
-        //console.log('padron nominal gestantes',this.listaGestantes)
       },
       (err) => {
         this.listaGestantes = [];
@@ -78,7 +76,7 @@ export class PnGestanteComponent implements OnInit {
 
   openDialogCambioEESS() {
     const ref = this.dialog.open(PnGestanteDiaCambioComponent, {
-      header: "CAMBIO EESS DE GESTANTE",
+      header: "CAMBIO DE EESS DE LA GESTANTE",
       width: "70%",
       height: "50%",
     });
@@ -91,7 +89,7 @@ export class PnGestanteComponent implements OnInit {
   editar(event) {
     localStorage.setItem("gestanteLocalStorage", JSON.stringify(event));
     this.ref = this.dialog.open(PnGestanteDialogComponent, {
-      header: "EDITAR DATOS DE LA GESTANTE",
+      header: "MODIFICAR LOS DATOS DE LA GESTANTE",
       width: "80%",
       height: "70%",
     });
@@ -105,10 +103,10 @@ export class PnGestanteComponent implements OnInit {
     return diffInMs / (1000 * 60 * 60 * 24);
   };
 
-  formatoFecha = function (fecha) {
-    var mydate = fecha.split("/");
+  formatoFecha=function(fecha){
+    var mydate =fecha.split('/')
     return `${mydate[2]}-${mydate[1]}-${mydate[0]}`;
-  };
+}
 
   semanaGestacional(date: string) {
     let fechaActual = Date.now();

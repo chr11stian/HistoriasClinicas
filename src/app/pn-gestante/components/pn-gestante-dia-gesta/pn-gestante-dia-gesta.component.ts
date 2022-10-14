@@ -5,6 +5,7 @@ import { DynamicDialogRef } from "primeng/dynamicdialog";
 import { DatePipe } from "@angular/common";
 import Swal from "sweetalert2";
 import { MessageService } from "primeng/api";
+import { NuevaGesta } from '../../interfaces/NuevaGesta';
 
 @Component({
   selector: "app-pn-gestante-dia-gesta",
@@ -19,48 +20,16 @@ export class PnGestanteDiaGestaComponent implements OnInit {
   dataGestanteEditar: any = null;
   listaGestantes: any[] = [];
   datePipe = new DatePipe("en-US");
-  nombres: any;
-  apellidos: any;
-  hcl: any;
-  edad: any;
-  dni: any;
-  telefono: any;
-  tiene_sis: any;
-  direccion: any;
-  referencia: any;
-  cod_eess_anterior: any;
-  eess_anterior: any;
-  cod_eess_actual: any;
-  eess_actual: any;
-  fur: any;
-  fpp: any;
-  morbilidad_potencial: any;
-  edad_gestacional: any;
-  observaciones: any;
-  dni_personal: any;
-  personal_eess: any;
-  fecha_reg: any;
   checked: boolean = false;
   existeGestante: boolean = false;
   auxFechaRegistro: Date = new Date();
   selectedAborto: boolean;
   auxFPP: any;
   auxFUR: any;
-  agregarNuevaGesta: boolean = false;
+  agregarNuevaGesta: boolean = true;
   auxFechaActual: Date = new Date();
-  //data personal
-  auxNroDocPersonal: string = JSON.parse(localStorage.getItem("usuario"))
-    .nroDocumento;
-  auxNombresPersonal: string = JSON.parse(localStorage.getItem("usuario"))
-    .nombres;
-  auxApellidosPersonal: string = JSON.parse(localStorage.getItem("usuario"))
-    .apellidos;
-  auxCodeessActual: string = JSON.parse(localStorage.getItem("usuario")).ipress
-    .idIpress;
-  aux_eessActual: string = JSON.parse(localStorage.getItem("usuario")).ipress
-    .nombreEESS;
   sis: any[] = [{ value: "SI" }, { value: "NO" }];
-
+  nuevaGesta:NuevaGesta;
   aborto: any[] = [
     { label: "SI", value: true },
     { label: "NO", value: false },
@@ -121,7 +90,7 @@ export class PnGestanteDiaGestaComponent implements OnInit {
     });
   }
   mostrarPadronNominalGestantes() {
-    let cod_ipress =this.auxCodeessActual;
+    let cod_ipress =this.pn_gestanteServicio.getauxCodeessActual();
     this.pn_gestanteServicio.couch = true;
     this.pn_gestanteServicio
       .mostrarPadronGestantes(cod_ipress)
@@ -133,20 +102,22 @@ export class PnGestanteDiaGestaComponent implements OnInit {
 
   closeDialog() {
     this.ref.close();
+    this.agregarNuevaGesta = true;
     this.mostrarPadronNominalGestantes();
   }
 
   editarGestante() {
+     //(this.datePipe.transform(this.dataGestanteEditar.value.fpp,'yyyy/MM/dd'));
+    this.recuperarNuevaGesta();
     this.pn_gestanteServicio.couch = true;
     let id= this.dataGestante._id;
-    let updateFur=this.formGestante.value.formFur;
-    let updateFpp=this.formGestante.value.formFpp;
-    let updateNroGesta=this.formGestante.value.formGesta;
-    // console.log("data gestante", this.dataGestanteEditar);
-    // console.log("_id", this.dataGestanteEditar.value._id);
-    // console.log("_rev", this.dataGestanteEditar.value._rev);
+    let updatedFur=this.datePipe.transform(this.formGestante.value.formFur,'dd/MM/yyyy');
+    let updateFpp=this.datePipe.transform(this.formGestante.value.formFpp,'dd/MM/yyyy');
+    console.log('valor de la nueva gesta',this.nuevaGesta);
+    console.log('fur actual',updatedFur);
+    console.log('fpp actual',updateFpp);
     this.pn_gestanteServicio
-      .actualizarNumeroGesta(id,updateNroGesta,updateFur,updateFpp)
+      .actualizarNumeroGesta(id,this.nuevaGesta,updatedFur,updateFpp)
       .subscribe((res: any) => {
         this.closeDialog();
         if(res['ok']==true){
@@ -166,6 +137,17 @@ export class PnGestanteDiaGestaComponent implements OnInit {
         }
       });
     this.mostrarPadronNominalGestantes();
+  }
+
+  recuperarNuevaGesta(){
+     //(this.datePipe.transform(this.dataGestanteEditar.value.fpp,'yyyy/MM/dd'));
+    this.nuevaGesta={
+      nroGesta:this.dataGestante.nroGesta.length+1,
+      fur:this.datePipe.transform(this.auxFUR,'dd/MM/yyyy'),
+      fpp:this.datePipe.transform(this.auxFPP,'dd/MM/yyyy'),
+      codEessActual:this.pn_gestanteServicio.getauxCodeessActual(),
+      eessActual:this.pn_gestanteServicio.getaux_eessActual(),
+    }
   }
 
   cargarDatosPadronNominal() {
@@ -242,13 +224,18 @@ export class PnGestanteDiaGestaComponent implements OnInit {
           .setValue(this.dataGestante.observaciones);
         this.formGestante
           .get("formGesta")
-          .setValue(this.dataGestante.numero_de_gestacion);
+          .setValue(this.dataGestante.nroGesta.length);
         this.formGestante
           .get("formAborto")
           .setValue(this.dataGestante.aborto == true ? "SI" : "NO");
-        if (this.semanaGestacional(this.dataGestante.fur)>40 && this.dataGestante.fpp > this.auxFechaActual || this.dataGestante.aborto==true) {
+        if (this.semanaGestacional(this.dataGestante.fur)>40) {
           this.agregarNuevaGesta = false;
-
+          this.messageService.add({
+            key: "myMessage1",
+            severity: "warn",
+            summary: "Data obtenida",
+            detail: "No gestante",
+          });
         } 
         else {
           this.agregarNuevaGesta = true;
@@ -326,15 +313,20 @@ export class PnGestanteDiaGestaComponent implements OnInit {
   }
 
   agregarGesta() {
+    //(this.datePipe.transform(this.dataGestanteEditar.value.fpp,'yyyy/MM/dd'));
     this.pn_gestanteServicio.couch = true;
     let nroGesta=this.formGestante.value.formGesta;
-    let fur=this.formGestante.value.formFUR;
+    let fur=this.datePipe.transform(this.formGestante.value.formFUR,'yyyy/MM/dd');
+    let fpp=this.datePipe.transform(this.auxFPP,'yyyy/MM/dd');
+    this.nuevaGesta.codEessActual=this.pn_gestanteServicio.getauxCodeessActual();
+    this.nuevaGesta.eessActual=this.pn_gestanteServicio.getaux_eessActual();
+    this.nuevaGesta.nroGesta=this.formGestante.value.formGesta;
     this.pn_gestanteServicio
       .actualizarNumeroGesta(
         this.dataGestante._id,
         nroGesta,
         fur,
-        this.auxFPP
+        fpp
     )
       .subscribe((res: any) => {
         this.closeDialog();
