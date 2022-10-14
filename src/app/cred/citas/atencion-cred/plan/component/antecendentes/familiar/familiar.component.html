@@ -8,7 +8,7 @@
                 </p-autoComplete> -->
                 <p-dropdown
                         placeholder="seleccione"
-                        [options]="listaAntecedentes"
+                        [options]="listaEnfermedades"
                         formControlName="enfermedad"
                         optionValue="code"
                         optionLabel="name">
@@ -26,12 +26,12 @@
             <div class="col-1">
                 <button [disabled]="!familiarFG.valid" style="background-color: #0c3866" class="button-agregar p-button-rounded" icon="pi pi-plus"
                         pButton type="button"
-                        (click)="Agregar()"></button>
+                        (click)="agregarAlArreglo()"></button>
             </div>
         </div>
 
         <div class="col">
-            <p-table class="table-over" [value]="listPatologias" #dt
+            <p-table class="table-over" [value]="listaAntecedentes" #dt
                      styleClass="p-datatable-gridlines" [rows]="10"
                      [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
                      [showCurrentPageReport]="true"
@@ -61,7 +61,7 @@
         </div>
 
     </p-fieldset>
-    <div class="col col-offset-10">
+    <!-- <div class="col col-offset-10">
         <button 
                 type="submit"
                 pButton
@@ -71,14 +71,6 @@
                 (click)="save()"
                 style="background-color: #0c3866"
                 class="p-button-raised p-button-info"></button>
-        <!--<button type="submit"
-                icon="pi pi-times-circle"
-                pButton
-                pRipple
-                label="Cancelar"
-                (click)="limpiar()"
-                class="p-button-raised p-button-danger"
-        >
-        </button>-->
-    </div>
+        
+    </div> -->
 </div>

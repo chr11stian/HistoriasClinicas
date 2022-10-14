@@ -32,7 +32,7 @@ export class PersonalComponent implements OnInit {
     listaAntecedentes: any[] = [];
     patologias: PatologiasGestacion[] = []
     isUpdate: boolean
-    listPatologias: string[] = []
+    listaEnfermedadesPersonales: string[] = []
     list: boolean = false
 
     constructor(private formBuilder: FormBuilder,
@@ -248,15 +248,13 @@ export class PersonalComponent implements OnInit {
             }
         })
         this.antecedentesService.getAntecedentesPersonalesPatologicos(this.nroDoc).subscribe((r: any) => {
-            if (r.cod!='2402'){
-                console.log('depurando',r)
-                this.listPatologias = r.object.antecedentesPersonales
-                if (this.listPatologias.length > 0) this.list = true
-
+            if (r.cod=='2401'){
+                this.listaEnfermedadesPersonales = r.object.antecedentesPersonales
+                this.isUpdateListaEnfermedades=true
             }
         })
     }
-
+    isUpdateListaEnfermedades=false
     getQueryParams(): void {
         this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
         this.nroDoc = this.data.nroDocumento
@@ -382,21 +380,27 @@ export class PersonalComponent implements OnInit {
             }
         )
 
-
-        if (this.list === false) {
+        console.log('entramos a guarda antecedentes');
+        
+        if (!this.isUpdateListaEnfermedades) {
             let auxp = {
-                tipoDoc: this.nroDoc,
+                tipoDoc: 'dni',
                 nroDoc: this.nroDoc,
                 nroHcl: this.nroDoc,
-                antecedentesPersonales: this.listPatologias
+                antecedentesPersonales: this.listaEnfermedadesPersonales,
+                antecedentesFamiliares : []
             }
             this.antecedentesService.addAntecedentesPersonalesPatologicos(auxp).subscribe((r) => {
+                this.isUpdateListaEnfermedades=true
                 console.log('se agrego')
+
             })
         } else {
+            console.log('entramos a actualizar');
+            
             let auxp = {
                 nroHcl: this.nroDoc,
-                antecedentesPersonales: this.listPatologias
+                antecedentesPersonales: this.listaEnfermedadesPersonales
             }
             console.log('auxp', auxp)
             this.antecedentesService.addAntecedentesPersonalesPatologicos(auxp).subscribe((r) => {
@@ -426,7 +430,7 @@ export class PersonalComponent implements OnInit {
     }
 
     eliminarAntecedente(index) {
-        this.listPatologias.splice(index, 1)
+        this.listaEnfermedadesPersonales.splice(index, 1)
     }
 
     editarAcuerdo(row, index) {
@@ -443,9 +447,9 @@ export class PersonalComponent implements OnInit {
             return
         }
 
-        if (this.listPatologias.find((rol) => rol === this.personalFG.value.patologia.value) === undefined)
-            this.listPatologias.push(this.personalFG.value.patologia.value);
-        console.log(this.listPatologias)
+        if (this.listaEnfermedadesPersonales.find((rol) => rol === this.personalFG.value.patologia.value) === undefined)
+            this.listaEnfermedadesPersonales.push(this.personalFG.value.patologia.value);
+        console.log(this.listaEnfermedadesPersonales)
         //this.listPatologias.push(this.personalFG.value.patologia.value)
         this.personalFG.get('patologia').setValue('')
     }

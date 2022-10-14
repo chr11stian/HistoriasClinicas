@@ -21,10 +21,10 @@ export class FamiliarComponent implements OnInit {
     data: dato
     familiares: any[];
     stateOptions: any[];
-    listaAntecedentes: any[] = [];
+    listaEnfermedades: any[] = [];
 
     datosFamiliares: AntecedentesFamiliaresType[];
-    listPatologias: antecedentesFamiliares[] = []
+    listaAntecedentes: antecedentesFamiliares[] = []
 
     constructor(private formBuilder: FormBuilder,
                 private familiarServicio: AntecedenteFamiliarService,
@@ -39,7 +39,7 @@ export class FamiliarComponent implements OnInit {
             {name: 'Abuelo', code: 'Abuelo'},
             {name: 'Otro', code: 'Otro'}
         ];
-        this.listaAntecedentes = [{name: 'ALERGIAS', code: 'ALERGIAS'},
+        this.listaEnfermedades = [{name: 'ALERGIAS', code: 'ALERGIAS'},
             {name: 'EPILEPSIA', code: 'EPILEPSIA'},
             {name: 'DIABETES', code: 'DIABETES'},
             {name: 'ENFERMEDADES CONGÉNITAS', code: 'ENFERMEDADES CONGÉNITAS'},
@@ -101,10 +101,10 @@ export class FamiliarComponent implements OnInit {
     //         });
     // }
 
-    recuperarData() {
+    getAntecendentes() {
         this.antecedentesService.getAntecedentesPersonalesPatologicos(this.nroDoc).subscribe((r: any) => {
             if (r.cod!='2402'){
-                this.listPatologias = r.object.antecedentesFamiliares
+                this.listaAntecedentes = r.object.antecedentesFamiliares
             }
         })
     }
@@ -122,29 +122,30 @@ export class FamiliarComponent implements OnInit {
 
     ngOnInit(): void {
         // this.getTablaDatos();
-        this.recuperarData()
+        this.getAntecendentes()
     }
 
     save() {
 
-        let auxp = {
-            nroHcl: this.nroDoc,
-            antecedentesFamiliares: this.listPatologias
-        }
-        console.log('auxp', auxp)
-        this.antecedentesService.addAntecedentesPersonalesPatologicos(auxp).subscribe((r) => {
-            {
-                console.log(r)
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Guardo el registro con correctamente',
-                    text: '',
-                    showConfirmButton: false,
-                    timer: 1500,
-                })
-                this.onFamiliar.emit(true)
-            }
-        })
+        // let auxp = {
+        //     nroHcl: this.nroDoc,
+        //     antecedentesFamiliares: this.listaAntecedentes
+        // }
+        // // console.log('input resquest', auxp)
+        // // return 
+        // this.antecedentesService.addAntecedentesPersonalesPatologicos(auxp).subscribe((r) => {
+        //     {
+        //         console.log(r)
+        //         Swal.fire({
+        //             icon: 'success',
+        //             title: 'Guardo el registro con correctamente',
+        //             text: '',
+        //             showConfirmButton: false,
+        //             timer: 1500,
+        //         })
+        //         this.onFamiliar.emit(true)
+        //     }
+        // })
 
     }
 
@@ -153,39 +154,55 @@ export class FamiliarComponent implements OnInit {
     }
 
     eliminarAntecedente(index) {
-        this.listPatologias.splice(index, 1)
+        // this.listaAntecedentes.splice(index, 1)
     }
 
-    Agregar() {
-        console.log(this.familiarFG.get("enfermedad").value);
-        const a: antecedentesFamiliares = {
-            nombre: this.familiarFG.get("enfermedad").value,
-            pariente: this.familiarFG.get("pariente").value,
-            fechaDiagnosticado: '',
-            edadAnio: 0,
-            edadMes: 0,
-            edadDia: 0,
+    agregarAlArreglo() {
+        
+        const a:any = {
+            nroHcl: this.nroDoc,
+            antecedentesFamiliares :{  
+                nombre: this.familiarFG.get("enfermedad").value,
+                fechaDiagnosticado: '',
+                edadAnio: 0,
+                edadMes: 0,
+                edadDia: 0,
+                pariente: this.familiarFG.get("pariente").value,
+            }
         }
         this.familiarFG.reset()
-        if(this.listPatologias.find((item)=>item.nombre==a.nombre)){
+        if(this.listaAntecedentes.find((item)=>item.nombre==a.antecedentesFamiliares.nombre)){
             return
         }
-        this.listPatologias.push(a)
-        // this.familiarFG.get('patologia').setValue('')
-    }
-
-    filterItems(event) {
-        console.log(event);
-        
-        //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
-        let filtered: any[] = [];
-        let query = event.query;
-
-        this.listaAntecedentes.map((item: any) => {
-            if (item.name.toLowerCase().indexOf(query.toLowerCase()) == 0)
-                filtered.push(item)
+        this.antecedentesService.addAntecedentesFamiliares(a).subscribe((r) => {
+            {   
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Guardo el registro con correctamente',
+                    text: '',
+                    showConfirmButton: false,
+                    timer: 1500,
+                })
+            }
+            this.getAntecendentes()
         })
-
-        this.listaAntecedentes = filtered;
+        
+        this.onFamiliar.emit(true)
+        
     }
+
+    // filterItems(event) {
+    //     console.log(event);
+        
+    //     //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
+    //     let filtered: any[] = [];
+    //     let query = event.query;
+
+    //     this.listaAntecedentes.map((item: any) => {
+    //         if (item.name.toLowerCase().indexOf(query.toLowerCase()) == 0)
+    //             filtered.push(item)
+    //     })
+
+    //     this.listaAntecedentes = filtered;
+    // }
 }
