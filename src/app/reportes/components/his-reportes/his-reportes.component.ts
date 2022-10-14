@@ -32,7 +32,7 @@ export class HisReportesComponent implements OnInit {
     diagnosticos: any;
     token: string = "";
     linkHis: string = "";
-
+    un = "https://angular.io/api/router/RouterLink";
     constructor(
         private fb: FormBuilder,
         private HisServiceReporte: ReportesHisServicesService,
