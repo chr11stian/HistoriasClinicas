@@ -4,10 +4,10 @@ import { PnGestanteService } from "../../services/pn-gestante.service";
 import { MessageService } from "primeng/api";
 import { ConfirmationService } from "primeng/api";
 import { FormBuilder } from "@angular/forms";
-import { DialogService } from "primeng/dynamicdialog";
-import { DynamicDialogRef } from "primeng/dynamicdialog";
 import { PnGestanteDiaGestaComponent } from "../pn-gestante-dia-gesta/pn-gestante-dia-gesta.component";
 import { PnGestanteDiaCambioComponent } from "../pn-gestante-dia-cambio/pn-gestante-dia-cambio.component";
+import { PnDialogGestaComponent } from '../pn-dialog-gesta/pn-dialog-gesta.component';
+import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
 
 @Component({
   selector: "app-pn-gestante",
@@ -116,4 +116,18 @@ export class PnGestanteComponent implements OnInit {
     let dias = Math.floor(diference % 2);
     return semanas;
   }
+
+mostrar(data:any []){
+  console.log("data mostrar",data);
+    this.ref = this.dialog.open(PnDialogGestaComponent, {
+      header: "HISTORIAL DE GESTAS",
+      width: "80%",
+      height: "70%",
+      // contentStyle: {
+      //   "max-height": "93%",
+      //   overflow: "auto",
+      // },
+      data:data,
+    });
+}
 }

@@ -249,7 +249,7 @@ export class PnGestanteDiaGestaComponent implements OnInit {
         }
       });
     }
-  
+  this.mostrarPadronNominalGestantes();
   }
 
   semanaGestacional(date: any):any {
