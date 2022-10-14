@@ -12,7 +12,7 @@ export class LayoutPrincipalComponent implements OnInit, DoCheck, OnDestroy {
     size: boolean = true
     someSubscription: any;
 
-    anchoSidebart: number = 50
+    anchoSidebart: number = 55
     ocultar: string = ''
 
     constructor(private breakpointObserver: BreakpointObserver,
