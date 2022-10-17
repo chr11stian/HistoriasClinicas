@@ -122,7 +122,7 @@ export class RolGuardiaComponent implements OnInit {
           delete turno.horaFin;
         });
         this.listaTurno = resp["object"];
-        this.listaTurno.splice(0,0,{nombre:'LIBRE',abreviatura:'L',nroHoras:0})
+        // this.listaTurno.splice(0,0,{nombre:'LIBRE',abreviatura:'L',nroHoras:0})
         this.loadingUps = false;
       });
   }
@@ -149,13 +149,14 @@ export class RolGuardiaComponent implements OnInit {
     this.listaPersonal.forEach((item)=>{
       let filaAux = [];
       for (let j = 0; j < this.nroDiasMes; j++) {
-        let turnoDefecto = {
-          dia: j + 1,
-          nombre: "LIBRE",
-          abreviatura: "L",
-          nroHoras: 0,
-        };
-        filaAux.push(turnoDefecto);
+        // let turnoDefecto = {
+        //   dia: j + 1,
+        //   nombre: "LIBRE",
+        //   abreviatura: "L",
+        //   nroHoras: 0,
+        // };
+        // filaAux.push(turnoDefecto);
+        filaAux.push('');
       }
       this.matriz.push(filaAux);
     })
