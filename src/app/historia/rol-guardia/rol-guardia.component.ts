@@ -5,6 +5,7 @@ import {RolGuardiaService} from "src/app/core/services/rol-guardia/rol-guardia.s
 import { Ipress } from '../../core/models/mantenimiento.models';
 import { DatePipe } from "@angular/common";
 import { environment } from "src/environments/environment";
+import Swal from "sweetalert2";
 interface personalEstado{
   nroDoc:string,
   nombre:string,
@@ -122,7 +123,7 @@ export class RolGuardiaComponent implements OnInit {
           delete turno.horaFin;
         });
         this.listaTurno = resp["object"];
-        this.listaTurno.splice(0,0,{nombre:'LIBRE',abreviatura:'L',nroHoras:0})
+        // this.listaTurno.splice(0,0,{nombre:'LIBRE',abreviatura:'L',nroHoras:0})
         this.loadingUps = false;
       });
   }
@@ -149,13 +150,14 @@ export class RolGuardiaComponent implements OnInit {
     this.listaPersonal.forEach((item)=>{
       let filaAux = [];
       for (let j = 0; j < this.nroDiasMes; j++) {
-        let turnoDefecto = {
-          dia: j + 1,
-          nombre: "LIBRE",
-          abreviatura: "L",
-          nroHoras: 0,
-        };
-        filaAux.push(turnoDefecto);
+        // let turnoDefecto = {
+        //   dia: j + 1,
+        //   nombre: "LIBRE",
+        //   abreviatura: "L",
+        //   nroHoras: 0,
+        // };
+        // filaAux.push(turnoDefecto);
+        filaAux.push('');
       }
       this.matriz.push(filaAux);
     })
@@ -264,9 +266,11 @@ export class RolGuardiaComponent implements OnInit {
 
   IniciarHoras() {
     this.listaHoras = [];
-    for (let i = 0; i < this.listaPersonal.length; i++) {
+    this.listaPersonal.forEach(element => {
       this.listaHoras.push(0);
-    }
+    });
+    // for (let i = 0; i < this.listaPersonal.length; i++) {
+    // }
   }
   changeUps1(codUps) {
     let ipressUpsInput: any = {
@@ -340,17 +344,22 @@ export class RolGuardiaComponent implements OnInit {
     for (let i = 0; i < this.matriz.length; i++) {
       let contadorAuxiliar = 0;
       for (let j = 0; j < this.matriz[0].length; j++) {
-        contadorAuxiliar += this.matriz[i][j]["nroHoras"];
+        contadorAuxiliar += this.matriz[i][j]["nroHoras"]|| 0;
         this.listaHoras[i] = contadorAuxiliar;
       }
     }
   }
 
   recalcularxFila(nroFila: number) {
+    console.log('estado de la matriz',this.matriz);
+    
     let nroHoras = 0;
-    for (let j = 0; j < this.matriz[0].length; j++) {
+   /*  for (let j = 0; j < this.matriz[0].length; j++) {
       nroHoras = nroHoras + this.matriz[nroFila][j]["nroHoras"];
-    }
+    }*/
+    this.matriz[0].forEach((element,index) => {
+      nroHoras=nroHoras+this.matriz[nroFila][index]?.nroHoras || 0
+    });
     this.listaHoras[nroFila] = nroHoras;
   }
 
@@ -364,13 +373,36 @@ export class RolGuardiaComponent implements OnInit {
     for (let j = 0; j < this.matriz[0].length; j++) {
       let dia = {
         dia: j + 1,
-        abreviatura: this.matriz[fila][j]["abreviatura"],
+        abreviatura: this.matriz[fila][j]["abreviatura"] || 'NA',
       };
       listaTurno.push(dia);
     }
     return listaTurno;
   }
   designar() {
+    
+    /* Validamos que se aya seleccionado toda la fila */
+    const turnos= this.construirFilaDelDia(this.indexSelected);
+    console.log('matriz Actuaal', turnos);
+    let turnoMesInvalido=false
+    turnos.forEach((item)=>{
+      if(item.abreviatura=="NA"){
+        turnoMesInvalido=true
+      }
+    })
+    if(turnoMesInvalido){
+      Swal.fire({
+        icon: 'error',
+        title: 'Dias no Asignados',
+        text: 'Todos los dias del mes deben estar asignados',
+        showConfirmButton: false,
+        timer: 1500,
+      })
+      return
+    }
+
+    console.log('no debe llegar aki');
+        
     this.confirmationService.confirm({
       header: "Confirmación",
       message: `Estas seguro que deseas asignar rol para el personal ${this.listaPersonal[this.indexSelected]['nombreCompleto']},con un total de ${this.listaHoras[this.indexSelected]} horas `,

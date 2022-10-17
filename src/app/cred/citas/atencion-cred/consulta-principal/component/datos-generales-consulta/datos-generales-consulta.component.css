@@ -54,3 +54,11 @@ p-fieldset>>>.p-fieldset .p-fieldset-legend {
   border-radius: 5px;
   font-size: small;
 }
+::ng-deep  .p-calendar .p-inputtext,
+.p-component:disabled{
+  opacity: 1 !important;
+}
+
+.bg_color, ::ng-deep .bg_color .p-calendar .p-inputtext {
+  background: #EBF5FB;
+}

@@ -6,7 +6,7 @@
         <label>Nombre completo:</label>
       </div>
       <div class="col-12 md:col-10">
-        <input type="text" pInputText formControlName="name" class="inputfield w-full"
+        <input type="text" pInputText formControlName="name" class="inputfield w-full bg_color"
           placeholder="Nombre del paciente " />
       </div>
     </div>
@@ -15,7 +15,7 @@
         <label>Fecha de atención:</label>
       </div>
       <div class="col-12 md:col-2">
-        <p-calendar [showIcon]="true" formControlName="dateAttention" class="inputfield w-full" inputId="icon">
+        <p-calendar [showIcon]="true" formControlName="dateAttention" class="inputfield w-full bg_color" inputId="icon" dateFormat="dd/mm/yy">
         </p-calendar>
       </div>
       <div class="col-12 md:col-1 text-center mt-2">
@@ -29,7 +29,7 @@
         <label>Edad:</label>
       </div>
       <div class="col-12 md:col-3">
-        <input type="text" pInputText formControlName="year" class="inputfield w-full"
+        <input type="text" pInputText formControlName="year" class="inputfield w-full bg_color"
           placeholder="Edad del paciente" />
       </div>
     </div>

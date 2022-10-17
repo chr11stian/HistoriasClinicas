@@ -34,7 +34,9 @@ export class ListarFuaComponent implements OnInit {
     // fua: creado => se crea con la primera parte, completado => cuando esta con datos completos , finaliado => cuando ya se hizo una impresion
     let auxData: any = this.router.getCurrentNavigation();
     auxData == null ? this.data.estadoAtencion = 2 : this.data.estadoAtencion = auxData.extras.estadoConsulta;
-    this.idConsulta = JSON.parse(localStorage.getItem("dataFUA")).idConsulta;
+    console.log('data del row ', auxData);
+    // this.idConsulta = JSON.parse(localStorage.getItem("dataFUA")).idConsulta;
+    this,this.idConsulta = auxData.extras.id;
     this.fuaService.getCrearRecuperarFUAxIdConsulta(this.idConsulta).subscribe((res: any) => {
       if (res.cod == "2004") {
         this.location.back();
