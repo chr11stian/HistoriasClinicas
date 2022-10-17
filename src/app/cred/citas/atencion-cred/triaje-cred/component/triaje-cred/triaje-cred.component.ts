@@ -60,7 +60,7 @@ export class TriajeCredComponent implements OnInit {
     aux: any[] = [];
     my: boolean = true;
     id: string;
-    bar;
+    imcCred: number;
     attributeLocalS = "documento";
     anamnesisFC = new FormControl({ value: "", disabled: false });
     obsFC = new FormControl({ value: "", disabled: false });
@@ -662,7 +662,7 @@ export class TriajeCredComponent implements OnInit {
                     this.twoMonthsFG.get(element.index).value === null
                         ? false
                         : (this.twoMonthsFG.get(element.index)
-                              .value as boolean),
+                            .value as boolean),
             });
         });
         this.twoMonthsMore.map((element, index) => {
@@ -674,7 +674,7 @@ export class TriajeCredComponent implements OnInit {
                     this.twoMonthsMoreFG.get(element.index).value === null
                         ? false
                         : (this.twoMonthsMoreFG.get(element.index)
-                              .value as boolean),
+                            .value as boolean),
             });
         });
         this.allYear.map((element, index) => {
@@ -697,7 +697,7 @@ export class TriajeCredComponent implements OnInit {
             fr: this.examFG.value.FRFC,
             peso: this.examFG.value.PesoFC,
             talla: this.examFG.value.TallaFC,
-            imc: this.examFG.value.imcFC,
+            imc: this.imcCred,
             perimetroCefalico: this.examFG.value.PCFC,
         };
     }
@@ -712,7 +712,7 @@ export class TriajeCredComponent implements OnInit {
     }
 
     async save() {
-        // this.getPlan(this.data.nroDocumento);
+        this.getPlan(this.data.nroDocumento);
         let hayPlan: boolean = false;
         await this.consultaGeneralService
             .traerPlan(this.data.nroDocumento)
@@ -743,13 +743,14 @@ export class TriajeCredComponent implements OnInit {
                     nroDoc: this.data.nroDocumento,
                 })
                 .toPromise()
-                .then((result) => {})
+                .then((result) => { })
                 .catch((err) => {
                     console.log(err);
                 });
             // this.getNuevoPlan()
         }
         this.outData();
+        console.log('data de signos vitales ', this.signosVitales);
         const req: triajeInterface = {
             signosVitales: this.signosVitales,
             listaSignosAlarma: this.aux,
@@ -760,6 +761,7 @@ export class TriajeCredComponent implements OnInit {
             servicio: "ATENCION INTEGRAL DEL NINO",
         };
         if (req) {
+            console.log('data');
             await this.consultaService
                 .crearConsulta(this.data.nroDocumento, req)
                 .toPromise()
@@ -827,7 +829,7 @@ export class TriajeCredComponent implements OnInit {
                 nroDoc: this.data.nroDocumento,
             })
             .toPromise()
-            .then((result) => {})
+            .then((result) => { })
             .catch((err) => {
                 console.log(err);
             });
@@ -912,6 +914,7 @@ export class TriajeCredComponent implements OnInit {
         let talla = this.examFG.value.TallaFC;
         let imc: number = peso / (talla * talla);
         this.examFG.get("imcFC").setValue(imc.toFixed(2));
+        this.imcCred = Number(imc.toFixed(2));
     }
 
     cambio(e) {
@@ -978,7 +981,7 @@ export class TriajeCredComponent implements OnInit {
         this.listInterconsulta.splice(index, 1);
         console.log();
         this.consultaGeneralService
-            .deleteInterconsulta(this.idConsultaInterconsulta,id)
+            .deleteInterconsulta(this.idConsultaInterconsulta, id)
             .subscribe((r: any) => {
                 console.log(r.object);
             });
