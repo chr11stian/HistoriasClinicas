@@ -12,27 +12,33 @@
                 <div class="busqueda">
                     <div class="anios">
                         <p-dropdown
+                                (onChange)="verVisitasPorAnio($event)"
                                 [options]="anios"
                                 optionLabel="anio" formControlName="busquedaAnio"
                                 optionValue="anio"
                                 placeholder="Año"
                                 [showClear]="false"
                                 [style]="{ width: '100%' }"
+                                [(ngModel)]="selectedAnio"
                                 >
                         </p-dropdown>
                     </div>
                     <div class="meses">
-                        <p-selectButton [options]="meses"  optionValue="value" formControlName="busquedaMes"
-                                        optionLabel="label" (click)="buscarVisitaAnioXMes()" ></p-selectButton>
+                        <p-selectButton (onChange)="verVisitasPorMes($event)" 
+                                        [options]="meses"  
+                                        optionValue="value" 
+                                        formControlName="busquedaMes"
+                                        optionLabel="label" 
+                                        [(ngModel)]="selectedMes">
+                        </p-selectButton>
                     </div>
                 </div>
             </form>
             <!--MapStreet-->
-            <app-map-visitas [dataVisitas]="dataVisitas"></app-map-visitas>
         </p-card>
     </div>
     <p-accordion>
-        <p-accordionTab header="VISITA DOMICILIARIA DE LA GESTANTE">
+        <p-accordionTab header="VISITA DOMICILIARIA GESTANTES-NÚMERO DE VISITAS :{{dataVisitas.length}}">
             <p-table [value]="dataVisitas"   #dt styleClass="p-datatable-gridlines" [rows]="4"
             [rowsPerPageOptions]="[5, 10, 15]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
             currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
@@ -43,7 +49,9 @@
                     <th>Nombres</th>
                     <th>Apellidos</th>
                     <th>Nro Visita</th>
+                    <th>Nro Gesta</th>
                     <th>Fecha de la visita</th>
+                    <th>Telefono</th>
                     <th>Direccion</th>
                     <th>Respuestas</th>
                     <th>Acciones</th>
@@ -53,11 +61,13 @@
                     <tr>
                         <td style="text-align: center">{{rowIndex+1}}</td>
                         <td style="text-align: center">{{RowData.value.dni_gestante}}</td>
-                        <td style="text-align: center">{{RowData.value.nombres_gestante}}</td>
-                        <td style="text-align: center">{{RowData.value.apellidos_gestante}}</td>
-                        <td style="text-align: center">{{RowData.value.nroVisita}}</td>
-                        <td style="text-align: center">{{RowData.value.fecha_creacion_documento}}</td>
-                        <td style="text-align: center">{{RowData.value.direccion}}</td>
+                        <td style="text-align: left">{{RowData.value.nombres_gestante}}</td>
+                        <td style="text-align: left">{{RowData.value.apellidos_gestante}}</td>
+                        <td style="text-align: center">{{RowData.value.nro_visita}}</td>
+                        <td style="text-align: center">{{RowData.value.numero_de_gestacion}}</td>
+                        <td style="text-align: center">{{RowData.value.fecha_creacion_documento | date:'dd/MM/yyyy'}}</td>
+                        <td style="text-align: center">{{RowData.value.telefono}}</td>
+                        <td style="text-align: left">{{RowData.value.direccion}}</td>
                         <td style="text-align: center">
                             <button  pButton type="button" label="Ver"  icon="pi pi-eye"   class="buttonAcciones" (click)="openDialogRespuestas(RowData.value.preguntas)"></button>
                         </td>
@@ -71,5 +81,8 @@
         </p-accordionTab>
     </p-accordion>
 </div>
-<p-toast position="bottom-right" key="myMessage1"></p-toast>
-<p-toast position="bottom-right" key="myMessage2"></p-toast>
+<p-card>
+    <app-map-visitas [dataVisitas]="dataVisitas"></app-map-visitas>
+</p-card>
+<p-toast position="top-right" key="myMessage1"></p-toast>
+<p-toast position="top-right" key="myMessage2"></p-toast>
