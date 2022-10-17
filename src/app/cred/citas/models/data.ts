@@ -106,22 +106,22 @@ export interface inputCrecimiento {
 }
 
 export interface interfaceCrecimiento {
-    peso: number;
-    talla: number;
-    imc: number;
-    perimetroCefalico: number;
-    edadMes: number;
-    descripcionEdad: string;
-    genero: string;
-    nroControl: number;
-    estadoAplicado: boolean;
-    fechaTentativa: string | Date;
-    fecha: string | Date;
+    peso?: number;
+    talla?: number;
+    imc?: number;
+    perimetroCefalico?: number;
+    edadMes?: number;
+    descripcionEdad?: string;
+    genero?: string;
+    nroControl?: number;
+    estadoAplicado?: boolean;
+    fechaTentativa?: string | Date;
+    fecha?: string | Date;
     dias?: number;
-    diagnosticoPE: string;
-    diagnosticoTE: string;
-    diagnosticoPT: string;
-    diagnosticoPC: string;
+    diagnosticoPE?: string;
+    diagnosticoTE?: string;
+    diagnosticoPT?: string;
+    diagnosticoPC?: string;
 }
 
 export interface AntecedentesPerinatales {

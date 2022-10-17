@@ -58,7 +58,7 @@ export class MotivoConsultaComponent implements OnInit {
     { pro: "peso", label: "Peso (kg)", nameFC: "PesoFC" },
     { pro: "talla", label: "Talla (m)", nameFC: "TallaFC" },
     { pro: "imc", label: "imc(kg/m2)", nameFC: "imcFC" },
-    { pro: "perimetroCefalico", label: "PC (cm)", nameFC: "PCFC" },
+    { pro: "perimetroCefalico", label: "PC (m)", nameFC: "PCFC" },
   ];
 
   ExamenFisico: controlInterface[] = [
