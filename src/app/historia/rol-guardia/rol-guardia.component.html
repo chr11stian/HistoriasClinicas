@@ -275,6 +275,7 @@
         <td>
           <p-dropdown
             #dd
+            placeholder="Seleccione"
             class="bordeDropTurno"
             appendTo="body"
             [options]="listaAmbienteXipres"
@@ -288,7 +289,7 @@
           <!-- {{ i }} -{{ j }} -->
           <p-dropdown
             #dd
-            placeholder=" "
+            placeholder="NA"
             class="bordeDropTurno"
             appendTo="body"
             [options]="listaTurno"
@@ -317,6 +318,9 @@
       <div class="grid borde text-center">
         <div class="col-3" *ngFor="let turno of listaTurno">
           <span>{{turno.abreviatura}}</span>-<span>{{turno.nombre|titlecase}}</span>:<span>{{turno.nroHoras}}horas</span>
+        </div>
+        <div class="col-3" style="color:#bf0d21">
+          <span>NA</span>:<span>No Asignado</span>
         </div>
       </div>
     </div>
