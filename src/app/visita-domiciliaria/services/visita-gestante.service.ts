@@ -13,15 +13,6 @@ export class VisitaGestanteService {
 
   constructor(private http: HttpClient) {}
 
-  getVisitasGestantesXProfesional(dni_profesional: string) {
-    return this.http.post<VisitasProfesionalGestantes[]>(
-      `${this.base_url_view}/visita-profesional-gestantes`,
-      {
-        keys: [dni_profesional],
-      }
-    );
-  }
-
   getVisitasGestantesXprofesionalTodo(idIpress:any,dni_profesional:any):any{
     return this.http.post<VisitasProfesionalGestantes[]>(
       `${this.base_url_view}/visita-profesional-gestantes-todo`,
@@ -49,12 +40,12 @@ export class VisitaGestanteService {
   );
   }
 
-  buscarVisitaGestantesXAnioMes(fecha: string) {
-    return this.http.post<VisitasProfesionalGestantes[]>(
-      `${this.base_url_view}/visita_domiciliaria_XProfesionalGestanteFecha`,
-      {
-        keys: [fecha],
-      }
-    );
-  }
+  // buscarVisitaGestantesXAnioMes(fecha: string) {
+  //   return this.http.post<VisitasProfesionalGestantes[]>(
+  //     `${this.base_url_view}/visita_domiciliaria_XProfesionalGestanteFecha`,
+  //     {
+  //       keys: [fecha],
+  //     }
+  //   );
+  // }
 }
