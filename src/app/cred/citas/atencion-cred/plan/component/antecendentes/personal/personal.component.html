@@ -268,14 +268,14 @@
                             </div>
                         </div>
                         <div class="col">
-                            <span style="padding: 0.5rem;">Perímetro Cefalico</span>
+                            <span style="padding: 0.5rem;">Perímetro Cefalico(cm)</span>
                             <div class="col">
                                 <input id="perimetroCefaN" formControlName="perimetroCefaN" type="number"
                                        class="inputfield w-full" pInputText>
                             </div>
                         </div>
                         <div class="col">
-                            <span style="padding: 0.5rem;">Perímetro Toráxico</span>
+                            <span style="padding: 0.5rem;">Perímetro Toráxico(cm)</span>
                             <div class="col">
                                 <input id="perimetroTorN" formControlName="perimetroTorN" type="number"
                                        class="inputfield w-full" pInputText>
@@ -447,6 +447,18 @@
                         </tr>
                     </ng-template>
                 </p-table>
+            </div>
+            <div class="">
+                <button
+                        type="submit"
+                        pButton
+                        pRipple
+                        icon="pi pi-save"
+                        label="Guardar Antecedentes"
+                        (click)="guardarAntecendentesPersonales()"
+                        style="background-color: #0c3866"
+                        class="p-button-raised p-button-info">
+                </button>
             </div>
             <!--<div class="grid">
                 <div class="col-3">

@@ -40,8 +40,8 @@ export class ViviendaComponent implements OnInit {
                 
                 this.getFC('agua').setValue(data[0].valor)
                 this.getFC('detalleAgua').setValue(data[0].especificar)
-                this.getFC('desague').setValue(data[0].valor)
-                this.getFC('detalleDesague').setValue(data[0].especificar)
+                this.getFC('desague').setValue(data[1].valor)
+                this.getFC('detalleDesague').setValue(data[1].especificar)
             })
             .catch(error => {
                 return error;
@@ -64,13 +64,13 @@ export class ViviendaComponent implements OnInit {
     }
 
 
-    rellenarForm(tabla: AntecedentesViviendaType[]): void {
+    // rellenarForm(tabla: AntecedentesViviendaType[]): void {
 
-        this.getFC('agua').setValue(tabla[0].valor)
-        this.getFC('detalleAgua').setValue(tabla[0].especificar)
-        this.getFC('desague').setValue(tabla[1].valor)
-        this.getFC('detalleDesague').setValue(tabla[1].especificar)
-    }
+    //     this.getFC('agua').setValue(tabla[0].valor)
+    //     this.getFC('detalleAgua').setValue(tabla[0].especificar)
+    //     this.getFC('desague').setValue(tabla[1].valor)
+    //     this.getFC('detalleDesague').setValue(tabla[1].especificar)
+    // }
 
     ngOnInit(): void {
         this.getAntecendentesVivienda();

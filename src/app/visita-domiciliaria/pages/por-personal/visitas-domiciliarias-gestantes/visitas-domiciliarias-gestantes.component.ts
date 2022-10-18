@@ -11,6 +11,7 @@ import { DialogRespuestasComponent } from "../../../components/dialog-respuestas
 import { MessageService } from "primeng/api";
 import { VisitaGestanteService } from "../../../services/visita-gestante.service";
 import { VisitaDomiciliariaService } from "../../../services/visita-domiciliaria.service";
+import { Value } from '../../../../pn-gestante/interfaces/padron_Nominal';
 
 @Component({
   selector: "app-visitas-domiciliarias-gestantes",
@@ -21,6 +22,7 @@ import { VisitaDomiciliariaService } from "../../../services/visita-domiciliaria
 export class VisitasDomiciliariasGestantesComponent implements OnInit {
   ref: DynamicDialogRef;
   dataVisitas: any[] = [];
+  aux_dataVisitas:any []=[];
   options: any;
   overlays: any[];
   formListaVisitas: FormGroup;
@@ -53,6 +55,7 @@ export class VisitasDomiciliariasGestantesComponent implements OnInit {
     { label: "Noviembre", value: 11 },
     { label: "Diciembre", value: 12 },
   ];
+
   anios = [
     { anio: "2022" },
     { anio: "2021" },
@@ -79,14 +82,18 @@ export class VisitasDomiciliariasGestantesComponent implements OnInit {
       busquedaMes: new FormControl("", [Validators.required]),
     });
   }
-
+  
   listaVisitas() {
-    let dni = "vp72753957";
+    let idIpress = this.servicioVisitas.getIdIpress();
+    let dni = `vp${this.servicioVisitas.getIdPersonal()}`;
     this.servicioVisitas.couch = true;
     this.servicioVisitasGestante
-      .getVisitasGestantesXProfesional(dni)
-      .subscribe((data) => {
-        this.dataVisitas = data["rows"];
+      .getVisitasGestantesXProfesionalAnio(idIpress,dni,this.servicioVisitas.getAnio())
+      .subscribe((data:any) => {
+        this.aux_dataVisitas = data["rows"];
+        this.dataVisitas=this.aux_dataVisitas.filter((aux)=>{
+          if(aux.value.hasOwnProperty("gestante")) return aux;
+        })
         console.log("Lista visitas gestante", this.dataVisitas);
       });
   }
@@ -105,33 +112,79 @@ export class VisitasDomiciliariasGestantesComponent implements OnInit {
     });
   }
 
-  buscarVisitaAnioXMes() {
-    let busquedaAnio: string = this.formListaVisitas.value.busquedaAnio;
-    let busquedaMes: string = this.formListaVisitas.value.busquedaMes;
-    let fecha = `${busquedaAnio} ${busquedaMes}`;
-    //console.log(fecha);
-    this.servicioVisitas.couch = true;
-    this.servicioVisitasGestante
-      .buscarVisitaGestantesXAnioMes(fecha)
-      .subscribe((data) => {
-        if (data["rows"].length > 0) {
-          this.dataVisitas = data["rows"];
-          // console.log('Busqueda por fecha gestante',this.dataVisitas);
-          this.messageService.add({
-            key: "myMessage1",
-            severity: "success",
-            summary: "Exitoso",
-            detail: "Visitas Actualizada",
-          });
-        } else {
-          this.dataVisitas = [];
-          this.messageService.add({
-            key: "myMessage2",
-            severity: "error",
-            summary: "Error",
-            detail: "Usted no tiene visitas",
-          });
-        }
+  verVisitasPorAnio(event){
+  let idIpress = this.servicioVisitas.getIdIpress();
+  let dni = `vp${this.servicioVisitas.getIdPersonal()}`;
+  this.servicioVisitas.couch=true;
+  this.selectedAnio=event.value;
+  this.servicioVisitasGestante.
+  getVisitasGestantesXProfesionalAnio(idIpress,dni,this.selectedAnio)
+    .subscribe((data:any)=>{
+      if (data["rows"].length > 0) {
+        // this.dataVisitas = data["rows"];
+        this.aux_dataVisitas = data["rows"];
+        this.dataVisitas=this.aux_dataVisitas.filter((aux)=>{
+          if(aux.value.hasOwnProperty("gestante")) return aux;
+        })
+        console.log('gestantes',this.dataVisitas);
+        console.log("Busqueda por fecha", this.dataVisitas);
+        this.messageService.add({
+          key: "myMessage1",
+          severity: "success",
+          summary: "Exitoso",
+          detail: "Visitas Actualizada",
+        });
+      }
+      else {
+        this.dataVisitas = [];
+        this.messageService.add({
+          key: "myMessage2",
+          severity: "info",
+          summary: "Consulta obtenida",
+          detail: "Usted no tiene visitas",
+        });
+      } 
+    })
+  }
+
+  verVisitasPorMes(event){
+  let idIpress = this.servicioVisitas.getIdIpress();
+  let dni = `vp${this.servicioVisitas.getIdPersonal()}`; 
+  if(this.selectedAnio!=""){
+    this.servicioVisitas.couch=true;
+    this.selectedMes=event.value;
+    let fecha = `${this.selectedAnio} ${this.selectedMes}`;
+    this.servicioVisitasGestante.
+    getVisitasGestantesXProfesionalXAnioXMesFecha(idIpress,dni,fecha).
+    subscribe((data:any)=>{
+    if(data["rows"].length>0){
+      // this.dataVisitas=data["rows"];
+      this.aux_dataVisitas = data["rows"];
+        this.dataVisitas=this.aux_dataVisitas.filter((aux)=>{
+          if(aux.value.hasOwnProperty("gestante")) return aux;
+        })
+      console.log("busqueda por mes",this.dataVisitas);
+      this.messageService.add({
+        key: "myMessage1",
+        severity: "success",
+        summary: "Exitoso",
+        detail: "Visitas Actualizada",
+      })
+    }
+    else{
+      this.dataVisitas = [];
+      this.messageService.add({
+        key: "myMessage2",
+        severity: "info",
+        summary: "Consulta obtenida",
+        detail: "Usted no tiene visitas",
       });
+    }
+    });
   }
 }
+  
+
+}
+
+

@@ -1,85 +1,193 @@
 <div class="grid mb-2">
     <div class="col flex justify-content-between">
-        <div>
-
-        </div>
+        <div></div>
         <div (click)="ver()">
-            <button pButton pRipple label="Grafico del Perimetro Cefálico" (click)="onCircumferenceChart()"
-                    [disabled]="myDisable" class="mr-2 p-button-warning " icon="pi pi-chart-line" styleClass="p-button-lg"></button>
-            <button pButton pRipple label="Grafica de Peso" (click)="onWeightChart()" class="mr-2 p-button-warning"
-                    [disabled]="myDisable" icon="pi pi-chart-line" styleClass="p-button"></button>
-            <button pButton pRipple label="Grafica Estatura" (click)="onHeightChart()" class="mr-2 p-button-warning"
-                    [disabled]="myDisable" icon="pi pi-chart-line" styleClass="p-button"></button>
-            <button pButton pRipple label="Grafica de Peso/Longitud" (click)="onHeightWeightChart()"
-                    [disabled]="myDisable" class="p-button-warning" icon="pi pi-chart-line" styleClass="p-button"></button>
+            <button
+                pButton
+                pRipple
+                label="Grafico del Perimetro Cefálico"
+                (click)="onCircumferenceChart()"
+                [disabled]="myDisable"
+                class="mr-2 p-button-warning"
+                icon="pi pi-chart-line"
+                styleClass="p-button-lg"
+            ></button>
+            <button
+                pButton
+                pRipple
+                label="Grafica de Peso"
+                (click)="onWeightChart()"
+                class="mr-2 p-button-warning"
+                [disabled]="myDisable"
+                icon="pi pi-chart-line"
+                styleClass="p-button"
+            ></button>
+            <button
+                pButton
+                pRipple
+                label="Grafica Estatura"
+                (click)="onHeightChart()"
+                class="mr-2 p-button-warning"
+                [disabled]="myDisable"
+                icon="pi pi-chart-line"
+                styleClass="p-button"
+            ></button>
+            <button
+                pButton
+                pRipple
+                label="Grafica de Peso/Longitud"
+                (click)="onHeightWeightChart()"
+                [disabled]="myDisable"
+                class="p-button-warning"
+                icon="pi pi-chart-line"
+                styleClass="p-button"
+            ></button>
         </div>
     </div>
 </div>
 <div class="grid">
-    <div class="lg:col-12 md:col-12 col-fixed">
-        <p-fieldset [legend]="descripcion" [toggleable]="true" [collapsed]="false">
-            <div class="flex justify-content-center flex-column">
-                <div class="field grid">
-                    <div class="lg:col-1 text-center"></div>
-                    <div class="lg:col-2 text-center">Peso(gr)</div>
-                    <div class="lg:col-2 text-center">Talla(m)</div>
-                    <div class="lg:col-2 text-center">C. Cefálico(cm)</div>
-                    <div class="lg:col-2 text-center">Fecha Tentativa</div>
-                    <div class="lg:col-2 text-center">Fecha</div>
-                </div>
-                <div class="field grid" *ngFor="let item of listAux">
-                    <div class="col-12 justify-content-center field grid" *ngIf="item.nroControl === nroControl"
-                         style="background-color:rgba(175,0,23,0.4)">
-                        <span class="lg:col-1 text-center">{{item.nroControl}}°:</span>
-                        <div class="lg:col-2">
-                            <input type="number" [disabled]=true pInputText style="width:120px" class="text-center" placeholder="Peso"
-                                   [value]="sv?.peso"/>
-                        </div>
-                        <div class="lg:col-2">
-                            <input type="number" [disabled]=true pInputText style="width:120px" class="text-center" placeholder="Peso"
-                                   [value]="sv?.talla"/>
-                        </div>
-                        <div class="lg:col-2">
-                            <input type="number" [disabled]=true pInputText style="width:120px" class="text-center" placeholder="Peso"
-                                   [value]="sv?.perimetroCefalico"/>
-                        </div>
-                        <div class="lg:col-2">
-                            <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"
-                                        dateFormat="yy-mm-dd" [(ngModel)]="item.fechaTentativa"></p-calendar>
-                        </div>
-                        <div class="lg:col-2">
-                            <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd"
-                                        [(ngModel)]="fc"></p-calendar>
-                        </div>
+    <div class="lg:col-12 md:col-12 justify-content-center flex">
+        <p-fieldset
+            [legend]="descripcion"
+            [toggleable]="true"
+            [collapsed]="false"
+        >
+            <div class="lg:col-12 flex justify-content-center">
+                <div class="col-1 lg:col-1 md:col-1 text-center"></div>
+                <div class="col-1 lg:col-1 md:col-1 text-center">Peso(gr)</div>
+                <div class="col-1 lg:col-1 md:col-1 text-center">Talla(cm)</div>
+                <div class="col-2 lg:col-2 md:col-2 text-center">C. Cefálico(cm)</div>
+                <div class="col-2 lg:col-2 md:col-2 text-center">Fecha Tentativa</div>
+                <div class="col-2 lg:col-2 md:col-2 text-center">Fecha Actual</div>
+            </div>
+            <div class="" *ngFor="let item of listAux">
+                <div
+                    class="col-12 justify-content-center flex align-items-center"
+                    *ngIf="item.nroControl === nroControl"
+                    style="background-color: rgba(175, 0, 23, 0.4)"
+                >
+                    <span class="col-1 lg:col-1 md:col-1 text-center"
+                        >{{ item.nroControl }}°:</span
+                    >
+                    <div class="col-1 lg:col-1 md:col-1">
+                        <input
+                            type="number"
+                            [disabled]="true"
+                            pInputText
+                            class="text-center w-full"
+                            placeholder="Peso"
+                            [value]="sv?.peso"
+                        />
                     </div>
-                    <div class="col-12 justify-content-center field grid" *ngIf="item.nroControl !== nroControl">
-                        <span class="lg:col-1 text-center">{{item.nroControl}}°:</span>
-                        <div class="lg:col-2">
-                            <input type="number" [disabled]=true pInputText style="width:120px" class="text-center" placeholder="Peso"
-                                   [value]="item.peso"/>
-                        </div>
-                        <div class="lg:col-2">
-                            <input type="number" [disabled]=true pInputText style="width:120px" class="text-center" placeholder="Peso"
-                                   [value]="item.talla"/>
-                        </div>
-                        <div class="lg:col-2">
-                            <input type="number" [disabled]=true pInputText style="width:120px" class="text-center" placeholder="Peso"
-                                   [value]="item.perimetroCefalico"/>
-                        </div>
-                        <div class="lg:col-2">
-                            <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"
-                                        dateFormat="yy-mm-dd" [(ngModel)]="item.fechaTentativa"></p-calendar>
-                        </div>
-                        <div class="lg:col-2">
-                            <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd"
-                                        [(ngModel)]="item.fecha"></p-calendar>
-                        </div>
+                    <div class="col-1 lg:col-1 md:col-1">
+                        <input
+                            type="number"
+                            [disabled]="true"
+                            pInputText
+                            class="text-center w-full"
+                            placeholder="Peso"
+                            [value]="sv?.talla"
+                        />
+                    </div>
+                    <div class="col-2 lg:col-2 md:col-2">
+                        <input
+                            type="number"
+                            [disabled]="true"
+                            pInputText
+                            class="text-center w-full"
+                            placeholder="Peso"
+                            [value]="sv?.perimetroCefalico"
+                        />
+                    </div>
+                    <div class="col-2 lg:col-2 md:col-2">
+                        <p-calendar
+                            [showIcon]="true"
+                            inputId="icon"
+                            [disabled]="true"
+                            placeholder="Fecha"
+                            dateFormat="yy-mm-dd"
+                            [(ngModel)]="item.fechaTentativa"
+                        ></p-calendar>
+                    </div>
+                    <div class="col-2 lg:col-2 md:col-2">
+                        <p-calendar
+                            [showIcon]="true"
+                            inputId="icon"
+                            [disabled]="true"
+                            placeholder="Fecha"
+                            dateFormat="yy-mm-dd"
+                            [(ngModel)]="fc"
+                        ></p-calendar>
+                    </div>
+                </div>
+                <div
+                    class="col-12 justify-content-center flex align-items-center"
+                    *ngIf="item.nroControl !== nroControl"
+                >
+                    <span class="col-1 lg:col-1 md:col-1 text-center"
+                        >{{ item.nroControl }}°:</span
+                    >
+                    <div class="col-1 lg:col-1 md:col-1">
+                        <input
+                            type="number"
+                            [disabled]="true"
+                            pInputText
+                            class="text-center w-full"
+                            placeholder="Peso"
+                            [value]="item.peso"
+                        />
+                    </div>
+                    <div class="col-1 lg:col-1 md:col-1">
+                        <input
+                            type="number"
+                            [disabled]="true"
+                            pInputText
+                            class="text-center w-full"
+                            placeholder="Peso"
+                            [value]="item.talla"
+                        />
+                    </div>
+                    <div class="col-2 lg:col-2 md:col-2">
+                        <input
+                            type="number"
+                            [disabled]="true"
+                            pInputText
+                            class="text-center w-full"
+                            placeholder="Peso"
+                            [value]="item.perimetroCefalico"
+                        />
+                    </div>
+                    <div class="col-2 lg:col-2 md:col-2">
+                        <p-calendar
+                            [showIcon]="true"
+                            inputId="icon"
+                            [disabled]="true"
+                            placeholder="Fecha"
+                            dateFormat="yy-mm-dd"
+                            [(ngModel)]="item.fechaTentativa"
+                        ></p-calendar>
+                    </div>
+                    <div class="col-2 lg:col-2 md:col-2">
+                        <p-calendar
+                            [showIcon]="true"
+                            inputId="icon"
+                            [disabled]="true"
+                            placeholder="Fecha"
+                            dateFormat="yy-mm-dd"
+                            [(ngModel)]="item.fecha"
+                        ></p-calendar>
                     </div>
                 </div>
             </div>
         </p-fieldset>
-        <div class="col col-offset-10 ">
-            <button  pButton label="Guardar" icon="pi pi-save" style="background-color: #0c3866" (click)="guardar()"></button>
-        </div>
+    </div>
+    <div class="col flex justify-content-end">
+        <button
+            pButton
+            label="Guardar"
+            icon="pi pi-save"
+            style="background-color: #0c3866"
+            (click)="guardar()"
+        ></button>
     </div>
 </div>
