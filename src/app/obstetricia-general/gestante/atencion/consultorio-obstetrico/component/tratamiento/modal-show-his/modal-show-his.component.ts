@@ -21,6 +21,8 @@ export class ModalShowHisComponent implements OnInit {
   dataSave: NextAppointment;
   dataPatient: Pregmant;
   existData: boolean = false;
+  arrayFua: FUA[];
+  personalData: PersonalInfo;
 
   constructor(
     private tratamientoService: TratamientoConsultaService,
@@ -35,12 +37,24 @@ export class ModalShowHisComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarHis();
+    this.loadFUAinfo();
   }
 
   cargarHis(): void {
     this.tratamientoService
       .getHIS(this.consultationId)
       .subscribe((r: any) => {
+        if (r.cod=="2015") {
+          Swal.fire({
+            icon: 'info',
+            title: 'Ya se cerro la consulta',
+            text: '',
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          this.ref.close();
+          return;
+        }
         this.listHIS = r.object;
         this.listHIS == null ? this.existData = false : this.existData = true;
       });
@@ -78,9 +92,49 @@ export class ModalShowHisComponent implements OnInit {
     this.concludeConsultation()
   }
 
+  loadFUAinfo(): void {
+    this.finalizeConsultationService.getShowFuaData(this.consultationId).then((res: any) => {
+      this.arrayFua = res.object;
+      this.arrayFua.sort((a, b) => a.codPrestacion.localeCompare(b.codPrestacion));
+      if (this.arrayFua != null) {
+        this.personalData = {
+          nombre: this.arrayFua[0].nombre + ' ' + this.arrayFua[0].apePaterno + ' ' + this.arrayFua[0].apeMaterno,
+          tipoDoc: this.arrayFua[0].tipoDoc,
+          nroDoc: this.arrayFua[0].nroDoc
+        }
+      }
+    })
+  }
+
 }
 
 interface NextAppointment {
   fecha: string,
   motivo?: string
+}
+interface FUA {
+  nroDoc: string;
+  tipoDoc: string;
+  nombre: string;
+  apePaterno: string;
+  apeMaterno: string;
+  codPrestacion?: string;
+  inmunizaciones?: Inmunizaciones[];
+  diagnosticos?: Diagnosticos[];
+}
+interface Diagnosticos {
+  cie_10: string;
+  diagnostico: string;
+  lab?: string;
+  tipoDx: string;
+}
+interface Inmunizaciones {
+  nombre: string;
+  codPrestacion: string;
+  nombreComercial: string;
+}
+interface PersonalInfo {
+  nombre: string;
+  tipoDoc: string;
+  nroDoc: string;
 }

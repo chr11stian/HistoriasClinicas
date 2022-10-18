@@ -122,8 +122,8 @@
     ></button>
   </ng-template>-->
 </p-dialog>
-<p-dialog header="PREVISUALIZACIÓN DE HIS Y FUA" [(visible)]="dialogHIS" [modal]="true" [style]="{ width: '95%' }" [draggable]="false"
-    [resizable]="false" class="show-fua-his-dialog">
+<p-dialog header="PREVISUALIZACIÓN DE HIS Y FUA" [(visible)]="dialogHIS" [modal]="true" [style]="{ width: '95%' }"
+    [draggable]="false" [resizable]="false" class="show-fua-his-dialog">
     <p-tabView styleClass="tabview-custom" class="area">
         <p-tabPanel>
             <ng-template pTemplate="header">
@@ -316,7 +316,7 @@
             </div> -->
             <div *ngFor="let fua of arrayFua">
                 <div class="col-1 cod-prestacion">
-                    <p-table class="pb-0" [value]="[fua]" styleClass="p-datatable-gridlines" >
+                    <p-table class="pb-0" [value]="[fua]" styleClass="p-datatable-gridlines">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th>COD PRESTACIÓN</th>
@@ -331,52 +331,44 @@
                 </div>
                 <div class="grid">
                     <div class="col-6 table-diag">
-                        <div class="">
-                            <div *ngFor="let item of fua.diagnosticos">
-                                <p-table [value]="[item]" styleClass="p-datatable-gridlines" class="pt-0">
-                                    <ng-template pTemplate="header">
-                                        <tr>
-                                            <th colspan="3">DIAGNOSTICOS</th>
-                                        </tr>
-                                        <tr>
-                                            <th>Diagnostico</th>
-                                            <th>cie_10</th>
-                                            <th>tipoDx</th>
-                                        </tr>
-                                    </ng-template>
-                                    <ng-template pTemplate="body" let-diagnosticos let-i="rowIndex">
-                                        <tr>
-                                            <td>{{diagnosticos.diagnostico}}</td>
-                                            <td>{{diagnosticos.cie_10}}</td>
-                                            <td>{{diagnosticos.tipoDx}}</td>
-                                        </tr>
-                                    </ng-template>
-                                </p-table>
-                            </div>
-                        </div>
+                        <p-table [value]="fua.diagnosticos" styleClass="p-datatable-gridlines" class="pt-0">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th colspan="3">DIAGNOSTICOS</th>
+                                </tr>
+                                <tr>
+                                    <th>NOMBRE DIAGNOSTICO</th>
+                                    <th>CIE 10</th>
+                                    <th>TIPO DX</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-diagnosticos let-i="rowIndex">
+                                <tr>
+                                    <td>{{diagnosticos.diagnostico}}</td>
+                                    <td>{{diagnosticos.cie_10}}</td>
+                                    <td>{{diagnosticos.tipoDx}}</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
                     </div>
                     <div class="col-6 table-inmu">
-                        <div class="">
-                            <div *ngFor="let item of fua.inmunizaciones">
-                                <p-table [value]="[item]" styleClass="p-datatable-gridlines" class="p-0">
-                                    <ng-template pTemplate="header">
-                                        <tr >
-                                            <th colspan="2">INMUNIZACIONES</th>
-                                        </tr>
-                                        <tr>
-                                            <th>Nombre</th>
-                                            <th>Nombre Comercial</th>
-                                        </tr>
-                                    </ng-template>
-                                    <ng-template pTemplate="body" let-inmunizaciones let-i="rowIndex">
-                                        <tr>
-                                            <td>{{inmunizaciones.nombre}}</td>
-                                            <td>{{inmunizaciones.nombreComercial}}</td>
-                                        </tr>
-                                    </ng-template>
-                                </p-table>
-                            </div>
-                        </div>
+                        <p-table [value]="fua.inmunizaciones" styleClass="p-datatable-gridlines" class="p-0">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th colspan="2">INMUNIZACIONES</th>
+                                </tr>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Nombre Comercial</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-inmunizaciones let-i="rowIndex">
+                                <tr>
+                                    <td>{{inmunizaciones.nombre}}</td>
+                                    <td>{{inmunizaciones.nombreComercial}}</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
                     </div>
                 </div>
             </div>

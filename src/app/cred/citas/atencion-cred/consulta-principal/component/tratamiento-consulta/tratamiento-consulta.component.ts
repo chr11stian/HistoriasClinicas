@@ -130,7 +130,7 @@ export class TratamientoConsultaComponent implements OnInit {
         /* lista interconsulta */
         this.listaInterconsulta();
         /* his */
-        this.cargarHis();
+        
     }
 
     /* interconsulta */
@@ -253,6 +253,7 @@ export class TratamientoConsultaComponent implements OnInit {
     }
     /* his */
     async his() {
+        this.cargarHis();
         this.isUpdateHIS = false;
         this.dialogHIS = true;
         await this.finalizarConsulta.getShowFuaData(this.data.idConsulta).then((res: any) => {
@@ -272,6 +273,17 @@ export class TratamientoConsultaComponent implements OnInit {
         this.tratamientoService
             .getHIS(this.data.idConsulta)
             .subscribe((r: any) => {
+                if (r.cod=="2015") {
+                    Swal.fire({
+                      icon: 'info',
+                      title: 'Ya se cerro la consulta',
+                      text: '',
+                      showConfirmButton: false,
+                      timer: 2000,
+                    });
+                    this.dialogHIS = false;
+                    return;
+                  }
                 this.listHIS = r.object;
                 console.log("his", this.listHIS);
                 this.listHIS == null ? this.existData = false : this.existData = true;
