@@ -77,10 +77,14 @@ export class WeightChartComponent implements OnInit {
             this.colors,
             {xAxis: 'meses', yAxis: 'kg'}
         )
+        let diagnostico =
+            this.config.data.diagnostic === undefined
+                ? ""
+                : this.config.data.diagnostic;
         this.data = {
             nameAxisY: 'PESO(KG)',
             nameAxisX: 'EDAD (EN MESES Y AÑOS CUMPLIDOS)',
-            titleGraph: 'Puntuación Z - DIAGNÓSTICO ' + (this.config.data.isBoy ? 'DEL NIÑO' : 'DE LA NIÑA') + ': ' + this.config.data.diagnostic.toUpperCase(),
+            titleGraph: 'Puntuación Z - DIAGNÓSTICO ' + (this.config.data.isBoy ? 'DEL NIÑO' : 'DE LA NIÑA') + ': ' + diagnostico.toUpperCase(),
             subTitleGraph: '(Nacimiento a 5 años)',
             measurementUnits: ['kg', 'meses'],
             // measurementUnits: ['meses', 'kg'],

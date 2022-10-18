@@ -13,21 +13,39 @@ export class VisitaGestanteService {
 
   constructor(private http: HttpClient) {}
 
-  getVisitasGestantesXProfesional(dni_profesional: string) {
+  getVisitasGestantesXprofesionalTodo(idIpress:any,dni_profesional:any):any{
     return this.http.post<VisitasProfesionalGestantes[]>(
-      `${this.base_url_view}/visita_domiciliaria_XProfesionalGestante`,
+      `${this.base_url_view}/visita-profesional-gestantes-todo`,
       {
-        keys: [dni_profesional],
+          keys: [[idIpress, dni_profesional]],
       }
-    );
+  );
+  } 
+
+  getVisitasGestantesXProfesionalXAnioXMesFecha(idIpress:any,dni_profesional:any,anio_mes:any):any{
+    return this.http.post<VisitasProfesionalGestantes[]>(
+      `${this.base_url_view}/visita-profesional-gestantes-fecha`,
+      {
+          keys: [[idIpress, dni_profesional, anio_mes]],
+      }
+  );
   }
 
-  buscarVisitaGestantesXAnioMes(fecha: string) {
+  getVisitasGestantesXProfesionalAnio(idIpress:any,dni_profesional:any,anio:any):any{
     return this.http.post<VisitasProfesionalGestantes[]>(
-      `${this.base_url_view}/visita_domiciliaria_XProfesionalGestanteFecha`,
+      `${this.base_url_view}/visita-profesional-gestantes-anio`,
       {
-        keys: [fecha],
+          keys: [[idIpress, dni_profesional, anio]],
       }
-    );
+  );
   }
+
+  // buscarVisitaGestantesXAnioMes(fecha: string) {
+  //   return this.http.post<VisitasProfesionalGestantes[]>(
+  //     `${this.base_url_view}/visita_domiciliaria_XProfesionalGestanteFecha`,
+  //     {
+  //       keys: [fecha],
+  //     }
+  //   );
+  // }
 }
