@@ -73,20 +73,13 @@
                                 {{ controlFC.label }}
                             </div>
                             <div class="col-6 md:col-3">
-                                <ng-container
-                                    *ngIf="
-                                        controlFC.nameFC === 'TallaFC' ||
-                                            controlFC.nameFC === 'PesoFC';
-                                        else otros
-                                    "
-                                >
+                                <ng-container *ngIf="controlFC.nameFC === 'TallaFC' || controlFC.nameFC === 'PesoFC';else otros ">
                                     <input
                                         (ngModelChange)="imc()"
                                         type="number"
                                         pInputText
                                         [formControlName]="controlFC.nameFC"
-                                        class="inputfield w-full text-center"
-                                    />
+                                        class="inputfield w-full text-center"/>
                                 </ng-container>
                                 <ng-template #otros>
                                     <input
@@ -98,10 +91,24 @@
                                     />
                                 </ng-template>
                                 <div *ngIf="isInvalid(controlFC.nameFC)">
-                                    <span class="dato-error"
-                                        >*Campo
-                                        {{ dataExamFisicos[i].pro }} Obligatorio
+                                    <span *ngIf="getFC(controlFC.nameFC).errors.required" class=" p-inputgroup-addon bg-pink-50 p-1">
+                                        <i class="pi pi-exclamation-triangle p-error"></i>
+                                        <small id="username1-help" class="p-error ml-2">1-{{getFC(controlFC.nameFC).errors.required|json}}</small>
                                     </span>
+                                    <span *ngIf="getFC(controlFC.nameFC).errors.min" class=" p-inputgroup-addon bg-pink-50 p-1">
+                                        <i class="pi pi-exclamation-triangle p-error"></i>
+                                        <small id="username1-help" class="p-error ml-2">2-{{getFC(controlFC.nameFC).errors.min|json}}</small>
+                                    </span>
+                                    <span *ngIf="getFC(controlFC.nameFC).errors.max" class=" p-inputgroup-addon bg-pink-50 p-1">
+                                        <i class="pi pi-exclamation-triangle p-error"></i>
+                                        <small id="username1-help" class="p-error ml-2">3-{{getFC(controlFC.nameFC).errors.max|json}}</small>
+                                    </span> 
+                                    <div>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                    
                                 </div>
                             </div>
                         </ng-container>
