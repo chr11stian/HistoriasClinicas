@@ -388,13 +388,13 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
                     item.talla != 0.0 &&
                     item.perimetroCefalico !== 0.0
                 ) {
-                    this.mesesPeso.push([item.dias / 30, item.peso]);
-                    this.mesesAltura.push([item.dias / 30, item.talla * 100]);
+                    this.mesesPeso.push([item.dias / 30, item.peso / 1000]);
+                    this.mesesAltura.push([item.dias / 30, item.talla ]);
                     this.mesesCircunferencia.push([
                         item.dias / 30,
-                        item.perimetroCefalico * 100,
+                        item.perimetroCefalico,
                     ]);
-                    this.mesesAlturaPeso.push([item.talla * 100, item.peso]);
+                    this.mesesAlturaPeso.push([item.talla, item.peso]);
                 }
             });
         }, 1000);
