@@ -66,15 +66,16 @@ p-table >>> .p-datatable .p-datatable-tbody > tr > td {
     text-align: right;
     /* display: flexbox; */
     /* text-align: center; */
-    background: rgb(255, 255, 255);
+    /* background: rgb(255, 255, 255); */
     position: absolute;
     /* margin-top: 2.5; */
     bottom: 0;
     width: 95%;
-    height: 5em;
+    /* height: 10em; */
     color: white;
     bottom: 0;
     z-index: 100;
+    padding-top: 2rem;
 }
 .no-data-found {
     background-image: url(src\assets\images\no_data_found.svg);
@@ -82,4 +83,16 @@ p-table >>> .p-datatable .p-datatable-tbody > tr > td {
     height: 30rem;
     display: block;
     margin: auto;
+}
+.show-fua-his-dialog{
+    height: 100vh;
+}
+.cod-prestacion{
+    padding: 0;
+}
+::ng-deep .table-diag{
+    padding-right: 0;
+}
+::ng-deep .table-inmu{
+    padding-left: 0;
 }
