@@ -917,7 +917,9 @@ export class ProcedimientosConsultaComponent implements OnInit {
     }
     recoverPrestationData(): void {
         this.DiagnosticoService.getPrestationPerIdConsulta(this.dataConsulta.idConsulta).then(res => {
+            let hash: any = {};
             this.arrayPrestationCode = res.object;
+            this.arrayPrestationCode = this.arrayPrestationCode.filter(item => hash[item.codPrestacion] ? false : hash[item.codPrestacion] = true);
         });
     }
     onChangePrestacion() {

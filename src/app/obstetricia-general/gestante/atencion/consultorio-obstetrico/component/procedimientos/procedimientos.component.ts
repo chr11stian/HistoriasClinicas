@@ -291,7 +291,7 @@ export class ProcedimientosComponent implements OnInit {
   /** NEW  */
   recoverPrestationData(): void {
     this.DiagnosticoService.getPrestationPerIdConsulta(this.idConsulta).then(res => {
-      let hash: any = {}
+      let hash: any = {};
       this.arrayPrestationCode = res.object;
       this.arrayPrestationCode = this.arrayPrestationCode.filter(item => hash[item.codPrestacion] ? false : hash[item.codPrestacion] = true);
     });
