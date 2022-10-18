@@ -91,24 +91,18 @@
                                     />
                                 </ng-template>
                                 <div *ngIf="isInvalid(controlFC.nameFC)">
-                                    <span *ngIf="getFC(controlFC.nameFC).errors.required" class=" p-inputgroup-addon bg-pink-50 p-1">
+                                    <span *ngIf="getFC(controlFC.nameFC).errors.required" class=" p-inputgroup-addon pink-100 p-1">
                                         <i class="pi pi-exclamation-triangle p-error"></i>
-                                        <small id="username1-help" class="p-error ml-2">1-{{getFC(controlFC.nameFC).errors.required|json}}</small>
+                                        <small id="username1-help" class="p-error ml-2">Elemento Requerido</small>
                                     </span>
-                                    <span *ngIf="getFC(controlFC.nameFC).errors.min" class=" p-inputgroup-addon bg-pink-50 p-1">
+                                    <span *ngIf="getFC(controlFC.nameFC).errors.min" class=" p-inputgroup-addon indigo-300 p-1">
                                         <i class="pi pi-exclamation-triangle p-error"></i>
-                                        <small id="username1-help" class="p-error ml-2">2-{{getFC(controlFC.nameFC).errors.min|json}}</small>
+                                        <small id="username1-help" class="p-error ml-2">Valor minimo {{getFC(controlFC.nameFC).errors.min.min|json}}</small>
                                     </span>
                                     <span *ngIf="getFC(controlFC.nameFC).errors.max" class=" p-inputgroup-addon bg-pink-50 p-1">
                                         <i class="pi pi-exclamation-triangle p-error"></i>
-                                        <small id="username1-help" class="p-error ml-2">3-{{getFC(controlFC.nameFC).errors.max|json}}</small>
-                                    </span> 
-                                    <div>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                    </div>
-                                    
+                                        <small id="username1-help" class="p-error ml-2">Valor maximo {{getFC(controlFC.nameFC).errors.max.max|json}}</small>
+                                    </span>             
                                 </div>
                             </div>
                         </ng-container>
@@ -243,7 +237,7 @@
                         />
                     </div>
                 </div>
-                <div class="grid">
+                <div class="grid">|
                     <div class="col-12 md:col-6">
                         <div class="grid">
                             <div class="md:col-8 mt-2" style="text-align: left">

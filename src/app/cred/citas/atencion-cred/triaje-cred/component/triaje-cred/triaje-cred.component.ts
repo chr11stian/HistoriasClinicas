@@ -527,11 +527,11 @@ export class TriajeCredComponent implements OnInit {
             PSFC: new FormControl({ value: "", disabled: false }, []),
             PDFC: new FormControl({ value: "", disabled: false }, []),
             FC: new FormControl({ value: "", disabled: false }, []),
-            FRFC: new FormControl({ value: "", disabled: false }, [Validators.required,]),
-            PesoFC: new FormControl({ value: "", disabled: false }, [Validators.required,]),
-            TallaFC: new FormControl({ value: "", disabled: false }, [Validators.required,]),
+            FRFC: new FormControl({ value: "", disabled: false }, [Validators.required,Validators.min(15),Validators.max(20)]),
+            PesoFC: new FormControl({ value: "", disabled: false }, [Validators.required,Validators.min(3000),Validators.max(20000)]),
+            TallaFC: new FormControl({ value: "", disabled: false }, [Validators.required,Validators.min(30),Validators.max(100)]),
             imcFC: new FormControl({ value: "", disabled: true }, []),
-            PCFC: new FormControl({ value: "", disabled: false }, [ Validators.required,]),
+            PCFC: new FormControl({ value: "", disabled: false }, [ Validators.required,Validators.min(10),Validators.max(20)]),
             obsFC: new FormControl({ value: "", disabled: false }, []),
         });
         this.generalInfoFG = new FormGroup({
