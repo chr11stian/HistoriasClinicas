@@ -2,7 +2,7 @@
 <div class="p-card">
     <p-toolbar styleClass="p-mb-4">
         <ng-template pTemplate="left">
-            <h3 class="p-m-0">Lista de Personal de Salud</h3>
+            <h3 class="p-m-0">{{ texto }}</h3>
         </ng-template>
 
         <ng-template pTemplate="right" class="button">
@@ -60,13 +60,14 @@
                 <th style="text-align: center">Tipo Personal</th>
                 <th style="text-align: center">Colegio Profesional</th>
                 <!-- <th style="text-align: center">Colegiatura</th> -->
-                <th style="text-align: center">Tipo Contrato</th>
+                <th *ngIf="!root" style="text-align: center">Tipo Contrato</th>
                 <!-- <th style="text-align: center">EESS</th> -->
-                <th style="text-align: center">Estado</th>
-                <th style="text-align: center">Especialidad</th>
-                <th style="text-align: center">Rol</th>
+                <th *ngIf="!root" style="text-align: center">Estado</th>
+                <th *ngIf="!root" style="text-align: center">Especialidad</th>
+                <th *ngIf="!root" style="text-align: center">Rol</th>
                 <th *ngIf="!root" style="text-align: center">Rol Sistema</th>
-                <th style="text-align: center; width: 120px">Acción</th>
+                <th *ngIf="!root" style="text-align: center; width: 120px">Acción</th>
+                <th *ngIf="root" style="text-align: center">Ipress</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
@@ -75,14 +76,14 @@
                 <td style="text-align: center">{{ rowData.nroDoc }}</td>
                 <td style="text-align: center">
                     {{
-                        rowData.apePaterno +
+                        rowData.apePaterno.toUpperCase() +
                             " " +
                             rowData.apeMaterno.toUpperCase()
                     }}
                 </td>
                 <td style="text-align: center">
                     {{
-                        rowData.primerNombre +
+                        rowData.primerNombre.toUpperCase() +
                             " " +
                             rowData.otrosNombres.toUpperCase()
                     }}
@@ -104,11 +105,11 @@
                     }}
                 </td>
                 <!-- <td style="text-align: center">{{ rowData.colegiatura }}</td> -->
-                <td style="text-align: center">
+                <td *ngIf="!root" style="text-align: center">
                     {{ rowData.contratoAbreviatura.toUpperCase() }}
                 </td>
                 <!-- <td style="text-align: center">{{ rowData.detalleIpress ? rowData.detalleIpress[0].eess : "" }}</td> -->
-                <td style="text-align: center">
+                <td *ngIf="!root" style="text-align: center">
                     <p-tag
                         *ngIf="rowData.estado"
                         styleClass="p-mr-2"
@@ -126,7 +127,7 @@
                     </p-tag>
                 </td>
 
-                <td style="text-align: center">
+                <td *ngIf="!root" style="text-align: center">
                     <button
                         pButton
                         pRipple
@@ -135,7 +136,7 @@
                         (click)="newEspecialidad(rowData)"
                     ></button>
                 </td>
-                <td style="text-align: center">
+                <td *ngIf="!root" style="text-align: center">
                     <button
                         pButton
                         pRipple
@@ -153,7 +154,7 @@
                         (click)="newRolSistema(rowData)"
                     ></button>
                 </td>
-                <td style="text-align: center">
+                <td *ngIf="!root" style="text-align: center">
                     <button
                         pButton
                         pRipple
@@ -170,6 +171,9 @@
                         icon="pi pi-trash"
                         class="p-button-rounded p-button-danger m-1"
                     ></button>
+                </td>
+                <td *ngIf="root" style="text-align: center">
+                    {{ rowData.detalleIpress[0].eess.toUpperCase() }}
                 </td>
             </tr>
         </ng-template>
