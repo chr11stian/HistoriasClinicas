@@ -77,4 +77,10 @@ export class FinalizarConsultaService {
             .then(res => <any[]>res)
             .then(data => { return data; });
     }
+    getShowFuaData(idConsulta:string){
+        return this.http.get(`${this.urlServer}/${this.bd}/fua/obtener/all/fua/${idConsulta}`)
+            .toPromise()
+            .then(res => <any[]>res)
+            .then(data => { return data; });
+    }
 }

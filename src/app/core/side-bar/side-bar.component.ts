@@ -1,4 +1,4 @@
-import { inmunizaciones } from './../../cred/citas/atencion-cred/plan/component/plan-atencion-integral/models/plan-atencion-integral.model';
+import { inmunizaciones } from "./../../cred/citas/atencion-cred/plan/component/plan-atencion-integral/models/plan-atencion-integral.model";
 import { escala } from "./../../cred/citas/models/data";
 import { Component, Input, OnInit, DoCheck } from "@angular/core";
 import { FilterService, MenuItem } from "primeng/api";
@@ -30,11 +30,6 @@ const menu_geresa = [
     {
         label: "Mantenimientos",
         items: [
-            {
-                label: "Crear Red",
-                icon: "pi pi-pw pi-file",
-                routerLink: "admision/ipress",
-            },
             {
                 icon: "pi pi-file",
                 label: "Tipo Personal",
@@ -273,11 +268,6 @@ const administracion2 = {
     icon: "pi pi-cog",
     items: [
         {
-            label: "Ipress",
-            icon: "pi pi-pw pi-file",
-            routerLink: "admision/ipress",
-        },
-        {
             label: "Ups Auxiliar",
             icon: "pi pi-pw pi-file",
             routerLink: "mantenimientos/ups-aux",
@@ -394,10 +384,9 @@ const historias = {
                     routerLink: "obstetricia-general/historia-consultas",
                 },*/
                 {
-                    label:"Padron nominal",
-                    icon:"pi pi-book",
-                    routerLink:"padron-nominal-gestante/mantenimiento",
-                    
+                    label: "Padron nominal",
+                    icon: "pi pi-book",
+                    routerLink: "padron-nominal-gestante/mantenimiento",
                 },
             ],
         },
@@ -584,9 +573,9 @@ const visitas = {
             routerLink: "visitas-domiciliarias/profesional-gestantes",
         },
         {
-            label:"Padron nominal",
-            icon:"pi pi-book",
-            routerLink:"padron-nominal-gestante/mantenimiento",
+            label: "Padron nominal",
+            icon: "pi pi-book",
+            routerLink: "padron-nominal-gestante/mantenimiento",
         },
     ],
 };
@@ -596,8 +585,13 @@ const root = {
     items: [
         {
             label: "Administradores",
-            icon: "pi pi-pw pi-file",
+            icon: "pi pi-pw pi-users",
             routerLink: "admision/personal-salud",
+        },
+        {
+            label: "Ipress",
+            icon: "pi pi-pw pi-calendar",
+            routerLink: "admision/ipress",
         },
     ],
 };
@@ -642,7 +636,7 @@ export class SideBarComponent implements OnInit, DoCheck {
         }
         if (this.rol === "ROLE_LAB_PERSONAL") {
             menu_ipress.length = 0;
-            menu_ipress.push(laboratorio);     
+            menu_ipress.push(laboratorio);
         }
         if (this.rol === "ROLE_FARM_PERSONAL") {
             menu_ipress.length = 0;

@@ -132,7 +132,6 @@ export class RolGuardiaComponent implements OnInit {
       idIpress:this.idIpressZarzuela
     }
     this.rolGuardiaService.getAmbientesPorIpres(inputRequest).subscribe((resp)=>{
-      console.log('lista de ambientes',resp['object'])
       this.listaAmbienteXipres=resp['object']
       this.loadingUps = false;
     })
@@ -161,7 +160,6 @@ export class RolGuardiaComponent implements OnInit {
       }
       this.matriz.push(filaAux);
     })
-    console.log('change ups evento:', this.matriz)
   }
   numeroDiasMes() {
     this.nroDiasMes = new Date(
@@ -330,7 +328,7 @@ export class RolGuardiaComponent implements OnInit {
           })
         })
         this.calcularNroHorasGeneral();
-        console.log('exito')
+        // console.log('exito')
         // console.log('todo1 el personal',this.listaPersonal)
         // console.log('solo personal con rol',listaRol)
         //toda la logica
@@ -344,28 +342,22 @@ export class RolGuardiaComponent implements OnInit {
     for (let i = 0; i < this.matriz.length; i++) {
       let contadorAuxiliar = 0;
       for (let j = 0; j < this.matriz[0].length; j++) {
-        contadorAuxiliar += this.matriz[i][j]["nroHoras"]|| 0;
+        contadorAuxiliar += (this.matriz[i][j]["nroHoras"]|| 0);
         this.listaHoras[i] = contadorAuxiliar;
       }
     }
   }
 
   recalcularxFila(nroFila: number) {
-    console.log('estado de la matriz',this.matriz);
-    
     let nroHoras = 0;
-   /*  for (let j = 0; j < this.matriz[0].length; j++) {
-      nroHoras = nroHoras + this.matriz[nroFila][j]["nroHoras"];
-    }*/
     this.matriz[0].forEach((element,index) => {
-      nroHoras=nroHoras+this.matriz[nroFila][index]?.nroHoras || 0
+      nroHoras=nroHoras+(this.matriz[nroFila][index].nroHoras || 0)
     });
     this.listaHoras[nroFila] = nroHoras;
   }
 
   changeTurno(i, j) {
     this.recalcularxFila(i);
-    console.log('mostramos matriz',this.matriz)
   }
 
   construirFilaDelDia(fila) {
@@ -383,7 +375,6 @@ export class RolGuardiaComponent implements OnInit {
     
     /* Validamos que se aya seleccionado toda la fila */
     const turnos= this.construirFilaDelDia(this.indexSelected);
-    console.log('matriz Actuaal', turnos);
     let turnoMesInvalido=false
     turnos.forEach((item)=>{
       if(item.abreviatura=="NA"){
@@ -399,10 +390,7 @@ export class RolGuardiaComponent implements OnInit {
         timer: 1500,
       })
       return
-    }
-
-    console.log('no debe llegar aki');
-        
+    }        
     this.confirmationService.confirm({
       header: "Confirmación",
       message: `Estas seguro que deseas asignar rol para el personal ${this.listaPersonal[this.indexSelected]['nombreCompleto']},con un total de ${this.listaHoras[this.indexSelected]} horas `,

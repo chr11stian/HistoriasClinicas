@@ -493,7 +493,7 @@ export class ControlCrecimientoComponent implements OnInit, DoCheck {
                 antecedente = r.object.nacimientoperimetroCefalico;
                 list.unshift({
                     peso: r.object.nacimiento.pesoAlNacer,
-                    talla: r.object.nacimiento.tallaAlNacer ,
+                    talla: r.object.nacimiento.tallaAlNacer,
                     perimetroCefalico: r.object.nacimiento.perimetroCefalico,
                     dias: 0,
                 });
@@ -509,13 +509,13 @@ export class ControlCrecimientoComponent implements OnInit, DoCheck {
                     item.talla != 0.0 &&
                     item.perimetroCefalico !== 0.0
                 ) {
-                    this.mesesPeso.push([item.dias / 30, item.peso]);
-                    this.mesesAltura.push([item.dias / 30, item.talla * 100]);
+                    this.mesesPeso.push([item.dias / 30, item.peso / 1000]);
+                    this.mesesAltura.push([item.dias / 30, item.talla]);
                     this.mesesCircunferencia.push([
                         item.dias / 30,
-                        item.perimetroCefalico * 100,
+                        item.perimetroCefalico,
                     ]);
-                    this.mesesAlturaPeso.push([item.talla * 100, item.peso]);
+                    this.mesesAlturaPeso.push([item.talla, item.peso / 1000]);
                 }
             });
         }, 1000);
