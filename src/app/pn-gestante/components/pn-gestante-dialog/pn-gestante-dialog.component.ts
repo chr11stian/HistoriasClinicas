@@ -198,8 +198,8 @@ editarDatos() {
       this.formGestante.get("eessActual").setValue(this.dataGestanteEditar.value.eessActual);
       this.formGestante.get("hcl2").setValue(this.dataGestanteEditar.value.hcl2);
       this.formGestante.get("fechaReg").setValue(this.datePipe.transform(this.dataGestanteEditar.value.fechaReg,'yyyy-MM-dd'));
-      this.formGestante.get("fur").setValue(this.datePipe.transform(this.formatoFecha(this.dataGestanteEditar.value.fur),'yyyy-MM-dd'));
-      this.formGestante.get("fpp").setValue(this.datePipe.transform(this.formatoFecha(this.dataGestanteEditar.value.fpp),'yyyy-MM-dd'));
+      this.formGestante.get("fur").setValue(this.datePipe.transform(this.dataGestanteEditar.value.fur,'yyyy-MM-dd'));
+      this.formGestante.get("fpp").setValue(this.datePipe.transform(this.dataGestanteEditar.value.fpp,'yyyy-MM-dd'));
       this.formGestante.get("direccion").setValue(this.dataGestanteEditar.value.direccion);
       this.formGestante.get("referencia").setValue(this.dataGestanteEditar.value.referencia);
       this.formGestante.get("telefono").setValue(this.dataGestanteEditar.value.telefono);
@@ -219,6 +219,7 @@ formatoFecha(date:string){
   return auxBirth;
   // this.formGestante.get('fpp').setValue(this.datePipe.transform(auxBirth,'yyyy-MM-dd'));
 }
+
 cargarDatosPadron(event) {
   let nroDoc=this.formGestante.value.nroDocIdentidad;
   this.pn_gestanteServicio.couch=true;

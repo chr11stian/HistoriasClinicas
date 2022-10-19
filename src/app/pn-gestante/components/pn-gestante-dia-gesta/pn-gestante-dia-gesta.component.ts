@@ -160,18 +160,17 @@ export class PnGestanteDiaGestaComponent implements OnInit {
     this.pn_gestanteServicio.couch = true;
     let nroDoc = this.formGestante.value.formNroDocGestante;
     if(nroDoc.length>=8){
-
       this.pn_gestanteServicio.getGestanteDni(nroDoc).subscribe((data: any) => {
         console.log("DATA RECUPERADA :", data);
         this.dataGestante = data.rows[0].value;
-        if(this.dataGestante==undefined){
+        if(this.dataGestante===undefined){
             this.messageService.add({
               key: "myMessage1",
               severity: "warn",
               summary: "Data obtenida",
               detail: "Gestante no registrado en el padron",
             });
-        }else{
+        }if(this.dataGestante!=undefined){
           console.log("dataaaaaa ", this.dataGestante);
           this.formGestante
             .get("formTipoDoc")
@@ -268,7 +267,11 @@ export class PnGestanteDiaGestaComponent implements OnInit {
             });
           }
         }
-      });
+      },(err) => {
+        this.dataGestante = {};
+        console.log("Ups algo salio mal",this.dataGestante);
+      }
+    );
     }
   this.mostrarPadronNominalGestantes();
   }
@@ -329,7 +332,6 @@ export class PnGestanteDiaGestaComponent implements OnInit {
   }
 
   agregarGesta() {
-    //(this.datePipe.transform(this.dataGestanteEditar.value.fpp,'yyyy/MM/dd'));
     this.pn_gestanteServicio.couch = true;
     let nroGesta=this.formGestante.value.formGesta;
     let fur=this.datePipe.transform(this.formGestante.value.formFUR,'dd/MM/yyyy');
