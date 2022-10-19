@@ -149,10 +149,10 @@ export class PnGestanteDiaGestaComponent implements OnInit {
       fpp:this.datePipe.transform(this.auxFPP,'dd/MM/yyyy'),
       codEessActual:this.pn_gestanteServicio.getauxCodeessActual(),
       eessActual:this.pn_gestanteServicio.getaux_eessActual(),
-      // morbilidadPotencial:this.formGestante.value.morbilidadPotencial,
-      // observaciones:this.formGestante.value.morbilidadPotencial,
-      // aborto:this.formGestante.value.morbilidadPotencial,
-      // estado:'',
+      morbilidadPotencial:this.dataGestante.morbilidadPotencial,
+      observaciones:this.dataGestante.observaciones,
+      aborto:this.dataGestante.aborto,
+      estado:'',
     }
   }
 
@@ -160,7 +160,7 @@ export class PnGestanteDiaGestaComponent implements OnInit {
     this.pn_gestanteServicio.couch = true;
     let nroDoc = this.formGestante.value.formNroDocGestante;
     if(nroDoc.length>=8){
-      this.pn_gestanteServicio.getGestanteDni(nroDoc).subscribe((data: any) => {
+      this.pn_gestanteServicio.getGestanteDniIpress(this.pn_gestanteServicio.getauxCodeessActual(),nroDoc).subscribe((data: any) => {
         console.log("DATA RECUPERADA :", data);
         this.dataGestante = data.rows[0].value;
         if(this.dataGestante===undefined){
