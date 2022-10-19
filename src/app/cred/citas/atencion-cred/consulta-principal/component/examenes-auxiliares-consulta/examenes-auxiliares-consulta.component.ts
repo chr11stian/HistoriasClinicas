@@ -746,6 +746,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   listarPeticionesExamenes() {
     this.auxExamService.getListarPeticiones(this.idConsulta).then((res) => {
       this.listaExamenesAux = res.object.examenesAuxiliares;
+      this.listaExamenesAux = this.listaExamenesAux.filter(item=>item.lugarExamen=='LABORATORIO');
     });
   }
   /* interconsulta */
