@@ -268,11 +268,6 @@ const administracion2 = {
     icon: "pi pi-cog",
     items: [
         {
-            label: "Ipress",
-            icon: "pi pi-pw pi-file",
-            routerLink: "admision/ipress",
-        },
-        {
             label: "Ups Auxiliar",
             icon: "pi pi-pw pi-file",
             routerLink: "mantenimientos/ups-aux",
