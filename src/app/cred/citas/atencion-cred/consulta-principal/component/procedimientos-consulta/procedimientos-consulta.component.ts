@@ -114,11 +114,11 @@ export class ProcedimientosConsultaComponent implements OnInit {
             { label: "REPETITIVO", value: "R" },
         ];
 
-        this.recuperarResumenDxBDInmunizaciones();
-        this.recuperarResumenDxBDSuplementaciones();
+        // this.recuperarResumenDxBDInmunizaciones();
+        // this.recuperarResumenDxBDSuplementaciones();
         this.recuperarResumenDxBDTamizajes();
         this.recuperarResumenDxBDEvaluaciones();
-        this.recuperarResumenDxBDLaboratorio();
+        // this.recuperarResumenDxBDLaboratorio();
         this.formProcedimiento.get("nombreUPS").setValue("ENFERMERIA");
         // this.formProcedimiento.get('nombreUPSaux').setValue("ATENCION INTEGRAL DE NINO");
         // this.formProcedimiento.get("tipo").setValue("DEFINITIVO");

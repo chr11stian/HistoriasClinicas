@@ -1,41 +1,41 @@
-<div class="grid">
-    <div class="col-12">
-        <p-table [value]="tablaResumenDx" class="summary" responsiveLayout="scroll" [(selection)]="selectedProducts"
-            [loading]="loading" [rowHover]="true" styleClass="p-datatable-gridlines">
+<div class="card">
+    <p-fieldset legend="RESUMEN" [toggleable]="true" [collapsed]="true" class="info-fieldset">
+        <div class="col-12">
+            <p-table [value]="tablaResumenDx" class="summary" responsiveLayout="scroll" [(selection)]="selectedProducts"
+                [loading]="loading" [rowHover]="true" styleClass="p-datatable-gridlines">
 
-            <ng-template pTemplate="caption">
-                <div class="flex justify-content-between">
-                    <div class="table-header mt-2">
-                        RESUMEN DE RESULTADOS DE EVALUACIONES - TESTS - TAMIZAJES - INMUNIZACIONES - LABORATORIO
+                <ng-template pTemplate="caption">
+                    <div class="flex justify-content-between">
+                        <div class="table-header mt-2">
+                            RESUMEN DE RESULTADOS DE EVALUACIONES - TESTS - TAMIZAJES - INMUNIZACIONES - LABORATORIO
+                        </div>
                     </div>
-                </div>
-            </ng-template>
-            <ng-template pTemplate="header">
-                <tr>
-                    <th style="text-align: center" class="font-2">Nro</th>
-                    <!--                    <th style="text-align: center" class="font-2">EDAD</th>-->
-                    <th style="text-align: center" class="font-2">NOMBRE</th>
-                    <th style="text-align: center" class="font-2">EVALUACIÓN</th>
-                    <th style="text-align: center" class="font-2">RESULTADO</th>
-                </tr>
-            </ng-template>
-
-            <ng-template pTemplate="body" let-listaResumen let-rowIndex="rowIndex">
-                <tr class="p-selectable-row"
-                    [ngClass]="{'fondoamarillo': listaResumen.nombre === 'INMUNIZACIONES','fondoverde':listaResumen.nombre === 'TAMIZAJES','fondoceleste':listaResumen.nombre === 'EVALUACIONES O TEST','fondogris':listaResumen.nombre === 'LABORATORIO','fondoSuplementacion':listaResumen.nombre === 'MNM'}">
-                    <td style="text-align: center"> {{rowIndex+1}} </td>
-                    <td style="text-align: center"> {{listaResumen.nombre}} </td>
-                    <td style="text-align: center"> {{listaResumen.evaluacion}} </td>
-                    <td style="text-transform:uppercase;text-align: center"
-                        [ngClass]="{'rojo': listaResumen.resultado === 'POSITIVO' || listaResumen.resultado =='RETRASO' || listaResumen.resultado =='NINO CON ALIMENTACION COMPLEMENTARIA INADECUADA' || listaResumen.resultado =='Sobrepeso' || listaResumen.resultado =='Riesgo microcefalia'  }">
-                        {{listaResumen.resultado}}
-                    </td>
-                </tr>
-            </ng-template>
-        </p-table>
-    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="text-align: center" class="font-2">Nro</th>
+                        <!--                    <th style="text-align: center" class="font-2">EDAD</th>-->
+                        <th style="text-align: center" class="font-2">NOMBRE</th>
+                        <th style="text-align: center" class="font-2">EVALUACIÓN</th>
+                        <th style="text-align: center" class="font-2">RESULTADO</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-listaResumen let-rowIndex="rowIndex">
+                    <tr class="p-selectable-row"
+                        [ngClass]="{'fondoamarillo': listaResumen.nombre === 'INMUNIZACIONES','fondoverde':listaResumen.nombre === 'TAMIZAJES','fondoceleste':listaResumen.nombre === 'EVALUACIONES O TEST','fondogris':listaResumen.nombre === 'LABORATORIO','fondoSuplementacion':listaResumen.nombre === 'MNM'}">
+                        <td style="text-align: center"> {{rowIndex+1}} </td>
+                        <td style="text-align: center"> {{listaResumen.nombre}} </td>
+                        <td style="text-align: center"> {{listaResumen.evaluacion}} </td>
+                        <td style="text-transform:uppercase;text-align: center"
+                            [ngClass]="{'rojo': listaResumen.resultado === 'POSITIVO' || listaResumen.resultado =='RETRASO' || listaResumen.resultado =='NINO CON ALIMENTACION COMPLEMENTARIA INADECUADA' || listaResumen.resultado =='Sobrepeso' || listaResumen.resultado =='Riesgo microcefalia'  }">
+                            {{listaResumen.resultado}}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </p-fieldset>
     <br>
-
 </div>
 
 <!-- <div id="opc">
@@ -82,8 +82,8 @@
                 </div>
             </div>
             <div class="col-2 p-fluid">
-                <p-button class="w-full button-agregar boton-azul" label="Agregar"
-                    icon="pi pi-plus" [loading]="loadings" (onClick)="agregarInterconsulta()"></p-button>
+                <p-button class="w-full button-agregar boton-azul" label="Agregar" icon="pi pi-plus"
+                    [loading]="loadings" (onClick)="agregarInterconsulta()"></p-button>
             </div>
         </div>
     </form>
@@ -178,7 +178,7 @@
                     </div>
                     <div class="col-3">
                         <button pButton pRipple icon="pi pi-plus" pButton type="button"
-                             class="add-button p-button-rounded boton-azul" label="Agregar"
+                            class="add-button p-button-rounded boton-azul" label="Agregar"
                             (click)="agregateProcedureSIS()"></button>
                     </div>
                     <div class="col-12 p-fluid">
@@ -267,7 +267,7 @@
                     </div>
                     <div class="col-3">
                         <button pButton pRipple icon="pi pi-plus" pButton type="button"
-                             class="add-button boton-azul p-button-rounded" label="Agregar"
+                            class="add-button boton-azul p-button-rounded" label="Agregar"
                             (click)="agregateProcedureHIS()"></button>
                     </div>
                     <div class="col-12 p-fluid">
@@ -305,7 +305,7 @@
             </p-table>
         </p-panel>
     </div>
-    <div class="col-12" >
+    <div class="col-12">
         <button pButton pRipple icon="pi pi-save" pButton type="button" style="background-color: #0c3866"
             label="Guardar" class="save-button p-button-rounded" (click)="confirmSave()"></button>
     </div>

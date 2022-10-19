@@ -1,34 +1,40 @@
-p-selectbutton >>> .p-selectbutton .p-button.p-highlight {
+p-selectbutton>>>.p-selectbutton .p-button.p-highlight {
   background: #0c3866;
   border-color: #0c3866;
 }
 
-p-calendar >>> .p-button {
+p-calendar>>>.p-button {
   background: #0c3866;
   border: 1px solid #0c3866;
   align-self: center;
 }
+
 .rojo {
   font-weight: 700;
   color: #bf0d21;
 }
+
 :host ::ng-deep .fondoSuplementacion {
   background-color: #addad2 !important;
 }
+
 :host ::ng-deep .fondoamarillo {
   background-color: #66adb4 !important;
 }
+
 :host ::ng-deep .fondoverde {
   background-color: #a6c0ce !important;
 }
+
 :host ::ng-deep .fondoceleste {
   background-color: #bfcea6 !important;
 }
+
 :host ::ng-deep .fondogris {
   background-color: #ceb4a6 !important;
 }
 
-p-toolbar >>> * {
+p-toolbar>>>* {
   align-self: center;
 }
 
@@ -44,7 +50,7 @@ p-toolbar >>> * {
   background: #003c71;
 }
 
-p-calendar >>> .p-button.p-button-icon-only {
+p-calendar>>>.p-button.p-button-icon-only {
   background-color: #003c71;
 }
 
@@ -52,12 +58,13 @@ p {
   margin: 0;
 }
 
-:host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+:host ::ng-deep .p-datatable .p-datatable-thead>tr>th {
   text-align: center !important;
   border: 1px solid #b6b6b6;
   background-color: #dddddd;
   padding: 0.5rem;
 }
+
 :host ::ng-deep .p-datatable.p-datatable-gridlines .p-datatable-header {
   background-color: #dddddd;
   border: 1px solid #b6b6b6;
@@ -68,13 +75,13 @@ p {
   z-index: 5;
 }
 
-:host >>> .p-dialog {
+:host>>>.p-dialog {
   z-index: 5;
   width: auto;
   background: #ffffff;
 }
 
-p-dialog >>> .p-dialog .p-dialog-header {
+p-dialog>>>.p-dialog .p-dialog-header {
   border-bottom: 0 none;
   background: #0c3866;
   color: #495057;
@@ -83,14 +90,15 @@ p-dialog >>> .p-dialog .p-dialog-header {
   border-top-left-radius: 3px;
   z-index: 89999;
 }
-p-dialog >>> .p-dialog .p-dialog-header .p-dialog-title {
+
+p-dialog>>>.p-dialog .p-dialog-header .p-dialog-title {
   font-weight: 600;
   font-size: 1.25rem;
   color: #ffffff;
   z-index: 89999;
 }
 
-.p-table >>> .p-table {
+.p-table>>>.p-table {
   overflow-x: auto;
 }
 
@@ -98,27 +106,33 @@ p-dialog >>> .p-dialog .p-dialog-header .p-dialog-title {
 div#opc {
   position: static;
 }
-p-speeddial >>> .p-button.p-button-icon-only.p-button-rounded {
+
+p-speeddial>>>.p-button.p-button-icon-only.p-button-rounded {
   background: green;
   border-color: green;
 }
+
 :host ::ng-deep .speeddial-semi-circle .p-speeddial-direction-left {
   right: 0;
   top: 290px;
 }
+
 :host ::ng-deep .button-agregar .p-button {
   background-color: #0c3866;
 }
+
 .add-button {
   transform: translate(10%, 50%);
   font-weight: bold;
 }
-.save-button{
-  top:50%;
-  left:50%;
-  transform: translate(-50%,-50%);
+
+.save-button {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   font-weight: bold;
 }
+
 ::ng-deep .procedure-panel .p-panel .p-panel-header {
   background: #0c3866;
   color: #FFF;
@@ -126,6 +140,27 @@ p-speeddial >>> .p-button.p-button-icon-only.p-button-rounded {
   font-size: 1.3rem;
   font-style: oblique;
 }
-::ng-deep .summary .p-datatable .p-datatable-tbody > tr > td {
-  padding: 0.6rem 1rem; 
+
+::ng-deep .summary .p-datatable .p-datatable-tbody>tr>td {
+  padding: 0.6rem 1rem;
+}
+
+::ng-deep .info-fieldset .p-fieldset .p-fieldset-legend {
+  padding: 0.5rem;
+  border: 1px solid #dee2e6;
+  color: #495057;
+  background: #d8dee5;
+  font-weight: 600;
+  border-radius: 5px;
+  font-size: small;
+}
+
+::ng-deep .info-fieldset .p-fieldset .p-fieldset-legend {
+  padding: 0.5rem;
+  border: 1px solid #dee2e6;
+  color: #495057;
+  background: #d8dee5;
+  font-weight: 600;
+  border-radius: 5px;
+  font-size: small;
 }
