@@ -516,7 +516,7 @@ export class MotivoConsultaComponent implements OnInit {
 
     imc() {
         let peso = this.examFG.value.PesoFC / 1000;
-        let talla = this.examFG.value.TallaFC * 100;
+        let talla = this.examFG.value.TallaFC / 100;
         let imc: number = peso / (talla * talla);
         this.examFG.get("imcFC").setValue(imc.toFixed(2));
     }

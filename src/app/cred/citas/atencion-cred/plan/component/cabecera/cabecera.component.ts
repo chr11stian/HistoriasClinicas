@@ -38,7 +38,7 @@ export class CabeceraComponent implements OnInit {
         this.items = [
             {label: "Datos Generales", styleClass: 'icon'},
             {label: "Antecedentes", styleClass: 'icon1'},
-            {label: "Plan de Atención Integral", styleClass: 'icon2'},
+            {label: "Plan de Atención", styleClass: 'icon2'},
             {label: "Evaluación General", styleClass: 'icon3'},
         ]
     }
