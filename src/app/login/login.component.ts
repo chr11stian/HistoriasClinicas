@@ -7,12 +7,14 @@ import { LoginRolComponent } from "./login-rol/login-rol.component";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
 import { rolInterface, escala, nombreRol } from "../cred/citas/models/data";
+import {MessageService} from 'primeng/api';
+
 
 @Component({
     selector: "app-login",
     templateUrl: "./login.component.html",
     styleUrls: ["./login.component.css"],
-    providers: [DialogService],
+    providers: [DialogService, MessageService],
 })
 export class LoginComponent implements OnInit, DoCheck {
     ref: DynamicDialogRef;
@@ -25,6 +27,7 @@ export class LoginComponent implements OnInit, DoCheck {
     mensaje: string = "";
 
     constructor(
+        private messageService: MessageService,
         private primengConfig: PrimeNGConfig,
         private loginService: LoginService,
         private router: Router,
@@ -61,9 +64,10 @@ export class LoginComponent implements OnInit, DoCheck {
         
         this.loginService.ingresar_login(credenciales, "hce").subscribe(
             (user: userInterface) => {
-                console.log("user", user);
+                //console.log("user", user);
                 if (user) {
                     this.loginService.roles = user.usuario.roles;
+                    this.messageService.add({key: 'bc', severity:'success', summary: '', detail: 'Usuario Correcto!'});                                  
                     this.openRol();
                 }
             },
@@ -89,6 +93,7 @@ export class LoginComponent implements OnInit, DoCheck {
                                     error.status == 500 ||
                                     error.status == 401
                                 ) {
+                                    this.messageService.add({key: 'bc', severity:'error', summary: 'ERROR!', detail: 'Usuario o Contraseña incorrecta'});
                                     this.mensaje =
                                         "usuario o contrasseña incorrecta";
                                 }
