@@ -37,6 +37,7 @@ export class PnGestanteDiaGestaComponent implements OnInit {
   gestanteEnGestacion:boolean=false;
   estado_gestante: any[] = [{ value: "Activo" }, { value: "Inactivo" }];
   morbilidad_potencial_a: any[] = [
+    { value: "Ninguna" },
     { value: "Gestante con antecedente de complicación obstetrica" },
     { value: "Gestante adolescente" },
     { value: "Primigista añosa" },
@@ -247,7 +248,7 @@ export class PnGestanteDiaGestaComponent implements OnInit {
             .get("formAborto")
             .setValue(this.dataGestante.aborto==true?"SI":"NO");
             console.log(this.FechaActual)
-          if (this.semanaGestacional(this.dataGestante.fur)>40 || this.dataGestante.aborto==true || this.dataGestante.fpp>this.FechaActual) {
+          if (this.semanaGestacional(this.formatoFecha(this.dataGestante.fur))>40 || this.dataGestante.aborto==true || this.dataGestante.fpp>this.FechaActual) {
             this.agregarNuevaGesta = false;
             this.messageService.add({
               key: "myMessage1",
@@ -356,6 +357,7 @@ export class PnGestanteDiaGestaComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500,
           });
+        this.mostrarPadronNominalGestantes();
         }else{
           console.log("se actualizo correctamente", res);
           Swal.fire({

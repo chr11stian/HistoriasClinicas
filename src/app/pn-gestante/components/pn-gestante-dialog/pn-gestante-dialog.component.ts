@@ -38,10 +38,12 @@ export class PnGestanteDialogComponent implements OnInit {
   selectedAborto:boolean;
   auxGestanteCambiar:any;
   listaGestantesPuerpera: any[] = [];
+
   sis:any []=[
     {value:'SI'},
     {value:'NO'}
   ]
+
   aborto:any []=[
     {label:'SI',value:true},
     {label:'NO',value:false}
@@ -52,6 +54,7 @@ export class PnGestanteDialogComponent implements OnInit {
     {value:'Inactivo'}
   ]
   morbilidad_potencial_a:any []=[
+    {value: "Ninguna" },
     {value:'Gestante con antecedente de complicación obstetrica'},
     {value:'Gestante adolescente'},
     {value:'Primigista añosa'},
@@ -67,6 +70,7 @@ export class PnGestanteDialogComponent implements OnInit {
   listaDocumentos:any []=[
     {value:'DNI'},
   ];
+
   constructor(private fb:FormBuilder,
               private ref:DynamicDialogRef,
               private pn_gestanteServicio:PnGestanteService,
@@ -198,8 +202,8 @@ editarDatos() {
       this.formGestante.get("eessActual").setValue(this.dataGestanteEditar.value.eessActual);
       this.formGestante.get("hcl2").setValue(this.dataGestanteEditar.value.hcl2);
       this.formGestante.get("fechaReg").setValue(this.datePipe.transform(this.dataGestanteEditar.value.fechaReg,'yyyy-MM-dd'));
-      this.formGestante.get("fur").setValue(this.datePipe.transform(this.dataGestanteEditar.value.fur,'yyyy-MM-dd'));
-      this.formGestante.get("fpp").setValue(this.datePipe.transform(this.dataGestanteEditar.value.fpp,'yyyy-MM-dd'));
+      this.formGestante.get("fur").setValue(this.datePipe.transform(this.formatoFecha(this.dataGestanteEditar.value.fur),'yyyy-MM-dd'));
+      this.formGestante.get("fpp").setValue(this.datePipe.transform(this.formatoFecha(this.dataGestanteEditar.value.fpp),'yyyy-MM-dd'));
       this.formGestante.get("direccion").setValue(this.dataGestanteEditar.value.direccion);
       this.formGestante.get("referencia").setValue(this.dataGestanteEditar.value.referencia);
       this.formGestante.get("telefono").setValue(this.dataGestanteEditar.value.telefono);

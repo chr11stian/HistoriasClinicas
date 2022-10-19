@@ -15,7 +15,6 @@ export class SemanaGestacional implements PipeTransform{
             let newYear: any = fum[2];
             let auxBirth = newYear + '/' + newMonth + '/' + newDay ;
             let auxFUR = new Date(auxBirth).getTime();
-
             auxFUR = auxFUR + 0;
             let auxWeek = today - auxFUR;
             let edadGestacional = Math.trunc(auxWeek / (1000 * 60 * 60 * 24));

@@ -1,29 +1,38 @@
-  <p-table [value]="data"   #dt styleClass="p-datatable-gridlines" [rows]="4">
+<div style="background: #f8f9fa; height: 100%;">
+      <div class="flex">
+            <div class="col-12" style="text-align:center;">
+                <span style="font-size:1.5em ;">
+                    HISTORIAL DE GESTAS DE LA GESTANTE
+                </span>
+            </div>
+        </div>
+      <p-table [value]="data"   #dt styleClass="p-datatable-gridlines" [rows]="4">
             <ng-template pTemplate="header">
             <tr>
                   <th style="text-align: center" >Nro</th>
-                  <th style="text-align: center" >Nro gesta</th>
-                  <th style="text-align: center">Fur</th>
-                  <th style="text-align: center">Fpp</th>
-                  <th style="text-align: center" >Codigo eess</th>
-                  <th style="text-align: center">Eess</th>
-                  <th style="text-align: center" >Morbilidad potencial</th>
-                  <th style="text-align: center">Observaciones</th>
-                  <th style="text-align: center" >Estado</th>
+                  <th style="text-align: center" >NRO GESTA</th>
+                  <th style="text-align: center">FUR</th>
+                  <th style="text-align: center">FPP</th>
+                  <th style="text-align: center" >CÓDIGO EESS</th>
+                  <th style="text-align: center">EESS</th>
+                  <th style="text-align: center" >MORBILIDAD POTENCIAL</th>
+                  <th style="text-align: center">OBSERVACIONES</th>
+                  <th style="text-align: center" >ESTADO</th>
             </tr>
             </ng-template>
             <ng-template pTemplate="body"  let-RowData let-rowIndex="rowIndex">
             <tr> 
                   <td style="text-align: center">{{rowIndex+1}}</td>
-                  <td style="text-align: center">{{RowData.nroGesta}}</td>
-                  <td style="text-align: center">{{RowData.fur| date:"dd/MM/yyyy"}}</td>
-                  <td style="text-align: left">{{RowData.fpp | date:"dd/MM/yyyy"}}</td>
+                  <td style="text-align: center">{{RowData.nroGesta }} Gestación</td>
+                  <td style="text-align: center">{{RowData.fur }}</td>
+                  <td style="text-align: left">{{RowData.fpp}}</td>
                   <td style="text-align: center">{{RowData.codEessActual}}</td>
                   <td style="text-align: left">{{RowData.eessActual}}</td>
-                  <td style="text-align: center">{{RowData.morbilidadPotencial}}</td>
-                  <td style="text-align: center">{{RowData.observaciones}}</td>
+                  <td style="text-align: left">{{RowData.morbilidadPotencial}}</td>
+                  <td style="text-align: left">{{RowData.observaciones}}</td>
                   <td style="text-align: center">{{RowData.estado}}</td>
             </tr>
             </ng-template>
       </p-table>
+</div>
 
