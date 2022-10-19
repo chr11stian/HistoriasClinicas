@@ -37,11 +37,11 @@ export class PnGestanteDiaGestaComponent implements OnInit {
   gestanteEnGestacion:boolean=false;
   estado_gestante: any[] = [{ value: "Activo" }, { value: "Inactivo" }];
   morbilidad_potencial_a: any[] = [
-    { value: "Ninguna" },
-    { value: "Gestante con antecedente de complicación obstetrica" },
-    { value: "Gestante adolescente" },
-    { value: "Primigista añosa" },
-    { value: "Multigesta y/o multipara" },
+    { value: "NINGUNA" },
+    { value: " GESTANTE CON ANTECEDENTE DE COMPLICACIÓN OBSTETRICA" },
+    { value: "GESTANTE ADOLESCENTE" },
+    { value: "PRIMIGISTA AÑOSA" },
+    { value: "MULTIGESTA Y/O MULTIPARA" },
     { value: "Gestantes con captación tardia" },
     { value: "Gestante con rechazo al servicio de salud" },
     { value: "Gestante traseunte" },

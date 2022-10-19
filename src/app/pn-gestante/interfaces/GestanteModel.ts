@@ -11,7 +11,7 @@ export interface GestanteModel{
       tieneSis?:string,
       direccion?:string,
       referencia?:string,
-      hcl2?:string,
+      hcl?:string,
       codEessAnterior?:string,
       eessAnterior?:string,
       codEessActual?:string,

@@ -96,12 +96,12 @@ inicializarForm(){
     apellidos:new FormControl('',[Validators.required]),
     fechaNacimiento:new FormControl('',[Validators.required]),
     tipoDocIdentidad:new FormControl('',[Validators.required]),
-    nroDocIdentidad:new FormControl('',[Validators.required]),
+    nroDocIdentidad:new FormControl('',[Validators.required, Validators.minLength(8)]),
     telefono:new FormControl('',[Validators.required]),
     tieneSis:new FormControl('',[Validators.required]),
     direccion:new FormControl('',[Validators.required]),
     referencia:new FormControl('',[Validators.required]),
-    hcl2:new FormControl('',[Validators.required]),
+    hcl:new FormControl('',[Validators.required]),
     codEessAnterior:new FormControl(this.pn_gestanteServicio.getauxCodeessActual(),[Validators.required]),
     eessAnterior:new FormControl(this.pn_gestanteServicio.getaux_eessActual(),[Validators.required]),
     codEessActual:new FormControl(this.pn_gestanteServicio.getauxCodeessActual(),[Validators.required]),
@@ -187,41 +187,41 @@ calcularFPP(){
 
 editarDatos() {
   if ((this.dataGestanteEditar !== null) || (this.dataGestanteEditar !== undefined)) {
-      console.log("DATA RECUPERADO GESTANTE", this.dataGestanteEditar)
-      this.formGestante.get("tipoDocIdentidad").setValue(this.dataGestanteEditar.value.tipoDocIdentidad);
-      this.formGestante.get("nroDocIdentidad").setValue(this.dataGestanteEditar.value.nroDocIdentidad);
-      this.formGestante.get("tieneSis").setValue(this.dataGestanteEditar.value.tieneSis==""?'NO':'SI');
-      this.formGestante.get("fechaNacimiento").setValue(this.datePipe.transform(this.dataGestanteEditar.value.fechaNacimiento,'yyyy-MM-dd'));
-      this.formGestante.get("aborto").setValue(this.dataGestanteEditar.value.aborto==true?'SI':'NO');
-      this.formGestante.get("nroGesta").setValue(this.dataGestanteEditar.value.nroGesta.length);
-      this.formGestante.get("nombres").setValue(this.dataGestanteEditar.value.nombres);
-      this.formGestante.get("apellidos").setValue(this.dataGestanteEditar.value.apellidos);
-      this.formGestante.get("codEessAnterior").setValue(this.dataGestanteEditar.value.codEessAnterior);
-      this.formGestante.get("eessAnterior").setValue(this.dataGestanteEditar.value.eessAnterior);
-      this.formGestante.get("codEessActual").setValue(this.dataGestanteEditar.value.codEessActual);
-      this.formGestante.get("eessActual").setValue(this.dataGestanteEditar.value.eessActual);
-      this.formGestante.get("hcl2").setValue(this.dataGestanteEditar.value.hcl2);
-      this.formGestante.get("fechaReg").setValue(this.datePipe.transform(this.dataGestanteEditar.value.fechaReg,'yyyy-MM-dd'));
-      this.formGestante.get("fur").setValue(this.datePipe.transform(this.formatoFecha(this.dataGestanteEditar.value.fur),'yyyy-MM-dd'));
-      this.formGestante.get("fpp").setValue(this.datePipe.transform(this.formatoFecha(this.dataGestanteEditar.value.fpp),'yyyy-MM-dd'));
-      this.formGestante.get("direccion").setValue(this.dataGestanteEditar.value.direccion);
-      this.formGestante.get("referencia").setValue(this.dataGestanteEditar.value.referencia);
-      this.formGestante.get("telefono").setValue(this.dataGestanteEditar.value.telefono);
-      this.formGestante.get("morbilidadPotencial").setValue(this.dataGestanteEditar.value.morbilidadPotencial);
-      this.formGestante.get("observaciones").setValue(this.dataGestanteEditar.value.observaciones);
+        // console.log("DATA RECUPERADO GESTANTE", this.dataGestanteEditar)
+        this.formGestante.get("tipoDocIdentidad").setValue(this.dataGestanteEditar.value.tipoDocIdentidad);
+        this.formGestante.get("nroDocIdentidad").setValue(this.dataGestanteEditar.value.nroDocIdentidad);
+        this.formGestante.get("tieneSis").setValue(this.dataGestanteEditar.tieneSis===''?'NO':'SI');
+        this.formGestante.get("fechaNacimiento").setValue(this.datePipe.transform(this.dataGestanteEditar.value.fechaNacimiento,'yyyy-MM-dd'));
+        this.formGestante.get("aborto").setValue('NO');
+        // console.log('aborto estado',this.dataGestanteEditar.value.aborto);
+        this.formGestante.get("nroGesta").setValue(this.dataGestanteEditar.value.nroGesta.length);
+        this.formGestante.get("nombres").setValue(this.dataGestanteEditar.value.nombres);
+        this.formGestante.get("apellidos").setValue(this.dataGestanteEditar.value.apellidos);
+        this.formGestante.get("codEessAnterior").setValue(this.dataGestanteEditar.value.codEessAnterior);
+        this.formGestante.get("eessAnterior").setValue(this.dataGestanteEditar.value.eessAnterior);
+        this.formGestante.get("codEessActual").setValue(this.dataGestanteEditar.value.codEessActual);
+        this.formGestante.get("eessActual").setValue(this.dataGestanteEditar.value.eessActual);
+        this.formGestante.get("hcl").setValue(this.dataGestanteEditar.value.hcl);
+        this.formGestante.get("fechaReg").setValue(this.datePipe.transform(this.dataGestanteEditar.value.fechaReg,'yyyy-MM-dd'));
+        this.formGestante.get("fur").setValue(this.datePipe.transform(this.formatoFecha(this.dataGestanteEditar.value.fur),'yyyy-MM-dd'));
+        console.log(this.datePipe.transform(this.formatoFecha(this.dataGestanteEditar.value.fur),'yyyy-MM-dd'));
+        this.formGestante.get("fpp").setValue(this.datePipe.transform(this.formatoFecha(this.dataGestanteEditar.value.fpp),'yyyy-MM-dd'));
+        this.formGestante.get("direccion").setValue(this.dataGestanteEditar.value.direccion);
+        this.formGestante.get("referencia").setValue(this.dataGestanteEditar.value.referencia);
+        this.formGestante.get("telefono").setValue(this.dataGestanteEditar.value.telefono);
+        this.formGestante.get("morbilidadPotencial").setValue(this.dataGestanteEditar.value.morbilidadPotencial);
+        this.formGestante.get("observaciones").setValue(this.dataGestanteEditar.value.observaciones);
   }
   return
 }
 formatoFecha(date:string){
-  let fum: any =date.split("/");
-  console.log(fum);
-  let newDay: any = fum[0];
-  let newMonth: any =fum[1];
-  let newYear: any = fum[2];
+  let fecha: any =date.split("/");
+  let newDay: any = fecha[0];
+  let newMonth: any =fecha[1];
+  let newYear: any = fecha[2];
 
-  let auxBirth = newYear + '/' + newMonth + '/' + newDay ;
-  return auxBirth;
-  // this.formGestante.get('fpp').setValue(this.datePipe.transform(auxBirth,'yyyy-MM-dd'));
+  let fecha_nuevo_formato = newYear + '/' + newMonth + '/' + newDay ;
+  return fecha_nuevo_formato;
 }
 
 cargarDatosPadron(event) {
@@ -252,7 +252,7 @@ cargarDatosPadron(event) {
         this.formGestante.get("eessAnterior").setValue(this.dataGestante.eessAnterior);
         this.formGestante.get("codEessActual").setValue(this.dataGestante.codEessActual);
         this.formGestante.get("eessActual").setValue(this.dataGestante.eessActual);
-        this.formGestante.get("hcl2").setValue(this.dataGestante.hcl2);
+        this.formGestante.get("hcl").setValue(this.dataGestante.hcl);
         this.formGestante.get("fechaReg").setValue(this.datePipe.transform(this.dataGestante.fechaReg,'yyyy-MM-dd'));
         this.formGestante.get("fur").setValue(this.datePipe.transform(this.formatoFecha(this.dataGestante.fur),'yyyy-MM-dd'));
         this.formGestante.get("fpp").setValue(this.datePipe.transform(this.formatoFecha(this.dataGestante.fpp),'yyyy-MM-dd'));
@@ -294,7 +294,7 @@ recuperarDatos(){
     tieneSis:this.formGestante.value.tieneSis,
     direccion:this.formGestante.value.direccion,
     referencia:this.formGestante.value.referencia,
-    hcl2:this.formGestante.value.hcl2,
+    hcl:this.formGestante.value.hcl,
     codEessAnterior:this.formGestante.value.codEessAnterior,
     eessAnterior:this.formGestante.value.eessAnterior,
     codEessActual:this.formGestante.value.codEessActual,
@@ -332,7 +332,7 @@ recuperarDatosEditar(){
     tieneSis:this.formGestante.value.tieneSis,
     direccion:this.formGestante.value.direccion,
     referencia:this.formGestante.value.referencia,
-    hcl2:this.formGestante.value.hcl2,
+    hcl:this.formGestante.value.hcl,
     codEessAnterior:this.formGestante.value.codEessAnterior,
     eessAnterior:this.formGestante.value.eessAnterior,
     codEessActual:this.formGestante.value.codEessActual,
@@ -372,7 +372,7 @@ saveForm() {
       detail: "Tiene que completar el formulario",
     });
   }
-  
+  this.mostrarPadronNominalGestantes();
 }
 
 EditarGestante() {
@@ -411,7 +411,6 @@ semanaGestacional(date:any):any {
     let auxWeek = today - auxFUR;
     let edadGestacional = Math.trunc(auxWeek / (1000 * 60 * 60 * 24));
     let semanas=Math.trunc(edadGestacional / 7);
-    let dias=edadGestacional % 7
     return semanas;
   }
 }
