@@ -12,6 +12,7 @@ import { environment } from "../../../../environments/environment";
 export class PersonalService {
     base_new = environment.base_login;
     base_url = environment.baseUrl;
+    base_login = environment.base_login;
     base_url_PIDE = environment.base_url_pide;
     bd = environment.bd;
     private _refresh = new Subject<void>();
@@ -142,6 +143,9 @@ export class PersonalService {
     }
     getRoles(dni) {
         return this.http.get(`${this.base_new}/accesos/user/hce/${dni}`);
+    }
+    getListAdmin(){//http://192.168.5.3:3010/admins/listar
+        return this.http.get(`${this.base_login}/admins/listar`);
     }
     /* crearRol(data) {
         return this.http.post(`${this.base_uri_}/accesos/user`, data);
