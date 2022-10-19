@@ -19,7 +19,8 @@
                             <label for="DNI">DNI</label>
                             <input id="DNI" type="text" pInputText placeholder="DNI"
                                             formControlName="nroDocIdentidad"
-                                            (keyup)="cargarDatosPadron()"
+                                            (onChange)="cargarDatosPadron($event)"
+                                            (keyup)="cargarDatosPadron($event)"
                                             class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"/>
                         </div>
                         <div class="col-12 md:col-3" >
@@ -222,6 +223,7 @@
         type="button"
         (click)="updateOEdith()"
         label="Guardar"
+        [(disabled)]="estadoGuardar"
         class="p-button-primary mt-4 mr-3"
         ></button>
         <button
