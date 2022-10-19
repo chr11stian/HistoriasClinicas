@@ -75,8 +75,8 @@ export class TriajeCredComponent implements OnInit {
         { pro: "presionDiastolica", label: "PD (pa)", nameFC: "PDFC" },
         { pro: "fc", label: "FC (l*min):", nameFC: "FC" },
         { pro: "fr", label: "FR", nameFC: "FRFC" },
-        { pro: "peso", label: "Peso (kg)", nameFC: "PesoFC" },
-        { pro: "talla", label: "Talla (m)", nameFC: "TallaFC" },
+        { pro: "peso", label: "Peso (gr)", nameFC: "PesoFC" },
+        { pro: "talla", label: "Talla (cm)", nameFC: "TallaFC" },
         { pro: "imc", label: "imc(kg/m2)", nameFC: "imcFC" },
         { pro: "perimetroCefalico", label: "PC (cm)", nameFC: "PCFC" },
     ];
@@ -531,7 +531,7 @@ export class TriajeCredComponent implements OnInit {
             PesoFC: new FormControl({ value: "", disabled: false }, [Validators.required,Validators.min(3000),Validators.max(20000)]),
             TallaFC: new FormControl({ value: "", disabled: false }, [Validators.required,Validators.min(30),Validators.max(100)]),
             imcFC: new FormControl({ value: "", disabled: true }, []),
-            PCFC: new FormControl({ value: "", disabled: false }, [ Validators.required,Validators.min(10),Validators.max(20)]),
+            PCFC: new FormControl({ value: "", disabled: false }, [ Validators.required,Validators.min(20),Validators.max(55)]),
             obsFC: new FormControl({ value: "", disabled: false }, []),
         });
         this.generalInfoFG = new FormGroup({
@@ -900,8 +900,8 @@ export class TriajeCredComponent implements OnInit {
 
     imc() {
         console.log("cambio el ng model");
-        let peso = this.examFG.value.PesoFC;
-        let talla = this.examFG.value.TallaFC;
+        let peso = this.examFG.value.PesoFC / 1000;
+        let talla = this.examFG.value.TallaFC / 100;
         let imc: number = peso / (talla * talla);
         this.examFG.get("imcFC").setValue(imc.toFixed(2));
         this.imcCred = Number(imc.toFixed(2));
