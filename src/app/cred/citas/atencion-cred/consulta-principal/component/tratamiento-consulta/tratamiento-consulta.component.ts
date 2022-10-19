@@ -48,6 +48,8 @@ export class TratamientoConsultaComponent implements OnInit {
     listHIS: his[] = [];
     nexDate: NextDate;
     existData: boolean = false;
+    arrayFua: FUA[];
+    personalData: PersonalInfo;
     constructor(
         private tratamientoService: TratamientoConsultaService,
         private rolGuardiaService: RolGuardiaService,
@@ -128,7 +130,7 @@ export class TratamientoConsultaComponent implements OnInit {
         /* lista interconsulta */
         this.listaInterconsulta();
         /* his */
-        this.cargarHis();
+        
     }
 
     /* interconsulta */
@@ -250,14 +252,38 @@ export class TratamientoConsultaComponent implements OnInit {
 
     }
     /* his */
-    his() {
+    async his() {
+        this.cargarHis();
         this.isUpdateHIS = false;
         this.dialogHIS = true;
+        await this.finalizarConsulta.getShowFuaData(this.data.idConsulta).then((res: any) => {
+            this.arrayFua = res.object;
+            this.arrayFua.sort((a, b) => a.codPrestacion.localeCompare(b.codPrestacion));
+            if (this.arrayFua != null) {
+                this.personalData = {
+                    nombre: this.arrayFua[0].nombre + ' ' + this.arrayFua[0].apePaterno + ' ' + this.arrayFua[0].apeMaterno,
+                    tipoDoc: this.arrayFua[0].tipoDoc,
+                    nroDoc: this.arrayFua[0].nroDoc
+                }
+            }
+            console.log('data of fua ', this.personalData);
+        })
     }
     cargarHis() {
         this.tratamientoService
             .getHIS(this.data.idConsulta)
             .subscribe((r: any) => {
+                if (r.cod=="2015") {
+                    Swal.fire({
+                      icon: 'info',
+                      title: 'Ya se cerro la consulta',
+                      text: '',
+                      showConfirmButton: false,
+                      timer: 2000,
+                    });
+                    this.dialogHIS = false;
+                    return;
+                  }
                 this.listHIS = r.object;
                 console.log("his", this.listHIS);
                 this.listHIS == null ? this.existData = false : this.existData = true;
@@ -269,4 +295,30 @@ export class TratamientoConsultaComponent implements OnInit {
 interface NextDate {
     fecha: string;
     motivo?: string;
+}
+interface FUA {
+    nroDoc: string;
+    tipoDoc: string;
+    nombre: string;
+    apePaterno: string;
+    apeMaterno: string;
+    codPrestacion?: string;
+    inmunizaciones?: Inmunizaciones[];
+    diagnosticos?: Diagnosticos[];
+}
+interface Diagnosticos {
+    cie_10: string;
+    diagnostico: string;
+    lab?: string;
+    tipoDx: string;
+}
+interface Inmunizaciones {
+    nombre: string;
+    codPrestacion: string;
+    nombreComercial: string;
+}
+interface PersonalInfo {
+    nombre: string;
+    tipoDoc: string;
+    nroDoc: string;
 }

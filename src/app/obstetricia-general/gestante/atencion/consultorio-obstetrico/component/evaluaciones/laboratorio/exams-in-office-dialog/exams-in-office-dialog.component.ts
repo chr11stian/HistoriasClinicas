@@ -63,7 +63,8 @@ export class ExamsInOfficeDialogComponent implements OnInit {
 
   loadHemoglobinFormArray(hemoArray: HemoExam[], laboExams: LaboratoryExam[]): void {
     let auxLab:any = laboExams.filter(item => item.nombreExamen == 'DOSAJE DE HEMOGLOBINA');
-    auxLab = auxLab[0].lab;
+    console.log('data de aux lab' , auxLab);
+    auxLab = auxLab.length == 0? '': auxLab[0].lab;
     hemoArray.forEach(item => {
       let isDisabled: boolean;
       item.idConsulta == this.consultationId ? isDisabled = false : isDisabled = true;

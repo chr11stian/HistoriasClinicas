@@ -7,12 +7,14 @@ import { LoginRolComponent } from "./login-rol/login-rol.component";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
 import { rolInterface, escala, nombreRol } from "../cred/citas/models/data";
+import {MessageService} from 'primeng/api';
+
 
 @Component({
     selector: "app-login",
     templateUrl: "./login.component.html",
     styleUrls: ["./login.component.css"],
-    providers: [DialogService],
+    providers: [DialogService, MessageService],
 })
 export class LoginComponent implements OnInit, DoCheck {
     ref: DynamicDialogRef;
@@ -25,6 +27,7 @@ export class LoginComponent implements OnInit, DoCheck {
     mensaje: string = "";
 
     constructor(
+        private messageService: MessageService,
         private primengConfig: PrimeNGConfig,
         private loginService: LoginService,
         private router: Router,
@@ -51,7 +54,7 @@ export class LoginComponent implements OnInit, DoCheck {
             username: this.usuario,
             password: this.password,
         };
-        console.log("credenciales", credenciales);
+        //console.log("credenciales", credenciales);
         /* this.loginService.getUser(credenciales).subscribe((r: any) => {
             this.listRol = r.modo;
             console.log("listRoles", this.listRol);
@@ -64,7 +67,8 @@ export class LoginComponent implements OnInit, DoCheck {
                 console.log("user", user);
                 if (user) {
                     this.loginService.roles = user.usuario.roles;
-                    this.openRol();
+                    this.messageService.add({key: 'bc', severity:'success', summary: '', detail: 'Usuario Correcto!'});                                  
+                    this.openRol(user.usuario.nombres+ " "+ user.usuario.apellidos);
                 }
             },
             (error) => {
@@ -89,6 +93,7 @@ export class LoginComponent implements OnInit, DoCheck {
                                     error.status == 500 ||
                                     error.status == 401
                                 ) {
+                                    this.messageService.add({key: 'bc', severity:'error', summary: 'ERROR!', detail: 'Usuario o Contraseña incorrecta'});
                                     this.mensaje =
                                         "usuario o contrasseña incorrecta";
                                 }
@@ -108,8 +113,41 @@ export class LoginComponent implements OnInit, DoCheck {
         } */
     }
 
-    buildRol() {
-        console.log("rol", this.listRol);
+    openRol(usuario: string) {
+        this.ref = this.dialog.open(LoginRolComponent, {
+            header: "Bienvenido(a): " + usuario.toLowerCase(),
+            height: "35%",
+            width: this.size ? "60%" : "30%",
+            style: {
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+            },
+        });
+
+        this.ref.onClose.subscribe(() => {});
+    }
+}
+
+/*  Ingresar() {
+        let credenciales = {
+            username: this.usuario,
+            password: this.password,
+        };
+        this.loginService.user_login(credenciales).subscribe((resp) => {
+            console.log(resp);
+            if (resp.error) {
+                console.log("error");
+            }
+            if (resp.token) {
+                console.log("entro");
+                this.router.navigate(["dashboard"]);
+            }
+        });
+    } */
+    /* buildRol() {
+        //console.log("rol", this.listRol);
         this.listRol.map((r: rolInterface) => {
             this.listAux.push({
                 escala: r.escala,
@@ -140,38 +178,4 @@ export class LoginComponent implements OnInit, DoCheck {
         });
         this.loginService.listEscala = this.listAux;
         if (this.listAux !== null) this.openRol();
-    }
-
-    openRol() {
-        this.ref = this.dialog.open(LoginRolComponent, {
-            header: "USUARIO: " + this.usuario,
-            height: "35%",
-            width: this.size ? "60%" : "25%",
-            style: {
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-            },
-        });
-
-        this.ref.onClose.subscribe(() => {});
-    }
-}
-
-/*  Ingresar() {
-        let credenciales = {
-            username: this.usuario,
-            password: this.password,
-        };
-        this.loginService.user_login(credenciales).subscribe((resp) => {
-            console.log(resp);
-            if (resp.error) {
-                console.log("error");
-            }
-            if (resp.token) {
-                console.log("entro");
-                this.router.navigate(["dashboard"]);
-            }
-        });
     } */

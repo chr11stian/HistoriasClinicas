@@ -180,6 +180,9 @@ export class DiagnosticoConsultaComponent implements OnInit {
     this.listaInterconsulta();
     this.getUpsPerIpress();
     this.recoverConsultationDiagnostic();
+    this.recuperarResumenDxBDTamizajes();
+    this.recuperarResumenDxBDEvaluaciones();
+    
   }
 
   buildForm() {
@@ -580,6 +583,119 @@ export class DiagnosticoConsultaComponent implements OnInit {
       text: '',
       showConfirmButton: false,
       timer: 2000
+    });
+  }
+
+  recuperarResumenDxBDTamizajes() {
+    this.DiagnosticoService.getTamizajesResumen(this.dataConsulta.idConsulta).subscribe((r: any) => {
+      if (r.object != null || r.length > 0) {
+        this.loading = false;
+        for (let i = 0; i < r.object.length; i++) {
+          let aux = {
+            nombre: "TAMIZAJES",
+            evaluacion: "TAMIZAJE AUDITIVO",
+            resultado: r.object[i].resultadoAuditivo.valor,
+          };
+          this.tablaResumenDx.push(aux);
+          let aux1 = {
+            nombre: "TAMIZAJES",
+            evaluacion: "TAMIZAJE VIF",
+            resultado: r.object[i].resultadoVIF.valor,
+          };
+          this.tablaResumenDx.push(aux1);
+          let aux2 = {
+            nombre: "TAMIZAJES",
+            evaluacion: "TAMIZAJE VISUAL",
+            resultado: r.object[i].resultadoVisual.valor,
+          };
+          this.tablaResumenDx.push(aux2);
+        }
+      }
+    });
+  }
+
+  recuperarResumenDxBDEvaluaciones() {
+    this.DiagnosticoService.getEvaluacionesResumen(
+      this.dataConsulta.idConsulta
+    ).subscribe((r: any) => {
+      //-- recupera laboratorios resumen
+      if (r.object != null || r.length > 0) {
+        this.loading = false;
+        for (let i = 0; i < r.object.length; i++) {
+          if (r.object[i].evaluacioAlimentacion) {
+            let aux = {
+              nombre: "EVALUACIONES O TEST",
+              evaluacion: "EVALUACION DE ALIMENTACION",
+              resultado: r.object[i].evaluacioAlimentacion,
+            };
+            this.tablaResumenDx.push(aux);
+          }
+          if (r.object[i].testPeruano) {
+            let aux = {
+              nombre: "EVALUACIONES O TEST",
+              evaluacion: "TEST PERUANO",
+              resultado: r.object[i].testPeruano,
+            };
+            this.tablaResumenDx.push(aux);
+          }
+          if (r.object[i].testEEDP) {
+            let aux = {
+              nombre: "EVALUACIONES O TEST",
+              evaluacion: "TEST EDDP",
+              resultado: r.object[i].testEEDP,
+            };
+            this.tablaResumenDx.push(aux);
+          }
+          if (r.object[i].testTepsi) {
+            let aux = {
+              nombre: "EVALUACIONES O TEST",
+              evaluacion: "TEST TEPSI",
+              resultado: r.object[i].testTepsi,
+            };
+            this.tablaResumenDx.push(aux);
+          }
+          if (r.object[i].testPautaBreve) {
+            let aux = {
+              nombre: "EVALUACIONES O TEST",
+              evaluacion: "TEST PAUTA BREVE",
+              resultado: r.object[i].testPautaBreve,
+            };
+            this.tablaResumenDx.push(aux);
+          }
+          if (r.object[i].resultadoControlPE) {
+            let aux = {
+              nombre: "EVALUACIONES O TEST",
+              evaluacion: "CONTROL PESO - EDAD",
+              resultado: r.object[i].resultadoControlPE,
+            };
+            this.tablaResumenDx.push(aux);
+          }
+          if (r.object[i].resultadoControlTE) {
+            let aux = {
+              nombre: "EVALUACIONES O TEST",
+              evaluacion: "CONTROL TALLA - EDAD",
+              resultado: r.object[i].resultadoControlTE,
+            };
+            this.tablaResumenDx.push(aux);
+          }
+          if (r.object[i].resultadoControlPT) {
+            let aux = {
+              nombre: "EVALUACIONES O TEST",
+              evaluacion: "CONTROL PESO - TALLA",
+              resultado: r.object[i].resultadoControlPT,
+            };
+            this.tablaResumenDx.push(aux);
+          }
+          if (r.object[i].resultadoControlPC) {
+            let aux = {
+              nombre: "EVALUACIONES O TEST",
+              evaluacion: "CONTROL PERIMETRO CEFÁLICO",
+              resultado: r.object[i].resultadoControlPC,
+            };
+            this.tablaResumenDx.push(aux);
+          }
+        }
+      }
     });
   }
 }

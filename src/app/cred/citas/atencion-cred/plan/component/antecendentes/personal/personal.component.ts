@@ -269,9 +269,9 @@ export class PersonalComponent implements OnInit {
         this.recuperarDatos();
         console.log('isEditable',this.isEditable);
         
-        // if(!this.isEditable){
-        //     this.getFC('edadN').disable()
-        // }
+        if(!this.isEditable){
+            this.getFC('edadN').disable()
+        }
     }
 
     cambio(e, nombre: string) {
@@ -380,6 +380,9 @@ export class PersonalComponent implements OnInit {
             }
         )
 
+        
+    }
+    guardarAntecendentesPersonales(){
         console.log('entramos a guarda antecedentes');
         
         if (!this.isUpdateListaEnfermedades) {
@@ -392,7 +395,13 @@ export class PersonalComponent implements OnInit {
             }
             this.antecedentesService.addAntecedentesPersonalesPatologicos(auxp).subscribe((r) => {
                 this.isUpdateListaEnfermedades=true
-                console.log('se agrego')
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Guardo los antecedentes correctamente',
+                    text: '',
+                    showConfirmButton: false,
+                    timer: 1500,
+                })
 
             })
         } else {
@@ -404,9 +413,16 @@ export class PersonalComponent implements OnInit {
             }
             console.log('auxp', auxp)
             this.antecedentesService.addAntecedentesPersonalesPatologicos(auxp).subscribe((r) => {
-                console.log('se actualizo')
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Se actulizo los antecedentes correctamente',
+                    text: '',
+                    showConfirmButton: false,
+                    timer: 1500,
+                })
             })
         }
+
     }
 
     limpiar() {
