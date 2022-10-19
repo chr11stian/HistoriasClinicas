@@ -190,7 +190,7 @@
           </div>
         </div>
         <div class="col-2 p-fluid">
-          <p-button class="w-full boton-azul add-button" label="Agregar" icon="pi pi-plus" [loading]="loadings"
+          <p-button class="w-full button-agregar" label="Agregar" icon="pi pi-plus" [loading]="loadings"
             (onClick)="agregarInterconsulta()"></p-button>
         </div>
       </div>
@@ -217,7 +217,7 @@
           <td style="text-align: center">{{ rowData.nivelUrgencia }}</td>
           <td style="text-align: center">
             <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-              (click)="eliminarInterconsulta(rowData.idCupos,rowIndex)" pTooltip="Eliminar"></button>
+              (click)="eliminarInterconsulta(rowData.idCupos,rowIndex)" pTooltip="Eliminar" ></button>
           </td>
         </tr>
       </ng-template>
@@ -283,7 +283,7 @@
             </div>
             <div class="col-3 agregate-div ">
               <button pButton pRipple icon="pi pi-plus" pButton type="button" label="Agregar"
-                class="add-button p-button-rounded boton-azul" (click)="agregateDiagnosticFUA()"></button>
+                class="p-button-rounded button-agregar" (click)="agregateDiagnosticFUA()"></button>
             </div>
             <div class="col-12 p-fluid">
               <textarea style="text-transform:uppercase" rows="3" cols="30" pInputTextarea

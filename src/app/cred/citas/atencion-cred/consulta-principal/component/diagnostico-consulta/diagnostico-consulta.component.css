@@ -190,3 +190,7 @@ p-speeddial>>>.p-button.p-button-icon-only.p-button-rounded {
     border-radius: 5px;
     font-size: small;
 }
+.button-agregar {
+    background: #0c3866;
+    border: #0c3866;
+}
