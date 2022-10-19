@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit, DoCheck {
             username: this.usuario,
             password: this.password,
         };
-        console.log("credenciales", credenciales);
+        //console.log("credenciales", credenciales);
         /* this.loginService.getUser(credenciales).subscribe((r: any) => {
             this.listRol = r.modo;
             console.log("listRoles", this.listRol);
@@ -64,11 +64,11 @@ export class LoginComponent implements OnInit, DoCheck {
         
         this.loginService.ingresar_login(credenciales, "hce").subscribe(
             (user: userInterface) => {
-                //console.log("user", user);
+                console.log("user", user);
                 if (user) {
                     this.loginService.roles = user.usuario.roles;
                     this.messageService.add({key: 'bc', severity:'success', summary: '', detail: 'Usuario Correcto!'});                                  
-                    this.openRol();
+                    this.openRol(user.usuario.nombres+ " "+ user.usuario.apellidos);
                 }
             },
             (error) => {
@@ -113,8 +113,41 @@ export class LoginComponent implements OnInit, DoCheck {
         } */
     }
 
-    buildRol() {
-        console.log("rol", this.listRol);
+    openRol(usuario: string) {
+        this.ref = this.dialog.open(LoginRolComponent, {
+            header: "Bienvenido(a): " + usuario.toLowerCase(),
+            height: "35%",
+            width: this.size ? "60%" : "30%",
+            style: {
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+            },
+        });
+
+        this.ref.onClose.subscribe(() => {});
+    }
+}
+
+/*  Ingresar() {
+        let credenciales = {
+            username: this.usuario,
+            password: this.password,
+        };
+        this.loginService.user_login(credenciales).subscribe((resp) => {
+            console.log(resp);
+            if (resp.error) {
+                console.log("error");
+            }
+            if (resp.token) {
+                console.log("entro");
+                this.router.navigate(["dashboard"]);
+            }
+        });
+    } */
+    /* buildRol() {
+        //console.log("rol", this.listRol);
         this.listRol.map((r: rolInterface) => {
             this.listAux.push({
                 escala: r.escala,
@@ -145,38 +178,4 @@ export class LoginComponent implements OnInit, DoCheck {
         });
         this.loginService.listEscala = this.listAux;
         if (this.listAux !== null) this.openRol();
-    }
-
-    openRol() {
-        this.ref = this.dialog.open(LoginRolComponent, {
-            header: "USUARIO: " + this.usuario,
-            height: "35%",
-            width: this.size ? "60%" : "25%",
-            style: {
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-            },
-        });
-
-        this.ref.onClose.subscribe(() => {});
-    }
-}
-
-/*  Ingresar() {
-        let credenciales = {
-            username: this.usuario,
-            password: this.password,
-        };
-        this.loginService.user_login(credenciales).subscribe((resp) => {
-            console.log(resp);
-            if (resp.error) {
-                console.log("error");
-            }
-            if (resp.token) {
-                console.log("entro");
-                this.router.navigate(["dashboard"]);
-            }
-        });
     } */
