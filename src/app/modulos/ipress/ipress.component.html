@@ -300,7 +300,7 @@
                                             optionLabel="ccpp" [filter]="true" filterBy="ccpp" required>
                                         </p-dropdown>
                                         <p-dropdown *ngIf="isUpdate" class="inputRedondo"
-                                            [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down"
+                                            [showTransitionOptions]="'300ms'"   dropdownIcon="pi pi-chevron-down"
                                             inputId="dropdown" [options]="CCPPList" formControlName="centroPoblado"
                                             optionLabel="ccpp" [filter]="true" filterBy="ccpp" required>
                                         </p-dropdown>
@@ -586,7 +586,7 @@
                                 <p-dropdown *ngIf="!isUpdateAmbiente" placeholder="Nombre UPS" class="inputRedondo"
                                     [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down"
                                     inputId="dropdown" [options]="UPSList" formControlName="nombreUPS"
-                                    optionValue="nombreUPS" optionLabel="nombreUPS" appendTo="body" required>
+                                    optionValue="nombreUPS" optionLabel="nombreUPS" required>
                                 </p-dropdown>
                                 <p-dropdown *ngIf="isUpdateAmbiente" class="inputRedondo"
                                     [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down"

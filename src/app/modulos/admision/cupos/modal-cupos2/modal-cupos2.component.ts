@@ -101,6 +101,7 @@ export class ModalCupos2Component implements OnInit {
         console.log("DATA", this.dataPersonalSelecionado);
         // this.saveForm();
         this.iniciarPaciente();
+        // this.formPacientesCupo.get("detallePago").value('GRATUITO');
     }
 
     /**Recupera las provincias  de un determinado departamento cuando buscas un paciente por su dni**/
@@ -272,8 +273,8 @@ export class ModalCupos2Component implements OnInit {
             direccion: new FormControl({value:"",disabled:true}),
             
             tipoSeguro: new FormControl({value:"",disabled:true}),
-            detallePago: new FormControl("", [Validators.required]),
-            transeunte: new FormControl("", [Validators.required]),
+            detallePago: new FormControl("GRATUITO", [Validators.required]),
+            transeunte: new FormControl("RECURRENTE", [Validators.required]),
         });
     }
 

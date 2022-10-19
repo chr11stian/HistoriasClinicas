@@ -176,3 +176,12 @@ p-speeddial>>>.p-button.p-button-icon-only.p-button-rounded {
     transform: translate(-50%, -50%);
     font-weight: bold;
 }
+::ng-deep .info-fieldset .p-fieldset .p-fieldset-legend {
+    padding: 0.5rem;
+    border: 1px solid #dee2e6;
+    color: #495057;
+    background: #d8dee5;
+    font-weight: 600;
+    border-radius: 5px;
+    font-size: small;
+}
