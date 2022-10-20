@@ -111,14 +111,14 @@
                 <!-- <td style="text-align: center">{{ rowData.detalleIpress ? rowData.detalleIpress[0].eess : "" }}</td> -->
                 <td *ngIf="!root" style="text-align: center">
                     <p-tag
-                        *ngIf="rowData.estado"
+                        *ngIf="!rowData.estado"
                         styleClass="p-mr-2"
                         severity="success"
                         value="Activo"
                         [rounded]="true"
                     ></p-tag>
                     <p-tag
-                        *ngIf="!rowData.estado"
+                        *ngIf="rowData.estado"
                         styleClass="p-mr-2"
                         severity="danger"
                         value="Inactivo"
@@ -529,7 +529,6 @@
                         formControlName="detalleIpress"
                         optionLabel="nombreEESS"
                         placeholder="Seleccione Ipress"
-                        optionValue="id"
                         scrollHeight="80px"
                         required
                     >

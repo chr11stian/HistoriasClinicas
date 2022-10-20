@@ -8,6 +8,7 @@ import {dato} from "../../../../../../models/data";
 import {MedicamentosService} from "../../../../../../../../mantenimientos/services/medicamentos/medicamentos.service";
 import {DiagnosticoConsultaService} from "../../../../services/diagnostico-consulta.service";
 import { PrestacionService } from 'src/app/mantenimientos/services/prestacion/prestacion.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-tratamiento-cred',
@@ -42,6 +43,7 @@ export class TratamientoCredComponent implements OnInit {
   aux:any[]=[];
   dialogIndicaciones: boolean=false;
   dialogObservaciones: boolean=false;
+  urlReporte
 
   constructor(private tratamientoService: TratamientoConsultaService,
               private DiagnosticoService: DiagnosticoConsultaService,
@@ -88,6 +90,7 @@ export class TratamientoCredComponent implements OnInit {
     this.listarTratamientos();
     this.buscarCodigoIpress();
     this.listarDiagnosticos();
+    this.urlReporte=environment.base_urlTx+"/jasperserver/rest_v2/reports/Reports/RECETA/recetas.pdf?"
   }
 
   buildForm() {

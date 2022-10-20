@@ -19,7 +19,8 @@
                             <label for="DNI">DNI</label>
                             <input id="DNI" type="text" pInputText placeholder="DNI"
                                             formControlName="nroDocIdentidad"
-                                            (keyup)="cargarDatosPadron()"
+                                            (onChange)="cargarDatosPadron($event)"
+                                            (keyup)="cargarDatosPadron($event)"
                                             class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"/>
                         </div>
                         <div class="col-12 md:col-3" >
@@ -126,7 +127,7 @@
                     <div class="field col">
                         <label>H. Clinica:</label>
                         <input placeholder="Historia clinica" 
-                        type="text" pInputText formControlName='hcl2' 
+                        type="text" pInputText formControlName='hcl' 
                         class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                     </div>
                     <div class="field col">
@@ -139,21 +140,34 @@
                     </div>
                     <div class="field col">
                         <label>FUR:</label>
-                                <input type="date" pInputText 
-                                placeholder="Fecha de ultima regla"
-                                formControlName="fur"
-                                (blur)="calcularFPP()"
-                                [(ngModel)]="auxFUR"
-                                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                        <!-- <p-calendar dateFormat="dd/mm/yy" [showIcon]="true"  (blur)="calcularFPP()"
+                        [(ngModel)]="auxFUR" formControlName="fur"
+                        class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></p-calendar> -->
+                                <!-- 
+                                    -->
+                                    <input placeholder="Fecha de Registro" 
+                                    type="date" pInputText 
+                                    formControlName='fur' 
+                                    (blur)="calcularFPP()"
+                                    [(ngModel)]="auxFUR"
+                                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" 
+                                    >
                     </div>
                     <div class="field col">
                         <label>FPP:</label>
-                        <input type="date" pInputText  placeholder="Fecha de Probable parto"
+                        <!-- <p-calendar dateFormat="dd/mm/yy" [showIcon]="true" [(ngModel)]="auxFPP" formControlName="fpp" disabled="true"
+                        class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></p-calendar> -->
+                        <!-- <input type="date" pInputText  placeholder="Fecha de Probable parto"
                                 formControlName="fpp"  
                                 disabled="true"
                                 [(ngModel)]="auxFPP"
-                                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-                    </div>
+                                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"> -->
+                                <input placeholder="Fecha de Registro" 
+                                type="date" pInputText 
+                                formControlName='fpp' 
+                                [(ngModel)]="auxFPP"
+                                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" >
+                            </div>
                 </div>
                 <div class="formgrid grid mx-3">
                     <div class="field col">
@@ -222,6 +236,7 @@
         type="button"
         (click)="updateOEdith()"
         label="Guardar"
+        [(disabled)]="estadoGuardar"
         class="p-button-primary mt-4 mr-3"
         ></button>
         <button
