@@ -219,22 +219,23 @@
         </form>
     </div>
     <div class="footer">
-          <button
-          pButton
-          type="button"
-          (click)="editarGestante()"
-          label="Guardar"
-          class="p-button-primary mt-4 mr-3"
-          ></button>
-          <button
-          pButton
-          type="button"
-          (click)="closeDialog()"
-          label="Cancelar"
-          class="p-button-danger mt-4"
-          ></button>
-      </div>
-      <div>
+        <button
+        pButton
+        type="button"
+        (click)="editarGestante()"
+        [(disabled)]="gestanteEnGestacion"
+        label="Guardar"
+        class="p-button-primary mt-4 mr-3"
+        ></button>
+        <button
+        pButton
+        type="button"
+        (click)="closeDialog()"
+        label="Cancelar"
+        class="p-button-danger mt-4"
+        ></button>
+    </div>
+    <div>
         <p-toast position="top-right" key="myMessage1"></p-toast>
-      </div>
+    </div>
   

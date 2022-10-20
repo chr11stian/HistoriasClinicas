@@ -27,6 +27,7 @@ export class PnGestanteDiaCambioComponent implements OnInit {
 
   estado_gestante: any[] = [{ value: "Activo" }, { value: "Inactivo" }];
   morbilidad_potencial_a: any[] = [
+    { value: "Ninguna" },
     { value: "Gestante con antecedente de complicación obstetrica" },
     { value: "Gestante adolescente" },
     { value: "Primigista añosa" },

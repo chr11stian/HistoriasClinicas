@@ -84,7 +84,7 @@ export class PnGestanteService {
         );
     }
 
-    getGestanteDni(dni: String) {
+    getGestanteDni(dni: string) {
         //implementar una vista para traer gestante del padron gestantes_dni
         return this.http.post<any[]>(`${this.base_url_view}/gestantes-dni`, {
             keys: [`${dni}`],
@@ -119,6 +119,11 @@ export class PnGestanteService {
                     fpp: nuevo_nroGesta["fpp"],
                     codEessActual: nuevo_nroGesta["codEessActual"],
                     eessActual: nuevo_nroGesta["eessActual"],
+                    morbilidadPotencial:nuevo_nroGesta["morbilidadPotencial"],
+                    observaciones:nuevo_nroGesta["observaciones"],
+                    aborto:nuevo_nroGesta["aborto"],
+                    estado: ""
+
                 },
                 fur: nuevo_fur,
                 fpp: nuevo_fpp,
@@ -155,5 +160,12 @@ export class PnGestanteService {
                 aborto: cambio_gestante["aborto"],
             }
         );
+    }
+
+    getGestanteDniIpress(codEessActual:string,dni: string) {
+        //implementar una vista para traer gestante del padron gestantes_dni
+        return this.http.post<any[]>(`${this.base_url_view}/gestante-dni-ipress`, {
+            keys: [[`${codEessActual}`,`${dni}`]],
+        });
     }
 }
