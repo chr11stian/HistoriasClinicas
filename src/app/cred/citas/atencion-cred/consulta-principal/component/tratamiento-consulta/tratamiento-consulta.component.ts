@@ -230,7 +230,6 @@ export class TratamientoConsultaComponent implements OnInit {
         }).then((result) => {
             if (result.isConfirmed) {
                 this.dialogHIS = false;
-                this.router.navigate(['dashboard/cred/lista-consulta']);
                 this.finalizarConsulta
                     .putNextAppointment(this.data.idConsulta, this.nexDate)
                     .then((res: any) => {
