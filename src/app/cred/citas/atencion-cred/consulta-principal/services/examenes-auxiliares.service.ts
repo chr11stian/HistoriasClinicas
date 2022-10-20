@@ -79,7 +79,7 @@ export class ExamenesAuxiliaresService {
   putAgregarExamenesConsulta(idConsulta, data) {
     return this.http.post<any>(`${this.urlServer}/${this.bd}/examenesAuxiliares/agregar-laboratorio-consultorio-lab/${idConsulta}`, data)
       .toPromise()
-      .then(res => <any>res.object)
+      .then(res => <any>res)
       .then(data => { return data; })
       .catch(error => { return error.error });
   }

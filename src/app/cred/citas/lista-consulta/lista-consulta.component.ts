@@ -36,6 +36,7 @@ export class ListaConsultaComponent implements OnInit {
         JSON.parse(localStorage.getItem("documento")).nroDocumento;
     isTodayCreated: boolean = false;
     reporte: string = "";
+    consulta:string;
 
     constructor(
         private form: FormBuilder,
@@ -50,7 +51,8 @@ export class ListaConsultaComponent implements OnInit {
     }
     reporteConsulta(rowData){
         //http://192.168.5.3:8200/jasperserver/rest_v2/reports/Reports/v1/consultacredid/consultabase.pdf?authorization=eyJhbGciOiJIUzUxMiJ9.eyJhcHAiOiJoY2UiLCJyb2xlIjoiUk9MRV9JUFJFU1NfUEVSU09OQUwiLCJkYXRhIjp7InJlbmlwcmVzcyI6IjEyMzQ1NiIsImlkSXByZXNzIjoiNjE2ZGU0NWUwMjczMDQyMjM2NDM0YjUxIiwibnJvRG9jIjoiNzMxNDU5ODYiLCJ0aXBvRG9jIjoiRE5JIn0sInN1YiI6IjczMTQ1OTg2IiwiaWF0IjoxNjY0NTQ1NzI5LCJleHAiOjE2NjQ1NzQ1Mjl9.ts8okFv1LEbBlBkFB6GP7QM2VURidULkpahB3yB6dn0CCyVrF27_8mp-CDOa5faqda3ylmPRyFXC-TBjbUo-lg&idConsulta=624310cfdc986e1bb4abf5a4
-        this.reporte=environment.base_urlTx +"/jasperserver/rest_v2/reports/Reports/v1/consultacredid/consultaninioa.pdf?authorization="+JSON.parse(localStorage.getItem("token")).token+"&idConsulta="+rowData.id
+        this.reporte=environment.base_urlTx +'/jasperserver/rest_v2/reports/Reports/v1/credninio/reporte_carnet_atencion_integral_salud_ninio.pdf?authorization='+
+        JSON.parse(localStorage.getItem("token")).token+'&nroHistoriaClinica='
     }
     getpacientesFiliados(nroDoc) {
         this.listaConsultaService
