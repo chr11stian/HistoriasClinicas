@@ -65,9 +65,7 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
     // this.recoverDataAuxialsExams();
 
     this.dataDialog = this.config.data.auxExams;
-    console.log('data del dDIALOGGGGG ', this.dataDialog.length);
     this.dataDialog.length == 0 ? this.toEdit = false : this.toEdit = true;
-    console.log('to edit ', this.toEdit);
     if (this.dataDialog != null) {
       this.modelarData(this.dataDialog)
       this.reworkDialog(this.listaExamenes, this.reqLabo);
@@ -99,11 +97,69 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
     }
 
     this.auxExamService.postPromiseAddServiciosLaboratorio(this.idConsulta, this.solicitudLaboratorio).then(res => {
-      this.closeDialog();
+      console.log('res code ', res.cod);
+      if (res.cod == '2006') {
+        Swal.fire({
+          icon: 'success',
+          title: 'Se crearon las peticiones exitosamente',
+          showConfirmButton: false,
+          timer: 2000,
+        });
+        this.closeDialog();
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'No se pudo crear la petición',
+          showConfirmButton: false,
+          timer: 2000,
+        });
+      }
+
     });
   }
-  saveLabRequest() {
 
+  async addAuxExam() {
+    this.reqLabo.forEach(async item => {
+      if (!item.saved) {
+        let addExam: AddLaboratorio = {
+          servicio: '',
+          nroCama: '',
+          examenAuxiliar: {
+            tipoLaboratorio: 'EXAMEN_LABORATORIO',
+            subTipo: item.subTipo,
+            nombreExamen: item.examName,
+            codPrestacion: '',
+            codigoSIS: '',
+            codigoHIS: '',
+            lugarExamen: 'LABORATORIO',
+            labExterno: ''
+          }
+        }
+        await this.auxExamService.putAgregarExamenesConsulta(this.idConsulta, addExam).then(res => {
+          console.log('res code ', res.cod);
+          if (res.cod == '2006') {
+            
+            Swal.fire({
+              icon: 'success',
+              title: 'Se agregaron las peticiones exitosamente',
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            this.closeDialog();
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'No se pudo crear la petición',
+              showConfirmButton: false,
+              timer: 2000,
+            });
+          }
+        })
+      }
+    })
+  }
+
+  saveLabRequest() {
     Swal.fire({
       title: '¿Esta seguro que desea guardar?',
       html: 'No se podra eliminar las solicitudes despues',
@@ -154,30 +210,7 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
     }
   }
 
-  async addAuxExam() {
-    this.reqLabo.forEach(async item => {
-      if (!item.saved) {
-        let addExam: AddLaboratorio = {
-          servicio: '',
-          nroCama: '',
-          examenAuxiliar: {
-            tipoLaboratorio: 'EXAMEN_LABORATORIO',
-            subTipo: item.subTipo,
-            nombreExamen: item.examName,
-            codPrestacion: '',
-            codigoSIS: '',
-            codigoHIS: '',
-            lugarExamen: 'LABORATORIO',
-            labExterno: ''
-          }
-        }
-        await this.auxExamService.putAgregarExamenesConsulta(this.idConsulta, addExam).then(res => {
-          this.closeDialog();
-        })
-      }
 
-    })
-  }
 }
 interface Examen {
   groupName: string;

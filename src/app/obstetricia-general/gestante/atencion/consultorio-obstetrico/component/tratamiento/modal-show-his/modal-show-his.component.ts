@@ -75,6 +75,7 @@ export class ModalShowHisComponent implements OnInit {
           showConfirmButton: false,
           timer: 2000,
         })
+        this.ref.close();
       } else {
         Swal.fire({
           icon: 'error',
