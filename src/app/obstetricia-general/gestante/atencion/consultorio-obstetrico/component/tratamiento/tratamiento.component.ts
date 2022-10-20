@@ -14,6 +14,7 @@ import { IpressFarmaciaService } from 'src/app/modulos/ipress-farmacia/services/
 import { CieService } from 'src/app/obstetricia-general/services/cie.service';
 import { PrimeIcons } from 'primeng/api';
 import { ModalShowHisComponent } from './modal-show-his/modal-show-his.component';
+import { UpsAuxIpressService } from 'src/app/mantenimientos/services/ups-aux-ipress/ups-aux-ipress.service';
 @Component({
   selector: 'app-tratamiento',
   templateUrl: './tratamiento.component.html',
@@ -104,6 +105,7 @@ export class TratamientoComponent implements OnInit {
     private tratamientoService: ConsultasService,
     private farmaciaService: IpressFarmaciaService,
     private CieService: CieService,
+    private UpsAuxService: UpsAuxIpressService,
   ) {
     this.buildForm();
 
@@ -120,7 +122,7 @@ export class TratamientoComponent implements OnInit {
     this.edadPaciente = JSON.parse(localStorage.getItem('datacupos')).paciente.edadAnio;
     this.sexoPaciente = JSON.parse(localStorage.getItem('datacupos')).paciente.sexo;
     this.recuperarUpsHis();
-    this.recuperarUPS();
+    this.recuperarUpsAuxHis()
     //estado para saber que estado usar en consultas
     this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
 
@@ -241,11 +243,22 @@ export class TratamientoComponent implements OnInit {
       nombreUPSAux2: new FormControl(""),
     });
   }
+  
 
   ngOnInit(): void {
     this.recuperarInmunizaciones();
     this.recuperarTratamientos();
   }
+  // recuperarUpsHis() {
+  //   let data = {
+  //     idIpress: this.idIpress,
+  //     edad: this.patientData.edadAnio,
+  //     sexo: this.patientData.sexo,
+  //   };
+  //   this.DiagnosticoService.listaUpsHis(data).then(
+  //     (res: any) => (this.arrayUPS = res.object)
+  //   );
+  // }
   recuperarNroFetos() {
     let idData = {
       id: this.idConsulta
@@ -263,10 +276,22 @@ export class TratamientoComponent implements OnInit {
     this.tratamientoService.listaUpsHis(Data).then((res: any) => this.listaUpsHis = res.object);
     console.log("DATA PARA UPS HIS", this.listaUpsHis)
   }
-  recuperarUPS() {
-    this.tratamientoService.listaUps(this.idIpress).then((res: any) => this.listaUps = res.object);
-    console.log("DATA PARA UPS", this.listaUps)
+  arrayUPSAux:any[]=[]
+  recuperarUpsAuxHis() {
+    this.UpsAuxService.getUpsAuxPorIpress(this.idIpress).subscribe(
+      (r: any) => {
+        if (r.object != null) {
+          this.arrayUPSAux = r.object.filter(
+            (element) => element.estado == true
+          );
+        }
+      }
+    );
   }
+  // recuperarUPS() {
+  //   this.tratamientoService.listaUps(this.idIpress).then((res: any) => this.listaUps = res.object);
+  //   console.log("DATA PARA UPS", this.listaUps)
+  // }
   /*DATOS RECIBIDOS DE LOS MODALES*/
   openDialogTratamientoComun() {
     this.ref = this.dialog.open(ModalTratamientoComponent, {
