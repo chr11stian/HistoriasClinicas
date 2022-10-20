@@ -62,9 +62,9 @@ export class ExamsInOfficeDialogComponent implements OnInit {
   }
 
   loadHemoglobinFormArray(hemoArray: HemoExam[], laboExams: LaboratoryExam[]): void {
-    let auxLab:any = laboExams.filter(item => item.nombreExamen == 'DOSAJE DE HEMOGLOBINA');
-    console.log('data de aux lab' , auxLab);
-    auxLab = auxLab.length == 0? '': auxLab[0].lab;
+    let auxLab: any = laboExams.filter(item => item.nombreExamen == 'DOSAJE DE HEMOGLOBINA');
+    console.log('data de aux lab', auxLab);
+    auxLab = auxLab.length == 0 ? '' : auxLab[0].lab;
     hemoArray.forEach(item => {
       let isDisabled: boolean;
       item.idConsulta == this.consultationId ? isDisabled = false : isDisabled = true;
@@ -75,7 +75,7 @@ export class ExamsInOfficeDialogComponent implements OnInit {
         hg: [{ value: auxHg, disabled: isDisabled }],
         conFactorCorreccion: [{ value: auxFactorCorreccion, disabled: isDisabled }],
         fecha: [{ value: item.fecha, disabled: isDisabled }],
-        lab: [{ value: isDisabled?'':auxLab, disabled: isDisabled }]
+        lab: [{ value: isDisabled ? '' : auxLab, disabled: isDisabled }]
       })
       this.hemoglobina.push(hemo);
     });
@@ -167,7 +167,9 @@ export class ExamsInOfficeDialogComponent implements OnInit {
 
   saveLaboExams(): void {
     let allDataExams: any[] = [].concat(this.firstGroupExams, this.secondGroupExams, this.thirdGroupExams);
+    
     let allHemoExams = this.hemoForm.value.hemoglobina;
+    console.log('data de hemos ', allHemoExams);
     let isDuplicated: boolean = false;
     allDataExams = allDataExams.filter(item => {
       if (item.valor.length > 1) {
@@ -218,7 +220,7 @@ export class ExamsInOfficeDialogComponent implements OnInit {
 
   buildArrayToSave(arrayExam: OtherExam[], arrayHemo: HemoExam[]): DataExamSave[] {
     let auxData: DataExamSave[] = [];
-    if (arrayHemo.length > 0) {
+    if (String(arrayHemo[0].hg) != '') {
       arrayHemo.forEach(item => {
         let auxExam: DataExamSave = {
           nombreExamen: 'DOSAJE DE HEMOGLOBINA',
