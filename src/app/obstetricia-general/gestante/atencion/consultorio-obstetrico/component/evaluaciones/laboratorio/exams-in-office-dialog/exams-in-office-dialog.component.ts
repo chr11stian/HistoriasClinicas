@@ -167,7 +167,7 @@ export class ExamsInOfficeDialogComponent implements OnInit {
 
   saveLaboExams(): void {
     let allDataExams: any[] = [].concat(this.firstGroupExams, this.secondGroupExams, this.thirdGroupExams);
-    
+
     let allHemoExams = this.hemoForm.value.hemoglobina;
     console.log('data de hemos ', allHemoExams);
     let isDuplicated: boolean = false;
@@ -220,23 +220,25 @@ export class ExamsInOfficeDialogComponent implements OnInit {
 
   buildArrayToSave(arrayExam: OtherExam[], arrayHemo: HemoExam[]): DataExamSave[] {
     let auxData: DataExamSave[] = [];
-    if (String(arrayHemo[0].hg) != '') {
+    if (arrayHemo.length > 0) {
       arrayHemo.forEach(item => {
-        let auxExam: DataExamSave = {
-          nombreExamen: 'DOSAJE DE HEMOGLOBINA',
-          nombreExamenSIS: 'EXAMEN DE LABORATORIO',
-          cie10SIS: 'Z01.7',
-          nombreUPS: 'OBSTETRICIA',
-          nombreUPSaux: 'MATERNO',
-          codPrestacion: '071',
-          codigoSIS: '',
-          codigoHIS: '85018',
-          tipoDx: 'D',
-          lab: item.lab,
-          valor: String(item.hg),
-          factorCorreccion: Number(item.conFactorCorreccion)
+        if (String(item.hg) != '') {
+          let auxExam: DataExamSave = {
+            nombreExamen: 'DOSAJE DE HEMOGLOBINA',
+            nombreExamenSIS: 'EXAMEN DE LABORATORIO',
+            cie10SIS: 'Z01.7',
+            nombreUPS: 'OBSTETRICIA',
+            nombreUPSaux: 'MATERNO',
+            codPrestacion: '071',
+            codigoSIS: '',
+            codigoHIS: '85018',
+            tipoDx: 'D',
+            lab: item.lab,
+            valor: String(item.hg),
+            factorCorreccion: Number(item.conFactorCorreccion)
+          }
+          auxData.push(auxExam);
         }
-        auxData.push(auxExam);
       });
     }
 
