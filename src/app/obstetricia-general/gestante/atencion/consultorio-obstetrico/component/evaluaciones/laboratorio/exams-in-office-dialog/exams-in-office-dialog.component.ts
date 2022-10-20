@@ -62,9 +62,9 @@ export class ExamsInOfficeDialogComponent implements OnInit {
   }
 
   loadHemoglobinFormArray(hemoArray: HemoExam[], laboExams: LaboratoryExam[]): void {
-    let auxLab:any = laboExams.filter(item => item.nombreExamen == 'DOSAJE DE HEMOGLOBINA');
-    console.log('data de aux lab' , auxLab);
-    auxLab = auxLab.length == 0? '': auxLab[0].lab;
+    let auxLab: any = laboExams.filter(item => item.nombreExamen == 'DOSAJE DE HEMOGLOBINA');
+    console.log('data de aux lab', auxLab);
+    auxLab = auxLab.length == 0 ? '' : auxLab[0].lab;
     hemoArray.forEach(item => {
       let isDisabled: boolean;
       item.idConsulta == this.consultationId ? isDisabled = false : isDisabled = true;
@@ -75,7 +75,7 @@ export class ExamsInOfficeDialogComponent implements OnInit {
         hg: [{ value: auxHg, disabled: isDisabled }],
         conFactorCorreccion: [{ value: auxFactorCorreccion, disabled: isDisabled }],
         fecha: [{ value: item.fecha, disabled: isDisabled }],
-        lab: [{ value: isDisabled?'':auxLab, disabled: isDisabled }]
+        lab: [{ value: isDisabled ? '' : auxLab, disabled: isDisabled }]
       })
       this.hemoglobina.push(hemo);
     });
@@ -167,7 +167,9 @@ export class ExamsInOfficeDialogComponent implements OnInit {
 
   saveLaboExams(): void {
     let allDataExams: any[] = [].concat(this.firstGroupExams, this.secondGroupExams, this.thirdGroupExams);
+
     let allHemoExams = this.hemoForm.value.hemoglobina;
+    console.log('data de hemos ', allHemoExams);
     let isDuplicated: boolean = false;
     allDataExams = allDataExams.filter(item => {
       if (item.valor.length > 1) {
@@ -220,21 +222,23 @@ export class ExamsInOfficeDialogComponent implements OnInit {
     let auxData: DataExamSave[] = [];
     if (arrayHemo.length > 0) {
       arrayHemo.forEach(item => {
-        let auxExam: DataExamSave = {
-          nombreExamen: 'DOSAJE DE HEMOGLOBINA',
-          nombreExamenSIS: 'EXAMEN DE LABORATORIO',
-          cie10SIS: 'Z01.7',
-          nombreUPS: 'OBSTETRICIA',
-          nombreUPSaux: 'MATERNO',
-          codPrestacion: '071',
-          codigoSIS: '',
-          codigoHIS: '85018',
-          tipoDx: 'D',
-          lab: item.lab,
-          valor: String(item.hg),
-          factorCorreccion: Number(item.conFactorCorreccion)
+        if (String(item.hg) != '') {
+          let auxExam: DataExamSave = {
+            nombreExamen: 'DOSAJE DE HEMOGLOBINA',
+            nombreExamenSIS: 'EXAMEN DE LABORATORIO',
+            cie10SIS: 'Z01.7',
+            nombreUPS: 'OBSTETRICIA',
+            nombreUPSaux: 'MATERNO',
+            codPrestacion: '071',
+            codigoSIS: '',
+            codigoHIS: '85018',
+            tipoDx: 'D',
+            lab: item.lab,
+            valor: String(item.hg),
+            factorCorreccion: Number(item.conFactorCorreccion)
+          }
+          auxData.push(auxExam);
         }
-        auxData.push(auxExam);
       });
     }
 
