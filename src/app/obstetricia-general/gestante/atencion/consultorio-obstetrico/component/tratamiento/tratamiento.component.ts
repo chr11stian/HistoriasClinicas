@@ -279,12 +279,14 @@ export class TratamientoComponent implements OnInit {
   arrayUPSAux:any[]=[]
   recuperarUpsAuxHis() {
     this.UpsAuxService.getUpsAuxPorIpress(this.idIpress).subscribe(
-      (r: any) => {
+      (r: any) => {      
         if (r.object != null) {
           this.arrayUPSAux = r.object.filter(
             (element) => element.estado == true
           );
         }
+        console.log('lista de arreglos',this.arrayUPSAux);
+        
       }
     );
   }

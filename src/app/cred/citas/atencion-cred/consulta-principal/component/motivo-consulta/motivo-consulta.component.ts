@@ -502,14 +502,22 @@ export class MotivoConsultaComponent implements OnInit {
         if (req) {
             this.motivosService
                 .updateMotivos(this.data.idConsulta, req)
-                .subscribe((resp) => {
-                    Swal.fire({
-                        icon: "success",
-                        title: "Actualizado correctamente",
-                        text: "",
-                        showConfirmButton: false,
-                        timer: 1500,
-                    });
+                .subscribe((resp:any) => {
+                    if (resp.cod == '2121') {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Actualizado correctamente",
+                            showConfirmButton: false,
+                            timer: 2000,
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "No se pudo actualizar",
+                            showConfirmButton: false,
+                            timer: 2000,
+                        });
+                    }
                 });
         }
     }
