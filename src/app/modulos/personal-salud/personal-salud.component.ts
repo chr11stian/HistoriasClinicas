@@ -69,7 +69,7 @@ export class PersonalSaludComponent implements OnInit {
     rolSistema: boolean;
     datePipe = new DatePipe("en-US");
     idIpress: string = "";
-    iprees: string = "";
+    iprees: any;
     listaRol: rol[] = [];
     nombreRolOpciones: any[] = [
         //"ASISTENCIAL",
@@ -246,6 +246,7 @@ export class PersonalSaludComponent implements OnInit {
     getIpress() {
         this.ipressservice.getIpress().subscribe((res: any) => {
             this.ipressList = res.object;
+            console.log(this.ipressList);
         });
     }
 
@@ -335,10 +336,33 @@ export class PersonalSaludComponent implements OnInit {
         let colegioSelected = this.colegiosList.find(
             (colegio) => colegio.codigo === this.form.value.colegioProfesional
         );
-        let ipressSelected = this.ipressList.find(
-            (ipress) => ipress.id === this.form.value.detalleIpress
-        );
+        let ipressSelected;
+        let detalleIpressNoAdmin;
+        if (!this.root) {
+            ipressSelected = this.ipressList.find(
+                (ipress) => ipress.nombreEESS === this.form.value.detalleIpress
+            );
+            detalleIpressNoAdmin = {
+                idIpress: ipressSelected.id,
+                eess: ipressSelected.nombreEESS,
+                fechaInicio:
+                    this.datePipe.transform(
+                        this.form.value.fechaInicio,
+                        "yyyy-MM-dd"
+                    ) + " 00:00:00",
+            };
+        }
         console.log(this.form.value.fechaNacimiento);
+        let detalleIpressAdmin = {
+            idIpress: this.form.get("detalleIpress").value.id,
+            eess: this.form.get("detalleIpress").value.nombreEESS,
+            fechaInicio:
+                this.datePipe.transform(
+                    this.form.value.fechaInicio,
+                    "yyyy-MM-dd"
+                ) + " 00:00:00",
+        };
+
         const req = {
             tipoDoc: this.form.value.tipoDoc,
             nroDoc: this.form.value.nroDoc,
@@ -363,17 +387,11 @@ export class PersonalSaludComponent implements OnInit {
             },
             colegiatura: this.form.value.colegiatura,
             estado: this.form.value.estado,
-            detalleIpress: {
-                idIpress: this.idIpress,
-                eess: this.iprees,
-                fechaInicio:
-                    this.datePipe.transform(
-                        this.form.value.fechaInicio,
-                        "yyyy-MM-dd"
-                    ) + " 00:00:00",
-            },
+            detalleIpress: !this.root
+                ? detalleIpressNoAdmin
+                : detalleIpressAdmin,
         };
-        console.log(req);
+        console.log("req", req);
         let objectAdmin = {
             tipoDoc: "DNI",
             nroDoc: this.form.value.nroDoc,
@@ -381,7 +399,7 @@ export class PersonalSaludComponent implements OnInit {
             escalas: [
                 {
                     escala: "IPRESS",
-                    unidades: [ipressSelected.renipress],
+                    unidades: [this.form.get("detalleIpress").value.renipress],
                 },
             ],
         };
@@ -446,7 +464,9 @@ export class PersonalSaludComponent implements OnInit {
         this.form.get("estado").setValue("");
         this.form.get("contratoAbreviatura").setValue("");
         this.form.get("sexo").setValue("");
-        this.form.get("detalleIpress").setValue(this.iprees);
+        !this.root
+            ? this.form.get("detalleIpress").setValue(this.iprees.nombreEESS)
+            : this.form.get("detalleIpress").setValue(this.iprees);
         this.form.get("fechaInicio").setValue("");
         this.personalDialog = true;
     }
@@ -481,7 +501,7 @@ export class PersonalSaludComponent implements OnInit {
             .get("contratoAbreviatura")
             .setValue(rowData.contratoAbreviatura);
         this.form.get("sexo").setValue(rowData.sexo);
-        // this.form.get("detalleIpress").setValue(this.iprees);
+        this.form.get("detalleIpress").setValue(this.iprees);
         this.form
             .get("fechaInicio")
             .setValue(
@@ -543,10 +563,10 @@ export class PersonalSaludComponent implements OnInit {
             colegiatura: this.form.value.colegiatura,
             estado: this.form.value.estado,
             detalleIpress: {
-                //idIpress: this.form.value.detalleIpress,
-                //eess: ipressSelected.nombreEESS,
-                idIpress: this.idIpress,
-                eess: this.iprees,
+                idIpress: this.form.get("detalleIpress").value.id,
+                eess: this.form.get("detalleIpress").value.nombreEESS,
+                // idIpress: this.idIpress,
+                // eess: this.iprees,
                 fechaInicio:
                     this.datePipe.transform(
                         this.form.value.fechaInicio,

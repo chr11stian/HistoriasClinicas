@@ -492,6 +492,8 @@ export class IpressComponent implements OnInit {
     this.ipressDialog = true;
   }
   editar(rowData) {
+    console.log('data ipress-->',rowData);
+    
     this.isUpdate = true;
     this.form.reset();
     console.log('row dataaaaaaaaa ', rowData);
@@ -503,16 +505,37 @@ export class IpressComponent implements OnInit {
     this.form.get('ubigeo').setValue(rowData.ubicacion.ubigeo);
     this.selectedEditar(rowData);
     this.form.get('direccion').setValue(rowData.ubicacion.direccion);
-    this.form.get('red').setValue(rowData.red !== null ? this.redesList.find(red => red.nombreRed === rowData.red.nombreRed) : "");
+    const redSelected=rowData.red !== null ? this.redesList.find(red => red.nombreRed === (rowData.red.nombreRed).toUpperCase()) : ""
+    console.log('red selected',rowData.red.nombreRed);
+    
+    this.form.get('red').setValue(redSelected);
     this.changeRedSelectedEditar(rowData);
     //agregar clasificacion, categorizacion y unidad ejecutora aqui usando find
     if (rowData.categorizacion != null) {
       this.form.get('categorizacionTipo').setValue(rowData.categorizacion.tipoDocCategorizacion);
       this.form.get('categorizacionNro').setValue(rowData.categorizacion.nroDocCategorizacion);
     }
-    this.form.get('clasificacionTipo').setValue(rowData.clasificacion !== null ? this.clasificacionesTipoList.find(clasi => clasi.tipo === rowData.clasificacion.tipo) : "");
-    this.clasificacionesNombreList = this.form.value.clasificacionTipo.clasificaciones;
-    this.form.get('clasificacion').setValue(rowData.clasificacion!= null? rowData.clasificacion.clasificacion:'');
+    if(rowData.clasificacion != null && (rowData.clasificacion.clasificacion!='')){
+
+      const clasificacion=this.clasificacionesTipoList.find(clasi => clasi.tipo === rowData.clasificacion.tipo)
+      console.log('clasificacion',clasificacion);
+      
+      this.form.get('clasificacionTipo').setValue(clasificacion)
+      this.form.get('clasificacion').setValue(rowData.clasificacion!= null? rowData.clasificacion.clasificacion:'');
+    }
+    else{
+      console.log('--------entranos else---------');
+
+       this.form.get('clasificacionTipo').setValue('')
+    }
+
+
+    // this.form.get('clasificacionTipo').setValue(rowData.clasificacion !== null ? this.clasificacionesTipoList.find(clasi => clasi.tipo === rowData.clasificacion.tipo) : "");
+    // this.clasificacionesNombreList = this.form.value.clasificacionTipo.clasificaciones;
+    // this.form.get('clasificacion').setValue(rowData.clasificacion!= null? rowData.clasificacion.clasificacion:'');
+
+
+
     this.form.get('unidad').setValue(rowData.unidadEjecutora !== null ? this.unidadesList.find(uni => uni.nombre === rowData.unidadEjecutora.unidadEjecutora) : "");
 
     this.idUpdate = rowData.id;
