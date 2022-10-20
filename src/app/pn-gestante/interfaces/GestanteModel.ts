@@ -18,6 +18,8 @@ export interface GestanteModel{
       eessActual?:string,
       fur?:string,
       fpp?:string,
+      auxFpp?:string,
+      auxFur?:string,
       morbilidadPotencial?:string,
       observaciones?:string,
       dniPersonal?:string,

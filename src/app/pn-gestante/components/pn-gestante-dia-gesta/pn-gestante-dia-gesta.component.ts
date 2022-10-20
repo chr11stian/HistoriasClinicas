@@ -214,7 +214,7 @@ export class PnGestanteDiaGestaComponent implements OnInit {
               );
           this.formGestante
             .get("formHCL")
-            .setValue(this.dataGestante.hcl2
+            .setValue(this.dataGestante.hcl
               );
           this.formGestante
             .get("formFechaRegistro")

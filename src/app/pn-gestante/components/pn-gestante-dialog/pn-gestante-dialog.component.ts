@@ -25,7 +25,7 @@ export class PnGestanteDialogComponent implements OnInit {
   //
   isUpdate:boolean=false;
   dataGestante:GestanteModel;
-  dataGestanteEditar:any=null;
+  dataGestanteEditar:GestanteModel;
   listaGestantes:any []=[];
   datePipe = new DatePipe('en-US');
   fecha_reg:any;
@@ -188,29 +188,30 @@ calcularFPP(){
 editarDatos() {
   if ((this.dataGestanteEditar !== null) || (this.dataGestanteEditar !== undefined)) {
         // console.log("DATA RECUPERADO GESTANTE", this.dataGestanteEditar)
-        this.formGestante.get("tipoDocIdentidad").setValue(this.dataGestanteEditar.value.tipoDocIdentidad);
-        this.formGestante.get("nroDocIdentidad").setValue(this.dataGestanteEditar.value.nroDocIdentidad);
+        this.auxFUR=this.dataGestanteEditar.auxFur;
+        this.auxFPP=this.dataGestanteEditar.auxFpp;
+        this.formGestante.get("tipoDocIdentidad").setValue(this.dataGestanteEditar.tipoDocIdentidad);
+        this.formGestante.get("nroDocIdentidad").setValue(this.dataGestanteEditar.nroDocIdentidad);
         this.formGestante.get("tieneSis").setValue(this.dataGestanteEditar.tieneSis===''?'NO':'SI');
-        this.formGestante.get("fechaNacimiento").setValue(this.datePipe.transform(this.dataGestanteEditar.value.fechaNacimiento,'yyyy-MM-dd'));
+        this.formGestante.get("fechaNacimiento").setValue(this.datePipe.transform(this.dataGestanteEditar.fechaNacimiento,'yyyy-MM-dd'));
         this.formGestante.get("aborto").setValue('NO');
         // console.log('aborto estado',this.dataGestanteEditar.value.aborto);
-        this.formGestante.get("nroGesta").setValue(this.dataGestanteEditar.value.nroGesta.length);
-        this.formGestante.get("nombres").setValue(this.dataGestanteEditar.value.nombres);
-        this.formGestante.get("apellidos").setValue(this.dataGestanteEditar.value.apellidos);
-        this.formGestante.get("codEessAnterior").setValue(this.dataGestanteEditar.value.codEessAnterior);
-        this.formGestante.get("eessAnterior").setValue(this.dataGestanteEditar.value.eessAnterior);
-        this.formGestante.get("codEessActual").setValue(this.dataGestanteEditar.value.codEessActual);
-        this.formGestante.get("eessActual").setValue(this.dataGestanteEditar.value.eessActual);
-        this.formGestante.get("hcl").setValue(this.dataGestanteEditar.value.hcl);
-        this.formGestante.get("fechaReg").setValue(this.datePipe.transform(this.dataGestanteEditar.value.fechaReg,'yyyy-MM-dd'));
-        this.formGestante.get("fur").setValue(this.datePipe.transform(this.formatoFecha(this.dataGestanteEditar.value.fur),'yyyy-MM-dd'));
-        console.log(this.datePipe.transform(this.formatoFecha(this.dataGestanteEditar.value.fur),'yyyy-MM-dd'));
-        this.formGestante.get("fpp").setValue(this.datePipe.transform(this.formatoFecha(this.dataGestanteEditar.value.fpp),'yyyy-MM-dd'));
-        this.formGestante.get("direccion").setValue(this.dataGestanteEditar.value.direccion);
-        this.formGestante.get("referencia").setValue(this.dataGestanteEditar.value.referencia);
-        this.formGestante.get("telefono").setValue(this.dataGestanteEditar.value.telefono);
-        this.formGestante.get("morbilidadPotencial").setValue(this.dataGestanteEditar.value.morbilidadPotencial);
-        this.formGestante.get("observaciones").setValue(this.dataGestanteEditar.value.observaciones);
+        this.formGestante.get("nroGesta").setValue(this.dataGestanteEditar.nroGesta.length);
+        this.formGestante.get("nombres").setValue(this.dataGestanteEditar.nombres);
+        this.formGestante.get("apellidos").setValue(this.dataGestanteEditar.apellidos);
+        this.formGestante.get("codEessAnterior").setValue(this.dataGestanteEditar.codEessAnterior);
+        this.formGestante.get("eessAnterior").setValue(this.dataGestanteEditar.eessAnterior);
+        this.formGestante.get("codEessActual").setValue(this.dataGestanteEditar.codEessActual);
+        this.formGestante.get("eessActual").setValue(this.dataGestanteEditar.eessActual);
+        this.formGestante.get("hcl").setValue(this.dataGestanteEditar.hcl);
+        this.formGestante.get("fechaReg").setValue(this.datePipe.transform(this.dataGestanteEditar.fechaReg,'yyyy-MM-dd'));
+        // this.formGestante.get("fur").setValue(this.datePipe.transform(this.dataGestanteEditar.auxFur,'yyyy-MM-dd'));
+        // this.formGestante.get("fpp").setValue(this.datePipe.transform(this.dataGestanteEditar.auxFpp,'yyyy-MM-dd'));
+        this.formGestante.get("direccion").setValue(this.dataGestanteEditar.direccion);
+        this.formGestante.get("referencia").setValue(this.dataGestanteEditar.referencia);
+        this.formGestante.get("telefono").setValue(this.dataGestanteEditar.telefono);
+        this.formGestante.get("morbilidadPotencial").setValue(this.dataGestanteEditar.morbilidadPotencial);
+        this.formGestante.get("observaciones").setValue(this.dataGestanteEditar.observaciones);
   }
   return
 }
@@ -255,7 +256,9 @@ cargarDatosPadron(event) {
         this.formGestante.get("hcl").setValue(this.dataGestante.hcl);
         this.formGestante.get("fechaReg").setValue(this.datePipe.transform(this.dataGestante.fechaReg,'yyyy-MM-dd'));
         this.formGestante.get("fur").setValue(this.datePipe.transform(this.formatoFecha(this.dataGestante.fur),'yyyy-MM-dd'));
+        console.log(this.datePipe.transform(this.formatoFecha(this.dataGestante.fur),'yyyy-MM-dd'));
         this.formGestante.get("fpp").setValue(this.datePipe.transform(this.formatoFecha(this.dataGestante.fpp),'yyyy-MM-dd'));
+        console.log(this.datePipe.transform(this.formatoFecha(this.dataGestante.fpp),'yyyy-MM-dd'));
         this.formGestante.get("direccion").setValue(this.dataGestante.direccion);
         this.formGestante.get("referencia").setValue(this.dataGestante.referencia);
         this.formGestante.get("telefono").setValue(this.dataGestante.telefono);
@@ -378,7 +381,7 @@ saveForm() {
 EditarGestante() {
     this.recuperarDatosEditar();
     this.estadoGuardar=false;
-    let id=this.dataGestanteEditar.id;
+    let id=this.dataGestanteEditar._id;
     console.log('el id es',id);
     this.pn_gestanteServicio.couch=true;
     console.log(this.gestante);

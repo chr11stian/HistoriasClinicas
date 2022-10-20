@@ -39,7 +39,7 @@ export class PnGestanteComponent implements OnInit {
       (data:any) => {
         this.listaGestantes = data['rows'];
         this.listaGestantesPuerpera = this.listaGestantes.filter((aux) => {
-          console.log(aux.value.fur,aux.value.nroDocIdentidad,this.semanaGestacional(this.formatoFecha(aux.value.fur)));
+          // console.log(aux.value.fur,aux.value.nroDocIdentidad,this.semanaGestacional(this.formatoFecha(aux.value.fur)));
           if (this.semanaGestacional(this.formatoFecha(aux.value.fur))<44 && aux.value.aborto==false) return aux;
         });
         console.log("la data es :", data);
@@ -88,7 +88,8 @@ export class PnGestanteComponent implements OnInit {
   }
 
   editar(event) {
-    localStorage.setItem("gestanteLocalStorage", JSON.stringify(event));
+    console.log("data gestanteeeeeeee",event['value']);
+    localStorage.setItem("gestanteLocalStorage", JSON.stringify(event['value']));
     this.ref = this.dialog.open(PnGestanteDialogComponent, {
       header: "MODIFICAR LOS DATOS DE LA GESTANTE",
       width: "80%",
