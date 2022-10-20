@@ -481,7 +481,7 @@ export class PersonalSaludComponent implements OnInit {
             .get("contratoAbreviatura")
             .setValue(rowData.contratoAbreviatura);
         this.form.get("sexo").setValue(rowData.sexo);
-        this.form.get("detalleIpress").setValue(this.iprees);
+        // this.form.get("detalleIpress").setValue(this.iprees);
         this.form
             .get("fechaInicio")
             .setValue(

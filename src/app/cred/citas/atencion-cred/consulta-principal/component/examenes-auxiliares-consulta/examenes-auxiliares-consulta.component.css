@@ -1,13 +1,4 @@
-::ng-deep .p-datatable .p-datatable-thead > tr > th {
-  text-align: center !important;
-  border: 1px solid #b6b6b6;
-  background-color: #dddddd;
-  padding: 0.5rem;
-}
-::ng-deep .p-datatable.p-datatable-gridlines .p-datatable-header {
-  background-color: #dddddd;
-  border: 1px solid #b6b6b6;
-}
+
 .infoInput {
   font-size: 0.9rem;
   padding-top: 0.3rem;
@@ -71,4 +62,22 @@ p-speeddial >>> .p-button.p-button-icon-only.p-button-rounded {
 }
 :host ::ng-deep .button-agregar .p-button {
   background-color: #0c3866;
+}
+/* Estilos para la tabla de examenes auxiliares  */
+::ng-deep .aux-exam-table .p-datatable .p-datatable-thead > tr > th {
+  text-align: center !important;
+  border: 1px solid #b6b6b6;
+  background-color: #dddddd;
+  padding: 0.5rem;
+}
+::ng-deep .aux-exam-table .p-datatable.p-datatable-gridlines .p-datatable-header {
+  background-color: #dddddd;
+  border: 1px solid #b6b6b6;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+::ng-deep .aux-exam-table .p-datatable .p-datatable-tbody > tr > td {
+  padding-top: 0.7rem;
+  padding-bottom: 0.7rem;
 }
