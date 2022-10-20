@@ -246,6 +246,8 @@ export class PersonalSaludComponent implements OnInit {
     getIpress() {
         this.ipressservice.getIpress().subscribe((res: any) => {
             this.ipressList = res.object;
+            console.log(this.ipressList);
+            
         });
     }
 
@@ -364,8 +366,8 @@ export class PersonalSaludComponent implements OnInit {
             colegiatura: this.form.value.colegiatura,
             estado: this.form.value.estado,
             detalleIpress: {
-                idIpress: this.idIpress,
-                eess: this.iprees,
+                idIpress: this.form.get('detalleIpress').value.id,
+                eess: this.form.get('detalleIpress').value.nombreEESS,
                 fechaInicio:
                     this.datePipe.transform(
                         this.form.value.fechaInicio,
@@ -381,7 +383,8 @@ export class PersonalSaludComponent implements OnInit {
             escalas: [
                 {
                     escala: "IPRESS",
-                    unidades: [ipressSelected.renipress],
+                    unidades: [this.form.get('detalleIpress').value.renipress
+                ],
                 },
             ],
         };
@@ -543,10 +546,11 @@ export class PersonalSaludComponent implements OnInit {
             colegiatura: this.form.value.colegiatura,
             estado: this.form.value.estado,
             detalleIpress: {
-                //idIpress: this.form.value.detalleIpress,
-                //eess: ipressSelected.nombreEESS,
-                idIpress: this.idIpress,
-                eess: this.iprees,
+                idIpress: this.form.get('detalleIpress').value.id,
+                eess: this.form.get('detalleIpress').value.nombreEESS
+                ,
+                // idIpress: this.idIpress,
+                // eess: this.iprees,
                 fechaInicio:
                     this.datePipe.transform(
                         this.form.value.fechaInicio,
