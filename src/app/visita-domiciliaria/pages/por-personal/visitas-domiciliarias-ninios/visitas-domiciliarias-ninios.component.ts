@@ -33,8 +33,8 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
   visitaReporte: string = "";
   // cantidad_visitas_menores_4_meses=this.dataVisitas_Menores_4_meses.length;
   // cantidad_visitas_mayores_4_meses=this.dataVisitas_Mayores_4_meses.length;
-  cantidad_visitas_menores_4_meses:number;
-  cantidad_visitas_mayores_4_meses:number;
+  cantidad_visitas_menores_4_meses: number;
+  cantidad_visitas_mayores_4_meses: number;
   meses = [
     { label: "Enero", value: 1 },
     { label: "Febrero", value: 2 },
@@ -71,7 +71,6 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
     setTimeout(() => {
       this.markersMapStreet();
     }, 500);
-    
   }
 
   buildForm() {
@@ -86,16 +85,17 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
     let dni = `vp${this.servicioVisitas.getIdPersonal()}`;
     let anio = this.servicioVisitas.getAnio();
     this.servicioVisitas.couch = true;
-    this.servicioVisitasNinios.
-    getVisitasNiniosXProfesionalAnio(idIpress,dni,anio).subscribe((data:any)=>{
-      this.dataVisitas=data["rows"];
-      this.dataVisitas_Menores_4_meses = this.dataVisitas.filter((aux) => {
-        if (aux.value.hasOwnProperty("menor_cuatro_meses")) return aux;
+    this.servicioVisitasNinios
+      .getVisitasNiniosXProfesionalAnio(idIpress, dni, anio)
+      .subscribe((data: any) => {
+        this.dataVisitas = data["rows"];
+        this.dataVisitas_Menores_4_meses = this.dataVisitas.filter((aux) => {
+          if (aux.value.hasOwnProperty("menor_cuatro_meses")) return aux;
+        });
+        this.dataVisitas_Mayores_4_meses = this.dataVisitas.filter((aux) => {
+          if (aux.value.hasOwnProperty("mayor_cuatro_meses")) return aux;
+        });
       });
-      this.dataVisitas_Mayores_4_meses = this.dataVisitas.filter((aux) => {
-        if (aux.value.hasOwnProperty("mayor_cuatro_meses")) return aux;
-      });
-    })
   }
   //abre nuestro compoente dialog en el cual se muestran nuestras preguntas y respuestas
   openDialogRespuestas(data: any[]) {
@@ -122,38 +122,38 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
     console.log("select por anio");
     let idIpress = this.servicioVisitas.getIdIpress();
     let dni = `vp${this.servicioVisitas.getIdPersonal()}`;
-      this.servicioVisitas.couch = true;
-      this.selectedAnio = event.value;
-      this.servicioVisitasNinios
-        .getVisitasNiniosXProfesionalAnio(idIpress, dni, this.selectedAnio)
-        .subscribe((data) => {
-          if (data["rows"].length > 0) {
-            this.dataVisitas = data["rows"];
-            console.log("Busqueda por fecha", this.dataVisitas);
-            this.messageService.add({
-              key: "myMessage1",
-              severity: "success",
-              summary: "Exitoso",
-              detail: "Visitas Actualizada",
-            });
-          } else {
-            this.dataVisitas = [];
-            this.messageService.add({
-              key: "myMessage2",
-              severity: "info",
-              summary: "Consulta obtenida",
-              detail: "Usted no tiene visitas",
-            });
-          }
+    this.servicioVisitas.couch = true;
+    this.selectedAnio = event.value;
+    this.servicioVisitasNinios
+      .getVisitasNiniosXProfesionalAnio(idIpress, dni, this.selectedAnio)
+      .subscribe((data) => {
+        if (data["rows"].length > 0) {
           this.dataVisitas = data["rows"];
-          this.dataVisitas_Menores_4_meses = this.dataVisitas.filter((aux) => {
-            if (aux.value.hasOwnProperty("menor_cuatro_meses")) return aux;
+          console.log("Busqueda por fecha", this.dataVisitas);
+          this.messageService.add({
+            key: "myMessage1",
+            severity: "success",
+            summary: "Exitoso",
+            detail: "Visitas Actualizada",
           });
-
-          this.dataVisitas_Mayores_4_meses = this.dataVisitas.filter((aux) => {
-            if (aux.value.hasOwnProperty("mayor_cuatro_meses")) return aux;
+        } else {
+          this.dataVisitas = [];
+          this.messageService.add({
+            key: "myMessage2",
+            severity: "info",
+            summary: "Consulta obtenida",
+            detail: "Usted no tiene visitas",
           });
+        }
+        this.dataVisitas = data["rows"];
+        this.dataVisitas_Menores_4_meses = this.dataVisitas.filter((aux) => {
+          if (aux.value.hasOwnProperty("menor_cuatro_meses")) return aux;
         });
+
+        this.dataVisitas_Mayores_4_meses = this.dataVisitas.filter((aux) => {
+          if (aux.value.hasOwnProperty("mayor_cuatro_meses")) return aux;
+        });
+      });
   }
   //metodo que nos devuelve la lista de Visitas por Mes seleccionado
   //se agrupa en dos listas:menores_4_meses y mayores_4_meses
@@ -195,14 +195,13 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
           });
         });
     }
-    console.log('visita por anio y mes',this.dataVisitas);
+    console.log("visita por anio y mes", this.dataVisitas);
   }
 
   visita_menor_cuatro_meses_reporte(aux) {
     this.visitaReporte =
       environment.base_urlTx +
-      "/jasperserver/rest_v2/reports/Reports/VISITA/menorcuatro/visita_nino_ninia_menor4meses.pdf?token=Bearer " +
-      this.servicioVisitas.getToken() +
+      "/jasperserver/rest_v2/reports/Reports/VISITA/menorcuatro/visita_nino_ninia_menor4meses.pdf?" +
       "&visitaid=" +
       aux.id;
   }
@@ -210,8 +209,7 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
   visita_mayor_cuatro_meses_reporte(aux) {
     this.visitaReporte =
       environment.base_urlTx +
-      "/jasperserver/rest_v2/reports/Reports/VISITA/mayorcuatrohorizontal/visita_nino_niniamayor4meses.pdf?token=Bearer " +
-      this.servicioVisitas.getToken() +
+      "/jasperserver/rest_v2/reports/Reports/VISITA/mayorcuatrohorizontal/visita_nino_niniamayor4meses.pdf?"+
       "&visita=" +
       aux.id;
   }
