@@ -23,6 +23,8 @@ export class AtencionCredComponent implements OnInit {
     constructor(private route: ActivatedRoute,
                 private router: Router,
                 private consultaGeneralService:ConsultaGeneralService ) {
+        console.log('------ejecutamos el constructo-------');
+        
     }
     isTriajeTaken:boolean=false;//si retorna con id de una consulta
 
@@ -61,6 +63,8 @@ export class AtencionCredComponent implements OnInit {
 
 
     ngOnInit(): void {
+        console.log('--------ejecutamos el ngOnInit-------');
+        
         this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
         this.hidden = this.data.see
         this.isTriajeTaken=!this.hidden

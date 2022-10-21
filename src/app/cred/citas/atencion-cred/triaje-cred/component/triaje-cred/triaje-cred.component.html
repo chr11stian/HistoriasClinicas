@@ -95,14 +95,14 @@
                                         <i class="pi pi-exclamation-triangle p-error"></i>
                                         <small id="username1-help" class="p-error ml-2">Elemento Requerido</small>
                                     </span>
-                                    <span *ngIf="getFC(controlFC.nameFC).errors.min" class=" p-inputgroup-addon indigo-300 p-1">
+                                    <!-- <span *ngIf="getFC(controlFC.nameFC).errors.min" class=" p-inputgroup-addon indigo-300 p-1">
                                         <i class="pi pi-exclamation-triangle p-error"></i>
                                         <small id="username1-help" class="p-error ml-2">Valor minimo {{getFC(controlFC.nameFC).errors.min.min|json}}</small>
                                     </span>
                                     <span *ngIf="getFC(controlFC.nameFC).errors.max" class=" p-inputgroup-addon bg-pink-50 p-1">
                                         <i class="pi pi-exclamation-triangle p-error"></i>
                                         <small id="username1-help" class="p-error ml-2">Valor maximo {{getFC(controlFC.nameFC).errors.max.max|json}}</small>
-                                    </span>             
+                                    </span>              -->
                                 </div>
                             </div>
                         </ng-container>
@@ -237,7 +237,7 @@
                         />
                     </div>
                 </div>
-                <div class="grid">|
+                <div class="grid">
                     <div class="col-12 md:col-6">
                         <div class="grid">
                             <div class="md:col-8 mt-2" style="text-align: left">
@@ -300,28 +300,24 @@
 
     <div class="col-12 justify-content-end flex">
         <div [hidden]="my">
-            <button
+            <p-button
                 type="submit"
                 icon="pi pi-save"
-                pButton
                 pRipple
                 (click)="getExamenes()"
                 label="Interconsulta"
-                style="background-color: #0c3866"
-                class="ml-4 p-button-raised p-button-info"
-            ></button>
+                class="ml-4 p-button-raised button-agregar"
+            ></p-button>
         </div>
         <div [hidden]="!my">
-            <button
+            <p-button
                 type="submit"
                 icon="pi"
-                pButton
                 pRipple
                 (click)="getConsultaPrincipal()"
                 [label]="botonGuardarVolver"
-                style="background-color: #0c3866"
-                class="ml-4 p-button-raised p-button-info"
-            ></button>
+                class="ml-4 p-button-raised button-agregar"
+            ></p-button>
         </div>
     </div>
 </p-card>
@@ -388,8 +384,7 @@
             </div>
             <div class="col-2 p-fluid">
                 <p-button
-                    class="w-full button-agregar"
-                    style="background-color: #0c3866"
+                    class="w-full boton-azul"
                     label="Agregar"
                     icon="pi pi-plus"
                     [loading]="loading"
