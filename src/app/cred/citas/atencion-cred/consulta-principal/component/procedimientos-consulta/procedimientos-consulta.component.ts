@@ -995,7 +995,12 @@ export class ProcedimientosConsultaComponent implements OnInit {
             });
             if (!isAdded) {
                 this.arrayProcedureHIS.push(HISprocedure);
-                this.hisForm.reset();
+                this.hisForm.patchValue({
+                    tipoDiagnosticoHIS: '',
+                    lab: '',
+                    codProcedimientoHIS: '',
+                    procedimientoHIS: ''
+                  });
             }
         } else
             this.missDataMessage();
@@ -1051,13 +1056,24 @@ export class ProcedimientosConsultaComponent implements OnInit {
         let dataSave: DataSave = { procedimientos: [] };
         dataSave.procedimientos = this.arrayProcedureSave;
         this.DiagnosticoService.postSaveProcedure(this.dataConsulta.idConsulta, dataSave).then(res => {
-            Swal.fire({
-                icon: 'success',
-                title: 'Se guardo exitosamente',
-                text: '',
-                showConfirmButton: false,
-                timer: 2000
-            });
+            if (res.cod == '2001') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Se guardo exitosamente',
+                    text: '',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'No se pudo guardar',
+                    text: '',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            }
+            
         });
     }
 
