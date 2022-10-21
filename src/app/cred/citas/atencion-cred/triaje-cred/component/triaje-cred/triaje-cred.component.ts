@@ -523,15 +523,15 @@ export class TriajeCredComponent implements OnInit {
     buildForm(): void {
         /** Signos vitales */
         this.examFG = new FormGroup({
-            TFC: new FormControl({ value: "", disabled: false }, [Validators.required,Validators.min(35),Validators.max(40)]),
+            TFC: new FormControl({ value: "", disabled: false }, [Validators.required]),
             PSFC: new FormControl({ value: "", disabled: false }, []),
             PDFC: new FormControl({ value: "", disabled: false }, []),
-            FC: new FormControl({ value: "", disabled: false }, []),
-            FRFC: new FormControl({ value: "", disabled: false }, [Validators.required,Validators.min(15),Validators.max(20)]),
-            PesoFC: new FormControl({ value: "", disabled: false }, [Validators.required,Validators.min(3000),Validators.max(20000)]),
-            TallaFC: new FormControl({ value: "", disabled: false }, [Validators.required,Validators.min(30),Validators.max(100)]),
+            FC: new FormControl({ value: "", disabled: false }, [Validators.required]),
+            FRFC: new FormControl({ value: "", disabled: false }, [Validators.required]),
+            PesoFC: new FormControl({ value: "", disabled: false }, [Validators.required]),
+            TallaFC: new FormControl({ value: "", disabled: false }, [Validators.required]),
             imcFC: new FormControl({ value: "", disabled: true }, []),
-            PCFC: new FormControl({ value: "", disabled: false }, [ Validators.required,Validators.min(20),Validators.max(55)]),
+            PCFC: new FormControl({ value: "", disabled: false }, [ Validators.required]),
             obsFC: new FormControl({ value: "", disabled: false }, []),
         });
         this.generalInfoFG = new FormGroup({

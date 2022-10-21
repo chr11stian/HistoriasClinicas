@@ -234,6 +234,7 @@ export class TratamientoConsultaComponent implements OnInit {
                     .putNextAppointment(this.data.idConsulta, this.nexDate)
                     .then((res: any) => {
                         if (res.cod == '2126') {
+                            this.router.navigate(['/dashboard/cred/lista-consulta'])
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Se cerro la consulta satisfactoriamente',
@@ -241,7 +242,7 @@ export class TratamientoConsultaComponent implements OnInit {
                                 timer: 2000,
                             });
                             this.dialogHIS = false;
-                            this.router.navigate['dashboard/cred/lista-consulta']
+                            
                         } else {
                             Swal.fire({
                                 icon: 'error',
