@@ -169,14 +169,15 @@
                     <div class="grid my-5">
                         <div *ngFor="let item of listPlaceOne" class="col-4 text-left">
                             <div class="grid">
-                                <div class="col-9">
-                                    <span [for]="item.value" class="pr-1">{{ item.name }}</span>
-                                </div>
-                                <div class="col-3 text-left">
+                                <!-- <div class="col-9"> -->
+                                    <span [for]="item.value" class="pl-1">{{ item.name }}</span>
                                     <p-radioButton [inputId]="item.value" name="item" [value]="item.value"
                                         [(ngModel)]="referido">
                                     </p-radioButton>
-                                </div>
+                                <!-- </div>
+                                <div class="col-3 text-left">
+                                    
+                                </div> -->
                             </div>
                         </div>
                         <!-- <div class="col-4 flex flex-column text-center">
