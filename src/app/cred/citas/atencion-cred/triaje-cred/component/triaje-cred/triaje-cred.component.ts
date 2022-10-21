@@ -790,6 +790,10 @@ export class TriajeCredComponent implements OnInit {
                         showConfirmButton: false,
                         timer: 1500,
                     });
+                    /* nos aseguramos que aya guardado para redireccionar */
+                    // setTimeout(() => {
+                        this.router.navigate(["/dashboard/cred/citas/atencion"]);
+                    /* }, 1000); */
                 });
         }
     }
@@ -942,9 +946,9 @@ export class TriajeCredComponent implements OnInit {
         if (this.data.idConsulta === "") {
             this.save();
         }
-        setTimeout(() => {
+        /* setTimeout(() => {
             this.router.navigate(["/dashboard/cred/citas/atencion"]);
-        }, 1000);
+        }, 1000); */
     }
     /* interconsulta */
     open(): void {
