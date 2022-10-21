@@ -129,6 +129,8 @@ export class IpressComponent implements OnInit {
   getCategorias() {
     this.categoriaservice.getCategoriaEstablecimiento().subscribe((res: any) => {
       this.categoriasList = res.object;
+      console.log('lista de categorias',this.categoriasList);
+      
     });
   }
   getDepartamentos() {
