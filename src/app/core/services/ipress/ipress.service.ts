@@ -35,6 +35,9 @@ export class IpressService {
     editIpress(ipress) {
         return this.http.put<any>(`${this.base_url}/${this.bd}/ipress`, ipress)
     }
+    editIpress2(idIpress,inputRequest) {
+        return this.http.put<any>(`${this.base_url}/${this.bd}/ipress/${idIpress}`, inputRequest)
+    }
 
     //jurisdiccion
     createJurisdiccionIpress(idIpress, req) {
