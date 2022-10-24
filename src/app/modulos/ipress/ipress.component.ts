@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from "@angular/forms";
+import { FormBuilder, Validators, FormGroup, AbstractControl } from "@angular/forms";
 import Swal from "sweetalert2";
 import { DatePipe } from '@angular/common';
 import { Ipress } from 'src/app/core/models/mantenimiento.models';
@@ -21,7 +21,7 @@ import { UnidadEjecutoraService } from 'src/app/mantenimientos/services/unidad-e
 export class IpressComponent implements OnInit {
 
   // Creacion del formulario
-  form: FormGroup;
+  ipressFG: FormGroup;
   formEncargado: FormGroup;
   formJurisdiccion: FormGroup;
   formAmbiente: FormGroup;
@@ -129,6 +129,8 @@ export class IpressComponent implements OnInit {
   getCategorias() {
     this.categoriaservice.getCategoriaEstablecimiento().subscribe((res: any) => {
       this.categoriasList = res.object;
+      console.log('lista de categorias',this.categoriasList);
+      
     });
   }
   getDepartamentos() {
@@ -175,7 +177,7 @@ export class IpressComponent implements OnInit {
     })
   }
   changeRedSelected() {
-    this.redServiciosSaludService.getMicroRedServiciosSalud(this.form.value.red.idRed).subscribe((res: any) => {
+    this.redServiciosSaludService.getMicroRedServiciosSalud(this.ipressFG.value.red.idRed).subscribe((res: any) => {
       this.microRedesList = res.object;
       if (this.microRedesList[0].idMicroRed == null) {
         this.microRedesList = [];
@@ -183,41 +185,54 @@ export class IpressComponent implements OnInit {
     })
   }
   changeRedSelectedEditar(rowData) {
-    console.log('otros row dataaaaaa ',rowData);
-    this.redServiciosSaludService.getMicroRedServiciosSalud(this.form.value.red.idRed).subscribe((res: any) => {
-      console.log('change red selected ', res);
+    this.redServiciosSaludService.getMicroRedServiciosSalud(this.ipressFG.value.red?.idRed).subscribe((res: any) => {
+      console.log('red',this.ipressFG.value.red?.idRed);
       this.microRedesList = res.object;
       if (this.microRedesList[0].idMicroRed == null) {
         this.microRedesList = [];
       }
-      this.form.get('microRed').setValue(this.microRedesList.find(microred => microred.idMicroRed === rowData.red.idMicroRed));
+      this.ipressFG.get('microRed').setValue(this.microRedesList.find(microred => microred.idMicroRed === rowData.red.idMicroRed));
     })
   }
   changeClasificacionTipo() {
-    this.clasificacionesNombreList = this.form.value.clasificacionTipo.clasificaciones;
-    console.log(this.form.value.clasificacionTipo.clasificaciones);
+    this.clasificacionesNombreList = this.ipressFG.value.clasificacionTipo.clasificaciones;
+    console.log(this.ipressFG.value.clasificacionTipo.clasificaciones);
+  }
+  isInvalid(control: string): boolean {
+    const formControl: AbstractControl = this.getFC(control);
+    return (
+        formControl.invalid && (formControl.touched || formControl.dirty)
+    );
+  }
+  getFC(control: string): AbstractControl {
+    return this.ipressFG.get(control);  
   }
   buildForm() {
-    this.form = this.formBuilder.group({
-      renipress: ['', [Validators.required]],
+    this.ipressFG = this.formBuilder.group({
+      renipress: ['', [Validators.required]], /* cod renaes */
       ruc: ['', [Validators.required]],
-      nombreEESS: ['', [Validators.required]],
       categoria: ['', [Validators.required]],
+      nombreEESS: ['', [Validators.required]],
+      unidad: ['', [Validators.required]],
+
+      clasificacionTipo: ['', [Validators.required]],
+      clasificacion: ['', [Validators.required]],
+
+      categorizacionTipo: ['', [Validators.required]],
+      categorizacionNro: ['', [Validators.required]],
+
       ubigeo: ['', [Validators.required]],
       departamento: ['', [Validators.required]],
       provincia: ['', [Validators.required]],
       distrito: ['', [Validators.required]],
       centroPoblado: ['', [Validators.required]],
       direccion: ['', [Validators.required]],
+
       red: ['', [Validators.required]],
       microRed: ['', [Validators.required]],
-      docPersonal: ['', [Validators.required]],
-      nombrePersonal: ['', [Validators.required]],
-      unidad: ['', [Validators.required]],
-      clasificacionTipo: ['', [Validators.required]],
-      clasificacion: ['', [Validators.required]],
-      categorizacionTipo: ['', [Validators.required]],
-      categorizacionNro: ['', [Validators.required]],
+      /* end fc Ipress */
+      docPersonal: [''],
+      nombrePersonal: [''],
 
     })
     this.formJurisdiccion = this.formBuilder.group({
@@ -227,6 +242,7 @@ export class IpressComponent implements OnInit {
       distrito: ['', [Validators.required]],
       centroPoblado: ['', [Validators.required]],
     })
+
     this.formAmbiente = this.formBuilder.group({
       codAmbiente: ['', [Validators.required]],
       ambiente: ['', [Validators.required]],
@@ -284,16 +300,16 @@ export class IpressComponent implements OnInit {
 
   buscarUbigeo() {
     const ubigeo = {
-      ubigeo: this.form.value.ubigeo,
+      ubigeo: this.ipressFG.value.ubigeo,
     }
-    if (this.form.value.ubigeo.trim() != "") {
+    if (this.ipressFG.value.ubigeo.trim() != "") {
       this.loading = true;
       this.ubicacionService.buscarUbigeo(ubigeo).subscribe((res: any) => {
-        this.form.get('departamento').setValue({ iddd: res.object[0].iddd, departamento: res.object[0].departamento });
+        this.ipressFG.get('departamento').setValue({ iddd: res.object[0].iddd, departamento: res.object[0].departamento });
         this.selectedDepartamento();
-        this.form.get('provincia').setValue({ idpp: res.object[0].idpp, provincia: res.object[0].provincia });
+        this.ipressFG.get('provincia').setValue({ idpp: res.object[0].idpp, provincia: res.object[0].provincia });
         this.selectedProvincia();
-        this.form.get('distrito').setValue({ iddis: res.object[0].iddis, distrito: res.object[0].distrito });
+        this.ipressFG.get('distrito').setValue({ iddis: res.object[0].iddis, distrito: res.object[0].distrito });
         this.selectedDistrito();
         this.loading = false;
       })
@@ -302,7 +318,7 @@ export class IpressComponent implements OnInit {
 
   selectedDepartamento() {
     const dpto = {
-      departamento: this.form.value.departamento,
+      departamento: this.ipressFG.value.departamento,
     }
     let rowData = dpto.departamento;
     this.ubicacionService.getProvincias(rowData).subscribe((res: any) => {
@@ -312,8 +328,8 @@ export class IpressComponent implements OnInit {
 
   selectedProvincia() {
     const rowData = {
-      departamento: this.form.value.departamento,
-      provincia: this.form.value.provincia,
+      departamento: this.ipressFG.value.departamento,
+      provincia: this.ipressFG.value.provincia,
     };
 
     let d = rowData.departamento.iddd;
@@ -330,9 +346,9 @@ export class IpressComponent implements OnInit {
 
   selectedDistrito() {
     const rowData = {
-      departamento: this.form.value.departamento,
-      provincia: this.form.value.provincia,
-      distrito: this.form.value.distrito,
+      departamento: this.ipressFG.value.departamento,
+      provincia: this.ipressFG.value.provincia,
+      distrito: this.ipressFG.value.distrito,
     };
 
     let d = rowData.departamento.iddd;
@@ -348,23 +364,23 @@ export class IpressComponent implements OnInit {
       this.CCPPList = res.object;
     })
     this.ubicacionService.getUbigeoDistrito(aux).subscribe((res: any) => {
-      this.form.get('ubigeo').setValue(res.object[0].ubigeo);
+      this.ipressFG.get('ubigeo').setValue(res.object[0].ubigeo);
     })
   }
   selectedEditar(rowData) {
-    this.form.get('departamento').setValue(this.departamentosList.find(dep => dep.departamento === rowData.ubicacion.departamento));
+    this.ipressFG.get('departamento').setValue(this.departamentosList.find(dep => dep.departamento === rowData.ubicacion.departamento));
 
     const dpto = {
-      departamento: this.form.value.departamento,
+      departamento: this.ipressFG.value.departamento,
     }
 
     this.ubicacionService.getProvincias(dpto.departamento).subscribe((res: any) => {
       this.provinciasList = res.object;
-      this.form.get('provincia').setValue(this.provinciasList.find(prov => prov.provincia === rowData.ubicacion.provincia));
+      this.ipressFG.get('provincia').setValue(this.provinciasList.find(prov => prov.provincia === rowData.ubicacion.provincia));
 
       const data = {
-        departamento: this.form.value.departamento,
-        provincia: this.form.value.provincia,
+        departamento: this.ipressFG.value.departamento,
+        provincia: this.ipressFG.value.provincia,
       };
 
       let d = data.departamento.iddd;
@@ -376,12 +392,12 @@ export class IpressComponent implements OnInit {
       }
       this.ubicacionService.getDistritos(aux).subscribe((res: any) => {
         this.distritosList = res.object;
-        this.form.get('distrito').setValue(this.distritosList.find(dis => dis.distrito === rowData.ubicacion.distrito));
+        this.ipressFG.get('distrito').setValue(this.distritosList.find(dis => dis.distrito === rowData.ubicacion.distrito));
 
         const data = {
-          departamento: this.form.value.departamento,
-          provincia: this.form.value.provincia,
-          distrito: this.form.value.distrito,
+          departamento: this.ipressFG.value.departamento,
+          provincia: this.ipressFG.value.provincia,
+          distrito: this.ipressFG.value.distrito,
         };
 
         let d = data.departamento.iddd;
@@ -395,7 +411,7 @@ export class IpressComponent implements OnInit {
         }
         this.ubicacionService.getCentroPoblado(aux).subscribe((res: any) => {
           this.CCPPList = res.object;
-          this.form.get('centroPoblado').setValue(this.CCPPList.find(cp => cp.ccpp === rowData.ubicacion.centroPoblado));
+          this.ipressFG.get('centroPoblado').setValue(this.CCPPList.find(cp => cp.ccpp === rowData.ubicacion.centroPoblado));
         })
       })
 
@@ -403,61 +419,67 @@ export class IpressComponent implements OnInit {
   }
 
   saveForm() {
+    if(this.ipressFG.invalid){
+      this.ipressFG.markAllAsTouched();
+      return
+    } 
     this.isUpdate = false;
 
     let aux = {
-      iddd: this.form.value.departamento.iddd,
-      idpp: this.form.value.provincia.idpp,
-      iddis: this.form.value.distrito.iddis,
-      ccpp: this.form.value.centroPoblado.ccpp,
+      iddd: this.ipressFG.value.departamento.iddd,
+      idpp: this.ipressFG.value.provincia.idpp,
+      iddis: this.ipressFG.value.distrito.iddis,
+      ccpp: this.ipressFG.value.centroPoblado.ccpp,
     }
+
     this.ubicacionService.getCCPPDatos(aux).subscribe((res: any) => {
       this.centro = res.object[0];
       const req = {
-        renipress: this.form.value.renipress,
-        nombreEESS: this.form.value.nombreEESS,
-        ruc: this.form.value.ruc,
+        renipress: this.ipressFG.value.renipress,
+        nombreEESS: this.ipressFG.value.nombreEESS,
+        ruc: this.ipressFG.value.ruc,
         categoria: {
-          abreviatura: this.form.value.categoria.abreviatura,
-          descripcion: this.form.value.categoria.descripcion,
-          nivelEESS: this.form.value.categoria.nivel,
+          abreviatura: this.ipressFG.value.categoria.abreviatura,
+          descripcion: this.ipressFG.value.categoria.descripcion,
+          nivelEESS: this.ipressFG.value.categoria.nivel,
         },
         ubicacion: {
-          ubigeo: this.form.value.ubigeo,
-          departamento: this.form.value.departamento.departamento,
-          provincia: this.form.value.provincia.provincia,
-          distrito: this.form.value.distrito.distrito,
-          centroPoblado: this.form.value.centroPoblado.ccpp,
+          ubigeo: this.ipressFG.value.ubigeo,
+          departamento: this.ipressFG.value.departamento.departamento,
+          provincia: this.ipressFG.value.provincia.provincia,
+          distrito: this.ipressFG.value.distrito.distrito,
+          centroPoblado: this.ipressFG.value.centroPoblado.ccpp,
           altura: this.centro.altura,
           latitud: this.centro.latitude,
           longitud: this.centro.longitude,
-          direccion: this.form.value.direccion,
+          direccion: this.ipressFG.value.direccion,
         },
         red: {
-          idRed: this.form.value.red.idRed,
-          nombreRed: this.form.value.red.nombreRed,
-          idMicroRed: this.form.value.microRed.idMicroRed,
-          nombreMicroRed: this.form.value.microRed.nombreMicroRed,
+          idRed: this.ipressFG.value.red.idRed,
+          nombreRed: this.ipressFG.value.red.nombreRed,
+          idMicroRed: this.ipressFG.value.microRed.idMicroRed,
+          nombreMicroRed: this.ipressFG.value.microRed.nombreMicroRed,
         },
         categorizacion: {
-          tipoDocCategorizacion: this.form.value.categorizacionTipo,
-          nroDocCategorizacion: this.form.value.categorizacionNro
+          tipoDocCategorizacion: this.ipressFG.value.categorizacionTipo,
+          nroDocCategorizacion: this.ipressFG.value.categorizacionNro
         },
         clasificacion: {
-          clasificacion: this.form.value.clasificacion,
-          tipo: this.form.value.clasificacionTipo.tipo
+          clasificacion: this.ipressFG.value.clasificacion,
+          tipo: this.ipressFG.value.clasificacionTipo.tipo
         },
         unidadEjecutora: {
-          unidadEjecutora: this.form.value.unidad.nombre,
-          codUnidadEjecutora: this.form.value.unidad.codigo
+          unidadEjecutora: this.ipressFG.value.unidad.nombre,
+          codUnidadEjecutora: this.ipressFG.value.unidad.codigo
         }
       };
-      if (req.renipress.trim() !== "") {
-        this.ipressservice.createIpress(req).subscribe(
-          result => {
+  
+      this.ipressservice.createIpress(req).subscribe((resp:any) => {
+          console.log('respuesta guardar',resp);
+          if(resp.cod=="2405"){ 
             Swal.fire({
               icon: 'success',
-              title: 'Agregado correctamente',
+              title: 'Se actualizox| correctamente',
               text: '',
               showConfirmButton: false,
               timer: 1500,
@@ -469,64 +491,68 @@ export class IpressComponent implements OnInit {
             this.microRedesList = [];
             this.ipressDialog = false;
           }
-        )
-      }
+        }
+      )
+     
     })
 
   }
 
   openNew() {
     this.isUpdate = false;
-    this.form.reset();
-    this.form.get('renipress').setValue("");
-    this.form.get('nombreEESS').setValue("");
-    this.form.get('categoria').setValue("");
-    this.form.get('ubigeo').setValue("");
-    this.form.get('departamento').setValue("");
-    this.form.get('provincia').setValue("");
-    this.form.get('distrito').setValue("");
-    this.form.get('centroPoblado').setValue("");
-    this.form.get('direccion').setValue("");
-    this.form.get('red').setValue("");
-    this.form.get('microRed').setValue("");
+    this.ipressFG.reset();
+    this.ipressFG.get('renipress').setValue("");
+    this.ipressFG.get('nombreEESS').setValue("");
+    this.ipressFG.get('categoria').setValue("");
+    this.ipressFG.get('ubigeo').setValue("");
+    this.ipressFG.get('departamento').setValue("");
+    this.ipressFG.get('provincia').setValue("");
+    this.ipressFG.get('distrito').setValue("");
+    this.ipressFG.get('centroPoblado').setValue("");
+    this.ipressFG.get('direccion').setValue("");
+    this.ipressFG.get('red').setValue("");
+    this.ipressFG.get('microRed').setValue("");
     this.ipressDialog = true;
   }
   editar(rowData) {
-    console.log('data ipress-->',rowData);
-    
+    console.log('data Ipress-->',rowData);
     this.isUpdate = true;
-    this.form.reset();
-    console.log('row dataaaaaaaaa ', rowData);
+    this.ipressFG.reset();
     console.log('lista de redes ', this.redesList);
-    this.form.get('renipress').setValue(rowData.renipress);
-    this.form.get('nombreEESS').setValue(rowData.nombreEESS);
-    this.form.get('ruc').setValue(rowData.ruc);
-    this.form.get('categoria').setValue(rowData.categoria !== null ? this.categoriasList.find(cat => cat.abreviatura === rowData.categoria.abreviatura) : "");
-    this.form.get('ubigeo').setValue(rowData.ubicacion.ubigeo);
+    this.ipressFG.get('renipress').setValue(rowData.renipress);
+    this.ipressFG.get('nombreEESS').setValue(rowData.nombreEESS);
+    this.ipressFG.get('ruc').setValue(rowData.ruc);
+    this.ipressFG.get('categoria').setValue(rowData.categoria !== null ? this.categoriasList.find(cat => cat.abreviatura === rowData.categoria.abreviatura) : "");
+    this.ipressFG.get('ubigeo').setValue(rowData.ubicacion.ubigeo);
     this.selectedEditar(rowData);
-    this.form.get('direccion').setValue(rowData.ubicacion.direccion);
-    const redSelected=rowData.red !== null ? this.redesList.find(red => red.nombreRed === (rowData.red.nombreRed).toUpperCase()) : ""
-    console.log('red selected',rowData.red.nombreRed);
+    this.ipressFG.get('direccion').setValue(rowData.ubicacion.direccion);
+    if(rowData.red?.nombreRed!="NO PERTENECE A NINGUNA RED" && rowData.red?.nombreMicroRed!="NO PERTENECE A NINGUNA MICRORED"){ 
+      const redSelected= this.redesList.find(red => red.nombreRed === (rowData.red.nombreRed).toUpperCase())
+      this.ipressFG.get('red').setValue(redSelected);
+      this.changeRedSelectedEditar(rowData);
+    }
+    // const redSelected=rowData.red !== null ? this.redesList.find(red => red.nombreRed === (rowData.red.nombreRed).toUpperCase()) : ""
+    // console.log('red selected',rowData.red.nombreRed);
     
-    this.form.get('red').setValue(redSelected);
-    this.changeRedSelectedEditar(rowData);
     //agregar clasificacion, categorizacion y unidad ejecutora aqui usando find
     if (rowData.categorizacion != null) {
-      this.form.get('categorizacionTipo').setValue(rowData.categorizacion.tipoDocCategorizacion);
-      this.form.get('categorizacionNro').setValue(rowData.categorizacion.nroDocCategorizacion);
+      this.ipressFG.get('categorizacionTipo').setValue(rowData.categorizacion.tipoDocCategorizacion);
+      this.ipressFG.get('categorizacionNro').setValue(rowData.categorizacion.nroDocCategorizacion);
     }
     if(rowData.clasificacion != null && (rowData.clasificacion.clasificacion!='')){
 
       const clasificacion=this.clasificacionesTipoList.find(clasi => clasi.tipo === rowData.clasificacion.tipo)
       console.log('clasificacion',clasificacion);
       
-      this.form.get('clasificacionTipo').setValue(clasificacion)
-      this.form.get('clasificacion').setValue(rowData.clasificacion!= null? rowData.clasificacion.clasificacion:'');
+      this.ipressFG.get('clasificacionTipo').setValue(clasificacion)
+      this.clasificacionesNombreList=clasificacion.clasificaciones
+      this.ipressFG.get('clasificacion').setValue(rowData.clasificacion.clasificacion);
+
     }
     else{
       console.log('--------entranos else---------');
 
-       this.form.get('clasificacionTipo').setValue('')
+       this.ipressFG.get('clasificacionTipo').setValue('')
     }
 
 
@@ -536,76 +562,80 @@ export class IpressComponent implements OnInit {
 
 
 
-    this.form.get('unidad').setValue(rowData.unidadEjecutora !== null ? this.unidadesList.find(uni => uni.nombre === rowData.unidadEjecutora.unidadEjecutora) : "");
+    this.ipressFG.get('unidad').setValue(rowData.unidadEjecutora !== null ? this.unidadesList.find(uni => uni.nombre === rowData.unidadEjecutora.unidadEjecutora) : "");
 
     this.idUpdate = rowData.id;
     this.ipressDialog = true;
   }
   editarDatos(rowData) {
+    if(this.ipressFG.invalid){
+      this.ipressFG.markAllAsTouched();
+      return
+    }
     this.isUpdate = true;
     let aux = {
-      iddd: this.form.value.departamento.iddd,
-      idpp: this.form.value.provincia.idpp,
-      iddis: this.form.value.distrito.iddis,
-      ccpp: this.form.value.centroPoblado.ccpp,
+      iddd: this.ipressFG.value.departamento.iddd,
+      idpp: this.ipressFG.value.provincia.idpp,
+      iddis: this.ipressFG.value.distrito.iddis,
+      ccpp: this.ipressFG.value.centroPoblado.ccpp,
     }
     this.ubicacionService.getCCPPDatos(aux).subscribe((res: any) => {
       this.centro = res.object[0];
       const req = {
-        id: this.idUpdate,
-        renipress: this.form.value.renipress,
-        nombreEESS: this.form.value.nombreEESS,
-        ruc: this.form.value.ruc,
+        ruc: this.ipressFG.value.ruc,
         categoria: {
-          abreviatura: this.form.value.categoria.abreviatura,
-          descripcion: this.form.value.categoria.descripcion,
-          nivelEESS: this.form.value.categoria.nivel,
+          abreviatura: this.ipressFG.value.categoria.abreviatura,
+          // descripcion: this.form.value.categoria.descripcion,
+          nivelEESS: this.ipressFG.value.categoria.nivel,
+        },
+        nombreEESS: this.ipressFG.value.nombreEESS,
+        renipress: this.ipressFG.value.renipress,
+        unidadEjecutora: {
+          unidadEjecutora: this.ipressFG.value.unidad.nombre,
+          codUnidadEjecutora: this.ipressFG.value.unidad.codigo
+        },
+        clasificacion: {
+          clasificacion: this.ipressFG.value.clasificacion,
+          tipo: this.ipressFG.value.clasificacionTipo.tipo
+        },
+        categorizacion: {
+          tipoDocCategorizacion: this.ipressFG.value.categorizacionTipo,
+          nroDocCategorizacion: this.ipressFG.value.categorizacionNro
+        },
+        red: {
+          idRed: this.ipressFG.value.red.idRed,
+          nombreRed: this.ipressFG.value.red.nombreRed,
+          idMicroRed: this.ipressFG.value.microRed.idMicroRed,
+          nombreMicroRed: this.ipressFG.value.microRed.nombreMicroRed,
+          DISA:"disa defecto"
         },
         ubicacion: {
-          ubigeo: this.form.value.ubigeo,
-          departamento: this.form.value.departamento.departamento,
-          provincia: this.form.value.provincia.provincia,
-          distrito: this.form.value.distrito.distrito,
-          centroPoblado: this.form.value.centroPoblado.ccpp,
+          ubigeo: this.ipressFG.value.ubigeo,
+          departamento: this.ipressFG.value.departamento.departamento,
+          provincia: this.ipressFG.value.provincia.provincia,
+          distrito: this.ipressFG.value.distrito.distrito,
+          centroPoblado: this.ipressFG.value.centroPoblado.ccpp,
           altura: this.centro.altura,
           latitud: this.centro.latitude,
           longitud: this.centro.longitude,
-          direccion: this.form.value.direccion,
+          direccion: this.ipressFG.value.direccion,
         },
-        red: {
-          idRed: this.form.value.red.idRed,
-          nombreRed: this.form.value.red.nombreRed,
-          idMicroRed: this.form.value.microRed.idMicroRed,
-          nombreMicroRed: this.form.value.microRed.nombreMicroRed,
-        },
-        categorizacion: {
-          tipoDocCategorizacion: this.form.value.categorizacionTipo,
-          nroDocCategorizacion: this.form.value.categorizacionNro
-        },
-        clasificacion: {
-          clasificacion: this.form.value.clasificacion,
-          tipo: this.form.value.clasificacionTipo.tipo
-        },
-        unidadEjecutora: {
-          unidadEjecutora: this.form.value.unidad.nombre,
-          codUnidadEjecutora: this.form.value.unidad.codigo
-        }
+        // id: this.idUpdate,
       };
-      if (req.renipress.trim() !== "") {
-        this.ipressservice.editIpress(req).subscribe(
-          result => {
-            Swal.fire({
-              icon: 'success',
-              title: 'Editado correctamente',
-              text: '',
-              showConfirmButton: false,
-              timer: 1500,
-            })
-            this.getIpress();
-            this.ipressDialog = false;
-          }
-        )
-      }
+       this.ipressservice.editIpress2(this.idUpdate,req).subscribe(
+        result => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Editado correctamente',
+            text: '',
+            showConfirmButton: false,
+            timer: 1500,
+          })
+          this.getIpress();
+          this.ipressDialog = false;
+        }
+      )
+
     })
   }
 

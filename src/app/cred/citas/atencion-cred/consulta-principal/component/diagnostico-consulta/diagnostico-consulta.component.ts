@@ -446,8 +446,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
           lab: '',
           codProcedimientoHIS: '',
           procedimientoHIS: ''
-        })
-        // this.hisForm.reset();
+        });
       }
     } else
       this.missDataMessage();
