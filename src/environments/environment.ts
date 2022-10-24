@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 const base = "http://192.168.5.3:"; //privada
-// const base="http://190.108.93.150:"; //publica
+//const base="http://190.108.93.150:"; //publica
 
 export const environment = {
     production: false,

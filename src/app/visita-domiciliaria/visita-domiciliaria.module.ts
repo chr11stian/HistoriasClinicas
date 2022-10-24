@@ -10,6 +10,7 @@ import { DialogRespuestasComponent } from "./components/dialog-respuestas/dialog
 import { MapVisitasComponent } from "./components/map-visitas/map-visitas.component";
 import { EsFecha } from "./pipes/respuestas.pipe";
 import { VisitasDomiciliariasPuerperaComponent } from './pages/por-personal/visitas-domiciliarias-puerpera/visitas-domiciliarias-puerpera.component';
+import { PorIpressComponent } from './pages/por-ipress/por-ipress.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { VisitasDomiciliariasPuerperaComponent } from './pages/por-personal/visi
     MapVisitasComponent,
     EsFecha,
     VisitasDomiciliariasPuerperaComponent,
+    PorIpressComponent,
   ],
   imports: [CommonModule, VisitaDomiciliariaRoutingModule, PrimeModule],
   exports: [VisitaDomiciliariaRoutingModule],

@@ -15,8 +15,8 @@ import { VisitaDomiciliariaService } from "../../services/visita-domiciliaria.se
 })
 export class MapVisitasComponent implements OnInit, OnChanges {
   @Input("dataVisitas") dataVisitas: any[];
-  latMap = -13.52264;
-  lngMap = -71.96734;
+  latMap =this.visitaService.getLatitudIpress();
+  lngMap = this.visitaService.getLongitudeIpress();
   private centroid: L.LatLngExpression = [this.latMap, this.lngMap];
   maps: any;
   constructor(private visitaService: VisitaDomiciliariaService) {}
@@ -45,7 +45,7 @@ export class MapVisitasComponent implements OnInit, OnChanges {
       shadowSize: [18, 26],
     });
     L.Marker.prototype.options.icon = iconDefault;
-    this.maps = new L.Map("map").setView([this.latMap, this.lngMap], 20);
+    this.maps = new L.Map("map").setView([this.latMap, this.lngMap],13);
     const titles = L.tileLayer(
       "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
       {
@@ -55,8 +55,10 @@ export class MapVisitasComponent implements OnInit, OnChanges {
           '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       }
     );
+    
 
     this.dataVisitas.map((aux) => {
+      console.log(aux.value.validator.latitud, aux.value.validator.longitud);
       this.visitaService.couch = true;
       L.marker([aux.value.validator.latitud, aux.value.validator.longitud], {
         title: "Visita Domiciliaria",

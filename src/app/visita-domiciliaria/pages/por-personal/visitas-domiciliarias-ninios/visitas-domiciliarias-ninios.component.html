@@ -71,11 +71,11 @@
                             <button  pButton type="button" label="Ver"  icon="pi pi-eye"  class="buttonAcciones" (click)="openDialogRespuestas(RowData.value.preguntas)"></button>
                         </td>
                         <td style="text-align: center">
-                            <button pButton  type="button"  class="buttonAcciones1" (click)="visita_menor_cuatro_meses_reporte(RowData)"
-                        ><a  style="color:#af0017;"
-                        href="{{visitaReporte}}"
-                            target="_blank">Reporte</a>
-                        </button>
+                            <button pButton type="button"  class="buttonAcciones1" (click)="visita_menor_cuatro_meses_reporte(RowData)"
+                            ><a class="link" style="color:#fbfbfb; text-decoration: none;"
+                            href="{{visitaReporte}}"
+                                target="_blank">Reporte</a>
+                            </button>
                         </td>
                     </tr>
                 </ng-template>
@@ -117,7 +117,7 @@
                         </td>
                         <td style="text-align: center">
                             <button pButton type="button"  class="buttonAcciones1" (click)="visita_mayor_cuatro_meses_reporte(RowData)"
-                        ><a style="color:#af0017;"
+                        ><a class="link" style="color:#fbfbfb; text-decoration: none;"
                         href="{{visitaReporte}}"
                             target="_blank">Reporte</a>
                         </button>

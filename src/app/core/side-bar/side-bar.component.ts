@@ -577,6 +577,12 @@ const visitas = {
             icon: "pi pi-book",
             routerLink: "padron-nominal-gestante/mantenimiento",
         },
+        {
+            label:"Ipress",
+            icon: "pi pi-book",
+            routerLink: "visitas-domiciliarias/ipress-ninios",
+
+        }
     ],
 };
 const root = {

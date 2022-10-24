@@ -54,7 +54,35 @@ export class VisitaDomiciliariaService {
         );
     }
 
-    getImageURL(id: string) {
-        return `${this.base_url_images}/${id}`;
+    getImageURL(id: string):any {
+        // return `${this.base_url_images}/${id}`;
+        // console.log(`${this.base_url_images}/${id}`);
+        // // console.log(`${this.base_url_images}/${id}`);
+        return this.http.get<any>(`${this.base_url_images}/${id}`,{headers:{'Authorization':`Bearer ${this.getToken()}`}}
+        );
+    }
+    
+    getLatitudIpress():any{
+        return JSON.parse(
+            localStorage.getItem("usuario")
+        ).ipress.ubicacion.latitud==null?-13.52264:JSON.parse(
+            localStorage.getItem("usuario")
+        ).ipress.ubicacion.latitud;
+    }
+
+    getLongitudeIpress():any{
+        return JSON.parse(
+            localStorage.getItem("usuario")
+        ).ipress.ubicacion.longitud==null?-71.96734:JSON.parse(
+            localStorage.getItem("usuario")
+        ).ipress.ubicacion.longitud;
+    }
+
+    getEscalaCodIpress(){
+        return JSON.parse(
+            localStorage.getItem("usuario")
+        ).escalas.unidades==null?"":JSON.parse(
+            localStorage.getItem("usuario")
+        ).escalas.unidades;
     }
 }

@@ -194,8 +194,7 @@ editarDatos() {
         this.formGestante.get("nroDocIdentidad").setValue(this.dataGestanteEditar.nroDocIdentidad);
         this.formGestante.get("tieneSis").setValue(this.dataGestanteEditar.tieneSis===''?'NO':'SI');
         this.formGestante.get("fechaNacimiento").setValue(this.datePipe.transform(this.dataGestanteEditar.fechaNacimiento,'yyyy-MM-dd'));
-        this.formGestante.get("aborto").setValue('NO');
-        // console.log('aborto estado',this.dataGestanteEditar.value.aborto);
+        this.formGestante.get("aborto").setValue(this.dataGestanteEditar.aborto==false?'NO':'SI');
         this.formGestante.get("nroGesta").setValue(this.dataGestanteEditar.nroGesta.length);
         this.formGestante.get("nombres").setValue(this.dataGestanteEditar.nombres);
         this.formGestante.get("apellidos").setValue(this.dataGestanteEditar.apellidos);
