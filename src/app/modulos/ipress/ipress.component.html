@@ -92,7 +92,7 @@
 
 <!--IPRESS DIALOG-->
 <p-dialog [(visible)]="ipressDialog" [style]="{width: '950px', height: '700px'}" [modal]="true" styleClass="p-fluid"
-    autoZIndex>
+    autoZIndex [draggable]="false">
 
     <ng-template pTemplate="header">
         <h3 class="m-0">{{titulo()}}</h3>
@@ -100,7 +100,7 @@
 
     <ng-template pTemplate="body">
         <div class="m-4">
-            <form [formGroup]='form'>
+            <form [formGroup]='ipressFG'>
                 <div class="grid">
                     <div class="col-12">
                         <p-tabView styleClass="tabview-custom">
@@ -119,10 +119,16 @@
                                     <div class="p-field col-4">
                                         <label>Cod. RENAES:</label>
                                         <input type="text" pInputText formControlName='renipress' placeholder="RENAES">
+                                        <small class="p-error" *ngIf="isInvalid('renipress')">
+                                            *Campo necesario
+                                        </small>
                                     </div>
                                     <div class="p-field col-4">
                                         <label>RUC:</label>
                                         <input type="text" pInputText formControlName='ruc' placeholder="RUC">
+                                        <small class="p-error" *ngIf="isInvalid('ruc')">
+                                            *Campo necesario
+                                        </small>
                                     </div>
                                     <div class="p-field col-4">
                                         <label>Categoria:</label>
@@ -132,10 +138,18 @@
                                             [options]="categoriasList" formControlName="categoria"
                                             optionLabel="abreviatura" required>
                                         </p-dropdown>
+                                        <small class="p-error" *ngIf="isInvalid('categoria')">
+                                            *Campo necesario
+                                        </small>
+                                        
                                     </div>
                                     <div class="p-field col-6">
                                         <label>Nombre EESS:</label>
                                         <input type="text" pInputText formControlName='nombreEESS' placeholder="EESS">
+                                        <small class="p-error" *ngIf="isInvalid('nombreEESS')">
+                                            *Campo necesario
+                                        </small>
+                                        
                                     </div>
                                     
                                     <div class="p-field col-6">
@@ -146,6 +160,9 @@
                                             [options]="unidadesList" formControlName="unidad"
                                             optionLabel="nombre" required>
                                         </p-dropdown>
+                                        <small class="p-error" *ngIf="isInvalid('unidad')">
+                                            *Campo necesario
+                                        </small>
                                     </div>
                                 </div>
                         
@@ -164,6 +181,9 @@
                                             [options]="clasificacionesTipoList" formControlName="clasificacionTipo"
                                             optionLabel="tipo" required>
                                         </p-dropdown>
+                                        <small class="p-error" *ngIf="isInvalid('clasificacionTipo')">
+                                            *Campo necesario
+                                        </small>
                                         
                                     </div>
                                     <div class="p-field col-6">
@@ -174,6 +194,9 @@
                                             [options]="clasificacionesNombreList" formControlName="clasificacion"
                                             required>
                                         </p-dropdown>
+                                        <small class="p-error" *ngIf="isInvalid('clasificacion')">
+                                            *Campo necesario
+                                        </small>
                                     </div>
                                 </div>
                                 <p-divider align="left">
@@ -189,12 +212,18 @@
                                             class="inputRedondo" [showTransitionOptions]="'300ms'"
                                             dropdownIcon="pi pi-chevron-down" inputId="dropdown" scrollHeight="100px"
                                             [options]="categorizacionesList" formControlName="categorizacionTipo"
-                                            required>
+                                            required appendTo="body">
                                         </p-dropdown>
+                                        <small class="p-error" *ngIf="isInvalid('categorizacionTipo')">
+                                            *Campo necesario
+                                        </small>
                                     </div>
                                     <div class="p-field col-6">
                                         <label>Nro de documento:</label>
                                         <input type="text" pInputText formControlName='categorizacionNro' placeholder="Nro de documento de categorización">
+                                        <small class="p-error" *ngIf="isInvalid('categorizacionNro')">
+                                            *Campo necesario
+                                        </small>
                                     </div>
                                 </div>
                             </p-tabPanel>
@@ -231,6 +260,9 @@
                                             formControlName="departamento" optionLabel="departamento"
                                             (onChange)="selectedDepartamento()" required>
                                         </p-dropdown>
+                                        <small class="p-error" *ngIf="isInvalid('departamento')">
+                                            *Campo necesario
+                                        </small>
                                     </div>
 
                                     <div class="p-field col-4">
@@ -240,6 +272,9 @@
                                             inputId="dropdown" [options]="provinciasList" formControlName="provincia"
                                             optionLabel="provincia" (onChange)="selectedProvincia()" required>
                                         </p-dropdown>
+                                        <small class="p-error" *ngIf="isInvalid('provincia')">
+                                            *Campo necesario
+                                        </small>
                                     </div>
                                     <div class="p-field col-4">
                                         <label>Distrito:</label>
@@ -248,6 +283,9 @@
                                             inputId="dropdown" [options]="distritosList" formControlName="distrito"
                                             optionLabel="distrito" (onChange)="selectedDistrito()" required>
                                         </p-dropdown>
+                                        <small class="p-error" *ngIf="isInvalid('distrito')">
+                                            *Campo necesario
+                                        </small>
                                     </div>
                                 </div>
                                 <div class="grid">
@@ -256,13 +294,21 @@
                                         <p-dropdown [placeholder]="!isUpdate?'Centro Poblado':''" class="inputRedondo"
                                             [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down"
                                             inputId="dropdown" [options]="CCPPList" formControlName="centroPoblado"
-                                            optionLabel="ccpp" [filter]="true" filterBy="ccpp" required>
+                                            optionLabel="ccpp" [filter]="true" filterBy="ccpp" required appendTo="body">
                                         </p-dropdown>
+                                        <small class="p-error" *ngIf="isInvalid('centroPoblado')">
+                                            *Campo necesario
+                                        </small>
+                                        
                                     </div>
                                     <div class="p-field col-8">
                                         <label>Direccion:</label>
                                         <input type="text" pInputText formControlName='direccion'
                                             placeholder="Direccion de la IPRESS">
+                                        <small class="p-error" *ngIf="isInvalid('direccion')">
+                                            *Campo necesario
+                                        </small>
+
                                     </div>
                                 </div>
                                 <p-divider align="left">
@@ -278,8 +324,11 @@
                                             [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down"
                                             inputId="dropdown" [options]="redesList" formControlName="red"
                                             optionLabel="nombreRed" (onChange)="changeRedSelected()" scrollHeight="90px"
-                                            required>
+                                            required appendTo="body">
                                         </p-dropdown>
+                                        <small class="p-error" *ngIf="isInvalid('red')">
+                                            *Campo necesario
+                                        </small>
                                     </div>
                                     <div class="p-field col-6">
                                         <label>MicroRed:</label>
@@ -287,8 +336,12 @@
                                             class="inputRedondo" [showTransitionOptions]="'300ms'"
                                             dropdownIcon="pi pi-chevron-down" inputId="dropdown"
                                             [options]="microRedesList" formControlName="microRed"
-                                            optionLabel="nombreMicroRed" scrollHeight="90px" required>
+                                            optionLabel="nombreMicroRed" scrollHeight="90px" required appendTo="body">
                                         </p-dropdown>
+                                        <small class="p-error" *ngIf="isInvalid('microRed')">
+                                            *Campo necesario
+                                        </small>
+
                                     </div>
                                 </div>
                             </p-tabPanel>
@@ -300,9 +353,9 @@
     </ng-template>
 
     <ng-template pTemplate="footer">
-        <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="canceled()"></button>
-        <button *ngIf="!isUpdate" pButton type="button" label="Guardar" (click)="saveForm()"></button>
-        <button *ngIf="isUpdate" pButton type="button" label="Guardar" (click)="editarDatos(rowData)"></button>
+        <!-- <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="canceled()"></button> -->
+        <p-button *ngIf="!isUpdate" class="boton-azul" type="button" label="Guardar" (click)="saveForm()"></p-button>
+        <p-button *ngIf="isUpdate" class="boton-azul" type="button" label="Guardar" (click)="editarDatos(rowData)"></p-button>
     </ng-template>
 </p-dialog>
 
