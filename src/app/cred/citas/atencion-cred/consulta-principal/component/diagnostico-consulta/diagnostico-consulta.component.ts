@@ -182,7 +182,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
     this.recoverConsultationDiagnostic();
     this.recuperarResumenDxBDTamizajes();
     this.recuperarResumenDxBDEvaluaciones();
-    
+
   }
 
   buildForm() {
@@ -441,7 +441,12 @@ export class DiagnosticoConsultaComponent implements OnInit {
       });
       if (!isAdded) {
         this.arrayDiagnosticHIS.push(HISdiagnostic);
-        this.hisForm.reset();
+        this.hisForm.patchValue({
+          tipoDiagnosticoHIS: '',
+          lab: '',
+          codProcedimientoHIS: '',
+          procedimientoHIS: ''
+        });
       }
     } else
       this.missDataMessage();
@@ -494,13 +499,23 @@ export class DiagnosticoConsultaComponent implements OnInit {
       return;
     }
     await this.DiagnosticoService.postPromiseDiagnostico(this.patientData.idConsulta, this.arrayDiagnosticSave).then(res => {
-      Swal.fire({
-        icon: 'success',
-        title: 'Se guardo exitosamente',
-        text: '',
-        showConfirmButton: false,
-        timer: 2000
-      });
+      if (res.cod == '2121') {
+        Swal.fire({
+          icon: 'success',
+          title: 'Se guardo exitosamente',
+          text: '',
+          showConfirmButton: false,
+          timer: 2000
+        });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'No se pudo guardar',
+          text: '',
+          showConfirmButton: false,
+          timer: 2000
+        });
+      }
     });
   }
 

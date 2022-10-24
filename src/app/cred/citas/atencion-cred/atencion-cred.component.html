@@ -50,7 +50,7 @@
         </div>
         <div class="col-12 md:col-6 lg:col-3">
             <button
-                [disabled]="PrimeraConsulta()"
+                [disabled]=!tieneTriajeAndPlan
                 pButton
                 pRipple
                 icon="pi pi-plus-circle"
@@ -58,9 +58,10 @@
                 type="button"
                 (click)="getConsultaPrincipal()"
                 class="p-button-raised p-button-secondary"
-            >
+                >
                 3 CONSULTA PRINCIPAL
             </button>
+            <!-- (click)="getConsultaPrincipal()" -->
         </div>
 
             <!--            <div class="col-12 md:col-6 lg:col-3" [hidden]="hidden">-->

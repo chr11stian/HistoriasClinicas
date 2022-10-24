@@ -96,8 +96,8 @@ export class AcuerdosCredComponent implements OnInit {
         };
 
         if (
-            this.acuerdosAux.length > 0 &&
-            this.FrmObservacion.get("observaciones").value != ""
+            this.acuerdosAux.length > 0
+            // this.FrmObservacion.get("observaciones").value != ""
         ) {
             this.acuerdoService
                 .saveAcuerdo(this.data.idConsulta, aux)

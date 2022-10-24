@@ -19,9 +19,6 @@ p-toolbar >>> * {
     align-self: center;
 }
 
-p-tabview >>> .p-tabview-title {
-}
-
 p-tabview >>> .p-tabview .p-tabview-nav {
     margin: 1rem;
 
@@ -29,8 +26,4 @@ p-tabview >>> .p-tabview .p-tabview-nav {
 
 p-tabview >>> .p-tabview .p-tabview-panels {
     height: 100%;
-}
-
-p-tabview >>> .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-
 }

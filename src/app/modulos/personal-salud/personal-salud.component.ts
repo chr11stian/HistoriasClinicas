@@ -338,6 +338,7 @@ export class PersonalSaludComponent implements OnInit {
         );
         let ipressSelected;
         let detalleIpressNoAdmin;
+        let detalleIpressAdmin;
         if (!this.root) {
             ipressSelected = this.ipressList.find(
                 (ipress) => ipress.nombreEESS === this.form.value.detalleIpress
@@ -351,17 +352,18 @@ export class PersonalSaludComponent implements OnInit {
                         "yyyy-MM-dd"
                     ) + " 00:00:00",
             };
+        } else {
+            detalleIpressAdmin = {
+                idIpress: this.form.get("detalleIpress").value.id,
+                eess: this.form.get("detalleIpress").value.nombreEESS,
+                fechaInicio:
+                    this.datePipe.transform(
+                        this.form.value.fechaInicio,
+                        "yyyy-MM-dd"
+                    ) + " 00:00:00",
+            };
         }
-        console.log(this.form.value.fechaNacimiento);
-        let detalleIpressAdmin = {
-            idIpress: this.form.get("detalleIpress").value.id,
-            eess: this.form.get("detalleIpress").value.nombreEESS,
-            fechaInicio:
-                this.datePipe.transform(
-                    this.form.value.fechaInicio,
-                    "yyyy-MM-dd"
-                ) + " 00:00:00",
-        };
+        //console.log(this.form.value.fechaNacimiento);
 
         const req = {
             tipoDoc: this.form.value.tipoDoc,

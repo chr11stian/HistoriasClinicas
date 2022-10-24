@@ -126,19 +126,19 @@ export class StepGeneral_consultaComponent implements OnInit {
                 break;
             case 2:
                 {
-                    console.log("data id consulta ", this.IDConsulta);
-                    if (this.IDConsulta == null) {
-                        Swal.fire({
-                            icon: "warning",
-                            title: "Consulta",
-                            text: "No resgistrada",
-                            showConfirmButton: false,
-                            timer: 1500,
-                        });
-                        return;
-                    } else {
+                    // console.log("data id consulta ", this.IDConsulta);
+                    // if (this.IDConsulta == null) {
+                    //     Swal.fire({
+                    //         icon: "warning",
+                    //         title: "Consulta",
+                    //         text: "No resgistrada",
+                    //         showConfirmButton: false,
+                    //         timer: 1500,
+                    //     });
+                    //     return;
+                    // } else {
                         this.stepName = "tamizaje";
-                    }
+                    // }
                 }
                 break;
 

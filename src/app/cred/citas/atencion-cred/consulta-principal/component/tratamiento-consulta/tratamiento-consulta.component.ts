@@ -14,6 +14,7 @@ import { RolGuardiaService } from "src/app/core/services/rol-guardia/rol-guardia
 import { ConsultaGeneralService } from "../../services/consulta-general.service";
 import { MenuItem, MessageService } from "primeng/api";
 import { FinalizarConsultaService } from "../../services/finalizar-consulta.service";
+import { Router } from '@angular/router';
 
 @Component({
     selector: "app-tratamiento-consulta",
@@ -54,7 +55,8 @@ export class TratamientoConsultaComponent implements OnInit {
         private tratamientoService: TratamientoConsultaService,
         private rolGuardiaService: RolGuardiaService,
         private consultaGeneralService: ConsultaGeneralService,
-        private finalizarConsulta: FinalizarConsultaService
+        private finalizarConsulta: FinalizarConsultaService,
+        private router: Router,
     ) {
         this.build();
         // this.nexDate = this.consultaGeneralService.fecha
@@ -130,7 +132,7 @@ export class TratamientoConsultaComponent implements OnInit {
         /* lista interconsulta */
         this.listaInterconsulta();
         /* his */
-        
+
     }
 
     /* interconsulta */
@@ -227,26 +229,31 @@ export class TratamientoConsultaComponent implements OnInit {
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.isConfirmed) {
+                this.dialogHIS = false;
                 this.finalizarConsulta
                     .putNextAppointment(this.data.idConsulta, this.nexDate)
                     .then((res: any) => {
                         if (res.cod == '2126') {
-                            Swal.fire(
-                                'Exito!',
-                                'Se registro correctamente.',
-                                'success'
-                            );
+                            this.router.navigate(['/dashboard/cred/lista-consulta'])
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Se cerro la consulta satisfactoriamente',
+                                showConfirmButton: false,
+                                timer: 2000,
+                            });
                             this.dialogHIS = false;
+                            
                         } else {
-                            Swal.fire(
-                                'Error!',
-                                'No se registrar.',
-                                'error'
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'No se pudo cerrar la consulta',
+                                showConfirmButton: false,
+                                timer: 2000,
+                            }
                             );
                         }
 
                     });
-
             }
         })
 
@@ -273,17 +280,17 @@ export class TratamientoConsultaComponent implements OnInit {
         this.tratamientoService
             .getHIS(this.data.idConsulta)
             .subscribe((r: any) => {
-                if (r.cod=="2015") {
+                if (r.cod == "2015") {
                     Swal.fire({
-                      icon: 'info',
-                      title: 'Ya se cerro la consulta',
-                      text: '',
-                      showConfirmButton: false,
-                      timer: 2000,
+                        icon: 'info',
+                        title: 'Ya se cerro la consulta',
+                        text: '',
+                        showConfirmButton: false,
+                        timer: 2000,
                     });
                     this.dialogHIS = false;
                     return;
-                  }
+                }
                 this.listHIS = r.object;
                 console.log("his", this.listHIS);
                 this.listHIS == null ? this.existData = false : this.existData = true;

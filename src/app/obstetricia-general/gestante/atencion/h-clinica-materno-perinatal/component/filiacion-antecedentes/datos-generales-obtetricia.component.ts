@@ -592,9 +592,6 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
     }
 
     addData() {
-        console.log("ZZZZZZZz", this.Ninguno);
-        console.log("ZZZZZZZz", this.Abortohabitualrecurrente);
-        console.log("annnn", this.antecedentes1);
         this.detalleParto();
         const req = {
             gestacionAnterior: {

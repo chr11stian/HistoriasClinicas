@@ -144,10 +144,6 @@ export class InterrogatorioComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("TipoDocRecuperado desde interrogatorio", this.tipoDocRecuperado);
-    console.log("NroDocRecuparado desde interrogatorio", this.nroDocRecuperado);
-    console.log("Nro de embarazo desde interrogatorio", this.nroEmbarazo);
-    console.log("Id Consultorio Obstetrico desde interrogatorio", this.idConsulta);
     this.loadData();
     this.getPlanParto()
   }
@@ -233,6 +229,7 @@ export class InterrogatorioComponent implements OnInit {
     }
   }
   calcularGanancia() {
+
     let gananciaPeso = Math.round(((this.form.value.peso - this.form.value.pesoHabitual) + Number.EPSILON) * 100) / 100;
     console.log("ganancia de peso", gananciaPeso);
     let imc = this.form.value.imc;
@@ -628,7 +625,7 @@ export class InterrogatorioComponent implements OnInit {
       Rpta = res.object[0];
       console.log("desde interrogatorio ", Rpta);
       if (Rpta.signosVitales == null) {
-        return
+        return;
       }
       //signos vitales
       this.form.patchValue({ temperatura: Rpta.signosVitales.temperatura });
@@ -779,9 +776,16 @@ export class InterrogatorioComponent implements OnInit {
         this.getPlanParto()
       }
 
-
     })
 
+  }
+
+  calculateIMC(): void {
+    // let gestationalAge: number = this.form.value.semanas;
+    // let 
+    // if (gestationalAge < 13) {
+    //   this.imcService.getClasificacionEstadoNutricionalByTalla()
+    // }
   }
 }
 
