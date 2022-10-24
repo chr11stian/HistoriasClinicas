@@ -25,41 +25,26 @@ export class AtencionCredComponent implements OnInit {
                 private consultaGeneralService:ConsultaGeneralService ) {
     }
     isTriajeTaken:boolean=false;//si retorna con id de una consulta
-
-
-    isPlanTaken:boolean=false;
-
-    isPrimeraConsulta:boolean=false;
     havePlan:boolean=false
+    tieneTriajeAndPlan:boolean=false
     tienePlan(){
         console.log('tiene plan')
         this.consultaGeneralService.tienePlanCred(this.data.nroDocumento).subscribe((resp:any)=>{
             if (resp.cod=='2121'){
                this.havePlan=resp.object.respuesta
+                this.PrimeraConsulta()
             }
         },(error)=>{
             console.log('estado 404 ',error)
         })
     }
-
-    PrimeraConsulta(){
-        // console.log('eva-->', this.isTriajeTaken,this.havePlan)
-        if (this.isTriajeTaken){
-            if(this.havePlan){
-                return false
+    PrimeraConsulta(){        
+        if (this.isTriajeTaken){        
+            if(this.havePlan){   
+                this.tieneTriajeAndPlan=true
             }
-            else
-                return true
         }
-        else
-            return true
-        // return false  activado
-        // return true  desactivado
-
     }
-
-
-
     ngOnInit(): void {
         this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
         this.hidden = this.data.see

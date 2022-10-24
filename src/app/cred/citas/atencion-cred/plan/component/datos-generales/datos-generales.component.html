@@ -58,7 +58,7 @@
                         </div>
                         <div class="col-9">
                             <input id="lugar" formControlName="lugar" type="text" class="inputfield w-full"
-                                pInputText />
+                                pInputText oninput="this.value=this.value.toUpperCase()"/>
                         </div>
                     </div>
                     <div class="col-4 flex align-items-center">
@@ -79,7 +79,7 @@
                         </div>
                         <div class="col-8">
                             <input formControlName="domicilio" id="domicilio" type="text" class="inputfield w-full"
-                                pInputText />
+                                pInputText oninput="this.value=this.value.toUpperCase()"/>
                         </div>
                     </div>
                     <div class="col-2 flex align-items-center">
