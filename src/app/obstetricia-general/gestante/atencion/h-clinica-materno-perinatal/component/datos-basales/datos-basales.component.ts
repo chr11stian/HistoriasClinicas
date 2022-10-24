@@ -734,7 +734,6 @@ export class DatosBasalesComponent implements OnInit {
                         this.tipoGananciaPeso = 'bajoPeso';
                         this.form.patchValue({ imc: imcAux.toFixed(2) });
                         this.form.patchValue({ pesoHabitual: pesoHabitual });
-                        console.log('imc ', imcAux);
                     });
                 }
                 if (pesoActual >= rptaClasific.normal18 && pesoActual <= rptaClasific.normal25) {
