@@ -799,7 +799,7 @@ export class IpressComponent implements OnInit {
 
   selectedDepartamentoJurisdiccion() {
     const dpto = {
-      departamento: this.formJurisdiccion.value.departamento,
+      departamento: this.formJurisdiccion.get("departamento").value,
     }
     let rowData = dpto.departamento;
     this.ubicacionService.getProvincias(rowData).subscribe((res: any) => {
@@ -841,7 +841,8 @@ export class IpressComponent implements OnInit {
       idpp: p,
       iddis: dt
     }
-    this.ubicacionService.getCentroPoblado(aux).subscribe((res: any) => {
+ 
+   this.ubicacionService.getCentroPoblado(aux).subscribe((res: any) => {
       this.CCPPList = res.object;
     })
     this.ubicacionService.getUbigeoDistrito(aux).subscribe((res: any) => {
