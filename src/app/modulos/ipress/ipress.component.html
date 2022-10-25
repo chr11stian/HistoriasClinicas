@@ -34,7 +34,7 @@
                 <th style="text-align: center">Ubigeo</th>
                 <th style="text-align: center">Red</th>
                 <th style="text-align: center">Micro Red</th>
-                <th style="text-align: center">Encargado</th>
+                <!-- <th style="text-align: center">Encargado</th> -->
                 <th style="text-align: center">Jurisdiccion</th>
                 <th style="text-align: center">Ambientes</th>
                 <th style="text-align: center">Turnos</th>
@@ -52,7 +52,7 @@
                 <td style="text-align: center">{{ rowData.ubicacion ? rowData.ubicacion.ubigeo : ""}}</td>
                 <td style="text-align: center">{{ rowData.red? rowData.red.nombreRed : ""}}</td>
                 <td style="text-align: center">{{ rowData.red? rowData.red.nombreMicroRed : ""}}</td>
-                <td style="text-align: center">{{ rowData.encargado? rowData.encargado[0].nombre : ""}}</td>
+                <!-- <td style="text-align: center">{{ rowData.encargado? rowData.encargado[0].nombre : ""}}</td> -->
                 <!-- <td style="text-align: center">
                     <button pButton pRipple icon="pi pi-user" class="p-button-rounded p-button-secondary"
                         (click)="newEncargado(rowData)"></button>
@@ -370,17 +370,12 @@
         <form [formGroup]='formEncargado'>
             <div>
                 <div class="grid">
-                    <!-- <div class="p-field col-6">
+                    <div class="p-field col-6">
                         <label>Tipo Documento:</label>
-                        <p-dropdown *ngIf="!isUpdateEncargado" placeholder="Tipo documento" class="inputRedondo"
+                        <p-dropdown [placeholder]="!isUpdateEncargado?'Tipo documento':''" class="inputRedondo"
                             [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" inputId="dropdown"
                             (onChange)="onChangeTipoDocumento()" [options]="tipoDocumentosList"
                             formControlName="tipoDocumento" optionLabel="abreviatura" scrollHeight="100px" required appendTo="body">
-                        </p-dropdown>
-                        <p-dropdown *ngIf="isUpdateEncargado" class="inputRedondo" [showTransitionOptions]="'300ms'"
-                            dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="tipoDocumentosList"
-                            (onChange)="onChangeTipoDocumento()" formControlName="tipoDocumento"
-                            optionLabel="abreviatura" scrollHeight="200px" required appendTo="body">
                         </p-dropdown>
                     </div>
                     <div class="p-field col-6">
@@ -388,16 +383,15 @@
                         <div class="p-inputgroup">
                             <input type="text" pInputText formControlName="nroDoc" placeholder="Nro Documento"
                                 [(maxlength)]="tamanioDocumento">
-                            <button *ngIf="!loadingEncargado" type="button" pButton pRipple icon="pi pi-search"
+                            <!-- <button *ngIf="!loadingEncargado" type="button" pButton pRipple icon="pi pi-search"
                                 (click)="buscarPersonal()" class="p-button-outlined p-button-secondary"></button>
                             <button *ngIf="loadingEncargado" type="button" pButton pRipple icon="pi pi-spin pi-spinner"
-                                (click)="buscarPersonal()" class="p-button-outlined p-button-secondary"></button>
+                                (click)="buscarPersonal()" class="p-button-outlined p-button-secondary"></button> -->
                         </div>
-
-                    </div> -->
+                    </div>
                     <div class="p-field col-12">
                         <label>Nombre Personal:</label>
-                        <input type="text" pInputText formControlName='nombre' placeholder="Nombre Personal" disabled>
+                        <input type="text" pInputText formControlName='nombre' placeholder="Nombre Personal">
                     </div>
                 </div>
             </div>

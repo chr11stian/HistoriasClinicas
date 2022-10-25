@@ -702,20 +702,23 @@ export class IpressComponent implements OnInit {
     this.CCPPList = [];
   }
   newEncargado(rowData) {
-    this.idIpress = rowData.id;
+    this.encargadoDialog = true;
     this.isUpdateEncargado = false;
+    
+    console.log('data ipress-->',rowData);
+    // this.idIpress = rowData.id;
     if (rowData.encargado) {
-      this.encargadoActual = rowData.encargado[rowData.encargado.length - 1]
       this.isUpdateEncargado = true;
-      this.formEncargado.get('tipoDocumento').setValue(this.tipoDocumentosList.find(tipo => tipo.abreviatura === rowData.encargado[rowData.encargado.length - 1].tipoDoc));
-      this.formEncargado.get('nroDoc').setValue(rowData.encargado[rowData.encargado.length - 1].nroDoc);
+      this.encargadoActual = rowData.encargado[rowData.encargado.length - 1]
       this.formEncargado.get('nombre').setValue(rowData.encargado[rowData.encargado.length - 1].nombre);
-      this.onChangeTipoDocumento();
+      this.formEncargado.get('nroDoc').setValue(rowData.encargado[rowData.encargado.length - 1].nroDoc?rowData.encargado[rowData.encargado.length - 1].nroDoc:'');
+      const tipoDoc=this.tipoDocumentosList.find(tipo => tipo.abreviatura === rowData.encargado[rowData.encargado.length - 1].tipoDoc)
+      this.formEncargado.get('tipoDocumento').setValue(tipoDoc?tipoDoc:'');
+      // this.onChangeTipoDocumento();
     }
     else {
       this.formEncargado.reset();
     }
-    this.encargadoDialog = true;
   }
   onChangeTipoDocumento() {
     this.tamanioDocumento = this.formEncargado.value.tipoDocumento.longitud;
@@ -1134,7 +1137,8 @@ export class IpressComponent implements OnInit {
   }
   saveEncargado(rowData) {
     const req = {
-      idIpress: this.idIpress,
+      // idIpress: this.idIpress,
+      idIpress: "6350222d6486bd618a057fa0",
       tipoDoc: this.formEncargado.value.tipoDocumento.abreviatura,
       nroDoc: this.formEncargado.value.nroDoc,
     }
