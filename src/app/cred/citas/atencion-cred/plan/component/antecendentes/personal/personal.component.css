@@ -12,4 +12,17 @@ p-selectbutton >>> .p-selectbutton .p-button.p-highlight {
     border-color: #0C3866;
     
 }
+/* fieldset styles */
+::ng-deep .info-fieldset .p-fieldset .p-fieldset-legend {
+    padding: 0.5rem;
+    border: 1px solid #dee2e6;
+    color: #495057;
+    background: #d8dee5;
+    font-weight: 600;
+    border-radius: 5px;
+    font-size: small;
+}
 
+::ng-deep .title-fieldset .p-fieldset .p-fieldset-legend>span{
+    padding: 0.25rem;
+}
