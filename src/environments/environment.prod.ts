@@ -10,7 +10,6 @@ export const environment = {
     bd: "hce",
     bdCouch: "visitas_medicas",
     bd_pn_gestante:"db_padron_nominal_gestante",
-
     baseUrl: base + "3012/api",
     base_uri: base + "3010/login/hce" /**ACCESO AL LOGIN**/,
     base_uri_: base + "3012" /*LOGIN*/,
