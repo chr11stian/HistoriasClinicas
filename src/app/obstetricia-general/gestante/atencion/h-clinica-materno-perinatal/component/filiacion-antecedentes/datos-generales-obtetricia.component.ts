@@ -827,7 +827,6 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
                 this.DetalleParto3,
                 this.DetalleParto4,
             ]
-
         }
         console.log("DATA ANTECEDENTES", req)
         this.filiancionService.UpdateAntecedentesFiliacion(this.tipoDocRecuperado, this.nroDocRecuperado, req).subscribe(
