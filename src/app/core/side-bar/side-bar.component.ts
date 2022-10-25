@@ -268,11 +268,6 @@ const administracion2 = {
     icon: "pi pi-cog",
     items: [
         {
-            label: "Ups Auxiliar",
-            icon: "pi pi-pw pi-file",
-            routerLink: "mantenimientos/ups-aux",
-        },
-        {
             label: "Ipress Turnos",
             icon: "pi pi-pw pi-file",
             routerLink: "admision/ipress-turnos",
@@ -288,25 +283,30 @@ const administracion2 = {
             routerLink: "admision/ipress-roles",
         },
         {
+            label: "Ups Auxiliar",
+            icon: "pi pi-pw pi-file",
+            routerLink: "mantenimientos/ups-aux",
+        },
+        /* {
             label: "Ipress Horarios",
             icon: "pi pi-pw pi-file",
             routerLink: "admision/ipress-horarios",
-        },
+        }, */
         {
             label: "Ipress Tarifario",
             icon: "pi pi-pw pi-file",
             routerLink: "admision/ipress-tarifario",
         },
-        {
-            icon: "pi pi-file",
-            label: "Tipo Personal",
-            routerLink: "mantenimientos/tipo-personal",
-        },
-        {
+        // {
+        //     icon: "pi pi-file",
+        //     label: "Tipo Personal",
+        //     routerLink: "mantenimientos/tipo-personal",
+        // },
+       /*  {
             icon: "pi pi-file",
             label: "Unidad ejecutora",
             routerLink: "mantenimientos/unidad-ejecutora",
-        },
+        }, */
         {
             icon: "pi pi-file",
             label: "Antecedentes Pacientes",
@@ -321,11 +321,6 @@ const administracion2 = {
             icon: "pi pi-file",
             label: "Ipress Laboratorio",
             routerLink: "admision/ipress-laboratorio",
-        },
-        {
-            icon: "pi pi-file",
-            label: "Ups Auxiliar",
-            routerLink: "mantenimientos/ups-aux",
         },
         {
             icon: "pi pi-file",
