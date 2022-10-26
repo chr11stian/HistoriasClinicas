@@ -622,17 +622,18 @@ export class IpressComponent implements OnInit {
         },
         // id: this.idUpdate,
       };
-       this.ipressservice.editIpress2(this.idUpdate,req).subscribe(
-        result => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Editado correctamente',
-            text: '',
-            showConfirmButton: false,
-            timer: 1500,
-          })
-          this.getIpress();
-          this.ipressDialog = false;
+       this.ipressservice.editIpress2(this.idUpdate,req).subscribe((result) => {
+          if(result.cod=="2126"){
+            Swal.fire({
+              icon: 'success',
+              title: 'Editado correctamente',
+              text: '',
+              showConfirmButton: false,
+              timer: 1500,
+            })
+            this.getIpress();
+            this.ipressDialog = false;
+          }
         }
       )
 
@@ -726,6 +727,8 @@ export class IpressComponent implements OnInit {
     return this.UPSList.find(ups => ups.codUPS === rowData).nombreUPS;
   }
   newJurisdiccion(rowData) {
+    console.log('nueva juridiccion:',rowData);
+    
     this.jurisdicciones = rowData.jurisdiccion;
     this.idIpress = rowData.id;
     this.formJurisdiccion.reset();
