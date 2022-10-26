@@ -8,13 +8,13 @@
               </div>
       </div>
       <p-card>
-          <form [formGroup]="formListaVisitas" class="p-fluid p-formgrid p-grid">
+          <!-- <form [formGroup]="formListaVisitas" class="p-fluid p-formgrid p-grid">
               <div >
                   <div class="anios">
                       <p-dropdown
                              
                               [options]="anios"
-                              optionLabel="anio" formControlName="busquedaAnio"
+                              optionLabel="anio" 
                               optionValue="anio"
                               placeholder="Año"
                               [showClear]="false"
@@ -28,11 +28,10 @@
                                       [options]="meses"  
                                       optionValue="value" 
                                       [(ngModel)]="selectedMes"
-                                      formControlName="busquedaMes"
                                       optionLabel="label"></p-selectButton>
                   </div>
               </div>
-          </form>
+          </form> -->
           <!--MapStreet-->
       </p-card>
   <p-table [value]="profesionalesIpress" dataKey="name" responsiveLayout="scroll">
@@ -114,6 +113,6 @@
   </p-table>
   </div>
   <p-card>
-      <app-map-visitas></app-map-visitas>
+      <!-- <app-map-visitas></app-map-visitas> -->
   </p-card>
   </div>

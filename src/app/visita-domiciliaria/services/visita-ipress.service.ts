@@ -22,7 +22,10 @@ export class VisitaIpressService {
     });
   }
 
-  getVisitasGestantesXprofesionalTodo(idIpress: any,dni_profesional: any): any {
+  getVisitasGestantesXprofesionalTodo(
+    idIpress: any,
+    dni_profesional: any
+  ): any {
     return this.http.post<VisitasProfesionalGestantes[]>(
       `${this.base_url_view}/visita-profesional-gestantes-todo`,
       {
@@ -32,12 +35,17 @@ export class VisitaIpressService {
   }
 
   getVisitasNiniosXProfesionalTodo(idIpress: string, dni_profesional: string) {
-    return this.http.post<VisitasProfesionalNinios[]>(
-      `${this.base_url_view}/VPN_XProfesionalTodo`,
-      {
-        keys: [[idIpress, dni_profesional]],
-      }
-    );
+    return this.http
+      .post<VisitasProfesionalNinios[]>(
+        `${this.base_url_view}/VPN_XProfesionalTodo`,
+        {
+          keys: [[idIpress, dni_profesional]],
+        }
+      )
+      .toPromise()
+      .then((res) => <any[]>res)
+      .then((data) => {
+        return data;
+      });
   }
-  
 }

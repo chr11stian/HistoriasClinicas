@@ -24,7 +24,7 @@ export class MapVisitasComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     setTimeout(() => {
       this.initMap();
-    }, 500);
+    }, 500);                                           
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -61,10 +61,23 @@ export class MapVisitasComponent implements OnInit, OnChanges {
     );
     //${this.visitaService.getImageURL( aux.value.validator.imagen
     this.dataVisitas.map((aux,i) => {
-      console.log(aux.value);
-      console.log(i,aux.value.validator.latitud, aux.value.validator.longitud);
-      console.log('imagennnnnn',this.visitaService.getImageURL( aux.value.validator.imagen));
-      this.visitaService.couch = true;
+      //console.log(aux.value);
+      //console.log(i,aux.value.validator.latitud, aux.value.validator.longitud);
+      // this.visitaService.couch=true;
+      // this.visitaService.getImageURL(aux.value.validator.firma).subscribe((re)=>console.log("werewrewr",re))
+      /**
+       *const urlFoto =this.imagenServicio.urlImagen(url);
+        const token = localStorage.getItem("token"); //obtener el token
+        const headers = new HttpHeaders({'Authorization': "Bearer " + token, 'Content-Type': 'image/*'}); //costruir los header con el token
+        // return this.http.get(url, {headers, responseType: "blob"})
+        return this.http
+            .get(urlFoto, { headers, responseType: 'blob' })//recuperar la imagen y guardar en un blob
+            .pipe(map(val => this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(val))));
+       */
+      this.visitaService.getImageURL(aux.value.validator.firma).subscribe((data)=>{
+        console.log("daaaataaa",data);
+      });
+
       L.marker([aux.value.validator.latitud, aux.value.validator.longitud],{
         title: "Visita Domiciliaria",
       })
@@ -73,11 +86,12 @@ export class MapVisitasComponent implements OnInit, OnChanges {
           `
         <h3>Visita domiciliaria nro :${aux.value.nroVisita}</h3>
         <h4>Altitud:${aux.value.validator.altitud}</h4> 
-        <img class="image" src="{{'data:image/jpg;base64,'+${this.visitaService.getImageURL(aux.value.validator.imagen)}}"
-        alt="Imagen"/>`,
+      
+      `,
           { closeButton: false }
         );
     });
     titles.addTo(this.maps);
   }
-}
+}/**  <img class="image" src="{{'data:image/png;base64,'+${this.visitaService.getImageURL(aux.value.validator.firma)}}"
+        alt="Imagen"/> */
