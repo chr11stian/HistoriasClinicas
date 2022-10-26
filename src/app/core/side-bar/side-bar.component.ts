@@ -23,7 +23,7 @@ const menu_geresa = [
                 label: "Usuarios",
                 icon: "pi pi-pw pi-file",
                 routerLink: "admision/usuarios",
-            },
+            }
         ],
     },
 
@@ -587,6 +587,11 @@ const root = {
             label: "Ipress",
             icon: "pi pi-pw pi-calendar",
             routerLink: "admision/ipress",
+        },
+        {
+            label: "HIS",
+            icon:"pi pi-book",
+            routerLink:"mantenimientos/his-crud"
         },
     ],
 };
