@@ -54,10 +54,7 @@ export class VisitaDomiciliariaService {
         );
     }
 
-    getImageURL(id: string):any {
-        // return `${this.base_url_images}/${id}`;
-        // console.log(`${this.base_url_images}/${id}`);
-        // // console.log(`${this.base_url_images}/${id}`);
+    getImageURL(id: string):any{
         return this.http.get<any>(`${this.base_url_images}/${id}`,{headers:{'Authorization':`Bearer ${this.getToken()}`}}
         );
     }

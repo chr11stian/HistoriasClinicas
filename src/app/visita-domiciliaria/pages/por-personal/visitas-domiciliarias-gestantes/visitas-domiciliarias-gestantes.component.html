@@ -38,7 +38,12 @@
         </p-card>
     </div>
     <p-accordion>
-        <p-accordionTab header="VISITA DOMICILIARIA GESTANTES-NÚMERO DE VISITAS :{{dataVisitas.length}}">
+        <p-accordionTab>
+            <p-header >
+                <span>VISITA DOMICILIARIA GESTANTES-NÚMERO DE VISITAS : 
+                    <i class="pi pi-bell mr-4 p-text-secondary" pBadge style="font-size: 1.25rem" [value]="dataVisitas.length" severity="danger"></i>
+                </span>
+            </p-header>
             <p-table [value]="dataVisitas"   #dt styleClass="p-datatable-gridlines" [rows]="4"
             [rowsPerPageOptions]="[5, 10, 15]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
             currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">

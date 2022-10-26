@@ -37,11 +37,16 @@
         </p-card>
     </div>
     <p-accordion>
-        <p-accordionTab header="VISITA DOMICILIARIA ENTRE LOS 0 A 4 MESES-NÚMERO DE VISITAS:{{dataVisitas_Menores_4_meses.length}}" >
+        <p-accordionTab  >
+           <p-header >
+            <span>VISITA DOMICILIARIA ENTRE LOS 0 A 4 MESES-NÚMERO DE VISITAS: 
+                <i class="pi pi-bell mr-4 p-text-secondary" pBadge style="font-size: 1.25rem" [value]="dataVisitas_Menores_4_meses.length" severity="danger"></i>
+            </span>
+           </p-header>
             <p-table [value]="dataVisitas_Menores_4_meses"   #dt styleClass="p-datatable-gridlines" [rows]="4"
             [rowsPerPageOptions]="[10,20,30]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
             currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
-                <ng-template pTemplate="header">
+            <ng-template pTemplate="header">
                 <tr>
                     <th>Nro</th>
                     <th>DNI</th>
@@ -82,8 +87,13 @@
             </p-table>
         
         </p-accordionTab>
-    <p-accordionTab header="VISITA DOMICILIARIA ENTRE LOS 4 A 24 MESES-NÚMERO DE VISITAS:{{dataVisitas_Mayores_4_meses.length}}">
-            <p-table [value]="dataVisitas_Mayores_4_meses"   #dt styleClass="p-datatable-gridlines" [rows]="4"
+    <p-accordionTab>
+        <p-header >
+            <span>VISITA DOMICILIARIA ENTRE LOS 0 A 4 MESES-NÚMERO DE VISITAS: 
+            <i class="pi pi-bell mr-4 p-text-secondary" pBadge style="font-size: 1.25rem"   [value]="dataVisitas_Mayores_4_meses.length" severity="danger"></i>
+            </span>
+        </p-header>
+        <p-table [value]="dataVisitas_Mayores_4_meses"   #dt styleClass="p-datatable-gridlines" [rows]="4"
             [rowsPerPageOptions]="[10,20,30]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
             currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
                 <ng-template  pTemplate="header">
@@ -102,7 +112,7 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body"  let-RowData let-rowIndex="rowIndex">
-                    <tr>
+                    <tr [ngClass]="dataActual">
                         <td style="text-align: center">{{rowIndex+1}}</td>
                         <td style="text-align: center">{{RowData.value.dni_ninio}}</td>
                         <td style="text-align: center">{{RowData.value.nombres_ninio}}</td>

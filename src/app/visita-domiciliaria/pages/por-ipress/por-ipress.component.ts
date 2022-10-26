@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { VisitaDomiciliariaService } from '../../services/visita-domiciliaria.service';
 import { VisitaIpressService } from '../../services/visita-ipress.service';
+import { Value } from '../../../pn-gestante/interfaces/padron_Nominal';
+import { responsable } from '../../../cred/citas/atencion-cred/plan/component/datos-generales/datos-generales.component';
+import { Profesional } from '../../interfaces/profesional';
 
 @Component({
   selector: 'app-por-ipress',
@@ -14,86 +17,15 @@ export class PorIpressComponent implements OnInit {
   formListaVisitas: FormGroup;
   dataVisitas: any[] = [];
   profesionalesIpress: any[] = [];
+  dniProfesionalIpress:any[]=[];
   selectedAnio: string;
   selectedMes: string;
-  customers: any[] = [
-    {
-      id: 1003,
-      name: "Lenna Paprocki",
-      country: {
-        name: "Slovenia",
-        code: "si",
-      },
-      company: "Feltz Printing Service",
-      date: "2020-09-15",
-      status: "new",
-      verified: false,
-      activity: 37,
-      representative: {
-        name: "Xuxue Feng",
-        image:
-          "https://res.cloudinary.com/dhcetqc1j/image/upload/v1648754228/cld-sample.jpg",
-      },
-      balance: 88521,
-    },
-    {
-      id: 1004,
-      name: "Donette Foller",
-      country: {
-        name: "South Africa",
-        code: "za",
-      },
-      company: "Printing Dimensions",
-      date: "2016-05-20",
-      status: "proposal",
-      verified: true,
-      activity: 33,
-      representative: {
-        name: "Asiya Javayant",
-        image:
-          "https://res.cloudinary.com/dhcetqc1j/image/upload/v1648754228/cld-sample.jpg",
-      },
-      balance: 93905,
-    },
-    {
-      id: 1005,
-      name: "Simona Morasca",
-      country: {
-        name: "Egypt",
-        code: "eg",
-      },
-      company: "Chapman, Ross E Esq",
-      date: "2018-02-16",
-      status: "qualified",
-      verified: false,
-      activity: 68,
-      representative: {
-        name: "Ivan Magalhaes",
-        image:
-          "https://res.cloudinary.com/dhcetqc1j/image/upload/v1648754228/cld-sample.jpg",
-      },
-      balance: 50041,
-    },
-    {
-      id: 1006,
-      name: "Mitsue Tollner",
-      country: {
-        name: "Paraguay",
-        code: "py",
-      },
-      company: "Morlong Associates",
-      date: "2018-02-19",
-      status: "renewal",
-      verified: true,
-      activity: 54,
-      representative: {
-        name: "Ivan Magalhaes",
-        image:
-          "https://res.cloudinary.com/dhcetqc1j/image/upload/v1648754228/cld-sample.jpg",
-      },
-      balance: 58706,
-    },
-  ];
+  profesional:Profesional;
+  visitas_menor_4_meses:any []=[];
+  visitas_mayor_4_meses:any []=[];
+  visitas_gestantes:any []=[];
+  visitas_puerperas:any []=[];
+
   meses = [
     { label: "Enero", value: 1 },
     { label: "Febrero", value: 2 },
@@ -126,20 +58,6 @@ export class PorIpressComponent implements OnInit {
     this.listaVisitas();
   }
 
-  calculateCustomerTotal(name) {
-    let total = 0;
-
-    if (this.customers) {
-      for (let customer of this.customers) {
-        if (customer.representative.name === name) {
-          total++;
-        }
-      }
-    }
-
-    return total;
-  }
-
   listaVisitas() {
     let ipress = "00002303";
     this.servicioVisitas.couch = true;
@@ -148,11 +66,66 @@ export class PorIpressComponent implements OnInit {
       .subscribe((data) => {
         this.dataVisitas = data["rows"];
         console.log("data", data);
-        console.log("Lista visitas", this.dataVisitas);})
+      this.dataVisitas.map((aux,index)=>{
+        console.log(aux);
+        // console.log(this.profesionalesIpress.indexOf(aux.value.responsable));
+          if(this.dniProfesionalIpress.indexOf(aux.value.responsable)===-1){
+            this.recuperarInformacionProfesional(aux)
+            this.dniProfesionalIpress.push(aux.value.responsable);
+            // this.profesional.visitas_mayores_4_meses=this.visitas_mayor_4_meses;
+            // this.profesionalesIpress.push(this.profesional);
+            // console.log(this.profesional.visitas_mayores_4_meses);
+            this.profesionalesIpress.push(this.profesional);
+            console.log(this.profesional);
+          }
+        })
+        console.log("Lista visitas", this.dataVisitas);
+        console.log("Profesionales ipress",this.profesionalesIpress);
+        // console.log("dni profesionales ipress",this.dniProfesionalIpress);
+      })
   }
 
-  verVisitasPorAnio(event) {}
+  recuperarInformacionProfesional(object){
+    this.profesional={
+    dni:object.value.responsable.slice(2,9),
+    nombres:object.value.nombres_responsable,
+    apellidos:object.value.apellidos_responsable,
+    telefono:object.value.telefono,
+    eess:object.value.eess_descripcion
+    }
+  }
 
-  verVisitasPorMes(event) {}
+  recuperarVisitasNiniosMayores4Meses(ipress,aux){
+    this.servicioVisitas.couch = true;
+    this.servicioVisitaProfesionalIpress.getVisitasNiniosXProfesionalTodo(ipress,aux.value.responsable).subscribe(
+      (data_ninios)=>{
+      this.visitas_mayor_4_meses=data_ninios;
+      }
+    )
+  }
+  recuperarVisitasNiniosMenores4Meses(ipress,aux){
+    this.servicioVisitas.couch = true;
+    this.servicioVisitaProfesionalIpress.getVisitasNiniosXProfesionalTodo(ipress,aux.value.responsable).subscribe(
+      (data_ninios)=>{
+      this.visitas_menor_4_meses=data_ninios;
+      }
+    )
+  }
+  recuperarGestantes(ipress,aux){
+    this.servicioVisitas.couch = true;
+    this.servicioVisitaProfesionalIpress.getVisitasNiniosXProfesionalTodo(ipress,aux.value.responsable).subscribe(
+      (data_ninios)=>{
+      this.visitas_gestantes=data_ninios;
+      }
+    )
+  }
+  recuperarPuerperas(ipress,aux){
+    this.servicioVisitas.couch = true;
+    this.servicioVisitaProfesionalIpress.getVisitasNiniosXProfesionalTodo(ipress,aux.value.responsable).subscribe(
+      (data_ninios)=>{
+      this.visitas_puerperas=data_ninios;
+      }
+    )
+  }
 
 }

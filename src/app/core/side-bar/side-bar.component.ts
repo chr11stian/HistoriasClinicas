@@ -573,13 +573,18 @@ const visitas = {
             routerLink: "visitas-domiciliarias/profesional-gestantes",
         },
         {
+            label: "Puerperas",
+            icon: "pi pi-users",
+            routerLink: "visitas-domiciliarias/profesional-puerperas",
+        },
+        {
             label: "Padron nominal",
             icon: "pi pi-book",
             routerLink: "padron-nominal-gestante/mantenimiento",
         },
         {
-            label:"Ipress",
-            icon: "pi pi-book",
+            label:"Ipress niños",
+            icon: "pi pi-user",
             routerLink: "visitas-domiciliarias/ipress-ninios",
 
         }

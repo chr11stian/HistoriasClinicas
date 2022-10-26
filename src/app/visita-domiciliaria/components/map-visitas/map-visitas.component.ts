@@ -41,8 +41,12 @@ export class MapVisitasComponent implements OnInit, OnChanges {
       iconUrl: "./assets/svg-marker/marker-visita-domiciliaria.svg",
       iconSize: [30, 30],
       iconAnchor: [12, 41],
-      shadowAnchor: [18, 26],
-      shadowSize: [18, 26],
+      shadowAnchor: [0,55],
+      shadowSize: [25,40],
+      shadowUrl:
+      "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
+      popupAnchor: [0, -40],
+      
     });
     L.Marker.prototype.options.icon = iconDefault;
     this.maps = new L.Map("map").setView([this.latMap, this.lngMap],13);
@@ -55,12 +59,13 @@ export class MapVisitasComponent implements OnInit, OnChanges {
           '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       }
     );
-    
-
-    this.dataVisitas.map((aux) => {
-      console.log(aux.value.validator.latitud, aux.value.validator.longitud);
+    //${this.visitaService.getImageURL( aux.value.validator.imagen
+    this.dataVisitas.map((aux,i) => {
+      console.log(aux.value);
+      console.log(i,aux.value.validator.latitud, aux.value.validator.longitud);
+      console.log('imagennnnnn',this.visitaService.getImageURL( aux.value.validator.imagen));
       this.visitaService.couch = true;
-      L.marker([aux.value.validator.latitud, aux.value.validator.longitud], {
+      L.marker([aux.value.validator.latitud, aux.value.validator.longitud],{
         title: "Visita Domiciliaria",
       })
         .addTo(this.maps)
@@ -68,9 +73,8 @@ export class MapVisitasComponent implements OnInit, OnChanges {
           `
         <h3>Visita domiciliaria nro :${aux.value.nroVisita}</h3>
         <h4>Altitud:${aux.value.validator.altitud}</h4> 
-        <img src=${this.visitaService.getImageURL(
-          aux.value.validator.imagen
-        )} alt=""/>`,
+        <img class="image" src="{{'data:image/jpg;base64,'+${this.visitaService.getImageURL(aux.value.validator.imagen)}}"
+        alt="Imagen"/>`,
           { closeButton: false }
         );
     });

@@ -12,7 +12,7 @@
               <div >
                   <div class="anios">
                       <p-dropdown
-                              (onChange)="verVisitasPorAnio($event)"
+                             
                               [options]="anios"
                               optionLabel="anio" formControlName="busquedaAnio"
                               optionValue="anio"
@@ -24,7 +24,7 @@
                       </p-dropdown>
                   </div>
                   <div class="meses">
-                      <p-selectButton (onChange)="verVisitasPorMes($event)" 
+                      <p-selectButton 
                                       [options]="meses"  
                                       optionValue="value" 
                                       [(ngModel)]="selectedMes"
@@ -35,7 +35,7 @@
           </form>
           <!--MapStreet-->
       </p-card>
-  <p-table [value]="dataVisitas" dataKey="name" responsiveLayout="scroll">
+  <p-table [value]="profesionalesIpress" dataKey="name" responsiveLayout="scroll">
       <ng-template pTemplate="header">
           <tr>
               <th style="width: 3rem"></th>
@@ -54,11 +54,11 @@
                   <button  type="button" pButton pRipple [pRowToggler]="visita" class="p-button-text p-button-rounded p-button-plain p-button-secondary" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
               </td>
               <td>{{rowIndex+1}}</td>
-              <td>{{visita.value.responsable}}</td>
-              <td>{{visita.value.nombres_responsable}}</td>
-              <td>{{visita.value.apellidos_responsable}}</td>
-              <td>{{visita.value.celular}}</td>
-              <td>{{visita.value.eess_descripcion}}</td>
+              <td>{{visita.dni}}</td>
+              <td>{{visita.nombres}}</td>
+              <td>{{visita.apellidos}}</td>
+              <td>{{visita.celular}}</td>
+              <td>{{visita.eess}}</td>
               <td>2</td>
           </tr>
       </ng-template>
