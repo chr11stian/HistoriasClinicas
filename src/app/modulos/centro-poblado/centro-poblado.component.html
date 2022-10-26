@@ -1,0 +1,206 @@
+<!--TABLA IPRESS-->
+<div class="p-card grid">
+
+    <div class="col-3">
+        <p-card >
+            <form [formGroup]='centroPobladoFG'>
+                <!-- <div class="p-fluid grid flex justify-content-center">
+                    <div class="p-field col-12 md:col-12">
+                        <label>Ubigeo:</label>
+                        <div class="grid">
+                            <div class="p-inputgroup col-12">
+                                <input type="text" class="inputRedondo" placeholder="Ubigeo" pInputText
+                                    formControlName='ubigeo' />
+        
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="p-fluid grid flex justify-content-center">
+                    <div class="p-field col-12 md:col-12">
+                        <label>Departamento:</label>
+                        <p-dropdown [placeholder]="!isUpdate?'Seleccione Departamento':''" class="inputRedondo"
+                            [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down"
+                             [options]="departamentoList" formControlName="departamento"
+                            optionLabel="departamento" (onChange)="selectedDepartamento()" appendTo="body"> 
+                        </p-dropdown>
+                       
+                    </div>
+                </div>
+                <div class="p-fluid grid flex justify-content-center">
+                    <div class="p-field col-12 md:col-12">
+                        <label>Provincia:</label>
+                        <p-dropdown [placeholder]="!isUpdate?'Selecciones Provincia':''" class="inputRedondo"
+                            [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down"
+                             [options]="provinciaList" formControlName="provincia"
+                            optionLabel="provincia" (onChange)="selectedProvincia()" appendTo="body">
+                        </p-dropdown>
+                    </div>
+                </div>
+                <div class="p-fluid grid flex justify-content-center">
+                    <div class="p-field col-12 md:col-12">
+                        <label>Distrito:</label>
+                        <p-dropdown [placeholder]="!isUpdate?'Selecciones Distrito':''" class="inputRedondo"
+                            [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down"
+                             [options]="distritoList" formControlName="distrito"
+                            optionLabel="distrito" (onChange)="selectedDistrito()" appendTo="body">
+                        </p-dropdown>
+                    </div>
+                </div>
+                <!-- <div>{{ubigeo2}}</div> -->
+             
+            </form>
+            <br />
+
+        </p-card>
+
+    </div>
+    <div class="col-9">
+
+        
+        <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+            <h3 class="p-m-0">Lista de Centros poblados</h3>
+        </ng-template>
+        
+        <ng-template pTemplate="right" class="button">
+            <button [disabled]="centroPobladoFG.invalid" pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-danger p-mr-2"
+            (click)="isUpdate=false;addCentroPoblado();"></button>
+            <!-- <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-primary"></button> -->
+        </ng-template>
+
+    </p-toolbar>
+    <p-table [value]="centroPobladoList" #dt [globalFilterFields]="['ccpp','idccpp']"
+        styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true"
+        [autoLayout]="true" currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
+        responsiveLayout="scroll">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value,'contains')"
+                    placeholder="Buscar..." />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+            <tr>
+                <th style="text-align: center">Nro</th>
+                <!-- <th style="text-align: center">Ubigeo</th>
+                <th style="text-align: center">departamento</th> 
+                <th style="text-align: center">Provincia</th>-->
+                <th style="text-align: center">distrito</th>
+                <th style="text-align: center">Cod. Centro Poblado</th>
+                <th style="text-align: center">Centro Poblado</th>
+                <th style="text-align: center">Centro Latitud</th>
+                <th style="text-align: center">Centro Longitud</th>
+                <th style="text-align: center">Centro Poblacion</th>
+                <th style="text-align: center">Centro Altura</th>
+                <th style="text-align: center; width:120px">Acción</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+            <tr style="text-align: center">
+                <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                <!-- <td style="text-align: center">{{ubigeo2}}</td>
+                <td style="text-align: center">{{ getFC('departamento').value.departamento}}</td>
+                <td style="text-align: center">{{ getFC('provincia').value.provincia}}</td>-->
+                <td style="text-align: center">{{ getFC('distrito').value.distrito}}</td>
+                <td style="text-align: center">{{ rowData.idccpp}}</td>
+                <td style="text-align: center">{{ rowData.ccpp}}</td>
+                <td style="text-align: center">{{ rowData.latitude}}</td>
+                <td style="text-align: center">{{ rowData.longitude}}</td>
+                <td style="text-align: center">{{ rowData.poblacion}}</td>
+                <td style="text-align: center">{{ rowData.altura}}</td>
+                <td style="text-align: center;">
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded m-1"
+                        (click)="isUpdate=true;addCentroPoblado(rowData);"></button>
+                    <!-- <button pButton (click)="eliminar(rowData)" pTooltip="Eliminar" pRipple type="button"
+                        icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
+                    </button> -->
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+</div>
+<!--CENTRO POBLADO AGREGAR-->
+<p-dialog [(visible)]="agregarCPDialog" [style]="{width: '400px'}" [modal]="true" styleClass="p-fluid " autoZIndex header="Ingrese Centro Poblado" 
+[draggable]="false"
+[resizable]="false">
+    <ng-template pTemplate="body">
+        <div class="grid">
+            <div class="col-12">
+                
+        
+                    <form [formGroup]='cpAgregarFG'>
+                        <div *ngIf="isUpdate" class="p-fluid grid flex justify-content-center">
+                            <div class="p-field col-12 md:col-12">
+                                <label>ID Centro Poblado:</label>
+                                <input type="text" pInputText formControlName="idCP">
+                                <!-- <small class="p-error" *ngIf="isInvalid('idCP')">
+                                    *Campo necesario
+                                </small>        -->
+                            </div>
+                        </div>
+                        <div class="p-fluid grid flex justify-content-center">
+                            <div class="p-field col-12 md:col-12">
+                                <label>Nombre Centro Poblado:</label>
+                                <input type="text" pInputText formControlName="nombreCP">
+                                <small class="p-error" *ngIf="isInvalid('nombreCP')">
+                                    *Campo necesario
+                                </small>     
+                            </div>
+                        </div>  
+                        <div class="p-fluid grid flex justify-content-center">
+                            <div class="p-field col-12 md:col-12">
+                                <label>Latitud:</label>
+                                <p-inputNumber formControlName="latitude" (onInput)="validarNro($event,0)"></p-inputNumber>
+                                <small class="p-error" *ngIf="isInvalidNumerico('latitude',0)">
+                                    *Campo necesario
+                                </small>       
+                            </div>
+                        </div>
+                        <div class="p-fluid grid flex justify-content-center">
+                            <div class="p-field col-12 md:col-12">
+                                <label>Longitud:</label>
+                                <p-inputNumber formControlName="longitude" (onInput)="validarNro($event,1)"></p-inputNumber>
+                                <small class="p-error" *ngIf="isInvalidNumerico('longitude',1)">
+                                    *Campo necesario
+                                </small>     
+                            </div>
+                        </div>
+                        <div class="p-fluid grid flex justify-content-center">
+                            <div class="p-field col-12 md:col-12">
+                                <label>Poblacion:</label>
+                                <p-inputNumber formControlName="poblacion" (onInput)="validarNro($event,2)"></p-inputNumber>
+                                <small class="p-error" *ngIf="isInvalidNumerico('poblacion',2)">
+                                    *Campo necesario
+                                </small>
+                            </div>
+                        </div>
+                        <div class="p-fluid grid flex justify-content-center">
+                            <div class="p-field col-12 md:col-12">
+                                <label>Altura:</label>
+                                <p-inputNumber formControlName="altura" (onInput)="validarNro($event,3)"></p-inputNumber>
+                                <small class="p-error" *ngIf="isInvalidNumerico('altura',3)">
+                                    *Campo necesario
+                                </small>
+                            </div>
+                        </div>
+                        
+                    </form>
+                    <br />
+                    <div class="flex justify-content-end">
+                        <p-button  [disabled]="false" label="Guardar"
+                            class="boton-azul m-1 w-9rem " (click)="saveCentroPoblado()"></p-button>
+                        <!-- <button pButton type="button" label="Nuevo" icon="pi pi-plus"
+                            (click)="guardarNuevaJurisdiccion()" pTooltip="Agregar jurisdiccion" tooltipPosition="right"
+                            class="p-button-danger m-1 w-9rem" pRipple></button> -->
+                    </div>
+
+                
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>

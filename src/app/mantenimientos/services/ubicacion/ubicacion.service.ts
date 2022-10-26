@@ -61,4 +61,7 @@ export class UbicacionService {
     getCCPPDatos(data){
         return this.http.post(`${this.base_url}/${this.bd}/ubicacion/data/ccpp`, data);
     }
+    getCCPPCompleto(dd,pp,dis){
+        return this.http.get(`${this.base_url}/${this.bd}/ubicacion/ccpp/${dd}/${pp}/${dis}`);
+    }
 }

@@ -588,6 +588,11 @@ const root = {
             icon: "pi pi-pw pi-calendar",
             routerLink: "admision/ipress",
         },
+        {
+            label: "Centro Poblado",
+            icon: "pi pi-pw pi-calendar",
+            routerLink: "admision/centro-poblado",
+        },
     ],
 };
 
