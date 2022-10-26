@@ -18,6 +18,7 @@ import { PacienteComponent } from "../../../paciente/paciente.component";
 import { DialogService, DynamicDialogConfig } from "primeng/dynamicdialog";
 import { DialogPacienteComponent } from "../../../paciente/dialog-paciente/dialog-paciente.component";
 import { timer } from "rxjs";
+import { PidePatient } from "../../models/model";
 
 @Component({
     selector: "app-modal-cupos2",
@@ -68,6 +69,7 @@ export class ModalCupos2Component implements OnInit {
         { name: "PENDIENTE ", value: "PENDIENTE" },
     ];
     listaTranseuntes: string[] = ["TRANSEUNTE", "RECURRENTE"];
+    patientData: PidePatient;
 
     public pacienteComponent: PacienteComponent;
     estado: boolean = false;
@@ -236,43 +238,43 @@ export class ModalCupos2Component implements OnInit {
 
     buildForm() {
         this.formPacientesCupo = this.fb.group({
-            apePaterno: new FormControl({value:"",disabled:true}),
-            apeMaterno: new FormControl({value:"",disabled:true}),
-            primerNombre: new FormControl({value:"",disabled:true}),
-            otrosNombres: new FormControl({value:"",disabled:true}),
-            sexo: new FormControl({value:"",disabled:true}),
-            estadoCivil: new FormControl({value:"",disabled:true}),
-            fechaNacimiento: new FormControl({value:"",disabled:true}),
-            nacionalidad: new FormControl({value:"",disabled:true}),
+            apePaterno: new FormControl({ value: "", disabled: true }),
+            apeMaterno: new FormControl({ value: "", disabled: true }),
+            primerNombre: new FormControl({ value: "", disabled: true }),
+            otrosNombres: new FormControl({ value: "", disabled: true }),
+            sexo: new FormControl({ value: "", disabled: true }),
+            estadoCivil: new FormControl({ value: "", disabled: true }),
+            fechaNacimiento: new FormControl({ value: "", disabled: true }),
+            nacionalidad: new FormControl({ value: "", disabled: true }),
 
-            LugarNacimiento: new FormControl({value:"",disabled:true}),
-            GradoInstrucion: new FormControl({value:"",disabled:true}),
-            discapacidad: new FormControl({value:"",disabled:true}),
+            LugarNacimiento: new FormControl({ value: "", disabled: true }),
+            GradoInstrucion: new FormControl({ value: "", disabled: true }),
+            discapacidad: new FormControl({ value: "", disabled: true }),
             celular: new FormControl("", Validators.required),
 
             departamento: new FormControl(""),
             provincia: new FormControl(""),
             distrito: new FormControl(""),
             centroPoblado: new FormControl(""),
-            
+
             tipoDoc: new FormControl("", [Validators.required]),
             nroDoc: new FormControl("", [
                 Validators.required,
                 Validators.maxLength(8),
             ]),
-            
-            
-            edadAnio: new FormControl({value:"",disabled:true}),
-            edadMes: new FormControl({value:"",disabled:true}),
-            edadDia: new FormControl({value:"",disabled:true}),
-            
-            dpto: new FormControl({value:"",disabled:true}),
-            prov: new FormControl({value:"",disabled:true}),
-            dist: new FormControl({value:"",disabled:true}),
-            ccpp: new FormControl({value:"",disabled:true}),
-            direccion: new FormControl({value:"",disabled:true}),
-            
-            tipoSeguro: new FormControl({value:"",disabled:true}),
+
+
+            edadAnio: new FormControl({ value: "", disabled: true }),
+            edadMes: new FormControl({ value: "", disabled: true }),
+            edadDia: new FormControl({ value: "", disabled: true }),
+
+            dpto: new FormControl({ value: "", disabled: true }),
+            prov: new FormControl({ value: "", disabled: true }),
+            dist: new FormControl({ value: "", disabled: true }),
+            ccpp: new FormControl({ value: "", disabled: true }),
+            direccion: new FormControl({ value: "", disabled: true }),
+
+            tipoSeguro: new FormControl({ value: "", disabled: true }),
             detallePago: new FormControl("GRATUITO", [Validators.required]),
             transeunte: new FormControl("RECURRENTE", [Validators.required]),
         });
@@ -312,7 +314,6 @@ export class ModalCupos2Component implements OnInit {
                 .subscribe((res: any) => {
                     if (res.object != null || res.object != undefined) {
                         this.dataPacientes = res.object;
-                        console.log("paciente por doc ", this.dataPacientes);
                         this.listarUbicacionPacienteProvincias();
                         if (this.dataSelectServicio == "OBSTETRICIA") {
                             if (
@@ -336,7 +337,7 @@ export class ModalCupos2Component implements OnInit {
                                     .setValue(this.dataPacientes.sexo);
                                 this.formPacientesCupo
                                     .get("fechaNacimiento")
-                                    .setValue(this.datePipe.transform(this.dataPacientes.nacimiento.fechaNacimiento,'yyyy-MM-dd'));
+                                    .setValue(this.datePipe.transform(this.dataPacientes.nacimiento.fechaNacimiento, 'yyyy-MM-dd'));
                                 this.formPacientesCupo
                                     .get("estadoCivil")
                                     .setValue(this.dataPacientes.estadoCivil);
@@ -384,12 +385,12 @@ export class ModalCupos2Component implements OnInit {
                                         this.dataPacientes.gradoInstruccion
                                     );
                                 this.formPacientesCupo
-                                .get("discapacidad")
-                                .setValue(this.dataPacientes.discapacidad.length>=1?this.dataPacientes.discapacidad[0]:'No registra');
+                                    .get("discapacidad")
+                                    .setValue(this.dataPacientes.discapacidad.length >= 1 ? this.dataPacientes.discapacidad[0] : 'No registra');
 
                                 this.calcularEdad(
                                     this.obtenerFecha(this.dataPacientes.nacimiento
-                                            .fechaNacimiento
+                                        .fechaNacimiento
                                     )
                                 );
                                 this.formPacientesCupo
@@ -412,12 +413,12 @@ export class ModalCupos2Component implements OnInit {
                                     .setValue(
                                         this.dataPacientes.nacimiento
                                             .departamento +
-                                            " " +
-                                            this.dataPacientes.nacimiento
-                                                .provincia +
-                                            " " +
-                                            this.dataPacientes.nacimiento
-                                                .distrito
+                                        " " +
+                                        this.dataPacientes.nacimiento
+                                            .provincia +
+                                        " " +
+                                        this.dataPacientes.nacimiento
+                                            .distrito
                                     );
                                 if (this.dataPacientes.tipoSeguro == "SIS") {
                                     this.detallePago = "GRATUITO";
@@ -457,28 +458,28 @@ export class ModalCupos2Component implements OnInit {
                                 .setValue(this.dataPacientes.estadoCivil);
                             this.formPacientesCupo
                                 .get("fechaNacimiento")
-                                .setValue((this.datePipe.transform(this.dataPacientes.nacimiento.fechaNacimiento,'yyyy-MM-dd')));
+                                .setValue((this.datePipe.transform(this.dataPacientes.nacimiento.fechaNacimiento, 'yyyy-MM-dd')));
                             this.formPacientesCupo
                                 .get("nacionalidad")
-                                .setValue(this.dataPacientes.nacionalidad);    
+                                .setValue(this.dataPacientes.nacionalidad);
                             this.formPacientesCupo
                                 .get("LugarNacimiento")
                                 .setValue(
                                     this.dataPacientes.nacimiento
                                         .departamento +
-                                        " " +
-                                        this.dataPacientes.nacimiento
-                                            .provincia +
-                                        " " +
-                                        this.dataPacientes.nacimiento
-                                            .distrito
+                                    " " +
+                                    this.dataPacientes.nacimiento
+                                        .provincia +
+                                    " " +
+                                    this.dataPacientes.nacimiento
+                                        .distrito
                                 );
                             this.formPacientesCupo
                                 .get("GradoInstrucion")
                                 .setValue(this.dataPacientes.gradoInstruccion);
                             this.formPacientesCupo
                                 .get("discapacidad")
-                                .setValue(this.dataPacientes.discapacidad.length>=1?this.dataPacientes.discapacidad[0]:'No registra');
+                                .setValue(this.dataPacientes.discapacidad.length >= 1 ? this.dataPacientes.discapacidad[0] : 'No registra');
                             this.formPacientesCupo
                                 .get("celular")
                                 .setValue(this.dataPacientes.celular);
@@ -512,7 +513,7 @@ export class ModalCupos2Component implements OnInit {
                             this.formPacientesCupo
                                 .get("tipoSeguro")
                                 .setValue(this.dataPacientes.tipoSeguro);
-                            
+
 
                             this.calcularEdad(this.dataPacientes.nacimiento.fechaNacimiento)
                             this.formPacientesCupo
@@ -528,7 +529,7 @@ export class ModalCupos2Component implements OnInit {
                             this.formPacientesCupo
                                 .get("GradoInstrucion")
                                 .setValue(this.dataPacientes.gradoInstruccion);
-                            
+
                             if (this.dataPacientes.tipoSeguro == "SIS") {
                                 this.detallePago = "GRATUITO";
                             }
@@ -549,7 +550,7 @@ export class ModalCupos2Component implements OnInit {
                             didOpen: () => {
                                 Swal.showLoading();
                                 setTimeout(() => {
-                                    this.buscarNuevoPaciente();
+                                    // this.buscarNuevoPaciente();
                                 }, 2002);
                             },
                             willClose: () => {
@@ -582,7 +583,12 @@ export class ModalCupos2Component implements OnInit {
         }
     }
 
-    buscarNuevoPaciente() {
+    buscarNuevoPaciente(dataPersona) {
+        // console.log('data de la persona ', dataPersona);
+        let auxData = {
+            typeData: 2,
+            dataPaciente: dataPersona
+        }
         this.cuposService.modalPacientes = this.dialog.open(
             DialogPacienteComponent,
             {
@@ -593,6 +599,7 @@ export class ModalCupos2Component implements OnInit {
                 contentStyle: {
                     overflow: "auto",
                 },
+                data: auxData
             }
         );
     }
@@ -643,7 +650,7 @@ export class ModalCupos2Component implements OnInit {
 
         if (this.cuposService.data == undefined) {
             console.log("guardar cupo ", req);
-            const result =null
+            const result = null
             this.cuposService.saveCupos(req).subscribe((result: any) => {
                 console.log(result.object);
                 if (result.object != null || result.object != undefined) {
@@ -670,7 +677,7 @@ export class ModalCupos2Component implements OnInit {
                     });
                     return;
                 }
-             });
+            });
         } else {
             const reqInterconsulta = {
                 id: this.cuposService.data.id,
@@ -854,44 +861,44 @@ export class ModalCupos2Component implements OnInit {
     //         " días"
     //     );
     // }
-     fecha_hoy = new Date();
-     calcularEdad(fecha: string) {
-         let fechaNacimiento: Date = new Date(fecha);
-         let dia = fechaNacimiento.getDate();
-         let mes = fechaNacimiento.getMonth() + 1;
-         let ano = fechaNacimiento.getFullYear()
-         // cogemos los valores actuales
-  
-         let ahora_ano = this.fecha_hoy.getFullYear();
-         let ahora_mes = this.fecha_hoy.getMonth() + 1;
-         let ahora_dia = this.fecha_hoy.getDate()
-         let edad = ahora_ano + 1900 - ano;
-         if (ahora_mes < mes) {
-             edad--;
-         }
-         if (mes == ahora_mes && ahora_dia < dia) {
-             edad--;
-         }
-         if (edad >= 1900) {
-             edad -= 1900;
-         
-         let meses = 0;
-         if (ahora_mes > mes && dia > ahora_dia) meses = ahora_mes - mes - 1;
-         else if (ahora_mes > mes) meses = ahora_mes - mes;
-         if (ahora_mes < mes && dia < ahora_dia) meses = 12 - (mes - ahora_mes);
-         else if (ahora_mes < mes) meses = 12 - (mes - ahora_mes + 1);
-         if (ahora_mes == mes && dia > ahora_dia) meses = 11
-         // calculamos los dias
-         let dias = 0;
-         if (ahora_dia > dia) dias = ahora_dia - dia;
-         if (ahora_dia < dia) {
-             let ultimoDiaMes: Date = new Date(ahora_ano, ahora_mes - 1, 0);
-             dias = ultimoDiaMes.getDate() - (dia - ahora_dia);
-         }
-         this.edad = edad;
-         this.meses = meses;
-         this.dias = dias;
-          }
+    fecha_hoy = new Date();
+    calcularEdad(fecha: string) {
+        let fechaNacimiento: Date = new Date(fecha);
+        let dia = fechaNacimiento.getDate();
+        let mes = fechaNacimiento.getMonth() + 1;
+        let ano = fechaNacimiento.getFullYear()
+        // cogemos los valores actuales
+
+        let ahora_ano = this.fecha_hoy.getFullYear();
+        let ahora_mes = this.fecha_hoy.getMonth() + 1;
+        let ahora_dia = this.fecha_hoy.getDate()
+        let edad = ahora_ano + 1900 - ano;
+        if (ahora_mes < mes) {
+            edad--;
+        }
+        if (mes == ahora_mes && ahora_dia < dia) {
+            edad--;
+        }
+        if (edad >= 1900) {
+            edad -= 1900;
+
+            let meses = 0;
+            if (ahora_mes > mes && dia > ahora_dia) meses = ahora_mes - mes - 1;
+            else if (ahora_mes > mes) meses = ahora_mes - mes;
+            if (ahora_mes < mes && dia < ahora_dia) meses = 12 - (mes - ahora_mes);
+            else if (ahora_mes < mes) meses = 12 - (mes - ahora_mes + 1);
+            if (ahora_mes == mes && dia > ahora_dia) meses = 11
+            // calculamos los dias
+            let dias = 0;
+            if (ahora_dia > dia) dias = ahora_dia - dia;
+            if (ahora_dia < dia) {
+                let ultimoDiaMes: Date = new Date(ahora_ano, ahora_mes - 1, 0);
+                dias = ultimoDiaMes.getDate() - (dia - ahora_dia);
+            }
+            this.edad = edad;
+            this.meses = meses;
+            this.dias = dias;
+        }
     }
     /**Lista de Cupos y citas sin importar el estado reservados por servicio **/
     getCuposXservicio() {
@@ -930,5 +937,46 @@ export class ModalCupos2Component implements OnInit {
                 .setValue(this.cuposService.data.paciente.nroDoc);
             this.pacienteByNroDoc();
         }
+    }
+
+    recoverPatientData(): void {
+        let nroDoc: string;
+        nroDoc = this.formPacientesCupo.value.nroDoc;
+        // tipoDoc 1:dni, 2: carnet de extranjeria, 3:
+        // if (nroDoc.length >= 8) {
+        this.pacienteService.getPidePatientData(nroDoc).then((res: any) => {
+            if (res.error == "4009") {
+                console.log('no se econtro el paciente');
+                return;
+            }
+            this.patientData = res;
+            if (this.patientData.bd == "local") {
+                let auxName: string[] = this.patientData.nombres.split(' ');
+                // let auxLastName:string[] = this.patientData.ape
+                this.formPacientesCupo.patchValue({
+                    apePaterno: this.patientData.apePaterno,
+                    apeMaterno: this.patientData.apeMaterno,
+                    primerNombre: auxName[0],
+                    otrosNombres: auxName[1],
+                    // sexo:this.patientData.sexo,
+                    // estadoCivil:this.patientData,
+                    fechaNacimiento: this.patientData.fecNacimiento,
+                    sexo: this.patientData.genero,
+                })
+            } else {
+                this.buscarNuevoPaciente(this.patientData);
+            }
+
+        });
+        // }
+    }
+
+    transformToDate(dateStr: string): string {
+        let year: string = dateStr.slice(0, 4);
+        let month: string = dateStr.slice(4, 6);
+        let day: string = dateStr.slice(6, 8)
+        let date: string;
+        date = year + '-' + month + '-' + day;
+        return date;
     }
 }

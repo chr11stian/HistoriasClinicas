@@ -1,16 +1,16 @@
-import {DatePipe} from '@angular/common';
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {ConfirmationService, MessageService} from 'primeng/api';
-import {DialogService, DynamicDialogRef} from 'primeng/dynamicdialog';
-import {TipoEtnia} from 'src/app/core/models/mantenimiento.models';
-import {Departamentos, Distrito, Provincias} from 'src/app/core/models/ubicacion.models';
-import {IpressService} from 'src/app/core/services/ipress/ipress.service';
-import {PacienteService} from 'src/app/core/services/paciente/paciente.service';
-import {DocumentoIdentidadService} from 'src/app/mantenimientos/services/documento-identidad/documento-identidad.service';
-import {EtniaService} from 'src/app/mantenimientos/services/etnia/etnia.service';
-import {UbicacionService} from 'src/app/mantenimientos/services/ubicacion/ubicacion.service';
-import {DialogPacienteComponent} from "./dialog-paciente/dialog-paciente.component";
+import { DatePipe } from '@angular/common';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { TipoEtnia } from 'src/app/core/models/mantenimiento.models';
+import { Departamentos, Distrito, Provincias } from 'src/app/core/models/ubicacion.models';
+import { IpressService } from 'src/app/core/services/ipress/ipress.service';
+import { PacienteService } from 'src/app/core/services/paciente/paciente.service';
+import { DocumentoIdentidadService } from 'src/app/mantenimientos/services/documento-identidad/documento-identidad.service';
+import { EtniaService } from 'src/app/mantenimientos/services/etnia/etnia.service';
+import { UbicacionService } from 'src/app/mantenimientos/services/ubicacion/ubicacion.service';
+import { DialogPacienteComponent } from "./dialog-paciente/dialog-paciente.component";
 
 
 @Component({
@@ -66,15 +66,18 @@ export class PacienteComponent implements OnInit {
     editar(evemt) {
         localStorage.setItem('pacienteLocalStorage', JSON.stringify(evemt));
         localStorage.setItem('pacienteDepartamento', JSON.stringify(this.dataDepartamentos));
+        let auxData = {
+            typeData: 1,
+            dataPaciente: evemt
+        }
         this.ref = this.dialog.open(DialogPacienteComponent, {
             header: "PACIENTE",
             width: "90%",
             height: "100%",
-            data: evemt
+            data: auxData
         })
         this.ref.onClose.subscribe((data: any) => {
             this.cargarPacientes();
-
         });
     }
 

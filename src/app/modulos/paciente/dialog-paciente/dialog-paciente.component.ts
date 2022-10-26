@@ -8,6 +8,7 @@ import { EtniaService } from 'src/app/mantenimientos/services/etnia/etnia.servic
 import { UbicacionService } from 'src/app/mantenimientos/services/ubicacion/ubicacion.service';
 import { image } from 'src/assets/images/image.const';
 import Swal from 'sweetalert2';
+import { PidePatient } from '../../admision/models/model';
 
 @Component({
     selector: 'app-dialog-paciente',
@@ -40,6 +41,7 @@ export class DialogPacienteComponent implements OnInit {
 
     dataPacienteEditar: any = null;
     toEdit: boolean = false;
+    patientData: PidePatient;
 
     listaEstadoCivil = [
         'SOLTERO',
@@ -77,16 +79,24 @@ export class DialogPacienteComponent implements OnInit {
         private ref: DynamicDialogRef,
         public config: DynamicDialogConfig,
     ) {
-        this.config.data == undefined ? this.toEdit = false : this.toEdit = true;
+        // console.log('data del dialog ggggggg ', this.config);
+        this.config.data == undefined ? this.toEdit = false : this.config.data.typeData == 1 ? this.toEdit = true : this.toEdit = false;
         this.getDepartamentos();
         this.inicializarForm();
         this.cargarDocumentos();
         this.cargarEtnia();
+        console.log('data del usuario ', this.config.data);
     }
 
     ngOnInit(): void {
-        this.dataPacienteEditar = this.config.data;
-
+        if (this.toEdit) {
+            this.dataPacienteEditar = this.config.data.dataPaciente;
+        }
+        if (!this.toEdit && this.config.data.typeData == 2) {
+            this.patientData = this.config.data.dataPaciente;
+            this.assignPatientData(this.patientData);
+        }
+        console.log('data del paciente ', this.patientData);
         console.log('para editarrrrrrrrrrrrrr ', this.toEdit);
         if (this.dataPacienteEditar !== null) {
             this.editarDatos()
@@ -407,22 +417,23 @@ export class DialogPacienteComponent implements OnInit {
     /**Agrega un nuevo paciente**/
     saveForm() {
         this.recuperarDatos();
-        let auxVal: boolean = this.validateDoc();
-        if (auxVal) {
-            this.pacienteService.postPacientes(this.dataPaciente).subscribe((res: any) => {
-                this.closeDialog();
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Se Registro Exitosamente',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-                console.log("RESPUESTA", res)
-            });
-        } else {
-            console.log('nose guarda');
-        }
-        
+        console.log('data del paciente ', this.dataPaciente);
+        // let auxVal: boolean = this.validateDoc();
+        // if (auxVal) {
+        //     this.pacienteService.postPacientes(this.dataPaciente).subscribe((res: any) => {
+        //         this.closeDialog();
+        //         Swal.fire({
+        //             icon: 'success',
+        //             title: 'Se Registro Exitosamente',
+        //             showConfirmButton: false,
+        //             timer: 1500
+        //         })
+        //         console.log("RESPUESTA", res)
+        //     });
+        // } else {
+        //     console.log('nose guarda');
+        // }
+
     }
 
     /**Actualiza datos de un paciente**/
@@ -503,6 +514,24 @@ export class DialogPacienteComponent implements OnInit {
             //     ipress: new FormControl(''),
         }
         return;
+    }
+
+    assignPatientData(patientData: PidePatient) {
+        let auxName = patientData.nombres.split(' ');
+        this.formPaciente.patchValue({
+            tipoDoc: patientData.tipoDocumento,
+            nroDoc: patientData.nroDocumento,
+            primerNombre: auxName[0],
+            otrosNombres: auxName[1],
+            apPaterno: patientData.apePaterno,
+            apMaterno: patientData.apeMaterno,
+            HCL: patientData.nroDocumento,
+            sexo: patientData.genero,
+            fechaNacimiento: patientData.fecNacimiento,
+            nacionalidad: patientData.tipoDocumento == "DNI" ? patientData.genero == "MASCULINO" ? "PERUANO" : "PERUANA" : "",
+            tipoSeguro: patientData.descTipoSeguro,
+            // codSeguro:patientData.
+        })
     }
 
     validateDoc(): boolean {
