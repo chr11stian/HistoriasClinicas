@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 import { HIS } from '../../models/his.interface';
 import { HisCrudServiceService } from '../../services/his/his-crud-service.service';
-import { UbicacionService } from '../../services/ubicacion/ubicacion.service';
 
 @Component({
   selector: 'app-his-crud',
@@ -18,14 +18,17 @@ export class HisCrudComponent implements OnInit {
   hisDialog: boolean;
   hisForm: FormGroup;
   hisData: HIS;
+  toEdit: boolean = false;
+  idHIS: string;
+  arrayTipoItem: string[] = ['CP', 'CX', 'PL', 'EX'];
+  arrayDescTipoItem: string[] = ['PROCEDIMIENTO (CPT)', 'DIAGNÓSTICO (CIEX)', 'PRUEBA DE LABORATORIO', 'PROCEDIMIENTO DE IMAGENES']
 
   constructor(
-    private ubicacionService: UbicacionService,
     private hisCrudService: HisCrudServiceService,
   ) { }
 
   ngOnInit(): void {
-
+    this.initializeForm();
   }
 
   initializeForm(): void {
@@ -49,6 +52,7 @@ export class HisCrudComponent implements OnInit {
   openHisDialog(): void {
     this.initializeForm();
     this.hisDialog = true;
+    this.toEdit = false;
   }
 
   recoverDataHIS(): void {
@@ -60,18 +64,113 @@ export class HisCrudComponent implements OnInit {
     }
   }
 
-  save(): void {
+  openUpdateHIS(rowData): void {
+    console.log('data de row ', rowData);
+    this.toEdit = true;
+    this.hisDialog = true;
+    this.idHIS = rowData.id;
+    this.hisForm.patchValue({
+      codigoItem: rowData.codigoItem,
+      descripcionItem: rowData.descripcionItem,
+      tipoItem: rowData.tipoItem,
+      descripcionTipoItem: rowData.descripcionTipoItem
+    });
+  }
+
+  async save(): Promise<void> {
     this.recoverDataHIS();
-    this.hisCrudService.postCreateNewHis(this.hisData).then((res: any) => {
-      if (res.code = "2125") {
-        console.log('guardo con exito');
+    if (!this.toEdit) {
+      this.hisCrudService.postCreateNewHis(this.hisData).then((res: any) => {
+        if (res.cod == "2125") {
+          Swal.fire({
+            icon: 'success',
+            title: 'Se creo el HIS correctamente',
+            showConfirmButton: false,
+            timer: 2000
+          })
+          this.hisDialog = false;
+          this.loadData(1);
+          return;
+        }
+        if (res.cod == "2005") {
+          Swal.fire({
+            icon: 'warning',
+            title: 'Ya se agrego ese HIS',
+            showConfirmButton: false,
+            timer: 2000
+          })
+          this.initializeForm();
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'No se pudo registrar HIS',
+            showConfirmButton: false,
+            timer: 2000
+          });
+          this.hisDialog = false;
+        }
+      });
+    } else {
+      await this.hisCrudService.putUpdateHis(this.idHIS, this.hisData).then((res: any) => {
+        if (res.cod == "2126") {
+          Swal.fire({
+            icon: 'success',
+            title: 'Se actualizo el HIS correctamente',
+            showConfirmButton: false,
+            timer: 2000
+          });
+          this.loadData(1);
+          this.hisDialog = false;
+          return;
+        }
+        if (res.cod == "2005") {
+          Swal.fire({
+            icon: 'warning',
+            title: 'Ya existe un registro con ese codigo HIS',
+            showConfirmButton: false,
+            timer: 2000
+          });
+          this.initializeForm();
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'No se pudo actualizar HIS',
+            showConfirmButton: false,
+            timer: 2000
+          });
+          this.hisDialog = false;
+        }
+      });
+    }
+  }
+
+  deleteHIS(rowData): void {
+    let id: string = rowData.id;
+    this.hisCrudService.deleteHISbyid(id).then((res: any) => {
+      if (res.cod == "2127") {
+        Swal.fire({
+          icon: 'success',
+          title: 'Se elimino el HIS correctamente',
+          showConfirmButton: false,
+          timer: 2000
+        });
+        this.hisDialog = false;
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'No se pudo eliminar el HIS',
+          showConfirmButton: false,
+          timer: 2000
+        });
         this.hisDialog = false;
       }
-      if (res.code = "2005") {
-        console.log('ya se agrego ese his ');
-      } else {
-        console.log('courrio un error al intentar guardar');
-      }
+    })
+  }
+
+  async loadData(page: number): Promise<void> {
+    await this.hisCrudService.getPaginateHIS(page).then((res: any) => {
+      this.hisTable = res.object;
+      this.totalRecords = res.totalPages * 20;
     })
   }
 
@@ -79,7 +178,7 @@ export class HisCrudComponent implements OnInit {
     this.hisDialog = false;
   }
 
-  msjSaveRight(){
-    
+  msjSaveRight() {
+
   }
 }

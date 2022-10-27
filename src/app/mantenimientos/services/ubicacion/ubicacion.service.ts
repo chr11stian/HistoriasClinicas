@@ -65,4 +65,11 @@ export class UbicacionService {
     getUbicationPag(page: number) {
         return this.http.get(`${this.base_url}/${this.bd}/ubicacion/listar?page=${page}`);
     }
+    getCPbyUbigeo(ubigeo: string) {
+        return this.http.get(`${this.base_url}/${this.bd}/ubicacion/ccpp/${ubigeo}`)
+            .toPromise()
+            .then(res => <any>res)
+            .then(data => { return data; })
+            .catch(error => { return error.error });
+    }
 }

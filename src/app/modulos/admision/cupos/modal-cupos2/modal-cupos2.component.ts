@@ -941,42 +941,42 @@ export class ModalCupos2Component implements OnInit {
 
     recoverPatientData(): void {
         let nroDoc: string;
-        nroDoc = this.formPacientesCupo.value.nroDoc;
-        // tipoDoc 1:dni, 2: carnet de extranjeria, 3:
-        // if (nroDoc.length >= 8) {
-        this.pacienteService.getPidePatientData(nroDoc).then((res: any) => {
-            if (res.error == "4009") {
-                console.log('no se econtro el paciente');
-                return;
-            }
-            this.patientData = res;
-            if (this.patientData.bd == "local") {
-                let auxName: string[] = this.patientData.nombres.split(' ');
-                // let auxLastName:string[] = this.patientData.ape
-                this.formPacientesCupo.patchValue({
-                    apePaterno: this.patientData.apePaterno,
-                    apeMaterno: this.patientData.apeMaterno,
-                    primerNombre: auxName[0],
-                    otrosNombres: auxName[1],
-                    sexo: this.patientData.genero,
-                    estadoCivil: this.patientData.estadoCivil,
-                    fechaNacimiento: this.patientData.fecNacimiento,
-                    // nacionalidad: this.patientData,
-                    // lugarNacimiento: this.patientData.
-                    // GradoInstrucion: this.patientData.
-                    // discapacidad:this.patientData.
-                    // celular:this.patientData.
-
-                    direccion: this.patientData.direccion,
-                    tipoSeguro: this.patientData.tipoSeguro,
-                });
-                this.searchUbigeo(this.patientData.ubigeo);
-            } else {
-                this.buscarNuevoPaciente(this.patientData);
-            }
-
-        });
-        // }
+        nroDoc = String(this.formPacientesCupo.value.nroDoc);
+        console.log('largo de palabras ', nroDoc.length);
+        if (nroDoc.length >= 8) {
+            this.pacienteService.getPidePatientData(nroDoc).then((res: any) => {
+                if (res.error == "4009") {
+                    console.log('no se econtro el paciente');
+                    return;
+                }
+                this.patientData = res;
+                if (this.patientData.bd == "local") {
+                    let auxName: string[] = this.patientData.nombres.split(' ');
+                    // let auxLastName:string[] = this.patientData.ape
+                    this.formPacientesCupo.patchValue({
+                        apePaterno: this.patientData.apePaterno,
+                        apeMaterno: this.patientData.apeMaterno,
+                        primerNombre: auxName[0],
+                        otrosNombres: auxName[1],
+                        sexo: this.patientData.genero,
+                        estadoCivil: this.patientData.estadoCivil,
+                        fechaNacimiento: this.patientData.fecNacimiento,
+                        // nacionalidad: this.patientData,
+                        // lugarNacimiento: this.patientData.
+                        // GradoInstrucion: this.patientData.
+                        // discapacidad:this.patientData.
+                        // celular:this.patientData.
+    
+                        direccion: this.patientData.direccion,
+                        tipoSeguro: this.patientData.tipoSeguro,
+                    });
+                    this.searchUbigeo(this.patientData.ubigeo);
+                } else {
+                    this.buscarNuevoPaciente(this.patientData);
+                }
+    
+            });
+        }
     }
 
     searchUbigeo(ubigeo: string): void {

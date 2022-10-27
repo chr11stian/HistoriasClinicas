@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { PacienteService } from 'src/app/core/services/paciente/paciente.service';
+import { UbigeoData } from 'src/app/mantenimientos/models/ubicacion.interface';
 import { DocumentoIdentidadService } from 'src/app/mantenimientos/services/documento-identidad/documento-identidad.service';
 import { EtniaService } from 'src/app/mantenimientos/services/etnia/etnia.service';
 import { UbicacionService } from 'src/app/mantenimientos/services/ubicacion/ubicacion.service';
@@ -69,6 +70,8 @@ export class DialogPacienteComponent implements OnInit {
         { name: 'MASCULINO', code: 'MASCULINO' },
         { name: 'FEMENINO', code: 'FEMENINO' }
     ]
+    ubigeoData: UbigeoData[] = [];
+    arrayPopulatedCenter: CentroPoblado[] = [];
 
     constructor(
         private fb: FormBuilder,
@@ -157,7 +160,6 @@ export class DialogPacienteComponent implements OnInit {
         let distritoX = this.formPaciente.value.distrito;
         this.dataDistrito.forEach(object => {
             if (object.distrito === distritoX) {
-                console.log("Distrito:", object);
                 this.DistritoIDSelct = object.iddis
             }
         });
@@ -259,7 +261,6 @@ export class DialogPacienteComponent implements OnInit {
 
         this.dataProvincia.forEach(object => {
             if (object.provincia === Provincia) {
-                console.log("Provincia:", object);
                 this.ProvinciaIDSelct = object.idpp
             }
         });
@@ -516,7 +517,7 @@ export class DialogPacienteComponent implements OnInit {
         return;
     }
 
-    assignPatientData(patientData: PidePatient) {
+    assignPatientData(patientData: PidePatient): void {
         let auxName = patientData.nombres.split(' ');
         this.formPaciente.patchValue({
             tipoDoc: patientData.tipoDocumento,
@@ -530,8 +531,50 @@ export class DialogPacienteComponent implements OnInit {
             fechaNacimiento: patientData.fecNacimiento,
             nacionalidad: patientData.tipoDocumento == "DNI" ? patientData.genero == "MASCULINO" ? "PERUANO" : "PERUANA" : "",
             tipoSeguro: patientData.descTipoSeguro,
-            // codSeguro:patientData.
+            codSeguro:patientData.tipoSeguro
         })
+        this.searchUbigeo(patientData.eessUbigeo)
+    }
+
+    searchUbigeo(ubigeo: string): void {
+        let idDep: string = ubigeo.slice(0, 2);
+        let idProv: string = ubigeo.slice(2, 4);
+        let idDist: string = ubigeo.slice(4, 6);
+        this.ubicacionService.getCPbyUbigeo(ubigeo).then((res: any) => {
+            if (res.status) {
+                console.log('error ');
+                return
+            }
+            this.ubigeoData = res.object
+            if (this.ubigeoData.length > 0) {
+                this.ubigeoData.forEach(item => {
+                    let auxCP: CentroPoblado = {
+                        ccpp: item.ccpp,
+                        idccpp: item.idccpp
+                    }
+                    this.arrayPopulatedCenter.push(auxCP);
+                });
+                let dpto = {
+                    iddd: idDep
+                }
+                let prov = {
+                    iddd: idDep,
+                    idpp: idProv
+                }
+                this.ubicacionService.getProvincias(dpto).subscribe((res: any) => {
+                    this.dataProvincia = res.object;
+                });
+                this.ubicacionService.getDistritos(prov).subscribe((res: any) => {
+                    this.dataDistrito = res.object;
+                });
+                this.dataCentroPoblado = this.arrayPopulatedCenter;
+                this.formPaciente.patchValue({
+                    departamento: this.ubigeoData[0].departamento,
+                    provincia: this.ubigeoData[0].provincia,
+                    distrito: this.ubigeoData[0].distrito
+                });
+            }
+        });
     }
 
     validateDoc(): boolean {
@@ -551,4 +594,14 @@ export class DialogPacienteComponent implements OnInit {
         }
         return validateDocument;
     }
+
+    testComp() {
+        let aux = this.formPaciente.value.departamento
+        console.log('data del dep', aux);
+    }
+}
+
+interface CentroPoblado {
+    ccpp: string;
+    idccpp: string
 }

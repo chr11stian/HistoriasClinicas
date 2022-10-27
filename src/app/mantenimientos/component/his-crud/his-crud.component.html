@@ -1,7 +1,8 @@
 <div class="card">
     <div class="col-12">
         <p-table [value]="hisTable" [paginator]="true" [rows]="rows" [showCurrentPageReport]="true" [(first)]="first"
-            [totalRecords]="totalRecords" [lazy]="true" (onLazyLoad)="pagination($event)" styleClass="p-datatable-gridlines">
+            [totalRecords]="totalRecords" [lazy]="true" (onLazyLoad)="pagination($event)"
+            styleClass="p-datatable-gridlines">
             <ng-template pTemplate="caption">
                 <div class="flex justify-content-between">
                     <div class="col-8 table-header mt-2">
@@ -30,13 +31,19 @@
                     <td>{{rowData.descripcionItem}}</td>
                     <td>{{rowData.tipoItem}}</td>
                     <td>{{rowData.descripcionTipoItem}}</td>
+                    <td style="display: flex; justify-content: center;">
+                        <button pButton pRipple type="button" icon="pi pi-pencil" (click)="openUpdateHIS(rowData)"
+                            class="p-button-rounded p-button-outlined" pTooltip="Editar"></button>
+                        <button pButton pRipple type="button" icon="pi pi-trash" (click)="openUpdateHIS(rowData)"
+                            class="p-button-rounded p-button-danger p-button-outlined ml-2" pTooltip="Editar"></button>
+                    </td>
                 </tr>
             </ng-template>
         </p-table>
     </div>
 </div>
 
-<p-dialog [(visible)]="hisDialog" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '50vw'}">
+<p-dialog [(visible)]="hisDialog" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '50vw'}" >
     <ng-template pTemplate="header">
         <h3>Añadir HIS</h3>
     </ng-template>
@@ -55,16 +62,18 @@
                             <input formControlName="descripcionItem" type="text" class="inputfield w-full" pInputText
                                 placeholder="Descripción del item" oninput="this.value=this.value.toUpperCase()" />
                         </div>
-                        <div class="col-4">
+                        <div class="col-4 flex flex-column">
                             <label>Tipo Item:</label>
-                            <input formControlName="tipoItem" type="text" class="inputfield w-full" pInputText
-                                placeholder="Tipo del item" oninput="this.value=this.value.toUpperCase()" />
+                            <p-dropdown class="w-full" [options]="arrayTipoItem" formControlName="tipoItem" appendTo="body"></p-dropdown>
+                            <!-- <input formControlName="tipoItem" type="text" class="inputfield w-full" pInputText
+                                placeholder="Tipo del item" oninput="this.value=this.value.toUpperCase()" /> -->
                         </div>
-                        <div class="col-8">
+                        <div class="col-8 flex flex-column">
                             <label>Descripción Tipo Item:</label>
-                            <input formControlName="descripcionTipoItem" type="text" class="inputfield w-full"
+                            <p-dropdown class="w-full" [options]="arrayDescTipoItem" formControlName="descripcionTipoItem" appendTo="body"></p-dropdown>
+                            <!-- <input formControlName="descripcionTipoItem" type="text" class="inputfield w-full"
                                 pInputText placeholder="Descrición del item"
-                                oninput="this.value=this.value.toUpperCase()" />
+                                oninput="this.value=this.value.toUpperCase()" /> -->
                         </div>
                     </div>
                 </form>
@@ -72,7 +81,7 @@
         </div>
     </ng-template>
     <ng-template pTemplate="footer" class="text-right">
-        <button pButton type=" button" label="Cancelar" class="p-button-info" (click)="save()"></button>
+        <button pButton type=" button" label="Guardar" class="p-button-info" (click)="save()"></button>
         <button pButton type=" button" label="Cancelar" class="p-button-danger" (click)="closeDialog()"></button>
     </ng-template>
 </p-dialog>
