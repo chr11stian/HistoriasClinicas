@@ -1,8 +1,10 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from "rxjs";
 import { environment } from "../../../environments/environment";
 import { VisitasProfesionalNinios } from "../interfaces/visita_profesional_ninios";
+import { map } from 'rxjs/operators';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Injectable({
     providedIn: "root",
@@ -53,8 +55,43 @@ export class VisitaDomiciliariaService {
             }
         );
     }
+    /**
+     * 
+    let reader= new FileReader();
+    reader.readAsDataURL(data);
+    reader.onload=()=>{
+        //aqui ya esta en base64
+        let x=reader.result;
+    }
+     */
+//     getImageURL(id: string){
+//     var url=`${this.base_url_images}/${id}`;
+//     const headers = new HttpHeaders({'Authorization': "Bearer " + this.getToken(), 'Content-Type': 'image/*'});
+//     return this.http.get(url,{headers,responseType:'blob'});
+//    }
+    
 
-    getImageURL(id: string) {
-        return `${this.base_url_images}/${id}`;
+    getLatitudIpress():any{
+        return JSON.parse(
+            localStorage.getItem("usuario")
+        ).ipress.ubicacion.latitud==null?-13.52264:JSON.parse(
+            localStorage.getItem("usuario")
+        ).ipress.ubicacion.latitud;
+    }
+
+    getLongitudeIpress():any{
+        return JSON.parse(
+            localStorage.getItem("usuario")
+        ).ipress.ubicacion.longitud==null?-71.96734:JSON.parse(
+            localStorage.getItem("usuario")
+        ).ipress.ubicacion.longitud;
+    }
+
+    getEscalaCodIpress(){
+        return JSON.parse(
+            localStorage.getItem("usuario")
+        ).escalas.unidades==null?"":JSON.parse(
+            localStorage.getItem("usuario")
+        ).escalas.unidades;
     }
 }

@@ -11,7 +11,7 @@ import { DialogRespuestasComponent } from "../../../components/dialog-respuestas
 import { MessageService } from "primeng/api";
 import { VisitaGestanteService } from "../../../services/visita-gestante.service";
 import { VisitaDomiciliariaService } from "../../../services/visita-domiciliaria.service";
-import { Value } from "../../../../pn-gestante/interfaces/padron_Nominal";
+
 
 @Component({
   selector: "app-visitas-domiciliarias-gestantes",

@@ -19,7 +19,11 @@ export class VisitaGestanteService {
       {
           keys: [[idIpress, dni_profesional]],
       }
-  );
+  ).toPromise()
+  .then((res) => <any[]>res)
+  .then((data) => {
+    return data;
+  });
   } 
 
   getVisitasGestantesXProfesionalXAnioXMesFecha(idIpress:any,dni_profesional:any,anio_mes:any):any{
@@ -28,7 +32,11 @@ export class VisitaGestanteService {
       {
           keys: [[idIpress, dni_profesional, anio_mes]],
       }
-  );
+  ).toPromise()
+  .then((res) => <any[]>res)
+  .then((data) => {
+    return data;
+  });
   }
 
   getVisitasGestantesXProfesionalAnio(idIpress:any,dni_profesional:any,anio:any):any{
@@ -37,7 +45,11 @@ export class VisitaGestanteService {
       {
           keys: [[idIpress, dni_profesional, anio]],
       }
-  );
+  ).toPromise()
+  .then((res) => <any[]>res)
+  .then((data) => {
+    return data;
+  }).catch(error => { return error.error });
   }
 
   // buscarVisitaGestantesXAnioMes(fecha: string) {
