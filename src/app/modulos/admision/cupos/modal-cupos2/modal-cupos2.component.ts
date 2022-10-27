@@ -958,17 +958,34 @@ export class ModalCupos2Component implements OnInit {
                     apeMaterno: this.patientData.apeMaterno,
                     primerNombre: auxName[0],
                     otrosNombres: auxName[1],
-                    // sexo:this.patientData.sexo,
-                    // estadoCivil:this.patientData,
-                    fechaNacimiento: this.patientData.fecNacimiento,
                     sexo: this.patientData.genero,
-                })
+                    estadoCivil: this.patientData.estadoCivil,
+                    fechaNacimiento: this.patientData.fecNacimiento,
+                    // nacionalidad: this.patientData,
+                    // lugarNacimiento: this.patientData.
+                    // GradoInstrucion: this.patientData.
+                    // discapacidad:this.patientData.
+                    // celular:this.patientData.
+
+                    direccion: this.patientData.direccion,
+                    tipoSeguro: this.patientData.tipoSeguro,
+                });
+                this.searchUbigeo(this.patientData.ubigeo);
             } else {
                 this.buscarNuevoPaciente(this.patientData);
             }
 
         });
         // }
+    }
+
+    searchUbigeo(ubigeo: string): void {
+        let auxData = {
+            ubigeo: ubigeo
+        }
+        this.ubicacionService.buscarUbigeo(auxData).subscribe(res => {
+
+        })
     }
 
     transformToDate(dateStr: string): string {

@@ -41,7 +41,7 @@ export interface Paciente {
   tipoDoc: string;
 }
 export interface PidePatient {
-  bd:string;
+  bd: string;
   apeMaterno: string;
   apePaterno: string;
   contrato: string;
@@ -56,6 +56,7 @@ export interface PidePatient {
   eess: string;
   eessUbigeo: string;
   estado: string;
+  estadoCivil: string;
   fecAfiliacion: string;
   fecCaducidad: string;
   fecNacimiento: string;
@@ -74,4 +75,5 @@ export interface PidePatient {
   tipoDocumento: string;
   tipoFormato: string;
   tipoSeguro: string
+  ubigeo: string
 }
