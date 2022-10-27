@@ -64,11 +64,11 @@ export class VisitaDomiciliariaService {
         let x=reader.result;
     }
      */
-    getImageURL(id: string){
-    var url=`${this.base_url_images}/${id}`;
-    const headers = new HttpHeaders({'Authorization': "Bearer " + this.getToken(), 'Content-Type': 'image/*'});
-    return this.http.get(url,{headers,responseType:'blob'});
-}
+//     getImageURL(id: string){
+//     var url=`${this.base_url_images}/${id}`;
+//     const headers = new HttpHeaders({'Authorization': "Bearer " + this.getToken(), 'Content-Type': 'image/*'});
+//     return this.http.get(url,{headers,responseType:'blob'});
+//    }
     
 
     getLatitudIpress():any{
