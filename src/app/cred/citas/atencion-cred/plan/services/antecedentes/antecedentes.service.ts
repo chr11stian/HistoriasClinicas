@@ -38,4 +38,7 @@ export class AntecedentesService {
     addAntecedentesPersonales(nroDoc, data) {
         return this.http.post(`${this.base_url}/${this.bd}/cred/antecedentes/personales/perinatales/${nroDoc}`, data)
     }
+    addAntecedentesPersonales2Update(nroDoc, data) {
+        return this.http.put(`${this.base_url}/${this.bd}/cred/antecedentes/personales/perinatales/${nroDoc}`, data)
+    }
 }

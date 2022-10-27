@@ -715,12 +715,15 @@ export class PersonalSaludComponent implements OnInit {
     }
 
     newRolX(rowData) {
+        this.rolesX=[]
         this.idPersonal = rowData.id;
         console.log("data de personal ", this.idPersonal);
         this.ipressservice
             .getRolPersonalIpress(this.idPersonal)
             .then((res: any) => {
-                this.rolesX = res.object[0].roles;
+                if(res.cod='2402'){
+                    this.rolesX = res.object[0].roles;
+                }
             });
         this.nombrePersonal = `${rowData.apePaterno} ${rowData.apeMaterno}, ${rowData.primerNombre}`;
         this.idRolX = rowData.id;
