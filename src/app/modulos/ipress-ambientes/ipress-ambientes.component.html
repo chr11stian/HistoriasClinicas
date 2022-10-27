@@ -67,7 +67,7 @@
                     <label>Nombre UPS:</label>
                     <p-dropdown *ngIf="!isUpdateAmbiente" placeholder="Nombre UPS" class="inputRedondo" dropdownIcon="pi pi-chevron-down" inputId="dropdown"
                         [options]="UPSList" formControlName="nombreUPS" optionValue="nombreUPS" optionLabel="nombreUPS"
-                        required [appendTo]="body">
+                        required appendTo="body">
                     </p-dropdown>
                     <p-dropdown *ngIf="isUpdateAmbiente" class="inputRedondo" [showTransitionOptions]="'300ms'"
                         dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="UPSList" scrollHeight="100px"
