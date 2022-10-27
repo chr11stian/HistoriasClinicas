@@ -30,6 +30,7 @@ import { IpressTarifarioComponent } from './ipress-tarifario/ipress-tarifario.co
 import { IpressFarmaciaComponent } from './ipress-farmacia/component/ipress-farmacia.component';
 import {HisComponent} from "./his/his.component";
 import { IpressLaboratorioComponent } from './ipress-laboratorio/ipress-laboratorio.component';
+import { CentroPobladoComponent } from './centro-poblado/centro-poblado.component';
 @NgModule({
     declarations: [
         
@@ -47,7 +48,8 @@ import { IpressLaboratorioComponent } from './ipress-laboratorio/ipress-laborato
         IpressTarifarioComponent,
         IpressFarmaciaComponent,
         HisComponent,
-        IpressLaboratorioComponent
+        IpressLaboratorioComponent,
+        CentroPobladoComponent
     ],
     exports: [
         PersonalSaludComponent,

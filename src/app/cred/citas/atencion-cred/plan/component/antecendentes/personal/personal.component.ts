@@ -14,6 +14,7 @@ import {DatePipe} from "@angular/common";
 })
 export class PersonalComponent implements OnInit {
     @Output() onPersonal:EventEmitter<boolean>=new EventEmitter<boolean>();
+    @Output() onAntecedentesPersonales:EventEmitter<boolean>=new EventEmitter<boolean>();
     @Input() isEditable:boolean
     //aparte
     @Output() personalEmit: EventEmitter<AntecedentesPersonalesFormType> = new EventEmitter<AntecedentesPersonalesFormType>();
@@ -191,11 +192,13 @@ export class PersonalComponent implements OnInit {
         this.dialogAcuerdos = false;
 
     }
-
+    isUpdateAntecedentePersonal=false
     recuperarDatos() {
         this.antecedentesService.getAntecedentesPersonales(this.nroDoc).subscribe((r: any) => {
             this.antecedentes = r.object;
             if (this.antecedentes != null) {
+                this.onAntecedentesPersonales.emit(true)
+                this.isUpdateAntecedentePersonal=true
                 this.personalFG.get('normalE').setValue(this.antecedentes.embarazo.tipoEmbarazo)
                 this.patologias = this.antecedentes.embarazo.listaPatologiasGestacion
                 this.personalFG.get('nroE1').setValue(this.antecedentes.embarazo.nroEmbarazo)
@@ -355,17 +358,20 @@ export class PersonalComponent implements OnInit {
                 suplementoFe: this.getFC('suplementoFe').value
             },
         }
-        this.antecedentesService.addAntecedentesPersonales(this.nroDoc, aux).subscribe(
-            (resp:any) => {
-                if(resp.cod!="2105"){
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Guardo el registro correctamente',
-                        text: '',
-                        showConfirmButton: false,
-                        timer: 1500,
-                    })
-                    this.onPersonal.emit(true)
+        if(!this.isUpdateAntecedentePersonal){
+            this.antecedentesService.addAntecedentesPersonales(this.nroDoc, aux).toPromise().then(
+                (resp:any) => {
+                    if(resp.cod!="2105"){
+                        this.isUpdateAntecedentePersonal=true
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Guardo el registro correctamente',
+                            text: '',
+                            showConfirmButton: false,
+                            timer: 1500,
+                        })
+                        this.onAntecedentesPersonales.emit(true)
+                        this.onPersonal.emit(true)
                 }
                 else{
                     Swal.fire({
@@ -375,10 +381,43 @@ export class PersonalComponent implements OnInit {
                         showConfirmButton: false,
                         timer: 1500,
                     })
-
+                    
                 }
             }
-        )
+            )
+        }
+        else{
+            this.antecedentesService.addAntecedentesPersonales2Update(this.nroDoc, aux).toPromise().then(
+                (resp:any) => {
+                    if(resp.cod!="2105"){
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Actualizo el registro correctamente',
+                            text: '',
+                            showConfirmButton: false,
+                            timer: 1500,
+                        })
+                    this.onPersonal.emit(true)
+                }
+               
+            }
+            ).catch((resp)=>{
+                if(true){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'No hay cambios',
+                        text: '',
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
+                    
+                }
+            })
+
+
+        }
+
+        this.guardarAntecendentesPersonales()
 
         
     }
@@ -395,13 +434,13 @@ export class PersonalComponent implements OnInit {
             }
             this.antecedentesService.addAntecedentesPersonalesPatologicos(auxp).subscribe((r) => {
                 this.isUpdateListaEnfermedades=true
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Guardo los antecedentes correctamente',
-                    text: '',
-                    showConfirmButton: false,
-                    timer: 1500,
-                })
+                // Swal.fire({
+                //     icon: 'success',
+                //     title: 'Guardo los antecedentes correctamente',
+                //     text: '',
+                //     showConfirmButton: false,
+                //     timer: 1500,
+                // })
 
             })
         } else {
@@ -413,13 +452,13 @@ export class PersonalComponent implements OnInit {
             }
             console.log('auxp', auxp)
             this.antecedentesService.addAntecedentesPersonalesPatologicos(auxp).subscribe((r) => {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Se actulizo los antecedentes correctamente',
-                    text: '',
-                    showConfirmButton: false,
-                    timer: 1500,
-                })
+                // Swal.fire({
+                //     icon: 'success',
+                //     title: 'Se actulizo los antecedentes correctamente',
+                //     text: '',
+                //     showConfirmButton: false,
+                //     timer: 1500,
+                // })
             })
         }
 

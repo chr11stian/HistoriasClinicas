@@ -5,10 +5,10 @@
                 <h3 class="mt-2">DATOS GENERALES NIÑO/NIÑA</h3>
             </ng-template>
             <ng-template pTemplate="right" class="button">
-                <button *ngIf="isFirstConsulta" pButton pRipple label="Guardar" iconPos="right" icon="pi pi-angle-right"
+                <button *ngIf="isFirstConsulta" pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
                         class="guardar mr-2" (click)="guardarDatosGenerales()"
                         style="background-color: #0c3866"
-                        [disabled]="!(isIngresadoAntecedentes.personales && isIngresadoAntecedentes.familiares)"></button>
+                        [disabled]="!(isIngresadoAntecedentes.personales)"></button>
             </ng-template>
         </p-toolbar>
     </ng-template>
@@ -16,11 +16,11 @@
         <p-tabView>
             <p-tabPanel header="ANTECEDENTES PERSONALES" leftIcon="pi pi-calendar">
                 <ng-template pTemplate="content">
-                   <app-personal (onPersonal)="isIngresadoAntecedentes.personales=true" [isEditable]="isFirstConsulta"></app-personal>
+                   <app-personal (onAntecedentesPersonales)="PanelFamiliarActive=$event"  (onPersonal)="isIngresadoAntecedentes.personales=true" [isEditable]="isFirstConsulta"></app-personal>
                 </ng-template>
 
             </p-tabPanel>
-            <p-tabPanel header="ANTECEDENTES FAMILIARES" leftIcon="pi pi-calendar">
+            <p-tabPanel header="ANTECEDENTES FAMILIARES" leftIcon="pi pi-calendar" [disabled]="!PanelFamiliarActive" >
                 <ng-template pTemplate="content">
                     <app-familiar (onFamiliar)="isIngresadoAntecedentes.familiares=true" [isEditable]="isFirstConsulta"></app-familiar>
                 </ng-template>

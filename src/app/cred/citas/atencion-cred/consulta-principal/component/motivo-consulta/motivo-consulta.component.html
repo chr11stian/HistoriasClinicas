@@ -62,19 +62,18 @@
   <p-fieldset legend="EXAMEN FÍSICO">
     <form [formGroup]="formExam">
       <div class="grid">
-        <div class="col-6">
+        <div class="col-12">
           <div class="grid">
             <div class="col-12">
-              <label>Piel y Faneras (cabello, uñas):</label>
-              <input
-                type="text"
-                pInputText
-                formControlName="piel"
-                placeholder="Piel y Faneras"
+              <label>Aspectos Generales:</label>
+              <textarea 
+                rows="3" 
+                pInputTextarea 
+                formControlName="aspectosGenerales"
+                placeholder="Asperctos generales"
                 class="inputfield w-full"
-                oninput="this.value=this.value.toUpperCase()"
-                (focus)="openAlert(1)"
-              />
+                oninput="this.value=this.value.toUpperCase()">
+            </textarea>
             </div>
           </div>
         </div>
@@ -209,6 +208,22 @@
         <div class="col-6">
           <div class="grid">
             <div class="col-12">
+              <label>Piel y Faneras (cabello, uñas):</label>
+              <input
+                type="text"
+                pInputText
+                formControlName="piel"
+                placeholder="Piel y Faneras"
+                class="inputfield w-full"
+                oninput="this.value=this.value.toUpperCase()"
+                (focus)="openAlert(1)"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="grid">
+            <div class="col-12">
               <label>Ano:</label>
               <input
                 type="text"
@@ -236,7 +251,7 @@
       </div>
     </form>
   </p-fieldset>
-  <p-fieldset legend="EXAMEN NEUROLÓGICO">
+  <!-- <p-fieldset legend="EXAMEN NEUROLÓGICO">
     <form [formGroup]="formExamNeurologico">
       <div class="grid">
         <div class="col-6">
@@ -396,7 +411,7 @@
         </div>
       </div>
     </form>
-  </p-fieldset>
+  </p-fieldset> -->
 </div>
 <!-- <div id="opc">
   <div class="speeddial-circle-demo">

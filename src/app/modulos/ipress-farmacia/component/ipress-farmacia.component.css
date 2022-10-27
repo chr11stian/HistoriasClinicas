@@ -14,3 +14,13 @@ p-dropdown{
     border-radius: 3px;
     background: rgb(252 252 250)
 }
+p-table.tablaFarmacia >>> .p-datatable .p-datatable-thead > tr > th {
+    text-align: center !important;
+    word-wrap: break-word;
+    padding:10px 0px;
+}
+p-table.tablaFarmacia >>> .p-datatable .p-datatable-tbody > tr > td {
+    text-align: center !important;
+    word-wrap: break-word;
+    padding: 10px 0px;
+}

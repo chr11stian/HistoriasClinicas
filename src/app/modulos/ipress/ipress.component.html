@@ -12,7 +12,7 @@
         </ng-template>
 
     </p-toolbar>
-    <p-table [value]="data" #dt [globalFilterFields]="['nombres','nroDoc','apPaterno']"
+    <p-table [value]="data" #dt [globalFilterFields]="['renipress','nombreEESS']"
         styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true"
         [autoLayout]="true" currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
         responsiveLayout="scroll">
@@ -34,7 +34,7 @@
                 <th style="text-align: center">Ubigeo</th>
                 <th style="text-align: center">Red</th>
                 <th style="text-align: center">Micro Red</th>
-                <th style="text-align: center">Encargado</th>
+                <!-- <th style="text-align: center">Encargado</th> -->
                 <th style="text-align: center">Jurisdiccion</th>
                 <th style="text-align: center">Ambientes</th>
                 <th style="text-align: center">Turnos</th>
@@ -52,7 +52,7 @@
                 <td style="text-align: center">{{ rowData.ubicacion ? rowData.ubicacion.ubigeo : ""}}</td>
                 <td style="text-align: center">{{ rowData.red? rowData.red.nombreRed : ""}}</td>
                 <td style="text-align: center">{{ rowData.red? rowData.red.nombreMicroRed : ""}}</td>
-                <td style="text-align: center">{{ rowData.encargado? rowData.encargado[0].nombre : ""}}</td>
+                <!-- <td style="text-align: center">{{ rowData.encargado? rowData.encargado[0].nombre : ""}}</td> -->
                 <!-- <td style="text-align: center">
                     <button pButton pRipple icon="pi pi-user" class="p-button-rounded p-button-secondary"
                         (click)="newEncargado(rowData)"></button>
@@ -370,17 +370,12 @@
         <form [formGroup]='formEncargado'>
             <div>
                 <div class="grid">
-                    <!-- <div class="p-field col-6">
+                    <div class="p-field col-6">
                         <label>Tipo Documento:</label>
-                        <p-dropdown *ngIf="!isUpdateEncargado" placeholder="Tipo documento" class="inputRedondo"
+                        <p-dropdown [placeholder]="!isUpdateEncargado?'Tipo documento':''" class="inputRedondo"
                             [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" inputId="dropdown"
                             (onChange)="onChangeTipoDocumento()" [options]="tipoDocumentosList"
                             formControlName="tipoDocumento" optionLabel="abreviatura" scrollHeight="100px" required appendTo="body">
-                        </p-dropdown>
-                        <p-dropdown *ngIf="isUpdateEncargado" class="inputRedondo" [showTransitionOptions]="'300ms'"
-                            dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="tipoDocumentosList"
-                            (onChange)="onChangeTipoDocumento()" formControlName="tipoDocumento"
-                            optionLabel="abreviatura" scrollHeight="200px" required appendTo="body">
                         </p-dropdown>
                     </div>
                     <div class="p-field col-6">
@@ -388,16 +383,15 @@
                         <div class="p-inputgroup">
                             <input type="text" pInputText formControlName="nroDoc" placeholder="Nro Documento"
                                 [(maxlength)]="tamanioDocumento">
-                            <button *ngIf="!loadingEncargado" type="button" pButton pRipple icon="pi pi-search"
+                            <!-- <button *ngIf="!loadingEncargado" type="button" pButton pRipple icon="pi pi-search"
                                 (click)="buscarPersonal()" class="p-button-outlined p-button-secondary"></button>
                             <button *ngIf="loadingEncargado" type="button" pButton pRipple icon="pi pi-spin pi-spinner"
-                                (click)="buscarPersonal()" class="p-button-outlined p-button-secondary"></button>
+                                (click)="buscarPersonal()" class="p-button-outlined p-button-secondary"></button> -->
                         </div>
-
-                    </div> -->
+                    </div>
                     <div class="p-field col-12">
                         <label>Nombre Personal:</label>
-                        <input type="text" pInputText formControlName='nombre' placeholder="Nombre Personal" disabled>
+                        <input type="text" pInputText formControlName='nombre' placeholder="Nombre Personal">
                     </div>
                 </div>
             </div>
@@ -426,12 +420,12 @@
                                     <div class="p-inputgroup col-12">
                                         <input type="text" class="inputRedondo" placeholder="Ubigeo" pInputText
                                             formControlName='ubigeo' (blur)="buscarUbigeoJurisdiccion()" required />
-                                        <button *ngIf="!loading" type="button" pButton pRipple icon="pi pi-search"
+                                        <!-- <button *ngIf="!loading" type="button" pButton pRipple icon="pi pi-search"
                                             (click)="buscarUbigeoJurisdiccion()"
                                             class="p-button-outlined p-button-secondary"></button>
                                         <button *ngIf="loading" type="button" pButton pRipple
                                             icon="pi pi-spin pi-spinner" (click)="buscarUbigeoJurisdiccion()"
-                                            class="p-button-outlined p-button-secondary"></button>
+                                            class="p-button-outlined p-button-secondary"></button> -->
                                     </div>
                                 </div>
                             </div>
@@ -439,61 +433,42 @@
                         <div class="p-fluid grid flex justify-content-center">
                             <div class="p-field col-12 md:col-12">
                                 <label>Departamento:</label>
-                                <p-dropdown *ngIf="!isUpdate" placeholder="Departamento" class="inputRedondo"
+                                <p-dropdown [placeholder]="!isUpdate?'Departamento':''" class="inputRedondo"
                                     [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down"
                                     inputId="dropdown" [options]="departamentosList" formControlName="departamento"
-                                    optionLabel="departamento" (onChange)="selectedDepartamentoJurisdiccion()" required>
+                                    optionLabel="departamento" (onChange)="selectedDepartamentoJurisdiccion()" required appendTo="body"> 
                                 </p-dropdown>
-                                <p-dropdown *ngIf="isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
-                                    dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="departamentosList"
-                                    formControlName="departamento" optionLabel="departamento"
-                                    (onChange)="selectedDepartamentoJurisdiccion()" required>
-                                </p-dropdown>
+                               
                             </div>
                         </div>
                         <div class="p-fluid grid flex justify-content-center">
                             <div class="p-field col-12 md:col-12">
                                 <label>Provincia:</label>
-                                <p-dropdown *ngIf="!isUpdate" placeholder="Provincia" class="inputRedondo"
+                                <p-dropdown [placeholder]="!isUpdate?'Provincia':''" class="inputRedondo"
                                     [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down"
                                     inputId="dropdown" [options]="provinciasList" formControlName="provincia"
-                                    optionLabel="provincia" (onChange)="selectedProvinciaJurisdiccion()" required>
-                                </p-dropdown>
-                                <p-dropdown *ngIf="isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
-                                    dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="provinciasList"
-                                    formControlName="provincia" optionLabel="provincia"
-                                    (onChange)="selectedProvinciaJurisdiccion()" required>
+                                    optionLabel="provincia" (onChange)="selectedProvinciaJurisdiccion()" required appendTo="body">
                                 </p-dropdown>
                             </div>
                         </div>
                         <div class="p-fluid grid flex justify-content-center">
                             <div class="p-field col-12 md:col-12">
                                 <label>Distrito:</label>
-                                <p-dropdown *ngIf="!isUpdate" placeholder="Distrito" class="inputRedondo"
+                                <p-dropdown [placeholder]="!isUpdate?'Distrito':''" class="inputRedondo"
                                     [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down"
                                     inputId="dropdown" [options]="distritosList" formControlName="distrito"
-                                    optionLabel="distrito" (onChange)="selectedDistritoJurisdiccion()" required>
-                                </p-dropdown>
-                                <p-dropdown *ngIf="isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
-                                    dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="distritosList"
-                                    formControlName="distrito" optionLabel="distrito"
-                                    (onChange)="selectedDistritoJurisdiccion()" required>
+                                    optionLabel="distrito" (onChange)="selectedDistritoJurisdiccion()" required appendTo="body">
                                 </p-dropdown>
                             </div>
                         </div>
                         <div class="p-fluid grid flex justify-content-center">
                             <div class="p-field col-12 md:col-12">
                                 <label>Centro Poblado:</label>
-                                <p-dropdown *ngIf="!isUpdate" placeholder="Centro Poblado" class="inputRedondo"
+                                <p-dropdown  [placeholder]="!isUpdate?'Centro Poblado':''" class="inputRedondo"
                                     [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down"
                                     scrollHeight="150px" inputId="dropdown" [options]="CCPPList"
                                     formControlName="centroPoblado" optionLabel="ccpp" [filter]="true" filterBy="ccpp"
-                                    required>
-                                </p-dropdown>
-                                <p-dropdown *ngIf="isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
-                                    dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="CCPPList"
-                                    scrollHeight="150px" formControlName="centroPoblado" optionLabel="ccpp"
-                                    [filter]="true" filterBy="ccpp" required>
+                                    appendTo="body">
                                 </p-dropdown>
                             </div>
                         </div>
@@ -502,9 +477,9 @@
                     <div class="flex justify-content-end">
                         <button [disabled]="!formJurisdiccion.valid" pButton type="button" label="Guardar"
                             class="m-1 w-9rem" (click)="saveJurisdiccion()"></button>
-                        <button pButton type="button" label="Nuevo" icon="pi pi-plus"
+                        <!-- <button pButton type="button" label="Nuevo" icon="pi pi-plus"
                             (click)="guardarNuevaJurisdiccion()" pTooltip="Agregar jurisdiccion" tooltipPosition="right"
-                            class="p-button-danger m-1 w-9rem" pRipple></button>
+                            class="p-button-danger m-1 w-9rem" pRipple></button> -->
                     </div>
 
                 </p-card>

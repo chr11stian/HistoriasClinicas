@@ -67,23 +67,28 @@
                             >
                             </p-dropdown>
                     </div>
-                    <div class="col-12 md:col-2">
+                    <div class="col-12 md:col-1">
                         <label>NroGesta:</label>
                         <input placeholder="Nro gesta" 
-                               type="number" pInputText  class="inputTest"
+                            type="number" pInputText  class="inputTest"
                                 formControlName="nroGesta"  
                                 disabled="true"
                                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"/>
                     </div>
-                    <div class="col-12 md:col-4" >
+                    <div class="col-12 md:col-3" >
                         <label>Nombres:</label>
                         <input placeholder="Nombres" type="text" pInputText  class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                         formControlName="nombres" oninput="this.value=this.value.toUpperCase()"/>
                     </div>
-                    <div class="col-12 md:col-4">
-                        <label>Apellidos:</label>
-                        <input placeholder="Apellidos" type="text" pInputText class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-                        formControlName="apellidos" oninput="this.value=this.value.toUpperCase()"/>
+                    <div class="col-12 md:col-3">
+                        <label>Apellido paterno:</label>
+                        <input placeholder="Apellido paterno" type="text" pInputText class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                        formControlName="apePaterno" oninput="this.value=this.value.toUpperCase()"/>
+                    </div>
+                    <div class="col-12 md:col-3">
+                        <label>Apellido materno:</label>
+                        <input placeholder="Apellido materno" type="text" pInputText class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                        formControlName="apeMaterno" oninput="this.value=this.value.toUpperCase()"/>
                     </div>
             </div>
                 <div class="formgrid grid mx-3">
@@ -166,6 +171,7 @@
                                 type="date" pInputText 
                                 formControlName='fpp' 
                                 [(ngModel)]="auxFPP"
+                                disabled="true"
                                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" >
                             </div>
                 </div>

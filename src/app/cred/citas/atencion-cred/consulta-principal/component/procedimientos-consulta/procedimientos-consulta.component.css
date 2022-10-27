@@ -168,4 +168,6 @@ p-speeddial>>>.p-button.p-button-icon-only.p-button-rounded {
 .button-agregar {
   background: #0c3866;
   border: #0c3866;
+  transform: translate(10%, 50%);
+  font-weight: bold;
 }

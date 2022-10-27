@@ -27,17 +27,17 @@ export class PnGestanteDiaCambioComponent implements OnInit {
 
   estado_gestante: any[] = [{ value: "Activo" }, { value: "Inactivo" }];
   morbilidad_potencial_a: any[] = [
-    { value: "Ninguna" },
-    { value: "Gestante con antecedente de complicación obstetrica" },
-    { value: "Gestante adolescente" },
-    { value: "Primigista añosa" },
-    { value: "Multigesta y/o multipara" },
-    { value: "Gestantes con captación tardia" },
-    { value: "Gestante con rechazo al servicio de salud" },
-    { value: "Gestante traseunte" },
-    { value: "Gestante con TBC" },
-    { value: "Gestante con VIH/SIDA" },
-    { value: "Otra causa" },
+    { value: "NINGUNA" },
+    { value: " GESTANTE CON ANTECEDENTE DE COMPLICACIÓN OBSTETRICA" },
+    { value: "GESTANTE ADOLESCENTE" },
+    { value: "PRIMIGISTA AÑOSA" },
+    { value: "MULTIGESTA Y/O MULTIPARA" },
+    { value: "GESTANTES CON CAPTACIÓN TARDIA" },
+    { value: "GESTANTE CON RECHAZO AL SERVICIO DE SALUD" },
+    { value: "GESTANTE TRASEUNTE" },
+    { value: "GESTANTE CON TBC" },
+    { value: "GESTANTE CON VIH/SIDA" },
+    { value: "OTRA CAUSA" },
   ];
 
   listaDocumentos: any[] = [{ value: "DNI" }];
@@ -56,7 +56,8 @@ export class PnGestanteDiaCambioComponent implements OnInit {
       formTipoDoc: new FormControl(""),
       formNroDocGestante: new FormControl(""),
       formNombresGestante: new FormControl(""),
-      formApellidos: new FormControl(""),
+      formApePaterno: new FormControl(""),
+      formApeMaterno: new FormControl(""),
       formCod_eess_anterior: new FormControl(""),
       form_eess_anterior: new FormControl(""),
       formCod_eess_actual: new FormControl(""),
@@ -119,8 +120,11 @@ export class PnGestanteDiaCambioComponent implements OnInit {
           .get("formNombresGestante")
           .setValue(this.dataGestante.nombres);
         this.formGestante
-          .get("formApellidos")
-          .setValue(this.dataGestante.apellidos);
+          .get("formApePaterno")
+          .setValue(this.dataGestante.apePaterno);
+          this.formGestante
+          .get("formApeMaterno")
+          .setValue(this.dataGestante.apeMaterno);
         this.formGestante
           .get("formCod_eess_anterior")
           .setValue(this.dataGestante.codEessActual);
@@ -133,7 +137,5 @@ export class PnGestanteDiaCambioComponent implements OnInit {
         this.formGestante.get("form_eess_actual").setValue(this.pn_gestanteServicio.getaux_eessActual());
       });
     }
-    
   }
-
 }

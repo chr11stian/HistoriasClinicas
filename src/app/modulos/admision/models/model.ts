@@ -40,3 +40,40 @@ export interface Paciente {
   sexo: string;
   tipoDoc: string;
 }
+export interface PidePatient {
+  bd: string;
+  apeMaterno: string;
+  apePaterno: string;
+  contrato: string;
+  correlativo: string;
+  data: string[];
+  dataList: string[];
+  descEESS: string;
+  descEESSUbigeo: string;
+  descTipoSeguro: string;
+  direccion: string;
+  disa: string;
+  eess: string;
+  eessUbigeo: string;
+  estado: string;
+  estadoCivil: string;
+  fecAfiliacion: string;
+  fecCaducidad: string;
+  fecNacimiento: string;
+  genero: string;
+  idGrupoPoblacional: string;
+  idNumReg: string;
+  idPlan: string;
+  idUbigeo: string;
+  msgConfidencial: string;
+  nombres: string;
+  nroContrato: string;
+  nroDocumento: string;
+  regimen: string;
+  resultado: string;
+  tabla: string;
+  tipoDocumento: string;
+  tipoFormato: string;
+  tipoSeguro: string
+  ubigeo: string
+}

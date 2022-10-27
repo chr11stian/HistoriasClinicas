@@ -54,17 +54,17 @@ export class PnGestanteDialogComponent implements OnInit {
     {value:'Inactivo'}
   ]
   morbilidad_potencial_a:any []=[
-    {value: "Ninguna" },
-    {value:'Gestante con antecedente de complicación obstetrica'},
-    {value:'Gestante adolescente'},
-    {value:'Primigista añosa'},
-    {value:'Multigesta y/o multipara'},
-    {value:'Gestantes con captación tardia'},
-    {value:'Gestante con rechazo al servicio de salud'},
-    {value:'Gestante traseunte'},
-    {value:'Gestante con TBC'},
-    {value:'Gestante con VIH/SIDA'},
-    {value:'Otra causa'},
+    { value: "NINGUNA" },
+    { value: " GESTANTE CON ANTECEDENTE DE COMPLICACIÓN OBSTETRICA" },
+    { value: "GESTANTE ADOLESCENTE" },
+    { value: "PRIMIGISTA AÑOSA" },
+    { value: "MULTIGESTA Y/O MULTIPARA" },
+    { value: "GESTANTES CON CAPTACIÓN TARDIA" },
+    { value: "GESTANTE CON RECHAZO AL SERVICIO DE SALUD" },
+    { value: "GESTANTE TRASEUNTE" },
+    { value: "GESTANTE CON TBC" },
+    { value: "GESTANTE CON VIH/SIDA" },
+    { value: "OTRA CAUSA" },
   ]
 
   listaDocumentos:any []=[
@@ -93,7 +93,8 @@ inicializarForm(){
     this.formGestante=this.fb.group({
     tipoDoc:new FormControl('padronNominal'),
     nombres:new FormControl('',[Validators.required]),
-    apellidos:new FormControl('',[Validators.required]),
+    apePaterno:new FormControl('',[Validators.required]),
+    apeMaterno:new FormControl('',[Validators.required]),
     fechaNacimiento:new FormControl('',[Validators.required]),
     tipoDocIdentidad:new FormControl('',[Validators.required]),
     nroDocIdentidad:new FormControl('',[Validators.required, Validators.minLength(8)]),
@@ -194,11 +195,11 @@ editarDatos() {
         this.formGestante.get("nroDocIdentidad").setValue(this.dataGestanteEditar.nroDocIdentidad);
         this.formGestante.get("tieneSis").setValue(this.dataGestanteEditar.tieneSis===''?'NO':'SI');
         this.formGestante.get("fechaNacimiento").setValue(this.datePipe.transform(this.dataGestanteEditar.fechaNacimiento,'yyyy-MM-dd'));
-        this.formGestante.get("aborto").setValue('NO');
-        // console.log('aborto estado',this.dataGestanteEditar.value.aborto);
+        this.formGestante.get("aborto").setValue(this.dataGestanteEditar.aborto==false?'NO':'SI');
         this.formGestante.get("nroGesta").setValue(this.dataGestanteEditar.nroGesta.length);
         this.formGestante.get("nombres").setValue(this.dataGestanteEditar.nombres);
-        this.formGestante.get("apellidos").setValue(this.dataGestanteEditar.apellidos);
+        this.formGestante.get("apePaterno").setValue(this.dataGestanteEditar.apePaterno);
+        this.formGestante.get("apeMaterno").setValue(this.dataGestanteEditar.apeMaterno);
         this.formGestante.get("codEessAnterior").setValue(this.dataGestanteEditar.codEessAnterior);
         this.formGestante.get("eessAnterior").setValue(this.dataGestanteEditar.eessAnterior);
         this.formGestante.get("codEessActual").setValue(this.dataGestanteEditar.codEessActual);
@@ -244,11 +245,12 @@ cargarDatosPadron(event) {
         this.formGestante.get("nroDocIdentidad").setValue(this.dataGestante.nroDocIdentidad);
         this.formGestante.get("tieneSis").setValue(this.dataGestante.tieneSis===''?'NO':'SI');
         this.formGestante.get("fechaNacimiento").setValue(this.datePipe.transform(this.dataGestante.fechaNacimiento,'yyyy-MM-dd'));
-        this.formGestante.get("aborto").setValue(this.dataGestante.aborto===false?'NO':'SI');
+        this.formGestante.get("aborto").setValue(this.dataGestante.aborto==false?'NO':'SI');
         console.log('aborto estado',this.dataGestante.aborto);
         this.formGestante.get("nroGesta").setValue(this.dataGestante.nroGesta.length);
         this.formGestante.get("nombres").setValue(this.dataGestante.nombres);
-        this.formGestante.get("apellidos").setValue(this.dataGestante.apellidos);
+        this.formGestante.get("apePaterno").setValue(this.dataGestante.apePaterno);
+        this.formGestante.get("apeMaterno").setValue(this.dataGestante.apeMaterno);
         this.formGestante.get("codEessAnterior").setValue(this.dataGestante.codEessAnterior);
         this.formGestante.get("eessAnterior").setValue(this.dataGestante.eessAnterior);
         this.formGestante.get("codEessActual").setValue(this.dataGestante.codEessActual);
@@ -289,7 +291,8 @@ updateOEdith() {
 recuperarDatos(){
   this.gestante={
     nombres:this.formGestante.value.nombres,
-    apellidos:this.formGestante.value.apellidos,
+    apePaterno:this.formGestante.value.apePaterno,
+    apeMaterno:this.formGestante.value.apeMaterno,
     fechaNacimiento:this.datePipe.transform(this.formGestante.value.fechaNacimiento,"yyyy/MM/dd"),
     tipoDocIdentidad:this.formGestante.value.tipoDocIdentidad,
     nroDocIdentidad:this.formGestante.value.nroDocIdentidad,
@@ -327,7 +330,8 @@ recuperarDatos(){
 recuperarDatosEditar(){
   this.gestante={
     nombres:this.formGestante.value.nombres,
-    apellidos:this.formGestante.value.apellidos,
+    apePaterno:this.formGestante.value.apePaterno,
+    apeMaterno:this.formGestante.value.apeMaterno,
     fechaNacimiento:this.datePipe.transform(this.formGestante.value.fechaNacimiento,"yyyy/MM/dd"),
     tipoDocIdentidad:this.formGestante.value.tipoDocIdentidad,
     nroDocIdentidad:this.formGestante.value.nroDocIdentidad,
@@ -403,6 +407,7 @@ EditarGestante() {
         });
       }
     });
+    this.mostrarPadronNominalGestantes();
 }
 
 semanaGestacional(date:any):any {

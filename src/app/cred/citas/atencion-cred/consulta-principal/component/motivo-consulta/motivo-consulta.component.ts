@@ -63,8 +63,8 @@ export class MotivoConsultaComponent implements OnInit {
 
     ExamenFisico: controlInterface[] = [
         {
-            codigo: "PI",
-            nombreForm: "piel",
+            codigo: "AG",
+            nombreForm: "aspectosGenerales",
         },
         {
             codigo: "CA",
@@ -97,6 +97,10 @@ export class MotivoConsultaComponent implements OnInit {
         {
             codigo: "GE",
             nombreForm: "genitouriano",
+        },
+        {
+            codigo: "PI",
+            nombreForm: "piel",
         },
         {
             codigo: "AN",
@@ -199,6 +203,7 @@ export class MotivoConsultaComponent implements OnInit {
         });
         /** examen fisico */
         this.formExam = new FormGroup({
+            aspectosGenerales: new FormControl(""),
             piel: new FormControl(""),
             cabeza: new FormControl(""),
             cara: new FormControl(""),
@@ -350,7 +355,7 @@ export class MotivoConsultaComponent implements OnInit {
 
                 if (this.motivosConsulta.examenesFisicos !== null) {
                     this.formExam
-                        .get("piel")
+                        .get("aspectosGenerales")
                         .setValue(
                             this.motivosConsulta.examenesFisicos[0].valor
                         );
@@ -395,65 +400,70 @@ export class MotivoConsultaComponent implements OnInit {
                             this.motivosConsulta.examenesFisicos[8].valor
                         );
                     this.formExam
-                        .get("ano")
+                        .get("piel")
                         .setValue(
                             this.motivosConsulta.examenesFisicos[9].valor
+                        );
+                    this.formExam
+                        .get("ano")
+                        .setValue(
+                            this.motivosConsulta.examenesFisicos[10].valor
                         );
                     this.formExam
                         .get("obsExamenFisico")
                         .setValue(this.motivosConsulta.obsExamenFisico);
                 }
 
-                if (this.motivosConsulta.examenNeurologico !== null) {
-                    this.formExamNeurologico
-                        .get("olfatorio")
-                        .setValue(
-                            this.motivosConsulta.examenNeurologico[0].valor
-                        );
-                    this.formExamNeurologico
-                        .get("optico")
-                        .setValue(
-                            this.motivosConsulta.examenNeurologico[1].valor
-                        );
-                    this.formExamNeurologico
-                        .get("oculomotores")
-                        .setValue(
-                            this.motivosConsulta.examenNeurologico[2].valor
-                        );
-                    this.formExamNeurologico
-                        .get("trigemino")
-                        .setValue(
-                            this.motivosConsulta.examenNeurologico[3].valor
-                        );
-                    this.formExamNeurologico
-                        .get("facial")
-                        .setValue(
-                            this.motivosConsulta.examenNeurologico[4].valor
-                        );
-                    this.formExamNeurologico
-                        .get("auditivo")
-                        .setValue(
-                            this.motivosConsulta.examenNeurologico[5].valor
-                        );
-                    this.formExamNeurologico
-                        .get("glosoNeumo")
-                        .setValue(
-                            this.motivosConsulta.examenNeurologico[6].valor
-                        );
-                    this.formExamNeurologico
-                        .get("espinal")
-                        .setValue(
-                            this.motivosConsulta.examenNeurologico[7].valor
-                        );
-                    this.formExamNeurologico
-                        .get("hipogloso")
-                        .setValue(
-                            this.motivosConsulta.examenNeurologico[8].valor
-                        );
-                    this.formExamNeurologico
-                        .get("obsExamenNeurologico")
-                        .setValue(this.motivosConsulta.obsExamenNeurologico);
-                }
+                // if (this.motivosConsulta.examenNeurologico !== null) {
+                //     this.formExamNeurologico
+                //         .get("olfatorio")
+                //         .setValue(
+                //             this.motivosConsulta.examenNeurologico[0].valor
+                //         );
+                //     this.formExamNeurologico
+                //         .get("optico")
+                //         .setValue(
+                //             this.motivosConsulta.examenNeurologico[1].valor
+                //         );
+                //     this.formExamNeurologico
+                //         .get("oculomotores")
+                //         .setValue(
+                //             this.motivosConsulta.examenNeurologico[2].valor
+                //         );
+                //     this.formExamNeurologico
+                //         .get("trigemino")
+                //         .setValue(
+                //             this.motivosConsulta.examenNeurologico[3].valor
+                //         );
+                //     this.formExamNeurologico
+                //         .get("facial")
+                //         .setValue(
+                //             this.motivosConsulta.examenNeurologico[4].valor
+                //         );
+                //     this.formExamNeurologico
+                //         .get("auditivo")
+                //         .setValue(
+                //             this.motivosConsulta.examenNeurologico[5].valor
+                //         );
+                //     this.formExamNeurologico
+                //         .get("glosoNeumo")
+                //         .setValue(
+                //             this.motivosConsulta.examenNeurologico[6].valor
+                //         );
+                //     this.formExamNeurologico
+                //         .get("espinal")
+                //         .setValue(
+                //             this.motivosConsulta.examenNeurologico[7].valor
+                //         );
+                //     this.formExamNeurologico
+                //         .get("hipogloso")
+                //         .setValue(
+                //             this.motivosConsulta.examenNeurologico[8].valor
+                //         );
+                //     this.formExamNeurologico
+                //         .get("obsExamenNeurologico")
+                //         .setValue(this.motivosConsulta.obsExamenNeurologico);
+                // }
             });
     }
 
@@ -483,26 +493,26 @@ export class MotivoConsultaComponent implements OnInit {
                 perimetroCefalico: this.examFG.value.PCFC,
             },
             obsSignosVitales: this.examFG.value.detailFC,
-            examenNeurologico: this.examenNeurologico.map((element) => {
-                return {
-                    codigoExamen: element.codigo,
-                    nombreExamen: element.codigo,
-                    valor:
-                        this.formExamNeurologico.get(element.nombreForm)
-                            .value === null
-                            ? ""
-                            : this.formExamNeurologico.get(element.nombreForm)
-                                  .value,
-                };
-            }),
+            // examenNeurologico: this.examenNeurologico.map((element) => {
+            //     return {
+            //         codigoExamen: element.codigo,
+            //         nombreExamen: element.codigo,
+            //         valor:
+            //             this.formExamNeurologico.get(element.nombreForm)
+            //                 .value === null
+            //                 ? ""
+            //                 : this.formExamNeurologico.get(element.nombreForm)
+            //                     .value,
+            //     };
+            // }),
             obsExamenNeurologico:
                 this.formExamNeurologico.value.obsExamenNeurologico,
         };
-        console.log("req", req);
+        // console.log("req", req);
         if (req) {
             this.motivosService
                 .updateMotivos(this.data.idConsulta, req)
-                .subscribe((resp:any) => {
+                .subscribe((resp: any) => {
                     if (resp.cod == '2121') {
                         Swal.fire({
                             icon: "success",
@@ -596,7 +606,7 @@ export class MotivoConsultaComponent implements OnInit {
         }
     }
 
-    openSpinner() {}
+    openSpinner() { }
     /* interconsulta */
     open(): void {
         this.isUpdate = false;

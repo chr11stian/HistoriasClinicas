@@ -6,6 +6,16 @@
         </ng-template>
 
         <ng-template pTemplate="right" class="button">
+            <div [hidden]="!root">
+                <button
+                    pButton
+                    pRipple
+                    label="Designar"
+                    icon="pi pi-plus"
+                    class="p-button-success p-mr-2"
+                    (click)="openNew()"
+                ></button>
+            </div>
             <button
                 pButton
                 pRipple
@@ -66,7 +76,9 @@
                 <th *ngIf="!root" style="text-align: center">Especialidad</th>
                 <th *ngIf="!root" style="text-align: center">Rol</th>
                 <th *ngIf="!root" style="text-align: center">Rol Sistema</th>
-                <th *ngIf="!root" style="text-align: center; width: 120px">Acción</th>
+                <th *ngIf="!root" style="text-align: center; width: 120px">
+                    Acción
+                </th>
                 <th *ngIf="root" style="text-align: center">Ipress</th>
             </tr>
         </ng-template>
