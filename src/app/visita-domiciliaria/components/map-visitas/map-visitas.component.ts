@@ -74,9 +74,9 @@ export class MapVisitasComponent implements OnInit, OnChanges {
             .get(urlFoto, { headers, responseType: 'blob' })//recuperar la imagen y guardar en un blob
             .pipe(map(val => this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(val))));
        */
-      this.visitaService.getImageURL(aux.value.validator.firma).subscribe((data)=>{
-        console.log("daaaataaa",data);
-      });
+      // this.visitaService.getImageURL(aux.value.validator.firma).subscribe((data)=>{
+      //   console.log("daaaataaa",data);
+      // });
 
       L.marker([aux.value.validator.latitud, aux.value.validator.longitud],{
         title: "Visita Domiciliaria",
