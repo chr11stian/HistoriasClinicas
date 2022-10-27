@@ -72,4 +72,7 @@ export class UbicacionService {
             .then(data => { return data; })
             .catch(error => { return error.error });
     }
+    getCCPPCompleto(dd,pp,dis){
+        return this.http.get(`${this.base_url}/${this.bd}/ubicacion/ccpp/${dd}/${pp}/${dis}`);
+    }
 }
