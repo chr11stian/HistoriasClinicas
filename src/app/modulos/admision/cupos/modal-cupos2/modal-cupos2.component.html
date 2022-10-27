@@ -30,13 +30,13 @@
                     pInputText
                     formControlName="nroDoc"
                     placeholder="Nro documento"
-                    (blur)="pacienteByNroDoc()"
+                    (blur)="recoverPatientData()"
                     class="inputTest"
                   />
                   <p-button
                     span=""
                     icon="pi pi-search"
-                    (click)="pacienteByNroDoc()"
+                    (click)="recoverPatientData()"
                   ></p-button>
                 </div>
                 <small class="p-error" *ngIf="isInvalid('nroDoc')">

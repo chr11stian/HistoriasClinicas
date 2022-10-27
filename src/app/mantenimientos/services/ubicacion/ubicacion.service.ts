@@ -1,10 +1,10 @@
-import {Injectable} from "@angular/core";
-import {BehaviorSubject, Observable, Subject, throwError} from "rxjs";
-import {environment} from "../../../../environments/environment";
-import {HttpClient, HttpErrorResponse} from "@angular/common/http";
-import {catchError, retry, tap} from "rxjs/operators";
-import {Departamentos, Provincias, Ubicacion} from "../../../core/models/ubicacion.models";
-import {Personal} from "../../../core/models/personal.models";
+import { Injectable } from "@angular/core";
+import { BehaviorSubject, Observable, Subject, throwError } from "rxjs";
+import { environment } from "../../../../environments/environment";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { catchError, retry, tap } from "rxjs/operators";
+import { Departamentos, Provincias, Ubicacion } from "../../../core/models/ubicacion.models";
+import { Personal } from "../../../core/models/personal.models";
 
 @Injectable({
     providedIn: "root",
@@ -52,14 +52,25 @@ export class UbicacionService {
         return this.http.put(`${this.base_url}/${this.bd}/ubicacion/actualizar/ccpp/${id}`, data)
     }
 
-    buscarUbigeo(data){
+    buscarUbigeo(data) {
         return this.http.post(`${this.base_url}/${this.bd}/ubicacion/ubigeo`, data)
     }
-    getUbigeoDistrito(data){
+    getUbigeoDistrito(data) {
         return this.http.post(`${this.base_url}/${this.bd}/ubicacion/data/distrito`, data);
     }
-    getCCPPDatos(data){
+    getCCPPDatos(data) {
         return this.http.post(`${this.base_url}/${this.bd}/ubicacion/data/ccpp`, data);
+    }
+
+    getUbicationPag(page: number) {
+        return this.http.get(`${this.base_url}/${this.bd}/ubicacion/listar?page=${page}`);
+    }
+    getCPbyUbigeo(ubigeo: string) {
+        return this.http.get(`${this.base_url}/${this.bd}/ubicacion/ccpp/${ubigeo}`)
+            .toPromise()
+            .then(res => <any>res)
+            .then(data => { return data; })
+            .catch(error => { return error.error });
     }
     getCCPPCompleto(dd,pp,dis){
         return this.http.get(`${this.base_url}/${this.bd}/ubicacion/ccpp/${dd}/${pp}/${dis}`);
