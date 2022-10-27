@@ -551,6 +551,4 @@ export class DialogPacienteComponent implements OnInit {
         }
         return validateDocument;
     }
-
-
 }

@@ -39,7 +39,7 @@ export class HisCrudComponent implements OnInit {
 
   pagination(event): void {
     let page: number = event.first / 20 + 1;
-    this.ubicacionService.getUbicationPag(page).subscribe((res: any) => {
+    this.hisCrudService.getPaginateHIS(page).then((res: any) => {
       this.hisTable = res.object;
       this.totalRecords = res.totalPages * 20;
     })
@@ -65,6 +65,7 @@ export class HisCrudComponent implements OnInit {
     this.hisCrudService.postCreateNewHis(this.hisData).then((res: any) => {
       if (res.code = "2125") {
         console.log('guardo con exito');
+        this.hisDialog = false;
       }
       if (res.code = "2005") {
         console.log('ya se agrego ese his ');
@@ -76,5 +77,9 @@ export class HisCrudComponent implements OnInit {
 
   closeDialog(): void {
     this.hisDialog = false;
+  }
+
+  msjSaveRight(){
+    
   }
 }

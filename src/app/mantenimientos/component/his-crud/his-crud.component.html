@@ -1,7 +1,7 @@
 <div class="card">
     <div class="col-12">
         <p-table [value]="hisTable" [paginator]="true" [rows]="rows" [showCurrentPageReport]="true" [(first)]="first"
-            [totalRecords]="totalRecords" [lazy]="true" (onLazyLoad)="pagination($event)">
+            [totalRecords]="totalRecords" [lazy]="true" (onLazyLoad)="pagination($event)" styleClass="p-datatable-gridlines">
             <ng-template pTemplate="caption">
                 <div class="flex justify-content-between">
                     <div class="col-8 table-header mt-2">
@@ -16,20 +16,26 @@
             <ng-template pTemplate="header">
                 <tr>
                     <th>Nro</th>
-                    <th>Ubigeo</th>
-                    <th>Distrito</th>
+                    <th>Cod CIE 10</th>
+                    <th>Descripción</th>
+                    <th>Tipo</th>
+                    <th>Descripción Item</th>
+                    <th>Acción</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-i="rowIndex">
                 <tr>
                     <td>{{i +1}}</td>
-                    <td>{{rowData.ubigeo}}</td>
-                    <td>{{rowData.distrito}}</td>
+                    <td>{{rowData.codigoItem}}</td>
+                    <td>{{rowData.descripcionItem}}</td>
+                    <td>{{rowData.tipoItem}}</td>
+                    <td>{{rowData.descripcionTipoItem}}</td>
                 </tr>
             </ng-template>
         </p-table>
     </div>
 </div>
+
 <p-dialog [(visible)]="hisDialog" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '50vw'}">
     <ng-template pTemplate="header">
         <h3>Añadir HIS</h3>
