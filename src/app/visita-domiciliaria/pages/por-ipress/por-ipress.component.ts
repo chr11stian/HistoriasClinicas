@@ -3,14 +3,28 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { MessageService } from "primeng/api";
 import { VisitaDomiciliariaService } from "../../services/visita-domiciliaria.service";
 import { VisitaIpressService } from "../../services/visita-ipress.service";
-import { Value } from "../../../pn-gestante/interfaces/padron_Nominal";
-import { responsable } from "../../../cred/citas/atencion-cred/plan/component/datos-generales/datos-generales.component";
 import { Profesional } from "../../interfaces/profesional";
+import { trigger,state,style,transition,animate } from '@angular/animations';
+import { VisitaNinioService } from '../../services/visita-ninio.service';
+import { VisitaGestanteService } from '../../services/visita-gestante.service';
 
 @Component({
   selector: "app-por-ipress",
   templateUrl: "./por-ipress.component.html",
   styleUrls: ["./por-ipress.component.css"],
+  animations: [
+    trigger('rowExpansionTrigger', [
+        state('void', style({
+            transform: 'translateX(-10%)',
+            opacity: 0
+        })),
+        state('active', style({
+            transform: 'translateX(0)',
+            opacity: 1
+        })),
+        transition('* <=> *', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
+    ])
+]
 })
 export class PorIpressComponent implements OnInit {
   formListaVisitas: FormGroup;
@@ -49,6 +63,8 @@ export class PorIpressComponent implements OnInit {
   constructor(
     private servicioVisitas: VisitaDomiciliariaService,
     private servicioVisitaProfesionalIpress: VisitaIpressService,
+    private servicioVisitaProfesionalNinios:VisitaNinioService,
+    private servicioVisitaProfesionalGestantes:VisitaGestanteService,
     private fb: FormBuilder,
     private messageService: MessageService
   ) {}
@@ -69,35 +85,16 @@ export class PorIpressComponent implements OnInit {
           //console.log(aux);
           // console.log(this.profesionalesIpress.indexOf(aux.value.responsable));
           if (this.dniProfesionalIpress.indexOf(aux.value.responsable) === -1) {
-            this.recuperarVisitasNiniosMayores4Meses(ipress, aux);
-            this.recuperarVisitasNiniosMenores4Meses(ipress, aux);
-            this.recuperarGestantes(ipress, aux);
-            this.recuperarPuerperas(ipress, aux);
+            this.recuperarVisitasNiniosMayores4Meses(ipress,aux);
+            this.recuperarVisitasNiniosMenores4Meses(ipress,aux);
+            this.recuperarGestantes(ipress,aux);
+            this.recuperarPuerperas(ipress,aux);
             this.recuperarInformacionProfesional(aux);
-            this.profesional.visitas_mayores_4_meses =
-              this.visitas_mayor_4_meses;
-            this.profesional.visitas_menores_4_meses =
-              this.visitas_menor_4_meses;
-            this.profesional.visitas_gestantes = this.visitas_gestantes;
-            this.profesional.visitas_puerperas = this.visitas_puerperas;
             this.dniProfesionalIpress.push(aux.value.responsable);
-            // this.profesional.visitas_mayores_4_meses=this.visitas_mayor_4_meses;
-            // this.profesionalesIpress.push(this.profesional);
-            // console.log(this.profesional.visitas_mayores_4_meses);
             this.profesionalesIpress.push(this.profesional);
-            console.log("data profesional", this.profesional);
           }
         });
-        //console.log("Lista visitas", this.dataVisitas);
-        //console.log("Profesionales ipress",this.profesionalesIpress);
-        this.profesionalesIpress = [].concat(
-          this.profesional.visitas_mayores_4_meses,
-          this.profesional.visitas_menores_4_meses,
-          this.profesional.visitas_gestantes,
-          this.profesional.visitas_puerperas
-        );
-        //console.log('dataaaaaaaa ', this.profesionalesIpress);
-        // console.log("dni profesionales ipress",this.dniProfesionalIpress);
+        console.log("data profesional", this.profesionalesIpress);
       });
   }
 
@@ -111,48 +108,55 @@ export class PorIpressComponent implements OnInit {
     };
   }
 
-  async recuperarVisitasNiniosMayores4Meses(ipress, aux) {
+  async recuperarVisitasNiniosMayores4Meses(ipress,aux) {
     console.log("arreglo ");
     this.servicioVisitas.couch = true;
-    await this.servicioVisitaProfesionalIpress
-      .getVisitasNiniosXProfesionalTodo(ipress, aux.value.responsable)
+    await this.servicioVisitaProfesionalNinios.getVisitasNiniosXProfesionalMayores_4_Meses(ipress,aux.value.responsable,this.servicioVisitas.getAnio())
       .then((data_ninios) => {
-        this.visitas_mayor_4_meses = data_ninios;
-        let auxIndex: number = this.dniProfesionalIpress.indexOf(
-          aux.value.responsable
-        );
-        this.profesionalesIpress[auxIndex].visitas_gestantes =[]
-        this.profesionalesIpress[auxIndex].visitas_gestantes.push(this.visitas_mayor_4_meses)
-
-        console.log("data del arreglo ", this.profesionalesIpress);
-      });
-    console.log("arreglo ");
-  }
-  async recuperarVisitasNiniosMenores4Meses(ipress, aux) {
-    this.servicioVisitas.couch = true;
-    await this.servicioVisitaProfesionalIpress
-      .getVisitasNiniosXProfesionalTodo(ipress, aux.value.responsable)
-      .then((data_ninios) => {
-        this.visitas_menor_4_meses = data_ninios;
-        console.log("menoresssss", this.visitas_menor_4_meses);
+        let auxIndex: number = this.dniProfesionalIpress.indexOf(aux.value.responsable);
+        this.profesionalesIpress[auxIndex].visitas_mayores_4_meses =[];
+        if (data_ninios["rows"].length > 0){
+        this.profesionalesIpress[auxIndex].visitas_mayores_4_meses =data_ninios["rows"];
+        }
+        // console.log( this.profesionalesIpress[auxIndex].visitas_menores_4_meses);
       });
   }
-  async recuperarGestantes(ipress, aux) {
+  async recuperarVisitasNiniosMenores4Meses(ipress,aux) {
     this.servicioVisitas.couch = true;
-    await this.servicioVisitaProfesionalIpress
-      .getVisitasNiniosXProfesionalTodo(ipress, aux.value.responsable)
+    await this.servicioVisitaProfesionalNinios.getVisitasNiniosXProfesionalMenores_4_Meses(ipress,aux.value.responsable,this.servicioVisitas.getAnio())
       .then((data_ninios) => {
-        this.visitas_gestantes = data_ninios;
-        console.log("gestantesssssss", this.visitas_gestantes);
+        let auxIndex: number = this.dniProfesionalIpress.indexOf(aux.value.responsable);
+        this.profesionalesIpress[auxIndex].visitas_menores_4_meses =[];
+        if (data_ninios["rows"].length > 0){
+        this.profesionalesIpress[auxIndex].visitas_menores_4_meses =data_ninios["rows"];
+        }
+        // console.log( this.profesionalesIpress[auxIndex].visitas_menores_4_meses);
       });
   }
-  async recuperarPuerperas(ipress, aux) {
+  async recuperarGestantes(ipress,aux) {
     this.servicioVisitas.couch = true;
-    await this.servicioVisitaProfesionalIpress
-      .getVisitasNiniosXProfesionalTodo(ipress, aux.value.responsable)
-      .then((data_ninios) => {
-        this.visitas_puerperas = data_ninios;
-        // console.log('puerperasssss',this.visitas_puerperas);
+    await this.servicioVisitaProfesionalGestantes.getVisitasGestantesXProfesionalAnio(ipress, aux.value.responsable,this.servicioVisitas.getAnio())
+      .then((data_gestantes) => {
+        console.log("data gestantess",data_gestantes);
+        let auxIndex: number = this.dniProfesionalIpress.indexOf(aux.value.responsable);
+        this.profesionalesIpress[auxIndex].visitas_gestantes=[];
+        if (data_gestantes["rows"].length > 0){
+        this.profesionalesIpress[auxIndex].visitas_gestantes=data_gestantes["rows"];
+        }
+        // console.log( this.profesionalesIpress[auxIndex].visitas_menores_4_meses);
+      });
+  }
+  async recuperarPuerperas(ipress,aux) {
+    this.servicioVisitas.couch = true;
+    await this.servicioVisitaProfesionalGestantes.getVisitasGestantesXProfesionalAnio(ipress, aux.value.responsable,this.servicioVisitas.getAnio())
+      .then((data_puerperas) => {
+        console.log("data puerperasss",data_puerperas);
+        let auxIndex: number = this.dniProfesionalIpress.indexOf(aux.value.responsable);
+        this.profesionalesIpress[auxIndex].visitas_puerperas=[];
+        if (data_puerperas["rows"].length > 0){
+        this.profesionalesIpress[auxIndex].visitas_puerperas =data_puerperas["rows"];
+        }
+        // console.log( this.profesionalesIpress[auxIndex].visitas_menores_4_meses);
       });
   }
 }

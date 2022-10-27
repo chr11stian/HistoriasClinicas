@@ -14,7 +14,7 @@
                         <p-dropdown
                                 (onChange)="verVisitasPorAnio($event)"
                                 [options]="anios"
-                                optionLabel="anio" formControlName="busquedaAnio"
+                                optionLabel="anio"
                                 optionValue="anio"
                                 placeholder="Año"
                                 [showClear]="false"
@@ -28,7 +28,6 @@
                                         [options]="meses"  
                                         optionValue="value" 
                                         [(ngModel)]="selectedMes"
-                                        formControlName="busquedaMes"
                                         optionLabel="label"></p-selectButton>
                     </div>
                 </div>

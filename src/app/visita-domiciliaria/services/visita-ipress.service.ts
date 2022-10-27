@@ -31,7 +31,11 @@ export class VisitaIpressService {
       {
         keys: [[idIpress, dni_profesional]],
       }
-    );
+    ).toPromise()
+    .then((res) => <any[]>res)
+    .then((data) => {
+      return data;
+    });
   }
 
   getVisitasNiniosXProfesionalTodo(idIpress: string, dni_profesional: string) {

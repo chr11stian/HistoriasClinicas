@@ -4,8 +4,8 @@ export interface Profesional{
       apellidos?:string;
       telefono?:string;
       eess?:string;
-      visitas_menores_4_meses?:any [];
       visitas_mayores_4_meses?:any [];
+      visitas_menores_4_meses?:any [];
       visitas_gestantes?:any [];
       visitas_puerperas?:any [];
 }
