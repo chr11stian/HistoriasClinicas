@@ -99,6 +99,7 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
   }
   //abre nuestro compoente dialog en el cual se muestran nuestras preguntas y respuestas
   openDialogRespuestas(data: any[]) {
+    console.log("dataaaaaaaaa",data);
     this.ref = this.dialog.open(DialogRespuestasComponent, {
       header:
         "Preguntas>Respuestas de la visita domiciliaria del niño-niña ejecutada",
