@@ -14,6 +14,7 @@ import {DatePipe} from "@angular/common";
 })
 export class PersonalComponent implements OnInit {
     @Output() onPersonal:EventEmitter<boolean>=new EventEmitter<boolean>();
+    @Output() onAntecedentesPersonales:EventEmitter<boolean>=new EventEmitter<boolean>();
     @Input() isEditable:boolean
     //aparte
     @Output() personalEmit: EventEmitter<AntecedentesPersonalesFormType> = new EventEmitter<AntecedentesPersonalesFormType>();
@@ -196,6 +197,7 @@ export class PersonalComponent implements OnInit {
         this.antecedentesService.getAntecedentesPersonales(this.nroDoc).subscribe((r: any) => {
             this.antecedentes = r.object;
             if (this.antecedentes != null) {
+                this.onAntecedentesPersonales.emit(true)
                 this.isUpdateAntecedentePersonal=true
                 this.personalFG.get('normalE').setValue(this.antecedentes.embarazo.tipoEmbarazo)
                 this.patologias = this.antecedentes.embarazo.listaPatologiasGestacion
@@ -368,7 +370,8 @@ export class PersonalComponent implements OnInit {
                             showConfirmButton: false,
                             timer: 1500,
                         })
-                    this.onPersonal.emit(true)
+                        this.onAntecedentesPersonales.emit(true)
+                        this.onPersonal.emit(true)
                 }
                 else{
                     Swal.fire({
