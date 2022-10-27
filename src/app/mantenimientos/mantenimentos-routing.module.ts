@@ -30,6 +30,7 @@ import {AntecedentesPacienteComponent} from "./component/antecedentes-paciente/a
 import {MedicamentosComponent} from "./component/medicamentos/medicamentos.component";
 import {UpsAuxIpressComponent} from "./component/ups-aux-ipress/ups-aux-ipress.component";
 import { LaboratorioComponent } from "./component/laboratorio/laboratorio.component";
+import { HisCrudComponent } from "./component/his-crud/his-crud.component";
 
 const routes: Routes = [
   {
@@ -142,6 +143,10 @@ const routes: Routes = [
     path: "laboratorio",
     component: LaboratorioComponent,
   },
+  {
+    path:"his-crud",
+    component: HisCrudComponent
+  }
 ];
 
 @NgModule({

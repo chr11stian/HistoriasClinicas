@@ -56,7 +56,7 @@ export interface motivoConsultaInterface {
     signosVitales: SignosVitales;
     obsSignosVitales: string;
     examenesFisicos: ExamenesFisico[];
-    examenNeurologico: ExamenesFisico[];
+    // examenNeurologico: ExamenesFisico[];
     obsExamenFisico: string;
     obsExamenNeurologico: string;
 }

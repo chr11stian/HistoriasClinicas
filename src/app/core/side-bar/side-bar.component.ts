@@ -23,7 +23,7 @@ const menu_geresa = [
                 label: "Usuarios",
                 icon: "pi pi-pw pi-file",
                 routerLink: "admision/usuarios",
-            },
+            }
         ],
     },
 
@@ -297,21 +297,6 @@ const administracion2 = {
             icon: "pi pi-pw pi-sliders-v",
             routerLink: "admision/ipress-tarifario",
         },
-        // {
-        //     icon: "pi pi-file",
-        //     label: "Tipo Personal",
-        //     routerLink: "mantenimientos/tipo-personal",
-        // },
-        // {
-        //     icon: "pi pi-file",
-        //     label: "Unidad ejecutora",
-        //     routerLink: "mantenimientos/unidad-ejecutora",
-        // },
-        /* {
-            icon: "pi pi-sliders-v",
-            label: "Antecedentes Pacientes",
-            routerLink: "mantenimientos/antecedentes-paciente",
-        }, */
         {
             icon: "pi pi-sliders-v",
             label: "Ipress Farmacia",
@@ -589,6 +574,11 @@ const root = {
             routerLink: "admision/ipress",
         },
         {
+            label: "HIS",
+            icon: "pi pi-book",
+            routerLink: "mantenimientos/his-crud"
+        },
+        {
             label: "Centro Poblado",
             icon: "pi pi-pw pi-share-alt",
             routerLink: "admision/centro-poblado",
@@ -619,7 +609,7 @@ export class SideBarComponent implements OnInit, DoCheck {
 
     activeSubmenus: { [key: string]: boolean } = {};
 
-    constructor(private filterService: FilterService, private router: Router) {}
+    constructor(private filterService: FilterService, private router: Router) { }
 
     build() {
         if (this.rol === "ROLE_ADMIN") {

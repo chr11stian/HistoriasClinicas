@@ -956,7 +956,6 @@ export class DatosBasalesComponent implements OnInit {
     }
 
     loadDataHemoExams(hemoExam: Hemoglobin[]): void {
-        console.log('lista de examenes de hemo ', hemoExam);
         hemoExam.forEach(item => {
             let arraAux = this.fb.group({
                 conFactorCorreccion: [{ value: (item.conFactorCorreccion), disabled: true }],

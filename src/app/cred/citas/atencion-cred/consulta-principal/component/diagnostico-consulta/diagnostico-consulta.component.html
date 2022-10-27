@@ -282,8 +282,8 @@
               </p-dropdown>
             </div>
             <div class="col-3 agregate-div ">
-              <button pButton pRipple icon="pi pi-plus" pButton type="button" label="Agregar"
-                class="p-button-rounded button-agregar" (click)="agregateDiagnosticFUA()"></button>
+              <button pButton pRipple icon="pi pi-plus" pButton type="button" label="Agregar" style="background-color: #0c3866"
+                class="p-button-rounded add-button" (click)="agregateDiagnosticFUA()"></button>
             </div>
             <div class="col-12 p-fluid">
               <textarea style="text-transform:uppercase" rows="3" cols="30" pInputTextarea
@@ -322,7 +322,7 @@
       <p-panel header="HIS" class="diagnostic-panel">
         <form [formGroup]="hisForm">
           <div class="grid">
-            <div class="col-4 p-fluid">
+            <div class="col-6 p-fluid">
               <label>Nombre UPS:</label>
               <p-dropdown inputId="dropdown" [options]="arrayUPS" formControlName="nombreUPS" placeholder="Seleccionar"
                 optionLabel="nombreUPS" defaultLabel="Seleccione:" appendTo="body" class="inputfield p-fluid w-full">
@@ -335,25 +335,12 @@
                 class="inputfield p-fluid w-full">
               </p-dropdown>
             </div>
-            <div class="col-3 p-fluid">
-              <label>Tipo Diagnóstico:</label>
-              <p-dropdown inputId="dropdown" [options]="arrayDiagnosticType" formControlName="tipoDiagnosticoHIS"
-                placeholder="Seleccionar" optionLabel="label" optionValue="value" defaultLabel="Seleccione:"
-                appendTo="body" class="inputfield p-fluid w-full">
-              </p-dropdown>
-            </div>
-            <div class="col-1 md:col-3 lg:col-1 p-field">
-              <div class="">
-                <label class="">Lab: </label>
-                <input type="text" pInputText class="inputfield w-full bg_color" formControlName="lab"
-                  oninput="this.value=this.value.toUpperCase()">
-              </div>
-            </div>
+            
             <div class="col-12 p-fluid">
               <label>Diagnóstico HIS</label>
               <p-autoComplete [suggestions]="listaDeCIEHIS" (completeMethod)="filterCIE10($event)" appendTo="body"
                 field="descripcionItem" [minLength]="1" class="areaText" class="inputfield p-fluid w-full"
-                formControlName="buscarPDxHIS" (onSelect)="selectedDxHIS($event,0)" [dropdown]="true"
+                formControlName="buscarPDxHIS" (onSelect)="selectedDxHIS($event,0)"
                 placeholder="Seleccionar un Procedimiento">
               </p-autoComplete>
             </div>
@@ -361,17 +348,31 @@
               <label>Código de procedimiento HIS (CIE 10): </label>
               <p-autoComplete [suggestions]="listaDeCIEHIS" (completeMethod)="filterCIE10($event)" appendTo="body"
                 field="codigoItem" [minLength]="1" class="areaText" class="inputfield p-fluid w-full"
-                formControlName="codProcedimientoHIS" (onSelect)="selectedDxHIS($event,1)" [dropdown]="true"
-                placeholder="Seleccionar un Diagnostico">
+                formControlName="codProcedimientoHIS" (onSelect)="selectedDxHIS($event,1)" placeholder="Seleccionar un Diagnostico">
               </p-autoComplete>
             </div>
-            <div class="col-3">
-              <button pButton pRipple icon="pi pi-plus" pButton type="button" style="background-color: #0c3866"
-                label="Agregar" class="add-button p-button-rounded" (click)="agregateDiagnosticHIS()"></button>
-            </div>
+            
             <div class="col-12 p-fluid">
               <textarea style="text-transform:uppercase" rows="3" cols="30" pInputTextarea
                 formControlName="procedimientoHIS" autoResize="autoResize"></textarea>
+            </div>
+            <div class="col-4 p-fluid">
+              <label>Tipo Diagnóstico:</label>
+              <p-dropdown inputId="dropdown" [options]="arrayDiagnosticType" formControlName="tipoDiagnosticoHIS"
+                placeholder="Seleccionar" optionLabel="label" optionValue="value" defaultLabel="Seleccione:"
+                appendTo="body" class="inputfield p-fluid w-full">
+              </p-dropdown>
+            </div>
+            <div class="col-2 md:col-3 lg:col-2 p-field">
+              <div class="">
+                <label class="">Lab: </label>
+                <input type="text" pInputText class="inputfield w-full bg_color" formControlName="lab"
+                  oninput="this.value=this.value.toUpperCase()">
+              </div>
+            </div>
+            <div class="col-3 col-offset-1">
+              <button pButton pRipple icon="pi pi-plus" pButton type="button" style="background-color: #0c3866"
+                label="Agregar" class="add-button p-button-rounded" (click)="agregateDiagnosticHIS()"></button>
             </div>
           </div>
         </form>
