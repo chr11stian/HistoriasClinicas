@@ -135,17 +135,34 @@ export class PersonalService {
             data
         );
     }
+
     saveRol(data) {
         return this.http.post(`${this.base_new}/accesos/user/hce`, data);
     }
+    
     updateRol(dni, data) {
         return this.http.put(`${this.base_new}/accesos/user/hce/${dni}`, data);
     }
+
     getRoles(dni) {
         return this.http.get(`${this.base_new}/accesos/user/hce/${dni}`);
     }
+
     getListAdmin(){//http://192.168.5.3:3010/admins/listar
         return this.http.get(`${this.base_login}/admins/listar`);
+    }
+    //--desactivar y activar personal
+    desactivarPersonal(idPersona){
+        return this.http.delete<any>(
+            `${this.base_url}/${this.bd}/personal/desactivar/${idPersona}`
+        );
+    }
+    
+    activarPersonal(idPersonal){
+        return this.http.put(
+            `${this.base_url}/personal/activar/${idPersonal}`,
+            ''
+        );
     }
     /* crearRol(data) {
         return this.http.post(`${this.base_uri_}/accesos/user`, data);

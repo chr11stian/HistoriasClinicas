@@ -1,0 +1,22 @@
+<div class="col-12">
+    <form [formGroup]="FrmConsejeria">
+        <textarea
+            style="height: 120px"
+            class="w-full"
+            placeholder="DIGITE LA CONSEJERIA PROPORCIONADA AL NIÑO"
+            pInputTextarea
+            formControlName="consejeria"
+        >
+        </textarea>
+        <div class="flex col-12 justify-content-end">
+            <button
+                pButton
+                type="button"
+                label="Guardar"
+                style="background-color: #0c3866"
+                class=""
+                (click)="guardar()"
+            ></button>
+        </div>
+    </form>
+</div>

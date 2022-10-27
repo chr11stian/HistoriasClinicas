@@ -76,4 +76,17 @@ export class TratamientoConsultaService {
             `${this.urlServer}/${this.bd}/cred/consulta/acuerdos/${idConsulta}`
         );
     }
+
+    /* Consejeria tratamiento */
+    saveConsejeria(idConsulta, data){
+        return this.http.post(
+            `${this.urlServer}/${this.bd}/cred/consulta/consejeria/${idConsulta}`,
+            data
+        );
+    }
+    getConsejeria(idConsulta){
+        return this.http.get(
+            `${this.urlServer}/${this.bd}/cred/consulta/consejeria/${idConsulta}`
+        );
+    }
 }
