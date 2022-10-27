@@ -17,6 +17,7 @@ import {IpressFarmaciaComponent} from "./ipress-farmacia/component/ipress-farmac
 import {ListarHisComponent} from "../his/listar-his/listar-his.component";
 import {HisComponent} from "./his/his.component";
 import { IpressLaboratorioComponent } from './ipress-laboratorio/ipress-laboratorio.component';
+import { CentroPobladoComponent } from './centro-poblado/centro-poblado.component';
 
 const routes: Routes = [
     {
@@ -32,6 +33,10 @@ const routes: Routes = [
         path: "personal-salud",
         component: PersonalSaludComponent
         // loadChildren: () => import('src/app/historia/historia.module').then(n => n.HistoriaModule),
+    },
+    {
+        path: "centro-poblado",
+        component: CentroPobladoComponent
     },
     {
         path: "usuarios",

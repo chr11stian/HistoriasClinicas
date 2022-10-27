@@ -3,11 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { PacienteService } from 'src/app/core/services/paciente/paciente.service';
+import { UbigeoData } from 'src/app/mantenimientos/models/ubicacion.interface';
 import { DocumentoIdentidadService } from 'src/app/mantenimientos/services/documento-identidad/documento-identidad.service';
 import { EtniaService } from 'src/app/mantenimientos/services/etnia/etnia.service';
 import { UbicacionService } from 'src/app/mantenimientos/services/ubicacion/ubicacion.service';
 import { image } from 'src/assets/images/image.const';
 import Swal from 'sweetalert2';
+import { PidePatient } from '../../admision/models/model';
 
 @Component({
     selector: 'app-dialog-paciente',
@@ -40,6 +42,7 @@ export class DialogPacienteComponent implements OnInit {
 
     dataPacienteEditar: any = null;
     toEdit: boolean = false;
+    patientData: PidePatient;
 
     listaEstadoCivil = [
         'SOLTERO',
@@ -67,6 +70,8 @@ export class DialogPacienteComponent implements OnInit {
         { name: 'MASCULINO', code: 'MASCULINO' },
         { name: 'FEMENINO', code: 'FEMENINO' }
     ]
+    ubigeoData: UbigeoData[] = [];
+    arrayPopulatedCenter: CentroPoblado[] = [];
 
     constructor(
         private fb: FormBuilder,
@@ -77,16 +82,24 @@ export class DialogPacienteComponent implements OnInit {
         private ref: DynamicDialogRef,
         public config: DynamicDialogConfig,
     ) {
-        this.config.data == undefined ? this.toEdit = false : this.toEdit = true;
+        // console.log('data del dialog ggggggg ', this.config);
+        this.config.data == undefined ? this.toEdit = false : this.config.data.typeData == 1 ? this.toEdit = true : this.toEdit = false;
         this.getDepartamentos();
         this.inicializarForm();
         this.cargarDocumentos();
         this.cargarEtnia();
+        console.log('data del usuario ', this.config.data);
     }
 
     ngOnInit(): void {
-        this.dataPacienteEditar = this.config.data;
-
+        if (this.toEdit) {
+            this.dataPacienteEditar = this.config.data.dataPaciente;
+        }
+        if (!this.toEdit && this.config.data.typeData == 2) {
+            this.patientData = this.config.data.dataPaciente;
+            this.assignPatientData(this.patientData);
+        }
+        console.log('data del paciente ', this.patientData);
         console.log('para editarrrrrrrrrrrrrr ', this.toEdit);
         if (this.dataPacienteEditar !== null) {
             this.editarDatos()
@@ -147,7 +160,6 @@ export class DialogPacienteComponent implements OnInit {
         let distritoX = this.formPaciente.value.distrito;
         this.dataDistrito.forEach(object => {
             if (object.distrito === distritoX) {
-                console.log("Distrito:", object);
                 this.DistritoIDSelct = object.iddis
             }
         });
@@ -249,7 +261,6 @@ export class DialogPacienteComponent implements OnInit {
 
         this.dataProvincia.forEach(object => {
             if (object.provincia === Provincia) {
-                console.log("Provincia:", object);
                 this.ProvinciaIDSelct = object.idpp
             }
         });
@@ -407,22 +418,23 @@ export class DialogPacienteComponent implements OnInit {
     /**Agrega un nuevo paciente**/
     saveForm() {
         this.recuperarDatos();
-        let auxVal: boolean = this.validateDoc();
-        if (auxVal) {
-            this.pacienteService.postPacientes(this.dataPaciente).subscribe((res: any) => {
-                this.closeDialog();
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Se Registro Exitosamente',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-                console.log("RESPUESTA", res)
-            });
-        } else {
-            console.log('nose guarda');
-        }
-        
+        console.log('data del paciente ', this.dataPaciente);
+        // let auxVal: boolean = this.validateDoc();
+        // if (auxVal) {
+        //     this.pacienteService.postPacientes(this.dataPaciente).subscribe((res: any) => {
+        //         this.closeDialog();
+        //         Swal.fire({
+        //             icon: 'success',
+        //             title: 'Se Registro Exitosamente',
+        //             showConfirmButton: false,
+        //             timer: 1500
+        //         })
+        //         console.log("RESPUESTA", res)
+        //     });
+        // } else {
+        //     console.log('nose guarda');
+        // }
+
     }
 
     /**Actualiza datos de un paciente**/
@@ -505,6 +517,66 @@ export class DialogPacienteComponent implements OnInit {
         return;
     }
 
+    assignPatientData(patientData: PidePatient): void {
+        let auxName = patientData.nombres.split(' ');
+        this.formPaciente.patchValue({
+            tipoDoc: patientData.tipoDocumento,
+            nroDoc: patientData.nroDocumento,
+            primerNombre: auxName[0],
+            otrosNombres: auxName[1],
+            apPaterno: patientData.apePaterno,
+            apMaterno: patientData.apeMaterno,
+            HCL: patientData.nroDocumento,
+            sexo: patientData.genero,
+            fechaNacimiento: patientData.fecNacimiento,
+            nacionalidad: patientData.tipoDocumento == "DNI" ? patientData.genero == "MASCULINO" ? "PERUANO" : "PERUANA" : "",
+            tipoSeguro: patientData.descTipoSeguro,
+            codSeguro:patientData.tipoSeguro
+        })
+        this.searchUbigeo(patientData.eessUbigeo)
+    }
+
+    searchUbigeo(ubigeo: string): void {
+        let idDep: string = ubigeo.slice(0, 2);
+        let idProv: string = ubigeo.slice(2, 4);
+        let idDist: string = ubigeo.slice(4, 6);
+        this.ubicacionService.getCPbyUbigeo(ubigeo).then((res: any) => {
+            if (res.status) {
+                console.log('error ');
+                return
+            }
+            this.ubigeoData = res.object
+            if (this.ubigeoData.length > 0) {
+                this.ubigeoData.forEach(item => {
+                    let auxCP: CentroPoblado = {
+                        ccpp: item.ccpp,
+                        idccpp: item.idccpp
+                    }
+                    this.arrayPopulatedCenter.push(auxCP);
+                });
+                let dpto = {
+                    iddd: idDep
+                }
+                let prov = {
+                    iddd: idDep,
+                    idpp: idProv
+                }
+                this.ubicacionService.getProvincias(dpto).subscribe((res: any) => {
+                    this.dataProvincia = res.object;
+                });
+                this.ubicacionService.getDistritos(prov).subscribe((res: any) => {
+                    this.dataDistrito = res.object;
+                });
+                this.dataCentroPoblado = this.arrayPopulatedCenter;
+                this.formPaciente.patchValue({
+                    departamento: this.ubigeoData[0].departamento,
+                    provincia: this.ubigeoData[0].provincia,
+                    distrito: this.ubigeoData[0].distrito
+                });
+            }
+        });
+    }
+
     validateDoc(): boolean {
         let dni = String(this.formPaciente.value.nroDoc);
         let tipoDoc = this.formPaciente.value.tipoDoc;
@@ -523,5 +595,13 @@ export class DialogPacienteComponent implements OnInit {
         return validateDocument;
     }
 
+    testComp() {
+        let aux = this.formPaciente.value.departamento
+        console.log('data del dep', aux);
+    }
+}
 
+interface CentroPoblado {
+    ccpp: string;
+    idccpp: string
 }

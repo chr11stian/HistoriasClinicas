@@ -23,7 +23,7 @@ const menu_geresa = [
                 label: "Usuarios",
                 icon: "pi pi-pw pi-file",
                 routerLink: "admision/usuarios",
-            },
+            }
         ],
     },
 
@@ -302,11 +302,11 @@ const administracion2 = {
         //     label: "Tipo Personal",
         //     routerLink: "mantenimientos/tipo-personal",
         // },
-       /*  {
-            icon: "pi pi-file",
-            label: "Unidad ejecutora",
-            routerLink: "mantenimientos/unidad-ejecutora",
-        }, */
+        /*  {
+             icon: "pi pi-file",
+             label: "Unidad ejecutora",
+             routerLink: "mantenimientos/unidad-ejecutora",
+         }, */
         {
             icon: "pi pi-file",
             label: "Antecedentes Pacientes",
@@ -588,6 +588,16 @@ const root = {
             icon: "pi pi-pw pi-calendar",
             routerLink: "admision/ipress",
         },
+        {
+            label: "HIS",
+            icon: "pi pi-book",
+            routerLink: "mantenimientos/his-crud"
+        },
+        {
+            label: "Centro Poblado",
+            icon: "pi pi-pw pi-share-alt",
+            routerLink: "admision/centro-poblado",
+        },
     ],
 };
 
@@ -609,7 +619,7 @@ export class SideBarComponent implements OnInit, DoCheck {
 
     activeSubmenus: { [key: string]: boolean } = {};
 
-    constructor(private filterService: FilterService, private router: Router) {}
+    constructor(private filterService: FilterService, private router: Router) { }
 
     build() {
         if (this.rol === "ROLE_ADMIN") {

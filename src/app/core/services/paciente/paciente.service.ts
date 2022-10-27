@@ -48,5 +48,11 @@ export class PacienteService {
       .catch(error => { return error.error });
   }
 
-  // getPacientData()
+  getPidePatientData(nroDoc: string) {
+    return this.http.get<any>(`${this.base_url}/${this.bd}/pide/consultar/${nroDoc}`)
+      .toPromise()
+      .then(res => <any>res)
+      .then(data => { return data; })
+      .catch(error => { return error.error });
+  }
 }
