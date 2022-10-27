@@ -298,13 +298,14 @@ export class TestPeruanoComponent implements OnInit {
   }
   encontrarDiagnostico()
   { 
-    let diagnostico='Normal'
-    const arreglo=this.arregloFormRadio.value;
-    arreglo.forEach(element => {
-      if(element<this.edadMeses)
-      diagnostico='Retraso'
-    });
-    return diagnostico
+    // let diagnostico='Normal'
+    // const arreglo=this.arregloFormRadio.value;
+    // arreglo.forEach(element => {
+    //   if(element<this.edadMeses)
+    //   diagnostico='Retraso'
+    // });
+    // return diagnostico
+    
   }
   save() {
     if (!this.arregloFormRadio.valid) {
@@ -330,6 +331,9 @@ export class TestPeruanoComponent implements OnInit {
         calificacion: this.arregloCalificacion(),
       },
     };
+    console.log(inputRequest);
+    
+    return 
     Swal.fire({
       title: 'Esta seguro que desea guardar este registro?',
       showDenyButton: false,
