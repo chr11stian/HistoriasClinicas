@@ -155,8 +155,10 @@
                         <div class="p-fluid grid flex justify-content-center">
                             <div class="p-field col-12 md:col-12">
                                 <label>Latitud:</label>
-                                <p-inputNumber formControlName="latitude" (onInput)="validarNro($event,0)"></p-inputNumber>
-                                <small class="p-error" *ngIf="isInvalidNumerico('latitude',0)">
+                                <input type="number" pInputText formControlName='latitude'
+                                class="p-inputtext-sm  inputfield w-full">
+                                <!-- <p-inputNumber formControlName="latitude" (onInput)="validarNro($event,0)"></p-inputNumber> -->
+                                <small class="p-error" *ngIf="isInvalid('latitude')">
                                     *Campo necesario
                                 </small>       
                             </div>
@@ -164,8 +166,10 @@
                         <div class="p-fluid grid flex justify-content-center">
                             <div class="p-field col-12 md:col-12">
                                 <label>Longitud:</label>
-                                <p-inputNumber formControlName="longitude" (onInput)="validarNro($event,1)"></p-inputNumber>
-                                <small class="p-error" *ngIf="isInvalidNumerico('longitude',1)">
+                                <input type="number" pInputText formControlName='longitude'
+                                class="p-inputtext-sm  inputfield w-full">
+                                <!-- <p-inputNumber formControlName="longitude" (onInput)="validarNro($event,1)"></p-inputNumber> -->
+                                <small class="p-error" *ngIf="isInvalid('longitude')">
                                     *Campo necesario
                                 </small>     
                             </div>
@@ -173,8 +177,10 @@
                         <div class="p-fluid grid flex justify-content-center">
                             <div class="p-field col-12 md:col-12">
                                 <label>Poblacion:</label>
-                                <p-inputNumber formControlName="poblacion" (onInput)="validarNro($event,2)"></p-inputNumber>
-                                <small class="p-error" *ngIf="isInvalidNumerico('poblacion',2)">
+                                <input type="number" pInputText formControlName='poblacion'
+                                class="p-inputtext-sm  inputfield w-full">
+                                <!-- <p-inputNumber formControlName="poblacion" (onInput)="validarNro($event,2)"></p-inputNumber> -->
+                                <small class="p-error" *ngIf="isInvalid('poblacion')">
                                     *Campo necesario
                                 </small>
                             </div>
@@ -182,8 +188,9 @@
                         <div class="p-fluid grid flex justify-content-center">
                             <div class="p-field col-12 md:col-12">
                                 <label>Altura:</label>
-                                <p-inputNumber formControlName="altura" (onInput)="validarNro($event,3)"></p-inputNumber>
-                                <small class="p-error" *ngIf="isInvalidNumerico('altura',3)">
+                                <input type="number" pInputText formControlName='altura'
+                                class="p-inputtext-sm  inputfield w-full">
+                                <small class="p-error" *ngIf="isInvalid('altura')">
                                     *Campo necesario
                                 </small>
                             </div>

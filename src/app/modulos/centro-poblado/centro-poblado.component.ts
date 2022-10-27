@@ -109,15 +109,6 @@ export class CentroPobladoComponent implements OnInit {
         formControl.invalid && (formControl.touched || formControl.dirty)
     );
   }
-  isInvalido2=[true,true,true,true]
-  isInvalido=true
-  validarNro(evento,index){
-    this.isInvalido2[index]=evento.value==null?true:false
-  }
-  isInvalidNumerico(control:string,index):boolean{
-    const formC:AbstractControl=this.getAgregarFC(control)
-    return this.isInvalido2[index] && (formC.touched || formC.dirty)
-  }
   saveCentroPoblado(){
     if(this.cpAgregarFG.invalid){
       this.cpAgregarFG.markAllAsTouched();

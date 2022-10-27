@@ -590,7 +590,7 @@ const root = {
         },
         {
             label: "Centro Poblado",
-            icon: "pi pi-pw pi-calendar",
+            icon: "pi pi-pw pi-share-alt",
             routerLink: "admision/centro-poblado",
         },
     ],
