@@ -664,7 +664,7 @@ export class PersonalSaludComponent implements OnInit {
             }
             this.dataPersona = res;
             this.form.patchValue({
-                apePaterno: this.dataPersona.apeMaterno,
+                apePaterno: this.dataPersona.apePaterno,
                 apeMaterno: this.dataPersona.apeMaterno,
                 nombres: this.dataPersona.nombres,
                 sexo: this.dataPersona.genero,  
