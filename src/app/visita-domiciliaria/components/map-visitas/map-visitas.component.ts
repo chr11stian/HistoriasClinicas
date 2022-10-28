@@ -31,6 +31,7 @@ export class MapVisitasComponent implements OnInit, OnChanges {
     //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
     //Add '${implements OnChanges}' to the class.
     if (changes.dataVisitas.currentValue != changes.dataVisitas.previousValue) {
+      console.log("mapssss",this.maps);
       this.maps.remove();
       this.initMap();
     }

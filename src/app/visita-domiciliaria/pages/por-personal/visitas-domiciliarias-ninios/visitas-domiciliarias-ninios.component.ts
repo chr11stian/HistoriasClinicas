@@ -66,11 +66,11 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.buildForm();
+    // this.buildForm();
     this.listaVisitas();
-    setTimeout(() => {
-      this.markersMapStreet();
-    }, 500);
+    // setTimeout(() => {
+    //   this.markersMapStreet();
+    // }, 500);
   }
 
   buildForm() {

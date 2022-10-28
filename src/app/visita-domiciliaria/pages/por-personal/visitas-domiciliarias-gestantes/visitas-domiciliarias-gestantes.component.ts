@@ -29,17 +29,7 @@ export class VisitasDomiciliariasGestantesComponent implements OnInit {
   loading: boolean = true;
   selectedAnio: string = "";
   selectedMes: string = "";
-  //parte de prueba
-  listaVisitas1: any[] = [
-    { latitud: -13.52507, longitud: -71.93089 },
-    { latitud: -13.5307703, longitud: -71.9408312 },
-    { latitud: -13.530774, longitud: -71.9408339 },
-    { latitud: -13.58441, longitud: -71.91867 },
-    { latitud: -13.5307587, longitud: -71.9408254 },
-    { latitud: -13.53182, longitud: -71.93626 },
-    { latitud: -13.5307528, longitud: -71.940821 },
-    { latitud: -13.52591, longitud: -71.936 },
-  ];
+
   formAntecedentes: FormGroup;
   meses = [
     { label: "Enero", value: 1 },
@@ -83,17 +73,17 @@ export class VisitasDomiciliariasGestantesComponent implements OnInit {
     });
   }
 
-  listaVisitas() {
+  async listaVisitas() {
     let idIpress = this.servicioVisitas.getIdIpress();
     let dni = `vp${this.servicioVisitas.getIdPersonal()}`;
     this.servicioVisitas.couch = true;
-    this.servicioVisitasGestante
+    await this.servicioVisitasGestante
       .getVisitasGestantesXProfesionalAnio(
         idIpress,
         dni,
         this.servicioVisitas.getAnio()
       )
-      .subscribe((data: any) => {
+      .then((data: any) => {
         this.aux_dataVisitas = data["rows"];
         this.dataVisitas = this.aux_dataVisitas.filter((aux) => {
           if (aux.value.hasOwnProperty("gestante")) return aux;
@@ -116,14 +106,14 @@ export class VisitasDomiciliariasGestantesComponent implements OnInit {
     });
   }
 
-  verVisitasPorAnio(event) {
+  async verVisitasPorAnio(event) {
     let idIpress = this.servicioVisitas.getIdIpress();
     let dni = `vp${this.servicioVisitas.getIdPersonal()}`;
     this.servicioVisitas.couch = true;
     this.selectedAnio = event.value;
-    this.servicioVisitasGestante
+    await this.servicioVisitasGestante
       .getVisitasGestantesXProfesionalAnio(idIpress, dni, this.selectedAnio)
-      .subscribe((data: any) => {
+      .then((data: any) => {
         if (data["rows"].length > 0) {
           this.aux_dataVisitas = data["rows"];
           this.dataVisitas = this.aux_dataVisitas.filter((aux) => {
@@ -149,16 +139,16 @@ export class VisitasDomiciliariasGestantesComponent implements OnInit {
       });
   }
 
-  verVisitasPorMes(event) {
+  async verVisitasPorMes(event) {
     let idIpress = this.servicioVisitas.getIdIpress();
     let dni = `vp${this.servicioVisitas.getIdPersonal()}`;
     if (this.selectedAnio != "") {
       this.servicioVisitas.couch = true;
       this.selectedMes = event.value;
       let fecha = `${this.selectedAnio} ${this.selectedMes}`;
-      this.servicioVisitasGestante
+    await this.servicioVisitasGestante
         .getVisitasGestantesXProfesionalXAnioXMesFecha(idIpress, dni, fecha)
-        .subscribe((data: any) => {
+        .then((data: any) => {
           if (data["rows"].length > 0) {
             this.aux_dataVisitas = data["rows"];
             this.dataVisitas = this.aux_dataVisitas.filter((aux) => {

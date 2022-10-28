@@ -8,18 +8,19 @@
             </div>
         </div>
         <p-card>
-            <form [formGroup]="formListaVisitas" class="p-fluid p-formgrid p-grid">
+            <form class="p-fluid p-formgrid p-grid">
                 <div class="busqueda">
                     <div class="anios">
                         <p-dropdown
                                 (onChange)="verVisitasPorAnio($event)"
                                 [options]="anios"
-                                optionLabel="anio" formControlName="busquedaAnio"
+                                optionLabel="anio"
                                 optionValue="anio"
                                 placeholder="Año"
                                 [showClear]="false"
                                 [style]="{ width: '100%' }"
                                 [(ngModel)]="selectedAnio"
+                                [ngModelOptions]="{standalone: true}"
                                 >
                         </p-dropdown>
                     </div>
@@ -27,10 +28,9 @@
                         <p-selectButton (onChange)="verVisitasPorMes($event)" 
                                         [options]="meses"  
                                         optionValue="value" 
-                                        formControlName="busquedaMes"
-                                        optionLabel="label" 
-                                        [(ngModel)]="selectedMes">
-                        </p-selectButton>
+                                        [(ngModel)]="selectedMes"
+                                        [ngModelOptions]="{standalone: true}"
+                                        optionLabel="label"></p-selectButton>
                     </div>
                 </div>
             </form>

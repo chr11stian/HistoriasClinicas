@@ -72,7 +72,7 @@ export class VisitasDomiciliariasPuerperaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.buildForm();
+    // this.buildForm();
     this.listaVisitas();
   }
 
@@ -83,17 +83,17 @@ export class VisitasDomiciliariasPuerperaComponent implements OnInit {
     });
   }
 
-  listaVisitas() {
+  async listaVisitas() {
     let idIpress = this.servicioVisitas.getIdIpress();
     let dni = `vp${this.servicioVisitas.getIdPersonal()}`;
     this.servicioVisitas.couch = true;
-    this.servicioVisitasGestante
+    await this.servicioVisitasGestante
       .getVisitasGestantesXProfesionalAnio(
         idIpress,
         dni,
         this.servicioVisitas.getAnio()
       )
-      .subscribe((data: any) => {
+      .then((data: any) => {
         this.aux_dataVisitas = data["rows"];
         this.dataVisitas = this.aux_dataVisitas.filter((aux) => {
           if (aux.value.hasOwnProperty("puerpera")) return aux;
@@ -116,14 +116,14 @@ export class VisitasDomiciliariasPuerperaComponent implements OnInit {
     });
   }
 
-  verVisitasPorAnio(event) {
+  async verVisitasPorAnio(event) {
     let idIpress = this.servicioVisitas.getIdIpress();
     let dni = `vp${this.servicioVisitas.getIdPersonal()}`;
     this.servicioVisitas.couch = true;
     this.selectedAnio = event.value;
-    this.servicioVisitasGestante
+    await this.servicioVisitasGestante
       .getVisitasGestantesXProfesionalAnio(idIpress, dni, this.selectedAnio)
-      .subscribe((data: any) => {
+      .then((data: any) => {
         if (data["rows"].length > 0) {
           this.aux_dataVisitas = data["rows"];
           this.dataVisitas = this.aux_dataVisitas.filter((aux) => {
@@ -149,16 +149,16 @@ export class VisitasDomiciliariasPuerperaComponent implements OnInit {
       });
   }
 
-  verVisitasPorMes(event) {
+  async verVisitasPorMes(event) {
     let idIpress = this.servicioVisitas.getIdIpress();
     let dni = `vp${this.servicioVisitas.getIdPersonal()}`;
     if (this.selectedAnio != "") {
       this.servicioVisitas.couch = true;
       this.selectedMes = event.value;
       let fecha = `${this.selectedAnio} ${this.selectedMes}`;
-      this.servicioVisitasGestante
+      await this.servicioVisitasGestante
         .getVisitasGestantesXProfesionalXAnioXMesFecha(idIpress, dni, fecha)
-        .subscribe((data: any) => {
+        .then((data: any) => {
           if (data["rows"].length > 0) {
             this.aux_dataVisitas = data["rows"];
             this.dataVisitas = this.aux_dataVisitas.filter((aux) => {
