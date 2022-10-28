@@ -52,12 +52,56 @@ export class VisitaGestanteService {
   }).catch(error => { return error.error });
   }
 
-  // buscarVisitaGestantesXAnioMes(fecha: string) {
-  //   return this.http.post<VisitasProfesionalGestantes[]>(
-  //     `${this.base_url_view}/visita_domiciliaria_XProfesionalGestanteFecha`,
-  //     {
-  //       keys: [fecha],
-  //     }
-  //   );
-  // }
+  getVisitasGestantesAnio(idIpress:any,dni_profesional:any,anio:any):any{
+    return this.http.post<VisitasProfesionalGestantes[]>(
+      `${this.base_url_view}/visita-gestante-anio`,
+      {
+          keys: [[idIpress, dni_profesional, anio]],
+      }
+  ).toPromise()
+  .then((res) => <any[]>res)
+  .then((data) => {
+    return data;
+  }).catch(error => { return error.error });
+  }
+  
+  getVisitasGestantesFecha(idIpress:any,dni_profesional:any,fecha:any):any{
+    return this.http.post<VisitasProfesionalGestantes[]>(
+      `${this.base_url_view}/visita-gestante-fecha`,
+      {
+          keys: [[idIpress, dni_profesional,fecha]],
+      }
+  ).toPromise()
+  .then((res) => <any[]>res)
+  .then((data) => {
+    return data;
+  }).catch(error => { return error.error });
+  }
+
+  getVisitasPuerperasAnio(idIpress:any,dni_profesional:any,anio:any):any{
+    return this.http.post<VisitasProfesionalGestantes[]>(
+      `${this.base_url_view}/visita-puerpera-anio`,
+      {
+          keys: [[idIpress, dni_profesional, anio]],
+      }
+  ).toPromise()
+  .then((res) => <any[]>res)
+  .then((data) => {
+    return data;
+  }).catch(error => { return error.error });
+  }
+
+  getVisitasPuerperasFecha(idIpress:any,dni_profesional:any,fecha:any):any{
+    return this.http.post<VisitasProfesionalGestantes[]>(
+      `${this.base_url_view}/visita-puerpera-fecha`,
+      {
+          keys: [[idIpress, dni_profesional,fecha]],
+      }
+  ).toPromise()
+  .then((res) => <any[]>res)
+  .then((data) => {
+    return data;
+  }).catch(error => { return error.error });
+  }
+
 }
