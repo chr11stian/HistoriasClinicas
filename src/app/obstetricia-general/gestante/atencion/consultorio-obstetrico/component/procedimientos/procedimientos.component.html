@@ -206,7 +206,7 @@
                 </p-panel>
             </div>
             <div class="col-6">
-                <p-panel header="HIS" class="procedure-panel">
+                <!-- <p-panel header="HIS" class="procedure-panel">
                     <form [formGroup]="hisForm">
                         <div class="grid">
                             <div class="col-4 p-fluid">
@@ -296,11 +296,13 @@
                             </tr>
                         </ng-template>
                     </p-table>
-                </p-panel>
+                </p-panel> -->
             </div>
             <div class="col-12">
-                <button pButton pRipple icon="pi pi-save" pButton type="button" style="background-color: #0c3866"
+                <div class="col-6">
+                    <button pButton pRipple icon="pi pi-save" pButton type="button" style="background-color: #0c3866"
                     label="Guardar" class="save-button p-button-rounded" (click)="confirmSave()"></button>
+                </div>
             </div>
         </div>
     </div>

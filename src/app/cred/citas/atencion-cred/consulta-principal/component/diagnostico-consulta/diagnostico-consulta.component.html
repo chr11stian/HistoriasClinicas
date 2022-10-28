@@ -217,7 +217,7 @@
           <td style="text-align: center">{{ rowData.nivelUrgencia }}</td>
           <td style="text-align: center">
             <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-              (click)="eliminarInterconsulta(rowData.idCupos,rowIndex)" pTooltip="Eliminar" ></button>
+              (click)="eliminarInterconsulta(rowData.idCupos,rowIndex)" pTooltip="Eliminar"></button>
           </td>
         </tr>
       </ng-template>
@@ -256,10 +256,34 @@
           <div class="grid">
             <div class="col-6 p-fluid">
               <label>Prestación:</label>
-              <p-dropdown inputId="dropdown" #dropdownPres [options]="ListaPrestacion" formControlName="prestacion"
+              <p-autoComplete [suggestions]="arrayPrestation" (completeMethod)="filterPrestation($event)"
+                appendTo="body" field="codigo" [minLength]="1" class="inputfield p-fluid w-full"
+                formControlName="prestacion" (onSelect)="onChangePrestacion()">
+
+              </p-autoComplete>
+              <!-- <p-dropdown inputId="dropdown" #dropdownPres [options]="ListaPrestacion" formControlName="prestacion"
                 placeholder="Seleccionar" optionLabel="descripcion" defaultLabel="Seleccione:" appendTo="body"
                 class="inputfield p-fluid w-full" (onChange)="onChangePrestacion()">
+              </p-dropdown> -->
+            </div>
+
+            <div class="col-12 p-fluid">
+              <label>Diagnóstico SIS:</label>
+              <p-dropdown [options]="arrayFuaDiagnostic" formControlName="diagnosticoFUA"
+                placeholder="Seleccionar un Procedimiento" optionLabel="diagnostico" (onChange)="selectDxSIS($event)">
               </p-dropdown>
+            </div>
+            <div class="col-3 p-fluid">
+              <label>Código de procedimiento SIS: </label>
+              <p-dropdown [options]="arrayFuaDiagnostic" formControlName="codCIE10SIS" appendTo="body"
+                optionLabel="cie10" class="inputfield p-fluid w-full" placeholder="Seleccione"
+                (onChange)="selectDxSIS($event)">
+              </p-dropdown>
+            </div>
+
+            <div class="col-12 p-fluid">
+              <textarea style="text-transform:uppercase" rows="3" cols="30" pInputTextarea
+                formControlName="diagnosticoSIS" autoResize="autoResize"></textarea>
             </div>
             <div class="col-6 p-fluid">
               <label>Tipo Diagnóstico:</label>
@@ -268,26 +292,10 @@
                 appendTo="body" class="inputfield p-fluid w-full" (onChange)="onChangePrestacion()">
               </p-dropdown>
             </div>
-            <div class="col-12 p-fluid">
-              <label>Diagnóstico SIS:</label>
-              <p-dropdown [options]="arrayFuaDiagnostic" formControlName="diagnosticoFUA"
-                placeholder="Seleccionar un Procedimiento" optionLabel="diagnostico" (onChange)="selectDxSIS($event)">
-              </p-dropdown>
-            </div>
-            <div class="col-9 p-fluid">
-              <label>Código de procedimiento SIS: </label>
-              <p-dropdown [options]="arrayFuaDiagnostic" formControlName="codCIE10SIS" appendTo="body"
-                optionLabel="cie10" class="inputfield p-fluid w-full" placeholder="Seleccione"
-                (onChange)="selectDxSIS($event)">
-              </p-dropdown>
-            </div>
             <div class="col-3 agregate-div ">
-              <button pButton pRipple icon="pi pi-plus" pButton type="button" label="Agregar" style="background-color: #0c3866"
-                class="p-button-rounded add-button" (click)="agregateDiagnosticFUA()"></button>
-            </div>
-            <div class="col-12 p-fluid">
-              <textarea style="text-transform:uppercase" rows="3" cols="30" pInputTextarea
-                formControlName="diagnosticoSIS" autoResize="autoResize"></textarea>
+              <button pButton pRipple icon="pi pi-plus" pButton type="button" label="Agregar"
+                style="background-color: #0c3866" class="p-button-rounded add-button"
+                (click)="agregateDiagnosticFUA()"></button>
             </div>
           </div>
         </form>
@@ -335,7 +343,7 @@
                 class="inputfield p-fluid w-full">
               </p-dropdown>
             </div>
-            
+
             <div class="col-12 p-fluid">
               <label>Diagnóstico HIS</label>
               <p-autoComplete [suggestions]="listaDeCIEHIS" (completeMethod)="filterCIE10($event)" appendTo="body"
@@ -348,10 +356,11 @@
               <label>Código de procedimiento HIS (CIE 10): </label>
               <p-autoComplete [suggestions]="listaDeCIEHIS" (completeMethod)="filterCIE10($event)" appendTo="body"
                 field="codigoItem" [minLength]="1" class="areaText" class="inputfield p-fluid w-full"
-                formControlName="codProcedimientoHIS" (onSelect)="selectedDxHIS($event,1)" placeholder="Seleccionar un Diagnostico">
+                formControlName="codProcedimientoHIS" (onSelect)="selectedDxHIS($event,1)"
+                placeholder="Seleccionar un Diagnostico">
               </p-autoComplete>
             </div>
-            
+
             <div class="col-12 p-fluid">
               <textarea style="text-transform:uppercase" rows="3" cols="30" pInputTextarea
                 formControlName="procedimientoHIS" autoResize="autoResize"></textarea>
