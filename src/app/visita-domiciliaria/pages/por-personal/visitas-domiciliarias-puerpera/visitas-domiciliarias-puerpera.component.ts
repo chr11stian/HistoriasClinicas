@@ -98,7 +98,6 @@ export class VisitasDomiciliariasPuerperaComponent implements OnInit {
         this.dataVisitas = this.aux_dataVisitas.filter((aux) => {
           if (aux.value.hasOwnProperty("puerpera")) return aux;
         });
-        console.log("Lista visitas puerperas", this.dataVisitas);
       });
   }
 

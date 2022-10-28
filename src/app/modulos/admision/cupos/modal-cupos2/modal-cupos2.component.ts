@@ -629,7 +629,7 @@ export class ModalCupos2Component implements OnInit {
                 edadAnio: this.formPacientesCupo.get('edadAnio').value,
                 edadMes: this.formPacientesCupo.get('edadMes').value,
                 edadDia: this.formPacientesCupo.get('edadDia').value,
-                nroHcl: this.dataPacientes.nroHcl,
+                nroHcl: this.patientData.nroDocumento,
                 sexo: this.formPacientesCupo.get('sexo').value,
                 nroTelefono: this.formPacientesCupo.value.celular,
             },
@@ -638,7 +638,7 @@ export class ModalCupos2Component implements OnInit {
                 this.formPacientesCupo.value.transeunte == "TRANSEUNTE"
                     ? true
                     : false,
-            detallePago: this.detallePago,
+            detallePago: this.formPacientesCupo.value.detallePago,
             tipoConsulta: this.cuposService.tipoConsulta,
 
             ipress: {
@@ -942,7 +942,6 @@ export class ModalCupos2Component implements OnInit {
     recoverPatientData(): void {
         let nroDoc: string;
         nroDoc = String(this.formPacientesCupo.value.nroDoc);
-        console.log('largo de palabras ', nroDoc.length);
         if (nroDoc.length >= 8) {
             this.pacienteService.getPidePatientData(nroDoc).then((res: any) => {
                 if (res.error == "4009") {
@@ -951,42 +950,105 @@ export class ModalCupos2Component implements OnInit {
                 }
                 this.patientData = res;
                 if (this.patientData.bd == "local") {
-                    let auxName: string[] = this.patientData.nombres.split(' ');
-                    // let auxLastName:string[] = this.patientData.ape
-                    this.formPacientesCupo.patchValue({
-                        apePaterno: this.patientData.apePaterno,
-                        apeMaterno: this.patientData.apeMaterno,
-                        primerNombre: auxName[0],
-                        otrosNombres: auxName[1],
-                        sexo: this.patientData.genero,
-                        estadoCivil: this.patientData.estadoCivil,
-                        fechaNacimiento: this.patientData.fecNacimiento,
-                        // nacionalidad: this.patientData,
-                        // lugarNacimiento: this.patientData.
-                        // GradoInstrucion: this.patientData.
-                        // discapacidad:this.patientData.
-                        // celular:this.patientData.
-    
-                        direccion: this.patientData.direccion,
-                        tipoSeguro: this.patientData.tipoSeguro,
-                    });
-                    this.searchUbigeo(this.patientData.ubigeo);
+                    if (this.dataSelectServicio == "OBSTETRICIA") {
+                        if (this.patientData.genero == "FEMENINO") {
+                            let auxName: string[] = this.patientData.nombres.split(' ');
+                            this.calcularEdad(this.obtenerFecha(new Date(this.patientData.fecNacimiento)));
+                            this.formPacientesCupo.patchValue({
+                                apePaterno: this.patientData.apePaterno,
+                                apeMaterno: this.patientData.apeMaterno,
+                                primerNombre: auxName[0],
+                                otrosNombres: auxName[1],
+                                sexo: this.patientData.genero,
+                                estadoCivil: this.patientData.estadoCivil,
+                                fechaNacimiento: this.patientData.fecNacimiento,
+                                // nacionalidad: this.patientData,
+                                // lugarNacimiento: this.patientData.
+                                // GradoInstrucion: this.patientData.
+                                // discapacidad:this.patientData.
+                                // celular:this.patientData.
+
+                                direccion: this.patientData.direccion,
+                                tipoSeguro: this.patientData.tipoSeguro,
+                                edadAnio: this.edad,
+                                edadMes: this.meses,
+                                edadDia: this.dias
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'No se puede asignar cupo obstetricia a un varon',
+                                showConfirmButton: false,
+                                timer: 2000
+                            });
+                        }
+                    } else {
+                        let auxName: string[] = this.patientData.nombres.split(' ');
+                        this.calcularEdad(this.obtenerFecha(new Date(this.patientData.fecNacimiento)));
+                        this.formPacientesCupo.patchValue({
+                            apePaterno: this.patientData.apePaterno,
+                            apeMaterno: this.patientData.apeMaterno,
+                            primerNombre: auxName[0],
+                            otrosNombres: auxName[1],
+                            sexo: this.patientData.genero,
+                            estadoCivil: this.patientData.estadoCivil,
+                            fechaNacimiento: this.patientData.fecNacimiento,
+                            // nacionalidad: this.patientData,
+                            // lugarNacimiento: this.patientData.
+                            // GradoInstrucion: this.patientData.
+                            // discapacidad:this.patientData.
+                            // celular:this.patientData.
+
+                            direccion: this.patientData.direccion,
+                            tipoSeguro: this.patientData.tipoSeguro,
+                            edadAnio: this.edad,
+                            edadMes: this.meses,
+                            edadDia: this.dias
+                        });
+                    }
+
+
+                    // this.searchUbigeo(this.patientData.ubigeo);
                 } else {
-                    this.buscarNuevoPaciente(this.patientData);
+                    let timerInterval;
+                    Swal.fire({
+                        icon: "info",
+                        title: "Paciente",
+                        html:
+                            "No existe en la Base de Datos,<b>" +
+                            "<br>" +
+                            "</b>Registre nuevo paciente",
+                        text: "Resgiste nuevo paciente en la Base de Datos",
+                        timer: 2000,
+                        timerProgressBar: true,
+                        target: document.getElementById("swal"),
+                        didOpen: () => {
+                            Swal.showLoading();
+                            setTimeout(() => {
+                                this.buscarNuevoPaciente(this.patientData);
+                            }, 2002);
+                        },
+                        willClose: () => {
+                            clearInterval(timerInterval);
+                        },
+                    }).then((result) => {
+                        if (result.dismiss === Swal.DismissReason.timer) {
+                            console.log("I was closed by the timer");
+                        }
+                    });
                 }
-    
             });
         }
     }
 
-    searchUbigeo(ubigeo: string): void {
-        let auxData = {
-            ubigeo: ubigeo
-        }
-        this.ubicacionService.buscarUbigeo(auxData).subscribe(res => {
+    // searchUbigeo(ubigeo: string): void {
+    //     let auxData = {
+    //         ubigeo: ubigeo
+    //     }
+    //     this.ubicacionService.buscarUbigeo(auxData).subscribe(res => {
 
-        })
-    }
+    //     })
+    // }
 
     transformToDate(dateStr: string): string {
         let year: string = dateStr.slice(0, 4);

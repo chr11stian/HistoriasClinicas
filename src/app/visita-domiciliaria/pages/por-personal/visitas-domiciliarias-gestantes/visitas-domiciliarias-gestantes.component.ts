@@ -88,7 +88,6 @@ export class VisitasDomiciliariasGestantesComponent implements OnInit {
         this.dataVisitas = this.aux_dataVisitas.filter((aux) => {
           if (aux.value.hasOwnProperty("gestante")) return aux;
         });
-        console.log("Lista visitas gestante", this.dataVisitas);
       });
   }
 
@@ -119,8 +118,6 @@ export class VisitasDomiciliariasGestantesComponent implements OnInit {
           this.dataVisitas = this.aux_dataVisitas.filter((aux) => {
             if (aux.value.hasOwnProperty("gestante")) return aux;
           });
-          console.log("gestantes", this.dataVisitas);
-          console.log("Busqueda por fecha", this.dataVisitas);
           this.messageService.add({
             key: "myMessage1",
             severity: "success",
@@ -154,7 +151,6 @@ export class VisitasDomiciliariasGestantesComponent implements OnInit {
             this.dataVisitas = this.aux_dataVisitas.filter((aux) => {
               if (aux.value.hasOwnProperty("gestante")) return aux;
             });
-            console.log("busqueda por mes", this.dataVisitas);
             this.messageService.add({
               key: "myMessage1",
               severity: "success",

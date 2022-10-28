@@ -71,7 +71,6 @@ export class PnGestanteDiaCambioComponent implements OnInit {
       .mostrarPadronGestantes(cod_ipress)
       .subscribe((res: any) => {
         this.listaGestantes = res["rows"];
-        console.log("lista de gestantes", this.listaGestantes);
       });
   }
 
@@ -114,7 +113,6 @@ export class PnGestanteDiaCambioComponent implements OnInit {
     let nroDoc=this.formGestante.value.formNroDocGestante;
     if(nroDoc.length>=8){
       this.pn_gestanteServicio.getGestanteDni(nroDoc).subscribe((data: any) => {
-        console.log("DATA RECUPERADA :", data);
         this.dataGestante = data.rows[0].value;
         this.formGestante
           .get("formNombresGestante")

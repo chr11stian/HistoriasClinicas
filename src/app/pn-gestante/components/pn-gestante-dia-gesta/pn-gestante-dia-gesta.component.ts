@@ -96,7 +96,6 @@ export class PnGestanteDiaGestaComponent implements OnInit {
       .mostrarPadronGestantes(cod_ipress)
       .subscribe((res: any) => {
         this.listaGestantes = res["rows"];
-        console.log("lista de gestantes", this.listaGestantes);
       });
   }
 
@@ -114,9 +113,6 @@ export class PnGestanteDiaGestaComponent implements OnInit {
     let id= this.dataGestante._id;
     let updatedFur=this.datePipe.transform(this.formGestante.value.formFur,'dd/MM/yyyy');
     let updateFpp=this.datePipe.transform(this.formGestante.value.formFpp,'dd/MM/yyyy');
-    console.log('valor de la nueva gesta',this.nuevaGesta);
-    console.log('fur actual',updatedFur);
-    console.log('fpp actual',updateFpp);
     this.pn_gestanteServicio
       .actualizarNumeroGesta(id,this.nuevaGesta,updatedFur,updateFpp)
       .subscribe((res: any) => {
@@ -161,9 +157,7 @@ export class PnGestanteDiaGestaComponent implements OnInit {
     let nroDoc = this.formGestante.value.formNroDocGestante;
     if(nroDoc.length>=8){
       this.pn_gestanteServicio.getGestanteDniIpress(this.pn_gestanteServicio.getauxCodeessActual(),nroDoc).subscribe((data: any) => {
-        console.log("DATA RECUPERADA :", data);
         this.dataGestante = data.rows[0].value;
-        console.log('data gestanteeeee',this.dataGestante)
         if(this.dataGestante===undefined){
             this.messageService.add({
               key: "myMessage1",
@@ -172,7 +166,6 @@ export class PnGestanteDiaGestaComponent implements OnInit {
               detail: "Gestante no registrado en el padron",
             });
         }if(this.dataGestante!=undefined){
-          console.log("dataaaaaa ", this.dataGestante);
           this.formGestante
             .get("formTipoDoc")
             .setValue(this.dataGestante.tipoDocIdentidad);
@@ -250,7 +243,6 @@ export class PnGestanteDiaGestaComponent implements OnInit {
           this.formGestante
             .get("formAborto")
             .setValue(this.dataGestante.aborto==true?"SI":"NO");
-            console.log(this.FechaActual)
           if (this.semanaGestacional(this.formatoFecha(this.dataGestante.fur))>40 || this.dataGestante.aborto==true || this.dataGestante.fpp>this.FechaActual) {
             this.agregarNuevaGesta = false;
             this.messageService.add({
@@ -273,7 +265,6 @@ export class PnGestanteDiaGestaComponent implements OnInit {
         }
       },(err) => {
         this.dataGestante = {};
-        console.log("Ups algo salio mal",this.dataGestante);
       }
     );
     }
@@ -295,7 +286,6 @@ export class PnGestanteDiaGestaComponent implements OnInit {
 
   calcularFPP(){
     let fum: any = new DatePipe('en-CO').transform(this.auxFUR,'yyyy/MM/dd').split("/");
-    console.log(this.auxFUR);
     let newDay: any = parseInt(fum[2]) + 7;
     let newMonth: any = parseInt(fum[1]) - 3;
     let newYear: any = parseInt(fum[0]);
@@ -330,7 +320,6 @@ export class PnGestanteDiaGestaComponent implements OnInit {
     fum = new Date(fum);
     fum.setMonth(fum.getMonth() + 9);
     fum.setDate(fum.getDate() + 7);
-    console.log(fum);
     this.formGestante.get('formFpp').setValue(this.datePipe.transform(auxBirth,'yyyy-MM-dd'));
   
   }
@@ -353,7 +342,6 @@ export class PnGestanteDiaGestaComponent implements OnInit {
       .subscribe((res: any) => {
         this.closeDialog();
         if(res['ok']==true){
-          console.log("se actualizo correctamente", res);
           Swal.fire({
             icon: "success",
             title: "Se actualizo los datos correctamente",
@@ -362,7 +350,6 @@ export class PnGestanteDiaGestaComponent implements OnInit {
           });
         this.mostrarPadronNominalGestantes();
         }else{
-          console.log("se actualizo correctamente", res);
           Swal.fire({
             icon: "error",
             title: "No se pudo actualizar los datos correctamente",
@@ -376,7 +363,6 @@ export class PnGestanteDiaGestaComponent implements OnInit {
 
   formatoFecha(date:string){
     let fum: any =date.split("/");
-    console.log(fum);
     let newDay: any = fum[0];
     let newMonth: any =fum[1];
     let newYear: any = fum[2];

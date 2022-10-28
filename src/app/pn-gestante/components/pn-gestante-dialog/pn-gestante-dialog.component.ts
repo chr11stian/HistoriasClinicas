@@ -83,7 +83,6 @@ export class PnGestanteDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataGestanteEditar = JSON.parse(localStorage.getItem('gestanteLocalStorage'));
-    console.log("GESTANTE SELECCIONADO", this.dataGestanteEditar)
     if (this.dataGestanteEditar!== null) {
         this.editarDatos()
     }
@@ -132,21 +131,17 @@ mostrarPadronNominalGestantes() {
     (data:any) => {
       this.listaGestantes = data['rows'];
       this.listaGestantesPuerpera = this.listaGestantes.filter((aux) => {
-        console.log("semana gestacional",aux.value.nroDocIdentidad,this.semanaGestacional(aux.value.fur));
         if (this.semanaGestacional(aux.value.fur) < 44 && aux.value.aborto==false) return aux;
       });
-      console.log("la data es :", data);
     },
     (err) => {
       this.listaGestantes = [];
-      console.log("Ups algo salio mal", this.listaGestantes);
     }
   );
 }
 
 calcularFPP(){
   let fum: any = new DatePipe('en-CO').transform(this.auxFUR,'yyyy/MM/dd').split("/");
-  console.log(this.auxFUR);
   let newDay: any = parseInt(fum[2]) + 7;
   let newMonth: any = parseInt(fum[1]) - 3;
   let newYear: any = parseInt(fum[0]);
@@ -181,14 +176,12 @@ calcularFPP(){
   fum = new Date(fum);
   fum.setMonth(fum.getMonth() + 9);
   fum.setDate(fum.getDate() + 7);
-  console.log(fum);
   this.formGestante.get('fpp').setValue(this.datePipe.transform(auxBirth,'yyyy-MM-dd'));
 
 }
 
 editarDatos() {
   if ((this.dataGestanteEditar !== null) || (this.dataGestanteEditar !== undefined)) {
-        // console.log("DATA RECUPERADO GESTANTE", this.dataGestanteEditar)
         this.auxFUR=this.dataGestanteEditar.auxFur;
         this.auxFPP=this.dataGestanteEditar.auxFpp;
         this.formGestante.get("tipoDocIdentidad").setValue(this.dataGestanteEditar.tipoDocIdentidad);
@@ -231,7 +224,6 @@ cargarDatosPadron(event) {
   this.pn_gestanteServicio.couch=true;
   if (nroDoc.length>= 8){
     this.pn_gestanteServicio.getGestanteDni(nroDoc).subscribe((data: any) => {
-      console.log("DATA RECUPERADA :", data);
       this.dataGestante = data.rows[0].value;
       if(this.dataGestante){
         this.estadoGuardar=true;
@@ -246,7 +238,6 @@ cargarDatosPadron(event) {
         this.formGestante.get("tieneSis").setValue(this.dataGestante.tieneSis===''?'NO':'SI');
         this.formGestante.get("fechaNacimiento").setValue(this.datePipe.transform(this.dataGestante.fechaNacimiento,'yyyy-MM-dd'));
         this.formGestante.get("aborto").setValue(this.dataGestante.aborto==false?'NO':'SI');
-        console.log('aborto estado',this.dataGestante.aborto);
         this.formGestante.get("nroGesta").setValue(this.dataGestante.nroGesta.length);
         this.formGestante.get("nombres").setValue(this.dataGestante.nombres);
         this.formGestante.get("apePaterno").setValue(this.dataGestante.apePaterno);
@@ -258,9 +249,7 @@ cargarDatosPadron(event) {
         this.formGestante.get("hcl").setValue(this.dataGestante.hcl);
         this.formGestante.get("fechaReg").setValue(this.datePipe.transform(this.dataGestante.fechaReg,'yyyy-MM-dd'));
         this.formGestante.get("fur").setValue(this.datePipe.transform(this.formatoFecha(this.dataGestante.fur),'yyyy-MM-dd'));
-        console.log(this.datePipe.transform(this.formatoFecha(this.dataGestante.fur),'yyyy-MM-dd'));
         this.formGestante.get("fpp").setValue(this.datePipe.transform(this.formatoFecha(this.dataGestante.fpp),'yyyy-MM-dd'));
-        console.log(this.datePipe.transform(this.formatoFecha(this.dataGestante.fpp),'yyyy-MM-dd'));
         this.formGestante.get("direccion").setValue(this.dataGestante.direccion);
         this.formGestante.get("referencia").setValue(this.dataGestante.referencia);
         this.formGestante.get("telefono").setValue(this.dataGestante.telefono);
@@ -362,14 +351,12 @@ saveForm() {
     this.pn_gestanteServicio.couch=true;
     this.pn_gestanteServicio.addGestante(this.gestante).subscribe((res: any) => {
         this.closeDialog();
-        console.log(res);
         Swal.fire({
             icon: 'success',
             title: 'Se registro Exitosamente',
             showConfirmButton: false,
             timer: 1500
         })
-        console.log("RESPUESTA", res)
     });
   }else{
     this.messageService.add({
@@ -386,9 +373,7 @@ EditarGestante() {
     this.recuperarDatosEditar();
     this.estadoGuardar=false;
     let id=this.dataGestanteEditar._id;
-    console.log('el id es',id);
     this.pn_gestanteServicio.couch=true;
-    console.log(this.gestante);
     this.pn_gestanteServicio.actualizarInformacionGestante(id,this.gestante).subscribe((res: any) => {
       this.closeDialog();
       if(res['ok']==true){
@@ -414,7 +399,6 @@ semanaGestacional(date:any):any {
   if (date) {
     let today = new Date().getTime();
     let auxFUR = new Date(date).getTime();
-    console.log('aux DUR',auxFUR);
     auxFUR = auxFUR + 0;
     let auxWeek = today - auxFUR;
     let edadGestacional = Math.trunc(auxWeek / (1000 * 60 * 60 * 24));

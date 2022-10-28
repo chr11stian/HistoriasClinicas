@@ -12,7 +12,7 @@
         </ng-template>
 
     </p-toolbar>
-    <p-table [value]="data" #dt [globalFilterFields]="['nombres','nroDoc','apPaterno']"
+    <p-table [value]="data" #dt [globalFilterFields]="['renipress','nombreEESS']"
         styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true"
         [autoLayout]="true" currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
         responsiveLayout="scroll">

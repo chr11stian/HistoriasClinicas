@@ -419,21 +419,21 @@ export class DialogPacienteComponent implements OnInit {
     saveForm() {
         this.recuperarDatos();
         console.log('data del paciente ', this.dataPaciente);
-        // let auxVal: boolean = this.validateDoc();
-        // if (auxVal) {
-        //     this.pacienteService.postPacientes(this.dataPaciente).subscribe((res: any) => {
-        //         this.closeDialog();
-        //         Swal.fire({
-        //             icon: 'success',
-        //             title: 'Se Registro Exitosamente',
-        //             showConfirmButton: false,
-        //             timer: 1500
-        //         })
-        //         console.log("RESPUESTA", res)
-        //     });
-        // } else {
-        //     console.log('nose guarda');
-        // }
+        let auxVal: boolean = this.validateDoc();
+        if (auxVal) {
+            this.pacienteService.postPacientes(this.dataPaciente).subscribe((res: any) => {
+                this.closeDialog();
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Se Registro Exitosamente',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                console.log("RESPUESTA", res)
+            });
+        } else {
+            console.log('nose guarda');
+        }
 
     }
 
