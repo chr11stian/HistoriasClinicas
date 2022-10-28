@@ -14,7 +14,6 @@ export class PnDialogGestaComponent implements OnInit {
     public config: DynamicDialogConfig
   ) {
     config.data.edit === undefined ? this.data = config.data : this.data = config.data.data;
-    console.log('la dataaaaaaa',this.data);
   }
   ngOnInit(): void {}
   

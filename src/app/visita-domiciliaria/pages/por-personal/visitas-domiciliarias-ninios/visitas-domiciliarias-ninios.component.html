@@ -8,7 +8,7 @@
             </div>
         </div>
         <p-card>
-            <form [formGroup]="formListaVisitas" class="p-fluid p-formgrid p-grid">
+            <form  class="p-fluid p-formgrid p-grid">
                 <div class="busqueda">
                     <div class="anios">
                         <p-dropdown
@@ -20,6 +20,7 @@
                                 [showClear]="false"
                                 [style]="{ width: '100%' }"
                                 [(ngModel)]="selectedAnio"
+                                [ngModelOptions]="{standalone: true}"
                                 >
                         </p-dropdown>
                     </div>
@@ -28,6 +29,7 @@
                                         [options]="meses"  
                                         optionValue="value" 
                                         [(ngModel)]="selectedMes"
+                                        [ngModelOptions]="{standalone: true}"
                                         optionLabel="label"></p-selectButton>
                     </div>
                 </div>

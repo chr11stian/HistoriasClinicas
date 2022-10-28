@@ -66,11 +66,11 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.buildForm();
+    // this.buildForm();
     this.listaVisitas();
-    setTimeout(() => {
-      this.markersMapStreet();
-    }, 500);
+    // setTimeout(() => {
+    //   this.markersMapStreet();
+    // }, 500);
   }
 
   buildForm() {
@@ -99,7 +99,6 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
   }
   //abre nuestro compoente dialog en el cual se muestran nuestras preguntas y respuestas
   openDialogRespuestas(data: any[]) {
-    console.log("dataaaaaaaaa",data);
     this.ref = this.dialog.open(DialogRespuestasComponent, {
       header:
         "Preguntas>Respuestas de la visita domiciliaria del niño-niña ejecutada",
@@ -120,7 +119,6 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
   //metodo que nos devuelve la lista de Visitas por Año seleccionado
   //se agrupa en dos listas:menores_4_meses y mayores_4_meses
   verVisitasPorAnio(event) {
-    console.log("select por anio");
     let idIpress = this.servicioVisitas.getIdIpress();
     let dni = `vp${this.servicioVisitas.getIdPersonal()}`;
     this.servicioVisitas.couch = true;
@@ -130,7 +128,6 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
       .subscribe((data) => {
         if (data["rows"].length > 0) {
           this.dataVisitas = data["rows"];
-          console.log("Busqueda por fecha", this.dataVisitas);
           this.messageService.add({
             key: "myMessage1",
             severity: "success",
@@ -170,7 +167,6 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
         .subscribe((data) => {
           if (data["rows"].length > 0) {
             this.dataVisitas = data["rows"];
-            console.log("Busqueda por fecha", this.dataVisitas);
             this.messageService.add({
               key: "myMessage1",
               severity: "success",
@@ -196,7 +192,6 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
           });
         });
     }
-    console.log("visita por anio y mes", this.dataVisitas);
   }
 
   visita_menor_cuatro_meses_reporte(aux) {

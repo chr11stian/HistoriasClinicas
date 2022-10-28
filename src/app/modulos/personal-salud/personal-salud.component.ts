@@ -10,6 +10,7 @@ import {
     Especialidad,
     TipoPersonal,
 } from "src/app/core/models/mantenimiento.models";
+import { PidePatient } from "../admision/models/model";
 import { TipoPersonalService } from "src/app/mantenimientos/services/tipo-personal/tipo-personal.service";
 import { EspecialidadService } from "src/app/mantenimientos/services/especialidad/especialidad.service";
 import { ColegioProfesionalService } from "src/app/mantenimientos/services/colegio-profesional/colegio-profesional.service";
@@ -23,6 +24,7 @@ import { UsuarioService } from "../usuarios/services/usuario.service";
 import { LoginService } from "../../login/services/login.service";
 import { dato } from "../../cred/citas/models/data";
 import { DynamicDialogRef } from "primeng/dynamicdialog";
+import { InputSwitchModule } from "primeng/inputswitch";
 
 @Component({
     selector: "app-personal-salud",
@@ -83,6 +85,9 @@ export class PersonalSaludComponent implements OnInit {
     description: any[] = [];
     dniPersonal: string = "";
     texto: string = "";
+    dataPersona: PidePatient;
+    designar: boolean;
+    ipressNombre: string;
     constructor(
         public ref: DynamicDialogRef,
         private personalservice: PersonalService,
@@ -101,7 +106,6 @@ export class PersonalSaludComponent implements OnInit {
             JSON.parse(localStorage.getItem("rol")) === "ROLE_ADMININ_PERSONAL"
                 ? true
                 : false;
-
         if (!this.root) {
             this.idIpress = JSON.parse(
                 localStorage.getItem("usuario")
@@ -109,7 +113,6 @@ export class PersonalSaludComponent implements OnInit {
             this.iprees = JSON.parse(localStorage.getItem("usuario")).ipress;
         }
         this.buildForm();
-
         this.getDocumentos();
         this.getTiposPersonal();
         this.getEspecialidades();
@@ -123,7 +126,7 @@ export class PersonalSaludComponent implements OnInit {
         this.texto = this.root
             ? "Lista de Administradores"
             : "Lista del Personal de " +
-              JSON.parse(localStorage.getItem("usuario")).ipress.nombreEESS;
+            JSON.parse(localStorage.getItem("usuario")).ipress.nombreEESS;
         this.stateOptions = [
             { label: "Activo", value: true },
             { label: "Inactivo", value: false },
@@ -439,7 +442,8 @@ export class PersonalSaludComponent implements OnInit {
         }
     }
 
-    openNew() {
+    openNew(designar: boolean) {
+        this.designar = designar;
         this.isUpdate = false;
         this.form.reset();
         this.imagePath = image;
@@ -466,6 +470,7 @@ export class PersonalSaludComponent implements OnInit {
         this.form.get("estado").setValue("");
         this.form.get("contratoAbreviatura").setValue("");
         this.form.get("sexo").setValue("");
+        console.log("wr234234", this.iprees);
         !this.root
             ? this.form.get("detalleIpress").setValue(this.iprees.nombreEESS)
             : this.form.get("detalleIpress").setValue(this.iprees);
@@ -475,6 +480,7 @@ export class PersonalSaludComponent implements OnInit {
 
     editar(rowData) {
         console.log("rowdata ", rowData);
+        //console.log("first", rowData.detalleIpress[0].eess);
         this.isUpdate = true;
         this.form.reset();
         this.imagePath = image;
@@ -503,15 +509,21 @@ export class PersonalSaludComponent implements OnInit {
             .get("contratoAbreviatura")
             .setValue(rowData.contratoAbreviatura);
         this.form.get("sexo").setValue(rowData.sexo);
-        this.form.get("detalleIpress").setValue(this.iprees);
+        this.form
+            .get("detalleIpress")
+            .setValue(
+                !this.root
+                    ? rowData.detalleIpress.eess
+                    : rowData.detalleIpress[0].eess
+            );
         this.form
             .get("fechaInicio")
             .setValue(
                 rowData.detalleIpress
                     ? this.datePipe.transform(
-                          rowData.detalleIpress.fechaInicio,
-                          "yyyy-MM-dd"
-                      )
+                        rowData.detalleIpress.fechaInicio,
+                        "yyyy-MM-dd"
+                    )
                     : ""
             );
         this.idUpdate = rowData.id;
@@ -644,42 +656,58 @@ export class PersonalSaludComponent implements OnInit {
     }
 
     traerData() {
-        this.personalservice
-            .getDatosReniec(this.form.value.nroDoc)
-            .subscribe((res: any) => {
-                this.dataPIDE = res;
-                console.log(res);
-                this.imagePath = res.foto;
-                this.form.get("apePaterno").setValue(this.dataPIDE.apePaterno);
-                this.form.get("apeMaterno").setValue(this.dataPIDE.apeMaterno);
-                this.form.get("nombres").setValue(this.dataPIDE.nombres);
-                this.form
-                    .get("fechaNacimiento")
-                    .setValue(
-                        this.dataPIDE.fecNacimiento == null
-                            ? ""
-                            : this.dataPIDE.fecNacimiento.split("T", 1)[0]
-                    );
-                this.form
-                    .get("sexo")
-                    .setValue(
-                        this.dataPIDE.genero == ""
-                            ? ""
-                            : this.dataPIDE.genero == "0"
-                            ? "FEMENINO"
-                            : "MASCULINO"
-                    );
-                this.form
-                    .get("domicilioActual")
-                    .setValue(this.dataPIDE.direccion);
-                this.form
-                    .get("estadoCivil")
-                    .setValue(this.dataPIDE.estadoCivil);
-                let aux = this.dataPIDE.ubigeo.split("/", 3);
-                this.form.get("departamento").setValue(aux[0]);
-                this.form.get("provincia").setValue(aux[1]);
-                this.form.get("distrito").setValue(aux[2]);
-            });
+        let nroDoc = this.form.value.nroDoc;
+        this.personalservice.getPidePersonalData(nroDoc).then((res: any) => {
+            if (res.error) {
+                console.log('no se encontro persona');
+                return;
+            }
+            this.dataPersona = res;
+            this.form.patchValue({
+                apePaterno: this.dataPersona.apePaterno,
+                apeMaterno: this.dataPersona.apeMaterno,
+                nombres: this.dataPersona.nombres,
+                sexo: this.dataPersona.genero,  
+                fechaNacimiento: this.dataPersona.fecNacimiento,
+                domicilioActual: this.dataPersona.direccion,
+            })
+        })
+        // this.personalservice
+        //     .getDatosReniec(this.form.value.nroDoc)
+        //     .subscribe((res: any) => {
+        //         this.dataPIDE = res;
+        //         console.log(res);
+        //         this.imagePath = res.foto;
+        //         this.form.get("apePaterno").setValue(this.dataPIDE.apePaterno);
+        //         this.form.get("apeMaterno").setValue(this.dataPIDE.apeMaterno);
+        //         this.form.get("nombres").setValue(this.dataPIDE.nombres);
+        //         this.form
+        //             .get("fechaNacimiento")
+        //             .setValue(
+        //                 this.dataPIDE.fecNacimiento == null
+        //                     ? ""
+        //                     : this.dataPIDE.fecNacimiento.split("T", 1)[0]
+        //             );
+        //         this.form
+        //             .get("sexo")
+        //             .setValue(
+        //                 this.dataPIDE.genero == ""
+        //                     ? ""
+        //                     : this.dataPIDE.genero == "0"
+        //                         ? "FEMENINO"
+        //                         : "MASCULINO"
+        //             );
+        //         this.form
+        //             .get("domicilioActual")
+        //             .setValue(this.dataPIDE.direccion);
+        //         this.form
+        //             .get("estadoCivil")
+        //             .setValue(this.dataPIDE.estadoCivil);
+        //         let aux = this.dataPIDE.ubigeo.split("/", 3);
+        //         this.form.get("departamento").setValue(aux[0]);
+        //         this.form.get("provincia").setValue(aux[1]);
+        //         this.form.get("distrito").setValue(aux[2]);
+        //     });
     }
 
     traerDataEditar() {
@@ -715,13 +743,13 @@ export class PersonalSaludComponent implements OnInit {
     }
 
     newRolX(rowData) {
-        this.rolesX=[]
+        this.rolesX = [];
         this.idPersonal = rowData.id;
         console.log("data de personal ", this.idPersonal);
         this.ipressservice
             .getRolPersonalIpress(this.idPersonal)
             .then((res: any) => {
-                if(res.cod='2402'){
+                if ((res.cod = "2402")) {
                     this.rolesX = res.object[0].roles;
                 }
             });
