@@ -320,7 +320,6 @@
                             <label>Sexo:</label>
                             <p-dropdown
                                 *ngIf="!isUpdate"
-                                [showTransitionOptions]="'300ms'"
                                 [options]="sexoList"
                                 formControlName="sexo"
                                 placeholder="Sexo"
@@ -419,15 +418,14 @@
                         *ngIf="!isUpdate"
                         placeholder="Colegio Profesional"
                         class="inputRedondo"
-                        [showTransitionOptions]="'300ms'"
                         dropdownIcon="pi pi-chevron-down"
                         inputId="dropdown"
-                        scrollHeight="100px"
                         [options]="colegiosList"
                         formControlName="colegioProfesional"
                         optionLabel="nombre"
                         optionValue="codigo"
                         id="despecid"
+                        appendTo="body"
                         required
                     >
                     </p-dropdown>
@@ -464,7 +462,6 @@
                         *ngIf="!isUpdate"
                         placeholder="Tipo de Personal"
                         class="inputRedondo"
-                        [showTransitionOptions]="'300ms'"
                         dropdownIcon="pi pi-chevron-down"
                         inputId="dropdown"
                         [options]="tiposPersonalList"
@@ -472,7 +469,7 @@
                         optionLabel="nombre"
                         optionValue="nombre"
                         id="tipoid"
-                        scrollHeight="100px"
+                        appendTo="body"
                         required
                     >
                     </p-dropdown>
@@ -499,7 +496,6 @@
                     <p-dropdown
                         *ngIf="!isUpdate"
                         class="inputRedondo"
-                        [showTransitionOptions]="'300ms'"
                         dropdownIcon="pi pi-chevron-down"
                         inputId="dropdown"
                         [options]="tiposContratoList"
@@ -508,7 +504,7 @@
                         placeholder="Tipo de Contrato"
                         optionValue="abreviatura"
                         id="tipoid"
-                        scrollHeight="80px"
+                        appendTo="body"
                         required
                     >
                     </p-dropdown>

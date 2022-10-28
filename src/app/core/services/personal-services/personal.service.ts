@@ -18,7 +18,7 @@ export class PersonalService {
     private _refresh = new Subject<void>();
     private personales: Personal[] = [];
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
     getPersonal(): Observable<Personal[]> {
         return this.http.get<Personal[]>(
@@ -139,7 +139,7 @@ export class PersonalService {
     saveRol(data) {
         return this.http.post(`${this.base_new}/accesos/user/hce`, data);
     }
-    
+
     updateRol(dni, data) {
         return this.http.put(`${this.base_new}/accesos/user/hce/${dni}`, data);
     }
@@ -148,17 +148,17 @@ export class PersonalService {
         return this.http.get(`${this.base_new}/accesos/user/hce/${dni}`);
     }
 
-    getListAdmin(){//http://192.168.5.3:3010/admins/listar
+    getListAdmin() {//http://192.168.5.3:3010/admins/listar
         return this.http.get(`${this.base_login}/admins/listar`);
     }
     //--desactivar y activar personal
-    desactivarPersonal(idPersona){
+    desactivarPersonal(idPersona) {
         return this.http.delete<any>(
             `${this.base_url}/${this.bd}/personal/desactivar/${idPersona}`
         );
     }
-    
-    activarPersonal(idPersonal){
+
+    activarPersonal(idPersonal) {
         return this.http.put(
             `${this.base_url}/personal/activar/${idPersonal}`,
             ''
@@ -171,4 +171,11 @@ export class PersonalService {
     updatePassword(dni, data) {
         return this.http.put(`${this.base_uri_}/accesos/user/${dni}`, data);
     } */
+    getPidePersonalData(nroDoc: string) {
+        return this.http.get<any>(`${this.base_url}/${this.bd}/pide/consultar/${nroDoc}`)
+            .toPromise()
+            .then(res => <any>res)
+            .then(data => { return data; })
+            .catch(error => { return error.error });
+    }
 }
