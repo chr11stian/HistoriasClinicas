@@ -264,7 +264,9 @@ export class DiagnosticoConsultaComponent implements OnInit {
   }
 
   filterCIE10(event: any) {
-    this.cieService.getCIEByDescripcion(event.query).subscribe((res: any) => {
+    let param:string = event.query.toUpperCase();
+    console.log('filtered param ', param);
+    this.cieService.getCIEByDescripcion(param).subscribe((res: any) => {
       this.listaDeCIEHIS = res.object;
       console.log("CIEHIS", this.listaDeCIEHIS);
     });
@@ -370,9 +372,9 @@ export class DiagnosticoConsultaComponent implements OnInit {
   }
 
   onChangePrestacion() {
-    console.log('valor del auto com ',this.fuaForm.value.prestacion);
     const dataPrestacion: Prestation = this.fuaForm.value.prestacion;
     this.arrayFuaDiagnostic = dataPrestacion.diagnostico;
+    // this.fuaForm.patchValue({prestacion:dataPrestacion.codigo +'-'+ dataPrestacion.descripcion})
   }
 
   verifyPrestationPerAge(arrayPrestaciones: Prestation[], paciente: Patient): void {
