@@ -94,6 +94,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
   // arrayCIE10Fua: Diagnostic[] = [];
   fuaForm: FormGroup;
   hisForm: FormGroup;
+  arrayPrestation: any;
 
   constructor(
     private rolGuardiaService: RolGuardiaService,
@@ -369,6 +370,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
   }
 
   onChangePrestacion() {
+    console.log('valor del auto com ',this.fuaForm.value.prestacion);
     const dataPrestacion: Prestation = this.fuaForm.value.prestacion;
     this.arrayFuaDiagnostic = dataPrestacion.diagnostico;
   }
@@ -712,6 +714,12 @@ export class DiagnosticoConsultaComponent implements OnInit {
         }
       }
     });
+  }
+
+  filterPrestation(event): void {
+    this.cieService.getAuctocompleteByCodAndDescripcion(event.query).then((res: any) => {
+      this.arrayPrestation = res.object;
+    })
   }
 }
 interface diagnosticoInterface {

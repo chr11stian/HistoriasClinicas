@@ -36,4 +36,10 @@ export class CieService {
       .then(res => <any[]>res)
       .then(data => { return data; });
   }
+  getAuctocompleteByCodAndDescripcion(keyWord: string) {
+    return this.http.get(`${this.base_url}/${this.bd}/sis/search/${keyWord}`)
+      .toPromise()
+      .then(res => <any[]>res)
+      .then(data => { return data; });
+  }
 }
