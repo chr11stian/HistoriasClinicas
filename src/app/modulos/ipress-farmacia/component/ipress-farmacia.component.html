@@ -1,4 +1,4 @@
-<div class="xl:col-fixed" style="width:1150px">
+<div >
     <div class="p-card">
         <div class="grid">
             <div class="col-12" style="text-align: center">
@@ -24,9 +24,10 @@
         </p-toolbar>
         <div class="card">
             <p-table #dt1 [value]="items" selectionMode="single" [(selection)]="selectedCustomer1" dataKey="id"
-                     styleClass="p-datatable-customers" responsiveLayout="scroll"
+                     styleClass="p-datatable-customers" 
                      [rows]="7" [paginator]="true" [rowsPerPageOptions]="[7, 15 ,25 , 50,]" stateStorage="session"
-                     stateKey="statedemo-session">
+                     stateKey="statedemo-session"
+                     class="tablaFarmacia">
                 <ng-template pTemplate="header">
                     <tr>
                         <th pSortableColumn="medicamento.nombre">Nombre
@@ -159,7 +160,7 @@
             </p-table>
         </div>
     </div>
-
+</div>
     <p-dialog header="Ingresar Medicamentos a la Farmacia" [(visible)]="dialogFarmaciaAdd" [modal]="true"
               [style]="{width: '50vw'}"
               [draggable]="false" [resizable]="false">
@@ -252,4 +253,3 @@
                     class="botonCancelar"></button>
         </ng-template>
     </p-dialog>
-</div>

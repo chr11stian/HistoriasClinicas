@@ -54,7 +54,6 @@ export class InterceptorService implements HttpInterceptor {
                 "Basic " + btoa("reporte" + ":" + "reporte@2022");
             let basicAuthCouch: string =
                 "Basic " + btoa("admin" + ":" + "GRDS2021");
-            console.log("rwrwer", this.servioVisitaDomiciliaria.couch);
             if (this.servioVisitaDomiciliaria.couch) {
                 cloned = req.clone({
                     setHeaders: {
@@ -64,7 +63,6 @@ export class InterceptorService implements HttpInterceptor {
                     },
                 });
                 this.servioVisitaDomiciliaria.couch = false;
-                console.log("couch", this.servioVisitaDomiciliaria.couch);
             }else if(this.servicioPadronGestantes.couch){
                 cloned = req.clone({
                     setHeaders: {
@@ -74,7 +72,7 @@ export class InterceptorService implements HttpInterceptor {
                     },
                 });
                 this.servicioPadronGestantes.couch = false;
-                console.log("couch", this.servicioPadronGestantes.couch);
+                // console.log("couch", this.servicioPadronGestantes.couch);
             }
             else {
                 cloned = req.clone({

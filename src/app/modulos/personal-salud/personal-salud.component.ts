@@ -24,6 +24,7 @@ import { UsuarioService } from "../usuarios/services/usuario.service";
 import { LoginService } from "../../login/services/login.service";
 import { dato } from "../../cred/citas/models/data";
 import { DynamicDialogRef } from "primeng/dynamicdialog";
+import { InputSwitchModule } from "primeng/inputswitch";
 
 @Component({
     selector: "app-personal-salud",
@@ -85,6 +86,8 @@ export class PersonalSaludComponent implements OnInit {
     dniPersonal: string = "";
     texto: string = "";
     dataPersona: PidePatient;
+    designar: boolean;
+    ipressNombre: string;
     constructor(
         public ref: DynamicDialogRef,
         private personalservice: PersonalService,
@@ -103,7 +106,6 @@ export class PersonalSaludComponent implements OnInit {
             JSON.parse(localStorage.getItem("rol")) === "ROLE_ADMININ_PERSONAL"
                 ? true
                 : false;
-
         if (!this.root) {
             this.idIpress = JSON.parse(
                 localStorage.getItem("usuario")
@@ -111,7 +113,6 @@ export class PersonalSaludComponent implements OnInit {
             this.iprees = JSON.parse(localStorage.getItem("usuario")).ipress;
         }
         this.buildForm();
-
         this.getDocumentos();
         this.getTiposPersonal();
         this.getEspecialidades();
@@ -441,7 +442,8 @@ export class PersonalSaludComponent implements OnInit {
         }
     }
 
-    openNew() {
+    openNew(designar: boolean) {
+        this.designar = designar;
         this.isUpdate = false;
         this.form.reset();
         this.imagePath = image;
@@ -468,6 +470,7 @@ export class PersonalSaludComponent implements OnInit {
         this.form.get("estado").setValue("");
         this.form.get("contratoAbreviatura").setValue("");
         this.form.get("sexo").setValue("");
+        console.log("wr234234", this.iprees);
         !this.root
             ? this.form.get("detalleIpress").setValue(this.iprees.nombreEESS)
             : this.form.get("detalleIpress").setValue(this.iprees);
@@ -477,6 +480,7 @@ export class PersonalSaludComponent implements OnInit {
 
     editar(rowData) {
         console.log("rowdata ", rowData);
+        //console.log("first", rowData.detalleIpress[0].eess);
         this.isUpdate = true;
         this.form.reset();
         this.imagePath = image;
@@ -505,7 +509,13 @@ export class PersonalSaludComponent implements OnInit {
             .get("contratoAbreviatura")
             .setValue(rowData.contratoAbreviatura);
         this.form.get("sexo").setValue(rowData.sexo);
-        this.form.get("detalleIpress").setValue(this.iprees);
+        this.form
+            .get("detalleIpress")
+            .setValue(
+                !this.root
+                    ? rowData.detalleIpress.eess
+                    : rowData.detalleIpress[0].eess
+            );
         this.form
             .get("fechaInicio")
             .setValue(
@@ -733,12 +743,15 @@ export class PersonalSaludComponent implements OnInit {
     }
 
     newRolX(rowData) {
+        this.rolesX = [];
         this.idPersonal = rowData.id;
         console.log("data de personal ", this.idPersonal);
         this.ipressservice
             .getRolPersonalIpress(this.idPersonal)
             .then((res: any) => {
-                this.rolesX = res.object[0].roles;
+                if ((res.cod = "2402")) {
+                    this.rolesX = res.object[0].roles;
+                }
             });
         this.nombrePersonal = `${rowData.apePaterno} ${rowData.apeMaterno}, ${rowData.primerNombre}`;
         this.idRolX = rowData.id;

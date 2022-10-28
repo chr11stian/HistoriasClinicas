@@ -15,8 +15,8 @@ import { VisitaDomiciliariaService } from "../../services/visita-domiciliaria.se
 })
 export class MapVisitasComponent implements OnInit, OnChanges {
   @Input("dataVisitas") dataVisitas: any[];
-  latMap = -13.52264;
-  lngMap = -71.96734;
+  latMap =this.visitaService.getLatitudIpress();
+  lngMap = this.visitaService.getLongitudeIpress();
   private centroid: L.LatLngExpression = [this.latMap, this.lngMap];
   maps: any;
   constructor(private visitaService: VisitaDomiciliariaService) {}
@@ -24,7 +24,7 @@ export class MapVisitasComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     setTimeout(() => {
       this.initMap();
-    }, 500);
+    }, 500);                                           
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -41,11 +41,15 @@ export class MapVisitasComponent implements OnInit, OnChanges {
       iconUrl: "./assets/svg-marker/marker-visita-domiciliaria.svg",
       iconSize: [30, 30],
       iconAnchor: [12, 41],
-      shadowAnchor: [18, 26],
-      shadowSize: [18, 26],
+      shadowAnchor: [0,55],
+      shadowSize: [25,40],
+      shadowUrl:
+      "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
+      popupAnchor: [0, -40],
+      
     });
     L.Marker.prototype.options.icon = iconDefault;
-    this.maps = new L.Map("map").setView([this.latMap, this.lngMap], 20);
+    this.maps = new L.Map("map").setView([this.latMap, this.lngMap],13);
     const titles = L.tileLayer(
       "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
       {
@@ -55,10 +59,26 @@ export class MapVisitasComponent implements OnInit, OnChanges {
           '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       }
     );
+    //${this.visitaService.getImageURL( aux.value.validator.imagen
+    this.dataVisitas.map((aux,i) => {
+      //console.log(aux.value);
+      //console.log(i,aux.value.validator.latitud, aux.value.validator.longitud);
+      // this.visitaService.couch=true;
+      // this.visitaService.getImageURL(aux.value.validator.firma).subscribe((re)=>console.log("werewrewr",re))
+      /**
+       *const urlFoto =this.imagenServicio.urlImagen(url);
+        const token = localStorage.getItem("token"); //obtener el token
+        const headers = new HttpHeaders({'Authorization': "Bearer " + token, 'Content-Type': 'image/*'}); //costruir los header con el token
+        // return this.http.get(url, {headers, responseType: "blob"})
+        return this.http
+            .get(urlFoto, { headers, responseType: 'blob' })//recuperar la imagen y guardar en un blob
+            .pipe(map(val => this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(val))));
+       */
+      // this.visitaService.getImageURL(aux.value.validator.firma).subscribe((data)=>{
+      //   console.log("daaaataaa",data);
+      // });
 
-    this.dataVisitas.map((aux) => {
-      this.visitaService.couch = true;
-      L.marker([aux.value.validator.latitud, aux.value.validator.longitud], {
+      L.marker([aux.value.validator.latitud, aux.value.validator.longitud],{
         title: "Visita Domiciliaria",
       })
         .addTo(this.maps)
@@ -66,12 +86,12 @@ export class MapVisitasComponent implements OnInit, OnChanges {
           `
         <h3>Visita domiciliaria nro :${aux.value.nroVisita}</h3>
         <h4>Altitud:${aux.value.validator.altitud}</h4> 
-        <img src=${this.visitaService.getImageURL(
-          aux.value.validator.imagen
-        )} alt=""/>`,
+      
+      `,
           { closeButton: false }
         );
     });
     titles.addTo(this.maps);
   }
-}
+}/**  <img class="image" src="{{'data:image/png;base64,'+${this.visitaService.getImageURL(aux.value.validator.firma)}}"
+        alt="Imagen"/> */

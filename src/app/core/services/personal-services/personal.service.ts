@@ -148,7 +148,7 @@ export class PersonalService {
         return this.http.get(`${this.base_new}/accesos/user/hce/${dni}`);
     }
 
-    getListAdmin() {//http://192.168.5.3:3010/admins/listar
+    getListAdmin() {
         return this.http.get(`${this.base_login}/admins/listar`);
     }
     //--desactivar y activar personal
@@ -160,8 +160,14 @@ export class PersonalService {
 
     activarPersonal(idPersonal) {
         return this.http.put(
-            `${this.base_url}/personal/activar/${idPersonal}`,
-            ''
+            `${this.base_url}/${this.bd}/personal/activar/${idPersonal}`,
+            ""
+        );
+    }
+
+    searchPersonal(dni) {
+        return this.http.get(
+            `${this.base_url}/${this.bd}/personal/findByDocRegistrado/${dni}`
         );
     }
     /* crearRol(data) {

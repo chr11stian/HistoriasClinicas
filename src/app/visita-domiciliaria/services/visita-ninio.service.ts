@@ -48,7 +48,11 @@ export class VisitaNinioService {
             {
                 keys: [[idIpress, dni_profesional, anio]],
             }
-        );
+        ).toPromise()
+        .then((res) => <any[]>res)
+        .then((data) => {
+        return data;
+        });
     }
 
     getVisitasNiniosXProfesionalMayores_4_Meses(
@@ -61,7 +65,11 @@ export class VisitaNinioService {
             {
                 keys: [[idIpress, dni_profesional, anio]],
             }
-        );
+        ).toPromise()
+        .then((res) => <any[]>res)
+        .then((data) => {
+        return data;
+        });
     }
 
     getVisitasNiniosXProfesionalMenores_4_MesesFecha(

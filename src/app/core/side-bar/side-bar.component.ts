@@ -269,22 +269,22 @@ const administracion2 = {
     items: [
         {
             label: "Ipress Turnos",
-            icon: "pi pi-pw pi-file",
+            icon: "pi pi-pw pi-sliders-v",
             routerLink: "admision/ipress-turnos",
         },
         {
             label: "Ipress Ambientes",
-            icon: "pi pi-pw pi-file",
+            icon: "pi pi-pw pi-sliders-v",
             routerLink: "admision/ipress-ambientes",
         },
         {
             label: "Ipress Roles",
-            icon: "pi pi-pw pi-file",
+            icon: "pi pi-pw pi-sliders-v",
             routerLink: "admision/ipress-roles",
         },
         {
             label: "Ups Auxiliar",
-            icon: "pi pi-pw pi-file",
+            icon: "pi pi-pw pi-sliders-v",
             routerLink: "mantenimientos/ups-aux",
         },
         /* {
@@ -294,36 +294,21 @@ const administracion2 = {
         }, */
         {
             label: "Ipress Tarifario",
-            icon: "pi pi-pw pi-file",
+            icon: "pi pi-pw pi-sliders-v",
             routerLink: "admision/ipress-tarifario",
         },
-        // {
-        //     icon: "pi pi-file",
-        //     label: "Tipo Personal",
-        //     routerLink: "mantenimientos/tipo-personal",
-        // },
-        /*  {
-             icon: "pi pi-file",
-             label: "Unidad ejecutora",
-             routerLink: "mantenimientos/unidad-ejecutora",
-         }, */
         {
-            icon: "pi pi-file",
-            label: "Antecedentes Pacientes",
-            routerLink: "mantenimientos/antecedentes-paciente",
-        },
-        {
-            icon: "pi pi-file",
+            icon: "pi pi-sliders-v",
             label: "Ipress Farmacia",
             routerLink: "admision/ipress-farmacia",
         },
         {
-            icon: "pi pi-file",
+            icon: "pi pi-sliders-v",
             label: "Ipress Laboratorio",
             routerLink: "admision/ipress-laboratorio",
         },
         {
-            icon: "pi pi-file",
+            icon: "pi pi-sliders-v",
             label: "His",
             routerLink: "admision/ipress-his",
         },
@@ -568,10 +553,21 @@ const visitas = {
             routerLink: "visitas-domiciliarias/profesional-gestantes",
         },
         {
-            label: "Padron nominal",
+            label: "Puerperas",
+            icon: "pi pi-users",
+            routerLink: "visitas-domiciliarias/profesional-puerperas",
+        },
+        {
+            label: "PN-Gestantes",
             icon: "pi pi-book",
             routerLink: "padron-nominal-gestante/mantenimiento",
         },
+        // {
+        //     label:"Ipress niños",
+        //     icon: "pi pi-user",
+        //     routerLink: "visitas-domiciliarias/ipress-ninios",
+
+        // }
     ],
 };
 const root = {
@@ -597,6 +593,11 @@ const root = {
             label: "Centro Poblado",
             icon: "pi pi-pw pi-share-alt",
             routerLink: "admision/centro-poblado",
+        },
+        {
+            icon: "pi pi-file",
+            label: "Unidad ejecutora",
+            routerLink: "mantenimientos/unidad-ejecutora",
         },
     ],
 };

@@ -1,1 +1,96 @@
-<p>visitas-domiciliarias-puerpera works!</p>
+<div style="background: #f8f9fa; height: 100%;">
+      <div class="card">
+          <div class="flex" style="margin-top:20px; margin-bottom:20px">
+              <div class="col-12" style="text-align:center;">
+                  <span style="font-size:2em ;">
+                      VISITA DOMICILIARIA PUERPERA
+                  </span>
+              </div>
+          </div>
+          <p-card>
+              <form  class="p-fluid p-formgrid p-grid">
+                  <div class="busqueda">
+                      <div class="anios">
+                          <p-dropdown
+                                  (onChange)="verVisitasPorAnio($event)"
+                                  [options]="anios"
+                                  optionLabel="anio" 
+                                  optionValue="anio"
+                                  placeholder="Año"
+                                  [showClear]="false"
+                                  [style]="{ width: '100%' }"
+                                  [(ngModel)]="selectedAnio"
+                                  [ngModelOptions]="{standalone: true}"
+                                  >
+                          </p-dropdown>
+                      </div>
+                      <div class="meses">
+                          <p-selectButton  
+                                 (onChange)="verVisitasPorMes($event)" 
+                                 [options]="meses"  
+                                 optionValue="value" 
+                                 [(ngModel)]="selectedMes"
+                                 [ngModelOptions]="{standalone: true}"
+                                 optionLabel="label">
+                          </p-selectButton>
+                      </div>
+                  </div>
+              </form>
+              <!--MapStreet-->
+          </p-card>
+      </div>
+      <p-accordion>
+          <p-accordionTab>
+              <p-header >
+                  <span>VISITA DOMICILIARIA GESTANTES-NÚMERO DE VISITAS : 
+                      <i class="pi pi-bell mr-4 p-text-secondary" pBadge style="font-size: 1.25rem" [value]="dataVisitas.length" severity="danger"></i>
+                  </span>
+              </p-header>
+              <p-table [value]="dataVisitas"   #dt styleClass="p-datatable-gridlines" [rows]="4"
+              [rowsPerPageOptions]="[5, 10, 15]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+              currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+                  <ng-template pTemplate="header">
+                  <tr>
+                      <th>Nro</th>
+                      <th>DNI</th>
+                      <th>Nombres</th>
+                      <th>Apellidos</th>
+                      <th>Nro Visita</th>
+                      <th>Nro Gesta</th>
+                      <th>Fecha de la visita</th>
+                      <th>Telefono</th>
+                      <th>Direccion</th>
+                      <th>Respuestas</th>
+                      <th>Acciones</th>
+                  </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body"  let-RowData let-rowIndex="rowIndex">
+                      <tr>
+                          <td style="text-align: center">{{rowIndex+1}}</td>
+                          <td style="text-align: center">{{RowData.value.dni_gestante}}</td>
+                          <td style="text-align: left">{{RowData.value.nombres_gestante}}</td>
+                          <td style="text-align: left">{{RowData.value.apellidos_gestante}}</td>
+                          <td style="text-align: center">{{RowData.value.nro_visita}}</td>
+                          <td style="text-align: center">{{RowData.value.numero_de_gestacion}}</td>
+                          <td style="text-align: center">{{RowData.value.fecha_creacion_documento | date:'dd/MM/yyyy'}}</td>
+                          <td style="text-align: center">{{RowData.value.telefono}}</td>
+                          <td style="text-align: left">{{RowData.value.direccion}}</td>
+                          <td style="text-align: center">
+                              <button  pButton type="button" label="Ver"  icon="pi pi-eye"   class="buttonAcciones" (click)="openDialogRespuestas(RowData.value.preguntas)"></button>
+                          </td>
+                          <td style="text-align: center">
+                              <button pButton type="button" label="Reporte" icon="pi pi-file-pdf" class="buttonAcciones" ></button>
+                          </td>
+                      </tr>
+                  </ng-template>
+              </p-table>
+          
+          </p-accordionTab>
+      </p-accordion>
+      <p-card>
+          <app-map-visitas [dataVisitas]="dataVisitas"></app-map-visitas>
+      </p-card>
+  </div>
+  
+  <p-toast position="top-right" key="myMessage1"></p-toast>
+  <p-toast position="top-right" key="myMessage2"></p-toast>

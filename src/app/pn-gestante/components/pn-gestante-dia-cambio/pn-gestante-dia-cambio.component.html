@@ -31,11 +31,17 @@
                                     formControlName="formNombresGestante" oninput="this.value=this.value.toUpperCase()"/>
                               </div>
                               <div class="field col">
-                                    <label>Apellidos:</label>
-                                    <input placeholder="Apellidos" type="text" pInputText class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-                                    formControlName="formApellidos" oninput="this.value=this.value.toUpperCase()"/>
+                                    <label>Apellido paterno:</label>
+                                    <input placeholder="Apellido paterno" type="text" pInputText class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                                    formControlName="formApePaterno" oninput="this.value=this.value.toUpperCase()"/>
+                              </div>
+                              <div class="field col">
+                                    <label>Apellido materno:</label>
+                                    <input placeholder="Apellido materno" type="text" pInputText class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                                    formControlName="formApeMaterno" oninput="this.value=this.value.toUpperCase()"/>
                               </div>
                         </div>
+                        <label class="ml-3 my-4">CAMBIO DE ESTABLECIMIENTO: ESTABLECIMIENTO ANTERIOR-ESTABLECIMIENTO ACTUAL</label>
                         <div class="formgrid grid mx-3">
                               <div class="field col" >
                               <label>Cod. EE.SS Anterior:</label>

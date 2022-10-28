@@ -226,7 +226,7 @@ export class IpressFarmaciaComponent implements OnInit {
       }
 
       this.aux = filtered;
-      if(this.aux===[]){
+      if(this.aux.length==0){
         console.log('no encontrado');
         this.formDatos.patchValue({ medicamento: ""});
         this.aux = this.medicamentosConDatos;
