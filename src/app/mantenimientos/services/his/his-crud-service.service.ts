@@ -40,4 +40,11 @@ export class HisCrudServiceService {
       .then(res => <any[]>res)
       .then(data => { return data; });
   }
+
+  getSearchHISpag(wordKey: string, page: number) {
+    return this.http.get(`${this.urlServer}/${this.bd}/cie10his/search/${wordKey}/?page=${page}`)
+      .toPromise()
+      .then(res => <any[]>res)
+      .then(data => { return data; });
+  }
 }
