@@ -7,7 +7,9 @@ import { Profesional } from "../../interfaces/profesional";
 import { trigger,state,style,transition,animate } from '@angular/animations';
 import { VisitaNinioService } from '../../services/visita-ninio.service';
 import { VisitaGestanteService } from '../../services/visita-gestante.service';
-
+import { environment } from "src/environments/environment";
+import { DialogRespuestasComponent } from "../../components/dialog-respuestas/dialog-respuestas.component";
+import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
 @Component({
   selector: "app-por-ipress",
   templateUrl: "./por-ipress.component.html",
@@ -38,6 +40,8 @@ export class PorIpressComponent implements OnInit {
   visitas_mayor_4_meses: any[] = [];
   visitas_gestantes: any[] = [];
   visitas_puerperas: any[] = [];
+  visitaReporte: string = "";
+  ref: DynamicDialogRef;
 
   meses = [
     { label: "Enero", value: 1 },
@@ -66,7 +70,8 @@ export class PorIpressComponent implements OnInit {
     private servicioVisitaProfesionalNinios:VisitaNinioService,
     private servicioVisitaProfesionalGestantes:VisitaGestanteService,
     private fb: FormBuilder,
-    private messageService: MessageService
+    private messageService: MessageService,
+    public dialog: DialogService,
   ) {}
 
   ngOnInit() {
@@ -322,6 +327,37 @@ export class PorIpressComponent implements OnInit {
         this.profesionalesIpress[auxIndex].visitas_puerperas =data_puerperas["rows"];
         }
       });
+  }
+
+  
+  visita_menor_cuatro_meses_reporte(aux) {
+    this.visitaReporte =
+      environment.base_urlTx +
+      "/jasperserver/rest_v2/reports/Reports/VISITA/menorcuatro/visita_nino_ninia_menor4meses.pdf?" +
+      "&visitaid=" +
+      aux.id;
+  }
+
+  visita_mayor_cuatro_meses_reporte(aux) {
+    this.visitaReporte =
+      environment.base_urlTx +
+      "/jasperserver/rest_v2/reports/Reports/VISITA/mayorcuatrohorizontal/visita_nino_niniamayor4meses.pdf?"+
+      "&visita=" +
+      aux.id;
+  }
+
+  openDialogRespuestas(data: any[]) {
+    this.ref = this.dialog.open(DialogRespuestasComponent, {
+      header:
+        "Preguntas>Respuestas de la visita domiciliaria del niño-niña ejecutada",
+      width: "70%",
+      height: "100%",
+      contentStyle: {
+        "max-height": "93%",
+        overflow: "auto",
+      },
+      data: data,
+    });
   }
 
   

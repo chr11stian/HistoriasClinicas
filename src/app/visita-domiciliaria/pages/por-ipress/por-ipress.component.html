@@ -7,35 +7,35 @@
                 </span>
             </div>
     </div>
-    <p-card>
-        <form  class="p-fluid p-formgrid p-grid">
-            <div class="busqueda">
-                <div class="anios">
-                    <p-dropdown
-                            (onChange)="verVisitasPorAnio($event)"
-                            [options]="anios"
-                            optionLabel="anio"
-                            optionValue="anio"
-                            placeholder="Año"
-                            [showClear]="false"
-                            [style]="{ width: '100%' }"
-                            [(ngModel)]="selectedAnio"
-                            [ngModelOptions]="{standalone: true}"
-                            >
-                    </p-dropdown>
+       <p-card>
+            <form  class="p-fluid p-formgrid p-grid">
+                <div class="busqueda">
+                    <div class="anios">
+                        <p-dropdown
+                                (onChange)="verVisitasPorAnio($event)"
+                                [options]="anios"
+                                optionLabel="anio"
+                                optionValue="anio"
+                                placeholder="Año"
+                                [showClear]="false"
+                                [style]="{ width: '100%' }"
+                                [(ngModel)]="selectedAnio"
+                                [ngModelOptions]="{standalone: true}"
+                                >
+                        </p-dropdown>
+                    </div>
+                    <div class="meses">
+                        <p-selectButton (onChange)="verVisitasPorMes($event)" 
+                                        [options]="meses"  
+                                        optionValue="value" 
+                                        [(ngModel)]="selectedMes"
+                                        [ngModelOptions]="{standalone: true}"
+                                        optionLabel="label"></p-selectButton>
+                    </div>
                 </div>
-                <div class="meses">
-                    <p-selectButton (onChange)="verVisitasPorMes($event)" 
-                                    [options]="meses"  
-                                    optionValue="value" 
-                                    [(ngModel)]="selectedMes"
-                                    [ngModelOptions]="{standalone: true}"
-                                    optionLabel="label"></p-selectButton>
-                </div>
-            </div>
-        </form>
-        <!--MapStreet-->
-    </p-card>
+            </form>
+            <!--MapStreet-->
+        </p-card>
     </div>
     <p-card>
         <p-table [value]="profesionalesIpress" dataKey="name" responsiveLayout="scroll">
@@ -178,7 +178,7 @@
                                             <button  pButton type="button" label="Ver"  icon="pi pi-eye"  class="buttonAcciones1" (click)="openDialogRespuestas(RowData.value.preguntas)"></button>
                                         </td>
                                         <td style="text-align: center">
-                                            <button pButton type="button"  class="buttonAcciones1" (click)="visita_menor_cuatro_meses_reporte(RowData)"
+                                            <button pButton type="button"  class="buttonAcciones1" (click)="visita_mayor_cuatro_meses_reporte(RowData)"
                                             ><a class="link" style="color:#fbfbfb; text-decoration: none;"
                                             href="{{visitaReporte}}"
                                                 target="_blank">Reporte</a>
@@ -304,7 +304,7 @@
         </p-table>
     </p-card>
     <p-card>
-        <app-map-visitas></app-map-visitas>
+        <app-map-visitas-ipress [profesionalesIpress]="profesionalesIpress"></app-map-visitas-ipress>
     </p-card>
 </div>
 <p-toast position="top-right" key="myMessage1"></p-toast>

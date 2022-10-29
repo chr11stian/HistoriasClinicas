@@ -11,6 +11,7 @@ import { MapVisitasComponent } from "./components/map-visitas/map-visitas.compon
 import { EsFecha } from "./pipes/respuestas.pipe";
 import { VisitasDomiciliariasPuerperaComponent } from './pages/por-personal/visitas-domiciliarias-puerpera/visitas-domiciliarias-puerpera.component';
 import { PorIpressComponent } from './pages/por-ipress/por-ipress.component';
+import { MapVisitasIpressComponent } from './components/map-visitas-ipress/map-visitas-ipress.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { PorIpressComponent } from './pages/por-ipress/por-ipress.component';
     EsFecha,
     PorIpressComponent,
     VisitasDomiciliariasPuerperaComponent,
+    MapVisitasIpressComponent,
   ],
   imports: [CommonModule, VisitaDomiciliariaRoutingModule, PrimeModule],
   exports: [VisitaDomiciliariaRoutingModule],
