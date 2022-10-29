@@ -96,12 +96,15 @@ export class GiagnosticosComponent implements OnInit {
     isSaved: boolean = false;
     listaDeCIEHIS: any[] = [];
     idConsult: string;
+    arrayPrestationAuto: any;
+
     constructor(private formBuilder: FormBuilder,
         private PrestacionService: PrestacionService,
         private CieService: CieService,
         private messageService: MessageService,
         private DxService: ConsultasService,
         private DiagnosticoService: DiagnosticoConsultaService,
+        private cieService: CieService,
     ) {
         this.buildForm();
 
@@ -609,7 +612,8 @@ export class GiagnosticosComponent implements OnInit {
 
 
     filterCIE10(event) {
-        this.CieService.getPromiseCIEByDescripcion(event.query).then((res: any) => this.listaDeCIEHIS = res.object);
+        let param:string = event.query.toUpperCase();
+        this.CieService.getPromiseCIEByDescripcion(param).then((res: any) => this.listaDeCIEHIS = res.object);
         // this.CieService.getCIEByDescripcionTipo('CX', event.query).subscribe((res: any) => {
         //     this.listaDeCIE = res.object
         // })
@@ -907,6 +911,12 @@ export class GiagnosticosComponent implements OnInit {
             showConfirmButton: false,
             timer: 2000
         });
+    }
+
+    filterPrestation(event): void {
+        this.cieService.getAuctocompleteByCodAndDescripcion(event.query).then((res: any) => {
+            this.arrayPrestation = res.object;
+        })
     }
 }
 interface Lista {
