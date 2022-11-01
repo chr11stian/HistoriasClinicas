@@ -1,173 +1,176 @@
 <div class="card">
-  <div class="col-12">
-    <p-table
-      [value]="hisTable"
-      [paginator]="true"
-      [rows]="rows"
-      [showCurrentPageReport]="true"
-      [(first)]="first"
-      [totalRecords]="totalRecords"
-      [lazy]="true"
-      (onLazyLoad)="pagination($event)"
-      styleClass="p-datatable-gridlines"
-    >
-      <ng-template pTemplate="caption">
-        <div class="flex justify-content-between">
-          <div class="col-8 table-header mt-2">
-            <h3>LISTA DE HIS REGISTRADAS</h3>
-          </div>
-          <div class="col-4 text-right">
-            <button
-              pButton
-              pRipple
-              icon="pi pi-plus"
-              type="button"
-              label="Agregar"
-              class="p-button-raised mt-3"
-              (click)="openHisDialog()"
-            ></button>
-          </div>
-        </div>
-        <form [formGroup]="searchForm">
-          <div class="grid">
-            <div class="col-4">
-              <label>Buscar...</label>
-              <input
-                type="text"
-                pInputText
-                formControlName="buscar"
-                placeholder="laboratorio"
-                class="p-fluid inputfield w-full"
-              />
-            </div>
-            <div class="col-1" style="display: flex; align-items: botton">
-              <button
-                type="button"
-                pButton
-                pRipple
-                icon="pi pi-search"
-                (click)="searchHIS()"
-                class="p-button-outlined p-button-secondary"
-              ></button>
-            </div>
-          </div>
-        </form>
-      </ng-template>
-      <ng-template pTemplate="header">
-        <tr>
-          <th>Nro</th>
-          <th>Cod CIE 10</th>
-          <th>Descripción</th>
-          <th>Tipo</th>
-          <th>Descripción Item</th>
-          <th>Acción</th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-rowData let-i="rowIndex">
-        <tr>
-          <td>{{ i + 1 }}</td>
-          <td>{{ rowData.codigoItem }}</td>
-          <td>{{ rowData.descripcionItem }}</td>
-          <td>{{ rowData.tipoItem }}</td>
-          <td>{{ rowData.descripcionTipoItem }}</td>
-          <td style="display: flex; justify-content: center">
-            <button
-              pButton
-              pRipple
-              type="button"
-              icon="pi pi-pencil"
-              (click)="openUpdateHIS(rowData)"
-              class="p-button-rounded p-button-outlined"
-              pTooltip="Editar"
-            ></button>
-            <button
-              pButton
-              pRipple
-              type="button"
-              icon="pi pi-trash"
-              (click)="openUpdateHIS(rowData)"
-              class="p-button-rounded p-button-danger p-button-outlined ml-2"
-              pTooltip="Editar"
-            ></button>
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
-  </div>
+    <div class="col-12">
+        <p-table
+            [value]="hisTable"
+            [paginator]="true"
+            [rows]="rows"
+            [showCurrentPageReport]="true"
+            [(first)]="first"
+            [totalRecords]="totalRecords"
+            [lazy]="true"
+            (onLazyLoad)="pagination($event)"
+            styleClass="p-datatable-gridlines"
+        >
+            <ng-template pTemplate="caption">
+                <div class="flex justify-content-between">
+                    <div class="col-8 table-header mt-2">
+                        <h3>LISTA DE HIS REGISTRADAS</h3>
+                    </div>
+                    <div class="col-4 text-right">
+                        <button
+                            pButton
+                            pRipple
+                            icon="pi pi-plus"
+                            type="button"
+                            label="Agregar"
+                            class="p-button-raised mt-3"
+                            (click)="openHisDialog()"
+                        ></button>
+                    </div>
+                </div>
+                <form [formGroup]="searchForm">
+                    <div class="grid">
+                        <div class="col-4">
+                            <label>Buscar...</label>
+                            <input
+                                type="text"
+                                pInputText
+                                formControlName="buscar"
+                                placeholder="laboratorio"
+                                class="p-fluid inputfield w-full"
+                            />
+                        </div>
+                        <div
+                            class="col-1"
+                            style="display: flex; align-items: botton"
+                        >
+                            <button
+                                type="button"
+                                pButton
+                                pRipple
+                                icon="pi pi-search"
+                                (click)="searchHIS()"
+                                class="p-button-outlined p-button-secondary"
+                            ></button>
+                        </div>
+                    </div>
+                </form>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Nro</th>
+                    <th>Cod CIE 10</th>
+                    <th>Descripción</th>
+                    <th>Tipo</th>
+                    <th>Descripción Item</th>
+                    <th>Acción</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-i="rowIndex">
+                <tr>
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ rowData.codigoItem }}</td>
+                    <td>{{ rowData.descripcionItem }}</td>
+                    <td>{{ rowData.tipoItem }}</td>
+                    <td>{{ rowData.descripcionTipoItem }}</td>
+                    <td style="display: flex; justify-content: center">
+                        <button
+                            pButton
+                            pRipple
+                            type="button"
+                            icon="pi pi-pencil"
+                            (click)="openUpdateHIS(rowData)"
+                            class="p-button-rounded p-button-outlined"
+                            pTooltip="Editar"
+                        ></button>
+                        <button
+                            pButton
+                            pRipple
+                            type="button"
+                            icon="pi pi-trash"
+                            (click)="openUpdateHIS(rowData)"
+                            class="p-button-rounded p-button-danger p-button-outlined ml-2"
+                            pTooltip="Editar"
+                        ></button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
 </div>
 
 <p-dialog
-  [(visible)]="hisDialog"
-  [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
-  [style]="{ width: '50vw' }"
+    [(visible)]="hisDialog"
+    [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
+    [style]="{ width: '50vw' }"
 >
-  <ng-template pTemplate="header">
-    <h3>Añadir HIS</h3>
-  </ng-template>
-  <ng-template pTemplate="body">
-    <div class="card">
-      <div class="col-12">
-        <form [formGroup]="hisForm">
-          <div class="grid">
-            <div class="col-4">
-              <label>Codigo Item:</label>
-              <input
-                formControlName="codigoItem"
-                type="text"
-                class="inputfield w-full"
-                pInputText
-                placeholder="Codigo item"
-                oninput="this.value=this.value.toUpperCase()"
-              />
+    <ng-template pTemplate="header">
+        <h3>Añadir HIS</h3>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <div class="card">
+            <div class="col-12">
+                <form [formGroup]="hisForm">
+                    <div class="grid">
+                        <div class="col-4">
+                            <label>Codigo Item:</label>
+                            <input
+                                formControlName="codigoItem"
+                                type="text"
+                                class="inputfield w-full"
+                                pInputText
+                                placeholder="Codigo item"
+                                oninput="this.value=this.value.toUpperCase()"
+                            />
+                        </div>
+                        <div class="col-8">
+                            <label>Descripción Item:</label>
+                            <input
+                                formControlName="descripcionItem"
+                                type="text"
+                                class="inputfield w-full"
+                                pInputText
+                                placeholder="Descripción del item"
+                                oninput="this.value=this.value.toUpperCase()"
+                            />
+                        </div>
+                        <div class="col-4 flex flex-column">
+                            <label>Tipo Item:</label>
+                            <p-dropdown
+                                class="w-full"
+                                [options]="arrayTipoItem"
+                                formControlName="tipoItem"
+                                appendTo="body"
+                            ></p-dropdown>
+                        </div>
+                        <div class="col-8 flex flex-column">
+                            <label>Descripción Tipo Item:</label>
+                            <p-dropdown
+                                class="w-full"
+                                [options]="arrayDescTipoItem"
+                                formControlName="descripcionTipoItem"
+                                appendTo="body"
+                            ></p-dropdown>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="col-8">
-              <label>Descripción Item:</label>
-              <input
-                formControlName="descripcionItem"
-                type="text"
-                class="inputfield w-full"
-                pInputText
-                placeholder="Descripción del item"
-                oninput="this.value=this.value.toUpperCase()"
-              />
-            </div>
-            <div class="col-4 flex flex-column">
-              <label>Tipo Item:</label>
-              <p-dropdown
-                class="w-full"
-                [options]="arrayTipoItem"
-                formControlName="tipoItem"
-                appendTo="body"
-              ></p-dropdown>
-            </div>
-            <div class="col-8 flex flex-column">
-              <label>Descripción Tipo Item:</label>
-              <p-dropdown
-                class="w-full"
-                [options]="arrayDescTipoItem"
-                formControlName="descripcionTipoItem"
-                appendTo="body"
-              ></p-dropdown>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </ng-template>
-  <ng-template pTemplate="footer" class="text-right">
-    <button
-      pButton
-      type=" button"
-      label="Guardar"
-      class="p-button-info"
-      (click)="save()"
-    ></button>
-    <button
-      pButton
-      type=" button"
-      label="Cancelar"
-      class="p-button-danger"
-      (click)="closeDialog()"
-    ></button>
-  </ng-template>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer" class="text-right">
+        <button
+            pButton
+            type=" button"
+            label="Guardar"
+            class="p-button-info"
+            (click)="save()"
+        ></button>
+        <button
+            pButton
+            type=" button"
+            label="Cancelar"
+            class="p-button-danger"
+            (click)="closeDialog()"
+        ></button>
+    </ng-template>
 </p-dialog>

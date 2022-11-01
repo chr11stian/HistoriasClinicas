@@ -4,13 +4,25 @@
             <h3 class="mt-2">TRATAMIENTO INTEGRAL</h3>
         </ng-template>
         <ng-template pTemplate="right" class="button">
-            <button class="button-agregar mr-2" icon="pi pi-save" pButton type="button" label="Guardar"
-                (click)="guardarTodosDatos()"></button>
-            <button class="button-agregar" icon="pi pi-shield" pButton type="button" label="Cerrar Consulta"
-                (click)="openShowHisDialog()"></button>
+            <button
+                class="button-agregar mr-2"
+                icon="pi pi-save"
+                pButton
+                type="button"
+                label="Guardar"
+                (click)="guardarTodosDatos()"
+            ></button>
+            <button
+                class="button-agregar"
+                icon="pi pi-shield"
+                pButton
+                type="button"
+                label="Cerrar Consulta"
+                (click)="openShowHisDialog()"
+            ></button>
         </ng-template>
     </p-toolbar>
-    <br>
+    <br />
     <div class="col-12 text-center">
         <div class="grid">
             <!-- <div class="col-1 col-offset-7 label-text">
@@ -20,7 +32,6 @@
                 <input type="date" pInputText [(ngModel)]="nextDateModel" placeholder="Nro"
                     class="p-fluid inputfield w-full">
             </div> -->
-
         </div>
     </div>
     <!--INMUNIZACIONES -->
@@ -78,17 +89,33 @@
             <h3 class="mt-2">TRATAMIENTOS</h3>
         </ng-template>
         <ng-template pTemplate="right">
-            <button pButton pRipple label="Agregar Tratamiento" icon="pi pi-plus" pButton type="button"
-                class="button-agregar" (click)="openDialogTratamientoComun()"></button>
+            <button
+                pButton
+                pRipple
+                label="Agregar Tratamiento"
+                icon="pi pi-plus"
+                pButton
+                type="button"
+                class="button-agregar"
+                (click)="openDialogTratamientoComun()"
+            ></button>
         </ng-template>
     </p-toolbar>
-    <p-table class="table-over" [value]="tratamientosComunes" #dt styleClass="p-datatable-gridlines" [rows]="10"
-        [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
-        currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
-
+    <p-table
+        class="table-over"
+        [value]="tratamientosComunes"
+        #dt
+        styleClass="p-datatable-gridlines"
+        [rows]="10"
+        [rowsPerPageOptions]="[10, 25, 50]"
+        [paginator]="true"
+        [autoLayout]="true"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
+    >
         <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
             <tr>
-                <th style="text-align: center" class="font-2">Nro </th>
+                <th style="text-align: center" class="font-2">Nro</th>
                 <th style="text-align: center" class="font-1">MEDICAMENTO</th>
                 <th style="text-align: center" class="font-2">CANTIDAD</th>
                 <th style="text-align: center" class="font-2">DOSIS</th>
@@ -100,8 +127,12 @@
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
             <tr>
-                <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                <td style="text-align: center">{{ rowData.medicamento.nombre }}</td>
+                <td style="text-align: center" class="font-2">
+                    {{ rowIndex + 1 }}
+                </td>
+                <td style="text-align: center">
+                    {{ rowData.medicamento.nombre }}
+                </td>
                 <td style="text-align: center">{{ rowData.cantidad }}</td>
                 <td style="text-align: center">{{ rowData.dosis }}</td>
                 <td style="text-align: center">{{ rowData.intervalo }}</td>
@@ -109,37 +140,64 @@
                 <td style="text-align: center">{{ rowData.observaciones }}</td>
 
                 <td style="text-align: center">
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
-                        (click)="openDialogEditarTratamientoComun(rowData,rowIndex)" pTooltip="Editar">
-                    </button>
-                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                        (click)="eliminarTratamientoComun(rowData.medicamento.id)" pTooltip="Eliminar">
-                    </button>
+                    <button
+                        pButton
+                        pRipple
+                        icon="pi pi-pencil"
+                        class="p-button-rounded p-button-primary m-1"
+                        (click)="
+                            openDialogEditarTratamientoComun(rowData, rowIndex)
+                        "
+                        pTooltip="Editar"
+                    ></button>
+                    <button
+                        pButton
+                        pRipple
+                        icon="pi pi-trash"
+                        class="p-button-rounded p-button-danger m-1"
+                        (click)="
+                            eliminarTratamientoComun(rowData.medicamento.id)
+                        "
+                        pTooltip="Eliminar"
+                    ></button>
                 </td>
             </tr>
         </ng-template>
     </p-table>
-    <br>
-    <form [formGroup]='formRIEP'>
+    <br />
+    <form [formGroup]="formRIEP">
         <div class="grid">
             <div class="col-12 md:col-12 lg:col-12 xl:col-12">
                 <div class="card">
                     <div class="">
-                        <div class="text-center py-3 border-solid bg-blue-800 border-1">
-                            <label class="text-xl text-white">SUPLEMENTACIONES</label>
+                        <div
+                            class="text-center py-3 border-solid bg-blue-800 border-1"
+                        >
+                            <label class="text-xl text-white"
+                                >SUPLEMENTACIONES</label
+                            >
                         </div>
                     </div>
                     <div class="grid p-3 align-items-center">
-                        <div *ngFor="let item of listaCalendarioSuplementos" class="col-6 md:col-3 text-center">
-                            <p-card styleClass="p-card-shadow p-3 border-solid border-1">
+                        <div
+                            *ngFor="let item of listaCalendarioSuplementos"
+                            class="col-6 md:col-3 text-center"
+                        >
+                            <p-card
+                                styleClass="p-card-shadow p-3 border-solid border-1"
+                            >
                                 <ng-template pTemplate="header">
-                                    <label>{{item.titulo}}</label>
-                                    <p class="text-blue-800">({{item.dosis}})</p>
-                                    <br>
+                                    <label>{{ item.titulo }}</label>
+                                    <p class="text-blue-800">
+                                        ({{ item.dosis }})
+                                    </p>
+                                    <br />
                                 </ng-template>
-                                <p>{{item.tiempo}}</p>
+                                <p>{{ item.tiempo }}</p>
                                 <ng-template pTemplate="footer">
-                                    <p class="text-blue-700">{{item.cantidad}}</p>
+                                    <p class="text-blue-700">
+                                        {{ item.cantidad }}
+                                    </p>
                                 </ng-template>
                             </p-card>
                         </div>
@@ -149,80 +207,152 @@
             <div class="col-12 md:col-6 lg:col-6 xl:col-6">
                 <p-fieldset legend="ÁCIDO FOLICO / SULFATO FERROSO">
                     <div class="grid">
-                        <div class="col-3 image1">
-                        </div>
+                        <div class="col-3 image1"></div>
                         <div class="col-9">
                             <div class="p-field-radiobutton m-2">
-                                <p-radioButton name="suple1" value="59401.03" formControlName="suple1" inputId="s1">
+                                <p-radioButton
+                                    name="suple1"
+                                    value="59401.03"
+                                    formControlName="suple1"
+                                    inputId="s1"
+                                >
                                 </p-radioButton>
-                                <label for="city1" class="m-2">Suplementación de ácido fólico.</label>
+                                <label for="city1" class="m-2"
+                                    >Suplementación de ácido fólico.</label
+                                >
                             </div>
                             <div class="p-field-radiobutton m-2">
-                                <p-radioButton name="suple1" value="99199.26" formControlName="suple1" inputId="s3">
+                                <p-radioButton
+                                    name="suple1"
+                                    value="99199.26"
+                                    formControlName="suple1"
+                                    inputId="s3"
+                                >
                                 </p-radioButton>
-                                <label for="city3" class="m-2">Suplementación de sulfato ferroso y ácido fólico.</label>
+                                <label for="city3" class="m-2"
+                                    >Suplementación de sulfato ferroso y ácido
+                                    fólico.</label
+                                >
                             </div>
                         </div>
                         <div class="col-6">
                             <label>Nombre UPS:</label>
-                            <p-dropdown [options]="listaUpsHis" formControlName="nombreUPS1" appendTo="body"
-                                optionLabel="nombreUPS" optionValue="nombreUPS" class="inputfield p-fluid w-full"
-                                placeholder="Seleccione nombre UPS">
+                            <p-dropdown
+                                [options]="listaUpsHis"
+                                formControlName="nombreUPS1"
+                                appendTo="body"
+                                optionLabel="nombreUPS"
+                                optionValue="nombreUPS"
+                                class="inputfield p-fluid w-full"
+                                placeholder="Seleccione nombre UPS"
+                            >
                             </p-dropdown>
                         </div>
                         <div class="col-6">
                             <label>Nombre UPS Aux:</label>
-                            <p-dropdown [options]="arrayUPSAux" formControlName="nombreUPSAux1" appendTo="body"
-                                optionLabel="nombre" optionValue="nombre" class="inputfield p-fluid w-full"
-                                placeholder="Seleccione nombre aux UPS">
+                            <p-dropdown
+                                [options]="arrayUPSAux"
+                                formControlName="nombreUPSAux1"
+                                appendTo="body"
+                                optionLabel="nombre"
+                                optionValue="nombre"
+                                class="inputfield p-fluid w-full"
+                                placeholder="Seleccione nombre aux UPS"
+                            >
                             </p-dropdown>
                         </div>
                         <div class="col-12">
                             <label>Diagnostico:</label>
-                            <p-dropdown [options]="diagnosticosList" formControlName="diagnostico" appendTo="body"
-                                optionLabel="diagnosticoSIS" class="inputfield p-fluid w-full"
-                                placeholder="Seleccione diagnostico SIS"></p-dropdown>
+                            <p-dropdown
+                                [options]="diagnosticosList"
+                                formControlName="diagnostico"
+                                appendTo="body"
+                                optionLabel="diagnosticoSIS"
+                                class="inputfield p-fluid w-full"
+                                placeholder="Seleccione diagnostico SIS"
+                            ></p-dropdown>
                         </div>
                         <div class="col-12">
                             <label>Medicamento:</label>
-                            <p-autoComplete [suggestions]="aux" (completeMethod)="filterItems($event)" [itemSize]="34"
-                                appendTo="body" field="stringMedicamento" [minLength]="1"
-                                class="inputfield p-fluid w-full" formControlName="nombre"
-                                (onSelect)="selectedOptionNameMedicamento($event,1)" [dropdown]="true">
+                            <p-autoComplete
+                                [suggestions]="aux"
+                                (completeMethod)="filterItems($event)"
+                                [itemSize]="34"
+                                appendTo="body"
+                                field="stringMedicamento"
+                                [minLength]="1"
+                                class="inputfield p-fluid w-full"
+                                formControlName="nombre"
+                                (onSelect)="
+                                    selectedOptionNameMedicamento($event, 1)
+                                "
+                                [dropdown]="true"
+                            >
                             </p-autoComplete>
                         </div>
                         <div class="col-2">
                             <label>Cantidad:</label>
-                            <input type="number" pInputText formControlName='acidoFolicoCantidad' placeholder="Nro"
-                                class="p-fluid inputfield w-full">
+                            <input
+                                type="number"
+                                pInputText
+                                formControlName="acidoFolicoCantidad"
+                                placeholder="Nro"
+                                class="p-fluid inputfield w-full"
+                            />
                         </div>
                         <div class="col-2">
                             <label>Dosis nro:</label>
-                            <input type="text" pInputText formControlName='acidoFolicoDosisNro' placeholder="Nro."
-                                class="p-fluid inputfield w-full">
+                            <input
+                                type="text"
+                                pInputText
+                                formControlName="acidoFolicoDosisNro"
+                                placeholder="Nro."
+                                class="p-fluid inputfield w-full"
+                            />
                         </div>
                         <div class="col-3">
                             <label>Frecuencia:</label>
-                            <p-dropdown [options]="listaIntervalos" formControlName="acidoFolicoFrecuencia"
-                                appendTo="body" optionLabel="name" optionValue="name" class="inputfield p-fluid w-full"
-                                placeholder="Seleccione frecuencia">
+                            <p-dropdown
+                                [options]="listaIntervalos"
+                                formControlName="acidoFolicoFrecuencia"
+                                appendTo="body"
+                                optionLabel="name"
+                                optionValue="name"
+                                class="inputfield p-fluid w-full"
+                                placeholder="Seleccione frecuencia"
+                            >
                             </p-dropdown>
                         </div>
                         <div class="col-2">
                             <label>Lab:</label>
-                            <input type="text" pInputText formControlName='acidoFolicoLab' placeholder="Lab"
-                                class="p-fluid inputfield w-full">
+                            <input
+                                type="text"
+                                pInputText
+                                formControlName="acidoFolicoLab"
+                                placeholder="Lab"
+                                class="p-fluid inputfield w-full"
+                            />
                         </div>
                         <div class="col-3">
                             <label>Duracion:</label>
-                            <input type="text" pInputText formControlName='acidoFolicoDuracion' placeholder="Duracion"
-                                class="p-fluid inputfield w-full">
+                            <input
+                                type="text"
+                                pInputText
+                                formControlName="acidoFolicoDuracion"
+                                placeholder="Duracion"
+                                class="p-fluid inputfield w-full"
+                            />
                         </div>
 
                         <div class="col-12">
                             <label>Indicacion:</label>
-                            <input type="text" pInputText formControlName='acidoFolicoIndicacion'
-                                placeholder="Indicacion" class="p-fluid inputfield w-full">
+                            <input
+                                type="text"
+                                pInputText
+                                formControlName="acidoFolicoIndicacion"
+                                placeholder="Indicacion"
+                                class="p-fluid inputfield w-full"
+                            />
                         </div>
                     </div>
                 </p-fieldset>
@@ -230,121 +360,227 @@
             <div class="col-12 md:col-6 lg:col-6 xl:col-6">
                 <p-fieldset legend="CALCIO">
                     <div class="grid">
-                        <div class="col-3 image2">
-                        </div>
+                        <div class="col-3 image2"></div>
                         <div class="col-9">
                             <div class="p-field-radiobutton m-4">
-                                <p-radioButton name="suple2" value="59401.05" formControlName="suple2" inputId="s2">
+                                <p-radioButton
+                                    name="suple2"
+                                    value="59401.05"
+                                    formControlName="suple2"
+                                    inputId="s2"
+                                >
                                 </p-radioButton>
-                                <label for="city1" class="m-2">Suplementación de calcio.</label>
+                                <label for="city1" class="m-2"
+                                    >Suplementación de calcio.</label
+                                >
                             </div>
                         </div>
                         <br />
                         <div class="col-6">
                             <label>Nombre UPS:</label>
-                            <p-dropdown [options]="listaUpsHis" formControlName="nombreUPS2" appendTo="body"
-                                optionLabel="nombreUPS" optionValue="nombreUPS" class="inputfield p-fluid w-full"
-                                placeholder="Seleccione nombre UPS">
+                            <p-dropdown
+                                [options]="listaUpsHis"
+                                formControlName="nombreUPS2"
+                                appendTo="body"
+                                optionLabel="nombreUPS"
+                                optionValue="nombreUPS"
+                                class="inputfield p-fluid w-full"
+                                placeholder="Seleccione nombre UPS"
+                            >
                             </p-dropdown>
                         </div>
                         <div class="col-6">
                             <label>Nombre UPS Aux:</label>
-                            <p-dropdown [options]="arrayUPSAux" formControlName="nombreUPSAux2" appendTo="body"
-                                optionLabel="nombre" optionValue="nombre" class="inputfield p-fluid w-full"
-                                placeholder="Seleccione nombre UPS Aux">
+                            <p-dropdown
+                                [options]="arrayUPSAux"
+                                formControlName="nombreUPSAux2"
+                                appendTo="body"
+                                optionLabel="nombre"
+                                optionValue="nombre"
+                                class="inputfield p-fluid w-full"
+                                placeholder="Seleccione nombre UPS Aux"
+                            >
                             </p-dropdown>
                         </div>
                         <div class="col-12">
                             <label>Diagnostico:</label>
-                            <p-dropdown [options]="diagnosticosList" formControlName="diagnostico2" appendTo="body"
-                                optionLabel="diagnosticoSIS" class="inputfield p-fluid w-full"
-                                placeholder="Seleccione diagnostico SIS"></p-dropdown>
+                            <p-dropdown
+                                [options]="diagnosticosList"
+                                formControlName="diagnostico2"
+                                appendTo="body"
+                                optionLabel="diagnosticoSIS"
+                                class="inputfield p-fluid w-full"
+                                placeholder="Seleccione diagnostico SIS"
+                            ></p-dropdown>
                         </div>
                         <div class="col-12">
                             <label>Medicamento:</label>
-                            <p-autoComplete [suggestions]="aux" (completeMethod)="filterItems($event)" [itemSize]="34"
-                                appendTo="body" field="stringMedicamento" [minLength]="1"
-                                class="inputfield p-fluid w-full" formControlName="nombre2"
-                                (onSelect)="selectedOptionNameMedicamento($event,2)" [dropdown]="true">
+                            <p-autoComplete
+                                [suggestions]="aux"
+                                (completeMethod)="filterItems($event)"
+                                [itemSize]="34"
+                                appendTo="body"
+                                field="stringMedicamento"
+                                [minLength]="1"
+                                class="inputfield p-fluid w-full"
+                                formControlName="nombre2"
+                                (onSelect)="
+                                    selectedOptionNameMedicamento($event, 2)
+                                "
+                                [dropdown]="true"
+                            >
                             </p-autoComplete>
                         </div>
 
                         <div class="col-2">
                             <label>Cantidad:</label>
-                            <input type="number" pInputText formControlName='calcioCantidad' placeholder="Nro"
-                                class="p-fluid inputfield w-full">
+                            <input
+                                type="number"
+                                pInputText
+                                formControlName="calcioCantidad"
+                                placeholder="Nro"
+                                class="p-fluid inputfield w-full"
+                            />
                         </div>
                         <div class="col-2">
                             <label>Dosis nro:</label>
-                            <input type="text" pInputText formControlName='calcioDosisNro' placeholder="Nro."
-                                class="p-fluid inputfield w-full">
+                            <input
+                                type="text"
+                                pInputText
+                                formControlName="calcioDosisNro"
+                                placeholder="Nro."
+                                class="p-fluid inputfield w-full"
+                            />
                         </div>
                         <div class="col-3">
                             <label>Frecuencia:</label>
-                            <p-dropdown [options]="listaIntervalos" formControlName="calcioFrecuencia" appendTo="body"
-                                optionLabel="name" optionValue="name" class="inputfield p-fluid w-full"
-                                placeholder="Seleccione frecuencia">
+                            <p-dropdown
+                                [options]="listaIntervalos"
+                                formControlName="calcioFrecuencia"
+                                appendTo="body"
+                                optionLabel="name"
+                                optionValue="name"
+                                class="inputfield p-fluid w-full"
+                                placeholder="Seleccione frecuencia"
+                            >
                             </p-dropdown>
                         </div>
                         <div class="col-2">
                             <label>Lab:</label>
-                            <input type="text" pInputText formControlName='calcioLab' placeholder="Lab"
-                                class="p-fluid inputfield w-full">
+                            <input
+                                type="text"
+                                pInputText
+                                formControlName="calcioLab"
+                                placeholder="Lab"
+                                class="p-fluid inputfield w-full"
+                            />
                         </div>
                         <div class="col-3">
                             <label>Duracion:</label>
-                            <input type="text" pInputText formControlName='calcioDuracion' placeholder="Duracion"
-                                class="p-fluid inputfield w-full">
+                            <input
+                                type="text"
+                                pInputText
+                                formControlName="calcioDuracion"
+                                placeholder="Duracion"
+                                class="p-fluid inputfield w-full"
+                            />
                         </div>
 
                         <div class="col-12">
                             <label>Indicacion:</label>
-                            <input type="text" pInputText formControlName='calcioIndicacion' placeholder="Indicacion"
-                                class="p-fluid inputfield w-full">
+                            <input
+                                type="text"
+                                pInputText
+                                formControlName="calcioIndicacion"
+                                placeholder="Indicacion"
+                                class="p-fluid inputfield w-full"
+                            />
                         </div>
                     </div>
                 </p-fieldset>
             </div>
         </div>
-        <br>
+        <br />
     </form>
 
     <div class="grid">
-        <div class="lg:col-12  col-12">
+        <div class="lg:col-12 col-12">
             <p-toolbar>
                 <ng-template pTemplate="left">
                     <h3 class="mt-2">RECOMENDACIONES</h3>
                 </ng-template>
                 <ng-template pTemplate="right">
-                    <button pButton pRipple label="Agregar Recomendación" icon="pi pi-plus" pButton type="button"
-                        class="button-agregar" (click)="openDialogRecomendaciones()"></button>
+                    <button
+                        pButton
+                        pRipple
+                        label="Agregar Recomendación"
+                        icon="pi pi-plus"
+                        pButton
+                        type="button"
+                        class="button-agregar"
+                        (click)="openDialogRecomendaciones()"
+                    ></button>
                 </ng-template>
             </p-toolbar>
-            <p-table class="table-over" [value]="recomendaciones" #dt styleClass="p-datatable-gridlines" [rows]="10"
-                [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
+            <p-table
+                class="table-over"
+                [value]="recomendaciones"
+                #dt
+                styleClass="p-datatable-gridlines"
+                [rows]="10"
+                [rowsPerPageOptions]="[10, 25, 50]"
+                [paginator]="true"
+                [autoLayout]="true"
                 [showCurrentPageReport]="true"
-                currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
-
-                <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
+            >
+                <ng-template
+                    pTemplate="header"
+                    styleClass="p-datatable-gridlines"
+                >
                     <tr>
-                        <th style="text-align: center" class="font-2">Nro </th>
-                        <th style="text-align: center" class="font-1">RECOMENDACIONES</th>
-                        <th style="text-align: center" class="font-2">Acciones</th>
-
+                        <th style="text-align: center" class="font-2">Nro</th>
+                        <th style="text-align: center" class="font-1">
+                            RECOMENDACIONES
+                        </th>
+                        <th style="text-align: center" class="font-2">
+                            Acciones
+                        </th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                <ng-template
+                    pTemplate="body"
+                    let-rowData
+                    let-rowIndex="rowIndex"
+                >
                     <tr>
-                        <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                        <td style="text-align: center">{{ rowData}}</td>
+                        <td style="text-align: center" class="font-2">
+                            {{ rowIndex + 1 }}
+                        </td>
+                        <td style="text-align: center">{{ rowData }}</td>
 
                         <td style="text-align: center">
-                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
-                                (click)="openDialogEditarRecomendaciones(rowData,rowIndex)" pTooltip="Editar">
-                            </button>
-                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                                (click)="eliminarRecomendaciones(rowIndex)" pTooltip="Eliminar">
-                            </button>
+                            <button
+                                pButton
+                                pRipple
+                                icon="pi pi-pencil"
+                                class="p-button-rounded p-button-primary m-1"
+                                (click)="
+                                    openDialogEditarRecomendaciones(
+                                        rowData,
+                                        rowIndex
+                                    )
+                                "
+                                pTooltip="Editar"
+                            ></button>
+                            <button
+                                pButton
+                                pRipple
+                                icon="pi pi-trash"
+                                class="p-button-rounded p-button-danger m-1"
+                                (click)="eliminarRecomendaciones(rowIndex)"
+                                pTooltip="Eliminar"
+                            ></button>
                         </td>
                     </tr>
                 </ng-template>
