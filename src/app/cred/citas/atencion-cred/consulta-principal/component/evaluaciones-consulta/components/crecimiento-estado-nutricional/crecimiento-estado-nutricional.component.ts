@@ -63,7 +63,7 @@ export interface evaluation2 {
 })
 export class CrecimientoEstadoNutricionalComponent implements OnInit {
     edad: number; //toma valores -1,0,1,2,3,4,5,6,7,8,9
-    myDisable: boolean = true;
+    myDisable: boolean = false;
     fechaTentativaDisabled: boolean = true;
     tallaPesoFG: FormGroup;
     display: boolean = false;
@@ -153,11 +153,11 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
         });
     }
 
-    ngOnInit(): void {
+    async ngOnInit() {
         //this.tipoDNI = this.rutaActiva.snapshot.queryParams.tipoDoc;
         //this.nroDNI = this.rutaActiva.snapshot.queryParams.nroDoc;
         //this.getLista()
-        // this.getPaciente();
+        //this.getPaciente();
         this.builForm();
         //this.calcularEdad();
         this.data = <dato>(
@@ -166,14 +166,18 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
         this.sexo = !(this.data.sexo.toLowerCase() === "femenino");
         this.listar();
         this.datas();
-        setTimeout(() => {
-            this.evaluacion();
-        }, 1000);
+        await new Promise((resolve: any) => {
+            setTimeout(() => {
+                this.evaluacion();
+                resolve();
+            }, 1000);
+        });
+        this.graficar();
     }
 
-    guardar() {
+    graficar() {
         this.myDisable = false;
-        let aux1: interfaceCrecimiento = {
+        let bodyControlCrecimiento: interfaceCrecimiento = {
             peso: this.sv?.peso,
             talla: this.sv?.talla,
             imc: this.sv?.imc,
@@ -194,27 +198,27 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
             diagnosticoPT: this.diagnosticoWH,
             diagnosticoPC: this.diagnosticoC,
         };
-        let aux: inputCrecimiento = {
+        let body: inputCrecimiento = {
             nombreEvaluacion: "",
             codigoCIE10: "",
             codigoHIS: "",
             codigoPrestacion: "",
-            controlCrecimientoDesaMes: aux1,
+            controlCrecimientoDesaMes: bodyControlCrecimiento,
         };
         //console.log('He', this.diagnosticoH)
         //console.log('We', this.diagnosticoW)
         //console.log('Ce', this.diagnosticoC)
         //console.log('WH', this.diagnosticoWH)
         this.controlCrecimientoService
-            .updateControlCrecimiento(this.data.idConsulta, aux)
+            .updateControlCrecimiento(this.data.idConsulta, body)
             .subscribe((r) => {
-                Swal.fire({
+                /* Swal.fire({
                     icon: "success",
                     title: "Actualizado correctamente",
                     text: "",
                     showConfirmButton: false,
                     timer: 1500,
-                });
+                }); */
             });
     }
 
@@ -372,7 +376,7 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
                 antecedente = r.object.nacimientoperimetroCefalico;
                 list.unshift({
                     peso: r.object.nacimiento.pesoAlNacer,
-                    talla: r.object.nacimiento.tallaAlNacer ,
+                    talla: r.object.nacimiento.tallaAlNacer,
                     perimetroCefalico: r.object.nacimiento.perimetroCefalico,
                     dias: 0,
                 });
@@ -389,7 +393,7 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
                     item.perimetroCefalico !== 0.0
                 ) {
                     this.mesesPeso.push([item.dias / 30, item.peso / 1000]);
-                    this.mesesAltura.push([item.dias / 30, item.talla ]);
+                    this.mesesAltura.push([item.dias / 30, item.talla]);
                     this.mesesCircunferencia.push([
                         item.dias / 30,
                         item.perimetroCefalico,
