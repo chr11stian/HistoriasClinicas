@@ -88,11 +88,15 @@ export class MapVisitasIpressComponent implements OnInit,OnChanges {
         aux.visitas_mayores_4_meses.map((a)=>{
         console.log("mayores","latitud",a.value.validator.latitud,"longitud",a.value.validator.longitud);
         L.marker([a.value.validator.latitud, a.value.validator.longitud],{icon: ninios_mayores_Icon},{
-          title: "Visita Domiciliaria",
+          title: "VISITA DOMICILIARIA",
         })
           .addTo(this.maps)
           .bindPopup(
             `
+          <h3>VISITA NIÑOS-NIÑAS,4-24 MESES</h3>
+          <h4>VISITA NRO :${a.value.nroVisita}</h4>
+          <h4>ALTITUD:${a.value.validator.altitud}</h4> 
+        
         `,
             { closeButton: false }
           );
@@ -103,11 +107,15 @@ export class MapVisitasIpressComponent implements OnInit,OnChanges {
           aux.visitas_menores_4_meses.map((a)=>{
           console.log("menores","latitud",a.value.validator.latitud,"longitud",a.value.validator.longitud);
           L.marker([a.value.validator.latitud, a.value.validator.longitud],{icon:ninios_menores_Icon},{
-            title: "Visita Domiciliaria",
+            title: "VISITA DOMICILIARIA",
           })
             .addTo(this.maps)
             .bindPopup(
               `
+            <h3>VISITA NIÑOS-NIÑAS,0-4 MESES</h3>
+            <h4>VISITA NRO :${a.value.nroVisita}</h4>
+            <h4>ALTITUD:${a.value.validator.altitud}</h4> 
+          
           `,
               { closeButton: false }
             );
@@ -123,8 +131,10 @@ export class MapVisitasIpressComponent implements OnInit,OnChanges {
           })
             .addTo(this.maps)
             .bindPopup(
-              `
-          `,
+            `
+              <h3>VISITA GESTANTE</h3>
+              <h4>ALTITUD:${a.value.validator.altitud}</h4> 
+            `,
               { closeButton: false }
             );
         });
@@ -139,6 +149,8 @@ export class MapVisitasIpressComponent implements OnInit,OnChanges {
               .addTo(this.maps)
               .bindPopup(
                 `
+                <h3>VISITA PUERPERA</h3>
+                <h4>ALTITUD:${a.value.validator.altitud}</h4> 
             `,
                 { closeButton: false }
               );
