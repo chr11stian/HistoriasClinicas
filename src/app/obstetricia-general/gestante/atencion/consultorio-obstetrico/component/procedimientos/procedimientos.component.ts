@@ -86,19 +86,12 @@ export class ProcedimientosComponent implements OnInit {
 
     /*********RECUPERAR DATOS*********/
     this.renIpress = JSON.parse(localStorage.getItem('usuario')).ipress.renipress;
-    // console.log("renipress", this.renIpress)
-    console.log('dataa de la ipressssssssssssssssss ', this.renIpress);
     this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
     /*usando local storage*/
     this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
     this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
     this.patientData = JSON.parse(localStorage.getItem('datacupos')).paciente;
-
-    //estado para saber que estado usar en consultas
     this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
-
-    console.log("DATA PACIENTE 2 desde datos generales", this.dataPaciente2);
-    console.log("gestacion desde datos generales", this.Gestacion);
 
     if (this.Gestacion == null) {
       this.tipoDocRecuperado = this.dataPaciente2.tipoDoc;
@@ -366,7 +359,7 @@ export class ProcedimientosComponent implements OnInit {
         codProcedimientoSIS: this.fuaForm.value.codProcedimientoSIS.codigo,
       }
       this.arrayProcedureSIS.forEach(item => {
-        if (item.cie10SIS === procedureSIS.cie10SIS) {
+        if (item.cie10SIS === procedureSIS.cie10SIS && item.codPrestacion === procedureSIS.codPrestacion) {
           isAdded = true;
           this.repeatDataMessage();
         }

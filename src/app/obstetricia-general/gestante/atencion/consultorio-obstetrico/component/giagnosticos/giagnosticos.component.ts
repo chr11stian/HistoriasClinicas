@@ -97,6 +97,24 @@ export class GiagnosticosComponent implements OnInit {
     listaDeCIEHIS: any[] = [];
     idConsult: string;
     arrayPrestationAuto: any;
+    arrayfirstBatery: FirstBatery[] = [
+        { diagnosticoHIS: "GESTANTE CON FACTOR DE RIESGO CONTROL 1ER. TRIMESTRE (14 SEMANAS)", CIE10: "Z3591", lab: "1" },
+        { diagnosticoHIS: "PLAN DE ATENCION DE PARTO", CIE10: "U1692", lab: "1" },
+        { diagnosticoHIS: "DOSAJE DE HEMOGLOBINA", CIE10: "85018", lab: "1" },
+        { diagnosticoHIS: "GESTANTE CON BAJO PESO", CIE10: "O261", lab: "" },
+        { diagnosticoHIS: "", CIE10: "", lab: "" },
+        { diagnosticoHIS: "SUPLEMENTACIÓN DE ÁCIDO FÓLICO", CIE10: "99199.18", lab: "1" },
+        { diagnosticoHIS: "CONSEJERÍA NUTRICIONAL: ALIMENTACIÓN SALUDABLE", CIE10: "99403.01", lab: "1" },
+        { diagnosticoHIS: "TOMA DE PAP", CIE10: "88141", lab: "" },//FALTA
+        { diagnosticoHIS: "CONSEJERÍA PREVENTIVA EN FACTORES DE RIESGO PARA EL CÁNCER", CIE10: "99402.08", lab: "1" },
+        { diagnosticoHIS: "TAMIZAJE DE BACTERIURIA ASINTOMATICA", CIE10: "81002", lab: "RN" },//CORREGIR
+        { diagnosticoHIS: "CONSEJERÍA PRETEST PARA VIH", CIE10: "99401.33", lab: "1" },
+        { diagnosticoHIS: "ANTICUERPOS HIV-1 Y HIV-2 ANÁLISIS ÚNICO", CIE10: "86703", lab: "RN" },
+        { diagnosticoHIS: "CONSEJERÍA POSTEST PARA VIH - RESULTADO NO REACTIVO", CIE10: "99401.34", lab: "1" },
+        { diagnosticoHIS: "ANTICUERPO TREPONEMA PALLIDUM PRUEBA RÁPIDA SIFILIS", CIE10: "86780", lab: "RN" },//CORREGIR
+        { diagnosticoHIS: "DETECCIÓN DE HEPATITIS B (HBSAG)", CIE10: "87342", lab: "RN" },
+        { diagnosticoHIS: "CONSEJERÍA/ORIENTACIÓN EN PREVENCIÓN DE ITS VIH HEPATITIS B", CIE10: "99402.05", lab: "1" },
+    ]
 
     constructor(private formBuilder: FormBuilder,
         private PrestacionService: PrestacionService,
@@ -180,11 +198,6 @@ export class GiagnosticosComponent implements OnInit {
         ];
     }
     ngOnInit() {
-        // console.log("TipoDocRecuperado desde diagnostico", this.tipoDocRecuperado);
-        // console.log("NroDocRecuparado desde diagnostico", this.nroDocRecuperado);
-        // console.log("Nro de embarazo desde diagnostico", this.nroEmbarazo);
-        // console.log("Id Consultorio Obstetrico desde diagnostico", this.idConsultoriObstetrico);
-        // console.log("nroHcl desde diagnostico", this.nroHcl);
         this.recuperarPrestaciones();
         this.recuperarNroFetos();
         this.recuperarDatosGuardados();
@@ -612,7 +625,7 @@ export class GiagnosticosComponent implements OnInit {
 
 
     filterCIE10(event) {
-        let param:string = event.query.toUpperCase();
+        let param: string = event.query.toUpperCase();
         this.CieService.getPromiseCIEByDescripcion(param).then((res: any) => this.listaDeCIEHIS = res.object);
         // this.CieService.getCIEByDescripcionTipo('CX', event.query).subscribe((res: any) => {
         //     this.listaDeCIE = res.object
@@ -754,7 +767,12 @@ export class GiagnosticosComponent implements OnInit {
             });
             if (!isAdded) {
                 this.arrayDiagnosticHIS.push(HISdiagnostic);
-                this.hisForm.reset();
+                this.hisForm.patchValue({
+                    tipoDiagnosticoHIS: '',
+                    lab: '',
+                    codProcedimientoHIS: '',
+                    procedimientoHIS: ''
+                  });
             }
         } else
             this.missDataMessage();
@@ -860,10 +878,16 @@ export class GiagnosticosComponent implements OnInit {
     }
     recoverConsultationDiagnostic(): void {
         this.DxService.getDiagnosticByIdConsulta(this.idConsult).then((res: any) => {
-
             let dataRes: DiagnosticSave[] = res.object;
-            if (dataRes == null)
-                return
+            if (dataRes == null) {
+                if (this.Gestacion.nroConsultas == 0) {
+                    this.arrayDiagnosticHIS = this.loadFirstBatery(this.arrayfirstBatery);
+
+                    // console.log('entro a la conndicion de primera bateria', this.loadFirstBatery(this.arrayfirstBatery));
+                    return;
+                } else
+                    return;
+            }
             dataRes.forEach(item => {
                 if (item.codPrestacion != null) {
                     let diagnostic: DiagnosticFUA = {
@@ -918,6 +942,24 @@ export class GiagnosticosComponent implements OnInit {
             this.arrayPrestation = res.object;
         })
     }
+
+    loadFirstBatery(arrayBatery: FirstBatery[]): DiagnosticHIS[] {
+        let arrayDiagnosticHIS: DiagnosticHIS[] = [];
+        arrayBatery.forEach(item => {
+            console.log('arreglo first');
+            let HISdiagnostic: DiagnosticHIS = {
+                nombreUPS: "OBSTETRICIA",
+                nombreUPSaux: "CRED",
+                tipoDiagnostico: "D",
+                lab: item.lab,
+                diagnosticoHIS: item.diagnosticoHIS,
+                CIE10: item.CIE10,
+            }
+            arrayDiagnosticHIS.push(HISdiagnostic);
+        });
+        
+        return arrayDiagnosticHIS;
+    }
 }
 interface Lista {
     label: string;
@@ -942,4 +984,9 @@ interface Patient {
     nroTelefono: string,
     sexo: string,
     tipoDoc: string,
+}
+interface FirstBatery {
+    diagnosticoHIS: string;
+    CIE10: string;
+    lab: string
 }

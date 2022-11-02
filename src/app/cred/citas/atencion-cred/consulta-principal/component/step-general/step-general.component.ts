@@ -15,17 +15,16 @@ import { ProcedimientosConsultaComponent } from "../procedimientos-consulta/proc
 import { FinalizarConsultaService } from "../../services/finalizar-consulta.service";
 import { DatePipe } from "@angular/common";
 import Swal from "sweetalert2";
-import {DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
+import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
 import { InteconsultaObstetriciaModalComponent } from "src/app/obstetricia-general/gestante/atencion/consultorio-obstetrico/component/inteconsulta-obstetricia-modal/inteconsulta-obstetricia-modal.component";
 
 @Component({
     selector: "app-step-general",
     templateUrl: "./step-general.component.html",
     styleUrls: ["./step-general.component.css"],
-    providers:[DialogService]
+    providers: [DialogService],
 })
 export class StepGeneralComponent implements OnInit, DoCheck {
-    
     ref: DynamicDialogRef;
     /* lo que reciben del paso anterior */
     tipoDoc: string = "";
@@ -67,15 +66,17 @@ export class StepGeneralComponent implements OnInit, DoCheck {
     datePipe = new DatePipe("en-US");
     condicion: boolean;
     tooltipItems: MenuItem[];
-    idConsulta:''
+    idConsulta: "";
     constructor(
         private acuerdosService: FinalizarConsultaService,
         private consultaGeneralService: ConsultaGeneralService,
         private route: ActivatedRoute,
         private router: Router,
-        private dialogS:DialogService
+        private dialogS: DialogService
     ) {
-        this.idConsulta = JSON.parse(localStorage.getItem('documento')).idConsulta;
+        this.idConsulta = JSON.parse(
+            localStorage.getItem("documento")
+        ).idConsulta;
         this.options = [
             { name: "DNI", code: 1 },
             { name: "CARNET RN", code: 2 },
@@ -84,39 +85,36 @@ export class StepGeneralComponent implements OnInit, DoCheck {
         ];
         this.tooltipItems = [
             {
-              tooltipOptions: {
-                tooltipLabel: "Interconsulta",
-                tooltipPosition: "left",
-              },
-              icon: "pi pi-reply",
-              command: (event: Event) => {
-                this.openDialogInterconsultaObstetricia();
-              },
+                tooltipOptions: {
+                    tooltipLabel: "Interconsulta",
+                    tooltipPosition: "left",
+                },
+                icon: "pi pi-reply",
+                command: (event: Event) => {
+                    this.openDialogInterconsultaObstetricia();
+                },
             },
             {
                 tooltipOptions: {
-                  tooltipLabel: "otras opciones",
-                  tooltipPosition: "left",
+                    tooltipLabel: "otras opciones",
+                    tooltipPosition: "left",
                 },
                 icon: "pi pi-tablet",
                 command: (event: Event) => {
-                  this.openDialogInterconsultaObstetricia();
+                    this.openDialogInterconsultaObstetricia();
                 },
             },
-    
-          ];
+        ];
     }
-    openDialogInterconsultaObstetricia(){
+    openDialogInterconsultaObstetricia() {
         this.ref = this.dialogS.open(InteconsultaObstetriciaModalComponent, {
-            data:{'idConsulta':this.idConsulta},
+            data: { idConsulta: this.idConsulta },
             header: "INTERCONSULTA",
-            contentStyle:{
+            contentStyle: {},
+            style: {
+                width: "80%",
             },
-            style:{
-                width:"80%"
-            },
-          })
-
+        });
     }
 
     ngDoCheck() {
@@ -286,7 +284,7 @@ export class StepGeneralComponent implements OnInit, DoCheck {
 
             case "tratamiento":
                 this.tratamientoConsulta.his();
-               /*  if (this.consultaGeneralService.condicion === true) {
+                /*  if (this.consultaGeneralService.condicion === true) {
                     // this.tratamientoConsulta.save()
                     this.stepName = "finalizar";
                     this.indiceActivo = 7;
@@ -395,7 +393,7 @@ export class StepGeneralComponent implements OnInit, DoCheck {
                     break;
             }
             this.j = this.indiceActivo;
-        } 
+        }
     }
 
     async agenda() {
@@ -496,11 +494,14 @@ export class StepGeneralComponent implements OnInit, DoCheck {
                         });
                     }
                 });
-
             });
 
         this.listaEventos = listaEventAux;
         this.nextAppointment(this.listaEventos);
+    }
+    _date() {
+        let fecha = this.datePipe.transform(new Date(this.fecha), "dd/MM/yyyy");
+        this.cita = "PRÓXIMA CITA: " + fecha;
     }
     citas() {
         this.dialog = true;
@@ -531,8 +532,14 @@ export class StepGeneralComponent implements OnInit, DoCheck {
 
     nextAppointment(event: evento[]): void {
         event.sort();
-        let auxEvent: evento[] = event.filter(item => item.start == event[0].start);
-        let fecha = this.datePipe.transform(new Date(auxEvent[0].start), "dd/MM/yyyy");
+        let auxEvent: evento[] = event.filter(
+            (item) => item.start == event[0].start
+        );
+        let fecha = this.datePipe.transform(
+            new Date(auxEvent[0].start),
+            "dd/MM/yyyy"
+        );
+        this.fecha = new Date(auxEvent[0].start);
         this.cita = "PRÓXIMA CITA: " + fecha;
         this.consultaGeneralService.fecha = auxEvent[0].start;
     }
