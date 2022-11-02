@@ -66,7 +66,7 @@
                     <td>{{visita.visitas_menores_4_meses.length+visita.visitas_mayores_4_meses.length+visita.visitas_gestantes.length+visita.visitas_puerperas.length}}</td>
                     <!-- {{visita.visitas_menores_4_meses.length+visita.visitas_mayores_4_meses.length+visita.visitas_gestantes.length+visita.visitas_puerperas.length}} -->
                     <td >
-                        <button  pButton type="button" label="Ver"  icon="pi pi-eye"  class="buttonAcciones1" (click)="openDialogRespuestas(RowData.value.preguntas)"></button>
+                        <button  pButton type="button" label="Ver"  icon="pi pi-eye"  class="buttonAcciones1" (click)="openDialogEcharts()"></button>
                         <button pButton type="button"  class="buttonAcciones1" (click)="visita_menor_cuatro_meses_reporte(RowData)"
                         ><a class="link" style="color:#fbfbfb; text-decoration: none;"
                         href="{{visitaReporte}}"

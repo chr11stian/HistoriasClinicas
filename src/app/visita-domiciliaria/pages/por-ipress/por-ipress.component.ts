@@ -10,6 +10,7 @@ import { VisitaGestanteService } from '../../services/visita-gestante.service';
 import { environment } from "src/environments/environment";
 import { DialogRespuestasComponent } from "../../components/dialog-respuestas/dialog-respuestas.component";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
+import { EchartsVisitaComponent } from '../../components/echarts-visita/echarts-visita.component';
 @Component({
   selector: "app-por-ipress",
   templateUrl: "./por-ipress.component.html",
@@ -359,6 +360,18 @@ export class PorIpressComponent implements OnInit {
       data: data,
     });
   }
-
+  
+  openDialogEcharts() {
+    this.ref = this.dialog.open(EchartsVisitaComponent, {
+      header:
+        "Grafico de visitas realizadas por el profesional",
+      width: "70%",
+      height: "100%",
+      contentStyle: {
+        "max-height": "93%",
+        overflow: "auto",
+      },
+    });
+  }
   
 }
