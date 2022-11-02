@@ -166,6 +166,9 @@ export interface Nacimiento {
     especifique: string;
     hospitalizacion: boolean;
     tiempoHospitalizacion: number;
+    tieneAnemia:boolean,
+    fechaAnemia:Date,
+
 }
 
 export interface Parto {
