@@ -170,7 +170,6 @@ export class PnGestanteDiaGestaComponent implements OnInit {
         .subscribe(
           (data: any) => {
             if (data.rows.length == 0) {
-              // this.estadoGuardar=false;
               this.gestanteEnGestacion = false;
               this.messageService.add({
                 key: "myMessage1",
