@@ -85,8 +85,9 @@
               </span>
                     </ng-template>
                 </div>
+                <!-- linea 2 lineas abajo <button *ngIf="!sf.estadoAdministrado && sf.edadMes==edadMes" (click)="isSuplementacion=true;agregarSuplementacion(sf)" -->
                 <div class="col-1 text-center">
-                    <button *ngIf="!sf.estadoAdministrado && sf.edadMes==edadMes" (click)="isSuplementacion=true;agregarSuplementacion(sf)"
+                    <button (click)="isSuplementacion=true;agregarSuplementacion(sf)"
                             pButton
                             pRipple
                             type="button" icon="pi pi-pencil"
@@ -167,8 +168,9 @@
               </span>
                     </ng-template>
                 </div>
+                <!-- <button *ngIf="!mnm.estadoAdministrado && mnm.edadMes==edadMes;" (click)="isSuplementacion=true; agregarSuplementacion(mnm)" -->
                 <div class="col-1 text-center">
-                    <button *ngIf="!mnm.estadoAdministrado && mnm.edadMes==edadMes;" (click)="isSuplementacion=true; agregarSuplementacion(mnm)"
+                    <button (click)="isSuplementacion=true; agregarSuplementacion(mnm)"
                             pButton
                             pRipple
                             type="button" icon="pi pi-pencil"
@@ -250,8 +252,9 @@
               </span>
                     </ng-template>
                 </div>
+<!--     2 lineas abajo            <button *ngIf="!va.estadoAdministrado && va.edadMes==edadMes" (click)="isSuplementacion=false;agregarSuplementacion(va)" -->
                 <div class="col-1 text-center">
-                    <button *ngIf="!va.estadoAdministrado && va.edadMes==edadMes" (click)="isSuplementacion=false;agregarSuplementacion(va)"
+                    <button  (click)="isSuplementacion=false;agregarSuplementacion(va)"
                             pButton
                             pRipple
                             type="button" icon="pi pi-pencil"
@@ -343,10 +346,10 @@
               </span>
                     </ng-template>
                 </div>
+                <!-- 3 lineas abojo <button *ngIf="!tera.estadoAdministrado && tera.edadMes==edadMes;" -->
                 <div class="col-1 text-center">
-                    <div *ngIf="tera.edadMes==edadMes">
-
-                    <button *ngIf="!tera.estadoAdministrado && tera.edadMes==edadMes;" (click)="isSuplementacion=false;agregarSuplementacion(tera)"
+                    <div >
+                    <button  (click)="isSuplementacion=false;agregarSuplementacion(tera)"
                             pButton
                             pRipple
                             type="button" icon="pi pi-pencil"

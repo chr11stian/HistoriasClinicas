@@ -111,7 +111,7 @@ export class SuplementacionCredComponent implements OnInit {
         const ref = this.dialogService.open(SuplementoComponent, {
             data: {isSuplementacion: this.isSuplementacion, "suplementacion": suplementacion},
             header: `Agregar Suplementacion ${suplementacion.descripcion} Dosis numero (${suplementacion.dosis})`,
-            width: "50%",
+            width: "75%",
             contentStyle: {"max-height": "500px", overflow: "auto"},
             baseZIndex: 10000,
         });
