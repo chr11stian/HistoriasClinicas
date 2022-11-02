@@ -676,6 +676,7 @@ export class PersonalSaludComponent implements OnInit {
                 domicilioActual: this.dataPersona.direccion,
             })
         })
+        
         // this.personalservice
         //     .getDatosReniec(this.form.value.nroDoc)
         //     .subscribe((res: any) => {

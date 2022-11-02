@@ -17,6 +17,7 @@ export class HisCrudComponent implements OnInit {
   totalRecords: number;
   hisDialog: boolean;
   hisForm: FormGroup;
+  searchForm: FormGroup;
   hisData: HIS;
   toEdit: boolean = false;
   idHIS: string;
@@ -37,6 +38,9 @@ export class HisCrudComponent implements OnInit {
       descripcionItem: new FormControl({ value: '', disabled: false }, Validators.required),
       tipoItem: new FormControl({ value: '', disabled: false }),
       descripcionTipoItem: new FormControl({ value: '', disabled: false }),
+    })
+    this.searchForm = new FormGroup({
+      buscar: new FormControl({ value: '', disabled: false })
     })
   }
 
@@ -178,7 +182,21 @@ export class HisCrudComponent implements OnInit {
     this.hisDialog = false;
   }
 
-  msjSaveRight() {
+  msjSaveRight(): void {
+    Swal.fire({
+      icon: 'success',
+      title: 'Se elimino el HIS correctamente',
+      showConfirmButton: false,
+      timer: 2000
+    });
+  }
 
+  searchHIS(): void {
+    let word: string = this.searchForm.value.buscar;
+    console.log('object', word);
+    this.hisCrudService.getSearchHISpag(word, 1).then((res: any) => {
+      this.totalRecords = 20;
+      this.hisTable = res.object;
+    });
   }
 }
