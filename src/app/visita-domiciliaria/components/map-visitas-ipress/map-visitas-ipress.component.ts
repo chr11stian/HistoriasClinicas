@@ -63,10 +63,11 @@ export class MapVisitasIpressComponent implements OnInit,OnChanges {
       }
   });
 
-  var greenIcon = new LeafIcon({iconUrl:'./assets/svg-marker/marker-ninio-mayores.svg'}),
-    redIcon = new LeafIcon({iconUrl: './assets/svg-marker/marker-ninio-menores.svg'}),
-    orangeIcon = new LeafIcon({iconUrl: 'leaf-orange.png'});
-
+  var ninios_mayores_Icon = new LeafIcon({iconUrl:'./assets/svg-marker/marker-ninio-mayores.svg'}),
+    ninios_menores_Icon = new LeafIcon({iconUrl: './assets/svg-marker/marker-ninio-menores.svg'}),
+    puerperasIcon = new LeafIcon({iconUrl: './assets/svg-marker/marker-puerpera-visita.svg'}),
+    gestantesIcon = new LeafIcon({iconUrl: './assets/svg-marker/marker-gestante-visita.svg'})
+   
     L.icon = function (options) {
       return new L.Icon(options);
   };
@@ -86,7 +87,7 @@ export class MapVisitasIpressComponent implements OnInit,OnChanges {
       this.profesionalesIpress.map((aux) => {
         aux.visitas_mayores_4_meses.map((a)=>{
         console.log("mayores","latitud",a.value.validator.latitud,"longitud",a.value.validator.longitud);
-        L.marker([a.value.validator.latitud, a.value.validator.longitud],{icon: greenIcon},{
+        L.marker([a.value.validator.latitud, a.value.validator.longitud],{icon: ninios_mayores_Icon},{
           title: "Visita Domiciliaria",
         })
           .addTo(this.maps)
@@ -101,7 +102,7 @@ export class MapVisitasIpressComponent implements OnInit,OnChanges {
       this.profesionalesIpress.map((aux) => {
           aux.visitas_menores_4_meses.map((a)=>{
           console.log("menores","latitud",a.value.validator.latitud,"longitud",a.value.validator.longitud);
-          L.marker([a.value.validator.latitud, a.value.validator.longitud],{icon: redIcon},{
+          L.marker([a.value.validator.latitud, a.value.validator.longitud],{icon:ninios_menores_Icon},{
             title: "Visita Domiciliaria",
           })
             .addTo(this.maps)
@@ -117,7 +118,7 @@ export class MapVisitasIpressComponent implements OnInit,OnChanges {
           aux.visitas_gestantes
           .map((a)=>{
           console.log("gestantes","latitud",a.value.validator.latitud,"longitud",a.value.validator.longitud);
-          L.marker([a.value.validator.latitud, a.value.validator.longitud],{
+          L.marker([a.value.validator.latitud, a.value.validator.longitud],{icon:puerperasIcon},{
             title: "Visita Domiciliaria",
           })
             .addTo(this.maps)
@@ -132,7 +133,7 @@ export class MapVisitasIpressComponent implements OnInit,OnChanges {
             aux.visitas_puerperas
             .map((a)=>{
             console.log("puerperas","latitud",a.value.validator.latitud,"longitud",a.value.validator.longitud);
-            L.marker([a.value.validator.latitud, a.value.validator.longitud],{
+            L.marker([a.value.validator.latitud, a.value.validator.longitud],{icon:gestantesIcon},{
               title: "Visita Domiciliaria",
             })
               .addTo(this.maps)

@@ -111,8 +111,8 @@ export class PnGestanteDiaGestaComponent implements OnInit {
     this.recuperarNuevaGesta();
     this.pn_gestanteServicio.couch = true;
     let id= this.dataGestante._id;
-    let updatedFur=this.datePipe.transform(this.formGestante.value.formFur,'dd/MM/yyyy');
-    let updateFpp=this.datePipe.transform(this.formGestante.value.formFpp,'dd/MM/yyyy');
+    let updatedFur=this.datePipe.transform(this.auxFUR,'dd/MM/yyyy');
+    let updateFpp=this.datePipe.transform(this.auxFPP,'dd/MM/yyyy');
     this.pn_gestanteServicio
       .actualizarNumeroGesta(id,this.nuevaGesta,updatedFur,updateFpp)
       .subscribe((res: any) => {
@@ -141,8 +141,8 @@ export class PnGestanteDiaGestaComponent implements OnInit {
     //  eessAnterior:this.formGestante.value.eessAnterior,
     this.nuevaGesta={
       nroGesta:this.dataGestante.nroGesta.length+1,
-      fur:this.datePipe.transform(this.auxFUR,'dd/MM/yyyy'),
-      fpp:this.datePipe.transform(this.auxFPP,'dd/MM/yyyy'),
+      fur:this.datePipe.transform(this.formGestante.value.formFur,"dd/MM/yyyy"),
+      fpp:this.datePipe.transform(this.formGestante.value.formFpp,"dd/MM/yyyy"),
       codEessActual:this.pn_gestanteServicio.getauxCodeessActual(),
       eessActual:this.pn_gestanteServicio.getaux_eessActual(),
       morbilidadPotencial:this.dataGestante.morbilidadPotencial,
@@ -242,7 +242,7 @@ export class PnGestanteDiaGestaComponent implements OnInit {
             .setValue(this.dataGestante.nroGesta.length);
           this.formGestante
             .get("formAborto")
-            .setValue(this.dataGestante.aborto==true?"SI":"NO");
+            .setValue(this.dataGestante.aborto);
           if (this.semanaGestacional(this.formatoFecha(this.dataGestante.fur))>40 || this.dataGestante.aborto==true || this.dataGestante.fpp>this.FechaActual) {
             this.agregarNuevaGesta = false;
             this.messageService.add({
@@ -289,7 +289,6 @@ export class PnGestanteDiaGestaComponent implements OnInit {
     let newDay: any = parseInt(fum[2]) + 7;
     let newMonth: any = parseInt(fum[1]) - 3;
     let newYear: any = parseInt(fum[0]);
-  
     if (newMonth == 2) {
         if (newDay > 28 && newDay <= 30) {
             newDay = newDay - 28;
@@ -321,17 +320,21 @@ export class PnGestanteDiaGestaComponent implements OnInit {
     fum.setMonth(fum.getMonth() + 9);
     fum.setDate(fum.getDate() + 7);
     this.formGestante.get('formFpp').setValue(this.datePipe.transform(auxBirth,'yyyy-MM-dd'));
-  
+    console.log(this.datePipe.transform(auxBirth,'yyyy-MM-dd'));
+    console.log("auxFpp",this.auxFPP);
   }
 
   agregarGesta() {
     this.pn_gestanteServicio.couch = true;
     let nroGesta=this.formGestante.value.formGesta;
     let fur=this.datePipe.transform(this.formGestante.value.formFUR,'dd/MM/yyyy');
-    let fpp=this.datePipe.transform(this.auxFPP,'dd/MM/yyyy');
+    let fpp=this.datePipe.transform(this.formGestante.value.formFPP,'dd/MM/yyyy');
+    console.log('fpp',fpp);
     this.nuevaGesta.codEessActual=this.pn_gestanteServicio.getauxCodeessActual();
     this.nuevaGesta.eessActual=this.pn_gestanteServicio.getaux_eessActual();
-    this.nuevaGesta.nroGesta=this.formGestante.value.formGesta;
+    nroGesta=this.formGestante.value.formGesta;
+    this.nuevaGesta.fur=this.datePipe.transform(this.formGestante.value.formFUR,'dd/MM/yyyy');
+    this.nuevaGesta.fpp=this.datePipe.transform(this.formGestante.value.formFPP,'dd/MM/yyyy');
     this.pn_gestanteServicio
       .actualizarNumeroGesta(
         this.dataGestante._id,
@@ -348,7 +351,6 @@ export class PnGestanteDiaGestaComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500,
           });
-        this.mostrarPadronNominalGestantes();
         }else{
           Swal.fire({
             icon: "error",
@@ -358,7 +360,7 @@ export class PnGestanteDiaGestaComponent implements OnInit {
           });
         }
       });
-    this.mostrarPadronNominalGestantes();
+      this.mostrarPadronNominalGestantes();
   }
 
   formatoFecha(date:string){

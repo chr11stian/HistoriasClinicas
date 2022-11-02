@@ -115,13 +115,13 @@ export class PnGestanteService {
             {
                 nroGesta: {
                     nroGesta: nuevo_nroGesta["nroGesta"],
-                    fur: nuevo_nroGesta["fur"],
-                    fpp: nuevo_nroGesta["fpp"],
+                    fur:nuevo_fur,
+                    fpp:nuevo_fpp,
                     codEessActual: nuevo_nroGesta["codEessActual"],
                     eessActual: nuevo_nroGesta["eessActual"],
                     morbilidadPotencial:nuevo_nroGesta["morbilidadPotencial"],
                     observaciones:nuevo_nroGesta["observaciones"],
-                    aborto:nuevo_nroGesta["aborto"],
+                    aborto:false,
                     estado: ""
 
                 },

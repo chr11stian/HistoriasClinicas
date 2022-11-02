@@ -146,18 +146,16 @@
                       <div class="field col">
                           <label>FUR:</label>
                                   <input type="date" pInputText 
-                                  placeholder="Fecha de ultima regla"
-                                  formControlName="formFur"   
+                                  type="date" pInputText 
+                                  formControlName='formFur' 
                                   (blur)="calcularFPP()"
                                   [(ngModel)]="auxFUR"
-                                  [disabled]="agregarNuevaGesta"
                                   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                       </div>
                       <div class="field col">
                           <label>FPP:</label>
-                          <input type="date" pInputText  placeholder="Fecha de Probable parto"
-                                  formControlName="formFpp"  
-                                  disabled="true"
+                          <input  type="date" pInputText 
+                                  formControlName='formFpp' 
                                   [(ngModel)]="auxFPP"
                                   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                       </div>

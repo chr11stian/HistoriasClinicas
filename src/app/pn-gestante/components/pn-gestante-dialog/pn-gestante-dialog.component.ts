@@ -272,6 +272,7 @@ cargarDatosPadron(event) {
 updateOEdith() {
   if (this.dataGestanteEditar == null) {
       this.saveForm();
+      this.mostrarPadronNominalGestantes();
   } else {
       this.EditarGestante();
   }
