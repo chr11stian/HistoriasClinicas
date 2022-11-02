@@ -307,11 +307,11 @@ const administracion2 = {
             label: "Ipress Laboratorio",
             routerLink: "admision/ipress-laboratorio",
         },
-        {
-            icon: "pi pi-sliders-v",
-            label: "His",
-            routerLink: "admision/ipress-his",
-        },
+        // {
+        //     icon: "pi pi-sliders-v",
+        //     label: "His",
+        //     routerLink: "admision/ipress-his",
+        // },
     ],
 };
 const triaje = {
@@ -595,9 +595,14 @@ const root = {
             routerLink: "admision/centro-poblado",
         },
         {
-            icon: "pi pi-file",
+            icon: "pi pi-th-large",
             label: "Unidad ejecutora",
             routerLink: "mantenimientos/unidad-ejecutora",
+        },
+        {
+            icon: "pi pi-tablet",
+            label: "Prestacion",
+            routerLink: "mantenimientos/prestacion",
         },
     ],
 };

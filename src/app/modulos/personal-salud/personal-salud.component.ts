@@ -149,6 +149,10 @@ export class PersonalSaludComponent implements OnInit {
         this.datosPersonales = [];
         this.description = [
             {
+                rol: "ROLE_ADMIN",
+                description: "rol administrador de iprees",
+            },
+            {
                 rol: "ROLE_ENF_PERSONAL",
                 description:
                     "rol destinado para el personal de CRED y OBSTETRICIA",
@@ -1133,6 +1137,7 @@ export class PersonalSaludComponent implements OnInit {
 
     ngOnInit(): void {
         this.loginService.getRol().subscribe((r: any) => {
+            console.log("roles", r);
             this.listaRol = r;
         });
     }
@@ -1140,6 +1145,7 @@ export class PersonalSaludComponent implements OnInit {
     cargarRoles(dni) {
         this.loginService.getRoles(dni).subscribe((r: any) => {
             r.object.roles.map((r: any) => {
+                console.log("roles", r);
                 this.rolesSistema.push({
                     rol: r,
                     nombre: this.nombreRol(r),
