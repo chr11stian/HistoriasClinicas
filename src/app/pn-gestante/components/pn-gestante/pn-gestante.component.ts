@@ -6,7 +6,7 @@ import { ConfirmationService } from "primeng/api";
 import { FormBuilder } from "@angular/forms";
 import { PnGestanteDiaGestaComponent } from "../pn-gestante-dia-gesta/pn-gestante-dia-gesta.component";
 import { PnGestanteDiaCambioComponent } from "../pn-gestante-dia-cambio/pn-gestante-dia-cambio.component";
-import { PnDialogGestaComponent } from '../pn-dialog-gesta/pn-dialog-gesta.component';
+import { PnDialogGestaComponent } from "../pn-dialog-gesta/pn-dialog-gesta.component";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
 
 @Component({
@@ -33,20 +33,26 @@ export class PnGestanteComponent implements OnInit {
     this.mostrarPadronNominalGestantes();
   }
 
-  mostrarPadronNominalGestantes() {
+  async mostrarPadronNominalGestantes() {
     this.pn_gestanteServicio.couch = true;
-    this.pn_gestanteServicio.mostrarPadronGestantes(this.pn_gestanteServicio.getauxCodeessActual()).subscribe(
-      (data:any) => {
-        this.listaGestantes = data['rows'];
-        console.log("gestantessss",this.listaGestantes);
-        this.listaGestantesPuerpera = this.listaGestantes.filter((aux) => {
-          if (this.semanaGestacional(this.formatoFecha(aux.value.fur))<44 && aux.value.aborto==false) return aux;
-        });
-      },
-      (err) => {
-        this.listaGestantes = [];
-      }
-    );
+    await this.pn_gestanteServicio
+      .mostrarPadronGestantes(this.pn_gestanteServicio.getauxCodeessActual())
+      .then(
+        (data: any) => {
+          this.listaGestantes = data["rows"];
+          console.log("gestantessss", this.listaGestantes);
+          this.listaGestantesPuerpera = this.listaGestantes.filter((aux) => {
+            if (
+              this.semanaGestacional(this.formatoFecha(aux.value.fur)) < 44 &&
+              aux.value.aborto == false
+            )
+              return aux;
+          });
+        },
+        (err) => {
+          this.listaGestantes = [];
+        }
+      );
   }
 
   openDialog() {
@@ -69,7 +75,7 @@ export class PnGestanteComponent implements OnInit {
     });
     localStorage.removeItem("gestanteLocalStorage");
     this.ref.onClose.subscribe((data: any) => {
-    this.mostrarPadronNominalGestantes();
+      this.mostrarPadronNominalGestantes();
     });
   }
 
@@ -81,33 +87,36 @@ export class PnGestanteComponent implements OnInit {
     });
     localStorage.removeItem("gestanteLocalStorage");
     this.ref.onClose.subscribe((data: any) => {
-    this.mostrarPadronNominalGestantes();
+      this.mostrarPadronNominalGestantes();
     });
   }
 
   editar(event) {
-    localStorage.setItem("gestanteLocalStorage", JSON.stringify(event['value']));
+    localStorage.setItem(
+      "gestanteLocalStorage",
+      JSON.stringify(event["value"])
+    );
     this.ref = this.dialog.open(PnGestanteDialogComponent, {
       header: "MODIFICAR LOS DATOS DE LA GESTANTE",
       width: "80%",
       height: "70%",
     });
     this.ref.onClose.subscribe((data: any) => {
-    this.mostrarPadronNominalGestantes();
+      this.mostrarPadronNominalGestantes();
     });
   }
-  
+
   semanaGestacional(date: string) {
     let today = new Date().getTime();
     let auxFUR = new Date(date).getTime();
     auxFUR = auxFUR + 0;
     let auxWeek = today - auxFUR;
     let edadGestacional = Math.trunc(auxWeek / (1000 * 60 * 60 * 24));
-    let semanas=Math.trunc(edadGestacional / 7);
+    let semanas = Math.trunc(edadGestacional / 7);
     return semanas;
   }
 
-mostrar(data:any []){
+  mostrar(data: any[]) {
     this.ref = this.dialog.open(PnDialogGestaComponent, {
       header: "HISTORIAL DE GESTAS",
       width: "80%",
@@ -116,18 +125,18 @@ mostrar(data:any []){
       //   "max-height": "93%",
       //   overflow: "auto",
       // },
-      data:data,
+      data: data,
     });
-}
+  }
 
-formatoFecha(date:string){
-  let fum: any =date.split("/");
-  let newDay: any = fum[0];
-  let newMonth: any =fum[1];
-  let newYear: any = fum[2];
+  formatoFecha(date: string) {
+    let fum: any = date.split("/");
+    let newDay: any = fum[0];
+    let newMonth: any = fum[1];
+    let newYear: any = fum[2];
 
-  let auxBirth = newYear + '/' + newMonth + '/' + newDay ;
-  return auxBirth;
-  // this.formGestante.get('fpp').setValue(this.datePipe.transform(auxBirth,'yyyy-MM-dd'));
-}
+    let auxBirth = newYear + "/" + newMonth + "/" + newDay;
+    return auxBirth;
+    // this.formGestante.get('fpp').setValue(this.datePipe.transform(auxBirth,'yyyy-MM-dd'));
+  }
 }
