@@ -364,7 +364,7 @@ export class PorIpressComponent implements OnInit {
   openDialogEcharts(dni:string) {
     this.ref = this.dialog.open(EchartsVisitaComponent, {
       header:
-        "Grafico de visitas realizadas por el profesional",
+        "GRAFICO VISITA DOMICILIARIA PROFESIONAL",
       width: "70%",
       height: "100%",
       contentStyle: {

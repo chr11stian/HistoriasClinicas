@@ -1,9 +1,11 @@
 
 <div class="border">
       <div class="card">
+        <label style="text-align: center;font-size: medium;">DATOS GENERALES DE LA GESTANTE</label>
+        <div class="border2 m-3">
           <form [formGroup]="formGestante">
               <div class="card">
-                  <label class="ml-3 my-4">DATOS GENERALES DE LA GESTANTE</label>
+                
                   <div class="formgrid grid mx-3">
                           <div class="col-12 md:col-2">
                               <label>Tipo Doc</label>
@@ -221,6 +223,8 @@
         class="p-button-danger mt-4"
         ></button>
     </div>
+    </div>
+   
     <div>
         <p-toast position="top-right" key="myMessage1"></p-toast>
         <p-toast position="top-right" key="myMessage2"></p-toast>

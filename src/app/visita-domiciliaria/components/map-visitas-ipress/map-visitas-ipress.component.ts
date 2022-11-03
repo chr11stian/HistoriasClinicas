@@ -32,7 +32,7 @@ export class MapVisitasIpressComponent implements OnInit,OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
     //Add '${implements OnChanges}' to the class.
-    if (changes.profesionalesIpress.currentValue != changes.profesionalesIpress.previousValue) {
+    if (changes.profesionalesIpress['rows'].currentValue != changes.profesionalesIpress['rows'].previousValue) {
       this.maps.remove();
       this.initMap();
     }
