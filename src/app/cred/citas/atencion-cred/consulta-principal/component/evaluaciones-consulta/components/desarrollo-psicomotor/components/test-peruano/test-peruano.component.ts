@@ -313,15 +313,17 @@ export class TestPeruanoComponent implements OnInit {
   { 
     let nroFallidos=0
     const arreglo=this.arregloFormRadio.value;
+    console.log('arrreglo',arreglo);
+    
     arreglo.forEach(element => {
-      if(element<this.edadMeses)
+      if( element==null || element<this.edadMeses)
         nroFallidos+=1
     });
     return nroFallidos==0?'Normal':nroFallidos==1?'Riesgo para el desarrollo':'Transtorno del Desarrollo'
     
   }
   save() {
-    if (!this.arregloFormRadio.valid) {
+    if (this.edadMeses!=1 && !this.arregloFormRadio.valid) {
       Swal.fire({
         icon: "info",
         title: "Test Peruano",
@@ -357,7 +359,7 @@ export class TestPeruanoComponent implements OnInit {
     };
     console.log(inputRequest);
     
-    
+    return
     Swal.fire({
       title: 'Esta seguro que desea guardar este registro?',
       showDenyButton: false,
