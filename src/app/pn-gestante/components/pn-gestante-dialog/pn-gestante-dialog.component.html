@@ -1,8 +1,9 @@
 <div class="border">
     <div class="card">
+        <label style="text-align: center;font-size: medium;">DATOS GENERALES DE LA GESTANTE</label>
+        <div class="border2 m-3">
         <form [formGroup]="formGestante">
             <div class="card">
-                <label class="ml-3 my-4">DATOS GENERALES DE LA GESTANTE</label>
                 <div class="formgrid grid mx-3">
                         <div class="col-12 md:col-2">
                             <label>Tipo Doc</label>
@@ -167,7 +168,7 @@
                                 disabled="true"
                                 [(ngModel)]="auxFPP"
                                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"> -->
-                                <input placeholder="Fecha de Registro" 
+                                <input placeholder="" 
                                 type="date" pInputText 
                                 formControlName='fpp' 
                                 [(ngModel)]="auxFPP"
@@ -189,7 +190,7 @@
                                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"/>
                     </div>
                 </div>
-                <div class="formgrid grid mx-3">
+                <div class="formgrid grid mx-3 ">
                         <div  class="col-12 md:col-2">
                             <label>Telefono:</label>
                             <input placeholder="Telefono" type="text" pInputText  class="inputTest"
@@ -217,41 +218,25 @@
                         </div>
                 </div>
             </div>
-              <!--<div class="card">
-                  <label class="ml-3 my-4">DATOS GENERALES DEL PERSONAL</label>
-                  <div class="formgrid grid mx-3">
-                      <div class="field col">
-                          <label>Nombres:</label>
-                          <input placeholder="nombres" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-                      </div>
-                      <div class="field col">
-                          <label>Apellido paterno:</label>
-                          <input placeholder="apellido paterno" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-                      </div>
-                      <div class="field col">
-                          <label>Apellido materno:</label>
-                          <input placeholder="apellido materno" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-                      </div>
-              </div>
-              </div>-->
         </form>
-    </div>
-    <div class="footer">
-        <button
-        pButton
-        type="button"
-        (click)="updateOEdith()"
-        label="Guardar"
-        [(disabled)]="estadoGuardar"
-        class="p-button-primary mt-4 mr-3"
-        ></button>
-        <button
-        pButton
-        type="button"
-        (click)="closeDialog()"
-        label="Cancelar"
-        class="p-button-danger mt-4"
-        ></button>
+        </div>
+        <div class="footer ">
+            <button
+            pButton
+            type="button"
+            (click)="updateOEdith()"
+            label="Guardar"
+            [(disabled)]="estadoGuardar"
+            class="p-button-primary mt-4 mr-3"
+            ></button>
+            <button
+            pButton
+            type="button"
+            (click)="closeDialog()"
+            label="Cancelar"
+            class="p-button-danger mt-4"
+            ></button>
+        </div>
     </div>
     <div>
     <p-toast position="top-right" key="myMessage1"></p-toast>

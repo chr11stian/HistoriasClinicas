@@ -404,7 +404,7 @@ export class PersonalSaludComponent implements OnInit {
         let objectAdmin = {
             tipoDoc: "DNI",
             nroDoc: this.form.value.nroDoc,
-            apps: ["hce"],
+            apps: ["hce","app-visita"],
             escalas: [
                 {
                     escala: "IPRESS",

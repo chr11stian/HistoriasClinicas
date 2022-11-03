@@ -1,9 +1,10 @@
 <!-- <app-pn-gestante-picklist> -->
       <div class="border">
             <div class="card">
+            <div class="border2 m-3">
                 <form [formGroup]="formGestante">
                     <div class="card">
-                        <label class="ml-3 my-4">DATOS GENERALES DE LA GESTANTE</label>
+                        <label style="font-size: medium;text-align: center;">DATOS GENERALES DE LA GESTANTE</label>
                         <div class="formgrid grid mx-3">
                               <div class="col-12 md:col-2">
                                     <label>Tipo Doc</label>
@@ -41,7 +42,7 @@
                                     formControlName="formApeMaterno" oninput="this.value=this.value.toUpperCase()"/>
                               </div>
                         </div>
-                        <label class="ml-3 my-4">CAMBIO DE ESTABLECIMIENTO: ESTABLECIMIENTO ANTERIOR-ESTABLECIMIENTO ACTUAL</label>
+                        <label style="font-size: medium;text-align: center;">CAMBIO DE ESTABLECIMIENTO: ESTABLECIMIENTO ANTERIOR-ESTABLECIMIENTO ACTUAL</label>
                         <div class="formgrid grid mx-3">
                               <div class="field col" >
                               <label>Cod. EE.SS Anterior:</label>
@@ -83,10 +84,10 @@
                         </div>
                   </div>
             </form>
-            </div>
-      <div class="footer">
+           </div>
+           <div class="footer">
             <button
-             pButton
+            pButton
             type="button"
             (click)="saveForm()"
             label="Gambiar EESS"
@@ -100,4 +101,4 @@
             class="p-button-danger mt-4"
             ></button>
       </div>
-        
+</div>

@@ -65,7 +65,11 @@ export class PnGestanteService {
             {
                 keys: [`${cod_ipress}`],
             }
-        );
+        ).toPromise()
+        .then((res) => <any[]>res)
+        .then((data) => {
+        return data;
+        });
     }
 
     addGestante(pn_gestante: GestanteModel) {
@@ -88,7 +92,11 @@ export class PnGestanteService {
         //implementar una vista para traer gestante del padron gestantes_dni
         return this.http.post<any[]>(`${this.base_url_view}/gestantes-dni`, {
             keys: [`${dni}`],
-        });
+        }).toPromise()
+        .then((res) => <any[]>res)
+        .then((data) => {
+        return data;
+        }).catch(error => { return [] });
     }
 
     cambioEESS(
@@ -115,13 +123,13 @@ export class PnGestanteService {
             {
                 nroGesta: {
                     nroGesta: nuevo_nroGesta["nroGesta"],
-                    fur: nuevo_nroGesta["fur"],
-                    fpp: nuevo_nroGesta["fpp"],
+                    fur:nuevo_fur,
+                    fpp:nuevo_fpp,
                     codEessActual: nuevo_nroGesta["codEessActual"],
                     eessActual: nuevo_nroGesta["eessActual"],
                     morbilidadPotencial:nuevo_nroGesta["morbilidadPotencial"],
                     observaciones:nuevo_nroGesta["observaciones"],
-                    aborto:nuevo_nroGesta["aborto"],
+                    aborto:false,
                     estado: ""
 
                 },
