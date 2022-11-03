@@ -34,6 +34,7 @@ export class PautaBreveComponent implements OnInit {
   mesesTotal: number = 0;
   dataExaminador: any;
   dataConsulta: DatosConsulta;
+  observaciones: string;
 
   constructor(
     private testService: EvalAlimenService,
@@ -103,17 +104,28 @@ export class PautaBreveComponent implements OnInit {
         mesEdad: this.edadNroSelected,
         diagnostico: rpta == 'DEFICIT' ? 'NORMAL' : rpta,
         docExaminador: "89685545",
-        listaItemPB: ansMonth
+        listaItemPB: ansMonth,
+        observacion: this.observaciones
       }
     }
     console.log('data to save ', this.dataPB);
     this.pautaBreveService.postAgregarPB(this.idConsulta, this.dataPB).subscribe((res: any) => {
-      Swal.fire({
-        icon: 'success',
-        title: 'Se Guardo la Pauta Breve Correctamente',
-        showConfirmButton: false,
-        timer: 1500
-      })
+      if (res.cod == "2121") {
+        Swal.fire({
+          icon: 'success',
+          title: 'Se Guardo la Pauta Breve Correctamente',
+          showConfirmButton: false,
+          timer: 2000
+        });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'No se pudo guardar pauta breve',
+          showConfirmButton: false,
+          timer: 2000
+        });
+      }
+      
     });
   }
 
