@@ -36,14 +36,13 @@
                                 type="text"
                                 pInputText
                                 formControlName="buscar"
-                                placeholder="laboratorio"
+                                placeholder="cod prestación o descripción"
                                 class="p-fluid inputfield w-full"
+                                oninput="this.value=this.value.toUpperCase()"
+                                onClick="this.select()"
                             />
                         </div>
-                        <div
-                            class="col-1"
-                            style="display: flex; align-items: botton"
-                        >
+                        <div class="col-1 flex align-items-end">
                             <button
                                 type="button"
                                 pButton

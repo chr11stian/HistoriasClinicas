@@ -946,6 +946,21 @@ export class ModalCupos2Component implements OnInit {
             this.pacienteService.getPidePatientData(nroDoc).then((res: any) => {
                 if (res.error == "4009") {
                     console.log('no se econtro el paciente');
+                    Swal.fire({
+                        title: 'No se encontro a ese paciente',
+                        text: '¿Desea registrarlo?',
+                        showDenyButton: true,
+                        confirmButtonText: 'Nuevo Registro',
+                        denyButtonText: `Cancelar`,
+                      }).then((result) => {
+                        /* Read more about isConfirmed, isDenied below */
+                        if (result.isConfirmed) {
+                            this.buscarNuevoPaciente(this.patientData);
+                        } else if (result.isDenied) {
+                          
+                        }
+                      })
+                    
                     return;
                 }
                 this.patientData = res;
