@@ -14,6 +14,7 @@ export class AntecendentesComponent implements OnInit {
     familiares:false,
     vivienda:false,
   }
+  PanelFamiliarActive=false
   ngOnInit(): void {
   }
   guardarDatosGenerales(){

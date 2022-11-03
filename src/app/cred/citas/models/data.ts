@@ -56,7 +56,7 @@ export interface motivoConsultaInterface {
     signosVitales: SignosVitales;
     obsSignosVitales: string;
     examenesFisicos: ExamenesFisico[];
-    examenNeurologico: ExamenesFisico[];
+    // examenNeurologico: ExamenesFisico[];
     obsExamenFisico: string;
     obsExamenNeurologico: string;
 }
@@ -166,6 +166,9 @@ export interface Nacimiento {
     especifique: string;
     hospitalizacion: boolean;
     tiempoHospitalizacion: number;
+    tieneAnemia:boolean,
+    fechaAnemia:Date,
+
 }
 
 export interface Parto {

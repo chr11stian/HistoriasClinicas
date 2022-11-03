@@ -30,13 +30,13 @@
                     pInputText
                     formControlName="nroDoc"
                     placeholder="Nro documento"
-                    (blur)="pacienteByNroDoc()"
+                    (blur)="recoverPatientData()"
                     class="inputTest"
                   />
                   <p-button
                     span=""
                     icon="pi pi-search"
-                    (click)="pacienteByNroDoc()"
+                    (click)="recoverPatientData()"
                   ></p-button>
                 </div>
                 <small class="p-error" *ngIf="isInvalid('nroDoc')">
@@ -348,7 +348,7 @@
             <div class="col-12 md:col-6 lg:col-12 p-field">
               <label class="font-bold">ESTADO PAGO:</label>
               <p>
-                {{ detallePago }}
+                {{ detalleDePago }}
               </p>
             </div>
           </div>

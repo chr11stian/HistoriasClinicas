@@ -139,7 +139,7 @@
 <!-- Procedimiento - -->
 
 <div class="grid">
-    <div class="col-6">
+    <div class="col-6 col-offset-3">
         <p-panel header="FUA" class="procedure-panel">
             <form [formGroup]="fuaForm">
                 <div class=" grid">
@@ -150,14 +150,7 @@
                             appendTo="body" class="inputfield p-fluid w-full" (onChange)="onChangePrestacion()">
                         </p-dropdown>
                     </div>
-                    <div class="col-3 p-fluid">
-                        <label>Tipo Diagnóstico:</label>
-                        <p-dropdown inputId="dropdown" [options]="arrayDiagnosticType"
-                            formControlName="tipoDiagnosticoSIS" placeholder="Seleccionar" optionLabel="label"
-                            optionValue="value" defaultLabel="Seleccione:" appendTo="body"
-                            class="inputfield p-fluid w-full">
-                        </p-dropdown>
-                    </div>
+                    
                     <div class="col-9 p-fluid">
                         <label>Procedimientos SIS</label>
                         <p-dropdown [options]="listProcedures" formControlName="buscarPDxSIS"
@@ -176,14 +169,23 @@
                             optionLabel="codigo" class="inputfield p-fluid w-full" placeholder="Seleccione"
                             (onChange)="selectedOption($event)"></p-dropdown>
                     </div>
+                    
+                    <div class="col-12 p-fluid">
+                        <textarea style="text-transform:uppercase" rows="3" cols="30" pInputTextarea
+                            formControlName="procedimientoSIS" autoResize="autoResize"></textarea>
+                    </div>
+                    <div class="col-3 p-fluid">
+                        <label>Tipo Diagnóstico:</label>
+                        <p-dropdown inputId="dropdown" [options]="arrayDiagnosticType"
+                            formControlName="tipoDiagnosticoSIS" placeholder="Seleccionar" optionLabel="label"
+                            optionValue="value" defaultLabel="Seleccione:" appendTo="body"
+                            class="inputfield p-fluid w-full">
+                        </p-dropdown>
+                    </div>
                     <div class="col-3">
                         <button pButton pRipple icon="pi pi-plus" pButton type="button"
                             class="p-button-rounded button-agregar" label="Agregar"
                             (click)="agregateProcedureSIS()"></button>
-                    </div>
-                    <div class="col-12 p-fluid">
-                        <textarea style="text-transform:uppercase" rows="3" cols="30" pInputTextarea
-                            formControlName="procedimientoSIS" autoResize="autoResize"></textarea>
                     </div>
                 </div>
             </form>
@@ -215,7 +217,7 @@
         </p-panel>
     </div>
     <div class="col-6">
-        <p-panel header="HIS" class="procedure-panel">
+        <!-- <p-panel header="HIS" class="procedure-panel">
             <form [formGroup]="hisForm">
                 <div class="grid">
                     <div class="col-4 p-fluid">
@@ -303,10 +305,12 @@
                     </tr>
                 </ng-template>
             </p-table>
-        </p-panel>
+        </p-panel> -->
     </div>
     <div class="col-12">
-        <button pButton pRipple icon="pi pi-save" pButton type="button" style="background-color: #0c3866"
+        <div class="col-6 col-offset-3">
+            <button pButton pRipple icon="pi pi-save" pButton type="button" style="background-color: #0c3866"
             label="Guardar" class="save-button p-button-rounded" (click)="confirmSave()"></button>
+        </div>
     </div>
 </div>

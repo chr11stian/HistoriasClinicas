@@ -67,7 +67,7 @@
                               >
                               </p-dropdown>
                       </div>
-                      <div class="col-12 md:col-2">
+                      <div class="col-12 md:col-1">
                           <label>NroGesta:</label>
                           <input placeholder="Nro gesta" 
                                  type="number" pInputText  class="inputTest"
@@ -75,16 +75,21 @@
                                   disabled="true" 
                                   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"/>
                       </div>
-                      <div class="col-12 md:col-4" >
+                      <div class="col-12 md:col-3" >
                           <label>Nombres:</label>
                           <input placeholder="Nombres" type="text" pInputText  class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                           formControlName="formNombresGestante" oninput="this.value=this.value.toUpperCase()"/>
                       </div>
-                      <div class="col-12 md:col-4">
-                          <label>Apellidos:</label>
-                          <input placeholder="Apellidos" type="text" pInputText class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-                          formControlName="formApellidos" oninput="this.value=this.value.toUpperCase()"/>
-                      </div>
+                      <div class="col-12 md:col-3">
+                        <label>Apellido paterno:</label>
+                        <input placeholder="Apellido paterno" type="text" pInputText class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                        formControlName="formApePaterno" oninput="this.value=this.value.toUpperCase()"/>
+                    </div>
+                    <div class="col-12 md:col-3">
+                        <label>Apellido materno:</label>
+                        <input placeholder="Apellido materno" type="text" pInputText class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                        formControlName="formApeMaterno" oninput="this.value=this.value.toUpperCase()"/>
+                    </div>
               </div>
                   <div class="formgrid grid mx-3">
                       <div class="field col" >
@@ -199,23 +204,6 @@
                           </div>
                   </div>
               </div>
-                <!--<div class="card">
-                    <label class="ml-3 my-4">DATOS GENERALES DEL PERSONAL</label>
-                    <div class="formgrid grid mx-3">
-                        <div class="field col">
-                            <label>Nombres:</label>
-                            <input placeholder="nombres" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-                        </div>
-                        <div class="field col">
-                            <label>Apellido paterno:</label>
-                            <input placeholder="apellido paterno" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-                        </div>
-                        <div class="field col">
-                            <label>Apellido materno:</label>
-                            <input placeholder="apellido materno" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-                        </div>
-                </div>
-                </div>-->
         </form>
     </div>
     <div class="footer">
@@ -238,4 +226,3 @@
     <div>
         <p-toast position="top-right" key="myMessage1"></p-toast>
     </div>
-  

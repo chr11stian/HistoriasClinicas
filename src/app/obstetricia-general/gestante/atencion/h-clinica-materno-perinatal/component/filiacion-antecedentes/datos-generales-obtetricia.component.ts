@@ -125,12 +125,10 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
             this.idRecuperado = this.Gestacion.id;
         }
 
-
         this.opciones = [
             {booleano: true, name: "SI"},
             {booleano: false, name: "NO"}
         ];
-
 
         this.studies = [
             {name: 'Analfabeta'},
@@ -145,7 +143,6 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
             {name: 'Casado', code: 'N'},
             {name: 'Combiviente', code: 'N'},
         ];
-
 
         this.familiares = [
             {nombrefamiliar: 'Padre'},
@@ -827,7 +824,6 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
                 this.DetalleParto3,
                 this.DetalleParto4,
             ]
-
         }
         console.log("DATA ANTECEDENTES", req)
         this.filiancionService.UpdateAntecedentesFiliacion(this.tipoDocRecuperado, this.nroDocRecuperado, req).subscribe(

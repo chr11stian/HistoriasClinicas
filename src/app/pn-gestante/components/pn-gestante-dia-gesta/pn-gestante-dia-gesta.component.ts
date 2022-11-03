@@ -42,12 +42,12 @@ export class PnGestanteDiaGestaComponent implements OnInit {
     { value: "GESTANTE ADOLESCENTE" },
     { value: "PRIMIGISTA AÑOSA" },
     { value: "MULTIGESTA Y/O MULTIPARA" },
-    { value: "Gestantes con captación tardia" },
-    { value: "Gestante con rechazo al servicio de salud" },
-    { value: "Gestante traseunte" },
-    { value: "Gestante con TBC" },
-    { value: "Gestante con VIH/SIDA" },
-    { value: "Otra causa" },
+    { value: "GESTANTES CON CAPTACIÓN TARDIA" },
+    { value: "GESTANTE CON RECHAZO AL SERVICIO DE SALUD" },
+    { value: "GESTANTE TRASEUNTE" },
+    { value: "GESTANTE CON TBC" },
+    { value: "GESTANTE CON VIH/SIDA" },
+    { value: "OTRA CAUSA" },
   ];
 
   listaDocumentos: any[] = [{ value: "DNI" }];
@@ -64,30 +64,29 @@ export class PnGestanteDiaGestaComponent implements OnInit {
   }
   inicializarForm() {
     this.formGestante = this.fb.group({
-      formTipoDoc: new FormControl(""),
+      formTipoDoc: new FormControl({value: '', disabled: true}),
       formNroDocGestante: new FormControl(""),
-      formTieneSis: new FormControl(""),
-      formFechaNacimiento: new FormControl(""),
-      formEdad: new FormControl(""),
-      formAborto: new FormControl(""),
-      formGesta: new FormControl(0),
-      formNombresGestante: new FormControl(""),
-      formApellidos: new FormControl(""),
-      formCod_eess_anterior: new FormControl(""),
-      form_eess_anterior: new FormControl(""),
-      formCod_eess_actual: new FormControl(""),
-      form_eess_actual: new FormControl(""),
-      formHCL: new FormControl(""),
-      formFechaRegistro: new FormControl(
-        this.datePipe.transform(this.auxFechaRegistro, "yyyy-MM-dd")
-      ),
+      formTieneSis: new FormControl({value: '', disabled: true}),
+      formFechaNacimiento: new FormControl({value: '', disabled: true}),
+      formEdad: new FormControl({value: '', disabled: true}),
+      formAborto: new FormControl({value: '', disabled: true}),
+      formGesta: new FormControl({value: '', disabled: true}),
+      formNombresGestante: new FormControl({value: '', disabled: true}),
+      formApePaterno: new FormControl({value: '', disabled: true}),
+      formApeMaterno: new FormControl({value: '', disabled: true}),
+      formCod_eess_anterior: new FormControl({value: '', disabled: true}),
+      form_eess_anterior: new FormControl({value: '', disabled: true}),
+      formCod_eess_actual: new FormControl({value: '', disabled: true}),
+      form_eess_actual: new FormControl({value: '', disabled: true}),
+      formHCL: new FormControl({value: '', disabled: true}),
+      formFechaRegistro: new FormControl({value: '', disabled: true}),
       formFur: new FormControl(""),
-      formFpp: new FormControl(""),
-      formDireccion: new FormControl(""),
-      formReferencia: new FormControl(""),
-      formTelefono: new FormControl(""),
-      formMorbilidadPotencial: new FormControl(""),
-      formObservaciones: new FormControl(""),
+      formFpp: new FormControl({value: '', disabled: true}),
+      formDireccion: new FormControl({value: '', disabled: true}),
+      formReferencia: new FormControl({value: '', disabled: true}),
+      formTelefono: new FormControl({value: '', disabled: true}),
+      formMorbilidadPotencial: new FormControl({value: '', disabled: true}),
+      formObservaciones: new FormControl({value: '', disabled: true}),
     });
   }
   mostrarPadronNominalGestantes() {
@@ -97,7 +96,6 @@ export class PnGestanteDiaGestaComponent implements OnInit {
       .mostrarPadronGestantes(cod_ipress)
       .subscribe((res: any) => {
         this.listaGestantes = res["rows"];
-        console.log("lista de gestantes", this.listaGestantes);
       });
   }
 
@@ -115,9 +113,6 @@ export class PnGestanteDiaGestaComponent implements OnInit {
     let id= this.dataGestante._id;
     let updatedFur=this.datePipe.transform(this.formGestante.value.formFur,'dd/MM/yyyy');
     let updateFpp=this.datePipe.transform(this.formGestante.value.formFpp,'dd/MM/yyyy');
-    console.log('valor de la nueva gesta',this.nuevaGesta);
-    console.log('fur actual',updatedFur);
-    console.log('fpp actual',updateFpp);
     this.pn_gestanteServicio
       .actualizarNumeroGesta(id,this.nuevaGesta,updatedFur,updateFpp)
       .subscribe((res: any) => {
@@ -162,7 +157,6 @@ export class PnGestanteDiaGestaComponent implements OnInit {
     let nroDoc = this.formGestante.value.formNroDocGestante;
     if(nroDoc.length>=8){
       this.pn_gestanteServicio.getGestanteDniIpress(this.pn_gestanteServicio.getauxCodeessActual(),nroDoc).subscribe((data: any) => {
-        console.log("DATA RECUPERADA :", data);
         this.dataGestante = data.rows[0].value;
         if(this.dataGestante===undefined){
             this.messageService.add({
@@ -172,7 +166,6 @@ export class PnGestanteDiaGestaComponent implements OnInit {
               detail: "Gestante no registrado en el padron",
             });
         }if(this.dataGestante!=undefined){
-          console.log("dataaaaaa ", this.dataGestante);
           this.formGestante
             .get("formTipoDoc")
             .setValue(this.dataGestante.tipoDocIdentidad);
@@ -196,8 +189,11 @@ export class PnGestanteDiaGestaComponent implements OnInit {
             .get("formNombresGestante")
             .setValue(this.dataGestante.nombres);
           this.formGestante
-            .get("formApellidos")
-            .setValue(this.dataGestante.apellidos);
+            .get("formApePaterno")
+            .setValue(this.dataGestante.apePaterno);
+            this.formGestante
+            .get("formApeMaterno")
+            .setValue(this.dataGestante.apeMaterno);
           this.formGestante
             .get("formCod_eess_anterior")
             .setValue(this.dataGestante.codEessAnterior);
@@ -247,7 +243,6 @@ export class PnGestanteDiaGestaComponent implements OnInit {
           this.formGestante
             .get("formAborto")
             .setValue(this.dataGestante.aborto==true?"SI":"NO");
-            console.log(this.FechaActual)
           if (this.semanaGestacional(this.formatoFecha(this.dataGestante.fur))>40 || this.dataGestante.aborto==true || this.dataGestante.fpp>this.FechaActual) {
             this.agregarNuevaGesta = false;
             this.messageService.add({
@@ -270,7 +265,6 @@ export class PnGestanteDiaGestaComponent implements OnInit {
         }
       },(err) => {
         this.dataGestante = {};
-        console.log("Ups algo salio mal",this.dataGestante);
       }
     );
     }
@@ -292,7 +286,6 @@ export class PnGestanteDiaGestaComponent implements OnInit {
 
   calcularFPP(){
     let fum: any = new DatePipe('en-CO').transform(this.auxFUR,'yyyy/MM/dd').split("/");
-    console.log(this.auxFUR);
     let newDay: any = parseInt(fum[2]) + 7;
     let newMonth: any = parseInt(fum[1]) - 3;
     let newYear: any = parseInt(fum[0]);
@@ -327,7 +320,6 @@ export class PnGestanteDiaGestaComponent implements OnInit {
     fum = new Date(fum);
     fum.setMonth(fum.getMonth() + 9);
     fum.setDate(fum.getDate() + 7);
-    console.log(fum);
     this.formGestante.get('formFpp').setValue(this.datePipe.transform(auxBirth,'yyyy-MM-dd'));
   
   }
@@ -350,7 +342,6 @@ export class PnGestanteDiaGestaComponent implements OnInit {
       .subscribe((res: any) => {
         this.closeDialog();
         if(res['ok']==true){
-          console.log("se actualizo correctamente", res);
           Swal.fire({
             icon: "success",
             title: "Se actualizo los datos correctamente",
@@ -359,7 +350,6 @@ export class PnGestanteDiaGestaComponent implements OnInit {
           });
         this.mostrarPadronNominalGestantes();
         }else{
-          console.log("se actualizo correctamente", res);
           Swal.fire({
             icon: "error",
             title: "No se pudo actualizar los datos correctamente",
@@ -373,7 +363,6 @@ export class PnGestanteDiaGestaComponent implements OnInit {
 
   formatoFecha(date:string){
     let fum: any =date.split("/");
-    console.log(fum);
     let newDay: any = fum[0];
     let newMonth: any =fum[1];
     let newYear: any = fum[2];

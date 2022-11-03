@@ -1,6 +1,6 @@
-import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {environment} from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -23,5 +23,8 @@ export class DatosBasalesService {
 
     postDatosBasalesById(idGestacion: string, data) {
         return this.http.post(`${this.base_url}/${this.bd}/filiacion/guardarembarazo/${idGestacion}`, data)
+    }
+    getFactorDeCorreccion(idIpress: string) {
+        return this.http.get(`${this.base_url}/${this.bd}/ajusteHemoglobina/buscar/${idIpress}`)
     }
 }

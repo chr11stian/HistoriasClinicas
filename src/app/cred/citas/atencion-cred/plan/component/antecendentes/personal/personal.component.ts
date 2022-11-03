@@ -14,6 +14,7 @@ import {DatePipe} from "@angular/common";
 })
 export class PersonalComponent implements OnInit {
     @Output() onPersonal:EventEmitter<boolean>=new EventEmitter<boolean>();
+    @Output() onAntecedentesPersonales:EventEmitter<boolean>=new EventEmitter<boolean>();
     @Input() isEditable:boolean
     //aparte
     @Output() personalEmit: EventEmitter<AntecedentesPersonalesFormType> = new EventEmitter<AntecedentesPersonalesFormType>();
@@ -135,6 +136,8 @@ export class PersonalComponent implements OnInit {
             tallaN: [''],
             perimetroCefaN: [''],
             perimetroTorN: [''],
+            tieneAnemia: new FormControl('',Validators.required),
+            fechaAnemia: new FormControl(null,Validators.required),
             inmediatoN: [false],
             apgar1m: [''],
             apgar5m: [''],
@@ -196,6 +199,7 @@ export class PersonalComponent implements OnInit {
         this.antecedentesService.getAntecedentesPersonales(this.nroDoc).subscribe((r: any) => {
             this.antecedentes = r.object;
             if (this.antecedentes != null) {
+                this.onAntecedentesPersonales.emit(true)
                 this.isUpdateAntecedentePersonal=true
                 this.personalFG.get('normalE').setValue(this.antecedentes.embarazo.tipoEmbarazo)
                 this.patologias = this.antecedentes.embarazo.listaPatologiasGestacion
@@ -229,6 +233,8 @@ export class PersonalComponent implements OnInit {
                 this.personalFG.get('tallaN').setValue(this.antecedentes.nacimiento.tallaAlNacer)
                 this.personalFG.get('perimetroCefaN').setValue(this.antecedentes.nacimiento.perimetroCefalico)
                 this.personalFG.get('perimetroTorN').setValue(this.antecedentes.nacimiento.perimetroToracico)
+                this.personalFG.get('tieneAnemia').setValue(this.antecedentes.nacimiento.tieneAnemia)
+                this.personalFG.get('fechaAnemia').setValue(this.antecedentes.nacimiento.fechaAnemia)
                 this.personalFG.get('inmediatoN').setValue(this.antecedentes.nacimiento.respiracionLlantoNacerInmediato)
                 this.personalFG.get('apgar1m').setValue(this.antecedentes.nacimiento.apgar1)
                 this.personalFG.get('apgar5m').setValue(this.antecedentes.nacimiento.apgar5)
@@ -267,11 +273,14 @@ export class PersonalComponent implements OnInit {
 
     ngOnInit(): void {
         this.getQueryParams()
-        this.recuperarDatos();
+        this.recuperarDatos();      
         console.log('isEditable',this.isEditable);
         
         if(!this.isEditable){
             this.getFC('edadN').disable()
+            this.getFC('tieneAnemia').disable()
+            this.getFC('fechaAnemia').disable()
+        
         }
     }
 
@@ -336,7 +345,7 @@ export class PersonalComponent implements OnInit {
                 atendidoPorOtro: this.getFC('otroDetalleP').value
             },
             nacimiento: {
-                edadGestacionalAlNacer: this.getFC('edadN').value,
+                edadGestacionalAlNacer: this.getFC('edadN').value, /* obligatorio */
                 pesoAlNacer: this.getFC('pesoN').value,
                 tallaAlNacer: this.getFC('tallaN').value,
                 perimetroCefalico: this.getFC('perimetroCefaN').value,
@@ -348,14 +357,19 @@ export class PersonalComponent implements OnInit {
                 patologiaNeonatal: this.getFC('patologiaNeoN').value,
                 especifique: this.getFC('detallePatologiaN').value,
                 hospitalizacion: this.getFC('hospitalizacionN').value,
-                tiempoHospitalizacion: this.getFC('tiempoHospN').value
-            },
+                tiempoHospitalizacion: this.getFC('tiempoHospN').value,
+                tieneAnemia:this.getFC('tieneAnemia').value, /* obligatorio */
+                fechaAnemia:this.getFC('fechaAnemia').value,   /* obligatorio */
+        
+            }, 
             alimentacion: {
                 alimentacion: this.getFC('lmeA').value ? 1 : (this.getFC('mixtaA').value ? 2 : 3),
                 inicioAlimentacionComplementaria: this.datePipe.transform(this.getFC('iniAlimentacionC').value, 'yyyy-MM-dd'),
                 suplementoFe: this.getFC('suplementoFe').value
             },
         }
+        console.log('inputRequest',aux);
+        // return
         if(!this.isUpdateAntecedentePersonal){
             this.antecedentesService.addAntecedentesPersonales(this.nroDoc, aux).toPromise().then(
                 (resp:any) => {
@@ -368,7 +382,8 @@ export class PersonalComponent implements OnInit {
                             showConfirmButton: false,
                             timer: 1500,
                         })
-                    this.onPersonal.emit(true)
+                        this.onAntecedentesPersonales.emit(true)
+                        this.onPersonal.emit(true)
                 }
                 else{
                     Swal.fire({

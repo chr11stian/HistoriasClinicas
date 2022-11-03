@@ -6,13 +6,23 @@
         </ng-template>
 
         <ng-template pTemplate="right" class="button">
+            <div [hidden]="!root">
+                <button
+                    pButton
+                    pRipple
+                    label="Designar"
+                    icon="pi pi-plus"
+                    class="p-button-success p-mr-2"
+                    (click)="openNew(true)"
+                ></button>
+            </div>
             <button
                 pButton
                 pRipple
                 label="Nuevo"
                 icon="pi pi-plus"
                 class="p-button-danger p-mr-2"
-                (click)="openNew()"
+                (click)="openNew(false)"
             ></button>
             <button
                 pButton
@@ -62,12 +72,12 @@
                 <!-- <th style="text-align: center">Colegiatura</th> -->
                 <th *ngIf="!root" style="text-align: center">Tipo Contrato</th>
                 <!-- <th style="text-align: center">EESS</th> -->
-                <th *ngIf="!root" style="text-align: center">Estado</th>
+                <th style="text-align: center">Estado</th>
                 <th *ngIf="!root" style="text-align: center">Especialidad</th>
                 <th *ngIf="!root" style="text-align: center">Rol</th>
                 <th *ngIf="!root" style="text-align: center">Rol Sistema</th>
-                <th *ngIf="!root" style="text-align: center; width: 120px">Acción</th>
                 <th *ngIf="root" style="text-align: center">Ipress</th>
+                <th style="text-align: center; width: 120px">Acción</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
@@ -109,16 +119,16 @@
                     {{ rowData.contratoAbreviatura.toUpperCase() }}
                 </td>
                 <!-- <td style="text-align: center">{{ rowData.detalleIpress ? rowData.detalleIpress[0].eess : "" }}</td> -->
-                <td *ngIf="!root" style="text-align: center">
+                <td style="text-align: center">
                     <p-tag
-                        *ngIf="!rowData.estado"
+                        *ngIf="!rowData.deleted"
                         styleClass="p-mr-2"
                         severity="success"
                         value="Activo"
                         [rounded]="true"
                     ></p-tag>
                     <p-tag
-                        *ngIf="rowData.estado"
+                        *ngIf="rowData.deleted"
                         styleClass="p-mr-2"
                         severity="danger"
                         value="Inactivo"
@@ -154,7 +164,10 @@
                         (click)="newRolSistema(rowData)"
                     ></button>
                 </td>
-                <td *ngIf="!root" style="text-align: center">
+                <td *ngIf="root" style="text-align: center">
+                    {{ rowData.detalleIpress[0].eess.toUpperCase() }}
+                </td>
+                <td style="text-align: center">
                     <button
                         pButton
                         pRipple
@@ -171,9 +184,6 @@
                         icon="pi pi-trash"
                         class="p-button-rounded p-button-danger m-1"
                     ></button>
-                </td>
-                <td *ngIf="root" style="text-align: center">
-                    {{ rowData.detalleIpress[0].eess.toUpperCase() }}
                 </td>
             </tr>
         </ng-template>
@@ -308,7 +318,6 @@
                             <label>Sexo:</label>
                             <p-dropdown
                                 *ngIf="!isUpdate"
-                                [showTransitionOptions]="'300ms'"
                                 [options]="sexoList"
                                 formControlName="sexo"
                                 placeholder="Sexo"
@@ -407,15 +416,14 @@
                         *ngIf="!isUpdate"
                         placeholder="Colegio Profesional"
                         class="inputRedondo"
-                        [showTransitionOptions]="'300ms'"
                         dropdownIcon="pi pi-chevron-down"
                         inputId="dropdown"
-                        scrollHeight="100px"
                         [options]="colegiosList"
                         formControlName="colegioProfesional"
                         optionLabel="nombre"
                         optionValue="codigo"
                         id="despecid"
+                        appendTo="body"
                         required
                     >
                     </p-dropdown>
@@ -452,7 +460,6 @@
                         *ngIf="!isUpdate"
                         placeholder="Tipo de Personal"
                         class="inputRedondo"
-                        [showTransitionOptions]="'300ms'"
                         dropdownIcon="pi pi-chevron-down"
                         inputId="dropdown"
                         [options]="tiposPersonalList"
@@ -460,7 +467,7 @@
                         optionLabel="nombre"
                         optionValue="nombre"
                         id="tipoid"
-                        scrollHeight="100px"
+                        appendTo="body"
                         required
                     >
                     </p-dropdown>
@@ -487,7 +494,6 @@
                     <p-dropdown
                         *ngIf="!isUpdate"
                         class="inputRedondo"
-                        [showTransitionOptions]="'300ms'"
                         dropdownIcon="pi pi-chevron-down"
                         inputId="dropdown"
                         [options]="tiposContratoList"
@@ -496,7 +502,7 @@
                         placeholder="Tipo de Contrato"
                         optionValue="abreviatura"
                         id="tipoid"
-                        scrollHeight="80px"
+                        appendTo="body"
                         required
                     >
                     </p-dropdown>

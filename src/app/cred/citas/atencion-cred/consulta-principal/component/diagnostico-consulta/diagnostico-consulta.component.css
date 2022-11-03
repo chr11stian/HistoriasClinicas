@@ -185,3 +185,7 @@ p-speeddial>>>.p-button.p-button-icon-only.p-button-rounded {
     border-radius: 5px;
     font-size: small;
 }
+
+::ng-deep .table-over .p-datatable .p-datatable-tbody > tr > td{
+    padding: 0.2rem 0.6rem;
+}
