@@ -1,14 +1,15 @@
-import {Component, OnInit, Output, EventEmitter, Input} from "@angular/core"
+import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core"
 import {
     AbstractControl,
     FormControl,
     FormGroup,
     Validators,
 } from "@angular/forms"
-import {DatosGeneralesService} from "../../services/datos-generales/datos-generales.service";
+import { DatosGeneralesService } from "../../services/datos-generales/datos-generales.service";
 import Swal from "sweetalert2";
-import {ActivatedRoute, Router} from "@angular/router";
-import {dato} from "../../../../models/data";
+import { ActivatedRoute, Router } from "@angular/router";
+import { dato } from "../../../../models/data";
+import { PacienteService } from "src/app/core/services/paciente/paciente.service";
 
 @Component({
     selector: "app-datos-generales",
@@ -16,8 +17,8 @@ import {dato} from "../../../../models/data";
     styleUrls: ["./datos-generales.component.css"],
 })
 export class DatosGeneralesComponent implements OnInit {
-    @Input() isFirstConsulta=false
-    @Output() onChangeIndice:EventEmitter<number>=new EventEmitter<number>();
+    @Input() isFirstConsulta = false
+    @Output() onChangeIndice: EventEmitter<number> = new EventEmitter<number>();
 
     form: FormGroup
     data: dato
@@ -26,7 +27,7 @@ export class DatosGeneralesComponent implements OnInit {
     generoOptions: any[]
     stateOptions1: any[]
     stateOptions2: any[]
-    listaEstadoCivil:any[]
+    listaEstadoCivil: any[]
 
     generalInfoFG: FormGroup
     apoderadoInfoFG: FormGroup
@@ -50,8 +51,12 @@ export class DatosGeneralesComponent implements OnInit {
         this.getGeneralInfoFC(formControl).setValue(value)
     }
 
-    constructor(private DatosGeneralesService: DatosGeneralesService, private route: ActivatedRoute,
-                private router: Router) {
+    constructor(
+        private DatosGeneralesService: DatosGeneralesService,
+        private route: ActivatedRoute,
+        private router: Router,
+        private pacienteService: PacienteService,
+    ) {
         this.buildForm()
         this.options = ["SIN ESTUDIOS",
             "PRIMARIA",
@@ -61,24 +66,24 @@ export class DatosGeneralesComponent implements OnInit {
             "SUPERIOR"
         ]
         this.generoOptions = [
-            {label: "M", value: 'MASCULINO'},
-            {label: "F", value: 'FEMENINO'},
+            { label: "M", value: 'MASCULINO' },
+            { label: "F", value: 'FEMENINO' },
         ]
         this.stateOptions1 = [
-            {label: "GS", value: true},
-            {label: "NO", value: false},
+            { label: "GS", value: true },
+            { label: "NO", value: false },
         ]
         this.stateOptions2 = [
-            {label: "RH", value: true},
-            {label: "NO", value: false},
+            { label: "RH", value: true },
+            { label: "NO", value: false },
         ]
         this.listaEstadoCivil = [
-            {name:'SOLTERO',code:'SOLTERO'},
-            {name:'CASADO',code:'CASADO'},
-            {name:'CONVIVIENTE',code:'CONVIVIENTE'},
-            {name:'SEPARADO',code:'SEPARADO'},
-            {name:'DIVORCIADO',code:'DIVORCIADO'},
-            {name:'VIUDO',code:'VIUDO'}
+            { name: 'SOLTERO', code: 'SOLTERO' },
+            { name: 'CASADO', code: 'CASADO' },
+            { name: 'CONVIVIENTE', code: 'CONVIVIENTE' },
+            { name: 'SEPARADO', code: 'SEPARADO' },
+            { name: 'DIVORCIADO', code: 'DIVORCIADO' },
+            { name: 'VIUDO', code: 'VIUDO' }
         ];
     }
 
@@ -93,46 +98,42 @@ export class DatosGeneralesComponent implements OnInit {
 
     getQueryParams(): void {
         this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
-        this.nroDoc = this.data.nroDocumento
-        /*this.route.queryParams
-            .subscribe(params => {
-                this.nroDoc = params['nroDoc']
-            })*/
+        this.nroDoc = this.data.nroDocumento;
     }
 
     build() {
         this.generalInfoFG = new FormGroup({
-            nombre: new FormControl({value: '', disabled: true}, [Validators.required]),
-            apellidos: new FormControl({value: '', disabled: true}, [Validators.required]),
-            sexo: new FormControl({value: null, disabled: true}),
-            lugar: new FormControl({value: '', disabled: false}),
-            fechaNacimiento: new FormControl({value: null, disabled: true}, [Validators.required]),
-            domicilio: new FormControl({value: '', disabled: false}),
-            dni: new FormControl({value: '', disabled: true}, [Validators.required]),
-            GS: new FormControl({value: '', disabled: false}, [Validators.required]),
-            RH: new FormControl({value: 'null', disabled: false}, [Validators.required]),
-            gradoInstruccion: new FormControl({value: 'null', disabled: false}, [Validators.required]),
-            centroEducativo: new FormControl({value: 'null', disabled: false}, [Validators.required])
+            nombre: new FormControl({ value: '', disabled: true }, [Validators.required]),
+            apellidos: new FormControl({ value: '', disabled: true }, [Validators.required]),
+            sexo: new FormControl({ value: null, disabled: true }),
+            lugar: new FormControl({ value: '', disabled: false }),
+            fechaNacimiento: new FormControl({ value: null, disabled: true }, [Validators.required]),
+            domicilio: new FormControl({ value: '', disabled: false }),
+            dni: new FormControl({ value: '', disabled: true }, [Validators.required]),
+            GS: new FormControl({ value: '', disabled: false }, [Validators.required]),
+            RH: new FormControl({ value: 'null', disabled: false }, [Validators.required]),
+            gradoInstruccion: new FormControl({ value: 'null', disabled: false }, [Validators.required]),
+            centroEducativo: new FormControl({ value: 'null', disabled: false }, [Validators.required])
         })
 
         this.apoderadoInfoFG = new FormGroup({
-            gradoInstruccionMadre: new FormControl({value: '', disabled: false}, [Validators.required]),
-            nombreMadre: new FormControl({value: '', disabled: false}, [Validators.required]),
-            estadoMadre: new FormControl({value: '', disabled: false}, [Validators.required]),
-            telefonoMadre: new FormControl({value: '', disabled: false}, [Validators.required]),
-            edadMadre: new FormControl({value: '', disabled: false}, [Validators.required]),
-            dniMadre: new FormControl({value: '', disabled: false}, [Validators.required]),
-            codigoMadre: new FormControl({value: null, disabled: false}),
-            codigoAfiliacionMadre: new FormControl({value: '', disabled: false}, [Validators.required]),
+            gradoInstruccionMadre: new FormControl({ value: '', disabled: false }, [Validators.required]),
+            nombreMadre: new FormControl({ value: '', disabled: false }, [Validators.required]),
+            estadoMadre: new FormControl({ value: '', disabled: false }, [Validators.required]),
+            telefonoMadre: new FormControl({ value: '', disabled: false }, [Validators.required]),
+            edadMadre: new FormControl({ value: '', disabled: false }, [Validators.required]),
+            dniMadre: new FormControl({ value: '', disabled: false }, [Validators.required]),
+            codigoMadre: new FormControl({ value: null, disabled: false }),
+            codigoAfiliacionMadre: new FormControl({ value: '', disabled: false }, [Validators.required]),
 
-            gradoInstruccionPadre: new FormControl({value: '', disabled: false}, [Validators.required]),
-            estadoPadre: new FormControl({value: '', disabled: false}, [Validators.required]),
-            telefonoPadre: new FormControl({value: '', disabled: false}, [Validators.required]),
-            nombrePadre: new FormControl({value: '', disabled: false}, [Validators.required]),
-            edadPadre: new FormControl({value: '', disabled: false}, [Validators.required]),
-            dniPadre: new FormControl({value: '', disabled: false}, [Validators.required]),
-            codigoPadre: new FormControl({value: null, disabled: false}),
-            codigoAfiliacionPadre: new FormControl({value: '', disabled: false}, [Validators.required])
+            gradoInstruccionPadre: new FormControl({ value: '', disabled: false }, [Validators.required]),
+            estadoPadre: new FormControl({ value: '', disabled: false }, [Validators.required]),
+            telefonoPadre: new FormControl({ value: '', disabled: false }, [Validators.required]),
+            nombrePadre: new FormControl({ value: '', disabled: false }, [Validators.required]),
+            edadPadre: new FormControl({ value: '', disabled: false }, [Validators.required]),
+            dniPadre: new FormControl({ value: '', disabled: false }, [Validators.required]),
+            codigoPadre: new FormControl({ value: null, disabled: false }),
+            codigoAfiliacionPadre: new FormControl({ value: '', disabled: false }, [Validators.required])
         })
     }
 
@@ -175,7 +176,7 @@ export class DatosGeneralesComponent implements OnInit {
             }
         })
     }
-    guardarDatosGenerales(){
+    guardarDatosGenerales() {
         this.save();
 
         this.onChangeIndice.emit(2);
@@ -246,6 +247,38 @@ export class DatosGeneralesComponent implements OnInit {
                     })
                 }
             )
+    }
+    searchByDoc(parent: string): void {
+        if (parent == "padre") {
+            let auxDNI: string = this.apoderadoInfoFG.value.dniPadre;
+            if (auxDNI.length >= 8) {
+                this.pacienteService.getCompleteNameByNroDoc(auxDNI).then(res => {
+                    if (res.error) {
+                        this.apoderadoInfoFG.get('nombrePadre').setValue('');
+                    } else {
+                        let fullName: string = res.nombres + ' ' + res.apePaterno + ' ' + res.apeMaterno;
+                        this.apoderadoInfoFG.patchValue({
+                            nombrePadre: fullName
+                        });
+                    }
+                })
+            }
+        } else {
+            let auxDNI: string = this.apoderadoInfoFG.value.dniMadre;
+            if (auxDNI.length >= 8) {
+                this.pacienteService.getCompleteNameByNroDoc(auxDNI).then(res => {
+                    if (res.error) {
+                        this.apoderadoInfoFG.get('nombreMadre').setValue('');
+                    } else {
+                        let fullName: string = res.nombres + ' ' + res.apePaterno + ' ' + res.apeMaterno;
+                        this.apoderadoInfoFG.patchValue({
+                            nombreMadre: fullName
+                        });
+                    }
+                })
+            }
+        }
+
     }
 }
 

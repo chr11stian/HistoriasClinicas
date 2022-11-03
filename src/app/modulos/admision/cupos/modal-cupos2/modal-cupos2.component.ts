@@ -32,7 +32,7 @@ export class ModalCupos2Component implements OnInit {
     formPacientesCupo: FormGroup;
     listaDocumentosIdentidad: any;
     dataPacientes: any;
-    detallePago: string = "PENDIENTE";
+    detalleDePago: string = "GRATUITO";
     TipoDoc: string = "DNI";
     dataSelectServicio = "";
     dataSelectAmbiente: "";
@@ -421,7 +421,7 @@ export class ModalCupos2Component implements OnInit {
                                             .distrito
                                     );
                                 if (this.dataPacientes.tipoSeguro == "SIS") {
-                                    this.detallePago = "GRATUITO";
+                                    this.detalleDePago = "GRATUITO";
                                 }
                             } else {
                                 this.messageService.add({
@@ -531,7 +531,7 @@ export class ModalCupos2Component implements OnInit {
                                 .setValue(this.dataPacientes.gradoInstruccion);
 
                             if (this.dataPacientes.tipoSeguro == "SIS") {
-                                this.detallePago = "GRATUITO";
+                                this.detalleDePago = "GRATUITO";
                             }
                         }
                     } else {
@@ -685,7 +685,7 @@ export class ModalCupos2Component implements OnInit {
                 nroCupo: this.cuposService.data.nroCupo,
                 descripcion: "",
                 ambiente: this.dataPersonalSelecionado.ambiente,
-                detallePago: this.detallePago,
+                detallePago: this.detalleDePago,
 
                 horaAtencion: this.selectedHorario[0].horaInicio,
                 horaAtencionFin: this.selectedHorario[0].horaFin,
@@ -925,8 +925,8 @@ export class ModalCupos2Component implements OnInit {
         return formC.invalid && (formC.dirty || formC.touched);
     }
     tipoPagoChg() {
-        this.detallePago = this.formPacientesCupo.value.detallePago;
-        console.log("detalle Pago", this.detallePago);
+        this.detalleDePago = this.formPacientesCupo.value.detallePago;
+        console.log("detalle Pago", this.detalleDePago);
     }
     /* interconsulta */
     iniciarPaciente() {
@@ -946,6 +946,21 @@ export class ModalCupos2Component implements OnInit {
             this.pacienteService.getPidePatientData(nroDoc).then((res: any) => {
                 if (res.error == "4009") {
                     console.log('no se econtro el paciente');
+                    Swal.fire({
+                        title: 'No se encontro a ese paciente',
+                        text: '¿Desea registrarlo?',
+                        showDenyButton: true,
+                        confirmButtonText: 'Nuevo Registro',
+                        denyButtonText: `Cancelar`,
+                      }).then((result) => {
+                        /* Read more about isConfirmed, isDenied below */
+                        if (result.isConfirmed) {
+                            this.buscarNuevoPaciente(this.patientData);
+                        } else if (result.isDenied) {
+                          
+                        }
+                      })
+                    
                     return;
                 }
                 this.patientData = res;

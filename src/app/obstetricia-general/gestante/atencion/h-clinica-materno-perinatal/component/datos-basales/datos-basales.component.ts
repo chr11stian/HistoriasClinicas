@@ -257,7 +257,6 @@ export class DatosBasalesComponent implements OnInit {
 
     recuperarDatos() {
         this.recuperarExamenFisico();
-        this.recuperarHemoglobina();
         this.recuperarOtrosExamenes();
         this.recoverLastMenstruation();
         let vacPrev: string[] = [];
@@ -360,33 +359,14 @@ export class DatosBasalesComponent implements OnInit {
         ]
     }
 
-    recuperarHemoglobina() {
-        // this.hemoglobina = [
-        //     {
-        //         // cie10sis: 85018
-        //         descripcion: 'HEMOGLOBINA 1',
-        //         hg: this.form.value.hg1,
-        //         conFactorCorreccion: this.form.value.conFactor1,
-        //         fecha: this.form.value.hemo1
-        //     },
-        //     {
-        //         descripcion: 'HEMOGLOBINA 2',
-        //         hg: this.form.value.hg2,
-        //         conFactorCorreccion: this.form.value.conFactor2,
-        //         fecha: this.form.value.hemo2
-        //     },
-        //     {
-        //         descripcion: 'HEMOGLOBINA 3',
-        //         hg: this.form.value.hg3,
-        //         conFactorCorreccion: this.form.value.conFactor3,
-        //         fecha: this.form.value.hemo3
-        //     },
-        // ]
-        // if (this.otrosExamHemo.length > 0) {
-        //     for (let i = 0; i < this.otrosExamHemo.length; i++) {
-        //         this.hemoglobina.push(this.otrosExamHemo[i]);
-        //     }
-        // }
+    recoverValPrevVac(): void {
+        this.form.patchValue({
+            rubeola: false,
+            hepatitisB: false,
+            papiloma: false,
+            influenza: false,
+            covid: false,
+        })
     }
 
     recuperarOtrosExamenes() {
@@ -530,8 +510,13 @@ export class DatosBasalesComponent implements OnInit {
         let auxVac;
         this.datosBasalesService.getDatosBasalesById(this.idGestante).subscribe((res: any) => {
             this.rptaDatosBasales = res.object;
-            if (this.rptaDatosBasales == null)
+            if (this.rptaDatosBasales == null) {
+                let auxArray: Hemoglobin[] = [];
+                this.recoverValPrevVac()
+                this.loadDataHemoExams(auxArray);
                 return
+            }
+
             auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "rubeola")
             this.form.patchValue({ 'rubeola': auxVac == undefined ? false : true });
             auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "hepatitis B")
@@ -956,15 +941,17 @@ export class DatosBasalesComponent implements OnInit {
     }
 
     loadDataHemoExams(hemoExam: Hemoglobin[]): void {
-        hemoExam.forEach(item => {
-            let arraAux = this.fb.group({
-                conFactorCorreccion: [{ value: (item.conFactorCorreccion), disabled: true }],
-                fecha: [{ value: item.fecha, disabled: true }],
-                hg: [{ value: item.hg, disabled: true }],
-                idConsulta: [ item.idConsulta ]
-            })
-            this.hemoglobina.push(arraAux);
-        });
+        if (hemoExam.length > 0) {
+            hemoExam.forEach(item => {
+                let arraAux = this.fb.group({
+                    conFactorCorreccion: [{ value: (item.conFactorCorreccion), disabled: true }],
+                    fecha: [{ value: item.fecha, disabled: true }],
+                    hg: [{ value: item.hg, disabled: true }],
+                    idConsulta: [item.idConsulta]
+                })
+                this.hemoglobina.push(arraAux);
+            });
+        }
         const hemoForm = this.fb.group({
             hg: [''],
             conFactorCorreccion: [''],
@@ -977,12 +964,11 @@ export class DatosBasalesComponent implements OnInit {
         // console.log('hemo exam ', this.hemoForm.value.hemoglobina);
         let hemoExam: Hemoglobin[] = this.hemoForm.getRawValue().hemoglobina;
         hemoExam = hemoExam.filter(item => item.hg != '')
-        hemoExam.map(item=>{
-            item.descripcion= 'DOSAJE DE HEMOGLOBINA'
+        hemoExam.map(item => {
+            item.descripcion = 'DOSAJE DE HEMOGLOBINA'
         })
         console.log('hemoooooo', hemoExam);
         return hemoExam;
-
     }
 }
 interface Ultrasound {

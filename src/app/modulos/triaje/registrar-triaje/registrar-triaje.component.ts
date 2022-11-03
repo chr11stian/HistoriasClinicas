@@ -107,24 +107,24 @@ export class RegistrarTriajeComponent implements OnInit {
         }
     }
     onChangePAs() {
-        let temp = parseFloat(this.formTriaje.value.presionSis);
-        if (temp >= 140) this.alertaPAs = true
-        else this.alertaPAs = false
+        // let temp = parseFloat(this.formTriaje.value.presionSis);
+        // if (temp >= 140) this.alertaPAs = true
+        // else this.alertaPAs = false
     }
     onChangePAd() {
-        let temp = parseFloat(this.formTriaje.value.presionDias);
-        if (temp > 90) this.alertaPAd = true
-        else this.alertaPAd = false
+        // let temp = parseFloat(this.formTriaje.value.presionDias);
+        // if (temp > 90) this.alertaPAd = true
+        // else this.alertaPAd = false
     }
     onChangeFR() {
-        let temp = parseFloat(this.formTriaje.value.fr);
-        if (temp > 100) this.alertaFR = true
-        else this.alertaFR = false
+        // let temp = parseFloat(this.formTriaje.value.fr);
+        // if (temp > 100) this.alertaFR = true
+        // else this.alertaFR = false
     }
     onChangeFC() {
-        let temp = parseFloat(this.formTriaje.value.fc);
-        if (temp > 22) this.alertaFC = true
-        else this.alertaFC = false
+        // let temp = parseFloat(this.formTriaje.value.fc);
+        // if (temp > 22) this.alertaFC = true
+        // else this.alertaFC = false
     }
     traerFoto() {
         this.personalService.getDatosReniec(this.datosPersonales.paciente.nroDoc).subscribe((res: any) => {

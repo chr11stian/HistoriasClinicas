@@ -5,47 +5,73 @@
                 <h3 class="mt-2">DATOS GENERALES NIÑO/NIÑA</h3>
             </ng-template>
             <ng-template pTemplate="right" class="button">
-                <button *ngIf="true" pButton pRipple label="Guardar" iconPos="right" icon="pi pi-angle-right"
-                    class="guardar mr-2" (click)="guardarDatosGenerales()" style="background-color: #0c3866"></button>
+                <button
+                    *ngIf="true"
+                    pButton
+                    pRipple
+                    label="Guardar"
+                    iconPos="right"
+                    icon="pi pi-angle-right"
+                    class="guardar mr-2"
+                    (click)="guardarDatosGenerales()"
+                    style="background-color: #0c3866"
+                ></button>
                 <!-- <button *ngIf="isFirstConsulta" pButton pRipple label="Guardar y Siguiente" iconPos="right" icon="pi pi-angle-right"
                         class="guardar mr-2" (click)="guardarDatosGenerales()" style="background-color: #0c3866"></button> -->
             </ng-template>
         </p-toolbar>
     </ng-template>
     <ng-template pTemplate="content">
-
         <!--todo el card-->
-        <p-fieldset legend="Información Básica" [toggleable]="true" class="info-fieldset">
+        <p-fieldset
+            legend="Información Básica"
+            [toggleable]="true"
+            class="info-fieldset"
+        >
             <form [formGroup]="generalInfoFG">
                 <div class="grid">
                     <!-- <div class="col-12 flex justify-content-center">
-                        <span>Edad: {{this.edad}}</span>
+                        <label>Edad: {{this.edad}}</label>
                     </div> -->
                     <div class="col-6 flex align-items-center">
                         <div class="col-4">
-                            <span class="text-right">Nombre:</span>
+                            <label class="text-right">Nombre:</label>
                         </div>
                         <div class="col-8">
-                            <input id="nombre" formControlName="nombre" type="text" class="inputfield w-full"
-                                pInputText />
+                            <input
+                                id="nombre"
+                                formControlName="nombre"
+                                type="text"
+                                class="inputfield w-full"
+                                pInputText
+                            />
                         </div>
                     </div>
                     <div class="col-4 flex align-items-center">
                         <div class="col-4 text-right">
-                            <span>Apellidos:</span>
+                            <label>Apellidos:</label>
                         </div>
                         <div class="col-8">
-                            <input id="apellidos" formControlName="apellidos" type="text" class="inputfield w-full"
-                                pInputText />
+                            <input
+                                id="apellidos"
+                                formControlName="apellidos"
+                                type="text"
+                                class="inputfield w-full"
+                                pInputText
+                            />
                         </div>
                     </div>
                     <div class="col-2 flex align-items-center">
                         <div class="col-4">
-                            <span>sexo: </span>
+                            <label>sexo: </label>
                         </div>
                         <div class="col-8">
-                            <p-selectButton [options]="generoOptions" formControlName="sexo" optionLabel="label"
-                                optionValue="value">
+                            <p-selectButton
+                                [options]="generoOptions"
+                                formControlName="sexo"
+                                optionLabel="label"
+                                optionValue="value"
+                            >
                             </p-selectButton>
                         </div>
                     </div>
@@ -54,20 +80,30 @@
                 <div class="grid">
                     <div class="col-8 flex align-items-center">
                         <div class="col-3">
-                            <span class="text-right">Lugar Nacimiento:</span>
+                            <label class="text-right">Lugar Nacimiento:</label>
                         </div>
                         <div class="col-9">
-                            <input id="lugar" formControlName="lugar" type="text" class="inputfield w-full"
-                                pInputText oninput="this.value=this.value.toUpperCase()"/>
+                            <input
+                                id="lugar"
+                                formControlName="lugar"
+                                type="text"
+                                class="inputfield w-full"
+                                pInputText
+                                oninput="this.value=this.value.toUpperCase()"
+                            />
                         </div>
                     </div>
                     <div class="col-4 flex align-items-center">
                         <div class="col-4">
-                            <span class="text-right">Fecha. Nac.:</span>
+                            <label class="text-right">Fecha. Nac.:</label>
                         </div>
                         <div class="col-8">
-                            <p-calendar dateFormat="dd/mm/yy" formControlName="fechaNacimiento" [showIcon]="true"
-                                inputId="icon"></p-calendar>
+                            <p-calendar
+                                dateFormat="dd/mm/yy"
+                                formControlName="fechaNacimiento"
+                                [showIcon]="true"
+                                inputId="icon"
+                            ></p-calendar>
                         </div>
                     </div>
                 </div>
@@ -75,35 +111,59 @@
                 <div class="grid">
                     <div class="col-6 flex align-items-center">
                         <div class="col-4">
-                            <span class="text-right">Domicilio/ Referencia:</span>
+                            <label class="text-right"
+                                >Domicilio/ Referencia:</label
+                            >
                         </div>
                         <div class="col-8">
-                            <input formControlName="domicilio" id="domicilio" type="text" class="inputfield w-full"
-                                pInputText oninput="this.value=this.value.toUpperCase()"/>
+                            <input
+                                formControlName="domicilio"
+                                id="domicilio"
+                                type="text"
+                                class="inputfield w-full"
+                                pInputText
+                                oninput="this.value=this.value.toUpperCase()"
+                            />
                         </div>
                     </div>
                     <div class="col-2 flex align-items-center">
                         <div class="col-2 mr-6">
-                            <span>CIU/DNI:</span>
+                            <label>CIU/DNI:</label>
                         </div>
                         <div class="col-8">
-                            <input formControlName="dni" id="dni" type="text" class="inputfield w-full" pInputText />
+                            <input
+                                formControlName="dni"
+                                id="dni"
+                                type="text"
+                                class="inputfield w-full"
+                                pInputText
+                            />
                         </div>
                     </div>
                     <div class="col-2 flex align-items-center">
                         <div class="col-2 mr-4">
-                            <span>GS:</span>
+                            <label>GS:</label>
                         </div>
                         <div class="col-8">
-                            <input formControlName="GS" type="text" class="inputfield w-full" pInputText />
+                            <input
+                                formControlName="GS"
+                                type="text"
+                                class="inputfield w-full"
+                                pInputText
+                            />
                         </div>
                     </div>
                     <div class="col-2 flex align-items-center">
                         <div class="col-2 mr-4">
-                            <span>RH:</span>
+                            <label>RH:</label>
                         </div>
                         <div class="col-8">
-                            <input formControlName="RH" type="text" class="inputfield w-full" pInputText />
+                            <input
+                                formControlName="RH"
+                                type="text"
+                                class="inputfield w-full"
+                                pInputText
+                            />
                         </div>
                     </div>
                     <!-- <div class="col-6 flex align-items-center">
@@ -123,7 +183,7 @@
                     </div>
                     <div class="col-6 flex align-items-center">
                         <div class="col-4">
-                            <span class="text-right">Centro Educativo:</span>
+                            <label class="text-right">Centro Educativo:</label>
                         </div>
                         <div class="col-8">
                             <input
@@ -137,180 +197,182 @@
                 </div>
             </form>
         </p-fieldset>
-        <br>
-        <p-fieldset legend="Datos de Apoderado" [toggleable]="true" class="mt-3" class="info-fieldset">
+        <br />
+        <p-fieldset
+            legend="Datos de Apoderado"
+            [toggleable]="true"
+            class="mt-3"
+            class="info-fieldset"
+        >
             <form [formGroup]="apoderadoInfoFG">
                 <div class="grid">
+                    <div class="col-2">
+                        <label>DNI</label>
+                        <input
+                            formControlName="dniPadre"
+                            type="text"
+                            placeholder="# dni"
+                            class="inputfield w-full"
+                            pInputText
+                            (keyup)="searchByDoc('padre')"
+                        />
+                    </div>
                     <div class="col-5">
-                        <div class="col-12 grid">
-                            <label class="line-height-4">Grado de instrucción:</label>
-                        </div>
-                        <div class="col-12 grid">
-                            <p-dropdown placeholder="Seleccionar" [options]="options"
-                                formControlName="gradoInstruccionPadre">
-                            </p-dropdown>
-                        </div>
+                        <label>Apellidos y Nombres del Padre</label>
+                        <input
+                            formControlName="nombrePadre"
+                            type="text"
+                            placeholder="Apellidos y Nombres del Padre"
+                            class="inputfield w-full"
+                            pInputText
+                        />
                     </div>
-                    <div class="col-5 grid">
-                        <div class="col-12 grid">
-                            <span>Estado</span>
-                        </div>
-                        <div class="col-12 grid">
-                            <!-- <input
-                                    formControlName="estadoPadre"
-                                    type="text"
-                                    placeholder="estado civil"
-                                    class="inputfield w-full"
-                                    pInputText
-                            /> -->
-                            <p-dropdown placeholder="Seleccionar" [options]="listaEstadoCivil" optionLabel="name"
-                                optionValue="code" formControlName="estadoPadre">
-                            </p-dropdown>
-                        </div>
+                    <div class="col-1">
+                        <label>Edad</label>
+                        <input
+                            formControlName="edadPadre"
+                            type="text"
+                            placeholder="edad"
+                            class="inputfield w-full"
+                            pInputText
+                        />
                     </div>
-                    <div class="col-2 grid">
-                        <div class="col-12 grid">
-                            <span>Telefono</span>
-                        </div>
-                        <div class="col-12 grid">
-                            <input formControlName="telefonoPadre" type="text" placeholder="telefono"
-                                class="inputfield w-full" pInputText />
-                        </div>
+                    <div class="col-4 flex flex-column">
+                        <label>Grado de instrucción:</label>
+                        <p-dropdown
+                            placeholder="Seleccionar"
+                            [options]="options"
+                            formControlName="gradoInstruccionPadre"
+                        >
+                        </p-dropdown>
                     </div>
-                </div>
-                <div class="grid">
-                    <div class="col-5 grid">
-                        <div class="col-12 grid">
-                            <span>Apellidos y Nombres del Padre</span>
-                        </div>
-                        <div class="col-12 grid">
-                            <input formControlName="nombrePadre" type="text" placeholder="Apellidos y Nombres del Padre"
-                                class="inputfield w-full" pInputText />
-                        </div>
+                    <div class="col-3 flex flex-column">
+                        <label>Estado Civil:</label>
+                        <p-dropdown
+                            placeholder="Seleccionar"
+                            [options]="listaEstadoCivil"
+                            optionLabel="name"
+                            optionValue="code"
+                            formControlName="estadoPadre"
+                            class="p-fluid w-full"
+                        >
+                        </p-dropdown>
                     </div>
-                    <div class="col-1 grid">
-                        <div class="col-12 grid">
-                            <span>Edad</span>
-                        </div>
-                        <div class="col-12 grid">
-                            <input formControlName="edadPadre" type="text" placeholder="edad" class="inputfield w-full"
-                                pInputText />
-                        </div>
+                    <div class="col-2">
+                        <label>Telefono</label>
+                        <input
+                            formControlName="telefonoPadre"
+                            type="text"
+                            placeholder="telefono"
+                            class="inputfield w-full"
+                            pInputText
+                        />
                     </div>
-                    <div class="col-2 grid">
-                        <div class="col-12 grid">
-                            <span>DNI</span>
-                        </div>
-                        <div class="col-12 grid">
-                            <input formControlName="dniPadre" type="text" placeholder="# dni" class="inputfield w-full"
-                                pInputText />
-                        </div>
+                    <div class="col-2">
+                        <label>Codigo Afiliación</label>
+                        <p-selectButton
+                            [options]="stateOptions2"
+                            formControlName="codigoPadre"
+                            optionLabel="label"
+                            optionValue="value"
+                        >
+                        </p-selectButton>
                     </div>
-                    <div class="col-2 align-items-center">
-                        <div class="col-12 grid">
-                            <span>Codigo Afiliación</span>
-                        </div>
-                        <div class="col-12 grid">
-                            <p-selectButton [options]="stateOptions2" formControlName="codigoPadre" optionLabel="label"
-                                optionValue="value">
-                            </p-selectButton>
-                        </div>
-                    </div>
-                    <div class="col-2 grid">
-                        <div class="col-12 grid">
-                            <span>Codigo</span>
-                        </div>
-                        <div class="col-12 grid">
-                            <input formControlName="codigoAfiliacionPadre" type="text" placeholder="codigo"
-                                class="inputfield w-full" pInputText />
-                        </div>
+                    <div class="col-2">
+                        <label>Codigo</label>
+                        <input
+                            formControlName="codigoAfiliacionPadre"
+                            type="text"
+                            placeholder="codigo"
+                            class="inputfield w-full"
+                            pInputText
+                        />
                     </div>
                 </div>
                 <p-divider></p-divider>
                 <div class="grid">
+                    <div class="col-2">
+                        <label>DNI</label>
+                        <input
+                            id="centro"
+                            formControlName="dniMadre"
+                            type="text"
+                            placeholder="# dni"
+                            class="inputfield w-full"
+                            (keyup)="searchByDoc('madre')"
+                            pInputText
+                        />
+                    </div>
                     <div class="col-5">
-                        <div class="col-12 grid">
-                            <label class="line-height-4">Grado de instrucción:</label>
-                        </div>
-                        <div class="col-12 grid">
-                            <p-dropdown placeholder="Seleccionar" [options]="options"
-                                formControlName="gradoInstruccionMadre">
-                            </p-dropdown>
-                        </div>
+                        <label>Apellidos y Nombres del Madre</label>
+                        <input
+                            formControlName="nombreMadre"
+                            type="text"
+                            placeholder="Apellidos y Nombres del Madre"
+                            class="inputfield w-full"
+                            pInputText
+                        />
                     </div>
-                    <div class="col-5 grid">
-                        <div class="col-12 grid">
-                            <span>Estado Civil</span>
-                        </div>
-                        <div class="col-12 grid">
-                            <!-- <input
-                                    formControlName="estadoMadre"
-                                    type="text"
-                                    placeholder="estado civil"
-                                    class="inputfield w-full"
-                                    pInputText
-                            /> -->
-                            <p-dropdown placeholder="Seleccionar" [options]="listaEstadoCivil" optionLabel="name"
-                                optionValue="code" formControlName="estadoMadre">
-                            </p-dropdown>
-                        </div>
+                    <div class="col-1">
+                        <label>Edad</label>
+                        <input
+                            formControlName="edadMadre"
+                            type="text"
+                            placeholder="edad"
+                            class="inputfield w-full"
+                            pInputText
+                        />
                     </div>
-                    <div class="col-2 grid">
-                        <div class="col-12 grid">
-                            <span>Telefono</span>
-                        </div>
-                        <div class="col-12 grid">
-                            <input formControlName="telefonoMadre" type="text" placeholder="telefono"
-                                class="inputfield w-full" pInputText />
-                        </div>
+                    <div class="col-4 flex flex-column">
+                        <label>Grado de instrucción:</label>
+                        <p-dropdown
+                            placeholder="Seleccionar"
+                            [options]="options"
+                            formControlName="gradoInstruccionMadre"
+                        >
+                        </p-dropdown>
                     </div>
-                </div>
-                <div class="grid">
-                    <div class="col-5 grid">
-                        <div class="col-12 grid">
-                            <span>Apellidos y Nombres del Madre</span>
-                        </div>
-                        <div class="col-12 grid">
-                            <input formControlName="nombreMadre" type="text" placeholder="Apellidos y Nombres del Madre"
-                                class="inputfield w-full" pInputText />
-                        </div>
+                    <div class="col-3 flex flex-column">
+                        <label>Estado Civil</label>
+                        <p-dropdown
+                            placeholder="Seleccionar"
+                            [options]="listaEstadoCivil"
+                            optionLabel="name"
+                            optionValue="code"
+                            formControlName="estadoMadre"
+                            class="w-full p-fluid inputfield"
+                        >
+                        </p-dropdown>
                     </div>
-                    <div class="col-1 grid">
-                        <div class="col-12 grid">
-                            <span>Edad</span>
-                        </div>
-                        <div class="col-12 grid">
-                            <input formControlName="edadMadre" type="text" placeholder="edad" class="inputfield w-full"
-                                pInputText />
-                        </div>
+                    <div class="col-2">
+                        <label>Telefono</label>
+                        <input
+                            formControlName="telefonoMadre"
+                            type="text"
+                            placeholder="telefono"
+                            class="inputfield w-full"
+                            pInputText
+                        />
                     </div>
-                    <div class="col-2 grid">
-                        <div class="col-12 grid">
-                            <span>DNI</span>
-                        </div>
-                        <div class="col-12 grid">
-                            <input id="centro" formControlName="dniMadre" type="text" placeholder="# dni"
-                                class="inputfield w-full" pInputText />
-                        </div>
+                    <div class="col-2">
+                        <label>Codigo Afiliación</label>
+                        <p-selectButton
+                            [options]="stateOptions2"
+                            formControlName="codigoMadre"
+                            optionLabel="label"
+                            optionValue="value"
+                        >
+                        </p-selectButton>
                     </div>
-                    <div class="col-2 align-items-center">
-                        <div class="col-12 grid">
-                            <span>Codigo Afiliación</span>
-                        </div>
-                        <div class="col-12 grid">
-                            <p-selectButton [options]="stateOptions2" formControlName="codigoMadre" optionLabel="label"
-                                optionValue="value">
-                            </p-selectButton>
-                        </div>
-                    </div>
-                    <div class="col-2 grid">
-                        <div class="col-12 grid">
-                            <span>Codigo</span>
-                        </div>
-                        <div class="col-12 grid">
-                            <input formControlName="codigoAfiliacionMadre" type="text" placeholder="codigo"
-                                class="inputfield w-full" pInputText />
-                        </div>
+                    <div class="col-2">
+                        <label>Codigo</label>
+                        <input
+                            formControlName="codigoAfiliacionMadre"
+                            type="text"
+                            placeholder="codigo"
+                            class="inputfield w-full"
+                            pInputText
+                        />
                     </div>
                 </div>
             </form>
