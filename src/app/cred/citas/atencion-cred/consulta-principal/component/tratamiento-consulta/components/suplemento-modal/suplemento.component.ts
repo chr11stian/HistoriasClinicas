@@ -153,20 +153,29 @@ export class SuplementoComponent implements OnInit {
             console.log('->>>>>>>>>>>>>>',this.isSuplementacion)
             if (this.isSuplementacion){
               this.SuplementacionService.PostSuplementacion(this.idConsulta,requestInput
-              ).subscribe(() => {
-                this.ref.close("agregado");
+              ).subscribe((resp) => {
+                if(resp.cod=='2022')
+                  this.ref.close("agregado");
+                else
+                  this.ref.close('no agregado')
               });
             }
             else{
               this.SuplementacionService.PostVitaminaA(this.idConsulta,requestInput
-              ).subscribe(() => {
-                this.ref.close("agregado");
+              ).subscribe((resp) => {
+                if(resp.cod=='2022')
+                  this.ref.close("agregado");
+                else
+                  this.ref.close('no agregado')
               });
             }
           }
           else{
               this.SuplementacionService.PostSuplementacionXanemia(this.idConsulta,requestInput).subscribe((resp)=>{
-                  this.ref.close('agregado')
+                if(resp.cod=='2022')
+                  this.ref.close("agregado");
+                else
+                  this.ref.close('no agregado')
               })
           }
 
