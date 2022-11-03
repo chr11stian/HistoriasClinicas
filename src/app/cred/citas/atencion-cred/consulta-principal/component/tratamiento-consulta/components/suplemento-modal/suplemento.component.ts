@@ -154,7 +154,7 @@ export class SuplementoComponent implements OnInit {
             if (this.isSuplementacion){
               this.SuplementacionService.PostSuplementacion(this.idConsulta,requestInput
               ).subscribe((resp) => {
-                if(resp.cod=='2022')
+                if(resp.object!=null)
                   this.ref.close("agregado");
                 else
                   this.ref.close('no agregado')
@@ -163,7 +163,7 @@ export class SuplementoComponent implements OnInit {
             else{
               this.SuplementacionService.PostVitaminaA(this.idConsulta,requestInput
               ).subscribe((resp) => {
-                if(resp.cod=='2022')
+                if(resp.object!=null)
                   this.ref.close("agregado");
                 else
                   this.ref.close('no agregado')
@@ -172,7 +172,7 @@ export class SuplementoComponent implements OnInit {
           }
           else{
               this.SuplementacionService.PostSuplementacionXanemia(this.idConsulta,requestInput).subscribe((resp)=>{
-                if(resp.cod=='2022')
+                if(resp.object!=null)
                   this.ref.close("agregado");
                 else
                   this.ref.close('no agregado')
