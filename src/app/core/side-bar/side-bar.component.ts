@@ -562,12 +562,12 @@ const visitas = {
             icon: "pi pi-book",
             routerLink: "padron-nominal-gestante/mantenimiento",
         },
-        {
-            label:"Ipress niños",
-            icon: "pi pi-user",
-            routerLink: "visitas-domiciliarias/ipress-ninios",
+        // {
+        //     label:"Ipress niños",
+        //     icon: "pi pi-user",
+        //     routerLink: "visitas-domiciliarias/ipress-ninios",
 
-        }
+        // }
     ],
 };
 const root = {
