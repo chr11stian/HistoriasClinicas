@@ -298,7 +298,7 @@ export class TestPeruanoComponent implements OnInit {
     });
     return arreglo;
   }
-  encontrarDiagnostico()
+  encontrarDiagnostico1()
   { 
     let diagnostico='Normal'
     const arreglo=this.arregloFormRadio.value;
@@ -307,6 +307,17 @@ export class TestPeruanoComponent implements OnInit {
       diagnostico='Retraso'
     });
     return diagnostico
+    
+  }
+  encontrarDiagnostico()
+  { 
+    let nroFallidos=0
+    const arreglo=this.arregloFormRadio.value;
+    arreglo.forEach(element => {
+      if(element<this.edadMeses)
+        nroFallidos+=1
+    });
+    return nroFallidos==0?'Normal':nroFallidos==1?'Riesgo para el desarrollo':'Transtorno del Desarrollo'
     
   }
   save() {
@@ -346,7 +357,7 @@ export class TestPeruanoComponent implements OnInit {
     };
     console.log(inputRequest);
     
-    // return 
+    
     Swal.fire({
       title: 'Esta seguro que desea guardar este registro?',
       showDenyButton: false,
