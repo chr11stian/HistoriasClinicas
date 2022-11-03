@@ -104,7 +104,7 @@ export class PorIpressComponent implements OnInit {
 
   recuperarInformacionProfesional(object) {
     this.profesional = {
-      dni: object.value.responsable.slice(2, 9),
+      dni: object.value.responsable.slice(2, 10),
       nombres: object.value.nombres_responsable,
       apellidos: object.value.apellidos_responsable,
       telefono: object.value.telefono,
@@ -361,7 +361,7 @@ export class PorIpressComponent implements OnInit {
     });
   }
   
-  openDialogEcharts() {
+  openDialogEcharts(dni:string) {
     this.ref = this.dialog.open(EchartsVisitaComponent, {
       header:
         "Grafico de visitas realizadas por el profesional",
@@ -371,6 +371,7 @@ export class PorIpressComponent implements OnInit {
         "max-height": "93%",
         overflow: "auto",
       },
+      data:dni,
     });
   }
   

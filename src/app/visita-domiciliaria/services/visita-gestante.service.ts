@@ -23,7 +23,7 @@ export class VisitaGestanteService {
   .then((res) => <any[]>res)
   .then((data) => {
     return data;
-  });
+  }).catch(error => { return []});;
   } 
 
   getVisitasGestantesXProfesionalXAnioXMesFecha(idIpress:any,dni_profesional:any,anio_mes:any):any{
@@ -36,7 +36,7 @@ export class VisitaGestanteService {
   .then((res) => <any[]>res)
   .then((data) => {
     return data;
-  });
+  }).catch(error => { return []});
   }
 
   getVisitasGestantesXProfesionalAnio(idIpress:any,dni_profesional:any,anio:any):any{
@@ -49,7 +49,7 @@ export class VisitaGestanteService {
   .then((res) => <any[]>res)
   .then((data) => {
     return data;
-  }).catch(error => { return error.error });
+  }).catch(error => { return []});
   }
 
   getVisitasGestantesAnio(idIpress:any,dni_profesional:any,anio:any):any{
@@ -62,7 +62,7 @@ export class VisitaGestanteService {
   .then((res) => <any[]>res)
   .then((data) => {
     return data;
-  }).catch(error => { return error.error });
+  }).catch(error => { return [] });
   }
   
   getVisitasGestantesFecha(idIpress:any,dni_profesional:any,fecha:any):any{
@@ -75,7 +75,7 @@ export class VisitaGestanteService {
   .then((res) => <any[]>res)
   .then((data) => {
     return data;
-  }).catch(error => { return error.error });
+  }).catch(error => { return [] });
   }
 
   getVisitasPuerperasAnio(idIpress:any,dni_profesional:any,anio:any):any{
@@ -88,7 +88,7 @@ export class VisitaGestanteService {
   .then((res) => <any[]>res)
   .then((data) => {
     return data;
-  }).catch(error => { return error.error });
+  }).catch(error => { return [] });
   }
 
   getVisitasPuerperasFecha(idIpress:any,dni_profesional:any,fecha:any):any{
@@ -101,7 +101,7 @@ export class VisitaGestanteService {
   .then((res) => <any[]>res)
   .then((data) => {
     return data;
-  }).catch(error => { return error.error });
+  }).catch(error => { return [] });
   }
 
 }
