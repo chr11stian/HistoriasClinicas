@@ -120,6 +120,8 @@ export class TepsiComponent implements OnInit {
     this.datosGeneralesFG = new FormGroup({
       nombreExaminador: new FormControl("", Validators.required),
       fechaSelected: new FormControl(new Date(this.data.fechaConsulta), Validators.required),
+      observacion: new FormControl(new Date(this.data.fechaConsulta), Validators.required),
+      
     });
     console.log('data-->',this.data);
     
