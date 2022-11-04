@@ -20,6 +20,7 @@
             <th style="text-align: center" class="font-2">FECHA</th>
             <th style="text-align: center" class="font-2">EDAD TOMADA EL TEST</th>
             <th style="text-align: center" class="font-2">DIAGNÓSTICO</th>
+            <th style="text-align: center" class="font-2">OBSERVACIÓN</th>
             <th style="text-align: center" class="font-2">ACCIÓN</th>
         </tr>
     </ng-template>
@@ -29,6 +30,7 @@
             <td style="text-align: center">{{ rowData.fecha | date: 'dd-MM-yyyy HH:mm:ss'}}</td>
             <td style="text-align: center">{{ rowData.edad }}</td>
             <td style="text-align: center">{{ rowData.diagnostico }}</td>
+            <td style="text-align: center">{{ rowData.observacion }}</td>
             <td style="text-align: center">
                 <button pButton (click)="displayDialog=true" pTooltip="Ver Test" pRipple type="button"
                         icon="pi pi-eye" class="p-button-rounded p-button-help m-1">
@@ -62,8 +64,7 @@
                     Fecha:
                 </div>
                 <div class="col-4 p-fluid">
-                    <p-calendar [showIcon]="true" dateFormat="dd/mm/yy" inputId="icon" formControlName="fechaSelected"
-                                disabled="true"></p-calendar>
+                    <p-calendar [showIcon]="true" dateFormat="dd/mm/yy" inputId="icon" formControlName="fechaSelected"></p-calendar>
                 </div>
             </div>
             <div class="grid">
@@ -113,7 +114,7 @@
             </tbody>
         </table>
    
-        <div class="grid">
+        <div [formGroup]="datosGeneralesFG" class="grid">
             <div style="font-weight: bold" class="col-4 text-right align-self-center">Observacion:
             </div>
             <div class="col-5 p-fluid"><input formControlName="observacion" type="text" pInputText></div>
@@ -226,6 +227,7 @@
                         binary="true"
                         [(ngModel)]="arregloSubtest[0][0]"
                         (onChange)="calcularResultadoSubTest1(1)"
+                        [disabled]="hasTaken"
                 ></p-checkbox>
                 1C
             </td>
@@ -238,6 +240,7 @@
                         binary="true"
                         [(ngModel)]="arregloSubtest[0][1]"
                         (onChange)="calcularResultadoSubTest1(1)"
+                        [disabled]="hasTaken"
                 ></p-checkbox>
                 2C
             </td>
@@ -252,6 +255,7 @@
                         binary="true"
                         [(ngModel)]="arregloSubtest[0][2]"
                         (onChange)="calcularResultadoSubTest1(1)"
+                        [disabled]="hasTaken"
                 ></p-checkbox>
                 3C
             </td>
@@ -264,6 +268,7 @@
                         binary="true"
                         [(ngModel)]="arregloSubtest[0][3]"
                         (onChange)="calcularResultadoSubTest1(1)"
+                        [disabled]="hasTaken"
                 ></p-checkbox>
                 4C
             </td>
@@ -276,6 +281,7 @@
                         binary="true"
                         [(ngModel)]="arregloSubtest[0][4]"
                         (onChange)="calcularResultadoSubTest1(1)"
+                        [disabled]="hasTaken"
 
                 ></p-checkbox>
                 5C
@@ -289,6 +295,7 @@
                         binary="true"
                         [(ngModel)]="arregloSubtest[0][5]"
                         (onChange)="calcularResultadoSubTest1(1)"
+                        [disabled]="hasTaken"
                 ></p-checkbox>
                 6C
             </td>
@@ -301,6 +308,7 @@
                         binary="true"
                         [(ngModel)]="arregloSubtest[0][6]"
                         (onChange)="calcularResultadoSubTest1(1)"
+                        [disabled]="hasTaken"
                 ></p-checkbox>
                 7C
             </td>
@@ -313,6 +321,7 @@
                         binary="true"
                         [(ngModel)]="arregloSubtest[0][7]"
                         (onChange)="calcularResultadoSubTest1(1)"
+                        [disabled]="hasTaken"
                 ></p-checkbox>
                 8C
             </td>
@@ -325,6 +334,7 @@
                         binary="true"
                         [(ngModel)]="arregloSubtest[0][8]"
                         (onChange)="calcularResultadoSubTest1(1)"
+                        [disabled]="hasTaken"
                 ></p-checkbox>
                 9C
             </td>
@@ -337,6 +347,7 @@
                         binary="true"
                         [(ngModel)]="arregloSubtest[0][9]"
                         (onChange)="calcularResultadoSubTest1(1)"
+                        [disabled]="hasTaken"
                 ></p-checkbox>
                 10C
             </td>
@@ -349,6 +360,7 @@
                         binary="true"
                         [(ngModel)]="arregloSubtest[0][10]"
                         (onChange)="calcularResultadoSubTest1(1)"
+                        [disabled]="hasTaken"
                 ></p-checkbox>
                 11C
             </td>
@@ -361,6 +373,7 @@
                         binary="true"
                         [(ngModel)]="arregloSubtest[0][11]"
                         (onChange)="calcularResultadoSubTest1(1)"
+                        [disabled]="hasTaken"
                 ></p-checkbox>
                 12C
             </td>
@@ -373,6 +386,7 @@
                         binary="true"
                         [(ngModel)]="arregloSubtest[0][12]"
                         (onChange)="calcularResultadoSubTest1(1)"
+                        [disabled]="hasTaken"
                 ></p-checkbox>
                 13C
             </td>
@@ -387,6 +401,7 @@
                         binary="true"
                         [(ngModel)]="arregloSubtest[0][13]"
                         (onChange)="calcularResultadoSubTest1(1)"
+                        [disabled]="hasTaken"
                 ></p-checkbox>
                 14C
             </td>
@@ -401,6 +416,7 @@
                         binary="true"
                         [(ngModel)]="arregloSubtest[0][14]"
                         (onChange)="calcularResultadoSubTest1(1)"
+                        [disabled]="hasTaken"
                 ></p-checkbox>
                 15C
             </td>
@@ -415,6 +431,7 @@
                         binary="true"
                         [(ngModel)]="arregloSubtest[0][15]"
                         (onChange)="calcularResultadoSubTest1(1)"
+                        [disabled]="hasTaken"
                 ></p-checkbox>
                 16C
             </td>
@@ -460,6 +477,7 @@
                         binary="true"
                         [(ngModel)]="arregloSubtest[1][0]"
                         (onChange)="calcularResultadoSubTest1(2)"
+                        
                 ></p-checkbox>
                 1L
             </td>
@@ -475,6 +493,7 @@
                         binary="true"
                         [(ngModel)]="arregloSubtest[1][1]"
                         (onChange)="calcularResultadoSubTest1(2)"
+                        
                 ></p-checkbox>
                 2L
             </td>

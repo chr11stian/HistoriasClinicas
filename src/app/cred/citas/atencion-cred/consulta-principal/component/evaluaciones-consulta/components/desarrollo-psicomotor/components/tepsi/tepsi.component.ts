@@ -118,9 +118,9 @@ export class TepsiComponent implements OnInit {
 
   buildForm() {
     this.datosGeneralesFG = new FormGroup({
-      nombreExaminador: new FormControl("", Validators.required),
-      fechaSelected: new FormControl(new Date(this.data.fechaConsulta), Validators.required),
-      observacion: new FormControl(new Date(this.data.fechaConsulta), Validators.required),
+      nombreExaminador: new FormControl({value:'',disabled:true}, Validators.required),
+      fechaSelected: new FormControl({value:new Date(this.data.fechaConsulta),disabled:true}, Validators.required),
+      observacion: new FormControl('', Validators.required),
       
     });
     console.log('data-->',this.data);
@@ -227,7 +227,9 @@ export class TepsiComponent implements OnInit {
       const objetoTepsi={
         fecha:resp.object.testTepsi.fechaAtencion,
         edad:`${resp.object.testTepsi.edad.anio}años,${resp.object.testTepsi.edad.mes}meses,${resp.object.testTepsi.edad.dia}dias`,
-        diagnostico:resp.object.testTepsi.diagnostico
+        diagnostico:resp.object.testTepsi.diagnostico,
+        observacion:resp.object.testTepsi.observacion
+        
       }
       this.arregloTestTepsi.push(objetoTepsi)
       // Swal.fire({
@@ -245,6 +247,7 @@ export class TepsiComponent implements OnInit {
         new Date(resultado["fechaAtencion"])
       );
       this.getFC("nombreExaminador").setValue(resultado["docExaminador"]);
+      this.getFC("observacion").setValue(resultado["observacion"]);
 
       this.arregloSubtest[0] = this.reconstruirTest(
         resultado["subTestCoordinacion"]["listItemTest"]
@@ -407,57 +410,79 @@ export class TepsiComponent implements OnInit {
     // console.log(this.chartData);
     
   }
-
+  
   save() {
     const faltante = this.isResolve.filter((element) => {
       return element == false;
     });
-    if (faltante.length == 0) {
-
-      const fecha: string[] = this.getFC("fechaSelected").value.toISOString().split("T");
-      const hora: string = fecha[1].split(".")[0];
-      const requestInput = {
-        codigoCIE10: "Z009",
-        codigoHIS: "Z009",
-        codigoPrestacion: "0001",
-        testTepsi: {
-          edad: {
-            anio: this.anioEdad, //todo debe ser la misma fecha recuperada
-            mes: this.mesEdad,
-            dia: this.diaEdad,
-          },
-          fechaAtencion: `${fecha[0]} ${hora}`,
-          diagnostico: this.resultadoA[0].categoria,
-          docExaminador: this.getFC("nombreExaminador").value,
-          resultadoTestTotal: {
-            puntajeBruto: this.resultadoA[0].puntajeBruto,
-            puntajeT: this.resultadoA[0].puntajeT,
-            categoria: this.resultadoA[0].categoria,
-          },
-          subTestCoordinacion: {
-            tipoSubTest: "COORDINACION",
-            puntajeBruto: this.resultadoA[1].puntajeBruto,
-            puntajeT: this.resultadoA[1].puntajeT,
-            categoria: this.resultadoA[1].categoria,
-            listItemTest: this.determinarArreglo("C", this.arregloSubtest[0]),
-          },
-          subTestLenguaje: {
-            tipoSubTest: "LENGUAJE",
-            puntajeBruto: this.resultadoA[2].puntajeBruto,
-            puntajeT: this.resultadoA[2].puntajeT,
-            categoria: this.resultadoA[2].categoria,
-            listItemTest: this.determinarArreglo2("L", this.arregloSubtest[1]),
-          },
-          subTestMotricidad: {
-            tipoSubTest: "MOTRICIDAD",
-            puntajeBruto: this.resultadoA[3].puntajeBruto,
-            puntajeT: this.resultadoA[3].puntajeT,
-            categoria: this.resultadoA[3].categoria,
-            listItemTest: this.determinarArreglo("M", this.arregloSubtest[2]),
-          },
+    if (faltante.length >1 ) {
+      Swal.fire({
+        icon: 'info',
+        title: 'Error',
+        text: 'Debe evaluar todos los sub test' ,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return
+    }
+    if (this.getFC('observacion').invalid) {
+      Swal.fire({
+        icon: 'info',
+        title: 'Error',
+        text: 'Ingrese observacion' ,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return
+    }
+    const fecha: string[] = this.getFC("fechaSelected").value.toISOString().split("T");
+    const hora: string = fecha[1].split(".")[0];
+    const requestInput = {
+      codigoCIE10: "Z009",
+      codigoHIS: "Z009",
+      codigoPrestacion: "0001",
+      testTepsi: {
+        edad: {
+          anio: this.anioEdad, //todo debe ser la misma fecha recuperada
+          mes: this.mesEdad,
+          dia: this.diaEdad,
         },
-      };
+        fechaAtencion: `${fecha[0]} ${hora}`,
+        diagnostico: this.resultadoA[0].categoria,
+        docExaminador: this.getFC("nombreExaminador").value,
+        resultadoTestTotal: {
+          puntajeBruto: this.resultadoA[0].puntajeBruto,
+          puntajeT: this.resultadoA[0].puntajeT,
+          categoria: this.resultadoA[0].categoria,
+        },
+        subTestCoordinacion: {
+          tipoSubTest: "COORDINACION",
+          puntajeBruto: this.resultadoA[1].puntajeBruto,
+          puntajeT: this.resultadoA[1].puntajeT,
+          categoria: this.resultadoA[1].categoria,
+          listItemTest: this.determinarArreglo("C", this.arregloSubtest[0]),
+        },
+        subTestLenguaje: {
+          tipoSubTest: "LENGUAJE",
+          puntajeBruto: this.resultadoA[2].puntajeBruto,
+          puntajeT: this.resultadoA[2].puntajeT,
+          categoria: this.resultadoA[2].categoria,
+          listItemTest: this.determinarArreglo2("L", this.arregloSubtest[1]),
+        },
+        subTestMotricidad: {
+          tipoSubTest: "MOTRICIDAD",
+          puntajeBruto: this.resultadoA[3].puntajeBruto,
+          puntajeT: this.resultadoA[3].puntajeT,
+          categoria: this.resultadoA[3].categoria,
+          listItemTest: this.determinarArreglo("M", this.arregloSubtest[2]),
+        },
+        observacion:this.getFC('observacion').value
+      },
+    };
       /* start */
+      console.log('Input Request',requestInput);
+      
+      // return 
       Swal.fire({
         title: 'Esta seguro que desea guardar este registro?',
         showDenyButton: false,
@@ -498,13 +523,7 @@ export class TepsiComponent implements OnInit {
       })
       /* end */
       
-    } else {
-      this.messageService.add({
-        severity: "error",
-        summary: "Test no Guardado",
-        detail: "Debe llenar todos los Test ",
-      });
-    }
+  
   }
 
   determinarArreglo(letra: string, arreglo: boolean[]): itenTestResultado[] {
