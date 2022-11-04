@@ -13,6 +13,7 @@ export class TestTepsiComponent implements OnInit {
   attributeLocalS = 'documento'
   data:dato;
   nroDNI:string
+  observacion:string
   resultadoA:resultado[]=[{
     puntajeBruto:0,//test total
     puntajeT:0,
@@ -129,6 +130,7 @@ export class TestTepsiComponent implements OnInit {
         this.mesEdad=resultado['edad']['mes']
         this.diaEdad=resultado['edad']['dia']
         this.docExaminador=resultado['docExaminador']
+        this.observacion=resultado['observacion']
         const resultadoRecuperado=[{
           puntajeBruto:resultado.resultadoTestTotal.puntajeBruto,
           puntajeT:resultado.resultadoTestTotal.puntajeT,

@@ -116,10 +116,10 @@
                    
                 </ng-template>
                 <ng-template pTemplate="footer">
-                    <tr *ngIf="!hasTaken">
+                    <tr *ngIf="isAgregable">
                         <th>Observacion</th>
-                        <th *ngFor="let item of listaMeses;let i=index">
-                            <button *ngIf="fechas[i]" type="button" label="Obs." class="p-button-info" icon="pi pi-pencil"  pButton (click)="agregamosObservacion()"></button>
+                        <th *ngFor="let mes of listaMeses;let i=index">
+                            <button *ngIf="mes==edadMeses" type="button" label="Obs." class="p-button-info" icon="pi pi-pencil"  pButton (click)="agregamosObservacion()"></button>
                         </th>
                     </tr>
                     <tr>
