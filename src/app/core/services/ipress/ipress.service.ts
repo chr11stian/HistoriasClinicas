@@ -20,6 +20,10 @@ export class IpressService {
         return this.http.get<any[]>(`${this.base_url}/${this.bd}/ipress`);
     }
 
+    searchIpress(name) {
+        return this.http.get<any[]>(`${this.base_url}/${this.bd}/ipress/buscar/${name}`);
+    }
+
     getIpressID(id) {
         return this.http.get<any[]>(`${this.base_url}/${this.bd}/ipress/${id}`);
     }

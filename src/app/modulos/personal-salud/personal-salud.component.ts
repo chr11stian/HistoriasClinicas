@@ -87,6 +87,7 @@ export class PersonalSaludComponent implements OnInit {
     designar: boolean;
     ipressNombre: string;
     personalDesignado: Personal;
+    dataAdmin: any[] = [];
     constructor(
         public ref: DynamicDialogRef,
         private personalservice: PersonalService,
@@ -191,9 +192,11 @@ export class PersonalSaludComponent implements OnInit {
 
     getListAdmin() {
         this.personalservice.getListAdmin().subscribe((r: any) => {
+            let array: any[] = [];
             r.map((obj) => {
-                this.data.push(obj.personal);
+                array.push(obj.personal);
             });
+            this.data = array;
         });
     }
 
@@ -310,6 +313,7 @@ export class PersonalSaludComponent implements OnInit {
             .subscribe((res: any) => {
                 //this.personalservice.getPersonal().subscribe((res: any) => {
                 this.data = res.object;
+                console.log("data", this.data);
             });
         //-- lista de administradores
     }
