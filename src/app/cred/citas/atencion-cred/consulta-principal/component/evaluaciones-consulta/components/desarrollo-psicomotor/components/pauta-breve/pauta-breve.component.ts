@@ -48,9 +48,7 @@ export class PautaBreveComponent implements OnInit {
     this.mesesTotal = this.dataConsulta.anio * 12 + this.dataConsulta.mes
     this.fechaEvaluacion = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
     this.examinador = this.dataExaminador.apellidos + ', ' + this.dataExaminador.nombres;
-    console.log('meses totales ', this.mesesTotal);
     // this.indexSelected = this.mesesTotal - 1;
-    console.log('data de la consulta desde pauta breve ', this.dataConsulta);
   }
 
   ngOnInit(): void {
@@ -67,7 +65,6 @@ export class PautaBreveComponent implements OnInit {
   async getDatos() {
     await this.testService.getPautaBreveArray().then(data => {
       this.dataPautaBreve = data;
-      console.log('array de pauta breve ', this.dataPautaBreve);
       this.arrayEdadPautaBreveSelected = this.dataPautaBreve[this.indexSelected]
     });
   }
@@ -91,10 +88,8 @@ export class PautaBreveComponent implements OnInit {
       if (item.estadoD) {
         rpta += ' Nro pregunta:' + item.pregunta + '- Area: ' + item.areaEvaluacion + ',';
       }
-
       return auxAns;
     });
-    // console.log('deficit ', rpta);
     this.dataPB = {
       codigoCIE10: '',
       codigoHIS: '',
@@ -108,7 +103,6 @@ export class PautaBreveComponent implements OnInit {
         observacion: this.observaciones
       }
     }
-    console.log('data to save ', this.dataPB);
     this.pautaBreveService.postAgregarPB(this.idConsulta, this.dataPB).subscribe((res: any) => {
       if (res.cod == "2121") {
         Swal.fire({

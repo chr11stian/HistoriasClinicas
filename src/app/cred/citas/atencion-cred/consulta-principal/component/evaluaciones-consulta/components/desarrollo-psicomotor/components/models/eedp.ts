@@ -91,6 +91,7 @@ export interface TestEEDP {
         listaUltimasPreguntas?: Tupla[],
         listaEvaluacionMesEDDP: ItemEEDP[]
         edadMes: number,
+        observacion?: string
     }
 }
 export interface Tupla {
@@ -98,11 +99,11 @@ export interface Tupla {
     numeroPregunta: number
 }
 export interface DatosConsulta {
-    anio:number,
+    anio: number,
     mes: number,
     dia: number,
     idConsulta: string,
     sexo: string,
-    tipoDoc:string,
+    tipoDoc: string,
     nroDocumento: string
 }
