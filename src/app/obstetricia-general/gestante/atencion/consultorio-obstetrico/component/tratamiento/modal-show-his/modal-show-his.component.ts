@@ -23,6 +23,7 @@ export class ModalShowHisComponent implements OnInit {
   existData: boolean = false;
   arrayFua: FUA[];
   personalData: PersonalInfo;
+  existDataFUA: boolean = false;
 
   constructor(
     private tratamientoService: TratamientoConsultaService,
@@ -44,7 +45,7 @@ export class ModalShowHisComponent implements OnInit {
     this.tratamientoService
       .getHIS(this.consultationId)
       .subscribe((r: any) => {
-        if (r.cod=="2015") {
+        if (r.cod == "2015") {
           Swal.fire({
             icon: 'info',
             title: 'Ya se cerro la consulta',
@@ -66,7 +67,6 @@ export class ModalShowHisComponent implements OnInit {
       motivo: 'PRÓXIMA CONSULTA OBSTETRICIA'
     }
     this.treatmentService.putNextAppointment(this.consultationId, this.dataPatient.id, this.dataSave).then((res: any) => {
-      console.log('codigo de guardado ', res.cod);
       if (res.cod == '2126') {
         Swal.fire({
           icon: 'success',
@@ -85,7 +85,6 @@ export class ModalShowHisComponent implements OnInit {
           timer: 2000,
         })
       }
-
     });
   }
 
@@ -95,6 +94,12 @@ export class ModalShowHisComponent implements OnInit {
 
   loadFUAinfo(): void {
     this.finalizeConsultationService.getShowFuaData(this.consultationId).then((res: any) => {
+      // if (res.cod == "2004") {
+      //   console.log('no trajo data de fua');
+      // }
+      res.object == null ? this.existDataFUA = false : this.existDataFUA = true;
+      if (!this.existDataFUA)
+        return
       this.arrayFua = res.object;
       this.arrayFua.sort((a, b) => a.codPrestacion.localeCompare(b.codPrestacion));
       if (this.arrayFua != null) {
@@ -104,9 +109,8 @@ export class ModalShowHisComponent implements OnInit {
           nroDoc: this.arrayFua[0].nroDoc
         }
       }
-    })
+    });
   }
-
 }
 
 interface NextAppointment {
