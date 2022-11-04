@@ -35,6 +35,7 @@ export class PautaBreveComponent implements OnInit {
   dataExaminador: any;
   dataConsulta: DatosConsulta;
   observaciones: string;
+  arrayPautaBreveDataRec: AnswerPB[] = [];
 
   constructor(
     private testService: EvalAlimenService,
@@ -48,7 +49,7 @@ export class PautaBreveComponent implements OnInit {
     this.mesesTotal = this.dataConsulta.anio * 12 + this.dataConsulta.mes
     this.fechaEvaluacion = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
     this.examinador = this.dataExaminador.apellidos + ', ' + this.dataExaminador.nombres;
-    // this.indexSelected = this.mesesTotal - 1;
+    this.getPautaBreveData();
   }
 
   ngOnInit(): void {
@@ -66,6 +67,7 @@ export class PautaBreveComponent implements OnInit {
     await this.testService.getPautaBreveArray().then(data => {
       this.dataPautaBreve = data;
       this.arrayEdadPautaBreveSelected = this.dataPautaBreve[this.indexSelected]
+
     });
   }
 
@@ -74,6 +76,7 @@ export class PautaBreveComponent implements OnInit {
     this.edadNroSelected = edadNro;
     this.edadSelected = edad;
     this.arrayEdadPautaBreveSelected = this.dataPautaBreve[this.indexSelected];
+    console.log('valores nro selected', this.edadNroSelected, 'edad selected ', this.edadSelected);
   }
 
   saveTest() {
@@ -119,7 +122,7 @@ export class PautaBreveComponent implements OnInit {
           timer: 2000
         });
       }
-      
+
     });
   }
 
@@ -149,5 +152,35 @@ export class PautaBreveComponent implements OnInit {
         });
       }
     });
+  }
+
+  getPautaBreveData(): void {
+    this.pautaBreveService.getPromisePBByIdConsulta(this.idConsulta).then((res: any) => {
+      if (res.cod == "2121") {
+        this.verifyIndexMonth(res.object.evaluacionPautaBreveMes.mesEdad);
+        console.log('respuesta ', res);
+        this.arrayEdadPautaBreveSelected = res.object.evaluacionPautaBreveMes.listaItemPB;
+        this.observaciones = res.object.evaluacionPautaBreveMes.observacion
+      }
+    });
+  }
+
+  verifyIndexMonth(monthAge: number): void {
+    if (monthAge == 4 * 12)
+      this.indexSelected = 16;
+    if (monthAge == 3 * 12)
+      this.indexSelected = 15;
+    if (monthAge == 24)
+      this.indexSelected = 14
+    if (monthAge == 21)
+      this.indexSelected = 13
+    if (monthAge == 18)
+      this.indexSelected = 12
+    if (monthAge == 15)
+      this.indexSelected = 11
+    if (monthAge == 12)
+      this.indexSelected = 10
+    else
+      this.indexSelected = monthAge - 1;
   }
 }
