@@ -47,7 +47,13 @@
         </div>
     </div>
 </div> -->
-<p-dialog header="TEST DE DESARROLLO PSICOMOTOR TEPSI" [(visible)]="displayDialog" [modal]="true" [style]="{width: '80vw'}" [maximizable]="true" [draggable]="false" [resizable]="false">
+<p-dialog header="TEST DE DESARROLLO PSICOMOTOR TEPSI" 
+        [(visible)]="displayDialog" 
+        [modal]="true" 
+        [style]="{width: '80vw'}" 
+        [maximizable]="true" 
+        [draggable]="false" 
+        [resizable]="false">
 <div class="grid">
     <div class="col-6">
         <div class="flex justify-content-start mb-2">
@@ -216,7 +222,10 @@
     </div>
 </div> -->
 </p-dialog>
-<p-dialog [(visible)]="displayTest[0]" [modal]="true">
+<p-dialog [(visible)]="displayTest[0]"
+        [modal]="true"
+        [draggable]="false"
+        [resizable]="false">
     <ng-template pTemplate="header"> 1.SUB. TEST DE COORDINACION</ng-template>
     <table class="tablaCoordinacion">
         <tbody>
@@ -461,11 +470,12 @@
     </ng-template>
 </p-dialog>
 <!--sub test lenguaje-->
-<p-dialog
-        [(visible)]="displayTest[1]"
+<p-dialog [(visible)]="displayTest[1]"
         [modal]="true"
         [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
         [style]="{ width: '40vw' }"
+        [draggable]="false"
+        [resizable]="false"
 >
     <ng-template pTemplate="header" style="font-weight: bold;color:red"> 2.SUB. TEST DE LENGUAJE</ng-template>
     <table class="tablaLenguaje">
@@ -477,7 +487,7 @@
                         binary="true"
                         [(ngModel)]="arregloSubtest[1][0]"
                         (onChange)="calcularResultadoSubTest1(2)"
-                        
+                        [disabled]="hasTaken"
                 ></p-checkbox>
                 1L
             </td>
@@ -493,7 +503,7 @@
                         binary="true"
                         [(ngModel)]="arregloSubtest[1][1]"
                         (onChange)="calcularResultadoSubTest1(2)"
-                        
+                        [disabled]="hasTaken"
                 ></p-checkbox>
                 2L
             </td>
@@ -521,56 +531,56 @@
                         <div class="col-6">Gato</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[0][0]"
-                                        (onChange)="evaluandoItem(0)"></p-checkbox>
+                                        (onChange)="evaluandoItem(0)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-3 grid">
                         <div class="col-6">Perro</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[0][1]"
-                                        (onChange)="evaluandoItem(0)"></p-checkbox>
+                                        (onChange)="evaluandoItem(0)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-3 grid">
                         <div class="col-6">Chancho</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[0][2]"
-                                        (onChange)="evaluandoItem(0)"></p-checkbox>
+                                        (onChange)="evaluandoItem(0)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-3 grid">
                         <div class="col-6">Pato</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[0][3]"
-                                        (onChange)="evaluandoItem(0)"></p-checkbox>
+                                        (onChange)="evaluandoItem(0)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-3 grid">
                         <div class="col-6">Paloma</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[0][4]"
-                                        (onChange)="evaluandoItem(0)"></p-checkbox>
+                                        (onChange)="evaluandoItem(0)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-3 grid">
                         <div class="col-6">Oveja</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[0][5]"
-                                        (onChange)="evaluandoItem(0)"></p-checkbox>
+                                        (onChange)="evaluandoItem(0)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-3 grid">
                         <div class="col-6">Tortuga</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[0][6]"
-                                        (onChange)="evaluandoItem(0)"></p-checkbox>
+                                        (onChange)="evaluandoItem(0)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-3 grid">
                         <div class="col-6">Gallina</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[0][7]"
-                                        (onChange)="evaluandoItem(0)"></p-checkbox>
+                                        (onChange)="evaluandoItem(0)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                 </div>
@@ -595,56 +605,56 @@
                         <div class="col-6">Paraguas</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[1][0]"
-                                        (onChange)="evaluandoItem(1)"></p-checkbox>
+                                        (onChange)="evaluandoItem(1)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-3 grid">
                         <div class="col-6">Vela</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[1][1]"
-                                        (onChange)="evaluandoItem(1)"></p-checkbox>
+                                        (onChange)="evaluandoItem(1)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-3 grid">
                         <div class="col-6">Escoba</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[1][2]"
-                                        (onChange)="evaluandoItem(1)"></p-checkbox>
+                                        (onChange)="evaluandoItem(1)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-3 grid">
                         <div class="col-6">Tetera</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[1][3]"
-                                        (onChange)="evaluandoItem(1)"></p-checkbox>
+                                        (onChange)="evaluandoItem(1)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-3 grid">
                         <div class="col-6">Zapatos</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[1][4]"
-                                        (onChange)="evaluandoItem(1)"></p-checkbox>
+                                        (onChange)="evaluandoItem(1)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-3 grid">
                         <div class="col-6">Reloj</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[1][5]"
-                                        (onChange)="evaluandoItem(1)"></p-checkbox>
+                                        (onChange)="evaluandoItem(1)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-3 grid">
                         <div class="col-6">Serrucho</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[1][6]"
-                                        (onChange)="evaluandoItem(1)"></p-checkbox>
+                                        (onChange)="evaluandoItem(1)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-3 grid">
                         <div class="col-6">Taza</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[1][7]"
-                                        (onChange)="evaluandoItem(1)"></p-checkbox>
+                                        (onChange)="evaluandoItem(1)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
 
@@ -658,6 +668,7 @@
                         binary="true"
                         [(ngModel)]="arregloSubtest[1][4]"
                         (onChange)="calcularResultadoSubTest1(2)"
+                        [disabled]="hasTaken"
                 ></p-checkbox>
                 5L
             </td>
@@ -680,28 +691,28 @@
                         <div class="col-6">Cortando</div>
                         <div class="col-6 text-center">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[2][0]"
-                                        (onChange)="evaluandoItem(2)"></p-checkbox>
+                                        (onChange)="evaluandoItem(2)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-3 grid">
                         <div class="col-6">Saltando</div>
                         <div class="col-6 text-center">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[2][1]"
-                                        (onChange)="evaluandoItem(2)"></p-checkbox>
+                                        (onChange)="evaluandoItem(2)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-3 grid">
                         <div class="col-6">Planchando</div>
                         <div class="col-6 text-center">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[2][2]"
-                                        (onChange)="evaluandoItem(2)"></p-checkbox>
+                                        (onChange)="evaluandoItem(2)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-3 grid">
                         <div class="col-6">Comiendo</div>
                         <div class="col-6 text-center">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[2][3]"
-                                        (onChange)="evaluandoItem(2)"></p-checkbox>
+                                        (onChange)="evaluandoItem(2)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                 </div>
@@ -726,42 +737,42 @@
                         <div class="col-6">Cuchara</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[3][0]"
-                                        (onChange)="evaluandoItem(3)"></p-checkbox>
+                                        (onChange)="evaluandoItem(3)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-4 grid">
                         <div class="col-6">Lápiz</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[3][1]"
-                                        (onChange)="evaluandoItem(3)"></p-checkbox>
+                                        (onChange)="evaluandoItem(3)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-4 grid">
                         <div class="col-6">Jabón</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[3][2]"
-                                        (onChange)="evaluandoItem(3)"></p-checkbox>
+                                        (onChange)="evaluandoItem(3)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-4 grid">
                         <div class="col-6">Escoba</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[3][3]"
-                                        (onChange)="evaluandoItem(3)"></p-checkbox>
+                                        (onChange)="evaluandoItem(3)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-4 grid">
                         <div class="col-6">Cama</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[3][4]"
-                                        (onChange)="evaluandoItem(3)"></p-checkbox>
+                                        (onChange)="evaluandoItem(3)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-4 grid">
                         <div class="col-6">Tijera</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[3][5]"
-                                        (onChange)="evaluandoItem(3)"></p-checkbox>
+                                        (onChange)="evaluandoItem(3)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                 </div>
@@ -776,6 +787,7 @@
 
                         [(ngModel)]="arregloSubtest[1][7]"
                         (onChange)="calcularResultadoSubTest1(2)"
+                        [disabled]="hasTaken"
                 ></p-checkbox>
                 8L
             </td>
@@ -793,6 +805,7 @@
 
                         [(ngModel)]="arregloSubtest[1][8]"
                         (onChange)="calcularResultadoSubTest1(2)"
+                        [disabled]="hasTaken"
                 ></p-checkbox>
                 9L
             </td>
@@ -810,6 +823,7 @@
 
                         [(ngModel)]="arregloSubtest[1][9]"
                         (onChange)="calcularResultadoSubTest1(2)"
+                        [disabled]="hasTaken"
                 ></p-checkbox>
                 10L
             </td>
@@ -825,6 +839,7 @@
 
                         [(ngModel)]="arregloSubtest[1][10]"
                         (onChange)="calcularResultadoSubTest1(2)"
+                        [disabled]="hasTaken"
                 ></p-checkbox>
                 11L
             </td>
@@ -853,21 +868,21 @@
                         <div class="col-6">Hambre</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[4][0]"
-                                        (onChange)="evaluandoItem(4)"></p-checkbox>
+                                        (onChange)="evaluandoItem(4)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-4 grid">
                         <div class="col-6">Cansado</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[4][1]"
-                                        (onChange)="evaluandoItem(4)"></p-checkbox>
+                                        (onChange)="evaluandoItem(4)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-4 grid">
                         <div class="col-6">Frío</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[4][2]"
-                                        (onChange)="evaluandoItem(4)"></p-checkbox>
+                                        (onChange)="evaluandoItem(4)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                 </div>
@@ -893,21 +908,21 @@
                         <div class="col-6">Detrás</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[5][0]"
-                                        (onChange)="evaluandoItem(5)"></p-checkbox>
+                                        (onChange)="evaluandoItem(5)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-4 grid">
                         <div class="col-6">Sobre</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[5][1]"
-                                        (onChange)="evaluandoItem(5)"></p-checkbox>
+                                        (onChange)="evaluandoItem(5)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-4 grid">
                         <div class="col-6">Debajo</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[5][2]"
-                                        (onChange)="evaluandoItem(5)"></p-checkbox>
+                                        (onChange)="evaluandoItem(5)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                 </div>
@@ -933,21 +948,21 @@
                         <div class="col-6">Hielo</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[6][0]"
-                                        (onChange)="evaluandoItem(6)"></p-checkbox>
+                                        (onChange)="evaluandoItem(6)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-4 grid">
                         <div class="col-6">Ratón</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[6][1]"
-                                        (onChange)="evaluandoItem(6)"></p-checkbox>
+                                        (onChange)="evaluandoItem(6)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-4 grid">
                         <div class="col-6">Mamá</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[6][2]"
-                                        (onChange)="evaluandoItem(6)"></p-checkbox>
+                                        (onChange)="evaluandoItem(6)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                 </div>
@@ -973,21 +988,21 @@
                         <div class="col-6">Azul</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[7][0]"
-                                        (onChange)="evaluandoItem(7)"></p-checkbox>
+                                        (onChange)="evaluandoItem(7)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-4 grid">
                         <div class="col-6">Amarillo</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[7][1]"
-                                        (onChange)="evaluandoItem(7)"></p-checkbox>
+                                        (onChange)="evaluandoItem(7)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-4 grid">
                         <div class="col-6">Rojo</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[7][2]"
-                                        (onChange)="evaluandoItem(7)"></p-checkbox>
+                                        (onChange)="evaluandoItem(7)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                 </div>
@@ -1014,21 +1029,21 @@
                         <div class="col-6">Azul</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[8][0]"
-                                        (onChange)="evaluandoItem(8)"></p-checkbox>
+                                        (onChange)="evaluandoItem(8)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-4 grid">
                         <div class="col-6">Amarillo</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[8][1]"
-                                        (onChange)="evaluandoItem(8)"></p-checkbox>
+                                        (onChange)="evaluandoItem(8)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-4 grid">
                         <div class="col-6">Rojo</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[8][2]"
-                                        (onChange)="evaluandoItem(8)"></p-checkbox>
+                                        (onChange)="evaluandoItem(8)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                 </div>
@@ -1054,21 +1069,21 @@
                         <div class="col-6">redondo</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[9][0]"
-                                        (onChange)="evaluandoItem(9)"></p-checkbox>
+                                        (onChange)="evaluandoItem(9)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-4 grid">
                         <div class="col-6">cuadrado</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[9][1]"
-                                        (onChange)="evaluandoItem(9)"></p-checkbox>
+                                        (onChange)="evaluandoItem(9)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-4 grid">
                         <div class="col-6">triangulo</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[9][2]"
-                                        (onChange)="evaluandoItem(9)"></p-checkbox>
+                                        (onChange)="evaluandoItem(9)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                 </div>
@@ -1094,21 +1109,21 @@
                         <div class="col-6">redondo</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[10][0]"
-                                        (onChange)="evaluandoItem(10)"></p-checkbox>
+                                        (onChange)="evaluandoItem(10)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-4 grid">
                         <div class="col-6">cuadrado</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[10][1]"
-                                        (onChange)="evaluandoItem(10)"></p-checkbox>
+                                        (onChange)="evaluandoItem(10)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-4 grid">
                         <div class="col-6">triangulo</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[10][2]"
-                                        (onChange)="evaluandoItem(10)"></p-checkbox>
+                                        (onChange)="evaluandoItem(10)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                 </div>
@@ -1122,6 +1137,7 @@
 
                         [(ngModel)]="arregloSubtest[1][18]"
                         (onChange)="calcularResultadoSubTest1(2)"
+                        [disabled]="hasTaken"
                 ></p-checkbox>
                 19L
             </td>
@@ -1140,6 +1156,7 @@
 
                         [(ngModel)]="arregloSubtest[1][19]"
                         (onChange)="calcularResultadoSubTest1(2)"
+                        [disabled]="hasTaken"
                 ></p-checkbox>
                 20L
             </td>
@@ -1153,6 +1170,7 @@
 
                         [(ngModel)]="arregloSubtest[1][20]"
                         (onChange)="calcularResultadoSubTest1(2)"
+                        [disabled]="hasTaken"
                 ></p-checkbox>
                 21L
             </td>
@@ -1166,6 +1184,7 @@
 
                         [(ngModel)]="arregloSubtest[1][21]"
                         (onChange)="calcularResultadoSubTest1(2)"
+                        [disabled]="hasTaken"
                 ></p-checkbox>
                 22L
             </td>
@@ -1194,28 +1213,28 @@
                         <div class="col-6">Manzana</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[11][0]"
-                                        (onChange)="evaluandoItem(11)"></p-checkbox>
+                                        (onChange)="evaluandoItem(11)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-3 grid">
                         <div class="col-6">Pelota</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[11][1]"
-                                        (onChange)="evaluandoItem(11)"></p-checkbox>
+                                        (onChange)="evaluandoItem(11)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-3 grid">
                         <div class="col-6">Zapato</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[11][2]"
-                                        (onChange)="evaluandoItem(11)"></p-checkbox>
+                                        (onChange)="evaluandoItem(11)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-3 grid">
                         <div class="col-6">Abrigo</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[11][3]"
-                                        (onChange)="evaluandoItem(11)"></p-checkbox>
+                                        (onChange)="evaluandoItem(11)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                 </div>
@@ -1241,21 +1260,21 @@
                         <div class="col-6">Pelota</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[12][0]"
-                                        (onChange)="evaluandoItem(12)"></p-checkbox>
+                                        (onChange)="evaluandoItem(12)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-4 grid">
                         <div class="col-6">Globo inflado</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[12][1]"
-                                        (onChange)="evaluandoItem(12)"></p-checkbox>
+                                        (onChange)="evaluandoItem(12)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                     <div class="col-4 grid">
                         <div class="col-6">Bolsa</div>
                         <div class="col-6 text-left">
                             <p-checkbox binary="true" [(ngModel)]="subPreguntas[12][2]"
-                                        (onChange)="evaluandoItem(12)"></p-checkbox>
+                                        (onChange)="evaluandoItem(12)" [disabled]="hasTaken"></p-checkbox>
                         </div>
                     </div>
                 </div>
@@ -1285,11 +1304,12 @@
     </ng-template>
 </p-dialog>
 <!--sub test motrocidad-->
-<p-dialog
-        [(visible)]="displayTest[2]"
+<p-dialog [(visible)]="displayTest[2]"
         [modal]="true"
         [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
         [style]="{ width: '50vw' }"
+        [draggable]="false"
+        [resizable]="false"
 >
     <ng-template pTemplate="header"> 3.SUB TEST MOTRICIDAD</ng-template>
     <table class="tablaMotricidad">
@@ -1302,6 +1322,7 @@
 
                         [(ngModel)]="arregloSubtest[2][0]"
                         (onChange)="calcularResultadoSubTest1(3)"
+                        [disabled]="hasTaken"
                 ></p-checkbox>
                 1M
             </td>
@@ -1315,6 +1336,7 @@
 
                         [(ngModel)]="arregloSubtest[2][1]"
                         (onChange)="calcularResultadoSubTest1(3)"
+                        [disabled]="hasTaken"
                 ></p-checkbox>
                 2M
             </td>
@@ -1328,6 +1350,7 @@
 
                         [(ngModel)]="arregloSubtest[2][2]"
                         (onChange)="calcularResultadoSubTest1(3)"
+                        [disabled]="hasTaken"
                 ></p-checkbox>
                 3M
             </td>
@@ -1341,6 +1364,7 @@
 
                         [(ngModel)]="arregloSubtest[2][3]"
                         (onChange)="calcularResultadoSubTest1(3)"
+                        [disabled]="hasTaken"
                 ></p-checkbox>
                 4M
             </td>
@@ -1354,6 +1378,7 @@
 
                         [(ngModel)]="arregloSubtest[2][4]"
                         (onChange)="calcularResultadoSubTest1(3)"
+                        [disabled]="hasTaken"
                 ></p-checkbox>
                 5M
             </td>
@@ -1367,6 +1392,7 @@
 
                         [(ngModel)]="arregloSubtest[2][5]"
                         (onChange)="calcularResultadoSubTest1(3)"
+                        [disabled]="hasTaken"
                 ></p-checkbox>
                 6M
             </td>
@@ -1380,6 +1406,7 @@
 
                         [(ngModel)]="arregloSubtest[2][6]"
                         (onChange)="calcularResultadoSubTest1(3)"
+                        [disabled]="hasTaken"
                 ></p-checkbox>
                 7M
             </td>
@@ -1393,6 +1420,7 @@
 
                         [(ngModel)]="arregloSubtest[2][7]"
                         (onChange)="calcularResultadoSubTest1(3)"
+                        [disabled]="hasTaken"
                 ></p-checkbox>
                 8M
             </td>
@@ -1406,6 +1434,7 @@
 
                         [(ngModel)]="arregloSubtest[2][8]"
                         (onChange)="calcularResultadoSubTest1(3)"
+                        [disabled]="hasTaken"
                 ></p-checkbox>
                 9M
             </td>
@@ -1419,6 +1448,7 @@
 
                         [(ngModel)]="arregloSubtest[2][9]"
                         (onChange)="calcularResultadoSubTest1(3)"
+                        [disabled]="hasTaken"
                 ></p-checkbox>
                 10M
             </td>
@@ -1432,6 +1462,7 @@
 
                         [(ngModel)]="arregloSubtest[2][10]"
                         (onChange)="calcularResultadoSubTest1(3)"
+                        [disabled]="hasTaken"
                 ></p-checkbox>
                 11M
             </td>
@@ -1445,6 +1476,7 @@
 
                         [(ngModel)]="arregloSubtest[2][11]"
                         (onChange)="calcularResultadoSubTest1(3)"
+                        [disabled]="hasTaken"
                 ></p-checkbox>
                 12M
             </td>

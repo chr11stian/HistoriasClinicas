@@ -207,7 +207,11 @@ export class TepsiComponent implements OnInit {
     // setTimeout(()=>{
     // },200)
   }
+  contador=0
   reconstruirTest(arreglo: any[]) {
+    this.contador+=1
+    console.log('erreglo',this.contador,arreglo);
+    
     const aux = arreglo.map((element) => {
       return element.valor == 1 ? true : false;
     });
@@ -257,7 +261,9 @@ export class TepsiComponent implements OnInit {
       );
       this.arregloSubtest[2] = this.reconstruirTest(
         resultado["subTestMotricidad"]["listItemTest"]
-      );
+        );
+      //reconstruye las subpregusntas del test de lenguaje
+      this.resconstruirSubPreguntas(resultado["subTestLenguaje"]["listItemTest"])
       //Recuperamos los datos de las dos tablas total,subtests
       const tests = [
         "resultadoTestTotal","subTestCoordinacion","subTestLenguaje","subTestMotricidad"];
