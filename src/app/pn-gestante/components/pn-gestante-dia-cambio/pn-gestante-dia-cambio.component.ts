@@ -21,7 +21,7 @@ export class PnGestanteDiaCambioComponent implements OnInit {
   existeGestante: boolean = false;
   dataGestanteCambio: any;
   //data personal
-  
+
   sis: any[] = [{ value: "SI" }, { value: "NO" }];
   aborto: any[] = [{ value: "true" }, { value: "false" }];
 
@@ -49,8 +49,7 @@ export class PnGestanteDiaCambioComponent implements OnInit {
     this.inicializarForm();
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
   inicializarForm() {
     this.formGestante = this.fb.group({
       formTipoDoc: new FormControl(""),
@@ -64,12 +63,12 @@ export class PnGestanteDiaCambioComponent implements OnInit {
       form_eess_actual: new FormControl(""),
     });
   }
-  mostrarPadronNominalGestantes() {
-    let cod_ipress =this.pn_gestanteServicio.getauxCodeessActual();
+  async mostrarPadronNominalGestantes() {
+    let cod_ipress = this.pn_gestanteServicio.getauxCodeessActual();
     this.pn_gestanteServicio.couch = true;
-    this.pn_gestanteServicio
+    await this.pn_gestanteServicio
       .mostrarPadronGestantes(cod_ipress)
-      .subscribe((res: any) => {
+      .then((res: any) => {
         this.listaGestantes = res["rows"];
       });
   }
@@ -89,17 +88,18 @@ export class PnGestanteDiaCambioComponent implements OnInit {
       )
       .subscribe((res: any) => {
         this.closeDialog();
-        if(res['ok']==true){
+        if (res["ok"] == true) {
           Swal.fire({
             icon: "success",
             title: "Se hizo el cambio de establecimiento correctamente",
             showConfirmButton: false,
             timer: 1500,
           });
-        }else{
+        } else {
           Swal.fire({
             icon: "error",
-            title: "No se pudo hacer el cambio de establecimiento correctamente",
+            title:
+              "No se pudo hacer el cambio de establecimiento correctamente",
             showConfirmButton: false,
             timer: 1500,
           });
@@ -108,32 +108,36 @@ export class PnGestanteDiaCambioComponent implements OnInit {
     this.mostrarPadronNominalGestantes();
   }
 
-  cargarDatosPadronNominal() {
+  async cargarDatosPadronNominal() {
     this.pn_gestanteServicio.couch = true;
-    let nroDoc=this.formGestante.value.formNroDocGestante;
-    if(nroDoc.length>=8){
-      this.pn_gestanteServicio.getGestanteDni(nroDoc).subscribe((data: any) => {
-        this.dataGestante = data.rows[0].value;
-        this.formGestante
-          .get("formNombresGestante")
-          .setValue(this.dataGestante.nombres);
-        this.formGestante
-          .get("formApePaterno")
-          .setValue(this.dataGestante.apePaterno);
+    let nroDoc = this.formGestante.value.formNroDocGestante;
+    if (nroDoc.length >= 8) {
+      await this.pn_gestanteServicio
+        .getGestanteDni(nroDoc)
+        .then((data: any) => {
+          this.dataGestante = data.rows[0].value;
           this.formGestante
-          .get("formApeMaterno")
-          .setValue(this.dataGestante.apeMaterno);
-        this.formGestante
-          .get("formCod_eess_anterior")
-          .setValue(this.dataGestante.codEessActual);
-        this.formGestante
-          .get("form_eess_anterior")
-          .setValue(this.dataGestante.eessActual);
-        this.formGestante
-          .get("formCod_eess_actual")
-          .setValue(this.pn_gestanteServicio.getauxCodeessActual());
-        this.formGestante.get("form_eess_actual").setValue(this.pn_gestanteServicio.getaux_eessActual());
-      });
+            .get("formNombresGestante")
+            .setValue(this.dataGestante.nombres);
+          this.formGestante
+            .get("formApePaterno")
+            .setValue(this.dataGestante.apePaterno);
+          this.formGestante
+            .get("formApeMaterno")
+            .setValue(this.dataGestante.apeMaterno);
+          this.formGestante
+            .get("formCod_eess_anterior")
+            .setValue(this.dataGestante.codEessActual);
+          this.formGestante
+            .get("form_eess_anterior")
+            .setValue(this.dataGestante.eessActual);
+          this.formGestante
+            .get("formCod_eess_actual")
+            .setValue(this.pn_gestanteServicio.getauxCodeessActual());
+          this.formGestante
+            .get("form_eess_actual")
+            .setValue(this.pn_gestanteServicio.getaux_eessActual());
+        });
     }
   }
 }

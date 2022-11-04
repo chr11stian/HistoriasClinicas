@@ -10,6 +10,7 @@ import {MessageService} from "primeng/api";
 import {SuplementoComponent} from "../suplemento-modal/suplemento.component";
 import {DialogService} from "primeng/dynamicdialog";
 import {dato} from "../../../../../../models/data";
+import Swal from 'sweetalert2';
 
 @Component({
     selector: 'app-suplementacion-cred',
@@ -111,20 +112,28 @@ export class SuplementacionCredComponent implements OnInit {
         const ref = this.dialogService.open(SuplementoComponent, {
             data: {isSuplementacion: this.isSuplementacion, "suplementacion": suplementacion},
             header: `Agregar Suplementacion ${suplementacion.descripcion} Dosis numero (${suplementacion.dosis})`,
-            width: "50%",
+            width: "75%",
             contentStyle: {"max-height": "500px", overflow: "auto"},
             baseZIndex: 10000,
         });
         ref.onClose.subscribe((mensaje) => {
             if (mensaje == "agregado") {
                 this.getLista();
-                this.messageService.add({
-                    severity: "success",
-                    summary: "Exito",
-                    detail: "suplementacion Registrada satisfactoriamente",
-                });
-            } else {
-                // this.messageService.add({severity:'error', summary: 'warn', detail:'NO SE registro ninguna inmunizacion'});
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Registro agregado',
+                    text: "",
+                    showConfirmButton: false,
+                    timer: 1500,
+                  });
+            } else if(mensaje=="no agregado"){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'No se guardo el registro',
+                    text: "Ya tiene una suplementacion para el presente mes",
+                    showConfirmButton: false,
+                    timer: 1500,
+                  });
             }
         });
     }

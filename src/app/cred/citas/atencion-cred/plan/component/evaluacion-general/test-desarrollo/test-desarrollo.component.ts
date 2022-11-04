@@ -70,6 +70,7 @@ export class TestDesarrolloComponent implements OnInit {
           this.fechasEvaluadas.push({indice})
           const test=this.listaTestPeruano[index].calificacion
           test.forEach((element,index) => {/* x=6,x=11 */
+            if (element.y == 0) return;
             const x=element.x-1
             const y=this.listaMeses.indexOf(element.y)
             this.getControl(x,y).setValue(true)

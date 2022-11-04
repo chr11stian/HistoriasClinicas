@@ -48,7 +48,23 @@ export class MapVisitasComponent implements OnInit, OnChanges {
       popupAnchor: [0, -40],
       
     });
-    L.Marker.prototype.options.icon = iconDefault;
+    
+    var LeafIcon = L.Icon.extend({
+      options: {
+        iconSize: [30, 30],
+        iconAnchor: [12, 41],
+        shadowAnchor: [0,55],
+        shadowSize: [25,40],
+        shadowUrl:
+        "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
+        popupAnchor: [0, -40],
+      }
+  });
+    var ninios_mayores_Icon = new LeafIcon({iconUrl:'./assets/svg-marker/marker-ninio-mayores.svg'}),
+    ninios_menores_Icon = new LeafIcon({iconUrl: './assets/svg-marker/marker-ninio-menores.svg'}),
+    puerperasIcon = new LeafIcon({iconUrl: './assets/svg-marker/marker-puerpera-visita.svg'}),
+    gestantesIcon = new LeafIcon({iconUrl: './assets/svg-marker/marker-gestante-visita.svg'})
+
     this.maps = new L.Map("map").setView([this.latMap, this.lngMap],13);
     const titles = L.tileLayer(
       "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -77,19 +93,71 @@ export class MapVisitasComponent implements OnInit, OnChanges {
       // this.visitaService.getImageURL(aux.value.validator.firma).subscribe((data)=>{
       //   console.log("daaaataaa",data);
       // });
-
-      L.marker([aux.value.validator.latitud, aux.value.validator.longitud],{
-        title: "Visita Domiciliaria",
-      })
-        .addTo(this.maps)
-        .bindPopup(
-          `
-        <h3>Visita domiciliaria nro :${aux.value.nroVisita}</h3>
-        <h4>Altitud:${aux.value.validator.altitud}</h4> 
-      
-      `,
-          { closeButton: false }
-        );
+      console.log("auxxxx",aux)
+      if(aux.value.hasOwnProperty('mayor_cuatro_meses') || aux.value.hasOwnProperty('menor_cuatro_meses')){
+        console.log("NIÑOS Y NIÑAS");
+        if(aux.value.mayor_cuatro_meses=="mayor_cuatro_meses"){
+          L.marker([aux.value.validator.latitud, aux.value.validator.longitud],{icon: ninios_mayores_Icon},{
+            title: "VISITA DOMICILIARIA",
+          })
+            .addTo(this.maps)
+            .bindPopup(
+              `
+            <h3>VISITA NIÑOS-NIÑAS,4-24 MESES</h3>
+            <h4>VISITA NRO :${aux.value.nroVisita}</h4>
+            <h4>ALTITUD:${aux.value.validator.altitud}</h4> 
+          
+          `,
+              { closeButton: false }
+            );
+        }else if(aux.value.menor_cuatro_meses=="menor_cuatro_meses"){
+          L.marker([aux.value.validator.latitud, aux.value.validator.longitud],{icon: ninios_menores_Icon},{
+            title: "VISITA DOMICILIARIA",
+          })
+            .addTo(this.maps)
+            .bindPopup(
+              `
+              <h3>VISITA NIÑOS-NIÑAS,0-4 MESES</h3>
+              <h4>VISITA NRO :${aux.value.nroVisita}</h4>
+              <h4>ALTITUD:${aux.value.validator.altitud}</h4> 
+          
+          `,
+              { closeButton: false }
+            );
+        }
+      }else if(aux.value.hasOwnProperty('gestante') || aux.value.hasOwnProperty('puerpera')){
+        if(aux.value.gestante=="gestante"){
+          console.log("GESTANTEEEE");
+          L.marker([aux.value.validator.latitud, aux.value.validator.longitud],{icon: gestantesIcon },{
+            title: "VISITA DOMICILIARIA ",
+          })
+            .addTo(this.maps)
+            .bindPopup(
+              `
+            <h4>VISITA GESTANTE</h3>
+            <h4>ALTITUD:${aux.value.validator.altitud}</h4> 
+          
+          `,
+              { closeButton: false }
+            );
+        }else if(aux.value.puerpera=="puerpera"){
+          console.log("PUERPERAAAA");
+          L.marker([aux.value.validator.latitud, aux.value.validator.longitud],{icon:puerperasIcon},{
+            title: "VISITA DOMICILIARIA ",
+          })
+            .addTo(this.maps)
+            .bindPopup(
+              `
+            <h3>VISITA PUERPERA</h3>
+            <h4>ALTITUD:${aux.value.validator.altitud}</h4> 
+          
+          `,
+              { closeButton: false }
+            );
+        }
+      }
+    
+    
     });
     titles.addTo(this.maps);
   }

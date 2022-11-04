@@ -404,7 +404,7 @@ export class PersonalSaludComponent implements OnInit {
         let objectAdmin = {
             tipoDoc: "DNI",
             nroDoc: this.form.value.nroDoc,
-            apps: ["hce"],
+            apps: ["hce","app-visita"],
             escalas: [
                 {
                     escala: "IPRESS",
@@ -676,6 +676,7 @@ export class PersonalSaludComponent implements OnInit {
                 domicilioActual: this.dataPersona.direccion,
             })
         })
+        
         // this.personalservice
         //     .getDatosReniec(this.form.value.nroDoc)
         //     .subscribe((res: any) => {

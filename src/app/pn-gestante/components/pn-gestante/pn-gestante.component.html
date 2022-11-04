@@ -2,7 +2,7 @@
     <div class="card">
     <div class="flex" style="margin-top:20px; margin-bottom:20px">
             <div class="col-12" style="text-align:center;">
-                <span style="font-size:2em ;">
+                <span style="font-size:2em;margin-top: 5px;margin-bottom: 5px;">
                     PADRON NOMINAL DE GESTANTES
                 </span>
             </div>
@@ -49,12 +49,12 @@
                   <th style="text-align: center;">ACCIONES</th>
               </tr>
           </ng-template>
-          <ng-template pTemplate="body" let-gestante style="text-align: center;" let-i="rowIndex">
+          <ng-template pTemplate="body" let-gestante style="text-align: center;margin-top: 10px;margin-bottom: 5px;" let-i="rowIndex">
               <tr>
                   <td style="text-align: center;">{{i+ 1 }}</td>
                   <td style="text-align: center;">{{gestante.value.nroDocIdentidad}}</td>
                   <td style="text-align:left;">{{gestante.value.nombres}}</td>
-                  <td style="text-align:left ;">{{gestante.value.apellidos}}</td>
+                  <td style="text-align:left ;">{{gestante.value.apePaterno}}  {{gestante.value.apeMaterno}}</td>
                   <td style="text-align: center;">{{gestante.value.telefono}}</td>
                   <td style="text-align: center;">{{gestante.value.tieneSis}}</td>
                   <td style="text-align: left;">{{gestante.value.direccion}}</td>

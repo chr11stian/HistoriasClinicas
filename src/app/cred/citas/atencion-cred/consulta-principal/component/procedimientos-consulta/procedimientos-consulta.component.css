@@ -171,3 +171,7 @@ p-speeddial>>>.p-button.p-button-icon-only.p-button-rounded {
   transform: translate(10%, 50%);
   font-weight: bold;
 }
+
+::ng-deep .table-over .p-datatable .p-datatable-tbody > tr > td{
+  padding: 0.2rem 0.6rem;
+}
