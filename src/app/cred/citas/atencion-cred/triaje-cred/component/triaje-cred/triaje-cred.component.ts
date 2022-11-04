@@ -938,7 +938,13 @@ export class TriajeCredComponent implements OnInit {
     getConsultaPrincipal(): void {
         /* start */
         if (this.examFG.invalid) {
-            console.log("entramos al if");
+            Swal.fire({
+                icon: "info",
+                title: "Elemento Requeridos",
+                text: "Varios elementos son requeridos",
+                showConfirmButton: false,
+                timer: 3000,
+            });
             this.examFG.markAllAsTouched();
             return;
         }
