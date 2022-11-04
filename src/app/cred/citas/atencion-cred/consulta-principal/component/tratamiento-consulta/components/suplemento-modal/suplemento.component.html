@@ -46,20 +46,31 @@
       <div class="col-2">Medicamento:</div>
       <div class="col-4 p-fluid ">
         <p-dropdown
-          [options]="suplemento.nombre=='SF'?presentacionSFaTermino:suplemento.nombre=='MNM'?presentacionMNM:presentacionVitaminaA"
+          [options]="tipoSuplementacion"
+          [(ngModel)]="medicamentoSeleccionado"
+          optionLabel="name"
+          (onChange)="cambiarMedicamento()"
+          [ngModelOptions]="{standalone: true}"
+        ></p-dropdown>
+      </div>
+      <div class="col-2">Medicamento:</div>
+      <div class="col-4 p-fluid ">
+        <p-dropdown
+          [options]="medicacion"
           formControlName="medicamento"
           optionLabel="name"
           placeholder="Seleccione"
+          appendTo="body"
         ></p-dropdown>
       </div>
-      <div class="col-6 flex">
+      <!-- <div class="col-6 flex">
           <span>
             Contenido de<br> Hierro Elemental:
           </span>
           <span>
             {{this.getFC('medicamento').value.contenidoHierroElemental}}
           </span>
-      </div>
+      </div> -->
 
     </div>
     <div class="col-6 grid ">

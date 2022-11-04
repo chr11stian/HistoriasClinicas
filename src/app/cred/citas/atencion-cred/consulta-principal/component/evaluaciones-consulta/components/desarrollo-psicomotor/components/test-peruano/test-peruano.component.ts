@@ -14,6 +14,7 @@ import { ConsultaGeneralService } from "../../../../../../services/consulta-gene
 import { MessageService } from "primeng/api";
 import { LoginComponent } from "../../../../../../../../../../login/login.component";
 import { AbstractControl } from "@angular/forms";
+import { Value } from '../../../../../../../../../../pn-gestante/interfaces/padron_Nominal';
 @Component({
   selector: "app-test-peruano",
   templateUrl: "./test-peruano.component.html",
@@ -105,7 +106,8 @@ export class TestPeruanoComponent implements OnInit {
         const ObjetoPeruano={
           fecha:resp.object.evaluacionDesarrolloMes.fecha,
           edad:resp.object.evaluacionDesarrolloMes.edad,
-          diagnostico:resp.object.evaluacionDesarrolloMes.diagnostico
+          diagnostico:resp.object.evaluacionDesarrolloMes.diagnostico,
+          observacion:resp.object.evaluacionDesarrolloMes.observacion
         }
         this.arregloTestXConsulta.push(ObjetoPeruano)
         // const calificacionArreglo:any[]=resp.object.evaluacionDesarrolloMes.calificacion;
@@ -305,6 +307,7 @@ export class TestPeruanoComponent implements OnInit {
       diagnostico='Retraso'
     });
     return diagnostico
+    
   }
   save() {
     if (!this.arregloFormRadio.valid) {
@@ -312,6 +315,16 @@ export class TestPeruanoComponent implements OnInit {
         icon: "info",
         title: "Test Peruano",
         text: "Todas las filas deben estar marcadas",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      return;
+    }
+    if (this.observacion=='') {
+      Swal.fire({
+        icon: "info",
+        title: "Test Peruano",
+        text: "Ingrese observacion",
         showConfirmButton: false,
         timer: 2000,
       });
@@ -328,8 +341,12 @@ export class TestPeruanoComponent implements OnInit {
         diagnostico: this.encontrarDiagnostico(),
         docExaminador: "24242424",
         calificacion: this.arregloCalificacion(),
+        observacion:this.observacion
       },
     };
+    console.log(inputRequest);
+    
+    // return 
     Swal.fire({
       title: 'Esta seguro que desea guardar este registro?',
       showDenyButton: false,
@@ -343,7 +360,7 @@ export class TestPeruanoComponent implements OnInit {
               Swal.fire({
                 icon: 'success',
                 title: 'Test Peruano',
-                text: `Se guardo existosamente la evaluacion para la edad ${ this.edadMeses} meses`,
+                text: `Se guardo existowsamente la evaluacion para la edad ${ this.edadMeses} meses`,
                 showConfirmButton: false,
                 timer: 2000,
               })
@@ -355,6 +372,25 @@ export class TestPeruanoComponent implements OnInit {
           });
        }
     })
+  }
+  observacion:string=''
+  async agregamosObservacion(){
+    /* desestructutacion */
+    const {value,isConfirmed}= await Swal.fire({
+      input: 'text',
+      inputLabel: 'Ingrese Observacion',
+      width: '400px',
+      inputValue:this.observacion,
+      inputPlaceholder: 'obs.',
+      inputAttributes: {
+          'aria-label': 'Type your message here'
+      },
+      showCancelButton: true
+    })
+    if(isConfirmed){
+      this.observacion=value
+    }
+    
   }
 
 }

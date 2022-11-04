@@ -179,7 +179,7 @@ export class DatosGeneralesComponent implements OnInit {
     guardarDatosGenerales() {
         this.save();
 
-        this.onChangeIndice.emit(2);
+        this.onChangeIndice.emit(2); 
 
     }
 
@@ -240,7 +240,7 @@ export class DatosGeneralesComponent implements OnInit {
                 (resp) => {
                     Swal.fire({
                         icon: 'success',
-                        title: 'Actualizado correctamente',
+                        title: 'Registro agregado correctamente',
                         text: '',
                         showConfirmButton: false,
                         timer: 1500,
