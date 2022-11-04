@@ -16,8 +16,6 @@
                     (click)="guardarDatosGenerales()"
                     style="background-color: #0c3866"
                 ></button>
-                <!-- <button *ngIf="isFirstConsulta" pButton pRipple label="Guardar y Siguiente" iconPos="right" icon="pi pi-angle-right"
-                        class="guardar mr-2" (click)="guardarDatosGenerales()" style="background-color: #0c3866"></button> -->
             </ng-template>
         </p-toolbar>
     </ng-template>
@@ -30,9 +28,6 @@
         >
             <form [formGroup]="generalInfoFG">
                 <div class="grid">
-                    <!-- <div class="col-12 flex justify-content-center">
-                        <label>Edad: {{this.edad}}</label>
-                    </div> -->
                     <div class="col-6 flex align-items-center">
                         <div class="col-4">
                             <label class="text-right">Nombre:</label>
@@ -76,7 +71,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="grid">
                     <div class="col-8 flex align-items-center">
                         <div class="col-3">
@@ -166,34 +160,6 @@
                             />
                         </div>
                     </div>
-                    <!-- <div class="col-6 flex align-items-center">
-                        <div class="col-4">
-                            <label
-                            >Grado de instrucción:</label
-                            >
-                        </div>
-                        <div class="col-8">
-                            <p-dropdown
-                                    placeholder="Seleccionar"
-                                    [options]="options"
-                                    formControlName="gradoInstruccion"
-                            >
-                            </p-dropdown>
-                        </div>
-                    </div>
-                    <div class="col-6 flex align-items-center">
-                        <div class="col-4">
-                            <label class="text-right">Centro Educativo:</label>
-                        </div>
-                        <div class="col-8">
-                            <input
-                                    formControlName="centroEducativo"
-                                    type="text"
-                                    class="inputfield w-full"
-                                    pInputText
-                            />
-                        </div>
-                    </div> -->
                 </div>
             </form>
         </p-fieldset>
@@ -205,91 +171,6 @@
             class="info-fieldset"
         >
             <form [formGroup]="apoderadoInfoFG">
-                <div class="grid">
-                    <div class="col-2">
-                        <label>DNI</label>
-                        <input
-                            formControlName="dniPadre"
-                            type="text"
-                            placeholder="# dni"
-                            class="inputfield w-full"
-                            pInputText
-                            (keyup)="searchByDoc('padre')"
-                        />
-                    </div>
-                    <div class="col-5">
-                        <label>Apellidos y Nombres del Padre</label>
-                        <input
-                            formControlName="nombrePadre"
-                            type="text"
-                            placeholder="Apellidos y Nombres del Padre"
-                            class="inputfield w-full"
-                            pInputText
-                        />
-                    </div>
-                    <div class="col-1">
-                        <label>Edad</label>
-                        <input
-                            formControlName="edadPadre"
-                            type="text"
-                            placeholder="edad"
-                            class="inputfield w-full"
-                            pInputText
-                        />
-                    </div>
-                    <div class="col-4 flex flex-column">
-                        <label>Grado de instrucción:</label>
-                        <p-dropdown
-                            placeholder="Seleccionar"
-                            [options]="options"
-                            formControlName="gradoInstruccionPadre"
-                        >
-                        </p-dropdown>
-                    </div>
-                    <div class="col-3 flex flex-column">
-                        <label>Estado Civil:</label>
-                        <p-dropdown
-                            placeholder="Seleccionar"
-                            [options]="listaEstadoCivil"
-                            optionLabel="name"
-                            optionValue="code"
-                            formControlName="estadoPadre"
-                            class="p-fluid w-full"
-                        >
-                        </p-dropdown>
-                    </div>
-                    <div class="col-2">
-                        <label>Telefono</label>
-                        <input
-                            formControlName="telefonoPadre"
-                            type="text"
-                            placeholder="telefono"
-                            class="inputfield w-full"
-                            pInputText
-                        />
-                    </div>
-                    <div class="col-2">
-                        <label>Codigo Afiliación</label>
-                        <p-selectButton
-                            [options]="stateOptions2"
-                            formControlName="codigoPadre"
-                            optionLabel="label"
-                            optionValue="value"
-                        >
-                        </p-selectButton>
-                    </div>
-                    <div class="col-2">
-                        <label>Codigo</label>
-                        <input
-                            formControlName="codigoAfiliacionPadre"
-                            type="text"
-                            placeholder="codigo"
-                            class="inputfield w-full"
-                            pInputText
-                        />
-                    </div>
-                </div>
-                <p-divider></p-divider>
                 <div class="grid">
                     <div class="col-2">
                         <label>DNI</label>
@@ -368,6 +249,91 @@
                         <label>Codigo</label>
                         <input
                             formControlName="codigoAfiliacionMadre"
+                            type="text"
+                            placeholder="codigo"
+                            class="inputfield w-full"
+                            pInputText
+                        />
+                    </div>
+                </div>
+                <p-divider></p-divider>
+                <div class="grid">
+                    <div class="col-2">
+                        <label>DNI</label>
+                        <input
+                            formControlName="dniPadre"
+                            type="text"
+                            placeholder="# dni"
+                            class="inputfield w-full"
+                            pInputText
+                            (keyup)="searchByDoc('padre')"
+                        />
+                    </div>
+                    <div class="col-5">
+                        <label>Apellidos y Nombres del Padre</label>
+                        <input
+                            formControlName="nombrePadre"
+                            type="text"
+                            placeholder="Apellidos y Nombres del Padre"
+                            class="inputfield w-full"
+                            pInputText
+                        />
+                    </div>
+                    <div class="col-1">
+                        <label>Edad</label>
+                        <input
+                            formControlName="edadPadre"
+                            type="text"
+                            placeholder="edad"
+                            class="inputfield w-full"
+                            pInputText
+                        />
+                    </div>
+                    <div class="col-4 flex flex-column">
+                        <label>Grado de instrucción:</label>
+                        <p-dropdown
+                            placeholder="Seleccionar"
+                            [options]="options"
+                            formControlName="gradoInstruccionPadre"
+                        >
+                        </p-dropdown>
+                    </div>
+                    <div class="col-3 flex flex-column">
+                        <label>Estado Civil:</label>
+                        <p-dropdown
+                            placeholder="Seleccionar"
+                            [options]="listaEstadoCivil"
+                            optionLabel="name"
+                            optionValue="code"
+                            formControlName="estadoPadre"
+                            class="p-fluid w-full"
+                        >
+                        </p-dropdown>
+                    </div>
+                    <div class="col-2">
+                        <label>Telefono</label>
+                        <input
+                            formControlName="telefonoPadre"
+                            type="text"
+                            placeholder="telefono"
+                            class="inputfield w-full"
+                            pInputText
+                        />
+                    </div>
+                    <div class="col-2">
+                        <label>Codigo Afiliación</label>
+                        <p-selectButton
+                            [options]="stateOptions2"
+                            formControlName="codigoPadre"
+                            optionLabel="label"
+                            optionValue="value"
+                        >
+                        </p-selectButton>
+                    </div>
+                    <div class="col-2">
+                        <label>Codigo</label>
+                        <input
+                            formControlName="codigoAfiliacionPadre"
                             type="text"
                             placeholder="codigo"
                             class="inputfield w-full"

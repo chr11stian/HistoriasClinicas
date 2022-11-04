@@ -20,6 +20,7 @@
                 <th style="text-align: center" class="font-2">FECHA</th>
                 <th style="text-align: center" class="font-2">EDAD TOMADA EL TEST</th>
                 <th style="text-align: center" class="font-2">DIAGNÓSTICO</th>
+                <th style="text-align: center" class="font-2">OBSERVACION</th>
                 <th style="text-align: center" class="font-2">ACCIÓN</th>
             </tr>
         </ng-template>
@@ -29,6 +30,7 @@
                 <td style="text-align: center">{{ rowData.fecha | date: 'dd-MM-yyyy HH:mm:ss'}}</td>
                 <td style="text-align: center">{{ rowData.edad }} (meses)</td>
                 <td style="text-align: center">{{ rowData.diagnostico }}</td>
+                <td style="text-align: center">{{ rowData.observacion }}</td>
                 <td style="text-align: center">
                     <button pButton (click)="displayDialog=true" pTooltip="Ver Test" pRipple type="button"
                             icon="pi pi-eye" class="p-button-rounded p-button-help m-1">
@@ -110,9 +112,16 @@
                              </div>
                         </td>
                     </tr>
+                  
                    
                 </ng-template>
                 <ng-template pTemplate="footer">
+                    <tr *ngIf="isAgregable">
+                        <th>Observacion</th>
+                        <th *ngFor="let mes of listaMeses;let i=index">
+                            <button *ngIf="mes==edadMeses" type="button" label="Obs." class="p-button-info" icon="pi pi-pencil"  pButton (click)="agregamosObservacion()"></button>
+                        </th>
+                    </tr>
                     <tr>
                         <th style="background-color: white; width: 40px; height: 30px;"><div></div><div></div></th>
                         <th style="background-color: white;" class="ultimo"><div class="flex justify-content-center flex-column"><div style="margin-left: 25px;" class="triangulo-1-b"></div><div class="flex flex-column justify-content-center caja" style="background-color: #4C4C4C"><div style="font-size: 15px; font-weight: bold; ">1</div><div style="font-size: 15px; font-weight: bold;">MES</div></div></div></th>

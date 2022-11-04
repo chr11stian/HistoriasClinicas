@@ -23,7 +23,7 @@ export class VisitaGestanteService {
   .then((res) => <any[]>res)
   .then((data) => {
     return data;
-  });
+  }).catch(error => { return []});;
   } 
 
   getVisitasGestantesXProfesionalXAnioXMesFecha(idIpress:any,dni_profesional:any,anio_mes:any):any{
@@ -36,7 +36,7 @@ export class VisitaGestanteService {
   .then((res) => <any[]>res)
   .then((data) => {
     return data;
-  });
+  }).catch(error => { return []});
   }
 
   getVisitasGestantesXProfesionalAnio(idIpress:any,dni_profesional:any,anio:any):any{
@@ -49,15 +49,59 @@ export class VisitaGestanteService {
   .then((res) => <any[]>res)
   .then((data) => {
     return data;
-  }).catch(error => { return error.error });
+  }).catch(error => { return []});
   }
 
-  // buscarVisitaGestantesXAnioMes(fecha: string) {
-  //   return this.http.post<VisitasProfesionalGestantes[]>(
-  //     `${this.base_url_view}/visita_domiciliaria_XProfesionalGestanteFecha`,
-  //     {
-  //       keys: [fecha],
-  //     }
-  //   );
-  // }
+  getVisitasGestantesAnio(idIpress:any,dni_profesional:any,anio:any):any{
+    return this.http.post<VisitasProfesionalGestantes[]>(
+      `${this.base_url_view}/visita-gestante-anio`,
+      {
+          keys: [[idIpress, dni_profesional, anio]],
+      }
+  ).toPromise()
+  .then((res) => <any[]>res)
+  .then((data) => {
+    return data;
+  }).catch(error => { return [] });
+  }
+  
+  getVisitasGestantesFecha(idIpress:any,dni_profesional:any,fecha:any):any{
+    return this.http.post<VisitasProfesionalGestantes[]>(
+      `${this.base_url_view}/visita-gestante-fecha`,
+      {
+          keys: [[idIpress, dni_profesional,fecha]],
+      }
+  ).toPromise()
+  .then((res) => <any[]>res)
+  .then((data) => {
+    return data;
+  }).catch(error => { return [] });
+  }
+
+  getVisitasPuerperasAnio(idIpress:any,dni_profesional:any,anio:any):any{
+    return this.http.post<VisitasProfesionalGestantes[]>(
+      `${this.base_url_view}/visita-puerpera-anio`,
+      {
+          keys: [[idIpress, dni_profesional, anio]],
+      }
+  ).toPromise()
+  .then((res) => <any[]>res)
+  .then((data) => {
+    return data;
+  }).catch(error => { return [] });
+  }
+
+  getVisitasPuerperasFecha(idIpress:any,dni_profesional:any,fecha:any):any{
+    return this.http.post<VisitasProfesionalGestantes[]>(
+      `${this.base_url_view}/visita-puerpera-fecha`,
+      {
+          keys: [[idIpress, dni_profesional,fecha]],
+      }
+  ).toPromise()
+  .then((res) => <any[]>res)
+  .then((data) => {
+    return data;
+  }).catch(error => { return [] });
+  }
+
 }

@@ -48,6 +48,7 @@ export class EedpComponent implements OnInit {
   tableStatus: boolean = false;
   fechaAtencion: string;
   dataConsulta: DatosConsulta;
+  observaciones: string;
 
   constructor(
     private evalAlimenService: EvalAlimenService,
@@ -109,7 +110,6 @@ export class EedpComponent implements OnInit {
       return
     this.arrayRptas = dataEEDP.testEedp.listaUltimasPreguntas;
     this.evalResult = dataEEDP.testEedp.diagnostico;
-    // this.chronologicalAge = dataEEDP.testEedp
     this.fechaAtencion = this.datePipe.transform(dataEEDP.testEedp.fechaAtencion, 'dd/MM/yyyy');
     this.tableStatus = true;
   }
@@ -217,7 +217,8 @@ export class EedpComponent implements OnInit {
             numeroPregunta: this.calculateArea(this.listaPreguntas, 'M')
           }
         ],
-        listaEvaluacionMesEDDP: this.listaPreguntas
+        listaEvaluacionMesEDDP: this.listaPreguntas,
+        observacion: this.observaciones
       }
     }
     console.log('data eedp to save ', this.dataTestEEDP);

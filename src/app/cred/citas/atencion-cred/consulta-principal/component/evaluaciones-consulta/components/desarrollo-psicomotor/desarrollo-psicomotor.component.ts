@@ -74,7 +74,6 @@ export class DesarrolloPsicomotorComponent implements OnInit {
           width: 600,
         });
       }
-      console.log('arreglo ', this.disabledSelectedTab)
     })
   }
 
@@ -91,6 +90,7 @@ export class DesarrolloPsicomotorComponent implements OnInit {
       } else {
         item.disabled = false;
         item.selected = true;
+        this.index = option;
         return item;
       }
     });

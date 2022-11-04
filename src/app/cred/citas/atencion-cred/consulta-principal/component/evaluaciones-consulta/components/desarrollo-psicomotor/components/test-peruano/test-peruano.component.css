@@ -17,6 +17,8 @@ p-radiobutton >>> .p-radiobutton .p-radiobutton-icon {
     padding: 3px;
  }
  ::ng-deep .tablaPeruano .p-datatable .p-datatable-tfoot > tr > th {
+    border: 1px solid #b6b6b6;
+    text-align: center;
     padding: 3px;
  }
  .caja {

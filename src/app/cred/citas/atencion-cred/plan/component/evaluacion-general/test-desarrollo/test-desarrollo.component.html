@@ -20,6 +20,7 @@
                <th style="text-align: center" class="font-2">FECHA</th>
                <th style="text-align: center" class="font-2">EDAD TOMADA EL TEST</th>
                <th style="text-align: center" class="font-2">DIAGNÓSTICO</th>
+               <th style="text-align: center" class="font-2">OBSERVACION</th>
                <th style="text-align: center" class="font-2">ACCIÓN</th>
            </tr>
        </ng-template>
@@ -29,6 +30,7 @@
                <td style="text-align: center">{{ rowData.fecha | date: 'dd-MM-yyyy HH:mm:ss'}}</td>
                <td style="text-align: center">{{ rowData.edad }} (meses)</td>
                <td style="text-align: center">{{ rowData.diagnostico }}</td>
+               <td style="text-align: center">{{ rowData.observacion }}</td>
                <td style="text-align: center">
                    <button pButton (click)="isTodo=false;openDialog(rowIndex)" pTooltip="Ver Test" pRipple type="button"
                            icon="pi pi-eye" class="p-button-rounded p-button-help m-1">
