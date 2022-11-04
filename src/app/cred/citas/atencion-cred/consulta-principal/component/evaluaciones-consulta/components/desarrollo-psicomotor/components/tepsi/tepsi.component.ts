@@ -122,9 +122,7 @@ export class TepsiComponent implements OnInit {
       fechaSelected: new FormControl({value:new Date(this.data.fechaConsulta),disabled:true}, Validators.required),
       observacion: new FormControl({value:'',disabled:false}, Validators.required),
       
-    });
-    console.log('data-->',this.data);
-    
+    });   
   }
 
   traerPuntaje() {
@@ -210,8 +208,6 @@ export class TepsiComponent implements OnInit {
   contador=0
   reconstruirTest(arreglo: any[]) {
     this.contador+=1
-    console.log('erreglo',this.contador,arreglo);
-    
     const aux = arreglo.map((element) => {
       return element.valor == 1 ? true : false;
     });
@@ -281,7 +277,6 @@ export class TepsiComponent implements OnInit {
         arregloLenguaje[this.indicePregunta[index] - 1].listaPreguntas
       );
     });
-    console.log("respuesta", this.subPreguntas);
   }
 
   recuperarTrueFalse(arreglo) {
@@ -322,13 +317,11 @@ export class TepsiComponent implements OnInit {
   }
 
   abrimosModal(index) {
-    console.log(index);
     this.displayTest[index] = true;
   }
 
   evaluandoItem(index) {
     let acumulador = this.calcularSumaArreglos(this.subPreguntas[index]);
-    console.log(acumulador);
     if (acumulador >= this.minimo[index]) {
       this.arregloSubtest[1][this.indicePregunta[index] - 1] = true;
     } else {
@@ -414,8 +407,6 @@ export class TepsiComponent implements OnInit {
     this.actualizarDataGraficar();
     // this.chartData=this.chartData;
     
-    // console.log(this.chartData);
-    
   }
   
   save() {
@@ -487,7 +478,6 @@ export class TepsiComponent implements OnInit {
       },
     };
       /* start */
-      console.log('Input Request',requestInput);
       
       // return 
       Swal.fire({
@@ -523,7 +513,7 @@ export class TepsiComponent implements OnInit {
                   }
                 },
                 (error) => {
-                  console.log('error del servidor');  
+                  //console.log('error del servidor');  
                 }
               );
         }
