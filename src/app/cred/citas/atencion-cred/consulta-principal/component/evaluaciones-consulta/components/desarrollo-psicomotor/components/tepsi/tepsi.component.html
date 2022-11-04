@@ -464,7 +464,7 @@
         </tbody>
     </table>
     <ng-template pTemplate="footer">
-        <button pButton pRipple label="Terminar Test Coordinacion" iconPos="right" icon=""
+        <button *ngIf="!hasTaken" pButton pRipple label="Terminar Test Coordinacion" iconPos="right" icon=""
                 class="" style="background-color: #0c3866"
                 (click)="isResolve[0]=true;this.displayTest[0]=false"></button>
     </ng-template>
@@ -1298,7 +1298,7 @@
     </table>
 
     <ng-template pTemplate="footer">
-        <button pButton pRipple label="Terminar Test Lenguaje" iconPos="right" icon=""
+        <button *ngIf="!hasTaken" pButton pRipple label="Terminar Test Lenguaje" iconPos="right" icon=""
                 class="" style="background-color: #0c3866"
                 (click)="isResolve[1]=true;this.displayTest[1]=false"></button>
     </ng-template>
@@ -1500,7 +1500,7 @@
         </tbody>    
     </table>
     <ng-template pTemplate="footer">
-        <button pButton pRipple label="Terminar Test Motricidad" iconPos="right" icon=""
+        <button *ngIf="!hasTaken" pButton pRipple label="Terminar Test Motricidad" iconPos="right" icon=""
                 class="" style="background-color: #0c3866"
                 (click)="isResolve[2]=true;this.displayTest[2]=false"></button>
     </ng-template>

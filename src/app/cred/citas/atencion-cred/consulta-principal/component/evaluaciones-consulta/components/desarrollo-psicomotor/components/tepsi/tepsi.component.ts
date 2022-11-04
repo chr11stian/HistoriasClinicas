@@ -120,7 +120,7 @@ export class TepsiComponent implements OnInit {
     this.datosGeneralesFG = new FormGroup({
       nombreExaminador: new FormControl({value:'',disabled:true}, Validators.required),
       fechaSelected: new FormControl({value:new Date(this.data.fechaConsulta),disabled:true}, Validators.required),
-      observacion: new FormControl('', Validators.required),
+      observacion: new FormControl({value:'',disabled:false}, Validators.required),
       
     });
     console.log('data-->',this.data);
@@ -228,6 +228,7 @@ export class TepsiComponent implements OnInit {
       }
       
       this.hasTaken = true;
+      this.getFC('observacion').disable()
       const objetoTepsi={
         fecha:resp.object.testTepsi.fechaAtencion,
         edad:`${resp.object.testTepsi.edad.anio}años,${resp.object.testTepsi.edad.mes}meses,${resp.object.testTepsi.edad.dia}dias`,
