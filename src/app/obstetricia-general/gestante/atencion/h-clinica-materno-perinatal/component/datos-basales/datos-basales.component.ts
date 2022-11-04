@@ -970,6 +970,10 @@ export class DatosBasalesComponent implements OnInit {
         console.log('hemoooooo', hemoExam);
         return hemoExam;
     }
+
+    factorDeCorreccion(): void {
+        
+    }
 }
 interface Ultrasound {
     fecha: string,

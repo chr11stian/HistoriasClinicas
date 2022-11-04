@@ -34,4 +34,11 @@ export class PautaBreveService {
       .then(data => { return data; })
       .catch(error => { return error });
   }
+  getPromisePBByIdConsulta(idConsulta) {
+    return this.http.get(`${this.base_url}/${this.bd}/cred/consulta/evaluacion/pautabreve/${idConsulta}`)
+      .toPromise()
+      .then(res => <any>res)
+      .then(data => { return data; })
+      .catch(error => { return error });
+  }
 }

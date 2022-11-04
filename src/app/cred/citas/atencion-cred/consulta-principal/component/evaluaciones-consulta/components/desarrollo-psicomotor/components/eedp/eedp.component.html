@@ -3,13 +3,17 @@
         <div class="grid mb-3">
             <div class="col-4 mt-2">
                 <label class="titulo-1">Examinador: </label>
-                <span class="descp-1">{{examinador}}</span>
+                <span class="descp-1">{{ examinador }}</span>
             </div>
             <div class="col-5">
                 <div class="grid">
                     <label class="titulo-1 mt-3">Fecha</label>
                     <div class="col-8">
-                        <input type="date" [(ngModel)]="fechaEvaluacion" pInputText>
+                        <input
+                            type="date"
+                            [(ngModel)]="fechaEvaluacion"
+                            pInputText
+                        />
                     </div>
                 </div>
             </div>
@@ -17,17 +21,23 @@
         <div class="grid">
             <div class="col-4">
                 <label class="titulo-1">Edad Cronológica: </label>
-                <span class="descp-1">{{chronologicalAge}} dias</span>
+                <span class="descp-1">{{ chronologicalAge }} dias</span>
             </div>
             <div class="col-3">
                 <label class="titulo-1">Edad(Meses): </label>
-                <span class="descp-1">{{mesesTotal}} meses</span>
+                <span class="descp-1">{{ mesesTotal }} meses</span>
             </div>
             <div class="col-4">
                 <label class="titulo-1">Edad actual: </label>
-                <span class="descp-1" *ngIf="dataConsulta.anio>0">{{dataConsulta.anio}} año(s) </span>
-                <span class="descp-1" *ngIf="dataConsulta.mes>0">{{dataConsulta.mes}} meses </span>
-                <span class="descp-1" *ngIf="dataConsulta.dia>0">y {{dataConsulta.dia}} dias </span>
+                <span class="descp-1" *ngIf="dataConsulta.anio > 0"
+                    >{{ dataConsulta.anio }} año(s)
+                </span>
+                <span class="descp-1" *ngIf="dataConsulta.mes > 0"
+                    >{{ dataConsulta.mes }} meses
+                </span>
+                <span class="descp-1" *ngIf="dataConsulta.dia > 0"
+                    >y {{ dataConsulta.dia }} dias
+                </span>
             </div>
         </div>
     </div>
@@ -36,22 +46,35 @@
             <div *ngIf="indexItem === indexSelected">
                 <div class="steps">
                     <div class="div-titulo-nro">
-                        <label class="steps-titulo-edadNro">{{item.edadNro}}</label>
+                        <label class="steps-titulo-edadNro">{{
+                            item.edadNro
+                        }}</label>
                     </div>
                     <div class="div-line"></div>
                     <div class="div-titulo-mes">
-                        <label class="steps-titulo-edadMes">{{item.edad}}</label>
+                        <label class="steps-titulo-edadMes">{{
+                            item.edad
+                        }}</label>
                     </div>
                 </div>
             </div>
             <div *ngIf="indexItem !== indexSelected">
-                <div class="steps_NoSelected" (click)="changeStep(indexItem, item.edadNro, item.edad, itemEEDP)">
+                <div
+                    class="steps_NoSelected"
+                    (click)="
+                        changeStep(indexItem, item.edadNro, item.edad, itemEEDP)
+                    "
+                >
                     <div class="div-titulo-nro">
-                        <label class="steps-titulo-edadNro">{{item.edadNro}}</label>
+                        <label class="steps-titulo-edadNro">{{
+                            item.edadNro
+                        }}</label>
                     </div>
                     <div class="div-line"></div>
                     <div class="div-titulo-mes">
-                        <label class="steps-titulo-edadMes">{{item.edad}}</label>
+                        <label class="steps-titulo-edadMes">{{
+                            item.edad
+                        }}</label>
                     </div>
                 </div>
             </div>
@@ -60,17 +83,25 @@
 
     <div class="div_line_Separate_card"></div>
     <div>
-        <p-fieldset legend="{{edadNroSelected + ' ' + edadSelected}}">
-            <div style="margin-top: 20px;">
-                <div class=" text-right col-12">
+        <p-fieldset legend="{{ edadNroSelected + ' ' + edadSelected }}">
+            <div style="margin-top: 20px">
+                <div class="text-right col-12">
                     <label class="titulo-1">Puntos Mensuales: </label>
-                    <span class="descp-1">{{monthPoints}}</span>
+                    <span class="descp-1">{{ monthPoints }}</span>
                 </div>
-                <p-table dataKey="id" [value]="arrayEdadEEDPSelected" responsiveLayout="scroll" class="test-eedp" styleClass="p-datatable-gridlines" >
+                <p-table
+                    dataKey="id"
+                    [value]="arrayEdadEEDPSelected"
+                    responsiveLayout="scroll"
+                    class="test-eedp"
+                    styleClass="p-datatable-gridlines"
+                >
                     <ng-template pTemplate="header">
                         <tr>
                             <th rowspan="2" colspan="8">ITEM</th>
-                            <th colspan="2">{{'PUNTAJE ' + puntaje + ' C/U'}}</th>
+                            <th colspan="2">
+                                {{ "PUNTAJE " + puntaje + " C/U" }}
+                            </th>
                         </tr>
                         <tr>
                             <th colspan="2">EEDP</th>
@@ -78,18 +109,28 @@
                     </ng-template>
                     <ng-template pTemplate="body" let-datos>
                         <tr>
-                            <td colspan="2">{{datos.areEvaluacion}}</td>
-                            <td colspan="6" pEditableColumn>{{datos.descripcion}}</td>
+                            <td colspan="2">{{ datos.areEvaluacion }}</td>
+                            <td colspan="6" pEditableColumn>
+                                {{ datos.descripcion }}
+                            </td>
                             <td colspan="2">
                                 <p-cellEditor>
                                     <ng-template pTemplate="input">
-                                        <p-checkbox [(ngModel)]="datos.puntajeEEDP" binary="true" inputId="binary"
-                                            (onChange)="calcularResultado()">
+                                        <p-checkbox
+                                            [(ngModel)]="datos.puntajeEEDP"
+                                            binary="true"
+                                            inputId="binary"
+                                            (onChange)="calcularResultado()"
+                                        >
                                         </p-checkbox>
                                     </ng-template>
                                     <ng-template pTemplate="output">
-                                        <p-checkbox [(ngModel)]="datos.puntajeEEDP" binary="true" inputId="binary"
-                                            (onChange)="calcularResultado()">
+                                        <p-checkbox
+                                            [(ngModel)]="datos.puntajeEEDP"
+                                            binary="true"
+                                            inputId="binary"
+                                            (onChange)="calcularResultado()"
+                                        >
                                         </p-checkbox>
                                     </ng-template>
                                 </p-cellEditor>
@@ -98,34 +139,54 @@
                     </ng-template>
                 </p-table>
             </div>
+            <div class="col-12">
+                <label>Observaciones:</label>
+                <textarea
+                    [rows]="3"
+                    class="inputfield w-full"
+                    autoResize="autoResize"
+                    [(ngModel)]="observaciones"
+                    pInputTextarea
+                    placeholder="Ingrese las observaciones"
+                    oninput="this.value=this.value.toUpperCase()"
+                ></textarea>
+            </div>
             <div class="col-12 mt-2 text-right">
-                <p-button (click)="confirmSaveTest()" class="save">Guardar</p-button>
+                <p-button (click)="confirmSaveTest()" class="save"
+                    >Guardar</p-button
+                >
             </div>
         </p-fieldset>
     </div>
 </div>
-<!-- TABLA DE PERFIL DE DESARROLLO PSICOMOTOR - EEDP -->
+
+<!-- TABLA DE RESULTADO DE PERFIL DE DESARROLLO PSICOMOTOR - EEDP -->
 <div class="col-12" *ngIf="tableStatus">
     <div class="grid mb-5">
         <div class="col-3">
             <label class="titulo-1">Edad Cronológica: </label>
-            <span class="descp-1">{{chronologicalAge}} dias</span>
+            <span class="descp-1">{{ chronologicalAge }} dias</span>
         </div>
         <div class="col-3">
             <label class="titulo-1">Edad Mensual: </label>
-            <span class="descp-1">{{mesesTotal}}</span>
+            <span class="descp-1">{{ mesesTotal }}</span>
         </div>
         <div class="col-3">
             <label class="titulo-1">Fecha de Evaluación: </label>
-            <span class="descp-1">{{fechaAtencion}}</span>
+            <span class="descp-1">{{ fechaAtencion }}</span>
         </div>
         <div class="col-3">
             <label class="titulo-1">Diagnostico: </label>
-            <span class="descp-1">{{evalResult}}</span>
+            <span class="descp-1">{{ evalResult }}</span>
         </div>
     </div>
-    <p-table dataKey="id" [value]="dataTabla" responsiveLayout="scroll" styleClass="p-datatable-gridlines"
-        class="table-desarrollo">
+    <p-table
+        dataKey="id"
+        [value]="dataTabla"
+        responsiveLayout="scroll"
+        styleClass="p-datatable-gridlines"
+        class="table-desarrollo"
+    >
         <ng-template pTemplate="header">
             <tr>
                 <th rowspan="2" colspan="2">Area</th>
@@ -152,440 +213,1344 @@
 
         <ng-template pTemplate="body" let-datos let-i="rowIndex">
             <tr>
-                <td colspan="2">{{datos.areaEvaluacion}}</td>
+                <td colspan="2">{{ datos.areaEvaluacion }}</td>
                 <td colspan="2">
-                    <div class="cell_container text-center" *ngFor="let dato of datos.preguntas; index as indexDato">
-                        <div *ngIf="dato.mes == 1 && dato.nroPregunta.length === 1">
-                            <div style="display: flex; justify-content: center;"
-                                [ngClass]="{'nroResult': dato.nroPregunta == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta}}
+                    <div
+                        class="cell_container text-center"
+                        *ngFor="let dato of datos.preguntas; index as indexDato"
+                    >
+                        <div
+                            *ngIf="
+                                dato.mes == 1 && dato.nroPregunta.length === 1
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: center"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta }}
                             </div>
                         </div>
-                        <div *ngIf="dato.mes == 1 && dato.nroPregunta.length === 2">
-                            <div style="display: flex; justify-content: start;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[0] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[0]}}</div>
-                            <div style="display: flex; justify-content: end;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[1] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[1]}}</div>
-                        </div>
-                        <div *ngIf="dato.mes == 1 && dato.nroPregunta.length === 3">
-                            <div style="display: flex; justify-content: start;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[0] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[0]}}</div>
-                            <div style="display: flex; justify-content: center;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[1] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[1]}}</div>
-                            <div style="display: flex; justify-content: end;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[2] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[2]}}</div>
-                        </div>
-                    </div>
-                </td>
-                <td colspan="2">
-                    <div class="cell_container" *ngFor="let dato of datos.preguntas; index as indexDato">
-                        <div *ngIf="dato.mes == 2 && dato.nroPregunta.length === 1">
-                            <div style="display: flex; justify-content: center;"
-                                [ngClass]="{'nroResult': dato.nroPregunta == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta}}</div>
-                        </div>
-                        <div *ngIf="dato.mes == 2 && dato.nroPregunta.length === 2">
-                            <div style="display: flex; justify-content: start; flex: 30%;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[0] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[0]}}</div>
-                            <div style="display: flex; justify-content: end; flex: 30%;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[1] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[1]}}</div>
-                        </div>
-                        <div *ngIf="dato.mes == 2 && dato.nroPregunta.length === 3">
-                            <div style="display: flex; justify-content: start;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[0] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[0]}}</div>
-                            <div style="display: flex; justify-content: center;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[1] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[1]}}</div>
-                            <div style="display: flex; justify-content: end;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[2] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[2]}}</div>
-                        </div>
-                    </div>
-                </td>
-                <td colspan="2">
-                    <div class="cell_container text-center" *ngFor="let dato of datos.preguntas; index as indexDato">
-                        <div *ngIf="dato.mes == 3 && dato.nroPregunta.length === 1">
-                            <div style="display: flex; justify-content: center;"
-                                [ngClass]="{'nroResult': dato.nroPregunta == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta}}</div>
-                        </div>
-                        <div *ngIf="dato.mes == 3 && dato.nroPregunta.length === 2">
-                            <div style="display: flex; justify-content: start;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[0] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[0]}}</div>
-                            <div style="display: flex; justify-content: end;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[1] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[1]}}</div>
-                        </div>
-                        <div *ngIf="dato.mes == 3 && dato.nroPregunta.length === 3">
-                            <div style="display: flex; justify-content: start;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[0] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[0]}}</div>
-                            <div style="display: flex; justify-content: center;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[1] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[1]}}</div>
-                            <div style="display: flex; justify-content: end;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[2] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[2]}}</div>
-                        </div>
-                    </div>
-                </td>
-                <td colspan="2">
-                    <div class="cell_container" *ngFor="let dato of datos.preguntas; index as indexDato">
-                        <div *ngIf="dato.mes == 4 && dato.nroPregunta.length === 1">
-                            <div style="display: flex; justify-content: center;" *ngIf="tableStatus; then "
-                                [ngClass]="{'nroResult': dato.nroPregunta == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta}}</div>
-                        </div>
-                        <div *ngIf="dato.mes == 4 && dato.nroPregunta.length === 2">
-                            <div style="display: flex; justify-content: start;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[0] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[0]}}</div>
-                            <div style="display: flex; justify-content: end;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[1] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[1]}}</div>
-                        </div>
-                        <div *ngIf="dato.mes == 4 && dato.nroPregunta.length === 3">
-                            <div style="display: flex; justify-content: start;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[0] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[0]}}</div>
-                            <div style="display: flex; justify-content: center;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[1] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[1]}}</div>
-                            <div style="display: flex; justify-content: end;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[2] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[2]}}</div>
-                        </div>
-                    </div>
-                </td>
-                <td colspan="2">
-                    <div class="cell_container" *ngFor="let dato of datos.preguntas; index as indexDato">
-                        <div *ngIf="dato.mes == 5 && dato.nroPregunta.length === 1">
-                            <div style="display: flex; justify-content: center;"
-                                [ngClass]="{'nroResult': dato.nroPregunta == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta}}</div>
-                        </div>
-                        <div *ngIf="dato.mes == 5 && dato.nroPregunta.length === 2">
-                            <div style="display: flex; justify-content: start;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[0] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[0]}}</div>
-                            <div style="display: flex; justify-content: end;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[1] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[1]}}</div>
-                        </div>
-                        <div *ngIf="dato.mes == 5 && dato.nroPregunta.length === 3">
-                            <div style="display: flex; justify-content: start;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[0] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[0]}}</div>
-                            <div style="display: flex; justify-content: center;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[1] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[1]}}</div>
-                            <div style="display: flex; justify-content: end;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[2] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[2]}}</div>
-                        </div>
-                    </div>
-                </td>
-                <td colspan="2">
-                    <div class="cell_container" *ngFor="let dato of datos.preguntas; index as indexDato">
-                        <div *ngIf="dato.mes == 6 && dato.nroPregunta.length === 1">
-                            <div style="display: flex; justify-content: center;"
-                                [ngClass]="{'nroResult': dato.nroPregunta == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta}}</div>
-                        </div>
-                        <div *ngIf="dato.mes == 6 && dato.nroPregunta.length === 2">
-                            <div style="display: flex; justify-content: start;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[0] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[0]}}</div>
-                            <div style="display: flex; justify-content: end;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[1] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[1]}}</div>
-                        </div>
-                        <div *ngIf="dato.mes == 6 && dato.nroPregunta.length === 3">
-                            <div style="display: flex; justify-content: start;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[0] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[0]}}</div>
-                            <div style="display: flex; justify-content: center;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[1] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[1]}}</div>
-                            <div style="display: flex; justify-content: end;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[2] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[2]}}</div>   
-                        </div>
-                    </div>
-                </td>
-                <td colspan="2">
-                    <div class="cell_container" *ngFor="let dato of datos.preguntas; index as indexDato">
-                        <div *ngIf="dato.mes == 7 && dato.nroPregunta.length === 1">
-                            <div style="display: flex; justify-content: center;"
-                                [ngClass]="{'nroResult': dato.nroPregunta == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta}}</div>
-                        </div>
-                        <div *ngIf="dato.mes == 7 && dato.nroPregunta.length === 2">
-                            <div style="display: flex; justify-content: start;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[0] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[0]}}</div>
-                            <div style="display: flex; justify-content: end;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[1] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[1]}}</div>
-                        </div>
-                        <div *ngIf="dato.mes == 7 && dato.nroPregunta.length === 3">
-                            <div style="display: flex; justify-content: start;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[0] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[0]}}</div>
-                            <div style="display: flex; justify-content: center;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[1] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[1]}}</div>
-                            <div style="display: flex; justify-content: end;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[2] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[2]}}</div>
-                        </div>
-                    </div>
-                </td>
-                <td colspan="2">
-                    <div class="cell_container" *ngFor="let dato of datos.preguntas; index as indexDato">
-                        <div *ngIf="dato.mes == 8 && dato.nroPregunta.length === 1">
-                            <div style="display: flex; justify-content: center;"
-                                [ngClass]="{'nroResult': dato.nroPregunta == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta}}</div>
-                        </div>
-                        <div *ngIf="dato.mes == 8 && dato.nroPregunta.length === 2">
-                            <div style="display: flex; justify-content: start;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[0] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[0]}}</div>
-                            <div style="display: flex; justify-content: end;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[1] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[1]}}</div>
-                        </div>
-                        <div *ngIf="dato.mes == 8 && dato.nroPregunta.length === 3">
-                            <div style="display: flex; justify-content: start;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[0] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[0]}}</div>
-                            <div style="display: flex; justify-content: center;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[1] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[1]}}</div>
-                            <div style="display: flex; justify-content: end;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[2] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[2]}}</div>
-                        </div>
-                    </div>
-                </td>
-                <td colspan="2">
-                    <div class="cell_container" *ngFor="let dato of datos.preguntas; index as indexDato">
-                        <div *ngIf="dato.mes == 9 && dato.nroPregunta.length === 1">
-                            <div style="display: flex; justify-content: center;"
-                                [ngClass]="{'nroResult': dato.nroPregunta == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta}}</div>
-                        </div>
-                        <div *ngIf="dato.mes == 9 && dato.nroPregunta.length === 2">
-                            <div style="display: flex; justify-content: start;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[0] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[0]}}</div>
-                            <div style="display: flex; justify-content: end;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[1] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[1]}}</div>
-                        </div>
-                        <div *ngIf="dato.mes == 9 && dato.nroPregunta.length === 3">
-                            <div style="display: flex; justify-content: start;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[0] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[0]}}</div>
-                            <div style="display: flex; justify-content: center;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[1] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[1]}}</div>
-                            <div style="display: flex; justify-content: end;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[2] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[2]}}</div>
-                        </div>
-                    </div>
-                </td>
-                <td colspan="2">
-                    <div class="cell_container" *ngFor="let dato of datos.preguntas; index as indexDato">
-                        <div *ngIf="dato.mes == 10 && dato.nroPregunta.length === 1">
-                            <div style="display: flex; justify-content: center;"
-                                [ngClass]="{'nroResult': dato.nroPregunta == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta}}</div>
-                        </div>
-                        <div *ngIf="dato.mes == 10 && dato.nroPregunta.length === 2">
-                            <div style="display: flex; justify-content: start;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[0] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[0]}}</div>
-                            <div style="display: flex; justify-content: end;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[1] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[1]}}</div>
-                        </div>
-                        <div *ngIf="dato.mes == 10 && dato.nroPregunta.length === 3">
-                            <div style="display: flex; justify-content: start;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[0] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[0]}}</div>
-                            <div style="display: flex; justify-content: center;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[1] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[1]}}</div>
-                            <div style="display: flex; justify-content: end;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[2] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[2]}}</div>
-                        </div>
-                    </div>
-                </td>
-                <td colspan="2">
-                    <div class="cell_container" *ngFor="let dato of datos.preguntas; index as indexDato">
-                        <div *ngIf="dato.mes == 12 && dato.nroPregunta.length === 1">
-                            <div style="display: flex; justify-content: center;"
-                                [ngClass]="{'nroResult': dato.nroPregunta == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta}}</div>
-                        </div>
-                        <div *ngIf="dato.mes == 12 && dato.nroPregunta.length === 2">
-                            <div style="display: flex; justify-content: start;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[0] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[0]}}</div>
-                            <div style="display: flex; justify-content: end;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[1] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[1]}}</div>
-                        </div>
-                        <div *ngIf="dato.mes == 12 && dato.nroPregunta.length === 3">
-                            <div style="display: flex; justify-content: start;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[0] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[0]}}</div>
-                            <div style="display: flex; justify-content: center;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[1] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[1]}}</div>
-                            <div style="display: flex; justify-content: end;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[2] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[2]}}</div>
-                        </div>
-                    </div>
-                </td>
-                <td colspan="2">
-                    <div class="cell_container" *ngFor="let dato of datos.preguntas; index as indexDato">
-                        <div *ngIf="dato.mes == 15 && dato.nroPregunta.length === 1">
-                            <div style="display: flex; justify-content: center"
-                                [ngClass]="{'nroResult': dato.nroPregunta == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta}}</div>
-                        </div>
-                        <div *ngIf="dato.mes == 15 && dato.nroPregunta.length === 2">
-                            <div style="display: flex; justify-content: start;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[0] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[0]}}</div>
-                            <div style="display: flex; justify-content: end;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[1] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[1]}}</div>
-                        </div>
-                        <div *ngIf="dato.mes == 15 && dato.nroPregunta.length === 3">
-                            <div style="display: flex; justify-content: start;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[0] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[0]}}</div>
-                            <div style="display: flex; justify-content: center;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[1] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[1]}}</div>
-                            <div style="display: flex; justify-content: end;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[2] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[2]}}</div>
-                        </div>
-                    </div>
-                </td>
-                <td colspan="2">
-                    <div class="cell_container" *ngFor="let dato of datos.preguntas; index as indexDato">
-                        <div *ngIf="dato.mes == 18 && dato.nroPregunta.length === 1">
-                            <div style="display: flex; justify-content: center;"
-                                [ngClass]="{'nroResult': dato.nroPregunta == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta}}</div>
-                        </div>
-                        <div *ngIf="dato.mes == 18 && dato.nroPregunta.length === 2">
-                            <div style="display: flex; justify-content: start;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[0] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[0]}}</div>
-                            <div style="display: flex; justify-content: end;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[1] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[1]}}</div>
-                        </div>
-                        <div *ngIf="dato.mes == 18 && dato.nroPregunta.length === 3">
-                            <div style="display: flex; justify-content: start;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[0] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[0]}}</div>
-                            <div style="display: flex; justify-content: center;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[1] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[1]}}</div>
-                            <div style="display: flex; justify-content: end;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[2] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[2]}}</div>
-                        </div>
-                    </div>
-                </td>
-                <td colspan="2">
-                    <div class="cell_container" *ngFor="let dato of datos.preguntas; index as indexDato">
-                        <div *ngIf="dato.mes == 21 && dato.nroPregunta.length === 1">
-                            <div style="display: flex; justify-content: center;"
-                                [ngClass]="{'nroResult': dato.nroPregunta == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta}}</div>
-                        </div>
-                        <div *ngIf="dato.mes == 21 && dato.nroPregunta.length === 2">
-                            <div style="display: flex; justify-content: start;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[0] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[0]}}</div>
-                            <div style="display: flex; justify-content: end;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[1] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[1]}}</div>
-                        </div>
-                        <div *ngIf="dato.mes == 21 && dato.nroPregunta.length === 3">
-                            <div style="display: flex; justify-content: start;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[0] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[0]}}</div>
-                            <div style="display: flex; justify-content: center;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[1] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[1]}}</div>
-                            <div style="display: flex; justify-content: end;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[2] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[2]}}</div>
-                        </div>
-                        <div *ngIf="dato.mes == 21 && dato.nroPregunta.length === 4">
-                            <div style="display: flex; justify-content: space-evenly;">
-                                <div [ngClass]="{'nroResult': dato.nroPregunta[0] == arrayRptas[i].numeroPregunta}">
-                                    {{dato.nroPregunta[0]}}</div>
-                                <div [ngClass]="{'nroResult': dato.nroPregunta[1] == arrayRptas[i].numeroPregunta}">
-                                    {{dato.nroPregunta[1]}}</div>
+                        <div
+                            *ngIf="
+                                dato.mes == 1 && dato.nroPregunta.length === 2
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: start"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[0] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[0] }}
                             </div>
-                            <div style="display: flex; justify-content: space-evenly;">
-                                <div [ngClass]="{'nroResult': dato.nroPregunta[2] == arrayRptas[i].numeroPregunta}">
-                                    {{dato.nroPregunta[2]}}</div>
-                                <div [ngClass]="{'nroResult': dato.nroPregunta[3] == arrayRptas[i].numeroPregunta}">
-                                    {{dato.nroPregunta[3]}}</div>
+                            <div
+                                style="display: flex; justify-content: end"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[1] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[1] }}
                             </div>
-
+                        </div>
+                        <div
+                            *ngIf="
+                                dato.mes == 1 && dato.nroPregunta.length === 3
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: start"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[0] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[0] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: center"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[1] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[1] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: end"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[2] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[2] }}
+                            </div>
                         </div>
                     </div>
                 </td>
                 <td colspan="2">
-                    <div class="cell_container" *ngFor="let dato of datos.preguntas; index as indexDato">
-                        <div *ngIf="dato.mes == 24 && dato.nroPregunta.length === 1">
-                            <div style="display: flex; justify-content: center;"
-                                [ngClass]="{'nroResult': dato.nroPregunta == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta}}</div>
+                    <div
+                        class="cell_container"
+                        *ngFor="let dato of datos.preguntas; index as indexDato"
+                    >
+                        <div
+                            *ngIf="
+                                dato.mes == 2 && dato.nroPregunta.length === 1
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: center"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta }}
+                            </div>
                         </div>
-                        <div *ngIf="dato.mes == 24 && dato.nroPregunta.length === 2">
-                            <div style="display: flex; justify-content: start;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[0] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[0]}}</div>
-                            <div style="display: flex; justify-content: end;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[1] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[1]}}</div>
+                        <div
+                            *ngIf="
+                                dato.mes == 2 && dato.nroPregunta.length === 2
+                            "
+                        >
+                            <div
+                                style="
+                                    display: flex;
+                                    justify-content: start;
+                                    flex: 30%;
+                                "
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[0] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[0] }}
+                            </div>
+                            <div
+                                style="
+                                    display: flex;
+                                    justify-content: end;
+                                    flex: 30%;
+                                "
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[1] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[1] }}
+                            </div>
                         </div>
-                        <div *ngIf="dato.mes == 24 && dato.nroPregunta.length === 3">
-                            <div style="display: flex; justify-content: start;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[0] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[0]}}</div>
-                            <div style="display: flex; justify-content: center;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[1] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[1]}}</div>
-                            <div style="display: flex; justify-content: end;"
-                                [ngClass]="{'nroResult': dato.nroPregunta[2] == arrayRptas[i].numeroPregunta}">
-                                {{dato.nroPregunta[2]}}</div>
+                        <div
+                            *ngIf="
+                                dato.mes == 2 && dato.nroPregunta.length === 3
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: start"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[0] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[0] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: center"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[1] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[1] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: end"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[2] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[2] }}
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td colspan="2">
+                    <div
+                        class="cell_container text-center"
+                        *ngFor="let dato of datos.preguntas; index as indexDato"
+                    >
+                        <div
+                            *ngIf="
+                                dato.mes == 3 && dato.nroPregunta.length === 1
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: center"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta }}
+                            </div>
+                        </div>
+                        <div
+                            *ngIf="
+                                dato.mes == 3 && dato.nroPregunta.length === 2
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: start"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[0] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[0] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: end"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[1] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[1] }}
+                            </div>
+                        </div>
+                        <div
+                            *ngIf="
+                                dato.mes == 3 && dato.nroPregunta.length === 3
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: start"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[0] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[0] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: center"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[1] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[1] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: end"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[2] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[2] }}
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td colspan="2">
+                    <div
+                        class="cell_container"
+                        *ngFor="let dato of datos.preguntas; index as indexDato"
+                    >
+                        <div
+                            *ngIf="
+                                dato.mes == 4 && dato.nroPregunta.length === 1
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: center"
+                                *ngIf="tableStatus; then"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta }}
+                            </div>
+                        </div>
+                        <div
+                            *ngIf="
+                                dato.mes == 4 && dato.nroPregunta.length === 2
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: start"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[0] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[0] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: end"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[1] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[1] }}
+                            </div>
+                        </div>
+                        <div
+                            *ngIf="
+                                dato.mes == 4 && dato.nroPregunta.length === 3
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: start"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[0] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[0] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: center"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[1] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[1] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: end"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[2] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[2] }}
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td colspan="2">
+                    <div
+                        class="cell_container"
+                        *ngFor="let dato of datos.preguntas; index as indexDato"
+                    >
+                        <div
+                            *ngIf="
+                                dato.mes == 5 && dato.nroPregunta.length === 1
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: center"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta }}
+                            </div>
+                        </div>
+                        <div
+                            *ngIf="
+                                dato.mes == 5 && dato.nroPregunta.length === 2
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: start"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[0] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[0] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: end"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[1] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[1] }}
+                            </div>
+                        </div>
+                        <div
+                            *ngIf="
+                                dato.mes == 5 && dato.nroPregunta.length === 3
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: start"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[0] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[0] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: center"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[1] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[1] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: end"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[2] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[2] }}
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td colspan="2">
+                    <div
+                        class="cell_container"
+                        *ngFor="let dato of datos.preguntas; index as indexDato"
+                    >
+                        <div
+                            *ngIf="
+                                dato.mes == 6 && dato.nroPregunta.length === 1
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: center"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta }}
+                            </div>
+                        </div>
+                        <div
+                            *ngIf="
+                                dato.mes == 6 && dato.nroPregunta.length === 2
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: start"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[0] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[0] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: end"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[1] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[1] }}
+                            </div>
+                        </div>
+                        <div
+                            *ngIf="
+                                dato.mes == 6 && dato.nroPregunta.length === 3
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: start"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[0] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[0] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: center"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[1] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[1] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: end"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[2] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[2] }}
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td colspan="2">
+                    <div
+                        class="cell_container"
+                        *ngFor="let dato of datos.preguntas; index as indexDato"
+                    >
+                        <div
+                            *ngIf="
+                                dato.mes == 7 && dato.nroPregunta.length === 1
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: center"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta }}
+                            </div>
+                        </div>
+                        <div
+                            *ngIf="
+                                dato.mes == 7 && dato.nroPregunta.length === 2
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: start"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[0] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[0] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: end"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[1] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[1] }}
+                            </div>
+                        </div>
+                        <div
+                            *ngIf="
+                                dato.mes == 7 && dato.nroPregunta.length === 3
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: start"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[0] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[0] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: center"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[1] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[1] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: end"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[2] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[2] }}
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td colspan="2">
+                    <div
+                        class="cell_container"
+                        *ngFor="let dato of datos.preguntas; index as indexDato"
+                    >
+                        <div
+                            *ngIf="
+                                dato.mes == 8 && dato.nroPregunta.length === 1
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: center"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta }}
+                            </div>
+                        </div>
+                        <div
+                            *ngIf="
+                                dato.mes == 8 && dato.nroPregunta.length === 2
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: start"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[0] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[0] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: end"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[1] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[1] }}
+                            </div>
+                        </div>
+                        <div
+                            *ngIf="
+                                dato.mes == 8 && dato.nroPregunta.length === 3
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: start"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[0] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[0] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: center"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[1] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[1] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: end"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[2] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[2] }}
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td colspan="2">
+                    <div
+                        class="cell_container"
+                        *ngFor="let dato of datos.preguntas; index as indexDato"
+                    >
+                        <div
+                            *ngIf="
+                                dato.mes == 9 && dato.nroPregunta.length === 1
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: center"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta }}
+                            </div>
+                        </div>
+                        <div
+                            *ngIf="
+                                dato.mes == 9 && dato.nroPregunta.length === 2
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: start"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[0] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[0] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: end"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[1] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[1] }}
+                            </div>
+                        </div>
+                        <div
+                            *ngIf="
+                                dato.mes == 9 && dato.nroPregunta.length === 3
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: start"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[0] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[0] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: center"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[1] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[1] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: end"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[2] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[2] }}
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td colspan="2">
+                    <div
+                        class="cell_container"
+                        *ngFor="let dato of datos.preguntas; index as indexDato"
+                    >
+                        <div
+                            *ngIf="
+                                dato.mes == 10 && dato.nroPregunta.length === 1
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: center"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta }}
+                            </div>
+                        </div>
+                        <div
+                            *ngIf="
+                                dato.mes == 10 && dato.nroPregunta.length === 2
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: start"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[0] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[0] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: end"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[1] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[1] }}
+                            </div>
+                        </div>
+                        <div
+                            *ngIf="
+                                dato.mes == 10 && dato.nroPregunta.length === 3
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: start"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[0] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[0] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: center"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[1] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[1] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: end"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[2] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[2] }}
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td colspan="2">
+                    <div
+                        class="cell_container"
+                        *ngFor="let dato of datos.preguntas; index as indexDato"
+                    >
+                        <div
+                            *ngIf="
+                                dato.mes == 12 && dato.nroPregunta.length === 1
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: center"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta }}
+                            </div>
+                        </div>
+                        <div
+                            *ngIf="
+                                dato.mes == 12 && dato.nroPregunta.length === 2
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: start"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[0] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[0] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: end"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[1] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[1] }}
+                            </div>
+                        </div>
+                        <div
+                            *ngIf="
+                                dato.mes == 12 && dato.nroPregunta.length === 3
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: start"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[0] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[0] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: center"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[1] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[1] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: end"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[2] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[2] }}
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td colspan="2">
+                    <div
+                        class="cell_container"
+                        *ngFor="let dato of datos.preguntas; index as indexDato"
+                    >
+                        <div
+                            *ngIf="
+                                dato.mes == 15 && dato.nroPregunta.length === 1
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: center"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta }}
+                            </div>
+                        </div>
+                        <div
+                            *ngIf="
+                                dato.mes == 15 && dato.nroPregunta.length === 2
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: start"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[0] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[0] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: end"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[1] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[1] }}
+                            </div>
+                        </div>
+                        <div
+                            *ngIf="
+                                dato.mes == 15 && dato.nroPregunta.length === 3
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: start"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[0] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[0] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: center"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[1] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[1] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: end"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[2] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[2] }}
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td colspan="2">
+                    <div
+                        class="cell_container"
+                        *ngFor="let dato of datos.preguntas; index as indexDato"
+                    >
+                        <div
+                            *ngIf="
+                                dato.mes == 18 && dato.nroPregunta.length === 1
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: center"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta }}
+                            </div>
+                        </div>
+                        <div
+                            *ngIf="
+                                dato.mes == 18 && dato.nroPregunta.length === 2
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: start"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[0] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[0] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: end"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[1] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[1] }}
+                            </div>
+                        </div>
+                        <div
+                            *ngIf="
+                                dato.mes == 18 && dato.nroPregunta.length === 3
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: start"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[0] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[0] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: center"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[1] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[1] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: end"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[2] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[2] }}
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td colspan="2">
+                    <div
+                        class="cell_container"
+                        *ngFor="let dato of datos.preguntas; index as indexDato"
+                    >
+                        <div
+                            *ngIf="
+                                dato.mes == 21 && dato.nroPregunta.length === 1
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: center"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta }}
+                            </div>
+                        </div>
+                        <div
+                            *ngIf="
+                                dato.mes == 21 && dato.nroPregunta.length === 2
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: start"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[0] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[0] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: end"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[1] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[1] }}
+                            </div>
+                        </div>
+                        <div
+                            *ngIf="
+                                dato.mes == 21 && dato.nroPregunta.length === 3
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: start"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[0] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[0] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: center"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[1] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[1] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: end"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[2] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[2] }}
+                            </div>
+                        </div>
+                        <div
+                            *ngIf="
+                                dato.mes == 21 && dato.nroPregunta.length === 4
+                            "
+                        >
+                            <div
+                                style="
+                                    display: flex;
+                                    justify-content: space-evenly;
+                                "
+                            >
+                                <div
+                                    [ngClass]="{
+                                        nroResult:
+                                            dato.nroPregunta[0] ==
+                                            arrayRptas[i].numeroPregunta
+                                    }"
+                                >
+                                    {{ dato.nroPregunta[0] }}
+                                </div>
+                                <div
+                                    [ngClass]="{
+                                        nroResult:
+                                            dato.nroPregunta[1] ==
+                                            arrayRptas[i].numeroPregunta
+                                    }"
+                                >
+                                    {{ dato.nroPregunta[1] }}
+                                </div>
+                            </div>
+                            <div
+                                style="
+                                    display: flex;
+                                    justify-content: space-evenly;
+                                "
+                            >
+                                <div
+                                    [ngClass]="{
+                                        nroResult:
+                                            dato.nroPregunta[2] ==
+                                            arrayRptas[i].numeroPregunta
+                                    }"
+                                >
+                                    {{ dato.nroPregunta[2] }}
+                                </div>
+                                <div
+                                    [ngClass]="{
+                                        nroResult:
+                                            dato.nroPregunta[3] ==
+                                            arrayRptas[i].numeroPregunta
+                                    }"
+                                >
+                                    {{ dato.nroPregunta[3] }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td colspan="2">
+                    <div
+                        class="cell_container"
+                        *ngFor="let dato of datos.preguntas; index as indexDato"
+                    >
+                        <div
+                            *ngIf="
+                                dato.mes == 24 && dato.nroPregunta.length === 1
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: center"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta }}
+                            </div>
+                        </div>
+                        <div
+                            *ngIf="
+                                dato.mes == 24 && dato.nroPregunta.length === 2
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: start"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[0] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[0] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: end"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[1] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[1] }}
+                            </div>
+                        </div>
+                        <div
+                            *ngIf="
+                                dato.mes == 24 && dato.nroPregunta.length === 3
+                            "
+                        >
+                            <div
+                                style="display: flex; justify-content: start"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[0] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[0] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: center"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[1] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[1] }}
+                            </div>
+                            <div
+                                style="display: flex; justify-content: end"
+                                [ngClass]="{
+                                    nroResult:
+                                        dato.nroPregunta[2] ==
+                                        arrayRptas[i].numeroPregunta
+                                }"
+                            >
+                                {{ dato.nroPregunta[2] }}
+                            </div>
                         </div>
                     </div>
                 </td>
