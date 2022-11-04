@@ -23,6 +23,8 @@ export interface Personal {
     detalleIpress?: InformacionPersonalDescripcion[];
     roles?: DescripcionUsuarioRoles[];
     estado?: boolean;
+    nroCelular?: string;
+    contratoAbreviatura?: string;
 }
 
 
