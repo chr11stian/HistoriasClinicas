@@ -91,8 +91,6 @@ export class ModalShowHisComponent implements OnInit {
   }
 
   confirmToSave(): void {
-
-
     Swal.fire({
       title: '¿Desea cerrar la consulta?',
       text: "Ya no podra modificar nada en la consulta",
