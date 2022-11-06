@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { his } from 'src/app/cred/citas/atencion-cred/consulta-principal/models/his';
 import { FinalizarConsultaService } from 'src/app/cred/citas/atencion-cred/consulta-principal/services/finalizar-consulta.service';
@@ -31,6 +31,7 @@ export class ModalShowHisComponent implements OnInit {
     private finalizeConsultationService: FinalizarConsultaService,
     public config: DynamicDialogConfig,
     private treatmentService: ConsultasService,
+    public router: Router
   ) {
     this.consultationId = JSON.parse(localStorage.getItem('IDConsulta'));
     this.dataPatient = JSON.parse(localStorage.getItem('gestacion'));
@@ -68,6 +69,7 @@ export class ModalShowHisComponent implements OnInit {
     }
     this.treatmentService.putNextAppointment(this.consultationId, this.dataPatient.id, this.dataSave).then((res: any) => {
       if (res.cod == '2126') {
+        this.router.navigate(['/dashboard/obstetricia-general/citas/consulta']);
         Swal.fire({
           icon: 'success',
           title: 'Actualizado correctamente',
@@ -89,7 +91,22 @@ export class ModalShowHisComponent implements OnInit {
   }
 
   confirmToSave(): void {
-    this.concludeConsultation()
+
+
+    Swal.fire({
+      title: '¿Desea cerrar la consulta?',
+      text: "Ya no podra modificar nada en la consulta",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirmar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.concludeConsultation();
+      }
+    });
   }
 
   loadFUAinfo(): void {
