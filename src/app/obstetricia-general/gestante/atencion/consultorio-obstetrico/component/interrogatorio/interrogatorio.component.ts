@@ -418,7 +418,6 @@ export class InterrogatorioComponent implements OnInit {
   }
 
   recuperarDatos() {
-    //RECUPERAR DATOS
     console.log('ultima consulta prom ', this.ultimaConsulta);
     let auxPhysicalExam: any[] = [
       { nombreExamen: 'piel', valor: this.form.value.piel, detalle: this.form.value.pielDetalle },
@@ -490,8 +489,6 @@ export class InterrogatorioComponent implements OnInit {
         indicador: this.form.value.evalNutricionalIndicador
       },
     }
-
-    // FIN RECUPERAR DATOS
   }
 
   guardarDatos() {
