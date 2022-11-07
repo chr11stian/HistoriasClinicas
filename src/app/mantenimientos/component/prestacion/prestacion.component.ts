@@ -128,14 +128,14 @@ export class PrestacionComponent implements OnInit {
     const ref = this.dialogService.open(DiagnosticoComponent, {
       data:{codigo:rowData.codigo,descripcion:rowData.descripcion},
       header: 'Agregar Procedimiento',
-      width: '70%',
+      width: '95%',
     });
   }
   abrirComponenteProcedimiento(rowData){
     const ref = this.dialogService.open(ProcedimientoComponent, {
       data:{codigo:rowData.codigo,descripcion:rowData.descripcion},
       header: 'Agregar Diagnostico',
-      width: '70%',
+      width: '95%',
     });
   }
 
