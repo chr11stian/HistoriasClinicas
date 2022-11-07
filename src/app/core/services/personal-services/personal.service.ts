@@ -164,6 +164,12 @@ export class PersonalService {
         );
     }
 
+    desactivedUserRoot(idPersona) {
+        return this.http.delete<any>(
+            `${this.base_login}/accesos/root/user/${idPersona}`
+        );
+    }
+
     activedPersonal(idPersonal) {
         return this.http.put(
             `${this.base_url}/${this.bd}/personal/activar/${idPersonal}`,

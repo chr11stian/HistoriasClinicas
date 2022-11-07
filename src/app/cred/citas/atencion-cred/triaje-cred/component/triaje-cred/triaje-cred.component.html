@@ -79,7 +79,9 @@
                                         type="number"
                                         pInputText
                                         [formControlName]="controlFC.nameFC"
-                                        class="inputfield w-full text-center"/>
+                                        class="inputfield w-full text-center"
+                                        [id]="controlFC.nameFC"/>
+                                        
                                 </ng-container>
                                 <ng-template #otros>
                                     <input
@@ -88,9 +90,10 @@
                                         pInputText
                                         [formControlName]="controlFC.nameFC"
                                         class="inputfield w-full text-center"
+                                        [id]="controlFC.nameFC"
                                     />
                                 </ng-template>
-                                <div *ngIf="isInvalid(controlFC.nameFC)">
+                                <div *ngIf="isInvalid(controlFC.nameFC)" style="padding-top:5px ;">
                                     <span *ngIf="getFC(controlFC.nameFC).errors.required" class=" p-inputgroup-addon pink-100 p-1">
                                         <i class="pi pi-exclamation-triangle p-error"></i>
                                         <small id="username1-help" class="p-error ml-2">Elemento Requerido</small>

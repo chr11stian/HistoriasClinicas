@@ -724,25 +724,71 @@ export class InterrogatorioComponent implements OnInit {
         this.listaPlanParto = []
         this.getPlanParto()
       }
-
     })
-
   }
 
   calculateIMC(): void {
-    // let gestationalAge: number = this.form.value.semanas;
-    // let 
-    // if (gestationalAge < 13) {
-    //   this.imcService.getClasificacionEstadoNutricionalByTalla()
-    // }
+    let gestationalWeek: number = this.form.value.semanas;
+    let patientHeight: number = (this.form.value.talla / 100);
+    let patientWeigth: number = this.form.value.peso;
+    let clasification: NutritionalClassification;
+    let gainWeight: GainWeight;
+    if (gestationalWeek < 13) {
+      this.imcService.getClasificacionEstadoNutricionalByTalla(patientHeight).subscribe((res: any) => {
+        clasification = res.object.clasificaionEstadoNutricionalIMCPG[0];
+        if (patientWeigth <= clasification.bajoPeso) {
+          this.imcService.getGananciaBajoPeso(gestationalWeek).subscribe((res: any) => {
+            gainWeight = res.object.recomendacionGestanteBajoPeso[0];
+            this.assignUsualWieghtAndIMC(patientHeight, patientWeigth, gainWeight.min, gainWeight.med, gainWeight.max);
+          })
+        }
+        if (patientWeigth >= clasification.normal18 && patientWeigth <= clasification.normal25) {
+          this.imcService.getGananciaPesoRegular(gestationalWeek).subscribe((res: any) => {
+            gainWeight = res.object.recomendacionGananciaPesoRegular[0];
+            this.assignUsualWieghtAndIMC(patientHeight, patientWeigth, gainWeight.min, gainWeight.med, gainWeight.max);
+          })
+        }
+        if (patientWeigth >= clasification.sobrePeso25 && patientWeigth <= clasification.sobrePeso30) {
+          this.imcService.getGananciaSobrePeso(gestationalWeek).subscribe((res: any) => {
+            gainWeight = res.object.recomencacionGananciaSobrePeso[0];
+            this.assignUsualWieghtAndIMC(patientHeight, patientWeigth, gainWeight.min, gainWeight.med, gainWeight.max);
+          })
+        }
+        if (patientWeigth >= clasification.obesidad) {
+          this.imcService.getGananciaObesa(gestationalWeek).subscribe((res: any) => {
+            gainWeight = res.object.recomendacionGananciaObesa[0];
+            this.assignUsualWieghtAndIMC(patientHeight, patientWeigth, gainWeight.min, gainWeight.med, gainWeight.max);
+          })
+        }
+      });
+    }
   }
+
+  assignUsualWieghtAndIMC(height: number, weight: number, min: number, med: number, max: number): void {
+    let usualWeight: number;
+    let imc: number;
+    let weightGain: number;
+    height < 1.57 ? usualWeight = weight - min : usualWeight = weight - med
+    imc = (usualWeight / Math.pow((height), 2));
+    this.form.patchValue({
+      imc: imc.toFixed(2),
+      pesoHabitual: usualWeight
+    });
+  }
+
+  // assingWeightGain(imc: number, min: number, med: number, max: number, weightGain: number): void {
+  //   if (imc< 18.5) {
+      
+  //   }
+  // }
 }
+
 
 export interface ultimaConsulta {
   nroEmbarazo?: number,
   estado?: number,
   direccion?: string,
-  edad?: number,
+  edad?: number;
   nroUltimaAtencion?: number,
   nroMayorControlSis?: number,
   nroDoc?: string,
@@ -754,4 +800,20 @@ export interface ultimaConsulta {
   nroFetos?: string,
   funcionesBiologicas?: any[],
   examenesFisicos?: any[],
+}
+interface NutritionalClassification {
+  bajoPeso: number;
+  normal18: number;
+  normal25: number;
+  obesidad: number;
+  sobrePeso25: number;
+  sobrePeso30: number;
+  talla: number;
+}
+interface GainWeight {
+  max: number;
+  med: number;
+  min: number;
+  semanaGestacion: number;
+  trimestre: number;
 }

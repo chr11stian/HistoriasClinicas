@@ -61,7 +61,7 @@ export class PrestacionComponent implements OnInit {
   agregarActualizar(index?){
     this.openDialog=true;
     this.prestacionFC.reset();
-    if(index){
+    if(index!=null){
     this.prestacion=this.data[index]
       console.log('la prestacion',this.prestacion)
       this.getFC('codigo').setValue(this.prestacion.codigo)
@@ -128,14 +128,14 @@ export class PrestacionComponent implements OnInit {
     const ref = this.dialogService.open(DiagnosticoComponent, {
       data:{codigo:rowData.codigo,descripcion:rowData.descripcion},
       header: 'Agregar Procedimiento',
-      width: '70%',
+      width: '95%',
     });
   }
   abrirComponenteProcedimiento(rowData){
     const ref = this.dialogService.open(ProcedimientoComponent, {
       data:{codigo:rowData.codigo,descripcion:rowData.descripcion},
       header: 'Agregar Diagnostico',
-      width: '70%',
+      width: '95%',
     });
   }
 
