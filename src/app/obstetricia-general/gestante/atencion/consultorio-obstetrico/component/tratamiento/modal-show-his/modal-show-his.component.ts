@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { his } from 'src/app/cred/citas/atencion-cred/consulta-principal/models/his';
 import { FinalizarConsultaService } from 'src/app/cred/citas/atencion-cred/consulta-principal/services/finalizar-consulta.service';
@@ -23,6 +23,7 @@ export class ModalShowHisComponent implements OnInit {
   existData: boolean = false;
   arrayFua: FUA[];
   personalData: PersonalInfo;
+  existDataFUA: boolean = false;
 
   constructor(
     private tratamientoService: TratamientoConsultaService,
@@ -30,6 +31,7 @@ export class ModalShowHisComponent implements OnInit {
     private finalizeConsultationService: FinalizarConsultaService,
     public config: DynamicDialogConfig,
     private treatmentService: ConsultasService,
+    public router: Router
   ) {
     this.consultationId = JSON.parse(localStorage.getItem('IDConsulta'));
     this.dataPatient = JSON.parse(localStorage.getItem('gestacion'));
@@ -44,7 +46,7 @@ export class ModalShowHisComponent implements OnInit {
     this.tratamientoService
       .getHIS(this.consultationId)
       .subscribe((r: any) => {
-        if (r.cod=="2015") {
+        if (r.cod == "2015") {
           Swal.fire({
             icon: 'info',
             title: 'Ya se cerro la consulta',
@@ -66,8 +68,8 @@ export class ModalShowHisComponent implements OnInit {
       motivo: 'PRÓXIMA CONSULTA OBSTETRICIA'
     }
     this.treatmentService.putNextAppointment(this.consultationId, this.dataPatient.id, this.dataSave).then((res: any) => {
-      console.log('codigo de guardado ', res.cod);
       if (res.cod == '2126') {
+        this.router.navigate(['/dashboard/obstetricia-general/citas/consulta']);
         Swal.fire({
           icon: 'success',
           title: 'Actualizado correctamente',
@@ -85,16 +87,34 @@ export class ModalShowHisComponent implements OnInit {
           timer: 2000,
         })
       }
-
     });
   }
 
   confirmToSave(): void {
-    this.concludeConsultation()
+    Swal.fire({
+      title: '¿Desea cerrar la consulta?',
+      text: "Ya no podra modificar nada en la consulta",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirmar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.concludeConsultation();
+      }
+    });
   }
 
   loadFUAinfo(): void {
     this.finalizeConsultationService.getShowFuaData(this.consultationId).then((res: any) => {
+      // if (res.cod == "2004") {
+      //   console.log('no trajo data de fua');
+      // }
+      res.object == null ? this.existDataFUA = false : this.existDataFUA = true;
+      if (!this.existDataFUA)
+        return
       this.arrayFua = res.object;
       this.arrayFua.sort((a, b) => a.codPrestacion.localeCompare(b.codPrestacion));
       if (this.arrayFua != null) {
@@ -104,9 +124,8 @@ export class ModalShowHisComponent implements OnInit {
           nroDoc: this.arrayFua[0].nroDoc
         }
       }
-    })
+    });
   }
-
 }
 
 interface NextAppointment {

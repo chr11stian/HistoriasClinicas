@@ -1,737 +1,2016 @@
 <div>
-  <br />
-  <div class="grid">
-    <div class="col-12 md:col-6 lg:col-12 p-field" style="text-align: center">
-      <label style="font-size: 16px"
-        >PREGUNTAS PARA LA DETECCIÓN DE VIOLENCIA CONTRA LA MUJER OCACIONADA POR
-        LA PAREJA O EXPAREJA</label
-      >
+    <!-- <p-toolbar>
+      <ng-template pTemplate="left">
+          <form [formGroup]='formDatos_Tamisaje'>
+              <div class="">
+                  <label class="">Fecha:</label>
+                  <p-calendar formControlName="Fecha" dateFormat="yy-mm-dd"></p-calendar>
+              </div>
+          </form>
+      </ng-template>
+      <ng-template pTemplate="right" class="button">
+          <button pButton pRipple type="button" icon="pi pi-save" label="Guardar"
+                  (click)="save()" class="p-button-danger">
+          </button>
+      </ng-template>
+  </p-toolbar> -->
+    <br />
+    <div class="grid">
+        <div
+            class="col-12 md:col-6 lg:col-12 p-field"
+            style="text-align: center"
+        >
+            <label style="font-size: 16px"
+                >PREGUNTAS PARA LA DETECCIÓN DE VIOLENCIA CONTRA LA MUJER
+                OCACIONADA POR LA PAREJA O EXPAREJA</label
+            >
+        </div>
     </div>
-  </div>
-  <br />
-  <form [formGroup]="formDatos_Tamisaje">
-    <div class="border">
-      <div class="col-12 md:col-6 lg:col-12 p-field">
-        <div class="grid m-2">
-          <div class="col-12 md:col-6 lg:col-3 p-field">
-            <div class="">
-              <label class="">Documento de identidad: </label>
-              <input
-                type="text"
-                pInputText
-                class="inputfield w-full bg_color"
-                formControlName="nroDoc"
-                placeholder="Nro documento"
-              />
-            </div>
-          </div>
-          <div class="col-12 md:col-6 lg:col-3 p-field">
-            <div class="">
-              <label class="">Número de historia Clinica: </label>
-              <input
-                type="text"
-                pInputText
-                class="inputfield w-full bg_color"
-                formControlName="nroHcl"
-                placeholder="Nro historia clínica"
-              />
-            </div>
-          </div>
-          <div class="col-12 md:col-6 lg:col-3 p-field">
-            <div class="">
-              <label class="">Fecha: </label>
-              <!-- <p-calendar formControlName="Fecha" dateFormat="yy-mm-dd"></p-calendar> -->
-              <input
-                type="date"
-                pInputText
-                class="inputfield w-full bg_color"
-                formControlName="Fecha"
-                placeholder="Nro historia clínica"
-              />
-            </div>
-          </div>
-        </div>
-        <div class="grid m-2">
-          <div class="col-12 md:col-6 lg:col-4 p-field">
-            <div class="">
-              <label class="">Apellido Paterno:</label>
-              <input
-                type="text"
-                pInputText
-                class="inputfield w-full bg_color"
-                formControlName="apePaterno"
-                placeholder="Apellido Paterno"
-              />
-            </div>
-          </div>
-          <div class="col-12 md:col-6 lg:col-4 p-field">
-            <div class="">
-              <label class="">Apellido Materno: </label>
-              <input
-                type="text"
-                pInputText
-                class="inputfield w-full bg_color"
-                formControlName="apeMaterno"
-                placeholder="Apellido Materno"
-              />
-            </div>
-          </div>
-          <div class="col-12 md:col-6 lg:col-4 p-field">
-            <div class="">
-              <label class="">Nombres: </label>
-              <input
-                type="text"
-                pInputText
-                class="inputfield w-full bg_color"
-                formControlName="nombres"
-                placeholder="Nombres"
-              />
-            </div>
-          </div>
-        </div>
-        <div class="grid m-2">
-          <div class="col-12 md:col-6 lg:col-3 p-field">
-            <div class="">
-              <label class="">Edad: </label>
-              <input
-                type="text"
-                pInputText
-                class="inputfield w-full bg_color"
-                formControlName="Edad"
-                placeholder="Edad"
-              />
-            </div>
-          </div>
+    <br />
+    <form [formGroup]="formDatos_Tamisaje">
+        <div class="border">
+            <div class="col-12 md:col-6 lg:col-12 p-field">
+                <div class="grid m-2">
+                    <div class="col-12 md:col-6 lg:col-3 p-field">
+                        <div class="">
+                            <label class="">Documento de identidad: </label>
+                            <input
+                                type="text"
+                                pInputText
+                                class="inputfield w-full bg_color"
+                                formControlName="nroDoc"
+                                placeholder="Nro documento"
+                            />
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-3 p-field">
+                        <div class="">
+                            <label class="">Número de historia Clinica: </label>
+                            <input
+                                type="text"
+                                pInputText
+                                class="inputfield w-full bg_color"
+                                formControlName="nroHcl"
+                                placeholder="Nro historia clínica"
+                            />
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-3 p-field">
+                        <div class="">
+                            <label class="">Fecha: </label>
+                            <!-- <p-calendar formControlName="Fecha" dateFormat="yy-mm-dd"></p-calendar> -->
+                            <input
+                                type="date"
+                                pInputText
+                                class="inputfield w-full bg_color"
+                                formControlName="Fecha"
+                                placeholder="Nro historia clínica"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="grid m-2">
+                    <div class="col-12 md:col-6 lg:col-4 p-field">
+                        <div class="">
+                            <label class="">Apellido Paterno:</label>
+                            <input
+                                type="text"
+                                pInputText
+                                class="inputfield w-full bg_color"
+                                formControlName="apePaterno"
+                                placeholder="Apellido Paterno"
+                            />
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-4 p-field">
+                        <div class="">
+                            <label class="">Apellido Materno: </label>
+                            <input
+                                type="text"
+                                pInputText
+                                class="inputfield w-full bg_color"
+                                formControlName="apeMaterno"
+                                placeholder="Apellido Materno"
+                            />
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-4 p-field">
+                        <div class="">
+                            <label class="">Nombres: </label>
+                            <input
+                                type="text"
+                                pInputText
+                                class="inputfield w-full bg_color"
+                                formControlName="nombres"
+                                placeholder="Nombres"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="grid m-2">
+                    <div class="col-12 md:col-6 lg:col-3 p-field">
+                        <div class="">
+                            <label class="">Edad: </label>
+                            <input
+                                type="text"
+                                pInputText
+                                class="inputfield w-full bg_color"
+                                formControlName="Edad"
+                                placeholder="Edad"
+                            />
+                        </div>
+                    </div>
 
-          <div class="col-12 md:col-6 lg:col-6 p-field">
-            <div class="">
-              <label class="">Dirección:</label>
-              <input
-                type="text"
-                pInputText
-                class="inputfield w-full bg_color"
-                formControlName="Direccion"
-                placeholder="Direccion / Departamento / Provincia / Distrito"
-              />
+                    <div class="col-12 md:col-6 lg:col-6 p-field">
+                        <div class="">
+                            <label class="">Dirección:</label>
+                            <input
+                                type="text"
+                                pInputText
+                                class="inputfield w-full bg_color"
+                                formControlName="Direccion"
+                                placeholder="Direccion / Departamento / Provincia / Distrito"
+                            />
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-3 p-field">
+                        <div class="">
+                            <label class="">Telefono:</label>
+                            <input
+                                type="text"
+                                pInputText
+                                class="inputfield w-full bg_color"
+                                formControlName="Telefono"
+                                placeholder="Telefono"
+                            />
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="col-12 md:col-6 lg:col-3 p-field">
-            <div class="">
-              <label class="">Telefono:</label>
-              <input
-                type="text"
-                pInputText
-                class="inputfield w-full bg_color"
-                formControlName="Telefono"
-                placeholder="Telefono"
-              />
-            </div>
-          </div>
         </div>
-      </div>
-    </div>
-  </form>
-  <br />
-  <p-tabView
-    (onChange)="tab($event)"
-    styleClass="tabview-custom"
-    class="tab"
-    [(activeIndex)]="indiceActivo"
-  >
-    <p-tabPanel
-      header="Preguntas al Paciente I"
-      leftIcon="pi pi-file"
-      tooltip="Preguntas"
+    </form>
+    <br />
+    <p-tabView
+        (onChange)="tab($event)"
+        styleClass="tabview-custom"
+        class="tab"
+        [(activeIndex)]="indiceActivo"
     >
-      <div class="border">
-        <p class="texto-justificado m-3">
-          Para preguntar directamente a las usuarias sobre una posible
-          violencia, el profesional de la salud realiza las siguientes
-          preguntas:
-        </p>
-        <form [formGroup]="formDatos_Tamisaje" class="m-2">
-          <div class="grid">
-            <div class="col-12 md:col-6 lg:col-4 p-field">
-              <div class="grid">
-                <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
-                  <p-panel
-                    header="1.- En general ¿Cómo describiría su relación de pareja?"
-                  >
-                    <div class="grid">
-                      <div class="col-12 md:col-6 lg:col-12 p-field">
-                        <div class="p-inputgroup">
-                          <label class="col-10" style="text-align: right"
-                            >Estresante (3 puntos):</label
-                          >
-                          <p-radioButton
-                            name="Respuesta9"
-                            value="3"
-                            formControlName="Respuesta9"
-                            (onClick)="calcularPuntaje()"
-                          >
-                          </p-radioButton>
+        <p-tabPanel
+            header="Preguntas al Paciente I"
+            leftIcon="pi pi-file"
+            tooltip="Preguntas"
+            [disabled]="false"
+        >
+            <div class="border">
+                <p class="texto-justificado m-3">
+                    El siguiente listado de preguntas se presenta con la
+                    finalidad de indagar si la mujer se encuentra en situación
+                    de violencia de pareja o expareja. Esta lista de chequeo se
+                    realiza, dejando a consideración su adaptación, de acuerdo a
+                    las circunstancias y lenguaje de las usuarias, así como
+                    también, el profesional de salud podrá considerar aquellas
+                    otras preguntas que estime convenientes. Se sugiere recordar
+                    a la entrevistada que la pareja está compuesta por dos
+                    personas que tienen diferentes gustos y costumbres por lo
+                    que es natural que existan desacuerdos en la vida cotidiana.
+                </p>
+                <form [formGroup]="formDatos_Tamisaje">
+                    <div class="grid m-2">
+                        <div
+                            class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                        >
+                            <p-panel
+                                header="Preguntas para relacionar el motivo de consulta con un posible maltrato"
+                            >
+                                <div class="grid">
+                                    <div
+                                        class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                                    >
+                                        <div class="p-inputgroup">
+                                            <label
+                                                class="col-6"
+                                                style="text-align: right"
+                                                >¿Cómo se siente usted
+                                                misma?:</label
+                                            >
+                                            <input
+                                                type="text"
+                                                formControlName="Respuesta1"
+                                                pInputText
+                                                placeholder="Respuesta"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div
+                                        class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                                    >
+                                        <div class="p-inputgroup">
+                                            <label
+                                                class="col-6"
+                                                style="text-align: right"
+                                            >
+                                                ¿Mantiene su apetito, sueño y
+                                                deseos de realizar sus
+                                                actividades como de costumbre?:
+                                            </label>
+                                            <p-selectButton
+                                                [options]="opciones"
+                                                optionLabel="name"
+                                                optionValue="name"
+                                                formControlName="Respuesta2"
+                                            >
+                                            </p-selectButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div
+                                        class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                                    >
+                                        <div class="p-inputgroup">
+                                            <label
+                                                class="col-6"
+                                                style="text-align: right"
+                                                >¿Toma algo (medicación u otra
+                                                que le hayan
+                                                recomendado)?:</label
+                                            >
+                                            <input
+                                                type="text"
+                                                pInputText
+                                                placeholder="Respuesta"
+                                                formControlName="Respuesta3"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </p-panel>
                         </div>
-                      </div>
-                    </div>
-                    <div class="grid">
-                      <div class="col-12 md:col-6 lg:col-12 p-field">
-                        <div class="p-inputgroup">
-                          <label class="col-10" style="text-align: right"
-                            >Un poco estresante (2 puntos):</label
-                          >
-                          <p-radioButton
-                            name="Respuesta9"
-                            value="2"
-                            formControlName="Respuesta9"
-                            (onClick)="calcularPuntaje()"
-                          >
-                          </p-radioButton>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="grid">
-                      <div class="col-12 md:col-6 lg:col-12 p-field">
-                        <div class="p-inputgroup">
-                          <label class="col-10" style="text-align: right"
-                            >Nada estresante (1 punto):</label
-                          >
-                          <p-radioButton
-                            name="Respuesta9"
-                            value="1"
-                            formControlName="Respuesta9"
-                            (onClick)="calcularPuntaje()"
-                          >
-                          </p-radioButton>
-                        </div>
-                      </div>
                     </div>
                     <br />
-                  </p-panel>
-                </div>
-              </div>
-              <div class="grid">
-                <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
-                  <p-panel
-                    header="2.- Usted y su pareja resuelven las discusiones con:"
-                  >
-                    <div class="grid">
-                      <div class="col-12 md:col-6 lg:col-12 p-field">
-                        <div class="p-inputgroup">
-                          <label class="col-10" style="text-align: right"
-                            >Mucha dificultad (3p):
-                          </label>
-                          <p-radioButton
-                            name="Respuesta10"
-                            value="3"
-                            formControlName="Respuesta10"
-                            (onClick)="calcularPuntaje()"
-                          >
-                          </p-radioButton>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="grid">
-                      <div class="col-12 md:col-6 lg:col-12 p-field">
-                        <div class="p-inputgroup">
-                          <label class="col-10" style="text-align: right"
-                            >Algo de dificultad (2p):</label
-                          >
-                          <p-radioButton
-                            name="Respuesta10"
-                            value="2"
-                            formControlName="Respuesta10"
-                            (onClick)="calcularPuntaje()"
-                          >
-                          </p-radioButton>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="grid">
-                      <div class="col-12 md:col-6 lg:col-12 p-field">
-                        <div class="p-inputgroup">
-                          <label class="col-10" style="text-align: right"
-                            >Sin dificultad (1p):</label
-                          >
-                          <p-radioButton
-                            name="Respuesta10"
-                            value="1"
-                            formControlName="Respuesta10"
-                            (onClick)="calcularPuntaje()"
-                          >
-                          </p-radioButton>
-                        </div>
-                      </div>
-                    </div>
-                  </p-panel>
-                </div>
-              </div>
-              <div class="grid">
-                <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
-                  <p-panel
-                    header="3.- Al terminar las discusiones usted ¿Se siente decaída o mal con usted misma?"
-                  >
-                    <div class="grid">
-                      <div class="col-12 md:col-6 lg:col-12 p-field">
-                        <div class="p-inputgroup">
-                          <label class="col-10" style="text-align: right"
-                            >Muchas veces (3p):</label
-                          >
-                          <p-radioButton
-                            name="Respuesta11"
-                            value="3"
-                            formControlName="Respuesta11"
-                            (onClick)="calcularPuntaje()"
-                          >
-                          </p-radioButton>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="grid">
-                      <div class="col-12 md:col-6 lg:col-12 p-field">
-                        <div class="p-inputgroup">
-                          <label class="col-10" style="text-align: right"
-                            >A veces (2p):</label
-                          >
-                          <p-radioButton
-                            name="Respuesta11"
-                            value="2"
-                            formControlName="Respuesta11"
-                            (onClick)="calcularPuntaje()"
-                          >
-                          </p-radioButton>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="grid">
-                      <div class="col-12 md:col-6 lg:col-12 p-field">
-                        <div class="p-inputgroup">
-                          <label class="col-10" style="text-align: right"
-                            >Nunca (1p):</label
-                          >
-                          <p-radioButton
-                            name="Respuesta11"
-                            value="1"
-                            formControlName="Respuesta11"
-                            (onClick)="calcularPuntaje()"
-                          >
-                          </p-radioButton>
-                        </div>
-                      </div>
-                    </div>
-                  </p-panel>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 md:col-6 lg:col-4 p-field">
-              <div class="grid">
-                <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
-                  <p-panel
-                    header="4.- Las discusiones ¿terminan en golpes, patadas o empujones?"
-                    class="colorearPanel"
-                  >
-                    <div class="grid">
-                      <div class="col-12 md:col-6 lg:col-12 p-field">
-                        <div class="p-inputgroup">
-                          <label class="col-10" style="text-align: right"
-                            >Muchas veces (3p):
-                          </label>
-                          <p-radioButton
-                            name="Respuesta12"
-                            value="3"
-                            formControlName="Respuesta12"
-                            (onClick)="calcularPuntaje()"
-                          >
-                          </p-radioButton>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="grid">
-                      <div class="col-12 md:col-6 lg:col-12 p-field">
-                        <div class="p-inputgroup">
-                          <label class="col-10" style="text-align: right"
-                            >A veces (2p):</label
-                          >
-                          <p-radioButton
-                            name="Respuesta12"
-                            value="2"
-                            formControlName="Respuesta12"
-                            (onClick)="calcularPuntaje()"
-                          >
-                          </p-radioButton>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="grid">
-                      <div class="col-12 md:col-6 lg:col-12 p-field">
-                        <div class="p-inputgroup">
-                          <label class="col-10" style="text-align: right"
-                            >Nunca (1p):</label
-                          >
-                          <p-radioButton
-                            name="Respuesta12"
-                            value="1"
-                            formControlName="Respuesta12"
-                            (onClick)="calcularPuntaje()"
-                          >
-                          </p-radioButton>
-                        </div>
-                      </div>
-                    </div>
-                  </p-panel>
-                </div>
-              </div>
-              <div class="grid">
-                <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
-                  <p-panel
-                    header="5.- ¿Hay situaciones en las cuales ha sentido miedo de las reacciones de  su pareja?"
-                  >
-                    <div class="grid">
-                      <div class="col-12 md:col-6 lg:col-12 p-field">
-                        <div class="p-inputgroup">
-                          <label class="col-10" style="text-align: right"
-                            >Muchas veces (3p):
-                          </label>
-                          <p-radioButton
-                            name="Respuesta13"
-                            value="3"
-                            formControlName="Respuesta13"
-                            (onClick)="calcularPuntaje()"
-                          >
-                          </p-radioButton>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="grid">
-                      <div class="col-12 md:col-6 lg:col-12 p-field">
-                        <div class="p-inputgroup">
-                          <label class="col-10" style="text-align: right"
-                            >A veces (2p):</label
-                          >
-                          <p-radioButton
-                            name="Respuesta13"
-                            value="2"
-                            formControlName="Respuesta13"
-                            (onClick)="calcularPuntaje()"
-                          >
-                          </p-radioButton>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="grid">
-                      <div class="col-12 md:col-6 lg:col-12 p-field">
-                        <div class="p-inputgroup">
-                          <label class="col-10" style="text-align: right"
-                            >Nunca (1p):</label
-                          >
-                          <p-radioButton
-                            name="Respuesta13"
-                            value="1"
-                            formControlName="Respuesta13"
-                            (onClick)="calcularPuntaje()"
-                          >
-                          </p-radioButton>
-                        </div>
-                      </div>
-                    </div>
-                  </p-panel>
-                </div>
-              </div>
-              <div class="grid">
-                <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
-                  <p-panel
-                    header="6.- Su pareja ¿controla el dinero que usted gasta, o la obliga a realizar trabajo en exceso?"
-                  >
-                    <div class="grid">
-                      <div class="col-12 md:col-6 lg:col-12 p-field">
-                        <div class="p-inputgroup">
-                          <label class="col-10" style="text-align: right"
-                            >Muchas veces (3p):</label
-                          >
-                          <p-radioButton
-                            name="Respuesta14"
-                            value="3"
-                            formControlName="Respuesta14"
-                            (onClick)="calcularPuntaje()"
-                          >
-                          </p-radioButton>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="grid">
-                      <div class="col-12 md:col-6 lg:col-12 p-field">
-                        <div class="p-inputgroup">
-                          <label class="col-10" style="text-align: right"
-                            >A veces (2p):</label
-                          >
-                          <p-radioButton
-                            name="Respuesta14"
-                            value="2"
-                            formControlName="Respuesta14"
-                            (onClick)="calcularPuntaje()"
-                          >
-                          </p-radioButton>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="grid">
-                      <div class="col-12 md:col-6 lg:col-12 p-field">
-                        <div class="p-inputgroup">
-                          <label class="col-10" style="text-align: right"
-                            >Nunca (1p):</label
-                          >
-                          <p-radioButton
-                            name="Respuesta14"
-                            value="1"
-                            formControlName="Respuesta14"
-                            (onClick)="calcularPuntaje()"
-                          >
-                          </p-radioButton>
-                        </div>
-                      </div>
-                    </div>
-                  </p-panel>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 md:col-6 lg:col-4 p-field">
-              <div class="grid">
-                <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
-                  <p-panel
-                    header="7.- Su pareja ¿la insulta, grita, humilla o descalifica verbalmente?"
-                    class="colorearPanel"
-                  >
-                    <div class="grid">
-                      <div class="col-12 md:col-6 lg:col-12 p-field">
-                        <div class="p-inputgroup">
-                          <label class="col-10" style="text-align: right"
-                            >Muchas veces (3p):</label
-                          >
-                          <p-radioButton
-                            name="Respuesta15"
-                            value="3"
-                            formControlName="Respuesta15"
-                            (onClick)="calcularPuntaje()"
-                          >
-                          </p-radioButton>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="grid">
-                      <div class="col-12 md:col-6 lg:col-12 p-field">
-                        <div class="p-inputgroup">
-                          <label class="col-10" style="text-align: right"
-                            >A veces (2p):</label
-                          >
-                          <p-radioButton
-                            name="Respuesta15"
-                            value="2"
-                            formControlName="Respuesta15"
-                            (onClick)="calcularPuntaje()"
-                          >
-                          </p-radioButton>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="grid">
-                      <div class="col-12 md:col-6 lg:col-12 p-field">
-                        <div class="p-inputgroup">
-                          <label class="col-10" style="text-align: right"
-                            >Nunca (1p):</label
-                          >
-                          <p-radioButton
-                            name="Respuesta15"
-                            value="1"
-                            formControlName="Respuesta15"
-                            (onClick)="calcularPuntaje()"
-                          >
-                          </p-radioButton>
-                        </div>
-                      </div>
-                    </div>
-                  </p-panel>
-                </div>
-              </div>
-              <div class="grid">
-                <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
-                  <p-panel
-                    header="8.- ¿Se ha sentido obligada a tener relaciones sexuales con su pareja para evitar problemas?"
-                  >
-                    <div class="grid">
-                      <div class="col-12 md:col-6 lg:col-12 p-field">
-                        <div class="p-inputgroup">
-                          <label class="col-10" style="text-align: right"
-                            >Muchas veces (3p):</label
-                          >
-                          <p-radioButton
-                            name="Respuesta16"
-                            value="3"
-                            formControlName="Respuesta16"
-                            (onClick)="calcularPuntaje()"
-                          >
-                          </p-radioButton>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="grid">
-                      <div class="col-12 md:col-6 lg:col-12 p-field">
-                        <div class="p-inputgroup">
-                          <label class="col-10" style="text-align: right"
-                            >A veces (2p):</label
-                          >
-                          <p-radioButton
-                            name="Respuesta16"
-                            value="2"
-                            formControlName="Respuesta16"
-                            (onClick)="calcularPuntaje()"
-                          >
-                          </p-radioButton>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="grid">
-                      <div class="col-12 md:col-6 lg:col-12 p-field">
-                        <div class="p-inputgroup">
-                          <label class="col-10" style="text-align: right"
-                            >Nunca (1p):</label
-                          >
-                          <p-radioButton
-                            name="Respuesta16"
-                            value="1"
-                            formControlName="Respuesta16"
-                            (onClick)="calcularPuntaje()"
-                          >
-                          </p-radioButton>
-                        </div>
-                      </div>
-                    </div>
-                  </p-panel>
-                </div>
-              </div>
-              <div class="grid">
-                <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
-                  <div class="border">
                     <div class="grid m-2">
-                      <div class="col" style="text-align: center">
-                        <label>Puntaje Total: </label>
-                        <input
-                          type="text"
-                          pInputText
-                          formControlName="PuntajeTotal"
-                          style="width: 30%"
-                        />
+                        <div
+                            class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                        >
+                            <p-panel
+                                header="Para preguntar a las usuarias sobre sus relaciones de pareja o expareja"
+                            >
+                                <div class="grid">
+                                    <div
+                                        class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                                    >
+                                        <div class="p-inputgroup">
+                                            <label
+                                                class="col-6"
+                                                style="text-align: right"
+                                            >
+                                                ¿Cómo se siente en las
+                                                relaciones cotidianas con su
+                                                pareja o expareja?:</label
+                                            >
+                                            <input
+                                                type="text"
+                                                pInputText
+                                                placeholder="Respuesta"
+                                                formControlName="Respuesta4"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div
+                                        class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                                    >
+                                        <div class="p-inputgroup">
+                                            <label
+                                                class="col-6"
+                                                style="text-align: right"
+                                            >
+                                                ¿Cuáles son los desacuerdos más
+                                                frecuentes que se dan con su
+                                                pareja o expareja?:
+                                            </label>
+                                            <input
+                                                type="text"
+                                                pInputText
+                                                placeholder="Respuesta"
+                                                formControlName="Respuesta5"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div
+                                        class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                                    >
+                                        <div class="p-inputgroup">
+                                            <label
+                                                class="col-6"
+                                                style="text-align: right"
+                                                >¿Cómo manejan estos
+                                                desacuerdos? ¿Llegan a las
+                                                discuciones?:</label
+                                            >
+                                            <p-selectButton
+                                                [options]="opciones"
+                                                optionLabel="name"
+                                                optionValue="name"
+                                                formControlName="Respuesta6"
+                                            >
+                                            </p-selectButton>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="grid">
+                                    <div
+                                        class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                                    >
+                                        <div class="p-inputgroup">
+                                            <label
+                                                class="col-6"
+                                                style="text-align: right"
+                                                >Generalmente ¿Cómo terminan las
+                                                discuciones con su pareja o
+                                                expareja?:</label
+                                            >
+                                            <input
+                                                type="text"
+                                                pInputText
+                                                placeholder="Respuesta"
+                                                formControlName="Respuesta7"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div
+                                        class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                                    >
+                                        <div class="p-inputgroup">
+                                            <label
+                                                class="col-6"
+                                                style="text-align: right"
+                                                >¿Su pareja o expareja se enoja
+                                                con facilidad o tiene arranques
+                                                inesperados de cólera?:</label
+                                            >
+                                            <p-selectButton
+                                                [options]="opciones"
+                                                optionLabel="name"
+                                                optionValue="name"
+                                                formControlName="Respuesta8"
+                                            >
+                                            </p-selectButton>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p-panel>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <!-- <p-fieldset class="infor3 m-2" legend="DIAGNOSTICO Y RESPONSABLE" [toggleable]="true">
+                      <div class="grid">
+                          <div class="col-12 md:col-6 lg:col-3 p-field">
+                              <div class="">
+                                  <label class="">Diagnostico del paciente: </label>
+                                  <p-selectButton [options]="diagnostico2" optionLabel="name"
+                                                  optionValue="diagnostico" formControlName="diagnostico">
+                                  </p-selectButton>
+                              </div>
+                          </div>
                       </div>
-                    </div>
-                  </div>
-                  <br />
-                  <div class="grid m-2">
-                    <div class="col" style="text-align: center">
-                      <label
-                        *ngIf="resultadoTamizaje == 'POSITIVO'"
-                        style="color: rgba(255, 2, 15, 0.58)"
-                        class="text-2xl"
-                        >{{ resultadoTamizaje }}</label
-                      >
-                      <label
-                        *ngIf="resultadoTamizaje == 'NEGATIVO'"
-                        class="text-2xl"
-                        >{{ resultadoTamizaje }}</label
-                      >
-                    </div>
-                  </div>
-                  <br />
-                </div>
-              </div>
+                      <br>
+                      <div class="grid">
+                          <div class="col-12 md:col-6 lg:col-4 p-field">
+                              <div class="">
+                                  <label class="">Documento de identidad:</label>
+                                  <input type="text" pInputText class="inputfield w-full"
+                                         formControlName="nroDodResponsable" placeholder="Nro documento">
+                              </div>
+                          </div>
+                          <div class="col-12 md:col-6 lg:col-6 p-field">
+                              <div class="">
+                                  <label class="">Apellidos y Nombres: </label>
+                                  <input type="text" pInputText class="inputfield w-full"
+                                         formControlName="ApellidosResponsable" placeholder="Apellidos y nombres">
+                              </div>
+                          </div>
+                      </div>
+
+                  </p-fieldset> -->
+                </form>
             </div>
-          </div>
-          <div class="grid">
-            <div class="col-12 md:col-12 md:col-6 lg:col-12 p-field">
-              <label class="m-2">Interpretación</label>
-              <div class="border2">
-                <div class="grid m-2">
-                  <div class="col-12 md:col-6 lg:col-5">
-                    <div class="border">
-                      <div class="grid m-2">
-                        <div class="col-4" style="text-align: center">
-                          <span></span>
+            <p-toolbar>
+                <ng-template pTemplate="left">
+                    <h3 class="mt-2"></h3>
+                </ng-template>
+                <ng-template pTemplate="right" class="button">
+                    <button
+                        pButton
+                        pRipple
+                        type="button"
+                        icon="pi pi-save"
+                        label="Guardar"
+                        (click)="guardarActualizar()"
+                        class="p-button-danger"
+                    ></button>
+                </ng-template>
+            </p-toolbar>
+        </p-tabPanel>
+        <p-tabPanel
+            header="Preguntas al Paciente II"
+            leftIcon="pi pi-file"
+            tooltip="Preguntas"
+            [disabled]="!isUpdate"
+        >
+            <div class="border">
+                <p class="texto-justificado m-3">
+                    Para preguntar directamente a las usuarias sobre una posible
+                    violencia, el profesional de la salud realiza las siguientes
+                    preguntas:
+                </p>
+                <form [formGroup]="formDatos_Tamisaje" class="m-2">
+                    <div class="grid">
+                        <div class="col-12 md:col-6 lg:col-4 p-field">
+                            <div class="grid">
+                                <div
+                                    class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                                >
+                                    <p-panel
+                                        header="1.- En general ¿Cómo describiría su relación de pareja?"
+                                    >
+                                        <div class="grid">
+                                            <div
+                                                class="col-12 md:col-6 lg:col-12 p-field"
+                                            >
+                                                <div class="p-inputgroup">
+                                                    <label
+                                                        class="col-10"
+                                                        style="
+                                                            text-align: right;
+                                                        "
+                                                        >Estresante (3
+                                                        puntos):</label
+                                                    >
+                                                    <p-radioButton
+                                                        name="Respuesta9"
+                                                        value="3"
+                                                        formControlName="Respuesta9"
+                                                        (onClick)="
+                                                            calcularPuntaje()
+                                                        "
+                                                    ></p-radioButton>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="grid">
+                                            <div
+                                                class="col-12 md:col-6 lg:col-12 p-field"
+                                            >
+                                                <div class="p-inputgroup">
+                                                    <label
+                                                        class="col-10"
+                                                        style="
+                                                            text-align: right;
+                                                        "
+                                                        >Un poco estresante (2
+                                                        puntos):</label
+                                                    >
+                                                    <p-radioButton
+                                                        name="Respuesta9"
+                                                        value="2"
+                                                        formControlName="Respuesta9"
+                                                        (onClick)="
+                                                            calcularPuntaje()
+                                                        "
+                                                    ></p-radioButton>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="grid">
+                                            <div
+                                                class="col-12 md:col-6 lg:col-12 p-field"
+                                            >
+                                                <div class="p-inputgroup">
+                                                    <label
+                                                        class="col-10"
+                                                        style="
+                                                            text-align: right;
+                                                        "
+                                                        >Nada estresante (1
+                                                        punto):</label
+                                                    >
+                                                    <p-radioButton
+                                                        name="Respuesta9"
+                                                        value="1"
+                                                        formControlName="Respuesta9"
+                                                        (onClick)="
+                                                            calcularPuntaje()
+                                                        "
+                                                    ></p-radioButton>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br />
+                                    </p-panel>
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <div
+                                    class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                                >
+                                    <p-panel
+                                        header="2.- Usted y su pareja resuelven las discusiones con:"
+                                    >
+                                        <div class="grid">
+                                            <div
+                                                class="col-12 md:col-6 lg:col-12 p-field"
+                                            >
+                                                <div class="p-inputgroup">
+                                                    <label
+                                                        class="col-10"
+                                                        style="
+                                                            text-align: right;
+                                                        "
+                                                        >Mucha dificultad (3p):
+                                                    </label>
+                                                    <p-radioButton
+                                                        name="Respuesta10"
+                                                        value="3"
+                                                        formControlName="Respuesta10"
+                                                        (onClick)="
+                                                            calcularPuntaje()
+                                                        "
+                                                    ></p-radioButton>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="grid">
+                                            <div
+                                                class="col-12 md:col-6 lg:col-12 p-field"
+                                            >
+                                                <div class="p-inputgroup">
+                                                    <label
+                                                        class="col-10"
+                                                        style="
+                                                            text-align: right;
+                                                        "
+                                                        >Algo de dificultad
+                                                        (2p):</label
+                                                    >
+                                                    <p-radioButton
+                                                        name="Respuesta10"
+                                                        value="2"
+                                                        formControlName="Respuesta10"
+                                                        (onClick)="
+                                                            calcularPuntaje()
+                                                        "
+                                                    ></p-radioButton>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="grid">
+                                            <div
+                                                class="col-12 md:col-6 lg:col-12 p-field"
+                                            >
+                                                <div class="p-inputgroup">
+                                                    <label
+                                                        class="col-10"
+                                                        style="
+                                                            text-align: right;
+                                                        "
+                                                        >Sin dificultad
+                                                        (1p):</label
+                                                    >
+                                                    <p-radioButton
+                                                        name="Respuesta10"
+                                                        value="1"
+                                                        formControlName="Respuesta10"
+                                                        (onClick)="
+                                                            calcularPuntaje()
+                                                        "
+                                                    ></p-radioButton>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </p-panel>
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <div
+                                    class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                                >
+                                    <p-panel
+                                        header="3.- Al terminar las discusiones usted ¿Se siente decaída o mal con usted misma?"
+                                    >
+                                        <div class="grid">
+                                            <div
+                                                class="col-12 md:col-6 lg:col-12 p-field"
+                                            >
+                                                <div class="p-inputgroup">
+                                                    <label
+                                                        class="col-10"
+                                                        style="
+                                                            text-align: right;
+                                                        "
+                                                        >Muchas veces
+                                                        (3p):</label
+                                                    >
+                                                    <p-radioButton
+                                                        name="Respuesta11"
+                                                        value="3"
+                                                        formControlName="Respuesta11"
+                                                        (onClick)="
+                                                            calcularPuntaje()
+                                                        "
+                                                    ></p-radioButton>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="grid">
+                                            <div
+                                                class="col-12 md:col-6 lg:col-12 p-field"
+                                            >
+                                                <div class="p-inputgroup">
+                                                    <label
+                                                        class="col-10"
+                                                        style="
+                                                            text-align: right;
+                                                        "
+                                                        >A veces (2p):</label
+                                                    >
+                                                    <p-radioButton
+                                                        name="Respuesta11"
+                                                        value="2"
+                                                        formControlName="Respuesta11"
+                                                        (onClick)="
+                                                            calcularPuntaje()
+                                                        "
+                                                    ></p-radioButton>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="grid">
+                                            <div
+                                                class="col-12 md:col-6 lg:col-12 p-field"
+                                            >
+                                                <div class="p-inputgroup">
+                                                    <label
+                                                        class="col-10"
+                                                        style="
+                                                            text-align: right;
+                                                        "
+                                                        >Nunca (1p):</label
+                                                    >
+                                                    <p-radioButton
+                                                        name="Respuesta11"
+                                                        value="1"
+                                                        formControlName="Respuesta11"
+                                                        (onClick)="
+                                                            calcularPuntaje()
+                                                        "
+                                                    ></p-radioButton>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </p-panel>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-4" style="text-align: center">
-                          <span class="">Punto mínimo</span>
+                        <div class="col-12 md:col-6 lg:col-4 p-field">
+                            <div class="grid">
+                                <div
+                                    class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                                >
+                                    <p-panel
+                                        header="4.- Las discusiones ¿terminan en golpes, patadas o empujones?"
+                                        class="colorearPanel"
+                                    >
+                                        <div class="grid">
+                                            <div
+                                                class="col-12 md:col-6 lg:col-12 p-field"
+                                            >
+                                                <div class="p-inputgroup">
+                                                    <label
+                                                        class="col-10"
+                                                        style="
+                                                            text-align: right;
+                                                        "
+                                                        >Muchas veces (3p):
+                                                    </label>
+                                                    <p-radioButton
+                                                        name="Respuesta12"
+                                                        value="3"
+                                                        formControlName="Respuesta12"
+                                                        (onClick)="
+                                                            calcularPuntaje()
+                                                        "
+                                                    ></p-radioButton>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="grid">
+                                            <div
+                                                class="col-12 md:col-6 lg:col-12 p-field"
+                                            >
+                                                <div class="p-inputgroup">
+                                                    <label
+                                                        class="col-10"
+                                                        style="
+                                                            text-align: right;
+                                                        "
+                                                        >A veces (2p):</label
+                                                    >
+                                                    <p-radioButton
+                                                        name="Respuesta12"
+                                                        value="2"
+                                                        formControlName="Respuesta12"
+                                                        (onClick)="
+                                                            calcularPuntaje()
+                                                        "
+                                                    ></p-radioButton>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="grid">
+                                            <div
+                                                class="col-12 md:col-6 lg:col-12 p-field"
+                                            >
+                                                <div class="p-inputgroup">
+                                                    <label
+                                                        class="col-10"
+                                                        style="
+                                                            text-align: right;
+                                                        "
+                                                        >Nunca (1p):</label
+                                                    >
+                                                    <p-radioButton
+                                                        name="Respuesta12"
+                                                        value="1"
+                                                        formControlName="Respuesta12"
+                                                        (onClick)="
+                                                            calcularPuntaje()
+                                                        "
+                                                    ></p-radioButton>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </p-panel>
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <div
+                                    class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                                >
+                                    <p-panel
+                                        header="5.- ¿Hay situaciones en las cuales ha sentido miedo de las reacciones de  su pareja?"
+                                    >
+                                        <div class="grid">
+                                            <div
+                                                class="col-12 md:col-6 lg:col-12 p-field"
+                                            >
+                                                <div class="p-inputgroup">
+                                                    <label
+                                                        class="col-10"
+                                                        style="
+                                                            text-align: right;
+                                                        "
+                                                        >Muchas veces (3p):
+                                                    </label>
+                                                    <p-radioButton
+                                                        name="Respuesta13"
+                                                        value="3"
+                                                        formControlName="Respuesta13"
+                                                        (onClick)="
+                                                            calcularPuntaje()
+                                                        "
+                                                    ></p-radioButton>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="grid">
+                                            <div
+                                                class="col-12 md:col-6 lg:col-12 p-field"
+                                            >
+                                                <div class="p-inputgroup">
+                                                    <label
+                                                        class="col-10"
+                                                        style="
+                                                            text-align: right;
+                                                        "
+                                                        >A veces (2p):</label
+                                                    >
+                                                    <p-radioButton
+                                                        name="Respuesta13"
+                                                        value="2"
+                                                        formControlName="Respuesta13"
+                                                        (onClick)="
+                                                            calcularPuntaje()
+                                                        "
+                                                    ></p-radioButton>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="grid">
+                                            <div
+                                                class="col-12 md:col-6 lg:col-12 p-field"
+                                            >
+                                                <div class="p-inputgroup">
+                                                    <label
+                                                        class="col-10"
+                                                        style="
+                                                            text-align: right;
+                                                        "
+                                                        >Nunca (1p):</label
+                                                    >
+                                                    <p-radioButton
+                                                        name="Respuesta13"
+                                                        value="1"
+                                                        formControlName="Respuesta13"
+                                                        (onClick)="
+                                                            calcularPuntaje()
+                                                        "
+                                                    ></p-radioButton>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </p-panel>
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <div
+                                    class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                                >
+                                    <p-panel
+                                        header="6.- Su pareja ¿controla el dinero que usted gasta, o la obliga a realizar trabajo en exceso?"
+                                    >
+                                        <div class="grid">
+                                            <div
+                                                class="col-12 md:col-6 lg:col-12 p-field"
+                                            >
+                                                <div class="p-inputgroup">
+                                                    <label
+                                                        class="col-10"
+                                                        style="
+                                                            text-align: right;
+                                                        "
+                                                        >Muchas veces
+                                                        (3p):</label
+                                                    >
+                                                    <p-radioButton
+                                                        name="Respuesta14"
+                                                        value="3"
+                                                        formControlName="Respuesta14"
+                                                        (onClick)="
+                                                            calcularPuntaje()
+                                                        "
+                                                    ></p-radioButton>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="grid">
+                                            <div
+                                                class="col-12 md:col-6 lg:col-12 p-field"
+                                            >
+                                                <div class="p-inputgroup">
+                                                    <label
+                                                        class="col-10"
+                                                        style="
+                                                            text-align: right;
+                                                        "
+                                                        >A veces (2p):</label
+                                                    >
+                                                    <p-radioButton
+                                                        name="Respuesta14"
+                                                        value="2"
+                                                        formControlName="Respuesta14"
+                                                        (onClick)="
+                                                            calcularPuntaje()
+                                                        "
+                                                    ></p-radioButton>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="grid">
+                                            <div
+                                                class="col-12 md:col-6 lg:col-12 p-field"
+                                            >
+                                                <div class="p-inputgroup">
+                                                    <label
+                                                        class="col-10"
+                                                        style="
+                                                            text-align: right;
+                                                        "
+                                                        >Nunca (1p):</label
+                                                    >
+                                                    <p-radioButton
+                                                        name="Respuesta14"
+                                                        value="1"
+                                                        formControlName="Respuesta14"
+                                                        (onClick)="
+                                                            calcularPuntaje()
+                                                        "
+                                                    ></p-radioButton>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </p-panel>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-4" style="text-align: center">
-                          <span class="">Puntaje máximo</span>
+                        <div class="col-12 md:col-6 lg:col-4 p-field">
+                            <div class="grid">
+                                <div
+                                    class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                                >
+                                    <p-panel
+                                        header="7.- Su pareja ¿la insulta, grita, humilla o descalifica verbalmente?"
+                                        class="colorearPanel"
+                                    >
+                                        <div class="grid">
+                                            <div
+                                                class="col-12 md:col-6 lg:col-12 p-field"
+                                            >
+                                                <div class="p-inputgroup">
+                                                    <label
+                                                        class="col-10"
+                                                        style="
+                                                            text-align: right;
+                                                        "
+                                                        >Muchas veces
+                                                        (3p):</label
+                                                    >
+                                                    <p-radioButton
+                                                        name="Respuesta15"
+                                                        value="3"
+                                                        formControlName="Respuesta15"
+                                                        (onClick)="
+                                                            calcularPuntaje()
+                                                        "
+                                                    ></p-radioButton>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="grid">
+                                            <div
+                                                class="col-12 md:col-6 lg:col-12 p-field"
+                                            >
+                                                <div class="p-inputgroup">
+                                                    <label
+                                                        class="col-10"
+                                                        style="
+                                                            text-align: right;
+                                                        "
+                                                        >A veces (2p):</label
+                                                    >
+                                                    <p-radioButton
+                                                        name="Respuesta15"
+                                                        value="2"
+                                                        formControlName="Respuesta15"
+                                                        (onClick)="
+                                                            calcularPuntaje()
+                                                        "
+                                                    ></p-radioButton>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="grid">
+                                            <div
+                                                class="col-12 md:col-6 lg:col-12 p-field"
+                                            >
+                                                <div class="p-inputgroup">
+                                                    <label
+                                                        class="col-10"
+                                                        style="
+                                                            text-align: right;
+                                                        "
+                                                        >Nunca (1p):</label
+                                                    >
+                                                    <p-radioButton
+                                                        name="Respuesta15"
+                                                        value="1"
+                                                        formControlName="Respuesta15"
+                                                        (onClick)="
+                                                            calcularPuntaje()
+                                                        "
+                                                    ></p-radioButton>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </p-panel>
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <div
+                                    class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                                >
+                                    <p-panel
+                                        header="8.- ¿Se ha sentido obligada a tener relaciones sexuales con su pareja para evitar problemas?"
+                                    >
+                                        <div class="grid">
+                                            <div
+                                                class="col-12 md:col-6 lg:col-12 p-field"
+                                            >
+                                                <div class="p-inputgroup">
+                                                    <label
+                                                        class="col-10"
+                                                        style="
+                                                            text-align: right;
+                                                        "
+                                                        >Muchas veces
+                                                        (3p):</label
+                                                    >
+                                                    <p-radioButton
+                                                        name="Respuesta16"
+                                                        value="3"
+                                                        formControlName="Respuesta16"
+                                                        (onClick)="
+                                                            calcularPuntaje()
+                                                        "
+                                                    ></p-radioButton>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="grid">
+                                            <div
+                                                class="col-12 md:col-6 lg:col-12 p-field"
+                                            >
+                                                <div class="p-inputgroup">
+                                                    <label
+                                                        class="col-10"
+                                                        style="
+                                                            text-align: right;
+                                                        "
+                                                        >A veces (2p):</label
+                                                    >
+                                                    <p-radioButton
+                                                        name="Respuesta16"
+                                                        value="2"
+                                                        formControlName="Respuesta16"
+                                                        (onClick)="
+                                                            calcularPuntaje()
+                                                        "
+                                                    ></p-radioButton>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="grid">
+                                            <div
+                                                class="col-12 md:col-6 lg:col-12 p-field"
+                                            >
+                                                <div class="p-inputgroup">
+                                                    <label
+                                                        class="col-10"
+                                                        style="
+                                                            text-align: right;
+                                                        "
+                                                        >Nunca (1p):</label
+                                                    >
+                                                    <p-radioButton
+                                                        name="Respuesta16"
+                                                        value="1"
+                                                        formControlName="Respuesta16"
+                                                        (onClick)="
+                                                            calcularPuntaje()
+                                                        "
+                                                    ></p-radioButton>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </p-panel>
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <div
+                                    class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                                >
+                                    <div class="border">
+                                        <div class="grid m-2">
+                                            <div
+                                                class="col"
+                                                style="text-align: center"
+                                            >
+                                                <label>Puntaje Total: </label>
+                                                <input
+                                                    type="text"
+                                                    pInputText
+                                                    formControlName="PuntajeTotal"
+                                                    style="width: 30%"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="grid m-2">
+                                        <div
+                                            class="col"
+                                            style="text-align: center"
+                                        >
+                                            <label
+                                                *ngIf="
+                                                    resultadoTamizaje ==
+                                                    'POSITIVO'
+                                                "
+                                                style="
+                                                    color: rgba(
+                                                        255,
+                                                        2,
+                                                        15,
+                                                        0.58
+                                                    );
+                                                "
+                                                class="text-2xl"
+                                                >{{ resultadoTamizaje }}</label
+                                            >
+                                            <label
+                                                *ngIf="
+                                                    resultadoTamizaje ==
+                                                    'NEGATIVO'
+                                                "
+                                                class="text-2xl"
+                                                >{{ resultadoTamizaje }}</label
+                                            >
+                                        </div>
+                                    </div>
+                                    <br />
+                                </div>
+                            </div>
                         </div>
-                      </div>
-                      <div class="grid m-2">
-                        <div class="col-4" style="text-align: center">
-                          <span class="">Tamisaje Positivo: </span>
-                        </div>
-                        <div class="col-4" style="text-align: center">
-                          <span> >15 </span>
-                        </div>
-                        <div class="col-4" style="text-align: center">
-                          <span>24</span>
-                        </div>
-                      </div>
-                      <div class="grid m-2">
-                        <div class="col-4" style="text-align: center">
-                          <span class="">Tamizaje Negativo: </span>
-                        </div>
-                        <div class="col-4" style="text-align: center">
-                          <span>8</span>
-                        </div>
-                        <div class="col-4" style="text-align: center">
-                          <span>15</span>
-                        </div>
-                      </div>
                     </div>
-                  </div>
-                  <div class="col-12 md:col-6 lg:col-4">
-                    <div class="border">
-                      <div class="grid m-2">
-                        <div class="col">
-                          <span class="texto-justificado"
-                            >Si una o más preguntas 4 y 7 son (+), incluso
-                            aunque total fuera < de 15 (asegurada la comprensión
-                            de las preguntas)</span
-                          >
+                    <div class="grid">
+                        <div
+                            class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                        >
+                            <label class="m-2">Interpretación</label>
+                            <div class="border2">
+                                <div class="grid m-2">
+                                    <div class="col-12 md:col-6 lg:col-5">
+                                        <div class="border">
+                                            <div class="grid m-2">
+                                                <div
+                                                    class="col-4"
+                                                    style="text-align: center"
+                                                >
+                                                    <span></span>
+                                                </div>
+                                                <div
+                                                    class="col-4"
+                                                    style="text-align: center"
+                                                >
+                                                    <span class=""
+                                                        >Punto mínimo</span
+                                                    >
+                                                </div>
+                                                <div
+                                                    class="col-4"
+                                                    style="text-align: center"
+                                                >
+                                                    <span class=""
+                                                        >Puntaje máximo</span
+                                                    >
+                                                </div>
+                                            </div>
+                                            <div class="grid m-2">
+                                                <div
+                                                    class="col-4"
+                                                    style="text-align: center"
+                                                >
+                                                    <span class=""
+                                                        >Tamisaje Positivo:
+                                                    </span>
+                                                </div>
+                                                <div
+                                                    class="col-4"
+                                                    style="text-align: center"
+                                                >
+                                                    <span> >15 </span>
+                                                </div>
+                                                <div
+                                                    class="col-4"
+                                                    style="text-align: center"
+                                                >
+                                                    <span>24</span>
+                                                </div>
+                                            </div>
+                                            <div class="grid m-2">
+                                                <div
+                                                    class="col-4"
+                                                    style="text-align: center"
+                                                >
+                                                    <span class=""
+                                                        >Tamizaje Negativo:
+                                                    </span>
+                                                </div>
+                                                <div
+                                                    class="col-4"
+                                                    style="text-align: center"
+                                                >
+                                                    <span>8</span>
+                                                </div>
+                                                <div
+                                                    class="col-4"
+                                                    style="text-align: center"
+                                                >
+                                                    <span>15</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 md:col-6 lg:col-4">
+                                        <div class="border">
+                                            <div class="grid m-2">
+                                                <div class="col">
+                                                    <span
+                                                        class="texto-justificado"
+                                                        >Si una o más preguntas
+                                                        4 y 7 son (+), incluso
+                                                        aunque total fuera < de
+                                                        15 (asegurada la
+                                                        comprensión de las
+                                                        preguntas)</span
+                                                    >
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 md:col-6 lg:col-3">
+                                        <div class="border">
+                                            <div class="grid m-2">
+                                                <div class="col">
+                                                    <span
+                                                        class="texto-justificado"
+                                                        >Caso de violencia
+                                                        confirmado – Tamizaje
+                                                        positivo.</span
+                                                    >
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                      </div>
                     </div>
-                  </div>
-                  <div class="col-12 md:col-6 lg:col-3">
-                    <div class="border">
-                      <div class="grid m-2">
-                        <div class="col">
-                          <span class="texto-justificado"
-                            >Caso de violencia confirmado – Tamizaje
-                            positivo.</span
-                          >
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                </form>
             </div>
-          </div>
-        </form>
-      </div>
-      <p-toolbar>
-        <ng-template pTemplate="left">
-          <h3 class="mt-2"></h3>
-        </ng-template>
-        <ng-template pTemplate="right" class="button">
-          <button
-            pButton
-            pRipple
-            type="button"
-            icon="pi pi-save"
-            label="Guardar"
-            (click)="UpdateTamizaje2()"
-            class="p-button-danger"
-          ></button>
-        </ng-template>
-      </p-toolbar>
-    </p-tabPanel>
-  </p-tabView>
+            <p-toolbar>
+                <ng-template pTemplate="left">
+                    <h3 class="mt-2"></h3>
+                </ng-template>
+                <ng-template pTemplate="right" class="button">
+                    <button
+                        pButton
+                        pRipple
+                        type="button"
+                        icon="pi pi-save"
+                        label="Guardar"
+                        (click)="UpdateTamizaje2()"
+                        class="p-button-danger"
+                    ></button>
+                </ng-template>
+            </p-toolbar>
+        </p-tabPanel>
+        <!-- <p-tabPanel
+            header="Ficha de Valoración"
+            leftIcon="pi pi-file"
+            tooltip="Ficha de valoración"
+            [disabled]="!isUpdate"
+        >
+            <div class="border2">
+                <p class="texto-justificado m-3">
+                    Para preguntar directamente a las usuarias sobre una posible
+                    violencia, el profesional de la salud realiza las siguientes
+                    preguntas:
+                </p>
+                <form [formGroup]="formDatos_Tamisaje">
+                    <div class="grid m-2">
+                        <div class="col-12 md:col-12 md:col-6 lg:col-12">
+                            <div class="">
+                                <div class="grid m-2">
+                                    <div
+                                        class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                                    >
+                                        <div
+                                            class="p-inputgroup inputgroupValor"
+                                        >
+                                            <span
+                                                class="col-11"
+                                                style="text-align: left"
+                                                >1.- ¿En el último año, la
+                                                violencia física contra usted ha
+                                                aumentado en gravedad o
+                                                frecuencia?</span
+                                            >
+                                            <p-selectButton
+                                                [options]="opcionesA"
+                                                optionLabel="name"
+                                                optionValue="label"
+                                                formControlName="respuestaValoracion1"
+                                                (onChange)="
+                                                    calcularValoracion()
+                                                "
+                                            ></p-selectButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid m-2">
+                                    <div
+                                        class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                                    >
+                                        <div
+                                            class="p-inputgroup inputgroupValor"
+                                        >
+                                            <span
+                                                class="col-11"
+                                                style="text-align: left"
+                                                >2.- ¿Él tiene algún arma o
+                                                podría conseguir un arma con
+                                                facilidad? (pistola, cuchillo,
+                                                machete, u otros)</span
+                                            >
+                                            <p-selectButton
+                                                [options]="opcionesE"
+                                                optionLabel="name"
+                                                optionValue="label"
+                                                formControlName="respuestaValoracion2"
+                                                (onChange)="
+                                                    calcularValoracion()
+                                                "
+                                            ></p-selectButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid m-2">
+                                    <div
+                                        class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                                    >
+                                        <div
+                                            class="p-inputgroup inputgroupValor"
+                                        >
+                                            <span
+                                                class="col-11"
+                                                style="text-align: center"
+                                                >2a.- ¿Han vivido juntos durante
+                                                el último año? [si dice NO,
+                                                pasar a pregunta 4]</span
+                                            >
+                                            <p-selectButton
+                                                [options]="opciones"
+                                                optionLabel="name"
+                                                optionValue="name"
+                                                formControlName="respuestaValoracion2A"
+                                                (onChange)="
+                                                    calcularValoracion();
+                                                    evaluamos()
+                                                "
+                                            ></p-selectButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid m-2">
+                                    <div
+                                        class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                                    >
+                                        <div
+                                            class="p-inputgroup inputgroupValor"
+                                        >
+                                            <span
+                                                class="col-11"
+                                                style="text-align: left"
+                                                >3.- Usted me dice que han
+                                                vivido juntos en el último año.
+                                                ¿Siguen viviendo juntos o lo ha
+                                                dejado? [Si siguen viviendo
+                                                juntos marcar SI; si lo ha
+                                                dejado marcar NO]
+                                            </span>
+
+                                            <p-selectButton
+                                                [options]="opcionesD"
+                                                optionLabel="name"
+                                                optionValue="label"
+                                                formControlName="respuestaValoracion3"
+                                                (onChange)="
+                                                    calcularValoracion()
+                                                "
+                                            ></p-selectButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid m-2">
+                                    <div
+                                        class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                                    >
+                                        <div
+                                            class="p-inputgroup inputgroupValor"
+                                        >
+                                            <span
+                                                class="col-11"
+                                                style="text-align: left"
+                                                >4.- ¿Actualmente, él tiene
+                                                trabajo estable? [si ella no
+                                                sabe, no marcar nada]
+                                            </span>
+                                            <p-selectButton
+                                                [options]="opcionesD"
+                                                optionLabel="name"
+                                                optionValue="label"
+                                                formControlName="respuestaValoracion4"
+                                                (onChange)="
+                                                    calcularValoracion()
+                                                "
+                                            ></p-selectButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid m-2">
+                                    <div
+                                        class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                                    >
+                                        <div
+                                            class="p-inputgroup inputgroupValor"
+                                        >
+                                            <span
+                                                class="col-11"
+                                                style="text-align: left"
+                                                >5.- ¿Alguna vez él ha usado o
+                                                la ha amenazado con un arma
+                                                (pistola, cuchillo, machete u
+                                                otros)?
+                                            </span>
+                                            <p-selectButton
+                                                [options]="opcionesC"
+                                                optionLabel="name"
+                                                optionValue="label"
+                                                formControlName="respuestaValoracion5"
+                                                (onChange)="
+                                                    calcularValoracion();
+                                                    evaluar2()
+                                                "
+                                            ></p-selectButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid m-2">
+                                    <div
+                                        class="col-12 md:col-12 md:col-6 lg:col-12"
+                                    >
+                                        <div
+                                            class="p-inputgroup inputgroupValor"
+                                        >
+                                            <div
+                                                class="col-11 p-fluid"
+                                                style="text-align: center"
+                                            >
+                                                <span
+                                                    >5a.- Si su respuesta fue
+                                                    “SI”, ¿fue con una pistola o
+                                                    cuchillo?:</span
+                                                >
+                                                <input
+                                                    class="p-inputtext-sm"
+                                                    style="
+                                                        width: 20%;
+                                                        border-color: #9c0116;
+                                                    "
+                                                    type="text"
+                                                    pInputText
+                                                    placeholder="Pistola o cuchillo"
+                                                    formControlName="arma"
+                                                    *ngIf="usaArmas"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid m-2">
+                                    <div
+                                        class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                                    >
+                                        <div
+                                            class="p-inputgroup inputgroupValor"
+                                        >
+                                            <span
+                                                class="col-11"
+                                                style="text-align: left"
+                                                >6.- ¿La ha amenazado con
+                                                matarla?
+                                            </span>
+                                            <p-selectButton
+                                                [options]="opcionesC"
+                                                optionLabel="name"
+                                                optionValue="label"
+                                                formControlName="respuestaValoracion6"
+                                                (onChange)="
+                                                    calcularValoracion()
+                                                "
+                                            ></p-selectButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid m-2">
+                                    <div
+                                        class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                                    >
+                                        <div
+                                            class="p-inputgroup inputgroupValor"
+                                        >
+                                            <span
+                                                class="col-11"
+                                                style="text-align: left"
+                                                >7.- ¿Alguna vez usted lo
+                                                denunció por violencia familiar
+                                                (porque él le pegó) ante la
+                                                comisaría, fiscalía, juzgado o
+                                                ante alguna autoridad comunal?
+                                            </span>
+                                            <p-selectButton
+                                                [options]="opcionesC"
+                                                optionLabel="name"
+                                                optionValue="label"
+                                                formControlName="respuestaValoracion7"
+                                                (onChange)="
+                                                    calcularValoracion()
+                                                "
+                                            ></p-selectButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid m-2">
+                                    <div
+                                        class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                                    >
+                                        <div
+                                            class="p-inputgroup inputgroupValor"
+                                        >
+                                            <span
+                                                class="col-11"
+                                                style="text-align: left"
+                                                >8.- ¿Él la ha obligado alguna
+                                                vez a tener relaciones sexuales?
+                                            </span>
+                                            <p-selectButton
+                                                [options]="opcionesB"
+                                                optionLabel="name"
+                                                optionValue="label"
+                                                formControlName="respuestaValoracion8"
+                                                (onChange)="
+                                                    calcularValoracion()
+                                                "
+                                            ></p-selectButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid m-2">
+                                    <div
+                                        class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                                    >
+                                        <div
+                                            class="p-inputgroup inputgroupValor"
+                                        >
+                                            <span
+                                                class="col-11"
+                                                style="text-align: left"
+                                                >9.- ¿Él ha intentado ahorcarla?
+                                            </span>
+                                            <p-selectButton
+                                                [options]="opcionesB"
+                                                optionLabel="name"
+                                                optionValue="label"
+                                                formControlName="respuestaValoracion9"
+                                                (onChange)="
+                                                    calcularValoracion()
+                                                "
+                                            ></p-selectButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid m-2">
+                                    <div
+                                        class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                                    >
+                                        <div
+                                            class="p-inputgroup inputgroupValor"
+                                        >
+                                            <span
+                                                class="col-11"
+                                                style="text-align: left"
+                                                >10- ¿Él consume drogas? Por
+                                                ejemplo, como la marihuana,
+                                                pasta básica, cocaína u otras.
+                                            </span>
+                                            <p-selectButton
+                                                [options]="opcionesA"
+                                                optionLabel="name"
+                                                optionValue="label"
+                                                formControlName="respuestaValoracion10"
+                                                (onChange)="
+                                                    calcularValoracion()
+                                                "
+                                            ></p-selectButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid m-2">
+                                    <div
+                                        class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                                    >
+                                        <div
+                                            class="p-inputgroup inputgroupValor"
+                                        >
+                                            <span
+                                                class="col-11"
+                                                style="text-align: left"
+                                                >11.- ¿Él es alcohólico o tiene
+                                                problemas con el alcohol (trago
+                                                o licor)?
+                                            </span>
+                                            <p-selectButton
+                                                [options]="opcionesA"
+                                                optionLabel="name"
+                                                optionValue="label"
+                                                formControlName="respuestaValoracion11"
+                                                (onChange)="
+                                                    calcularValoracion()
+                                                "
+                                            ></p-selectButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid m-2">
+                                    <div
+                                        class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                                    >
+                                        <div
+                                            class="p-inputgroup inputgroupValor"
+                                        >
+                                            <span
+                                                class="col-11"
+                                                style="text-align: left"
+                                                >12.- ¿Le controla la mayoría o
+                                                todas sus actividades diarias?
+                                                Por ejemplo, no le deja que vea
+                                                a sus familiares o amistades, le
+                                                controla cuánto dinero puede
+                                                gastar, etc.
+                                            </span>
+                                            <p-selectButton
+                                                [options]="opcionesA"
+                                                optionLabel="name"
+                                                optionValue="label"
+                                                formControlName="respuestaValoracion12"
+                                                (onChange)="
+                                                    calcularValoracion()
+                                                "
+                                            ></p-selectButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid m-2">
+                                    <div
+                                        class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                                    >
+                                        <div
+                                            class="p-inputgroup inputgroupValor"
+                                        >
+                                            <span
+                                                class="col-11"
+                                                style="text-align: center"
+                                                >12a.- Si él trata de
+                                                controlarla, pero ella no lo
+                                                permite, márquelo aquí:
+                                            </span>
+                                            <p-selectButton
+                                                [options]="opciones"
+                                                optionLabel="name"
+                                                optionValue="name"
+                                                formControlName="respuestaValoracion12A"
+                                                (onChange)="
+                                                    calcularValoracion()
+                                                "
+                                            ></p-selectButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid m-2">
+                                    <div
+                                        class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                                    >
+                                        <div
+                                            class="p-inputgroup inputgroupValor"
+                                        >
+                                            <span
+                                                class="col-11"
+                                                style="text-align: left"
+                                                >13.- ¿Él se pone celoso de
+                                                forma constante y violenta? Por
+                                                ejemplo, le dice: “si no eres
+                                                mía, no serás de nadie” u otras
+                                                similares.
+                                            </span>
+                                            <p-selectButton
+                                                [options]="opcionesA"
+                                                optionLabel="name"
+                                                optionValue="label"
+                                                formControlName="respuestaValoracion13"
+                                                (onChange)="
+                                                    calcularValoracion()
+                                                "
+                                            ></p-selectButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid m-2">
+                                    <div
+                                        class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                                    >
+                                        <div
+                                            class="p-inputgroup inputgroupValor"
+                                        >
+                                            <span
+                                                class="col-11"
+                                                style="text-align: left"
+                                                >14.- ¿Cuándo usted estuvo
+                                                embarazada, alguna vez él la
+                                                golpeó?
+                                            </span>
+                                            <p-selectButton
+                                                [options]="opcionesA"
+                                                optionLabel="name"
+                                                optionValue="label"
+                                                formControlName="respuestaValoracion14"
+                                                (onChange)="
+                                                    calcularValoracion()
+                                                "
+                                            ></p-selectButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid m-2">
+                                    <div
+                                        class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                                    >
+                                        <div
+                                            class="p-inputgroup inputgroupValor"
+                                        >
+                                            <span
+                                                class="col-11"
+                                                style="text-align: left"
+                                                >15.- ¿Alguna vez él ha
+                                                amenazado o ha intentado
+                                                suicidarse?
+                                            </span>
+                                            <p-selectButton
+                                                [options]="opcionesA"
+                                                optionLabel="name"
+                                                optionValue="label"
+                                                formControlName="respuestaValoracion15"
+                                                (onChange)="
+                                                    calcularValoracion()
+                                                "
+                                            ></p-selectButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid m-2">
+                                    <div
+                                        class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                                    >
+                                        <div
+                                            class="p-inputgroup inputgroupValor"
+                                        >
+                                            <span
+                                                class="col-11"
+                                                style="text-align: left"
+                                                >16.- ¿Él la ha amenazado con
+                                                hacerle daño a sus hijos?
+                                            </span>
+                                            <p-selectButton
+                                                [options]="opcionesA"
+                                                optionLabel="name"
+                                                optionValue="label"
+                                                formControlName="respuestaValoracion16"
+                                                (onChange)="
+                                                    calcularValoracion()
+                                                "
+                                            ></p-selectButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid m-2">
+                                    <div
+                                        class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                                    >
+                                        <div
+                                            class="p-inputgroup inputgroupValor"
+                                        >
+                                            <span
+                                                class="col-11"
+                                                style="text-align: left"
+                                                >17.- ¿Cree que él es capaz de
+                                                matarla?
+                                            </span>
+                                            <p-selectButton
+                                                [options]="opcionesA"
+                                                optionLabel="name"
+                                                optionValue="label"
+                                                formControlName="respuestaValoracion17"
+                                                (onChange)="
+                                                    calcularValoracion()
+                                                "
+                                            ></p-selectButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid m-2">
+                                    <div
+                                        class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                                    >
+                                        <div
+                                            class="p-inputgroup inputgroupValor"
+                                        >
+                                            <span
+                                                class="col-11"
+                                                style="text-align: left"
+                                                >18.- ¿Él realiza alguna de las
+                                                siguientes acciones?: La llama
+                                                insistentemente, le deja
+                                                mensajes en su teléfono o en
+                                                redes sociales o destruye sus
+                                                cosas (celular, ropa u otro).
+                                            </span>
+                                            <p-selectButton
+                                                [options]="opcionesA"
+                                                optionLabel="name"
+                                                optionValue="label"
+                                                formControlName="respuestaValoracion18"
+                                                (onChange)="
+                                                    calcularValoracion()
+                                                "
+                                            ></p-selectButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid m-2">
+                                    <div
+                                        class="col-12 md:col-12 md:col-6 lg:col-12 p-field"
+                                    >
+                                        <div
+                                            class="p-inputgroup inputgroupValor"
+                                        >
+                                            <span
+                                                class="col-11"
+                                                style="text-align: left"
+                                                >19.- ¿Alguna vez usted ha
+                                                intentado o ha amenazado con
+                                                quitarse la vida?
+                                            </span>
+                                            <p-selectButton
+                                                [options]="opcionesA"
+                                                optionLabel="name"
+                                                optionValue="label"
+                                                formControlName="respuestaValoracion19"
+                                                (onChange)="
+                                                    calcularValoracion()
+                                                "
+                                            ></p-selectButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="grid m-2">
+                                    <div
+                                        class="col-12 md:col-12 md:col-6 lg:col-5 p-field"
+                                    >
+                                        <label>OBSERVACIONES:</label>
+                                        <div class="">
+                                            <input
+                                                type="text"
+                                                pInputText
+                                                formControlName="observaciones"
+                                                class="w-full"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="col-12 md:col-12 md:col-6 lg:col-4 p-field text-center"
+                                    >
+                                        <label>NIVEL DE RIESGO:</label>
+                                        <div class="">
+                                            <input
+                                                type="text"
+                                                pInputText
+                                                formControlName="NivelRiesgo"
+                                                style="text-align: center"
+                                                class="w-full"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="col-12 md:col-12 md:col-6 lg:col-3 p-field text-center"
+                                    >
+                                        <label>SUMATORIA DE PUNTAJE:</label>
+                                        <div class="">
+                                            <input
+                                                type="text"
+                                                pInputText
+                                                formControlName="SumaTotalvalor"
+                                                style="text-align: center"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid m-2">
+                                    <div
+                                        class="col-12 md:col-12 md:col-6 lg:col-8 p-field"
+                                    ></div>
+                                    <div
+                                        class="col-12 md:col-12 md:col-6 lg:col-4 p-field"
+                                    ></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <p-toolbar>
+                <ng-template pTemplate="left">
+                    <h3 class="mt-2"></h3>
+                </ng-template>
+                <ng-template pTemplate="right" class="button">
+                    <button
+                        pButton
+                        pRipple
+                        type="button"
+                        icon="pi pi-save"
+                        label="Guardar"
+                        (click)="UpdateTamizajeValoracion()"
+                        class="p-button-danger"
+                    ></button>
+                </ng-template>
+            </p-toolbar>
+        </p-tabPanel> -->
+    </p-tabView>
 </div>
+
+<!-- 
+<p-dialog [(visible)]="ListaTamizajeDialog" [style]="{width: '1200px', height: '600px'}" [modal]="true"
+        [draggable]="false" [resizable]="false">
+
+  <div class="p-card">
+      <p-card>
+          <div class="grid">
+              <div class="col-12 md:col-6 lg:col-12 p-field" style="text-align:center;">
+                  <label style="font-size: 20px;">LISTA DE TAMIZAJES DE VIOLENCIA DE UN PACIENTE</label>
+              </div>
+          </div>
+          <br>
+      </p-card>
+
+      <p-accordion>
+          <p-accordionTab header="LISTA DE PACIENTES CON CUPOS PARA EL DIA DE HOY" [selected]="true">
+              <p-table [value]="ListaTamizajes" #dt [rows]="5"
+                       [rowsPerPageOptions]="[5, 10, 15]"
+                       [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+                       currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+
+                  <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                      <tr>
+                          <th style="text-align: center">Nro</th>
+                          <th style="text-align: center">APELLIDOS</th>
+                          <th style="text-align: center">NOMBRES</th>
+                          <th style="text-align: center">FECHA</th>
+                          <th style="text-align: center">NRO HCL</th>
+                          <th style="text-align: center">RESPONSABLE</th>
+                          <th style="text-align: center">DIAGNOSTICO</th>
+                          <th style="text-align: center">ACCION</th>
+                      </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                      <tr>
+                          <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                          <td style="text-align: center">{{ rowData.apePaterno + ' ' + rowData.apeMaterno }}</td>
+                          <td style="text-align: center">{{ rowData.nombres }}</td>
+                          <td style="text-align: center">{{ rowData.fecha }}</td>
+                          <td style="text-align: center">{{ rowData.nroHcl }}</td>
+                          <td style="text-align: center">{{ rowData.nombreResponsableAtencion }}</td>
+                          <td style="text-align: center">{{ rowData.diagnostico }}</td>
+                          <td style="text-align: center">
+                              <button pButton pRipple type="button" label="Actualizar"
+                                      (click)="recuperarData(rowData)"
+                                      class="p-button-danger" icon="pi pi-pencil"></button>
+
+                          </td>
+                      </tr>
+                  </ng-template>
+              </p-table>
+          </p-accordionTab>
+      </p-accordion>
+  </div>
+
+</p-dialog> -->

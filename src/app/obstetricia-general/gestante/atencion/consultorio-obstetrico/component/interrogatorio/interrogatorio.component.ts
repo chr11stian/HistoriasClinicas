@@ -165,54 +165,6 @@ export class InterrogatorioComponent implements OnInit {
     if (this.estadoEditar) {
       this.loadData();
     }
-
-    // if (!this.estadoEditar) {
-    //   this.calcularEdadGestacional(this.ultimaConsulta.fum);
-    //   this.calcularGanancia();
-    //   //funciones biologicas
-    //   this.form.patchValue({ apetito: this.ultimaConsulta.funcionesBiologicas[0].valor });
-    //   this.form.patchValue({ sed: this.ultimaConsulta.funcionesBiologicas[1].valor });
-    //   this.form.patchValue({ suenos: this.ultimaConsulta.funcionesBiologicas[2].valor });
-    //   this.form.patchValue({ estadoAnimo: this.ultimaConsulta.funcionesBiologicas[3].valor });
-    //   this.form.patchValue({ orina: this.ultimaConsulta.funcionesBiologicas[4].valor });
-    //   this.form.patchValue({ deposiciones: this.ultimaConsulta.funcionesBiologicas[5].valor });
-
-    //   this.form.patchValue({ apetitoDetalle: this.ultimaConsulta.funcionesBiologicas[0].detalle });
-    //   this.form.patchValue({ sedDetalle: this.ultimaConsulta.funcionesBiologicas[1].detalle });
-    //   this.form.patchValue({ suenosDetalle: this.ultimaConsulta.funcionesBiologicas[2].detalle });
-    //   this.form.patchValue({ estadoAnimoDetalle: this.ultimaConsulta.funcionesBiologicas[3].detalle });
-    //   this.form.patchValue({ orinaDetalle: this.ultimaConsulta.funcionesBiologicas[4].detalle });
-    //   this.form.patchValue({ deposicionesDetalle: this.ultimaConsulta.funcionesBiologicas[5].detalle });
-
-    //   //examenes fisicos
-    //   this.form.patchValue({ piel: this.ultimaConsulta.examenesFisicos[0].valor });
-    //   this.form.patchValue({ mucosas: this.ultimaConsulta.examenesFisicos[1].valor });
-    //   this.form.patchValue({ cabeza: this.ultimaConsulta.examenesFisicos[2].valor });
-    //   this.form.patchValue({ cuello: this.ultimaConsulta.examenesFisicos[3].valor });
-    //   this.form.patchValue({ cardioVasc: this.ultimaConsulta.examenesFisicos[4].valor });
-    //   this.form.patchValue({ pulmones: this.ultimaConsulta.examenesFisicos[5].valor });
-    //   this.form.patchValue({ mamas: this.ultimaConsulta.examenesFisicos[6].valor });
-    //   this.form.patchValue({ pezones: this.ultimaConsulta.examenesFisicos[7].valor });
-    //   this.form.patchValue({ abdomen: this.ultimaConsulta.examenesFisicos[8].valor });
-
-    //   this.form.patchValue({ pielDetalle: this.ultimaConsulta.examenesFisicos[0].detalle });
-    //   this.form.patchValue({ mucosasDetalle: this.ultimaConsulta.examenesFisicos[1].detalle });
-    //   this.form.patchValue({ cabezaDetalle: this.ultimaConsulta.examenesFisicos[2].detalle });
-    //   this.form.patchValue({ cuelloDetalle: this.ultimaConsulta.examenesFisicos[3].detalle });
-    //   this.form.patchValue({ cardioVascDetalle: this.ultimaConsulta.examenesFisicos[4].detalle });
-    //   this.form.patchValue({ pulmonesDetalle: this.ultimaConsulta.examenesFisicos[5].detalle });
-    //   this.form.patchValue({ mamasDetalle: this.ultimaConsulta.examenesFisicos[6].detalle });
-    //   this.form.patchValue({ pezonesDetalle: this.ultimaConsulta.examenesFisicos[7].detalle });
-    //   this.form.patchValue({ abdomenDetalle: this.ultimaConsulta.examenesFisicos[8].detalle });
-    //   if (this.ultimaConsulta.examenesFisicos.length > 9) {
-    //     this.form.patchValue({ examenFisicoOtro: this.ultimaConsulta.examenesFisicos[9].valor });
-    //   }
-    // } else {
-    //   this.calcularEdadGestacional(this.ultimaConsulta.fum);
-    //   console.log('estado editar true');
-    // }
-
-
   }
 
   calcularEdadGestacional(fum) {
@@ -466,7 +418,6 @@ export class InterrogatorioComponent implements OnInit {
   }
 
   recuperarDatos() {
-    //RECUPERAR DATOS
     console.log('ultima consulta prom ', this.ultimaConsulta);
     let auxPhysicalExam: any[] = [
       { nombreExamen: 'piel', valor: this.form.value.piel, detalle: this.form.value.pielDetalle },
@@ -538,8 +489,6 @@ export class InterrogatorioComponent implements OnInit {
         indicador: this.form.value.evalNutricionalIndicador
       },
     }
-
-    // FIN RECUPERAR DATOS
   }
 
   guardarDatos() {
