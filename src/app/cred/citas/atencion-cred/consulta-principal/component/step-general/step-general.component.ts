@@ -67,6 +67,7 @@ export class StepGeneralComponent implements OnInit, DoCheck {
     condicion: boolean;
     tooltipItems: MenuItem[];
     idConsulta: "";
+    estadoAtencion:number=1
     constructor(
         private acuerdosService: FinalizarConsultaService,
         private consultaGeneralService: ConsultaGeneralService,
@@ -74,9 +75,8 @@ export class StepGeneralComponent implements OnInit, DoCheck {
         private router: Router,
         private dialogS: DialogService
     ) {
-        this.idConsulta = JSON.parse(
-            localStorage.getItem("documento")
-        ).idConsulta;
+        this.idConsulta = JSON.parse(localStorage.getItem("documento")).idConsulta;
+        this.estadoAtencion=JSON.parse(localStorage.getItem("documento")).estadoAtencion
         this.options = [
             { name: "DNI", code: 1 },
             { name: "CARNET RN", code: 2 },

@@ -3,7 +3,7 @@
         <div class="flex" style="margin-top: 20px; margin-bottom: 20px">
             <div class="col-9" style="margin: 0 0 0 20px">
                 <span style="font-size: 2em"
-                    >CONTROL DE CRECIMIENTO Y DESARROLLO> Consulta
+                    >CONTROL DE CRECIMIENTO Y DESARROLLO> Consulta111
                 </span>
             </div>
             <div class="col-3 text-right align-items-center pr-6">
@@ -41,7 +41,7 @@
                     <ng-template pTemplate="left">
                         <h3 class="mt-2">DATOS GENERALES</h3>
                     </ng-template>
-                    <ng-template pTemplate="right" class="button">
+                    <ng-template *ngIf="estadoAtencion==1" pTemplate="right" class="button">
                         <button
                             pButton
                             pRipple
@@ -67,7 +67,7 @@
                     <ng-template pTemplate="left">
                         <h3 class="mt-2">MOTIVO DE CONSULTA</h3>
                     </ng-template>
-                    <ng-template pTemplate="right" class="button">
+                    <ng-template *ngIf="estadoAtencion==1" pTemplate="right" class="button">
                         <button
                             pButton
                             pRipple
@@ -101,7 +101,7 @@
                     <ng-template pTemplate="left">
                         <h3 class="mt-2">DIAGNÓSTICO</h3>
                     </ng-template>
-                    <ng-template pTemplate="right" class="button">
+                    <ng-template *ngIf="estadoAtencion==1" pTemplate="right" class="button">
                         <button
                             pButton
                             pRipple
@@ -135,7 +135,7 @@
                     <ng-template pTemplate="left">
                         <h3 class="mt-2">TRATAMIENTO</h3>
                     </ng-template>
-                    <ng-template pTemplate="right" class="button">
+                    <ng-template *ngIf="estadoAtencion==1" pTemplate="right" class="button">
                         <button
                             pButton
                             pRipple
@@ -169,7 +169,7 @@
                     <ng-template pTemplate="left">
                         <h3 class="mt-2">ACUERDOS DE LA CONSULTA</h3>
                     </ng-template>
-                    <ng-template pTemplate="right" class="button">
+                    <ng-template *ngIf="estadoAtencion==1" pTemplate="right" class="button">
                         <button
                             pButton
                             pRipple
@@ -204,7 +204,7 @@
                     <ng-template pTemplate="left">
                         <h3 class="mt-2">EVALUACIONES</h3>
                     </ng-template>
-                    <ng-template pTemplate="right" class="button">
+                    <ng-template *ngIf="estadoAtencion==1" pTemplate="right" class="button">
                         <button
                             pButton
                             pRipple
@@ -239,7 +239,7 @@
                     <ng-template pTemplate="left">
                         <h3 class="mt-2">EXÁMENES AUXILIARES</h3>
                     </ng-template>
-                    <ng-template pTemplate="right" class="button">
+                    <ng-template *ngIf="estadoAtencion==1" pTemplate="right" class="button">
                         <button
                             pButton
                             pRipple
@@ -273,7 +273,7 @@
                     <ng-template pTemplate="left">
                         <h3 class="mt-2">PROCEDIMIENTOS</h3>
                     </ng-template>
-                    <ng-template pTemplate="right" class="button">
+                    <ng-template *ngIf="estadoAtencion==1" pTemplate="right" class="button">
                         <button
                             pButton
                             pRipple
