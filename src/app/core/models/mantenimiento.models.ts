@@ -12,6 +12,7 @@ export interface TipoPersonal {
 export interface ColegioProfesional {
   codigo?: string;
   nombre?: string;
+  abreviatura?: string;
 }
 
 export interface TipoTurno {
@@ -147,6 +148,8 @@ export interface TipoEtnia {
 
 export interface TipoServicio {
   nombre?: string;
+  esProfesional?: boolean;
+  abreviatura?: string;
 }
 
 export interface InformacionPersonalDescripcion {

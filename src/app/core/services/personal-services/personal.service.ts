@@ -152,13 +152,19 @@ export class PersonalService {
         return this.http.get(`${this.base_login}/admins/listar`);
     }
     //--desactivar y activar personal
-    desactivarPersonal(idPersona) {
+    desactivedPersonal(idPersona) {
         return this.http.delete<any>(
             `${this.base_url}/${this.bd}/personal/desactivar/${idPersona}`
         );
     }
 
-    activarPersonal(idPersonal) {
+    desactivedUser(idPersona) {
+        return this.http.delete<any>(
+            `${this.base_login}/${this.bd}/accesos/user/hce/${idPersona}`
+        );
+    }
+
+    activedPersonal(idPersonal) {
         return this.http.put(
             `${this.base_url}/${this.bd}/personal/activar/${idPersonal}`,
             ""
@@ -167,7 +173,7 @@ export class PersonalService {
 
     searchPersonal(dni) {
         return this.http.get(
-            `${this.base_url}/${this.bd}/personal/findByDocRegistrado/${dni}`
+            `${this.base_url}/${this.bd}/personal/findByDoc/${dni}`
         );
     }
     /* crearRol(data) {

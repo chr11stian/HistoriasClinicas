@@ -5,23 +5,33 @@
             <span>HIS</span>
         </ng-template>
         <div class="col-12">
-            <div class="col-12 no-data-found" *ngIf="!existData">
-            </div>
+            <div class="col-12 no-data-found" *ngIf="!existData"></div>
             <div *ngFor="let itemHIS of listHIS">
                 <div class="col-12 divcero">
-                    <p-table class="table-over" [value]=[itemHIS] #dt styleClass="p-datatable-gridlines">
+                    <p-table
+                        class="table-over"
+                        [value]="[itemHIS]"
+                        #dt
+                        styleClass="p-datatable-gridlines"
+                    >
                         <ng-template pTemplate="header">
                             <tr>
                                 <th>AÑO</th>
                                 <th>MES</th>
-                                <th>NOMBRE DEL ESTABLECIMIENTO DE SALUD(IPRESS)</th>
+                                <th>
+                                    NOMBRE DEL ESTABLECIMIENTO DE SALUD(IPRESS)
+                                </th>
                                 <th>UNIDAD PRESTADORA DE SERVICIOS(UPSS)</th>
                                 <th colspan="2">
                                     NOMBRE DEL RESPONSABLE DE ATENCION
                                 </th>
                             </tr>
                         </ng-template>
-                        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                        <ng-template
+                            pTemplate="body"
+                            let-rowData
+                            let-rowIndex="rowIndex"
+                        >
                             <tr>
                                 <td>{{ rowData.anio }}</td>
                                 <td>{{ rowData.mes }}</td>
@@ -34,11 +44,11 @@
                                 <td colspan="6">
                                     NOMBRES Y APELLIDOS PACIENTE:
                                     {{
-                                    rowData.nombre +
-                                    " " +
-                                    rowData.apePaterno +
-                                    " " +
-                                    rowData.apeMaterno
+                                        rowData.nombre +
+                                            " " +
+                                            rowData.apePaterno +
+                                            " " +
+                                            rowData.apeMaterno
                                     }}
                                 </td>
                             </tr>
@@ -47,7 +57,12 @@
                 </div>
                 <div class="grid divcero">
                     <div class="lg:col-6 md:col-12 sm:col-12 divcero">
-                        <p-table class="table-over" [value]=[itemHIS] #dt styleClass="p-datatable-gridlines">
+                        <p-table
+                            class="table-over"
+                            [value]="[itemHIS]"
+                            #dt
+                            styleClass="p-datatable-gridlines"
+                        >
                             <ng-template pTemplate="header">
                                 <tr>
                                     <th rowspan="3">DIA</th>
@@ -73,22 +88,28 @@
                                     <th colspan="2">HEMOGLOBI.</th>
                                 </tr>
                             </ng-template>
-                            <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                            <ng-template
+                                pTemplate="body"
+                                let-rowData
+                                let-rowIndex="rowIndex"
+                            >
                                 <tr>
                                     <td rowspan="3">{{ rowData.dia }}</td>
                                     <td>{{ rowData.nroDoc }}</td>
                                     <td rowspan="2">
                                         {{
-                                        rowData.financiamiento === "null"
-                                        ? ""
-                                        : rowData.financiamiento
+                                            rowData.financiamiento === "null"
+                                                ? ""
+                                                : rowData.financiamiento
                                         }}
                                     </td>
                                     <td rowspan="2">{{ rowData.distrito }}</td>
                                     <td rowspan="3">{{ rowData.edad }}</td>
                                     <td rowspan="3">
                                         {{
-                                        rowData.sexo === "FEMENINO" ? "F" : "M"
+                                            rowData.sexo === "FEMENINO"
+                                                ? "F"
+                                                : "M"
                                         }}
                                     </td>
                                     <td rowspan="2">
@@ -114,7 +135,9 @@
                                     <td>Hb</td>
                                     <td>
                                         {{
-                                        rowData.hb === "null" ? "" : rowData.hb
+                                            rowData.hb === "null"
+                                                ? ""
+                                                : rowData.hb
                                         }}
                                     </td>
                                     <td>R</td>
@@ -124,12 +147,17 @@
                         </p-table>
                     </div>
                     <div class="lg:col-6 md:col-12 sm:col-12 divcero">
-                        <p-table class="table-over" [value]=[itemHIS] #dt styleClass="p-datatable-gridlines">
+                        <p-table
+                            class="table-over"
+                            [value]="[itemHIS]"
+                            #dt
+                            styleClass="p-datatable-gridlines"
+                        >
                             <ng-template pTemplate="header">
                                 <tr>
                                     <th rowspan="3">
-                                        DIAGNOSTICO MOTIVO DE CONSULTA Y/O ACTIVIDAD
-                                        DE SALUD
+                                        DIAGNOSTICO MOTIVO DE CONSULTA Y/O
+                                        ACTIVIDAD DE SALUD
                                     </th>
                                     <th rowspan="2" colspan="3">TIPO DIAG.</th>
                                     <th rowspan="3">LAB</th>
@@ -142,7 +170,11 @@
                                     <th>R</th>
                                 </tr>
                             </ng-template>
-                            <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                            <ng-template
+                                pTemplate="body"
+                                let-rowData
+                                let-rowIndex="rowIndex"
+                            >
                                 <tr *ngFor="let item of rowData.diagnosticos">
                                     <td>
                                         {{ item.diagnostico }}
@@ -176,17 +208,31 @@
             </div>
             <div class="col-12">
                 <div class="grid">
-                    <div class="col-1 col-offset-9 label-text text-right">
+                    <div class="col-1 col-offset-8 label-text text-right">
                         <span class="font-semibold">Fecha prox. cita:</span>
                     </div>
-                    <div class="col-1">
-                        <input type="date" pInputText [(ngModel)]="nextDateModel" placeholder="Nro"
-                            class="p-fluid inputfield w-full">
+                    <div class="col-2">
+                        <input
+                            type="date"
+                            pInputText
+                            [(ngModel)]="nextDateModel"
+                            placeholder="Nro"
+                            class="p-fluid inputfield w-full"
+                        />
                     </div>
                     <div class="col-1">
-                        <button pButton pRipple icon="pi pi-save" label="Guardar" pButton type="button"
-                            style="background-color: #0c3866;" label="Guardar" class="save-button p-button-rounded"
-                            (click)="confirmToSave()"></button>
+                        <button
+                            pButton
+                            pRipple
+                            icon="pi pi-save"
+                            label="Guardar"
+                            pButton
+                            type="button"
+                            style="background-color: #0c3866"
+                            label="Guardar"
+                            class="save-button p-button-rounded"
+                            (click)="confirmToSave()"
+                        ></button>
                     </div>
                 </div>
             </div>
@@ -197,9 +243,14 @@
             <i class="pi pi-file"></i>
             <span>FUA</span>
         </ng-template>
+        <div class="col-12 no-data-found" *ngIf="!existDataFUA"></div>
         <div *ngFor="let fua of arrayFua">
             <div class="col-1 cod-prestacion">
-                <p-table class="pb-0" [value]="[fua]" styleClass="p-datatable-gridlines">
+                <p-table
+                    class="pb-0"
+                    [value]="[fua]"
+                    styleClass="p-datatable-gridlines"
+                >
                     <ng-template pTemplate="header">
                         <tr>
                             <th>COD PRESTACIÓN</th>
@@ -207,7 +258,7 @@
                     </ng-template>
                     <ng-template pTemplate="body" let-rowData let-i="rowIndex">
                         <tr>
-                            <td> {{rowData.codPrestacion}}</td>
+                            <td>{{ rowData.codPrestacion }}</td>
                         </tr>
                     </ng-template>
                 </p-table>
@@ -215,7 +266,11 @@
             <div class="grid">
                 <div class="col-6 table-diag">
                     <div class="">
-                        <p-table [value]="fua.diagnosticos" styleClass="p-datatable-gridlines" class="pt-0">
+                        <p-table
+                            [value]="fua.diagnosticos"
+                            styleClass="p-datatable-gridlines"
+                            class="pt-0"
+                        >
                             <ng-template pTemplate="header">
                                 <tr>
                                     <th colspan="3">DIAGNOSTICOS</th>
@@ -226,18 +281,26 @@
                                     <th>TIPO DX</th>
                                 </tr>
                             </ng-template>
-                            <ng-template pTemplate="body" let-diagnosticos let-i="rowIndex">
+                            <ng-template
+                                pTemplate="body"
+                                let-diagnosticos
+                                let-i="rowIndex"
+                            >
                                 <tr>
-                                    <td>{{diagnosticos.diagnostico}}</td>
-                                    <td>{{diagnosticos.cie_10}}</td>
-                                    <td>{{diagnosticos.tipoDx}}</td>
+                                    <td>{{ diagnosticos.diagnostico }}</td>
+                                    <td>{{ diagnosticos.cie_10 }}</td>
+                                    <td>{{ diagnosticos.tipoDx }}</td>
                                 </tr>
                             </ng-template>
                         </p-table>
                     </div>
                 </div>
                 <div class="col-6 table-inmu">
-                    <p-table [value]="fua.inmunizaciones" styleClass="p-datatable-gridlines" class="p-0">
+                    <p-table
+                        [value]="fua.inmunizaciones"
+                        styleClass="p-datatable-gridlines"
+                        class="p-0"
+                    >
                         <ng-template pTemplate="header">
                             <tr>
                                 <th colspan="2">INMUNIZACIONES</th>
@@ -247,10 +310,14 @@
                                 <th>Nombre Comercial</th>
                             </tr>
                         </ng-template>
-                        <ng-template pTemplate="body" let-inmunizaciones let-i="rowIndex">
+                        <ng-template
+                            pTemplate="body"
+                            let-inmunizaciones
+                            let-i="rowIndex"
+                        >
                             <tr>
-                                <td>{{inmunizaciones.nombre}}</td>
-                                <td>{{inmunizaciones.nombreComercial}}</td>
+                                <td>{{ inmunizaciones.nombre }}</td>
+                                <td>{{ inmunizaciones.nombreComercial }}</td>
                             </tr>
                         </ng-template>
                     </p-table>

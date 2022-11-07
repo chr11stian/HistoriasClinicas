@@ -202,7 +202,7 @@ export class GiagnosticosComponent implements OnInit {
         this.recuperarNroFetos();
         this.recuperarDatosGuardados();
         this.getUpsPerIpress();
-        this.recoverConsultationDiagnostic();
+        // this.recoverConsultationDiagnostic();
     }
 
     recuperarUpsHis() {

@@ -137,6 +137,9 @@ export class ConsultaComponent implements OnInit {
         // })
         this.consultaObstetriciaService.getDatosConsultasObstetricasListarPorFiliacion(this.Gestacion.id).subscribe((res: any) => {
             this.consultas = res.object ? res.object : [];
+            if (this.consultas.length > 0) {
+                this.consultas.sort((a, b) => a.fecha > b.fecha ? -1 : 1);
+            }
             this.loading = false;
         })
     }

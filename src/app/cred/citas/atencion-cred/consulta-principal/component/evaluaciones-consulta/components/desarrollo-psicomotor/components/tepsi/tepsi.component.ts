@@ -120,11 +120,9 @@ export class TepsiComponent implements OnInit {
     this.datosGeneralesFG = new FormGroup({
       nombreExaminador: new FormControl({value:'',disabled:true}, Validators.required),
       fechaSelected: new FormControl({value:new Date(this.data.fechaConsulta),disabled:true}, Validators.required),
-      observacion: new FormControl('', Validators.required),
+      observacion: new FormControl({value:'',disabled:false}, Validators.required),
       
-    });
-    console.log('data-->',this.data);
-    
+    });   
   }
 
   traerPuntaje() {
@@ -207,7 +205,9 @@ export class TepsiComponent implements OnInit {
     // setTimeout(()=>{
     // },200)
   }
+  contador=0
   reconstruirTest(arreglo: any[]) {
+    this.contador+=1
     const aux = arreglo.map((element) => {
       return element.valor == 1 ? true : false;
     });
@@ -224,6 +224,7 @@ export class TepsiComponent implements OnInit {
       }
       
       this.hasTaken = true;
+      this.getFC('observacion').disable()
       const objetoTepsi={
         fecha:resp.object.testTepsi.fechaAtencion,
         edad:`${resp.object.testTepsi.edad.anio}años,${resp.object.testTepsi.edad.mes}meses,${resp.object.testTepsi.edad.dia}dias`,
@@ -257,7 +258,9 @@ export class TepsiComponent implements OnInit {
       );
       this.arregloSubtest[2] = this.reconstruirTest(
         resultado["subTestMotricidad"]["listItemTest"]
-      );
+        );
+      //reconstruye las subpregusntas del test de lenguaje
+      this.resconstruirSubPreguntas(resultado["subTestLenguaje"]["listItemTest"])
       //Recuperamos los datos de las dos tablas total,subtests
       const tests = [
         "resultadoTestTotal","subTestCoordinacion","subTestLenguaje","subTestMotricidad"];
@@ -274,7 +277,6 @@ export class TepsiComponent implements OnInit {
         arregloLenguaje[this.indicePregunta[index] - 1].listaPreguntas
       );
     });
-    console.log("respuesta", this.subPreguntas);
   }
 
   recuperarTrueFalse(arreglo) {
@@ -315,13 +317,11 @@ export class TepsiComponent implements OnInit {
   }
 
   abrimosModal(index) {
-    console.log(index);
     this.displayTest[index] = true;
   }
 
   evaluandoItem(index) {
     let acumulador = this.calcularSumaArreglos(this.subPreguntas[index]);
-    console.log(acumulador);
     if (acumulador >= this.minimo[index]) {
       this.arregloSubtest[1][this.indicePregunta[index] - 1] = true;
     } else {
@@ -407,8 +407,6 @@ export class TepsiComponent implements OnInit {
     this.actualizarDataGraficar();
     // this.chartData=this.chartData;
     
-    // console.log(this.chartData);
-    
   }
   
   save() {
@@ -480,7 +478,6 @@ export class TepsiComponent implements OnInit {
       },
     };
       /* start */
-      console.log('Input Request',requestInput);
       
       // return 
       Swal.fire({
@@ -516,7 +513,7 @@ export class TepsiComponent implements OnInit {
                   }
                 },
                 (error) => {
-                  console.log('error del servidor');  
+                  //console.log('error del servidor');  
                 }
               );
         }

@@ -469,6 +469,7 @@
                     legend="EXAMEN FÍSICO"
                     [toggleable]="true"
                     [collapsed]="true"
+                    *ngIf="nroDeConsulta == 1"
                 >
                     <div class="grid">
                         <div class="col-4">
@@ -699,42 +700,6 @@
                         </div>
                     </div>
                     <div class="grid mt-2">
-                        <!-- <div class="col-6">
-                            <p-toolbar>
-                                <ng-template pTemplate="left">
-                                    <h3 class="mt-2">OTROS EXÁMENES FÍSICOS</h3>
-                                </ng-template>
-                                <ng-template pTemplate="right">
-                                    <button pButton pRipple label="Otros Examenes Fisicos" icon="pi pi-plus"
-                                        class="button-agregar" (click)="openDialogExamenesFinal()"></button>
-                                </ng-template>
-                            </p-toolbar>
-                            <p-table [value]="listaOtrosPruebasFisicas" [showCurrentPageReport]="true"
-                                [filterDelay]="0">
-                                <ng-template pTemplate="header">
-                                    <tr>
-                                        <th>Nro</th>
-                                        <th>Nombre</th>
-                                        <th>Resultado</th>
-                                        <th>Detalle</th>
-                                        <th style="text-align: center; width:4rem">Acción</th>
-                                    </tr>
-                                </ng-template>
-                                <ng-template pTemplate="body" let-otrosExam let-i="rowIndex">
-                                    <tr>
-                                        <td>{{ i + 1}}</td>
-                                        <td>{{otrosExam.nombreExamen}}</td>
-                                        <td>{{otrosExam.valor}}</td>
-                                        <td>{{otrosExam.detalle}}</td>
-                                        <td>
-                                            <button pButton pRipple type="button" icon="pi pi-trash"
-                                                class="p-button-rounded p-button-danger"
-                                                (click)="eliminarExamFisicos(i)"></button>
-                                        </td>
-                                    </tr>
-                                </ng-template>
-                            </p-table>
-                        </div> -->
                         <div class="col-12 align-content-start">
                             <label>Observaciones Examen Físico:</label>
                             <textarea
@@ -748,9 +713,9 @@
                     </div>
                 </p-fieldset>
                 <br />
-                <div class="grid">
-                    <div class="col-6">
-                        <p-fieldset legend="EXAMEN OBSTÉTRICO">
+                <p-fieldset legend="EXAMEN OBSTÉTRICO">
+                    <div class="grid">
+                        <div class="col-6">
                             <div class="grid">
                                 <div class="col-3">
                                     <label class="ml-2">Nro de fetos:</label>
@@ -876,212 +841,197 @@
                                         <span class="mr-2 ml-1">XXX </span>
                                     </div>
                                 </div>
-
-                                <div>
-                                    <p-toolbar>
-                                        <ng-template pTemplate="left">
-                                            <h3 class="mt-2">
-                                                EXÁMENES FETALES
-                                            </h3>
-                                        </ng-template>
-                                        <ng-template pTemplate="right">
-                                            <button
-                                                pButton
-                                                pRipple
-                                                label="Examenes de Feto"
-                                                icon="pi pi-plus"
-                                                class="button-agregar"
-                                                (click)="
-                                                    openDialogExamenesFeto()
-                                                "
-                                            ></button>
-                                        </ng-template>
-                                    </p-toolbar>
-                                    <p-table
-                                        [value]="listaExamenesFetos"
-                                        [rowHover]="true"
-                                        [rows]="5"
-                                        [showCurrentPageReport]="true"
-                                        [rowsPerPageOptions]="[5, 10, 15]"
-                                        [paginator]="true"
-                                        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                                        [filterDelay]="0"
-                                        styleClass="p-datatable-gridlines"
-                                    >
-                                        <ng-template pTemplate="header">
-                                            <tr>
-                                                <th>Nro</th>
-                                                <th>Situación Fetal</th>
-                                                <th>Presentación Fetal</th>
-                                                <th>Posición Fetal</th>
-                                                <th>Mov. Fetal</th>
-                                                <th>Latidos Card.</th>
-                                                <th
-                                                    style="
-                                                        text-align: center;
-                                                        width: 4rem;
-                                                    "
-                                                >
-                                                    Acción
-                                                </th>
-                                            </tr>
-                                        </ng-template>
-                                        <ng-template
-                                            pTemplate="body"
-                                            let-examFeto
-                                            let-i="rowIndex"
-                                        >
-                                            <tr>
-                                                <td>{{ i + 1 }}</td>
-                                                <td>
-                                                    {{ examFeto.situacion }}
-                                                </td>
-                                                <td>
-                                                    {{ examFeto.presentacion }}
-                                                </td>
-                                                <td>{{ examFeto.posicion }}</td>
-                                                <td>
-                                                    {{
-                                                        examFeto.movimientosFetales
-                                                    }}
-                                                </td>
-                                                <td>
-                                                    {{ examFeto.fcf }} x min
-                                                </td>
-                                                <td style="display: flex">
-                                                    <button
-                                                        pButton
-                                                        pRipple
-                                                        icon="pi pi-pencil"
-                                                        class="p-button-rounded m-1"
-                                                        (click)="
-                                                            editarExamenFetos(
-                                                                examFeto,
-                                                                i
-                                                            )
-                                                        "
-                                                        pTooltip="Editar"
-                                                    ></button>
-                                                    <button
-                                                        pButton
-                                                        pRipple
-                                                        icon="pi pi-trash"
-                                                        class="p-button-rounded p-button-danger m-1"
-                                                        (click)="eliminar(i)"
-                                                        pTooltip="Eliminar"
-                                                    ></button>
-                                                </td>
-                                            </tr>
-                                        </ng-template>
-                                    </p-table>
-                                </div>
                             </div>
-                        </p-fieldset>
-                    </div>
-                    <div class="col-6">
-                        <br />
-                        <div *ngIf="nroDeConsulta == 1">
-                            <p-table
-                                [value]="listaPlanParto"
-                                #dt
-                                styleClass="p-datatable-gridlines p-datatable-customers"
-                                [rows]="10"
-                                [rowsPerPageOptions]="[10, 25, 50]"
-                                [paginator]="true"
-                                [autoLayout]="true"
-                                [showCurrentPageReport]="true"
-                                currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
-                            >
-                                <ng-template pTemplate="caption">
-                                    <div class="flex justify-content-between">
-                                        <div class="table-header mt-2">
-                                            PLAN DE PARTO
-                                        </div>
-                                        <div
-                                            *ngIf="
-                                                !dataEnviarPlanParto.tienePlan
-                                            "
-                                        >
-                                            <button
-                                                pButton
-                                                pRipple
-                                                label="Agregar Plan"
-                                                iconPos="right"
-                                                icon="pi pi-plus-circle"
-                                                class="guardar mr-2"
-                                                (click)="openModal()"
-                                                style="
-                                                    background-color: #0c3866;
-                                                "
-                                            ></button>
-                                        </div>
-                                    </div>
+                        </div>
+                        <div class="col-6">
+                            <p-toolbar>
+                                <ng-template pTemplate="left">
+                                    <h3 class="mt-2">EXÁMENES FETALES</h3>
                                 </ng-template>
+                                <ng-template pTemplate="right">
+                                    <button
+                                        pButton
+                                        pRipple
+                                        label="Examenes de Feto"
+                                        icon="pi pi-plus"
+                                        class="button-agregar"
+                                        (click)="openDialogExamenesFeto()"
+                                    ></button>
+                                </ng-template>
+                            </p-toolbar>
+                            <p-table
+                                [value]="listaExamenesFetos"
+                                [rowHover]="true"
+                                [rows]="5"
+                                [showCurrentPageReport]="true"
+                                [rowsPerPageOptions]="[5, 10, 15]"
+                                [paginator]="true"
+                                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                [filterDelay]="0"
+                                styleClass="p-datatable-gridlines"
+                            >
                                 <ng-template pTemplate="header">
                                     <tr>
+                                        <th>Nro</th>
+                                        <th>Situación Fetal</th>
+                                        <th>Presentación Fetal</th>
+                                        <th>Posición Fetal</th>
+                                        <th>Mov. Fetal</th>
+                                        <th>Latidos Card.</th>
                                         <th
-                                            style="text-align: center"
-                                            class="font-2"
+                                            style="
+                                                text-align: center;
+                                                width: 4rem;
+                                            "
                                         >
-                                            Nro
-                                        </th>
-                                        <th
-                                            style="text-align: center"
-                                            class="font-2"
-                                        >
-                                            FECHA
-                                        </th>
-                                        <th
-                                            style="text-align: center"
-                                            class="font-2"
-                                        >
-                                            EDAD GESTACIONAL
-                                        </th>
-                                        <th
-                                            style="text-align: center"
-                                            class="font-2"
-                                        >
-                                            ACCIÓN
+                                            Acción
                                         </th>
                                     </tr>
                                 </ng-template>
                                 <ng-template
                                     pTemplate="body"
-                                    let-rowData
-                                    let-rowIndex="rowIndex"
+                                    let-examFeto
+                                    let-i="rowIndex"
                                 >
                                     <tr>
-                                        <td
-                                            style="text-align: center"
-                                            class="font-2"
-                                        >
-                                            {{ rowIndex + 1 }}
+                                        <td>{{ i + 1 }}</td>
+                                        <td>
+                                            {{ examFeto.situacion }}
                                         </td>
-                                        <td style="text-align: center">
-                                            {{
-                                                rowData.fechaAtencion
-                                                    | date: "dd-MM-yyyy"
-                                            }}
+                                        <td>
+                                            {{ examFeto.presentacion }}
                                         </td>
-                                        <td style="text-align: center">
-                                            {{ rowData.edadGestacional }}
-                                            (semanas)
+                                        <td>{{ examFeto.posicion }}</td>
+                                        <td>
+                                            {{ examFeto.movimientosFetales }}
                                         </td>
-                                        <td style="text-align: center">
+                                        <td>{{ examFeto.fcf }} x min</td>
+                                        <td style="display: flex">
                                             <button
                                                 pButton
-                                                pTooltip="Ver Plan"
                                                 pRipple
-                                                type="button"
-                                                icon="pi pi-eye"
-                                                class="p-button-rounded p-button-help m-1"
-                                                (click)="openModal()"
+                                                icon="pi pi-pencil"
+                                                class="p-button-rounded m-1"
+                                                (click)="
+                                                    editarExamenFetos(
+                                                        examFeto,
+                                                        i
+                                                    )
+                                                "
+                                                pTooltip="Editar"
+                                            ></button>
+                                            <button
+                                                pButton
+                                                pRipple
+                                                icon="pi pi-trash"
+                                                class="p-button-rounded p-button-danger m-1"
+                                                (click)="eliminar(i)"
+                                                pTooltip="Eliminar"
                                             ></button>
                                         </td>
                                     </tr>
                                 </ng-template>
                             </p-table>
                         </div>
+                    </div>
+                </p-fieldset>
+                <div class="col-6">
+                    <br />
+                    <div *ngIf="nroDeConsulta == 1">
+                        <p-table
+                            [value]="listaPlanParto"
+                            #dt
+                            styleClass="p-datatable-gridlines p-datatable-customers"
+                            [rows]="10"
+                            [rowsPerPageOptions]="[10, 25, 50]"
+                            [paginator]="true"
+                            [autoLayout]="true"
+                            [showCurrentPageReport]="true"
+                            currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
+                        >
+                            <ng-template pTemplate="caption">
+                                <div class="flex justify-content-between">
+                                    <div class="table-header mt-2">
+                                        PLAN DE PARTO
+                                    </div>
+                                    <div *ngIf="!dataEnviarPlanParto.tienePlan">
+                                        <button
+                                            pButton
+                                            pRipple
+                                            label="Agregar Plan"
+                                            iconPos="right"
+                                            icon="pi pi-plus-circle"
+                                            class="guardar mr-2"
+                                            (click)="openModal()"
+                                            style="background-color: #0c3866"
+                                        ></button>
+                                    </div>
+                                </div>
+                            </ng-template>
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th
+                                        style="text-align: center"
+                                        class="font-2"
+                                    >
+                                        Nro
+                                    </th>
+                                    <th
+                                        style="text-align: center"
+                                        class="font-2"
+                                    >
+                                        FECHA
+                                    </th>
+                                    <th
+                                        style="text-align: center"
+                                        class="font-2"
+                                    >
+                                        EDAD GESTACIONAL
+                                    </th>
+                                    <th
+                                        style="text-align: center"
+                                        class="font-2"
+                                    >
+                                        ACCIÓN
+                                    </th>
+                                </tr>
+                            </ng-template>
+                            <ng-template
+                                pTemplate="body"
+                                let-rowData
+                                let-rowIndex="rowIndex"
+                            >
+                                <tr>
+                                    <td
+                                        style="text-align: center"
+                                        class="font-2"
+                                    >
+                                        {{ rowIndex + 1 }}
+                                    </td>
+                                    <td style="text-align: center">
+                                        {{
+                                            rowData.fechaAtencion
+                                                | date: "dd-MM-yyyy"
+                                        }}
+                                    </td>
+                                    <td style="text-align: center">
+                                        {{ rowData.edadGestacional }}
+                                        (semanas)
+                                    </td>
+                                    <td style="text-align: center">
+                                        <button
+                                            pButton
+                                            pTooltip="Ver Plan"
+                                            pRipple
+                                            type="button"
+                                            icon="pi pi-eye"
+                                            class="p-button-rounded p-button-help m-1"
+                                            (click)="openModal()"
+                                        ></button>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
                     </div>
                 </div>
             </div>

@@ -768,10 +768,8 @@ export class DatosBasalesComponent implements OnInit {
                 }
             });
         } else {
-            console.log('es mayor a 13 semanas ', semanasGestacional);
             this.imcService.getClasificacionEstadoNutricionalByTallaSemanas(semanasGestacional, alturaMetros * 100).subscribe((res: any) => {
                 rptaClasific = res.object.edadGestacionalP10P90[0];
-                console.log('es mddsdsds ', rptaClasific);
 
                 if (pesoActual < rptaClasific.p10) {
 
