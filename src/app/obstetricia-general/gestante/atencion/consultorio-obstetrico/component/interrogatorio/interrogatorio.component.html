@@ -34,6 +34,28 @@
                             />
                         </div>
                         <div class="col-3">
+                            <label class="ml-2">Peso (kg):</label>
+                            <input
+                                type="number"
+                                pInputText
+                                formControlName="peso"
+                                placeholder=""
+                                class="funcionesVitales inputfield w-full"
+                                (blur)="calculateIMC()"
+                            />
+                        </div>
+                        <div class="col-3">
+                            <label class="ml-2">Talla (cm):</label>
+                            <input
+                                type="number"
+                                pInputText
+                                formControlName="talla"
+                                placeholder=""
+                                class="funcionesVitales inputfield w-full"
+                                (blur)="calculateIMC()"
+                            />
+                        </div>
+                        <div class="col-3">
                             <label class="ml-2">PA Sisto:</label>
                             <input
                                 type="number"
@@ -69,26 +91,6 @@
                                 type="number"
                                 pInputText
                                 formControlName="fr"
-                                placeholder=""
-                                class="funcionesVitales inputfield w-full"
-                            />
-                        </div>
-                        <div class="col-3">
-                            <label class="ml-2">Peso (kg):</label>
-                            <input
-                                type="number"
-                                pInputText
-                                formControlName="peso"
-                                placeholder=""
-                                class="funcionesVitales inputfield w-full"
-                            />
-                        </div>
-                        <div class="col-3">
-                            <label class="ml-2">Talla (cm):</label>
-                            <input
-                                type="number"
-                                pInputText
-                                formControlName="talla"
                                 placeholder=""
                                 class="funcionesVitales inputfield w-full"
                             />
@@ -159,11 +161,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- <div class="col-4 text-center">
-                                    <button pButton pRipple icon="pi pi-check-circle" type="button"
-                                        label="Calcular ganancia" class="p-button-raised mt-3 button-agregar"
-                                        (click)="calcularGanancia()"></button>
-                                </div> -->
                             </div>
                         </div>
                         <div class="col-4">
