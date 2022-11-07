@@ -417,54 +417,67 @@ export class PersonalSaludComponent implements OnInit {
         };
 
         if (req.nroDoc.trim() !== "") {
-            this.personalservice.createPersonal(req).subscribe((result) => {
-                //--Agregar Admin
-                if (this.root) {
-                    this.createAdmin(objectAdmin);
-                    //--listar administradores
-                }
-                if (!this.root) {
-                    Swal.fire({
-                        icon: "success",
-                        title: "Agregado correctamente",
-                        text: "",
-                        showConfirmButton: false,
-                        timer: 1500,
+            if (this.designar) {
+                this.personalservice
+                    .desactivedPersonal(this.personalDesignado.id)
+                    .subscribe((r: any) => {
+                        // console.log("0", r);
                     });
-                    this.getPersonal();
-                }
+            }
+            setTimeout(() => {
+                this.personalservice.createPersonal(req).subscribe((result) => {
+                    // console.log("1",result);
+                    //--Agregar Admin
+                    if (this.root) {
+                        this.createAdmin(objectAdmin);
+                        //--listar administradores
+                    }
+                    if (!this.root) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Agregado correctamente",
+                            text: "",
+                            showConfirmButton: false,
+                            timer: 1500,
+                        });
+                        this.getPersonal();
+                    }
 
-                this.personalDialog = false;
-            });
+                    this.personalDialog = false;
+                });
+            }, 2000);
         }
     }
     async createAdmin(objectAdmin) {
-        await new Promise((resolve: any) => {
-            setTimeout(() => {
-                if (this.designar) {
-                    this.personalservice
-                        .desactivedPersonal(this.personalDesignado.id)
+        if (this.designar) {
+            /* this.personalservice
+                .desactivedPersonal(this.personalDesignado.id)
+                .subscribe((r: any) => {
+                    console.log("1", r);
+                }); */
+            this.personalservice
+                .desactivedUserRoot(this.form.value.nroDoc)
+                .subscribe((r) => {
+                    // console.log("2", r);
+                });
+            await new Promise((resolve: any) => {
+                setTimeout(() => {
+                    this.loginService
+                        .createAdmin(objectAdmin)
                         .subscribe((r: any) => {
-                            // console.log("this.designar", r);
+                            // console.log("3");
+                            Swal.fire({
+                                icon: "success",
+                                title: "Administrador agregado correctamente",
+                                text: "",
+                                showConfirmButton: false,
+                                timer: 1500,
+                            });
                         });
-                    this.personalservice
-                        .desactivedUser(this.form.value.nroDoc)
-                        .subscribe((r) => {
-                            // console.log("user-log", r);
-                        });
-                }
-                resolve();
-            }, 1000);
-        });
-        this.loginService.createAdmin(objectAdmin).subscribe((r: any) => {
-            Swal.fire({
-                icon: "success",
-                title: "Administrador agregado correctamente",
-                text: "",
-                showConfirmButton: false,
-                timer: 1500,
+                    resolve();
+                }, 1000);
             });
-        });
+        }
     }
 
     openNew(designar: boolean) {
