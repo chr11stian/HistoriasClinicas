@@ -14,17 +14,15 @@ import { PidePatient } from "../admision/models/model";
 import { TipoPersonalService } from "src/app/mantenimientos/services/tipo-personal/tipo-personal.service";
 import { EspecialidadService } from "src/app/mantenimientos/services/especialidad/especialidad.service";
 import { ColegioProfesionalService } from "src/app/mantenimientos/services/colegio-profesional/colegio-profesional.service";
-import { DatePipe, getLocaleDateFormat } from "@angular/common";
+import { DatePipe } from "@angular/common";
 import { TipoContratoService } from "src/app/mantenimientos/services/tipo-contrato/tipo-contrato.service";
 import { IpressService } from "src/app/core/services/ipress/ipress.service";
 import { RolGuardiaService } from "src/app/core/services/rol-guardia/rol-guardia.service";
 import { image } from "../../../assets/images/image.const";
 import { TipoUpsService } from "src/app/mantenimientos/services/tipo-ups.service";
-import { UsuarioService } from "../usuarios/services/usuario.service";
 import { LoginService } from "../../login/services/login.service";
 import { dato } from "../../cred/citas/models/data";
 import { DynamicDialogRef } from "primeng/dynamicdialog";
-import { InputSwitchModule } from "primeng/inputswitch";
 
 @Component({
     selector: "app-personal-salud",
@@ -88,6 +86,8 @@ export class PersonalSaludComponent implements OnInit {
     dataPersona: PidePatient;
     designar: boolean;
     ipressNombre: string;
+    personalDesignado: Personal;
+    dataAdmin: any[] = [];
     constructor(
         public ref: DynamicDialogRef,
         private personalservice: PersonalService,
@@ -126,7 +126,7 @@ export class PersonalSaludComponent implements OnInit {
         this.texto = this.root
             ? "Lista de Administradores"
             : "Lista del Personal de " +
-            JSON.parse(localStorage.getItem("usuario")).ipress.nombreEESS;
+              JSON.parse(localStorage.getItem("usuario")).ipress.nombreEESS;
         this.stateOptions = [
             { label: "Activo", value: true },
             { label: "Inactivo", value: false },
@@ -192,9 +192,11 @@ export class PersonalSaludComponent implements OnInit {
 
     getListAdmin() {
         this.personalservice.getListAdmin().subscribe((r: any) => {
+            let array: any[] = [];
             r.map((obj) => {
-                this.data.push(obj.personal);
+                array.push(obj.personal);
             });
+            this.data = array;
         });
     }
 
@@ -311,6 +313,7 @@ export class PersonalSaludComponent implements OnInit {
             .subscribe((res: any) => {
                 //this.personalservice.getPersonal().subscribe((res: any) => {
                 this.data = res.object;
+                console.log("data", this.data);
             });
         //-- lista de administradores
     }
@@ -331,7 +334,7 @@ export class PersonalSaludComponent implements OnInit {
         );
     }
 
-    saveForm() {
+    async saveForm() {
         this.isUpdate = false;
         let otrosNombres = this.form.value.nombres.split(" ", 2);
         let otros = otrosNombres.shift();
@@ -404,7 +407,7 @@ export class PersonalSaludComponent implements OnInit {
         let objectAdmin = {
             tipoDoc: "DNI",
             nroDoc: this.form.value.nroDoc,
-            apps: ["hce","app-visita"],
+            apps: ["hce", "app-visita"],
             escalas: [
                 {
                     escala: "IPRESS",
@@ -417,17 +420,7 @@ export class PersonalSaludComponent implements OnInit {
             this.personalservice.createPersonal(req).subscribe((result) => {
                 //--Agregar Admin
                 if (this.root) {
-                    this.loginService
-                        .createAdmin(objectAdmin)
-                        .subscribe((r: any) => {
-                            Swal.fire({
-                                icon: "success",
-                                title: "Administrador agregado correctamente",
-                                text: "",
-                                showConfirmButton: false,
-                                timer: 1500,
-                            });
-                        });
+                    this.createAdmin(objectAdmin);
                     //--listar administradores
                 }
                 if (!this.root) {
@@ -444,6 +437,34 @@ export class PersonalSaludComponent implements OnInit {
                 this.personalDialog = false;
             });
         }
+    }
+    async createAdmin(objectAdmin) {
+        await new Promise((resolve: any) => {
+            setTimeout(() => {
+                if (this.designar) {
+                    this.personalservice
+                        .desactivedPersonal(this.personalDesignado.id)
+                        .subscribe((r: any) => {
+                            // console.log("this.designar", r);
+                        });
+                    this.personalservice
+                        .desactivedUser(this.form.value.nroDoc)
+                        .subscribe((r) => {
+                            // console.log("user-log", r);
+                        });
+                }
+                resolve();
+            }, 1000);
+        });
+        this.loginService.createAdmin(objectAdmin).subscribe((r: any) => {
+            Swal.fire({
+                icon: "success",
+                title: "Administrador agregado correctamente",
+                text: "",
+                showConfirmButton: false,
+                timer: 1500,
+            });
+        });
     }
 
     openNew(designar: boolean) {
@@ -525,9 +546,9 @@ export class PersonalSaludComponent implements OnInit {
             .setValue(
                 rowData.detalleIpress
                     ? this.datePipe.transform(
-                        rowData.detalleIpress.fechaInicio,
-                        "yyyy-MM-dd"
-                    )
+                          rowData.detalleIpress.fechaInicio,
+                          "yyyy-MM-dd"
+                      )
                     : ""
             );
         this.idUpdate = rowData.id;
@@ -661,22 +682,97 @@ export class PersonalSaludComponent implements OnInit {
 
     traerData() {
         let nroDoc = this.form.value.nroDoc;
-        this.personalservice.getPidePersonalData(nroDoc).then((res: any) => {
-            if (res.error) {
-                console.log('no se encontro persona');
-                return;
-            }
-            this.dataPersona = res;
-            this.form.patchValue({
-                apePaterno: this.dataPersona.apePaterno,
-                apeMaterno: this.dataPersona.apeMaterno,
-                nombres: this.dataPersona.nombres,
-                sexo: this.dataPersona.genero,  
-                fechaNacimiento: this.dataPersona.fecNacimiento,
-                domicilioActual: this.dataPersona.direccion,
-            })
-        })
-        
+        if (!this.designar) {
+            this.personalservice
+                .getPidePersonalData(nroDoc)
+                .then((res: any) => {
+                    if (res.error) {
+                        console.log("no se encontro persona");
+                        return;
+                    }
+                    this.dataPersona = res;
+                    this.form.patchValue({
+                        apePaterno: this.dataPersona.apePaterno,
+                        apeMaterno: this.dataPersona.apeMaterno,
+                        nombres: this.dataPersona.nombres,
+                        sexo: this.dataPersona.genero,
+                        fechaNacimiento: this.dataPersona.fecNacimiento,
+                        domicilioActual: this.dataPersona.direccion,
+                    });
+                });
+        } else {
+            this.personalservice
+                .searchPersonal(nroDoc)
+                .subscribe((personal: any) => {
+                    this.personalDesignado = personal.object;
+                    this.form.reset();
+                    this.form.get("nroDoc").setValue(personal.object.nroDoc);
+                    this.traerDataEditar();
+                    this.form.get("tipoDoc").setValue(personal.object.tipoDoc);
+                    this.form
+                        .get("apePaterno")
+                        .setValue(personal.object.apePaterno);
+                    this.form
+                        .get("apeMaterno")
+                        .setValue(personal.object.apeMaterno);
+                    this.form
+                        .get("nombres")
+                        .setValue(
+                            personal.object.primerNombre +
+                                " " +
+                                personal.object.otrosNombres
+                        );
+                    this.form
+                        .get("fechaNacimiento")
+                        .setValue(personal.object.fechaNacimiento);
+                    this.form
+                        .get("tipoPersonal")
+                        .setValue(
+                            personal.object.tipoPersonal
+                                ? personal.object.tipoPersonal.nombre
+                                : ""
+                        );
+                    this.form
+                        .get("colegioProfesional")
+                        .setValue(
+                            personal.object.colegioProfesional
+                                ? personal.object.colegioProfesional.codigo
+                                : ""
+                        );
+                    this.form
+                        .get("colegiatura")
+                        .setValue(personal.object.colegiatura);
+                    this.form.get("estado").setValue(personal.object.estado);
+                    this.form
+                        .get("contratoAbreviatura")
+                        .setValue(personal.object.contratoAbreviatura);
+                    this.form.get("sexo").setValue(personal.object.sexo);
+                    this.form
+                        .get("detalleIpress")
+                        .setValue(
+                            !this.root
+                                ? personal.object.detalleIpress.eess
+                                : personal.object.detalleIpress[0].eess
+                        );
+                    this.form
+                        .get("fechaInicio")
+                        .setValue(
+                            personal.object.detalleIpress
+                                ? this.datePipe.transform(
+                                      personal.object.detalleIpress.fechaInicio,
+                                      "yyyy-MM-dd"
+                                  )
+                                : ""
+                        );
+                    this.idUpdate = personal.object.id;
+                    this.form.get("estadoCivil").disable();
+                    this.form.get("distrito").disable();
+                    this.form.get("provincia").disable();
+                    this.form.get("departamento").disable();
+                    this.form.get("domicilioActual").disable();
+                });
+        }
+
         // this.personalservice
         //     .getDatosReniec(this.form.value.nroDoc)
         //     .subscribe((res: any) => {

@@ -33,11 +33,12 @@
             ></button>
         </ng-template>
     </p-toolbar>
+
     <p-table
         [value]="data"
         #dt
         [globalFilterFields]="['nombres', 'nroDoc', 'apPaterno']"
-        styleClass="p-datatable-gridlines   "
+        styleClass="p-datatable-gridlines"
         [rows]="10"
         [rowsPerPageOptions]="[10, 25, 50]"
         [paginator]="true"
