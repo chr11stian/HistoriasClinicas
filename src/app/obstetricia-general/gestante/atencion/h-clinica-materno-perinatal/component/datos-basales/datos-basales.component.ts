@@ -786,8 +786,6 @@ export class DatosBasalesComponent implements OnInit {
                         this.form.patchValue({ pesoHabitual: pesoHabitual });
                         console.log('imc ', imcAux);
                     });
-
-
                     this.tipoGananciaPeso = 'bajoPeso';
                     console.log(this.tipoGananciaPeso);
                 }
@@ -970,7 +968,7 @@ export class DatosBasalesComponent implements OnInit {
     }
 
     factorDeCorreccion(): void {
-        
+
     }
 }
 interface Ultrasound {
