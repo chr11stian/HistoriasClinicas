@@ -61,7 +61,7 @@ export class PrestacionComponent implements OnInit {
   agregarActualizar(index?){
     this.openDialog=true;
     this.prestacionFC.reset();
-    if(index){
+    if(index!=null){
     this.prestacion=this.data[index]
       console.log('la prestacion',this.prestacion)
       this.getFC('codigo').setValue(this.prestacion.codigo)
