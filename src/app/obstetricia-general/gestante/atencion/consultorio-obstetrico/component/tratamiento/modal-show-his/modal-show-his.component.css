@@ -8,7 +8,7 @@
     padding: 0;
 }
 
-p-table>>>.p-datatable .p-datatable-thead>tr>th {
+p-table >>> .p-datatable .p-datatable-thead > tr > th {
     text-align: center;
     font-size: small;
     word-wrap: break-word;
@@ -17,14 +17,14 @@ p-table>>>.p-datatable .p-datatable-thead>tr>th {
     background-color: #dddddd;
 }
 
-p-table>>>.p-datatable .p-datatable-thead>tr>th {
+p-table >>> .p-datatable .p-datatable-thead > tr > th {
     text-align: center;
     font-size: x-small;
     word-wrap: break-word;
     padding: 0.2rem;
 }
 
-p-table>>>.p-datatable .p-datatable-tbody>tr>td {
+p-table >>> .p-datatable .p-datatable-tbody > tr > td {
     text-align: center;
     font-size: x-small;
     word-wrap: break-word;
@@ -43,4 +43,7 @@ p-table>>>.p-datatable .p-datatable-tbody>tr>td {
     height: 25rem;
     display: block;
     margin: auto;
+}
+::ng-deep .swal2-container {
+    z-index: 1000000;
 }

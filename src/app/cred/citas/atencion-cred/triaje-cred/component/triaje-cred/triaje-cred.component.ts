@@ -1,10 +1,5 @@
 import { Component, Input, OnInit, SimpleChanges } from "@angular/core";
-import {
-    AbstractControl,
-    FormControl,
-    FormGroup,
-    Validators,
-} from "@angular/forms";
+import {  AbstractControl,  FormControl,   FormControlDirective,    FormControlName,    FormGroup,    Validators,} from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ConsultaGeneralService } from "../../../consulta-principal/services/consulta-general.service";
 import { ListaConsultaService } from "../../../../services/lista-consulta.service";
@@ -21,6 +16,19 @@ import {
 import { CdkVirtualScrollViewport } from "@angular/cdk/scrolling";
 import { DatePipe } from "@angular/common";
 import { RolGuardiaService } from "src/app/core/services/rol-guardia/rol-guardia.service";
+
+// const originFormControlNgOnChanges = FormControlDirective.prototype.ngOnChanges;
+// FormControlDirective.prototype.ngOnChanges = function () {
+//     this.form.nativeElement = this.valueAccessor._elementRef.nativeElement;
+//     return originFormControlNgOnChanges.apply(this, arguments);
+// };
+
+// const originFormControlNameNgOnChanges = FormControlName.prototype.ngOnChanges;
+// FormControlName.prototype.ngOnChanges = function () {
+//     const result = originFormControlNameNgOnChanges.apply(this, arguments);
+//     this.control.nativeElement = this.valueAccessor._elementRef.nativeElement;
+//     return result;
+// };
 interface formInterface {
     pro: string;
     label: string;
@@ -326,7 +334,6 @@ export class TriajeCredComponent implements OnInit {
                     r.object.apePaterno +
                     " " +
                     r.object.apeMaterno;
-                //console.log('o: ',);
                 this.generalInfoFG.get("name").setValue(nombre);
                 this.calcularEdad(r.object.nacimiento.fechaNacimiento);
                 const edad =
@@ -371,7 +378,6 @@ export class TriajeCredComponent implements OnInit {
             });
         this.consultaService.getDatosGenerales(id).subscribe((r: any) => {
             this.auxTriaje = r.object;
-            //console.log('aux: ', this.auxTriaje)
             let date: Date = new Date(this.auxTriaje.fecha);
             this.generalInfoFG.get("dateAttention").setValue(date);
             this.generalInfoFG.get("hour").setValue(date);
@@ -709,7 +715,6 @@ export class TriajeCredComponent implements OnInit {
             .toPromise()
             .then(
                 (result) => {
-                    console.log("respuesta traer plan", result);
                     hayPlan = result.cod === "2403" ? true : false;
                     // console.log('cod', result.cod)
                     // if (result.cod === '2404') {
@@ -724,7 +729,6 @@ export class TriajeCredComponent implements OnInit {
                     console.log(err);
                 }
             );
-        console.log("ya hay plan", hayPlan);
         if (!hayPlan) {
             console.log("***entramos a crarle el plan****");
             await this.consultaGeneralService
@@ -740,7 +744,6 @@ export class TriajeCredComponent implements OnInit {
             // this.getNuevoPlan()
         }
         this.outData();
-        console.log('data de signos vitales ', this.signosVitales);
         const req: triajeInterface = {
             signosVitales: this.signosVitales,
             listaSignosAlarma: this.aux,
@@ -751,7 +754,6 @@ export class TriajeCredComponent implements OnInit {
             servicio: "ATENCION INTEGRAL DEL NINO",
         };
         if (req) {
-            console.log('data');
             await this.consultaService
                 .crearConsulta(this.data.nroDocumento, req)
                 .toPromise()
@@ -780,9 +782,6 @@ export class TriajeCredComponent implements OnInit {
                         this.attributeLocalS,
                         JSON.stringify(data)
                     );
-                    console.log("triaje data", data);
-                    console.log("1");
-                    console.log("respuesta ", r);
                     Swal.fire({
                         icon: "success",
                         title: "Actualizado correctamente",
@@ -801,7 +800,6 @@ export class TriajeCredComponent implements OnInit {
     async getPlan(dni: string) {
         await this.consultaGeneralService.traerPlan(dni).subscribe(
             (result) => {
-                console.log("cod", result.cod);
                 if (result.cod === "2404") {
                     this.getNuevoPlan();
                     console.log("2404", result);
@@ -837,7 +835,6 @@ export class TriajeCredComponent implements OnInit {
             obsSignosVitales: this.obsFC.value,
             presentaSigno: this.signoPeligroFG.get("presentSigns").value,
         };
-        console.log("req", req);
         if (req) {
             this.consultaService
                 .crearInterconsulta(this.data.nroDocumento, req)
@@ -849,7 +846,6 @@ export class TriajeCredComponent implements OnInit {
                     }
                     localStorage.setItem(this.attributeLocalS, JSON.stringify(data));*/
                     this.idConsultaInterconsulta = r.object.id;
-                    console.log("respuesta ", r);
                     Swal.fire({
                         icon: "success",
                         title: "Actualizado correctamente",
@@ -903,7 +899,6 @@ export class TriajeCredComponent implements OnInit {
     }
 
     imc() {
-        console.log("cambio el ng model");
         let peso = this.examFG.value.PesoFC / 1000;
         let talla = this.examFG.value.TallaFC / 100;
         let imc: number = peso / (talla * talla);
@@ -934,21 +929,28 @@ export class TriajeCredComponent implements OnInit {
         this.saveInterconsulta();
         this.open();
     }
-
+    findInvalidControls(){
+        const listInvalid=[]
+        const listControls=this.examFG.controls;
+        for (const name in listControls) {
+            if (listControls[name].invalid) {
+                listInvalid.push(name);
+            }
+        }
+        return listInvalid;
+            
+    }
     getConsultaPrincipal(): void {
-        /* start */
         if (this.examFG.invalid) {
-            console.log("entramos al if");
             this.examFG.markAllAsTouched();
+            const firstInvalid=(this.findInvalidControls())[0]
+            document.getElementById(firstInvalid).focus();
             return;
         }
-        /* end */
         if (this.data.idConsulta === "") {
             this.save();
         }
-        /* setTimeout(() => {
-            this.router.navigate(["/dashboard/cred/citas/atencion"]);
-        }, 1000); */
+        
     }
     /* interconsulta */
     open(): void {
@@ -967,17 +969,14 @@ export class TriajeCredComponent implements OnInit {
             .getServiciosPorIpress(idIpress)
             .subscribe((res: any) => {
                 this.servicios = res.object;
-                console.log("LISTA DE SERVICIOS DE IPRESSS", this.servicios);
             });
     }
 
     eliminarInterconsulta(id, index) {
         this.listInterconsulta.splice(index, 1);
-        console.log();
         this.consultaGeneralService
             .deleteInterconsulta(this.idConsultaInterconsulta, id)
             .subscribe((r: any) => {
-                console.log(r.object);
             });
     }
     listaInterconsulta() {
