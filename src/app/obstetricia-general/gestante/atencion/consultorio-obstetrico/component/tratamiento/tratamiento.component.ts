@@ -96,6 +96,8 @@ export class TratamientoComponent implements OnInit {
   consultationId: string;
   showNextDate: boolean = false;
   nextDateModel: string;
+  consultationFinished: boolean = false;
+  actualConsultation: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -125,9 +127,8 @@ export class TratamientoComponent implements OnInit {
     this.recuperarUpsAuxHis()
     //estado para saber que estado usar en consultas
     this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
-
-    // console.log("DATA PACIENTE 2 desde datos generales", this.dataPaciente2);
-    // console.log("gestacion desde datos generales", this.Gestacion);
+    this.actualConsultation = JSON.parse(localStorage.getItem('datosConsultaActual'));
+    this.actualConsultation ? this.actualConsultation.estadoAtencion == 2 ? this.consultationFinished = true : this.consultationFinished = false : this.consultationFinished = false;
 
     if (this.Gestacion == null) {
       this.tipoDocRecuperado = this.dataPaciente2.tipoDoc;
@@ -243,7 +244,7 @@ export class TratamientoComponent implements OnInit {
       nombreUPSAux2: new FormControl(""),
     });
   }
-  
+
 
   ngOnInit(): void {
     this.recuperarInmunizaciones();
@@ -276,17 +277,17 @@ export class TratamientoComponent implements OnInit {
     this.tratamientoService.listaUpsHis(Data).then((res: any) => this.listaUpsHis = res.object);
     // console.log("DATA PARA UPS HIS", this.listaUpsHis)
   }
-  arrayUPSAux:any[]=[]
+  arrayUPSAux: any[] = []
   recuperarUpsAuxHis() {
     this.UpsAuxService.getUpsAuxPorIpress(this.idIpress).subscribe(
-      (r: any) => {      
+      (r: any) => {
         if (r.object != null) {
           this.arrayUPSAux = r.object.filter(
             (element) => element.estado == true
           );
         }
         // console.log('lista de arreglos',this.arrayUPSAux);
-        
+
       }
     );
   }

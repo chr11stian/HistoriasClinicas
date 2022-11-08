@@ -119,6 +119,7 @@ export class DatosGeneralesComponent implements OnInit {
     isEdit: boolean = false;
     consultationStatus$ = this.obstetriciaGeneralService.consultationStatus$;
     consultationFinished: boolean = false;
+    actualConsultation: any;
 
     constructor(private form: FormBuilder,
         private readonly obstetriciaGeneralService: ObstetriciaGeneralService,
@@ -131,6 +132,8 @@ export class DatosGeneralesComponent implements OnInit {
         this.isEdit = JSON.parse(localStorage.getItem('consultaEditarEstado'));
         //estado para saber que estado usar en consultas
         this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
+        this.actualConsultation = JSON.parse(localStorage.getItem('datosConsultaActual'));
+        this.actualConsultation ? this.actualConsultation.estadoAtencion == 2 ? this.consultationFinished = true : this.consultationFinished = false : this.consultationFinished = false;
 
         if (this.Gestacion == null) {
             this.tipoDocRecuperado = this.dataPaciente2.tipoDoc;
@@ -292,12 +295,10 @@ export class DatosGeneralesComponent implements OnInit {
     ngOnInit(): void {
         this.buildForm();
         this.obternerFechaActual();
-        this.consultationStatus$.value == 2 ? this.consultationFinished = true : this.consultationFinished = false;
         /**Si la datos de consultorio esta en vacio recupera los datos del paciente***/
         /**Caso contrario recupera los datos de Consultorio***/
         if (this.dataConsultas == null) {
             this.getpacienteByNroDoc();
-
         }
     }
 

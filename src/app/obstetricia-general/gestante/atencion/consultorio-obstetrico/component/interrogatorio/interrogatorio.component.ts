@@ -86,12 +86,14 @@ export class InterrogatorioComponent implements OnInit {
 
   estadoEditar: boolean;
   consultationId: string;
+  consultationStatus$ = this.obstetriciaGeneralService.consultationStatus$;
+  consultationFinished: boolean = false;
+  actualConsultation: any;
   constructor(
     private fb: FormBuilder,
     public dialog: DialogService,
     private consultaObstetricaService: ConsultasService,
-    private messageService: MessageService,
-    private obstetriciaService: ObstetriciaGeneralService,
+    private obstetriciaGeneralService: ObstetriciaGeneralService,
     private router: Router,
     private imcService: ImcService,
     private intervaloPartoService: IntervaloPartoService
@@ -101,6 +103,8 @@ export class InterrogatorioComponent implements OnInit {
     this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
     let dataconsulta = JSON.parse(localStorage.getItem('datosConsultaActual'));
     this.nroDeConsulta = dataconsulta == null ? this.Gestacion.nroConsultas + 1 : dataconsulta.nroAtencion;
+    this.actualConsultation = JSON.parse(localStorage.getItem('datosConsultaActual'));
+    this.actualConsultation ? this.actualConsultation.estadoAtencion == 2 ? this.consultationFinished = true : this.consultationFinished = false : this.consultationFinished = false;
     // console.log('nro de consultas ', this.nroAtencion);
 
     //estado para saber que estado usar en consultas

@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ExamenesAuxiliaresService } from 'src/app/cred/citas/atencion-cred/consulta-principal/services/examenes-auxiliares.service';
 import { LaboratoriosService } from 'src/app/Laboratorio/services/laboratorios.service';
+import { ObstetriciaGeneralService } from 'src/app/obstetricia-general/services/obstetricia-general.service';
 import Swal from 'sweetalert2';
 import { DataExamSave, HemoExam, LaboratoryExam, OtherExam, Pregmant } from '../../models/laboratorio.interface';
 
@@ -37,15 +38,21 @@ export class ExamsInOfficeDialogComponent implements OnInit {
   firstArrayLocalExam: string[] = ['VDRL/RPR 1', 'VDRL/RPR 2', 'TPHA/VDRL (RPR REACTIVO)', 'VIH PRUEBA RAPIDA 1', 'VIH PRUEBA RAPIDA 2', 'PR HEPATITIS'];
   secondArrayLocalExam: string[] = ['GLICEMIA 1', 'GLICEMIA 2'];
   thirdArrayLocalExam: string[] = ['EX. COMP ORINA 1', 'EX. COMP ORINA 2', 'EX. COMP ORINA 3', 'BACTERIURIA'];
+  consultationStatus$ = this.obstetriciaGeneralService.consultationStatus$;
+  consultationFinished: boolean = false;
+  actualConsultation: any;
 
   constructor(
     private fb: FormBuilder,
     private laboratoryService: LaboratoriosService,
     private auxExamService: ExamenesAuxiliaresService,
     private ref: DynamicDialogRef,
+    private obstetriciaGeneralService: ObstetriciaGeneralService,
   ) {
     this.patientData = JSON.parse(localStorage.getItem('gestacion'));
     this.consultationId = JSON.parse(localStorage.getItem('IDConsulta'));
+    this.actualConsultation = JSON.parse(localStorage.getItem('datosConsultaActual'));
+    this.actualConsultation ? this.actualConsultation.estadoAtencion == 2 ? this.consultationFinished = true : this.consultationFinished = false : this.consultationFinished = false;
     this.recoverExamsOfConsultation();
     this.recoverExamsOfPregnancy();
   }

@@ -166,12 +166,10 @@ export class ConsultaComponent implements OnInit {
 
     //editar consulta o visualizar na ma, mandamos la data de la fila
     irConsultaVisualizar(event, edicion) {
-        console.log('data del row ', event);
         this.obstetriciaGeneralService.setActualConsultationStatus$(event.estadoAtencion);
         this.router.navigate(['/dashboard/obstetricia-general/citas/gestante/obstetricia/consultorio-obstetrico'])
         localStorage.setItem("nroConsultaEditar", event.nroAtencion);
         localStorage.setItem("consultaEditarEstado", edicion);
-        // console.log(event)
         localStorage.removeItem('IDConsulta');
         localStorage.setItem('IDConsulta', JSON.stringify(event.id));
         localStorage.setItem('datosConsultaActual', JSON.stringify(event));

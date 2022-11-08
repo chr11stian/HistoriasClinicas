@@ -7,8 +7,6 @@ import {
 } from "../../../h-clinica-materno-perinatal/services/filiancion-atenciones/filiancion.service";
 import { TamizajeViolenciaService } from "../../../../../services/tamizaje-violencia.service";
 import { ObstetriciaGeneralService } from "../../../../../services/obstetricia-general.service";
-import { number } from "echarts";
-import { LoginComponent } from '../../../../../../login/login.component';
 
 @Component({
     selector: 'app-tamizaje-violencia',
@@ -57,10 +55,15 @@ export class TamizajeViolenciaComponent implements OnInit {
     p2A: string = 'SI';
     p5A: string = 'NO';
     armaBlacnca: any;
+    consultationStatus$ = this.obstetriciaGeneralService.consultationStatus$;
+    consultationFinished: boolean = false;
+    actualConsultation: any;
 
     constructor(private form: FormBuilder,
         private filiancionService: FiliancionService,
-        private tamizajeViolenciaService: TamizajeViolenciaService) {
+        private tamizajeViolenciaService: TamizajeViolenciaService,
+        private obstetriciaGeneralService: ObstetriciaGeneralService,
+    ) {
         this.opciones = [
             { name: 'SI', boleano: true },
             { name: 'NO', boleano: false }
@@ -107,6 +110,8 @@ export class TamizajeViolenciaComponent implements OnInit {
         this.DataCupos = JSON.parse(localStorage.getItem('datacupos'));
         this.DataCupos2 = JSON.parse(localStorage.getItem('PacienteSinCupo'));
         this.datosConsultaActual = JSON.parse(localStorage.getItem('datosConsultaActual'));
+        this.actualConsultation = JSON.parse(localStorage.getItem('datosConsultaActual'));
+        this.actualConsultation ? this.actualConsultation.estadoAtencion == 2 ? this.consultationFinished = true : this.consultationFinished = false : this.consultationFinished = false;
 
 
         if (this.DataCupos2 == null) {
@@ -130,9 +135,6 @@ export class TamizajeViolenciaComponent implements OnInit {
     ngOnInit(): void {
         this.buildForm();
         this.formDatos_Tamisaje.get('Fecha').setValue(this.datafecha);
-        // this.getDataPacienteByNroDoc();
-        // this.fechaConvertido=this.datePipe.transform(new Date(),'dd-MM-yyyy')
-        // this.getTamizajeNroDoc();
         this.getDataPacienteByNroDoc()
         this.getTamizajePorIDConsulta();
     }

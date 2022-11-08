@@ -72,15 +72,17 @@ export class ProcedimientosComponent implements OnInit {
 
   fuaForm: FormGroup;
   hisForm: FormGroup;
+  consultationStatus$ = this.obstetriciaGeneralService.consultationStatus$;
+  consultationFinished: boolean = false;
+  actualConsultation: any;
+
   constructor(
-    private formBuilder: FormBuilder,
     private dialog: DialogService,
-    private messageService: MessageService,
     private tratamientoService: ConsultasService,
-    private farmaciaService: IpressFarmaciaService,
     private DiagnosticoService: DiagnosticoConsultaService,
     private UpsAuxService: UpsAuxIpressService,
     private cieService: CieService,
+    private obstetriciaGeneralService: ObstetriciaGeneralService,
   ) {
     //this.buildForm();
 
@@ -92,6 +94,8 @@ export class ProcedimientosComponent implements OnInit {
     this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
     this.patientData = JSON.parse(localStorage.getItem('datacupos')).paciente;
     this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
+    this.actualConsultation = JSON.parse(localStorage.getItem('datosConsultaActual'));
+    this.actualConsultation ? this.actualConsultation.estadoAtencion == 2 ? this.consultationFinished = true : this.consultationFinished = false : this.consultationFinished = false;
 
     if (this.Gestacion == null) {
       this.tipoDocRecuperado = this.dataPaciente2.tipoDoc;

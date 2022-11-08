@@ -362,6 +362,7 @@
                         label="Guardar"
                         (click)="guardarActualizar()"
                         class="p-button-danger"
+                        *ngIf="!consultationFinished"
                     ></button>
                 </ng-template>
             </p-toolbar>
@@ -1215,6 +1216,7 @@
                         label="Guardar"
                         (click)="UpdateTamizaje2()"
                         class="p-button-danger"
+                        *ngIf="!consultationFinished"
                     ></button>
                 </ng-template>
             </p-toolbar>

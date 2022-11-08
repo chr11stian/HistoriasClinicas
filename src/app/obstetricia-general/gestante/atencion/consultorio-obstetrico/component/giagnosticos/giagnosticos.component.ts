@@ -115,6 +115,9 @@ export class GiagnosticosComponent implements OnInit {
         { diagnosticoHIS: "DETECCIÓN DE HEPATITIS B (HBSAG)", CIE10: "87342", lab: "RN" },
         { diagnosticoHIS: "CONSEJERÍA/ORIENTACIÓN EN PREVENCIÓN DE ITS VIH HEPATITIS B", CIE10: "99402.05", lab: "1" },
     ]
+    consultationStatus$ = this.obstetriciaGeneralService.consultationStatus$;
+    consultationFinished: boolean = false;
+    actualConsultation: any;
 
     constructor(private formBuilder: FormBuilder,
         private PrestacionService: PrestacionService,
@@ -123,6 +126,7 @@ export class GiagnosticosComponent implements OnInit {
         private DxService: ConsultasService,
         private DiagnosticoService: DiagnosticoConsultaService,
         private cieService: CieService,
+        private obstetriciaGeneralService: ObstetriciaGeneralService,
     ) {
         this.buildForm();
 
@@ -135,6 +139,8 @@ export class GiagnosticosComponent implements OnInit {
         this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
         this.edadPaciente = JSON.parse(localStorage.getItem('datacupos')).paciente.edadAnio;
         this.sexoPaciente = JSON.parse(localStorage.getItem('datacupos')).paciente.sexo;
+        this.actualConsultation = JSON.parse(localStorage.getItem('datosConsultaActual'));
+        this.actualConsultation ? this.actualConsultation.estadoAtencion == 2 ? this.consultationFinished = true : this.consultationFinished = false : this.consultationFinished = false;
         this.recuperarUpsHis();
         this.recuperarUPS();
         //estado para saber que estado usar en consultas
@@ -768,7 +774,7 @@ export class GiagnosticosComponent implements OnInit {
                     lab: '',
                     codProcedimientoHIS: '',
                     procedimientoHIS: ''
-                  });
+                });
             }
         } else
             this.missDataMessage();
@@ -953,7 +959,7 @@ export class GiagnosticosComponent implements OnInit {
             }
             arrayDiagnosticHIS.push(HISdiagnostic);
         });
-        
+
         return arrayDiagnosticHIS;
     }
 }
