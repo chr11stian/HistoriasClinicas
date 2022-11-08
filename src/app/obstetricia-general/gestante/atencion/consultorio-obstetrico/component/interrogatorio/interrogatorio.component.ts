@@ -729,7 +729,7 @@ export class InterrogatorioComponent implements OnInit {
 
   calculateIMC(): void {
     let gestationalWeek: number = this.form.value.semanas;
-    let patientHeight: number = (this.form.value.talla / 100);
+    let patientHeight: number = Math.round((this.form.value.talla + Number.EPSILON)) / 100;
     let patientWeigth: number = this.form.value.peso;
     let clasification: NutritionalClassification;
     let gainWeight: GainWeight;
@@ -778,7 +778,7 @@ export class InterrogatorioComponent implements OnInit {
 
   // assingWeightGain(imc: number, min: number, med: number, max: number, weightGain: number): void {
   //   if (imc< 18.5) {
-      
+
   //   }
   // }
 }

@@ -117,9 +117,11 @@ export class DatosGeneralesComponent implements OnInit {
     familiares2: any;
     atentionNum: number;
     isEdit: boolean = false;
+    consultationStatus$ = this.obstetriciaGeneralService.consultationStatus$;
+    consultationFinished: boolean = false;
 
     constructor(private form: FormBuilder,
-        private obstetriciaGeneralService: ObstetriciaGeneralService,
+        private readonly obstetriciaGeneralService: ObstetriciaGeneralService,
         private consultasService: ConsultasService,
         private filiancionService: FiliancionService,
         private messageService: MessageService,) {
@@ -290,8 +292,7 @@ export class DatosGeneralesComponent implements OnInit {
     ngOnInit(): void {
         this.buildForm();
         this.obternerFechaActual();
-
-
+        this.consultationStatus$.value == 2 ? this.consultationFinished = true : this.consultationFinished = false;
         /**Si la datos de consultorio esta en vacio recupera los datos del paciente***/
         /**Caso contrario recupera los datos de Consultorio***/
         if (this.dataConsultas == null) {

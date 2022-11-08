@@ -1,6 +1,7 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { environment } from "../../../environments/environment";
 import { HttpClient } from "@angular/common/http";
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -17,11 +18,20 @@ export class ObstetriciaGeneralService {
     nroHcl: string;
     estadoEmbarazo: string = "";
     data: any;
+    public consultationStatus$ = new BehaviorSubject<number>(0)
 
     /***Id del consultorio obstetrico***/
     idConsultoriObstetrico: string = "";
 
     constructor(private http: HttpClient) {
+    }
+
+    get actualConsultationStatus$(): Observable<number> {
+        return this.consultationStatus$.asObservable();
+    }
+
+    setActualConsultationStatus$(consultStatus: number): void {
+        this.consultationStatus$.next(consultStatus);
     }
 
     getPacienteFiliacion(tipoDoc, nroDoc) {
