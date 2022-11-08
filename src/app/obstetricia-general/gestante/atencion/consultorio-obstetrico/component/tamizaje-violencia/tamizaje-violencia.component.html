@@ -12,7 +12,7 @@
         </div>
     </div>
     <br />
-    <form [formGroup]="formDatos_Tamisaje">
+    <!-- <form [formGroup]="formDatos_Tamisaje">
         <div class="border">
             <div class="col-12 md:col-6 lg:col-12 p-field">
                 <div class="grid m-2">
@@ -42,17 +42,17 @@
                     </div>
                     <div class="col-12 md:col-6 lg:col-3 p-field">
                         <div class="">
-                            <label class="">Fecha: </label>
-                            <!-- <p-calendar formControlName="Fecha" dateFormat="yy-mm-dd"></p-calendar> -->
+                            <label class="">Edad: </label>
                             <input
-                                type="date"
+                                type="text"
                                 pInputText
                                 class="inputfield w-full bg_color"
-                                formControlName="Fecha"
-                                placeholder="Nro historia clínica"
+                                formControlName="Edad"
+                                placeholder="Edad"
                             />
                         </div>
                     </div>
+
                 </div>
                 <div class="grid m-2">
                     <div class="col-12 md:col-6 lg:col-4 p-field">
@@ -93,18 +93,7 @@
                     </div>
                 </div>
                 <div class="grid m-2">
-                    <div class="col-12 md:col-6 lg:col-3 p-field">
-                        <div class="">
-                            <label class="">Edad: </label>
-                            <input
-                                type="text"
-                                pInputText
-                                class="inputfield w-full bg_color"
-                                formControlName="Edad"
-                                placeholder="Edad"
-                            />
-                        </div>
-                    </div>
+                    
 
                     <div class="col-12 md:col-6 lg:col-6 p-field">
                         <div class="">
@@ -133,7 +122,7 @@
                 </div>
             </div>
         </div>
-    </form>
+    </form> -->
     <br />
     <p-tabView
         (onChange)="tab($event)"
@@ -381,7 +370,7 @@
             header="Preguntas al Paciente II"
             leftIcon="pi pi-file"
             tooltip="Preguntas"
-            [disabled]="!isUpdate"
+            [selected]="true"
         >
             <div class="border">
                 <p class="texto-justificado m-3">
