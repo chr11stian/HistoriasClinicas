@@ -72,8 +72,6 @@ export class ProcedimientoDosajeHemoglobinaComponent implements OnInit {
       return false;
   }
   agregarSuplementacion(dosaje){
-    console.log('heyy con el dosaje-modal', dosaje)
-    console.log('nro mes',this.edadMes)
   }
   transform() {
     this.dataPreventivo.forEach((element) => {
