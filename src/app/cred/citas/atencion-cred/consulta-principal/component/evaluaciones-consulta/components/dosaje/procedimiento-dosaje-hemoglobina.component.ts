@@ -7,6 +7,7 @@ import {DialogService} from "primeng/dynamicdialog";
 import {DosajeComponent} from "../dosaje-modal/dosaje.component";
 import {DosajeHemoglobina} from "../../../../models/dosaje.interface";
 import {MessageService} from "primeng/api";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-procedimiento-dosaje-modal-hemoglobina',
@@ -96,12 +97,13 @@ export class ProcedimientoDosajeHemoglobinaComponent implements OnInit {
     });
     ref.onClose.subscribe((mensaje:string)=>{
       if (mensaje=='agregado'){
-        this.messageService.add({
-          severity: "success",
-          summary: "Exito",
-          detail: "Dosaje Registrado satisfactoriamente",
-        });
-        console.log('mensaje',mensaje)
+        Swal.fire({
+            icon:'success',
+            title:'Agregado',
+            text:'Se agrego satisfactoriamente la suplementacion',
+            showConfirmButton:false,
+            timer:1500
+        })
         this.getDosajePreventivo();
         this.getDosajeTerapeutico();
       }
