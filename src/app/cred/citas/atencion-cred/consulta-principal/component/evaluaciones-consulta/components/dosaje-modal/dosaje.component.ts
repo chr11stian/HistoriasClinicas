@@ -80,14 +80,9 @@ export class DosajeComponent implements OnInit {
     }
 
     getDosaje() {
-        console.log('dosaje recuperado', this.dosaje)
         this.getFC("fechaTentativa").setValue(this.dosaje.fechaTentativa);
         this.getFC("fechaAdministrada").setValue(new Date());
         this.getFC("codLab").setValue(this.dosaje.nroControl);
-        
-        // this.getFC('valogHb').setValue(this.dosaje.valorHb))
-        console.log(this.getFC('fechaAdministrada').value)
-
     }
 
     valorCorrejido(valor: number) {
@@ -203,7 +198,6 @@ export class DosajeComponent implements OnInit {
             fecha:  this.obtenerFecha(this.getFC('fechaAdministrada').value),
             fechaTentativa: this.obtenerFecha(this.getFC('fechaTentativa').value),
         }
-        console.log('input reques:->>>>>>>>>>>', inputRequest)
         this.confirmationService.confirm({
             header: "Confirmación",
             message: "Esta Seguro que desea guardar el Dosaje de Hemoglobina",
