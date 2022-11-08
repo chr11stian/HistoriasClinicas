@@ -25,7 +25,7 @@ const routes: Routes = [
                 "ROLE_ADMIN",
                 "ROLE_ENF_PERSONAL",
                 "ROLE_TEC_ADMINI_PERSONAL",
-                "ISITA_DOMICILIARIA_PROFESIONAL",
+                "VISITA_DOMICILIARIA_PROFESIONAL",
                 "ROLE_TEC_ADMINI_ADMIN",
                 "VISITA_DOMICILIARIA_ACTOR_SOCIAL",
                 "ROLE_FARM_PERSONAL",
