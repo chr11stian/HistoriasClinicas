@@ -21,6 +21,7 @@ import { LabOrinaComponent } from "../../../../../../../Laboratorio/component/la
 import { LaboratoriosService } from "../../../../../../../Laboratorio/services/laboratorios.service";
 import { ExamenesAuxiliaresService } from 'src/app/cred/citas/atencion-cred/consulta-principal/services/examenes-auxiliares.service';
 import { ExamsInOfficeDialogComponent } from './exams-in-office-dialog/exams-in-office-dialog.component';
+import { ObstetriciaGeneralService } from 'src/app/obstetricia-general/services/obstetricia-general.service';
 
 @Component({
     selector: 'app-laboratorio',
@@ -36,20 +37,27 @@ export class LaboratorioComponent implements OnInit {
     loading: boolean = true;
     idConsulta: string
     listaExamen: any[] = [];
+    consultationStatus$ = this.obstetriciaGeneralService.consultationStatus$;
+    consultationFinished: boolean = false;
+    actualConsultation: any;
 
     constructor(public dialog: DialogService,
-        private form: FormBuilder,
         private laboratoriosService: LaboratoriosService,
-        private examenAuxiliarService: ExamenesAuxiliaresService) {
+        private examenAuxiliarService: ExamenesAuxiliaresService,
+        private obstetriciaGeneralService: ObstetriciaGeneralService,
+    ) {
         this.dataConsulta = JSON.parse(localStorage.getItem('datosConsultaActual'));
         this.idConsulta = JSON.parse(localStorage.getItem('IDConsulta'));
+        this.actualConsultation = JSON.parse(localStorage.getItem('datosConsultaActual'));
+        this.actualConsultation ? this.actualConsultation.estadoAtencion == 2 ? this.consultationFinished = true : this.consultationFinished = false : this.consultationFinished = false;
+
         this.listarPeticiones();
     }
 
 
     ngOnInit(): void {
         this.usuario = JSON.parse(localStorage.getItem('gestacion'));
-        this.cargarExamenesRealizados()
+        this.cargarExamenesRealizados();
     }
 
     openDialogSolicitud() {

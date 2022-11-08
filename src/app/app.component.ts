@@ -26,11 +26,10 @@ export class AppComponent implements OnInit {
             clear: 'Limpiar',
             monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"],
         });
-
     }
     openLoading() {
-        console.log('data de app');
-        console.log('data de app ', this.loading$);
+        // console.log('data de app');
+        // console.log('data de app ', this.loading$);
     }
 
     ngAfterViewInit() {

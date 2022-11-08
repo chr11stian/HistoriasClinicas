@@ -72,8 +72,8 @@ export class ResultadosComponent implements OnInit {
         //estado para saber que estado usar en consultas
         this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
 
-        console.log("DATA PACIENTE 2 desde datos generales", this.dataPaciente2);
-        console.log("gestacion desde datos generales", this.Gestacion);
+        // console.log("DATA PACIENTE 2 desde datos generales", this.dataPaciente2);
+        // console.log("gestacion desde datos generales", this.Gestacion);
 
         if (this.Gestacion == null) {
             this.tipoDocRecuperado = this.dataPaciente2.tipoDoc;
@@ -93,12 +93,12 @@ export class ResultadosComponent implements OnInit {
             //guardar en el ls el nroAtencion
             let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaNueva'));
             this.nroAtencion = nroAtencion;
-            console.log("entre a nueva consulta", this.nroAtencion)
+            // console.log("entre a nueva consulta", this.nroAtencion)
         }
         else {
             let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaEditar'));
             this.nroAtencion = nroAtencion;
-            console.log("entre a edicion consulta", this.nroAtencion)
+            // console.log("entre a edicion consulta", this.nroAtencion)
         }
         this.agenda();
     }
@@ -126,7 +126,7 @@ export class ResultadosComponent implements OnInit {
             },
         })
         this.ref.onClose.subscribe((data: any) => {
-            console.log("data de modal interconsultas", data)
+            // console.log("data de modal interconsultas", data)
             if (data !== undefined)
                 this.interconsultas.push(data);
         })
@@ -146,7 +146,7 @@ export class ResultadosComponent implements OnInit {
             data: aux
         })
         this.ref.onClose.subscribe((data: any) => {
-            console.log('data de modal interconsulta ', data)
+            // console.log('data de modal interconsulta ', data)
             if (data !== undefined) {
                 this.interconsultas.splice(data.index, 1, data.row);
             };
@@ -174,8 +174,8 @@ export class ResultadosComponent implements OnInit {
         }
         this.consultaService.updateConsultas(this.nroFetos, this.Gestacion.id, req).subscribe(
             (resp) => {
-                console.log(resp);
-                console.log(req);
+                // console.log(resp);
+                // console.log(req);
                 Swal.fire({
                     icon: 'success',
                     title: 'Actualizado correctamente',
@@ -204,7 +204,7 @@ export class ResultadosComponent implements OnInit {
         }
         this.consultaService.getConsultaPrenatalByEmbarazo(this.Gestacion.id, this.consultationId, aux).subscribe((res: any) => {
             this.dataConsulta = res.object;
-            console.log("data consulta:" + this.dataConsulta);
+            // console.log("data consulta:" + this.dataConsulta);
 
             if (res['cod'] = '2401') {
                 if (this.dataConsulta != null) {
@@ -261,7 +261,7 @@ export class ResultadosComponent implements OnInit {
     recuperarCronograma() {
         this.consultaService.getCronogramaGestante(this.nroHcl).subscribe((res: any) => {
             this.cronograma = res.object;
-            console.log("cronograma:", this.cronograma)
+            // console.log("cronograma:", this.cronograma)
         })
     }
     funcionAuxiliar(fecha) {
@@ -271,7 +271,7 @@ export class ResultadosComponent implements OnInit {
     agenda() {
         this.consultaService.getCronogramaGestante(this.nroHcl).subscribe((r: any) => {
             let aux = r.object
-            console.log(aux)
+            // console.log(aux)
             this.consultaService.list = [];
             aux.map((r_: any) => {
                 this.consultaService.list.push({
