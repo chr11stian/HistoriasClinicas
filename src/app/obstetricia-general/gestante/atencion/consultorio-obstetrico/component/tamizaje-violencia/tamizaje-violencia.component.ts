@@ -821,13 +821,6 @@ export class TamizajeViolenciaComponent implements OnInit {
             if (result.object[0]) {
                 this.isUpdate = true
                 this.tamisajeData = result.object[0]
-                // Swal.fire({
-                //     icon: 'success',
-                //     title: 'Datos recuperados',
-                //     text: '',
-                //     showConfirmButton: false,
-                //     timer: 1500,
-                // })
                 /* datos generales */
                 this.formDatos_Tamisaje.get('Fecha').setValue(this.tamisajeData.fecha);
                 this.formDatos_Tamisaje.get('apePaterno').setValue(this.tamisajeData.apePaterno);

@@ -307,7 +307,6 @@ export class DatosGeneralesComponent implements OnInit {
             nroEmbarazo: this.nroEmbarazo,
             nroAtencion: this.nroAtencion
         }
-        console.log('data para buscar consulta ', data)
         this.consultasService.getConsultas(this.Gestacion.id, data).then((res: any) => {
             this.dataConsultas = res.object
             localStorage.removeItem('IDConsulta');
@@ -561,7 +560,7 @@ export class DatosGeneralesComponent implements OnInit {
             let nroHcl = this.dataPacientes.nroHcl;
             this.consultasService.getUltimaConsultaControl(this.idConsultoriObstetrico, nroHcl).then((res: any) => {
                 let informacion = res.object;
-                console.log('data de consultaaaaaaaaaaaaaaaa ', informacion);
+                // console.log('data de consultaaaaaaaaaaaaaaaa ', informacion);
                 if (!this.estadoEdicion) {
                     //guardar en el ls el nroAtencion
                     let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaNueva'));
@@ -574,7 +573,7 @@ export class DatosGeneralesComponent implements OnInit {
                     this.formDatos_Generales.get('nroControl').setValue(nroAtencion);
                     this.nroAtencion = nroAtencion;
                 }
-                console.log('NRO DE ATEncioonnnnnnn', this.nroAtencion);
+                // console.log('NRO DE ATEncioonnnnnnn', this.nroAtencion);
                 this.getConsultas();
                 if (informacion.ocupacion != null)
                     this.formDatos_Generales.get('ocupacion').setValue(informacion.ocupacion);
@@ -708,7 +707,7 @@ export class DatosGeneralesComponent implements OnInit {
 
     //Agregar, actualizar datos de consultorio obstetrico
     Add_updateConsultas() {
-        console.log('data consulta ', this.dataConsultas);
+        // console.log('data consulta ', this.dataConsultas);
         this.data = {
             fecha: this.datePipe.transform(this.formDatos_Generales.value.fecha, 'yyyy-MM-dd HH:mm:ss'),
             anioEdad: this.formDatos_Generales.value.edad,
@@ -878,7 +877,7 @@ export class DatosGeneralesComponent implements OnInit {
     traerDataReniec() {
         this.filiancionService.getDatosReniec(this.formDatos_Generales.value.nroDocAcompaniante).subscribe((res: any) => {
             this.dataPacientesReniec = res;
-            console.log(res);
+            // console.log(res);
             // this.imagePath = res.foto;
             this.formDatos_Generales.get('nroDocAcompaniante').setValue(this.dataPacientesReniec.nroDocumento);
             this.formDatos_Generales.get('apellidosAcompaniante').setValue(this.dataPacientesReniec.apePaterno + '' + this.dataPacientesReniec.apeMaterno);

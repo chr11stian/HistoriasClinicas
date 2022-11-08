@@ -63,7 +63,7 @@ export class ExamsInOfficeDialogComponent implements OnInit {
 
   loadHemoglobinFormArray(hemoArray: HemoExam[], laboExams: LaboratoryExam[]): void {
     let auxLab: any = laboExams.filter(item => item.nombreExamen == 'DOSAJE DE HEMOGLOBINA');
-    console.log('data de aux lab', auxLab);
+    // console.log('data de aux lab', auxLab);
     auxLab = auxLab.length == 0 ? '' : auxLab[0].lab;
     hemoArray.forEach(item => {
       let isDisabled: boolean;
@@ -95,7 +95,7 @@ export class ExamsInOfficeDialogComponent implements OnInit {
 
   deleteHemoExam() {
     let index = this.hemoForm.value.hemoglobina.length;
-    console.log('index ', index);
+    // console.log('index ', index);
     this.hemoglobina.removeAt(index - 1);
     this.isHemoFormCreated = false;
   }
@@ -103,7 +103,7 @@ export class ExamsInOfficeDialogComponent implements OnInit {
   async recoverExamsOfPregnancy() {
     await this.laboratoryService.getLaboExamsOfPregnancy(this.patientData.id).then((res: any) => {
       this.arrayHemoExams = res.object.hemoglobina.filter(item => item.hg != 0);
-      console.log('array of hemo ', this.arrayHemoExams);
+      // console.log('array of hemo ', this.arrayHemoExams);
       this.arrayOtherExam = res.object.otrosExamenes;
       this.firstGroupExams = this.divideArray(this.arrayOtherExam, 0, 7, this.firstArrayLocalExam);
       this.secondGroupExams = this.divideArray(this.arrayOtherExam, 8, 10, this.secondArrayLocalExam);
@@ -169,7 +169,7 @@ export class ExamsInOfficeDialogComponent implements OnInit {
     let allDataExams: any[] = [].concat(this.firstGroupExams, this.secondGroupExams, this.thirdGroupExams);
 
     let allHemoExams = this.hemoForm.value.hemoglobina;
-    console.log('data de hemos ', allHemoExams);
+    // console.log('data de hemos ', allHemoExams);
     let isDuplicated: boolean = false;
     allDataExams = allDataExams.filter(item => {
       if (item.valor.length > 1) {
@@ -189,7 +189,7 @@ export class ExamsInOfficeDialogComponent implements OnInit {
     if (!isDuplicated) {
       this.assignCIE10(allDataExams);
       this.examsToSave = this.buildArrayToSave(allDataExams, allHemoExams);
-      console.log('data to save', this.examsToSave);
+      // console.log('data to save', this.examsToSave);
       this.laboratoryService.postSaveLabExamInConsultation(this.consultationId, this.patientData.id, this.examsToSave).then((res: any) => {
         if (res.cod == "2126") {
           this.ref.close();
@@ -265,6 +265,6 @@ export class ExamsInOfficeDialogComponent implements OnInit {
   }
 
   addHemo1() {
-    console.log('valor de la hemoglobina ', this.hemoForm.value.hemoglobina);
+    // console.log('valor de la hemoglobina ', this.hemoForm.value.hemoglobina);
   }
 }

@@ -140,8 +140,8 @@ export class GiagnosticosComponent implements OnInit {
         //estado para saber que estado usar en consultas
         this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
 
-        console.log("DATA PACIENTE 2 desde datos generales", this.dataPaciente2);
-        console.log("gestacion desde datos generales", this.Gestacion);
+        // console.log("DATA PACIENTE 2 desde datos generales", this.dataPaciente2);
+        // console.log("gestacion desde datos generales", this.Gestacion);
 
         if (this.Gestacion == null) {
             this.tipoDocRecuperado = this.dataPaciente2.tipoDoc;
@@ -190,7 +190,7 @@ export class GiagnosticosComponent implements OnInit {
             { name: 'NO', boleano: false }
         ];
         this.patientData = JSON.parse(localStorage.getItem('datacupos')).paciente;
-        console.log('patient data ', this.patientData);
+        // console.log('patient data ', this.patientData);
         this.arrayDiagnosticType = [
             { label: "DEFINITIVO", value: "D" },
             { label: "PRESUNTIVO", value: "P" },
@@ -211,12 +211,12 @@ export class GiagnosticosComponent implements OnInit {
             edad: this.edadPaciente,
             sexo: this.sexoPaciente
         }
-        console.log("DATA PARA UPS HIS", Data)
+        // console.log("DATA PARA UPS HIS", Data)
         this.DxService.listaUpsHis(Data).then((res: any) => this.listaUpsHis = res.object);
     }
     recuperarUPS() {
         this.DxService.listaUps(this.idIpress).then((res: any) => this.listaUps = res.object);
-        console.log("DATA PARA UPS", this.listaUps)
+        // console.log("DATA PARA UPS", this.listaUps)
     }
     recuperarNroFetos() {
         let idData = {
@@ -224,7 +224,7 @@ export class GiagnosticosComponent implements OnInit {
         }
         this.DxService.getUltimaConsultaById(idData).subscribe((res: any) => {
             this.nroFetos = res.object.nroFetos;
-            console.log("nroFetos:", this.nroFetos)
+            // console.log("nroFetos:", this.nroFetos)
         })
     }
     showModalDialog() {
@@ -310,11 +310,9 @@ export class GiagnosticosComponent implements OnInit {
             factorCondicional: null,
             patologiaMaterna: this.form.value.patologiaMaterna,
         }
-        console.log(data)
         //enviar una consulta para guardar diagnostico
         this.DxService.guardarDiagnosticoDeGestante(this.nroHcl, this.nroEmbarazo, this.nroAtencion, data).then(
             (resp) => {
-                console.log(resp);
                 this.diagnosticoDialog = false;
                 this.recuperarDatosGuardados();
             })
@@ -337,11 +335,9 @@ export class GiagnosticosComponent implements OnInit {
             factorCondicional: null,
             patologiaMaterna: this.form.value.patologiaMaterna,
         }
-        console.log(data)
         //enviar una consulta para guardar diagnostico
         this.DxService.actualizarDiagnosticoDeGestante(this.nroHcl, this.nroEmbarazo, this.nroAtencion, data).then(
             (resp) => {
-                console.log(resp);
                 this.diagnosticoDialog = false;
                 this.recuperarDatosGuardados();
             })
@@ -387,7 +383,7 @@ export class GiagnosticosComponent implements OnInit {
         this.form.get('patologiaMaterna').setValue(rowData.patologiaMaterna);
         this.PrestacionService.getDiagnosticoPorCodigo(rowData.codPrestacion).subscribe((res: any) => {
             this.listaDeCIESIS = res.object.diagnostico;
-            console.log(this.listaDeCIESIS)
+            // console.log(this.listaDeCIESIS)
             this.form.patchValue({ SISCIE: this.listaDeCIESIS.find(elemento => elemento.cie10 == rowData.cie10SIS) });
         })
         this.CieService.getCIEByDescripcion(rowData.cie10HIS).subscribe((res: any) => {
@@ -398,7 +394,7 @@ export class GiagnosticosComponent implements OnInit {
         this.form.get('autocompleteSIS').disable();
         this.form.get('SISCIE').disable();
         this.diagnosticoDialog = true;
-        console.log("modificando", rowData);
+        // console.log("modificando", rowData);
     }
     /*ELIMINAR DATOS DE LAS TABLAS*/
     eliminarDx(index) {
@@ -413,7 +409,7 @@ export class GiagnosticosComponent implements OnInit {
             if (result.isConfirmed) {
                 this.DxService.eliminarDiagnosticoGestante(this.nroHcl, this.nroEmbarazo, this.nroAtencion, index).subscribe(
                     (resp) => {
-                        console.log(resp);
+                        // console.log(resp);
                         Swal.fire({
                             icon: 'success',
                             title: 'Eliminado correctamente',
@@ -541,11 +537,11 @@ export class GiagnosticosComponent implements OnInit {
         }
         this.DxService.getConsultaPrenatalByEmbarazo(this.Gestacion.id, this.idConsult, aux).subscribe((res: any) => {
             this.dataAux = res.object;
-            console.log("data consulta:" + this.dataAux);
+            // console.log("data consulta:" + this.dataAux);
 
             if (res['cod'] = '2401') {
                 if (this.dataAux != null) {
-                    console.log(this.dataAux);
+                    // console.log(this.dataAux);
                     this.messageService.add({
                         severity: 'info',
                         summary: 'Recuperado',
@@ -555,10 +551,10 @@ export class GiagnosticosComponent implements OnInit {
                     /**********************RECUPERAR DATOS DE ORIENTACIONES********/
                     if (this.dataAux.orientaciones != null) {
                         let y: number = 0;
-                        console.log(this.dataAux.orientaciones);
+                        // console.log(this.dataAux.orientaciones);
                         // this.messageService.add({severity:'info', summary:'Recuperado', detail:'registro de orientaciones recuperado satisfactoriamente'});
                         while (y < this.dataAux.orientaciones.length) {
-                            console.log("orientaciones consta de: ", this.dataAux.orientaciones[y]);
+                            // console.log("orientaciones consta de: ", this.dataAux.orientaciones[y]);
                             if (this.dataAux.orientaciones[y].valor === true) {
                                 this.orientaciones.push(this.dataAux.orientaciones[y]);
                             }
@@ -567,13 +563,13 @@ export class GiagnosticosComponent implements OnInit {
                     }
 
                     /****************RECUPERAR EDAD GESTACIONAL********************/
-                    console.log("edad gestacional:", this.dataAux.edadGestacionalSemanas);
+                    // console.log("edad gestacional:", this.dataAux.edadGestacionalSemanas);
                     if (this.dataAux.edadGestacionalSemanas === null || this.dataAux.edadGestacionalSemanas === undefined) {
                         this.edadGestacional = 0;
                     } else {
                         this.edadGestacional = this.dataAux.edadGestacionalSemanas;
                     }
-                    console.log(this.edadGestacional);
+                    // console.log(this.edadGestacional);
                     //this.guardarDiagnosticosEmbarazo();
                     /************************RECUPERAR DATOS EXTRA**************************/
 
@@ -604,7 +600,7 @@ export class GiagnosticosComponent implements OnInit {
                         let x: number = 0;
                         while (x < this.dataAux.diagnosticos.length) {
 
-                            console.log("diagnosticos consta de: ", this.dataAux.diagnosticos[x]);
+                            // console.log("diagnosticos consta de: ", this.dataAux.diagnosticos[x]);
                             this.diagnosticos.push(this.dataAux.diagnosticos[x]);
                             x++;
                         }
@@ -642,13 +638,13 @@ export class GiagnosticosComponent implements OnInit {
     }
 
     selectedOptionNameCIE(event, cieType) {
-        console.log('lista de cie ', this.listaDeCIE);
-        console.log('evento desde diagnos ', event);
+        // console.log('lista de cie ', this.listaDeCIE);
+        // console.log('evento desde diagnos ', event);
         if (cieType == 0) {
             this.form.patchValue({ diagnosticoSIS: event.value.diagnostico });
             this.form.patchValue({ autocompleteSIS: "" });
             this.form.patchValue({ SISCIE: event.value }, { emitEvent: false });
-            console.log(event.value)
+            // console.log(event.value)
         }
         if (cieType == 1) {
             this.form.patchValue({ diagnosticoHIS: event.descripcionItem });
@@ -660,7 +656,7 @@ export class GiagnosticosComponent implements OnInit {
     recuperarPrestaciones() {
         this.DxService.getPrestaciones().subscribe((res: any) => {
             this.arrayPrestation = res.object;
-            console.log("prestaciones:", this.arrayPrestation);
+            // console.log("prestaciones:", this.arrayPrestation);
             this.verifyPrestationPerAge(this.arrayPrestation, this.patientData);
         })
     }
@@ -682,7 +678,7 @@ export class GiagnosticosComponent implements OnInit {
                     }
                     break
                 default:
-                    console.log('caso no evaluado');
+                    // console.log('caso no evaluado');
                     break;
             }
         })
@@ -946,7 +942,7 @@ export class GiagnosticosComponent implements OnInit {
     loadFirstBatery(arrayBatery: FirstBatery[]): DiagnosticHIS[] {
         let arrayDiagnosticHIS: DiagnosticHIS[] = [];
         arrayBatery.forEach(item => {
-            console.log('arreglo first');
+            // console.log('arreglo first');
             let HISdiagnostic: DiagnosticHIS = {
                 nombreUPS: "OBSTETRICIA",
                 nombreUPSaux: "CRED",
