@@ -26,7 +26,7 @@ const routes: Routes = [
                     ),
                 canActivate: [UserGuard],
                 data: {
-                    roles: ["ROLE_ADMIN","ROLE_TEC_ADMINI_PERSONAL"],
+                    roles: ["ROLE_ADMIN","ROLE_TEC_ADMINI_PERSONAL","ROLE_ADMININ_PERSONAL"],
                 },
             },
             {
@@ -37,7 +37,7 @@ const routes: Routes = [
                     ),
                 canActivate: [UserGuard],
                 data: {
-                    roles: ["ROLE_ADMIN"],
+                    roles: ["ROLE_ADMIN","ROLE_ADMININ_PERSONAL"],
                 },
             },
 
@@ -49,7 +49,7 @@ const routes: Routes = [
                     ),
                 canActivate: [UserGuard],
                 data: {
-                    roles: ["ROLE_ADMIN"],
+                    roles: ["ROLE_ADMIN","ROLE_ADMININ_PERSONAL"],
                 },
             },
             {
