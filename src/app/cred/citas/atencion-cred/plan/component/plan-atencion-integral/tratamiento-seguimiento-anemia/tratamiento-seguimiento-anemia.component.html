@@ -10,6 +10,7 @@
             <div class="col-1 text-center" style="font-weight: bold">Nro Control</div>
             <div class="col text-center" style="font-weight: bold">Fecha Tentativa</div>
             <div class="col text-center" style="font-weight: bold">Fecha Prueba</div>
+            <div class="col-2 text-center" style="font-weight: bold">Resultado Hemoglobina</div>
             <div class="col-2 text-center" style="font-weight: bold">Resultado Hemoglobina Ajustado</div>
             <div class="col-2 text-center" style="font-weight: bold">Estado Controlado</div>
         </div>
@@ -53,6 +54,9 @@
                 {{dosaje.valorHb}}
             </div>
             <div class="col-2 text-center">
+                {{dosaje.valorHb-dosaje.factorCorreccion}}
+            </div>
+            <div class="col-2 text-center">
                 <span *ngIf="dosaje.estadoControlado;else noControlado">
                     <p-tag severity="success" value="prueba Tomada" [rounded]="true">
                     </p-tag>
@@ -77,6 +81,7 @@
             <div class="col-1 text-center" style="font-weight: bold">Nro Control</div>
             <div class="col text-center" style="font-weight: bold">Fecha Tentativa</div>
             <div class="col text-center" style="font-weight: bold">Fecha Prueba</div>
+            <div class="col-2 text-center" style="font-weight: bold">Resultado Hemoglobina</div>
             <div class="col-2 text-center" style="font-weight: bold">Resultado Hemoglobina Ajustado</div>
             <div class="col-2 text-center" style="font-weight: bold">Estado Controlado</div>
         </div>
@@ -118,6 +123,9 @@
             </div>
             <div class="col-2 text-center">
                 {{dosaje.valorHb}}
+            </div>
+            <div class="col-2 text-center">
+                {{dosaje.valorHb-dosaje.factorCorreccion}}
             </div>
             <div class="col-2 text-center">
                 <span *ngIf="dosaje.estadoControlado;else noControlado">

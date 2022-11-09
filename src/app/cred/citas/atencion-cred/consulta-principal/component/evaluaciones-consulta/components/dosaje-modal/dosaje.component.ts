@@ -7,6 +7,7 @@ import {
 import {DosajeHemoglobina} from "../../../../models/dosaje.interface";
 import {delayWhen} from "rxjs/operators";
 import {ConfirmationService} from "primeng/api";
+import Swal from 'sweetalert2';
 
 @Component({
     selector: 'app-dosaje',
@@ -25,6 +26,11 @@ export class DosajeComponent implements OnInit {
         {name: 'Negativo', code: 'NO'},
         {name: 'Positivo', code: 'SI'},
     ]
+    tipoDiagnosticoList = [
+      { name: 'DEFINITIVO', code: 'D' },
+      { name: 'PRESUNTIVO', code: 'P' },
+      { name: 'REPETITIVO', code: 'R' },
+    ];
     dosajeFG: FormGroup;
     dosaje: DosajeHemoglobina = this.config.data;
     documento = JSON.parse(localStorage.getItem('documento'))
@@ -66,18 +72,17 @@ export class DosajeComponent implements OnInit {
             valorHb: new FormControl('', Validators.required),
             valorHbRestado: new FormControl({value: '', disabled: true}, Validators.required),
             positivoAnemia: new FormControl('', Validators.required),
+            codLab: new FormControl({value: '', disabled: false}, Validators.required),
+            tipoDiagnostico: new FormControl({value: '', disabled: false}, Validators.required),
             // nivelAnemia:new FormControl({ value: '', disabled: this.isDisabledNivel }, { validators: [Validators.required] }),
 
         })
     }
 
     getDosaje() {
-        console.log('dosaje recuperado', this.dosaje)
         this.getFC("fechaTentativa").setValue(this.dosaje.fechaTentativa);
         this.getFC("fechaAdministrada").setValue(new Date());
-        // this.getFC('valogHb').setValue(this.dosaje.valorHb))
-        console.log(this.getFC('fechaAdministrada').value)
-
+        this.getFC("codLab").setValue(this.dosaje.nroControl);
     }
 
     valorCorrejido(valor: number) {
@@ -101,7 +106,7 @@ export class DosajeComponent implements OnInit {
     }
 
     save() {
-        const inputRequest = {
+       /*  const inputRequest = {
             servicio: "SERVICIO",
             nroCama: "15",
             dxPresuntivo: "SI",
@@ -167,10 +172,32 @@ export class DosajeComponent implements OnInit {
                 fecha: this.obtenerFecha(this.getFC('fechaAdministrada').value),
                 fechaTentativa: this.obtenerFecha(this.getFC('fechaTentativa').value),
             }
+        } */
+        const inputRequest=
+        {
+            /* fua start */
+            codPrestacion: "codPrestacion",
+            diagnosticoSIS: "diagnosticoSIS",
+            cie10SIS: "cie10SIS",
+            /* end */
+            codProcedimientoHIS: "85018",
+            nombreUPS: "Enfermeria",
+            nombreUPSaux: "CRED",
+            lab: this.getFC('codLab').value,
+            tipo: this.getFC('tipoDiagnostico').value,
+            tipoTratamiento: this.dosaje.tipoTratamiento,//preventivo o terapeutico
+            descripcionEdad:this.dosaje.descripcionEdad,
+            nombre: this.dosaje.nombre,
+            edadMes:  this.dosaje.edadMes,
+            nroControl: this.dosaje.nroControl,
+            valorHb: this.getFC('valorHb').value,
+            factorCorreccion:  this.factorAjuste,
+            estadoControlado: true,
+            tieneAnemia: this.getFC('positivoAnemia').value,//positivo negativo
+            nivelAnemia: this.nivelAnemiaSelected,
+            fecha:  this.obtenerFecha(this.getFC('fechaAdministrada').value),
+            fechaTentativa: this.obtenerFecha(this.getFC('fechaTentativa').value),
         }
-
-
-        console.log('input reques:->>>>>>>>>>>', inputRequest.tsa)
         this.confirmationService.confirm({
             header: "Confirmación",
             message: "Esta Seguro que desea guardar el Dosaje de Hemoglobina",
@@ -179,8 +206,10 @@ export class DosajeComponent implements OnInit {
             rejectLabel: "No",
             key:'claveDialog',
             accept: () => {
-                this.dosajeService.PostDosajeHemoglobinaLaboratorio(this.idConsulta, inputRequest).subscribe((resp) => {
-                    this.ref.close('agregado')
+                this.dosajeService.postDosajeHemoglobinaConsultorio(this.idConsulta, inputRequest).subscribe((resp) => {
+                    if(resp.cod=="2121"){
+                        this.ref.close('agregado')
+                    }
                 })
             },
             reject: () => {
