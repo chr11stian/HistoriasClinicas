@@ -38,6 +38,9 @@ export class ConsultaComponent implements OnInit {
     token: any = JSON.parse(localStorage.getItem('token'));
     consultationId: string;
     downloadLink: string;
+    consultationStatus: number;
+
+
     constructor(
         private fb: FormBuilder,
         private location: Location,
@@ -71,6 +74,7 @@ export class ConsultaComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.obstetriciaGeneralService.actualConsultationStatus$.subscribe((res: number) => this.consultationStatus = res)
         console.log('link to downnnnnnnnnnnnnnnnnnnn  ', this.downloadLink);
     }
 
@@ -162,14 +166,15 @@ export class ConsultaComponent implements OnInit {
 
     //editar consulta o visualizar na ma, mandamos la data de la fila
     irConsultaVisualizar(event, edicion) {
+        this.obstetriciaGeneralService.setActualConsultationStatus$(event.estadoAtencion);
         this.router.navigate(['/dashboard/obstetricia-general/citas/gestante/obstetricia/consultorio-obstetrico'])
         localStorage.setItem("nroConsultaEditar", event.nroAtencion);
         localStorage.setItem("consultaEditarEstado", edicion);
-        // console.log(event)
         localStorage.removeItem('IDConsulta');
         localStorage.setItem('IDConsulta', JSON.stringify(event.id));
         localStorage.setItem('datosConsultaActual', JSON.stringify(event));
     }
+
     irFUA(rowData) {
         let message1 = "Esta Seguro de Generar FUA?, se dara como finalizado la consulta"
         let message2 = "Esta Seguro de Generar FUA?, Debe revisar el tipo de Seguro"

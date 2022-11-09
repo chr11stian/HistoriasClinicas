@@ -96,6 +96,8 @@ export class TratamientoComponent implements OnInit {
   consultationId: string;
   showNextDate: boolean = false;
   nextDateModel: string;
+  consultationFinished: boolean = false;
+  actualConsultation: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -125,9 +127,8 @@ export class TratamientoComponent implements OnInit {
     this.recuperarUpsAuxHis()
     //estado para saber que estado usar en consultas
     this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
-
-    console.log("DATA PACIENTE 2 desde datos generales", this.dataPaciente2);
-    console.log("gestacion desde datos generales", this.Gestacion);
+    this.actualConsultation = JSON.parse(localStorage.getItem('datosConsultaActual'));
+    this.actualConsultation ? this.actualConsultation.estadoAtencion == 2 ? this.consultationFinished = true : this.consultationFinished = false : this.consultationFinished = false;
 
     if (this.Gestacion == null) {
       this.tipoDocRecuperado = this.dataPaciente2.tipoDoc;
@@ -147,12 +148,12 @@ export class TratamientoComponent implements OnInit {
       //guardar en el ls el nroAtencion
       let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaNueva'));
       this.nroAtencion = nroAtencion;
-      console.log("entre a nueva consulta", this.nroAtencion)
+      // console.log("entre a nueva consulta", this.nroAtencion)
     }
     else {
       let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaEditar'));
       this.nroAtencion = nroAtencion;
-      console.log("entre a edicion consulta", this.nroAtencion)
+      // console.log("entre a edicion consulta", this.nroAtencion)
     }
 
 
@@ -243,7 +244,7 @@ export class TratamientoComponent implements OnInit {
       nombreUPSAux2: new FormControl(""),
     });
   }
-  
+
 
   ngOnInit(): void {
     this.recuperarInmunizaciones();
@@ -274,19 +275,19 @@ export class TratamientoComponent implements OnInit {
       sexo: this.sexoPaciente
     }
     this.tratamientoService.listaUpsHis(Data).then((res: any) => this.listaUpsHis = res.object);
-    console.log("DATA PARA UPS HIS", this.listaUpsHis)
+    // console.log("DATA PARA UPS HIS", this.listaUpsHis)
   }
-  arrayUPSAux:any[]=[]
+  arrayUPSAux: any[] = []
   recuperarUpsAuxHis() {
     this.UpsAuxService.getUpsAuxPorIpress(this.idIpress).subscribe(
-      (r: any) => {      
+      (r: any) => {
         if (r.object != null) {
           this.arrayUPSAux = r.object.filter(
             (element) => element.estado == true
           );
         }
-        console.log('lista de arreglos',this.arrayUPSAux);
-        
+        // console.log('lista de arreglos',this.arrayUPSAux);
+
       }
     );
   }
@@ -305,7 +306,7 @@ export class TratamientoComponent implements OnInit {
       },
     })
     this.ref.onClose.subscribe((data: any) => {
-      console.log("data de modal tratamiento", data)
+      // console.log("data de modal tratamiento", data)
       this.recuperarTratamientos();
     })
   }
@@ -324,7 +325,7 @@ export class TratamientoComponent implements OnInit {
       data: aux
     })
     this.ref.onClose.subscribe((data: any) => {
-      console.log("data de modal tratamiento", data)
+      // console.log("data de modal tratamiento", data)
       this.recuperarTratamientos();
     })
   }
@@ -338,7 +339,7 @@ export class TratamientoComponent implements OnInit {
       },
     })
     this.ref.onClose.subscribe((data: any) => {
-      console.log("data de modal tratamiento", data)
+      // console.log("data de modal tratamiento", data)
       this.recuperarInmunizaciones();
     })
   }
@@ -356,7 +357,7 @@ export class TratamientoComponent implements OnInit {
       data: aux
     })
     this.ref.onClose.subscribe((data: any) => {
-      console.log('data de modal inmunizaciones ', data)
+      // console.log('data de modal inmunizaciones ', data)
       this.recuperarInmunizaciones();
     })
   }
@@ -370,10 +371,10 @@ export class TratamientoComponent implements OnInit {
       },
     })
     this.ref.onClose.subscribe((data: any) => {
-      console.log("data de modal recomendaciones", data)
+      // console.log("data de modal recomendaciones", data)
       if (data !== undefined)
         this.recomendaciones.push(data);
-      console.log(this.formRecomendaciones);
+      // console.log(this.formRecomendaciones);
     })
   }
   openDialogEditarRecomendaciones(row, index) {
@@ -391,7 +392,7 @@ export class TratamientoComponent implements OnInit {
       data: aux
     })
     this.ref.onClose.subscribe((data: any) => {
-      console.log('data de modal Recomendaciones ', data)
+      // console.log('data de modal Recomendaciones ', data)
       if (data !== undefined) {
         this.recomendaciones.splice(data.index, 1, data.row);
       };
@@ -408,7 +409,7 @@ export class TratamientoComponent implements OnInit {
     })
   }
   guardarTodosDatos() {
-    console.log(this.formRIEP.value);
+    // console.log(this.formRIEP.value);
     const req = {
       id: this.idConsulta,
       nroHcl: this.nroHcl,
@@ -483,11 +484,9 @@ export class TratamientoComponent implements OnInit {
       },
       recomendaciones: this.recomendaciones,
     }
-    console.log("enviar req", req);
+    // console.log("enviar req", req);
     this.tratamientoService.updateConsultas(this.nroFetos, this.Gestacion.id, req).subscribe(
       (resp) => {
-        console.log(resp);
-        console.log(req);
         Swal.fire({
           icon: 'success',
           title: 'Actualizado correctamente',
@@ -512,7 +511,7 @@ export class TratamientoComponent implements OnInit {
 
     await this.tratamientoService.getConsultaPrenatalByEmbarazo(this.Gestacion.id, this.consultationId, aux).subscribe((res: any) => {
       this.dataConsulta = res.object;
-      console.log("data consulta:" + res.object);
+      // console.log("data consulta:" + res.object);
 
 
       if (res['cod'] = '2401') {
@@ -539,7 +538,7 @@ export class TratamientoComponent implements OnInit {
               this.formRIEP.get('diagnostico').setValue(this.diagnosticosList.find((elto) => elto.cie10SIS == this.dataConsulta.tratamientosSuplementos.acidoFolico.cie10SIS));
               this.CieService.getCIEByDescripcion(this.dataConsulta.tratamientosSuplementos.acidoFolico.codProcedimientoHIS).subscribe((res: any) => {
                 this.listaDeCIE = res.object;
-                console.log("este suplement", this.dataConsulta.tratamientosSuplementos.acidoFolico.codProcedimientoHIS)
+                // console.log("este suplement", this.dataConsulta.tratamientosSuplementos.acidoFolico.codProcedimientoHIS)
                 this.formRIEP.get('suple1').setValue(this.dataConsulta.tratamientosSuplementos.acidoFolico.codProcedimientoHIS);
                 //this.formRIEP.patchValue({ HISCIE1: this.listaDeCIE.find(elemento => elemento.codigoItem == this.dataConsulta.tratamientosSuplementos.acidoFolico.codProcedimientoHIS) });
                 this.formRIEP.get("diagnosticoHIS1").setValue(this.listaDeCIE.find(elemento => elemento.codigoItem == this.dataConsulta.tratamientosSuplementos.acidoFolico.codProcedimientoHIS).descripcionItem);
@@ -566,13 +565,13 @@ export class TratamientoComponent implements OnInit {
                 this.formRIEP.get('diagnostico').setValue(this.diagnosticosList.find((elto) => elto.cie10SIS == this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.cie10SIS));
                 this.CieService.getCIEByDescripcion(this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.codProcedimientoHIS).subscribe((res: any) => {
                   this.listaDeCIE = res.object;
-                  console.log("este suplement", this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.codProcedimientoHIS)
+                  // console.log("este suplement", this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.codProcedimientoHIS)
                   this.formRIEP.get('suple1').setValue(this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.codProcedimientoHIS);
                   //this.formRIEP.patchValue({ HISCIE1: this.listaDeCIE.find(elemento => elemento.codigoItem == this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.codProcedimientoHIS) });
                   this.formRIEP.get("diagnosticoHIS1").setValue(this.listaDeCIE.find(elemento => elemento.codigoItem == this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.codProcedimientoHIS).descripcionItem);
                 })
                 this.filterItemsMed(this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.nombre);
-                console.log("aux", this.aux);
+                // console.log("aux", this.aux);
                 this.formRIEP.patchValue({ nombre: this.aux.find(elemento => elemento.medicamento.codigo == this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.codSISMED) });
                 this.selectedOptionNameMedicamento(this.aux.find(elemento => elemento.medicamento.codigo == this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.codSISMED), 1);
                 this.formRIEP.get('nombreUPS1').setValue(this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.nombreUPS);
@@ -595,13 +594,13 @@ export class TratamientoComponent implements OnInit {
               this.formRIEP.get('diagnostico2').setValue(this.diagnosticosList.find((elto) => elto.cie10SIS == this.dataConsulta.tratamientosSuplementos.calcio.cie10SIS));
               this.CieService.getCIEByDescripcion(this.dataConsulta.tratamientosSuplementos.calcio.codProcedimientoHIS).subscribe((res: any) => {
                 this.listaDeCIE = res.object;
-                console.log("este suplement", this.dataConsulta.tratamientosSuplementos.calcio.codProcedimientoHIS)
+                // console.log("este suplement", this.dataConsulta.tratamientosSuplementos.calcio.codProcedimientoHIS)
                 this.formRIEP.get('suple2').setValue(this.dataConsulta.tratamientosSuplementos.calcio.codProcedimientoHIS);
                 //this.formRIEP.patchValue({ HISCIE2: this.listaDeCIE.find(elemento => elemento.codigoItem == this.dataConsulta.tratamientosSuplementos.calcio.codProcedimientoHIS) });
                 this.formRIEP.get("diagnosticoHIS2").setValue(this.listaDeCIE.find(elemento => elemento.codigoItem == this.dataConsulta.tratamientosSuplementos.calcio.codProcedimientoHIS).descripcionItem);
               })
               this.filterItemsMed(this.dataConsulta.tratamientosSuplementos.calcio.nombre);
-              console.log("aux", this.aux);
+              // console.log("aux", this.aux);
               this.formRIEP.patchValue({ nombre2: this.aux.find(elemento => elemento.medicamento.codigo == this.dataConsulta.tratamientosSuplementos.calcio.codSISMED) });
               this.selectedOptionNameMedicamento(this.aux.find(elemento => elemento.medicamento.codigo == this.dataConsulta.tratamientosSuplementos.calcio.codSISMED), 2);
               this.formRIEP.get('nombreUPS2').setValue(this.dataConsulta.tratamientosSuplementos.calcio.nombreUPS);
@@ -703,12 +702,12 @@ export class TratamientoComponent implements OnInit {
   async traerDiagnosticosDeConsulta() {
     await this.tratamientoService.listarDiagnosticosDeUnaConsulta(this.nroHcl, this.nroEmbarazo, this.nroAtencion).then((res: any) => {
       this.diagnosticosList = res.object;
-      console.log("diagnosticos:", this.diagnosticosList);
+      // console.log("diagnosticos:", this.diagnosticosList);
     })
   }
   //FARMACIA MEDICAMENTOS
   selectedOptionNameMedicamento(event, n) {
-    console.log('lista de medicamentos ', this.medicamentosConDatos);
+    // console.log('lista de medicamentos ', this.medicamentosConDatos);
     if (n == 1) {
       this.codMedicamento1 = event.medicamento.codigo;
       this.formRIEP.patchValue({ acidoFolicoDescripcion: event.medicamento.nombreComercial });
@@ -718,7 +717,7 @@ export class TratamientoComponent implements OnInit {
       this.formRIEP.patchValue({ stock: event.stock });
     }
     if (n == 2) {
-      console.log(event);
+      // console.log(event);
       this.codMedicamento2 = event.medicamento.codigo;
       this.formRIEP.patchValue({ calcioDescripcion: event.medicamento.nombreComercial });
       this.formRIEP.patchValue({ calcioNombre: event.medicamento.nombre });
@@ -729,7 +728,7 @@ export class TratamientoComponent implements OnInit {
 
   }
   listarMedicamentosFarmacia() {
-    console.log("entrando a recuperar medicamentos de la farmacia");
+    // console.log("entrando a recuperar medicamentos de la farmacia");
     this.farmaciaService.getListaMedicamentosFarmaciaXIpress(this.renIpress).subscribe((data: any) => {
       if (data != undefined) {
         this.listaMedicamentos = (data.object);
@@ -758,7 +757,7 @@ export class TratamientoComponent implements OnInit {
   filterItems(event: any) {
     let filtered: any[] = [];
     let query = event.query;
-    console.log(this.medicamentosConDatos);
+    // console.log(this.medicamentosConDatos);
     this.aux = this.medicamentosConDatos;
     for (let i = 0; i < this.aux.length; i++) {
       let item = this.aux[i];
@@ -768,7 +767,7 @@ export class TratamientoComponent implements OnInit {
     }
     this.aux = filtered;
     if (this.aux.length == 0) {
-      console.log('no encontrado');
+      // console.log('no encontrado');
       this.aux = this.medicamentosConDatos;
 
     }
@@ -776,7 +775,7 @@ export class TratamientoComponent implements OnInit {
   filterItemsMed(str) {
     let filtered: any[] = [];
     let query = str;
-    console.log(this.medicamentosConDatos);
+    // console.log(this.medicamentosConDatos);
     this.aux = this.medicamentosConDatos;
     for (let i = 0; i < this.aux.length; i++) {
       let item = this.aux[i];
@@ -786,7 +785,7 @@ export class TratamientoComponent implements OnInit {
     }
     this.aux = filtered;
     if (this.aux.length == 0) {
-      console.log('no encontrado');
+      // console.log('no encontrado');
       this.aux = this.medicamentosConDatos;
 
     }
@@ -806,8 +805,8 @@ export class TratamientoComponent implements OnInit {
     }
   }
   selectedOptionNameCIE(event, cieType) {
-    console.log('lista de cie ', this.listaDeCIE);
-    console.log('evento desde diagnos ', event);
+    // console.log('lista de cie ', this.listaDeCIE);
+    // console.log('evento desde diagnos ', event);
     if (cieType == 2) {
       this.formRIEP.patchValue({ diagnosticoHIS2: event.descripcionItem });
       this.formRIEP.patchValue({ autocompleteHIS2: "" });
@@ -821,7 +820,7 @@ export class TratamientoComponent implements OnInit {
   }
 
   closeConsultation(): void {
-    console.log('cerrar consulta ', this.nextDateModel);
+    // console.log('cerrar consulta ', this.nextDateModel);
   }
 
   openShowHisDialog(): void {
@@ -834,7 +833,7 @@ export class TratamientoComponent implements OnInit {
       data: data,
     });
     this.ref.onClose.subscribe(res => {
-      console.log('respuesta ', res);
+      // console.log('respuesta ', res);
     })
   }
 }

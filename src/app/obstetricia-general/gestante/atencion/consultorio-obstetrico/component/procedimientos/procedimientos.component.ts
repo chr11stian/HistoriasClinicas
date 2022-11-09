@@ -72,15 +72,17 @@ export class ProcedimientosComponent implements OnInit {
 
   fuaForm: FormGroup;
   hisForm: FormGroup;
+  consultationStatus$ = this.obstetriciaGeneralService.consultationStatus$;
+  consultationFinished: boolean = false;
+  actualConsultation: any;
+
   constructor(
-    private formBuilder: FormBuilder,
     private dialog: DialogService,
-    private messageService: MessageService,
     private tratamientoService: ConsultasService,
-    private farmaciaService: IpressFarmaciaService,
     private DiagnosticoService: DiagnosticoConsultaService,
     private UpsAuxService: UpsAuxIpressService,
     private cieService: CieService,
+    private obstetriciaGeneralService: ObstetriciaGeneralService,
   ) {
     //this.buildForm();
 
@@ -92,6 +94,8 @@ export class ProcedimientosComponent implements OnInit {
     this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
     this.patientData = JSON.parse(localStorage.getItem('datacupos')).paciente;
     this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
+    this.actualConsultation = JSON.parse(localStorage.getItem('datosConsultaActual'));
+    this.actualConsultation ? this.actualConsultation.estadoAtencion == 2 ? this.consultationFinished = true : this.consultationFinished = false : this.consultationFinished = false;
 
     if (this.Gestacion == null) {
       this.tipoDocRecuperado = this.dataPaciente2.tipoDoc;
@@ -111,12 +115,12 @@ export class ProcedimientosComponent implements OnInit {
       //guardar en el ls el nroAtencion
       let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaNueva'));
       this.nroAtencion = nroAtencion;
-      console.log("entre a nueva consulta", this.nroAtencion)
+      // console.log("entre a nueva consulta", this.nroAtencion)
     }
     else {
       let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaEditar'));
       this.nroAtencion = nroAtencion;
-      console.log("entre a edicion consulta", this.nroAtencion)
+      // console.log("entre a edicion consulta", this.nroAtencion)
     }
     this.arrayDiagnosticType = [
       { label: "DEFINITIVO", value: "D" },
@@ -167,7 +171,7 @@ export class ProcedimientosComponent implements OnInit {
     }
     this.tratamientoService.listarResumen(data).then((res: any) => {
       this.resumen = res.object;
-      console.log("resumen:", this.resumen);
+      // console.log("resumen:", this.resumen);
     })
   }
   traerListaResumenPendientes() {
@@ -178,13 +182,13 @@ export class ProcedimientosComponent implements OnInit {
     }
     this.tratamientoService.listaResumenPendientes(data).then((res: any) => {
       this.resumenPendientes = res.object;
-      console.log("resumenPendientes:", this.resumenPendientes);
+      // console.log("resumenPendientes:", this.resumenPendientes);
     })
   }
   traerDiagnosticosDeConsulta() {
     this.tratamientoService.listarDiagnosticosDeUnaConsulta(this.nroHcl, this.nroEmbarazo, this.nroAtencion).then((res: any) => {
       this.diagnosticosList = res.object;
-      console.log("diagnosticos:", this.diagnosticosList);
+      // console.log("diagnosticos:", this.diagnosticosList);
     })
   }
 
@@ -210,7 +214,7 @@ export class ProcedimientosComponent implements OnInit {
       },
     });
     this.ref.onClose.subscribe((data: any) => {
-      console.log("data de modal PROCEDIMIENTOS", data)
+      // console.log("data de modal PROCEDIMIENTOS", data)
       this.recuperarProcedimientos();
       this.traerListaResumenPendientes();
     });
@@ -226,7 +230,7 @@ export class ProcedimientosComponent implements OnInit {
       data: nombre
     })
     this.ref.onClose.subscribe((data: any) => {
-      console.log("data de modal PROCEDIMIENTOS", data)
+      // console.log("data de modal PROCEDIMIENTOS", data)
       this.recuperarProcedimientos();
       this.traerListaResumenPendientes();
     })
@@ -246,7 +250,7 @@ export class ProcedimientosComponent implements OnInit {
       data: aux
     })
     this.ref.onClose.subscribe((data: any) => {
-      console.log('data de modal PROCEDIMIENTOS ', data)
+      // console.log('data de modal PROCEDIMIENTOS ', data)
       this.recuperarProcedimientos();
     })
   }
@@ -286,13 +290,15 @@ export class ProcedimientosComponent implements OnInit {
     this.DiagnosticoService.getPrestationPerIdConsulta(this.idConsulta).then(res => {
       let hash: any = {};
       this.arrayPrestationCode = res.object;
-      this.arrayPrestationCode = this.arrayPrestationCode.filter(item => hash[item.codPrestacion] ? false : hash[item.codPrestacion] = true);
+      if (this.arrayPrestationCode) {
+        this.arrayPrestationCode = this.arrayPrestationCode.filter(item => hash[item.codPrestacion] ? false : hash[item.codPrestacion] = true);
+      }
     });
   }
   onChangePrestacion() {
     let prestation = this.fuaForm.value.prestacion;
     this.listProcedures = prestation.procedimientos;
-    console.log('lista de proced ', this.listProcedures);
+    // console.log('lista de proced ', this.listProcedures);
   }
 
   selectDxSIS(event) {
