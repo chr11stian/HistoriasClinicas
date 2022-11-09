@@ -1,5 +1,6 @@
 
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { PacienteService } from 'src/app/core/services/paciente/paciente.service';
 import { UbicacionService } from 'src/app/mantenimientos/services/ubicacion/ubicacion.service';
@@ -23,13 +24,19 @@ export class PacienteComponent implements OnInit {
     totalRecords: number;
     first: number = 0;
     rows: number = 20;
+    searchForm: FormGroup;
 
     constructor(
         private pacienteService: PacienteService,
         private ubicacionService: UbicacionService,
         private dialog: DialogService,
     ) {
-
+        this.initializeForm();
+    }
+    initializeForm(): void {
+        this.searchForm = new FormGroup({
+            search: new FormControl({ value: '', disabled: false })
+        })
     }
 
     ngOnInit(): void {
@@ -37,11 +44,9 @@ export class PacienteComponent implements OnInit {
         // this.cargarPacientes();
     }
 
-
     cargarPacientes() {
         this.pacienteService.getPacientes().subscribe((res: any) => {
             this.listaPacientes = res.object;
-            console.log('lista de pacientes ', this.listaPacientes)
         });
     }
 
@@ -89,5 +94,20 @@ export class PacienteComponent implements OnInit {
             this.listaPacientes = res.object;
             this.totalRecords = res.totalPages * 20;
         });
+    }
+    searchPatient(): void {
+        let keyWord: string = this.searchForm.value.search;
+        if (keyWord == "") {
+            this.pacienteService.getPaginatedPatients(1).subscribe((res: any) => {
+                this.listaPacientes = res.object;
+                this.totalRecords = res.totalPages * 20;
+            });
+        } else {
+            this.pacienteService.getSearchPatientByNroDocNames(keyWord).subscribe((res: any) => {
+                this.listaPacientes = res.object;
+                this.totalRecords = this.listaPacientes.length;
+            });
+        }
+        
     }
 }
