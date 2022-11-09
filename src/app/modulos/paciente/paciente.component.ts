@@ -1,17 +1,10 @@
-import { DatePipe } from '@angular/common';
+
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { FormControl, FormGroup } from '@angular/forms';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { TipoEtnia } from 'src/app/core/models/mantenimiento.models';
-import { Departamentos, Distrito, Provincias } from 'src/app/core/models/ubicacion.models';
-import { IpressService } from 'src/app/core/services/ipress/ipress.service';
 import { PacienteService } from 'src/app/core/services/paciente/paciente.service';
-import { DocumentoIdentidadService } from 'src/app/mantenimientos/services/documento-identidad/documento-identidad.service';
-import { EtniaService } from 'src/app/mantenimientos/services/etnia/etnia.service';
 import { UbicacionService } from 'src/app/mantenimientos/services/ubicacion/ubicacion.service';
 import { DialogPacienteComponent } from "./dialog-paciente/dialog-paciente.component";
-
 
 @Component({
     selector: 'app-paciente',
@@ -28,31 +21,32 @@ export class PacienteComponent implements OnInit {
     // iprees: string = "la posta medica";
     auxipress: string = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
     dataPacienteEditar: any;
+    totalRecords: number;
+    first: number = 0;
+    rows: number = 20;
+    searchForm: FormGroup;
 
     constructor(
-        private fb: FormBuilder,
-        private documentoIdentidadService: DocumentoIdentidadService,
-        private ipressService: IpressService,
         private pacienteService: PacienteService,
         private ubicacionService: UbicacionService,
-        private etniaService: EtniaService,
-        private messageService: MessageService,
-        private confirmationService: ConfirmationService,
         private dialog: DialogService,
     ) {
-
+        this.initializeForm();
+    }
+    initializeForm(): void {
+        this.searchForm = new FormGroup({
+            search: new FormControl({ value: '', disabled: false })
+        })
     }
 
     ngOnInit(): void {
         this.getDepartamentos();
-        this.cargarPacientes();
+        // this.cargarPacientes();
     }
-
 
     cargarPacientes() {
         this.pacienteService.getPacientes().subscribe((res: any) => {
             this.listaPacientes = res.object;
-            console.log('lista de pacientes ', this.listaPacientes)
         });
     }
 
@@ -75,7 +69,7 @@ export class PacienteComponent implements OnInit {
             width: "90%",
             height: "100%",
             data: auxData
-        })
+        });
         this.ref.onClose.subscribe((data: any) => {
             this.cargarPacientes();
         });
@@ -92,5 +86,28 @@ export class PacienteComponent implements OnInit {
         this.ref.onClose.subscribe((data: any) => {
             this.cargarPacientes();
         });
+    }
+
+    pagination(event): void {
+        let page: number = event.first / 20 + 1;
+        this.pacienteService.getPaginatedPatients(page).subscribe((res: any) => {
+            this.listaPacientes = res.object;
+            this.totalRecords = res.totalPages * 20;
+        });
+    }
+    searchPatient(): void {
+        let keyWord: string = this.searchForm.value.search;
+        if (keyWord == "") {
+            this.pacienteService.getPaginatedPatients(1).subscribe((res: any) => {
+                this.listaPacientes = res.object;
+                this.totalRecords = res.totalPages * 20;
+            });
+        } else {
+            this.pacienteService.getSearchPatientByNroDocNames(keyWord).subscribe((res: any) => {
+                this.listaPacientes = res.object;
+                this.totalRecords = this.listaPacientes.length;
+            });
+        }
+        
     }
 }
