@@ -84,7 +84,7 @@ export class LabSolicitudComponent implements OnInit {
   getPrestacion() {
     this.prestacionService.getPrestacion().subscribe((resp) => {
       this.prestacion2 = resp['object']
-      console.log("PRestacion", this.prestacion2[2].descripcion);
+      // console.log("PRestacion", this.prestacion2[2].descripcion);
     })
   }
 
@@ -154,17 +154,17 @@ export class LabSolicitudComponent implements OnInit {
   traerDiagnosticosDeConsulta() {
     this.DxService.listarDiagnosticosDeUnaConsulta(this.Gestacion.nroHcl, this.Gestacion.nroEmbarazo, this.nroAtencion).then((res: any) => {
       this.diagnosticosList = res.object;
-      console.log("diag nosticos:", this.diagnosticosList);
+      // console.log("diag nosticos:", this.diagnosticosList);
     })
   }
 
   onChangeDiagnostico(event) {
-    console.log("Evento", event.value)
+    // console.log("Evento", event.value)
     this.procedimientos = event.value.procedimientos;
     this.PrestacionLaboratorio = event.value;
     this.formSolicitudLab.get('codPrestacion').setValue(event.value.codigo);
 
-    console.log("procedimiento", this.procedimientos)
+    // console.log("procedimiento", this.procedimientos)
   }
 
   selectedOptionNameCIE(event, cieType) {
@@ -172,7 +172,7 @@ export class LabSolicitudComponent implements OnInit {
       this.formSolicitudLab.patchValue({ diagnosticoSIS: event.value.procedimiento });
       this.formSolicitudLab.patchValue({ autocompleteSIS: "" });
       this.formSolicitudLab.patchValue({ SISCIE: event.value }, { emitEvent: false });
-      console.log(event.value)
+      // console.log(event.value)
     }
     if (cieType == 1) {
       this.formSolicitudLab.patchValue({ diagnosticoHIS: event.descripcionItem });
@@ -248,13 +248,13 @@ export class LabSolicitudComponent implements OnInit {
   }
   async listarExamenesDisponibles() {
     await this.examenAuxiliarService.getExamListLaboratory().then(res => {
-      console.log('examenes disponibles ', res);
+      // console.log('examenes disponibles ', res);
       this.makeObjExam(res);
     })
   }
   savePeticiones() {
     if (this.listSolicitudes == null) {
-      console.log('req to print ');
+      // console.log('req to print ');
       for (let i = 0; i < this.examName.length; i++) {
         let auxExam: ExamenAuxiliar = {
           tipoLaboratorio: 'EXAMEN_LABORATORIO',
@@ -334,11 +334,11 @@ export class LabSolicitudComponent implements OnInit {
         }
         await this.examenAuxiliarService.putAgregarExamenesConsulta(this.idConsulta, addExam)
           .then(res => {
-            console.log('agrego un examen');
+            // console.log('agrego un examen');
           })
       }
     }
-    console.log('cerrar dialog');
+    // console.log('cerrar dialog');
     this.closeDialog();
   }
 

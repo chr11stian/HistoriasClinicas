@@ -1,46 +1,47 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {CuposComponent} from './admision/cupos/cupos.component';
-import {PersonalSaludComponent} from "./personal-salud/personal-salud.component";
-import {UsuariosComponent} from "./usuarios/usuarios.component";
-import {UbicacionComponent} from "../mantenimientos/component/ubicacion/ubicacion.component";
-import {IpressComponent} from './ipress/ipress.component';
-import {PacienteComponent} from './paciente/paciente.component';
-import { ListarCuposComponent } from './triaje/listar-cupos/listar-cupos.component';
-import { IpressTurnosComponent } from './ipress-turnos/ipress-turnos.component';
-import { IpressAmbientesComponent } from './ipress-ambientes/ipress-ambientes.component';
-import { IpressRolesComponent } from './ipress-roles/ipress-roles.component';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { CuposComponent } from "./admision/cupos/cupos.component";
+import { PersonalSaludComponent } from "./personal-salud/personal-salud.component";
+import { UsuariosComponent } from "./usuarios/usuarios.component";
+import { UbicacionComponent } from "../mantenimientos/component/ubicacion/ubicacion.component";
+import { IpressComponent } from "./ipress/ipress.component";
+import { PacienteComponent } from "./paciente/paciente.component";
+import { ListarCuposComponent } from "./triaje/listar-cupos/listar-cupos.component";
+import { IpressTurnosComponent } from "./ipress-turnos/ipress-turnos.component";
+import { IpressAmbientesComponent } from "./ipress-ambientes/ipress-ambientes.component";
+import { IpressRolesComponent } from "./ipress-roles/ipress-roles.component";
 import { TabViewComponent } from "./admision/tab-view/tab-view.component";
-import { IpressHorariosComponent } from './ipress-horarios/ipress-horarios.component';
-import { IpressTarifarioComponent } from './ipress-tarifario/ipress-tarifario.component';
-import {IpressFarmaciaComponent} from "./ipress-farmacia/component/ipress-farmacia.component";
-import {ListarHisComponent} from "../his/listar-his/listar-his.component";
-import {HisComponent} from "./his/his.component";
-import { IpressLaboratorioComponent } from './ipress-laboratorio/ipress-laboratorio.component';
-import { CentroPobladoComponent } from './centro-poblado/centro-poblado.component';
+import { IpressHorariosComponent } from "./ipress-horarios/ipress-horarios.component";
+import { IpressTarifarioComponent } from "./ipress-tarifario/ipress-tarifario.component";
+import { IpressFarmaciaComponent } from "./ipress-farmacia/component/ipress-farmacia.component";
+import { ListarHisComponent } from "../his/listar-his/listar-his.component";
+import { HisComponent } from "./his/his.component";
+import { IpressLaboratorioComponent } from "./ipress-laboratorio/ipress-laboratorio.component";
+import { CentroPobladoComponent } from "./centro-poblado/centro-poblado.component";
+import { UserGuard } from "../core/guards/user.guard";
 
 const routes: Routes = [
     {
-        path: '',
+        path: "",
         // component: InicioComponent
         // component: DashboardComponent
     },
     {
-        path: 'dashboard',
+        path: "dashboard",
         // component: DashboardComponent
     },
     {
         path: "personal-salud",
-        component: PersonalSaludComponent
+        component: PersonalSaludComponent,
         // loadChildren: () => import('src/app/historia/historia.module').then(n => n.HistoriaModule),
     },
     {
         path: "centro-poblado",
-        component: CentroPobladoComponent
+        component: CentroPobladoComponent,
     },
     {
         path: "usuarios",
-        component: UsuariosComponent
+        component: UsuariosComponent,
     },
     // {
     //     path: "cupos1",
@@ -48,59 +49,57 @@ const routes: Routes = [
     // },
     {
         path: "atenciones",
-        component: TabViewComponent
+        component: TabViewComponent,
     },
 
     {
         path: "ipress",
-        component: IpressComponent
+        component: IpressComponent,
     },
     {
         path: "paciente",
-        component: PacienteComponent
+        component: PacienteComponent,
     },
     {
         path: "triaje",
-        component: ListarCuposComponent
+        component: ListarCuposComponent,
     },
     {
         path: "ipress-turnos",
-        component: IpressTurnosComponent
+        component: IpressTurnosComponent,
     },
     {
         path: "ipress-roles",
-        component: IpressRolesComponent
+        component: IpressRolesComponent,
     },
     {
         path: "ipress-ambientes",
-        component: IpressAmbientesComponent
+        component: IpressAmbientesComponent,
     },
     {
         path: "ipress-horarios",
-        component: IpressHorariosComponent
+        component: IpressHorariosComponent,
     },
     {
         path: "ipress-tarifario",
-        component: IpressTarifarioComponent
+        component: IpressTarifarioComponent,
     },
     {
         path: "ipress-farmacia",
-        component: IpressFarmaciaComponent
+        component: IpressFarmaciaComponent,
     },
     {
         path: "ipress-his",
-        component: HisComponent
+        component: HisComponent,
     },
     {
         path: "ipress-laboratorio",
-        component: IpressLaboratorioComponent
+        component: IpressLaboratorioComponent,
     },
 ];
 
-
 @NgModule({
     imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
-export class AdminsionRoutingModule {
-}
+export class AdminsionRoutingModule {}

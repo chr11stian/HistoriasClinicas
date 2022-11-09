@@ -86,12 +86,14 @@ export class InterrogatorioComponent implements OnInit {
 
   estadoEditar: boolean;
   consultationId: string;
+  consultationStatus$ = this.obstetriciaGeneralService.consultationStatus$;
+  consultationFinished: boolean = false;
+  actualConsultation: any;
   constructor(
     private fb: FormBuilder,
     public dialog: DialogService,
     private consultaObstetricaService: ConsultasService,
-    private messageService: MessageService,
-    private obstetriciaService: ObstetriciaGeneralService,
+    private obstetriciaGeneralService: ObstetriciaGeneralService,
     private router: Router,
     private imcService: ImcService,
     private intervaloPartoService: IntervaloPartoService
@@ -101,12 +103,14 @@ export class InterrogatorioComponent implements OnInit {
     this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
     let dataconsulta = JSON.parse(localStorage.getItem('datosConsultaActual'));
     this.nroDeConsulta = dataconsulta == null ? this.Gestacion.nroConsultas + 1 : dataconsulta.nroAtencion;
-    console.log('nro de consultas ', this.nroAtencion);
+    this.actualConsultation = JSON.parse(localStorage.getItem('datosConsultaActual'));
+    this.actualConsultation ? this.actualConsultation.estadoAtencion == 2 ? this.consultationFinished = true : this.consultationFinished = false : this.consultationFinished = false;
+    // console.log('nro de consultas ', this.nroAtencion);
 
     //estado para saber que estado usar en consultas
     this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
     this.consultationId = JSON.parse(localStorage.getItem('IDConsulta'));
-    console.log('estado edicion ', this.estadoEdicion);
+    // console.log('estado edicion ', this.estadoEdicion);
     if (this.Gestacion == null) {
       this.tipoDocRecuperado = this.dataPaciente2.tipoDoc;
       this.nroDocRecuperado = this.dataPaciente2.nroDoc;
@@ -156,8 +160,8 @@ export class InterrogatorioComponent implements OnInit {
     const response: any = await this.consultaObstetricaService.getLastConsulById(idData);
     this.ultimaConsulta = response.object;
     this.nroFetos = this.ultimaConsulta.nroFetos;
-    console.log('ultima consultarrrrrr', this.ultimaConsulta);
-    console.log("nnro fetos", this.ultimaConsulta.nroFetos)
+    // console.log('ultima consultarrrrrr', this.ultimaConsulta);
+    // console.log("nnro fetos", this.ultimaConsulta.nroFetos)
     this.form.get("imc").setValue(this.ultimaConsulta.imc);
     this.form.get("pesoHabitual").setValue(this.ultimaConsulta.pesoHabitual);
     this.form.patchValue({ nroFetos: this.nroFetos });
@@ -177,20 +181,20 @@ export class InterrogatorioComponent implements OnInit {
 
       this.form.get("semanas").setValue(Math.trunc(edadGestacional / 7));
       this.form.get("dias").setValue(edadGestacional % 7);
-      console.log('edad gestacional ', edadGestacional);
+      // console.log('edad gestacional ', edadGestacional);
     }
   }
   calcularGanancia() {
 
     let gananciaPeso = Math.round(((this.form.value.peso - this.form.value.pesoHabitual) + Number.EPSILON) * 100) / 100;
-    console.log("ganancia de peso", gananciaPeso);
+    // console.log("ganancia de peso", gananciaPeso);
     let imc = this.form.value.imc;
     let indicador = "";
     let semanas = this.form.value.semanas;
     this.form.get("evalNutricionalValor").setValue(gananciaPeso);
     if (parseFloat(imc) < 18.5) {//bajo peso
       this.imcService.getGananciaBajoPeso(semanas).subscribe((res: any) => {
-        console.log('datos ', res.object.recomendacionGestanteBajoPeso[0]);
+        // console.log('datos ', res.object.recomendacionGestanteBajoPeso[0]);
         let auxiliar = res.object.recomendacionGestanteBajoPeso[0]
 
         if (parseFloat(this.form.value.talla) < 157) {
@@ -216,7 +220,7 @@ export class InterrogatorioComponent implements OnInit {
       if (parseFloat(imc) < 25) {//normal
         this.imcService.getGananciaPesoRegular(semanas).subscribe((res: any) => {
           let auxiliar = res.object.recomendacionGananciaPesoRegular[0];
-          console.log('datos ', auxiliar);
+          // console.log('datos ', auxiliar);
           if (this.form.value.nroFetos < 2) {
             if (parseFloat(this.form.value.talla) < 157) {
               if (gananciaPeso < auxiliar.min) {
@@ -260,7 +264,7 @@ export class InterrogatorioComponent implements OnInit {
         if (parseFloat(imc) < 30) {//sobrepeso
           this.imcService.getGananciaSobrePeso(semanas).subscribe((res: any) => {
             let auxiliar = res.object.recomencacionGananciaSobrePeso[0];
-            console.log('datos ', res.object);
+            // console.log('datos ', res.object);
             if (parseFloat(this.form.value.talla) < 157) {
               if (gananciaPeso < auxiliar.min) {
                 indicador = "GIP"
@@ -282,7 +286,7 @@ export class InterrogatorioComponent implements OnInit {
         }
         else {//obesidad
           this.imcService.getGananciaObesa(semanas).subscribe((res: any) => {
-            console.log('datos ', res.object);
+            // console.log('datos ', res.object);
             let auxiliar = res.object.recomendacionGananciaObesa[0];
             if (this.form.value.nroFetos < 2) {
               if (parseFloat(this.form.value.talla) < 157) {
@@ -418,7 +422,7 @@ export class InterrogatorioComponent implements OnInit {
   }
 
   recuperarDatos() {
-    console.log('ultima consulta prom ', this.ultimaConsulta);
+    // console.log('ultima consulta prom ', this.ultimaConsulta);
     let auxPhysicalExam: any[] = [
       { nombreExamen: 'piel', valor: this.form.value.piel, detalle: this.form.value.pielDetalle },
       { nombreExamen: 'mucosas', valor: this.form.value.mucosas, detalle: this.form.value.mucosasDetalle },
@@ -532,11 +536,11 @@ export class InterrogatorioComponent implements OnInit {
   }
 
   btnGuardarExamFetal() {
-    console.log('form ', this.formExamenFetal.value.selectSituacion)
+    // console.log('form ', this.formExamenFetal.value.selectSituacion)
     this.recuperarDatosExamFet();
     this.fetalesExamDialog = false;
     this.listaExamenesFetos.push(this.examenesFetales);
-    console.log('examenes fetales ', this.examenesFetales);
+    // console.log('examenes fetales ', this.examenesFetales);
   }
 
   btnCancelarExamFetal() {
@@ -569,10 +573,10 @@ export class InterrogatorioComponent implements OnInit {
       nroAtencion: this.nroAtencion
     }
     let Rpta;
-    console.log('to recuperar ', auxData);
+    // console.log('to recuperar ', auxData);
     this.consultaObstetricaService.getInterrogatorioByEmbarazo(this.Gestacion.id, this.consultationId).then((res: any) => {
       Rpta = res.object[0];
-      console.log("desde interrogatorio ", Rpta);
+      // console.log("desde interrogatorio ", Rpta);
       if (Rpta.signosVitales == null) {
         return;
       }
@@ -635,7 +639,7 @@ export class InterrogatorioComponent implements OnInit {
       }
       this.form.patchValue({ obsExamFisico: Rpta.obsExamenFisico });
       //examene obstetricos
-      console.log("exam", Rpta.examenesObstetricos);
+      // console.log("exam", Rpta.examenesObstetricos);
       this.form.patchValue({ miembrosInferiores: Rpta.examenesObstetricos.miembrosInferiores });
       this.form.patchValue({ alturaUterina: Rpta.examenesObstetricos.alturaUterina });
       this.form.patchValue({ edema: Rpta.examenesObstetricos.edema });
@@ -681,7 +685,7 @@ export class InterrogatorioComponent implements OnInit {
 
   latidosNA(event) {
     this.chkLatidos = event.checked;
-    console.log('chked ', this.chkLatidos);
+    // console.log('chked ', this.chkLatidos);
     this.chkLatidos! ? this.formExamenFetal.patchValue({ latidosCardiacos: null }) : '';
   }
   //plan parto
@@ -729,7 +733,7 @@ export class InterrogatorioComponent implements OnInit {
 
   calculateIMC(): void {
     let gestationalWeek: number = this.form.value.semanas;
-    let patientHeight: number = (this.form.value.talla / 100);
+    let patientHeight: number = Math.round((this.form.value.talla + Number.EPSILON)) / 100;
     let patientWeigth: number = this.form.value.peso;
     let clasification: NutritionalClassification;
     let gainWeight: GainWeight;
@@ -778,7 +782,7 @@ export class InterrogatorioComponent implements OnInit {
 
   // assingWeightGain(imc: number, min: number, med: number, max: number, weightGain: number): void {
   //   if (imc< 18.5) {
-      
+
   //   }
   // }
 }

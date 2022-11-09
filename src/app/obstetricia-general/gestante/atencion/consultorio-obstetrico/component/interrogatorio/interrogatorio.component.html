@@ -3,16 +3,7 @@
         <ng-template pTemplate="left">
             <h3 class="mt-2">INTERROGATORIO</h3>
         </ng-template>
-        <ng-template pTemplate="right" class="button">
-            <button
-                pButton
-                pRipple
-                label="Guardar"
-                icon="pi pi-save"
-                style="background-color: #0c3866"
-                (click)="guardarDatos()"
-            ></button>
-        </ng-template>
+        <ng-template pTemplate="right" class="button"> </ng-template>
     </p-toolbar>
     <form [formGroup]="form">
         <div class="grid mt-3">
@@ -853,6 +844,7 @@
                                         icon="pi pi-plus"
                                         class="button-agregar"
                                         (click)="openDialogExamenesFeto()"
+                                        *ngIf="!consultationFinished"
                                     ></button>
                                 </ng-template>
                             </p-toolbar>
@@ -866,6 +858,7 @@
                                 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                                 [filterDelay]="0"
                                 styleClass="p-datatable-gridlines"
+                                class="table-over"
                             >
                                 <ng-template pTemplate="header">
                                     <tr>
@@ -1034,6 +1027,17 @@
             </div>
         </div>
     </form>
+    <div class="col-12 flex flex-row-reverse">
+        <button
+            pButton
+            pRipple
+            label="Guardar"
+            icon="pi pi-save"
+            style="background-color: #0c3866"
+            (click)="guardarDatos()"
+            *ngIf="!consultationFinished"
+        ></button>
+    </div>
 </div>
 
 <!-- Dialog de otros examenes fisicos -->
