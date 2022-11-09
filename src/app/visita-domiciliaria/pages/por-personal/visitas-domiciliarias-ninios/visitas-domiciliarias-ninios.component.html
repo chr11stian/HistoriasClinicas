@@ -2,16 +2,15 @@
     <div class="card">
         <div class="flex" style="margin-top:20px; margin-bottom:20px">
             <div class="col-12" style="text-align:center;">
-                <span style="font-size:2em ;">
+                <span style="font-size:2rem ;">
                     VISITA DOMICILIARIA DE NIÑOS-NIÑAS
                 </span>
             </div>
         </div>
-        <p-card>
-            <form  class="p-fluid p-formgrid p-grid">
-                <div class="busqueda">
-                    <div class="anios">
+        <div class="card">
+                <div class="flex sm:flex-column md:flex-row ">
                         <p-dropdown
+                                class="flex-none"
                                 (onChange)="verVisitasPorAnio($event)"
                                 [options]="anios"
                                 optionLabel="anio"
@@ -23,19 +22,18 @@
                                 [ngModelOptions]="{standalone: true}"
                                 >
                         </p-dropdown>
-                    </div>
-                    <div class="meses">
-                        <p-selectButton (onChange)="verVisitasPorMes($event)" 
+                        <p-selectButton 
+                                        class="flex-1 align-self-auto"
+                                        (onChange)="verVisitasPorMes($event)" 
                                         [options]="meses"  
                                         optionValue="value" 
                                         [(ngModel)]="selectedMes"
                                         [ngModelOptions]="{standalone: true}"
-                                        optionLabel="label"></p-selectButton>
-                    </div>
+                                        optionLabel="label">
+                        </p-selectButton>
                 </div>
-            </form>
             <!--MapStreet-->
-        </p-card>
+        </div>
     </div>
     <p-accordion>
         <p-accordionTab  >
@@ -44,19 +42,28 @@
                 <i class="pi pi-bell mr-4 p-text-secondary" pBadge style="font-size: 1.25rem" [value]="dataVisitas_Menores_4_meses.length" severity="danger"></i>
             </span>
            </p-header>
-            <p-table [value]="dataVisitas_Menores_4_meses"   #dt styleClass="p-datatable-gridlines" [rows]="4"
-            [rowsPerPageOptions]="[10,20,30]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
-            currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+            <p-table [value]="dataVisitas_Menores_4_meses" 
+                     [paginator]="true"
+                     [rows]="10"
+                     [showCurrentPageReport]="true"
+                     [first]="0"
+                     [totalRecords]="dataVisitas_Menores_4_meses.length"
+                     styleClass="p-datatable-gridlines"
+                     currentPageReportTemplate="Mostrando {first} a {last} de
+                     {{dataVisitas_Menores_4_meses.length}} entradas"
+                     [rowsPerPageOptions]="[10,25,50]"
+                     >
             <ng-template pTemplate="header">
                 <tr>
                     <th>Nro</th>
                     <th>DNI</th>
-                    <th>Nombres</th>
-                    <th>Apellidos</th>
-                    <th>Nro Visita</th>
-                    <th>Fecha de la visita</th>
+                    <th pSortableColumn="nombres_ninio">Nombres <p-sortIcon field="nombres_ninio"></p-sortIcon></th>
+                    <th pSortableColumn="apellidos_ninio">Apellidos <p-sortIcon field="apellidos_ninio"></p-sortIcon></th>
+                    <th pSortableColumn="nroVisita">Nro Visita <p-sortIcon field="nroVisita"></p-sortIcon></th>
+                    <th pSortableColumn="fecha_creacion_documento">fecha <p-sortIcon field="fecha_creacion_documento"></p-sortIcon></th>
                     <th>DNI Apoderado</th>
-                    <th>Nombre madre</th>
+                    <th>Nombres madre</th>
+                    <th>Apellidos madre</th>
                     <th>Direccion</th>
                     <th>Respuestas</th>
                     <th>Acciones</th>
@@ -65,16 +72,17 @@
                 <ng-template pTemplate="body"  let-RowData let-rowIndex="rowIndex">
                     <tr>
                         <td style="text-align: center">{{rowIndex+1}}</td>
-                        <td style="text-align: center">{{RowData.value.dni_ninio}}</td>
-                        <td style="text-align: left">{{RowData.value.nombres_ninio}}</td>
-                        <td style="text-align: left">{{RowData.value.apellidos_ninio}}</td>
-                        <td style="text-align: center">{{RowData.value.nroVisita}}</td>
-                        <td style="text-align: center">{{RowData.value.fecha_creacion_documento | date:'dd/MM/yy'}}</td>
-                        <td style="text-align: center">{{RowData.value.dni_apoderado}}</td>
-                        <td style="text-align: left">{{RowData.value.nombre_madre}}</td>
-                        <td style="text-align: left">{{RowData.value.direccion}}</td>
+                        <td style="text-align: center">{{RowData.dni_ninio}}</td>
+                        <td style="text-align: left">{{RowData.nombres_ninio}}</td>
+                        <td style="text-align: left">{{RowData.apellidos_ninio}}</td>
+                        <td style="text-align: center">{{RowData.nroVisita}}</td>
+                        <td style="text-align: center">{{RowData.fecha_creacion_documento | date:'dd/MM/yy'}}</td>
+                        <td style="text-align: center">{{RowData.dni_apoderado}}</td>
+                        <td style="text-align: left">{{RowData.nombre_madre}}</td>
+                        <td style="text-align: left">{{RowData.apellido_madre}}</td>
+                        <td style="text-align: left">{{RowData.direccion}}</td>
                         <td style="text-align: center">
-                            <button  pButton type="button" label="Ver"  icon="pi pi-eye"  class="buttonAcciones" (click)="openDialogRespuestas(RowData.value.preguntas)"></button>
+                            <button  pButton type="button" label="Ver"  icon="pi pi-eye"  class="buttonAcciones" (click)="openDialogRespuestas(RowData.preguntas)"></button>
                         </td>
                         <td style="text-align: center">
                             <button pButton type="button"  class="buttonAcciones1" (click)="visita_menor_cuatro_meses_reporte(RowData)"
@@ -90,41 +98,51 @@
         </p-accordionTab>
     <p-accordionTab>
         <p-header >
-            <span>VISITA DOMICILIARIA ENTRE LOS 0 A 4 MESES-NÚMERO DE VISITAS: 
+            <span>VISITA DOMICILIARIA ENTRE LOS 4 A 24 MESES-NÚMERO DE VISITAS: 
             <i class="pi pi-bell mr-4 p-text-secondary" pBadge style="font-size: 1.25rem"   [value]="dataVisitas_Mayores_4_meses.length" severity="danger"></i>
             </span>
         </p-header>
-        <p-table [value]="dataVisitas_Mayores_4_meses"   #dt styleClass="p-datatable-gridlines" [rows]="4"
-            [rowsPerPageOptions]="[10,20,30]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
-            currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+        <p-table    [value]="dataVisitas_Mayores_4_meses" 
+                    [paginator]="true"
+                    [rows]="10"
+                    [showCurrentPageReport]="true"
+                    [first]="0"
+                    [totalRecords]="dataVisitas_Mayores_4_meses.length"
+                    styleClass="p-datatable-gridlines"  
+                    currentPageReportTemplate="Mostrando {first} a {last} de
+                    {{dataVisitas_Mayores_4_meses.length}} entradas"
+                    [rowsPerPageOptions]="[10,25,50]"
+                    >
                 <ng-template  pTemplate="header">
                     <tr>
                         <th>Nro</th>
-                        <th>DNI</th>
-                        <th>Nombres</th>
-                        <th>Apellidos</th>
-                        <th>Nro Visita</th>
-                        <th>Fecha de la visita</th>
-                        <th>DNI Apoderado</th>
-                        <th>Nombre madre</th>
-                        <th>Direccion</th>
-                        <th>Respuestas</th>
+                        <th> DNI</th>
+                        <th  pSortableColumn="nombres_ninio">Nombres <p-sortIcon field="nombres_ninio"></p-sortIcon></th>
+                        <th  pSortableColumn="apellidos_ninio">Apellidos<p-sortIcon field="apellidos_ninio"></p-sortIcon></th>
+                        <th  pSortableColumn="nroVisita">Nro Visita<p-sortIcon field="nroVisita"></p-sortIcon></th>
+                        <th  pSortableColumn="fecha_creacion_documento">Fecha<p-sortIcon field="fecha_creacion_documento"></p-sortIcon></th>
+                        <th >DNI Apoderado</th>
+                        <th >Nombres madre</th>
+                        <th>Apellidos madre</th>
+                        <th >Direccion</th>
+                        <th >Respuestas</th>
                         <th>Acciones</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body"  let-RowData let-rowIndex="rowIndex">
                     <tr [ngClass]="dataActual">
                         <td style="text-align: center">{{rowIndex+1}}</td>
-                        <td style="text-align: center">{{RowData.value.dni_ninio}}</td>
-                        <td style="text-align: center">{{RowData.value.nombres_ninio}}</td>
-                        <td style="text-align: center">{{RowData.value.apellidos_ninio}}</td>
-                        <td style="text-align: center">{{RowData.value.nroVisita}}</td>
-                        <td style="text-align: center">{{RowData.value.fecha_creacion_documento | date:'dd/MM/yy'}}</td>
-                        <td style="text-align: center">{{RowData.value.dni_apoderado}}</td>
-                        <td style="text-align: center">{{RowData.value.nombre_madre}}</td>
-                        <td style="text-align: left">{{RowData.value.direccion}}</td>
+                        <td style="text-align: center">{{RowData.dni_ninio}}</td>
+                        <td style="text-align: left">{{RowData.nombres_ninio}}</td>
+                        <td style="text-align: left">{{RowData.apellidos_ninio}}</td>
+                        <td style="text-align: center">{{RowData.nroVisita}}</td>
+                        <td style="text-align: center">{{RowData.fecha_creacion_documento | date:'dd/MM/yy'}}</td>
+                        <td style="text-align: center">{{RowData.dni_apoderado}}</td>
+                        <td style="text-align: left">{{RowData.nombre_madre}}</td>
+                        <td style="text-align: left">{{RowData.apellido_madre}}</td>
+                        <td style="text-align: left">{{RowData.direccion}}</td>
                         <td style="text-align: center">
-                            <button pButton type="button" label="Ver"  icon="pi pi-eye"  class="buttonAcciones" (click)="openDialogRespuestas(RowData.value.preguntas)"></button>
+                            <button pButton type="button" label="Ver"  icon="pi pi-eye"  class="buttonAcciones" (click)="openDialogRespuestas(RowData.preguntas)"></button>
                         </td>
                         <td style="text-align: center">
                             <button pButton type="button"  class="buttonAcciones1" (click)="visita_mayor_cuatro_meses_reporte(RowData)"

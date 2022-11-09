@@ -41,16 +41,6 @@ export class PnGestanteComponent implements OnInit {
         (data: any) => {
           this.listaGestantes = data["rows"];
           console.log("gestantessss", this.listaGestantes);
-          this.listaGestantesPuerpera = this.listaGestantes.filter((aux) => {
-            if (
-              this.semanaGestacional(this.formatoFecha(aux.value.fur)) < 44 &&
-              aux.value.aborto == false
-            )
-              return aux;
-          });
-        },
-        (err) => {
-          this.listaGestantes = [];
         }
       );
   }

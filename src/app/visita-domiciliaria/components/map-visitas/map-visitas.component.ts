@@ -8,6 +8,9 @@ import {
 import * as L from "leaflet";
 import { VisitaDomiciliariaService } from "../../services/visita-domiciliaria.service";
 
+interface HtmlInputEvent extends Event{
+  target:HTMLInputElement & EventTarget;
+}
 @Component({
   selector: "app-map-visitas",
   templateUrl: "./map-visitas.component.html",
@@ -19,6 +22,7 @@ export class MapVisitasComponent implements OnInit, OnChanges {
   lngMap = this.visitaService.getLongitudeIpress();
   private centroid: L.LatLngExpression = [this.latMap, this.lngMap];
   maps: any;
+  photoSelected:string  | ArrayBuffer="https://res.cloudinary.com/dhcetqc1j/image/upload/v1654050519/7dc4c2e40b17a259f2177131b34439fe957eae2f_00_dxyvnm.gif";
   constructor(private visitaService: VisitaDomiciliariaService) {}
 
   ngOnInit(): void {
@@ -33,6 +37,12 @@ export class MapVisitasComponent implements OnInit, OnChanges {
     if (changes.dataVisitas.currentValue != changes.dataVisitas.previousValue) {
       this.maps.remove();
       this.initMap();
+    }
+  }
+
+  onPhotoSelected(event:HtmlInputEvent):void{
+    if(event.target.files && event.target.files[0]){
+
     }
   }
   //./assets/svg-marker/marker-visita-domiciliaria.svg
@@ -66,6 +76,7 @@ export class MapVisitasComponent implements OnInit, OnChanges {
     gestantesIcon = new LeafIcon({iconUrl: './assets/svg-marker/marker-gestante-visita.svg'})
 
     this.maps = new L.Map("map").setView([this.latMap, this.lngMap],13);
+   
     const titles = L.tileLayer(
       "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
       {
@@ -74,26 +85,22 @@ export class MapVisitasComponent implements OnInit, OnChanges {
         attribution:
           '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       }
-    );
-    //${this.visitaService.getImageURL( aux.value.validator.imagen
+    ).addTo(this.maps);
+
     this.dataVisitas.map((aux,i) => {
-      //console.log(aux.value);
-      //console.log(i,aux.value.validator.latitud, aux.value.validator.longitud);
-      // this.visitaService.couch=true;
-      // this.visitaService.getImageURL(aux.value.validator.firma).subscribe((re)=>console.log("werewrewr",re))
-      /**
-       *const urlFoto =this.imagenServicio.urlImagen(url);
-        const token = localStorage.getItem("token"); //obtener el token
-        const headers = new HttpHeaders({'Authorization': "Bearer " + token, 'Content-Type': 'image/*'}); //costruir los header con el token
-        // return this.http.get(url, {headers, responseType: "blob"})
-        return this.http
-            .get(urlFoto, { headers, responseType: 'blob' })//recuperar la imagen y guardar en un blob
-            .pipe(map(val => this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(val))));
-       */
-      // this.visitaService.getImageURL(aux.value.validator.firma).subscribe((data)=>{
-      //   console.log("daaaataaa",data);
-      // });
-      console.log("auxxxx",aux)
+      let srcImg:any='./assets/images/nodisponible.png';
+      this.visitaService.couch=true;
+      srcImg=this.visitaService.getImage(aux.value.validator.imagen,this.visitaService.getToken()).subscribe((data)=>{
+       //console.log("data requesttt",data);
+        // return data;
+        return new Promise<string>(function(resolve, reject) {
+          var reader = new FileReader();
+          reader.readAsDataURL(data);
+          reader.onload = function() { resolve(reader.result as string); console.log(reader.result); };
+      });
+      })
+      srcImg='./assets/images/nodisponible.png';
+      console.log("src imagen",srcImg);
       if(aux.value.hasOwnProperty('mayor_cuatro_meses') || aux.value.hasOwnProperty('menor_cuatro_meses')){
         console.log("NIÑOS Y NIÑAS");
         if(aux.value.mayor_cuatro_meses=="mayor_cuatro_meses"){
@@ -106,7 +113,7 @@ export class MapVisitasComponent implements OnInit, OnChanges {
             <h3>VISITA NIÑOS-NIÑAS,4-24 MESES</h3>
             <h4>VISITA NRO :${aux.value.nroVisita}</h4>
             <h4>ALTITUD:${aux.value.validator.altitud}</h4> 
-          
+            <img id="visitaImagen" class="image" src="${srcImg}" alt=""/>
           `,
               { closeButton: false }
             );
@@ -120,7 +127,7 @@ export class MapVisitasComponent implements OnInit, OnChanges {
               <h3>VISITA NIÑOS-NIÑAS,0-4 MESES</h3>
               <h4>VISITA NRO :${aux.value.nroVisita}</h4>
               <h4>ALTITUD:${aux.value.validator.altitud}</h4> 
-          
+              <img class="image" src="${srcImg}" alt=""/>
           `,
               { closeButton: false }
             );
@@ -136,6 +143,7 @@ export class MapVisitasComponent implements OnInit, OnChanges {
               `
             <h4>VISITA GESTANTE</h3>
             <h4>ALTITUD:${aux.value.validator.altitud}</h4> 
+            <img class="image" src="${srcImg}" alt=""/>
           
           `,
               { closeButton: false }
@@ -150,6 +158,7 @@ export class MapVisitasComponent implements OnInit, OnChanges {
               `
             <h3>VISITA PUERPERA</h3>
             <h4>ALTITUD:${aux.value.validator.altitud}</h4> 
+            <img class="image" src="${srcImg}" alt=""/>
           
           `,
               { closeButton: false }
@@ -159,7 +168,27 @@ export class MapVisitasComponent implements OnInit, OnChanges {
     
     
     });
-    titles.addTo(this.maps);
+    
+    // const legend=L.Legend({
+    //   position:'bottomright',
+    //   collapsed:false,
+    //   simbolwidth:24,
+    //   opacity:1,
+    //   column:1,
+    //   legends:[
+    //   {
+    //   label:"Niños y niñas,0-4 meses",
+    //   type:"image",
+    //   url:'./assets/svg-marker/marker-ninio-menores.svg'
+    //   },
+    //   {
+    //     label:"Niños y niñas,4-24 meses",
+    //     type:"image",
+    //     url:'./assets/svg-marker/marker-ninio-mayores.svg'
+    //   },
+    // ]
+    // }).addTo(this.maps)
   }
+
 }/**  <img class="image" src="{{'data:image/png;base64,'+${this.visitaService.getImageURL(aux.value.validator.firma)}}"
         alt="Imagen"/> */

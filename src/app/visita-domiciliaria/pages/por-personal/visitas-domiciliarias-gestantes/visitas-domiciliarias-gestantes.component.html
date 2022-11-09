@@ -44,18 +44,26 @@
                     <i class="pi pi-bell mr-4 p-text-secondary" pBadge style="font-size: 1.25rem" [value]="dataVisitas.length" severity="danger"></i>
                 </span>
             </p-header>
-            <p-table [value]="dataVisitas"   #dt styleClass="p-datatable-gridlines" [rows]="4"
-            [rowsPerPageOptions]="[5, 10, 15]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
-            currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+            <p-table [value]="dataVisitaGestantes"
+                     [paginator]="true"
+                     [rows]="10"
+                     [showCurrentPageReport]="true"
+                     [first]="0"
+                     [totalRecords]="dataVisitaGestantes.length"
+                     styleClass="p-datatable-gridlines"
+                     currentPageReportTemplate="Mostrando {first} a {last} de
+                     {{dataVisitaGestantes.length}} entradas"
+                     [rowsPerPageOptions]="[10,25,50]"
+            >
                 <ng-template pTemplate="header">
                 <tr>
                     <th>Nro</th>
                     <th>DNI</th>
-                    <th>Nombres</th>
-                    <th>Apellidos</th>
-                    <th>Nro Visita</th>
-                    <th>Nro Gesta</th>
-                    <th>Fecha de la visita</th>
+                    <th pSortableColumn="nombres_gestante">Nombres<p-sortIcon field="nombres_gestante"></p-sortIcon></th>
+                    <th pSortableColumn="apellidos_gestante">Apellidos<p-sortIcon field="apellidos_gestante"></p-sortIcon></th>
+                    <th pSortableColumn="nroVisita">Nro Visita<p-sortIcon field="nroVisita"></p-sortIcon></th>
+                    <th pSortableColumn="numero_de_gestacion">Nro Gesta<p-sortIcon field="numero_de_gestacion"></p-sortIcon></th>
+                    <th pSortableColumn="fecha_creacion_documento ">Fecha de la visita<p-sortIcon field="fecha_creacion_documento "></p-sortIcon></th>
                     <th>Telefono</th>
                     <th>Direccion</th>
                     <th>Respuestas</th>
@@ -65,16 +73,16 @@
                 <ng-template pTemplate="body"  let-RowData let-rowIndex="rowIndex">
                     <tr>
                         <td style="text-align: center">{{rowIndex+1}}</td>
-                        <td style="text-align: center">{{RowData.value.dni_gestante}}</td>
-                        <td style="text-align: left">{{RowData.value.nombres_gestante}}</td>
-                        <td style="text-align: left">{{RowData.value.apellidos_gestante}}</td>
-                        <td style="text-align: center">{{RowData.value.nro_visita}}</td>
-                        <td style="text-align: center">{{RowData.value.numero_de_gestacion}}</td>
-                        <td style="text-align: center">{{RowData.value.fecha_creacion_documento | date:'dd/MM/yyyy'}}</td>
-                        <td style="text-align: center">{{RowData.value.telefono}}</td>
-                        <td style="text-align: left">{{RowData.value.direccion}}</td>
+                        <td style="text-align: center">{{RowData.dni_gestante}}</td>
+                        <td style="text-align: left">{{RowData.nombres_gestante}}</td>
+                        <td style="text-align: left">{{RowData.apellidos_gestante}}</td>
+                        <td style="text-align: center">{{RowData.nroVisita}}</td>
+                        <td style="text-align: center">{{RowData.numero_de_gestacion}}</td>
+                        <td style="text-align: center">{{RowData.fecha_creacion_documento | date:'dd/MM/yyyy'}}</td>
+                        <td style="text-align: center">{{RowData.telefono}}</td>
+                        <td style="text-align: left">{{RowData.direccion}}</td>
                         <td style="text-align: center">
-                            <button  pButton type="button" label="Ver"  icon="pi pi-eye"   class="buttonAcciones" (click)="openDialogRespuestas(RowData.value.preguntas)"></button>
+                            <button  pButton type="button" label="Ver"  icon="pi pi-eye"   class="buttonAcciones" (click)="openDialogRespuestas(RowData.preguntas)"></button>
                         </td>
                         <td style="text-align: center">
                             <button pButton type="button" label="Reporte" icon="pi pi-file-pdf" class="buttonAcciones" ></button>

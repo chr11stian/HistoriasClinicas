@@ -8,10 +8,11 @@ import {
   Validators,
 } from "@angular/forms";
 import { DialogRespuestasComponent } from "../../../components/dialog-respuestas/dialog-respuestas.component";
-import { MessageService } from "primeng/api";
+import { MessageService, SortEvent } from "primeng/api";
 import { VisitaDomiciliariaService } from "../../../services/visita-domiciliaria.service";
 import { VisitaNinioService } from "../../../services/visita-ninio.service";
 import { environment } from "src/environments/environment";
+import { Value } from '../../../../pn-gestante/interfaces/padron_Nominal';
 
 @Component({
   selector: "app-visitas-domiciliarias-ninios",
@@ -20,6 +21,7 @@ import { environment } from "src/environments/environment";
   providers: [DialogService],
 })
 export class VisitasDomiciliariasNiniosComponent implements OnInit {
+  totalRecords:number;
   ref: DynamicDialogRef;
   dataVisitas: any[] = [];
   dataVisitas_Menores_4_meses: any[] = [];
@@ -31,8 +33,6 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
   id_vpn: string;
   data: any;
   visitaReporte: string = "";
-  // cantidad_visitas_menores_4_meses=this.dataVisitas_Menores_4_meses.length;
-  // cantidad_visitas_mayores_4_meses=this.dataVisitas_Mayores_4_meses.length;
   cantidad_visitas_menores_4_meses: number;
   cantidad_visitas_mayores_4_meses: number;
   meses = [
@@ -57,6 +57,8 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
     { anio: "2019" },
   ];
 
+  reverse = true;
+
   constructor(
     public dialog: DialogService,
     private servicioVisitas: VisitaDomiciliariaService,
@@ -80,28 +82,40 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
     });
   }
   //carga todas las visitas correspondientes al año actual
-  listaVisitas() {
+  async listaVisitas() {
     let idIpress = this.servicioVisitas.getIdIpress();
     let dni = `vp${this.servicioVisitas.getIdPersonal()}`;
     let anio = this.servicioVisitas.getAnio();
     this.servicioVisitas.couch = true;
-    this.servicioVisitasNinios
+    await this.servicioVisitasNinios
       .getVisitasNiniosXProfesionalAnio(idIpress, dni, anio)
-      .subscribe((data: any) => {
+      .then((data: any) => {
         this.dataVisitas = data["rows"];
-        this.dataVisitas_Menores_4_meses = this.dataVisitas.filter((aux) => {
-          if (aux.value.hasOwnProperty("menor_cuatro_meses")) return aux;
+        console.log("data ninios",data["rows"]);
+        this.dataVisitas.map((aux) => {
+          console.log(aux.value);
+          if (aux.value.hasOwnProperty("menor_cuatro_meses")){
+            this.dataVisitas_Menores_4_meses.push(aux.value)
+            // return aux.valu
+          };
         });
-        this.dataVisitas_Mayores_4_meses = this.dataVisitas.filter((aux) => {
-          if (aux.value.hasOwnProperty("mayor_cuatro_meses")) return aux;
+        this.dataVisitas.map((aux) => {
+          console.log(aux.value);
+          if (aux.value.hasOwnProperty("mayor_cuatro_meses")) {
+            this.dataVisitas_Mayores_4_meses.push(aux.value)
+            // return aux.value
+          };
         });
+        
       });
+    console.log("menores",this.dataVisitas_Menores_4_meses);
+    console.log("mayores",this.dataVisitas_Mayores_4_meses);
   }
   //abre nuestro compoente dialog en el cual se muestran nuestras preguntas y respuestas
   openDialogRespuestas(data: any[]) {
     this.ref = this.dialog.open(DialogRespuestasComponent, {
       header:
-        "Preguntas>Respuestas de la visita domiciliaria del niño-niña ejecutada",
+        "PREGUNTAS>RESPUESTAS DE LA VISITAS DOMICILIARIA EJECUTADA",
       width: "70%",
       height: "100%",
       contentStyle: {
@@ -111,21 +125,18 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
       data: data,
     });
   }
-  //metodo que fusiona los dos arrays de menores y mayores de cuatro años
-  //los cuales sirven para graficar los markers que iran en el mapa
-  markersMapStreet() {
-    this.dataVisitas;
-  }
   //metodo que nos devuelve la lista de Visitas por Año seleccionado
   //se agrupa en dos listas:menores_4_meses y mayores_4_meses
-  verVisitasPorAnio(event) {
+  async verVisitasPorAnio(event) {
+    this.dataVisitas_Menores_4_meses=[];
+    this.dataVisitas_Mayores_4_meses=[];
     let idIpress = this.servicioVisitas.getIdIpress();
     let dni = `vp${this.servicioVisitas.getIdPersonal()}`;
     this.servicioVisitas.couch = true;
     this.selectedAnio = event.value;
-    this.servicioVisitasNinios
+    await this.servicioVisitasNinios
       .getVisitasNiniosXProfesionalAnio(idIpress, dni, this.selectedAnio)
-      .subscribe((data) => {
+      .then((data) => {
         if (data["rows"].length > 0) {
           this.dataVisitas = data["rows"];
           this.messageService.add({
@@ -144,27 +155,38 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
           });
         }
         this.dataVisitas = data["rows"];
-        this.dataVisitas_Menores_4_meses = this.dataVisitas.filter((aux) => {
-          if (aux.value.hasOwnProperty("menor_cuatro_meses")) return aux;
+        this.dataVisitas.map((aux) => {
+          if (aux.value.hasOwnProperty("menor_cuatro_meses")){
+            this.dataVisitas_Menores_4_meses.push(aux.value)
+            // return aux
+          };
         });
 
-        this.dataVisitas_Mayores_4_meses = this.dataVisitas.filter((aux) => {
-          if (aux.value.hasOwnProperty("mayor_cuatro_meses")) return aux;
+        this.dataVisitas.map((aux) => {
+          if (aux.value.hasOwnProperty("mayor_cuatro_meses")){
+            this.dataVisitas_Mayores_4_meses.push(aux.value)
+            // return aux
+          };
         });
       });
+      console.log("menores",this.dataVisitas_Menores_4_meses);
+      console.log("mayores",this.dataVisitas_Mayores_4_meses);
   }
   //metodo que nos devuelve la lista de Visitas por Mes seleccionado
   //se agrupa en dos listas:menores_4_meses y mayores_4_meses
-  verVisitasPorMes(event) {
+  async verVisitasPorMes(event) {
+    this.dataVisitas_Menores_4_meses=[];
+    this.dataVisitas_Mayores_4_meses=[];
     let idIpress = this.servicioVisitas.getIdIpress();
     let dni = `vp${this.servicioVisitas.getIdPersonal()}`;
     if (this.selectedAnio != "") {
       this.servicioVisitas.couch = true;
       this.selectedMes = event.value;
       let fecha = `${this.selectedAnio} ${this.selectedMes}`;
-      this.servicioVisitasNinios
+      await this.servicioVisitasNinios
         .getVisitasNiniosXProfesionalXAnioXMesFecha(idIpress, dni, fecha)
-        .subscribe((data) => {
+        .then((data) => {
+          console.log("dataaa",data["rows"]);
           if (data["rows"].length > 0) {
             this.dataVisitas = data["rows"];
             this.messageService.add({
@@ -183,15 +205,22 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
             });
           }
           this.dataVisitas = data["rows"];
-          this.dataVisitas_Menores_4_meses = this.dataVisitas.filter((aux) => {
-            if (aux.value.hasOwnProperty("menor_cuatro_meses")) return aux;
+          this.dataVisitas.filter((aux) => {
+            if (aux.value.hasOwnProperty("menor_cuatro_meses")){
+              // this.dataVisitas_Menores_4_meses.push(aux.value);
+              return aux.value;
+            };
           });
-
-          this.dataVisitas_Mayores_4_meses = this.dataVisitas.filter((aux) => {
-            if (aux.value.hasOwnProperty("mayor_cuatro_meses")) return aux;
+        this.dataVisitas.map((aux) => {
+            if (aux.value.hasOwnProperty("mayor_cuatro_meses")){
+              this.dataVisitas_Mayores_4_meses.push(aux.value);
+            };
           });
+        
         });
     }
+    console.log("menores",this.dataVisitas_Menores_4_meses);
+    console.log("mayores",this.dataVisitas_Mayores_4_meses);
   }
 
   visita_menor_cuatro_meses_reporte(aux) {

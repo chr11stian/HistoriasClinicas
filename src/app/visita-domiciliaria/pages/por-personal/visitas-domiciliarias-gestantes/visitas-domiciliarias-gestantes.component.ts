@@ -22,6 +22,7 @@ import { VisitaDomiciliariaService } from "../../../services/visita-domiciliaria
 export class VisitasDomiciliariasGestantesComponent implements OnInit {
   ref: DynamicDialogRef;
   dataVisitas: any[] = [];
+  dataVisitaGestantes:any []=[];
   aux_dataVisitas: any[] = [];
   options: any;
   overlays: any[];
@@ -78,15 +79,17 @@ export class VisitasDomiciliariasGestantesComponent implements OnInit {
     let dni = `vp${this.servicioVisitas.getIdPersonal()}`;
     this.servicioVisitas.couch = true;
     await this.servicioVisitasGestante
-      .getVisitasGestantesXProfesionalAnio(
+      .getVisitasGestantesAnio(
         idIpress,
         dni,
         this.servicioVisitas.getAnio()
       )
       .then((data: any) => {
-        this.aux_dataVisitas = data["rows"];
-        this.dataVisitas = this.aux_dataVisitas.filter((aux) => {
-          if (aux.value.hasOwnProperty("gestante")) return aux;
+        this.dataVisitas = data["rows"];
+        this.dataVisitas.map((aux) => {
+          if (aux.value.hasOwnProperty("gestante")){
+            this.dataVisitaGestantes.push(aux.value);
+          };
         });
       });
   }
@@ -111,12 +114,14 @@ export class VisitasDomiciliariasGestantesComponent implements OnInit {
     this.servicioVisitas.couch = true;
     this.selectedAnio = event.value;
     await this.servicioVisitasGestante
-      .getVisitasGestantesXProfesionalAnio(idIpress, dni, this.selectedAnio)
+      .getVisitasGestantesAnio(idIpress, dni, this.selectedAnio)
       .then((data: any) => {
         if (data["rows"].length > 0) {
-          this.aux_dataVisitas = data["rows"];
-          this.dataVisitas = this.aux_dataVisitas.filter((aux) => {
-            if (aux.value.hasOwnProperty("gestante")) return aux;
+          this.dataVisitas = data["rows"];
+          this.dataVisitas.map((aux) => {
+            if (aux.value.hasOwnProperty("gestante")){
+              this.dataVisitaGestantes.push(aux.value)
+            };
           });
           this.messageService.add({
             key: "myMessage1",
@@ -144,12 +149,14 @@ export class VisitasDomiciliariasGestantesComponent implements OnInit {
       this.selectedMes = event.value;
       let fecha = `${this.selectedAnio} ${this.selectedMes}`;
     await this.servicioVisitasGestante
-        .getVisitasGestantesXProfesionalXAnioXMesFecha(idIpress, dni, fecha)
+        .getVisitasGestantesFecha(idIpress, dni, fecha)
         .then((data: any) => {
           if (data["rows"].length > 0) {
-            this.aux_dataVisitas = data["rows"];
-            this.dataVisitas = this.aux_dataVisitas.filter((aux) => {
-              if (aux.value.hasOwnProperty("gestante")) return aux;
+            this.dataVisitas = data["rows"];
+            this.dataVisitas.map((aux) => {
+              if (aux.value.hasOwnProperty("gestante")){
+                this.dataVisitaGestantes.push(aux.value);
+              };
             });
             this.messageService.add({
               key: "myMessage1",

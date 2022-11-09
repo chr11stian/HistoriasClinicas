@@ -4,7 +4,7 @@ import { Observable } from "rxjs";
 import { environment } from "../../../environments/environment";
 import { VisitasProfesionalNinios } from "../interfaces/visita_profesional_ninios";
 import { map } from 'rxjs/operators';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Injectable({
     providedIn: "root",
@@ -17,7 +17,7 @@ export class VisitaDomiciliariaService {
     base_url_images = environment.base_url_couch_images;
     id_ipress = "";
     dni_profesional = "";
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient,private sanitizer: DomSanitizer) {}
     getToken() {
         return JSON.parse(localStorage.getItem("token")).tokenCouch === null
             ? ""
@@ -93,5 +93,12 @@ export class VisitaDomiciliariaService {
         ).escalas.unidades==null?"":JSON.parse(
             localStorage.getItem("usuario")
         ).escalas.unidades;
+    }
+
+    getImage(id:string,token:string):any{
+        const headers = new HttpHeaders(`{'Authorization': "Bearer " ${token}, 'Content-Type': 'image/*'}`); 
+        let blob:any=this.http
+            .get(`${this.base_url_images}/${id}`, {responseType: 'blob'})
+        return blob;
     }
 }

@@ -8,7 +8,7 @@ import {
 } from "@angular/forms";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
 import { DialogRespuestasComponent } from "../../../components/dialog-respuestas/dialog-respuestas.component";
-import { MessageService } from "primeng/api";
+import { MessageService, SortEvent } from "primeng/api";
 import { VisitaGestanteService } from "../../../services/visita-gestante.service";
 import { VisitaDomiciliariaService } from "../../../services/visita-domiciliaria.service";
 
@@ -22,6 +22,7 @@ export class VisitasDomiciliariasPuerperaComponent implements OnInit {
 
   ref: DynamicDialogRef;
   dataVisitas: any[] = [];
+  dataVisitaPuerpera:any []=[];
   aux_dataVisitas: any[] = [];
   options: any;
   overlays: any[];
@@ -88,15 +89,15 @@ export class VisitasDomiciliariasPuerperaComponent implements OnInit {
     let dni = `vp${this.servicioVisitas.getIdPersonal()}`;
     this.servicioVisitas.couch = true;
     await this.servicioVisitasGestante
-      .getVisitasGestantesXProfesionalAnio(
+      .getVisitasPuerperasAnio(
         idIpress,
         dni,
         this.servicioVisitas.getAnio()
       )
       .then((data: any) => {
-        this.aux_dataVisitas = data["rows"];
-        this.dataVisitas = this.aux_dataVisitas.filter((aux) => {
-          if (aux.value.hasOwnProperty("puerpera")) return aux;
+        this.dataVisitas = data["rows"];
+        this.dataVisitas.map((aux) => {
+          if (aux.value.hasOwnProperty("puerpera")){this.dataVisitaPuerpera.push(aux.value)};
         });
       });
   }
@@ -121,12 +122,12 @@ export class VisitasDomiciliariasPuerperaComponent implements OnInit {
     this.servicioVisitas.couch = true;
     this.selectedAnio = event.value;
     await this.servicioVisitasGestante
-      .getVisitasGestantesXProfesionalAnio(idIpress, dni, this.selectedAnio)
+      .getVisitasPuerperasAnio(idIpress, dni, this.selectedAnio)
       .then((data: any) => {
         if (data["rows"].length > 0) {
-          this.aux_dataVisitas = data["rows"];
-          this.dataVisitas = this.aux_dataVisitas.filter((aux) => {
-            if (aux.value.hasOwnProperty("gestante")) return aux;
+          this.dataVisitas = data["rows"];
+          this.dataVisitas.map((aux) => {
+            if (aux.value.hasOwnProperty("puerpera")){this.dataVisitaPuerpera.push(aux.value)};
           });
           console.log("gestantes", this.dataVisitas);
           console.log("Busqueda por fecha", this.dataVisitas);
@@ -156,12 +157,12 @@ export class VisitasDomiciliariasPuerperaComponent implements OnInit {
       this.selectedMes = event.value;
       let fecha = `${this.selectedAnio} ${this.selectedMes}`;
       await this.servicioVisitasGestante
-        .getVisitasGestantesXProfesionalXAnioXMesFecha(idIpress, dni, fecha)
+        .getVisitasPuerperasFecha(idIpress, dni, fecha)
         .then((data: any) => {
           if (data["rows"].length > 0) {
-            this.aux_dataVisitas = data["rows"];
-            this.dataVisitas = this.aux_dataVisitas.filter((aux) => {
-              if (aux.value.hasOwnProperty("gestante")) return aux;
+            this.dataVisitas = data["rows"];
+             this.dataVisitas.map((aux) => {
+              if (aux.value.hasOwnProperty("puerpera")){this.dataVisitaPuerpera.push(aux.value)};
             });
             console.log("busqueda por mes", this.dataVisitas);
             this.messageService.add({
@@ -183,4 +184,5 @@ export class VisitasDomiciliariasPuerperaComponent implements OnInit {
     }
   }
 
+  
 }
