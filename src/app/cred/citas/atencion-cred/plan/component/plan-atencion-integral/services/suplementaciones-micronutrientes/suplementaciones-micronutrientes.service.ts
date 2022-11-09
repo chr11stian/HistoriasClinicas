@@ -63,4 +63,8 @@ export class SuplementacionesMicronutrientesService {
   getFactorCorrepcionXipress(idIpress: string) {
     return this.http.get<any>(`${this.base_url}/${this.bd}/ajusteHemoglobina/buscar/${idIpress}`);
   }
+  /* agregar dosaje por consultorio */
+  postDosajeHemoglobinaConsultorio(codConsulta,inputRequest){
+    return this.http.post<any>(`${this.base_url}/${this.bd}/cred/consulta/evaluacion/dosajehb/${codConsulta}`,inputRequest);
+  }
 }

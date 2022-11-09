@@ -25,6 +25,7 @@
             <div class="col-2 text-center" style="font-weight: bold">Estado Controlado</div>
             <div class="col text-center" style="font-weight: bold">Fecha Tentativa</div>
             <div class="col text-center" style="font-weight: bold">Fecha Prueba</div>
+            <div class="col text-center" style="font-weight: bold">Hemoglobina</div>
             <div class="col text-center" style="font-weight: bold">Hemoglobina ajustada</div>
             <div class="col text-center" style="font-weight: bold">Resultado</div>
             <div class="col-2 text-center" style="font-weight: bold">Accion</div>
@@ -79,6 +80,9 @@
                     {{dosaje.valorHb}}
                 </div>
                 <div class="col text-center">
+                    {{dosaje.valorHb-dosaje.factorCorreccion}}
+                </div>
+                <div class="col text-center">
                      <span *ngIf="dosaje.tieneAnemia=='SI';else negativo">
                         <p-tag severity="danger" value="Positivo" [rounded]="true">
                         </p-tag>
@@ -95,9 +99,9 @@
                         </ng-template>
                     </ng-template>
                 </div>
-
                 <div class="col-2 flex justify-content-around">
-                    <button *ngIf="!dosaje.estadoControlado && dosaje.edadMes==edadMes" (click)="agregarDosaje(dosaje)" pButton pRipple
+                        <button *ngIf="!dosaje.estadoControlado && dosaje.edadMes==edadMes" (click)="agregarDosaje(dosaje)" pButton pRipple
+
                             type="button" icon="pi pi-pencil"
                             pTooltip="Agregar Dosaje de Hemoglobina"
                             tooltipPosition="bottom"
