@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ExamenesAuxiliaresService } from 'src/app/cred/citas/atencion-cred/consulta-principal/services/examenes-auxiliares.service';
 import { LaboratoriosService } from 'src/app/Laboratorio/services/laboratorios.service';
+import { ObstetriciaGeneralService } from 'src/app/obstetricia-general/services/obstetricia-general.service';
 import Swal from 'sweetalert2';
 import { DataExamSave, HemoExam, LaboratoryExam, OtherExam, Pregmant } from '../../models/laboratorio.interface';
 
@@ -37,15 +38,21 @@ export class ExamsInOfficeDialogComponent implements OnInit {
   firstArrayLocalExam: string[] = ['VDRL/RPR 1', 'VDRL/RPR 2', 'TPHA/VDRL (RPR REACTIVO)', 'VIH PRUEBA RAPIDA 1', 'VIH PRUEBA RAPIDA 2', 'PR HEPATITIS'];
   secondArrayLocalExam: string[] = ['GLICEMIA 1', 'GLICEMIA 2'];
   thirdArrayLocalExam: string[] = ['EX. COMP ORINA 1', 'EX. COMP ORINA 2', 'EX. COMP ORINA 3', 'BACTERIURIA'];
+  consultationStatus$ = this.obstetriciaGeneralService.consultationStatus$;
+  consultationFinished: boolean = false;
+  actualConsultation: any;
 
   constructor(
     private fb: FormBuilder,
     private laboratoryService: LaboratoriosService,
     private auxExamService: ExamenesAuxiliaresService,
     private ref: DynamicDialogRef,
+    private obstetriciaGeneralService: ObstetriciaGeneralService,
   ) {
     this.patientData = JSON.parse(localStorage.getItem('gestacion'));
     this.consultationId = JSON.parse(localStorage.getItem('IDConsulta'));
+    this.actualConsultation = JSON.parse(localStorage.getItem('datosConsultaActual'));
+    this.actualConsultation ? this.actualConsultation.estadoAtencion == 2 ? this.consultationFinished = true : this.consultationFinished = false : this.consultationFinished = false;
     this.recoverExamsOfConsultation();
     this.recoverExamsOfPregnancy();
   }
@@ -63,7 +70,7 @@ export class ExamsInOfficeDialogComponent implements OnInit {
 
   loadHemoglobinFormArray(hemoArray: HemoExam[], laboExams: LaboratoryExam[]): void {
     let auxLab: any = laboExams.filter(item => item.nombreExamen == 'DOSAJE DE HEMOGLOBINA');
-    console.log('data de aux lab', auxLab);
+    // console.log('data de aux lab', auxLab);
     auxLab = auxLab.length == 0 ? '' : auxLab[0].lab;
     hemoArray.forEach(item => {
       let isDisabled: boolean;
@@ -95,7 +102,7 @@ export class ExamsInOfficeDialogComponent implements OnInit {
 
   deleteHemoExam() {
     let index = this.hemoForm.value.hemoglobina.length;
-    console.log('index ', index);
+    // console.log('index ', index);
     this.hemoglobina.removeAt(index - 1);
     this.isHemoFormCreated = false;
   }
@@ -103,7 +110,7 @@ export class ExamsInOfficeDialogComponent implements OnInit {
   async recoverExamsOfPregnancy() {
     await this.laboratoryService.getLaboExamsOfPregnancy(this.patientData.id).then((res: any) => {
       this.arrayHemoExams = res.object.hemoglobina.filter(item => item.hg != 0);
-      console.log('array of hemo ', this.arrayHemoExams);
+      // console.log('array of hemo ', this.arrayHemoExams);
       this.arrayOtherExam = res.object.otrosExamenes;
       this.firstGroupExams = this.divideArray(this.arrayOtherExam, 0, 7, this.firstArrayLocalExam);
       this.secondGroupExams = this.divideArray(this.arrayOtherExam, 8, 10, this.secondArrayLocalExam);
@@ -169,7 +176,7 @@ export class ExamsInOfficeDialogComponent implements OnInit {
     let allDataExams: any[] = [].concat(this.firstGroupExams, this.secondGroupExams, this.thirdGroupExams);
 
     let allHemoExams = this.hemoForm.value.hemoglobina;
-    console.log('data de hemos ', allHemoExams);
+    // console.log('data de hemos ', allHemoExams);
     let isDuplicated: boolean = false;
     allDataExams = allDataExams.filter(item => {
       if (item.valor.length > 1) {
@@ -189,7 +196,7 @@ export class ExamsInOfficeDialogComponent implements OnInit {
     if (!isDuplicated) {
       this.assignCIE10(allDataExams);
       this.examsToSave = this.buildArrayToSave(allDataExams, allHemoExams);
-      console.log('data to save', this.examsToSave);
+      // console.log('data to save', this.examsToSave);
       this.laboratoryService.postSaveLabExamInConsultation(this.consultationId, this.patientData.id, this.examsToSave).then((res: any) => {
         if (res.cod == "2126") {
           this.ref.close();
@@ -265,6 +272,6 @@ export class ExamsInOfficeDialogComponent implements OnInit {
   }
 
   addHemo1() {
-    console.log('valor de la hemoglobina ', this.hemoForm.value.hemoglobina);
+    // console.log('valor de la hemoglobina ', this.hemoForm.value.hemoglobina);
   }
 }

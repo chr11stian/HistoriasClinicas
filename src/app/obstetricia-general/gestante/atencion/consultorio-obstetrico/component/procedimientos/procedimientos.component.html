@@ -102,6 +102,7 @@
                                         class="add-button p-button-rounded"
                                         label="Agregar"
                                         (click)="agregateProcedureSIS()"
+                                        *ngIf="!consultationFinished"
                                     ></button>
                                 </div>
                             </div>
@@ -301,6 +302,7 @@
                         label="Guardar"
                         class="save-button p-button-rounded"
                         (click)="confirmSave()"
+                        *ngIf="!consultationFinished"
                     ></button>
                 </div>
             </div>

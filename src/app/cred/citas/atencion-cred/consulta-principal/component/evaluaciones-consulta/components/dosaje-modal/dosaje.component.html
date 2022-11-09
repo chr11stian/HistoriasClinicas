@@ -18,7 +18,7 @@
 <!--            <span>{{ consumoDiario }}</span>-->
 <!--        </div>-->
 <!--    </p-card>-->
-<div class="" [formGroup]="dosajeFG">
+<div  p class="" [formGroup]="dosajeFG">
     <div class="grid border pt-2">
         <div class="col-6 grid">
             <div class="col-4">Fecha Programada:</div>
@@ -66,7 +66,7 @@
                        [ngModelOptions]="{standalone: true}">
             </div>
         </div>
-        <div class="col-6 grid ">
+        <div class="col-4 grid ">
             <div class="col-4">Valor Hemoglobina ajustada:</div>
             <div class="col-6 p-fluid">
                 <div class="flex">
@@ -80,19 +80,37 @@
                 </div>
             </div>
         </div>
-        <div class="col-6 grid ">
-            <div class="col-4">resultado:</div>
-            <div class="col-8 p-fluid ">
-                <p-selectButton [options]="positivoNegativo" formControlName="positivoAnemia" optionLabel="name"
-                                optionValue="code" (click)="cambiamosResultado($event)"></p-selectButton>
+        <div class="col-8 grid ">
+            <div class="col-6 grid">
+                <div class="col-4">resultado:</div>
+                <div class="col-8 p-fluid ">
+                    <p-selectButton [options]="positivoNegativo" formControlName="positivoAnemia" optionLabel="name"
+                    optionValue="code" (click)="cambiamosResultado($event)"></p-selectButton>
+                </div>
+            </div>
+            <div class="col-6 grid" *ngIf="!isDisabledNivelAnemia">
+                <div class="col-6">Nivel de anemia:</div>
+                <div class="col-6 p-fluid ">
+                    <p-dropdown [options]="nivelAnemia" [(ngModel)]="nivelAnemiaSelected" [disabled]="isDisabledNivelAnemia"
+                                optionLabel="name" optionValue="code" placeholder="Seleccione nivel"
+                                [ngModelOptions]="{standalone: true}" (onChange)="yaEstoyHabilidado()"></p-dropdown>
+                </div>
             </div>
         </div>
-        <div class="col-6 grid" *ngIf="!isDisabledNivelAnemia">
-            <div class="col-4">Nivel de anemia:</div>
+        <div class="col-6 grid" >
+            <div class="col-4">His Lab:</div>
             <div class="col-8 p-fluid ">
-                <p-dropdown [options]="nivelAnemia" [(ngModel)]="nivelAnemiaSelected" [disabled]="isDisabledNivelAnemia"
-                            optionLabel="name" optionValue="code" placeholder="Seleccione nivel"
-                            [ngModelOptions]="{standalone: true}" (onChange)="yaEstoyHabilidado()"></p-dropdown>
+                <input type="text" pInputText  formControlName="codLab" class="text-center">
+            </div>
+        
+        </div>
+
+        <div class="col-6 grid">
+            <div class="col-4">Tipo Diagnostico:</div>
+            <div class="col-8 p-fluid ">
+                <p-dropdown [options]="tipoDiagnosticoList" formControlName="tipoDiagnostico" 
+                            optionLabel="name" optionValue="code" placeholder="Seleccione nivel" 
+                ></p-dropdown>
             </div>
         </div>
     </div>

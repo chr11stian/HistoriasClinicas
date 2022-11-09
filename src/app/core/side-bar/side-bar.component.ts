@@ -334,11 +334,11 @@ const admision = {
             label: "Cupos",
             routerLink: "admision/atenciones",
         },
-        {
+        /* {
             label: "Caja",
             icon: "pi pi-inbox",
             routerLink: "caja/abrir-caja",
-        },
+        }, */
         {
             icon: "pi pi-users",
             label: "Paciente",

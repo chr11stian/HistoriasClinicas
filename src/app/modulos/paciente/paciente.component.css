@@ -1,3 +1,6 @@
-.maskInput{
+.maskInput {
     width: 5em;
+}
+::ng-deep .patient-table .p-datatable .p-datatable-tbody > tr > td {
+    padding: 0.6rem 1rem;
 }

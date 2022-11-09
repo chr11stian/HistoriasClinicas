@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import Swal from "sweetalert2";
 import { MotivosConsultaService } from "../../services/motivos-consulta.service";
@@ -32,6 +32,7 @@ interface controlInterface {
 export class MotivoConsultaComponent implements OnInit {
     data: dato;
     attributeLocalS = "documento";
+    isCloseConsulta:boolean=false
     examFG: FormGroup;
     motivoFG: FormGroup;
     formExam: FormGroup;
@@ -177,6 +178,7 @@ export class MotivoConsultaComponent implements OnInit {
         public spinnerHandler: SpinnerHandlerService,
         private consultaGeneralService: ConsultaGeneralService
     ) {
+        // this.isCloseConsulta=(JSON.parse(localStorage.getItem('documento')).estadoAtencion)==2?true:false
         this.buildFG();
         this.recuperarMotivos();
     }
@@ -187,19 +189,19 @@ export class MotivoConsultaComponent implements OnInit {
                 { value: null, disabled: false },
                 []
             ),
-        });
+        }); 
         this.examFG = new FormGroup({
-            obsFC: new FormControl({ value: "", disabled: false }),
-            TFC: new FormControl({ value: null, disabled: false }, []),
-            PSFC: new FormControl({ value: null, disabled: false }, []),
-            PDFC: new FormControl({ value: null, disabled: false }, []),
-            FC: new FormControl({ value: null, disabled: false }, []),
-            FRFC: new FormControl({ value: null, disabled: false }, []),
-            PesoFC: new FormControl({ value: null, disabled: false }, []),
-            TallaFC: new FormControl({ value: null, disabled: false }, []),
-            imcFC: new FormControl({ value: null, disabled: false }, []),
-            PCFC: new FormControl({ value: null, disabled: false }, []),
-            detailFC: new FormControl({ value: null, disabled: false }, []),
+            obsFC: new FormControl({ value: "", disabled: this.isCloseConsulta }),
+            TFC: new FormControl({ value: null, disabled: this.isCloseConsulta }, []),
+            PSFC: new FormControl({ value: null, disabled: this.isCloseConsulta }, []),
+            PDFC: new FormControl({ value: null, disabled: this.isCloseConsulta }, []),
+            FC: new FormControl({ value: null, disabled: this.isCloseConsulta }, []),
+            FRFC: new FormControl({ value: null, disabled: this.isCloseConsulta }, []),
+            PesoFC: new FormControl({ value: null, disabled: this.isCloseConsulta }, []),
+            TallaFC: new FormControl({ value: null, disabled: this.isCloseConsulta }, []),
+            imcFC: new FormControl({ value: null, disabled: this.isCloseConsulta }, []),
+            PCFC: new FormControl({ value: null, disabled: this.isCloseConsulta }, []),
+            detailFC: new FormControl({ value: null, disabled: this.isCloseConsulta }, []),
         });
         /** examen fisico */
         this.formExam = new FormGroup({
