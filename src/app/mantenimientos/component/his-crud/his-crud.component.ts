@@ -69,7 +69,6 @@ export class HisCrudComponent implements OnInit {
   }
 
   openUpdateHIS(rowData): void {
-    console.log('data de row ', rowData);
     this.toEdit = true;
     this.hisDialog = true;
     this.idHIS = rowData.id;
