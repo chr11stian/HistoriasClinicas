@@ -25,7 +25,8 @@ export class DiagnosticoComponent implements OnInit {
     { name: "SIN GRUPO", code: '' },
     { name: "GRUPO A", code: 'GRUPO A' },
     { name: "GRUPO B", code: 'GRUPO B' },
-    { name: "GRUPO C", code: 'GRUPO C' }
+    { name: "GRUPO C", code: 'GRUPO C' },
+    { name: "GRUPO D", code: 'GRUPO D' }
   ]
   grupo3 = [
     { name: "SIN CRITERIO", code: '' },
