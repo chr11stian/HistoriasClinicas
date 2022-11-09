@@ -1,5 +1,5 @@
 import { dato } from "./../../../../models/data";
-import { Component, OnInit, ViewChild, DoCheck } from "@angular/core";
+import { Component, OnInit, ViewChild, DoCheck, Input } from "@angular/core";
 import { MenuItem } from "primeng/api";
 import { ConsultaGeneralService } from "../../services/consulta-general.service";
 import { ApiConsulta } from "../../models/consultaGeneral";
