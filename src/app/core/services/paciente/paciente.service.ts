@@ -63,4 +63,8 @@ export class PacienteService {
       .then(data => { return data; })
       .catch(error => { return error.error });
   }
+
+  getPaginatedPatients(page: number) {
+    return this.http.get(`${this.base_url}/${this.bd}/paciente?page=${page}`);
+  }
 }

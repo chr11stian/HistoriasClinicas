@@ -4,42 +4,89 @@
             <h3 class="p-m-0">LISTA DE PACIENTES</h3>
         </ng-template>
         <ng-template pTemplate="right" class="button">
-            <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-danger mr-2"
-                    (click)="openDialogPacienteComp()"></button>
-            <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-primary"></button>
+            <button
+                pButton
+                pRipple
+                label="Agregar"
+                icon="pi pi-plus"
+                class="p-button-danger mr-2"
+                (click)="openDialogPacienteComp()"
+            ></button>
+            <!-- <button
+                pButton
+                pRipple
+                label="Exportar"
+                icon="pi pi-upload"
+                class="p-button-primary"
+            ></button> -->
         </ng-template>
     </p-toolbar>
-    <p-table #dt [value]="listaPacientes" [rows]="10" [paginator]="true" [rowHover]="true" datakey="id"
-             responsiveLayout="scroll" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
-             currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
-             styleClass="p-datatable-gridlines">
-        <ng-template pTemplate="header" style="text-align: center;">
+    <p-table
+        #dt
+        [value]="listaPacientes"
+        [rows]="rows"
+        [(first)]="first"
+        [paginator]="true"
+        [totalRecords]="totalRecords"
+        responsiveLayout="scroll"
+        [showCurrentPageReport]="true"
+        [lazy]="true"
+        currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+        (onLazyLoad)="pagination($event)"
+        styleClass="p-datatable-gridlines"
+    >
+        <ng-template pTemplate="header" style="text-align: center">
             <tr>
-                <th style="text-align: center;">Nro</th>
-                <th style="text-align: center;">Nro Doc</th>
-                <th style="text-align: center;">Nombres</th>
-                <th style="text-align: center;">Nacionalidad</th>
-                <th style="text-align: center;">Tipo Seguro</th>
-                <th style="text-align: center;">Acción</th>
+                <th style="text-align: center">Nro</th>
+                <th style="text-align: center">Nro Doc</th>
+                <th style="text-align: center">Nombres</th>
+                <th style="text-align: center">Nacionalidad</th>
+                <th style="text-align: center">Tipo Seguro</th>
+                <th style="text-align: center">Acción</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-paciente style="text-align: center;" let-i="rowIndex">
+        <ng-template
+            pTemplate="body"
+            let-paciente
+            style="text-align: center"
+            let-i="rowIndex"
+        >
             <tr>
-                <td style="text-align: center;">{{ i + 1 }}</td>
-                <td style="text-align: center;">{{ paciente.nroDoc }}</td>
-                <td style="text-align: center;">
-                    {{ paciente.apePaterno + ' ' + paciente.apeMaterno + ', ' + paciente.primerNombre + ' ' + paciente.otrosNombres }}
+                <td style="text-align: center">{{ i + 1 }}</td>
+                <td style="text-align: center">{{ paciente.nroDoc }}</td>
+                <td style="text-align: center">
+                    {{
+                        paciente.apePaterno +
+                            " " +
+                            paciente.apeMaterno +
+                            ", " +
+                            paciente.primerNombre +
+                            " " +
+                            paciente.otrosNombres
+                    }}
                 </td>
-                <td style="text-align: center;">{{ paciente.nacionalidad }}</td>
-                <td style="text-align: center;">{{ paciente.tipoSeguro }}</td>
-                <td style="text-align: center;width: 10em;">
-                    <button pButton (click)="editar(paciente)" pTooltip="Editar" pRipple type="button"
-                            icon="pi pi-pencil" class="p-button-rounded m-1">
-                    </button>
+                <td style="text-align: center">{{ paciente.nacionalidad }}</td>
+                <td style="text-align: center">{{ paciente.tipoSeguro }}</td>
+                <td style="text-align: center; width: 10em">
+                    <button
+                        pButton
+                        (click)="editar(paciente)"
+                        pTooltip="Editar"
+                        pRipple
+                        type="button"
+                        icon="pi pi-pencil"
+                        class="p-button-rounded m-1"
+                    ></button>
 
-                    <button pButton (click)="eliminarPaciente(paciente)" pTooltip="Eliminar" pRipple
-                            type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
-                    </button>
+                    <button
+                        pButton
+                        (click)="eliminarPaciente(paciente)"
+                        pTooltip="Eliminar"
+                        pRipple
+                        type="button"
+                        icon="pi pi-trash"
+                        class="p-button-rounded p-button-danger m-1"
+                    ></button>
                 </td>
             </tr>
         </ng-template>
