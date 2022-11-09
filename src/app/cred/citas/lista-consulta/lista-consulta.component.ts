@@ -8,6 +8,7 @@ import { Router } from "@angular/router";
 import Swal from "sweetalert2";
 import { DatePipe, formatDate } from "@angular/common";
 import { environment } from "src/environments/environment";
+import * as echarts from 'echarts';
 @Component({
     selector: "app-lista-consulta",
     templateUrl: "./lista-consulta.component.html",
@@ -94,6 +95,7 @@ export class ListaConsultaComponent implements OnInit {
                 hidden: true,
                 see: false,
                 fechaConsulta: event.fechaAtencion,
+                estadoAtencion :event.estadoAtencion
             };
             localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
             setTimeout(() => {

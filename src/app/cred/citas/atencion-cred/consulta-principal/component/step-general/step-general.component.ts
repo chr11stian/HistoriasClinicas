@@ -1,5 +1,5 @@
 import { dato } from "./../../../../models/data";
-import { Component, OnInit, ViewChild, DoCheck } from "@angular/core";
+import { Component, OnInit, ViewChild, DoCheck, Input } from "@angular/core";
 import { MenuItem } from "primeng/api";
 import { ConsultaGeneralService } from "../../services/consulta-general.service";
 import { ApiConsulta } from "../../models/consultaGeneral";
@@ -67,6 +67,7 @@ export class StepGeneralComponent implements OnInit, DoCheck {
     condicion: boolean;
     tooltipItems: MenuItem[];
     idConsulta: "";
+    estadoAtencion:number=1
     constructor(
         private acuerdosService: FinalizarConsultaService,
         private consultaGeneralService: ConsultaGeneralService,
@@ -74,9 +75,8 @@ export class StepGeneralComponent implements OnInit, DoCheck {
         private router: Router,
         private dialogS: DialogService
     ) {
-        this.idConsulta = JSON.parse(
-            localStorage.getItem("documento")
-        ).idConsulta;
+        this.idConsulta = JSON.parse(localStorage.getItem("documento")).idConsulta;
+        this.estadoAtencion=JSON.parse(localStorage.getItem("documento")).estadoAtencion
         this.options = [
             { name: "DNI", code: 1 },
             { name: "CARNET RN", code: 2 },

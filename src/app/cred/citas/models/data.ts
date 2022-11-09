@@ -12,6 +12,7 @@ export interface dato {
     nroConsulta?: number;
     ups?: string;
     fechaConsulta?: string;
+    estadoAtencion?:number
 }
 
 export interface outputTriajeInterface {
