@@ -118,7 +118,7 @@ export class TestPeruanoComponent implements OnInit {
         }
         if (this.indexEdadMeses != -1 && !this.fechas[this.indexEdadMeses]) {
           /* hay evaluacion ese mes? */
-          console.log("---->entramos en el if");
+          // console.log("---->entramos en el if");
           this.fechas[this.indexEdadMeses] = new Date(this.data.fechaConsulta);
           this.isAgregable = true;
         }
@@ -369,7 +369,7 @@ export class TestPeruanoComponent implements OnInit {
   encontrarDiagnostico() {
     let nroFallidos = 0;
     const arreglo = this.arregloFormRadio.value;
-    console.log("arrreglo", arreglo);
+    // console.log("arrreglo", arreglo);
 
     arreglo.forEach((element) => {
       if (element == null || element < this.edadMeses) nroFallidos += 1;
