@@ -22,6 +22,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: {
             roles: [
+                "ROLE_ADMININ_PERSONAL",
                 "ROLE_ADMIN",
                 "ROLE_ENF_PERSONAL",
                 "ROLE_TEC_ADMINI_PERSONAL",
