@@ -549,7 +549,7 @@ export class DatosGeneralesComponent implements OnInit {
             this.formDatos_Generales.get('nroDoc').setValue(this.dataPacientes.nroDoc);
             this.formDatos_Generales.get('telefono').setValue(this.dataPacientes.celular);
             this.formDatos_Generales.get('gradoInstruccion').setValue(this.dataPacientes.gradoInstruccion);
-            this.formDatos_Generales.get('direccion').setValue(this.dataPacientes.domicilio.direccion + "," + this.dataPacientes.domicilio.departamento);
+            this.formDatos_Generales.get('direccion').setValue(this.dataPacientes.domicilio.direccion ? this.dataPacientes.domicilio.direccion : '');
             this.fechaConvertido = this.dataPacientes.nacimiento.fechaNacimiento;
             this.ageCalculator();//calcula la edad desde la fecha de nacimiento
             this.formDatos_Generales.get('edad').setValue(this.edad);
@@ -604,9 +604,6 @@ export class DatosGeneralesComponent implements OnInit {
                     this.formDatos_Generales.get('influenza').setValue(informacion.vacunasPrevias.find(item => item == "influenza") ? true : false);
                     this.formDatos_Generales.get('Covid19').setValue(informacion.vacunasPrevias.find(item => item == "covid") ? true : false);
                 }
-
-
-
                 //antecedentes familiares
                 this.antecedentes1 = [informacion.antecedentesFamiliares[0].nombre];
 
