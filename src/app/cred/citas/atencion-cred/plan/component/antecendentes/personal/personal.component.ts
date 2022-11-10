@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import {ActivatedRoute, Router} from "@angular/router";
 import {dato, PatologiasGestacion, AntecedentesPerinatales, antecedentesPatologicos} from "../../../../../models/data";
 import {DatePipe} from "@angular/common";
+import { LoginComponent } from '../../../../../../../login/login.component';
 
 @Component({
     selector: 'app-personal',
@@ -132,10 +133,10 @@ export class PersonalComponent implements OnInit {
             otroP: [false],
             otroDetalleP: [''],
             edadN: new FormControl('',Validators.required),
-            pesoN: [''],
-            tallaN: [''],
-            perimetroCefaN: [''],
-            perimetroTorN: [''],
+            pesoN: new FormControl('',Validators.required),
+            tallaN: new FormControl('',Validators.required),
+            perimetroCefaN: new FormControl('',Validators.required),
+            perimetroTorN: new FormControl('',Validators.required),
             tieneAnemia: new FormControl('',Validators.required),
             fechaAnemia: new FormControl(null,Validators.required),
             inmediatoN: [false],
@@ -166,6 +167,13 @@ export class PersonalComponent implements OnInit {
             patologia: [''],
         })
     }
+    isInvalid(control: string): boolean {
+        const formControl: AbstractControl = this.getFC(control);
+        return (
+            formControl.invalid && (formControl.touched || formControl.dirty)
+        );
+    }
+
 
     openAcuerdo() {
         this.formAcuerdos.reset();
@@ -273,13 +281,12 @@ export class PersonalComponent implements OnInit {
 
     ngOnInit(): void {
         this.getQueryParams()
-        this.recuperarDatos();      
-        console.log('isEditable',this.isEditable);
-        
+        this.recuperarDatos();              
         if(!this.isEditable){
             this.getFC('edadN').disable()
-            this.getFC('tieneAnemia').disable()
-            this.getFC('fechaAnemia').disable()
+            this.getFC('pesoN').disable()
+            this.getFC('tieneAnemia').disable() /* comentar */
+            this.getFC('fechaAnemia').disable() /* comentar */
         
         }
     }
@@ -325,9 +332,24 @@ export class PersonalComponent implements OnInit {
         this.getFC(nombre2).setValue(!e.value)
         this.getFC(nombre3).setValue(!e.value)
     }
+    findInvalidControls():string[]{
+        const listInvalid=[]
+        const listControls=this.personalFG.controls;
+        for (const name in listControls) {
+            if (listControls[name].invalid) {
+                listInvalid.push(name);
+            }
+        }
+        return listInvalid;
+    }
 
-    save() {
-        console.log(this.getFC('edadN').invalid)
+    save() {    
+        if(this.personalFG.invalid){
+            this.personalFG.markAllAsTouched()
+            const firstInvalid=(this.findInvalidControls())[0]
+            document.getElementById(firstInvalid).focus();
+            return
+        }
         let aux: AntecedentesPerinatales = {
             embarazo: {
                 tipoEmbarazo: this.getFC('normalE').value,
@@ -368,7 +390,6 @@ export class PersonalComponent implements OnInit {
                 suplementoFe: this.getFC('suplementoFe').value
             },
         }
-        console.log('inputRequest',aux);
         // return
         if(!this.isUpdateAntecedentePersonal){
             this.antecedentesService.addAntecedentesPersonales(this.nroDoc, aux).toPromise().then(
