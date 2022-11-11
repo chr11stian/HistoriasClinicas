@@ -1,9 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { CuposComponent } from "./admision/cupos/cupos.component";
 import { PersonalSaludComponent } from "./personal-salud/personal-salud.component";
 import { UsuariosComponent } from "./usuarios/usuarios.component";
-import { UbicacionComponent } from "../mantenimientos/component/ubicacion/ubicacion.component";
 import { IpressComponent } from "./ipress/ipress.component";
 import { PacienteComponent } from "./paciente/paciente.component";
 import { ListarCuposComponent } from "./triaje/listar-cupos/listar-cupos.component";
@@ -14,11 +12,11 @@ import { TabViewComponent } from "./admision/tab-view/tab-view.component";
 import { IpressHorariosComponent } from "./ipress-horarios/ipress-horarios.component";
 import { IpressTarifarioComponent } from "./ipress-tarifario/ipress-tarifario.component";
 import { IpressFarmaciaComponent } from "./ipress-farmacia/component/ipress-farmacia.component";
-import { ListarHisComponent } from "../his/listar-his/listar-his.component";
 import { HisComponent } from "./his/his.component";
 import { IpressLaboratorioComponent } from "./ipress-laboratorio/ipress-laboratorio.component";
 import { CentroPobladoComponent } from "./centro-poblado/centro-poblado.component";
-import { UserGuard } from "../core/guards/user.guard";
+import { ConsultaComponent } from "./../modulos/admision/consulta/consulta.component";
+import { ConsultaLabComponent } from "./../modulos/admision/consulta-lab/consulta-lab.component";
 
 const routes: Routes = [
     {
@@ -95,6 +93,14 @@ const routes: Routes = [
     {
         path: "ipress-laboratorio",
         component: IpressLaboratorioComponent,
+    },
+    {
+        path: "consulta",
+        component: ConsultaComponent,
+    },
+    {
+        path: "consultalab",
+        component: ConsultaLabComponent,
     },
 ];
 

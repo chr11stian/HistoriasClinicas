@@ -10,6 +10,8 @@ import {PaginatorModule} from "primeng/paginator";
 import { ModalCupos2Component } from './cupos/modal-cupos2/modal-cupos2.component';
 import { GenerarOfertasComponent } from './generar-ofertas/generar-ofertas.component';
 import { InterconsultaComponent } from './interconsulta/interconsulta.component';
+import { ConsultaComponent } from './consulta/consulta.component';
+import { ConsultaLabComponent } from './consulta-lab/consulta-lab.component';
 
 
 @NgModule({
@@ -22,6 +24,8 @@ import { InterconsultaComponent } from './interconsulta/interconsulta.component'
         ModalCupos2Component,
         GenerarOfertasComponent,
         InterconsultaComponent,
+        ConsultaComponent,
+        ConsultaLabComponent,
     ],
     imports: [
         CommonModule,
