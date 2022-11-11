@@ -31,6 +31,7 @@ export class VisitasDomiciliariasGestantesComponent implements OnInit {
   selectedAnio: string = "";
   selectedMes: string = "";
   visitaReporte: string = "";
+  selectedGestante:any;
   formAntecedentes: FormGroup;
   meses = [
     { label: "Enero", value: 1 },
@@ -97,7 +98,7 @@ export class VisitasDomiciliariasGestantesComponent implements OnInit {
   openDialogRespuestas(data: any[]) {
     this.ref = this.dialog.open(DialogRespuestasComponent, {
       header:
-        "Preguntas > Respuestas de la visita domiciliaria de la gestante ejecutada",
+        "PREGUNTAS>RESPUESTAS DE LA VISITAS DOMICILIARIA EJECUTADA",
       width: "70%",
       // height: "800px",
       contentStyle: {

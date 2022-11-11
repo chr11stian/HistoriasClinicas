@@ -35,6 +35,7 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
   visitaReporte: string = "";
   cantidad_visitas_menores_4_meses: number;
   cantidad_visitas_mayores_4_meses: number;
+  selectedNinioNinia:any;
   meses = [
     { label: "Enero", value: 1 },
     { label: "Febrero", value: 2 },

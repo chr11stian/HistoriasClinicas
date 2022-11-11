@@ -58,6 +58,8 @@
                      currentPageReportTemplate="Mostrando {first} a {last} de
                      {{dataVisitas_Menores_4_meses.length}} entradas"
                      [rowsPerPageOptions]="[10,25,50]"
+                     selectionMode="single"
+                     [(selection)]="selectedNinioNinia"
                      >
             <ng-template pTemplate="header">
                 <tr>
@@ -76,7 +78,7 @@
                 </tr>
                 </ng-template>
                 <ng-template pTemplate="body"  let-RowData let-rowIndex="rowIndex">
-                    <tr>
+                    <tr [pSelectableRow]="RowData">
                         <td style="text-align: center">{{rowIndex+1}}</td>
                         <td style="text-align: center">{{RowData.dni_ninio}}</td>
                         <td style="text-align: left">{{RowData.nombres_ninio}}</td>
@@ -118,6 +120,8 @@
                     currentPageReportTemplate="Mostrando {first} a {last} de
                     {{dataVisitas_Mayores_4_meses.length}} entradas"
                     [rowsPerPageOptions]="[10,25,50]"
+                    selectionMode="single"
+                    [(selection)]="selectedNinioNinia"
                     >
                 <ng-template  pTemplate="header">
                     <tr>
@@ -136,7 +140,7 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body"  let-RowData let-rowIndex="rowIndex">
-                    <tr [ngClass]="dataActual">
+                    <tr  [pSelectableRow]="RowData">
                         <td style="text-align: center">{{rowIndex+1}}</td>
                         <td style="text-align: center">{{RowData.dni_ninio}}</td>
                         <td style="text-align: left">{{RowData.nombres_ninio}}</td>

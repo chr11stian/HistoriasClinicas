@@ -29,4 +29,11 @@ export class DialogRespuestasComponent implements OnInit {
   "SUPLEMENTACIÓN/TRATAMIENTO",
   "OTROS COMPROMISOS"
   ]
+
+  gestantes_puerperas:string []=[
+    "INFORMACION GENERAL",
+    "SIGNOS DE ALARMA",
+    "ALIMENTACIÓN",
+    "SUPLEMENTACIÓN",
+  ]
 }

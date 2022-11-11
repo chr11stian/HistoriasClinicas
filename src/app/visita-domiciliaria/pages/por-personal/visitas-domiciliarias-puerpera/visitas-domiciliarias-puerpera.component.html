@@ -56,9 +56,11 @@
                         currentPageReportTemplate="Mostrando {first} a {last} de
                         {{dataVisitaPuerpera.length}} entradas"
                         [rowsPerPageOptions]="[10,25,50]"
+                        selectionMode="single"
+                        [(selection)]="selectedPuerpera"
                         >
                   <ng-template pTemplate="header">
-                  <tr>
+                  <tr >
                       <th>Nro</th>
                       <th>DNI</th>
                       <th  pSortableColumn="nombres_gestante">Nombres <p-sortIcon field="nombres_gestante"></p-sortIcon></th>
@@ -73,7 +75,7 @@
                   </tr>
                   </ng-template>
                   <ng-template pTemplate="body"  let-RowData let-rowIndex="rowIndex">
-                      <tr>
+                      <tr  [pSelectableRow]="RowData">
                           <td style="text-align: center">{{rowIndex+1}}</td>
                           <td style="text-align: center">{{RowData.dni_gestante}}</td>
                           <td style="text-align: left">{{RowData.nombres_gestante}}</td>

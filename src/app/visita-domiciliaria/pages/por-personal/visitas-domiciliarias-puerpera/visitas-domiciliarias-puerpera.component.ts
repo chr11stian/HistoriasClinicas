@@ -31,17 +31,8 @@ export class VisitasDomiciliariasPuerperaComponent implements OnInit {
   selectedAnio: string = "";
   selectedMes: string = "";
   visitaReporte: string = "";
-  //parte de prueba
-  listaVisitas1: any[] = [
-    { latitud: -13.52507, longitud: -71.93089 },
-    { latitud: -13.5307703, longitud: -71.9408312 },
-    { latitud: -13.530774, longitud: -71.9408339 },
-    { latitud: -13.58441, longitud: -71.91867 },
-    { latitud: -13.5307587, longitud: -71.9408254 },
-    { latitud: -13.53182, longitud: -71.93626 },
-    { latitud: -13.5307528, longitud: -71.940821 },
-    { latitud: -13.52591, longitud: -71.936 },
-  ];
+  selectedPuerpera:any;
+
   formAntecedentes: FormGroup;
   meses = [
     { label: "Enero", value: 1 },
@@ -106,7 +97,7 @@ export class VisitasDomiciliariasPuerperaComponent implements OnInit {
   openDialogRespuestas(data: any[]) {
     this.ref = this.dialog.open(DialogRespuestasComponent, {
       header:
-        "Preguntas > Respuestas de la visita domiciliaria de la gestante ejecutada",
+        "PREGUNTAS>RESPUESTAS DE LA VISITAS DOMICILIARIA EJECUTADA",
       width: "70%",
       // height: "800px",
       contentStyle: {
@@ -190,7 +181,7 @@ export class VisitasDomiciliariasPuerperaComponent implements OnInit {
     this.visitaReporte =
       environment.base_urlTx +
       "/jasperserver/rest_v2/reports/Reports/VISITA/gestantepuerpera/visita_gestante_puerpera.pdf?"+
-      "&visita=" +
+      "visitaid=" +
       aux.id;
   }
 }
