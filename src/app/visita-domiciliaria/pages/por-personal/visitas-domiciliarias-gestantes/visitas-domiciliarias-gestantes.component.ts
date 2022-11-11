@@ -11,7 +11,7 @@ import { DialogRespuestasComponent } from "../../../components/dialog-respuestas
 import { MessageService } from "primeng/api";
 import { VisitaGestanteService } from "../../../services/visita-gestante.service";
 import { VisitaDomiciliariaService } from "../../../services/visita-domiciliaria.service";
-
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "app-visitas-domiciliarias-gestantes",
@@ -30,7 +30,7 @@ export class VisitasDomiciliariasGestantesComponent implements OnInit {
   loading: boolean = true;
   selectedAnio: string = "";
   selectedMes: string = "";
-
+  visitaReporte: string = "";
   formAntecedentes: FormGroup;
   meses = [
     { label: "Enero", value: 1 },
@@ -175,5 +175,13 @@ export class VisitasDomiciliariasGestantesComponent implements OnInit {
           }
         });
     }
+  }
+
+  visitas_gestantes_reporte(aux){
+    this.visitaReporte =
+      environment.base_urlTx +
+      "/jasperserver/rest_v2/reports/Reports/VISITA/gestantepuerpera/visita_gestante_puerpera.pdf?"+
+      "visitaid=" +
+      aux.id;
   }
 }

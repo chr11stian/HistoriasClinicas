@@ -94,11 +94,35 @@ export class VisitaDomiciliariaService {
             localStorage.getItem("usuario")
         ).escalas.unidades;
     }
-
-    getImage(id:string,token:string):any{
-        const headers = new HttpHeaders(`{'Authorization': "Bearer " ${token}, 'Content-Type': 'image/*'}`); 
-        let blob:any=this.http
-            .get(`${this.base_url_images}/${id}`, {responseType: 'blob'})
-        return blob;
+     // const headers = new HttpHeaders(`{'Authorization': "Bearer " ${token}, 'Content-Type': 'image/*'}`); 
+    getImage(id:string){
+        this.couch=true;
+        return this.http
+            .get(`${this.base_url_images}/${id}`,{responseType: 'blob'})
+            .pipe(map(val => this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(val))))
+            .toPromise()
+            .then((data) => {
+            // console.log("dataaaaa",data['changingThisBreaksApplicationSecurity']);
+            return `${data['changingThisBreaksApplicationSecurity'].toString()}`
+        });
+    }
+     // .toPromise()
+            // .then((res: any) => {
+            // //return res;
+            // return new Promise<string>(function(resolve, reject) {
+            //     var reader = new FileReader();
+            //     reader.readAsDataURL(res);
+            //     reader.onload = function() { 
+            //     resolve(reader.result as string); 
+            //     console.log(reader.result); 
+            //     };
+            // });
+            // })
+            // .catch((error) => {
+            // console.log("Error al cargar la imagen");
+            // return null;
+            // });
+    urlImagen(fileName:string):string{
+    return `${this.base_url}/${this.base_url_images}/${fileName}`;
     }
 }

@@ -82,10 +82,14 @@
                         <td style="text-align: center">{{RowData.telefono}}</td>
                         <td style="text-align: left">{{RowData.direccion}}</td>
                         <td style="text-align: center">
-                            <button  pButton type="button" label="Ver"  icon="pi pi-eye"   class="buttonAcciones" (click)="openDialogRespuestas(RowData.preguntas)"></button>
+                            <button  pButton type="button" label="Ver"  icon="pi pi-eye"  class="buttonAcciones" (click)="openDialogRespuestas(RowData.preguntas)"></button>
                         </td>
                         <td style="text-align: center">
-                            <button pButton type="button" label="Reporte" icon="pi pi-file-pdf" class="buttonAcciones" ></button>
+                            <button pButton type="button"  class="buttonAcciones1" (click)="visitas_gestantes_reporte(RowData)"
+                            ><a class="link" style="color:#fbfbfb; text-decoration: none;"
+                            href="{{visitaReporte}}"
+                                target="_blank">Reporte</a>
+                            </button>
                         </td>
                     </tr>
                 </ng-template>

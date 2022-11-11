@@ -20,6 +20,9 @@ export class MapVisitasComponent implements OnInit, OnChanges {
   @Input("dataVisitas") dataVisitas: any[];
   latMap =this.visitaService.getLatitudIpress();
   lngMap = this.visitaService.getLongitudeIpress();
+  imagesUrl:any=["https://res.cloudinary.com/dhcetqc1j/image/upload/v1663796368/visita-domiciliaria_yn5eyj.jpg",
+                 "https://res.cloudinary.com/dhcetqc1j/image/upload/v1663796368/visita-domiciliaria_yn5eyj.jpg",
+                "https://res.cloudinary.com/dhcetqc1j/image/upload/v1663796368/visita-domiciliaria_yn5eyj.jpg"]
   private centroid: L.LatLngExpression = [this.latMap, this.lngMap];
   maps: any;
   photoSelected:string  | ArrayBuffer="https://res.cloudinary.com/dhcetqc1j/image/upload/v1654050519/7dc4c2e40b17a259f2177131b34439fe957eae2f_00_dxyvnm.gif";
@@ -45,6 +48,7 @@ export class MapVisitasComponent implements OnInit, OnChanges {
 
     }
   }
+  cargarImagena(){}
   //./assets/svg-marker/marker-visita-domiciliaria.svg
   initMap() {
     var iconDefault = L.icon({
@@ -88,32 +92,28 @@ export class MapVisitasComponent implements OnInit, OnChanges {
     ).addTo(this.maps);
 
     this.dataVisitas.map((aux,i) => {
-      let srcImg:any='./assets/images/nodisponible.png';
-      this.visitaService.couch=true;
-      srcImg=this.visitaService.getImage(aux.value.validator.imagen,this.visitaService.getToken()).subscribe((data)=>{
-       //console.log("data requesttt",data);
-        // return data;
-        return new Promise<string>(function(resolve, reject) {
-          var reader = new FileReader();
-          reader.readAsDataURL(data);
-          reader.onload = function() { resolve(reader.result as string); console.log(reader.result); };
-      });
-      })
-      srcImg='./assets/images/nodisponible.png';
-      console.log("src imagen",srcImg);
       if(aux.value.hasOwnProperty('mayor_cuatro_meses') || aux.value.hasOwnProperty('menor_cuatro_meses')){
-        console.log("NIÑOS Y NIÑAS");
         if(aux.value.mayor_cuatro_meses=="mayor_cuatro_meses"){
+          // this.visitaService.couch=true;
           L.marker([aux.value.validator.latitud, aux.value.validator.longitud],{icon: ninios_mayores_Icon},{
             title: "VISITA DOMICILIARIA",
           })
             .addTo(this.maps)
             .bindPopup(
               `
-            <h3>VISITA NIÑOS-NIÑAS,4-24 MESES</h3>
-            <h4>VISITA NRO :${aux.value.nroVisita}</h4>
-            <h4>ALTITUD:${aux.value.validator.altitud}</h4> 
-            <img id="visitaImagen" class="image" src="${srcImg}" alt=""/>
+            <div style="width:200px;height:100%;background: #f8f9fa">
+            <h3 style="font-style: italic;font-weight:bold;font-size:14px;color:#af0017;text-align:center;font-family: Times, "Times New Roman", Georgia, serif">VISITA DE NIÑOS,NIÑAS DE 4-24 MESES</h3>
+            <h4 style="font-style: italic;font-weight:bold;font-size:12px;color:#000000;text-align:center;font-family: Times, "Times New Roman", Georgia, serif">Visita número :${aux.value.nroVisita}</h4>
+            <h4  style="font-style: italic;font-weight:bold;font-size:12px;color:#000000;text-align:center;font-family: Times, "Times New Roman", Georgia, serif">Altitud:${aux.value.validator.altitud}</h4>
+            <img
+            src="${this.visitaService.getImage(
+              aux.value.validator.imagen
+              ).then((url:string)=>{console.log("url",url);})}"
+            "
+            style="width: 100%; display: block"
+          />
+            </div>
+            
           `,
               { closeButton: false }
             );
@@ -124,10 +124,12 @@ export class MapVisitasComponent implements OnInit, OnChanges {
             .addTo(this.maps)
             .bindPopup(
               `
+              <div>
               <h3>VISITA NIÑOS-NIÑAS,0-4 MESES</h3>
               <h4>VISITA NRO :${aux.value.nroVisita}</h4>
               <h4>ALTITUD:${aux.value.validator.altitud}</h4> 
-              <img class="image" src="${srcImg}" alt=""/>
+              <img class="image" src="imagesUrl[0]" alt=""/>
+              </div>
           `,
               { closeButton: false }
             );
@@ -143,7 +145,7 @@ export class MapVisitasComponent implements OnInit, OnChanges {
               `
             <h4>VISITA GESTANTE</h3>
             <h4>ALTITUD:${aux.value.validator.altitud}</h4> 
-            <img class="image" src="${srcImg}" alt=""/>
+            <img class="image" src="" alt=""/>
           
           `,
               { closeButton: false }
@@ -158,7 +160,7 @@ export class MapVisitasComponent implements OnInit, OnChanges {
               `
             <h3>VISITA PUERPERA</h3>
             <h4>ALTITUD:${aux.value.validator.altitud}</h4> 
-            <img class="image" src="${srcImg}" alt=""/>
+            <img class="image" src="" alt=""/>
           
           `,
               { closeButton: false }
@@ -188,6 +190,10 @@ export class MapVisitasComponent implements OnInit, OnChanges {
     //   },
     // ]
     // }).addTo(this.maps)
+  }
+
+  cargarImagen(){
+    console.log("imageennnnnnn");
   }
 
 }/**  <img class="image" src="{{'data:image/png;base64,'+${this.visitaService.getImageURL(aux.value.validator.firma)}}"

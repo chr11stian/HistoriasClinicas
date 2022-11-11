@@ -11,7 +11,7 @@ import { DialogRespuestasComponent } from "../../../components/dialog-respuestas
 import { MessageService, SortEvent } from "primeng/api";
 import { VisitaGestanteService } from "../../../services/visita-gestante.service";
 import { VisitaDomiciliariaService } from "../../../services/visita-domiciliaria.service";
-
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-visitas-domiciliarias-puerpera',
   templateUrl: './visitas-domiciliarias-puerpera.component.html',
@@ -30,6 +30,7 @@ export class VisitasDomiciliariasPuerperaComponent implements OnInit {
   loading: boolean = true;
   selectedAnio: string = "";
   selectedMes: string = "";
+  visitaReporte: string = "";
   //parte de prueba
   listaVisitas1: any[] = [
     { latitud: -13.52507, longitud: -71.93089 },
@@ -185,4 +186,11 @@ export class VisitasDomiciliariasPuerperaComponent implements OnInit {
   }
 
   
+  visitas_puerperas_reporte(aux){
+    this.visitaReporte =
+      environment.base_urlTx +
+      "/jasperserver/rest_v2/reports/Reports/VISITA/gestantepuerpera/visita_gestante_puerpera.pdf?"+
+      "&visita=" +
+      aux.id;
+  }
 }
