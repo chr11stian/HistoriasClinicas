@@ -390,9 +390,7 @@ export class PersonalComponent implements OnInit {
                 suplementoFe: this.getFC('suplementoFe').value
             },
         }
-        console.log('input request',aux);
         
-        return
         if(!this.isUpdateAntecedentePersonal){
             this.antecedentesService.addAntecedentesPersonales(this.nroDoc, aux).toPromise().then(
                 (resp:any) => {
