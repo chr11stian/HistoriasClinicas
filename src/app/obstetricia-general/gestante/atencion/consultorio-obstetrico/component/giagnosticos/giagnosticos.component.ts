@@ -962,6 +962,8 @@ export class GiagnosticosComponent implements OnInit {
 
         return arrayDiagnosticHIS;
     }
+
+    
 }
 interface Lista {
     label: string;
