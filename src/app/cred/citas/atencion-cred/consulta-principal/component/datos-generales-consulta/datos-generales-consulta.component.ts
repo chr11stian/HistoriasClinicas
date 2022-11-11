@@ -39,8 +39,8 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
   auxTriaje: outputTriajeInterface;
   data: dato;
   attributeLocalS = "documento";
-  anamnesisFC = new FormControl({ value: "", disabled: false });
-  obsFC = new FormControl({ value: "", disabled: false });
+  anamnesisFC = new FormControl({ value: "", disabled: true });
+  obsFC = new FormControl({ value: "", disabled: true });
   stateOptions = [
     { label: "Si", value: true },
     { label: "No", value: false },
@@ -288,7 +288,7 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
       dateAttention: new FormControl({ value: "", disabled: true }, [
         Validators.required,
       ]),
-      hour: new FormControl({ value: null, disabled: false }, [
+      hour: new FormControl({ value: null, disabled: true }, [
         Validators.required,
       ]),
       year: new FormControl({ value: null, disabled: true }, [
@@ -296,7 +296,7 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
       ]),
     });
     this.signoPeligroFG = new FormGroup({
-      presentSigns: new FormControl({ value: false, disabled: false }, [
+      presentSigns: new FormControl({ value: false, disabled: true }, [
         Validators.required,
       ]),
     });
@@ -323,55 +323,55 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
       8: new FormControl(false),
     });
     this.twoMonthsMoreFG = new FormGroup({
-      1: new FormControl({ value: false, disabled: false }, [
+      1: new FormControl({ value: false, disabled: true }, [
         Validators.required,
       ]),
-      2: new FormControl({ value: false, disabled: false }, [
+      2: new FormControl({ value: false, disabled: true }, [
         Validators.required,
       ]),
-      3: new FormControl({ value: false, disabled: false }, [
+      3: new FormControl({ value: false, disabled: true }, [
         Validators.required,
       ]),
-      4: new FormControl({ value: false, disabled: false }, [
+      4: new FormControl({ value: false, disabled: true }, [
         Validators.required,
       ]),
-      5: new FormControl({ value: false, disabled: false }, [
+      5: new FormControl({ value: false, disabled: true }, [
         Validators.required,
       ]),
     });
     this.allYearFG = new FormGroup({
-      1: new FormControl({ value: false, disabled: false }, [
+      1: new FormControl({ value: false, disabled: true }, [
         Validators.required,
       ]),
-      2: new FormControl({ value: false, disabled: false }, [
+      2: new FormControl({ value: false, disabled: true }, [
         Validators.required,
       ]),
-      3: new FormControl({ value: false, disabled: false }, [
+      3: new FormControl({ value: false, disabled: true }, [
         Validators.required,
       ]),
-      4: new FormControl({ value: false, disabled: false }, [
+      4: new FormControl({ value: false, disabled: true }, [
         Validators.required,
       ]),
-      5: new FormControl({ value: false, disabled: false }, [
+      5: new FormControl({ value: false, disabled: true }, [
         Validators.required,
       ]),
     });
     /** form para factor de riesgo */
     this.factorRiesgoFG = new FormGroup({
       /** quien cuida al ninio */
-      cuidaNinio: new FormControl({ value: null, disabled: false }, [
+      cuidaNinio: new FormControl({ value: null, disabled: true }, [
         Validators.required,
       ]),
       /** participa el apdre en el cuidado del ninio: atributo tipo boolean*/
-      participaPadre: new FormControl({ value: null, disabled: false }, [
+      participaPadre: new FormControl({ value: null, disabled: true }, [
         Validators.required,
       ]),
       /** ninio recibe muestras de afecto : atributo tipo boolean */
-      recibeAfecto: new FormControl({ value: null, disabled: false }, [
+      recibeAfecto: new FormControl({ value: null, disabled: true }, [
         Validators.required,
       ]),
       /** detalle string*/
-      especificacion: new FormControl({ value: null, disabled: false }, [
+      especificacion: new FormControl({ value: null, disabled: true }, [
         Validators.required,
       ]),
     });

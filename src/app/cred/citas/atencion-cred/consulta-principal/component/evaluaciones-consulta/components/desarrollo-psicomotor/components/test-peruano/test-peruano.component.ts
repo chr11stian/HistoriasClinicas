@@ -27,6 +27,8 @@ export class TestPeruanoComponent implements OnInit {
   displayDialog: boolean = false;
   listaMeses = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 18, 21, 24, 30]; //17
   listaLetras = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"]; //12
+  listaAreas = ["motor postural", "motor postural", "motor postural", "visor motor", "visor motor", "lenguaje", "lenguaje", "lenguaje", "personal-social", "personal-social", "personal-social", "inteligencia-aprendisaje"]; //12
+
   imagenes: any[];
   listaTestPeruano: any[];
   datePipe = new DatePipe("en-US");
@@ -116,7 +118,7 @@ export class TestPeruanoComponent implements OnInit {
         }
         if (this.indexEdadMeses != -1 && !this.fechas[this.indexEdadMeses]) {
           /* hay evaluacion ese mes? */
-          console.log("---->entramos en el if");
+          // console.log("---->entramos en el if");
           this.fechas[this.indexEdadMeses] = new Date(this.data.fechaConsulta);
           this.isAgregable = true;
         }
@@ -341,10 +343,33 @@ export class TestPeruanoComponent implements OnInit {
     });
     return diagnostico;
   }
+  encontrarObservacion() {
+    const areaDeficitList=[]
+    const arreglo = this.arregloFormRadio.value;
+    console.log("arrreglo", arreglo);
+
+    arreglo.forEach((element,index) => {
+      if (element == null || element < this.edadMeses) {
+        const posicion=areaDeficitList.indexOf(this.listaAreas[index])
+          if(posicion==-1){
+            areaDeficitList.push(this.listaAreas[index]) 
+           }
+      }
+      });
+    console.log('arreglo',areaDeficitList);
+    
+    let observacionTexto=''
+    areaDeficitList.forEach((element) => {
+      observacionTexto=observacionTexto+`${element};`
+    });
+    // if(observacionTexto.length>=1)
+      const real=observacionTexto.slice(0,-1)
+    return real
+  }
   encontrarDiagnostico() {
     let nroFallidos = 0;
     const arreglo = this.arregloFormRadio.value;
-    console.log("arrreglo", arreglo);
+    // console.log("arrreglo", arreglo);
 
     arreglo.forEach((element) => {
       if (element == null || element < this.edadMeses) nroFallidos += 1;
@@ -360,7 +385,7 @@ export class TestPeruanoComponent implements OnInit {
       Swal.fire({
         icon: "info",
         title: "Test Peruano",
-        text: "Todas las filas deben estar marcadas",
+        text: "Todas las lineas de desarrollo deben ser evaluadas",
         showConfirmButton: false,
         timer: 2000,
       });
@@ -393,11 +418,11 @@ export class TestPeruanoComponent implements OnInit {
         observacion: this.observacion,
       },
     };
-    console.log(inputRequest);
-    // return
-
+  
     Swal.fire({
       title: "Esta seguro que desea guardar este registro?",
+      html:`<div>Diagnostico:<span>${inputRequest.evaluacionDesarrolloMes.diagnostico}</span></div>
+            <div>Observacion:<span>${inputRequest.evaluacionDesarrolloMes.observacion}</span></div>`,
       showDenyButton: false,
       showCancelButton: true,
       confirmButtonText: "Guardar",
@@ -431,7 +456,7 @@ export class TestPeruanoComponent implements OnInit {
       input: "text",
       inputLabel: "Ingrese Observacion",
       width: "400px",
-      inputValue: this.observacion,
+      inputValue: this.encontrarObservacion(),
       inputPlaceholder: "obs.",
       inputAttributes: {
         "aria-label": "Type your message here",

@@ -99,8 +99,9 @@
                         </ng-template>
                     </ng-template>
                 </div>
-                <div class="col-2 flex justify-content-around">
-                        <button *ngIf="!dosaje.estadoControlado && dosaje.edadMes==edadMes" (click)="agregarDosaje(dosaje)" pButton pRipple
+<!--                 <button *ngIf="!dosaje.estadoControlado && (dosaje.edadMes<=edadMes && edadMes<=dosaje.edadMes+5)" (click)="agregarDosaje(dosaje)" pButton pRipple
+ -->                <div class="col-2 flex justify-content-around">
+                    <button *ngIf="disponibleVacunar(dosaje.estadoControlado,dosaje.edadMes)" (click)="agregarDosaje(dosaje)" pButton pRipple
 
                             type="button" icon="pi pi-pencil"
                             pTooltip="Agregar Dosaje de Hemoglobina"

@@ -39,9 +39,7 @@
             <div class="col-1 text-center" style="font-weight: bold">Accion</div>
         </div>
         <div *ngFor="let tera of suplementacionTerapeutica"  [ngStyle]="{'background-color': tera.edadMes==edadMes?'#fcbfba':'white'}">
-            <!--         [ngStyle]="{'background-color':va.edadMes==edadMes? 'rgba(175,0,23,0.4)' : 'white' }">-->
-            <div class="grid" *ngIf="true">
-
+            <div class="grid">
                 <div class="col-1 text-center">
                     {{tera.edadMes}}
                 </div>
@@ -81,15 +79,17 @@
             <span *ngIf="tera.estadoAdministrado;else noVacunado;">
               <p-tag severity="success" value="Administrado" [rounded]="true"></p-tag>
             </span>
-                    <ng-template #noVacunado>
+            <ng-template #noVacunado>
               <span>
                 <p-tag severity="warning" value="No Administrado" [rounded]="true"></p-tag>
               </span>
-                    </ng-template>
-                </div>
+            </ng-template>
+           
+            </div>
                 <div class="col-1 text-center">
                     <div >
-                         <button *ngIf="!tera.estadoAdministrado && tera.edadMes==edadMes;"
+                        <button *ngIf="!tera.estadoAdministrado && tera.edadMes==edadMes;"
+                            (click)="isSuplementacion=true;agregarSuplementacion(tera)"
                             pButton
                             pRipple
                             type="button" icon="pi pi-pencil"
@@ -181,8 +181,10 @@
               </span>
                     </ng-template>
                 </div>
+                
                 <div class="col-1 text-center">
-                    <button *ngIf="!sf.estadoAdministrado && sf.edadMes==edadMes" (click)="isSuplementacion=true;agregarSuplementacion(sf)" 
+                    <button *ngIf="!sf.estadoAdministrado && sf.edadMes==edadMes"
+                            (click)="isSuplementacion=true; agregarSuplementacion(sf)"
                             pButton
                             pRipple
                             type="button" icon="pi pi-pencil"
@@ -192,11 +194,6 @@
                 </div>
             </div>
         </div>
-         <!-- <div class="col-12" *ngIf="contador.sulfato==0">
-             <span style="color:#FBC02D;font-size: 1.2rem" >
-                 No hay programacion de entrega de SULFATO para el presente mes
-             </span>
-         </div> -->
     </p-fieldset>
 </div>
 <div>
@@ -264,7 +261,8 @@
                     </ng-template>
                 </div>
                 <div class="col-1 text-center">
-                    <button *ngIf="!mnm.estadoAdministrado && mnm.edadMes==edadMes;" (click)="isSuplementacion=true; agregarSuplementacion(mnm)"
+                    <button *ngIf="!mnm.estadoAdministrado && mnm.edadMes==edadMes;"
+                            (click)="isSuplementacion=true; agregarSuplementacion(mnm)"
                             pButton
                             pRipple
                             type="button" icon="pi pi-pencil"
@@ -274,11 +272,6 @@
                 </div>
             </div>
         </div>
-       <!-- <div *ngIf="this.contador.micronutrientes==0">
-           <span style="color:#FBC02D;font-size: 1.2rem" >
-               No hay programacion de entrega de MICRONUTRIENTES para el presente mes
-           </span>
-       </div> -->
     </p-fieldset>
 </div>
 <div>
@@ -347,8 +340,8 @@
                     </ng-template>
                 </div>
                 <div class="col-1 text-center">
-                        <button *ngIf="!va.estadoAdministrado && va.edadMes==edadMes" (click)="isSuplementacion=false;agregarSuplementacion(va)"
-                    
+                        <button *ngIf="!va.estadoAdministrado && va.edadMes==edadMes"
+                            (click)="isSuplementacion=false;agregarSuplementacion(va)"
                             pButton
                             pRipple
                             type="button" icon="pi pi-pencil"
@@ -358,10 +351,5 @@
                 </div>
             </div>
         </div>
-       <!-- <div *ngIf="this.contador.vitaminaA==0">
-           <span style="color:#FBC02D;font-size: 1.2rem" >
-               No hay programacion de entrega de VITAMINA A para el presente mes
-           </span>
-       </div> -->
     </p-fieldset>
 </div>

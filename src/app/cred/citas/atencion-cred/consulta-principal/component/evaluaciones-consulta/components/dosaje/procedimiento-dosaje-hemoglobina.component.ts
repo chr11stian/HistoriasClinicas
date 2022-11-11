@@ -26,14 +26,20 @@ export class ProcedimientoDosajeHemoglobinaComponent implements OnInit {
     mes:this.dataDocumento.mes,
     dia:this.dataDocumento.dia
   }
-  contador:number=0;
   constructor(private suplementacionesMicronutrientesService:SuplementacionesMicronutrientesService,
               private messageService: MessageService,
               public dialogService: DialogService) {
   }
   get edadMes(){
-    return this.dataDocumento.anio*12+this.dataDocumento.mes;
-    // return 12; //todo para manipula la edad del niño
+     return this.dataDocumento.anio*12+this.dataDocumento.mes;
+    //return this.contador1; //todo para manipula la edad del niño
+  }
+  disponibleVacunar(dosajeEstadoControlado,dosajeEdadMes){
+    const mesesAñadidos=dosajeEdadMes==1?4:5
+    if(  (!dosajeEstadoControlado && (dosajeEdadMes<=this.edadMes && this.edadMes<=dosajeEdadMes+mesesAñadidos)) || (this.edadMes==0 && dosajeEdadMes==1))
+      return true
+    else
+      return false
   }
   ngOnInit(): void {
     this.getDosajePreventivo()
