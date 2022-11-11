@@ -137,8 +137,8 @@ export class PersonalComponent implements OnInit {
             tallaN: new FormControl('',Validators.required),
             perimetroCefaN: new FormControl('',Validators.required),
             perimetroTorN: new FormControl('',Validators.required),
-            tieneAnemia: new FormControl('',Validators.required),
-            fechaAnemia: new FormControl(null,Validators.required),
+            // tieneAnemia: new FormControl('',Validators.required),
+            // fechaAnemia: new FormControl(null,Validators.required),
             inmediatoN: [false],
             apgar1m: [''],
             apgar5m: [''],
@@ -241,8 +241,8 @@ export class PersonalComponent implements OnInit {
                 this.personalFG.get('tallaN').setValue(this.antecedentes.nacimiento.tallaAlNacer)
                 this.personalFG.get('perimetroCefaN').setValue(this.antecedentes.nacimiento.perimetroCefalico)
                 this.personalFG.get('perimetroTorN').setValue(this.antecedentes.nacimiento.perimetroToracico)
-                this.personalFG.get('tieneAnemia').setValue(this.antecedentes.nacimiento.tieneAnemia)
-                this.personalFG.get('fechaAnemia').setValue(this.antecedentes.nacimiento.fechaAnemia)
+                // this.personalFG.get('tieneAnemia').setValue(this.antecedentes.nacimiento.tieneAnemia)
+                // this.personalFG.get('fechaAnemia').setValue(this.antecedentes.nacimiento.fechaAnemia)
                 this.personalFG.get('inmediatoN').setValue(this.antecedentes.nacimiento.respiracionLlantoNacerInmediato)
                 this.personalFG.get('apgar1m').setValue(this.antecedentes.nacimiento.apgar1)
                 this.personalFG.get('apgar5m').setValue(this.antecedentes.nacimiento.apgar5)
@@ -285,8 +285,8 @@ export class PersonalComponent implements OnInit {
         if(!this.isEditable){
             this.getFC('edadN').disable()
             this.getFC('pesoN').disable()
-            this.getFC('tieneAnemia').disable() /* comentar */
-            this.getFC('fechaAnemia').disable() /* comentar */
+            // this.getFC('tieneAnemia').disable() 
+            // this.getFC('fechaAnemia').disable() 
         
         }
     }
@@ -380,8 +380,8 @@ export class PersonalComponent implements OnInit {
                 especifique: this.getFC('detallePatologiaN').value,
                 hospitalizacion: this.getFC('hospitalizacionN').value,
                 tiempoHospitalizacion: this.getFC('tiempoHospN').value,
-                tieneAnemia:this.getFC('tieneAnemia').value, /* obligatorio */
-                fechaAnemia:this.getFC('fechaAnemia').value,   /* obligatorio */
+                /* tieneAnemia:this.getFC('tieneAnemia').value,     
+                fechaAnemia:this.getFC('fechaAnemia').value,  */
         
             }, 
             alimentacion: {
@@ -390,7 +390,9 @@ export class PersonalComponent implements OnInit {
                 suplementoFe: this.getFC('suplementoFe').value
             },
         }
-        // return
+        console.log('input request',aux);
+        
+        return
         if(!this.isUpdateAntecedentePersonal){
             this.antecedentesService.addAntecedentesPersonales(this.nroDoc, aux).toPromise().then(
                 (resp:any) => {
