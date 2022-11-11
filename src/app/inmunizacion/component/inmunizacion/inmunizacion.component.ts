@@ -1,3 +1,4 @@
+import { PersonalService } from "./../../../core/services/personal-services/personal.service";
 import { inmunizaciones } from "./../../../cred/citas/atencion-cred/plan/component/plan-atencion-integral/models/plan-atencion-integral.model";
 import {
     inmunizacionObject,
@@ -36,6 +37,9 @@ export class InmunizacionComponent implements OnInit {
     tituloInmunizacion: string;
     formInmunizaciones: FormGroup;
     idInmunizacion: string;
+
+    //--rol
+    data;
     viaAdministracionList = [
         { name: "Intradermica", code: "INTRADERMICA" },
         { name: "Intramuscular", code: "INTRAMUSCULAR" },
@@ -52,10 +56,12 @@ export class InmunizacionComponent implements OnInit {
     constructor(
         private fb: FormBuilder,
         private dialog: DialogService,
-        private serviceInmunizacion: InmunizacionesService
+        private serviceInmunizacion: InmunizacionesService,
+        private personalservice: PersonalService
     ) {}
 
     ngOnInit(): void {
+        this.data = JSON.parse(localStorage.getItem("usuario"));
         this.buildForm();
         this.cargarInmunizaciones();
     }
@@ -108,7 +114,7 @@ export class InmunizacionComponent implements OnInit {
             });
         });
         this.dataListPersonInmunizaciones = inmunizacion;
-        console.log("list",inmunizacion)
+        console.log("list", inmunizacion);
     }
     saveInmunizaciones() {
         this.dataListPersonInmunizaciones.map((aux) => {
@@ -148,11 +154,21 @@ export class InmunizacionComponent implements OnInit {
     updateInmunizacion() {
         console.log("inmunizacion", this.idInmunizacion);
         let i = this.dataListPersonInmunizaciones.findIndex(
-            (aux) => (aux.id === this.idInmunizacion)
+            (aux) => aux.id === this.idInmunizacion
         );
+        //--rol obstetricia - enfermeria
+        let nombreUPS;
+        this.personalservice
+            .listServiceStaff(this.data.nroDocumento)
+            .subscribe((r: any) => {
+                nombreUPS = r.object[0].roles[0].nombreUPS;
+            });
         this.dataListPersonInmunizaciones[i].tipoDx = "D";
         this.dataListPersonInmunizaciones[i].estado = "administrado";
-        this.dataListPersonInmunizaciones[i].nombreUPS = "ENFERMERIA";
+        this.dataListPersonInmunizaciones[i].nombreUPS =
+            nombreUPS === "ATENCION INTEGRAL DEL NINO"
+                ? "ENFERMERIA"
+                : nombreUPS;
         this.dataListPersonInmunizaciones[i].nombreUPSaux = "INMUNIZACIONES";
         this.dataListPersonInmunizaciones[i].cantidad =
             this.formInmunizaciones.value.cantidad;
