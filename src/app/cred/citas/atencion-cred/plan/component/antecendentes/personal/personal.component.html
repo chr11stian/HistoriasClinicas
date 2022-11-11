@@ -253,12 +253,18 @@
                                 <input id="edadN" formControlName="edadN" type="number" class="inputfield w-full"
                                        pInputText>
                             </div>
+                            <div *ngIf="isInvalid('edadN')">
+                                <span style="padding-left: 10px;" class="p-error">*Elemento requerido</span>
+                            </div>
                         </div>
                         <div class="col">
                             <span style="padding: 0.5rem;">Peso al nacer(gr)</span>
                             <div class="col">
                                 <input id="pesoN" formControlName="pesoN" type="number" class="inputfield w-full"
-                                       pInputText>
+                                       pInputText   id="pesoN" >
+                            </div>
+                            <div *ngIf="isInvalid('pesoN')" >
+                                <span style="padding-left: 10px;" class="p-error">*Elemento requerido</span>
                             </div>
                         </div>
                         <div class="col">
@@ -267,12 +273,18 @@
                                 <input id="tallaN" formControlName="tallaN" type="number" class="inputfield w-full"
                                        pInputText>
                             </div>
+                            <div *ngIf="isInvalid('tallaN')" >
+                                <span style="padding-left: 10px;" class="p-error">*Elemento requerido</span>
+                            </div>
                         </div>
                         <div class="col">
                             <span style="padding: 0.5rem;">Perímetro Cefalico(cm)</span>
                             <div class="col">
-                                <input id="perimetroCefaN" formControlName="perimetroCefaN" type="number"
-                                       class="inputfield w-full" pInputText>
+                                <input style="padding-left: 10px;" id="perimetroCefaN" formControlName="perimetroCefaN" type="number"
+                                       class="inputfield w-full" pInputText >
+                            </div>
+                            <div *ngIf="isInvalid('perimetroCefaN')" >
+                                <span style="padding-left: 10px;" class="p-error">*Elemento requerido</span>
                             </div>
                         </div>
                         <div class="col">
@@ -281,12 +293,16 @@
                                 <input id="perimetroTorN" formControlName="perimetroTorN" type="number"
                                        class="inputfield w-full" pInputText>
                             </div>
+                            <div *ngIf="isInvalid('perimetroTorN')" >
+                                <span style="padding-left: 10px;" class="p-error">*Elemento requerido</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-6 flex">
+                    <!-- <div class="col-6 flex">
                         <div class="col-6 justify-content-center">
                             <span>Deteccion Anemia</span>
-                            <p-selectButton [options]="stateOptions"
+                            <p-selectButton id="tieneAnemia"
+                                            [options]="stateOptions"
                                             formControlName="tieneAnemia"
                                             optionLabel="label"
                                             optionValue="value">
@@ -294,10 +310,14 @@
                         </div>
                         <div class="col-6">
                             <span>Fecha deteccion Anemia</span>
-                            <input type="date" pInputText formControlName='fechaAnemia'
-                            class="p-inputtext inputfield w-full" placeholder="Fecha">
+                            <input id="fechaAnemia" 
+                                type="date"
+                                pInputText 
+                                formControlName='fechaAnemia'
+                                class="p-inputtext inputfield w-full" 
+                                placeholder="Fecha">
                         </div>
-                    </div>
+                    </div> -->
                     <div class="grid ">
                         <div class="col-12 text-center"><p>Respiración y llanto al nacer</p></div>
                         <div class="col-12  flex align-content-end justify-content-center flex-wrap">
@@ -578,14 +598,14 @@
         </p-fieldset>
     </div>
 
+    <!-- 3abajo [disabled]="this.getFC('edadN').invalid" -->
     <div class="col col-offset-10">
         <button
-                [disabled]="this.getFC('edadN').invalid"
                 type="submit"
                 pButton
                 pRipple
                 icon="pi pi-save"
-                label="Guardar"
+                label="Guardar "
                 (click)="save()"
                 style="background-color: #0c3866"
                 class="p-button-raised p-button-info"></button>
@@ -600,7 +620,7 @@
         </button>-->
     </div>
 </div>
-<p-dialog header="Agregar Patologia" [(visible)]="dialogAcuerdos" [modal]="true" [style]="{width: '40%'}"
+<!-- <p-dialog header="Agregar Patologia" [(visible)]="dialogAcuerdos" [modal]="true" [style]="{width: '40%'}"
           [draggable]="false"
           [resizable]="false">
 
@@ -636,4 +656,4 @@
                  style="background-color: #0c3866" (click)="saveAcuerdo()"></buttons>
 
     </ng-template>
-</p-dialog>
+</p-dialog> -->
