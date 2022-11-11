@@ -264,7 +264,7 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
   ) {
     let auxAge = JSON.parse(localStorage.getItem("documento"));
     this.ageValidation = (12 * auxAge.anio + auxAge.mes);
-    console.log('data de doc ls ', this.ageValidation);
+    // console.log('data de doc ls ', this.ageValidation);
   }
 
   buildForm(): void {
@@ -313,14 +313,14 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
     });
 
     this.twoMonthsFG = new FormGroup({
-      1: new FormControl(false),
-      2: new FormControl(false),
-      3: new FormControl(false),
-      4: new FormControl(false),
-      5: new FormControl(false),
-      6: new FormControl(false),
-      7: new FormControl(false),
-      8: new FormControl(false),
+      1: new FormControl({ value:'',disabled:true}),
+      2: new FormControl({ value:'',disabled:true}),
+      3: new FormControl({ value:'',disabled:true}),
+      4: new FormControl({ value:'',disabled:true}),
+      5: new FormControl({ value:'',disabled:true}),
+      6: new FormControl({ value:'',disabled:true}),
+      7: new FormControl({ value:'',disabled:true}),
+      8: new FormControl({ value:'',disabled:true}),
     });
     this.twoMonthsMoreFG = new FormGroup({
       1: new FormControl({ value: false, disabled: true }, [
@@ -405,7 +405,7 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
       });
     this.consultaService.getDatosGenerales(id).subscribe((r: any) => {
       this.auxTriaje = r.object;
-      console.log("aux: ", this.auxTriaje);
+      // console.log("aux: ", this.auxTriaje);
       let date: Date = new Date(this.auxTriaje.fecha);
       this.generalInfoFG.get("dateAttention").setValue(date);
       this.generalInfoFG.get("hour").setValue(date);
@@ -513,9 +513,9 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    console.log("idConsulta ", this.consultaService.idConsulta);
+    // console.log("idConsulta ", this.consultaService.idConsulta);
     this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
-    console.log("data", this.data);
+    // console.log("data", this.data);
     if (this.data.idConsulta !== "") this.recuperarData(this.data.idConsulta);
     this.buildForm();
     /* interconsulta */
@@ -605,17 +605,17 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
       .getServiciosPorIpress(idIpress)
       .subscribe((res: any) => {
         this.servicios = res.object;
-        console.log("LISTA DE SERVICIOS DE IPRESSS", this.servicios);
+        // console.log("LISTA DE SERVICIOS DE IPRESSS", this.servicios);
       });
   }
 
   eliminarInterconsulta(id, index) {
     this.listInterconsulta.splice(index, 1);
-    console.log();
+    // console.log();
     this.consultaGeneralService
       .deleteInterconsulta(this.data.idConsulta, id)
       .subscribe((r: any) => {
-        console.log(r.object);
+        // console.log(r.object);
       });
   }
   listaInterconsulta() {
