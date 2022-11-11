@@ -1,0 +1,3 @@
+::ng-deep .table-over .p-datatable .p-datatable-tbody > tr > td {
+    padding: 1rem 1rem;
+}
