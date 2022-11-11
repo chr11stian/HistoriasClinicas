@@ -776,6 +776,8 @@ export class TriajeCredComponent implements OnInit {
                             new Date(),
                             "yyyy-MM-dd HH:mm:ss"
                         ),
+                        estadoAtencion:1
+                        
                     };
                     this.consultaService.idConsulta = r.object.id;
                     localStorage.setItem(
