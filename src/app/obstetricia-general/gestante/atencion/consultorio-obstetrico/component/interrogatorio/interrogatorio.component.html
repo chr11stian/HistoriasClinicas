@@ -703,7 +703,7 @@
                 <br />
                 <p-fieldset legend="EXAMEN OBSTÉTRICO">
                     <div class="grid">
-                        <div class="col-6">
+                        <div class="col-4">
                             <div class="grid">
                                 <div class="col-3">
                                     <label class="ml-2">Nro de fetos:</label>
@@ -731,7 +731,7 @@
                                         >
                                     </div>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-3">
                                     <label class="ml-2"
                                         >Miembros Inferiores:</label
                                     >
@@ -743,19 +743,6 @@
                                         placeholder="Miembros inferiores"
                                         class="funcionesBiologicas p-fluid w-full"
                                     />
-                                </div>
-                                <div class="col-2">
-                                    <label>Edema:</label>
-                                    <p-dropdown
-                                        [options]="listaEdema"
-                                        formControlName="edema"
-                                        optionLabel="name"
-                                        optionValue="name"
-                                        class="inputfield p-fluid w-full examenObst"
-                                        placeholder="Seleccione una opción"
-                                        appendTo="body"
-                                    >
-                                    </p-dropdown>
                                 </div>
                                 <div class="col-4">
                                     <label class="ml-2"
@@ -769,6 +756,19 @@
                                         class="funcionesBiologicas inputfield w-full"
                                         oninput="this.value=this.value.toUpperCase()"
                                     />
+                                </div>
+                                <div class="col-2">
+                                    <label>Edema:</label>
+                                    <p-dropdown
+                                        [options]="listaEdema"
+                                        formControlName="edema"
+                                        optionLabel="name"
+                                        optionValue="name"
+                                        class="inputfield p-fluid w-full examenObst pt-2"
+                                        placeholder="Seleccione una opción"
+                                        appendTo="body"
+                                    >
+                                    </p-dropdown>
                                 </div>
                                 <div class="col-4">
                                     <label class="ml-2">Vagina:</label>
@@ -792,18 +792,19 @@
                                         oninput="this.value=this.value.toUpperCase()"
                                     />
                                 </div>
-                                <div class="col-12">
-                                    <div class="grid">
-                                        <label>Reflejo Osteotendinoso: </label>
+                                <div class="col-8">
+                                    <label>Reflejo Osteotendinoso: </label>
+                                    <div class="pt-2 flex flex-row">
                                         <p-radioButton
                                             name="osteotendinoso"
                                             formControlName="osteotendinoso"
-                                            value="o"
+                                            value="O"
                                             class="default ml-2"
                                         >
                                         </p-radioButton>
                                         <span class="mr-2 ml-1">O </span>
                                         <p-radioButton
+                                            dioButton
                                             name="osteotendinoso"
                                             formControlName="osteotendinoso"
                                             value="x"
@@ -831,7 +832,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-8">
                             <p-toolbar>
                                 <ng-template pTemplate="left">
                                     <h3 class="mt-2">EXÁMENES FETALES</h3>
@@ -1039,73 +1040,6 @@
         ></button>
     </div>
 </div>
-
-<!-- Dialog de otros examenes fisicos -->
-<p-dialog
-    [(visible)]="examenesFisicosDialog"
-    [modal]="true"
-    [style]="{ width: '580px' }"
->
-    <ng-template pTemplate="header">
-        <h3>OTROS EXAMENES FISICOS</h3>
-    </ng-template>
-    <form [formGroup]="formExamFisico">
-        <div class="grid mt-3">
-            <div class="col-6">
-                <label>Nombre Examen:</label>
-                <input
-                    type="text"
-                    pInputText
-                    formControlName="examName"
-                    placeholder=""
-                    class="inputfield w-full"
-                />
-            </div>
-            <div class="col-6 p-fluid">
-                <label>Resultado:</label>
-                <p-dropdown
-                    [options]="listaFuncionesBiologicas"
-                    formControlName="examResult"
-                    optionLabel="name"
-                    optionValue="name"
-                    placeholder="Seleccione una opción"
-                    appendTo="body"
-                    class="inputfield w-full"
-                >
-                </p-dropdown>
-            </div>
-            <div class="col-12">
-                <label>Detalle:</label>
-                <input
-                    type="text"
-                    pInputText
-                    formControlName="examDetalle"
-                    placeholder=""
-                    class="inputfield w-full"
-                />
-            </div>
-        </div>
-    </form>
-    <ng-template pTemplate="footer">
-        <button
-            pButton
-            pRipple
-            label="Agregar"
-            icon="pi pi-plus"
-            class="bg-blue-700"
-            (click)="btnGuardarExamFis()"
-        ></button>
-        <button
-            pButton
-            pRipple
-            label="Cancelar"
-            icon="pi pi-times"
-            class="p-button-danger"
-            (click)="btnCancelarExamFis()"
-        ></button>
-    </ng-template>
-</p-dialog>
-
 <!-- Dialog de examenes  fetales -->
 <p-dialog
     [(visible)]="fetalesExamDialog"
@@ -1187,6 +1121,7 @@
                                     formControlName="latidosCardiacos"
                                     placeholder=""
                                     class="funcionesBiologicas inputfield w-full ml-0"
+                                    (keyup)="construeFetalRisk()"
                                 />
                             </div>
                             <div
@@ -1206,6 +1141,10 @@
                                 <label for="binary">NA</label>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-12" *ngIf="!chkLatidos">
+                        <label>Riesgo Fetal</label>
+                        <span> {{ fetalRisk }} </span>
                     </div>
                 </div>
             </form>
