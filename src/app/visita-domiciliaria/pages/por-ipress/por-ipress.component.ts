@@ -80,7 +80,7 @@ export class PorIpressComponent implements OnInit {
   }
 
   listaVisitas() {
-    let ipress = "00002303";
+    let ipress =this.servicioVisitas.getEscalaCodIpress();
     this.servicioVisitas.couch = true;
     this.servicioVisitaProfesionalIpress
       .getVisitasProfesionalesPorIpress(ipress)
@@ -98,7 +98,7 @@ export class PorIpressComponent implements OnInit {
             this.profesionalesIpress.push(this.profesional);
           }
         });
-        console.log("data profesional", this.profesionalesIpress);
+        // console.log("data profesional", this.profesionalesIpress);
       });
   }
 
@@ -113,7 +113,7 @@ export class PorIpressComponent implements OnInit {
   }
 
   async recuperarVisitasNiniosMayores4Meses(ipress,aux) {
-    console.log("arreglo ");
+    // console.log("arreglo ");
     this.servicioVisitas.couch = true;
     await this.servicioVisitaProfesionalNinios.getVisitasNiniosXProfesionalMayores_4_Meses(ipress,aux.value.responsable,this.servicioVisitas.getAnio())
       .then((data_ninios) => {
@@ -139,7 +139,7 @@ export class PorIpressComponent implements OnInit {
     this.servicioVisitas.couch = true;
     await this.servicioVisitaProfesionalGestantes.getVisitasGestantesXProfesionalAnio(ipress, aux.value.responsable,this.servicioVisitas.getAnio())
       .then((data_gestantes) => {
-        console.log("data gestantess",data_gestantes);
+        // console.log("data gestantess",data_gestantes);
         let auxIndex: number = this.dniProfesionalIpress.indexOf(aux.value.responsable);
         this.profesionalesIpress[auxIndex].visitas_gestantes=[];
         if (data_gestantes["rows"].length > 0){
@@ -151,7 +151,7 @@ export class PorIpressComponent implements OnInit {
     this.servicioVisitas.couch = true;
     await this.servicioVisitaProfesionalGestantes.getVisitasGestantesXProfesionalAnio(ipress, aux.value.responsable,this.servicioVisitas.getAnio())
       .then((data_puerperas) => {
-        console.log("data puerperasss",data_puerperas);
+        // console.log("data puerperasss",data_puerperas);
         let auxIndex: number = this.dniProfesionalIpress.indexOf(aux.value.responsable);
         this.profesionalesIpress[auxIndex].visitas_puerperas=[];
         if (data_puerperas["rows"].length > 0){
@@ -161,21 +161,17 @@ export class PorIpressComponent implements OnInit {
   }
 
   async verVisitasPorAnio(event){
-    console.log("Resumen visitas por anio");
-    let ipress = "00002303";
+    let ipress =this.servicioVisitas.getEscalaCodIpress();
     this.servicioVisitas.couch = true;
     this.selectedAnio = event.value;
     this.dniProfesionalIpress=[];
     this.profesionalesIpress=[];
-    console.log("anio selecccionadooooooooo",this.selectedAnio);
     await this.servicioVisitaProfesionalIpress
       .getVisitasProfesionalesPorIpress(ipress)
       .subscribe((data) => {
         this.dataVisitas = data["rows"];
         console.log("data", data);
         this.dataVisitas.map((aux, index) => {
-          //console.log(aux);
-          // console.log(this.profesionalesIpress.indexOf(aux.value.responsable));
           if (this.dniProfesionalIpress.indexOf(aux.value.responsable) === -1) {
             this.recuperarVisitasNiniosMayores4MesesAnio(ipress,aux,this.selectedAnio);
             this.recuperarVisitasNiniosMenores4MesesAnio(ipress,aux,this.selectedAnio);
@@ -186,14 +182,11 @@ export class PorIpressComponent implements OnInit {
             this.profesionalesIpress.push(this.profesional);
           }
         });
-        console.log("data profesional", this.profesionalesIpress);
       });
   }
 
   async recuperarVisitasNiniosMayores4MesesAnio(ipress,aux,anio) {
-    console.log("arreglo ");
     this.servicioVisitas.couch = true;
-    console.log("el aniooo",anio);
     await this.servicioVisitaProfesionalNinios.getVisitasNiniosXProfesionalMayores_4_Meses(ipress,aux.value.responsable,anio)
       .then((data_ninios) => {
         let auxIndex: number = this.dniProfesionalIpress.indexOf(aux.value.responsable);
@@ -201,12 +194,10 @@ export class PorIpressComponent implements OnInit {
         if (data_ninios["rows"].length > 0){
         this.profesionalesIpress[auxIndex].visitas_mayores_4_meses =data_ninios["rows"];
         }
-        console.log("Data ninios mayores",data_ninios);
       });
   }
   async recuperarVisitasNiniosMenores4MesesAnio(ipress,aux,anio) {
     this.servicioVisitas.couch = true;
-    console.log("el aniooo",anio);
     await this.servicioVisitaProfesionalNinios.getVisitasNiniosXProfesionalMenores_4_Meses(ipress,aux.value.responsable,anio)
       .then((data_ninios) => {
         let auxIndex: number = this.dniProfesionalIpress.indexOf(aux.value.responsable);
@@ -214,15 +205,12 @@ export class PorIpressComponent implements OnInit {
         if (data_ninios["rows"].length > 0){
         this.profesionalesIpress[auxIndex].visitas_menores_4_meses =data_ninios["rows"];
         }
-        console.log("dataaa menores",data_ninios);
       });
   }
   async recuperarGestantesAnio(ipress,aux,anio) {
     this.servicioVisitas.couch = true;
-    console.log("el aniooo",anio);
     await this.servicioVisitaProfesionalGestantes.getVisitasGestantesAnio(ipress, aux.value.responsable,anio)
       .then((data_gestantes) => {
-        console.log("data gestantess",data_gestantes);
         let auxIndex: number = this.dniProfesionalIpress.indexOf(aux.value.responsable);
         this.profesionalesIpress[auxIndex].visitas_gestantes=[];
         if (data_gestantes["rows"].length > 0){
@@ -232,10 +220,8 @@ export class PorIpressComponent implements OnInit {
   }
   async recuperarPuerperasAnio(ipress,aux,anio) {
     this.servicioVisitas.couch = true;
-    console.log("el aniooo",anio);
     await this.servicioVisitaProfesionalGestantes.getVisitasPuerperasAnio(ipress, aux.value.responsable,anio)
       .then((data_puerperas) => {
-        console.log("data puerperasss",data_puerperas);
         let auxIndex: number = this.dniProfesionalIpress.indexOf(aux.value.responsable);
         this.profesionalesIpress[auxIndex].visitas_puerperas=[];
         if (data_puerperas["rows"].length > 0){
@@ -245,16 +231,13 @@ export class PorIpressComponent implements OnInit {
   }
 
   async verVisitasPorMes(event){
-    console.log("Resumen visitas por anio");
-    let ipress = "00002303";
+    let ipress =this.servicioVisitas.getEscalaCodIpress();
     if (this.selectedAnio != "") {
       this.servicioVisitas.couch = true;
       this.selectedMes = event.value;
       let fecha = `${this.selectedAnio} ${this.selectedMes}`;
       this.dniProfesionalIpress=[];
       this.profesionalesIpress=[];
-      console.log("anio selecccionadooooooooo",this.selectedAnio);
-      console.log("mes selecionadooooooo",this.selectedMes);
       await this.servicioVisitaProfesionalIpress
         .getVisitasProfesionalesPorIpress(ipress)
         .subscribe((data) => {
@@ -271,13 +254,11 @@ export class PorIpressComponent implements OnInit {
               this.profesionalesIpress.push(this.profesional);
             }
           });
-          console.log("data profesional", this.profesionalesIpress);
         });
     }
   }
 
   async recuperarVisitasNiniosMayores4MesesAnioMes(ipress,aux,fecha) {
-    console.log("arreglo ");
     this.servicioVisitas.couch = true;
     console.log("el aniooo",fecha);
     await this.servicioVisitaProfesionalNinios.getVisitasNiniosXProfesionalMayores_4_MesesFecha(ipress,aux.value.responsable,fecha)
@@ -287,12 +268,10 @@ export class PorIpressComponent implements OnInit {
         if (data_ninios["rows"].length > 0){
         this.profesionalesIpress[auxIndex].visitas_mayores_4_meses =data_ninios["rows"];
         }
-        console.log("Data ninios mayores",data_ninios);
       });
   }
   async recuperarVisitasNiniosMenores4MesesAnioMes(ipress,aux,fecha) {
     this.servicioVisitas.couch = true;
-    console.log("el aniooo",fecha);
     await this.servicioVisitaProfesionalNinios.getVisitasNiniosXProfesionalMenores_4_MesesFecha(ipress,aux.value.responsable,fecha)
       .then((data_ninios) => {
         let auxIndex: number = this.dniProfesionalIpress.indexOf(aux.value.responsable);
@@ -300,12 +279,10 @@ export class PorIpressComponent implements OnInit {
         if (data_ninios["rows"].length > 0){
         this.profesionalesIpress[auxIndex].visitas_menores_4_meses =data_ninios["rows"];
         }
-        console.log("dataaa menores",data_ninios);
       });
   }
   async recuperarGestantesAnioMes(ipress,aux,fecha) {
     this.servicioVisitas.couch = true;
-    console.log("el aniooo",fecha);
     await this.servicioVisitaProfesionalGestantes.getVisitasGestantesFecha(ipress, aux.value.responsable,fecha)
       .then((data_gestantes) => {
         console.log("data gestantess",data_gestantes);
@@ -352,7 +329,6 @@ export class PorIpressComponent implements OnInit {
       header:
         "Preguntas>Respuestas de la visita domiciliaria del niño-niña ejecutada",
       width: "70%",
-      height: "100%",
       contentStyle: {
         "max-height": "93%",
         overflow: "auto",
@@ -366,7 +342,6 @@ export class PorIpressComponent implements OnInit {
       header:
         "GRAFICO VISITA DOMICILIARIA PROFESIONAL",
       width: "70%",
-      height: "100%",
       contentStyle: {
         "max-height": "93%",
         overflow: "auto",
