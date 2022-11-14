@@ -240,7 +240,7 @@ export class DatosGeneralesComponent implements OnInit {
                 (resp) => {
                     Swal.fire({
                         icon: 'success',
-                        title: 'Registro agregado correctamente',
+                        title: 'Registro actualizado correctamente',
                         text: '',
                         showConfirmButton: false,
                         timer: 1500,

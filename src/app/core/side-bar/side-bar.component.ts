@@ -23,7 +23,7 @@ const menu_geresa = [
                 label: "Usuarios",
                 icon: "pi pi-pw pi-file",
                 routerLink: "admision/usuarios",
-            }
+            },
         ],
     },
 
@@ -268,14 +268,20 @@ const administracion2 = {
     icon: "pi pi-cog",
     items: [
         {
-            label: "Ipress Turnos",
-            icon: "pi pi-pw pi-sliders-v",
-            routerLink: "admision/ipress-turnos",
-        },
-        {
-            label: "Ipress Ambientes",
-            icon: "pi pi-pw pi-sliders-v",
-            routerLink: "admision/ipress-ambientes",
+            icon: "pi pi-sliders-v",
+            label: "Modificar Consulta",
+            items: [
+                {
+                    icon: "pi pi-sliders-v",
+                    label: "Consultas del dia",
+                    routerLink: "admision/consulta",
+                },
+                {
+                    icon: "pi pi-sliders-v",
+                    label: "LAB & TDx",
+                    routerLink: "admision/consultalab",
+                },
+            ],
         },
         {
             label: "Ipress Roles",
@@ -283,10 +289,21 @@ const administracion2 = {
             routerLink: "admision/ipress-roles",
         },
         {
+            label: "Ipress Ambientes",
+            icon: "pi pi-pw pi-sliders-v",
+            routerLink: "admision/ipress-ambientes",
+        },
+        {
             label: "Ups Auxiliar",
             icon: "pi pi-pw pi-sliders-v",
             routerLink: "mantenimientos/ups-aux",
         },
+        {
+            label: "Ipress Turnos",
+            icon: "pi pi-pw pi-sliders-v",
+            routerLink: "admision/ipress-turnos",
+        },
+
         /* {
             label: "Ipress Horarios",
             icon: "pi pi-pw pi-file",
@@ -307,6 +324,7 @@ const administracion2 = {
             label: "Ipress Laboratorio",
             routerLink: "admision/ipress-laboratorio",
         },
+        
         // {
         //     icon: "pi pi-sliders-v",
         //     label: "His",
@@ -587,7 +605,7 @@ const root = {
         {
             label: "HIS",
             icon: "pi pi-book",
-            routerLink: "mantenimientos/his-crud"
+            routerLink: "mantenimientos/his-crud",
         },
         {
             label: "Centro Poblado",
@@ -625,7 +643,7 @@ export class SideBarComponent implements OnInit, DoCheck {
 
     activeSubmenus: { [key: string]: boolean } = {};
 
-    constructor(private filterService: FilterService, private router: Router) { }
+    constructor(private filterService: FilterService, private router: Router) {}
 
     build() {
         if (this.rol === "ROLE_ADMIN") {
