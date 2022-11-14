@@ -7,7 +7,11 @@
         </tr>
         </ng-template>
         <ng-template pTemplate="body"  let-RowData let-rowIndex="rowIndex">
-            <div *ngIf="data.length<4;then menor;else mayor">
+            <div *ngIf="data.length==5;then menor">
+            </div>
+            <div *ngIf="data.length==4;then gestante_puerpera">
+            </div>
+            <div *ngIf="data.length==3;then mayor">
             </div>
             <ng-template #menor >
                     <th colspan="3" class="tr_status" style="text-align:left" >{{menor4meses[RowData.id-1]}}</th>
@@ -19,6 +23,14 @@
             </ng-template>
             <ng-template #mayor >
                 <th colspan="3" class="tr_status" style="text-align:left">{{mayor4meses[RowData.id-1]}}</th>
+                <tr *ngFor="let objeto of RowData.respuestas">
+                    <td style="text-align: left">{{objeto.pregunta}}</td> 
+                    <td style="text-align: left">{{objeto.valores}}</td>
+                    <td style="text-align: left">{{objeto.detalles }}</td>
+                </tr>
+            </ng-template>
+            <ng-template #gestante_puerpera >
+                <th colspan="3" class="tr_status" style="text-align:left">{{gestantes_puerperas[RowData.id-1]}}</th>
                 <tr *ngFor="let objeto of RowData.respuestas">
                     <td style="text-align: left">{{objeto.pregunta}}</td> 
                     <td style="text-align: left">{{objeto.valores}}</td>

@@ -13,6 +13,7 @@ import { VisitasDomiciliariasPuerperaComponent } from './pages/por-personal/visi
 import { PorIpressComponent } from './pages/por-ipress/por-ipress.component';
 import { MapVisitasIpressComponent } from './components/map-visitas-ipress/map-visitas-ipress.component';
 import { EchartsVisitaComponent } from './components/echarts-visita/echarts-visita.component';
+import { ImagePipe } from "./pipes/image.pipe";
 
 @NgModule({
   declarations: [
@@ -26,6 +27,8 @@ import { EchartsVisitaComponent } from './components/echarts-visita/echarts-visi
     VisitasDomiciliariasPuerperaComponent,
     MapVisitasIpressComponent,
     EchartsVisitaComponent,
+    ImagePipe,
+    
   ],
   imports: [CommonModule, VisitaDomiciliariaRoutingModule, PrimeModule],
   exports: [VisitaDomiciliariaRoutingModule],

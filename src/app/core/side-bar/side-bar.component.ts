@@ -256,6 +256,12 @@ const administracion1 = {
             icon: "pi pi-users",
             routerLink: "admision/personal-salud",
         },
+        {
+            label:"Visitas domiciliarias",
+            icon: "pi pi pi-home",
+            routerLink: "visitas-domiciliarias/ipress-ninios",
+
+        }
         /*{
             label: "Usuarios",
             icon: "pi pi-pw pi-file",
