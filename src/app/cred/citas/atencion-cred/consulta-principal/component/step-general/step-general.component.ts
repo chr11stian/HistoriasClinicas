@@ -94,16 +94,16 @@ export class StepGeneralComponent implements OnInit, DoCheck {
                     this.openDialogInterconsultaObstetricia();
                 },
             },
-            {
-                tooltipOptions: {
-                    tooltipLabel: "otras opciones",
-                    tooltipPosition: "left",
-                },
-                icon: "pi pi-tablet",
-                command: (event: Event) => {
-                    this.openDialogInterconsultaObstetricia();
-                },
-            },
+            // {
+            //     tooltipOptions: {
+            //         tooltipLabel: "otras opciones",
+            //         tooltipPosition: "left",
+            //     },
+            //     icon: "pi pi-tablet",
+            //     command: (event: Event) => {
+            //         this.openDialogInterconsultaObstetricia();
+            //     },
+            // },
         ];
     }
     openDialogInterconsultaObstetricia() {
