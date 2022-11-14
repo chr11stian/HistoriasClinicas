@@ -80,7 +80,8 @@ export class PorIpressComponent implements OnInit {
   }
 
   listaVisitas() {
-    let ipress =this.servicioVisitas.getEscalaCodIpress();
+   // let ipress =this.servicioVisitas.getEscalaCodIpress();
+  let ipress="00002303";
     this.servicioVisitas.couch = true;
     this.servicioVisitaProfesionalIpress
       .getVisitasProfesionalesPorIpress(ipress)
@@ -342,8 +343,9 @@ export class PorIpressComponent implements OnInit {
       header:
         "GRAFICO VISITA DOMICILIARIA PROFESIONAL",
       width: "70%",
+      height:"80%",
       contentStyle: {
-        "max-height": "93%",
+        //"max-height": "93%",
         overflow: "auto",
       },
       data:dni,

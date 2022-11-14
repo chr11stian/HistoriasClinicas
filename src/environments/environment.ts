@@ -27,7 +27,9 @@ export const environment = {
     base_url_couch_pngestante_view:
         base + "5984/db_padron_nominal_gestante/_design/padron_nominal/_view",/**padron nominal view */
     base_url_couch_gestante_update:
-        base + "5984/db_padron_nominal_gestante/_design/padron_nominal/_update"
+        base + "5984/db_padron_nominal_gestante/_design/padron_nominal/_update",
+    base_getImageVisitasDomiciliaria:
+        base+"3012/api/hce/miacc/reportes/imagenpornombre",
 };
 
 /*

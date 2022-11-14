@@ -25,6 +25,7 @@ export class MapVisitasComponent implements OnInit, OnChanges {
                 "https://res.cloudinary.com/dhcetqc1j/image/upload/v1663796368/visita-domiciliaria_yn5eyj.jpg"]
   private centroid: L.LatLngExpression = [this.latMap, this.lngMap];
   maps: any;
+  imagePath: string ="";
   photoSelected:string  | ArrayBuffer="https://res.cloudinary.com/dhcetqc1j/image/upload/v1654050519/7dc4c2e40b17a259f2177131b34439fe957eae2f_00_dxyvnm.gif";
   constructor(private visitaService: VisitaDomiciliariaService) {}
 
@@ -48,8 +49,23 @@ export class MapVisitasComponent implements OnInit, OnChanges {
 
     }
   }
-  cargarImagena(){}
+
+  // traerImagen(fileName:string){
+  // this.visitaService.urlImagen(fileName).then((res:any)=>{
+  //   this.imagePath=res;
+  //   console.log(this.imagePath);
+  // })
+  // }
   //./assets/svg-marker/marker-visita-domiciliaria.svg
+  async traerImagen(filename:string){
+    //src="{{'data:image/jpg;base64,' + imagePath}}"
+    await  this.visitaService.urlImagen(filename).then((res:any)=>{
+      // this.imagePath=res['object'];
+      // console.log(`data:image/jpg;base64,${this.imagePath}`);
+      return res['object'];
+      })
+  }
+  
   initMap() {
     var iconDefault = L.icon({
       iconUrl: "./assets/svg-marker/marker-visita-domiciliaria.svg",
@@ -91,48 +107,39 @@ export class MapVisitasComponent implements OnInit, OnChanges {
       }
     ).addTo(this.maps);
 
-    // const legend=L.control.legend({
-    //   position:"bottomright",
-    //   collapsed:false,
-    //   symbolwidth:24,
-    //   opacity:1,
-    //   column:1,
-    //   legends:[
-    //     {
-    //       label:"Niños-Niñas 0-4 meses",
-    //       type:"image",
-    //       url:"./assets/svg-marker/marker-ninio-menores.svg",
-    //     },
-    //     {
-    //       label:"Niños-Niñas 4-24 meses",
-    //       type:"image",
-    //       url:"./assets/svg-marker/marker-ninio-menores.svg",
-    //     }
-    //   ]
-    // }).addTo(this.maps);
-
+    console.log("Data Visitas",this.dataVisitas);
     this.dataVisitas.map((aux,i) => {
+      //this.traerImagen(aux.value.validator.imagen);
       if(aux.value.hasOwnProperty('mayor_cuatro_meses') || aux.value.hasOwnProperty('menor_cuatro_meses')){
-      
+        // let m=this.visitaService.urlImagen(aux.value.validator.imagen);
+        // console.log("mmmmmm",m);
+        let path=this.traerImagen(aux.value.validator.imagen)
+        console.log("path",path);
         if(aux.value.mayor_cuatro_meses=="mayor_cuatro_meses"){
           // this.visitaService.couch=true;
+          console.log(
+            `  
+            <h3 style="font-style: italic;font-weight:bold;font-size:14px;color:#af0017;text-align:center;font-family: Times, "Times New Roman", Georgia, serif">VISITA DE NIÑOS,NIÑAS DE 4-24 MESES</h3>
+            <h4 style="font-style: italic;font-weight:bold;font-size:12px;color:#000000;text-align:center;font-family: Times, "Times New Roman", Georgia, serif">Visita número :${aux.value.nroVisita}</h4>
+            <h4  style="font-style: italic;font-weight:bold;font-size:12px;color:#000000;text-align:center;font-family: Times, "Times New Roman", Georgia, serif">Altitud:${aux.value.validator.altitud}</h4>
+            <img class="image"
+            src="{{'data:image/jpg;base64,' + ${path}}}"
+            "
+          />`
+          );
           L.marker([aux.value.validator.latitud, aux.value.validator.longitud],{icon: ninios_mayores_Icon},{
             title: "VISITA DOMICILIARIA",
           })
             .addTo(this.maps)
             .bindPopup(
               `
-            <div style="width:200px;height:100%">
             <h3 style="font-style: italic;font-weight:bold;font-size:14px;color:#af0017;text-align:center;font-family: Times, "Times New Roman", Georgia, serif">VISITA DE NIÑOS,NIÑAS DE 4-24 MESES</h3>
             <h4 style="font-style: italic;font-weight:bold;font-size:12px;color:#000000;text-align:center;font-family: Times, "Times New Roman", Georgia, serif">Visita número :${aux.value.nroVisita}</h4>
             <h4  style="font-style: italic;font-weight:bold;font-size:12px;color:#000000;text-align:center;font-family: Times, "Times New Roman", Georgia, serif">Altitud:${aux.value.validator.altitud}</h4>
-            <img
-            src="${this.visitaService.getImage(aux.value.validator.imagen)}"
+            <img class="image"
+            src=${this.traerImagen(aux.value.validator.imagen)}
             "
-            style="width: 100%; display: block"
           />
-            </div>
-            
           `,
               { closeButton: false }
             );
