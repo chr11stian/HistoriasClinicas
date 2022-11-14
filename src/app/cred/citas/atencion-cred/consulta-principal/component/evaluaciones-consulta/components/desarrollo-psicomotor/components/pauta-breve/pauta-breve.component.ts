@@ -80,32 +80,7 @@ export class PautaBreveComponent implements OnInit {
   }
 
   saveTest() {
-    let rpta: string = 'DEFICIT';
-    let ansMonth = this.arrayEdadPautaBreveSelected.map(item => {
-      let auxAns = {
-        pregunta: item.pregunta,
-        areaEvaluacion: item.areaEvaluacion,
-        estadoN: item.estadoN,
-        estadoD: item.estadoD
-      }
-      if (item.estadoD) {
-        rpta += ' Nro pregunta:' + item.pregunta + '- Area: ' + item.areaEvaluacion + ',';
-      }
-      return auxAns;
-    });
-    this.dataPB = {
-      codigoCIE10: '',
-      codigoHIS: '',
-      codigoPrestacion: '',
-      evaluacionPautaBreveMes: {
-        fechaAtencion: this.datePipe.transform(this.fechaEvaluacion, 'yyyy-MM-dd HH:mm:ss'),
-        mesEdad: this.edadNroSelected,
-        diagnostico: rpta == 'DEFICIT' ? 'NORMAL' : rpta,
-        docExaminador: "89685545",
-        listaItemPB: ansMonth,
-        observacion: this.observaciones
-      }
-    }
+    this.analyzePautaBreve(this.arrayEdadPautaBreveSelected);
     this.pautaBreveService.postAgregarPB(this.idConsulta, this.dataPB).subscribe((res: any) => {
       if (res.cod == "2121") {
         Swal.fire({
@@ -122,34 +97,21 @@ export class PautaBreveComponent implements OnInit {
           timer: 2000
         });
       }
-
     });
   }
 
   async confirmSaveTest() {
-    await this.desarrolloPsicomotorService.verifyEvaluatedMonth(this.mesesTotal, this.dataConsulta.nroDocumento).then(res => {
-      if (res) {
-        Swal.fire({
-          icon: 'info',
-          title: 'Ya se guardo una evaluación para este mes',
-          showConfirmButton: false,
-          timer: 2000
-        });
-        return;
-      } else {
-        Swal.fire({
-          title: 'Esta Seguro que Desea Guardar los Cambios?',
-          icon: 'question',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Confirmar',
-          cancelButtonText: 'Cancelar'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            this.saveTest();
-          }
-        });
+    Swal.fire({
+      title: 'Esta Seguro que Desea Guardar los Cambios?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirmar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.saveTest();
       }
     });
   }
@@ -163,6 +125,61 @@ export class PautaBreveComponent implements OnInit {
         this.observaciones = res.object.evaluacionPautaBreveMes.observacion
       }
     });
+  }
+
+  analyzePautaBreve(arrayPB: AnswerPB[]): void {
+    let countDeficit: number = 0;
+    let fullDiagnostic: string = "";
+    let areaList: string[] = [];
+    let diagnostic: string = "";
+    let hash = {};
+    arrayPB.forEach(item => {
+      if (item.estadoD) {
+        countDeficit++;
+        if ((item.areaEvaluacion.length == 1))
+          areaList.push(this.analyzeArea(item.areaEvaluacion));
+        else {
+          item.areaEvaluacion.split("_").forEach(area => areaList.push(this.analyzeArea(area)));
+        }
+      }
+    });
+    areaList = areaList.filter(item => hash[item] ? false : hash[item] = true);
+    areaList.forEach(item => fullDiagnostic = `${fullDiagnostic} ${item}`);
+    countDeficit == 0 ? diagnostic = "NORMAL" : countDeficit < 3 ? diagnostic = "DEFICIT DEL DESARROLLO SEGUN PB" : diagnostic = "TRANSTORNO DE DESARROLLO";
+    this.dataPB = {
+      codigoCIE10: '',
+      codigoHIS: '',
+      codigoPrestacion: '',
+      evaluacionPautaBreveMes: {
+        fechaAtencion: this.datePipe.transform(this.fechaEvaluacion, 'yyyy-MM-dd HH:mm:ss'),
+        mesEdad: this.mesesTotal,
+        diagnostico: diagnostic,
+        docExaminador: this.dataExaminador.nroDocumento,
+        listaItemPB: arrayPB,
+        observacion: fullDiagnostic
+      }
+    }
+  }
+
+  analyzeArea(areas: string): string {
+    let fullArea: string;
+    switch (areas) {
+      case "C":
+        fullArea = "COORDINACIÓN"
+        break;
+      case "S":
+        fullArea = "SOCIAL"
+        break;
+      case "L":
+        fullArea = "LENGUAJE"
+        break;
+      case "M":
+        fullArea = "MOTORA"
+        break;
+      default:
+        break;
+    }
+    return fullArea;
   }
 
   verifyIndexMonth(monthAge: number): void {

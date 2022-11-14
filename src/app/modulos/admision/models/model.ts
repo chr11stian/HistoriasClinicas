@@ -48,11 +48,13 @@ export interface PidePatient {
   correlativo: string;
   data: string[];
   dataList: string[];
+  departamento:string;
   descEESS: string;
   descEESSUbigeo: string;
   descTipoSeguro: string;
   direccion: string;
   disa: string;
+  distrito:string;
   eess: string;
   eessUbigeo: string;
   estado: string;
@@ -60,6 +62,7 @@ export interface PidePatient {
   fecAfiliacion: string;
   fecCaducidad: string;
   fecNacimiento: string;
+  foto:string;
   genero: string;
   idGrupoPoblacional: string;
   idNumReg: string;
@@ -69,7 +72,9 @@ export interface PidePatient {
   nombres: string;
   nroContrato: string;
   nroDocumento: string;
+  provincia:string;
   regimen: string;
+  restriccion:string;
   resultado: string;
   tabla: string;
   tipoDocumento: string;

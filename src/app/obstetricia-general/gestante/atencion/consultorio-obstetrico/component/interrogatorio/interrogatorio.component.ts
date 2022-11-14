@@ -89,6 +89,7 @@ export class InterrogatorioComponent implements OnInit {
   consultationStatus$ = this.obstetriciaGeneralService.consultationStatus$;
   consultationFinished: boolean = false;
   actualConsultation: any;
+  fetalRisk: string = "";
   constructor(
     private fb: FormBuilder,
     public dialog: DialogService,
@@ -694,6 +695,7 @@ export class InterrogatorioComponent implements OnInit {
     this.chkLatidos = event.checked;
     // console.log('chked ', this.chkLatidos);
     this.chkLatidos! ? this.formExamenFetal.patchValue({ latidosCardiacos: null }) : '';
+    this.fetalRisk = "";
   }
   //plan parto
   listaPlanParto: any[] = []
@@ -787,11 +789,17 @@ export class InterrogatorioComponent implements OnInit {
     });
   }
 
-  // assingWeightGain(imc: number, min: number, med: number, max: number, weightGain: number): void {
-  //   if (imc< 18.5) {
-
-  //   }
-  // }
+  construeFetalRisk(): void {
+    let heartbeat: number = this.formExamenFetal.value.latidosCardiacos;
+    if (String(heartbeat).length >= 3) {
+      if (heartbeat < 120)
+        this.fetalRisk = "SUFRIMIENTO FETAL";
+      else if (heartbeat > 160)
+        this.fetalRisk = "TAQUICARDIA FETAL";
+      else
+        this.fetalRisk = "NORMAL";
+    }
+  }
 }
 
 

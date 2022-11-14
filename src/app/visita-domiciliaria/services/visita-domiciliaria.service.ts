@@ -4,7 +4,7 @@ import { Observable } from "rxjs";
 import { environment } from "../../../environments/environment";
 import { VisitasProfesionalNinios } from "../interfaces/visita_profesional_ninios";
 import { map } from 'rxjs/operators';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Injectable({
     providedIn: "root",
@@ -17,7 +17,7 @@ export class VisitaDomiciliariaService {
     base_url_images = environment.base_url_couch_images;
     id_ipress = "";
     dni_profesional = "";
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient,private sanitizer: DomSanitizer) {}
     getToken() {
         return JSON.parse(localStorage.getItem("token")).tokenCouch === null
             ? ""
@@ -55,21 +55,6 @@ export class VisitaDomiciliariaService {
             }
         );
     }
-    /**
-     * 
-    let reader= new FileReader();
-    reader.readAsDataURL(data);
-    reader.onload=()=>{
-        //aqui ya esta en base64
-        let x=reader.result;
-    }
-     */
-//     getImageURL(id: string){
-//     var url=`${this.base_url_images}/${id}`;
-//     const headers = new HttpHeaders({'Authorization': "Bearer " + this.getToken(), 'Content-Type': 'image/*'});
-//     return this.http.get(url,{headers,responseType:'blob'});
-//    }
-    
 
     getLatitudIpress():any{
         return JSON.parse(
@@ -93,5 +78,20 @@ export class VisitaDomiciliariaService {
         ).escalas.unidades==null?"":JSON.parse(
             localStorage.getItem("usuario")
         ).escalas.unidades;
+    }
+
+    getImage(id:string){
+        this.couch=true;
+        return this.http
+            .get(`${this.base_url_images}/${id}`,{responseType: 'blob'})
+            .pipe(map(val => this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(val))))
+            .toPromise()
+            .then((data) => {
+            return `${data['changingThisBreaksApplicationSecurity'].toString()}`
+        });
+    }
+    
+    urlImagen(fileName:string):string{
+    return `${this.base_url}/${this.base_url_images}/${fileName}`;
     }
 }
