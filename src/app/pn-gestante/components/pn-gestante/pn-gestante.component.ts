@@ -48,8 +48,11 @@ export class PnGestanteComponent implements OnInit {
   openDialog() {
     const ref = this.dialog.open(PnGestanteDialogComponent, {
       header: "AGREGAR NUEVA GESTANTE",
-      width: "80%",
-      height: "65%",
+      width: "70%",
+      contentStyle: {
+        "max-height": "92%",
+        overflow: "auto",
+      },
     });
     localStorage.removeItem("gestanteLocalStorage");
     this.ref.onClose.subscribe((data: any) => {
@@ -60,8 +63,11 @@ export class PnGestanteComponent implements OnInit {
   openDialogNuevaGesta() {
     const ref = this.dialog.open(PnGestanteDiaGestaComponent, {
       header: "AGREGAR NUEVA GESTA",
-      width: "80%",
-      height: "65%",
+      width: "70%",
+      contentStyle: {
+        "max-height": "92%",
+        overflow: "auto",
+      },
     });
     localStorage.removeItem("gestanteLocalStorage");
     this.ref.onClose.subscribe((data: any) => {
@@ -73,7 +79,10 @@ export class PnGestanteComponent implements OnInit {
     const ref = this.dialog.open(PnGestanteDiaCambioComponent, {
       header: "CAMBIO DE EESS DE LA GESTANTE",
       width: "70%",
-      height: "50%",
+      contentStyle: {
+        "max-height": "92%",
+        overflow: "auto",
+      },
     });
     localStorage.removeItem("gestanteLocalStorage");
     this.ref.onClose.subscribe((data: any) => {
@@ -88,8 +97,11 @@ export class PnGestanteComponent implements OnInit {
     );
     this.ref = this.dialog.open(PnGestanteDialogComponent, {
       header: "MODIFICAR LOS DATOS DE LA GESTANTE",
-      width: "80%",
-      height: "70%",
+      width: "70%",
+      contentStyle: {
+        "max-height": "92%",
+        overflow: "auto",
+      },
     });
     this.ref.onClose.subscribe((data: any) => {
       this.mostrarPadronNominalGestantes();
@@ -109,12 +121,11 @@ export class PnGestanteComponent implements OnInit {
   mostrar(data: any[]) {
     this.ref = this.dialog.open(PnDialogGestaComponent, {
       header: "HISTORIAL DE GESTAS",
-      width: "80%",
-      height: "70%",
-      // contentStyle: {
-      //   "max-height": "93%",
-      //   overflow: "auto",
-      // },
+      width: "70%",
+      contentStyle: {
+        "max-height": "92%",
+        overflow: "auto",
+      },
       data: data,
     });
   }

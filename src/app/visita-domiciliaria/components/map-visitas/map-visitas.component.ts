@@ -91,8 +91,29 @@ export class MapVisitasComponent implements OnInit, OnChanges {
       }
     ).addTo(this.maps);
 
+    // const legend=L.control.legend({
+    //   position:"bottomright",
+    //   collapsed:false,
+    //   symbolwidth:24,
+    //   opacity:1,
+    //   column:1,
+    //   legends:[
+    //     {
+    //       label:"Niños-Niñas 0-4 meses",
+    //       type:"image",
+    //       url:"./assets/svg-marker/marker-ninio-menores.svg",
+    //     },
+    //     {
+    //       label:"Niños-Niñas 4-24 meses",
+    //       type:"image",
+    //       url:"./assets/svg-marker/marker-ninio-menores.svg",
+    //     }
+    //   ]
+    // }).addTo(this.maps);
+
     this.dataVisitas.map((aux,i) => {
       if(aux.value.hasOwnProperty('mayor_cuatro_meses') || aux.value.hasOwnProperty('menor_cuatro_meses')){
+      
         if(aux.value.mayor_cuatro_meses=="mayor_cuatro_meses"){
           // this.visitaService.couch=true;
           L.marker([aux.value.validator.latitud, aux.value.validator.longitud],{icon: ninios_mayores_Icon},{
@@ -101,14 +122,12 @@ export class MapVisitasComponent implements OnInit, OnChanges {
             .addTo(this.maps)
             .bindPopup(
               `
-            <div style="width:200px;height:100%;background: #f8f9fa">
+            <div style="width:200px;height:100%">
             <h3 style="font-style: italic;font-weight:bold;font-size:14px;color:#af0017;text-align:center;font-family: Times, "Times New Roman", Georgia, serif">VISITA DE NIÑOS,NIÑAS DE 4-24 MESES</h3>
             <h4 style="font-style: italic;font-weight:bold;font-size:12px;color:#000000;text-align:center;font-family: Times, "Times New Roman", Georgia, serif">Visita número :${aux.value.nroVisita}</h4>
             <h4  style="font-style: italic;font-weight:bold;font-size:12px;color:#000000;text-align:center;font-family: Times, "Times New Roman", Georgia, serif">Altitud:${aux.value.validator.altitud}</h4>
             <img
-            src="${this.visitaService.getImage(
-              aux.value.validator.imagen
-              ).then((url:string)=>{console.log("url",url);})}"
+            src="${this.visitaService.getImage(aux.value.validator.imagen)}"
             "
             style="width: 100%; display: block"
           />
@@ -124,11 +143,11 @@ export class MapVisitasComponent implements OnInit, OnChanges {
             .addTo(this.maps)
             .bindPopup(
               `
-              <div>
-              <h3>VISITA NIÑOS-NIÑAS,0-4 MESES</h3>
-              <h4>VISITA NRO :${aux.value.nroVisita}</h4>
-              <h4>ALTITUD:${aux.value.validator.altitud}</h4> 
-              <img class="image" src="imagesUrl[0]" alt=""/>
+              <div style="width:200px;height:100%">
+              <h3  style="font-style: italic;font-weight:bold;font-size:14px;color:#af0017;text-align:center;font-family: Times, "Times New Roman", Georgia, serif">VISITA NIÑOS,NIÑAS DE 0-4 MESES</h3>
+              <h4 style="font-style: italic;font-weight:bold;font-size:12px;color:#000000;text-align:center;font-family: Times, "Times New Roman", Georgia, serif">VISITA NRO :${aux.value.nroVisita}</h4>
+              <h4 style="font-style: italic;font-weight:bold;font-size:12px;color:#000000;text-align:center;font-family: Times, "Times New Roman", Georgia, serif">ALTITUD:${aux.value.validator.altitud}</h4> 
+              <img  src="" alt=""  style="width: 100%; display: block"/>
               </div>
           `,
               { closeButton: false }
@@ -143,10 +162,12 @@ export class MapVisitasComponent implements OnInit, OnChanges {
             .addTo(this.maps)
             .bindPopup(
               `
-            <h4>VISITA GESTANTE</h3>
-            <h4>ALTITUD:${aux.value.validator.altitud}</h4> 
-            <img class="image" src="" alt=""/>
-          
+            <div style="width:200px;height:100%">
+            <h3 style="font-style: italic;font-weight:bold;font-size:14px;color:#af0017;text-align:center;font-family: Times, "Times New Roman", Georgia, serif">VISITA DOMICILIARIA DE  GESTANTE</h3>
+            <h4 style="font-style: italic;font-weight:bold;font-size:12px;color:#000000;text-align:center;font-family: Times, "Times New Roman", Georgia, serif">VISITA NRO :${aux.value.nroVisita}</h4>
+            <h4 style="font-style: italic;font-weight:bold;font-size:12px;color:#000000;text-align:center;font-family: Times, "Times New Roman", Georgia, serif">ALTITUD:${aux.value.validator.altitud}</h4> 
+            <img  src="" alt=""  style="width: 100%; display: block"/>
+            </div>
           `,
               { closeButton: false }
             );
@@ -158,10 +179,12 @@ export class MapVisitasComponent implements OnInit, OnChanges {
             .addTo(this.maps)
             .bindPopup(
               `
-            <h3>VISITA PUERPERA</h3>
-            <h4>ALTITUD:${aux.value.validator.altitud}</h4> 
-            <img class="image" src="" alt=""/>
-          
+            <div style="width:200px;height:100%">
+            <h3 style="font-style: italic;font-weight:bold;font-size:14px;color:#af0017;text-align:center;font-family: Times, "Times New Roman", Georgia, serif">VISITA DOMICILIARIA DE PUERPERA</h3>
+            <h4 style="font-style: italic;font-weight:bold;font-size:12px;color:#000000;text-align:center;font-family: Times, "Times New Roman", Georgia, serif">VISITA NRO :${aux.value.nroVisita}</h4>
+            <h4 style="font-style: italic;font-weight:bold;font-size:12px;color:#000000;text-align:center;font-family: Times, "Times New Roman", Georgia, serif">ALTITUD:${aux.value.validator.altitud}</h4> 
+            <img  src="" alt=""  style="width: 100%; display: block"/>
+            </div>
           `,
               { closeButton: false }
             );

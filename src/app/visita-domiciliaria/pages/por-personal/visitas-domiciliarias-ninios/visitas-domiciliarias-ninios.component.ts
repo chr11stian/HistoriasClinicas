@@ -92,25 +92,20 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
       .getVisitasNiniosXProfesionalAnio(idIpress, dni, anio)
       .then((data: any) => {
         this.dataVisitas = data["rows"];
-        // console.log("data ninios",data["rows"]);
         this.dataVisitas.map((aux) => {
          // console.log(aux.value);
           if (aux.value.hasOwnProperty("menor_cuatro_meses")){
             this.dataVisitas_Menores_4_meses.push(aux.value)
-            // return aux.valu
           };
         });
         this.dataVisitas.map((aux) => {
           // console.log(aux.value);
           if (aux.value.hasOwnProperty("mayor_cuatro_meses")) {
             this.dataVisitas_Mayores_4_meses.push(aux.value)
-            // return aux.value
           };
         });
         
       });
-    // console.log("menores",this.dataVisitas_Menores_4_meses);
-    // console.log("mayores",this.dataVisitas_Mayores_4_meses);
   }
   //abre nuestro compoente dialog en el cual se muestran nuestras preguntas y respuestas
   openDialogRespuestas(data: any[]) {
@@ -170,8 +165,6 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
           };
         });
       });
-      // console.log("menores",this.dataVisitas_Menores_4_meses);
-      // console.log("mayores",this.dataVisitas_Mayores_4_meses);
   }
   //metodo que nos devuelve la lista de Visitas por Mes seleccionado
   //se agrupa en dos listas:menores_4_meses y mayores_4_meses
@@ -187,7 +180,6 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
       await this.servicioVisitasNinios
         .getVisitasNiniosXProfesionalXAnioXMesFecha(idIpress, dni, fecha)
         .then((data) => {
-          // console.log("dataaa",data["rows"]);
           if (data["rows"].length > 0) {
             this.dataVisitas = data["rows"];
             this.messageService.add({
@@ -208,7 +200,6 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
           this.dataVisitas = data["rows"];
           this.dataVisitas.filter((aux) => {
             if (aux.value.hasOwnProperty("menor_cuatro_meses")){
-              // this.dataVisitas_Menores_4_meses.push(aux.value);
               return aux.value;
             };
           });
@@ -220,8 +211,6 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
         
         });
     }
-    // console.log("menores",this.dataVisitas_Menores_4_meses);
-    // console.log("mayores",this.dataVisitas_Mayores_4_meses);
   }
 
   visita_menor_cuatro_meses_reporte(aux) {

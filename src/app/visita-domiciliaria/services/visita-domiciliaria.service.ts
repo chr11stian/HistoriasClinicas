@@ -55,21 +55,6 @@ export class VisitaDomiciliariaService {
             }
         );
     }
-    /**
-     * 
-    let reader= new FileReader();
-    reader.readAsDataURL(data);
-    reader.onload=()=>{
-        //aqui ya esta en base64
-        let x=reader.result;
-    }
-     */
-//     getImageURL(id: string){
-//     var url=`${this.base_url_images}/${id}`;
-//     const headers = new HttpHeaders({'Authorization': "Bearer " + this.getToken(), 'Content-Type': 'image/*'});
-//     return this.http.get(url,{headers,responseType:'blob'});
-//    }
-    
 
     getLatitudIpress():any{
         return JSON.parse(
@@ -94,7 +79,7 @@ export class VisitaDomiciliariaService {
             localStorage.getItem("usuario")
         ).escalas.unidades;
     }
-     // const headers = new HttpHeaders(`{'Authorization': "Bearer " ${token}, 'Content-Type': 'image/*'}`); 
+
     getImage(id:string){
         this.couch=true;
         return this.http
@@ -102,26 +87,10 @@ export class VisitaDomiciliariaService {
             .pipe(map(val => this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(val))))
             .toPromise()
             .then((data) => {
-            // console.log("dataaaaa",data['changingThisBreaksApplicationSecurity']);
             return `${data['changingThisBreaksApplicationSecurity'].toString()}`
         });
     }
-     // .toPromise()
-            // .then((res: any) => {
-            // //return res;
-            // return new Promise<string>(function(resolve, reject) {
-            //     var reader = new FileReader();
-            //     reader.readAsDataURL(res);
-            //     reader.onload = function() { 
-            //     resolve(reader.result as string); 
-            //     console.log(reader.result); 
-            //     };
-            // });
-            // })
-            // .catch((error) => {
-            // console.log("Error al cargar la imagen");
-            // return null;
-            // });
+    
     urlImagen(fileName:string):string{
     return `${this.base_url}/${this.base_url_images}/${fileName}`;
     }

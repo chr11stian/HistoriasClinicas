@@ -5,7 +5,10 @@
   Cursor:text !important; 
   Text-Decoration: None !important; 
 }
-
+.busqueda {
+  display: grid;
+  grid-template-columns: 100px auto;
+}
 .buttonAcciones1 {
   color: #ffffff;
   background:#af0017 !important;

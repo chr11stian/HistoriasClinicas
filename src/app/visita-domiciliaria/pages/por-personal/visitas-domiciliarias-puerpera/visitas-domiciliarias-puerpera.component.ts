@@ -99,7 +99,6 @@ export class VisitasDomiciliariasPuerperaComponent implements OnInit {
       header:
         "PREGUNTAS>RESPUESTAS DE LA VISITAS DOMICILIARIA EJECUTADA",
       width: "70%",
-      // height: "800px",
       contentStyle: {
         "max-height": "92%",
         overflow: "auto",
@@ -176,7 +175,6 @@ export class VisitasDomiciliariasPuerperaComponent implements OnInit {
     }
   }
 
-  
   visitas_puerperas_reporte(aux){
     this.visitaReporte =
       environment.base_urlTx +
