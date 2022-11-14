@@ -577,13 +577,13 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
   }
 
   save(): void {
-    Swal.fire({
-      icon: "success",
-      title: "Actualizado correctamente",
-      text: "",
-      showConfirmButton: false,
-      timer: 1500,
-    });
+    // Swal.fire({
+    //   icon: "info",
+    //   title: "Actualizado correctamente",
+    //   text: "",
+    //   showConfirmButton: false,
+    //   timer: 1500,
+    // });
   }
 
   onNext() {
