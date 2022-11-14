@@ -100,7 +100,7 @@ export class ModalCupos2Component implements OnInit {
         this.formPacientesCupo.get("tipoDoc").setValue(this.TipoDoc);
         this.getDocumentosIdentidad();
         // this.calcularEdad("2022-01-31");
-        console.log("DATA", this.dataPersonalSelecionado);
+        // console.log("DATA", this.dataPersonalSelecionado);
         // this.saveForm();
         this.iniciarPaciente();
         // this.formPacientesCupo.get("detallePago").value('GRATUITO');
@@ -111,7 +111,7 @@ export class ModalCupos2Component implements OnInit {
         let departamento = this.dataPacientes.domicilio.departamento;
         this.dataDepartamentos.forEach((object) => {
             if (object.departamento === departamento) {
-                console.log("Departamento:", object);
+                // console.log("Departamento:", object);
                 this.DepartamentoIDSelct = object.iddd;
             }
         });
@@ -120,7 +120,7 @@ export class ModalCupos2Component implements OnInit {
         };
         this.ubicacionService.getProvincias(dpto).subscribe((res: any) => {
             this.dataProvincia = res.object;
-            console.log("PROVINCIA:", this.dataProvincia);
+            // console.log("PROVINCIA:", this.dataProvincia);
             this.listarUbicacionPacientedistritos();
         });
     }
@@ -130,7 +130,7 @@ export class ModalCupos2Component implements OnInit {
         let provincia = this.dataPacientes.domicilio.provincia;
         this.dataProvincia.forEach((object) => {
             if (object.provincia === provincia) {
-                console.log("Provincia:", object);
+                // console.log("Provincia:", object);
                 this.ProvinciaIDSelct = object.idpp;
             }
         });
@@ -149,7 +149,7 @@ export class ModalCupos2Component implements OnInit {
         let distrito = this.dataPacientes.domicilio.distrito;
         this.dataDistrito.forEach((object) => {
             if (object.distrito === distrito) {
-                console.log("Distrito:", object);
+                // console.log("Distrito:", object);
                 this.DistritoIDSelct = object.iddis;
             }
         });
@@ -169,7 +169,7 @@ export class ModalCupos2Component implements OnInit {
     getDepartamentos() {
         this.ubicacionService.getDepartamentos().subscribe((resp: any) => {
             this.dataDepartamentos = resp.object;
-            console.log("Departamento", this.dataDepartamentos);
+            // console.log("Departamento", this.dataDepartamentos);
         });
     }
 
@@ -178,7 +178,7 @@ export class ModalCupos2Component implements OnInit {
         let depa = this.formPacientesCupo.value.dpto;
         this.dataDepartamentos.forEach((object) => {
             if (object.departamento === depa) {
-                console.log("Departamento:", object);
+                // console.log("Departamento:", object);
                 this.DepartamentoIDSelct = object.iddd;
             }
         });
@@ -199,7 +199,7 @@ export class ModalCupos2Component implements OnInit {
         let provinciaX = this.formPacientesCupo.value.prov;
         this.dataProvincia.forEach((object) => {
             if (object.provincia === provinciaX) {
-                console.log("Provincia:", object);
+                // console.log("Provincia:", object);
                 this.ProvinciaIDSelct = object.idpp;
             }
         });
@@ -220,7 +220,7 @@ export class ModalCupos2Component implements OnInit {
         let distritoX = this.formPacientesCupo.value.dist;
         this.dataDistrito.forEach((object) => {
             if (object.distrito === distritoX) {
-                console.log("Distrito:", object);
+                // console.log("Distrito:", object);
                 this.DistritoIDSelct = object.iddis;
             }
         });
@@ -286,7 +286,7 @@ export class ModalCupos2Component implements OnInit {
             .getDocumentosIdentidad()
             .subscribe((res: any) => {
                 this.listaDocumentosIdentidad = res.object;
-                console.log("docs ", this.listaDocumentosIdentidad);
+                // console.log("docs ", this.listaDocumentosIdentidad);
             });
     }
 
@@ -295,7 +295,7 @@ export class ModalCupos2Component implements OnInit {
         const Year: string = arr[0];
         const Months: string = arr[1];
         const Day: string = arr[1];
-        console.log(Year + "-" + Months + "-" + Day);
+        // console.log(Year + "-" + Months + "-" + Day);
         return Year + "-" + Months + "-" + Day;
     }
 
@@ -575,10 +575,10 @@ export class ModalCupos2Component implements OnInit {
                         //     this.buscarNuevoPaciente();
                         // }, 2002);
                     }
-                    console.log("nro", this.formPacientesCupo.value.nroDoc);
+                    // console.log("nro", this.formPacientesCupo.value.nroDoc);
                 });
         } else {
-            console.log("nro", this.formPacientesCupo.value.nroDoc);
+            // console.log("nro", this.formPacientesCupo.value.nroDoc);
             return;
         }
     }
@@ -649,10 +649,10 @@ export class ModalCupos2Component implements OnInit {
         };
 
         if (this.cuposService.data == undefined) {
-            console.log("guardar cupo ", req);
+            // console.log("guardar cupo ", req);
             const result = null
             this.cuposService.saveCupos(req).subscribe((result: any) => {
-                console.log(result.object);
+                // console.log(result.object);
                 if (result.object != null || result.object != undefined) {
                     this.cuposService.modal2.close();
                     this.getCuposXservicio();
@@ -749,7 +749,7 @@ export class ModalCupos2Component implements OnInit {
             horaFin: this.selectedHorario[0].horaFin,
             estado: "OCUPADO",
         };
-        console.log("DATA ACTUALIZAR OFERTA", data);
+        // console.log("DATA ACTUALIZAR OFERTA", data);
         this.cuposService.updateEstadoOferta(data).subscribe((resp) => {
             this.messageService.add({
                 severity: "success",
@@ -779,7 +779,7 @@ export class ModalCupos2Component implements OnInit {
                     this.DistritoIDSelct,
             },
         };
-        console.log("DATA PACIENTE YY", data);
+        // console.log("DATA PACIENTE YY", data);
         this.cuposService.updatePacienteExtras(data).subscribe((resp) => {
             this.messageService.add({
                 severity: "success",
@@ -906,7 +906,7 @@ export class ModalCupos2Component implements OnInit {
             servicio: this.dataPersonalSelecionado.ipress.servicio,
             fecha: this.dataPersonalSelecionado.fechaOferta,
         };
-        console.log("DATA ", data);
+        // console.log("DATA ", data);
         this.cuposService
             .getCuposServicioFecha(this.idIpressLapostaMedica, data)
             .subscribe((res: any) => {
@@ -926,7 +926,7 @@ export class ModalCupos2Component implements OnInit {
     }
     tipoPagoChg() {
         this.detalleDePago = this.formPacientesCupo.value.detallePago;
-        console.log("detalle Pago", this.detalleDePago);
+        // console.log("detalle Pago", this.detalleDePago);
     }
     /* interconsulta */
     iniciarPaciente() {
@@ -945,7 +945,7 @@ export class ModalCupos2Component implements OnInit {
         if (nroDoc.length >= 8) {
             this.pacienteService.getPidePatientData(nroDoc).then((res: any) => {
                 if (res.error == "4009") {
-                    console.log('no se econtro el paciente');
+                    // console.log('no se econtro el paciente');
                     Swal.fire({
                         title: 'No se encontro a ese paciente',
                         text: '¿Desea registrarlo?',
