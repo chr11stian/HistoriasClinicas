@@ -322,7 +322,7 @@
                 <div class="col-12 md:col-6 lg:col-12 p-field">
                     <div class="grid">
                         <div class="col-12 md:col-6 lg:col-3 p-field">
-                            <span>DEPARTAMENTO:</span>
+                            <label>DEPARTAMENTO:</label>
                             <div class="p-fluid">
                                 <p-dropdown
                                     inputId="dropdown"
@@ -341,7 +341,7 @@
                             </div>
                         </div>
                         <div class="col-12 md:col-6 lg:col-3 p-field">
-                            <span>PROVINCIA:</span>
+                            <label>PROVINCIA:</label>
                             <div class="p-fluid">
                                 <p-dropdown
                                     inputId="dropdown"
@@ -360,7 +360,7 @@
                             </div>
                         </div>
                         <div class="col-12 md:col-6 lg:col-3 p-field">
-                            <span>DISTRITO:</span>
+                            <label>DISTRITO:</label>
                             <div class="p-fluid">
                                 <p-dropdown
                                     inputId="dropdown"
@@ -379,7 +379,7 @@
                             </div>
                         </div>
                         <div class="col-12 md:col-6 lg:col-3 p-field">
-                            <span>CENTRO POBLADO:</span>
+                            <label>CENTRO POBLADO:</label>
                             <div class="p-fluid">
                                 <p-dropdown
                                     inputId="dropdown"
@@ -397,12 +397,13 @@
                             </div>
                         </div>
                         <div class="col-12 md:col-6 lg:col-6 p-field">
-                            <span>Direccion:</span>
+                            <label>Dirección:</label>
                             <input
                                 type="text"
                                 pInputText
                                 formControlName="direccion"
                                 class="inputfield w-full"
+                                oninput="this.value=this.value.toUpperCase()"
                             />
                         </div>
                     </div>
@@ -422,23 +423,25 @@
                                 <div
                                     class="col-12 md:col-6 lg:col-2 p-field flex flex-column"
                                 >
-                                    <span>Tipo Seguro:</span>
+                                    <label>Tipo Seguro:</label>
                                     <input
                                         type="text"
                                         pInputText
                                         formControlName="tipoSeguro"
                                         class="inputTest"
+                                        oninput="this.value=this.value.toUpperCase()"
                                     />
                                 </div>
                                 <div
                                     class="col-12 md:col-6 lg:col-2 p-field flex flex-column"
                                 >
-                                    <span>Codigo Seguro:</span>
+                                    <label>Codigo Seguro:</label>
                                     <input
                                         type="text"
                                         pInputText
                                         formControlName="codSeguro"
                                         class="inputTest"
+                                        oninput="this.value=this.value.toUpperCase()"
                                     />
                                 </div>
                             </div>

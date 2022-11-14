@@ -84,3 +84,8 @@ input[type="number"] {
 ::ng-deep .swal2-container {
     z-index: 1000000;
 }
+
+::ng-deep .p-disabled, .p-component:disabled{
+    opacity: 1;
+    background: #EBF5FB;
+}
