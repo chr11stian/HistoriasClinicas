@@ -59,16 +59,13 @@ export class SuplementacionCredComponent implements OnInit {
             this.listaMicronutrientes = result.object
             this.transform()})
             .catch((err) => {
-            console.log(err)
         })
         this.servicio.getVitaminaA(this.dni).toPromise().then((result) => {
             this.vitaminaA = result.object;
-            // console.log(this.vitaminaA)
             this.transformVitaA()
         })
         this.servicio.getListaSuplementacionAnemia(this.dni).toPromise().then((result) => {
             this.suplementacionTerapeutica = result.object;
-            // console.log('tipo suplementacion',this.suplementacionTerapeutica)
             this.transformSA()
         })
     }
@@ -103,12 +100,12 @@ export class SuplementacionCredComponent implements OnInit {
 
     separacion() {
         this.SF = this.listaMicronutrientes.filter(item => item.nombre === 'SF');
-        // console.log('lista SF', this.SF);
         this.MNM = this.listaMicronutrientes.filter(item => item.nombre === 'MNM')
-        // console.log('lista MMN', this.MNM);
     }
 
     agregarSuplementacion(suplementacion: SuplementacionMicronutrientes) {
+        console.log('-->',suplementacion);
+        
         const ref = this.dialogService.open(SuplementoComponent, {
             data: {isSuplementacion: this.isSuplementacion, "suplementacion": suplementacion},
             header: `Agregar Suplementacion ${suplementacion.descripcion} Dosis numero (${suplementacion.dosis})`,

@@ -100,7 +100,7 @@ export class ModalCupos2Component implements OnInit {
         this.formPacientesCupo.get("tipoDoc").setValue(this.TipoDoc);
         this.getDocumentosIdentidad();
         // this.calcularEdad("2022-01-31");
-        console.log("DATA", this.dataPersonalSelecionado);
+        // console.log("DATA", this.dataPersonalSelecionado);
         // this.saveForm();
         this.iniciarPaciente();
         // this.formPacientesCupo.get("detallePago").value('GRATUITO');
@@ -111,7 +111,7 @@ export class ModalCupos2Component implements OnInit {
         let departamento = this.dataPacientes.domicilio.departamento;
         this.dataDepartamentos.forEach((object) => {
             if (object.departamento === departamento) {
-                console.log("Departamento:", object);
+                // console.log("Departamento:", object);
                 this.DepartamentoIDSelct = object.iddd;
             }
         });
@@ -120,7 +120,7 @@ export class ModalCupos2Component implements OnInit {
         };
         this.ubicacionService.getProvincias(dpto).subscribe((res: any) => {
             this.dataProvincia = res.object;
-            console.log("PROVINCIA:", this.dataProvincia);
+            // console.log("PROVINCIA:", this.dataProvincia);
             this.listarUbicacionPacientedistritos();
         });
     }
@@ -130,7 +130,7 @@ export class ModalCupos2Component implements OnInit {
         let provincia = this.dataPacientes.domicilio.provincia;
         this.dataProvincia.forEach((object) => {
             if (object.provincia === provincia) {
-                console.log("Provincia:", object);
+                // console.log("Provincia:", object);
                 this.ProvinciaIDSelct = object.idpp;
             }
         });
@@ -149,7 +149,7 @@ export class ModalCupos2Component implements OnInit {
         let distrito = this.dataPacientes.domicilio.distrito;
         this.dataDistrito.forEach((object) => {
             if (object.distrito === distrito) {
-                console.log("Distrito:", object);
+                // console.log("Distrito:", object);
                 this.DistritoIDSelct = object.iddis;
             }
         });
@@ -169,7 +169,7 @@ export class ModalCupos2Component implements OnInit {
     getDepartamentos() {
         this.ubicacionService.getDepartamentos().subscribe((resp: any) => {
             this.dataDepartamentos = resp.object;
-            console.log("Departamento", this.dataDepartamentos);
+            // console.log("Departamento", this.dataDepartamentos);
         });
     }
 
@@ -178,7 +178,7 @@ export class ModalCupos2Component implements OnInit {
         let depa = this.formPacientesCupo.value.dpto;
         this.dataDepartamentos.forEach((object) => {
             if (object.departamento === depa) {
-                console.log("Departamento:", object);
+                // console.log("Departamento:", object);
                 this.DepartamentoIDSelct = object.iddd;
             }
         });
@@ -199,7 +199,7 @@ export class ModalCupos2Component implements OnInit {
         let provinciaX = this.formPacientesCupo.value.prov;
         this.dataProvincia.forEach((object) => {
             if (object.provincia === provinciaX) {
-                console.log("Provincia:", object);
+                // console.log("Provincia:", object);
                 this.ProvinciaIDSelct = object.idpp;
             }
         });
@@ -220,7 +220,7 @@ export class ModalCupos2Component implements OnInit {
         let distritoX = this.formPacientesCupo.value.dist;
         this.dataDistrito.forEach((object) => {
             if (object.distrito === distritoX) {
-                console.log("Distrito:", object);
+                // console.log("Distrito:", object);
                 this.DistritoIDSelct = object.iddis;
             }
         });
@@ -286,7 +286,7 @@ export class ModalCupos2Component implements OnInit {
             .getDocumentosIdentidad()
             .subscribe((res: any) => {
                 this.listaDocumentosIdentidad = res.object;
-                console.log("docs ", this.listaDocumentosIdentidad);
+                // console.log("docs ", this.listaDocumentosIdentidad);
             });
     }
 
@@ -295,7 +295,7 @@ export class ModalCupos2Component implements OnInit {
         const Year: string = arr[0];
         const Months: string = arr[1];
         const Day: string = arr[1];
-        console.log(Year + "-" + Months + "-" + Day);
+        // console.log(Year + "-" + Months + "-" + Day);
         return Year + "-" + Months + "-" + Day;
     }
 
@@ -575,10 +575,10 @@ export class ModalCupos2Component implements OnInit {
                         //     this.buscarNuevoPaciente();
                         // }, 2002);
                     }
-                    console.log("nro", this.formPacientesCupo.value.nroDoc);
+                    // console.log("nro", this.formPacientesCupo.value.nroDoc);
                 });
         } else {
-            console.log("nro", this.formPacientesCupo.value.nroDoc);
+            // console.log("nro", this.formPacientesCupo.value.nroDoc);
             return;
         }
     }
@@ -610,7 +610,7 @@ export class ModalCupos2Component implements OnInit {
             fechaAtencion: this.selectedFecha,
             nroCupo: "",
             oferta_id: this.dataPersonalSelecionado.id,
-            descripcion: "asdfgh",
+            descripcion: "",
             horaAtencion: this.selectedHorario[0].horaInicio,
             horaAtencionFin: this.selectedHorario[0].horaFin,
             ambiente: this.dataPersonalSelecionado.ambiente,
@@ -629,7 +629,7 @@ export class ModalCupos2Component implements OnInit {
                 edadAnio: this.formPacientesCupo.get('edadAnio').value,
                 edadMes: this.formPacientesCupo.get('edadMes').value,
                 edadDia: this.formPacientesCupo.get('edadDia').value,
-                nroHcl: this.patientData.nroDocumento,
+                nroHcl: this.formPacientesCupo.value.nroDoc,
                 sexo: this.formPacientesCupo.get('sexo').value,
                 nroTelefono: this.formPacientesCupo.value.celular,
             },
@@ -649,10 +649,10 @@ export class ModalCupos2Component implements OnInit {
         };
 
         if (this.cuposService.data == undefined) {
-            console.log("guardar cupo ", req);
+            // console.log("guardar cupo ", req);
             const result = null
             this.cuposService.saveCupos(req).subscribe((result: any) => {
-                console.log(result.object);
+                // console.log(result.object);
                 if (result.object != null || result.object != undefined) {
                     this.cuposService.modal2.close();
                     this.getCuposXservicio();
@@ -749,7 +749,7 @@ export class ModalCupos2Component implements OnInit {
             horaFin: this.selectedHorario[0].horaFin,
             estado: "OCUPADO",
         };
-        console.log("DATA ACTUALIZAR OFERTA", data);
+        // console.log("DATA ACTUALIZAR OFERTA", data);
         this.cuposService.updateEstadoOferta(data).subscribe((resp) => {
             this.messageService.add({
                 severity: "success",
@@ -779,7 +779,7 @@ export class ModalCupos2Component implements OnInit {
                     this.DistritoIDSelct,
             },
         };
-        console.log("DATA PACIENTE YY", data);
+        // console.log("DATA PACIENTE YY", data);
         this.cuposService.updatePacienteExtras(data).subscribe((resp) => {
             this.messageService.add({
                 severity: "success",
@@ -906,7 +906,7 @@ export class ModalCupos2Component implements OnInit {
             servicio: this.dataPersonalSelecionado.ipress.servicio,
             fecha: this.dataPersonalSelecionado.fechaOferta,
         };
-        console.log("DATA ", data);
+        // console.log("DATA ", data);
         this.cuposService
             .getCuposServicioFecha(this.idIpressLapostaMedica, data)
             .subscribe((res: any) => {
@@ -926,7 +926,7 @@ export class ModalCupos2Component implements OnInit {
     }
     tipoPagoChg() {
         this.detalleDePago = this.formPacientesCupo.value.detallePago;
-        console.log("detalle Pago", this.detalleDePago);
+        // console.log("detalle Pago", this.detalleDePago);
     }
     /* interconsulta */
     iniciarPaciente() {
@@ -945,22 +945,22 @@ export class ModalCupos2Component implements OnInit {
         if (nroDoc.length >= 8) {
             this.pacienteService.getPidePatientData(nroDoc).then((res: any) => {
                 if (res.error == "4009") {
-                    console.log('no se econtro el paciente');
+                    // console.log('no se econtro el paciente');
                     Swal.fire({
                         title: 'No se encontro a ese paciente',
                         text: '¿Desea registrarlo?',
                         showDenyButton: true,
                         confirmButtonText: 'Nuevo Registro',
                         denyButtonText: `Cancelar`,
-                      }).then((result) => {
+                    }).then((result) => {
                         /* Read more about isConfirmed, isDenied below */
                         if (result.isConfirmed) {
                             this.buscarNuevoPaciente(this.patientData);
                         } else if (result.isDenied) {
-                          
+
                         }
-                      })
-                    
+                    })
+
                     return;
                 }
                 this.patientData = res;
@@ -989,6 +989,7 @@ export class ModalCupos2Component implements OnInit {
                                 edadMes: this.meses,
                                 edadDia: this.dias
                             });
+                            this.recoverUbigeo(this.patientData.ubigeo);
                         } else {
                             Swal.fire({
                                 icon: 'error',
@@ -1020,6 +1021,7 @@ export class ModalCupos2Component implements OnInit {
                             edadMes: this.meses,
                             edadDia: this.dias
                         });
+                        this.recoverUbigeo(this.patientData.ubigeo);
                     }
 
 
@@ -1055,6 +1057,45 @@ export class ModalCupos2Component implements OnInit {
             });
         }
     }
+    recoverUbigeo(ubigeo: string): void {
+        let dep: string = ubigeo.slice(0, 2);
+        let prov: string = ubigeo.slice(2, 4);
+        let dist: string = ubigeo.slice(4, 6);
+        this.formPacientesCupo.patchValue({ dpto: this.patientData.departamento });
+        this.loadProvincia(dep);
+        this.loadDistrito(dep, prov);
+        this.loadPopulatedCenter(dep, prov, dist);
+    }
+    loadProvincia(idDepartamento: string): void {
+        let objDep = {
+            iddd: idDepartamento
+        }
+        this.ubicacionService.getProvincias(objDep).subscribe((res: any) => {
+            this.dataProvincia = res.object;
+            this.formPacientesCupo.patchValue({ prov: this.patientData.provincia });
+        });
+
+    }
+    loadDistrito(idDepartamento: string, idProvincia: string): void {
+        let objProv = {
+            iddd: idDepartamento,
+            idpp: idProvincia
+        }
+        this.ubicacionService.getDistritos(objProv).subscribe((res: any) => {
+            this.dataDistrito = res.object;
+            this.formPacientesCupo.patchValue({ dist: this.patientData.distrito });
+        });
+    }
+    loadPopulatedCenter(idDepartamento: string, idProvincia: string, idDistrito: string): void {
+        let objDist = {
+            iddd: idDepartamento,
+            idpp: idProvincia,
+            iddis: idDistrito
+        }
+        this.ubicacionService.getCentroPoblado(objDist).subscribe((res: any) => {
+            this.dataCentroPoblado = res.object;
+        })
+    }
 
     // searchUbigeo(ubigeo: string): void {
     //     let auxData = {
@@ -1064,13 +1105,4 @@ export class ModalCupos2Component implements OnInit {
 
     //     })
     // }
-
-    transformToDate(dateStr: string): string {
-        let year: string = dateStr.slice(0, 4);
-        let month: string = dateStr.slice(4, 6);
-        let day: string = dateStr.slice(6, 8)
-        let date: string;
-        date = year + '-' + month + '-' + day;
-        return date;
-    }
 }

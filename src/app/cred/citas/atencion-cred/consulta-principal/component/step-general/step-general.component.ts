@@ -159,10 +159,10 @@ export class StepGeneralComponent implements OnInit, DoCheck {
     getConsulta(idConsulta: string) {
         this.consultaGeneralService.traerConsulta(idConsulta).subscribe(
             (result) => {
-                console.log(result);
+                // console.log(result);
             },
             (err) => {
-                console.log(err);
+                // console.log(err);
             }
         );
     }
@@ -196,7 +196,7 @@ export class StepGeneralComponent implements OnInit, DoCheck {
             })
             .subscribe((r) => {
                 this.consulta = r;
-                console.log("result: " + r);
+                // console.log("result: " + r);
                 localStorage.setItem(
                     this.attributeLocalS,
                     this.consulta.object.id
@@ -204,7 +204,7 @@ export class StepGeneralComponent implements OnInit, DoCheck {
                 this.datosGeneralesConsulta.recuperarData(
                     this.consulta.object.id
                 );
-                console.log("2");
+                // console.log("2");
             });
     }
 
@@ -332,7 +332,7 @@ export class StepGeneralComponent implements OnInit, DoCheck {
     prevPage() {
         switch (this.stepName) {
             case "finalizar":
-                console.log("fi ", this.stepName);
+                // console.log("fi ", this.stepName);
                 this.stepName = "tratamiento";
                 this.indiceActivo = 6;
                 break;
@@ -341,7 +341,7 @@ export class StepGeneralComponent implements OnInit, DoCheck {
                 this.indiceActivo = 5;
                 break;
             case "procedimientos":
-                console.log("fi ", this.stepName);
+                // console.log("fi ", this.stepName);
                 this.stepName = "diagnostico";
                 this.indiceActivo = 4;
                 break;
@@ -367,7 +367,7 @@ export class StepGeneralComponent implements OnInit, DoCheck {
 
     saveStep() {
         if (this.indiceActivo !== this.j) {
-            console.log("j ", this.indiceActivo, this.j);
+            // console.log("j ", this.indiceActivo, this.j);
             switch (this.j) {
                 case 7:
                     this.finalizarConsulta.save();
@@ -404,7 +404,7 @@ export class StepGeneralComponent implements OnInit, DoCheck {
             .then((r: any) => {
                 let aux = r.object.planAtencion;
                 //--- proxima cita ---
-                console.log("agenda", this.fecha);
+                // console.log("agenda", this.fecha);
                 index = 0;
                 aux.controlCrecimientoDesa.map((r_: any) => {
                     /* aux */

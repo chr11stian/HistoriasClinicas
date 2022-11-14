@@ -208,7 +208,7 @@ export class GiagnosticosComponent implements OnInit {
         this.recuperarNroFetos();
         this.recuperarDatosGuardados();
         this.getUpsPerIpress();
-        // this.recoverConsultationDiagnostic();
+        this.recoverConsultationDiagnostic();
     }
 
     recuperarUpsHis() {
@@ -882,12 +882,12 @@ export class GiagnosticosComponent implements OnInit {
         this.DxService.getDiagnosticByIdConsulta(this.idConsult).then((res: any) => {
             let dataRes: DiagnosticSave[] = res.object;
             if (dataRes == null) {
-                if (this.Gestacion.nroConsultas == 0) {
-                    this.arrayDiagnosticHIS = this.loadFirstBatery(this.arrayfirstBatery);
+                // if (this.Gestacion.nroConsultas == 0) {
+                //     this.arrayDiagnosticHIS = this.loadFirstBatery(this.arrayfirstBatery);
 
-                    // console.log('entro a la conndicion de primera bateria', this.loadFirstBatery(this.arrayfirstBatery));
-                    return;
-                } else
+                //     // console.log('entro a la conndicion de primera bateria', this.loadFirstBatery(this.arrayfirstBatery));
+                //     return;
+                // } else
                     return;
             }
             dataRes.forEach(item => {
@@ -962,6 +962,8 @@ export class GiagnosticosComponent implements OnInit {
 
         return arrayDiagnosticHIS;
     }
+
+    
 }
 interface Lista {
     label: string;

@@ -39,8 +39,8 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
   auxTriaje: outputTriajeInterface;
   data: dato;
   attributeLocalS = "documento";
-  anamnesisFC = new FormControl({ value: "", disabled: false });
-  obsFC = new FormControl({ value: "", disabled: false });
+  anamnesisFC = new FormControl({ value: "", disabled: true });
+  obsFC = new FormControl({ value: "", disabled: true });
   stateOptions = [
     { label: "Si", value: true },
     { label: "No", value: false },
@@ -264,7 +264,7 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
   ) {
     let auxAge = JSON.parse(localStorage.getItem("documento"));
     this.ageValidation = (12 * auxAge.anio + auxAge.mes);
-    console.log('data de doc ls ', this.ageValidation);
+    // console.log('data de doc ls ', this.ageValidation);
   }
 
   buildForm(): void {
@@ -288,7 +288,7 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
       dateAttention: new FormControl({ value: "", disabled: true }, [
         Validators.required,
       ]),
-      hour: new FormControl({ value: null, disabled: false }, [
+      hour: new FormControl({ value: null, disabled: true }, [
         Validators.required,
       ]),
       year: new FormControl({ value: null, disabled: true }, [
@@ -296,7 +296,7 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
       ]),
     });
     this.signoPeligroFG = new FormGroup({
-      presentSigns: new FormControl({ value: false, disabled: false }, [
+      presentSigns: new FormControl({ value: false, disabled: true }, [
         Validators.required,
       ]),
     });
@@ -313,65 +313,65 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
     });
 
     this.twoMonthsFG = new FormGroup({
-      1: new FormControl(false),
-      2: new FormControl(false),
-      3: new FormControl(false),
-      4: new FormControl(false),
-      5: new FormControl(false),
-      6: new FormControl(false),
-      7: new FormControl(false),
-      8: new FormControl(false),
+      1: new FormControl({ value:'',disabled:true}),
+      2: new FormControl({ value:'',disabled:true}),
+      3: new FormControl({ value:'',disabled:true}),
+      4: new FormControl({ value:'',disabled:true}),
+      5: new FormControl({ value:'',disabled:true}),
+      6: new FormControl({ value:'',disabled:true}),
+      7: new FormControl({ value:'',disabled:true}),
+      8: new FormControl({ value:'',disabled:true}),
     });
     this.twoMonthsMoreFG = new FormGroup({
-      1: new FormControl({ value: false, disabled: false }, [
+      1: new FormControl({ value: false, disabled: true }, [
         Validators.required,
       ]),
-      2: new FormControl({ value: false, disabled: false }, [
+      2: new FormControl({ value: false, disabled: true }, [
         Validators.required,
       ]),
-      3: new FormControl({ value: false, disabled: false }, [
+      3: new FormControl({ value: false, disabled: true }, [
         Validators.required,
       ]),
-      4: new FormControl({ value: false, disabled: false }, [
+      4: new FormControl({ value: false, disabled: true }, [
         Validators.required,
       ]),
-      5: new FormControl({ value: false, disabled: false }, [
+      5: new FormControl({ value: false, disabled: true }, [
         Validators.required,
       ]),
     });
     this.allYearFG = new FormGroup({
-      1: new FormControl({ value: false, disabled: false }, [
+      1: new FormControl({ value: false, disabled: true }, [
         Validators.required,
       ]),
-      2: new FormControl({ value: false, disabled: false }, [
+      2: new FormControl({ value: false, disabled: true }, [
         Validators.required,
       ]),
-      3: new FormControl({ value: false, disabled: false }, [
+      3: new FormControl({ value: false, disabled: true }, [
         Validators.required,
       ]),
-      4: new FormControl({ value: false, disabled: false }, [
+      4: new FormControl({ value: false, disabled: true }, [
         Validators.required,
       ]),
-      5: new FormControl({ value: false, disabled: false }, [
+      5: new FormControl({ value: false, disabled: true }, [
         Validators.required,
       ]),
     });
     /** form para factor de riesgo */
     this.factorRiesgoFG = new FormGroup({
       /** quien cuida al ninio */
-      cuidaNinio: new FormControl({ value: null, disabled: false }, [
+      cuidaNinio: new FormControl({ value: null, disabled: true }, [
         Validators.required,
       ]),
       /** participa el apdre en el cuidado del ninio: atributo tipo boolean*/
-      participaPadre: new FormControl({ value: null, disabled: false }, [
+      participaPadre: new FormControl({ value: null, disabled: true }, [
         Validators.required,
       ]),
       /** ninio recibe muestras de afecto : atributo tipo boolean */
-      recibeAfecto: new FormControl({ value: null, disabled: false }, [
+      recibeAfecto: new FormControl({ value: null, disabled: true }, [
         Validators.required,
       ]),
       /** detalle string*/
-      especificacion: new FormControl({ value: null, disabled: false }, [
+      especificacion: new FormControl({ value: null, disabled: true }, [
         Validators.required,
       ]),
     });
@@ -405,7 +405,7 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
       });
     this.consultaService.getDatosGenerales(id).subscribe((r: any) => {
       this.auxTriaje = r.object;
-      console.log("aux: ", this.auxTriaje);
+      // console.log("aux: ", this.auxTriaje);
       let date: Date = new Date(this.auxTriaje.fecha);
       this.generalInfoFG.get("dateAttention").setValue(date);
       this.generalInfoFG.get("hour").setValue(date);
@@ -513,9 +513,9 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    console.log("idConsulta ", this.consultaService.idConsulta);
+    // console.log("idConsulta ", this.consultaService.idConsulta);
     this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
-    console.log("data", this.data);
+    // console.log("data", this.data);
     if (this.data.idConsulta !== "") this.recuperarData(this.data.idConsulta);
     this.buildForm();
     /* interconsulta */
@@ -605,17 +605,17 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
       .getServiciosPorIpress(idIpress)
       .subscribe((res: any) => {
         this.servicios = res.object;
-        console.log("LISTA DE SERVICIOS DE IPRESSS", this.servicios);
+        // console.log("LISTA DE SERVICIOS DE IPRESSS", this.servicios);
       });
   }
 
   eliminarInterconsulta(id, index) {
     this.listInterconsulta.splice(index, 1);
-    console.log();
+    // console.log();
     this.consultaGeneralService
       .deleteInterconsulta(this.data.idConsulta, id)
       .subscribe((r: any) => {
-        console.log(r.object);
+        // console.log(r.object);
       });
   }
   listaInterconsulta() {

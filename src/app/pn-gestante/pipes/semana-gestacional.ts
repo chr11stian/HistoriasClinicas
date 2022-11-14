@@ -1,12 +1,15 @@
 import { Pipe,PipeTransform } from '@angular/core';
+import { GestanteModel } from '../interfaces/GestanteModel';
 
 @Pipe({
     name:'SemanaGestacional'
 })
 
 export class SemanaGestacional implements PipeTransform{
-    transform(date:string):any{
-        if (date) {
+    transform(gestante:GestanteModel):any{
+        if (gestante) {
+            let date=gestante.fur;
+            let aborto=gestante.aborto;
             let today = new Date().getTime();
             let fum: any =date.split("/");
             console.log(fum);
@@ -22,8 +25,10 @@ export class SemanaGestacional implements PipeTransform{
             let dias=edadGestacional % 7
             if(semanas>39){
                 return `finalizado`;
-            }else{
+            }else if(semanas<=39 && aborto==false){
                 return `${Math.abs(semanas)} semanas ${Math.abs(dias)} dias`;
+            }else if(semanas<=39 && aborto==true){
+                return `finalizado`;
             }
         }
     }

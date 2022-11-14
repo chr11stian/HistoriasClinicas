@@ -309,7 +309,7 @@ export class MotivoConsultaComponent implements OnInit {
             .subscribe((r: any) => {
                 //-- recupera informacion de motivos
                 this.motivosConsulta = r.object;
-                console.log("motivos", r);
+                // console.log("motivos", r);
                 this.motivoFG
                     .get("detailMotivoFC")
                     .setValue(
@@ -626,7 +626,7 @@ export class MotivoConsultaComponent implements OnInit {
             .getServiciosPorIpress(idIpress)
             .subscribe((res: any) => {
                 this.servicios = res.object;
-                console.log("LISTA DE SERVICIOS DE IPRESSS", this.servicios);
+                // console.log("LISTA DE SERVICIOS DE IPRESSS", this.servicios);
             });
     }
 

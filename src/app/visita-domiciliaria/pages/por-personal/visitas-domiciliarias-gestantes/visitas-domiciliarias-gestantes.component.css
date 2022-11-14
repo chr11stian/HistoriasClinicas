@@ -1,17 +1,22 @@
-.busqueda{
-    display: grid;
-    grid-template-columns: 100px auto;
-}
 .buttonAcciones {
-    color: #af0017;
-    background: white;
-    border: 1px solid #af0017;
+  color: #ffffff;
+  background:#af0017 !important;
+  border: 1px solid #af0017;
+  Cursor:text !important; 
+  Text-Decoration: None !important; 
 }
 
-.buttonAcciones:hover {
-    background: #af0017;
-    color: white;
-    border: 1px solid #af0017;
+.buttonAcciones1 {
+  color: #ffffff;
+  background:#af0017 !important;
+  border: 1px solid #af0017;
+}
+
+.buttonAcciones1:a {
+  color: #ffffff;
+  border: 1px solid #af0017;
+  background: #af0017;
+  text-decoration: none;
 }
 
 p-selectbutton >>> .p-button.p-highlight {
@@ -44,4 +49,7 @@ p-selectbutton >>> .p-button.p-highlight {
   p-dropdown >>> .p-dropdown-clearable .p-dropdown-label {
     padding-right: 0rem;
   }
-
+  .busqueda {
+    display: grid;
+    grid-template-columns: 100px auto;
+  }

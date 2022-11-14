@@ -33,8 +33,11 @@ export class SuplementoComponent implements OnInit {
   tipoSuplementacion=[
     {name:'Sulfato Ferroso',code:'SF',codigoHis:'99199.17'},
     {name:'Micronutrientes',code:'MNM',codigoHis:'99199.19'},
+  ]
+  tipoSuplementacion2=[
     {name:'Vitamina A',code:'VA',codigoHis:'99199.27'},
   ]
+  
   presentacionSFaTermino=[
     {name:'Jarabe Sulfato Ferroso-(75mg/5mL)',codeSISMED:'28551',contenidoHierroElemental:'15mg/5ml de Hierro elemental',descripcion:'Sulfato Ferroso'},
     {name:'Ferrimax -(50mg/ml por 30ml)',codeSISMED:'28551',contenidoHierroElemental:'',descripcion:'Sulfato Ferroso'},
@@ -59,14 +62,15 @@ export class SuplementoComponent implements OnInit {
     this.suplemento = this.config.data.suplementacion;
     this.isSuplementacion = this.config.data.isSuplementacion;      
     this.getSuplementancion();
-    console.log('la suplemtacion enviada',this.suplemento)
   }
   ngOnInit(): void {
     this.idConsulta=this.dataDocumento.idConsulta;
-    console.log('-->',this.suplemento.nombre);
-    this.medicamentoSeleccionado=this.tipoSuplementacion.find((item)=>item.code==this.suplemento.nombre)
-    console.log('nodel',this.medicamentoSeleccionado);
-    
+    if(this.suplemento.nombre=='SF'||this.suplemento.nombre=='MNM'){
+      this.medicamentoSeleccionado=this.tipoSuplementacion.find((item)=>item.code==this.suplemento.nombre)
+    }
+    else{
+      this.medicamentoSeleccionado=this.tipoSuplementacion2.find((item)=>item.code==this.suplemento.nombre)
+    }
     this.cambiarMedicamento()
   }
   build() {
@@ -81,7 +85,6 @@ export class SuplementoComponent implements OnInit {
   }
   medicacion=[]
   cambiarMedicamento(){
-    console.log('medicamento:',this.medicamentoSeleccionado);
     switch(this.medicamentoSeleccionado.code){
       case 'SF':
         this.medicacion=this.presentacionSFaTermino
@@ -92,9 +95,7 @@ export class SuplementoComponent implements OnInit {
       case 'VA':
         this.medicacion=this.presentacionVitaminaA
         break  
-
     }
-    
   }
   getFC(control: string): AbstractControl {
     return this.suplemetancionFG.get(control);
@@ -136,10 +137,7 @@ export class SuplementoComponent implements OnInit {
       
       if (this.suplemento.tipoSuplementacion=='TERAPEUTICO'){
         requestInput.tipoSuplementacion='TERAPEUTICO'
-      }
-      console.log('input request',requestInput);
-      
-      // return 
+      } 
       this.confirmationService.confirm({
         header: "Confirmación",
         message: "Esta Seguro que desea guardar suplementacion",
@@ -148,7 +146,6 @@ export class SuplementoComponent implements OnInit {
         rejectLabel: "No",
         key:'claveDialog',
         accept: () => {
-          console.log('tipo suplementacion',this.suplemento.tipoSuplementacion)
           if (this.suplemento.tipoSuplementacion=='PREVENTIVO'){
             console.log('->>>>>>>>>>>>>>',this.isSuplementacion)
             if (this.isSuplementacion){
