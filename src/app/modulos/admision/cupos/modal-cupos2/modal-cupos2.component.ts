@@ -952,15 +952,15 @@ export class ModalCupos2Component implements OnInit {
                         showDenyButton: true,
                         confirmButtonText: 'Nuevo Registro',
                         denyButtonText: `Cancelar`,
-                      }).then((result) => {
+                    }).then((result) => {
                         /* Read more about isConfirmed, isDenied below */
                         if (result.isConfirmed) {
                             this.buscarNuevoPaciente(this.patientData);
                         } else if (result.isDenied) {
-                          
+
                         }
-                      })
-                    
+                    })
+
                     return;
                 }
                 this.patientData = res;
@@ -989,6 +989,7 @@ export class ModalCupos2Component implements OnInit {
                                 edadMes: this.meses,
                                 edadDia: this.dias
                             });
+                            this.recoverUbigeo(this.patientData.ubigeo);
                         } else {
                             Swal.fire({
                                 icon: 'error',
@@ -1020,6 +1021,7 @@ export class ModalCupos2Component implements OnInit {
                             edadMes: this.meses,
                             edadDia: this.dias
                         });
+                        this.recoverUbigeo(this.patientData.ubigeo);
                     }
 
 
@@ -1055,6 +1057,45 @@ export class ModalCupos2Component implements OnInit {
             });
         }
     }
+    recoverUbigeo(ubigeo: string): void {
+        let dep: string = ubigeo.slice(0, 2);
+        let prov: string = ubigeo.slice(2, 4);
+        let dist: string = ubigeo.slice(4, 6);
+        this.formPacientesCupo.patchValue({ dpto: this.patientData.departamento });
+        this.loadProvincia(dep);
+        this.loadDistrito(dep, prov);
+        this.loadPopulatedCenter(dep, prov, dist);
+    }
+    loadProvincia(idDepartamento: string): void {
+        let objDep = {
+            iddd: idDepartamento
+        }
+        this.ubicacionService.getProvincias(objDep).subscribe((res: any) => {
+            this.dataProvincia = res.object;
+            this.formPacientesCupo.patchValue({ prov: this.patientData.provincia });
+        });
+
+    }
+    loadDistrito(idDepartamento: string, idProvincia: string): void {
+        let objProv = {
+            iddd: idDepartamento,
+            idpp: idProvincia
+        }
+        this.ubicacionService.getDistritos(objProv).subscribe((res: any) => {
+            this.dataDistrito = res.object;
+            this.formPacientesCupo.patchValue({ dist: this.patientData.distrito });
+        });
+    }
+    loadPopulatedCenter(idDepartamento: string, idProvincia: string, idDistrito: string): void {
+        let objDist = {
+            iddd: idDepartamento,
+            idpp: idProvincia,
+            iddis: idDistrito
+        }
+        this.ubicacionService.getCentroPoblado(objDist).subscribe((res: any) => {
+            this.dataCentroPoblado = res.object;
+        })
+    }
 
     // searchUbigeo(ubigeo: string): void {
     //     let auxData = {
@@ -1064,13 +1105,4 @@ export class ModalCupos2Component implements OnInit {
 
     //     })
     // }
-
-    transformToDate(dateStr: string): string {
-        let year: string = dateStr.slice(0, 4);
-        let month: string = dateStr.slice(4, 6);
-        let day: string = dateStr.slice(6, 8)
-        let date: string;
-        date = year + '-' + month + '-' + day;
-        return date;
-    }
 }

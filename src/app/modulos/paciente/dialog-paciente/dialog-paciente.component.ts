@@ -99,8 +99,8 @@ export class DialogPacienteComponent implements OnInit {
             this.patientData = this.config.data.dataPaciente;
             this.assignPatientData(this.patientData);
         }
-        console.log('data del paciente ', this.patientData);
-        console.log('para editarrrrrrrrrrrrrr ', this.toEdit);
+        // console.log('data del paciente ', this.patientData);
+        // console.log('para editarrrrrrrrrrrrrr ', this.toEdit);
         if (this.dataPacienteEditar !== null) {
             this.editarDatos()
             this.toEdit = true;
@@ -142,6 +142,7 @@ export class DialogPacienteComponent implements OnInit {
                 this.ProvinciaIDSelct = object.idpp
             }
         });
+        console.log('data de departamento ', this.formPaciente.value.departamento);
 
         let provincia = {
             iddd: this.DepartamentoIDSelct,
@@ -531,7 +532,7 @@ export class DialogPacienteComponent implements OnInit {
             fechaNacimiento: patientData.fecNacimiento,
             nacionalidad: patientData.tipoDocumento == "DNI" ? patientData.genero == "MASCULINO" ? "PERUANO" : "PERUANA" : "",
             tipoSeguro: patientData.descTipoSeguro,
-            codSeguro:patientData.tipoSeguro
+            codSeguro: patientData.tipoSeguro
         })
         this.searchUbigeo(patientData.eessUbigeo)
     }
@@ -540,6 +541,11 @@ export class DialogPacienteComponent implements OnInit {
         let idDep: string = ubigeo.slice(0, 2);
         let idProv: string = ubigeo.slice(2, 4);
         let idDist: string = ubigeo.slice(4, 6);
+        console.log('ubigeo ', ubigeo);
+        this.formPaciente.patchValue({ dpto: this.patientData.departamento });
+        this.DepartamentoIDSelct = idDep;
+        this.ProvinciaIDSelct = idProv;
+        this.DistritoIDSelct = idDist;
         this.ubicacionService.getCPbyUbigeo(ubigeo).then((res: any) => {
             if (res.status) {
                 console.log('error ');
@@ -575,6 +581,37 @@ export class DialogPacienteComponent implements OnInit {
                 });
             }
         });
+    }
+
+    loadProvincia(idDepartamento: string): void {
+        let objDep = {
+            iddd: idDepartamento
+        }
+        this.ubicacionService.getProvincias(objDep).subscribe((res: any) => {
+            this.dataProvincia = res.object;
+            this.formPaciente.patchValue({ prov: this.patientData.provincia });
+        });
+
+    }
+    loadDistrito(idDepartamento: string, idProvincia: string): void {
+        let objProv = {
+            iddd: idDepartamento,
+            idpp: idProvincia
+        }
+        this.ubicacionService.getDistritos(objProv).subscribe((res: any) => {
+            this.dataDistrito = res.object;
+            this.formPaciente.patchValue({ dist: this.patientData.distrito });
+        });
+    }
+    loadPopulatedCenter(idDepartamento: string, idProvincia: string, idDistrito: string): void {
+        let objDist = {
+            iddd: idDepartamento,
+            idpp: idProvincia,
+            iddis: idDistrito
+        }
+        this.ubicacionService.getCentroPoblado(objDist).subscribe((res: any) => {
+            this.dataCentroPoblado = res.object;
+        })
     }
 
     validateDoc(): boolean {
