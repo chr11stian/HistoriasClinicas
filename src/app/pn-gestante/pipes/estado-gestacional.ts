@@ -1,12 +1,15 @@
 import { Pipe,PipeTransform } from '@angular/core';
+import { GestanteModel } from '../interfaces/GestanteModel';
 
 @Pipe({
     name:'EstadoGestacional'
 })
 
 export class EstadoGestacional implements PipeTransform{
-    transform(date:any):any {
-    if (date) {
+    transform(gestante:GestanteModel):any {
+    if (gestante) {
+        let date=gestante.fur;
+        let aborto=gestante.aborto;
         let fum: any =date.split("/");
         let newDay: any = fum[0];
         let newMonth: any =fum[1];
@@ -20,12 +23,12 @@ export class EstadoGestacional implements PipeTransform{
         let semanas=Math.trunc(edadGestacional / 7);
         let dias=edadGestacional % 7
 
-        if(semanas<40){
+        if(semanas<40 && aborto==false){
             return `Gestante`;
-        }else if(semanas>40 && semanas<44){
+        }else if(semanas>40 && semanas<47){
             return `Puerpera`;
-        }else{
-            return `No Gestante`
+        }else if(semanas<40 && aborto==true){
+            return `Puerpera`
         }
         }
     }

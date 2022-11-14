@@ -35,7 +35,11 @@ export class VisitaNinioService {
             {
                 keys: [[idIpress, dni_profesional, anio]],
             }
-        );
+        ).toPromise()
+        .then((res) => <any[]>res)
+        .then((data) => {
+        return data;
+        });
     }
 
     getVisitasNiniosXProfesionalMenores_4_Meses(
@@ -116,10 +120,24 @@ export class VisitaNinioService {
             {
                 keys: [[idIpress, dni_profesional, anio_mes]],
             }
-        );
+        ).toPromise()
+        .then((res) => <any[]>res)
+        .then((data) => {
+        return data;
+        });
     }
 
-    cargarVisitasAnio(){
-        
+    getVisitasNiniosXProfesionalSortByFechaAscending(
+        idIpress: string,
+        dni_profesional: string,
+        year:string,
+    ) {
+        return this.http.get<VisitasProfesionalNinios[]>(
+            `${this.base_url_view}/ninios_sort_fecha?ascending=true&startkey=${[idIpress,dni_profesional,year,"1","1"]}&endkey=${[idIpress,dni_profesional,year,"12","31"]}`,
+        ).toPromise()
+        .then((res) => <any[]>res)
+        .then((data) => {
+        return data;
+        });
     }
 }

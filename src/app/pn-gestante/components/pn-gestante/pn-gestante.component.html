@@ -1,80 +1,78 @@
-<div  style="background: #f8f9fa; height: 100%;">
-    <div class="card">
-    <div class="flex" style="margin-top:20px; margin-bottom:20px">
-            <div class="col-12" style="text-align:center;">
-                <span style="font-size:2em;margin-top: 5px;margin-bottom: 5px;">
-                    PADRON NOMINAL DE GESTANTES
-                </span>
-            </div>
-    </div>
-    <p-toolbar  class="p-mb-4">
-        <ng-template pTemplate="left" class="p-inputgroup">
-        </ng-template>
-        <ng-template pTemplate="right" class="button">
-            <button pButton 
-            pRipple label="Nueva gestante"
-            icon="pi pi-plus" 
-            class="p-button-danger mr-2"
-            (click)="openDialog()">
-            </button>
-            <button pButton 
-            pRipple label="Nueva gesta"
-            icon="pi pi-plus" 
-            class="p-button-help mr-2"
-            (click)="openDialogNuevaGesta()">
-            </button>
-            <button pButton 
-            pRipple label="Cambio EESS"
-            icon="pi pi-angle-double-right" 
-            class="p-button-info mr-2"
-            (click)="openDialogCambioEESS()">
-            </button>
-        </ng-template>
-    </p-toolbar>
-    <p-table #dt [value]="listaGestantesPuerpera" [rows]="10" [paginator]="true" [rowHover]="true" datakey="id"
-              responsiveLayout="scroll" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
-              currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
-              styleClass="p-datatable-gridlines">
-          <ng-template pTemplate="header" style="text-align: center;">
-              <tr>
-                  <th style="text-align: center;">Nro</th>
-                  <th style="text-align: center;">NRO DOC</th>
-                  <th style="text-align: center;">NOMBRES</th>
-                  <th style="text-align: center;">APELLIDOS</th>
-                  <th style="text-align: center;">TELEFONO</th>
-                  <th style="text-align: center;">TIENE SIS</th>
-                  <th style="text-align: center;">DIRECCIÓN</th>
-                  <th style="text-align: center;">ESTADO</th>
-                  <th style="text-align: center;">SEMANA GESTACIONAL</th>
-                  <th style="text-align: center;">ACCIONES</th>
-              </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-gestante style="text-align: center;margin-top: 10px;margin-bottom: 5px;" let-i="rowIndex">
-              <tr>
-                  <td style="text-align: center;">{{i+ 1 }}</td>
-                  <td style="text-align: center;">{{gestante.value.nroDocIdentidad}}</td>
-                  <td style="text-align:left;">{{gestante.value.nombres}}</td>
-                  <td style="text-align:left ;">{{gestante.value.apePaterno}}  {{gestante.value.apeMaterno}}</td>
-                  <td style="text-align: center;">{{gestante.value.telefono}}</td>
-                  <td style="text-align: center;">{{gestante.value.tieneSis}}</td>
-                  <td style="text-align: left;">{{gestante.value.direccion}}</td>
-                  <td style="text-align: center;">
-                <button pButton type="button"  
-                            iconPos="right" icon="pi pi-check" label=" {{gestante.value.fur |EstadoGestacional}}"
-                      class="p-button-success p-button-sm">
-                    </button>
-                  </td>
-                  <td style="text-align:center;">{{gestante.value.fur | SemanaGestacional }}</td>
-                  <td style="text-align: center;width: 10em;">
-                    <button pButton (click)="editar(gestante)" pTooltip="Editar" pRipple type="button"
-                        icon="pi pi-pencil" class="p-button-rounded m-1">
-                    </button>
-                    <button pButton (click)="mostrar(gestante.value.nroGesta)" pTooltip="Ver" pRipple type="button"
-                    icon="pi pi-eye" class="p-button-rounded m-1">
+<div class="p-card" style="background: #f8f9fa; height: 100%;">
+        <div class="flex"   style="margin-top:20px; margin-bottom:20px">
+                <div class="col-12" style="text-align:center;">
+                    <span style="font-size:2em ;">
+                        PADRON NOMINAL DE GESTANTES
+                    </span>
+                </div>
+        </div>
+        <p-toolbar  class="p-mb-4">
+            <ng-template pTemplate="left" class="p-inputgroup">
+            </ng-template>
+            <ng-template pTemplate="right" class="button">
+                <button pButton 
+                pRipple label="Nueva gestante"
+                icon="pi pi-plus" 
+                class="p-button-danger mr-2"
+                (click)="openDialog()">
                 </button>
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
-    </div>
-  
+                <button pButton 
+                pRipple label="Nueva gesta"
+                icon="pi pi-plus" 
+                class="p-button-help mr-2"
+                (click)="openDialogNuevaGesta()">
+                </button>
+                <button pButton 
+                pRipple label="Cambio EESS"
+                icon="pi pi-angle-double-right" 
+                class="p-button-info mr-2"
+                (click)="openDialogCambioEESS()">
+                </button>
+            </ng-template>
+        </p-toolbar>
+        <p-table  [value]="listaGestantes" #dt styleClass="p-datatable-gridlines" [rows]="4"
+        [rowsPerPageOptions]="[10,20,30]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+        currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+            <ng-template pTemplate="header" style="text-align: center;">
+                  <tr>
+                      <th style="text-align: center;">NRO</th>
+                      <th style="text-align: center;">NRO DOC</th>
+                      <th style="text-align: center;">NOMBRES</th>
+                      <th style="text-align: center;">APELLIDOS</th>
+                      <th style="text-align: center;">TELEFONO</th>
+                      <th style="text-align: center;">TIENE SIS</th>
+                      <th style="text-align: center;">DIRECCIÓN</th>
+                      <th style="text-align: center;">ESTADO</th>
+                      <th style="text-align: center;">SEMANA GESTACIONAL</th>
+                      <th style="text-align: center;">ACCIONES</th>
+                  </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-gestante style="text-align: center;margin-top: 10px;margin-bottom: 5px;" let-i="rowIndex">
+                  <tr>
+                      <td style="text-align: center;">{{i+ 1 }}</td>
+                      <td style="text-align: center;">{{gestante.value.nroDocIdentidad}}</td>
+                      <td style="text-align:left;">{{gestante.value.nombres}}</td>
+                      <td style="text-align:left ;">{{gestante.value.apePaterno}}  {{gestante.value.apeMaterno}}</td>
+                      <td style="text-align: center;">{{gestante.value.telefono}}</td>
+                      <td style="text-align: center;">{{gestante.value.tieneSis}}</td>
+                      <td style="text-align: left;">{{gestante.value.direccion}}</td>
+                      <td style="text-align: center;">
+                    <button pButton type="button"  
+                                iconPos="right" icon="pi pi-check" label=" {{gestante.value |EstadoGestacional|uppercase}}"
+                          class="p-button-success p-button-sm">
+                        </button>
+                      </td>
+                      <td style="text-align:center;">{{gestante.value | SemanaGestacional|uppercase }}</td>
+                      <td style="text-align: center;width: 10em;">
+                        <button pButton (click)="editar(gestante)" pTooltip="Editar" pRipple type="button"
+                            icon="pi pi-pencil" class="p-button-rounded m-1">
+                        </button>
+                        <button pButton (click)="mostrar(gestante.value.nroGesta)" pTooltip="Ver" pRipple type="button"
+                        icon="pi pi-eye" class="p-button-rounded m-1">
+                    </button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+</div>
+
