@@ -39,7 +39,7 @@ export class DesarrolloPsicomotorComponent implements OnInit {
       this.evaluations.evaluacionEEDP == null ? this.evaluations.evaluacionEEDP = [] : '';
       this.evaluations.evaluacionPautaBreve == null ? this.evaluations.evaluacionPautaBreve = [] : '';
       this.evaluations.evaluacionTepsi == null ? this.evaluations.evaluacionTepsi = [] : '';
-      console.log('arreglo para evaluar ', this.evaluations);
+      // console.log('arreglo para evaluar ', this.evaluations);
       if (this.evaluations.evaluacionDesarrollo_0_30.length > 0) {
         this.disabledSelectedTab = this.selectedTab(0, this.disabledSelectedTab);
         this.isEvaluated = true;

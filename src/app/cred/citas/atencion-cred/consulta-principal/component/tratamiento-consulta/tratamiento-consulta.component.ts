@@ -60,7 +60,7 @@ export class TratamientoConsultaComponent implements OnInit {
     ) {
         this.build();
         // this.nexDate = this.consultaGeneralService.fecha
-        console.log("proxima citaaaa ", this.nexDate);
+        // console.log("proxima citaaaa ", this.nexDate);
     }
     build() {
         /* Interconsulta */
@@ -152,7 +152,7 @@ export class TratamientoConsultaComponent implements OnInit {
             .getServiciosPorIpress(idIpress)
             .subscribe((res: any) => {
                 this.servicios = res.object;
-                console.log("LISTA DE SERVICIOS DE IPRESSS", this.servicios);
+                // console.log("LISTA DE SERVICIOS DE IPRESSS", this.servicios);
             });
     }
 
@@ -273,7 +273,7 @@ export class TratamientoConsultaComponent implements OnInit {
                     nroDoc: this.arrayFua[0].nroDoc
                 }
             }
-            console.log('data of fua ', this.personalData);
+            // console.log('data of fua ', this.personalData);
         })
     }
     cargarHis() {
@@ -292,7 +292,7 @@ export class TratamientoConsultaComponent implements OnInit {
                     return;
                 }
                 this.listHIS = r.object;
-                console.log("his", this.listHIS);
+                // console.log("his", this.listHIS);
                 this.listHIS == null ? this.existData = false : this.existData = true;
             });
     }
