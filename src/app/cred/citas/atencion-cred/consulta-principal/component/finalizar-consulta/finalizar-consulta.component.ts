@@ -145,7 +145,7 @@ export class FinalizarConsultaComponent implements OnInit, DoCheck {
       observacionesConsulta: this.acuerdosFG.get("observacionFC").value,
       interconsultas: this.interconsulta,
     };
-    console.log("aux", aux);
+    // console.log("aux", aux);
     this.acuerdosService
       .addAcuerdo(this.data.idConsulta, aux)
       .subscribe((r: any) => {
