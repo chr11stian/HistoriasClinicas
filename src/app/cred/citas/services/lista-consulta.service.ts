@@ -48,4 +48,7 @@ export class ListaConsultaService {
         const url = `${this.base_url}/hce/consultageneral/listarXTipo/${tidoDocumento}/${nroDocumento}/${tipoConsulta}`
         return this.http.get(url)
     }
+    tieneConsultaDia(tipoDoc:string,nroDoc:string,servicio:string){
+        return this.http.get(`${this.base_url}/hce/cred/consulta/existe/${tipoDoc}/${nroDoc}/${servicio}`)
+    }
 }
