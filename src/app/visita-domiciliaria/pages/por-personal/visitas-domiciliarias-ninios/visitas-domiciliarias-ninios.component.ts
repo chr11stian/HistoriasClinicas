@@ -198,9 +198,9 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
             });
           }
           this.dataVisitas = data["rows"];
-          this.dataVisitas.filter((aux) => {
+          this.dataVisitas.map((aux) => {
             if (aux.value.hasOwnProperty("menor_cuatro_meses")){
-              return aux.value;
+              this.dataVisitas_Menores_4_meses.push(aux.value);
             };
           });
         this.dataVisitas.map((aux) => {

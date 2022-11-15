@@ -930,7 +930,7 @@ export class ModalCupos2Component implements OnInit {
     }
     /* interconsulta */
     iniciarPaciente() {
-        if (this.cuposService.tab == 4) {
+        if (this.cuposService.tab === 3 || this.cuposService.tab === 4) {
             this.estado = true;
             this.formPacientesCupo
                 .get("nroDoc")

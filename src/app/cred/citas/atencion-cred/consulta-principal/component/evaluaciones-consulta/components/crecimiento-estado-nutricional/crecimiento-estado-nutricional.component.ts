@@ -242,7 +242,7 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
                 }
                 if (this.sv.talla * 100 > this.auxEvaluacionH["2"]) {
                     this.diagnosticoH = "Alto";
-                    console.log("talla alta");
+                    // console.log("talla alta");
                 }
             });
         this.controlCrecimientoService
@@ -263,7 +263,7 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
                 }
                 if (this.sv.peso > this.auxEvaluacionW["2"]) {
                     this.diagnosticoW = "Sobrepeso";
-                    console.log("talla alta");
+                    // console.log("talla alta");
                 }
             });
 
@@ -324,7 +324,7 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
                     this.auxEvaluacionC["97"]
                 ) {
                     this.diagnosticoC = "Riesgo macrocefalia";
-                    console.log("talla alta");
+                    // console.log("talla alta");
                 }
             });
     }
@@ -367,12 +367,12 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
 
     dataGrafico(list: interfaceCrecimiento[]) {
         //-- agregar antecedentes unshift
-        console.log(this.data.nroDocumento);
+        // console.log(this.data.nroDocumento);
         let antecedente;
         this.antecedentes
             .getAntecedentesPersonales(this.data.nroDocumento)
             .subscribe((r: any) => {
-                console.log(r.object);
+                // console.log(r.object);
                 antecedente = r.object.nacimientoperimetroCefalico;
                 list.unshift({
                     peso: r.object.nacimiento.pesoAlNacer,
@@ -410,7 +410,7 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
             .subscribe((r: any) => {
                 this.sv = r.object.signosVitales;
                 this.fc = r.object.fecha;
-                console.log("consulta-general", this.sv);
+                // console.log("consulta-general", this.sv);
             });
     }
 

@@ -904,7 +904,6 @@ export class TriajeCredComponent implements OnInit {
         let peso = this.examFG.value.PesoFC / 1000;
         let talla = this.examFG.value.TallaFC / 100;
         if(talla==0 || talla==null) {
-            console.log('talla',talla);
             return 
         }
         let imc: number = peso / (talla * talla);

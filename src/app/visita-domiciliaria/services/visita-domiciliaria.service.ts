@@ -15,6 +15,7 @@ export class VisitaDomiciliariaService {
     base_url = environment.base_url_Couch;
     base_url_view = environment.base_url_couch_view;
     base_url_images = environment.base_url_couch_images;
+    base_getImageVisita=environment.base_getImageVisitasDomiciliaria;
     id_ipress = "";
     dni_profesional = "";
     constructor(private http: HttpClient,private sanitizer: DomSanitizer) {}
@@ -22,6 +23,12 @@ export class VisitaDomiciliariaService {
         return JSON.parse(localStorage.getItem("token")).tokenCouch === null
             ? ""
             : JSON.parse(localStorage.getItem("token")).tokenCouch;
+    }
+
+    getTokenHCE() {
+        return JSON.parse(localStorage.getItem("token")).token=== null
+            ? ""
+            : JSON.parse(localStorage.getItem("token")).token;
     }
 
     getAnio(): string {
@@ -91,7 +98,7 @@ export class VisitaDomiciliariaService {
         });
     }
     
-    urlImagen(fileName:string):string{
-    return `${this.base_url}/${this.base_url_images}/${fileName}`;
+    urlImagen(fileName:string):any{
+    return this.http.get<any>(`${this.base_getImageVisita}/${fileName}`)
     }
 }
