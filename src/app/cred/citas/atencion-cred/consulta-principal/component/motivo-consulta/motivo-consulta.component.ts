@@ -304,12 +304,10 @@ export class MotivoConsultaComponent implements OnInit {
         this.data = <dato>(
             JSON.parse(localStorage.getItem(this.attributeLocalS))
         );
-        this.motivosService
-            .getMotivos(this.data.idConsulta)
-            .subscribe((r: any) => {
+        this.motivosService.getMotivos(this.data.idConsulta).subscribe((r: any) => {
                 //-- recupera informacion de motivos
                 this.motivosConsulta = r.object;
-                console.log("motivos", r);
+                // console.log("motivos", r);
                 this.motivoFG
                     .get("detailMotivoFC")
                     .setValue(
@@ -537,6 +535,9 @@ export class MotivoConsultaComponent implements OnInit {
     imc() {
         let peso = this.examFG.value.PesoFC / 1000;
         let talla = this.examFG.value.TallaFC / 100;
+        if(talla==0 || talla==null) {
+            return 
+        }
         let imc: number = peso / (talla * talla);
         this.examFG.get("imcFC").setValue(imc.toFixed(2));
     }
@@ -626,7 +627,7 @@ export class MotivoConsultaComponent implements OnInit {
             .getServiciosPorIpress(idIpress)
             .subscribe((res: any) => {
                 this.servicios = res.object;
-                console.log("LISTA DE SERVICIOS DE IPRESSS", this.servicios);
+                // console.log("LISTA DE SERVICIOS DE IPRESSS", this.servicios);
             });
     }
 

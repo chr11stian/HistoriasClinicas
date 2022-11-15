@@ -1,1 +1,62 @@
-<p>consulta works!</p>
+<div class="text-center"><h2>Habilitar consulta</h2></div>
+<div class="col-12 flex justify-content-center align-items-center">
+    <span>DNI Usuario: </span>
+    <div class="col-2 p-inputgroup">
+        <p-inputNumber
+            class="text-center"
+            [(ngModel)]="dni"
+            [useGrouping]="false"
+            maxlength="8"
+        ></p-inputNumber>
+        <button
+            type="button"
+            pButton
+            pRipple
+            icon="pi pi-search"
+            (click)="buscar()"
+            style="background-color: #0c3866"
+        ></button>
+    </div>
+</div>
+<div class="col-12">
+    <p-table
+        [value]="listaConsulta"
+        #dt
+        [rows]="3"
+        styleClass="p-datatable-sm"
+        [paginator]="true"
+        [autoLayout]="true"
+        class="m-3"
+        currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+        [showCurrentPageReport]="true"
+        responsiveLayout="scroll"
+    >
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="text-align: center">Nro</th>
+                <th style="text-align: center">Nombres</th>
+                <th style="text-align: center">Apellidos</th>
+                <th style="text-align: center">Hora</th>
+                <th style="text-align: center">Habilitar</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+            <tr style="text-align: center">
+                <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                <td style="text-align: center">{{ rowData.datosPaciente.primerNombre+" "+rowData.datosPaciente.otrosNombres }}</td>
+                <td style="text-align: center">{{ rowData.datosPaciente.apePaterno+" "+rowData.datosPaciente.apeMaterno }}</td>
+                <td style="text-align: center">{{ rowData.fecha }}</td>
+                <td style="text-align: center">
+                    <button
+                        pButton
+                        pRipple
+                        type="button"
+                        icon="pi pi-arrow-circle-up"
+                        class="p-button-rounded p-button-success"
+                        (click)="habilitar(rowData.id)"
+                    ></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

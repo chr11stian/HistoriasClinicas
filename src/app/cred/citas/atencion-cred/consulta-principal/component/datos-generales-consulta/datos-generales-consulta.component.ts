@@ -245,13 +245,6 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
   fecha: Date;
   servicios: string[] = [];
   loading: boolean = false;
-  urgencia = [
-    { name: "Nivel 1", code: "Nivel 1" },
-    { name: "Nivel 2", code: "Nivel 2" },
-    { name: "Nivel 3", code: "Nivel 3" },
-    { name: "Nivel 4", code: "Nivel 4" },
-    { name: "Nivel 5", code: "Nivel 5" },
-  ];
 
 
   constructor(
@@ -264,7 +257,7 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
   ) {
     let auxAge = JSON.parse(localStorage.getItem("documento"));
     this.ageValidation = (12 * auxAge.anio + auxAge.mes);
-    console.log('data de doc ls ', this.ageValidation);
+    // console.log('data de doc ls ', this.ageValidation);
   }
 
   buildForm(): void {
@@ -313,14 +306,14 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
     });
 
     this.twoMonthsFG = new FormGroup({
-      1: new FormControl(false),
-      2: new FormControl(false),
-      3: new FormControl(false),
-      4: new FormControl(false),
-      5: new FormControl(false),
-      6: new FormControl(false),
-      7: new FormControl(false),
-      8: new FormControl(false),
+      1: new FormControl({ value:'',disabled:true}),
+      2: new FormControl({ value:'',disabled:true}),
+      3: new FormControl({ value:'',disabled:true}),
+      4: new FormControl({ value:'',disabled:true}),
+      5: new FormControl({ value:'',disabled:true}),
+      6: new FormControl({ value:'',disabled:true}),
+      7: new FormControl({ value:'',disabled:true}),
+      8: new FormControl({ value:'',disabled:true}),
     });
     this.twoMonthsMoreFG = new FormGroup({
       1: new FormControl({ value: false, disabled: true }, [
@@ -375,13 +368,6 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
         Validators.required,
       ]),
     });
-    /* Interconsulta */
-    this.formInterconsulta = new FormGroup({
-      fecha: new FormControl({ value: null, disabled: false }, []),
-      motivo: new FormControl({ value: "", disabled: false }, []),
-      servicio: new FormControl({ value: "", disabled: false }, []),
-      urgencia: new FormControl({ value: "", disabled: false }, []),
-    });
   }
 
   ngOnChanges(changes: SimpleChanges) { }
@@ -405,7 +391,7 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
       });
     this.consultaService.getDatosGenerales(id).subscribe((r: any) => {
       this.auxTriaje = r.object;
-      console.log("aux: ", this.auxTriaje);
+      // console.log("aux: ", this.auxTriaje);
       let date: Date = new Date(this.auxTriaje.fecha);
       this.generalInfoFG.get("dateAttention").setValue(date);
       this.generalInfoFG.get("hour").setValue(date);
@@ -513,158 +499,27 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    console.log("idConsulta ", this.consultaService.idConsulta);
+    // console.log("idConsulta ", this.consultaService.idConsulta);
     this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
-    console.log("data", this.data);
+    // console.log("data", this.data);
     if (this.data.idConsulta !== "") this.recuperarData(this.data.idConsulta);
     this.buildForm();
     /* interconsulta */
-    this.ListaServicios();
-    this.tooltipItems = [
-      {
-        tooltipOptions: {
-          tooltipLabel: "Reporte",
-          tooltipPosition: "left",
-        },
-        icon: "pi pi-desktop",
-        command: (event: Event) => {
-          this.open();
-        },
-      },
-      {
-        tooltipOptions: {
-          tooltipLabel: "Reporte",
-          tooltipPosition: "left",
-        },
-        icon: "pi pi-desktop",
-        command: (event: Event) => {
-          this.open();
-        },
-      },
-      {
-        tooltipOptions: {
-          tooltipLabel: "Reporte",
-          tooltipPosition: "left",
-        },
-        icon: "pi pi-desktop",
-        command: (event: Event) => {
-          this.open();
-        },
-      },
-      {
-        tooltipOptions: {
-          tooltipLabel: "Reporte",
-          tooltipPosition: "left",
-        },
-        icon: "pi pi-desktop",
-        command: (event: Event) => {
-          this.open();
-        },
-      },
-      {
-        tooltipOptions: {
-          tooltipLabel: "Interconsulta",
-          tooltipPosition: "left",
-        },
-        icon: "pi pi-external-link",
-        command: (event: Event) => {
-          this.open();
-        },
-      },
-    ];
-    /* lista interconsulta */
-    this.listaInterconsulta();
+   
   }
 
   save(): void {
-    Swal.fire({
-      icon: "success",
-      title: "Actualizado correctamente",
-      text: "",
-      showConfirmButton: false,
-      timer: 1500,
-    });
+    // Swal.fire({
+    //   icon: "info",
+    //   title: "Actualizado correctamente",
+    //   text: "",
+    //   showConfirmButton: false,
+    //   timer: 1500,
+    // });
   }
 
   onNext() {
     this.save();
-  }
-  /* interconsulta */
-  open(): void {
-    this.isUpdate = false;
-    this.formInterconsulta.reset();
-    this.formInterconsulta.get("fecha").setValue("");
-    this.formInterconsulta.get("motivo").setValue("");
-    this.formInterconsulta.get("servicio").setValue("");
-    this.formInterconsulta.get("urgencia").setValue("");
-    this.dialogInterconsulta = true;
-  }
-  ListaServicios() {
-    let idIpress = JSON.parse(localStorage.getItem("usuario")).ipress.idIpress;
-    this.rolGuardiaService
-      .getServiciosPorIpress(idIpress)
-      .subscribe((res: any) => {
-        this.servicios = res.object;
-        console.log("LISTA DE SERVICIOS DE IPRESSS", this.servicios);
-      });
-  }
-
-  eliminarInterconsulta(id, index) {
-    this.listInterconsulta.splice(index, 1);
-    console.log();
-    this.consultaGeneralService
-      .deleteInterconsulta(this.data.idConsulta, id)
-      .subscribe((r: any) => {
-        console.log(r.object);
-      });
-  }
-  listaInterconsulta() {
-    this.consultaGeneralService
-      .listInterconsulta(this.data.idConsulta)
-      .subscribe((r: any) => {
-        this.listInterconsulta = r.object;
-      });
-  }
-  agregarInterconsulta() {
-    this.loading = true;
-    setTimeout(() => (this.loading = false), 1000);
-    /* agregar */
-    if (
-      this.formInterconsulta.value.fecha != null &&
-      this.formInterconsulta.value.motivo != "" &&
-      this.formInterconsulta.value.servicio != ""
-    ) {
-      let interconsulta: proxCita = {
-        fecha: this.datePipe.transform(
-          this.formInterconsulta.value.fecha,
-          "yyyy-MM-dd"
-        ),
-        motivo: this.formInterconsulta.value.motivo.toUpperCase(),
-        servicio: this.formInterconsulta.value.servicio,
-        nivelUrgencia: this.formInterconsulta.value.urgencia,
-      };
-      this.consultaGeneralService
-        .addInterconsulta(this.data.idConsulta, interconsulta)
-        .subscribe((r: any) => {
-          this.listInterconsulta = r.object;
-        });
-      Swal.fire({
-        icon: "success",
-        title: "Agregado correctamente",
-        text: "",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    }
-    else {
-      Swal.fire({
-        icon: "warning",
-        title: "Datos incompletos",
-        text: "",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    }
   }
 }
 interface Age {
