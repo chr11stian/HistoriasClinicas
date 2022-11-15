@@ -58,16 +58,8 @@ export class AtencionComponent implements OnInit {
     }
 
     ngOnInit(): void {
-
-        console.log("IdRecuperado", this.idRecuperado);
-        console.log("TipoDocRecuperado", this.tipoDocRecuperado);
-        console.log("NroDocRecuparado", this.nroDocRecuperado);
-        console.log("NroHCL", this.nroHcl);
-        console.log("Nro Embarazo", this.nroEmbarazo);
-
         this.getConsultorioObstetrico();
         this.pacienteByNroDoc();
-
     }
 
     pacienteByNroDoc() {
