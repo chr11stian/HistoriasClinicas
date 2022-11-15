@@ -44,24 +44,24 @@ export class DesarrolloPsicomotorComponent implements OnInit {
         this.disabledSelectedTab = this.selectedTab(0, this.disabledSelectedTab);
         this.isEvaluated = true;
         this.evaluationName = 'TEST PERUANO DEL DESARROLLO DEL NIÑO';
-        console.log('entro en 0');
+        // console.log('entro en 0');
       }
       if (this.evaluations.evaluacionEEDP.length > 0) {
         this.disabledSelectedTab = this.selectedTab(1, this.disabledSelectedTab);
-        console.log('entro en 1');
+        // console.log('entro en 1');
         this.isEvaluated = true;
         this.evaluationName = 'ESCALA DE EVALUACIÓN DEL DESARROLLO PSICOMOTOR (EEDP)';
 
       }
       if (this.evaluations.evaluacionPautaBreve.length > 0) {
         this.disabledSelectedTab = this.selectedTab(2, this.disabledSelectedTab);
-        console.log('entro en 2');
+        // console.log('entro en 2');
         this.isEvaluated = true;
         this.evaluationName = 'PAUTA BREVE';
       }
       if (this.evaluations.evaluacionTepsi.length > 0) {
         this.disabledSelectedTab = this.selectedTab(3, this.disabledSelectedTab);
-        console.log('entro en 3');
+        // console.log('entro en 3');
         this.isEvaluated = true;
         this.evaluationName = 'PROTOCOLO TEST DE DESARROLLO PSICOMOTOR TEPSI';
       }

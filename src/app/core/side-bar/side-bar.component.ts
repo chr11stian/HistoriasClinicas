@@ -1,8 +1,10 @@
-import { inmunizaciones } from "./../../cred/citas/atencion-cred/plan/component/plan-atencion-integral/models/plan-atencion-integral.model";
-import { escala } from "./../../cred/citas/models/data";
-import { Component, Input, OnInit, DoCheck } from "@angular/core";
-import { FilterService, MenuItem } from "primeng/api";
-import { Router } from "@angular/router";
+import {
+    inmunizaciones
+} from "./../../cred/citas/atencion-cred/plan/component/plan-atencion-integral/models/plan-atencion-integral.model";
+import {escala} from "./../../cred/citas/models/data";
+import {Component, Input, OnInit, DoCheck} from "@angular/core";
+import {FilterService, MenuItem} from "primeng/api";
+import {Router} from "@angular/router";
 
 const menu_geresa = [
     {
@@ -330,7 +332,7 @@ const administracion2 = {
             label: "Ipress Laboratorio",
             routerLink: "admision/ipress-laboratorio",
         },
-        
+
         // {
         //     icon: "pi pi-sliders-v",
         //     label: "His",
@@ -649,7 +651,8 @@ export class SideBarComponent implements OnInit, DoCheck {
 
     activeSubmenus: { [key: string]: boolean } = {};
 
-    constructor(private filterService: FilterService, private router: Router) {}
+    constructor(private filterService: FilterService, private router: Router) {
+    }
 
     build() {
         if (this.rol === "ROLE_ADMIN") {

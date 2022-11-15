@@ -200,6 +200,4 @@ export class PautaBreveComponent implements OnInit {
     else
       this.indexSelected = monthAge - 1;
   }
-
-  evaluated
 }
