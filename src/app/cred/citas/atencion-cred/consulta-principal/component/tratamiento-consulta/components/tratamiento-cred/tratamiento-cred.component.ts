@@ -147,7 +147,7 @@ export class TratamientoCredComponent implements OnInit {
 
 
   listarMedicamentosFarmacia(){
-    // console.log("entrando a recuperar medicamentos de la farmacia");
+    // console.log("entrando 0a recuperar medicamentos de la farmacia");
     this.farmaciaService.getListaMedicamentosFarmaciaXIpress(this.renipress).subscribe((data:any)=>{
       if(data!=undefined){
         // console.log(data.object);
@@ -199,7 +199,7 @@ export class TratamientoCredComponent implements OnInit {
   private filterItems(event: any) {
     let filtered : any[] = [];
     let query = event.query;
-    console.log(this.medicamentosConDatos);
+    // console.log(this.medicamentosConDatos);
     this.aux = this.medicamentosConDatos;
     for(let i = 0; i < this.aux.length; i++) {
       let item = this.aux[i];
@@ -232,7 +232,7 @@ export class TratamientoCredComponent implements OnInit {
     this.formTratamiento.patchValue({nombreComercial:event.medicamento.nombreComercial});
     let date: Date = new Date(event.fechaVenc);
     date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
-    console.log(date)
+    // console.log(date)
     this.formTratamiento.patchValue({fechaVenc:date});
     this.formTratamiento.patchValue({lote:event.lote});
     this.formTratamiento.patchValue({stock:event.stock});
@@ -240,14 +240,10 @@ export class TratamientoCredComponent implements OnInit {
   }
 
   listarTratamientos(){
-    this.tratamientoService.getTratamiento(this.data.idConsulta).subscribe((data:any)=>{
-      if(data!=undefined || data!=null){
+    this.tratamientoService.getTratamiento(this.data.idConsulta).subscribe((resp:any)=>{
+      if(resp.object!=null){
         this.hayDatos=true;
-        // console.log(data.object);
-        this.tratamientos=(data.object);
-      }
-      else{
-        this.tratamientos=[];
+        this.tratamientos=resp.object
       }
     })
   }
@@ -293,7 +289,7 @@ export class TratamientoCredComponent implements OnInit {
          otrasIndicaciones:this.formTratamiento.value.otrasIndicaciones,
        }
      }
-    //  console.log(this.tratamientos);
+    //  console.lo  (this.tratamientos);
      var duplicado:boolean=this.tratamientos.some(element=>element.medicamento.id===cadena.medicamento.id)
     // var duplicado:boolean=this.tratamientos.includes(cadena)
      console.log(duplicado);
