@@ -108,7 +108,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
     this.idConsulta = JSON.parse(localStorage.getItem("documento")).idConsulta;
     // this.recoverDataAuxialsExams();
     let ipressAux = JSON.parse(localStorage.getItem("usuario")).ipress;
-    console.log("data de usuario ", ipressAux);
+    // console.log("data de usuario ", ipressAux);
     // this.ajusteHemoService.getFactorCorrepcionXipress(ipressAux.idIpress).subscribe((res: any) => {
     //   this.factorCorrection = res.object.factorAjuste;
     // });
