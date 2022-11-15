@@ -100,9 +100,5 @@ export class VisitaDomiciliariaService {
     
     urlImagen(fileName:string):any{
     return this.http.get<any>(`${this.base_getImageVisita}/${fileName}`)
-    .toPromise()
-    .then((data) => {
-    return data;
-    });
     }
 }
