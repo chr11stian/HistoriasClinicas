@@ -1,19 +1,31 @@
 <!-------------INICIO DIALOG TRATAMIENTOS------------>
-<form [formGroup]='formTratamientoComun'>
+<form [formGroup]="formTratamientoComun">
     <div class="grid p- mb-4 mt-2">
         <div class="col-12">
             <p-fieldset legend="PRESTACIÓN">
                 <div class="grid p-fluid">
                     <div class="col-6">
                         <label>Diagnostico:</label>
-                        <p-dropdown [options]="diagnosticosList" formControlName="diagnostico" appendTo="body"
-                            (onChange)="onChangeDiagnostico()" optionLabel="diagnosticoSIS"
-                            class="inputfield p-fluid w-full" placeholder="Seleccione diagnostico SIS"></p-dropdown>
+                        <p-dropdown
+                            [options]="diagnosticosList"
+                            formControlName="diagnostico"
+                            appendTo="body"
+                            (onChange)="onChangeDiagnostico()"
+                            optionLabel="diagnosticoSIS"
+                            class="inputfield p-fluid w-full"
+                            placeholder="Seleccione diagnostico SIS"
+                        ></p-dropdown>
                     </div>
                     <div class="col-6">
                         <label>Prestacion:</label>
-                        <input type="text" pInputText formControlName='prestacion' placeholder="Prestacion" required
-                            disabled />
+                        <input
+                            type="text"
+                            pInputText
+                            formControlName="prestacion"
+                            placeholder="Prestacion"
+                            required
+                            disabled
+                        />
                     </div>
                 </div>
             </p-fieldset>
@@ -23,50 +35,106 @@
                 <div class="grid p-fluid">
                     <div class="col-11">
                         <label>Medicamento:</label>
-                        <p-autoComplete [suggestions]="aux" (completeMethod)="filterItems($event)" [itemSize]="34"
-                            appendTo="body" field="stringMedicamento" [minLength]="1" class="inputfield p-fluid w-full"
-                            formControlName="nombre" (onSelect)="selectedOptionNameMedicamento($event)" [dropdown]="true">
+                        <p-autoComplete
+                            [suggestions]="aux"
+                            (completeMethod)="filterItems($event)"
+                            [itemSize]="34"
+                            appendTo="body"
+                            field="stringMedicamento"
+                            [minLength]="1"
+                            class="inputfield p-fluid w-full"
+                            formControlName="nombre"
+                            (onSelect)="selectedOptionNameMedicamento($event)"
+                            [dropdown]="true"
+                        >
                         </p-autoComplete>
                     </div>
                     <div class="col-1">
                         <label>Stock:</label>
-                        <input type="number" pInputText formControlName='stock' placeholder="Stock" required />
+                        <input
+                            type="number"
+                            pInputText
+                            formControlName="stock"
+                            placeholder="Stock"
+                            required
+                        />
                     </div>
                     <div class="col-4">
                         <label>Nombre:</label>
-                        <input type="text" pInputText formControlName='nombreMed' placeholder="Nombre" required />
+                        <input
+                            type="text"
+                            pInputText
+                            formControlName="nombreMed"
+                            placeholder="Nombre"
+                            required
+                        />
                     </div>
                     <div class="col-2">
                         <label>Cantidad:</label>
-                        <input type="number" pInputText formControlName='cantidad' placeholder="Cantidad" required />
+                        <input
+                            type="number"
+                            pInputText
+                            formControlName="cantidad"
+                            placeholder="Cantidad"
+                            required
+                        />
                     </div>
                     <div class="col-2">
                         <label>Dosis:</label>
-                        <input type="text" pInputText formControlName='dosis' placeholder="Dosis" required />
+                        <input
+                            type="text"
+                            pInputText
+                            formControlName="dosis"
+                            placeholder="Dosis"
+                            required
+                        />
                     </div>
                     <div class="col-2">
                         <label>Intervalo</label>
                         <div class="p-field">
-                            <p-dropdown inputId="dropdown" [options]="intervaloList" formControlName="intervalo"
-                                placeholder="Seleccionar" optionLabel="label" optionValue="value"
-                                defaultLabel="Seleccione:">
+                            <p-dropdown
+                                inputId="dropdown"
+                                [options]="intervaloList"
+                                formControlName="intervalo"
+                                placeholder="Seleccionar"
+                                optionLabel="label"
+                                optionValue="value"
+                                defaultLabel="Seleccione:"
+                            >
                             </p-dropdown>
                         </div>
                     </div>
                     <div class="col-2">
                         <label>Duración:</label>
-                        <input type="text" pInputText formControlName='duracion' style="text-transform:uppercase"
-                            placeholder="Duración" required />
+                        <input
+                            type="text"
+                            pInputText
+                            formControlName="duracion"
+                            style="text-transform: uppercase"
+                            placeholder="Duración"
+                            required
+                        />
                     </div>
                     <div class="col-2">
                         <label>Fecha vencimiento:</label>
-                        <input type="text" pInputText formControlName='fechaVencimiento'
-                            placeholder="Fecha vencimiento" required />
+                        <input
+                            type="text"
+                            pInputText
+                            formControlName="fechaVencimiento"
+                            placeholder="Fecha vencimiento"
+                            required
+                        />
                     </div>
                     <div class="col-10">
                         <label>Observaciones:</label>
-                        <input type="text" pInputText formControlName='observaciones' style="text-transform:uppercase"
-                            placeholder="Observaciones" required />
+                        <input
+                            type="text"
+                            pInputText
+                            formControlName="observaciones"
+                            style="text-transform: uppercase"
+                            placeholder="Observaciones"
+                            required
+                        />
                     </div>
                 </div>
             </p-fieldset>
@@ -77,31 +145,67 @@
                 <div class="grid p-fluid">
                     <div class="col-6">
                         <label>Efectos medicamento</label>
-                        <input type="text" pInputText formControlName='efectosMedicamento' style="text-transform:uppercase"
-                            placeholder="Efecto medicamento" required />
+                        <input
+                            type="text"
+                            pInputText
+                            formControlName="efectosMedicamento"
+                            style="text-transform: uppercase"
+                            placeholder="Efecto medicamento"
+                            required
+                        />
                     </div>
                     <div class="col-6">
                         <label>Instrucciones:</label>
-                        <input type="text" pInputText formControlName='instrucciones' style="text-transform:uppercase"
-                            placeholder="Instrucciones" required />
+                        <input
+                            type="text"
+                            pInputText
+                            formControlName="instrucciones"
+                            style="text-transform: uppercase"
+                            placeholder="Instrucciones"
+                            required
+                        />
                     </div>
                     <div class="col-6">
                         <label>Advertencias:</label>
-                        <input type="text" pInputText formControlName='advertencias' style="text-transform:uppercase"
-                            placeholder="Advertencias" required />
+                        <input
+                            type="text"
+                            pInputText
+                            formControlName="advertencias"
+                            style="text-transform: uppercase"
+                            placeholder="Advertencias"
+                            required
+                        />
                     </div>
                     <div class="col-6">
                         <label>Otras indicaciones</label>
-                        <input type="text" pInputText formControlName='otrasIndicaciones' style="text-transform:uppercase"
-                            placeholder="Otras indicaciones" required />
+                        <input
+                            type="text"
+                            pInputText
+                            formControlName="otrasIndicaciones"
+                            style="text-transform: uppercase"
+                            placeholder="Otras indicaciones"
+                            required
+                        />
                     </div>
                 </div>
             </p-fieldset>
         </div>
     </div>
 </form>
-<br>
+<br />
 <div class="footer">
-    <button pButton type="button" label="Cancelar" (click)="closeDialog()" class="button-cancelar mt-4 mr-2"></button>
-    <button pButton type="button" label="Guardar" (click)="closeDialogGuardar()" class="button-agregar mt-4 "></button>
+    <button
+        pButton
+        type="button"
+        label="Cancelar"
+        (click)="closeDialog()"
+        class="button-cancelar mt-4 mr-2"
+    ></button>
+    <button
+        pButton
+        type="button"
+        label="Guardar"
+        (click)="closeDialogGuardar()"
+        class="button-agregar mt-4"
+    ></button>
 </div>
