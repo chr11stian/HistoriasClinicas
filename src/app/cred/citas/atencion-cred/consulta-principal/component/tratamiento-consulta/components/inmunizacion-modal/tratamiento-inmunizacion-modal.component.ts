@@ -82,7 +82,7 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
       this.getFC('fechaAplicacion').setValue(new Date())
     }
 
-    console.log('cambio',valor)
+    // console.log('cambio',valor)
   }
 
   obtenerFecha(fecha: Date) {
@@ -112,7 +112,7 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
       idConsulta:this.dataDocumento.idConsulta,
       pertenecePAICRED : true
     }
-    console.log('request->>>',requestInput)
+    // console.log('request->>>',requestInput)
     // return
     this.confirmationService.confirm({
       header: "Confirmación",

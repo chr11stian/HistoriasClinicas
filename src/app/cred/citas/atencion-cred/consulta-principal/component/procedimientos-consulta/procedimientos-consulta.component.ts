@@ -66,14 +66,6 @@ export class ProcedimientosConsultaComponent implements OnInit {
     servicios: string[] = [];
     loadings: boolean = false;
     data;
-    urgencia = [
-        { name: "Nivel 1", code: "Nivel 1" },
-        { name: "Nivel 2", code: "Nivel 2" },
-        { name: "Nivel 3", code: "Nivel 3" },
-        { name: "Nivel 4", code: "Nivel 4" },
-        { name: "Nivel 5", code: "Nivel 5" },
-    ];
-
     /**new var */
     arrayDiagnosticType: any[] = [];
     arrayUPS: UPS[] = [];
@@ -130,62 +122,6 @@ export class ProcedimientosConsultaComponent implements OnInit {
         this.recuperarPrestaciones();
         // this.recuperarDxBD();
         this.listarDiagnosticos();
-        /* interconsulta */
-        this.ListaServicios();
-        this.tooltipItems = [
-            {
-                tooltipOptions: {
-                    tooltipLabel: "Reporte",
-                    tooltipPosition: "left",
-                },
-                icon: "pi pi-desktop",
-                command: (event: Event) => {
-                    this.open();
-                },
-            },
-            {
-                tooltipOptions: {
-                    tooltipLabel: "Reporte",
-                    tooltipPosition: "left",
-                },
-                icon: "pi pi-desktop",
-                command: (event: Event) => {
-                    this.open();
-                },
-            },
-            {
-                tooltipOptions: {
-                    tooltipLabel: "Reporte",
-                    tooltipPosition: "left",
-                },
-                icon: "pi pi-desktop",
-                command: (event: Event) => {
-                    this.open();
-                },
-            },
-            {
-                tooltipOptions: {
-                    tooltipLabel: "Reporte",
-                    tooltipPosition: "left",
-                },
-                icon: "pi pi-desktop",
-                command: (event: Event) => {
-                    this.open();
-                },
-            },
-            {
-                tooltipOptions: {
-                    tooltipLabel: "Interconsulta",
-                    tooltipPosition: "left",
-                },
-                icon: "pi pi-external-link",
-                command: (event: Event) => {
-                    this.open();
-                },
-            },
-        ];
-        /* lista interconsulta */
-        this.listaInterconsulta();
         this.recoverPrestationData();
         this.recoverSavedProcedureData();
     }
@@ -248,7 +184,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
             this.dataConsulta.idConsulta
         ).subscribe((data: any) => {
             if (data.object != undefined || data.object != null) {
-                console.log(data.object);
+                // console.log(data.object);
                 this.listaDiagnosticos = data.object;
             } else {
                 Swal.fire({
@@ -471,7 +407,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
     recuperarPrestaciones() {
         this.PrestacionService.getPrestacion().subscribe((res: any) => {
             this.ListaPrestacion = res.object;
-            console.log("prestaciones:", this.ListaPrestacion);
+            // console.log("prestaciones:", this.ListaPrestacion);
         });
     }
 
@@ -538,13 +474,13 @@ export class ProcedimientosConsultaComponent implements OnInit {
             tipo: this.formProcedimiento.value.tipoDiagnostico,
             resultadoFua: this.formProcedimiento.value.resultadoFUA,
         };
-        console.log("aux", aux);
+        // console.log("aux", aux);
 
         var duplicado: boolean;
         duplicado = this.procedimientos.some(
             (element) => element.procedimientoHIS == aux.procedimientoHIS
         );
-        console.log(duplicado);
+        // console.log(duplicado);
         this.procedimientoDialog = false;
         if (!duplicado) {
             this.procedimientos.push(aux);
@@ -553,17 +489,17 @@ export class ProcedimientosConsultaComponent implements OnInit {
                     (val) => !this.selectedProducts.includes(val)
                 );
                 this.selectedProducts = null;
-                console.log(this.tablaResumenDx);
+                // console.log(this.tablaResumenDx);
 
                 if (this.tablaResumenDx.length == 0) {
-                    console.log(this.tablaResumenDx);
+                    // console.log(this.tablaResumenDx);
                     this.messageService.add({
                         severity: "success",
                         summary: "Exito!",
                         detail: "No hay Procedimientos pendientes",
                     });
                 } else {
-                    console.log(this.tablaResumenDx);
+                    // console.log(this.tablaResumenDx);
                     this.messageService.add({
                         severity: "warn",
                         summary: "Cuidado!",
@@ -582,9 +518,9 @@ export class ProcedimientosConsultaComponent implements OnInit {
 
     getDatatoEditPx() {
         this.isUpdate = false;
-        console.log(this.formProcedimiento.value.nombreUPS);
-        console.log(this.formProcedimiento.value.cie10SIS);
-        console.log(this.itemEdit);
+        // console.log(this.formProcedimiento.value.nombreUPS);
+        // console.log(this.formProcedimiento.value.cie10SIS);
+        // console.log(this.itemEdit);
         this.procedimientos.splice(this.itemEdit, 1);
         let aux = {
             procedimientoSIS:
@@ -614,9 +550,9 @@ export class ProcedimientosConsultaComponent implements OnInit {
         this.checked = false;
         this.itemEdit = rowindex;
         this.formProcedimiento.reset();
-        console.log(rowData);
-        console.log("lista ups aux", this.listaUpsAuxHis);
-        console.log("lista ups", this.listaUpsHis);
+        // console.log(rowData);
+        // console.log("lista ups aux", this.listaUpsAuxHis);
+        // console.log("lista ups", this.listaUpsHis);
         this.formProcedimiento
             .get("prestacion")
             .setValue(
@@ -654,7 +590,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
             this.formProcedimiento.value.diagnostico.codPrestacion
         ).subscribe((res: any) => {
             this.listaDeCIESIS = res.object.procedimientos;
-            console.log("LISTA DE PROCEDIMIENTOS", this.listaDeCIESIS);
+            // console.log("LISTA DE PROCEDIMIENTOS", this.listaDeCIESIS);
             // this.formProcedimiento.patchValue({prestacion:res.object.descripcion});
             this.formProcedimiento.patchValue({
                 codProcedimientoSIS: this.listaDeCIESIS.find(
@@ -676,20 +612,20 @@ export class ProcedimientosConsultaComponent implements OnInit {
                 });
                 // this.formProcedimiento.get("codProcedimientoHIS").setValue(rowData.codProcedimientoHIS);
             });
-        console.log("lista de diagnosticos", this.listaDiagnosticos);
+        // console.log("lista de diagnosticos", this.listaDiagnosticos);
         this.formProcedimiento.get("nro").setValue(rowData.nro);
         this.formProcedimiento.get("prestacion").disable();
         // this.formProcedimiento.get('buscarPDxSIS').disable();
         // this.formProcedimiento.get('codProcedimientoSIS').disable();
         this.procedimientoDialog = true;
-        console.log("modificando", rowData);
+        // console.log("modificando", rowData);
     }
 
     onChangeDiagnostico() {
         this.PrestacionService.getProcedimientoPorCodigo(
             this.formProcedimiento.value.diagnostico.codPrestacion
         ).subscribe((res: any) => {
-            console.log(res.object);
+            // console.log(res.object);
             this.listaDeCIESIS = res.object.procedimientos;
             this.formProcedimiento.patchValue({ prestacion: res.object });
             this.formProcedimiento.patchValue({ diagnosticoSIS: "" });
@@ -698,7 +634,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
     }
 
     selectDxSIS(event) {
-        console.log(this.formProcedimiento.value.buscarPDxSIS);
+        // console.log(this.formProcedimiento.value.buscarPDxSIS);
         this.fuaForm.patchValue({
             procedimientoSIS: event.value.procedimiento,
             codProcedimientoSIS: event.value,
@@ -725,7 +661,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
                     dataProcedimiento
                 ).subscribe(
                     (resp) => {
-                        console.log(resp);
+                        // console.log(resp);
                         Swal.fire({
                             icon: "success",
                             title: "PROCEDIMIENTOS...",
@@ -795,7 +731,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
 
     agregarToPx() {
         this.checked = true;
-        console.log(this.selectedProducts);
+        // console.log(this.selectedProducts);
         this.isUpdate = false;
         this.formProcedimiento.reset();
         this.formProcedimiento.get("nombreUPS").setValue("ENFERMERIA");
@@ -848,73 +784,6 @@ export class ProcedimientosConsultaComponent implements OnInit {
         this.formInterconsulta.get("urgencia").setValue("");
         this.dialogInterconsulta = true;
     }
-    ListaServicios() {
-        let idIpress = JSON.parse(localStorage.getItem("usuario")).ipress
-            .idIpress;
-        this.rolGuardiaService
-            .getServiciosPorIpress(idIpress)
-            .subscribe((res: any) => {
-                this.servicios = res.object;
-                console.log("LISTA DE SERVICIOS DE IPRESSS", this.servicios);
-            });
-    }
-
-    eliminarInterconsulta(id, index) {
-        this.listInterconsulta.splice(index, 1);
-        console.log();
-        this.consultaGeneralService
-            .deleteInterconsulta(this.data.idConsulta, id)
-            .subscribe((r: any) => {
-                console.log(r.object);
-            });
-    }
-    listaInterconsulta() {
-        this.consultaGeneralService
-            .listInterconsulta(this.data.idConsulta)
-            .subscribe((r: any) => {
-                this.listInterconsulta = r.object;
-            });
-    }
-    agregarInterconsulta() {
-        this.loading = true;
-        setTimeout(() => (this.loading = false), 1000);
-        /* agregar */
-        if (
-            this.formInterconsulta.value.fecha != null &&
-            this.formInterconsulta.value.motivo != "" &&
-            this.formInterconsulta.value.servicio != ""
-        ) {
-            let interconsulta: proxCita = {
-                fecha: this.datePipe.transform(
-                    this.formInterconsulta.value.fecha,
-                    "yyyy-MM-dd"
-                ),
-                motivo: this.formInterconsulta.value.motivo.toUpperCase(),
-                servicio: this.formInterconsulta.value.servicio,
-                nivelUrgencia: this.formInterconsulta.value.urgencia,
-            };
-            this.consultaGeneralService
-                .addInterconsulta(this.data.idConsulta, interconsulta)
-                .subscribe((r: any) => {
-                    this.listInterconsulta = r.object;
-                });
-            Swal.fire({
-                icon: "success",
-                title: "Agregado correctamente",
-                text: "",
-                showConfirmButton: false,
-                timer: 1500,
-            });
-        } else {
-            Swal.fire({
-                icon: "warning",
-                title: "Datos incompletos",
-                text: "",
-                showConfirmButton: false,
-                timer: 1500,
-            });
-        }
-    }
     recoverPrestationData(): void {
         this.DiagnosticoService.getPrestationPerIdConsulta(this.dataConsulta.idConsulta).then(res => {
             let hash: any = {};
@@ -925,7 +794,7 @@ export class ProcedimientosConsultaComponent implements OnInit {
     onChangePrestacion() {
         let prestation = this.fuaForm.value.prestacion;
         this.listProcedures = prestation.procedimientos;
-        console.log('lista de proced ', this.listProcedures);
+        // console.log('lista de proced ', this.listProcedures);
     }
 
     /** Servicios para recuperar lista de ups Aux por ipress***/

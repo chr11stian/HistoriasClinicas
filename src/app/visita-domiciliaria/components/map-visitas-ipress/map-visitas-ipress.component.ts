@@ -85,77 +85,155 @@ export class MapVisitasIpressComponent implements OnInit,OnChanges {
     );
     // console.log('ipresssss',this.profesionalesIpress[0]["visitas_mayores_4_meses"]);
       this.profesionalesIpress.map((aux) => {
-        aux.visitas_mayores_4_meses.map((a)=>{
-        console.log("mayores","latitud",a.value.validator.latitud,"longitud",a.value.validator.longitud);
-        L.marker([a.value.validator.latitud, a.value.validator.longitud],{icon: ninios_mayores_Icon},{
-          title: "VISITA DOMICILIARIA",
-        })
-          .addTo(this.maps)
-          .bindPopup(
-            `
-          <h3>VISITA NIÑOS-NIÑAS,4-24 MESES</h3>
-          <h4>VISITA NRO :${a.value.nroVisita}</h4>
-          <h4>ALTITUD:${a.value.validator.altitud}</h4> 
-        
-        `,
-            { closeButton: false }
-          );
-      });
-        })
+        if( aux.visitas_mayores_4_meses.length>0){
+          aux.visitas_mayores_4_meses.map((a)=>{
+            let auxImg;
+              this.visitaService
+                .urlImagen(a.value.validator.imagen)
+                .subscribe((res: any) => {
+                  auxImg = res["object"];
+                  console.log("Aux Ims",auxImg)
+                });
+                setTimeout(() => {
+                  let aux_ = "data:image/jpg;base64," + auxImg;
+                  L.marker([a.value.validator.latitud, a.value.validator.longitud],{icon: ninios_mayores_Icon},{
+                    title: "VISITAS DOMICILIARIAS",
+                  })
+                    .addTo(this.maps)
+                    .bindPopup(
+                      `
+                      <div style="width:200px;height:330px">
+                      <h3 style="font-style: italic;font-weight:bold;font-size:12px;color:#af0017;text-align:center;font-family: Times, "Times New Roman", Georgia, serif">VISITA DE NIÑOS,NIÑAS DE 4-24 MESES</h3>
+                      <h4 style="font-style: italic;font-weight:bold;font-size:10px;color:#000000;text-align:left;font-family: Times, "Times New Roman", Georgia, serif">VISITA NÚMERO :${a.value.nroVisita}</h4>
+                      <h4  style="font-style: italic;font-weight:bold;font-size:10px;color:#000000;text-align:left;font-family: Times, "Times New Roman", Georgia, serif">ALTITUD:${a.value.validator.altitud}</h4>
+                      <h4  style="font-style: italic;font-weight:bold;font-size:10px;color:#000000;text-align:left;font-family: Times, "Times New Roman", Georgia, serif">DATOS NIÑO(A):${a.value.apellidos_ninio} ${a.value.nombres_ninio}</h4>
+                      <img style=" width: 180px; 
+                      height:180px;
+                      margin:2px auto;
+                      display:block;"
+                      src="${aux_}"/>
+                      </div>
+                  
+                  `,
+                      { closeButton: false }
+                    );
+                },2000)
+          });
+        }
+      })
 
       this.profesionalesIpress.map((aux) => {
+        if(aux.visitas_menores_4_meses.length>0){
           aux.visitas_menores_4_meses.map((a)=>{
-          console.log("menores","latitud",a.value.validator.latitud,"longitud",a.value.validator.longitud);
-          L.marker([a.value.validator.latitud, a.value.validator.longitud],{icon:ninios_menores_Icon},{
-            title: "VISITA DOMICILIARIA",
-          })
-            .addTo(this.maps)
-            .bindPopup(
-              `
-            <h3>VISITA NIÑOS-NIÑAS,0-4 MESES</h3>
-            <h4>VISITA NRO :${a.value.nroVisita}</h4>
-            <h4>ALTITUD:${a.value.validator.altitud}</h4> 
-          
-          `,
-              { closeButton: false }
-            );
+            let auxImg;
+            this.visitaService
+              .urlImagen(a.value.validator.imagen)
+              .subscribe((res: any) => {
+                auxImg = res["object"];
+                console.log("Aux Ims",auxImg)
+              });
+              setTimeout(() => {
+                let aux_ = "data:image/jpg;base64," + auxImg;
+                L.marker([a.value.validator.latitud, a.value.validator.longitud],{icon:ninios_menores_Icon},{
+                  title: "VISITAS DOMICILIARIAS",
+                })
+                  .addTo(this.maps)
+                  .bindPopup(
+                    `
+                    <div style="width:200px;height:330px">
+                    <h3  style="font-style: italic;font-weight:bold;font-size:12px;color:#af0017;text-align:center;font-family: Times, "Times New Roman", Georgia, serif">VISITA NIÑOS,NIÑAS DE 0-4 MESES</h3>
+                    <h4 style="font-style: italic;font-weight:bold;font-size:10px;color:#000000;text-align:left;font-family: Times, "Times New Roman", Georgia, serif">VISITA NRO :${a.value.nroVisita}</h4>
+                    <h4 style="font-style: italic;font-weight:bold;font-size:10px;color:#000000;text-align:left;font-family: Times, "Times New Roman", Georgia, serif">ALTITUD:${a.value.validator.altitud}</h4> 
+                    <h4  style="font-style: italic;font-weight:bold;font-size:10px;color:#000000;text-align:left;font-family: Times, "Times New Roman", Georgia, serif">DATOS NIÑO(A):${a.value.apellidos_ninio} ${a.value.nombres_ninio}</h4>
+                    <img style=" width: 180px; 
+                    height:180px;
+                    margin:2px auto;
+                    display:block;"
+                    src="${aux_}"/>
+                    </div>
+                
+                `,
+                    { closeButton: false }
+                  );
+              },2000)
         });
+        }
         })
-
       this.profesionalesIpress.map((aux) => {
+        if(aux.visitas_gestantes.length>0){
           aux.visitas_gestantes
           .map((a)=>{
-          console.log("gestantes","latitud",a.value.validator.latitud,"longitud",a.value.validator.longitud);
-          L.marker([a.value.validator.latitud, a.value.validator.longitud],{icon:puerperasIcon},{
-            title: "Visita Domiciliaria",
-          })
-            .addTo(this.maps)
-            .bindPopup(
-            `
-              <h3>VISITA GESTANTE</h3>
-              <h4>ALTITUD:${a.value.validator.altitud}</h4> 
-            `,
-              { closeButton: false }
-            );
+            let auxImg;
+            this.visitaService
+              .urlImagen(a.value.validator.imagen)
+              .subscribe((res: any) => {
+                auxImg = res["object"];
+                console.log("Aux Ims",auxImg)
+              });
+              setTimeout(() => {
+                let aux_ = "data:image/jpg;base64," + auxImg;
+                L.marker([a.value.validator.latitud, a.value.validator.longitud],{icon:puerperasIcon},{
+                  title: "VISITAS DOMICILIARIAS",
+                })
+                  .addTo(this.maps)
+                  .bindPopup(
+                  `
+                  <div style="width:200px;height:330px">
+                  <h3 style="font-style: italic;font-weight:bold;font-size:12px;color:#af0017;text-align:center;font-family: Times, "Times New Roman", Georgia, serif">VISITA DOMICILIARIA DE LA GESTANTE</h3>
+                  <h4 style="font-style: italic;font-weight:bold;font-size:10px;color:#000000;text-align:left;font-family: Times, "Times New Roman", Georgia, serif">VISITA NRO :${a.value.nroVisita}</h4>
+                  <h4 style="font-style: italic;font-weight:bold;font-size:10px;color:#000000;text-align:left;font-family: Times, "Times New Roman", Georgia, serif">ALTITUD:${a.value.validator.altitud}</h4> 
+                  <h4  style="font-style: italic;font-weight:bold;font-size:10px;color:#000000;text-align:left;font-family: Times, "Times New Roman", Georgia, serif">DATOS DE LA GESTANTE:${a.value.nombres_gestante} ${a.value.apellidos_gestante}</h4>
+                  <img style=" width: 180px; 
+                  height:180px;
+                  margin:2px auto;
+                  display:block;"
+                    src="${aux_}"/>
+                  </div>
+                  `,
+                    { closeButton: false }
+                  );
+              },2000)
+        
         });
-          })
+      }
+    })
       this.profesionalesIpress.map((aux) => {
-            aux.visitas_puerperas
-            .map((a)=>{
-            console.log("puerperas","latitud",a.value.validator.latitud,"longitud",a.value.validator.longitud);
-            L.marker([a.value.validator.latitud, a.value.validator.longitud],{icon:gestantesIcon},{
-              title: "Visita Domiciliaria",
-            })
-              .addTo(this.maps)
-              .bindPopup(
-                `
-                <h3>VISITA PUERPERA</h3>
-                <h4>ALTITUD:${a.value.validator.altitud}</h4> 
-            `,
-                { closeButton: false }
-              );
-          });
-            })
+        if(aux.visitas_puerperas.length.length>0){
+          aux.visitas_puerperas
+          .map((a)=>{
+            let auxImg;
+            this.visitaService
+              .urlImagen(a.value.validator.imagen)
+              .subscribe((res: any) => {
+                auxImg = res["object"];
+                console.log("Aux Ims",auxImg)
+              });
+              setTimeout(() => {
+                let aux_ = "data:image/jpg;base64," + auxImg;
+                L.marker([a.value.validator.latitud, a.value.validator.longitud],{icon:gestantesIcon},{
+                  title: "VISITAS DOMICILIARIAS",
+                })
+                  .addTo(this.maps)
+                  .bindPopup(
+                    `
+                    <div style="width:200px;height:330px">
+                    <h3 style="font-style: italic;font-weight:bold;font-size:12px;color:#af0017;text-align:center;font-family: Times, "Times New Roman", Georgia, serif">VISITA DOMICILIARIA DE LA PUERPERA</h3>
+                    <h4 style="font-style: italic;font-weight:bold;font-size:10px;color:#000000;text-align:left;font-family: Times, "Times New Roman", Georgia, serif">VISITA NRO :${a.value.nroVisita}</h4>
+                    <h4 style="font-style: italic;font-weight:bold;font-size:10px;color:#000000;text-align:left;font-family: Times, "Times New Roman", Georgia, serif">ALTITUD:${a.value.validator.altitud}</h4> 
+                    <h4  style="font-style: italic;font-weight:bold;font-size:10px;color:#000000;text-align:left;font-family: Times, "Times New Roman", Georgia, serif">DATOS DE LA PUERPERA:${a.value.nombres_gestante} ${a.value.apellidos_gestante}</h4>
+                    <img style=" width: 180px; 
+                    height:180px;
+                    margin:2px auto;
+                    display:block;"
+                    src="${aux_}"/>
+                    </div>
+                `,
+                    { closeButton: false }
+                  );
+              },2000)
+        });
+        }
+      })
       
     titles.addTo(this.maps);
   }

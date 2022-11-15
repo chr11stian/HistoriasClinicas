@@ -245,13 +245,6 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
   fecha: Date;
   servicios: string[] = [];
   loading: boolean = false;
-  urgencia = [
-    { name: "Nivel 1", code: "Nivel 1" },
-    { name: "Nivel 2", code: "Nivel 2" },
-    { name: "Nivel 3", code: "Nivel 3" },
-    { name: "Nivel 4", code: "Nivel 4" },
-    { name: "Nivel 5", code: "Nivel 5" },
-  ];
 
 
   constructor(
@@ -374,13 +367,6 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
       especificacion: new FormControl({ value: null, disabled: true }, [
         Validators.required,
       ]),
-    });
-    /* Interconsulta */
-    this.formInterconsulta = new FormGroup({
-      fecha: new FormControl({ value: null, disabled: false }, []),
-      motivo: new FormControl({ value: "", disabled: false }, []),
-      servicio: new FormControl({ value: "", disabled: false }, []),
-      urgencia: new FormControl({ value: "", disabled: false }, []),
     });
   }
 
@@ -519,152 +505,21 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
     if (this.data.idConsulta !== "") this.recuperarData(this.data.idConsulta);
     this.buildForm();
     /* interconsulta */
-    this.ListaServicios();
-    this.tooltipItems = [
-      {
-        tooltipOptions: {
-          tooltipLabel: "Reporte",
-          tooltipPosition: "left",
-        },
-        icon: "pi pi-desktop",
-        command: (event: Event) => {
-          this.open();
-        },
-      },
-      {
-        tooltipOptions: {
-          tooltipLabel: "Reporte",
-          tooltipPosition: "left",
-        },
-        icon: "pi pi-desktop",
-        command: (event: Event) => {
-          this.open();
-        },
-      },
-      {
-        tooltipOptions: {
-          tooltipLabel: "Reporte",
-          tooltipPosition: "left",
-        },
-        icon: "pi pi-desktop",
-        command: (event: Event) => {
-          this.open();
-        },
-      },
-      {
-        tooltipOptions: {
-          tooltipLabel: "Reporte",
-          tooltipPosition: "left",
-        },
-        icon: "pi pi-desktop",
-        command: (event: Event) => {
-          this.open();
-        },
-      },
-      {
-        tooltipOptions: {
-          tooltipLabel: "Interconsulta",
-          tooltipPosition: "left",
-        },
-        icon: "pi pi-external-link",
-        command: (event: Event) => {
-          this.open();
-        },
-      },
-    ];
-    /* lista interconsulta */
-    this.listaInterconsulta();
+   
   }
 
   save(): void {
-    Swal.fire({
-      icon: "success",
-      title: "Actualizado correctamente",
-      text: "",
-      showConfirmButton: false,
-      timer: 1500,
-    });
+    // Swal.fire({
+    //   icon: "info",
+    //   title: "Actualizado correctamente",
+    //   text: "",
+    //   showConfirmButton: false,
+    //   timer: 1500,
+    // });
   }
 
   onNext() {
     this.save();
-  }
-  /* interconsulta */
-  open(): void {
-    this.isUpdate = false;
-    this.formInterconsulta.reset();
-    this.formInterconsulta.get("fecha").setValue("");
-    this.formInterconsulta.get("motivo").setValue("");
-    this.formInterconsulta.get("servicio").setValue("");
-    this.formInterconsulta.get("urgencia").setValue("");
-    this.dialogInterconsulta = true;
-  }
-  ListaServicios() {
-    let idIpress = JSON.parse(localStorage.getItem("usuario")).ipress.idIpress;
-    this.rolGuardiaService
-      .getServiciosPorIpress(idIpress)
-      .subscribe((res: any) => {
-        this.servicios = res.object;
-        // console.log("LISTA DE SERVICIOS DE IPRESSS", this.servicios);
-      });
-  }
-
-  eliminarInterconsulta(id, index) {
-    this.listInterconsulta.splice(index, 1);
-    // console.log();
-    this.consultaGeneralService
-      .deleteInterconsulta(this.data.idConsulta, id)
-      .subscribe((r: any) => {
-        // console.log(r.object);
-      });
-  }
-  listaInterconsulta() {
-    this.consultaGeneralService
-      .listInterconsulta(this.data.idConsulta)
-      .subscribe((r: any) => {
-        this.listInterconsulta = r.object;
-      });
-  }
-  agregarInterconsulta() {
-    this.loading = true;
-    setTimeout(() => (this.loading = false), 1000);
-    /* agregar */
-    if (
-      this.formInterconsulta.value.fecha != null &&
-      this.formInterconsulta.value.motivo != "" &&
-      this.formInterconsulta.value.servicio != ""
-    ) {
-      let interconsulta: proxCita = {
-        fecha: this.datePipe.transform(
-          this.formInterconsulta.value.fecha,
-          "yyyy-MM-dd"
-        ),
-        motivo: this.formInterconsulta.value.motivo.toUpperCase(),
-        servicio: this.formInterconsulta.value.servicio,
-        nivelUrgencia: this.formInterconsulta.value.urgencia,
-      };
-      this.consultaGeneralService
-        .addInterconsulta(this.data.idConsulta, interconsulta)
-        .subscribe((r: any) => {
-          this.listInterconsulta = r.object;
-        });
-      Swal.fire({
-        icon: "success",
-        title: "Agregado correctamente",
-        text: "",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    }
-    else {
-      Swal.fire({
-        icon: "warning",
-        title: "Datos incompletos",
-        text: "",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    }
   }
 }
 interface Age {

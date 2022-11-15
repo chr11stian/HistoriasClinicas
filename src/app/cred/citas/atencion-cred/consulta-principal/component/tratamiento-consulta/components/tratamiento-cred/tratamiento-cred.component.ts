@@ -95,19 +95,21 @@ export class TratamientoCredComponent implements OnInit {
 
   buildForm() {
     this.formTratamiento = this.formBuilder.group({
-      codPrestacion:new FormControl({value:'',disabled:false}),
-      prestacion:new FormControl({value:'',disabled:false}),
+      codPrestacion:new FormControl({value:'',disabled:true}),
+      prestacion:new FormControl({value:'',disabled:true}),
       medicamento: new FormControl(''),
       id: new FormControl(''),
       codigoCIE: new FormControl({value:'',disabled:false}),
-      codigo: new FormControl({value:'',disabled:false}),
-      nombre: new FormControl({value:'',disabled:false}),
-      nombreComercial: new FormControl({value:'',disabled:false}),
-      ff: new FormControl({value:'',disabled:false}),
+
+      codigo: new FormControl({value:'',disabled:true}),
+      nombre: new FormControl({value:'',disabled:true}),
+      ff: new FormControl({value:'',disabled:true}), /* presentacion */
+      concentracion: new FormControl({value:'',disabled:true}),
+      viaAdministracion: new FormControl({value:'',disabled:true}),
+      fechaVenc: new FormControl({value:'',disabled:true}),
+      nombreComercial: new FormControl({value:'',disabled:true}),
+      
       stock:new FormControl({value:'',disabled:true}),
-      concentracion: new FormControl({value:'',disabled:false}),
-      viaAdministracion: new FormControl({value:'',disabled:false}),
-      fechaVenc: new FormControl({value:'',disabled:false}),
       cantidad:new FormControl({value:'',disabled:false}),
       dosis:new FormControl({value:'',disabled:false}),
       intervalo:new FormControl({value:'',disabled:false}),
@@ -132,11 +134,11 @@ export class TratamientoCredComponent implements OnInit {
 
   }
   buscarCodigoIpress(){
-    console.log('codigo renipress'+ this.renipress);//// ejecuta
-    console.log('id Ipress:'+this.idIpress);
+    // console.log('codigo renipress'+ this.renipress);//// ejecuta
+    // console.log('id Ipress:'+this.idIpress);
     this.ipressServices.getIpressID(this.idIpress).subscribe((res: any) => {
       this.renipress = res.object.renipress;
-      console.log('codigo renipress'+ this.renipress);
+      // console.log('codigo renipress'+ this.renipress);
       this.listarMedicamentosFarmacia();
     })
   }
@@ -145,7 +147,7 @@ export class TratamientoCredComponent implements OnInit {
 
 
   listarMedicamentosFarmacia(){
-    console.log("entrando a recuperar medicamentos de la farmacia");
+    // console.log("entrando a recuperar medicamentos de la farmacia");
     this.farmaciaService.getListaMedicamentosFarmaciaXIpress(this.renipress).subscribe((data:any)=>{
       if(data!=undefined){
         // console.log(data.object);
@@ -178,7 +180,7 @@ export class TratamientoCredComponent implements OnInit {
   listarDiagnosticos(){
     this.DiagnosticoService.getDiagnostico(this.data.idConsulta).subscribe((data:any)=>{
       if(data.object!=undefined || data.object!=null){
-        console.log(data.object);
+        // console.log(data.object);
         this.listaDiagnosticos=data.object;
         // for(let i =0;i<data.object.length;i++){
         //   this.listaDiagnosticos.push(data.object[i].cie10SIS)
@@ -207,7 +209,7 @@ export class TratamientoCredComponent implements OnInit {
     }
 
     this.aux = filtered;
-    if(this.aux===[]){
+    if(this.aux.length==0){
       console.log('no encontrado');
       this.formTratamiento.patchValue({ medicamento: ""});
       this.aux = this.medicamentosConDatos;
@@ -291,7 +293,7 @@ export class TratamientoCredComponent implements OnInit {
          otrasIndicaciones:this.formTratamiento.value.otrasIndicaciones,
        }
      }
-     console.log(this.tratamientos);
+    //  console.log(this.tratamientos);
      var duplicado:boolean=this.tratamientos.some(element=>element.medicamento.id===cadena.medicamento.id)
     // var duplicado:boolean=this.tratamientos.includes(cadena)
      console.log(duplicado);

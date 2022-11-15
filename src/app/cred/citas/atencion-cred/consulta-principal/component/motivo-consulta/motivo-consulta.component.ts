@@ -304,9 +304,7 @@ export class MotivoConsultaComponent implements OnInit {
         this.data = <dato>(
             JSON.parse(localStorage.getItem(this.attributeLocalS))
         );
-        this.motivosService
-            .getMotivos(this.data.idConsulta)
-            .subscribe((r: any) => {
+        this.motivosService.getMotivos(this.data.idConsulta).subscribe((r: any) => {
                 //-- recupera informacion de motivos
                 this.motivosConsulta = r.object;
                 // console.log("motivos", r);
@@ -537,6 +535,9 @@ export class MotivoConsultaComponent implements OnInit {
     imc() {
         let peso = this.examFG.value.PesoFC / 1000;
         let talla = this.examFG.value.TallaFC / 100;
+        if(talla==0 || talla==null) {
+            return 
+        }
         let imc: number = peso / (talla * talla);
         this.examFG.get("imcFC").setValue(imc.toFixed(2));
     }

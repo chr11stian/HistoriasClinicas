@@ -36,10 +36,14 @@ export class ProcedimientoDosajeHemoglobinaComponent implements OnInit {
   }
   disponibleVacunar(dosajeEstadoControlado,dosajeEdadMes){
     const mesesAñadidos=dosajeEdadMes==1?4:5
-    if(  (!dosajeEstadoControlado && (dosajeEdadMes<=this.edadMes && this.edadMes<=dosajeEdadMes+mesesAñadidos)) || (this.edadMes==0 && dosajeEdadMes==1))
-      return true
-    else
+    if(dosajeEstadoControlado)
       return false
+    else
+      if ( (( (dosajeEdadMes<=this.edadMes && this.edadMes<=dosajeEdadMes+mesesAñadidos)) || (this.edadMes==0 && dosajeEdadMes==1)))
+        return true
+      else{
+        return false
+      }
   }
   ngOnInit(): void {
     this.getDosajePreventivo()
