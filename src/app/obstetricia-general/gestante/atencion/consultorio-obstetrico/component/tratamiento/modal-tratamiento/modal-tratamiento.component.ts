@@ -68,9 +68,9 @@ export class ModalTratamientoComponent implements OnInit {
     //this.idObstetricia = this.obstetriciaGeneralService.idGestacion;
 
     this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
-    console.log("ipress", this.idIpress)
+    // console.log("ipress", this.idIpress)
     this.renIpress = JSON.parse(localStorage.getItem('usuario')).ipress.renipress;
-    console.log("renipress", this.renIpress)
+    // console.log("renipress", this.renIpress)
 
     /*********RECUPERAR DATOS*********/
     /*usando local storage*/
@@ -80,8 +80,8 @@ export class ModalTratamientoComponent implements OnInit {
     //estado para saber que estado usar en consultas
     this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
 
-    console.log("DATA PACIENTE 2 desde datos generales", this.dataPaciente2);
-    console.log("gestacion desde datos generales", this.Gestacion);
+    // console.log("DATA PACIENTE 2 desde datos generales", this.dataPaciente2);
+    // console.log("gestacion desde datos generales", this.Gestacion);
 
     if (this.Gestacion == null) {
       this.tipoDocRecuperado = this.dataPaciente2.tipoDoc;
@@ -100,17 +100,16 @@ export class ModalTratamientoComponent implements OnInit {
     if (!this.estadoEdicion) {
       let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaNueva'));
       this.nroAtencion = nroAtencion;
-      console.log("entre a nueva consulta", this.nroAtencion)
+      // console.log("entre a nueva consulta", this.nroAtencion)
     }
     else {
       let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaEditar'));
       this.nroAtencion = nroAtencion;
-      console.log("entre a edicion consulta", this.nroAtencion)
+      // console.log("entre a edicion consulta", this.nroAtencion)
     }
 
-    console.log(config.data);
+    // console.log(config.data);
     this.buildForm();
-
     this.recuperarPrestaciones();
     this.traerDiagnosticosDeConsulta();
     this.listarMedicamentosFarmacia();
@@ -133,7 +132,7 @@ export class ModalTratamientoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+
   }
 
   buildForm() {
@@ -163,7 +162,7 @@ export class ModalTratamientoComponent implements OnInit {
   traerDiagnosticosDeConsulta() {
     this.DxService.listarDiagnosticosDeUnaConsulta(this.nroHcl, this.nroEmbarazo, this.nroAtencion).then((res: any) => {
       this.diagnosticosList = res.object;
-      console.log("diagnosticos:", this.diagnosticosList);
+      this.diagnosticosList = this.diagnosticosList.filter(item=> item.cie10SIS)
     })
   }
   onChangeDiagnostico() {
@@ -192,7 +191,7 @@ export class ModalTratamientoComponent implements OnInit {
         otrasIndicaciones: this.formTratamientoComun.value.otrasIndicaciones,
       }
     }
-    console.log(data);
+    // console.log(data);
 
     await this.DxService.guardarTratamientoGestante(this.nroHcl, this.nroEmbarazo, this.nroAtencion, data).then((res: any) => {
       Swal.fire({
@@ -225,13 +224,13 @@ export class ModalTratamientoComponent implements OnInit {
         otrasIndicaciones: this.formTratamientoComun.value.otrasIndicaciones,
       }
     }
-    console.log(data);
+    // console.log(data);
 
     await this.DxService.editarTratamientoGestante(this.nroHcl, this.nroEmbarazo, this.nroAtencion, data).then((res: any) => {
       Swal.fire({
         icon: 'success',
         title: 'Actualizado',
-        text:  'Tratamiento guardado correctamente',
+        text: 'Tratamiento guardado correctamente',
         showConfirmButton: false,
         timer: 1500,
       })
@@ -286,7 +285,7 @@ export class ModalTratamientoComponent implements OnInit {
   recuperarPrestaciones() {
     this.DxService.getPrestaciones().subscribe((res: any) => {
       this.prestacionList = res.object;
-      console.log("prestaciones:", this.prestacionList);
+      // console.log("prestaciones:", this.prestacionList);
     })
   }
 
@@ -297,17 +296,17 @@ export class ModalTratamientoComponent implements OnInit {
   }
 
   selectedOptionNameMedicamento(event) {
-    console.log('lista de medicamentos ', this.medicamentosConDatos);
+    // console.log('lista de medicamentos ', this.medicamentosConDatos);
     this.idMedicamento = event.medicamento.id;
     this.formTratamientoComun.patchValue({ nombreMed: event.medicamento.nombre });
     this.formTratamientoComun.patchValue({ fechaVencimiento: event.fechaVenc });
     this.formTratamientoComun.patchValue({ stock: event.stock });
   }
   listarMedicamentosFarmacia() {
-    console.log("entrando a recuperar medicamentos de la farmacia");
+    // console.log("entrando a recuperar medicamentos de la farmacia");
     this.farmaciaService.getListaMedicamentosFarmaciaXIpress(this.renIpress).subscribe((data: any) => {
       if (data != undefined) {
-        console.log(data.object);
+        // console.log(data.object);
         this.listaMedicamentos = (data.object);
         let cadena
         for (let i = 0; i < this.listaMedicamentos.length; i++) {
@@ -327,7 +326,7 @@ export class ModalTratamientoComponent implements OnInit {
             stringMedicamento: this.listaMedicamentos[i].medicamento.nombre + " " + this.listaMedicamentos[i].medicamento.ff + " " + this.listaMedicamentos[i].medicamento.concentracion + " " + this.listaMedicamentos[i].medicamento.viaAdministracion + " Fecha Venc. " + this.listaMedicamentos[i].fechaVenc + " stock: " + this.listaMedicamentos[i].stock
           }
           this.medicamentosConDatos.push(cadena);
-          console.log(this.medicamentosConDatos);
+          // console.log(this.medicamentosConDatos);
         }
       }
     })
@@ -335,7 +334,7 @@ export class ModalTratamientoComponent implements OnInit {
   filterItems(event: any) {
     let filtered: any[] = [];
     let query = event.query;
-    console.log(this.medicamentosConDatos);
+    // console.log(this.medicamentosConDatos);
     this.aux = this.medicamentosConDatos;
     for (let i = 0; i < this.aux.length; i++) {
       let item = this.aux[i];
@@ -344,8 +343,8 @@ export class ModalTratamientoComponent implements OnInit {
       }
     }
     this.aux = filtered;
-    if (this.aux === []) {
-      console.log('no encontrado');
+    if (this.aux.length === 0) {
+      // console.log('no encontrado');
       this.aux = this.medicamentosConDatos;
 
     }
@@ -353,7 +352,7 @@ export class ModalTratamientoComponent implements OnInit {
   filterItemsMed(str) {
     let filtered: any[] = [];
     let query = str;
-    console.log(this.medicamentosConDatos);
+    // console.log(this.medicamentosConDatos);
     this.aux = this.medicamentosConDatos;
     for (let i = 0; i < this.aux.length; i++) {
       let item = this.aux[i];
@@ -362,8 +361,8 @@ export class ModalTratamientoComponent implements OnInit {
       }
     }
     this.aux = filtered;
-    if (this.aux === []) {
-      console.log('no encontrado');
+    if (this.aux.length === 0) {
+      // console.log('no encontrado');
       this.aux = this.medicamentosConDatos;
 
     }
