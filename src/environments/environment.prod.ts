@@ -20,11 +20,13 @@ export const environment = {
     base_url_Couch: base + "5984" /***DATABASE COUCHDB */,
     base_url_couch_view:
         base + "5984/visitas_medicas/_design/visita_domiciliaria/_view",/***DATABASE COUCHDB */
-   base_url_couch_images:
+    base_url_couch_images:
         base + "5984/visitas_medicas/f64691bc4d1c40e239602e3b1a0196f3",
-   base_url_couch_pngestante_view:
+    base_url_couch_pngestante_view:
         base + "5984/db_padron_nominal_gestante/_design/padron_nominal/_view",
-   base_url_couch_gestante_update:
-        base + "5984/db_padron_nominal_gestante/_design/padron_nominal/_update"
+    base_url_couch_gestante_update:
+        base + "5984/db_padron_nominal_gestante/_design/padron_nominal/_update",
+    base_getImageVisitasDomiciliaria:
+        base+"3012/api/hce/miacc/reportes/imagenpornombre"
 
 };
