@@ -7,11 +7,11 @@
         </tr>
         </ng-template>
         <ng-template pTemplate="body"  let-RowData let-rowIndex="rowIndex">
-            <div *ngIf="data.length==5;then menor">
+            <div *ngIf="data.length==3;then menor">
             </div>
             <div *ngIf="data.length==4;then gestante_puerpera">
             </div>
-            <div *ngIf="data.length==3;then mayor">
+            <div *ngIf="data.length==5;then mayor">
             </div>
             <ng-template #menor >
                     <th colspan="3" class="tr_status" style="text-align:left" >{{menor4meses[RowData.id-1]}}</th>
