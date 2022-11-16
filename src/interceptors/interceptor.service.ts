@@ -41,7 +41,7 @@ export class InterceptorService implements HttpInterceptor {
             urlReq = urlReq[2].split("/");
         }
         let portNum = urlReq[0];
-        console.log("numero de puerto",portNum);
+        // console.log("numero de puerto",portNum);
         // urlReq = urlReq[0];
         const idToken = JSON.parse(localStorage.getItem("token"));
 

@@ -202,26 +202,26 @@ export class TamizajesComponent implements OnInit {
           {
               this.estadoAgregar=true;
               this.estadoEditar=false;
-              Swal.fire({
+             /*  Swal.fire({
                   position: 'top-end',
                   icon: 'info',
                   title: 'No se encontro ningún registro de Tamizaje en esta  Consulta',
                   showConfirmButton: false,
                   timer: 1500
-              })
+              }) */
           }
           else{
               this.estadoAgregar=false;
               this.estadoEditar=true;
-              Swal.fire({
+              /* Swal.fire({
                   position: 'top-end',
                   icon: 'success',
                   title: 'Ya tiene registro guardado de Tamizaje en esta Consulta',
                   showConfirmButton: false,
                   timer: 1500
-              })
+              }) */
               this.idFichaTamizaje=res.object.fichaTamizajeId;
-              console.log(this.idFichaTamizaje)
+              /* console.log(this.idFichaTamizaje) */
               this.recuperarTamizajesBD();
           }
       })

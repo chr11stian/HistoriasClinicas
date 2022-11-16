@@ -132,6 +132,12 @@ export class EchartsVisitaComponent implements OnInit {
       tooltip: {
         trigger: 'axis',
       },
+      toolbox: {
+        feature: {
+          dataView: { show: true, readOnly: false },
+          saveAsImage: { show: true }
+        }
+      },
       legend: {},
       grid: {
         left: '3%',

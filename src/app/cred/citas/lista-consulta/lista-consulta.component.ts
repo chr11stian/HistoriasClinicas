@@ -52,10 +52,11 @@ export class ListaConsultaComponent implements OnInit {
         this.consultasNroDoc();
         this.consulta = this.base_urlTx1+'/jasperserver/rest_v2/reports/Reports/v1/credninio/reporte_carnet_atencion_integral_salud_ninio.pdf?authorization='+
             JSON.parse(localStorage.getItem("token")).token+'&nroHistoriaClinica='+JSON.parse(localStorage.getItem("documento")).nroDocumento
+        this.yaTieneConsultaParaDia()
     }
     reporteConsulta(rowData) {
         //http://192.168.5.3:8200/jasperserver/rest_v2/reports/Reports/v1/consultacredid/consultabase.pdf?authorization=eyJhbGciOiJIUzUxMiJ9.eyJhcHAiOiJoY2UiLCJyb2xlIjoiUk9MRV9JUFJFU1NfUEVSU09OQUwiLCJkYXRhIjp7InJlbmlwcmVzcyI6IjEyMzQ1NiIsImlkSXByZXNzIjoiNjE2ZGU0NWUwMjczMDQyMjM2NDM0YjUxIiwibnJvRG9jIjoiNzMxNDU5ODYiLCJ0aXBvRG9jIjoiRE5JIn0sInN1YiI6IjczMTQ1OTg2IiwiaWF0IjoxNjY0NTQ1NzI5LCJleHAiOjE2NjQ1NzQ1Mjl9.ts8okFv1LEbBlBkFB6GP7QM2VURidULkpahB3yB6dn0CCyVrF27_8mp-CDOa5faqda3ylmPRyFXC-TBjbUo-lg&idConsulta=624310cfdc986e1bb4abf5a4
-        console.log('ruta de descarga ', this.reporte);
+        // console.log('ruta de descarga ', this.reporte);
         this.reporte=environment.base_urlTx +"/jasperserver/rest_v2/reports/Reports/v1/consultacredid/consultaninioa.pdf?authorization="+JSON.parse(localStorage.getItem("token")).token+"&idConsulta="+rowData.id
     }
     getpacientesFiliados(nroDoc) {
@@ -78,7 +79,7 @@ export class ListaConsultaComponent implements OnInit {
     }
 
     atencion(event) {
-        console.log("adffda", event);
+        // console.log("adffda", event);
         this.listaConsultaService.getConsulta(event.id).subscribe((r: any) => {
             this.data = <dato>(
                 JSON.parse(localStorage.getItem(this.attributeLocalS))
@@ -105,6 +106,15 @@ export class ListaConsultaComponent implements OnInit {
     }
 
     nuevaConsulta() {
+        if(this.existeConsultaDia){
+            Swal.fire({
+                icon: "info",
+                title: "Ya Existe una consulta para el dia",
+                showConfirmButton: false,
+                timer: 2000,
+            });
+            return 
+        }
         let data: dato = {
             nroDocumento: this.data.nroDocumento,
             tipoDoc: this.data.tipoDoc,
@@ -135,11 +145,11 @@ export class ListaConsultaComponent implements OnInit {
                 this.data.nroDocumento
             )
             .subscribe((res: any) => {
-                console.log("code", res.object);
+                // console.log("code", res.object);
                 this.dataLifiado = res.object;
                 this.sexo = res.object.sexo;
                 this.fechaNacimiento = res.object.nacimiento.fechaNacimiento;
-                console.log("paciente por doc ", res.object);
+                // console.log("paciente por doc ", res.object);
                 this.tipoDoc = this.dataLifiado.tipoDoc;
                 this.nroDoc = this.dataLifiado.nroDoc;
                 this.apellidosNombres =
@@ -155,7 +165,7 @@ export class ListaConsultaComponent implements OnInit {
     }
 
     irFUA(rowData) {
-        console.log("rowData de consulta ", rowData);
+        // console.log("rowData de consulta ", rowData);
         let dataFUA = {
             idConsulta: rowData.id,
             // estadoAtencion: rowData.estadoAtencion
@@ -246,5 +256,14 @@ export class ListaConsultaComponent implements OnInit {
     }
     imprimirCarnetCRED() {
         console.log("imprimir niño " + this.downloadLink, this.docPaciente);
+    }
+    existeConsultaDia:boolean=false
+    yaTieneConsultaParaDia(){
+        this.listaConsultaService.tieneConsultaDia( this.data.tipoDoc, this.data.nroDocumento,'ATENCION INTEGRAL DEL NINO').subscribe((resp:any)=>{
+            // console.log('antes del if');
+            if(resp.cod=='2005')
+                this.existeConsultaDia=true
+                
+        })
     }
 }

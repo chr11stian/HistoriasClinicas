@@ -214,7 +214,7 @@ export class TratamientoInmunizacionComponent implements OnInit {
   }
   edadMes: number[] = [];
   clasificamos() {
-    console.log("toda la lista ordenada", this.listaInmunizaciones);
+    // console.log("toda la lista ordenada", this.listaInmunizaciones);
     //[0,1,2,4,6,7,12,15,18,96]
     this.listaInmunizaciones.forEach((element) => {
       let isInclude = this.edadMes.find((elemento) => {
@@ -237,12 +237,12 @@ export class TratamientoInmunizacionComponent implements OnInit {
       const coincidenciaVacuna = this.listaVacunasCodigos.find(
         (items) => nombreVacuna == items.nombre
       );
-      console.log('vacuna',nombreVacuna);
+      // console.log('vacuna',nombreVacuna);
       
       items.codigoSis = coincidenciaVacuna.codigo;
       // items.nombre=coincidenciaVacuna.nombre
     });
-    console.log("mape", this.listaInmunizaciones);
+    // console.log("mape", this.listaInmunizaciones);
   }
   getListaInmunizaciones() {
     this.inmunizacionesService
@@ -257,7 +257,7 @@ export class TratamientoInmunizacionComponent implements OnInit {
   }
 
   agregarVacuna(vacuna: inmunizaciones, nombre) {
-    console.log("vacuna", vacuna);
+    // console.log("vacuna", vacuna);
 
     const ref = this.dialogService.open(TratamientoInmunizacionModalComponent, {
       data: vacuna,
