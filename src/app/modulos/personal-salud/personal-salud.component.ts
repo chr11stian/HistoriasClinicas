@@ -23,6 +23,7 @@ import { TipoUpsService } from "src/app/mantenimientos/services/tipo-ups.service
 import { LoginService } from "../../login/services/login.service";
 import { dato } from "../../cred/citas/models/data";
 import { DynamicDialogRef } from "primeng/dynamicdialog";
+import { Router } from "@angular/router";
 
 @Component({
     selector: "app-personal-salud",
@@ -100,7 +101,8 @@ export class PersonalSaludComponent implements OnInit {
         private formBuilder: FormBuilder,
         private rolGuardiaService: RolGuardiaService,
         private tipoUpsService: TipoUpsService,
-        private loginService: LoginService
+        private loginService: LoginService,
+        private router: Router
     ) {
         this.root =
             JSON.parse(localStorage.getItem("rol")) === "ROLE_ADMININ_PERSONAL"
@@ -460,24 +462,25 @@ export class PersonalSaludComponent implements OnInit {
                 .subscribe((r) => {
                     // console.log("2", r);
                 });
-            await new Promise((resolve: any) => {
-                setTimeout(() => {
-                    this.loginService
-                        .createAdmin(objectAdmin)
-                        .subscribe((r: any) => {
-                            // console.log("3");
-                            Swal.fire({
-                                icon: "success",
-                                title: "Administrador agregado correctamente",
-                                text: "",
-                                showConfirmButton: false,
-                                timer: 1500,
-                            });
-                        });
-                    resolve();
-                }, 1000);
-            });
         }
+        await new Promise((resolve: any) => {
+            setTimeout(() => {
+                this.loginService
+                    .createAdmin(objectAdmin)
+                    .subscribe((r: any) => {
+                        // console.log("3");
+                        Swal.fire({
+                            icon: "success",
+                            title: "Administrador agregado correctamente",
+                            text: "",
+                            showConfirmButton: false,
+                            timer: 1500,
+                        });
+                    });
+                resolve();
+                window.location.reload();
+            }, 1000);
+        });
     }
 
     openNew(designar: boolean) {

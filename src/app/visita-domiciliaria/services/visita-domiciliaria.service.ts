@@ -3,8 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from "rxjs";
 import { environment } from "../../../environments/environment";
 import { VisitasProfesionalNinios } from "../interfaces/visita_profesional_ninios";
-import { map } from 'rxjs/operators';
-import { DomSanitizer } from '@angular/platform-browser';
+
 
 @Injectable({
     providedIn: "root",
@@ -18,7 +17,7 @@ export class VisitaDomiciliariaService {
     base_getImageVisita=environment.base_getImageVisitasDomiciliaria;
     id_ipress = "";
     dni_profesional = "";
-    constructor(private http: HttpClient,private sanitizer: DomSanitizer) {}
+    constructor(private http: HttpClient) {}
     getToken() {
         return JSON.parse(localStorage.getItem("token")).tokenCouch === null
             ? ""
@@ -87,17 +86,6 @@ export class VisitaDomiciliariaService {
         ).escalas.unidades;
     }
 
-    getImage(id:string){
-        this.couch=true;
-        return this.http
-            .get(`${this.base_url_images}/${id}`,{responseType: 'blob'})
-            .pipe(map(val => this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(val))))
-            .toPromise()
-            .then((data) => {
-            return `${data['changingThisBreaksApplicationSecurity'].toString()}`
-        });
-    }
-    
     urlImagen(fileName:string):any{
     return this.http.get<any>(`${this.base_getImageVisita}/${fileName}`)
     }
