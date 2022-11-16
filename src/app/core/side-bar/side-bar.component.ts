@@ -630,6 +630,16 @@ const root = {
             label: "Prestacion",
             routerLink: "mantenimientos/prestacion",
         },
+        {
+            icon: "pi pi-file",
+            label: "Medicamentos",
+            routerLink: "mantenimientos/medicamentos",
+        },
+        {
+            icon: "pi pi-file",
+            label: "Laboratorio",
+            routerLink: "mantenimientos/laboratorio",
+        },
     ],
 };
 
