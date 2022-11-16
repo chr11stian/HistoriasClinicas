@@ -145,7 +145,7 @@ export class PautaBreveComponent implements OnInit {
     });
     areaList = areaList.filter(item => hash[item] ? false : hash[item] = true);
     areaList.forEach(item => fullDiagnostic = `${fullDiagnostic} ${item}`);
-    countDeficit == 0 ? diagnostic = "NORMAL" : countDeficit < 3 ? diagnostic = "DEFICIT DEL DESARROLLO SEGUN PB" : diagnostic = "TRANSTORNO DE DESARROLLO";
+    countDeficit == 0 ? diagnostic = "NORMAL" : countDeficit < 3 ? diagnostic = "DEFICIT DEL DESARROLLO SEGUN PB" : diagnostic = "TRANSTORNO DEL DESARROLLO";
     this.dataPB = {
       codigoCIE10: '',
       codigoHIS: '',

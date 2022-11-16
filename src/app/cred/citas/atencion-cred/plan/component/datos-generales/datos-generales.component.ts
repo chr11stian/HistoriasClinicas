@@ -211,8 +211,8 @@ export class DatosGeneralesComponent implements OnInit {
             telefono: this.apoderadoInfoFG.value.telefonoMadre
         }
         let auxResponsable: responsable[] = []
-        auxResponsable.push(auxResponsableP)
         auxResponsable.push(auxResponsableM)
+        auxResponsable.push(auxResponsableP)
 
         let auxDataGeneral: DatosGenerales = {
             nroHistoriaClinica: this.respuestaDatosGenerales.nroHistoriaClinica,
