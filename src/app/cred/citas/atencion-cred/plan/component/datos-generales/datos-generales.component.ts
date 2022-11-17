@@ -256,7 +256,7 @@ export class DatosGeneralesComponent implements OnInit {
                     if (res.error) {
                         this.apoderadoInfoFG.get('nombrePadre').setValue('');
                     } else {
-                        let fullName: string = res.nombres + ' ' + res.apePaterno + ' ' + res.apeMaterno;
+                        let fullName: string =  res.apePaterno + '   ' + res.apeMaterno+' '+res.nombres;
                         this.apoderadoInfoFG.patchValue({
                             nombrePadre: fullName
                         });
@@ -270,7 +270,7 @@ export class DatosGeneralesComponent implements OnInit {
                     if (res.error) {
                         this.apoderadoInfoFG.get('nombreMadre').setValue('');
                     } else {
-                        let fullName: string = res.nombres + ' ' + res.apePaterno + ' ' + res.apeMaterno;
+                        let fullName: string = res.apePaterno + ' ' + res.apeMaterno +' '+res.nombres;
                         this.apoderadoInfoFG.patchValue({
                             nombreMadre: fullName
                         });

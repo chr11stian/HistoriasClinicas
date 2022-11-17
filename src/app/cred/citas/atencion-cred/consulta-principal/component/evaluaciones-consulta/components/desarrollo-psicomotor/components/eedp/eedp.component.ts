@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { PacienteService } from 'src/app/core/services/paciente/paciente.service';
 import { EvalAlimenService } from 'src/app/cred/citas/atencion-cred/plan/component/evaluacion-general/service/eval-alimen.service';
 import Swal from 'sweetalert2';
@@ -13,6 +13,7 @@ import { AnswerEEDP, DatosConsulta, datosEEDPTabla, escalaEval_EEDP_0_4_anios, I
   styleUrls: ['./eedp.component.css']
 })
 export class EedpComponent implements OnInit {
+  @Output() onSave:EventEmitter<number>=new EventEmitter<number>();
   items: {}[];
   indexSelected: number;
   edadNroSelected: number = 1;
@@ -236,6 +237,7 @@ export class EedpComponent implements OnInit {
       }
       this.arrayRptas = data.testEedp.listaUltimasPreguntas;
       this.evalResult = data.testEedp.diagnostico;
+      this.onSave.emit(2);//emitimos el evento
       Swal.fire({
         icon: 'success',
         title: 'Se Guardo el test EEDP Correctamente',

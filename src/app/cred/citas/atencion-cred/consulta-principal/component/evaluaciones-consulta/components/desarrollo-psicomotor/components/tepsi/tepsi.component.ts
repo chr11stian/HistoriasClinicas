@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, EventEmitter, OnInit, Output, ViewChild } from "@angular/core";
 import {
   AbstractControl,
   FormControl,
@@ -27,6 +27,8 @@ import { diagnostico } from '../../../tamizajes/tamizajes.component';
   styleUrls: ["./tepsi.component.css"],
 })
 export class TepsiComponent implements OnInit {
+  @Output() onSave:EventEmitter<number>=new EventEmitter<number>();
+  
   arregloTestTepsi:any[]=[]
   displayDialog:boolean=false
   @ViewChild("chartH") chartReferencia: UIChart;
@@ -492,6 +494,7 @@ export class TepsiComponent implements OnInit {
               .subscribe(
                 (resp:any) => {
                   if(resp.cod!='2005'){
+                    this.onSave.emit(4);//emitimos el evento
                     Swal.fire({
                       icon: "success",
                       title: "Test Tepsi Guardado Satifactoriamente",
