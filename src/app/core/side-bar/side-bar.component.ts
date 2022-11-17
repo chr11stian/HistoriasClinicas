@@ -569,7 +569,7 @@ const visitas = {
     icon: "pi pi-home",
     items: [
         {
-            label: "Niños",
+            label: "Niño(a)s",
             icon: "pi pi-user",
             routerLink: "visitas-domiciliarias/profesional-ninios",
         },
@@ -580,11 +580,11 @@ const visitas = {
         },
         {
             label: "Puerperas",
-            icon: "pi pi-users",
+            icon: "pi pi-user-plus",
             routerLink: "visitas-domiciliarias/profesional-puerperas",
         },
         {
-            label: "PN-Gestantes",
+            label: "PN Gestantes",
             icon: "pi pi-book",
             routerLink: "padron-nominal-gestante/mantenimiento",
         },

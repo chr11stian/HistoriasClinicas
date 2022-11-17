@@ -88,9 +88,7 @@ export class VisitasDomiciliariasGestantesComponent implements OnInit {
       .then((data: any) => {
         this.dataVisitas = data["rows"];
         this.dataVisitas.map((aux) => {
-          if (aux.value.hasOwnProperty("gestante")){
             this.dataVisitaGestantes.push(aux.value);
-          };
         });
       });
   }
@@ -110,6 +108,7 @@ export class VisitasDomiciliariasGestantesComponent implements OnInit {
   }
 
   async verVisitasPorAnio(event) {
+    this.dataVisitaGestantes=[];
     let idIpress = this.servicioVisitas.getIdIpress();
     let dni = `vp${this.servicioVisitas.getIdPersonal()}`;
     this.servicioVisitas.couch = true;
@@ -143,6 +142,7 @@ export class VisitasDomiciliariasGestantesComponent implements OnInit {
   }
 
   async verVisitasPorMes(event) {
+    this.dataVisitaGestantes=[];
     let idIpress = this.servicioVisitas.getIdIpress();
     let dni = `vp${this.servicioVisitas.getIdPersonal()}`;
     if (this.selectedAnio != "") {
@@ -155,9 +155,7 @@ export class VisitasDomiciliariasGestantesComponent implements OnInit {
           if (data["rows"].length > 0) {
             this.dataVisitas = data["rows"];
             this.dataVisitas.map((aux) => {
-              if (aux.value.hasOwnProperty("gestante")){
                 this.dataVisitaGestantes.push(aux.value);
-              };
             });
             this.messageService.add({
               key: "myMessage1",
