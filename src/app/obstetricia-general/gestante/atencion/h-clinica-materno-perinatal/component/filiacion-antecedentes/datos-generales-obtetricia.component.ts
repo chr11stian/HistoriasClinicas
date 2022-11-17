@@ -825,7 +825,7 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
                 this.DetalleParto4,
             ]
         }
-        console.log("DATA ANTECEDENTES", req)
+        // console.log("DATA ANTECEDENTES", req)
         this.filiancionService.UpdateAntecedentesFiliacion(this.tipoDocRecuperado, this.nroDocRecuperado, req).subscribe(
             result => {
                 Swal.fire({
@@ -863,17 +863,17 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
         const data = {
             vacunasPrevias: vacPrev
         }
-        this.datosBasalesService.postDatosBasalesById(this.idRecuperado, data).subscribe((res: any) => {
-            console.log('se guardo correctamente ', res.object);
-            Swal.fire({
-                icon: 'success',
-                title: 'Registro',
-                text: 'Fue creado con exito',
-                showConfirmButton: false,
-                timer: 1500,
-            })
-            this.getDatosBasalesVacunasPrevias();
-        });
+        // this.datosBasalesService.postDatosBasalesById(this.idRecuperado, data).subscribe((res: any) => {
+        //     console.log('se guardo correctamente ', res.object);
+        //     Swal.fire({
+        //         icon: 'success',
+        //         title: 'Registro',
+        //         text: 'Fue creado con exito',
+        //         showConfirmButton: false,
+        //         timer: 1500,
+        //     })
+        //     this.getDatosBasalesVacunasPrevias();
+        // });
     }
 
     getDatosBasalesVacunasPrevias() {

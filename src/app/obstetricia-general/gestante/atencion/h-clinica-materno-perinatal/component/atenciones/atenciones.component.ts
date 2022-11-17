@@ -1,13 +1,14 @@
-import {Component, OnInit} from '@angular/core'
-import {FormBuilder, FormGroup} from '@angular/forms'
-import {DialogService, DynamicDialogRef} from 'primeng/dynamicdialog'
-import {PesoEmbarazoUnicoMultipleComponent} from '../../../modals/peso-normal-embarazo-unico-multiple/peso-embarazo-unico-multiple.component'
-import {ObstetriciaGeneralService} from "../../../../../services/obstetricia-general.service";
-import {AtencionesService} from "../../services/atenciones/Atenciones.service";
-import {ModalAtencionesComponent} from "./modal-atenciones/modal-atenciones.component";
-import {MessageService} from "primeng/api";
-import {AlturaUterinaComponent} from "../../../modals/altura-uterina/altura-uterina.component";
+import { Component, OnInit } from '@angular/core'
+import { FormBuilder, FormGroup } from '@angular/forms'
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog'
+import { PesoEmbarazoUnicoMultipleComponent } from '../../../modals/peso-normal-embarazo-unico-multiple/peso-embarazo-unico-multiple.component'
+import { ObstetriciaGeneralService } from "../../../../../services/obstetricia-general.service";
+import { AtencionesService } from "../../services/atenciones/Atenciones.service";
+import { ModalAtencionesComponent } from "./modal-atenciones/modal-atenciones.component";
+import { MessageService } from "primeng/api";
+import { AlturaUterinaComponent } from "../../../modals/altura-uterina/altura-uterina.component";
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-atenciones',
@@ -34,13 +35,14 @@ export class AtencionesComponent implements OnInit {
     cols: any[];
     Gestacion: any;
     estadoGestante: string;
-    
+
     constructor(
         private formBuilder: FormBuilder,
         private dialogService: DialogService,
         private messageService: MessageService,
         private obstetriciaService: ObstetriciaGeneralService,
-        private atencionesService: AtencionesService
+        private atencionesService: AtencionesService,
+        private router: Router,
     ) {
         this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
 
@@ -55,10 +57,10 @@ export class AtencionesComponent implements OnInit {
         this.getAtencionesDeFiliacion();
         this.recuperarIMC();
     }
-     /***************Recuperar Datos de Atenciones*********************/
-     getAtencionesDeFiliacion() {
+    /***************Recuperar Datos de Atenciones*********************/
+    getAtencionesDeFiliacion() {
         this.atencionesService.getAtencionService(this.idFiliacion).toPromise().then((res: any) => {
-            if(res.object !=null){
+            if (res.object != null) {
                 Swal.fire({
                     icon: 'success',
                     title: 'Registro',
@@ -71,38 +73,39 @@ export class AtencionesComponent implements OnInit {
                 this.recuperarDatosGraficoAlturaUterina();
             }
         })
-        .catch(error=>{console.log(error);
-         })
+            .catch(error => {
+                console.log(error);
+            })
     }
-    recuperarIMC(){
-        this.atencionesService.getIMCgestante(this.Gestacion.nroHcl,this.Gestacion.nroEmbarazo).subscribe((res: any) => {
+    recuperarIMC() {
+        this.atencionesService.getIMCgestante(this.Gestacion.nroHcl, this.Gestacion.nroEmbarazo).subscribe((res: any) => {
             let IMC = res.object.imc;
-            if(IMC<18.5)
-                this.estadoGestante="bajo_peso"
-            else if(IMC<24.9)
-                this.estadoGestante="normal"
-            else if(IMC<29.9)
-                this.estadoGestante="sobrepeso"
+            if (IMC < 18.5)
+                this.estadoGestante = "bajo_peso"
+            else if (IMC < 24.9)
+                this.estadoGestante = "normal"
+            else if (IMC < 29.9)
+                this.estadoGestante = "sobrepeso"
             else
-                this.estadoGestante="obesidad"
+                this.estadoGestante = "obesidad"
         })
     }
-   
+
 
     /*********Recuperar Datos  para el gráfico Peso Madre*************/
     recuperarDatosGraficoPesoMadre() {
-        this.listaAtenciones.forEach((item)=>{
-            if(item.edadGestacionalSemanas && item.evaluacionNutricional && item.evaluacionNutricional){
-                this.datosGraficoPesoMadre.push([item.edadGestacionalSemanas,item.evaluacionNutricional.valor]);
+        this.listaAtenciones.forEach((item) => {
+            if (item.edadGestacionalSemanas && item.evaluacionNutricional && item.evaluacionNutricional) {
+                this.datosGraficoPesoMadre.push([item.edadGestacionalSemanas, item.evaluacionNutricional.valor]);
             }
         })
     }
 
     /*********Recuperar Datos  para el gráfico Altura uterina Madre*************/
     recuperarDatosGraficoAlturaUterina() {
-        this.listaAtenciones.forEach((item)=>{
-            if(item.edadGestacionalSemanas && item.evaluacionNutricional && item.evaluacionNutricional){
-                this.datosGraficoAlturaUterina.push([item.edadGestacionalSemanas,item.alturaUterina]);
+        this.listaAtenciones.forEach((item) => {
+            if (item.edadGestacionalSemanas && item.evaluacionNutricional && item.evaluacionNutricional) {
+                this.datosGraficoAlturaUterina.push([item.edadGestacionalSemanas, item.alturaUterina]);
             }
         })
     }
@@ -149,10 +152,10 @@ export class AtencionesComponent implements OnInit {
                 break
         }
         /* data  tipo de dato:Array<number[]>; ejemplo: [[semana,peso],...] ejmpl2: [[1,1.45],[2,1.46]]*/
-        console.log('peso madre',this.datosGraficoPesoMadre);
-        const arreglo=[[1,1],[7,0.7],[13,1.3],[20,2.7],[26,4],[34,5.3],[40,7]]
-        console.log('ganancia',this.datosGraficoPesoMadre);
-        
+        console.log('peso madre', this.datosGraficoPesoMadre);
+        const arreglo = [[1, 1], [7, 0.7], [13, 1.3], [20, 2.7], [26, 4], [34, 5.3], [40, 7]]
+        console.log('ganancia', this.datosGraficoPesoMadre);
+
         this.ref = this.dialogService.open(PesoEmbarazoUnicoMultipleComponent, {
             data: {
                 typeGraph: tipoGrafico,
@@ -184,5 +187,9 @@ export class AtencionesComponent implements OnInit {
             },
         })
 
+    }
+
+    backPregmantMenu(): void {
+        this.router.navigate(['/dashboard/obstetricia-general/citas/gestante/obstetricia']);
     }
 }

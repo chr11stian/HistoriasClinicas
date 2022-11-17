@@ -72,7 +72,39 @@ export class UbicacionService {
             .then(data => { return data; })
             .catch(error => { return error.error });
     }
-    getCCPPCompleto(dd,pp,dis){
+    getCCPPCompleto(dd, pp, dis) {
         return this.http.get(`${this.base_url}/${this.bd}/ubicacion/ccpp/${dd}/${pp}/${dis}`);
+    }
+
+    getPromiseDepartamentos() {
+        return this.http.get(`${this.base_url}/${this.bd}/ubicacion/departamentos`)
+            .toPromise()
+            .then(res => <any>res)
+            .then(data => { return data; })
+            .catch(error => { return error.error });
+    }
+
+    getPromiseProvincias(data) {
+        return this.http.post(`${this.base_url}/${this.bd}/ubicacion/provincias`, data)
+            .toPromise()
+            .then(res => <any>res)
+            .then(data => { return data; })
+            .catch(error => { return error.error });
+    }
+
+    getPromiseDistritos(data) {
+        return this.http.post(`${this.base_url}/${this.bd}/ubicacion/distritos`, data)
+            .toPromise()
+            .then(res => <any>res)
+            .then(data => { return data; })
+            .catch(error => { return error.error });
+    }
+    
+    getProimiseCentroPoblado(data) {
+        return this.http.post(`${this.base_url}/${this.bd}/ubicacion/ccpp`, data)
+            .toPromise()
+            .then(res => <any>res)
+            .then(data => { return data; })
+            .catch(error => { return error.error });
     }
 }

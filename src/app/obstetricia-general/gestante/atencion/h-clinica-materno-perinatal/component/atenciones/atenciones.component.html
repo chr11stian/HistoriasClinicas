@@ -16,7 +16,8 @@
         </ng-template>
 
         <ng-template pTemplate="right" class="button">
-
+            <button pButton pRipple label="Ir a menú" icon="pi pi-angle-double-left"
+            class="button-back-menu mr-2" pButton type="button" (click)="backPregmantMenu()"></button>
             <button pButton pRipple label="Graficar Peso Madre" icon="pi pi-file-o" icon="pi pi-chart-line"
                 class="button-graficar mr-2" pButton type="button" (click)="graficarPesoMadre('normal')"></button>
             <button pButton pRipple label="Graficar Altura Uterina" icon="pi pi-file-o" icon="pi pi-chart-line"
