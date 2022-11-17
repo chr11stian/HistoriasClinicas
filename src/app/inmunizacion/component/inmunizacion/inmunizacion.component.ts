@@ -162,47 +162,52 @@ export class InmunizacionComponent implements OnInit {
             .listServiceStaff(this.data.nroDocumento)
             .subscribe((r: any) => {
                 nombreUPS = r.object[0].roles[0].nombreUPS;
-            });
-        this.dataListPersonInmunizaciones[i].tipoDx = "D";
-        this.dataListPersonInmunizaciones[i].estado = "administrado";
-        this.dataListPersonInmunizaciones[i].nombreUPS =
-            nombreUPS === "ATENCION INTEGRAL DEL NINO"
-                ? "ENFERMERIA"
-                : nombreUPS;
-        this.dataListPersonInmunizaciones[i].nombreUPSaux = "INMUNIZACIONES";
-        this.dataListPersonInmunizaciones[i].cantidad =
-            this.formInmunizaciones.value.cantidad;
-        this.dataListPersonInmunizaciones[i].lote =
-            this.formInmunizaciones.value.lote;
-        this.dataListPersonInmunizaciones[i].viaAdministracion =
-            this.formInmunizaciones.value.viaAdministracion === ""
-                ? this.viaAdministracionList[0].name
-                : this.formInmunizaciones.value.viaAdministracion;
-        this.dataListPersonInmunizaciones[i].dosis =
-            this.formInmunizaciones.value.dosis === ""
-                ? this.dosisList[0].name
-                : this.formInmunizaciones.value.dosis;
-        this.dataListPersonInmunizaciones[i].codPrestacion = "001";
 
-        if (this.dataListPersonInmunizaciones[i].nombre === "DTPA") {
-            this.dataListPersonInmunizaciones[i].cie10SIS = "90715";
-            this.dataListPersonInmunizaciones[i].codProcedimientoHIS = "90715";
-            this.dataListPersonInmunizaciones[i].nombreComercial =
-                "VACUNA PARA TÉTANOS TOXOIDE DIFTÉRICO Y VACUNA ACELULAR DE PERTUSIS (TDAP) CUANDO SE ADMINISTRA A INDIVIDUOS DE 7 AÑOS O MAS PARA USO INTRAMUSCULAR";
-        }
-        if (this.dataListPersonInmunizaciones[i].nombre === "DT") {
-            this.dataListPersonInmunizaciones[i].cie10SIS = "90714";
-            this.dataListPersonInmunizaciones[i].codProcedimientoHIS = "90714";
-            this.dataListPersonInmunizaciones[i].nombreComercial =
-                "TOXOIDE TETÁNICO Y DIFETÉRICO (TD) ADSOBIDO LIBRE DE PRESERVANTE CUANDO SE ADMINISTRA EN INDIVIDUOS DE 7 AÑOS O MAYORES PARA USO INTRAMUSCULAR";
-        }
-        if (this.dataListPersonInmunizaciones[i].nombre === "DPT") {
-            this.dataListPersonInmunizaciones[i].cie10SIS = "90701";
-            this.dataListPersonInmunizaciones[i].codProcedimientoHIS = "90701";
-            this.dataListPersonInmunizaciones[i].nombreComercial =
-                "ADMINISTRACIÓN DE DPT";
-        }
-        this.dialogAplicaInmunizacion = false;
-        console.log("listIN2", this.dataListPersonInmunizaciones);
+                this.dataListPersonInmunizaciones[i].tipoDx = "D";
+                this.dataListPersonInmunizaciones[i].estado = "administrado";
+                this.dataListPersonInmunizaciones[i].nombreUPS =
+                    nombreUPS === "ATENCION INTEGRAL DEL NINO"
+                        ? "ENFERMERIA"
+                        : nombreUPS;
+                this.dataListPersonInmunizaciones[i].nombreUPSaux =
+                    "INMUNIZACIONES";
+                this.dataListPersonInmunizaciones[i].cantidad =
+                    this.formInmunizaciones.value.cantidad;
+                this.dataListPersonInmunizaciones[i].lote =
+                    this.formInmunizaciones.value.lote;
+                this.dataListPersonInmunizaciones[i].viaAdministracion =
+                    this.formInmunizaciones.value.viaAdministracion === ""
+                        ? this.viaAdministracionList[0].name
+                        : this.formInmunizaciones.value.viaAdministracion;
+                this.dataListPersonInmunizaciones[i].dosis =
+                    this.formInmunizaciones.value.dosis === ""
+                        ? this.dosisList[0].name
+                        : this.formInmunizaciones.value.dosis;
+                this.dataListPersonInmunizaciones[i].codPrestacion = "001";
+
+                if (this.dataListPersonInmunizaciones[i].nombre === "DTPA") {
+                    this.dataListPersonInmunizaciones[i].cie10SIS = "90715";
+                    this.dataListPersonInmunizaciones[i].codProcedimientoHIS =
+                        "90715";
+                    this.dataListPersonInmunizaciones[i].nombreComercial =
+                        "VACUNA PARA TÉTANOS TOXOIDE DIFTÉRICO Y VACUNA ACELULAR DE PERTUSIS (TDAP) CUANDO SE ADMINISTRA A INDIVIDUOS DE 7 AÑOS O MAS PARA USO INTRAMUSCULAR";
+                }
+                if (this.dataListPersonInmunizaciones[i].nombre === "DT") {
+                    this.dataListPersonInmunizaciones[i].cie10SIS = "90714";
+                    this.dataListPersonInmunizaciones[i].codProcedimientoHIS =
+                        "90714";
+                    this.dataListPersonInmunizaciones[i].nombreComercial =
+                        "TOXOIDE TETÁNICO Y DIFETÉRICO (TD) ADSOBIDO LIBRE DE PRESERVANTE CUANDO SE ADMINISTRA EN INDIVIDUOS DE 7 AÑOS O MAYORES PARA USO INTRAMUSCULAR";
+                }
+                if (this.dataListPersonInmunizaciones[i].nombre === "DPT") {
+                    this.dataListPersonInmunizaciones[i].cie10SIS = "90701";
+                    this.dataListPersonInmunizaciones[i].codProcedimientoHIS =
+                        "90701";
+                    this.dataListPersonInmunizaciones[i].nombreComercial =
+                        "ADMINISTRACIÓN DE DPT";
+                }
+                this.dialogAplicaInmunizacion = false;
+                console.log("listIN2", this.dataListPersonInmunizaciones);
+            });
     }
 }
