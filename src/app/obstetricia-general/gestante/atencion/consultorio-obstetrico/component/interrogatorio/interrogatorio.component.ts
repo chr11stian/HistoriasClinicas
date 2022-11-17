@@ -746,6 +746,7 @@ export class InterrogatorioComponent implements OnInit {
     let patientHeight: number = Math.round((this.form.value.talla + Number.EPSILON)) / 100;
     let patientWeigth: number = this.form.value.peso;
     let clasification: NutritionalClassification;
+    let percentilValue: Percentils;
     let gainWeight: GainWeight;
     if (gestationalWeek < 13) {
       this.imcService.getClasificacionEstadoNutricionalByTalla(patientHeight).subscribe((res: any) => {
@@ -777,8 +778,33 @@ export class InterrogatorioComponent implements OnInit {
       });
     } else {
       this.imcService.getClasificacionEstadoNutricionalByTallaSemanas(gestationalWeek, patientHeight * 100).subscribe((res: any) => {
-        
-      })
+        percentilValue = res.object.edadGestacionalP10P90[0];
+        console.log('datos de clasificacion ', percentilValue);
+        if (patientWeigth < percentilValue.p10) {
+          this.imcService.getGananciaBajoPeso(gestationalWeek).subscribe((res: any) => {
+            gainWeight = res.object.recomendacionGestanteBajoPeso[0];
+            this.assignUsualWieghtAndIMC(patientHeight, patientWeigth, gainWeight.min, gainWeight.med, gainWeight.max);
+          });
+        }
+        if (patientWeigth >= percentilValue.p10 && patientWeigth <= percentilValue.p90) {
+          this.imcService.getGananciaPesoRegular(gestationalWeek).subscribe((res: any) => {
+            gainWeight = res.object.recomendacionGananciaPesoRegular[0];
+            this.assignUsualWieghtAndIMC(patientHeight, patientWeigth, gainWeight.min, gainWeight.med, gainWeight.max);
+          });
+        }
+        if (patientWeigth > percentilValue.p90) {
+          this.imcService.getGananciaSobrePeso(gestationalWeek).subscribe((res: any) => {
+            gainWeight = res.object.recomencacionGananciaSobrePeso[0];
+            this.assignUsualWieghtAndIMC(patientHeight, patientWeigth, gainWeight.min, gainWeight.med, gainWeight.max);
+          });
+        }
+        if (patientWeigth > percentilValue.p90 + 10) {
+          this.imcService.getGananciaObesa(gestationalWeek).subscribe((res: any) => {
+            gainWeight = res.object.recomendacionGananciaObesa[0];
+            this.assignUsualWieghtAndIMC(patientHeight, patientWeigth, gainWeight.min, gainWeight.med, gainWeight.max);
+          });
+        }
+      });
     }
   }
 
@@ -836,8 +862,18 @@ interface NutritionalClassification {
 }
 interface GainWeight {
   max: number;
+  maxMult?: number;
   med: number;
+  medMult?: number;
   min: number;
+  minMult?: number;
   semanaGestacion: number;
   trimestre: number;
+}
+interface Percentils {
+  cmAlturaMinimo: number
+  cmAlturamaximo: number
+  edadGestacionalSemanas: number
+  p10: number
+  p90: number
 }
