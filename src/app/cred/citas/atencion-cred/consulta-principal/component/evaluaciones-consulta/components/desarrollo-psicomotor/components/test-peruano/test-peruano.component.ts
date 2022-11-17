@@ -455,7 +455,7 @@ export class TestPeruanoComponent implements OnInit {
     const { value, isConfirmed } = await Swal.fire({
       input: "text",
       inputLabel: "Ingrese Observacion",
-      width: "400px",
+      width: "800px",
       inputValue: this.encontrarObservacion(),
       inputPlaceholder: "obs.",
       inputAttributes: {
