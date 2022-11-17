@@ -197,13 +197,13 @@
                                     <td *ngIf="item.tipoDx === 'D'; else tipo1">
                                         x
                                     </td>
-                                    <ng-template #tipo2>
+                                    <ng-template #tipo1>
                                         <td></td>
                                     </ng-template>
                                     <td *ngIf="item.tipoDx === 'R'; else tipo2">
                                         x
                                     </td>
-                                    <ng-template #tipo3>
+                                    <ng-template #tipo2>
                                         <td></td>
                                     </ng-template>
                                     <td>{{ item.lab }}</td>
