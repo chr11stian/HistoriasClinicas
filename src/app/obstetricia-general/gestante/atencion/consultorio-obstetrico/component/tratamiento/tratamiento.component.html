@@ -1,5 +1,5 @@
 <div class="p-card">
-    <p-toolbar>
+    <!-- <p-toolbar>
         <ng-template pTemplate="left">
             <h3 class="mt-2">TRATAMIENTO INTEGRAL</h3>
         </ng-template>
@@ -23,7 +23,7 @@
                 *ngIf="!consultationFinished"
             ></button>
         </ng-template>
-    </p-toolbar>
+    </p-toolbar> -->
     <br />
     <div class="col-12 text-center">
         <div class="grid">
@@ -31,9 +31,18 @@
     </div>
     <p-toolbar>
         <ng-template pTemplate="left">
-            <h3 class="mt-2">TRATAMIENTOS</h3>
+            <h3 class="mt-2"></h3>
         </ng-template>
         <ng-template pTemplate="right">
+            <button
+                class="button-agregar mr-2"
+                icon="pi pi-save"
+                pButton
+                type="button"
+                label="Guardar"
+                (click)="guardarTodosDatos()"
+                *ngIf="!consultationFinished"
+            ></button>
             <button
                 pButton
                 pRipple

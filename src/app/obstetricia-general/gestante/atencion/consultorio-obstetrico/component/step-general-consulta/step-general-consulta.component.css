@@ -42,7 +42,7 @@ p-tabview >>> .p-tabview .p-tabview-panels {
     height: 650px;
 }
 
-.p-button {
+/* .p-button {
     color: #ffffff;
     background: #2196F3;
     border: 1px solid #2196F3;
@@ -51,7 +51,7 @@ p-tabview >>> .p-tabview .p-tabview-panels {
     transition: background-color 0.2s, color 0.2s, border-color 0.2s,
     box-shadow 0.2s;
     border-radius: 3px;
-}
+} */
 
 .p-button:hover {
     outline: 0 none;
@@ -135,3 +135,9 @@ p-tabview >>> .p-tabview .p-tabview-panels {
     right:55px;
     z-index: 999999;
 } 
+
+.guardar {
+    background: #0c3866;
+    border-color: #0c3866;
+    align-items: center;
+  }
