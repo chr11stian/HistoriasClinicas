@@ -47,6 +47,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
     dataPaciente2: any;
     pacientesFiliacion: any;
     datePipe = new DatePipe('en-US');
+    filiationId: string;
 
     constructor(private fb: FormBuilder,
         private filiancionService: FiliancionService,
@@ -307,7 +308,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
             referencia: this.formDatos_Generales.value.referencia,
             codigoAfiliacionSis: this.formDatos_Generales.value.codAficiaconSIS,
             nroDoc: this.formDatos_Generales.getRawValue().docIndentidad,
-            fechaNacimiento: this.formDatos_Generales.getRawValue().fechaNacimiento,
+            fechaNacimiento: this.datePipe.transform(this.formDatos_Generales.getRawValue().fechaNacimiento, 'yyyy-MM-dd'),
             ocupacion: this.formDatos_Generales.value.ocupacion,
             edad: this.formDatos_Generales.getRawValue().edad,
             direccion: this.formDatos_Generales.value.direccion,
@@ -320,8 +321,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
             religion: this.formDatos_Generales.value.religion,
             nroCelular: [
                 this.formDatos_Generales.value.cel1, this.formDatos_Generales.value.cel2,
-            ]
-            ,
+            ],
             idioma: this.formDatos_Generales.value.idioma,
             nombreRecienNacido: this.formDatos_Generales.value.nombreRN,
             padreRecienNacido: this.formDatos_Generales.value.pabreRN,
@@ -336,8 +336,6 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
 
 
         };
-        // console.log("data", req);
-
         if (this.idRecuperado == null) {
             this.filiancionService.addPacienteFiliacion(this.tipoDocRecuperado, this.nroDocRecuperado, req).subscribe(
                 result => {
@@ -368,8 +366,8 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
     getpacienteByNroDoc() {
         this.filiancionService.getPacienteNroDocFiliacion(this.tipoDocRecuperado, this.nroDocRecuperado).subscribe((res: any) => {
             this.dataPacientes = res.object;
-            this.traerDataReniec();
-            this.listarUbicacionPacienteProvincias();
+            // this.traerDataReniec();
+            // this.listarUbicacionPacienteProvincias();
             // console.log('paciente por doc ', this.dataPacientes)
             this.formDatos_Generales.get('apePaterno').setValue(this.dataPacientes.apePaterno);
             this.formDatos_Generales.get('apeMaterno').setValue(this.dataPacientes.apeMaterno);
@@ -395,6 +393,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
 
             // this.calcularEdad2("1990-09-21");
             this.formDatos_Generales.get('edad').setValue(this.edad);
+            this.locationAssibnmentByUbigeo(this.dataPacientes.domicilio.ubigeo, this.dataPacientes.domicilio.departamento, this.dataPacientes.domicilio.provincia, this.dataPacientes.domicilio.distrito);
 
         });
     }
@@ -426,7 +425,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
                 referencia: this.dataIDfiliacion.referencia,
                 codAficiaconSIS: this.dataIDfiliacion.codigoAfiliacionSis,
                 docIndentidad: this.dataIDfiliacion.nroDoc,
-                // fechaNacimiento: this.dataIDfiliacion.fechaNacimiento,
+                fechaNacimiento: this.datePipe.transform(this.dataIDfiliacion.fechaNacimiento, 'dd-MM-yyyy'),
                 direccion: this.dataIDfiliacion.direccion,
                 departamento: this.dataIDfiliacion.departamento,
                 provincia: this.dataIDfiliacion.provincia,
@@ -447,7 +446,6 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
         });
     }
 
-
     traerDataReniec() {
         this.filiancionService.getDatosReniec(this.nroDocRecuperado).subscribe((res: any) => {
             this.dataPacientesReniec = res;
@@ -465,7 +463,42 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
             localStorage.setItem('idGestacionRegistro', JSON.stringify(this.idRecuperado));
             // console.log('ARREGLO ULTIMA POSICION', this.idRecuperado);
             this.getpacienteFiiacionByID();
+        });
+    }
 
+    async locationAssibnmentByUbigeo(ubigeo: string, departamento: string, provincia: string, distrito: string): Promise<void> {
+        let idDep: string = ubigeo.slice(0, 2);
+        let idProv: string = ubigeo.slice(2, 4);
+        let idDist: string = ubigeo.slice(4, 6);
+
+        let dpto = {
+            iddd: idDep
+        }
+        let prov = {
+            iddd: idDep,
+            idpp: idProv
+        }
+        let dist = {
+            iddd: idDep,
+            idpp: idProv,
+            iddis: idDist
+        }
+        await this.ubicacionService.getPromiseDepartamentos().then((res: any) => {
+            this.dataDepartamentos = res.object;
+        });
+        await this.ubicacionService.getPromiseProvincias(dpto).then((res: any) => {
+            this.dataProvincia = res.object;
+        });
+        await this.ubicacionService.getPromiseDistritos(prov).then((res: any) => {
+            this.dataDistrito = res.object;
+        });
+        await this.ubicacionService.getProimiseCentroPoblado(dist).then((res: any) => {
+            this.dataCentroPoblado = res.object;
+        })
+        this.formDatos_Generales.patchValue({
+            departamento: departamento,
+            provincia: provincia,
+            distrito: distrito
         });
     }
 }

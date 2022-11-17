@@ -178,9 +178,7 @@ export class DatosGeneralesComponent implements OnInit {
     }
     guardarDatosGenerales() {
         this.save();
-
-        this.onChangeIndice.emit(2); 
-
+        this.onChangeIndice.emit(2);
     }
 
     save() {
@@ -211,8 +209,8 @@ export class DatosGeneralesComponent implements OnInit {
             telefono: this.apoderadoInfoFG.value.telefonoMadre
         }
         let auxResponsable: responsable[] = []
-        auxResponsable.push(auxResponsableP)
         auxResponsable.push(auxResponsableM)
+        auxResponsable.push(auxResponsableP)
 
         let auxDataGeneral: DatosGenerales = {
             nroHistoriaClinica: this.respuestaDatosGenerales.nroHistoriaClinica,
