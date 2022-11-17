@@ -80,7 +80,8 @@ export class PorIpressComponent implements OnInit {
   }
 
   listaVisitas() {
-    let ipress =this.servicioVisitas.getEscalaCodIpress();
+   // let ipress =this.servicioVisitas.getEscalaCodIpress();
+  let ipress="00002303";
     this.servicioVisitas.couch = true;
     this.servicioVisitaProfesionalIpress
       .getVisitasProfesionalesPorIpress(ipress)
@@ -98,7 +99,7 @@ export class PorIpressComponent implements OnInit {
             this.profesionalesIpress.push(this.profesional);
           }
         });
-        // console.log("data profesional", this.profesionalesIpress);
+        console.log("data profesional", this.profesionalesIpress);
       });
   }
 
@@ -161,7 +162,8 @@ export class PorIpressComponent implements OnInit {
   }
 
   async verVisitasPorAnio(event){
-    let ipress =this.servicioVisitas.getEscalaCodIpress();
+    // let ipress =this.servicioVisitas.getEscalaCodIpress();
+    let ipress="00002303";
     this.servicioVisitas.couch = true;
     this.selectedAnio = event.value;
     this.dniProfesionalIpress=[];
@@ -231,7 +233,8 @@ export class PorIpressComponent implements OnInit {
   }
 
   async verVisitasPorMes(event){
-    let ipress =this.servicioVisitas.getEscalaCodIpress();
+    // let ipress =this.servicioVisitas.getEscalaCodIpress();
+       let ipress="00002303";
     if (this.selectedAnio != "") {
       this.servicioVisitas.couch = true;
       this.selectedMes = event.value;
@@ -342,8 +345,9 @@ export class PorIpressComponent implements OnInit {
       header:
         "GRAFICO VISITA DOMICILIARIA PROFESIONAL",
       width: "70%",
+      height:"80%",
       contentStyle: {
-        "max-height": "93%",
+        //"max-height": "93%",
         overflow: "auto",
       },
       data:dni,

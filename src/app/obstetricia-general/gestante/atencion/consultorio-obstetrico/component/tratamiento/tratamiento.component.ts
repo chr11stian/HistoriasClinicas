@@ -310,6 +310,7 @@ export class TratamientoComponent implements OnInit {
       this.recuperarTratamientos();
     })
   }
+
   openDialogEditarTratamientoComun(row, index) {
     let aux = {
       index: index,
@@ -329,6 +330,7 @@ export class TratamientoComponent implements OnInit {
       this.recuperarTratamientos();
     })
   }
+
   openDialogTratamientoInmunizaciones() {
     this.ref = this.dialog.open(ModalInmunizacionesComponent, {
       header: "INMUNIZACIONES",
@@ -343,6 +345,7 @@ export class TratamientoComponent implements OnInit {
       this.recuperarInmunizaciones();
     })
   }
+
   openDialogEditarTratamientoInmunizaciones(row) {
     let aux = {
       row: row
@@ -361,6 +364,7 @@ export class TratamientoComponent implements OnInit {
       this.recuperarInmunizaciones();
     })
   }
+
   openDialogRecomendaciones() {
     this.ref = this.dialog.open(ModalRecomendacionesComponent, {
       header: "RECOMENDACIONES",
@@ -377,6 +381,7 @@ export class TratamientoComponent implements OnInit {
       // console.log(this.formRecomendaciones);
     })
   }
+
   openDialogEditarRecomendaciones(row, index) {
     let aux = {
       index: index,
@@ -398,16 +403,19 @@ export class TratamientoComponent implements OnInit {
       };
     })
   }
+
   async recuperarInmunizaciones() {
     await this.tratamientoService.listarInmunizacionesDeUnaConsulta(this.nroHcl, this.nroEmbarazo, this.nroAtencion).then((res: any) => {
       this.tratamientoInmunizaciones = res.object;
     })
   }
+
   async recuperarTratamientos() {
     await this.tratamientoService.listarTratamientosDeUnaConsulta(this.nroHcl, this.nroEmbarazo, this.nroAtencion).then((res: any) => {
       this.tratamientosComunes = res.object;
     })
   }
+
   guardarTodosDatos() {
     // console.log(this.formRIEP.value);
     const req = {
@@ -484,7 +492,7 @@ export class TratamientoComponent implements OnInit {
       },
       recomendaciones: this.recomendaciones,
     }
-    // console.log("enviar req", req);
+    console.log("enviar req", req);
     this.tratamientoService.updateConsultas(this.nroFetos, this.Gestacion.id, req).subscribe(
       (resp) => {
         Swal.fire({
@@ -501,6 +509,7 @@ export class TratamientoComponent implements OnInit {
     this.recuperarNroFetos();
     await this.tratamientoService.listarDiagnosticosDeUnaConsulta(this.nroHcl, this.nroEmbarazo, this.nroAtencion).then((res: any) => {
       this.diagnosticosList = res.object;
+      this.diagnosticosList = this.diagnosticosList.filter(item => item.cie10SIS)
     })
     let aux = {
       id: this.idConsulta,
@@ -648,7 +657,6 @@ export class TratamientoComponent implements OnInit {
         );
       }
     })
-
   }
   eliminarInmunizaciones(index) {
     Swal.fire({
@@ -672,10 +680,8 @@ export class TratamientoComponent implements OnInit {
             })
           }
         );
-
       }
     })
-
   }
   eliminarRecomendaciones(index) {
     Swal.fire({
@@ -697,11 +703,11 @@ export class TratamientoComponent implements OnInit {
         })
       }
     })
-
   }
   async traerDiagnosticosDeConsulta() {
     await this.tratamientoService.listarDiagnosticosDeUnaConsulta(this.nroHcl, this.nroEmbarazo, this.nroAtencion).then((res: any) => {
       this.diagnosticosList = res.object;
+      this.diagnosticosList = this.diagnosticosList.filter(item => item.cie10SIS);
       // console.log("diagnosticos:", this.diagnosticosList);
     })
   }

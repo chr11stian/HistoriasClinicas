@@ -32,6 +32,7 @@ export class EchartsVisitaComponent implements OnInit {
   }
 
   async getVisitasMayoresMeses() {
+    //let ipress=this.servicioVisitas.getEscalaCodIpress();
     let ipress = "00002303";
     let dni = `vp${this.data}`;
     console.log("dni ", dni);
@@ -53,6 +54,7 @@ export class EchartsVisitaComponent implements OnInit {
     console.log("dataaa mayoressss", this.data_mayores);
   }
   async getVisitasMenoresMeses() {
+    //let ipress=this.servicioVisitas.getEscalaCodIpress();
     let ipress = "00002303";
     let dni = `vp${this.data}`;
     console.log("dni ", dni);
@@ -74,6 +76,7 @@ export class EchartsVisitaComponent implements OnInit {
     console.log("dataaa mayoressss", this.data_menores);
   }
   async getVisitasGestantesMeses() {
+    //let ipress=this.servicioVisitas.getEscalaCodIpress();
     let ipress = "00002303";
     let dni = `vp${this.data}`;
     console.log("dni ", dni);
@@ -89,6 +92,7 @@ export class EchartsVisitaComponent implements OnInit {
       });
   }
   async getVisitasPuerperasMeses() {
+    //let ipress=this.servicioVisitas.getEscalaCodIpress();
     let ipress = "00002303";
     let dni = `vp${this.data}`;
     console.log("dni ", dni);
@@ -132,6 +136,12 @@ export class EchartsVisitaComponent implements OnInit {
       tooltip: {
         trigger: 'axis',
       },
+      toolbox: {
+        feature: {
+          dataView: { show: true, readOnly: false },
+          saveAsImage: { show: true }
+        }
+      },
       legend: {},
       grid: {
         left: '3%',
@@ -147,7 +157,7 @@ export class EchartsVisitaComponent implements OnInit {
 
       series: [
         {
-          name: "Niños y niñas,0-4 meses",
+          name: "Niño(a),0-4 meses",
           type: "bar",
           stack: "Ad",
           emphasis: {
@@ -156,7 +166,7 @@ export class EchartsVisitaComponent implements OnInit {
           data: this.data_menores,
         },
         {
-          name: "Niños y niñas,4-24 meses",
+          name: "Niño(a),4-24 meses",
           type: "bar",
           stack: "Ad",
           emphasis: {

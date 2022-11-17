@@ -47,3 +47,7 @@ p-table >>> .p-datatable .p-datatable-tbody > tr > td {
 ::ng-deep .swal2-container {
     z-index: 1000000;
 }
+.cod-prestacion {
+    padding-left: 0;
+    padding-bottom: 0;
+}

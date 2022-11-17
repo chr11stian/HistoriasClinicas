@@ -977,12 +977,11 @@ export class ModalCupos2Component implements OnInit {
                                 sexo: this.patientData.genero,
                                 estadoCivil: this.patientData.estadoCivil,
                                 fechaNacimiento: this.patientData.fecNacimiento,
-                                // nacionalidad: this.patientData,
-                                // lugarNacimiento: this.patientData.
-                                // GradoInstrucion: this.patientData.
+                                nacionalidad: this.patientData.nacionalidad,
+                                LugarNacimiento: this.patientData.lugarNacimiento,
+                                GradoInstrucion: this.patientData.gradoInstruccion,
                                 // discapacidad:this.patientData.
-                                // celular:this.patientData.
-
+                                celular: this.patientData.celular,
                                 direccion: this.patientData.direccion,
                                 tipoSeguro: this.patientData.tipoSeguro,
                                 edadAnio: this.edad,
@@ -1009,12 +1008,11 @@ export class ModalCupos2Component implements OnInit {
                             sexo: this.patientData.genero,
                             estadoCivil: this.patientData.estadoCivil,
                             fechaNacimiento: this.patientData.fecNacimiento,
-                            // nacionalidad: this.patientData,
-                            // lugarNacimiento: this.patientData.
-                            // GradoInstrucion: this.patientData.
+                            nacionalidad: this.patientData.nacionalidad,
+                            LugarNacimiento: this.patientData.lugarNacimiento,
+                            GradoInstrucion: this.patientData.gradoInstruccion,
                             // discapacidad:this.patientData.
-                            // celular:this.patientData.
-
+                            celular: this.patientData.celular,
                             direccion: this.patientData.direccion,
                             tipoSeguro: this.patientData.tipoSeguro,
                             edadAnio: this.edad,
@@ -1023,8 +1021,6 @@ export class ModalCupos2Component implements OnInit {
                         });
                         this.recoverUbigeo(this.patientData.ubigeo);
                     }
-
-
                     // this.searchUbigeo(this.patientData.ubigeo);
                 } else {
                     let timerInterval;
@@ -1094,6 +1090,7 @@ export class ModalCupos2Component implements OnInit {
         }
         this.ubicacionService.getCentroPoblado(objDist).subscribe((res: any) => {
             this.dataCentroPoblado = res.object;
+            this.formPacientesCupo.patchValue({ ccpp: this.patientData.centroPoblado });
         })
     }
 
