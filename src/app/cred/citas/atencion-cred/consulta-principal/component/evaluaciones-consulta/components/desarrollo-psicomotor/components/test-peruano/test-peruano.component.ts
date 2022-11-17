@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { TestPeruano } from "../../services/test-peruano/test-peruano.service";
 import {
   FormArray,
@@ -22,6 +22,7 @@ import { Value } from "../../../../../../../../../../pn-gestante/interfaces/padr
   providers: [TestPeruano],
 })
 export class TestPeruanoComponent implements OnInit {
+  @Output() onSave:EventEmitter<number>=new EventEmitter<number>();
   arregloForm: FormGroup;
   arregloFormRadio: FormArray;
   displayDialog: boolean = false;
@@ -433,6 +434,7 @@ export class TestPeruanoComponent implements OnInit {
           .addTestPeruano(this.data.idConsulta, inputRequest)
           .subscribe((res: any) => {
             if (res.cod == "2121") {
+              this.onSave.emit(1);//emitimos el evento
               Swal.fire({
                 icon: "success",
                 title: "Test Peruano",

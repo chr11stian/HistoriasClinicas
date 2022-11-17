@@ -11,7 +11,7 @@
             [selected]="disabledSelectedTab[0].selected"
         >
             <ng-template pTemplate="content">
-                <app-test-peruano></app-test-peruano>
+                <app-test-peruano (onSave)="searchMonthlyEvaluation($event)"></app-test-peruano>
             </ng-template>
         </p-tabPanel>
         <p-tabPanel
@@ -20,7 +20,7 @@
             [selected]="disabledSelectedTab[1].selected"
         >
             <ng-template pTemplate="content">
-                <app-eedp></app-eedp>
+                <app-eedp (onSave)="searchMonthlyEvaluation($event)"></app-eedp>
             </ng-template>
         </p-tabPanel>
         <p-tabPanel
@@ -29,7 +29,7 @@
             [selected]="disabledSelectedTab[2].selected"
         >
             <ng-template pTemplate="content">
-                <app-pauta-breve></app-pauta-breve>
+                <app-pauta-breve (onSave)="searchMonthlyEvaluation($event)"></app-pauta-breve>
             </ng-template>
         </p-tabPanel>
         <p-tabPanel
@@ -38,7 +38,7 @@
             [selected]="disabledSelectedTab[3].selected"
         >
             <ng-template pTemplate="content">
-                <app-tepsi></app-tepsi>
+                <app-tepsi (onSave)="searchMonthlyEvaluation($event)"></app-tepsi>
             </ng-template>
         </p-tabPanel>
     </p-tabView>
