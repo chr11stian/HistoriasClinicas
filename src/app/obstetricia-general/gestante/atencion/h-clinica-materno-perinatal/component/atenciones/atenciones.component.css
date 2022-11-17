@@ -104,6 +104,10 @@ p-panel >>> .p-panel .p-panel-content {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
+.button-back-menu{
+    background: #003C71;
+}
+
 @media (min-width: 300px) {
 
 }

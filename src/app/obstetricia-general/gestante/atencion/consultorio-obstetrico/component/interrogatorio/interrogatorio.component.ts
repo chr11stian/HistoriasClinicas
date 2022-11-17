@@ -741,6 +741,7 @@ export class InterrogatorioComponent implements OnInit {
   }
 
   calculateIMC(): void {
+    console.log('entro a imc');
     let gestationalWeek: number = this.form.value.semanas;
     let patientHeight: number = Math.round((this.form.value.talla + Number.EPSILON)) / 100;
     let patientWeigth: number = this.form.value.peso;
@@ -774,6 +775,10 @@ export class InterrogatorioComponent implements OnInit {
           })
         }
       });
+    } else {
+      this.imcService.getClasificacionEstadoNutricionalByTallaSemanas(gestationalWeek, patientHeight * 100).subscribe((res: any) => {
+        
+      })
     }
   }
 
