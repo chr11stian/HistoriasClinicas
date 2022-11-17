@@ -178,9 +178,7 @@ export class DatosGeneralesComponent implements OnInit {
     }
     guardarDatosGenerales() {
         this.save();
-
-        this.onChangeIndice.emit(2); 
-
+        this.onChangeIndice.emit(2);
     }
 
     save() {

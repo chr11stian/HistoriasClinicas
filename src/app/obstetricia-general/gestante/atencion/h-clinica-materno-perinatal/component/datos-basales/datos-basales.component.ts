@@ -252,7 +252,6 @@ export class DatosBasalesComponent implements OnInit {
             semanas: this.form.value.ecografia3,
             fecha: this.form.value.dateEco3,
         }];
-        // this.ultrasoundList = this.ultrasoundList.filter(item => item.fe != null);
     }
 
     recuperarDatos() {
