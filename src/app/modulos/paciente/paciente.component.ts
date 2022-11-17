@@ -81,8 +81,8 @@ export class PacienteComponent implements OnInit {
             width: "90%",
             height: "100%"
         })
-        localStorage.removeItem('pacienteDepartamento');
-        localStorage.removeItem('pacienteLocalStorage');
+        // localStorage.removeItem('pacienteDepartamento');
+        // localStorage.removeItem('pacienteLocalStorage');
         this.ref.onClose.subscribe((data: any) => {
             this.cargarPacientes();
         });

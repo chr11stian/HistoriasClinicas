@@ -310,7 +310,7 @@ export class DatosGeneralesComponent implements OnInit {
         }
         this.consultasService.getConsultas(this.Gestacion.id, data).then((res: any) => {
             this.dataConsultas = res.object
-            localStorage.removeItem('IDConsulta');
+            // localStorage.removeItem('IDConsulta');
             // localStorage.setItem('IDConsulta', JSON.stringify(this.dataConsultas.id));
         })
     }

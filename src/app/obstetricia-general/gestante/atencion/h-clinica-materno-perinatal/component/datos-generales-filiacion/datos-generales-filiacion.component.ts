@@ -308,7 +308,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
             referencia: this.formDatos_Generales.value.referencia,
             codigoAfiliacionSis: this.formDatos_Generales.value.codAficiaconSIS,
             nroDoc: this.formDatos_Generales.getRawValue().docIndentidad,
-            fechaNacimiento: this.datePipe.transform(this.formDatos_Generales.getRawValue().fechaNacimiento, 'yyyy-MM-dd'),
+            fechaNacimiento: this.transformDate(this.formDatos_Generales.getRawValue().fechaNacimiento),
             ocupacion: this.formDatos_Generales.value.ocupacion,
             edad: this.formDatos_Generales.getRawValue().edad,
             direccion: this.formDatos_Generales.value.direccion,
@@ -327,15 +327,12 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
             padreRecienNacido: this.formDatos_Generales.value.pabreRN,
             estadoCivil: this.formDatos_Generales.value.estadoCivil,
             proceso: "proceso de gestacion",
-
-
             apePaterno: this.formDatos_Generales.getRawValue().apePaterno,
             apeMaterno: this.formDatos_Generales.getRawValue().apeMaterno,
             primerNombre: this.formDatos_Generales.getRawValue().primerNombre,
             otrosNombres: "",
-
-
         };
+        // console.log('data to res ', req);
         if (this.idRecuperado == null) {
             this.filiancionService.addPacienteFiliacion(this.tipoDocRecuperado, this.nroDocRecuperado, req).subscribe(
                 result => {
@@ -359,6 +356,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
                     showConfirmButton: false,
                     timer: 1500,
                 })
+                this.getpacientesFiliadosGestacion();
             })
         }
     }
@@ -457,9 +455,10 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
     getpacientesFiliadosGestacion() {
         this.obstetriciaGeneralService.getPacienteFiliacion(this.tipoDocRecuperado, this.nroDocRecuperado).subscribe((res: any) => {
             this.pacientesFiliacion = res.object
-            // console.log('paciente con nro de gestacion ', this.pacientesFiliacion)
+            console.log('paciente con nro de gestacion ', this.pacientesFiliacion)
             let index = this.pacientesFiliacion.length - 1;
             this.idRecuperado = this.pacientesFiliacion[index].id;
+            console.log('id de filiacion ', this.idRecuperado);
             localStorage.setItem('idGestacionRegistro', JSON.stringify(this.idRecuperado));
             // console.log('ARREGLO ULTIMA POSICION', this.idRecuperado);
             this.getpacienteFiiacionByID();
@@ -500,5 +499,11 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
             provincia: provincia,
             distrito: distrito
         });
+    }
+    transformDate(date: string): string {
+        let auxDate = date.split("-");
+        let newDate: string;
+        newDate = `${auxDate[2]}-${auxDate[1]}-${auxDate[0]}`
+        return newDate;
     }
 }
