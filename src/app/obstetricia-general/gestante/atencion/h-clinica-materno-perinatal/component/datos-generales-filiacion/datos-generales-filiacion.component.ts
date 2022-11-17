@@ -47,6 +47,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
     dataPaciente2: any;
     pacientesFiliacion: any;
     datePipe = new DatePipe('en-US');
+    filiationId: string;
 
     constructor(private fb: FormBuilder,
         private filiancionService: FiliancionService,

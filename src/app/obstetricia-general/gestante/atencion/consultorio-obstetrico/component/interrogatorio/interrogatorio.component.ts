@@ -779,7 +779,7 @@ export class InterrogatorioComponent implements OnInit {
     } else {
       this.imcService.getClasificacionEstadoNutricionalByTallaSemanas(gestationalWeek, patientHeight * 100).subscribe((res: any) => {
         percentilValue = res.object.edadGestacionalP10P90[0];
-        console.log('datos de clasificacion ', percentilValue);
+        // console.log('datos de clasificacion ', percentilValue);
         if (patientWeigth < percentilValue.p10) {
           this.imcService.getGananciaBajoPeso(gestationalWeek).subscribe((res: any) => {
             gainWeight = res.object.recomendacionGestanteBajoPeso[0];
@@ -814,6 +814,7 @@ export class InterrogatorioComponent implements OnInit {
     let weightGain: number;
     height < 1.57 ? usualWeight = weight - min : usualWeight = weight - med
     imc = (usualWeight / Math.pow((height), 2));
+    console.log('usual weight ', usualWeight);
     this.form.patchValue({
       imc: imc.toFixed(2),
       pesoHabitual: usualWeight
