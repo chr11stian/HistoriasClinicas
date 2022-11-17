@@ -7,22 +7,27 @@
                 </span>
             </div>
             <div class="col-4">
-                <p-card>
-                    <div>
-                        <span style="font-weight: bold;font-size: 1.2rem">
-                            Edad(mes):
-                        </span>
-                        <span>{{ 2+5 }}</span>
+                    <!-- <div>
                         <span style="font-weight: bold;font-size: 1.2rem">
                             Edad:
                         </span>
-                        <span>{{2}} Años {{3}} Meses {{4}} Dias</span>
+                        <span>{{data.anio}} Años {{data.mes}} Meses {{data.dia}} Dias</span>
                     </div>
                     <div>
-                        <span *ngIf="isPrematuro" style="font-weight: bold;font-size: 1.2rem">Niño(a) prematuro y/o bajo peso al nacer</span>
-                        
+                        <span style="font-weight: bold;font-size: 1.2rem">
+                            Nro Doc.:
+                        </span>
+                        <span>{{data.nroDocumento}}</span>
                     </div>
-                </p-card>
+                    <div>
+                        <span style="font-weight: bold;font-size: 1.2rem">
+                            Apellidos y Nombres:
+                        </span>
+                        <span>{{datosGenerales.apePaterno}} {{datosGenerales.apeMaterno}} {{datosGenerales.primerNombre}} {{datosGenerales.otrosNombres}}</span>
+                    </div> -->
+                    <div>
+                        <span *ngIf="isPrematuro" style="font-weight: bold;font-size: 1.2rem;color:#AF0018">Niño(a) prematuro y/o bajo peso al nacer</span>   
+                    </div>
             </div>
             <div class="col-2 text-right align-items-center">
                 <p (click)="citas()">{{ cita }}</p>

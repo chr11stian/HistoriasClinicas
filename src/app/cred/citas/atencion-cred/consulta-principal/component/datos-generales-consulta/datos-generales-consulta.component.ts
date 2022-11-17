@@ -379,7 +379,7 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
         nroDoc: this.data.nroDocumento,
       })
       .subscribe((r: any) => {
-        console.log('respuesta',r);
+        // console.log('respuesta',r);
         
         let nombre =
           r.object.primerNombre +
@@ -393,7 +393,7 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
       });
     this.consultaService.getDatosGenerales(id).subscribe((r: any) => {
       this.auxTriaje = r.object;
-      console.log("aux: ", this.auxTriaje);
+      // console.log("aux: ", this.auxTriaje);
       let date: Date = new Date(this.auxTriaje.fecha);
       this.generalInfoFG.get("dateAttention").setValue(date);
       this.generalInfoFG.get("hour").setValue(date);
