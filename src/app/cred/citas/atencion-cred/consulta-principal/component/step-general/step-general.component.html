@@ -1,12 +1,30 @@
 <div class="" style="background: #f8f9fa; height: 100%">
     <div class="card">
-        <div class="flex" style="margin-top: 20px; margin-bottom: 20px">
-            <div class="col-9" style="margin: 0 0 0 20px">
+        <div class="flex" style="margin-top: 10px; margin-bottom: 10px">
+            <div class="col-6">
                 <span style="font-size: 2em"
-                    >CONTROL DE CRECIMIENTO Y DESARROLLO> Consulta
+                    >CONTROL DE CRECIMIENTO Y DESARROLLO>Consulta
                 </span>
             </div>
-            <div class="col-3 text-right align-items-center pr-6">
+            <div class="col-4">
+                <p-card>
+                    <div>
+                        <span style="font-weight: bold;font-size: 1.2rem">
+                            Edad(mes):
+                        </span>
+                        <span>{{ 2+5 }}</span>
+                        <span style="font-weight: bold;font-size: 1.2rem">
+                            Edad:
+                        </span>
+                        <span>{{2}} Años {{3}} Meses {{4}} Dias</span>
+                    </div>
+                    <div>
+                        <span *ngIf="isPrematuro" style="font-weight: bold;font-size: 1.2rem">Niño(a) prematuro y/o bajo peso al nacer</span>
+                        
+                    </div>
+                </p-card>
+            </div>
+            <div class="col-2 text-right align-items-center">
                 <p (click)="citas()">{{ cita }}</p>
             </div>
         </div>

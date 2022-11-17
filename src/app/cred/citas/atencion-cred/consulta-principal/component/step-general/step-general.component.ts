@@ -77,6 +77,7 @@ export class StepGeneralComponent implements OnInit, DoCheck {
     ) {
         this.idConsulta = JSON.parse(localStorage.getItem("documento")).idConsulta;
         this.estadoAtencion=JSON.parse(localStorage.getItem("documento")).estadoAtencion
+        this.nroDoc=JSON.parse(localStorage.getItem("documento")).nroDocumento
         this.options = [
             { name: "DNI", code: 1 },
             { name: "CARNET RN", code: 2 },
@@ -120,6 +121,13 @@ export class StepGeneralComponent implements OnInit, DoCheck {
     ngDoCheck() {
         this.saveStep();
     }
+    isPrematuro:boolean
+    getPrematuro(){
+        this.consultaGeneralService.getEsPrematuro(this.nroDoc).subscribe((resp:any)=>{
+            this.isPrematuro=resp.object.respuesta
+            console.log('-------respuesta del servidor--------',resp);
+        })
+    }
 
     ngOnInit() {
         this.fecha = new Date();
@@ -137,6 +145,8 @@ export class StepGeneralComponent implements OnInit, DoCheck {
         ];
         this.getQueryParams();
         this.agenda();
+        this.getPrematuro()
+        
     }
 
     getQueryParams() {
