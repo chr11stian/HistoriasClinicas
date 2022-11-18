@@ -1,155 +1,306 @@
-<div >
+<div>
     <div class="p-card">
         <div class="grid">
             <div class="col-12" style="text-align: center">
-                <img class="image" alt="Imagen" src="assets/images/farmacia.png" style="height: 200px;width: 200px"/>
+                <img
+                    class="image"
+                    alt="Imagen"
+                    src="assets/images/farmacia.png"
+                    style="height: 200px; width: 200px"
+                />
             </div>
         </div>
         <div class="grid">
             <div class="col-12">
-                <h1 class="p-m-0" style="text-align: center">BIENVENIDOS A FARMACIA</h1>
+                <h1 class="p-m-0" style="text-align: center">
+                    BIENVENIDOS A FARMACIA
+                </h1>
             </div>
         </div>
     </div>
     <div>
         <p-toolbar>
             <div class="p-toolbar-group-left">
-                <h2 class="">IPRESS:  {{nombreRenipress}}</h2>
+                <h2 class="">IPRESS: {{ nombreRenipress }}</h2>
             </div>
             <div class="p-toolbar-group-right">
-                <button pButton pRipple label="Agregar"
-                        icon="pi pi-plus" class="p-button-danger p-mr-2"
-                        (click)="OpenFarmacia()"></button>
+                <button
+                    pButton
+                    pRipple
+                    label="Agregar"
+                    icon="pi pi-plus"
+                    class="p-button-danger p-mr-2"
+                    (click)="OpenFarmacia()"
+                ></button>
             </div>
         </p-toolbar>
         <div class="card">
-            <p-table #dt1 [value]="items" selectionMode="single" [(selection)]="selectedCustomer1" dataKey="id"
-                     styleClass="p-datatable-customers" 
-                     [rows]="7" [paginator]="true" [rowsPerPageOptions]="[7, 15 ,25 , 50,]" stateStorage="session"
-                     stateKey="statedemo-session"
-                     class="tablaFarmacia">
+            <p-table
+                #dt1
+                [value]="items"
+                selectionMode="single"
+                [(selection)]="selectedCustomer1"
+                dataKey="id"
+                styleClass="p-datatable-customers"
+                [rows]="7"
+                [paginator]="true"
+                [rowsPerPageOptions]="[7, 15, 25, 50]"
+                stateStorage="session"
+                stateKey="statedemo-session"
+                class="tablaFarmacia"
+            >
                 <ng-template pTemplate="header">
                     <tr>
-                        <th pSortableColumn="medicamento.nombre">Nombre
+                        <th pSortableColumn="medicamento.nombre">
+                            Nombre
                             <p-sortIcon field="medicamento.nombre"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="medicamento.nombre">Nombre Comercial
-                            <p-sortIcon field="medicamento.nombreComercial"></p-sortIcon>
+                        <th pSortableColumn="medicamento.nombre">
+                            Nombre Comercial
+                            <p-sortIcon
+                                field="medicamento.nombreComercial"
+                            ></p-sortIcon>
                         </th>
-                        <th pSortableColumn="medicamento.ff">Forma Farmaceútica
+                        <th pSortableColumn="medicamento.ff">
+                            Forma Farmaceútica
                             <p-sortIcon field="medicamento.ff"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="medicamento.concentracion">Concentración
-                            <p-sortIcon field="medicamento.concentracion"></p-sortIcon>
+                        <th pSortableColumn="medicamento.concentracion">
+                            Concentración
+                            <p-sortIcon
+                                field="medicamento.concentracion"
+                            ></p-sortIcon>
                         </th>
-                        <th pSortableColumn="medicamento.viaAdministracion">Via de Administracion
-                            <p-sortIcon field="medicamento.viaAdministracion"></p-sortIcon>
+                        <th pSortableColumn="medicamento.viaAdministracion">
+                            Via de Administracion
+                            <p-sortIcon
+                                field="medicamento.viaAdministracion"
+                            ></p-sortIcon>
                         </th>
-                        <th pSortableColumn="stock">Stock
+                        <th pSortableColumn="stock">
+                            Stock
                             <p-sortIcon field="stock"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="fechaVenc">Fecha de Vencimiento
+                        <th pSortableColumn="fechaVenc">
+                            Fecha de Vencimiento
                             <p-sortIcon field="fechaVenc"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="lote">Lote
+                        <th pSortableColumn="lote">
+                            Lote
                             <p-sortIcon field="lote"></p-sortIcon>
                         </th>
                         <th>Acción</th>
                     </tr>
                     <tr>
                         <th>
-                            <input pInputText type="text"
-                                   (input)="dt1.filter($event.target.value, 'medicamento.nombre', 'contains')"
-                                   [value]="dt1.filters['medicamento.nombre']?.value" placeholder="Buscar por nombre"
-                                   class="p-column-filter">
+                            <input
+                                pInputText
+                                type="text"
+                                (input)="
+                                    dt1.filter(
+                                        $event.target.value,
+                                        'medicamento.nombre',
+                                        'contains'
+                                    )
+                                "
+                                [value]="
+                                    dt1.filters['medicamento.nombre']?.value
+                                "
+                                placeholder="Buscar por nombre"
+                                class="p-column-filter"
+                            />
                         </th>
                         <th>
-                            <input pInputText type="text"
-                                   (input)="dt1.filter($event.target.value, 'medicamento.nombreComercial', 'contains')"
-                                   [value]="dt1.filters['medicamento.nombreComercial']?.value"
-                                   placeholder="Buscar por nombre comercial" class="p-column-filter">
+                            <input
+                                pInputText
+                                type="text"
+                                (input)="
+                                    dt1.filter(
+                                        $event.target.value,
+                                        'medicamento.nombreComercial',
+                                        'contains'
+                                    )
+                                "
+                                [value]="
+                                    dt1.filters['medicamento.nombreComercial']
+                                        ?.value
+                                "
+                                placeholder="Buscar por nombre comercial"
+                                class="p-column-filter"
+                            />
                         </th>
                         <th>
-                            <input pInputText type="text"
-                                   (input)="dt1.filter($event.target.value, 'medicamento.ff', 'contains')"
-                                   [value]="dt1.filters['medicamento.ff']?.value" placeholder="Buscar por presentación"
-                                   class="p-column-filter">
+                            <input
+                                pInputText
+                                type="text"
+                                (input)="
+                                    dt1.filter(
+                                        $event.target.value,
+                                        'medicamento.ff',
+                                        'contains'
+                                    )
+                                "
+                                [value]="dt1.filters['medicamento.ff']?.value"
+                                placeholder="Buscar por presentación"
+                                class="p-column-filter"
+                            />
                         </th>
                         <th>
-                            <input pInputText type="text"
-                                   (input)="dt1.filter($event.target.value, 'medicamento.concentracion', 'contains')"
-                                   [value]="dt1.filters['medicamento.concentracion']?.value"
-                                   placeholder="Buscar por concentracion" class="p-column-filter">
+                            <input
+                                pInputText
+                                type="text"
+                                (input)="
+                                    dt1.filter(
+                                        $event.target.value,
+                                        'medicamento.concentracion',
+                                        'contains'
+                                    )
+                                "
+                                [value]="
+                                    dt1.filters['medicamento.concentracion']
+                                        ?.value
+                                "
+                                placeholder="Buscar por concentracion"
+                                class="p-column-filter"
+                            />
                         </th>
                         <th>
-                            <input pInputText type="text"
-                                   (input)="dt1.filter($event.target.value, 'medicamento.viaAdministracion', 'contains')"
-                                   [value]="dt1.filters['medicamento.viaAdministracion']?.value"
-                                   placeholder="Buscar por via Adminis." class="p-column-filter">
+                            <input
+                                pInputText
+                                type="text"
+                                (input)="
+                                    dt1.filter(
+                                        $event.target.value,
+                                        'medicamento.viaAdministracion',
+                                        'contains'
+                                    )
+                                "
+                                [value]="
+                                    dt1.filters['medicamento.viaAdministracion']
+                                        ?.value
+                                "
+                                placeholder="Buscar por via Adminis."
+                                class="p-column-filter"
+                            />
                         </th>
                         <th>
-                            <input pInputText type="text" (input)="dt1.filter($event.target.value, 'stock', 'contains')"
-                                   [value]="dt1.filters['stock']?.value" placeholder="Buscar por stock"
-                                   class="p-column-filter">
+                            <input
+                                pInputText
+                                type="text"
+                                (input)="
+                                    dt1.filter(
+                                        $event.target.value,
+                                        'stock',
+                                        'contains'
+                                    )
+                                "
+                                [value]="dt1.filters['stock']?.value"
+                                placeholder="Buscar por stock"
+                                class="p-column-filter"
+                            />
                         </th>
                         <th>
-                            <input pInputText type="text"
-                                   (input)="dt1.filter($event.target.value, 'fechaVenc', 'contains')"
-                                   [value]="dt1.filters['fechaVenc']?.value" placeholder="Buscar por fecha Venc."
-                                   class="p-column-filter">
+                            <input
+                                pInputText
+                                type="text"
+                                (input)="
+                                    dt1.filter(
+                                        $event.target.value,
+                                        'fechaVenc',
+                                        'contains'
+                                    )
+                                "
+                                [value]="dt1.filters['fechaVenc']?.value"
+                                placeholder="Buscar por fecha Venc."
+                                class="p-column-filter"
+                            />
                         </th>
                         <th>
-                            <input pInputText type="text" (input)="dt1.filter($event.target.value, 'lote', 'contains')"
-                                   [value]="dt1.filters['lote']?.value" placeholder="Buscar por lote"
-                                   class="p-column-filter">
+                            <input
+                                pInputText
+                                type="text"
+                                (input)="
+                                    dt1.filter(
+                                        $event.target.value,
+                                        'lote',
+                                        'contains'
+                                    )
+                                "
+                                [value]="dt1.filters['lote']?.value"
+                                placeholder="Buscar por lote"
+                                class="p-column-filter"
+                            />
                         </th>
-                        <th> ACCION</th>
+                        <th></th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-farmaciaMedicamento let-rowIndex="rowIndex">
+                <ng-template
+                    pTemplate="body"
+                    let-farmaciaMedicamento
+                    let-rowIndex="rowIndex"
+                >
                     <tr [pSelectableRow]="farmaciaMedicamento">
                         <td>
                             <span class="p-column-title">Nombre</span>
-                            {{farmaciaMedicamento.medicamento.nombre}}
+                            {{ farmaciaMedicamento.medicamento.nombre }}
                         </td>
                         <td>
                             <span class="p-column-title">Nombre</span>
-                            {{farmaciaMedicamento.medicamento.nombreComercial}}
+                            {{
+                                farmaciaMedicamento.medicamento.nombreComercial
+                            }}
                         </td>
                         <td>
                             <span class="p-column-title">Name</span>
-                            {{farmaciaMedicamento.medicamento.ff}}
+                            {{ farmaciaMedicamento.medicamento.ff }}
                         </td>
                         <td>
                             <span class="p-column-title">Name</span>
-                            {{farmaciaMedicamento.medicamento.concentracion}}
+                            {{ farmaciaMedicamento.medicamento.concentracion }}
                         </td>
                         <td>
                             <span class="p-column-title">Name</span>
-                            {{farmaciaMedicamento.medicamento.viaAdministracion}}
+                            {{
+                                farmaciaMedicamento.medicamento
+                                    .viaAdministracion
+                            }}
                         </td>
                         <td>
                             <span class="p-column-title">Name</span>
-                            {{farmaciaMedicamento.stock}}
+                            {{ farmaciaMedicamento.stock }}
                         </td>
                         <td>
                             <span class="p-column-title">Name</span>
-                            {{farmaciaMedicamento.fechaVenc | date: 'd-MM-yyyy'}}
+                            {{
+                                farmaciaMedicamento.fechaVenc
+                                    | date: "d-MM-yyyy"
+                            }}
                         </td>
                         <td>
                             <span class="p-column-title">Name</span>
-                            {{farmaciaMedicamento.lote}}
+                            {{ farmaciaMedicamento.lote }}
                         </td>
-                        <td>
-                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
-                                    pTooltip="Editar" (click)="editar(farmaciaMedicamento,rowIndex)">
-                            </button>
-                            <button pButton (click)="eliminar(farmaciaMedicamento,rowIndex)" pTooltip="Eliminar" pRipple
-                                    type="button"
-                                    icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
-                            </button>
+                        <td class="flex flex-row">
+                            <button
+                                pButton
+                                pRipple
+                                icon="pi pi-pencil"
+                                class="p-button-rounded p-button-primary m-1"
+                                pTooltip="Editar"
+                                (click)="editar(farmaciaMedicamento, rowIndex)"
+                            ></button>
+                            <button
+                                pButton
+                                (click)="
+                                    eliminar(farmaciaMedicamento, rowIndex)
+                                "
+                                pTooltip="Eliminar"
+                                pRipple
+                                type="button"
+                                icon="pi pi-trash"
+                                class="p-button-rounded p-button-danger m-1"
+                            ></button>
                         </td>
-
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="emptymessage">
@@ -161,95 +312,155 @@
         </div>
     </div>
 </div>
-    <p-dialog header="Ingresar Medicamentos a la Farmacia" [(visible)]="dialogFarmaciaAdd" [modal]="true"
-              [style]="{width: '50vw'}"
-              [draggable]="false" [resizable]="false">
-        <form [formGroup]='formDatos'>
-            <div class="grid m-2 p-fluid">
-                <div class="col-12 p-fluid">
-                    <label *ngIf="!estadoEditar">Seleccione un Medicamento:</label>
-                </div>
-                <div class="col-12 p-fluid">
-                    <p-autoComplete formControlName="medicamento"
-                                    *ngIf="!estadoEditar" [virtualScroll]="true"
-                                    [suggestions]="aux"
-                                    [minLength]="1"
-                                    (completeMethod)="filterItems($event)"
-                                    field="cadena" [dropdown]="true"
-                                    (onSelect)="selectedMedicamento($event)">
-                    </p-autoComplete>
-                </div>
+<p-dialog
+    header="Ingresar Medicamentos a la Farmacia"
+    [(visible)]="dialogFarmaciaAdd"
+    [modal]="true"
+    [style]="{ width: '50vw' }"
+    [draggable]="false"
+    [resizable]="false"
+>
+    <form [formGroup]="formDatos">
+        <div class="grid m-2 p-fluid">
+            <div class="col-12 p-fluid">
+                <label *ngIf="!estadoEditar">Seleccione un Medicamento:</label>
             </div>
-            <div class="grid">
-                <div class="col-6">
-                    <label class="">Codigo: </label>
-                    <input type="text" pInputText class="inputfield w-full " formControlName="codigo"
-                           style="text-transform:uppercase">
-                </div>
-                <div class="col-6">
-                    <label class="">Nombre Comercial: </label>
-                    <input type="text" pInputText class="inputfield w-full " formControlName="nombreComercial"
-                           style="text-transform:uppercase">
-                </div>
-                <div class="col-12">
-                    <label class="">Nombre del Medicamento: </label>
-                    <input type="text" pInputText class="inputfield w-full " formControlName="nombre"
-                           style="text-transform:uppercase">
-                </div>
-                <div class="col-6">
-                    <label class="">Forma farmaceútica: </label>
-                    <input type="text" pInputText class="inputfield w-full " formControlName="ff"
-                           style="text-transform:uppercase">
-                </div>
-                <div class="col-6">
-                    <label class="">Concentración: </label>
-                    <input type="text" pInputText class="inputfield w-full " formControlName="concentracion"
-                           style="text-transform:uppercase">
-                </div>
-                <div class="col-6">
-                    <label class="">Via Administración: </label>
-                    <input type="text" pInputText class="inputfield w-full " formControlName="viaAdministracion"
-                           style="text-transform:uppercase">
-                </div>
-                <div class="col-6">
-                    <label class="">Stock: </label>
-                    <input type="text" pInputText class="inputfield w-full " formControlName="stock"
-                           style="text-transform:uppercase">
-                </div>
-                <div class="col-6">
-                    <label class="">Fecha Vencimiento: </label><br>
-                    <p-calendar formControlName="fechaVenc" [showIcon]="true" inputId="icon"></p-calendar>
-                    <!--                <input type="text" pInputText class="inputfield w-full " formControlName="fechaVenc"-->
-                    <!--                       style="text-transform:uppercase">-->
-                </div>
-
-                <div class="col-6">
-                    <label class="">Lote: </label>
-                    <input type="text" pInputText class="inputfield w-full " formControlName="lote"
-                           style="text-transform:uppercase">
-                </div>
-
-            </div>
-
-        </form>
-
-        <ng-template pTemplate="footer">
-            <button pButton type="button"
-                    label="Guardar"
+            <div class="col-12 p-fluid">
+                <p-autoComplete
+                    formControlName="medicamento"
                     *ngIf="!estadoEditar"
-                    icon="pi pi-save"
-                    (click)="closeDialogGuardar()"
-                    class="botonGuardar"></button>
-            <button pButton type="button"
-                    *ngIf="estadoEditar"
-                    label="Editar"
-                    icon="pi pi-pencil"
-                    (click)="closeEditar()"
-                    class="botonGuardar"></button>
-            <button pButton type="button"
-                    label="Cancelar"
-                    icon="pi pi-times-circle"
-                    (click)="canceled()"
-                    class="botonCancelar"></button>
-        </ng-template>
-    </p-dialog>
+                    [virtualScroll]="true"
+                    [suggestions]="aux"
+                    [minLength]="1"
+                    (completeMethod)="filterItems($event)"
+                    field="cadena"
+                    [dropdown]="true"
+                    (onSelect)="selectedMedicamento($event)"
+                >
+                </p-autoComplete>
+            </div>
+        </div>
+        <div class="grid">
+            <div class="col-6">
+                <label class="">Codigo: </label>
+                <input
+                    type="text"
+                    pInputText
+                    class="inputfield w-full"
+                    formControlName="codigo"
+                    style="text-transform: uppercase"
+                />
+            </div>
+            <div class="col-6">
+                <label class="">Nombre Comercial: </label>
+                <input
+                    type="text"
+                    pInputText
+                    class="inputfield w-full"
+                    formControlName="nombreComercial"
+                    style="text-transform: uppercase"
+                />
+            </div>
+            <div class="col-12">
+                <label class="">Nombre del Medicamento: </label>
+                <input
+                    type="text"
+                    pInputText
+                    class="inputfield w-full"
+                    formControlName="nombre"
+                    style="text-transform: uppercase"
+                />
+            </div>
+            <div class="col-6">
+                <label class="">Forma farmaceútica: </label>
+                <input
+                    type="text"
+                    pInputText
+                    class="inputfield w-full"
+                    formControlName="ff"
+                    style="text-transform: uppercase"
+                />
+            </div>
+            <div class="col-6">
+                <label class="">Concentración: </label>
+                <input
+                    type="text"
+                    pInputText
+                    class="inputfield w-full"
+                    formControlName="concentracion"
+                    style="text-transform: uppercase"
+                />
+            </div>
+            <div class="col-6">
+                <label class="">Via Administración: </label>
+                <input
+                    type="text"
+                    pInputText
+                    class="inputfield w-full"
+                    formControlName="viaAdministracion"
+                    style="text-transform: uppercase"
+                />
+            </div>
+            <div class="col-6">
+                <label class="">Stock: </label>
+                <input
+                    type="text"
+                    pInputText
+                    class="inputfield w-full"
+                    formControlName="stock"
+                    style="text-transform: uppercase"
+                />
+            </div>
+            <div class="col-6">
+                <label class="">Fecha Vencimiento: </label><br />
+                <p-calendar
+                    formControlName="fechaVenc"
+                    [showIcon]="true"
+                    inputId="icon"
+                ></p-calendar>
+                <!--                <input type="text" pInputText class="inputfield w-full " formControlName="fechaVenc"-->
+                <!--                       style="text-transform:uppercase">-->
+            </div>
+
+            <div class="col-6">
+                <label class="">Lote: </label>
+                <input
+                    type="text"
+                    pInputText
+                    class="inputfield w-full"
+                    formControlName="lote"
+                    style="text-transform: uppercase"
+                />
+            </div>
+        </div>
+    </form>
+
+    <ng-template pTemplate="footer">
+        <button
+            pButton
+            type="button"
+            label="Guardar"
+            *ngIf="!estadoEditar"
+            icon="pi pi-save"
+            (click)="closeDialogGuardar()"
+            class="botonGuardar"
+        ></button>
+        <button
+            pButton
+            type="button"
+            *ngIf="estadoEditar"
+            label="Editar"
+            icon="pi pi-pencil"
+            (click)="closeEditar()"
+            class="botonGuardar"
+        ></button>
+        <button
+            pButton
+            type="button"
+            label="Cancelar"
+            icon="pi pi-times-circle"
+            (click)="canceled()"
+            class="botonCancelar"
+        ></button>
+    </ng-template>
+</p-dialog>

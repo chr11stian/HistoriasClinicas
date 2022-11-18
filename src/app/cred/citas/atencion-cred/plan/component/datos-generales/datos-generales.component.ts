@@ -178,9 +178,7 @@ export class DatosGeneralesComponent implements OnInit {
     }
     guardarDatosGenerales() {
         this.save();
-
-        this.onChangeIndice.emit(2); 
-
+        this.onChangeIndice.emit(2);
     }
 
     save() {
@@ -211,8 +209,8 @@ export class DatosGeneralesComponent implements OnInit {
             telefono: this.apoderadoInfoFG.value.telefonoMadre
         }
         let auxResponsable: responsable[] = []
-        auxResponsable.push(auxResponsableP)
         auxResponsable.push(auxResponsableM)
+        auxResponsable.push(auxResponsableP)
 
         let auxDataGeneral: DatosGenerales = {
             nroHistoriaClinica: this.respuestaDatosGenerales.nroHistoriaClinica,
@@ -256,7 +254,7 @@ export class DatosGeneralesComponent implements OnInit {
                     if (res.error) {
                         this.apoderadoInfoFG.get('nombrePadre').setValue('');
                     } else {
-                        let fullName: string = res.nombres + ' ' + res.apePaterno + ' ' + res.apeMaterno;
+                        let fullName: string =  res.apePaterno + '   ' + res.apeMaterno+' '+res.nombres;
                         this.apoderadoInfoFG.patchValue({
                             nombrePadre: fullName
                         });
@@ -270,7 +268,7 @@ export class DatosGeneralesComponent implements OnInit {
                     if (res.error) {
                         this.apoderadoInfoFG.get('nombreMadre').setValue('');
                     } else {
-                        let fullName: string = res.nombres + ' ' + res.apePaterno + ' ' + res.apeMaterno;
+                        let fullName: string = res.apePaterno + ' ' + res.apeMaterno +' '+res.nombres;
                         this.apoderadoInfoFG.patchValue({
                             nombreMadre: fullName
                         });

@@ -27,4 +27,12 @@ export class DatosBasalesService {
     getFactorDeCorreccion(idIpress: string) {
         return this.http.get(`${this.base_url}/${this.bd}/ajusteHemoglobina/buscar/${idIpress}`)
     }
+
+    postPromiseDatosBasalesById(idGestacion: string, data) {
+        return this.http.post(`${this.base_url}/${this.bd}/filiacion/guardarembarazo/${idGestacion}`, data)
+            .toPromise()
+            .then(res => <any>res)
+            .then(data => { return data; })
+            .catch(error => { return error.error });
+    }
 }

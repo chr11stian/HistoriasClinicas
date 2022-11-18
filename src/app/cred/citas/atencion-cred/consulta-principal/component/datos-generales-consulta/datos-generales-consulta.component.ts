@@ -379,6 +379,8 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
         nroDoc: this.data.nroDocumento,
       })
       .subscribe((r: any) => {
+        // console.log('respuesta',r);
+        
         let nombre =
           r.object.primerNombre +
           " " +

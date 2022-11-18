@@ -569,7 +569,7 @@ const visitas = {
     icon: "pi pi-home",
     items: [
         {
-            label: "Niños",
+            label: "Niño(a)s",
             icon: "pi pi-user",
             routerLink: "visitas-domiciliarias/profesional-ninios",
         },
@@ -580,11 +580,11 @@ const visitas = {
         },
         {
             label: "Puerperas",
-            icon: "pi pi-users",
+            icon: "pi pi-user-plus",
             routerLink: "visitas-domiciliarias/profesional-puerperas",
         },
         {
-            label: "PN-Gestantes",
+            label: "PN Gestantes",
             icon: "pi pi-book",
             routerLink: "padron-nominal-gestante/mantenimiento",
         },
@@ -629,6 +629,16 @@ const root = {
             icon: "pi pi-tablet",
             label: "Prestacion",
             routerLink: "mantenimientos/prestacion",
+        },
+        {
+            icon: "pi pi-file",
+            label: "Medicamentos",
+            routerLink: "mantenimientos/medicamentos",
+        },
+        {
+            icon: "pi pi-file",
+            label: "Laboratorio",
+            routerLink: "mantenimientos/laboratorio",
         },
     ],
 };

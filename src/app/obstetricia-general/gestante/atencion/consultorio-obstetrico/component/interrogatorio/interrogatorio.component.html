@@ -1,10 +1,10 @@
 <div class="p-card">
-    <p-toolbar styleClass="p-mb-4">
+    <!-- <p-toolbar styleClass="p-mb-4">
         <ng-template pTemplate="left">
             <h3 class="mt-2">INTERROGATORIO</h3>
         </ng-template>
         <ng-template pTemplate="right" class="button"> </ng-template>
-    </p-toolbar>
+    </p-toolbar> -->
     <form [formGroup]="form">
         <div class="grid mt-3">
             <div class="col-6">
@@ -383,6 +383,7 @@
                                 autoResize="autoResize"
                                 formControlName="motivoConsulta"
                                 pInputTextarea
+                                oninput="this.value=this.value.toUpperCase()"
                             ></textarea>
                         </div>
                     </div>
@@ -1028,7 +1029,7 @@
             </div>
         </div>
     </form>
-    <div class="col-12 flex flex-row-reverse">
+    <!-- <div class="col-12 flex flex-row-reverse">
         <button
             pButton
             pRipple
@@ -1038,7 +1039,7 @@
             (click)="guardarDatos()"
             *ngIf="!consultationFinished"
         ></button>
-    </div>
+    </div> -->
 </div>
 <!-- Dialog de examenes  fetales -->
 <p-dialog

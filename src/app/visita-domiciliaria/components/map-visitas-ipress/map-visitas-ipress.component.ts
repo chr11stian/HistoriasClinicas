@@ -21,6 +21,10 @@ export class MapVisitasIpressComponent implements OnInit,OnChanges {
   lngMap = this.visitaService.getLongitudeIpress();
   private centroid: L.LatLngExpression = [this.latMap, this.lngMap];
   maps: any;
+  gestantes:any=[];
+  puerperas:any=[];
+  niniosMenores:any=[];
+  niniosMayores:any=[];
   constructor(private visitaService: VisitaDomiciliariaService) {}
 
   ngOnInit(): void {
@@ -30,8 +34,6 @@ export class MapVisitasIpressComponent implements OnInit,OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
-    //Add '${implements OnChanges}' to the class.
     if (changes.profesionalesIpress['rows'].currentValue != changes.profesionalesIpress['rows'].previousValue) {
       this.maps.remove();
       this.initMap();
@@ -92,7 +94,7 @@ export class MapVisitasIpressComponent implements OnInit,OnChanges {
                 .urlImagen(a.value.validator.imagen)
                 .subscribe((res: any) => {
                   auxImg = res["object"];
-                  console.log("Aux Ims",auxImg)
+                  // console.log("Aux Ims",auxImg)
                 });
                 setTimeout(() => {
                   let aux_ = "data:image/jpg;base64," + auxImg;
@@ -130,7 +132,7 @@ export class MapVisitasIpressComponent implements OnInit,OnChanges {
               .urlImagen(a.value.validator.imagen)
               .subscribe((res: any) => {
                 auxImg = res["object"];
-                console.log("Aux Ims",auxImg)
+                // console.log("Aux Ims",auxImg)
               });
               setTimeout(() => {
                 let aux_ = "data:image/jpg;base64," + auxImg;
@@ -168,7 +170,7 @@ export class MapVisitasIpressComponent implements OnInit,OnChanges {
               .urlImagen(a.value.validator.imagen)
               .subscribe((res: any) => {
                 auxImg = res["object"];
-                console.log("Aux Ims",auxImg)
+                // console.log("Aux Ims",auxImg)
               });
               setTimeout(() => {
                 let aux_ = "data:image/jpg;base64," + auxImg;
@@ -206,7 +208,7 @@ export class MapVisitasIpressComponent implements OnInit,OnChanges {
               .urlImagen(a.value.validator.imagen)
               .subscribe((res: any) => {
                 auxImg = res["object"];
-                console.log("Aux Ims",auxImg)
+                // console.log("Aux Ims",auxImg)
               });
               setTimeout(() => {
                 let aux_ = "data:image/jpg;base64," + auxImg;

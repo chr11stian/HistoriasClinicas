@@ -20,16 +20,10 @@ export class MapVisitasComponent implements OnInit, OnChanges {
   @Input("dataVisitas") dataVisitas: any[];
   latMap = this.visitaService.getLatitudIpress();
   lngMap = this.visitaService.getLongitudeIpress();
-  imagesUrl: any = [
-    "https://res.cloudinary.com/dhcetqc1j/image/upload/v1663796368/visita-domiciliaria_yn5eyj.jpg",
-    "https://res.cloudinary.com/dhcetqc1j/image/upload/v1663796368/visita-domiciliaria_yn5eyj.jpg",
-    "https://res.cloudinary.com/dhcetqc1j/image/upload/v1663796368/visita-domiciliaria_yn5eyj.jpg",
-  ];
+
   private centroid: L.LatLngExpression = [this.latMap, this.lngMap];
   maps: any;
   imagePath: string = "";
-  photoSelected: string | ArrayBuffer =
-    "https://res.cloudinary.com/dhcetqc1j/image/upload/v1654050519/7dc4c2e40b17a259f2177131b34439fe957eae2f_00_dxyvnm.gif";
   constructor(private visitaService: VisitaDomiciliariaService) {}
 
   ngOnInit(): void {
@@ -39,16 +33,9 @@ export class MapVisitasComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
-    //Add '${implements OnChanges}' to the class.
     if (changes.dataVisitas.currentValue != changes.dataVisitas.previousValue) {
       this.maps.remove();
       this.initMap();
-    }
-  }
-
-  onPhotoSelected(event: HtmlInputEvent): void {
-    if (event.target.files && event.target.files[0]) {
     }
   }
 

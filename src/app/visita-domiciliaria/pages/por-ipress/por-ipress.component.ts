@@ -99,7 +99,7 @@ export class PorIpressComponent implements OnInit {
             this.profesionalesIpress.push(this.profesional);
           }
         });
-        // console.log("data profesional", this.profesionalesIpress);
+        console.log("data profesional", this.profesionalesIpress);
       });
   }
 
@@ -162,7 +162,8 @@ export class PorIpressComponent implements OnInit {
   }
 
   async verVisitasPorAnio(event){
-    let ipress =this.servicioVisitas.getEscalaCodIpress();
+    // let ipress =this.servicioVisitas.getEscalaCodIpress();
+    let ipress="00002303";
     this.servicioVisitas.couch = true;
     this.selectedAnio = event.value;
     this.dniProfesionalIpress=[];
@@ -232,7 +233,8 @@ export class PorIpressComponent implements OnInit {
   }
 
   async verVisitasPorMes(event){
-    let ipress =this.servicioVisitas.getEscalaCodIpress();
+    // let ipress =this.servicioVisitas.getEscalaCodIpress();
+       let ipress="00002303";
     if (this.selectedAnio != "") {
       this.servicioVisitas.couch = true;
       this.selectedMes = event.value;
