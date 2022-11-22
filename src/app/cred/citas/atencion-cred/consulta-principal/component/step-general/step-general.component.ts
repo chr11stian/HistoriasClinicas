@@ -17,6 +17,7 @@ import { DatePipe } from "@angular/common";
 import Swal from "sweetalert2";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
 import { InteconsultaObstetriciaModalComponent } from "src/app/obstetricia-general/gestante/atencion/consultorio-obstetrico/component/inteconsulta-obstetricia-modal/inteconsulta-obstetricia-modal.component";
+import { UpdateObjectType } from '../../../../../../BD/models/selector.interface';
 
 @Component({
     selector: "app-step-general",
@@ -68,6 +69,7 @@ export class StepGeneralComponent implements OnInit, DoCheck {
     tooltipItems: MenuItem[];
     idConsulta: "";
     estadoAtencion:number=1
+    documento
     constructor(
         private acuerdosService: FinalizarConsultaService,
         private consultaGeneralService: ConsultaGeneralService,
@@ -77,6 +79,8 @@ export class StepGeneralComponent implements OnInit, DoCheck {
     ) {
         this.idConsulta = JSON.parse(localStorage.getItem("documento")).idConsulta;
         this.estadoAtencion=JSON.parse(localStorage.getItem("documento")).estadoAtencion
+        this.nroDoc=JSON.parse(localStorage.getItem("documento")).nroDocumento
+        this.documento=JSON.parse(localStorage.getItem("documento"))
         this.options = [
             { name: "DNI", code: 1 },
             { name: "CARNET RN", code: 2 },
@@ -120,6 +124,21 @@ export class StepGeneralComponent implements OnInit, DoCheck {
     ngDoCheck() {
         this.saveStep();
     }
+    isPrematuro:boolean
+    datosGenerales
+    getPrematuro(){
+        this.consultaGeneralService.getEsPrematuro(this.nroDoc).subscribe((resp:any)=>{
+            this.isPrematuro=resp.object.respuesta
+        })
+        this.consultaGeneralService.datosGenerales({tipoDoc: this.documento.tipoDoc,nroDoc: this.documento.nroDocumento,}).subscribe((resp:any)=>{
+            this.datosGenerales=resp.object
+            // console.log(this.datosGenerales);
+
+            
+        })
+        
+        
+    }
 
     ngOnInit() {
         this.fecha = new Date();
@@ -137,6 +156,8 @@ export class StepGeneralComponent implements OnInit, DoCheck {
         ];
         this.getQueryParams();
         this.agenda();
+        this.getPrematuro()
+        
     }
 
     getQueryParams() {

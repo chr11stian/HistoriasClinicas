@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, PipeTransform } from '@angular/core';
 import Swal from "sweetalert2";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {TratamientoConsultaService} from "../../../../services/tratamiento-consulta.service";
@@ -9,6 +9,9 @@ import {MedicamentosService} from "../../../../../../../../mantenimientos/servic
 import {DiagnosticoConsultaService} from "../../../../services/diagnostico-consulta.service";
 import { PrestacionService } from 'src/app/mantenimientos/services/prestacion/prestacion.service';
 import { environment } from 'src/environments/environment';
+import { DatePipe } from '@angular/common';
+import { Validator } from '../../../../../../../../visita-domiciliaria/interfaces/visita_profesional_gestantes';
+import { LoginComponent } from '../../../../../../../../login/login.component';
 
 @Component({
   selector: 'app-tratamiento-cred',
@@ -17,7 +20,7 @@ import { environment } from 'src/environments/environment';
 })
 export class TratamientoCredComponent implements OnInit {
 
-
+  datePipe = new DatePipe('en-US');
   tratamientos: tratamiento[] = [];
   dialogTratamiento:boolean=false;
   formTratamiento:FormGroup;
@@ -98,36 +101,37 @@ export class TratamientoCredComponent implements OnInit {
       codPrestacion:new FormControl({value:'',disabled:true}),
       prestacion:new FormControl({value:'',disabled:true}),
       medicamento: new FormControl(''),
-      id: new FormControl(''),
       codigoCIE: new FormControl({value:'',disabled:false}),
+      id: new FormControl({value:'',disable:false}),
 
+      stock:new FormControl({value:'',disabled:true}),
       codigo: new FormControl({value:'',disabled:true}),
       nombre: new FormControl({value:'',disabled:true}),
       ff: new FormControl({value:'',disabled:true}), /* presentacion */
-      concentracion: new FormControl({value:'',disabled:true}),
-      viaAdministracion: new FormControl({value:'',disabled:true}),
-      fechaVenc: new FormControl({value:'',disabled:true}),
-      nombreComercial: new FormControl({value:'',disabled:true}),
-      
-      stock:new FormControl({value:'',disabled:true}),
+      concentracion: new FormControl({value:'',disabled:true},Validators.required),
+      viaAdministracion: new FormControl({value:'',disabled:true},Validators.required),
+      fechaVenc: new FormControl({value:'',disabled:true},Validators.required),
+      nombreComercial: new FormControl({value:'',disabled:true},Validators.required),
+
       cantidad:new FormControl({value:'',disabled:false}),
       dosis:new FormControl({value:'',disabled:false}),
       intervalo:new FormControl({value:'',disabled:false}),
       duracion:new FormControl({value:'',disabled:false}),
-      observaciones:new FormControl({value:'',disabled:false}),
+      
       efectosMedicamento:new FormControl({value:'',disabled:false}),
       instrucciones:new FormControl({value:'',disabled:false}),
       advertencias:new FormControl({value:'',disabled:false}),
       otrasIndicaciones:new FormControl({value:'',disabled:false}),
+      observaciones:new FormControl({value:'',disabled:false}),
+      
       cie10SIS:new FormControl({value:'',disabled:false}),
-
     }),
     this.formIndicaciones = this.formBuilder.group({
-      observaciones:new FormControl({value:'',disabled:true}),
       efectosMedicamento:new FormControl({value:'',disabled:true}),
       instrucciones:new FormControl({value:'',disabled:true}),
       advertencias:new FormControl({value:'',disabled:true}),
       otrasIndicaciones:new FormControl({value:'',disabled:true}),
+      observaciones:new FormControl({value:'',disabled:true}),
 
 
     })
@@ -147,7 +151,7 @@ export class TratamientoCredComponent implements OnInit {
 
 
   listarMedicamentosFarmacia(){
-    // console.log("entrando a recuperar medicamentos de la farmacia");
+    // console.log("entrando 0a recuperar medicamentos de la farmacia");
     this.farmaciaService.getListaMedicamentosFarmaciaXIpress(this.renipress).subscribe((data:any)=>{
       if(data!=undefined){
         // console.log(data.object);
@@ -199,7 +203,7 @@ export class TratamientoCredComponent implements OnInit {
   private filterItems(event: any) {
     let filtered : any[] = [];
     let query = event.query;
-    console.log(this.medicamentosConDatos);
+    // console.log(this.medicamentosConDatos);
     this.aux = this.medicamentosConDatos;
     for(let i = 0; i < this.aux.length; i++) {
       let item = this.aux[i];
@@ -232,7 +236,7 @@ export class TratamientoCredComponent implements OnInit {
     this.formTratamiento.patchValue({nombreComercial:event.medicamento.nombreComercial});
     let date: Date = new Date(event.fechaVenc);
     date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
-    console.log(date)
+    // console.log(date)
     this.formTratamiento.patchValue({fechaVenc:date});
     this.formTratamiento.patchValue({lote:event.lote});
     this.formTratamiento.patchValue({stock:event.stock});
@@ -240,14 +244,10 @@ export class TratamientoCredComponent implements OnInit {
   }
 
   listarTratamientos(){
-    this.tratamientoService.getTratamiento(this.data.idConsulta).subscribe((data:any)=>{
-      if(data!=undefined || data!=null){
+    this.tratamientoService.getTratamiento(this.data.idConsulta).subscribe((resp:any)=>{
+      if(resp.object!=null){
         this.hayDatos=true;
-        // console.log(data.object);
-        this.tratamientos=(data.object);
-      }
-      else{
-        this.tratamientos=[];
+        this.tratamientos=resp.object
       }
     })
   }
@@ -268,23 +268,23 @@ export class TratamientoCredComponent implements OnInit {
   }
 
   closeDialogGuardar() {
-     let cadena = {
+     const inputRequest = {
        medicamento:{
-         id:this.formTratamiento.value.id,
-         codigo:this.formTratamiento.value.codigo,
-         nombre:this.formTratamiento.value.nombre,
-         ff:this.formTratamiento.value.ff,
-         concentracion:this.formTratamiento.value.concentracion,
-         viaAdministracion:this.formTratamiento.value.viaAdministracion,
-         nombreComercial:this.formTratamiento.value.nombreComercial
+         id:this.formTratamiento.get("id").value,
+         codigo:this.formTratamiento.get("codigo").value,
+         nombre:this.formTratamiento.get("nombre").value,
+         ff:this.formTratamiento.get("ff").value,
+         concentracion:this.formTratamiento.get("concentracion").value,
+         viaAdministracion:this.formTratamiento.get("viaAdministracion").value,
+         nombreComercial:this.formTratamiento.get("nombreComercial").value
        },
-       codPrestacion:this.formTratamiento.value.codPrestacion,
+       codPrestacion:this.formTratamiento.get("codPrestacion").value,
        cie10SIS: this.formTratamiento.value.cie10SIS.cie10SIS,
        cantidad:this.formTratamiento.value.cantidad,
        dosis:this.formTratamiento.value.dosis,
        intervalo:this.formTratamiento.value.intervalo,
        duracion:this.formTratamiento.value.duracion,
-       fechaVenc: this.formTratamiento.value.fechaVenc,
+       fechaVenc: this.datePipe.transform(this.formTratamiento.get('fechaVenc').value,'yyyy-MM-dd'),
        observaciones:this.formTratamiento.value.observaciones,
        indicaciones:{
          efectosMedicamento:this.formTratamiento.value.efectosMedicamento,
@@ -293,13 +293,12 @@ export class TratamientoCredComponent implements OnInit {
          otrasIndicaciones:this.formTratamiento.value.otrasIndicaciones,
        }
      }
-    //  console.log(this.tratamientos);
-     var duplicado:boolean=this.tratamientos.some(element=>element.medicamento.id===cadena.medicamento.id)
+     var duplicado:boolean=this.tratamientos.some(element=>element.medicamento.id===inputRequest.medicamento.id)
     // var duplicado:boolean=this.tratamientos.includes(cadena)
      console.log(duplicado);
-     console.log("cadena" , cadena)
+     console.log("cadena" , inputRequest)
       if(!duplicado){
-        this.tratamientos.push(cadena)
+        this.tratamientos.push(inputRequest)
         if(!this.hayDatos){
           this.tratamientoService.addTratamiento(this.data.idConsulta,this.tratamientos).subscribe((data:any)=>{
             Swal.fire({
@@ -345,21 +344,23 @@ export class TratamientoCredComponent implements OnInit {
 
   closeEditar() {
     console.log(this.tratamientoEditar);
-    let cadena = {
+    let inputRequest = {
       medicamento:{
-        id:this.tratamientoEditar.medicamento.id,
-        codigo:this.formTratamiento.value.codigo,
-        nombre:this.formTratamiento.value.nombre,
-        ff:this.formTratamiento.value.ff,
-        concentracion:this.formTratamiento.value.concentracion,
-        viaAdministracion:this.formTratamiento.value.viaAdministracion,
-        nombreComercial:this.formTratamiento.value.nombreComercial,
+        id:this.formTratamiento.get('id').value,
+        codigo:this.formTratamiento.get('codigo').value,
+        nombre:this.formTratamiento.get('nombre').value,
+        ff:this.formTratamiento.get('ff').value,
+        concentracion:this.formTratamiento.get('concentracion').value,
+        viaAdministracion:this.formTratamiento.get('viaAdministracion').value,
+        nombreComercial:this.formTratamiento.get('nombreComercial').value,
       },
+      codPrestacion: this.formTratamiento.get("codPrestacion").value,
+      cie10SIS: this.formTratamiento.value.codigoCIE,
       cantidad:this.formTratamiento.value.cantidad,
       dosis:this.formTratamiento.value.dosis,
       intervalo:this.formTratamiento.value.intervalo,
       duracion:this.formTratamiento.value.duracion,
-      fechaVenc: this.formTratamiento.value.fechaVenc,
+      fechaVenc: this.datePipe.transform(this.formTratamiento.get('fechaVenc').value,'yyyy-MM-dd'),
       observaciones:this.formTratamiento.value.observaciones,
       indicaciones:{
         efectosMedicamento:this.formTratamiento.value.efectosMedicamento,
@@ -367,14 +368,14 @@ export class TratamientoCredComponent implements OnInit {
         advertencias:this.formTratamiento.value.advertencias,
         otrasIndicaciones:this.formTratamiento.value.otrasIndicaciones,
       },
-      cie10SIS: this.formTratamiento.value.codigoCIE,
-      codPrestacion: this.formTratamiento.value.codPrestacion
     }
     var AuxItem = this.tratamientos.filter(element=>element!=this.tratamientoEditar);
     // console.log(AuxItem);
     this.tratamientos=AuxItem;
     // console.log("cadena" , cadena)
-    this.tratamientos.push(cadena);
+    this.tratamientos.push(inputRequest);
+    console.log('');
+    
     this.tratamientoService.updateTratamiento(this.data.idConsulta,this.tratamientos).subscribe((data:any)=>{
       Swal.fire({
         icon: 'success',
@@ -390,13 +391,14 @@ export class TratamientoCredComponent implements OnInit {
     })
     this.dialogTratamiento=false;
   }
-
+  codMedicamento:string=''
   editarTratamiento(rowData: any, rowIndex: any) {
     this.formTratamiento.reset();
     // console.log(rowData);
     this.estadoEditar=true;
     this.buildForm();
     this.dialogTratamiento=true;
+    this.formTratamiento.get("id").setValue(rowData.medicamento.id);
     this.formTratamiento.get("nombre").setValue(rowData.medicamento.nombre);
     this.formTratamiento.get("nombreComercial").setValue(rowData.medicamento.nombreComercial);
     this.formTratamiento.get("codigo").setValue(rowData.medicamento.codigo);

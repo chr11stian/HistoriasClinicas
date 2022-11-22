@@ -89,7 +89,7 @@ export class VisitasDomiciliariasPuerperaComponent implements OnInit {
       .then((data: any) => {
         this.dataVisitas = data["rows"];
         this.dataVisitas.map((aux) => {
-          if (aux.value.hasOwnProperty("puerpera")){this.dataVisitaPuerpera.push(aux.value)};
+          this.dataVisitaPuerpera.push(aux.value);
         });
       });
   }
@@ -108,6 +108,7 @@ export class VisitasDomiciliariasPuerperaComponent implements OnInit {
   }
 
   async verVisitasPorAnio(event) {
+    this.dataVisitaPuerpera=[];
     let idIpress = this.servicioVisitas.getIdIpress();
     let dni = `vp${this.servicioVisitas.getIdPersonal()}`;
     this.servicioVisitas.couch = true;
@@ -118,7 +119,7 @@ export class VisitasDomiciliariasPuerperaComponent implements OnInit {
         if (data["rows"].length > 0) {
           this.dataVisitas = data["rows"];
           this.dataVisitas.map((aux) => {
-            if (aux.value.hasOwnProperty("puerpera")){this.dataVisitaPuerpera.push(aux.value)};
+            this.dataVisitaPuerpera.push(aux.value);
           });
           console.log("gestantes", this.dataVisitas);
           console.log("Busqueda por fecha", this.dataVisitas);
@@ -141,6 +142,7 @@ export class VisitasDomiciliariasPuerperaComponent implements OnInit {
   }
 
   async verVisitasPorMes(event) {
+    this.dataVisitaPuerpera=[];
     let idIpress = this.servicioVisitas.getIdIpress();
     let dni = `vp${this.servicioVisitas.getIdPersonal()}`;
     if (this.selectedAnio != "") {
@@ -152,8 +154,8 @@ export class VisitasDomiciliariasPuerperaComponent implements OnInit {
         .then((data: any) => {
           if (data["rows"].length > 0) {
             this.dataVisitas = data["rows"];
-             this.dataVisitas.map((aux) => {
-              if (aux.value.hasOwnProperty("puerpera")){this.dataVisitaPuerpera.push(aux.value)};
+            this.dataVisitas.map((aux) => {
+            this.dataVisitaPuerpera.push(aux.value);
             });
             console.log("busqueda por mes", this.dataVisitas);
             this.messageService.add({

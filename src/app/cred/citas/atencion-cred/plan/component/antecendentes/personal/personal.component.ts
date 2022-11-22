@@ -210,6 +210,7 @@ export class PersonalComponent implements OnInit {
                 this.onAntecedentesPersonales.emit(true)
                 this.isUpdateAntecedentePersonal=true
                 this.personalFG.get('normalE').setValue(this.antecedentes.embarazo.tipoEmbarazo)
+                this.personalFG.get('complicadoE').setValue(!this.antecedentes.embarazo.tipoEmbarazo)
                 this.patologias = this.antecedentes.embarazo.listaPatologiasGestacion
                 this.personalFG.get('nroE1').setValue(this.antecedentes.embarazo.nroEmbarazo)
                 this.personalFG.get('atencionPrenaE').setValue(this.antecedentes.embarazo.atencionPrenatal)
@@ -217,6 +218,8 @@ export class PersonalComponent implements OnInit {
                 this.personalFG.get('lugarApn').setValue(this.antecedentes.embarazo.lugarAPN)
 
                 this.personalFG.get('complicadoP').setValue(this.antecedentes.parto.tipoParto)
+                this.personalFG.get('partoE').setValue(!this.antecedentes.parto.tipoParto)
+
                 this.personalFG.get('patologiasP').setValue(this.antecedentes.parto.complicacionesDelParto)
                 if (this.antecedentes.parto.lugarParto == 1)
                     this.personalFG.get('eessP').setValue(true)

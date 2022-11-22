@@ -88,4 +88,10 @@ export class ConsultaGeneralService {
             `${this.urlServer}/${this.bd}/consultageneral/list/interconsulta/${id}`
         );
     }
+    getEsPrematuro(nroDoc){
+        return this.http.get(
+            `${this.urlServer}/${this.bd}/cred/consulta/verificar/prematuro/${nroDoc}`
+        );
+
+    }
 }

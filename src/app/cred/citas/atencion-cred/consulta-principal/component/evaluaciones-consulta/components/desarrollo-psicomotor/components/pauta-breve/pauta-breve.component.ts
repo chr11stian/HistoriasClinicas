@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { EvalAlimenService } from 'src/app/cred/citas/atencion-cred/plan/component/evaluacion-general/service/eval-alimen.service';
 import Swal from 'sweetalert2';
 import { PautaBreveService } from '../../services/pauta-breve.service';
@@ -14,6 +14,7 @@ import { DesarrolloPsicomotorService } from '../../services/desarrollo-psicomoto
   styleUrls: ['./pauta-breve.component.css']
 })
 export class PautaBreveComponent implements OnInit {
+  @Output() onSave:EventEmitter<number>=new EventEmitter<number>();
   items: {}[];
   indexSelected: number = 0;
   edadNroSelected: number = 1;
@@ -83,6 +84,7 @@ export class PautaBreveComponent implements OnInit {
     this.analyzePautaBreve(this.arrayEdadPautaBreveSelected);
     this.pautaBreveService.postAgregarPB(this.idConsulta, this.dataPB).subscribe((res: any) => {
       if (res.cod == "2121") {
+        this.onSave.emit(3);
         Swal.fire({
           icon: 'success',
           title: 'Se Guardo la Pauta Breve Correctamente',

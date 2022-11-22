@@ -1,10 +1,10 @@
 <p-toolbar>
     <ng-template pTemplate="left">
-        <label>TAMIZAJES NIÑO(A)</label>
+        <label>TAMIZAJES NIÑO(A) 1111}</label>
     </ng-template>
     <ng-template  pTemplate="right" class="button">
-        <button class="button-agregar" icon="pi pi-save" pButton type="button" label="Guardar" [disabled]="estadoAgregar==false" (click)="addTamizaje()"></button>
-        <button class="button-agregar" icon="pi pi-save" pButton type="button" label="Editar" [disabled]="estadoEditar==false" (click)="updateTamizaje()"></button>
+        <button *ngIf="estadoAgregar" class="button-agregar" icon="pi pi-save" pButton type="button" label="Guardar"  (click)="addTamizaje()"></button>
+        <button *ngIf="!estadoAgregar" class="button-agregar" icon="pi pi-save" pButton type="button" label="Editar"  (click)="updateTamizaje()"></button>
     </ng-template>
 </p-toolbar>
 <br>
