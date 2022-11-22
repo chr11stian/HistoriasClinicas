@@ -99,6 +99,7 @@ export class AtenionComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForm();
+    this.referido = "CITA";
   }
   buildForm() {
     this.formAtencion = this.form.group({
@@ -207,18 +208,6 @@ export class AtenionComponent implements OnInit {
       this.traslado = data.conceptoPrestacional.traslado == 'TRASLADO' ? true : false;
       this.sepelio = data.conceptoPrestacional.sepelio;
     }
-    /**del destino del asegurado/usuario */
-    // console.log('destino asegurado ', data.destinoDelAsegurado)
-    // if (data.destinoDelAsegurado != null) {
-    //   this.alta = data.destinoDelAsegurado.alta == 'ALTA' ? true : false;
-    //   this.cita = data.destinoDelAsegurado.cita == 'CITA' ? true : false;
-    //   this.hospitalizacion = data.destinoDelAsegurado.hospitalizacion == 'HOSPITALIZACION' ? true : false;
-    //   this.referido = data.destinoDelAsegurado.referido
-    //   this.contraReferido = data.destinoDelAsegurado.contraReferido == 'CONTRARREFERIDO' ? true : false;
-    //   this.fallecido = data.destinoDelAsegurado.fallecido == 'FALLECIDO' ? true : false;
-    //   this.corteAdministrado = data.destinoDelAsegurado.corteAdministrado == 'CORTE ADMINISTRATIVO' ? true : false;
-    // }
-    /**se refiere/contrarefiere */
     if (data.refiereContrarefiere != null) {
       this.formReferencia.patchValue({ codRenaes: data.refiereContrarefiere.codigoRenaesIpress });
       this.formReferencia.patchValue({ nombreIpress: data.refiereContrarefiere.nombreIpress });
@@ -430,4 +419,8 @@ export class AtenionComponent implements OnInit {
 
     });
   }
+  testNgModel() {
+    console.log('ngmoel referencia ', this.referido);
+  }
+
 }
