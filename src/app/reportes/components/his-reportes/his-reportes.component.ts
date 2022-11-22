@@ -1,15 +1,11 @@
+import { his, hisObject } from "../../interface/his.interface";
 import { environment } from "./../../../../environments/environment";
-import { upsAux } from "./../../../mantenimientos/component/ups-aux-ipress/ups-aux-ipress.component";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { ReportesHisServicesService } from "../../services/reportes-his-services.service";
 import { DatePipe } from "@angular/common";
 import { MessageService } from "primeng/api";
-import {
-    DialogService,
-    DynamicDialogConfig,
-    DynamicDialogRef,
-} from "primeng/dynamicdialog";
+import { DialogService, DynamicDialogConfig } from "primeng/dynamicdialog";
 import { UpsAuxIpressService } from "../../../mantenimientos/services/ups-aux-ipress/ups-aux-ipress.service";
 import { HISService } from "../../../his/services/services.service";
 
@@ -32,10 +28,11 @@ export class HisReportesComponent implements OnInit {
     diagnosticos: any;
     token: string = "";
     linkHis: string = "";
-    un = "https://angular.io/api/router/RouterLink";
+    //--HIS
+    listHIS: his[] = [];
     constructor(
         private fb: FormBuilder,
-        private HisServiceReporte: ReportesHisServicesService,
+        private reportesHisServicesService: ReportesHisServicesService,
         private messageService: MessageService,
         private UpsAuxService: UpsAuxIpressService,
         private HisServices: HISService
@@ -126,20 +123,19 @@ export class HisReportesComponent implements OnInit {
                 "yyyy-MM-dd"
             ),
         };
-        await this.HisServiceReporte.getListHisForUpsAuxFecha(
-            fecha,
-            upsAux
-        ).subscribe((result) => {
-            this.dataHIS = result;
-            console.log(result);
-            console.log("LISTA DE CUPO DEL PACIENTE", result);
-            if (this.dataHIS == undefined || this.dataHIS.object == null) {
-                this.showInfo();
-            } else {
-                this.showSucces();
-                this.dataReporteHis = this.dataHIS.object;
-            }
-        });
+        await this.reportesHisServicesService
+            .getListHisForUpsAuxFecha(fecha, upsAux)
+            .subscribe((result) => {
+                this.dataHIS = result;
+                console.log(result);
+                console.log("LISTA DE CUPO DEL PACIENTE", result);
+                if (this.dataHIS == undefined || this.dataHIS.object == null) {
+                    this.showInfo();
+                } else {
+                    this.showSucces();
+                    this.dataReporteHis = this.dataHIS.object;
+                }
+            });
     }
 
     verHis(rowData: any) {
@@ -233,38 +229,35 @@ export class HisReportesComponent implements OnInit {
             "yyyyMMdd"
         );
         let ups = this.formHIS.value.upsAux;
-        this.HisServiceReporte.reportHIS(fecha, ups, this.token).subscribe(
-            (r: any) => {
+        this.reportesHisServicesService
+            .reportHIS(fecha, ups, this.token)
+            .subscribe((r: any) => {
                 console.log(r);
-            }
-        );
+            });
     }
 
     alert() {
         let fecha = this.formHIS.value.fechaBusqueda;
         let ups = this.formHIS.value.upsAux;
         //if (fecha == "" || ups == "") console.log("vacio");
-        this.HisServiceReporte.download(this.linkHis).subscribe((blob) => {
-            console.log("blob", blob);
-            const a = document.createElement("a");
-            const objectUrl = URL.createObjectURL(blob);
-            a.href = objectUrl;
-            a.download = "archive.zip";
-            a.click();
-            URL.revokeObjectURL(objectUrl);
-        });
+        this.reportesHisServicesService
+            .download(this.linkHis)
+            .subscribe((blob) => {
+                console.log("blob", blob);
+                const a = document.createElement("a");
+                const objectUrl = URL.createObjectURL(blob);
+                a.href = objectUrl;
+                a.download = "archive.zip";
+                a.click();
+                URL.revokeObjectURL(objectUrl);
+            });
     }
-
-    linkHIS() {
-        let fecha = this.datePipe.transform(
-            this.formHIS.value.fechaBusqueda,
-            "yyyyMMdd"
-        );
-        let ups = this.formHIS.value.upsAux;
+    link(data) {
+        /* let fecha = this.datePipe.transform(data.fechaRegistro, "yyyyMMdd");
+        let ups = data.upsAux;
         let urlJasper =
             environment.base_urlTx +
             "/jasperserver/rest_v2/reports/Reports/HIS/anexo1.pdf?";
-        //fecha=20220914&upsAux=ATENCION INTEGRAL DEL NINO&token=Bearer eyJhbGciOiJIUzUxMiJ9.eyJhcHAiOiJoY2UiLCJyb2xlIjoiUk9MRV9JUFJFU1NfUEVSU09OQUwiLCJkYXRhIjp7InJlbmlwcmVzcyI6IjAwMDI5NTE0IiwiaWRJcHJlc3MiOiI2MjcxMjYzYzY3N2E2NWY0ZWEzMTU2NGEiLCJucm9Eb2MiOiIzMTE5MDUyMyIsInRpcG9Eb2MiOiJETkkifSwic3ViIjoiMzExOTA1MjMiLCJpYXQiOjE2NjQzOTk0NDEsImV4cCI6MTY2NDQyODI0MX0.l4vO_I8iHcXMh9B7Ml2tzFn7p0XTTziJXiFrLwCmetZ5LST00Z57AH8F-b8M6V9J8wNK48cIrE0YLxeQXXig3w
         this.linkHis =
             urlJasper +
             "fecha=" +
@@ -273,6 +266,53 @@ export class HisReportesComponent implements OnInit {
             ups +
             "&token=Bearer " +
             this.token;
-        console.log("link", this.linkHis);
+        console.log(this.linkHis); */
+    }
+
+    linkHIS() {
+        /* let fecha = this.datePipe.transform(
+            this.formHIS.value.fechaBusqueda,
+            "yyyyMMdd"
+        );
+        let ups = this.formHIS.value.upsAux;
+        let urlJasper =
+            environment.base_urlTx +
+            "/jasperserver/rest_v2/reports/Reports/HIS/anexo1.pdf?";
+        this.linkHis =
+            urlJasper +
+            "fecha=" +
+            fecha +
+            "&upsAux=" +
+            ups +
+            "&token=Bearer " +
+            this.token; */
+            let fecha = this.datePipe.transform(
+                this.formHIS.value.fechaBusqueda,
+                "yyyyMMdd"
+            );
+            let ups = this.formHIS.value.upsAux;
+            let urlJasper =
+                environment.base_urlTx +
+                "/jasperserver/rest_v2/reports/Reports/HIS/anexo1.pdf?";
+            this.linkHis =
+                urlJasper +
+                "fecha=" +
+                fecha +
+                "&upsAux="
+    }
+
+    buscar() {
+        let fecha = this.datePipe.transform(
+            this.formHIS.value.fechaBusqueda,
+            "yyyy-MM-dd"
+        );
+        let body = {
+            fecha: fecha,
+        };
+        this.reportesHisServicesService
+            .listHis(body)
+            .subscribe((r: hisObject) => {
+                this.listHIS = r.object;
+            });
     }
 }
