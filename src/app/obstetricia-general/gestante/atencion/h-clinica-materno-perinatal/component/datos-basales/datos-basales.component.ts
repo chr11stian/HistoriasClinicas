@@ -486,11 +486,11 @@ export class DatosBasalesComponent implements OnInit {
         this.recuperarDatos();
         // console.log('data to save ', this.datosBasales);
         await this.datosBasalesService.postPromiseDatosBasalesById(this.idGestante, this.datosBasales).then((res: any) => {
-            if ([res.cod == '2009']) {
+            if (res.cod == '2006' || res.cod == '2009') {
                 Swal.fire({
                     icon: 'success',
-                    title: 'Registro',
-                    text: 'Fue creado con exito',
+                    title: 'Exito',
+                    text: 'Se actualizo el registro correctamente.',
                     showConfirmButton: false,
                     timer: 2000,
                 })

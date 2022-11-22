@@ -91,8 +91,8 @@ export class AtencionComponent implements OnInit {
 
     }
 
-    ngOnDestroy() {
-        localStorage.removeItem('idGestacionRegistro');
-    }
+    // ngOnDestroy() {
+    //     localStorage.removeItem('idGestacionRegistro');
+    // }
 
 }
