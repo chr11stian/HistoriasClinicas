@@ -164,18 +164,16 @@ export class RegistrarTriajeComponent implements OnInit {
 
     guardarTriaje() {
         this.recuperarDatos();
-        // console.log('data to show ', this.triaje);
         this.triajeService.postTriaje(this.idCupo, this.triaje).subscribe((res: any) => {
             Swal.fire({
                 icon: 'success',
                 title: 'Registro',
                 text: 'Fue creado con exito',
                 showConfirmButton: false,
-                timer: 1500,
+                timer: 2000,
             })
             this.ref.close(this.triaje);
         });
-
     }
 
     closeDialog() {

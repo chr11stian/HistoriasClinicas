@@ -98,6 +98,7 @@ export class TratamientoComponent implements OnInit {
   nextDateModel: string;
   consultationFinished: boolean = false;
   actualConsultation: any;
+  filiationId: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -133,14 +134,14 @@ export class TratamientoComponent implements OnInit {
     if (this.Gestacion == null) {
       this.tipoDocRecuperado = this.dataPaciente2.tipoDoc;
       this.nroDocRecuperado = this.dataPaciente2.nroDoc;
-      this.idConsulta = JSON.parse(localStorage.getItem('idGestacionRegistro'));
+      this.filiationId = JSON.parse(localStorage.getItem('idGestacionRegistro'));
       this.nroEmbarazo = this.dataPaciente2.nroEmbarazo;
       this.nroHcl = this.dataPaciente2.nroHcl;
 
     } else {
       this.tipoDocRecuperado = this.Gestacion.tipoDoc;
       this.nroDocRecuperado = this.Gestacion.nroDoc;
-      this.idConsulta = this.Gestacion.id;
+      this.filiationId = this.Gestacion.id;
       this.nroEmbarazo = this.Gestacion.nroEmbarazo;
       this.nroHcl = this.Gestacion.nroHcl;
     }
@@ -262,7 +263,7 @@ export class TratamientoComponent implements OnInit {
   // }
   recuperarNroFetos() {
     let idData = {
-      id: this.idConsulta
+      id: this.filiationId
     }
     this.tratamientoService.getUltimaConsultaById(idData).subscribe((res: any) => {
       this.nroFetos = res.object.nroFetos;
@@ -419,7 +420,7 @@ export class TratamientoComponent implements OnInit {
   guardarTodosDatos() {
     // console.log(this.formRIEP.value);
     const req = {
-      id: this.idConsulta,
+      id: this.filiationId,
       nroHcl: this.nroHcl,
       nroEmbarazo: this.nroEmbarazo,
       nroAtencion: this.nroAtencion,
@@ -493,7 +494,7 @@ export class TratamientoComponent implements OnInit {
       recomendaciones: this.recomendaciones,
     }
     console.log("enviar req", req);
-    this.tratamientoService.updateConsultas(this.nroFetos, this.Gestacion.id, req).subscribe(
+    this.tratamientoService.updateConsultas(this.nroFetos, this.filiationId, req).subscribe(
       (resp) => {
         Swal.fire({
           icon: 'success',
@@ -512,13 +513,13 @@ export class TratamientoComponent implements OnInit {
       this.diagnosticosList = this.diagnosticosList.filter(item => item.cie10SIS)
     })
     let aux = {
-      id: this.idConsulta,
+      id: this.filiationId,
       nroHcl: this.nroHcl,
       nroEmbarazo: this.nroEmbarazo,
       nroAtencion: this.nroAtencion
     }
 
-    await this.tratamientoService.getConsultaPrenatalByEmbarazo(this.Gestacion.id, this.consultationId, aux).subscribe((res: any) => {
+    await this.tratamientoService.getConsultaPrenatalByEmbarazo(this.filiationId, this.consultationId, aux).subscribe((res: any) => {
       this.dataConsulta = res.object;
       // console.log("data consulta:" + res.object);
 

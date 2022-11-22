@@ -162,8 +162,9 @@ export class ConsultaComponent implements OnInit {
             let informacion = res.object;
             //guardar en el ls el nroAtencion
             localStorage.setItem("nroConsultaNueva", informacion.nroUltimaAtencion + 1);
+            this.DataFiliacionPaciente.nroEmbarazo ? this.DataFiliacionPaciente.nroEmbarazo = this.DataFiliacionPaciente.nroEmbarazo : this.DataFiliacionPaciente.nroEmbarazo = informacion.nroEmbarazo;
+            localStorage.setItem('dataPaciente', JSON.stringify(this.DataFiliacionPaciente));
         })
-
     }
 
     //editar consulta o visualizar na ma, mandamos la data de la fila

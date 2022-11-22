@@ -93,7 +93,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
         this.obternerFechaActual();
         this.buildForm();
 
-        if (this.idRecuperado == null) {
+        if (!this.Gestacion) {
             this.getpacienteByNroDoc();
         } else this.getpacienteFiiacionByID();
 
@@ -333,18 +333,27 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
             otrosNombres: "",
         };
         // console.log('data to res ', req);
-        if (this.idRecuperado == null) {
+        if (!this.Gestacion) {
             this.filiancionService.addPacienteFiliacion(this.tipoDocRecuperado, this.nroDocRecuperado, req).subscribe(
-                result => {
-                    // console.log("RESPUESTA", result)
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Registro',
-                        text: 'Fue creado con exito',
-                        showConfirmButton: false,
-                        timer: 1500,
-                    })
-                    this.getpacientesFiliadosGestacion();
+                (result: any) => {
+                    if (result.cod == "2006") {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Exito',
+                            text: 'Se creo el registro correctamente.',
+                            showConfirmButton: false,
+                            timer: 2000,
+                        })
+                        this.getpacientesFiliadosGestacion();
+                    } else {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'No se pudo guardar el registro',
+                            showConfirmButton: false,
+                            timer: 2000,
+                        })
+                    }
+
                 }
             )
         } else {
@@ -356,7 +365,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
                     showConfirmButton: false,
                     timer: 1500,
                 })
-                this.getpacientesFiliadosGestacion();
+                // this.getpacientesFiliadosGestacion();
             })
         }
     }
@@ -369,7 +378,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
             // console.log('paciente por doc ', this.dataPacientes)
             this.formDatos_Generales.get('apePaterno').setValue(this.dataPacientes.apePaterno);
             this.formDatos_Generales.get('apeMaterno').setValue(this.dataPacientes.apeMaterno);
-            this.formDatos_Generales.get('primerNombre').setValue(this.dataPacientes.primerNombre);
+            this.formDatos_Generales.get('primerNombre').setValue(`${this.dataPacientes.primerNombre} ${this.dataPacientes.otrosNombres}`);
             this.formDatos_Generales.get('HCL').setValue(this.dataPacientes.nroHcl);
             this.formDatos_Generales.get('docIndentidad').setValue(this.dataPacientes.nroDoc);
             this.formDatos_Generales.get('establecimiento').setValue(this.dataPacientes.nombreEESS);
@@ -507,3 +516,4 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
         return newDate;
     }
 }
+

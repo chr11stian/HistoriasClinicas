@@ -90,6 +90,8 @@ export class InterrogatorioComponent implements OnInit {
   consultationFinished: boolean = false;
   actualConsultation: any;
   fetalRisk: string = "";
+  consultationNum: number;
+  filiationId: string;
   constructor(
     private fb: FormBuilder,
     public dialog: DialogService,
@@ -102,8 +104,10 @@ export class InterrogatorioComponent implements OnInit {
     this.inicializarForm();
     this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
     this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
+    this.consultationNum = JSON.parse(localStorage.getItem('nroConsultaNueva'));
     let dataconsulta = JSON.parse(localStorage.getItem('datosConsultaActual'));
-    this.nroDeConsulta = dataconsulta == null ? this.Gestacion.nroConsultas + 1 : dataconsulta.nroAtencion;
+
+    this.nroDeConsulta = dataconsulta == null ? this.consultationNum : dataconsulta.nroAtencion;
     this.actualConsultation = JSON.parse(localStorage.getItem('datosConsultaActual'));
     this.actualConsultation ? this.actualConsultation.estadoAtencion == 2 ? this.consultationFinished = true : this.consultationFinished = false : this.consultationFinished = false;
     // console.log('nro de consultas ', this.nroAtencion);
@@ -115,13 +119,13 @@ export class InterrogatorioComponent implements OnInit {
     if (this.Gestacion == null) {
       this.tipoDocRecuperado = this.dataPaciente2.tipoDoc;
       this.nroDocRecuperado = this.dataPaciente2.nroDoc;
-      this.idConsulta = JSON.parse(localStorage.getItem('idGestacionRegistro'));
+      this.filiationId = JSON.parse(localStorage.getItem('idGestacionRegistro'));
       this.nroEmbarazo = this.dataPaciente2.nroEmbarazo;
       this.nroHcl = this.dataPaciente2.nroHcl;
     } else {
       this.tipoDocRecuperado = this.Gestacion.tipoDoc;
       this.nroDocRecuperado = this.Gestacion.nroDoc;
-      this.idConsulta = this.Gestacion.id;
+      this.filiationId = this.Gestacion.id;
       this.nroEmbarazo = this.Gestacion.nroEmbarazo;
       this.nroHcl = this.Gestacion.nroHcl;
     }
@@ -155,7 +159,7 @@ export class InterrogatorioComponent implements OnInit {
 
   async getUltimaConsulta() {
     let idData = {
-      id: this.idConsulta
+      id: this.filiationId
       // nroHcl: this
     }
     const response: any = await this.consultaObstetricaService.getLastConsulById(idData);
@@ -507,7 +511,7 @@ export class InterrogatorioComponent implements OnInit {
       return
     }
     this.recuperarDatos();
-    this.consultaObstetricaService.updateConsultas(this.form.value.nroFetos, this.Gestacion.id, this.interrogatorioData).subscribe((res: any) => {
+    this.consultaObstetricaService.updateConsultas(this.form.value.nroFetos, this.filiationId, this.interrogatorioData).subscribe((res: any) => {
       if ([res.code == '2401']) {
         Swal.fire({
           icon: 'success',
@@ -582,7 +586,7 @@ export class InterrogatorioComponent implements OnInit {
     }
     let Rpta;
     // console.log('to recuperar ', auxData);
-    this.consultaObstetricaService.getInterrogatorioByEmbarazo(this.Gestacion.id, this.consultationId).then((res: any) => {
+    this.consultaObstetricaService.getInterrogatorioByEmbarazo(this.filiationId, this.consultationId).then((res: any) => {
       Rpta = res.object[0];
       // console.log("desde interrogatorio ", Rpta);
       if (Rpta.signosVitales == null) {
@@ -702,7 +706,7 @@ export class InterrogatorioComponent implements OnInit {
   dataEnviarPlanParto = {}
   nroDeConsulta: number = 0;
   getPlanParto() {
-    this.intervaloPartoService.getPlanbyIdFiliacion(this.Gestacion.id).subscribe((resp: any) => {
+    this.intervaloPartoService.getPlanbyIdFiliacion(this.filiationId).subscribe((resp: any) => {
       if (resp.cod == '2040') {
         const objeto = {
           fechaAtencion: resp.object.planItems[0].fecha,
@@ -713,7 +717,7 @@ export class InterrogatorioComponent implements OnInit {
       this.dataEnviarPlanParto = {
         edadGestacional: this.form.get("semanas").value,
         tienePlan: resp.cod == '2040' ? true : false,
-        idFiliacion: this.Gestacion.id,
+        idFiliacion: this.filiationId,
         respuestaGetPlanParto: resp.object
       }
     })
