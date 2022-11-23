@@ -210,16 +210,21 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
         //console.log('Ce', this.diagnosticoC)
         //console.log('WH', this.diagnosticoWH)
         this.controlCrecimientoService
-            .updateControlCrecimiento(this.data.idConsulta, body)
-            .subscribe((r) => {
+            .updateControlCrecimiento(this.data.idConsulta, body).toPromise().then((resp) => {
+                console.log(resp);
+                
                 /* Swal.fire({
                     icon: "success",
                     title: "Actualizado correctamente",
                     text: "",
                     showConfirmButton: false,
                     timer: 1500,
-                }); */
-            });
+                }) */
+               
+            }).catch((error)=>{
+                //  console.log('el error',error);
+                
+            })
     }
 
     evaluacion() {
@@ -228,19 +233,19 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
             .getDataEvaluationHeight(this.data.sexo)
             .subscribe((r: any) => {
                 let aux: evaluation | number = r.data[this.dias];
-                this.auxEvaluacionH = aux[1];
-                if (this.sv.talla * 100 < this.auxEvaluacionH["-2"]) {
+                this.auxEvaluacionH = aux[1];    
+                if (this.sv.talla  < this.auxEvaluacionH["-2"]) {
                     this.diagnosticoH = "Talla baja";
                     console.log("talla baja");
                 }
                 if (
-                    this.sv.talla * 100 >= this.auxEvaluacionH["-2"] &&
-                    this.sv.talla * 100 <= this.auxEvaluacionH["2"]
+                    this.sv.talla  >= this.auxEvaluacionH["-2"] &&
+                    this.sv.talla  <= this.auxEvaluacionH["2"]
                 ) {
                     this.diagnosticoH = "Normal";
                     console.log("Normal");
                 }
-                if (this.sv.talla * 100 > this.auxEvaluacionH["2"]) {
+                if (this.sv.talla  > this.auxEvaluacionH["2"]) {
                     this.diagnosticoH = "Alto";
                     // console.log("talla alta");
                 }
@@ -249,19 +254,19 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
             .getDataEvaluationWeight(this.data.sexo)
             .subscribe((r: any) => {
                 let aux: evaluation | number = r.data[this.dias];
-                this.auxEvaluacionW = aux[1];
-                if (this.sv.peso < this.auxEvaluacionW["-2"]) {
+                this.auxEvaluacionW = aux[1]; 
+                if (this.sv.peso/1000 < this.auxEvaluacionW["-2"]) {
                     this.diagnosticoW = "Desnutrición";
                     console.log("talla baja");
                 }
                 if (
-                    this.sv.peso >= this.auxEvaluacionW["-2"] &&
-                    this.sv.peso <= this.auxEvaluacionW["2"]
+                    this.sv.peso/1000 >= this.auxEvaluacionW["-2"] &&
+                    this.sv.peso/1000 <= this.auxEvaluacionW["2"]
                 ) {
                     this.diagnosticoW = "Normal";
                     console.log("talla normal");
                 }
-                if (this.sv.peso > this.auxEvaluacionW["2"]) {
+                if (this.sv.peso/1000 > this.auxEvaluacionW["2"]) {
                     this.diagnosticoW = "Sobrepeso";
                     // console.log("talla alta");
                 }
@@ -274,53 +279,53 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
                 let a: evaluation1[] = aux.filter(
                     (item) =>
                         item[0] ===
-                        Number.parseInt(this.precise(this.sv.talla * 100))
+                        Number.parseInt(this.precise(this.sv.talla))
                 );
                 let b: evaluation1 = a[0];
-                let aux_b = b[1];
-                if (this.sv.peso < aux_b["-3"]) {
+                let aux_b = b[1];            
+                if (this.sv.peso/1000 < aux_b["-3"]) {
                     this.diagnosticoWH = "Desnutrición Severa";
-                    console.log("talla baja");
+                    // console.log(this.diagnosticoWH);
                 }
-                if (this.sv.peso >= aux_b["-3"] && this.sv.peso < aux_b["-2"]) {
+                if (this.sv.peso/1000 >= aux_b["-3"] && this.sv.peso/1000 < aux_b["-2"]) {
                     this.diagnosticoWH = "Desnutricion Aguda";
-                    console.log("talla normal");
+                    // console.log(this.diagnosticoWH);
                 }
-                if (this.sv.peso >= aux_b["-2"] && this.sv.peso < aux_b["2"]) {
+                if (this.sv.peso/1000 >= aux_b["-2"] && this.sv.peso/1000 < aux_b["2"]) {
                     this.diagnosticoWH = "Normal";
-                    console.log("talla normal");
+                    // console.log(this.diagnosticoWH);
                 }
-                if (this.sv.peso >= aux_b["2"] && this.sv.peso < aux_b["3"]) {
+                if (this.sv.peso/1000 >= aux_b["2"] && this.sv.peso/1000 < aux_b["3"]) {
                     this.diagnosticoWH = "Sobrepeso";
-                    console.log("talla normal");
+                    // console.log(this.diagnosticoWH);
                 }
-                if (this.sv.peso >= aux_b["3"]) {
+                if (this.sv.peso/1000 >= aux_b["3"]) {
                     this.diagnosticoWH = "Obesidad";
-                    console.log("talla alta");
+                    // console.log(this.diagnosticoWH);
                 }
             });
         this.controlCrecimientoService
             .getDataEvaluationCircunference(this.data.sexo)
             .subscribe((r: any) => {
                 let aux: evaluation2 | number = r.data[this.dias];
-                this.auxEvaluacionC = aux[1];
+                this.auxEvaluacionC = aux[1];  
                 if (
-                    this.sv.perimetroCefalico * 100 <
+                    this.sv.perimetroCefalico <
                     this.auxEvaluacionC["3"]
                 ) {
                     this.diagnosticoC = "Riesgo microcefalia";
                     console.log("talla baja");
                 }
                 if (
-                    this.sv.perimetroCefalico * 100 >=
+                    this.sv.perimetroCefalico  >=
                         this.auxEvaluacionC["3"] &&
-                    this.sv.perimetroCefalico * 100 <= this.auxEvaluacionC["97"]
+                    this.sv.perimetroCefalico  <= this.auxEvaluacionC["97"]
                 ) {
                     this.diagnosticoC = "Normal";
                     console.log("talla normal");
                 }
                 if (
-                    this.sv.perimetroCefalico * 100 >
+                    this.sv.perimetroCefalico >
                     this.auxEvaluacionC["97"]
                 ) {
                     this.diagnosticoC = "Riesgo macrocefalia";

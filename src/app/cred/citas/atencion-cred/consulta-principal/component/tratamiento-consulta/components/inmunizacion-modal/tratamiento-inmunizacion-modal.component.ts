@@ -8,6 +8,7 @@ import {
 } from "../../../../../plan/component/plan-atencion-integral/services/inmunizaciones/inmunizaciones.service";
 import {ConfirmationService, MessageService} from "primeng/api";
 import { NombreComercialUPS } from '../../../../../../../../core/models/mantenimiento.models';
+import { ConsultaGeneralService } from '../../../../services/consulta-general.service';
 
 @Component({
   selector: 'app-tratamiento-inmunizacion-modal',
@@ -42,7 +43,8 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
               public config: DynamicDialogConfig,
               public inmunizacionesService: InmunizacionesService,
               private messageService: MessageService,
-              private confirmationService: ConfirmationService) {
+              private confirmationService: ConfirmationService,
+              private consultaGeneralService: ConsultaGeneralService,) {
     this.dataDocumento = <dato>JSON.parse(localStorage.getItem('documento'));
     this.dataUsuario = <dato>JSON.parse(localStorage.getItem('usuario'));
     this.idIpress=this.dataUsuario.ipress.idIpress;
@@ -51,10 +53,16 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
 
     this.inmunizacion = this.config.data;
   }
-
+  isPrematuro:boolean
+  getPrematuro(){
+    this.consultaGeneralService.getEsPrematuro(this.dataDocumento.nroDocumento).subscribe((resp:any)=>{
+        this.isPrematuro=resp.object.respuesta
+    })
+  }
   ngOnInit(): void {
     this.buildForm();
     this.getInmunizacion();
+    this.getPrematuro();
   }
   buildForm() {
     this.inmunizacionFC = new FormGroup({
@@ -100,7 +108,7 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
       tipoDx:'D',
       nombreUPS:'Enfermeria',
       nombreUPSaux:"Inmunizaciones", 
-      codPrestacion: "001",//todo
+      codPrestacion: this.isPrematuro?"002":"001",//todo
       codProcedimientoHIS: this.inmunizacion.codigoSis,//todo ??no hay info
       codProcedimientoSIS: "",
       idIpressSolicitante: this.idIpress,//ya es dinamico recuperamos del usuario en le localStorage
@@ -112,8 +120,8 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
       idConsulta:this.dataDocumento.idConsulta,
       pertenecePAICRED : true
     }
-    // console.log('request->>>',requestInput)
-    // return
+    /* console.log('request->>>',requestInput)
+    return */
     this.confirmationService.confirm({
       header: "Confirmación",
       message: "Esta Seguro que desea guardar inmunizacion",

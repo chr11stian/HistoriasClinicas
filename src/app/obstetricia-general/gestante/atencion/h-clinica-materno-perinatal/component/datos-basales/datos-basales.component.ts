@@ -252,7 +252,6 @@ export class DatosBasalesComponent implements OnInit {
             semanas: this.form.value.ecografia3,
             fecha: this.form.value.dateEco3,
         }];
-        // this.ultrasoundList = this.ultrasoundList.filter(item => item.fe != null);
     }
 
     recuperarDatos() {
@@ -483,15 +482,15 @@ export class DatosBasalesComponent implements OnInit {
         ]
     }
 
-    guardarDatos() {
+    async guardarDatos() {
         this.recuperarDatos();
-        console.log('data to save ', this.datosBasales);
-        this.datosBasalesService.postDatosBasalesById(this.idGestante, this.datosBasales).subscribe((res: any) => {
-            if ([res.cod == '2009']) {
+        // console.log('data to save ', this.datosBasales);
+        await this.datosBasalesService.postPromiseDatosBasalesById(this.idGestante, this.datosBasales).then((res: any) => {
+            if (res.cod == '2006' || res.cod == '2009') {
                 Swal.fire({
                     icon: 'success',
-                    title: 'Registro',
-                    text: 'Fue creado con exito',
+                    title: 'Exito',
+                    text: 'Se actualizo el registro correctamente.',
                     showConfirmButton: false,
                     timer: 2000,
                 })
@@ -869,7 +868,7 @@ export class DatosBasalesComponent implements OnInit {
         }
 
         let auxBirth = newYear + '-' + newMonth + '-' + newDay;
-        console.log(' posible fecha ', auxBirth);
+        // console.log(' posible fecha ', auxBirth);
         fum = new Date(fum);
         fum.setMonth(fum.getMonth() + 9);
         fum.setDate(fum.getDate() + 7);
@@ -892,7 +891,7 @@ export class DatosBasalesComponent implements OnInit {
 
         this.ref.onClose.subscribe((data: any) => {
             this.otrosExamHemo = data;
-            console.log('data de dialog hemoglobina ', data)
+            // console.log('data de dialog hemoglobina ', data)
         });
     }
 
@@ -909,7 +908,7 @@ export class DatosBasalesComponent implements OnInit {
             }
         });
         this.ref.onClose.subscribe((data: any) => {
-            console.log('data de dialog ', data);
+            // console.log('data de dialog ', data);
             if (data.nombre != '') {
                 this.listaPatologiasMaternas.push(data);
             }
@@ -929,7 +928,7 @@ export class DatosBasalesComponent implements OnInit {
                 "max-height": "500px",
             },
         });
-        console.log('data de labos ');
+        // console.log('data de labos ');
     }
 
     get hemoglobina() {
@@ -963,7 +962,7 @@ export class DatosBasalesComponent implements OnInit {
         hemoExam.map(item => {
             item.descripcion = 'DOSAJE DE HEMOGLOBINA'
         })
-        console.log('hemoooooo', hemoExam);
+        // console.log('hemoooooo', hemoExam);
         return hemoExam;
     }
 

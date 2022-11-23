@@ -121,12 +121,14 @@ export class DatosGeneralesComponent implements OnInit {
     consultationFinished: boolean = false;
     actualConsultation: any;
 
-    constructor(private form: FormBuilder,
+    constructor(
+        private form: FormBuilder,
         private readonly obstetriciaGeneralService: ObstetriciaGeneralService,
         private consultasService: ConsultasService,
         private filiancionService: FiliancionService,
-        private messageService: MessageService,) {
-
+        private messageService: MessageService,
+    ) {
+        console.log('data de paciente ');
         this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
         this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
         this.isEdit = JSON.parse(localStorage.getItem('consultaEditarEstado'));
@@ -134,7 +136,7 @@ export class DatosGeneralesComponent implements OnInit {
         this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
         this.actualConsultation = JSON.parse(localStorage.getItem('datosConsultaActual'));
         this.actualConsultation ? this.actualConsultation.estadoAtencion == 2 ? this.consultationFinished = true : this.consultationFinished = false : this.consultationFinished = false;
-
+        console.log('data de paciente ', this.dataPaciente2);
         if (this.Gestacion == null) {
             this.tipoDocRecuperado = this.dataPaciente2.tipoDoc;
             this.nroDocRecuperado = this.dataPaciente2.nroDoc;
@@ -295,6 +297,7 @@ export class DatosGeneralesComponent implements OnInit {
     ngOnInit(): void {
         this.buildForm();
         this.obternerFechaActual();
+        console.log('data de paciente 2');
         /**Si la datos de consultorio esta en vacio recupera los datos del paciente***/
         /**Caso contrario recupera los datos de Consultorio***/
         if (this.dataConsultas == null) {
@@ -308,23 +311,24 @@ export class DatosGeneralesComponent implements OnInit {
             nroEmbarazo: this.nroEmbarazo,
             nroAtencion: this.nroAtencion
         }
-        this.consultasService.getConsultas(this.Gestacion.id, data).then((res: any) => {
+        this.consultasService.getConsultas(this.idConsultoriObstetrico, data).then((res: any) => {
             this.dataConsultas = res.object
-            localStorage.removeItem('IDConsulta');
+            // localStorage.removeItem('IDConsulta');
             // localStorage.setItem('IDConsulta', JSON.stringify(this.dataConsultas.id));
         })
     }
 
     /***Recupera la consulta por HCL y Numero de embarazo***/
     getConsultas() {
+        console.log('console 3');
         let data = {
             nroHcl: this.dataPacientes.nroHcl,
             nroEmbarazo: this.nroEmbarazo,
             nroAtencion: this.nroAtencion
         }
-        this.consultasService.getConsultas(this.Gestacion.id, data).then((res: any) => {
-            this.dataConsultas = res.object
-            if (this.dataConsultas !== null) {
+        this.consultasService.getConsultas(this.idConsultoriObstetrico, data).then((res: any) => {
+            this.dataConsultas = res.object;
+            if (this.dataConsultas) {
                 localStorage.removeItem('dataConsultasID');
                 localStorage.setItem('dataConsultasID', JSON.stringify(this.dataConsultas.id));
                 this.showSuccess();
@@ -807,8 +811,8 @@ export class DatosGeneralesComponent implements OnInit {
                 },
             ],
         }
-        if (this.dataConsultas == null) {
-            this.consultasService.addConsultas(this.nroFetos, this.Gestacion.id, this.data).then((result: any) => {
+        if (!this.dataConsultas) {
+            this.consultasService.addConsultas(this.nroFetos, this.idConsultoriObstetrico, this.data).then((result: any) => {
                 Swal.fire({
                     icon: 'success',
                     title: 'Se guardo con exito',
@@ -819,7 +823,7 @@ export class DatosGeneralesComponent implements OnInit {
             }
             )
         } else {
-            this.consultasService.updateConsultas(this.nroFetos, this.Gestacion.id, this.data).subscribe((result: any) => {
+            this.consultasService.updateConsultas(this.nroFetos, this.idConsultoriObstetrico, this.data).subscribe((result: any) => {
                 if ([result.code == '2401']) {
                     Swal.fire({
                         icon: 'success',

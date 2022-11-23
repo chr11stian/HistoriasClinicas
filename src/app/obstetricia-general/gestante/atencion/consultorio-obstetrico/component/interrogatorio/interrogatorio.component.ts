@@ -90,6 +90,8 @@ export class InterrogatorioComponent implements OnInit {
   consultationFinished: boolean = false;
   actualConsultation: any;
   fetalRisk: string = "";
+  consultationNum: number;
+  filiationId: string;
   constructor(
     private fb: FormBuilder,
     public dialog: DialogService,
@@ -102,8 +104,10 @@ export class InterrogatorioComponent implements OnInit {
     this.inicializarForm();
     this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
     this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
+    this.consultationNum = JSON.parse(localStorage.getItem('nroConsultaNueva'));
     let dataconsulta = JSON.parse(localStorage.getItem('datosConsultaActual'));
-    this.nroDeConsulta = dataconsulta == null ? this.Gestacion.nroConsultas + 1 : dataconsulta.nroAtencion;
+
+    this.nroDeConsulta = dataconsulta == null ? this.consultationNum : dataconsulta.nroAtencion;
     this.actualConsultation = JSON.parse(localStorage.getItem('datosConsultaActual'));
     this.actualConsultation ? this.actualConsultation.estadoAtencion == 2 ? this.consultationFinished = true : this.consultationFinished = false : this.consultationFinished = false;
     // console.log('nro de consultas ', this.nroAtencion);
@@ -115,13 +119,13 @@ export class InterrogatorioComponent implements OnInit {
     if (this.Gestacion == null) {
       this.tipoDocRecuperado = this.dataPaciente2.tipoDoc;
       this.nroDocRecuperado = this.dataPaciente2.nroDoc;
-      this.idConsulta = JSON.parse(localStorage.getItem('idGestacionRegistro'));
+      this.filiationId = JSON.parse(localStorage.getItem('idGestacionRegistro'));
       this.nroEmbarazo = this.dataPaciente2.nroEmbarazo;
       this.nroHcl = this.dataPaciente2.nroHcl;
     } else {
       this.tipoDocRecuperado = this.Gestacion.tipoDoc;
       this.nroDocRecuperado = this.Gestacion.nroDoc;
-      this.idConsulta = this.Gestacion.id;
+      this.filiationId = this.Gestacion.id;
       this.nroEmbarazo = this.Gestacion.nroEmbarazo;
       this.nroHcl = this.Gestacion.nroHcl;
     }
@@ -155,7 +159,7 @@ export class InterrogatorioComponent implements OnInit {
 
   async getUltimaConsulta() {
     let idData = {
-      id: this.idConsulta
+      id: this.filiationId
       // nroHcl: this
     }
     const response: any = await this.consultaObstetricaService.getLastConsulById(idData);
@@ -507,7 +511,7 @@ export class InterrogatorioComponent implements OnInit {
       return
     }
     this.recuperarDatos();
-    this.consultaObstetricaService.updateConsultas(this.form.value.nroFetos, this.Gestacion.id, this.interrogatorioData).subscribe((res: any) => {
+    this.consultaObstetricaService.updateConsultas(this.form.value.nroFetos, this.filiationId, this.interrogatorioData).subscribe((res: any) => {
       if ([res.code == '2401']) {
         Swal.fire({
           icon: 'success',
@@ -582,7 +586,7 @@ export class InterrogatorioComponent implements OnInit {
     }
     let Rpta;
     // console.log('to recuperar ', auxData);
-    this.consultaObstetricaService.getInterrogatorioByEmbarazo(this.Gestacion.id, this.consultationId).then((res: any) => {
+    this.consultaObstetricaService.getInterrogatorioByEmbarazo(this.filiationId, this.consultationId).then((res: any) => {
       Rpta = res.object[0];
       // console.log("desde interrogatorio ", Rpta);
       if (Rpta.signosVitales == null) {
@@ -702,7 +706,7 @@ export class InterrogatorioComponent implements OnInit {
   dataEnviarPlanParto = {}
   nroDeConsulta: number = 0;
   getPlanParto() {
-    this.intervaloPartoService.getPlanbyIdFiliacion(this.Gestacion.id).subscribe((resp: any) => {
+    this.intervaloPartoService.getPlanbyIdFiliacion(this.filiationId).subscribe((resp: any) => {
       if (resp.cod == '2040') {
         const objeto = {
           fechaAtencion: resp.object.planItems[0].fecha,
@@ -713,7 +717,7 @@ export class InterrogatorioComponent implements OnInit {
       this.dataEnviarPlanParto = {
         edadGestacional: this.form.get("semanas").value,
         tienePlan: resp.cod == '2040' ? true : false,
-        idFiliacion: this.Gestacion.id,
+        idFiliacion: this.filiationId,
         respuestaGetPlanParto: resp.object
       }
     })
@@ -741,10 +745,12 @@ export class InterrogatorioComponent implements OnInit {
   }
 
   calculateIMC(): void {
+    console.log('entro a imc');
     let gestationalWeek: number = this.form.value.semanas;
     let patientHeight: number = Math.round((this.form.value.talla + Number.EPSILON)) / 100;
     let patientWeigth: number = this.form.value.peso;
     let clasification: NutritionalClassification;
+    let percentilValue: Percentils;
     let gainWeight: GainWeight;
     if (gestationalWeek < 13) {
       this.imcService.getClasificacionEstadoNutricionalByTalla(patientHeight).subscribe((res: any) => {
@@ -774,6 +780,35 @@ export class InterrogatorioComponent implements OnInit {
           })
         }
       });
+    } else {
+      this.imcService.getClasificacionEstadoNutricionalByTallaSemanas(gestationalWeek, patientHeight * 100).subscribe((res: any) => {
+        percentilValue = res.object.edadGestacionalP10P90[0];
+        // console.log('datos de clasificacion ', percentilValue);
+        if (patientWeigth < percentilValue.p10) {
+          this.imcService.getGananciaBajoPeso(gestationalWeek).subscribe((res: any) => {
+            gainWeight = res.object.recomendacionGestanteBajoPeso[0];
+            this.assignUsualWieghtAndIMC(patientHeight, patientWeigth, gainWeight.min, gainWeight.med, gainWeight.max);
+          });
+        }
+        if (patientWeigth >= percentilValue.p10 && patientWeigth <= percentilValue.p90) {
+          this.imcService.getGananciaPesoRegular(gestationalWeek).subscribe((res: any) => {
+            gainWeight = res.object.recomendacionGananciaPesoRegular[0];
+            this.assignUsualWieghtAndIMC(patientHeight, patientWeigth, gainWeight.min, gainWeight.med, gainWeight.max);
+          });
+        }
+        if (patientWeigth > percentilValue.p90) {
+          this.imcService.getGananciaSobrePeso(gestationalWeek).subscribe((res: any) => {
+            gainWeight = res.object.recomencacionGananciaSobrePeso[0];
+            this.assignUsualWieghtAndIMC(patientHeight, patientWeigth, gainWeight.min, gainWeight.med, gainWeight.max);
+          });
+        }
+        if (patientWeigth > percentilValue.p90 + 10) {
+          this.imcService.getGananciaObesa(gestationalWeek).subscribe((res: any) => {
+            gainWeight = res.object.recomendacionGananciaObesa[0];
+            this.assignUsualWieghtAndIMC(patientHeight, patientWeigth, gainWeight.min, gainWeight.med, gainWeight.max);
+          });
+        }
+      });
     }
   }
 
@@ -783,6 +818,7 @@ export class InterrogatorioComponent implements OnInit {
     let weightGain: number;
     height < 1.57 ? usualWeight = weight - min : usualWeight = weight - med
     imc = (usualWeight / Math.pow((height), 2));
+    console.log('usual weight ', usualWeight);
     this.form.patchValue({
       imc: imc.toFixed(2),
       pesoHabitual: usualWeight
@@ -831,8 +867,18 @@ interface NutritionalClassification {
 }
 interface GainWeight {
   max: number;
+  maxMult?: number;
   med: number;
+  medMult?: number;
   min: number;
+  minMult?: number;
   semanaGestacion: number;
   trimestre: number;
+}
+interface Percentils {
+  cmAlturaMinimo: number
+  cmAlturamaximo: number
+  edadGestacionalSemanas: number
+  p10: number
+  p90: number
 }

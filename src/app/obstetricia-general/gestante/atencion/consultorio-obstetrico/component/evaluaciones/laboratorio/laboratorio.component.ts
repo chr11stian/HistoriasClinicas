@@ -40,6 +40,7 @@ export class LaboratorioComponent implements OnInit {
     consultationStatus$ = this.obstetriciaGeneralService.consultationStatus$;
     consultationFinished: boolean = false;
     actualConsultation: any;
+    patientData: any;
 
     constructor(public dialog: DialogService,
         private laboratoriosService: LaboratoriosService,
@@ -48,6 +49,7 @@ export class LaboratorioComponent implements OnInit {
     ) {
         this.dataConsulta = JSON.parse(localStorage.getItem('datosConsultaActual'));
         this.idConsulta = JSON.parse(localStorage.getItem('IDConsulta'));
+        this.patientData = JSON.parse(localStorage.getItem('dataPaciente'));
         this.actualConsultation = JSON.parse(localStorage.getItem('datosConsultaActual'));
         this.actualConsultation ? this.actualConsultation.estadoAtencion == 2 ? this.consultationFinished = true : this.consultationFinished = false : this.consultationFinished = false;
 
@@ -56,7 +58,7 @@ export class LaboratorioComponent implements OnInit {
 
 
     ngOnInit(): void {
-        this.usuario = JSON.parse(localStorage.getItem('gestacion'));
+        this.usuario = JSON.parse(localStorage.getItem('gestacion')) ? JSON.parse(localStorage.getItem('gestacion')) : this.patientData;
         this.cargarExamenesRealizados();
     }
 

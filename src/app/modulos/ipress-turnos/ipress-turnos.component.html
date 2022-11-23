@@ -58,7 +58,10 @@
 </div>
 
 
-<p-dialog [(visible)]="turnoDialog" [style]="{width: '600px', height: '380px'}" [modal]="true" styleClass="p-fluid"
+<p-dialog [(visible)]="turnoDialog" [style]="{width: '600px', height: '380px'}" 
+        [modal]="true" 
+        styleClass="p-fluid"
+        [draggable]="false"
     autoZIndex>
     <ng-template pTemplate="header">
         <h3 class="m-0">{{tituloTurno()}}</h3>
@@ -72,31 +75,31 @@
                     <p-dropdown *ngIf="!isUpdateTurno" placeholder="Tipo de turno" class="inputRedondo"
                         [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" inputId="dropdown"
                         [options]="tipoTurnosList" formControlName="nombre" optionLabel="nombre"
-                        (onChange)="selectedTipoTurno()" required>
+                        (onChange)="selectedTipoTurno()" appendTo="body">
                     </p-dropdown>
                     <p-dropdown *ngIf="isUpdateTurno" class="inputRedondo" [showTransitionOptions]="'300ms'"
                         dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="tipoTurnosList"
-                        formControlName="nombre" optionLabel="nombre" (onChange)="selectedTipoTurno()" required>
+                        formControlName="nombre" optionLabel="nombre" (onChange)="selectedTipoTurno()" appendTo="body">
                     </p-dropdown>
                 </div>
             </div>
             <div class="p-fluid grid flex justify-content-center">
                 <div class="p-field col-12 md:col-12">
                     <label id="nroHoras">Nro Horas:</label>
-                    <input type="text" pInputText formControlName='nroHoras' disabled required />
+                    <input type="text" pInputText formControlName='nroHoras'/>
                 </div>
             </div>
             <div class="p-fluid grid flex justify-content-center">
                 <div class="p-field col-12 md:col-12">
                     <label id="horaInicio">Hora Inicio:</label>
-                    <p-calendar formControlName='horaInicio' showTime="true" hourFormat="24" [timeOnly]="true"
-                        (onSelect)="selectedHoraInicio()" required></p-calendar>
+                    <p-calendar formControlName='horaInicio' showTime="true" hourFormat="24" [timeOnly]="true" (onSelect)="selectedHoraInicio()" appendTo="body">
+                    </p-calendar>
                 </div>
             </div>
             <div class="p-fluid grid flex justify-content-center">
                 <div class="p-field col-12 md:col-12">
                     <label id="horaFin">Hora Fin:</label>
-                    <p-calendar formControlName='horaFin' [timeOnly]="true" showTime="true" hourFormat="24" required>
+                    <p-calendar formControlName='horaFin' [timeOnly]="true" showTime="true" hourFormat="24" appendTo="body">
                     </p-calendar>
                 </div>
             </div>
@@ -104,7 +107,6 @@
     </ng-template>
 
     <ng-template pTemplate="footer">
-        <button pButton type="button" label="Cancelar" class="p-button-danger m-1 w-9rem" (click)="canceled()"></button>
         <button *ngIf="!isUpdateTurno" pButton type="button" label="Guardar" class="m-1 w-9rem"
             (click)="saveTurno()"></button>
         <button *ngIf="isUpdateTurno" pButton type="button" label="Guardar" class="m-1 w-9rem"

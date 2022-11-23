@@ -1,13 +1,17 @@
 import { InmunizacionesService } from "./../../../../../../obstetricia-general/gestante/atencion/consultorio-obstetrico/services/inmunizaciones.service";
 import { FormGroup } from "@angular/forms";
 import { FormBuilder } from "@angular/forms";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { MenuItem } from "primeng/api";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
 import Swal from "sweetalert2";
 import { AtencionesPrenatalesModalComponent } from "../atenciones-prenatales-modal/atenciones-prenatales-modal.component";
 import { InteconsultaObstetriciaModalComponent } from "../inteconsulta-obstetricia-modal/inteconsulta-obstetricia-modal.component";
+import { TamizajeViolenciaComponent } from "../tamizaje-violencia/tamizaje-violencia.component";
+import { InterrogatorioComponent } from "./../interrogatorio/interrogatorio.component";
+import { DatosGeneralesComponent } from "../datos-generales/datos-generales.component";
+import { TratamientoComponent } from "./../tratamiento/tratamiento.component";
 
 @Component({
     selector: "app-step-general-consulta",
@@ -47,6 +51,16 @@ export class StepGeneral_consultaComponent implements OnInit {
             checked: true,
         },
     ];
+
+    //--child
+    @ViewChild(DatosGeneralesComponent)
+    datosGeneralesConsulta: DatosGeneralesComponent;
+    @ViewChild(InterrogatorioComponent)
+    interrogatorioComponent: InterrogatorioComponent;
+    @ViewChild(TamizajeViolenciaComponent)
+    tamizajeViolenciaComponent: TamizajeViolenciaComponent;
+    @ViewChild(TratamientoComponent)
+    tratamientoComponent: TratamientoComponent;
 
     constructor(
         private dialog: DialogService,
@@ -137,7 +151,7 @@ export class StepGeneral_consultaComponent implements OnInit {
                     //     });
                     //     return;
                     // } else {
-                        this.stepName = "tamizaje";
+                    this.stepName = "tamizaje";
                     // }
                 }
                 break;
@@ -167,7 +181,7 @@ export class StepGeneral_consultaComponent implements OnInit {
     }
     openDialogInterconsultaObstetricia() {
         this.ref = this.dialog.open(InteconsultaObstetriciaModalComponent, {
-            data:{idConsulta:this.IDConsulta},
+            data: { idConsulta: this.IDConsulta },
             header: "INTERCONSULTA",
             contentStyle: {},
             style: {
@@ -230,6 +244,87 @@ export class StepGeneral_consultaComponent implements OnInit {
             });
     }
     eliminarInmunizacion(id, row) {}
+    openAntecedentes() {
+        this.datosGeneralesConsulta.antecedentesDialog = true;
+    }
+    //---steps
+    nextPage() {
+        switch (this.stepName) {
+            case "datos":
+                this.datosGeneralesConsulta.Add_updateConsultas();
+                this.stepName = "interrogatorio";
+                this.indiceActivo = 1;
+                break;
+            case "interrogatorio":
+                this.interrogatorioComponent.guardarDatos();
+                this.stepName = "tamizaje";
+                this.indiceActivo = 2;
+                break;
+            case "tamizaje":
+                this.tamizajeViolenciaComponent.UpdateTamizaje2();
+                this.stepName = "evaluaciones";
+                this.indiceActivo = 3;
+                break;
+            case "evaluaciones":
+                // this.examenesAuxConsulta.saveAuxiliarsExams();
+                this.stepName = "diagnostico";
+                this.indiceActivo = 4;
+                break;
+            case "diagnostico":
+                // this.diagnosticoConsulta.SaveDiagnostico();
+                this.stepName = "procedimientos";
+                this.indiceActivo = 5;
+                break;
+            case "procedimientos":
+                // this.procedimientosConsulta.saveProcedimiento();
+                this.stepName = "tratamiento";
+                this.indiceActivo = 6;
+                break;
+
+            case "tratamiento":
+                this.tratamientoComponent.openShowHisDialog();
+
+                break;
+            case "finalizar":
+                //this.finalizarConsulta.save();
+                break;
+        }
+    }
+
+    // regresamos al anterior step
+    prevPage() {
+        switch (this.stepName) {
+            case "finalizar":
+                this.stepName = "tratamiento";
+                this.indiceActivo = 6;
+                break;
+            case "tratamiento":
+                this.stepName = "procedimientos";
+                this.indiceActivo = 5;
+                break;
+            case "procedimientos":
+                this.stepName = "diagnostico";
+                this.indiceActivo = 4;
+                break;
+            case "diagnostico":
+                this.stepName = "evaluaciones";
+                this.indiceActivo = 3;
+                break;
+            case "evaluaciones":
+                this.stepName = "tamizaje";
+                this.indiceActivo = 2;
+                break;
+
+            case "tamizaje":
+                this.stepName = "interrogatorio";
+                this.indiceActivo = 1;
+                break;
+            case "interrogatorio":
+                this.stepName = "datos";
+                this.indiceActivo = 0;
+                break;
+        }
+    }
 }
 
 interface data {

@@ -40,10 +40,10 @@ export class IpressTurnosComponent implements OnInit {
   }
   buildForm() {
     this.formTurno = this.formBuilder.group({
-      nombre: ['', [Validators.required]],
-      nroHoras: ['', [Validators.required]],
-      horaInicio: ['', [Validators.required]],
-      horaFin: ['', [Validators.required]],
+      nombre: [{value:'',disabled:false}, [Validators.required]],
+      nroHoras: [{value:'',disabled:true}, [Validators.required]],
+      horaInicio: [{value:'',disabled:false}, [Validators.required]],
+      horaFin: [{value:'',disabled:true}, [Validators.required]],
     })
   }
   openNew() {
@@ -68,35 +68,45 @@ export class IpressTurnosComponent implements OnInit {
     this.formTurno.get('nroHoras').setValue(this.formTurno.value.nombre.nroHoras);
   }
   selectedHoraInicio() {
-    let horaFin = new Date(this.formTurno.value.horaInicio);
-    let nroHoras = this.formTurno.value.nroHoras;
+    let horaFin = new Date(this.formTurno.get("horaInicio").value);
+    let nroHoras = this.formTurno.get("nroHoras").value;
     horaFin.setHours(horaFin.getHours() + nroHoras);
     this.formTurno.get('horaFin').setValue(new Date(`2021-01-01 ${horaFin.getHours()}: ${horaFin.getMinutes()}:00`));
   }
   saveTurno(rowData) {
-    let horaInicio = this.datePipe.transform(this.formTurno.value.horaInicio, 'HH:mm:ss')
-    let horaFin = this.datePipe.transform(this.formTurno.value.horaFin, 'HH:mm:ss')
+    let horaInicio = this.datePipe.transform(this.formTurno.get("horaInicio").value, 'HH:mm:ss')
+    let horaFin = this.datePipe.transform(this.formTurno.get("horaFin").value, 'HH:mm:ss')
     const req = {
-      nombre: this.formTurno.value.nombre.nombre,
-      abreviatura: this.formTurno.value.nombre.abreviatura,
-      nroHoras: this.formTurno.value.nroHoras,
+      nombre: this.formTurno.get("nombre").value.nombre,
+      abreviatura: this.formTurno.get("nombre").value.abreviatura,
+      nroHoras: this.formTurno.get("nroHoras").value,
       horaInicio: horaInicio,
       horaFin: horaFin
     }
-
     this.ipressservice.createTurnoIpress(this.idIpress, req).subscribe(
       result => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Agregado correctamente',
-          text: '',
-          showConfirmButton: false,
-          timer: 1500,
-        })
-        this.getIpressId();
-        this.formTurno.reset();
-        this.formTurno.get('nombre').setValue("");
-        this.turnoDialog = false;
+        if(result.cod=="2405"){
+          Swal.fire({
+            icon: 'success',
+            title: 'Agregado correctamente',
+            text: '',
+            showConfirmButton: false,
+            timer: 1500,
+          })
+          this.getIpressId();
+          this.formTurno.reset();
+          this.formTurno.get('nombre').setValue("");
+          this.turnoDialog = false;
+        }
+        else{
+          Swal.fire({
+            icon: 'info',
+            title: 'Elemento repetido',
+            text: '',
+            showConfirmButton: false,
+            timer: 1500,
+          })
+        }
       }
     )
   }
@@ -106,15 +116,15 @@ export class IpressTurnosComponent implements OnInit {
     else return "Ingrese Nuevo Turno";
   }
   saveEdicionTurno() {
-    let horaInicio = this.datePipe.transform(this.formTurno.value.horaInicio, 'HH:mm:ss')
-    let horaFin = this.datePipe.transform(this.formTurno.value.horaFin, 'HH:mm:ss')
+    let horaInicio = this.datePipe.transform(this.formTurno.get("horaInicio").value, 'HH:mm:ss')
+    let horaFin = this.datePipe.transform(this.formTurno.get("horaFin").value, 'HH:mm:ss')
     const req = {
-      nombre: this.formTurno.value.nombre.nombre,
-      abreviatura: this.formTurno.value.nombre.abreviatura,
-      nroHoras: this.formTurno.value.nroHoras,
+      nombre: this.formTurno.get("nombre").value.nombre,
+      abreviatura: this.formTurno.get("nombre").value.abreviatura,
+      nroHoras: this.formTurno.get("nroHoras").value,
       horaInicio: horaInicio,
       horaFin: horaFin
-    }
+    }    
     this.ipressservice.editTurnoIpress(this.idIpress, req).subscribe(
       result => {
         Swal.fire({
@@ -142,35 +152,30 @@ export class IpressTurnosComponent implements OnInit {
       showConfirmButton: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        this.ipressservice.deleteTurnoIpress(this.idIpress, rowData.abreviatura).subscribe(
-          result => {
+        this.ipressservice.deleteTurnoIpress(this.idIpress, rowData.abreviatura).subscribe(result => {
+          if(result.cod=="2405"){
+            Swal.fire({
+              icon: 'success',
+              title: 'Eliminado correctamente',
+              text: '',
+              showConfirmButton: false,
+              timer: 1500
+            })
             this.getIpressId();
           }
-        );
-        Swal.fire({
-          icon: 'success',
-          title: 'Eliminado correctamente',
-          text: '',
-          showConfirmButton: false,
-          timer: 1500
-        })
+          else{
+            Swal.fire({
+              icon: 'info',
+              title: 'Elemento no borrado',
+              text: '',
+              showConfirmButton: false,
+              timer: 1500,
+            })
+          }
+          });
       }
     })
   }
-  
-  canceled() {
-    Swal.fire({
-      icon: 'warning',
-      title: 'Cancelado...',
-      text: '',
-      showConfirmButton: false,
-      timer: 1000
-    })
-    this.turnoDialog = false;
-    this.formTurno.reset();
-    this.formTurno.get('nombre').setValue("");
-  }
   ngOnInit(): void {
   }
-
 }
