@@ -58,6 +58,7 @@ export class TamizajeViolenciaComponent implements OnInit {
     consultationStatus$ = this.obstetriciaGeneralService.consultationStatus$;
     consultationFinished: boolean = false;
     actualConsultation: any;
+    patientData: any;
 
     constructor(private form: FormBuilder,
         private filiancionService: FiliancionService,
@@ -111,8 +112,8 @@ export class TamizajeViolenciaComponent implements OnInit {
         this.DataCupos2 = JSON.parse(localStorage.getItem('PacienteSinCupo'));
         this.datosConsultaActual = JSON.parse(localStorage.getItem('datosConsultaActual'));
         this.actualConsultation = JSON.parse(localStorage.getItem('datosConsultaActual'));
+        this.patientData = JSON.parse(localStorage.getItem('dataPaciente'));
         this.actualConsultation ? this.actualConsultation.estadoAtencion == 2 ? this.consultationFinished = true : this.consultationFinished = false : this.consultationFinished = false;
-
 
         if (this.DataCupos2 == null) {
             this.tipoDocRecuperado = this.DataCupos.paciente.tipoDoc
@@ -127,9 +128,13 @@ export class TamizajeViolenciaComponent implements OnInit {
         // this.nroEmbarazo = this.obstetriciaGeneralService.nroEmbarazo;
         // this.tipoDocRecuperado = "DNI";
         // this.nroDocRecuperado = "10101099";
-        this.estadoEmbarazo = this.Gestacion.estado;
-        this.nroEmbarazo = this.Gestacion.nroEmbarazo;
-
+        if (this.Gestacion) {
+            this.estadoEmbarazo = this.Gestacion.estado;
+            this.nroEmbarazo = this.Gestacion.nroEmbarazo;
+        } else {
+            this.estadoEmbarazo = "EMBARAZO";
+            this.nroEmbarazo = this.patientData.nroEmbarazo;
+        }
     }
 
     ngOnInit(): void {

@@ -30,6 +30,13 @@ export class ReportesHisServicesService {
         );
     }
 
+    listHis(body) {
+        return this.http.post(
+            `${this.urlServer}/${this.bd}/his/by/personal`,
+            body
+        );
+    }
+
     reportHIS(fecha, ups, token) {
         return this.http.get(
             `${this.url}/jasperserver/rest_v2/reports/Reports/HIS/anexo1.pdf?fecha=${fecha}&upsAux=${ups}&token=Bearer ${token}`
