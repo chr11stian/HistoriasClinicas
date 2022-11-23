@@ -147,6 +147,13 @@ const routes: Routes = [
                         (n) => n.PnGestanteModule
                     ),
             },
+            {
+                path: "triaje",
+                loadChildren: () =>
+                    import("src/app/triajes/triajes.module").then(
+                        (n) => n.TriajesModule
+                    ),
+            },
         ],
     },
 ];

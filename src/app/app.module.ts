@@ -23,6 +23,7 @@ import { LoginRolComponent } from './login/login-rol/login-rol.component';
 import { PasswordComponent } from './login/password/password.component';
 import { VisitaDomiciliariaModule } from './visita-domiciliaria/visita-domiciliaria.module';
 import { PnGestanteModule } from './pn-gestante/pn-gestante.module';
+import { TriajesModule } from './triajes/triajes.module';
 
 @NgModule({
     declarations: [
@@ -48,6 +49,7 @@ import { PnGestanteModule } from './pn-gestante/pn-gestante.module';
         ToastModule,
         VisitaDomiciliariaModule,
         PnGestanteModule,
+        TriajesModule,
 
         NgxEchartsModule.forRoot({
             echarts: () => import('echarts'),

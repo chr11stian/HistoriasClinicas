@@ -20,8 +20,6 @@ import {IpressComponent} from './ipress/ipress.component';
 import {PacienteComponent} from './paciente/paciente.component';
 import {IpressHorariosComponent} from './ipress-horarios/ipress-horarios.component';
 import {AtencionesModule} from "./admision/atenciones.module";
-import { ListarCuposComponent } from './triaje/listar-cupos/listar-cupos.component';
-import { RegistrarTriajeComponent } from './triaje/registrar-triaje/registrar-triaje.component';
 import { IpressRolesComponent } from './ipress-roles/ipress-roles.component';
 import { IpressTurnosComponent } from './ipress-turnos/ipress-turnos.component';
 import { IpressAmbientesComponent } from './ipress-ambientes/ipress-ambientes.component';
@@ -38,8 +36,6 @@ import { CentroPobladoComponent } from './centro-poblado/centro-poblado.componen
         UsuariosComponent,
         IpressComponent,
         PacienteComponent,
-        ListarCuposComponent,
-        RegistrarTriajeComponent,
         IpressRolesComponent,
         IpressTurnosComponent,
         IpressAmbientesComponent,

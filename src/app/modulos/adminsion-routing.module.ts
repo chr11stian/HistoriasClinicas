@@ -4,7 +4,6 @@ import { PersonalSaludComponent } from "./personal-salud/personal-salud.componen
 import { UsuariosComponent } from "./usuarios/usuarios.component";
 import { IpressComponent } from "./ipress/ipress.component";
 import { PacienteComponent } from "./paciente/paciente.component";
-import { ListarCuposComponent } from "./triaje/listar-cupos/listar-cupos.component";
 import { IpressTurnosComponent } from "./ipress-turnos/ipress-turnos.component";
 import { IpressAmbientesComponent } from "./ipress-ambientes/ipress-ambientes.component";
 import { IpressRolesComponent } from "./ipress-roles/ipress-roles.component";
@@ -57,10 +56,6 @@ const routes: Routes = [
     {
         path: "paciente",
         component: PacienteComponent,
-    },
-    {
-        path: "triaje",
-        component: ListarCuposComponent,
     },
     {
         path: "ipress-turnos",

@@ -347,7 +347,7 @@ const triaje = {
         {
             icon: "pi pi-book",
             label: "Triaje",
-            routerLink: "admision/triaje",
+            routerLink: "triaje/registrar",
         },
     ],
 };
@@ -525,11 +525,11 @@ const historias = {
                 },
             ],
         },
-        {
+        /* {
             icon: "pi pi-th-large",
             label: "FUA",
             routerLink: "fua/fua",
-        },
+        }, */
     ],
 };
 const laboratorio = {
