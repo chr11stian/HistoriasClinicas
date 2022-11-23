@@ -75,6 +75,7 @@
                     <th>Nombres madre</th>
                     <th>Apellidos madre</th>
                     <th>Direccion</th>
+                    <th>Anemia</th>
                     <th>Respuestas</th>
                     <th>Acciones</th>
                 </tr>
@@ -91,6 +92,12 @@
                         <td style="text-align: left">{{RowData.nombre_madre}}</td>
                         <td style="text-align: left">{{RowData.apellido_madre}}</td>
                         <td style="text-align: left">{{RowData.direccion}}</td>
+                        <td style="text-align: left">
+                            <button pButton type="button"  
+                                iconPos="right" icon="pi pi-check" label="NO"
+                                class="p-button-success p-button-sm">
+                            </button>
+                            </td>
                         <td style="text-align: center">
                             <button  pButton type="button" label="Ver"  icon="pi pi-eye"  class="buttonAcciones" (click)="openDialogRespuestas(RowData.preguntas)"></button>
                         </td>
@@ -137,6 +144,7 @@
                         <th >Nombres madre</th>
                         <th>Apellidos madre</th>
                         <th >Direccion</th>
+                        <th>Anemia</th>
                         <th >Respuestas</th>
                         <th>Acciones</th>
                     </tr>
@@ -153,6 +161,12 @@
                         <td style="text-align: left">{{RowData.nombre_madre}}</td>
                         <td style="text-align: left">{{RowData.apellido_madre}}</td>
                         <td style="text-align: left">{{RowData.direccion}}</td>
+                        <td style="text-align: left">
+                        <button pButton type="button"  
+                            iconPos="right" icon="pi pi-check" label="NO"
+                            class="p-button-success p-button-sm">
+                        </button>
+                        </td>
                         <td style="text-align: center">
                             <button pButton type="button" label="Ver"  icon="pi pi-eye"  class="buttonAcciones" (click)="openDialogRespuestas(RowData.preguntas)"></button>
                         </td>

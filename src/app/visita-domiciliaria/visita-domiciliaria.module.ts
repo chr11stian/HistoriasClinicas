@@ -25,7 +25,7 @@ import { EchartsVisitaComponent } from './components/echarts-visita/echarts-visi
     PorIpressComponent,
     VisitasDomiciliariasPuerperaComponent,
     MapVisitasIpressComponent,
-    EchartsVisitaComponent, 
+    EchartsVisitaComponent,
   ],
   imports: [CommonModule, VisitaDomiciliariaRoutingModule, PrimeModule],
   exports: [VisitaDomiciliariaRoutingModule],

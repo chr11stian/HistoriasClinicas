@@ -147,6 +147,13 @@ const routes: Routes = [
                         (n) => n.PnGestanteModule
                     ),
             },
+            {
+                path:"about",
+                loadChildren: ()=>
+                    import("src/app/about/about.module").then(
+                        (n)=>n.AboutModule
+                    ),
+            }
         ],
     },
 ];

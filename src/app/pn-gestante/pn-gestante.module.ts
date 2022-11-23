@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { PnGestanteRoutingModule } from './pn-gestante-routing.module';
 import { PrimeModule } from '../shared/prime/prime.module';
 import { PnGestanteComponent } from './components/pn-gestante/pn-gestante.component';

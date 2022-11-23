@@ -68,6 +68,7 @@
                     <th pSortableColumn="fecha_creacion_documento ">Fecha de la visita<p-sortIcon field="fecha_creacion_documento "></p-sortIcon></th>
                     <th>Telefono</th>
                     <th>Direccion</th>
+                    <th>Anemia</th>
                     <th>Respuestas</th>
                     <th>Acciones</th>
                 </tr>
@@ -83,6 +84,12 @@
                         <td style="text-align: center">{{RowData.fecha_creacion_documento | date:'dd/MM/yyyy'}}</td>
                         <td style="text-align: center">{{RowData.telefono}}</td>
                         <td style="text-align: left">{{RowData.direccion}}</td>
+                        <td style="text-align: left">
+                            <button pButton type="button"  
+                                iconPos="right" icon="pi pi-check" label="NO"
+                                class="p-button-success p-button-sm">
+                            </button>
+                            </td>
                         <td style="text-align: center">
                             <button  pButton type="button" label="Ver"  icon="pi pi-eye"  class="buttonAcciones" (click)="openDialogRespuestas(RowData.preguntas)"></button>
                         </td>

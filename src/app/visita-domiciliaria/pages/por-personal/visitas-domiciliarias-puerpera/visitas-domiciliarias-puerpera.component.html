@@ -70,22 +70,29 @@
                       <th pSortableColumn="fecha_creacion_documento">Fecha de la visita <p-sortIcon field="fecha_creacion_documento"></p-sortIcon></th>
                       <th>Telefono</th>
                       <th>Direccion</th>
+                      <th>Anemia</th>
                       <th>Respuestas</th>
                       <th>Acciones</th>
                   </tr>
                   </ng-template>
                   <ng-template pTemplate="body"  let-RowData let-rowIndex="rowIndex">
                       <tr  [pSelectableRow]="RowData">
-                          <td style="text-align: center">{{rowIndex+1}}</td>
-                          <td style="text-align: center">{{RowData.dni_gestante}}</td>
-                          <td style="text-align: left">{{RowData.nombres_gestante}}</td>
-                          <td style="text-align: left">{{RowData.apellidos_gestante}}</td>
-                          <td style="text-align: center">{{RowData.nroVisita}}</td>
-                          <td style="text-align: center">{{RowData.numero_de_gestacion}}</td>
-                          <td style="text-align: center">{{RowData.fecha_creacion_documento | date:'dd/MM/yyyy'}}</td>
-                          <td style="text-align: center">{{RowData.telefono}}</td>
-                          <td style="text-align: left">{{RowData.direccion}}</td>
-                          <td style="text-align: center">
+                        <td style="text-align: center">{{rowIndex+1}}</td>
+                        <td style="text-align: center">{{RowData.dni_gestante}}</td>
+                        <td style="text-align: left">{{RowData.nombres_gestante}}</td>
+                        <td style="text-align: left">{{RowData.apellidos_gestante}}</td>
+                        <td style="text-align: center">{{RowData.nroVisita}}</td>
+                        <td style="text-align: center">{{RowData.numero_de_gestacion}}</td>
+                        <td style="text-align: center">{{RowData.fecha_creacion_documento | date:'dd/MM/yyyy'}}</td>
+                        <td style="text-align: center">{{RowData.telefono}}</td>
+                        <td style="text-align: left">{{RowData.direccion}}</td>
+                        <td style="text-align: left">
+                            <button pButton type="button"  
+                                iconPos="right" icon="pi pi-check" label="NO"
+                                class="p-button-success p-button-sm">
+                            </button>
+                            </td>
+                        <td style="text-align: center">
                             <button  pButton type="button" label="Ver"  icon="pi pi-eye"  class="buttonAcciones" (click)="openDialogRespuestas(RowData.preguntas)"></button>
                         </td>
                         <td style="text-align: center">
@@ -95,16 +102,16 @@
                                 target="_blank">Reporte</a>
                             </button>
                         </td>
-                      </tr>
-                  </ng-template>
-              </p-table>
+                    </tr>
+                </ng-template>
+            </p-table>
           
-          </p-accordionTab>
-      </p-accordion>
-      <p-card>
-          <app-map-visitas [dataVisitas]="dataVisitas"></app-map-visitas>
-      </p-card>
-  </div>
-  
-  <p-toast position="top-right" key="myMessage1"></p-toast>
-  <p-toast position="top-right" key="myMessage2"></p-toast>
+        </p-accordionTab>
+    </p-accordion>
+    <p-card>
+        <app-map-visitas [dataVisitas]="dataVisitas"></app-map-visitas>
+    </p-card>
+</div>
+
+<p-toast position="top-right" key="myMessage1"></p-toast>
+<p-toast position="top-right" key="myMessage2"></p-toast>
