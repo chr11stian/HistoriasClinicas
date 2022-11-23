@@ -58,7 +58,10 @@
 </div>
 
 
-<p-dialog [(visible)]="turnoDialog" [style]="{width: '600px', height: '380px'}" [modal]="true" styleClass="p-fluid"
+<p-dialog [(visible)]="turnoDialog" [style]="{width: '600px', height: '380px'}" 
+        [modal]="true" 
+        styleClass="p-fluid"
+        [draggable]="false"
     autoZIndex>
     <ng-template pTemplate="header">
         <h3 class="m-0">{{tituloTurno()}}</h3>
@@ -104,7 +107,6 @@
     </ng-template>
 
     <ng-template pTemplate="footer">
-        <button pButton type="button" label="Cancelar" class="p-button-danger m-1 w-9rem" (click)="canceled()"></button>
         <button *ngIf="!isUpdateTurno" pButton type="button" label="Guardar" class="m-1 w-9rem"
             (click)="saveTurno()"></button>
         <button *ngIf="isUpdateTurno" pButton type="button" label="Guardar" class="m-1 w-9rem"
