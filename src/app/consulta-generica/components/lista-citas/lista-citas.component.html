@@ -252,7 +252,7 @@
             <div class="col-12 md:col-6 lg:col-12 p-field" style="text-align:center;">
             <span style="font-size: 1.5rem">LISTA DE PACIENTES EN
 
-                <span>{{buscarTipoConsulta(tipoConsulta)}}</span>
+                <span>{{tipoConsulta}}</span>
             </span>
             </div>
         </div>
@@ -315,7 +315,7 @@
         </p-toolbar>
     </div>
 
-    <div>
+    <!-- <div>
         <p-table [value]="dataPaciente" #dt styleClass="p-datatable-gridlines">
 
             <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
@@ -337,7 +337,7 @@
             </ng-template>
         </p-table>
 
-    </div>
+    </div> -->
 
 
     <div>
@@ -357,6 +357,7 @@
                             <th style="text-align: center">HORA ATENCION</th>
                             <th style="text-align: center">FECHA ATENCION</th>
                             <th style="text-align: center">SERVICIO</th>
+                            <th style="text-align: center">ETAPA</th>
                             <th style="text-align: center">ACCION</th>
 
                         </tr>
@@ -370,6 +371,7 @@
                             <td style="text-align: center">{{ rowData.horaAtencion}}</td>
                             <td style="text-align: center">{{ rowData.fechaAtencion | date: 'dd-MM-yyyy'}}</td>
                             <td style="text-align: center">{{ rowData.ipress.servicio}}</td>
+                            <td style="text-align: center">{{ rowData.tipoConsulta}}</td>
                             <td style="text-align: center">
                                 <button pButton pRipple type="button" label="Atención"
                                         class="p-button-secondary" style=""
