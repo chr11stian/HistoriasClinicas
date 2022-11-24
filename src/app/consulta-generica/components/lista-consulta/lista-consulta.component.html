@@ -49,12 +49,12 @@
             </span>
         </ng-template>
         <ng-template pTemplate="right">
-            <button pButton pRipple class="p-button-info" label="Nueva Consulta" (click)="nuevaConsulta()"
+            <button pButton pRipple class="p-button-info" label="Nueva Consulta" (click)="newConsulta()"
                     style="background-color: #0c3866" icon="pi pi-book"></button>
         </ng-template>
     </p-toolbar>
 
-    <p-table [value]="dataConsulta" #dt styleClass="p-datatable-gridlines" [rows]="10"
+    <p-table [value]="consultaList" #dt styleClass="p-datatable-gridlines" [rows]="10"
              [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
              currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
         <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
@@ -87,7 +87,7 @@
                 <td style="text-align: center">
                     <span class="">
                         <button pButton pRipple class="p-button-rounded p-button-warm" label="Consulta"
-                                icon="pi pi-book" (click)="atencion(rowData)"></button>
+                                icon="pi pi-book" (click)="oldConsulta(rowData)"></button>
                     </span>
                     <span class="pl-1">
                         <button pButton pRipple class="p-button-rounded p-button-help" label="FUA"

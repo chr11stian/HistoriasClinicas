@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup } from '@angular/forms';
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from "@angular/router";
 import {ListaConsultaService} from "../../../cred/citas/services/lista-consulta.service";
 import {dato} from "../../../cred/citas/models/data";
 import {
@@ -15,8 +15,10 @@ import Swal from 'sweetalert2';
 })
 export class ListaConsultaComponent implements OnInit {
 
+  consultaList: any[];
+  dataFromLocal: any
+
   attributeLocalS = 'documento'
-  dataConsulta: any;
   dataLifiado: any;
   FormPaciente: FormGroup;
   tipoDoc: any;
@@ -24,88 +26,73 @@ export class ListaConsultaComponent implements OnInit {
   apellidosNombres: any;
   tipoDocRecuperado: string;
   nroDocRecuperado: string;
-  data: any
   fechaNacimiento: string
   sexo: string
 
   constructor(private form: FormBuilder,
-              // private obstetriciaGeneralService: ObstetriciaGeneralService,
               private filiancionService: FiliancionService,
               private listaConsultaService: ListaConsultaService,
-              private route: ActivatedRoute,
               private router: Router) {
+    this.dataFromLocal = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS))            
   }
-
   ngOnInit(): void {
-    this.consultasNroDoc();
+    this.getPaciente();
+    this.getConsultaList(this.dataFromLocal.tipoDoc, this.dataFromLocal.nroDocumento,this.dataFromLocal.tipoConsulta);
   }
-
-  getpacientesFiliados(nroDoc) {
-    //para cred
-    this.listaConsultaService.getListaConsultaXtipo('DNI',nroDoc,this.data.tipoConsulta).subscribe((r: any) => {
-      this.dataConsulta = r.object;
-    })
-  }
-
-  atencion(event) {
-    this.listaConsultaService.getConsulta(event.id).subscribe((r: any) => {
-      this.data = <any>JSON.parse(localStorage.getItem(this.attributeLocalS))
-      let data: any = {
-        nroDocumento: this.data.nroDocumento,
-        tipoDoc: this.data.tipoDoc,
-        idConsulta: event.id,
-        anio:this.data.anio,
-        mes: this.data.mes,
-        dia: this.data.dia,
-        sexo: this.sexo,
-        fechaNacimiento: this.fechaNacimiento,
-        tipoConsulta:this.data.tipoConsulta,
-        idCupo: this.data.idCupo,
-        ups:this.data.ups
-      }
-      localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
-      setTimeout(() => {
-        this.router.navigate(['/dashboard/consulta-generica/consulta'])
-      }, 100)
-    })
-  }
-
-  nuevaConsulta() {
-    let data: any = {
-      nroDocumento: this.data.nroDocumento,
-      tipoDoc: this.data.tipoDoc,
-      idConsulta: '',
-      anio:this.data.anio,
-      mes: this.data.mes,
-      dia: this.data.dia,
-      sexo: this.sexo,
-      fechaNacimiento: this.fechaNacimiento,
-      tipoConsulta:this.data.tipoConsulta,
-      ups:this.data.ups
-    }
-    localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
-    setTimeout(() => {
-      // this.router.navigate(['/dashboard/cred/citas/atencion'])
-      this.router.navigate(['/dashboard/consulta-generica/consulta'])
-    }, 100)
-
-  }
-
-  consultasNroDoc() {
-    this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS))
-    this.filiancionService.getPacienteNroDocFiliacion(this.data.tipoDoc, this.data.nroDocumento).subscribe((res: any) => {
-
+  getPaciente() {
+    this.filiancionService.getPacienteNroDocFiliacion(this.dataFromLocal.tipoDoc, this.dataFromLocal.nroDocumento).subscribe((res: any) => {
       this.dataLifiado = res.object
       this.sexo = res.object.sexo
       this.fechaNacimiento = res.object.nacimiento.fechaNacimiento
-      console.log('nro doc filiacion ', res.object)
       this.tipoDoc = this.dataLifiado.tipoDoc
       this.nroDoc = this.dataLifiado.nroDoc;
       this.apellidosNombres = this.dataLifiado.apePaterno + ' ' + this.dataLifiado.apeMaterno + ' ' + this.dataLifiado.primerNombre + ' ' + this.dataLifiado.otrosNombres;
     });
-    this.getpacientesFiliados(this.data.nroDocumento);
+  }
+  getConsultaList(tipoDoc,nroDoc,servicio) {
+    this.listaConsultaService.getListaConsultaXtipo(tipoDoc,nroDoc,servicio).subscribe((r: any) => {
+      this.consultaList = r.object;
+    })
   }
 
+  oldConsulta(rowData) {
+      const data: any = {
+        nroDocumento: this.dataFromLocal.nroDocumento,
+        tipoDoc: this.dataFromLocal.tipoDoc,
+        idConsulta: rowData.id,
+        anio:this.dataFromLocal.anio,
+        mes: this.dataFromLocal.mes,
+        dia: this.dataFromLocal.dia,
+        sexo: this.sexo,
+        fechaNacimiento: this.fechaNacimiento,
+        tipoConsulta:this.dataFromLocal.tipoConsulta,
+        idCupo: this.dataFromLocal.idCupo,
+        ups:this.dataFromLocal.ups
+      }
+      localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
+      // setTimeout(() => {
+        this.router.navigate(['/dashboard/consulta-generica/consulta'])
+      // }, 100)
+  }
+
+  newConsulta() {
+    const data: any = {
+      nroDocumento: this.dataFromLocal.nroDocumento,
+      tipoDoc: this.dataFromLocal.tipoDoc,
+      idConsulta: '',
+      anio:this.dataFromLocal.anio,
+      mes: this.dataFromLocal.mes,
+      dia: this.dataFromLocal.dia,
+      sexo: this.sexo,
+      fechaNacimiento: this.fechaNacimiento,
+      tipoConsulta:this.dataFromLocal.tipoConsulta,
+      ups:this.dataFromLocal.ups
+    }
+    localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
+    // setTimeout(() => {
+      this.router.navigate(['/dashboard/consulta-generica/consulta'])
+    // }, 100)
+  }
   irFUA(rowData) {
     console.log('data', rowData);
     let message1 = "Esta Seguro de Generar FUA?, se dara como finalizado la consulta"
@@ -142,7 +129,6 @@ export class ListaConsultaComponent implements OnInit {
       })
     }
   }
-
   irHIS(rowData) {
     let message1 = "Esta Seguro de Generar HIS?, se dara como finalizado la consulta"
     if (rowData.estadoAtencion == 0) {
