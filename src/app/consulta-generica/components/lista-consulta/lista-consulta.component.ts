@@ -17,23 +17,17 @@ export class ListaConsultaComponent implements OnInit {
 
   consultaList: any[];
   dataFromLocal: any
-
   attributeLocalS = 'documento'
-  dataLifiado: any;
-  FormPaciente: FormGroup;
-  tipoDoc: any;
-  nroDoc: any;
-  apellidosNombres: any;
-  tipoDocRecuperado: string;
-  nroDocRecuperado: string;
-  fechaNacimiento: string
-  sexo: string
-
+  dataPaciente:any
   constructor(private form: FormBuilder,
               private filiancionService: FiliancionService,
               private listaConsultaService: ListaConsultaService,
               private router: Router) {
     this.dataFromLocal = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS))            
+  }
+  get apellidosNombres(){
+    // console.log({data:this.dataPaciente});
+    return this.dataPaciente?this.dataPaciente.apePaterno + ' ' + this.dataPaciente.apeMaterno + ' ' + this.dataPaciente.primerNombre + ' ' + this.dataPaciente.otrosNombres:'';
   }
   ngOnInit(): void {
     this.getPaciente();
@@ -41,12 +35,7 @@ export class ListaConsultaComponent implements OnInit {
   }
   getPaciente() {
     this.filiancionService.getPacienteNroDocFiliacion(this.dataFromLocal.tipoDoc, this.dataFromLocal.nroDocumento).subscribe((res: any) => {
-      this.dataLifiado = res.object
-      this.sexo = res.object.sexo
-      this.fechaNacimiento = res.object.nacimiento.fechaNacimiento
-      this.tipoDoc = this.dataLifiado.tipoDoc
-      this.nroDoc = this.dataLifiado.nroDoc;
-      this.apellidosNombres = this.dataLifiado.apePaterno + ' ' + this.dataLifiado.apeMaterno + ' ' + this.dataLifiado.primerNombre + ' ' + this.dataLifiado.otrosNombres;
+        this.dataPaciente = res.object
     });
   }
   getConsultaList(tipoDoc,nroDoc,servicio) {
@@ -63,16 +52,14 @@ export class ListaConsultaComponent implements OnInit {
         anio:this.dataFromLocal.anio,
         mes: this.dataFromLocal.mes,
         dia: this.dataFromLocal.dia,
-        sexo: this.sexo,
-        fechaNacimiento: this.fechaNacimiento,
+        sexo: this.dataPaciente.sexo,
+        fechaNacimiento: this.dataPaciente.nacimiento.fechaNacimiento,
         tipoConsulta:this.dataFromLocal.tipoConsulta,
         idCupo: this.dataFromLocal.idCupo,
         ups:this.dataFromLocal.ups
       }
       localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
-      // setTimeout(() => {
-        this.router.navigate(['/dashboard/consulta-generica/consulta'])
-      // }, 100)
+      this.router.navigate(['/dashboard/consulta-generica/consulta'])
   }
 
   newConsulta() {
@@ -83,15 +70,13 @@ export class ListaConsultaComponent implements OnInit {
       anio:this.dataFromLocal.anio,
       mes: this.dataFromLocal.mes,
       dia: this.dataFromLocal.dia,
-      sexo: this.sexo,
-      fechaNacimiento: this.fechaNacimiento,
+      sexo: this.dataPaciente.sexo,
+      fechaNacimiento: this.dataPaciente.nacimiento.fechaNacimiento,
       tipoConsulta:this.dataFromLocal.tipoConsulta,
       ups:this.dataFromLocal.ups
     }
     localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
-    // setTimeout(() => {
-      this.router.navigate(['/dashboard/consulta-generica/consulta'])
-    // }, 100)
+    this.router.navigate(['/dashboard/consulta-generica/consulta'])
   }
   irFUA(rowData) {
     console.log('data', rowData);
