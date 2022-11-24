@@ -35,14 +35,15 @@ export class LaboratorioComponent implements OnInit {
       },
     });
     this.ref.onClose.subscribe((data: any) => {
-      console.log('data de dialog ', data);
+      this.listarSolicitudes();
     })
   }
   listarSolicitudes() {
     this.examenesAuxiliaresService.getListarPeticiones(this.dataPaciente.idConsulta).then(res => {
-
-      this.listaSolicitudes = res.object.examenesAuxiliares;
-      console.log('lista de solicitudes ', this.listaSolicitudes);
+      if (res.object) {
+        this.listaSolicitudes = res.object.examenesAuxiliares;
+        // console.log('lista de solicitudes ', this.listaSolicitudes);
+      }
     })
   }
 }

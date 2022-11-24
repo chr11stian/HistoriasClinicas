@@ -4,10 +4,6 @@ import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { DatosGeneralesService } from 'src/app/consulta-generica/services/datos-generales/datos-generales.service';
 import { AddLaboratorio, ExamenAuxiliar, Laboratorio } from 'src/app/cred/citas/atencion-cred/consulta-principal/models/examenesAuxiliares';
 import { ExamenesAuxiliaresService } from 'src/app/cred/citas/atencion-cred/consulta-principal/services/examenes-auxiliares.service';
-import { PrestacionService } from 'src/app/mantenimientos/services/prestacion/prestacion.service';
-import { ServicesService } from 'src/app/obstetricia-general/gestante/atencion/consultorio-obstetrico/component/evaluaciones/laboratorio/services-lab/services.service';
-import { ConsultasService } from 'src/app/obstetricia-general/gestante/atencion/consultorio-obstetrico/services/consultas.service';
-import { CieService } from 'src/app/obstetricia-general/services/cie.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -97,14 +93,14 @@ export class DialogReqLaboratorioComponent implements OnInit {
 
   listarExamenes() {
     this.examenAuxiliarService.getExamListLaboratory().then(res => {
-      console.log('examenes disponibles ', res);
-      this.makeObjExam(res);
+      if (res) {
+        this.makeObjExam(res);
+      }
     })
   }
 
   makeObjExam(rptaExam) {
     let table: any[] = [];
-
     rptaExam.filter((item, index) => {
       table.push(item.subTipo);
     })
