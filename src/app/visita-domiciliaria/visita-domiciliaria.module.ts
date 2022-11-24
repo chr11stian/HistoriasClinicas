@@ -17,6 +17,8 @@ import { AnemiaGestantes } from "./pipes/anemia-gestantes.pipe";
 import { AnemiaNinios } from "./pipes/anemia-ninios.pipe";
 import { AnemiaPuerperas } from "./pipes/anemia-puerperas.pipe";
 import { EchartNiniosComponent } from './components/echart-ninios/echart-ninios.component';
+import { EchartGestantesComponent } from './components/echart-gestantes/echart-gestantes.component';
+import { EchartPuerperasComponent } from './components/echart-puerperas/echart-puerperas.component';
 @NgModule({
   declarations: [
     VisitasDomiciliariasNiniosComponent,
@@ -33,6 +35,8 @@ import { EchartNiniosComponent } from './components/echart-ninios/echart-ninios.
     AnemiaNinios,
     AnemiaPuerperas,
     EchartNiniosComponent,
+    EchartGestantesComponent,
+    EchartPuerperasComponent,
   ],
   imports: [CommonModule, VisitaDomiciliariaRoutingModule, PrimeModule],
   exports: [VisitaDomiciliariaRoutingModule],
