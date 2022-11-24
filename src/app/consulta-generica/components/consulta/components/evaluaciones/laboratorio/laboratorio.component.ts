@@ -25,6 +25,9 @@ export class LaboratorioComponent implements OnInit {
   ngOnInit(): void {
   }
   openDialogSolicitud() {
+    let dataDialog = {
+      auxExams: this.listaSolicitudes
+    }
     this.ref = this.dialog.open(DialogReqLaboratorioComponent, {
       header: "SOLICITUD DE EXÁMENES DE LABORATORIO",
       width: "70%",
@@ -33,16 +36,18 @@ export class LaboratorioComponent implements OnInit {
         "max-height": "92%",
         overflow: "auto",
       },
+      data:dataDialog,
     });
     this.ref.onClose.subscribe((data: any) => {
-      console.log('data de dialog ', data);
+      this.listarSolicitudes();
     })
   }
   listarSolicitudes() {
     this.examenesAuxiliaresService.getListarPeticiones(this.dataPaciente.idConsulta).then(res => {
-
-      this.listaSolicitudes = res.object.examenesAuxiliares;
-      console.log('lista de solicitudes ', this.listaSolicitudes);
+      if (res.object) {
+        this.listaSolicitudes = res.object.examenesAuxiliares;
+        // console.log('lista de solicitudes ', this.listaSolicitudes);
+      }
     })
   }
 }

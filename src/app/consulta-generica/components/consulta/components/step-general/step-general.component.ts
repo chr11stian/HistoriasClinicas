@@ -44,7 +44,7 @@ export class StepGeneralComponent implements OnInit {
         },
     ];
     buscarTipoConsulta(codigo) {
-        console.log("codigo", codigo);
+        // console.log("codigo", codigo);
 
         const aux = this.listaTitulo.find((element) => {
             return element.code == codigo;
