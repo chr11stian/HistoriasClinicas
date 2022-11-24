@@ -162,10 +162,10 @@ export class StepGeneralComponent implements OnInit {
                 this.stepName = "finalizar";
                 break;
             case 5:
-                this.stepName = "procedimiento";
+                this.stepName = "tratamiento";
                 break;
             case 4:
-                this.stepName = "tratamiento";
+                this.stepName = "procedimiento";
                 break;
             case 3:
                 this.stepName = "diagnostico";
@@ -207,12 +207,12 @@ export class StepGeneralComponent implements OnInit {
                 this.indiceActivo = 3;
                 break;
             case "diagnostico":
-                this.diagnosticoConsulta.saveDiagnostico();
+                // this.diagnosticoConsulta.saveDiagnostico();
                 this.stepName = "procedimiento";
                 this.indiceActivo = 4;
                 break;
             case "procedimiento":
-                this.procedimientoConsulta.saveProcedimiento();
+                // this.procedimientoConsulta.saveProcedimiento();
                 this.stepName = "tratamiento";
                 this.indiceActivo = 5;
                 break;

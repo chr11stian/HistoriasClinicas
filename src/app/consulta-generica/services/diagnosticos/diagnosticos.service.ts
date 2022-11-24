@@ -77,4 +77,28 @@ export class DiagnosticosService {
       .then(data => { return data; })
       .catch(error => { return error.error })
   }
+
+  getPrestationPerIdConsulta(idConsulta: string) {
+    return this.http.get(`${this.base_url}/${this.bd}/sis/listar/procedimientos/${idConsulta}`)
+      .toPromise()
+      .then(res => res)
+      .then(data => { return data; })
+      .catch(error => { return error.error })
+  }
+
+  postSaveProcedure(idConsulta: string, data) {
+    return this.http.post(`${this.base_url}/${this.bd}/cred/consulta/procedimientos/save/${idConsulta}`, data)
+      .toPromise()
+      .then(res => res)
+      .then(data => { return data; })
+      .catch(error => { return error.error })
+  }
+
+  getPromiseProcedimiento(idConsulta: string) {
+    return this.http.get(`${this.base_url}/${this.bd}/cred/consulta/procedimiento/${idConsulta}`)
+      .toPromise()
+      .then(res => res)
+      .then(data => { return data; })
+      .catch(error => { return error.error })
+  }
 }
