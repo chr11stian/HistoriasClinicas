@@ -33,7 +33,7 @@ export class EchartNiniosComponent implements OnInit {
     this.getVisitasMenoresMeses();
     setTimeout(() => {
       this.estadistica();
-    }, 500);
+    }, 600);
   }
   async getVisitasMayoresMeses() {
     this.nro_sinValor_mayores = 0;
@@ -52,10 +52,10 @@ export class EchartNiniosComponent implements OnInit {
         console.log("Data ninios mayores", data_ninios["rows"]);
         data_ninios["rows"].map((aux) => {
           console.log(aux.value["hemoglobina"]);
-          if (aux.value["hemoglobina"] == "") {
+          if (aux.value["hemoglobina"].toString() == "") {
             this.nro_sinValor_mayores++;
           } else {
-            let number = parseFloat(aux.value["hemoglobina"]);
+            let number = parseFloat(aux.value.hemoglobina);
             if (number < 10) {
               this.nro_anemia_mayores++;
             } else if (number >= 10) {
@@ -63,9 +63,16 @@ export class EchartNiniosComponent implements OnInit {
             }
           }
         });
+        console.log("mayores",this.nro_anemia_mayores);
+        console.log("mayores",this.nro_snanemia_mayores);
+        console.log("mayores",this.nro_sinValor_mayores);
       });
+
   }
   async getVisitasMenoresMeses() {
+    this.nro_sinValor_menores = 0;
+    this.nro_anemia_menores = 0;
+    this.nro_snanemia_menores = 0;
     let ipress = this.servicioVisitas.getIdIpress();
     let dni = `vp${this.data}`;
     console.log("ipress", ipress);
@@ -78,13 +85,13 @@ export class EchartNiniosComponent implements OnInit {
         this.servicioVisitas.getAnio()
       )
       .then((data_ninios) => {
-        console.log("Data ninios mayores", data_ninios["rows"]);
+        console.log("Data ninios menores", data_ninios["rows"]);
         data_ninios["rows"].map((aux) => {
           console.log(aux.value["hemoglobina"]);
           if (aux.value["hemoglobina"] == "") {
             this.nro_sinValor_menores++;
           } else {
-            let number = parseFloat(aux.value["hemoglobina"]);
+            let number = parseFloat(aux.value.hemoglobina);
             if (number < 10) {
               this.nro_anemia_menores++;
             } else if (number >= 10) {
@@ -151,7 +158,7 @@ export class EchartNiniosComponent implements OnInit {
       ],
       legend: {
         bottom: 10,
-        left: 'center',
+        left: "center",
       },
       tooltip: {
         trigger: "item",
@@ -183,7 +190,7 @@ export class EchartNiniosComponent implements OnInit {
               show: true,
             },
           },
-          data: data1,
+          data: data2,
           left: 0,
           right: "50%",
           top: -150,
@@ -207,7 +214,7 @@ export class EchartNiniosComponent implements OnInit {
               show: true,
             },
           },
-          data: data2,
+          data: data1,
 
           left: "50%",
           right: "0%",
