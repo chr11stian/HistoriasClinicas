@@ -50,11 +50,8 @@ import { TriajesModule } from './triajes/triajes.module';
         ToastModule,
         VisitaDomiciliariaModule,
         PnGestanteModule,
-<<<<<<< HEAD
         AboutModule,
-=======
         TriajesModule,
->>>>>>> bb1ef23344a3fee84c4f59b2c5236453ea6822c1
 
         NgxEchartsModule.forRoot({
             echarts: () => import('echarts'),

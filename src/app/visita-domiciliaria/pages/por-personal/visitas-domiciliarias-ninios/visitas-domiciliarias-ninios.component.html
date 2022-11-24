@@ -6,8 +6,22 @@
                     VISITA DOMICILIARIA DE NIÑOS Y NIÑAS
                 </span>
             </div>
+           
         </div>
         <div class="card">
+            <p-toolbar  class="p-mb-4">
+                <ng-template pTemplate="left" class="p-inputgroup">
+                </ng-template>
+                <ng-template pTemplate="right" class="button">
+                    <button pButton 
+                    pRipple label="Estadistica"
+                    icon="pi pi-chart-bar" 
+                    class="p-button-help mr-2"
+                    (click)="openDialogEcharts()"
+                    >
+                    </button>
+                </ng-template>
+            </p-toolbar>
             <p-card>
                 <div class="p-fluid p-formgrid p-grid">
                     <div class="busqueda">

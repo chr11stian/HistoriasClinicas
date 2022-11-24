@@ -7,35 +7,50 @@
                 </span>
             </div>
         </div>
-        <p-card>
-            <form class="p-fluid p-formgrid p-grid">
-                <div class="busqueda">
-                    <div class="anios">
-                        <p-dropdown
-                                (onChange)="verVisitasPorAnio($event)"
-                                [options]="anios"
-                                optionLabel="anio"
-                                optionValue="anio"
-                                placeholder="Año"
-                                [showClear]="false"
-                                [style]="{ width: '100%' }"
-                                [(ngModel)]="selectedAnio"
-                                [ngModelOptions]="{standalone: true}"
-                                >
-                        </p-dropdown>
-                    </div>
-                    <div class="meses">
-                        <p-selectButton (onChange)="verVisitasPorMes($event)" 
-                                        [options]="meses"  
-                                        optionValue="value" 
-                                        [(ngModel)]="selectedMes"
-                                        [ngModelOptions]="{standalone: true}"
-                                        optionLabel="label"></p-selectButton>
+        <div class="card">
+            <p-toolbar  class="p-mb-4">
+                <ng-template pTemplate="left" class="p-inputgroup">
+                </ng-template>
+                <ng-template pTemplate="right" class="button">
+                    <button pButton 
+                    pRipple label="Estadistica"
+                    icon="pi pi-chart-bar" 
+                    class="p-button-help mr-2"
+                    >
+                    </button>
+                </ng-template>
+            </p-toolbar>
+            <p-card>
+                <div class="p-fluid p-formgrid p-grid">
+                    <div class="busqueda">
+                        <div class="anios">
+                            <p-dropdown
+                                    (onChange)="verVisitasPorAnio($event)"
+                                    [options]="anios"
+                                    optionLabel="anio"
+                                    optionValue="anio"
+                                    placeholder="Año"
+                                    [showClear]="false"
+                                    [style]="{ width: '100%' }"
+                                    [(ngModel)]="selectedAnio"
+                                    [ngModelOptions]="{standalone: true}"
+                                    >
+                            </p-dropdown>
+                        </div>
+                        <div class="meses">
+                            <p-selectButton (onChange)="verVisitasPorMes($event)" 
+                                            [options]="meses"  
+                                            optionValue="value" 
+                                            [(ngModel)]="selectedMes"
+                                            [ngModelOptions]="{standalone: true}"
+                                            optionLabel="label"></p-selectButton>
+                        </div>
                     </div>
                 </div>
-            </form>
+            </p-card>
+            
             <!--MapStreet-->
-        </p-card>
+        </div>
     </div>
     <p-accordion>
         <p-accordionTab>
