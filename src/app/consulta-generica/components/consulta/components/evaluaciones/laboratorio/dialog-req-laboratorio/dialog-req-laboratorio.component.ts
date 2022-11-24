@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { DatosGeneralesService } from 'src/app/consulta-generica/services/datos-generales/datos-generales.service';
 import { AddLaboratorio, ExamenAuxiliar, Laboratorio } from 'src/app/cred/citas/atencion-cred/consulta-principal/models/examenesAuxiliares';
 import { ExamenesAuxiliaresService } from 'src/app/cred/citas/atencion-cred/consulta-principal/services/examenes-auxiliares.service';
@@ -41,23 +41,25 @@ export class DialogReqLaboratorioComponent implements OnInit {
   examName: ExamLab[] = [];
   auxExamList: ExamenAuxiliar[] = [];
   solicitudLaboratorio: Laboratorio
-
+  toEdit: boolean = false;
+  dataDialog: any;
+  reqLabo: ExamName[] = [];
 
   constructor(
     private laboService: ExamenesAuxiliaresService,
     private ref: DynamicDialogRef,
     private examenAuxiliarService: ExamenesAuxiliaresService,
-    private datosGralService: DatosGeneralesService
+    private datosGralService: DatosGeneralesService,
+    public config: DynamicDialogConfig,
   ) {
     this.inicializarForm();
-
+    this.dataDialog = this.config.data.auxExams;
+    this.dataDialog.length == 0 ? this.toEdit = false : this.toEdit = true;
     this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
     this.dataPaciente = JSON.parse(localStorage.getItem('documento'));
-    // this.edadPaciente = documento.anio;
-    // this.sexoPaciente = documento.sexo;
-    // this.idConsulta = documento.idConsulta;
-    // this.nroDocPaciente = documento.nroDocumento;
-    // this.tipoDocPaciente = documento.tipoDoc;
+    // if (this.dataDialog) {
+    //   this.modelarData(this.dataDialog)
+    // }
   }
 
   ngOnInit(): void {
@@ -83,7 +85,7 @@ export class DialogReqLaboratorioComponent implements OnInit {
       nroDoc: this.dataPaciente.nroDocumento
     }
     this.datosGralService.getPromisePacienteByDoc(paciente).then(res => {
-      console.log('data de paciente ', res);
+      // console.log('data de paciente ', res);
       this.formReqLabo.get('edad').setValue(this.dataPaciente.anio);
       this.formReqLabo.get('HCL').setValue(res.object.nroHcl);
       this.formReqLabo.get('servicio').setValue(this.dataPaciente.ups);
@@ -144,7 +146,7 @@ export class DialogReqLaboratorioComponent implements OnInit {
       nroCama: '',
       examenesAuxiliares: this.auxExamList
     }
-    console.log('data to save ', this.solicitudLaboratorio);
+    // console.log('data to save ', this.solicitudLaboratorio);
     this.examenAuxiliarService.postPromiseAddServiciosLaboratorio(this.dataPaciente.idConsulta, this.solicitudLaboratorio).then(res => {
       Swal.fire({
         icon: 'success',
@@ -180,8 +182,31 @@ export class DialogReqLaboratorioComponent implements OnInit {
   }
   listarSolicitudes() {
     this.examenAuxiliarService.getListarPeticiones(this.idConsulta).then(res => {
-      console.log('lista de solicitudes ', res);
+      // console.log('lista de solicitudes ', res);
     })
+  }
+
+  modelarData(data: any[]): void {
+    data.forEach(item => {
+      let auxExam: ExamName = {
+        examName: item.nombreExamen,
+        subTipo: item.subTipo,
+        saved: true
+      }
+      this.reqLabo.push(auxExam);
+    })
+  }
+
+  reworkDialog(examList: Examen[], requiredExam: ExamName[]): void {
+    for (let i = 0; i < examList.length; i++) {
+      // examList[i].listaExamName.forEach(exam => {
+      for (let j = 0; j < requiredExam.length; j++) {
+        examList[i].listaExamName.map(item => {
+          if (item.examName == requiredExam[j].examName) return item.saved = true;
+          else return item
+        })
+      }
+    }
   }
 }
 interface Laboratory {
@@ -197,4 +222,13 @@ interface ExamLab {
   nombreExamen: string,
   codigoHIS?: string,
   codigoSIS?: string,
+}
+interface Examen {
+  groupName: string;
+  listaExamName: ExamName[];
+}
+interface ExamName {
+  subTipo: string,
+  examName: string
+  saved: boolean
 }
