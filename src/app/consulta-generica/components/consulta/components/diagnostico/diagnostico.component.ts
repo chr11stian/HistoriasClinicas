@@ -56,14 +56,11 @@ export class DiagnosticoComponent implements OnInit {
   estadoEditar: boolean = false;
   checked: boolean = false;
   descripcionItem: string;
-
-  private hayDatos: boolean = false;
-  constructor(private DiagnosticoService: DiagnosticosService,
+  constructor(
+    private DiagnosticoService: DiagnosticosService,
     private PrestacionService: PrestacionService,
     private cieService: CieService,
-    private formBuilder: FormBuilder,
-    private UpsAuxService: UpsAuxIpressService,
-    private messageService: MessageService) {
+  ) {
     this.buildForm();
     this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
     this.dataConsulta = JSON.parse(localStorage.getItem('documento'));
