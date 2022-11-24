@@ -207,7 +207,7 @@ export class StepGeneralComponent implements OnInit {
                 this.indiceActivo = 3;
                 break;
             case "diagnostico":
-                this.diagnosticoConsulta.SaveDiagnostico();
+                this.diagnosticoConsulta.saveDiagnostico();
                 this.stepName = "procedimiento";
                 this.indiceActivo = 4;
                 break;
