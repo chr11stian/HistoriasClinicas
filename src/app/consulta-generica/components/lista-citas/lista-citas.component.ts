@@ -145,13 +145,19 @@ export class ListaCitasComponent implements OnInit, OnChanges {
   //   })
   // }
   getTriadosXservicio() {
-    // console.log('cupos x servicio-------------,',this.titulo)
-    let data = {
+   /*  let data = {
       fechaAtencion: this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd')
     }
-    // console.log('DATA ', data);
-
     this.cuposService.getTriadosServicioFecha(this.tipoConsulta,data).subscribe((res: any) => {
+      this.DataCupos = res.object;
+      console.log('LISTA DE CUPOS POR SERVICIO ', this.DataCupos);
+    }) */
+    
+     let inputRequest = {
+      servicio:this.tipoConsulta,
+      fecha: this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd')
+    }    
+    this.cuposService.getTriadosServicioFecha1(inputRequest).subscribe((res: any) => {
       this.DataCupos = res.object;
       console.log('LISTA DE CUPOS POR SERVICIO ', this.DataCupos);
     })
@@ -185,25 +191,25 @@ export class ListaCitasComponent implements OnInit, OnChanges {
   }
 
 
-  enviarData(dataPaciente) {
+  enviarData(dataCupos) {
 
     // console.log("EVENTO", event);
     // this.obstetriciaGeneralService.tipoDoc = event.paciente.tipoDoc;
     // this.obstetriciaGeneralService.nroDoc = event.paciente.nroDoc;
-    console.log('data Paciente',dataPaciente)
+    console.log('data Paciente',dataCupos)
     let data: any =
         {
-          ups:this.tipoConsulta=='ADOLESCENTE'||this.tipoConsulta=='JOVEN'|| this.tipoConsulta=='ADULTO'||this.tipoConsulta=='ADULTO MAYOR'?'MEDICINA GENERAL':this.tipoConsulta,
-          tipoConsulta: this.tipoConsulta,
-          nroDocumento: dataPaciente.paciente.nroDoc,
-          tipoDoc: dataPaciente.paciente.tipoDoc,
+          ups:dataCupos.ipress.servicio,
+          tipoConsulta: dataCupos.tipoConsulta,
+          nroDocumento: dataCupos.paciente.nroDoc,
+          tipoDoc: dataCupos.paciente.tipoDoc,
           idConsulta: '',
-          sexo: dataPaciente.paciente.sexo,
-          anio:dataPaciente.paciente.edadAnio,
-          mes:dataPaciente.paciente.edadMes,
-          dia:dataPaciente.paciente.edadDia,
-          idCupo: dataPaciente.id,
-          servicio:dataPaciente.servicio
+          sexo: dataCupos.paciente.sexo,
+          anio:dataCupos.paciente.edadAnio,
+          mes:dataCupos.paciente.edadMes,
+          dia:dataCupos.paciente.edadDia,
+          idCupo: dataCupos.id,
+          servicio:dataCupos.servicio
         }
     localStorage.setItem('documento', JSON.stringify(data));
 

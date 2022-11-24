@@ -148,11 +148,18 @@ const routes: Routes = [
                     ),
             },
             {
+                path: "triaje",
+                loadChildren: () =>
+                    import("src/app/triajes/triajes.module").then(
+                        (n) => n.TriajesModule
+                    ),
+            },
+            {
                 path:"about",
                 loadChildren: ()=>
-                    import("src/app/about/about.module").then(
-                        (n)=>n.AboutModule
-                    ),
+                import("src/app/about/about.module").then(
+                    (n)=>n.AboutModule
+            ),
             }
         ],
     },

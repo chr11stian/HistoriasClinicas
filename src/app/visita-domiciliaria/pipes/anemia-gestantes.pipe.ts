@@ -8,9 +8,9 @@ export class AnemiaGestantes implements PipeTransform {
     if (valor == "") {
       return -1;
     } else {
-      if (number < 12) {
+      if (number < 11) {
         return 1;
-      } else if (number >= 12) {
+      } else if (number >= 11) {
         return 0;
       }
     }

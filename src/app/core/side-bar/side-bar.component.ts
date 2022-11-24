@@ -346,7 +346,7 @@ const triaje = {
         {
             icon: "pi pi-book",
             label: "Triaje",
-            routerLink: "admision/triaje",
+            routerLink: "triaje/registrar",
         },
     ],
 };
@@ -411,68 +411,80 @@ const historias = {
                 },*/
             ],
         },
+        // {
+        //     icon: "pi pi-heart",
+        //     label: "Medicina General",
+        //     items: [
+        //         {
+        //             icon: "pi pi-calendar",
+        //             label: "Niño/Niña",
+        //             items: [
+        //                 {
+        //                     label: "Citas",
+        //                     icon: "pi pi-home",
+        //                     routerLink:
+        //                         "consulta-generica/lista-cita/NIÑO_NIÑA",
+        //                 },
+        //             ],
+        //         },
+        //         {
+        //             icon: "pi pi-cloud",
+        //             label: "Adolescente",
+        //             items: [
+        //                 {
+        //                     label: "Citas",
+        //                     icon: "pi pi-home",
+        //                     routerLink:
+        //                         "consulta-generica/lista-cita/ADOLESCENTE",
+        //                 },
+        //             ],
+        //         },
+        //         {
+        //             icon: "pi pi-comments",
+        //             label: "Joven",
+        //             items: [
+        //                 {
+        //                     label: "Citas",
+        //                     icon: "pi pi-home",
+        //                     routerLink: "consulta-generica/lista-cita/JOVEN",
+        //                 },
+        //             ],
+        //         },
+
+        //         {
+        //             icon: "pi pi-briefcase",
+        //             label: "Adulto",
+        //             items: [
+        //                 {
+        //                     label: "Citas",
+        //                     icon: "pi pi-home",
+        //                     routerLink: "consulta-generica/lista-cita/ADULTO",
+        //                 },
+        //             ],
+        //         },
+        //         {
+        //             icon: "pi pi-clock",
+        //             label: "Adulto Mayor",
+        //             items: [
+        //                 {
+        //                     label: "Citas",
+        //                     icon: "pi pi-home",
+        //                     routerLink:
+        //                         "consulta-generica/lista-cita/ADULTO MAYOR",
+        //                 },
+        //             ],
+        //         },
+        //     ],
+        // },
         {
             icon: "pi pi-heart",
             label: "Medicina General",
             items: [
                 {
-                    icon: "pi pi-calendar",
-                    label: "Niño/Niña",
-                    items: [
-                        {
-                            label: "Citas",
-                            icon: "pi pi-home",
-                            routerLink:
-                                "consulta-generica/lista-cita/NIÑO_NIÑA",
-                        },
-                    ],
-                },
-                {
-                    icon: "pi pi-cloud",
-                    label: "Adolescente",
-                    items: [
-                        {
-                            label: "Citas",
-                            icon: "pi pi-home",
-                            routerLink:
-                                "consulta-generica/lista-cita/ADOLESCENTE",
-                        },
-                    ],
-                },
-                {
-                    icon: "pi pi-comments",
-                    label: "Joven",
-                    items: [
-                        {
-                            label: "Citas",
-                            icon: "pi pi-home",
-                            routerLink: "consulta-generica/lista-cita/JOVEN",
-                        },
-                    ],
-                },
-
-                {
-                    icon: "pi pi-briefcase",
-                    label: "Adulto",
-                    items: [
-                        {
-                            label: "Citas",
-                            icon: "pi pi-home",
-                            routerLink: "consulta-generica/lista-cita/ADULTO",
-                        },
-                    ],
-                },
-                {
-                    icon: "pi pi-clock",
-                    label: "Adulto Mayor",
-                    items: [
-                        {
-                            label: "Citas",
-                            icon: "pi pi-home",
-                            routerLink:
-                                "consulta-generica/lista-cita/ADULTO MAYOR",
-                        },
-                    ],
+                    label: "Citas",
+                    icon: "pi pi-home",
+                    routerLink:
+                        "consulta-generica/lista-cita/MEDICINA GENERAL",
                 },
             ],
         },
@@ -512,11 +524,11 @@ const historias = {
                 },
             ],
         },
-        {
+        /* {
             icon: "pi pi-th-large",
             label: "FUA",
             routerLink: "fua/fua",
-        },
+        }, */
     ],
 };
 const laboratorio = {

@@ -96,7 +96,7 @@ export class VisitasDomiciliariasGestantesComponent implements OnInit {
   openDialogRespuestas(data: any[]) {
     this.ref = this.dialog.open(DialogRespuestasComponent, {
       header:
-        "PREGUNTAS>RESPUESTAS DE LA VISITAS DOMICILIARIA EJECUTADA",
+        ">>>PREGUNTAS>>RESPUESTAS DE LA VISITAS DOMICILIARIA EJECUTADA",
       width: "70%",
       // height: "800px",
       contentStyle: {

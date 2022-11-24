@@ -189,6 +189,11 @@ export class CuposService {
       data
     );
   }
+  getTriadosServicioFecha1(inputRequest) {
+    return this.http.post(
+      `${this.base_url}/${this.bd}/cupo/buscar/servicio/consultorio`,inputRequest
+    );
+  }
   /* interconsulta */
   putInterconsultaCupo(data) {
     return this.http.put(

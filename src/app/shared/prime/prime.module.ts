@@ -97,7 +97,6 @@ const importsApi = [
     PanelModule,
     ReactiveFormsModule,
     ToolbarModule,
-    FieldsetModule,
     AccordionModule,
     DynamicDialogModule,
     DividerModule,

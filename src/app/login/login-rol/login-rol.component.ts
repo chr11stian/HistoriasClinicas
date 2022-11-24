@@ -178,7 +178,7 @@ export class LoginRolComponent implements OnInit {
                             //aux.nombreFuncion == "SERVICIOS ADMINISTRACION" &&
                             this.router
                                 .navigate([
-                                    "dashboard/consulta-generica/lista-cita/NIÑO_NIÑA",
+                                    "dashboard/consulta-generica/lista-cita/MEDICINA GENERAL",
                                 ])
                                 .then(() => {
                                     window.location.reload();
