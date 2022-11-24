@@ -13,6 +13,7 @@ import { VisitaDomiciliariaService } from "../../../services/visita-domiciliaria
 import { VisitaNinioService } from "../../../services/visita-ninio.service";
 import { environment } from "src/environments/environment";
 import { Value } from '../../../../pn-gestante/interfaces/padron_Nominal';
+import { EchartNiniosComponent } from "src/app/visita-domiciliaria/components/echart-ninios/echart-ninios.component";
 
 @Component({
   selector: "app-visitas-domiciliarias-ninios",
@@ -227,5 +228,20 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
       "/jasperserver/rest_v2/reports/Reports/VISITA/mayorcuatrohorizontal/visita_nino_niniamayor4meses.pdf?"+
       "&visita=" +
       aux.id;
+  }
+
+  openDialogEcharts() {
+    let dni=this.servicioVisitas.getIdPersonal();
+    this.ref = this.dialog.open(EchartNiniosComponent, {
+      header:
+        "GRAFICO VISITA DOMICILIARIA NIÑOS Y NIÑAS DE 0-4,4-24(GRUPO EDAD MESES)",
+      width: "70%",
+      height:"80%",
+      contentStyle: {
+        //"max-height": "93%",
+        overflow: "auto",
+      },
+      data:dni,
+    });
   }
 }

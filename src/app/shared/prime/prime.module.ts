@@ -45,7 +45,8 @@ import {TimelineModule} from 'primeng/timeline';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {SpeedDialModule} from 'primeng/speeddial';
 import { PickListModule } from 'primeng/picklist';
-import {BadgeModule} from 'primeng/badge';
+import { BadgeModule } from 'primeng/badge';
+import { CarouselModule } from 'primeng/carousel';
 
 const importsApi = [
     TimelineModule,
@@ -105,7 +106,8 @@ const importsApi = [
     ProgressSpinnerModule,
     SpeedDialModule,
     PickListModule,
-    BadgeModule
+    BadgeModule,
+    CarouselModule
 ];
 
 @NgModule({

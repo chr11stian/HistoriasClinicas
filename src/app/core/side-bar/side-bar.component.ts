@@ -258,12 +258,11 @@ const administracion1 = {
             icon: "pi pi-users",
             routerLink: "admision/personal-salud",
         },
-        // {
-        //     label:"Visitas domiciliarias",
-        //     icon: "pi pi pi-home",
-        //     routerLink: "visitas-domiciliarias/ipress-ninios",
-
-        // }
+        {
+            label:"Visitas domiciliarias",
+            icon: "pi pi pi-home",
+            routerLink: "visitas-domiciliarias/ipress-ninios",
+        }
         /*{
             label: "Usuarios",
             icon: "pi pi-pw pi-file",
@@ -536,10 +535,14 @@ const visitas = {
             routerLink: "padron-nominal-gestante/mantenimiento",
         },
         // {
-        //     label:"Ipress niños",
-        //     icon: "pi pi-user",
-        //     routerLink: "visitas-domiciliarias/ipress-ninios",
-
+        //     label:"Visitas domiciliarias",
+        //     icon: "pi pi pi-home",
+        //     routerLink:"visitas-domiciliarias/ipress-ninios",
+        // },
+        // {
+        //     label:"About",
+        //     icon:"pi pi-angle-right",
+        //     routerLink:"about/nosotros",
         // }
     ],
 };

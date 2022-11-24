@@ -25,7 +25,7 @@ export class EstadoGestacional implements PipeTransform{
 
         if(semanas<40 && aborto==false){
             return `Gestante`;
-        }else if(semanas>40 && semanas<47){
+        }else if(semanas>=40 && semanas<=47){
             return `Puerpera`;
         }else if(semanas<40 && aborto==true){
             return `Puerpera`

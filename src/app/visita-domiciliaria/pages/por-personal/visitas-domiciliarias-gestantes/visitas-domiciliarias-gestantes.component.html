@@ -7,35 +7,51 @@
                 </span>
             </div>
         </div>
-        <p-card>
-            <form class="p-fluid p-formgrid p-grid">
-                <div class="busqueda">
-                    <div class="anios">
-                        <p-dropdown
-                                (onChange)="verVisitasPorAnio($event)"
-                                [options]="anios"
-                                optionLabel="anio"
-                                optionValue="anio"
-                                placeholder="Año"
-                                [showClear]="false"
-                                [style]="{ width: '100%' }"
-                                [(ngModel)]="selectedAnio"
-                                [ngModelOptions]="{standalone: true}"
-                                >
-                        </p-dropdown>
-                    </div>
-                    <div class="meses">
-                        <p-selectButton (onChange)="verVisitasPorMes($event)" 
-                                        [options]="meses"  
-                                        optionValue="value" 
-                                        [(ngModel)]="selectedMes"
-                                        [ngModelOptions]="{standalone: true}"
-                                        optionLabel="label"></p-selectButton>
+        <div class="card">
+            <p-toolbar  class="p-mb-4">
+                <ng-template pTemplate="left" class="p-inputgroup">
+                </ng-template>
+                <ng-template pTemplate="right" class="button">
+                    <button pButton 
+                    pRipple label="Estadística"
+                    icon="pi pi-chart-bar" 
+                    class="p-button-help mr-2"
+                    (click)="openDialogEcharts()"
+                    >
+                    </button>
+                </ng-template>
+            </p-toolbar>
+            <p-card>
+                <div class="p-fluid p-formgrid p-grid">
+                    <div class="busqueda">
+                        <div class="anios">
+                            <p-dropdown
+                                    (onChange)="verVisitasPorAnio($event)"
+                                    [options]="anios"
+                                    optionLabel="anio"
+                                    optionValue="anio"
+                                    placeholder="Año"
+                                    [showClear]="false"
+                                    [style]="{ width: '100%' }"
+                                    [(ngModel)]="selectedAnio"
+                                    [ngModelOptions]="{standalone: true}"
+                                    >
+                            </p-dropdown>
+                        </div>
+                        <div class="meses">
+                            <p-selectButton (onChange)="verVisitasPorMes($event)" 
+                                            [options]="meses"  
+                                            optionValue="value" 
+                                            [(ngModel)]="selectedMes"
+                                            [ngModelOptions]="{standalone: true}"
+                                            optionLabel="label"></p-selectButton>
+                        </div>
                     </div>
                 </div>
-            </form>
+            </p-card>
+            
             <!--MapStreet-->
-        </p-card>
+        </div>
     </div>
     <p-accordion>
         <p-accordionTab>
@@ -68,6 +84,7 @@
                     <th pSortableColumn="fecha_creacion_documento ">Fecha de la visita<p-sortIcon field="fecha_creacion_documento "></p-sortIcon></th>
                     <th>Telefono</th>
                     <th>Direccion</th>
+                    <th>Anemia</th>
                     <th>Respuestas</th>
                     <th>Acciones</th>
                 </tr>
@@ -83,6 +100,33 @@
                         <td style="text-align: center">{{RowData.fecha_creacion_documento | date:'dd/MM/yyyy'}}</td>
                         <td style="text-align: center">{{RowData.telefono}}</td>
                         <td style="text-align: left">{{RowData.direccion}}</td>
+                        <div *ngIf="(RowData.hemoglobina |AnemiaGestantes)==1;then si">
+                        </div>
+                        <div *ngIf="(RowData.hemoglobina |AnemiaGestantes)==0;then no">
+
+                        </div>
+                        <div *ngIf="(RowData.hemoglobina |AnemiaGestantes)==-1;then sin_info">
+                        </div>
+                        <ng-template #si>
+                            <td style="text-align:center">
+                                <button pButton type="button"  
+                                    iconPos="left" icon="pi pi pi-times" label="SI"
+                                    class="p-button-warning p-button-sm">
+                                </button>
+                            </td>
+                        </ng-template>
+                        <ng-template #no>
+                            <td style="text-align: center">
+                                <button pButton type="button"  
+                                    iconPos="left" icon="pi pi-check" label="NO"
+                                    class="p-button-success p-button-sm">
+                                </button>
+                            </td>
+                        </ng-template>
+                        <ng-template #sin_info>
+                            <td style="text-align: center">
+                            </td>
+                        </ng-template>
                         <td style="text-align: center">
                             <button  pButton type="button" label="Ver"  icon="pi pi-eye"  class="buttonAcciones" (click)="openDialogRespuestas(RowData.preguntas)"></button>
                         </td>
