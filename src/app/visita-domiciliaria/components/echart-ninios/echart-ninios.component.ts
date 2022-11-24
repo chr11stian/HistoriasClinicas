@@ -150,8 +150,8 @@ export class EchartNiniosComponent implements OnInit {
         },
       ],
       legend: {
-        top: '5%',
-        left: 'center'
+        bottom: 10,
+        left: 'center',
       },
       tooltip: {
         trigger: "item",

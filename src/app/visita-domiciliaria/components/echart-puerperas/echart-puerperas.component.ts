@@ -88,14 +88,14 @@ export class EchartPuerperasComponent implements OnInit {
         {
           subtext: "PUERPERAS",
           left: "50%",
-          top: "90%",
+          top: "85%",
           textAlign: "center",
         },
         
       ],
       legend: {
-        top: '5%',
-        left: 'center'
+        bottom: 10,
+        left: 'center',
       },
       tooltip: {
         trigger: "item",

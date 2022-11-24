@@ -89,19 +89,18 @@ export class EchartGestantesComponent implements OnInit {
         {
           subtext: "GESTANTES",
           left: "50%",
-          top: "90%",
+          top: "85%",
           textAlign: "center",
         },
         
       ],
       legend: {
-        top: '5%',
-        left: 'center'
+        bottom: 10,
+        left: 'center',
       },
       tooltip: {
         trigger: "item",
         formatter: "{a} <br/>{b} : {c} ({d}%)",
-        showContent: false
       },
       toolbox: {
         show: true,
