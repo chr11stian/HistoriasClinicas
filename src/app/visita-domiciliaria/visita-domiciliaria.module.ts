@@ -13,7 +13,9 @@ import { VisitasDomiciliariasPuerperaComponent } from './pages/por-personal/visi
 import { PorIpressComponent } from './pages/por-ipress/por-ipress.component';
 import { MapVisitasIpressComponent } from './components/map-visitas-ipress/map-visitas-ipress.component';
 import { EchartsVisitaComponent } from './components/echarts-visita/echarts-visita.component';
-
+import { AnemiaGestantes } from "./pipes/anemia-gestantes.pipe";
+import { AnemiaNinios } from "./pipes/anemia-ninios.pipe";
+import { AnemiaPuerperas } from "./pipes/anemia-puerperas.pipe";
 @NgModule({
   declarations: [
     VisitasDomiciliariasNiniosComponent,
@@ -26,6 +28,9 @@ import { EchartsVisitaComponent } from './components/echarts-visita/echarts-visi
     VisitasDomiciliariasPuerperaComponent,
     MapVisitasIpressComponent,
     EchartsVisitaComponent,
+    AnemiaGestantes,
+    AnemiaNinios,
+    AnemiaPuerperas,
   ],
   imports: [CommonModule, VisitaDomiciliariaRoutingModule, PrimeModule],
   exports: [VisitaDomiciliariaRoutingModule],

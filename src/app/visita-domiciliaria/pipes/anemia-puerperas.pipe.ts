@@ -1,16 +1,18 @@
-import { Pipe,PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform } from "@angular/core";
 @Pipe({
-    name:'AnemiaPuerperasPipe'
+  name: "AnemiaPuerperas",
 })
-
-export class AnemiaPuerperas implements PipeTransform{
-      transform(valor:string):any {
-      if(parseFloat(valor)<12){
-            return "SI";
-      }else if(parseFloat(valor)>=12){
-            return "NO";
-      }else if(valor==""){
-            return "SIN VALOR";
+export class AnemiaPuerperas implements PipeTransform {
+  transform(valor: string): any {
+    let number = parseFloat(valor);
+    if (valor == "") {
+      return -1;
+    } else {
+      if (number < 12) {
+        return 1;
+      } else if (number >= 12) {
+        return 0;
       }
-      }
+    }
+  }
 }

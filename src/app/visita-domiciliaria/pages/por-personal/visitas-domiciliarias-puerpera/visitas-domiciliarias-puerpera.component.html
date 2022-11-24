@@ -86,12 +86,33 @@
                         <td style="text-align: center">{{RowData.fecha_creacion_documento | date:'dd/MM/yyyy'}}</td>
                         <td style="text-align: center">{{RowData.telefono}}</td>
                         <td style="text-align: left">{{RowData.direccion}}</td>
-                        <td style="text-align: left">
-                            <button pButton type="button"  
-                                iconPos="right" icon="pi pi-check" label="NO"
-                                class="p-button-success p-button-sm">
-                            </button>
+                        <div *ngIf="(RowData.hemoglobina |AnemiaPuerperas)==1;then si">
+                        </div>
+                        <div *ngIf="(RowData.hemoglobina |AnemiaPuerperas)==0;then no">
+
+                        </div>
+                        <div *ngIf="(RowData.hemoglobina |AnemiaPuerperas)==-1;then sin_info">
+                        </div>
+                        <ng-template #si>
+                            <td style="text-align:center">
+                                <button pButton type="button"  
+                                    iconPos="left" icon="pi pi pi-times" label="SI"
+                                    class="p-button-warning p-button-sm">
+                                </button>
                             </td>
+                        </ng-template>
+                        <ng-template #no>
+                            <td style="text-align: center">
+                                <button pButton type="button"  
+                                    iconPos="left" icon="pi pi-check" label="NO"
+                                    class="p-button-success p-button-sm">
+                                </button>
+                            </td>
+                        </ng-template>
+                        <ng-template #sin_info>
+                            <td style="text-align: center">
+                            </td>
+                        </ng-template>
                         <td style="text-align: center">
                             <button  pButton type="button" label="Ver"  icon="pi pi-eye"  class="buttonAcciones" (click)="openDialogRespuestas(RowData.preguntas)"></button>
                         </td>
@@ -105,7 +126,6 @@
                     </tr>
                 </ng-template>
             </p-table>
-          
         </p-accordionTab>
     </p-accordion>
     <p-card>

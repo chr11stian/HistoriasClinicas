@@ -1,16 +1,19 @@
 import { Pipe,PipeTransform } from '@angular/core';
 @Pipe({
-    name:'AnemiaNiniosPipe'
+    name:'AnemiaNinios'
 })
 
 export class AnemiaNinios implements PipeTransform{
       transform(valor:string):any {
-      if(parseFloat(valor)<10){
-            return "SI";
-      }else if(parseFloat(valor)>=10){
-            return "NO";
-      }else if(valor==""){
-            return "SIN VALOR";
+      let number=valor!=""?parseFloat(valor):"";
+      if(valor==""){
+            return -1;
+      }else{
+            if(number<10){
+                  return 1;
+            }else if(number>=10){
+                  return 0;
+            }
       }
       }
 }
