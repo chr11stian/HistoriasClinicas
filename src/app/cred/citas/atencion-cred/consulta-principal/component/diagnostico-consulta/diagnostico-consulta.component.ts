@@ -90,14 +90,10 @@ export class DiagnosticoConsultaComponent implements OnInit {
   arrayPrestation: any;
 
   constructor(
-    private rolGuardiaService: RolGuardiaService,
-    private consultaGeneralService: ConsultaGeneralService,
     private DiagnosticoService: DiagnosticoConsultaService,
     private PrestacionService: PrestacionService,
     private cieService: CieService,
     private formBuilder: FormBuilder,
-    private UpsAuxService: UpsAuxIpressService,
-    private messageService: MessageService
   ) {
     this.buildForm();
     this.idIpress = JSON.parse(localStorage.getItem("usuario")).ipress.idIpress;
@@ -360,7 +356,6 @@ export class DiagnosticoConsultaComponent implements OnInit {
       });
       return;
     }
-    // console.log('stringfy ', JSON.stringify(this.arrayDiagnosticSave));
     await this.DiagnosticoService.postPromiseDiagnostico(this.patientData.idConsulta, this.arrayDiagnosticSave).then(res => {
       if (res.cod == '2126') {
         Swal.fire({

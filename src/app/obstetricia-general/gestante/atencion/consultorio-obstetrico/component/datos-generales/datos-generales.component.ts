@@ -813,24 +813,34 @@ export class DatosGeneralesComponent implements OnInit {
         }
         if (!this.dataConsultas) {
             this.consultasService.addConsultas(this.nroFetos, this.idConsultoriObstetrico, this.data).then((result: any) => {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Se guardo con exito',
-                    showConfirmButton: false,
-                    timer: 1500,
-                })
-                localStorage.setItem('IDConsulta', JSON.stringify(result.object.id));
-            }
-            )
-        } else {
-            this.consultasService.updateConsultas(this.nroFetos, this.idConsultoriObstetrico, this.data).subscribe((result: any) => {
-                if ([result.code == '2401']) {
+                if (result.cod == "2401") {
                     Swal.fire({
                         icon: 'success',
-                        title: 'Actualizo con exito',
+                        title: 'Exito',
+                        text: 'Se guardo correctamente la consulta',
+                        showConfirmButton: false,
+                        timer: 2000,
+                    });
+                    localStorage.setItem('IDConsulta', JSON.stringify(result.object.id));
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'No se pudo actualizar.',
                         text: '',
                         showConfirmButton: false,
-                        timer: 1500,
+                        timer: 2000,
+                    });
+                }
+            });
+        } else {
+            this.consultasService.updateConsultas(this.nroFetos, this.idConsultoriObstetrico, this.data).subscribe((result: any) => {
+                if (result.cod == '2401') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Exito',
+                        text: 'Se actualizo correctamente la consulta',
+                        showConfirmButton: false,
+                        timer: 2000,
                     });
                 } else {
                     Swal.fire({
@@ -841,9 +851,7 @@ export class DatosGeneralesComponent implements OnInit {
                         timer: 2000,
                     });
                 }
-
-            }
-            );
+            });
         }
     }
 

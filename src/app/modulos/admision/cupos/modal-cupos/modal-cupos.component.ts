@@ -72,7 +72,7 @@ export class ModalCuposComponent implements OnInit {
     private dialog: DialogService,
     private cuposService: CuposService,
     private config: DynamicDialogConfig
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.estado = false;
@@ -153,6 +153,21 @@ export class ModalCuposComponent implements OnInit {
 
   /**Abre un modal si cumplen los parametros**/
   aceptarDialogCupos() {
+    let ups: string = this.formCuposOferta.value.SelectUPSOferta;
+    let consultationType: string = this.formCuposOferta.value.tipoConsulta;
+
+    if (ups == "MEDICINA GENERAL") {
+      if (!consultationType) {
+        Swal.fire({
+          icon: "warning",
+          title: "No selecciono el tipo de consulta",
+          showConfirmButton: false,
+          // target: document.getElementById("swal"),
+          timer: 2000,
+        });
+        return;
+      }
+    }
     if (this.selectedHorario === undefined) {
       Swal.fire({
         icon: "error",
