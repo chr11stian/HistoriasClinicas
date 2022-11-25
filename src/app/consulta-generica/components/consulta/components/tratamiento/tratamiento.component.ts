@@ -116,7 +116,6 @@ export class TratamientoComponent implements OnInit {
         this.listarTratamientos();
         this.buscarCodigoIpress();
         this.listarDiagnosticos();
-        console.log();
         this.link = environment.base_urlTx;
     }
     buildForm() {
