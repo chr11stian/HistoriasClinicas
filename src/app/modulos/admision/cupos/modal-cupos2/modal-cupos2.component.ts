@@ -663,7 +663,6 @@ export class ModalCupos2Component implements OnInit {
                         showConfirmButton: false,
                         timer: 2000,
                     });
-                    //this.updatePacienteCupos();
                     this.actualizarOfertaEstado();
                     this.formPacientesCupo.reset();
                 } else {

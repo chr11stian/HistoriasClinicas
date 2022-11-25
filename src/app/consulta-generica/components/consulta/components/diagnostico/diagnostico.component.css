@@ -134,3 +134,35 @@ p-checkbox >>> .p-checkbox .p-checkbox-box {
     border-radius: 10px;
 }
 
+::ng-deep .diagnostic-panel .p-panel .p-panel-header {
+    background: #0c3866;
+    color: #FFF;
+    font-weight: bold;
+    font-size: 1.3rem;
+    font-style: oblique;
+}
+
+.add-button {
+    transform: translate(10%, 50%);
+    font-weight: bold;
+}
+
+.save-button {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+}
+::ng-deep .info-fieldset .p-fieldset .p-fieldset-legend {
+    padding: 0.5rem;
+    border: 1px solid #dee2e6;
+    color: #495057;
+    background: #d8dee5;
+    font-weight: 600;
+    border-radius: 5px;
+    font-size: small;
+}
+
+::ng-deep .table-over .p-datatable .p-datatable-tbody > tr > td{
+    padding: 0.2rem 0.6rem;
+}

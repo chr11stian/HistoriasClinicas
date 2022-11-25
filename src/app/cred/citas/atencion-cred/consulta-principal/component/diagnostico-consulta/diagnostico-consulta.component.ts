@@ -202,7 +202,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
   }
 
   filterCIE10(event: any) {
-    let param:string = event.query.toUpperCase();
+    let param: string = event.query.toUpperCase();
     // console.log('filtered param ', param);
     this.cieService.getCIEByDescripcion(param).subscribe((res: any) => {
       this.listaDeCIEHIS = res.object;
@@ -259,7 +259,6 @@ export class DiagnosticoConsultaComponent implements OnInit {
     })
     this.ListaPrestacion = auxPrestacion.filter(item => item.diagnostico != null)
     this.ListaPrestacion.sort((a, b) => a.descripcion.localeCompare(b.descripcion));
-    // console.log('lista de prestaciones ', this.ListaPrestacion);
   }
 
   agregateDiagnosticFUA(): void {
@@ -361,8 +360,9 @@ export class DiagnosticoConsultaComponent implements OnInit {
       });
       return;
     }
+    // console.log('stringfy ', JSON.stringify(this.arrayDiagnosticSave));
     await this.DiagnosticoService.postPromiseDiagnostico(this.patientData.idConsulta, this.arrayDiagnosticSave).then(res => {
-      if (res.cod == '2121') {
+      if (res.cod == '2126') {
         Swal.fire({
           icon: 'success',
           title: 'Se guardo exitosamente',

@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { DatePipe } from "@angular/common";
-import { CitasService } from 'src/app/obstetricia-general/services/citas.service';
 import { MessageService } from 'primeng/api';
-import { PacienteService } from 'src/app/core/services/paciente/paciente.service';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { RegistrarTriajeComponent } from '../registrar-triaje/registrar-triaje.component';
 import { CuposTriajeService } from '../services/cupos-triaje/cupos-triaje.service';

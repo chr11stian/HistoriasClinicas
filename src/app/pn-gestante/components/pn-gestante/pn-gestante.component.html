@@ -30,7 +30,7 @@
                 </button>
             </ng-template>
         </p-toolbar>
-        <p-table  [value]="listaGestantes" #dt styleClass="p-datatable-gridlines" [rows]="4"
+        <p-table  [value]="listaGestantes" #dt styleClass="p-datatable-gridlines" [rows]="10"
         [rowsPerPageOptions]="[10,20,30]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
         currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
             <ng-template pTemplate="header" style="text-align: center;">
@@ -50,19 +50,19 @@
             <ng-template pTemplate="body" let-gestante style="text-align: center;margin-top: 10px;margin-bottom: 5px;" let-i="rowIndex">
                   <tr>
                       <td style="text-align: center;">{{i+ 1 }}</td>
-                      <td style="text-align: center;">{{gestante.value.nroDocIdentidad}}</td>
-                      <td style="text-align:left;">{{gestante.value.nombres}}</td>
-                      <td style="text-align:left ;">{{gestante.value.apePaterno}}  {{gestante.value.apeMaterno}}</td>
-                      <td style="text-align: center;">{{gestante.value.telefono}}</td>
-                      <td style="text-align: center;">{{gestante.value.tieneSis}}</td>
-                      <td style="text-align: left;">{{gestante.value.direccion}}</td>
+                      <td style="text-align: center;">{{gestante.value.nroDocIdentidad|uppercase}}</td>
+                      <td style="text-align:left;">{{gestante.value.nombres|uppercase}}</td>
+                      <td style="text-align:left ;">{{gestante.value.apePaterno|uppercase}}  {{gestante.value.apeMaterno|uppercase}}</td>
+                      <td style="text-align: center;">{{gestante.value.telefono|uppercase}}</td>
+                      <td style="text-align: center;">{{gestante.value.tieneSis|uppercase}}</td>
+                      <td style="text-align: left;">{{gestante.value.direccion|uppercase}}</td>
                       <td style="text-align: center;">
                     <button pButton type="button"  
                                 iconPos="right" icon="pi pi-check" label=" {{gestante.value |EstadoGestacional|uppercase}}"
                           class="p-button-success p-button-sm">
                         </button>
                       </td>
-                      <td style="text-align:center;">{{gestante.value | SemanaGestacional|uppercase }}</td>
+                      <td style="text-align:center;">{{gestante.value|SemanaGestacional|uppercase }}</td>
                       <td style="text-align: center;width: 10em;">
                         <button pButton (click)="editar(gestante)" pTooltip="Editar" pRipple type="button"
                             icon="pi pi-pencil" class="p-button-rounded m-1">

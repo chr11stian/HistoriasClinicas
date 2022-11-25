@@ -9,8 +9,8 @@ import {MessageService} from "primeng/api";
 import {CuposService} from "../core/services/cupos.service";
 import {DocumentoIdentidadService} from "../mantenimientos/services/documento-identidad/documento-identidad.service";
 import Swal from "sweetalert2";
-import {RegistrarTriajeComponent} from "../modulos/triaje/registrar-triaje/registrar-triaje.component";
-import {CuposTriajeService} from "../modulos/triaje/services/cupos-triaje/cupos-triaje.service";
+import {RegistrarTriajeComponent} from "../triajes/registrar-triaje/registrar-triaje.component";
+import {CuposTriajeService} from "../triajes/services/cupos-triaje/cupos-triaje.service";
 import {Router} from '@angular/router';
 import {Observable} from "rxjs";
 

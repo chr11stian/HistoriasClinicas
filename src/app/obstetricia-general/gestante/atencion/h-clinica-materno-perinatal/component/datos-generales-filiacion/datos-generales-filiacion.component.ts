@@ -93,7 +93,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
         this.obternerFechaActual();
         this.buildForm();
 
-        if (this.idRecuperado == null) {
+        if (!this.Gestacion) {
             this.getpacienteByNroDoc();
         } else this.getpacienteFiiacionByID();
 
@@ -308,7 +308,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
             referencia: this.formDatos_Generales.value.referencia,
             codigoAfiliacionSis: this.formDatos_Generales.value.codAficiaconSIS,
             nroDoc: this.formDatos_Generales.getRawValue().docIndentidad,
-            fechaNacimiento: this.datePipe.transform(this.formDatos_Generales.getRawValue().fechaNacimiento, 'yyyy-MM-dd'),
+            fechaNacimiento: this.transformDate(this.formDatos_Generales.getRawValue().fechaNacimiento),
             ocupacion: this.formDatos_Generales.value.ocupacion,
             edad: this.formDatos_Generales.getRawValue().edad,
             direccion: this.formDatos_Generales.value.direccion,
@@ -327,27 +327,33 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
             padreRecienNacido: this.formDatos_Generales.value.pabreRN,
             estadoCivil: this.formDatos_Generales.value.estadoCivil,
             proceso: "proceso de gestacion",
-
-
             apePaterno: this.formDatos_Generales.getRawValue().apePaterno,
             apeMaterno: this.formDatos_Generales.getRawValue().apeMaterno,
             primerNombre: this.formDatos_Generales.getRawValue().primerNombre,
             otrosNombres: "",
-
-
         };
-        if (this.idRecuperado == null) {
+        // console.log('data to res ', req);
+        if (!this.Gestacion) {
             this.filiancionService.addPacienteFiliacion(this.tipoDocRecuperado, this.nroDocRecuperado, req).subscribe(
-                result => {
-                    // console.log("RESPUESTA", result)
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Registro',
-                        text: 'Fue creado con exito',
-                        showConfirmButton: false,
-                        timer: 1500,
-                    })
-                    this.getpacientesFiliadosGestacion();
+                (result: any) => {
+                    if (result.cod == "2006") {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Exito',
+                            text: 'Se creo el registro correctamente.',
+                            showConfirmButton: false,
+                            timer: 2000,
+                        })
+                        this.getpacientesFiliadosGestacion();
+                    } else {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'No se pudo guardar el registro',
+                            showConfirmButton: false,
+                            timer: 2000,
+                        })
+                    }
+
                 }
             )
         } else {
@@ -359,6 +365,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
                     showConfirmButton: false,
                     timer: 1500,
                 })
+                // this.getpacientesFiliadosGestacion();
             })
         }
     }
@@ -371,7 +378,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
             // console.log('paciente por doc ', this.dataPacientes)
             this.formDatos_Generales.get('apePaterno').setValue(this.dataPacientes.apePaterno);
             this.formDatos_Generales.get('apeMaterno').setValue(this.dataPacientes.apeMaterno);
-            this.formDatos_Generales.get('primerNombre').setValue(this.dataPacientes.primerNombre);
+            this.formDatos_Generales.get('primerNombre').setValue(`${this.dataPacientes.primerNombre} ${this.dataPacientes.otrosNombres}`);
             this.formDatos_Generales.get('HCL').setValue(this.dataPacientes.nroHcl);
             this.formDatos_Generales.get('docIndentidad').setValue(this.dataPacientes.nroDoc);
             this.formDatos_Generales.get('establecimiento').setValue(this.dataPacientes.nombreEESS);
@@ -457,9 +464,10 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
     getpacientesFiliadosGestacion() {
         this.obstetriciaGeneralService.getPacienteFiliacion(this.tipoDocRecuperado, this.nroDocRecuperado).subscribe((res: any) => {
             this.pacientesFiliacion = res.object
-            // console.log('paciente con nro de gestacion ', this.pacientesFiliacion)
+            console.log('paciente con nro de gestacion ', this.pacientesFiliacion)
             let index = this.pacientesFiliacion.length - 1;
             this.idRecuperado = this.pacientesFiliacion[index].id;
+            console.log('id de filiacion ', this.idRecuperado);
             localStorage.setItem('idGestacionRegistro', JSON.stringify(this.idRecuperado));
             // console.log('ARREGLO ULTIMA POSICION', this.idRecuperado);
             this.getpacienteFiiacionByID();
@@ -501,4 +509,11 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
             distrito: distrito
         });
     }
+    transformDate(date: string): string {
+        let auxDate = date.split("-");
+        let newDate: string;
+        newDate = `${auxDate[2]}-${auxDate[1]}-${auxDate[0]}`
+        return newDate;
+    }
 }
+

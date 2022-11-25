@@ -24,6 +24,8 @@ export class ModalShowHisComponent implements OnInit {
   arrayFua: FUA[];
   personalData: PersonalInfo;
   existDataFUA: boolean = false;
+  patientData: any;
+  filiationId: string;
 
   constructor(
     private tratamientoService: TratamientoConsultaService,
@@ -35,6 +37,7 @@ export class ModalShowHisComponent implements OnInit {
   ) {
     this.consultationId = JSON.parse(localStorage.getItem('IDConsulta'));
     this.dataPatient = JSON.parse(localStorage.getItem('gestacion'));
+    this.filiationId = this.dataPatient ? this.dataPatient.id : JSON.parse(localStorage.getItem('idGestacionRegistro'));
   }
 
   ngOnInit(): void {
@@ -67,7 +70,8 @@ export class ModalShowHisComponent implements OnInit {
       fecha: this.nextDateModel,
       motivo: 'PRÓXIMA CONSULTA OBSTETRICIA'
     }
-    this.treatmentService.putNextAppointment(this.consultationId, this.dataPatient.id, this.dataSave).then((res: any) => {
+    // console.log('data to save ', this.filiationId);
+    this.treatmentService.putNextAppointment(this.consultationId, this.filiationId, this.dataSave).then((res: any) => {
       if (res.cod == '2126') {
         this.router.navigate(['/dashboard/obstetricia-general/citas/consulta']);
         Swal.fire({

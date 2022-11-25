@@ -258,12 +258,11 @@ const administracion1 = {
             icon: "pi pi-users",
             routerLink: "admision/personal-salud",
         },
-        // {
-        //     label:"Visitas domiciliarias",
-        //     icon: "pi pi pi-home",
-        //     routerLink: "visitas-domiciliarias/ipress-ninios",
-
-        // }
+        {
+            label:"Visitas domiciliarias",
+            icon: "pi pi pi-home",
+            routerLink: "visitas-domiciliarias/ipress-ninios",
+        }
         /*{
             label: "Usuarios",
             icon: "pi pi-pw pi-file",
@@ -347,7 +346,7 @@ const triaje = {
         {
             icon: "pi pi-book",
             label: "Triaje",
-            routerLink: "admision/triaje",
+            routerLink: "triaje/registrar",
         },
     ],
 };
@@ -417,63 +416,10 @@ const historias = {
             label: "Medicina General",
             items: [
                 {
-                    icon: "pi pi-calendar",
-                    label: "Niño/Niña",
-                    items: [
-                        {
-                            label: "Citas",
-                            icon: "pi pi-home",
-                            routerLink:
-                                "consulta-generica/lista-cita/NIÑO_NIÑA",
-                        },
-                    ],
-                },
-                {
-                    icon: "pi pi-cloud",
-                    label: "Adolescente",
-                    items: [
-                        {
-                            label: "Citas",
-                            icon: "pi pi-home",
-                            routerLink:
-                                "consulta-generica/lista-cita/ADOLESCENTE",
-                        },
-                    ],
-                },
-                {
-                    icon: "pi pi-comments",
-                    label: "Joven",
-                    items: [
-                        {
-                            label: "Citas",
-                            icon: "pi pi-home",
-                            routerLink: "consulta-generica/lista-cita/JOVEN",
-                        },
-                    ],
-                },
-
-                {
-                    icon: "pi pi-briefcase",
-                    label: "Adulto",
-                    items: [
-                        {
-                            label: "Citas",
-                            icon: "pi pi-home",
-                            routerLink: "consulta-generica/lista-cita/ADULTO",
-                        },
-                    ],
-                },
-                {
-                    icon: "pi pi-clock",
-                    label: "Adulto Mayor",
-                    items: [
-                        {
-                            label: "Citas",
-                            icon: "pi pi-home",
-                            routerLink:
-                                "consulta-generica/lista-cita/ADULTO MAYOR",
-                        },
-                    ],
+                    label: "Citas",
+                    icon: "pi pi-home",
+                    routerLink:
+                        "consulta-generica/lista-cita/MEDICINA GENERAL",
                 },
             ],
         },
@@ -513,11 +459,11 @@ const historias = {
                 },
             ],
         },
-        {
+        /* {
             icon: "pi pi-th-large",
             label: "FUA",
             routerLink: "fua/fua",
-        },
+        }, */
     ],
 };
 const laboratorio = {
@@ -589,10 +535,14 @@ const visitas = {
             routerLink: "padron-nominal-gestante/mantenimiento",
         },
         // {
-        //     label:"Ipress niños",
-        //     icon: "pi pi-user",
-        //     routerLink: "visitas-domiciliarias/ipress-ninios",
-
+        //     label:"Visitas domiciliarias",
+        //     icon: "pi pi pi-home",
+        //     routerLink:"visitas-domiciliarias/ipress-ninios",
+        // },
+        // {
+        //     label:"About",
+        //     icon:"pi pi-angle-right",
+        //     routerLink:"about/nosotros",
         // }
     ],
 };

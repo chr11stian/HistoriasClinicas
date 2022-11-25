@@ -39,6 +39,7 @@ export class ConsultaComponent implements OnInit {
     consultationId: string;
     downloadLink: string;
     consultationStatus: number;
+    filiationId: string;
 
 
     constructor(
@@ -58,6 +59,7 @@ export class ConsultaComponent implements OnInit {
             this.nroDocRecuperado = this.DataFiliacionPaciente.nroDoc;
             this.nroEmbarazo = this.DataFiliacionPaciente.nroEmbarazo;
             this.nroHcl = this.DataFiliacionPaciente.nroHcl;
+            this.idRecuperado = JSON.parse(localStorage.getItem('idGestacionRegistro'));
         } else {
             this.tipoDocRecuperado = this.Gestacion.tipoDoc;
             this.nroDocRecuperado = this.Gestacion.nroDoc;
@@ -139,7 +141,7 @@ export class ConsultaComponent implements OnInit {
         //     this.consultas = res.object ? res.object : [];
         //     this.loading = false;
         // })
-        this.consultaObstetriciaService.getDatosConsultasObstetricasListarPorFiliacion(this.Gestacion.id).subscribe((res: any) => {
+        this.consultaObstetriciaService.getDatosConsultasObstetricasListarPorFiliacion(this.idRecuperado).subscribe((res: any) => {
             this.consultas = res.object ? res.object : [];
             if (this.consultas.length > 0) {
                 this.consultas.sort((a, b) => a.fecha > b.fecha ? -1 : 1);
@@ -150,7 +152,7 @@ export class ConsultaComponent implements OnInit {
 
     //crear una nueva consulta, no mandamos ningun dato
     irConsultaNew(edicion) {
-        localStorage.removeItem('IDConsulta');
+        // localStorage.removeItem('IDConsulta');
         this.router.navigate(['/dashboard/obstetricia-general/citas/gestante/obstetricia/consultorio-obstetrico']);
         localStorage.setItem("consultaEditarEstado", edicion);
         let data = {
@@ -160,8 +162,9 @@ export class ConsultaComponent implements OnInit {
             let informacion = res.object;
             //guardar en el ls el nroAtencion
             localStorage.setItem("nroConsultaNueva", informacion.nroUltimaAtencion + 1);
+            this.DataFiliacionPaciente.nroEmbarazo ? this.DataFiliacionPaciente.nroEmbarazo = this.DataFiliacionPaciente.nroEmbarazo : this.DataFiliacionPaciente.nroEmbarazo = informacion.nroEmbarazo;
+            localStorage.setItem('dataPaciente', JSON.stringify(this.DataFiliacionPaciente));
         })
-
     }
 
     //editar consulta o visualizar na ma, mandamos la data de la fila
@@ -170,7 +173,7 @@ export class ConsultaComponent implements OnInit {
         this.router.navigate(['/dashboard/obstetricia-general/citas/gestante/obstetricia/consultorio-obstetrico'])
         localStorage.setItem("nroConsultaEditar", event.nroAtencion);
         localStorage.setItem("consultaEditarEstado", edicion);
-        localStorage.removeItem('IDConsulta');
+        // localStorage.removeItem('IDConsulta');
         localStorage.setItem('IDConsulta', JSON.stringify(event.id));
         localStorage.setItem('datosConsultaActual', JSON.stringify(event));
     }

@@ -173,7 +173,52 @@ export class LoginRolComponent implements OnInit {
                                 .then(() => {
                                     window.location.reload();
                                 });
+                                
+                        }else if (aux.nombreUPS == "MEDICINA GENERAL") {
+                            //aux.nombreFuncion == "SERVICIOS ADMINISTRACION" &&
+                            this.router
+                                .navigate([
+                                    "dashboard/consulta-generica/lista-cita/MEDICINA GENERAL",
+                                ])
+                                .then(() => {
+                                    window.location.reload();
+                                });
+                                
                         }
+                        else if (aux.nombreUPS == "ODONTOLOGIA GENERAL") {
+                            //aux.nombreFuncion == "SERVICIOS ADMINISTRACION" &&
+                            this.router
+                                .navigate([
+                                    "dashboard/consulta-generica/lista-cita/ODONTOLOGIA GENERAL",
+                                ])
+                                .then(() => {
+                                    window.location.reload();
+                                });
+                                
+                        }
+                        else if (aux.nombreUPS == "PSICOLOGIA") {
+                            //aux.nombreFuncion == "SERVICIOS ADMINISTRACION" &&
+                            this.router
+                                .navigate([
+                                    "dashboard/consulta-generica/lista-cita/PSICOLOGIA",
+                                ])
+                                .then(() => {
+                                    window.location.reload();
+                                });
+                                
+                        }
+                        else if (aux.nombreUPS == "NUTRICION") {
+                            //aux.nombreFuncion == "SERVICIOS ADMINISTRACION" &&
+                            this.router
+                                .navigate([
+                                    "dashboard/consulta-generica/lista-cita/NUTRICION",
+                                ])
+                                .then(() => {
+                                    window.location.reload();
+                                });
+                                
+                        }
+                        
                     });
                 } else {
                     this.router.navigate(["/dashboard"]).then(() => {

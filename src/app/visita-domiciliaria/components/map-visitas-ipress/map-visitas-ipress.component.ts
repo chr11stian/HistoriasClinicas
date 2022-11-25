@@ -41,6 +41,7 @@ export class MapVisitasIpressComponent implements OnInit,OnChanges {
   }
   //./assets/svg-marker/marker-visita-domiciliaria.svg
   initMap() {
+
     var iconDefault = L.icon({
       iconUrl: "./assets/svg-marker/marker-visita-domiciliaria.svg",
       iconSize: [30, 30],
@@ -69,14 +70,13 @@ export class MapVisitasIpressComponent implements OnInit,OnChanges {
     ninios_menores_Icon = new LeafIcon({iconUrl: './assets/svg-marker/marker-ninio-menores.svg'}),
     puerperasIcon = new LeafIcon({iconUrl: './assets/svg-marker/marker-puerpera-visita.svg'}),
     gestantesIcon = new LeafIcon({iconUrl: './assets/svg-marker/marker-gestante-visita.svg'})
-   
+
     L.icon = function (options) {
       return new L.Icon(options);
   };
 
-    // L.Marker.prototype.options.icon = iconDefault;
-    this.maps = new L.Map("map").setView([this.latMap, this.lngMap],13);
-    const titles = L.tileLayer(
+  this.maps = new L.Map("map").setView([this.latMap, this.lngMap],13);
+  const titles = L.tileLayer(
       "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
       {
         maxZoom: 18,
@@ -85,16 +85,15 @@ export class MapVisitasIpressComponent implements OnInit,OnChanges {
           '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       }
     );
-    // console.log('ipresssss',this.profesionalesIpress[0]["visitas_mayores_4_meses"]);
-      this.profesionalesIpress.map((aux) => {
-        if( aux.visitas_mayores_4_meses.length>0){
-          aux.visitas_mayores_4_meses.map((a)=>{
+  
+    this.profesionalesIpress.map((aux) => {
+      if( aux.visitas_mayores_4_meses.length>0){
+        aux.visitas_mayores_4_meses.map((a)=>{
             let auxImg;
               this.visitaService
                 .urlImagen(a.value.validator.imagen)
                 .subscribe((res: any) => {
                   auxImg = res["object"];
-                  // console.log("Aux Ims",auxImg)
                 });
                 setTimeout(() => {
                   let aux_ = "data:image/jpg;base64," + auxImg;
@@ -115,7 +114,6 @@ export class MapVisitasIpressComponent implements OnInit,OnChanges {
                       display:block;"
                       src="${aux_}"/>
                       </div>
-                  
                   `,
                       { closeButton: false }
                     );
@@ -132,7 +130,6 @@ export class MapVisitasIpressComponent implements OnInit,OnChanges {
               .urlImagen(a.value.validator.imagen)
               .subscribe((res: any) => {
                 auxImg = res["object"];
-                // console.log("Aux Ims",auxImg)
               });
               setTimeout(() => {
                 let aux_ = "data:image/jpg;base64," + auxImg;
@@ -153,7 +150,6 @@ export class MapVisitasIpressComponent implements OnInit,OnChanges {
                     display:block;"
                     src="${aux_}"/>
                     </div>
-                
                 `,
                     { closeButton: false }
                   );
@@ -170,7 +166,6 @@ export class MapVisitasIpressComponent implements OnInit,OnChanges {
               .urlImagen(a.value.validator.imagen)
               .subscribe((res: any) => {
                 auxImg = res["object"];
-                // console.log("Aux Ims",auxImg)
               });
               setTimeout(() => {
                 let aux_ = "data:image/jpg;base64," + auxImg;
@@ -195,7 +190,6 @@ export class MapVisitasIpressComponent implements OnInit,OnChanges {
                     { closeButton: false }
                   );
               },2000)
-        
         });
       }
     })

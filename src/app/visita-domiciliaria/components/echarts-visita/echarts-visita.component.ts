@@ -4,7 +4,6 @@ import * as echarts from "echarts";
 import { VisitaDomiciliariaService } from "../../services/visita-domiciliaria.service";
 import { VisitaNinioService } from "../../services/visita-ninio.service";
 import { VisitaGestanteService } from "../../services/visita-gestante.service";
-import { map } from "rxjs/operators";
 
 @Component({
   selector: "app-echarts-visita",
