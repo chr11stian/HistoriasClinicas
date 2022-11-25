@@ -54,7 +54,11 @@ export class DialogReqLaboratorioComponent implements OnInit {
   ) {
     this.inicializarForm();
     this.dataDialog = this.config.data.auxExams;
-    this.dataDialog.length == 0 ? this.toEdit = false : this.toEdit = true;
+    // console.log('dialog data ', this.config.data);
+    console.log('dialog data ', this.dataDialog);
+    this.toEdit = this.dataDialog.length == 0 ? false : true;
+    console.log('to edit ', this.toEdit);
+    // this.dataDialog.length == 0 ? this.toEdit = false : this.toEdit = true;
     this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
     this.dataPaciente = JSON.parse(localStorage.getItem('documento'));
     // if (this.dataDialog) {
