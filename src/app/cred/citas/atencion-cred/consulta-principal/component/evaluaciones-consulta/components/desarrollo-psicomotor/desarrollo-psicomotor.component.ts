@@ -32,11 +32,15 @@ export class DesarrolloPsicomotorComponent implements OnInit {
 
   }
 
-  async searchMonthlyEvaluation(nroDeEvaluacion?:number): Promise<void> {
-    console.log('----------------emitimos el evento-----------',nroDeEvaluacion);
-    
-    await this.evalPsicomotor.verifyMonthlyEvaluation(this.monthAge, this.paciente.nroDocumento).then(res => {
-      this.evaluations = res[0];
+  async searchMonthlyEvaluation(nroDeEvaluacion?: number): Promise<void> {
+    console.log('----------------emitimos el evento-----------', nroDeEvaluacion);
+
+    // this.evalPsicomotor.verifyConsultationsEvaluation(this.paciente.idConsulta).then((res: any) => {
+    //   console.log('datos de evaluaciones ', res);
+    // })
+
+    this.evalPsicomotor.verifyConsultationsEvaluation(this.paciente.idConsulta).then((res: any) => {
+      this.evaluations = res.object;
       this.evaluations.evaluacionDesarrollo_0_30 == null ? this.evaluations.evaluacionDesarrollo_0_30 = [] : '';
       this.evaluations.evaluacionEEDP == null ? this.evaluations.evaluacionEEDP = [] : '';
       this.evaluations.evaluacionPautaBreve == null ? this.evaluations.evaluacionPautaBreve = [] : '';
@@ -67,7 +71,7 @@ export class DesarrolloPsicomotorComponent implements OnInit {
         this.isEvaluated = true;
         this.evaluationName = 'PROTOCOLO TEST DE DESARROLLO PSICOMOTOR TEPSI';
       }
-      if(nroDeEvaluacion!=undefined){
+      if (nroDeEvaluacion != undefined) {
         return
       }
       if (this.isEvaluated) {

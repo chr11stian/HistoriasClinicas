@@ -486,8 +486,8 @@ export class DialogPacienteComponent implements OnInit {
             // console.log("DATA RECUPERADO PACIENTE", this.dataPacienteEditar)
             this.formPaciente.get("tipoDoc").setValue(this.dataPacienteEditar.tipoDoc);
             this.formPaciente.get("nroDoc").setValue(this.dataPacienteEditar.nroDoc);
-            this.formPaciente.get("apPaterno").setValue(this.dataPacienteEditar.apeMaterno);
-            this.formPaciente.get("apMaterno").setValue(this.dataPacienteEditar.apePaterno);
+            this.formPaciente.get("apPaterno").setValue(this.dataPacienteEditar.apePaterno);
+            this.formPaciente.get("apMaterno").setValue(this.dataPacienteEditar.apeMaterno);
             this.formPaciente.get("primerNombre").setValue(this.dataPacienteEditar.primerNombre);
             this.formPaciente.get("otrosNombres").setValue(this.dataPacienteEditar.otrosNombres);
             this.formPaciente.get("HCL").setValue(this.dataPacienteEditar.nroHcl);
