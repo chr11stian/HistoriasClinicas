@@ -206,36 +206,6 @@
                 </div>
                 <br />
             </div>
-            <div class="col-12">
-                <div class="grid">
-                    <div class="col-1 col-offset-8 label-text text-right">
-                        <span class="font-semibold">Fecha prox. cita:</span>
-                    </div>
-                    <div class="col-2">
-                        <input
-                            type="date"
-                            pInputText
-                            [(ngModel)]="nextDateModel"
-                            placeholder="Nro"
-                            class="p-fluid inputfield w-full"
-                        />
-                    </div>
-                    <div class="col-1">
-                        <button
-                            pButton
-                            pRipple
-                            icon="pi pi-save"
-                            label="Guardar"
-                            pButton
-                            type="button"
-                            style="background-color: #0c3866"
-                            label="Guardar"
-                            class="save-button p-button-rounded"
-                            (click)="confirmToSave()"
-                        ></button>
-                    </div>
-                </div>
-            </div>
         </div>
     </p-tabPanel>
     <p-tabPanel>
@@ -295,7 +265,10 @@
                         </p-table>
                     </div>
                 </div>
-                <div class="col-6 table-inmu" *ngIf="fua.inmunizaciones.length>0">
+                <div
+                    class="col-6 table-inmu"
+                    *ngIf="fua.inmunizaciones.length > 0"
+                >
                     <p-table
                         [value]="fua.inmunizaciones"
                         styleClass="p-datatable-gridlines"
@@ -325,4 +298,34 @@
             </div>
         </div>
     </p-tabPanel>
+    <div class="col-12">
+        <div class="grid">
+            <div class="col-1 col-offset-8 label-text text-right">
+                <span class="font-semibold">Fecha prox. cita:</span>
+            </div>
+            <div class="col-2">
+                <input
+                    type="date"
+                    pInputText
+                    [(ngModel)]="nextDateModel"
+                    placeholder="Nro"
+                    class="p-fluid inputfield w-full"
+                />
+            </div>
+            <div class="col-1">
+                <button
+                    pButton
+                    pRipple
+                    icon="pi pi-save"
+                    label="Guardar"
+                    pButton
+                    type="button"
+                    style="background-color: #0c3866"
+                    label="Guardar"
+                    class="save-button p-button-rounded"
+                    (click)="confirmToSave()"
+                ></button>
+            </div>
+        </div>
+    </div>
 </p-tabView>

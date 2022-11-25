@@ -13,7 +13,7 @@ import { AnswerEEDP, DatosConsulta, datosEEDPTabla, escalaEval_EEDP_0_4_anios, I
   styleUrls: ['./eedp.component.css']
 })
 export class EedpComponent implements OnInit {
-  @Output() onSave:EventEmitter<number>=new EventEmitter<number>();
+  @Output() onSave: EventEmitter<number> = new EventEmitter<number>();
   items: {}[];
   indexSelected: number;
   edadNroSelected: number = 1;
@@ -173,7 +173,7 @@ export class EedpComponent implements OnInit {
       })
     });
     /**CALCULAR RESULTADO */
-    console.log('coeficiente de desarrollo ', this.coeficienteDesarrollo);
+    // console.log('coeficiente de desarrollo ', this.coeficienteDesarrollo);
     if (this.coeficienteDesarrollo == undefined) {
       Swal.fire({
         icon: 'error',
@@ -187,9 +187,9 @@ export class EedpComponent implements OnInit {
     if (this.coeficienteDesarrollo >= 0.85)
       this.diagnostico = 'NORMAL'
     if (this.coeficienteDesarrollo <= 0.84 && this.coeficienteDesarrollo >= 0.70)
-      this.diagnostico = 'RIESGO'
+      this.diagnostico = 'RIESGO PARA EL DESARROLLO'
     if (this.coeficienteDesarrollo <= 0.69)
-      this.diagnostico = 'RETRASO'
+      this.diagnostico = 'TRANSTORNO DEL DESARROLLO'
     /**ARMANDO OBJETO PARA ENVIAR */
     this.dataTestEEDP = {
       codigoCIE10: "",
@@ -306,31 +306,19 @@ export class EedpComponent implements OnInit {
   }
 
   async confirmSaveTest() {
-    await this.desarrolloPsicomotorService.verifyEvaluatedMonth(this.mesesTotal, this.dataConsulta.nroDocumento).then(res => {
-      if (res) {
-        Swal.fire({
-          icon: 'info',
-          title: 'Ya se guardo una evaluación para este mes',
-          showConfirmButton: false,
-          timer: 2000
-        });
-        return
-      } else {
-        Swal.fire({
-          title: 'Esta Seguro que Desea Guardar los Cambios?',
-          icon: 'question',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Confirmar',
-          cancelButtonText: 'Cancelar'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            this.saveTest();
-          }
-        })
+    Swal.fire({
+      title: 'Esta Seguro que Desea Guardar los Cambios?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirmar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.saveTest();
       }
-    });
+    })
   }
   /**Tabla eedp agrupadas por area de evaluacion y preguntas de esa area*/
   dataTableEEDP() {
