@@ -63,6 +63,7 @@ export class DialogReqLaboratorioComponent implements OnInit {
     this.dataPaciente = JSON.parse(localStorage.getItem('documento'));
     // if (this.dataDialog) {
     //   this.modelarData(this.dataDialog)
+    // this.reworkDialog(this.listaExamenes, this.reqLabo);
     // }
   }
 
