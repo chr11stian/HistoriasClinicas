@@ -10,9 +10,10 @@ import Swal from "sweetalert2";
 import { PrestacionService } from "src/app/mantenimientos/services/prestacion/prestacion.service";
 import { his } from "src/app/cred/citas/atencion-cred/consulta-principal/models/his";
 import { ConsultaGeneralService } from "src/app/cred/citas/atencion-cred/consulta-principal/services/consulta-general.service";
-import { TratamientoConsultaService } from "src/app/cred/citas/atencion-cred/consulta-principal/services/tratamiento-consulta.service"
-import { FinalizarConsultaService } from "src/app/cred/citas/atencion-cred/consulta-principal/services/finalizar-consulta.service"
-import { Router } from '@angular/router';
+import { TratamientoConsultaService } from "src/app/cred/citas/atencion-cred/consulta-principal/services/tratamiento-consulta.service";
+import { FinalizarConsultaService } from "src/app/cred/citas/atencion-cred/consulta-principal/services/finalizar-consulta.service";
+import { Router } from "@angular/router";
+import { environment } from "src/environments/environment";
 @Component({
     selector: "app-tratamiento",
     templateUrl: "./tratamiento.component.html",
@@ -55,6 +56,9 @@ export class TratamientoComponent implements OnInit {
     existData: boolean = false;
     arrayFua: FUA[];
     personalData: PersonalInfo;
+
+    //--REPORTE
+    link: string;
     constructor(
         private finalizarConsultaService: FinalizarConsultaService,
         private tratamientoConsultaService: TratamientoConsultaService,
@@ -66,7 +70,7 @@ export class TratamientoComponent implements OnInit {
         private ipressServices: IpressService,
         private PrestacionService: PrestacionService,
         private formBuilder: FormBuilder,
-        private router: Router,
+        private router: Router
     ) {
         this.buildForm();
         /*LLENADO DE LISTAS - VALORES QUE PUEDEN TOMAR EL TRATAMIENTO*/
@@ -112,6 +116,7 @@ export class TratamientoComponent implements OnInit {
         this.listarTratamientos();
         this.buscarCodigoIpress();
         this.listarDiagnosticos();
+        this.link = environment.base_urlTx;
     }
     buildForm() {
         (this.formTratamiento = this.formBuilder.group({
