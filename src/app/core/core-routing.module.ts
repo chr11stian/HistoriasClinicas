@@ -154,6 +154,13 @@ const routes: Routes = [
                         (n) => n.TriajesModule
                     ),
             },
+            {
+                path:"about",
+                loadChildren: ()=>
+                import("src/app/about/about.module").then(
+                    (n)=>n.AboutModule
+            ),
+            }
         ],
     },
 ];

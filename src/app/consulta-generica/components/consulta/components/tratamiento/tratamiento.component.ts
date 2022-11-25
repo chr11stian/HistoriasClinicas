@@ -13,9 +13,9 @@ import { environment } from 'src/environments/environment';
 import { DiagnosticoConsultaService } from 'src/app/cred/citas/atencion-cred/consulta-principal/services/diagnostico-consulta.service';
 import { TratamientoConsultaService } from 'src/app/cred/citas/atencion-cred/consulta-principal/services/tratamiento-consulta.service';
 @Component({
-  selector: 'app-tratamiento',
-  templateUrl: './tratamiento.component.html',
-  styleUrls: ['./tratamiento.component.css']
+    selector: "app-tratamiento",
+    templateUrl: "./tratamiento.component.html",
+    styleUrls: ["./tratamiento.component.css"],
 })
 export class TratamientoComponent implements OnInit {
   datePipe = new DatePipe('en-US');
@@ -484,8 +484,99 @@ export class TratamientoComponent implements OnInit {
       this.formTratamiento.patchValue({ medicamento: "" });
     })
   }
+  /* his */
+  /* concludeConsultation(): void {
+    this.nexDate = {
+        fecha: this.consultaGeneralService.fecha,
+        motivo: null,
+    };
+    Swal.fire({
+        title: "¿Desea cerrar la consulta?",
+        text: "Ya no podra modificar nada en la consulta",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Confirmar",
+        cancelButtonText: "Cancelar",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            this.dialogHIS = false;
+            this.finalizarConsultaService
+                .putNextAppointment(this.data.idConsulta, this.nexDate)
+                .then((res: any) => {
+                    if (res.cod == "2126") {
+                        this.router.navigate([
+                            "/dashboard/cred/lista-consulta",
+                        ]);
+                        Swal.fire({
+                            icon: "success",
+                            title: "Se cerro la consulta satisfactoriamente",
+                            showConfirmButton: false,
+                            timer: 2000,
+                        });
+                        this.dialogHIS = false;
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "No se pudo cerrar la consulta",
+                            showConfirmButton: false,
+                            timer: 2000,
+                        });
+                    }
+                });
+        }
+    });
 }
-
+async his() {
+    this.cargarHis();
+    this.isUpdateHIS = false;
+    this.dialogHIS = true;
+    await this.finalizarConsultaService
+        .getShowFuaData(this.data.idConsulta)
+        .then((res: any) => {
+            this.arrayFua = res.object;
+            this.arrayFua.sort((a, b) =>
+                a.codPrestacion.localeCompare(b.codPrestacion)
+            );
+            if (this.arrayFua != null) {
+                this.personalData = {
+                    nombre:
+                        this.arrayFua[0].nombre +
+                        " " +
+                        this.arrayFua[0].apePaterno +
+                        " " +
+                        this.arrayFua[0].apeMaterno,
+                    tipoDoc: this.arrayFua[0].tipoDoc,
+                    nroDoc: this.arrayFua[0].nroDoc,
+                };
+            }
+            // console.log('data of fua ', this.personalData);
+        });
+}
+cargarHis() {
+    this.tratamientoConsultaService
+        .getHIS(this.data.idConsulta)
+        .subscribe((r: any) => {
+            if (r.cod == "2015") {
+                Swal.fire({
+                    icon: "info",
+                    title: "Ya se cerro la consulta",
+                    text: "",
+                    showConfirmButton: false,
+                    timer: 2000,
+                });
+                this.dialogHIS = false;
+                return;
+            }
+            this.listHIS = r.object;
+            console.log("his", this.listHIS);
+            this.listHIS == null
+                ? (this.existData = false)
+                : (this.existData = true);
+        });
+} */
+}
 interface viaAdministracion{
   label?:string,
   value?:string,
@@ -517,3 +608,37 @@ interface indicaciones{
   advertencias?:string,
   otrasIndicaciones?:string,
 }
+
+  
+interface NextDate {
+  fecha: string;
+  motivo?: string;
+  }
+interface FUA {
+  nroDoc: string;
+  tipoDoc: string;
+  nombre: string;
+  apePaterno: string;
+  apeMaterno: string;
+  codPrestacion?: string;
+  inmunizaciones?: Inmunizaciones[];
+  diagnosticos?: Diagnosticos[];
+  }
+interface Diagnosticos {
+  cie_10: string;
+  diagnostico: string;
+  lab?: string;
+  tipoDx: string;
+  }
+interface Inmunizaciones {
+  nombre: string;
+  codPrestacion: string;
+  nombreComercial: string;
+  }
+interface PersonalInfo {
+  nombre: string;
+  tipoDoc: string;
+  nroDoc: string;
+  }
+  
+  

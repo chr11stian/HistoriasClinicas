@@ -12,6 +12,7 @@ import { MessageService, SortEvent } from "primeng/api";
 import { VisitaGestanteService } from "../../../services/visita-gestante.service";
 import { VisitaDomiciliariaService } from "../../../services/visita-domiciliaria.service";
 import { environment } from 'src/environments/environment';
+import { EchartPuerperasComponent } from '../../../components/echart-puerperas/echart-puerperas.component';
 @Component({
   selector: 'app-visitas-domiciliarias-puerpera',
   templateUrl: './visitas-domiciliarias-puerpera.component.html',
@@ -183,5 +184,20 @@ export class VisitasDomiciliariasPuerperaComponent implements OnInit {
       "/jasperserver/rest_v2/reports/Reports/VISITA/gestantepuerpera/visita_gestante_puerpera.pdf?"+
       "visitaid=" +
       aux.id;
+  }
+
+  openDialogEcharts() {
+    let dni=this.servicioVisitas.getIdPersonal();
+    this.ref = this.dialog.open(EchartPuerperasComponent, {
+      header:
+        ">>>GRAFICO VISITAS DOMICILIARIAS > PUERPERAS ",
+      width: "70%",
+      height:"80%",
+      contentStyle: {
+        //"max-height": "93%",
+        overflow: "auto",
+      },
+      data:dni,
+    });
   }
 }

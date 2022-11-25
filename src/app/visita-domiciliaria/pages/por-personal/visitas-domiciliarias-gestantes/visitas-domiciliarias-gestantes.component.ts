@@ -12,6 +12,7 @@ import { MessageService } from "primeng/api";
 import { VisitaGestanteService } from "../../../services/visita-gestante.service";
 import { VisitaDomiciliariaService } from "../../../services/visita-domiciliaria.service";
 import { environment } from "src/environments/environment";
+import { EchartGestantesComponent } from "src/app/visita-domiciliaria/components/echart-gestantes/echart-gestantes.component";
 
 @Component({
   selector: "app-visitas-domiciliarias-gestantes",
@@ -96,7 +97,7 @@ export class VisitasDomiciliariasGestantesComponent implements OnInit {
   openDialogRespuestas(data: any[]) {
     this.ref = this.dialog.open(DialogRespuestasComponent, {
       header:
-        "PREGUNTAS>RESPUESTAS DE LA VISITAS DOMICILIARIA EJECUTADA",
+        ">>>PREGUNTAS>>RESPUESTAS DE LA VISITAS DOMICILIARIA EJECUTADA",
       width: "70%",
       // height: "800px",
       contentStyle: {
@@ -182,5 +183,20 @@ export class VisitasDomiciliariasGestantesComponent implements OnInit {
       "/jasperserver/rest_v2/reports/Reports/VISITA/gestantepuerpera/visita_gestante_puerpera.pdf?"+
       "visitaid=" +
       aux.id;
+  }
+
+  openDialogEcharts() {
+    let dni=this.servicioVisitas.getIdPersonal();
+    this.ref = this.dialog.open(EchartGestantesComponent, {
+      header:
+        ">>>GRAFICO VISITAS DOMICILIARIAS > GESTANTES ",
+      width: "70%",
+      height:"80%",
+      contentStyle: {
+        //"max-height": "93%",
+        overflow: "auto",
+      },
+      data:dni,
+    });
   }
 }
