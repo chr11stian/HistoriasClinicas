@@ -3,18 +3,17 @@
     <div class="card">
         <div class="grid">
             <div class="col-9">
-                <span style="font-size: 2em;">CONSULTA-{{  buscarTipoConsulta(
-                    data.tipoConsulta)}} </span>
+                <span style="font-size: 2em;">CONSULTA-{{  buscarTipoConsulta( dataFromLocal.tipoConsulta)}} </span>
                 </div>
             </div>
     </div>
-    <p-steps class="steps" [model]="items" styleClass="step-custom" [readonly]="false" [(activeIndex)]="indiceActivo" 
+    <p-steps class="steps" [model]="itemsStep" styleClass="step-custom" [readonly]="false" [(activeIndex)]="indiceActivo" 
         (activeIndexChange)="ChangeStep($event)">
     </p-steps>
 </div>
 <div class="stepsdemo-content" *ngIf="stepName === 'datos'">
     <p-card>
-        <ng-template pTemplate="header">
+        <ng-template pTemplate="header">    
             <p-toolbar>
             <ng-template pTemplate="left">
                 <h3 class="mt-2">DATOS GENERALES</h3>

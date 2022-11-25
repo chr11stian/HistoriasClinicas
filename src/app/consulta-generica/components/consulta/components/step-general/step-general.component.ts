@@ -15,74 +15,29 @@ import { EvaluacionesComponent } from "../evaluaciones/evaluaciones.component";
     styleUrls: ["./step-general.component.css"],
 })
 export class StepGeneralComponent implements OnInit {
-    data = <any>JSON.parse(localStorage.getItem("documento"));
-    /* lo que reciben del paso anterior */
-    tipoDoc: string = "";
-    nroDoc: string = "";
-    /** key de lo que se guarda en el local storage */
-    attributeLocalS = "idConsulta";
-    /* 61ae372a42e4dc7ba7de654e */
-
-    options: data[];
-    selectedOption: data;
-    items: any[];
+    dataFromLocal:any
+    itemsStep: any[];
     j: number = 100;
     indiceActivo: number = 0;
     stepName = "datos";
-    listaTitulo = [
-        { code: "NIÑO_NIÑA", display: "MEDICINA GENERAL NIÑO/NIÑA" },
-        { code: "ADOLESCENTE", display: "MEDICINA GENERAL ADOLESCENTE" },
-        { code: "JOVEN", display: "MEDICINA GENERAL JOVEN" },
-        { code: "ADULTO", display: "MEDICINA GENERAL ADULTO" },
-        { code: "ADULTO MAYOR", display: "MEDICINA GENERAL ADULTO MAYOR" },
-        { code: "ODONTOLOGIA GENERAL", display: "ODONTOLOGIA" },
-        { code: "PSICOLOGIA", display: "PSICOLOGIA" },
-        { code: "NUTRICION", display: "NUTRICION" },
-        {
-            code: "CONSULTA GESTANTE EXTERNA",
-            display: "CONSULTORIO OBSTETRICO",
-        },
-    ];
+    listaTitulo :any[]
     buscarTipoConsulta(codigo) {
-        console.log("codigo", codigo);
-
         const aux = this.listaTitulo.find((element) => {
             return element.code == codigo;
         });
         return aux?.display || "SERVICIO NO DISPONIBLE";
     }
-    // consulta: ApiConsulta
-
-    @ViewChild(DatosGeneralesComponent)
-    datosGeneralesConsulta: DatosGeneralesComponent;
+    @ViewChild(DatosGeneralesComponent) datosGeneralesConsulta: DatosGeneralesComponent;
     @ViewChild(MotivoConsultaComponent) motivoConsulta: MotivoConsultaComponent;
-    @ViewChild(EvaluacionesComponent)
-    evaluacionesConsulta: EvaluacionesComponent;
+    @ViewChild(EvaluacionesComponent) evaluacionesConsulta: EvaluacionesComponent;
     @ViewChild(DiagnosticoComponent) diagnosticoConsulta: DiagnosticoComponent;
     @ViewChild(AcuerdosComponent) AcuerdosComponent: AcuerdosComponent;
-    @ViewChild(ProcedimientoComponent)
-    procedimientoConsulta: ProcedimientoComponent;
+    @ViewChild(ProcedimientoComponent) procedimientoConsulta: ProcedimientoComponent;
     @ViewChild(TratamientoComponent) tratamientoConsulta: TratamientoComponent;
 
-    constructor(
-        // private consultaGeneralService: ConsultaGeneralService,
-        private route: ActivatedRoute,
-        private router: Router
-    ) {
-        this.options = [
-            { name: "DNI", code: 1 },
-            { name: "CARNET RN", code: 2 },
-            { name: "C EXTRANJERIA", code: 3 },
-            { name: "OTROS", code: 4 },
-        ];
-    }
-
-    ngDoCheck() {
-        this.saveStep();
-    }
-
-    async ngOnInit() {
-        this.items = [
+    constructor() {
+        this.dataFromLocal = <any>JSON.parse(localStorage.getItem("documento"));
+        this.itemsStep = [
             { label: "Datos Generales", styleClass: "icon" },
             { label: "Motivo de Consulta", styleClass: "icon1" },
             { label: "Exámenes Auxiliares", styleClass: "icon2" },
@@ -91,70 +46,23 @@ export class StepGeneralComponent implements OnInit {
             { label: "Tratamiento", styleClass: "icon5" },
             { label: "Interconsulta", styleClass: "icon7" },
         ];
-        await this.getQueryParams();
+        this.listaTitulo = [
+            { code: "NIÑO_NIÑA", display: "MEDICINA GENERAL NIÑO/NIÑA" },
+            { code: "ADOLESCENTE", display: "MEDICINA GENERAL ADOLESCENTE" },
+            { code: "JOVEN", display: "MEDICINA GENERAL JOVEN" },
+            { code: "ADULTO", display: "MEDICINA GENERAL ADULTO" },
+            { code: "ADULTO MAYOR", display: "MEDICINA GENERAL ADULTO MAYOR" },
+            { code: "ODONTOLOGIA GENERAL", display: "ODONTOLOGIA" },
+            { code: "PSICOLOGIA", display: "PSICOLOGIA" },
+            { code: "NUTRICION", display: "NUTRICION" },
+            { code: "CONSULTA GESTANTE EXTERNA", display: "CONSULTORIO OBSTETRICO"},
+        ];
     }
-
-    getQueryParams() {
-        /*this.route.queryParams
-        .subscribe(params => {
-            if (params['nroDoc'] && !localStorage.getItem(this.attributeLocalS)) {
-                this.tipoDoc = params['tipoDoc']
-                this.nroDoc = params['nroDoc']
-                console.log('1')
-                this.getNuevaConsulta()
-
-            } else if (localStorage.getItem(this.attributeLocalS)) {
-                this.getConsulta(localStorage.getItem(this.attributeLocalS))
-            } else {
-                this.router.navigate(['/dashboard/cred/citas'])
-            }
-        })*/
+    ngDoCheck() {
+        this.saveStep();
     }
-
-    getConsulta(idConsulta: string) {
-        // this.consultaGeneralService.traerConsulta(idConsulta).subscribe(
-        //     result => {
-        //       console.log(result)
-        //     }, err => {
-        //       console.log(err)
-        //     }
-        // )
+     ngOnInit() {
     }
-
-    /*async getNuevaConsulta() {
-      await this.consultaGeneralService.crearConsulta(
-          {
-              'tipoDoc': this.tipoDoc,
-              'nroDoc': this.nroDoc,
-              'tipoDocProfesional': 'DNI',
-              'nroDocProfesional': '45678912'
-          }
-      ).toPromise().then((result) => {
-          this.consulta = result
-          console.log('result: ' + result)
-          localStorage.setItem(this.attributeLocalS, this.consulta.object.id)
-          console.log('2')
-
-      }).catch((err) => {
-          console.log(err)
-      })
-  }*/
-
-    async getNuevaConsulta() {
-        // await this.consultaGeneralService.crearConsulta({
-        //   'tipoDoc': this.tipoDoc,
-        //   'nroDoc': this.nroDoc,
-        //   'tipoDocProfesional': 'DNI',
-        //   'nroDocProfesional': '45678912'
-        // }).subscribe((r) => {
-        //   this.consulta = r
-        //   console.log('result: ' + r)
-        //   localStorage.setItem(this.attributeLocalS, this.consulta.object.id)
-        //   this.datosGeneralesConsulta.recuperarData(this.consulta.object.id)
-        //   console.log('2')
-        // })
-    }
-
     //--cambia los nombres de los steps según el indice
     name() {
         switch (this.indiceActivo) {
