@@ -182,7 +182,7 @@ export class DatosGeneralesComponent implements OnInit {
         title: 'DATOS GENERALES',
         text: 'Guardado correctamente',
         showConfirmButton: false,
-        timer: 1000
+        timer: 2000
       })
       /* setteamos id consulta */
       const  dataForLocal={
@@ -225,7 +225,7 @@ export class DatosGeneralesComponent implements OnInit {
         title: 'DATOS GENERALES',
         text: 'Actualizado correctamente',
         showConfirmButton: false,
-        timer: 1000
+        timer: 2000
       })
     },error => {
     })

@@ -75,7 +75,7 @@ export class ListaConsultaComponent implements OnInit {
       fechaNacimiento: this.dataPaciente.nacimiento.fechaNacimiento,
       tipoConsulta:this.dataFromLocal.tipoConsulta,
       ups:this.dataFromLocal.ups,
-      fechaConsulta:this.dataFromLocal.fechaConsulta,
+      // fechaConsulta:this.dataFromLocal.fechaConsulta,
     }
     localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
     this.router.navigate(['/dashboard/consulta-generica/consulta'])
