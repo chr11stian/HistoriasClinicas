@@ -113,7 +113,8 @@ export class ListaCitasComponent implements OnInit, OnChanges {
           mes:rowDataCupos.paciente.edadMes,
           dia:rowDataCupos.paciente.edadDia,
           idCupo: rowDataCupos.id,
-          servicio:rowDataCupos.servicio /* no envia nada */
+          servicio:rowDataCupos.servicio ,/* no envia nada */
+          fechaConsulta:rowDataCupos.fechaAtencion
         }
     localStorage.setItem('documento', JSON.stringify(data));
     this.router.navigate(['/dashboard/consulta-generica/lista-cita/lista-consulta'])

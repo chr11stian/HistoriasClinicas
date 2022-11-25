@@ -175,7 +175,7 @@ export class StepGeneralComponent implements OnInit {
 
     saveStep() {
         if (this.indiceActivo !== this.j) {
-            console.log("j ", this.indiceActivo, this.j);
+            // console.log("j ", this.indiceActivo, this.j);
             switch (this.j) {
                 case 7:
                     // this.finalizarConsulta.save()

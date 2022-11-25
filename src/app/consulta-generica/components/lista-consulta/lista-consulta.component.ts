@@ -56,7 +56,8 @@ export class ListaConsultaComponent implements OnInit {
         fechaNacimiento: this.dataPaciente.nacimiento.fechaNacimiento,
         tipoConsulta:this.dataFromLocal.tipoConsulta,
         idCupo: this.dataFromLocal.idCupo,
-        ups:this.dataFromLocal.ups
+        ups:this.dataFromLocal.ups,
+        fechaConsulta:this.dataFromLocal.fechaConsulta,
       }
       localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
       this.router.navigate(['/dashboard/consulta-generica/consulta'])
@@ -73,7 +74,8 @@ export class ListaConsultaComponent implements OnInit {
       sexo: this.dataPaciente.sexo,
       fechaNacimiento: this.dataPaciente.nacimiento.fechaNacimiento,
       tipoConsulta:this.dataFromLocal.tipoConsulta,
-      ups:this.dataFromLocal.ups
+      ups:this.dataFromLocal.ups,
+      fechaConsulta:this.dataFromLocal.fechaConsulta,
     }
     localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
     this.router.navigate(['/dashboard/consulta-generica/consulta'])

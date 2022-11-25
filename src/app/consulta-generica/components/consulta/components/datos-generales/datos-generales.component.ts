@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {dato} from "../../../../../cred/citas/models/data";
 import {DatosGeneralesService} from "../../../../services/datos-generales/datos-generales.service";
 import {DatePipe} from "@angular/common";
@@ -12,219 +12,227 @@ import Swal from "sweetalert2";
   styleUrls: ['./datos-generales.component.css']
 })
 export class DatosGeneralesComponent implements OnInit {
-  formDatos_Generales:FormGroup;
-  form_Acompaniante:FormGroup;
-  form_Funciones:FormGroup;
-  form_SignosAlarma:FormGroup;
-  imagePath: string;
-  attributeLocalS = 'documento'
-  hayFoto=false;
-  idConsulta="";
-  data:any;
-  datosGenerales:any;
-  listaSignosAlarma:any[]=[];
-  listaFuncionesBiologicas:any[]=[];
-  listaDocumentosIdentidad: any;
+  datosGeneralesFG:FormGroup;
+  aconpanienteFG:FormGroup;
+  signoAlarmaFG:FormGroup;
+  tipoDocList: any[];
+  
   datePipe = new DatePipe('en-US');
+  attributeLocalS = 'documento'
+  dataFromlocal:any;
+  signoAlarmaList:any[]=[];
+  idConsulta="";
+  isUpdate:boolean=false
+  
+  imagePath: string;
+  hayFoto=false;
+
+
   constructor(private formBuilder: FormBuilder,
               private datosGeneralesService:DatosGeneralesService,
               private documentoIdentidadService: DocumentoIdentidadService){
-    this.getDocumentosIdentidad();
+        this.builForm();
+        this.dataFromlocal = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
+        this.idConsulta=this.dataFromlocal.idConsulta
   }
-  ngOnInit(): void {
-    this.builForm();
-    this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
-    // this.idConsulta=this.data.idConsulta;
-    console.log(this.data);
-    console.log(this.data.idConsulta);
-    if(this.data.idConsulta==""){
-      this.getPacientefromPaciente();
-    }
-    else{
-      this.recuperarDatosGeneralesBD()
-    }
+    ngOnInit(): void {
+      this.getTipoDoc();
+      if(this.idConsulta==""){
+        this.getDataPaciente();
+        this.isUpdate=false 
+      }
+      else{
+        this.getDatoGenerales()
+        this.isUpdate=true
+      }
   }
   builForm(){
-    this.formDatos_Generales = this.formBuilder.group({
-      fecha:new FormControl(''),
-      tipoDoc:new FormControl({value:'',disabled:true}),
-      docIndentidad:new FormControl({value:'',disabled:true}),
-      apePaterno:new FormControl({value:'',disabled:true}),
-      apeMaterno:new FormControl({value:'',disabled:true}),
-      nombre:new FormControl({value:'',disabled:true}),
-      fechaNacimiento:new FormControl({value:'',disabled:true}),
-      hcl:new FormControl({value:'',disabled:true}),
-      edad:new FormControl({value:'',disabled:true}),
-      // ocupacion:new FormControl(''),
-      codSeguro:new FormControl({value:'',disabled:true}),
-      fum:new FormControl(''),
-      cel:new FormControl(''),
-      direccion:new FormControl(''),
-      sexo:new FormControl({value:'',disabled:true}),
+    this.datosGeneralesFG = this.formBuilder.group({
+      fechaAtencion:new FormControl({value:new Date(),disabled:true},Validators.required),
+      tipoDoc:new FormControl({value:'',disabled:true},Validators.required),
+      nroDoc:new FormControl({value:'',disabled:true},Validators.required),
+      apePaterno:new FormControl({value:'',disabled:true},Validators.required),
+      apeMaterno:new FormControl({value:'',disabled:true},Validators.required),
+      nombres:new FormControl({value:'',disabled:true},Validators.required),
+      fechaNacimiento:new FormControl({value:'',disabled:true},Validators.required),
+      hcl:new FormControl({value:'',disabled:true},Validators.required),
+      edad:new FormControl({value:'',disabled:true},Validators.required),
+      sexo:new FormControl({value:'',disabled:true},Validators.required),
+      codSeguro:new FormControl({value:'',disabled:true},Validators.required),
+      fum:new FormControl({value:'',disabled:false},Validators.required),
+      cel:new FormControl({value:'',disabled:false},Validators.required),
+      direccion:new FormControl({value:'',disabled:false},Validators.required),
     }),
-    this.form_Acompaniante = this.formBuilder.group({
-      tipoDocA:new FormControl(''),
-      nroDocA:new FormControl(''),
-      direccion:new FormControl(''),
-      telefono:new FormControl(''),
-      nombreA:new FormControl(''),
-      apellidosA:new FormControl(''),
-      parentesco:new FormControl(''),
-      edad:new FormControl(''),
+    this.aconpanienteFG = this.formBuilder.group({
+      tipoDocA:new FormControl({value:'',disabled:false},Validators.required),
+      nroDocA:new FormControl({value:'',disabled:false},Validators.required),
+      parentesco:new FormControl({value:'',disabled:false},Validators.required),
+      apellidosA:new FormControl({value:'',disabled:false},Validators.required),
+      nombreA:new FormControl({value:'',disabled:false},Validators.required),
+      edad:new FormControl({value:'',disabled:false},Validators.required),
+      telefono:new FormControl({value:'',disabled:false},Validators.required),
+      direccion:new FormControl({value:'',disabled:false},Validators.required),
     }),
-    this.form_SignosAlarma = this.formBuilder.group({
-      tipoEdad:new FormControl(''),
-      nombreSigno:new FormControl(''),
-      valorSigno:new FormControl(''),
-    }),
-    this.form_Funciones = this.formBuilder.group({
-      funcion:new FormControl(''),
-      valor:new FormControl(''),
-      detalle:new FormControl(''),
+    this.signoAlarmaFG = this.formBuilder.group({
+      tipoEdad:new FormControl({value:'',disabled:false},Validators.required),
+      nombreSigno:new FormControl({value:'',disabled:false},Validators.required),
+      valorSigno:new FormControl({value:'',disabled:false},Validators.required),
     })
-
   }
 
   /**Lista los tipos de documentos de Identidad de un paciente**/
-  getDocumentosIdentidad() {
+  getTipoDoc() {
     this.documentoIdentidadService.getDocumentosIdentidad().subscribe((res: any) => {
-      this.listaDocumentosIdentidad = res.object;
-      console.log('docs ', this.listaDocumentosIdentidad);
+      this.tipoDocList = res.object;
     })
   }
 
-  getPacientefromPaciente(){
-    this.traerDataReniec();
-    let data={
-      tipoDoc:this.data.tipoDoc,
-      nroDoc:this.data.nroDocumento
-    }
-    this.datosGeneralesService.getPacientePorDoc(data).subscribe((res: any) => {
-      console.log(res);
-      console.log(res.object);
-      this.formDatos_Generales.get('tipoDoc').setValue(res.object.tipoDoc);
-      this.formDatos_Generales.get('docIndentidad').setValue(res.object.nroDoc);
-      this.formDatos_Generales.get('apePaterno').setValue(res.object.apePaterno);
-      this.formDatos_Generales.get('apeMaterno').setValue(res.object.apeMaterno);
-      this.formDatos_Generales.get('nombre').setValue(res.object.primerNombre + " " +res.object.otrosNombres);
-      this.formDatos_Generales.get('fechaNacimiento').setValue(res.object.nacimiento.fechaNacimiento);
-      this.formDatos_Generales.get('hcl').setValue(res.object.nroHcl);
-      this.formDatos_Generales.get('edad').setValue(this.data.anio + " años " + this.data.mes+" meses " + this.data.dia + " dias");
-      this.formDatos_Generales.get('sexo').setValue(res.object.sexo);
-      this.formDatos_Generales.get('cel').setValue(res.object.celular);
-      this.formDatos_Generales.get('direccion').setValue(res.object.domicilio.direccion);
-      // this.formDatos_Generales.get('codSeguro').setValue(res.object.nombreEESS);
+  getDataPaciente(){
+    // this.traerDataReniec();
+    const data={
+      tipoDoc:this.dataFromlocal.tipoDoc,
+      nroDoc:this.dataFromlocal.nroDocumento
+    } 
+    this.datosGeneralesService.getPacientePorDoc(data).subscribe((resp: any) => {
+      console.log({resp});
+      this.datosGeneralesFG.get('fechaAtencion').setValue(new Date());
+      this.datosGeneralesFG.get('tipoDoc').setValue(resp.object.tipoDoc);
+      this.datosGeneralesFG.get('nroDoc').setValue(resp.object.nroDoc);
+      this.datosGeneralesFG.get('apePaterno').setValue(resp.object.apePaterno);
+      this.datosGeneralesFG.get('apeMaterno').setValue(resp.object.apeMaterno);
+      this.datosGeneralesFG.get('nombres').setValue(resp.object.primerNombre + " " +resp.object.otrosNombres);
+      this.datosGeneralesFG.get('fechaNacimiento').setValue(new Date (resp.object.nacimiento.fechaNacimiento));
+      this.datosGeneralesFG.get('hcl').setValue(resp.object.nroHcl);
+      this.datosGeneralesFG.get('edad').setValue(this.dataFromlocal.anio + " años " + this.dataFromlocal.mes+" meses " + this.dataFromlocal.dia + " dias");
+      this.datosGeneralesFG.get('sexo').setValue(resp.object.sexo);
+      this.datosGeneralesFG.get('codSeguro').setValue(resp.object.codSeguro);
+      this.datosGeneralesFG.get('cel').setValue(resp.object.celular);
+      this.datosGeneralesFG.get('direccion').setValue(resp.object.domicilio.direccion);
     });
   }
-  recuperarDatos(){
-    let req = {
-      fecha:this.datePipe.transform(this.formDatos_Generales.value.fecha,'yyyy-MM-dd HH:mm:ss'),
-      anioEdad:this.data.anio,
-      fum:this.datePipe.transform(this.formDatos_Generales.getRawValue().fum,'yyyy-MM-dd'),
-      nroHcl:this.formDatos_Generales.getRawValue().hcl,
-      tipoDoc:this.formDatos_Generales.getRawValue().tipoDoc,
-      nroDoc:this.formDatos_Generales.getRawValue().docIndentidad,
-      direccion:this.formDatos_Generales.getRawValue().direccion,
-      acompanante:{
-        tipoDoc:this.form_Acompaniante.value.tipoDocA,
-        nroDoc:this.form_Acompaniante.value.nroDocA,
-        nombre:this.form_Acompaniante.value.nombreA,
-        apellidos:this.form_Acompaniante.value.apellidosA,
-        lazoParentesco:this.form_Acompaniante.value.parentesco,
-        edad:this.form_Acompaniante.value.edad,
-        direccion:this.form_Acompaniante.value.direccion,
-        telefono:this.form_Acompaniante.value.telefono
-      },
-      // funcionesBiologicas:this.listaFuncionesBiologicas,
-      listaSignosAlarma:this.listaSignosAlarma,
-      servicio:this.data.ups,
-      tipoConsulta:this.data.tipoConsulta
-    }
-    this.datosGenerales = req;
+  getDatoGenerales(){
+    this.datosGeneralesService.searchConsultaDatosGenerales(this.dataFromlocal.idConsulta).subscribe((resp: any) => {
+      // console.log({resp});
+      this.datosGeneralesFG.get('fechaAtencion').setValue(new Date(resp.object.fecha));
+      this.datosGeneralesFG.get('tipoDoc').setValue(resp.object.tipoDoc);
+      this.datosGeneralesFG.get('nroDoc').setValue(resp.object.nroDoc);
+      this.datosGeneralesFG.get('apePaterno').setValue(resp.object.datosPaciente.apePaterno);
+      this.datosGeneralesFG.get('apeMaterno').setValue(resp.object.datosPaciente.apeMaterno);
+      this.datosGeneralesFG.get('nombres').setValue(resp.object.datosPaciente.primerNombre + " " +resp.object.datosPaciente.otrosNombres);
+      this.datosGeneralesFG.get('fechaNacimiento').setValue(new Date(resp.object.datosPaciente.fechaNacimiento));
+      this.datosGeneralesFG.get('hcl').setValue(resp.object.nroHcl);
+      this.datosGeneralesFG.get('edad').setValue(this.dataFromlocal.anio + " años " + this.dataFromlocal.mes + " meses " + this.dataFromlocal.dia + " dias");
+      this.datosGeneralesFG.get('sexo').setValue(resp.object.datosPaciente.sexo);
+      this.datosGeneralesFG.get('codSeguro').setValue(resp.object.datosPaciente.codSeguro);
+      /* falta fun */
+      this.datosGeneralesFG.get('cel').setValue(resp.object.datosPaciente.celular);
+      this.datosGeneralesFG.get('direccion').setValue(resp.object.datosPaciente.domicilio.direccion);
+      /* aconpañante */
+      this.aconpanienteFG.get('tipoDocA').setValue(resp.object.acompanante.tipoDoc);
+      this.aconpanienteFG.get('nroDocA').setValue(resp.object.acompanante.nroDoc);
+      this.aconpanienteFG.get('parentesco').setValue(resp.object.acompanante.lazoParentesco);
+      this.aconpanienteFG.get('nombreA').setValue(resp.object.acompanante.nombre);
+      this.aconpanienteFG.get('apellidosA').setValue(resp.object.acompanante.apellidos);
+      this.aconpanienteFG.get('edad').setValue(resp.object.acompanante.edad);
+      this.aconpanienteFG.get('telefono').setValue(resp.object.acompanante.telefono);
+      this.aconpanienteFG.get('direccion').setValue(resp.object.acompanante.direccion);
+
+      this.signoAlarmaList=resp.object.listaSignosAlarma;
+    });
   }
-  actualizarConsulta() {
-    let req = {
-      id:this.data.idConsulta,
-      // fecha:this.datePipe.transform(this.formDatos_Generales.value.fecha,'yyyy-MM-dd HH:mm:ss'),
-      anioEdad:this.data.anio,
-      fum:this.datePipe.transform(this.formDatos_Generales.getRawValue().fum,'yyyy-MM-dd'),
-      nroHcl:this.formDatos_Generales.getRawValue().hcl,
-      // tipoDoc:this.formDatos_Generales.getRawValue().tipoDoc,
-      // nroDoc:this.formDatos_Generales.getRawValue().docIndentidad,
-      direccion:this.formDatos_Generales.getRawValue().direccion,
-      acompanante:{
-        tipoDoc:this.form_Acompaniante.value.tipoDocA,
-        nroDoc:this.form_Acompaniante.value.nroDocA,
-        nombre:this.form_Acompaniante.value.nombreA,
-        apellidos:this.form_Acompaniante.value.apellidosA,
-        lazoParentesco:this.form_Acompaniante.value.parentesco,
-        edad:this.form_Acompaniante.value.edad,
-        direccion:this.form_Acompaniante.value.direccion,
-        telefono:this.form_Acompaniante.value.telefono
-      },
-      // funcionesBiologicas:this.listaFuncionesBiologicas,
-      listaSignosAlarma:this.listaSignosAlarma,
-      // servicio:"MEDICINA GENERAL",
-      // tipoConsulta:this.data.tipoConsulta
+  guardarActualizar(){
+    if(!this.isUpdate){
+      this.guardarNuevaConsulta();
     }
-    console.log(this.datosGenerales);
-    this.datosGeneralesService.updateConsultaDatosGenerales(req).subscribe((r: any) => {
-      console.log(req);
+    else{
+      this.actualizarConsulta();
+    }
+  }
+  guardarNuevaConsulta(){
+    let inputRequest = {
+      fecha:this.datePipe.transform(this.datosGeneralesFG.get("fechaAtencion").value,'yyyy-MM-dd HH:mm:ss'),
+      anioEdad:this.dataFromlocal.anio,
+      fum:this.datePipe.transform(this.datosGeneralesFG.get("fum").value,'yyyy-MM-dd'),
+      nroHcl:this.datosGeneralesFG.get("hcl").value,
+      tipoDoc:this.datosGeneralesFG.get("tipoDoc").value,
+      nroDoc:this.datosGeneralesFG.get("nroDoc").value,
+      direccion:this.datosGeneralesFG.get("direccion").value,
+      acompanante:{
+        tipoDoc:this.aconpanienteFG.get("tipoDocA").value,
+        nroDoc:this.aconpanienteFG.get("nroDocA").value,
+        nombre:this.aconpanienteFG.get("nombreA").value,
+        apellidos:this.aconpanienteFG.get("apellidosA").value,
+        lazoParentesco:this.aconpanienteFG.get("parentesco").value,
+        edad:this.aconpanienteFG.get("edad").value,
+        direccion:this.aconpanienteFG.get("direccion").value,
+        telefono:this.aconpanienteFG.get("telefono").value
+      },
+      listaSignosAlarma:this.signoAlarmaList,
+      servicio:this.dataFromlocal.ups,
+      tipoConsulta:this.dataFromlocal.tipoConsulta
+    }
+    // console.log({inputRequest});
+    
+    
+    this.datosGeneralesService.addConsultaDatosGenerales(inputRequest).subscribe((resp: any) => {
+      this.idConsulta=resp.object.id;
+      this.isUpdate=true;
       Swal.fire({
         icon: 'success',
-        title: 'DATOS GENERALES...',
+        title: 'DATOS GENERALES',
+        text: 'Guardado correctamente',
+        showConfirmButton: false,
+        timer: 1000
+      })
+      /* setteamos id consulta */
+      const  dataForLocal={
+        fechaNacimiento:this.dataFromlocal.fechaNacimiento,
+        idConsulta:this.idConsulta,
+        anio:this.dataFromlocal.anio,
+        dia:this.dataFromlocal.dia,
+        mes:this.dataFromlocal.mes,
+        sexo:this.dataFromlocal.sexo,
+        tipoDoc:this.dataFromlocal.tipoDoc,
+        nroDocumento:this.dataFromlocal.nroDocumento,
+        ups:this.dataFromlocal.ups,
+        tipoConsulta:this.dataFromlocal.tipoConsulta
+      }
+      localStorage.setItem(this.attributeLocalS, JSON.stringify(dataForLocal));
+    })
+  }
+  actualizarConsulta() {
+    let inputRequest = {
+      id:this.idConsulta,
+      anioEdad:this.dataFromlocal.anio,
+      fum:this.datePipe.transform(this.datosGeneralesFG.get("fum").value,'yyyy-MM-dd'),
+      nroHcl:this.datosGeneralesFG.get("hcl").value,
+      direccion:this.datosGeneralesFG.get("direccion").value || '',
+      acompanante:{
+        tipoDoc:this.aconpanienteFG.get("tipoDocA").value,
+        nroDoc:this.aconpanienteFG.get("nroDocA").value,
+        nombre:this.aconpanienteFG.get("nombreA").value,
+        apellidos:this.aconpanienteFG.get("apellidosA").value,
+        lazoParentesco:this.aconpanienteFG.get("parentesco").value,
+        edad:this.aconpanienteFG.get("edad").value,
+        direccion:this.aconpanienteFG.get("direccion").value,
+        telefono:this.aconpanienteFG.get("telefono").value
+      },
+      listaSignosAlarma:this.signoAlarmaList,
+    }
+    this.datosGeneralesService.updateConsultaDatosGenerales(inputRequest).subscribe((r: any) => {
+      Swal.fire({
+        icon: 'success',
+        title: 'DATOS GENERALES',
         text: 'Actualizado correctamente',
         showConfirmButton: false,
         timer: 1000
       })
     },error => {
-      console.log("ocurrio un error")
     })
-    this.recuperarDatosGeneralesBD();
-  }
-  guardarNuevaConsulta(){
-    this.recuperarDatos();
-    console.log(this.datosGenerales);
-    this.datosGeneralesService.addConsultaDatosGenerales(this.datosGenerales).subscribe((r: any) => {
-      let id=r.object.id;
-      this.data.idConsulta=r.object.id;
-      let data={
-        fechaNacimiento:this.data.fechaNacimiento,
-        idConsulta:id,
-        anio:this.data.anio,
-        dia:this.data.dia,
-        mes:this.data.mes,
-        sexo:this.data.sexo,
-        tipoDoc:this.data.tipoDoc,
-        nroDocumento:this.data.nroDocumento,
-        ups:this.data.ups,
-        tipoConsulta:this.data.tipoConsulta
-      }
-      localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
-      Swal.fire({
-        icon: 'success',
-        title: 'DATOS GENERALES...',
-        text: 'Guardado correctamente',
-        showConfirmButton: false,
-        timer: 1000
-      })
-      this.recuperarDatosGeneralesBD();
-
-    })
-  }
-  guardarActualizar(){
-    console.log("idConsulta",this.data.idConsulta)
-    if(this.data.idConsulta==""){
-      console.log("no tiene id",this.data.idConsulta)
-      this.guardarNuevaConsulta();
-    }
-    else{
-      this.actualizarConsulta();
-      console.log("tiene id",this.data.idConsulta)
-    }
+    // this.getDatoGenerales();
   }
   traerDataReniec() {
-    this.datosGeneralesService.getDatosReniec(this.data.nroDocumento).subscribe((res: any) => {
+    this.datosGeneralesService.getDatosReniec(this.dataFromlocal.nroDocumento).subscribe((res: any) => {
       // console.log(res);
       if(res.foto==null){
         this.hayFoto=false;
@@ -233,67 +241,29 @@ export class DatosGeneralesComponent implements OnInit {
         this.hayFoto=true;
         this.imagePath = res.foto;
       }
-
+      
     });
   }
-
-  AgregarSignos() {
+  
+  /* AgregarSignos() {
     let a:any = {
-      codSigno:this.listaSignosAlarma.length+1,
-      tipoEdad: this.form_SignosAlarma.value.tipoEdad,
-      nombreSigno: this.form_SignosAlarma.value.nombreSigno.toUpperCase(),
+      codSigno:this.signoAlarmaList.length+1,
+      tipoEdad: this.signoAlarmaFG.value.tipoEdad,
+      nombreSigno: this.signoAlarmaFG.value.nombreSigno.toUpperCase(),
       valorSigno: true
     }
     console.log('a', a)
-    this.listaSignosAlarma.push(a)
-    this.form_SignosAlarma.get('nombreSigno').setValue('')
+    this.signoAlarmaList.push(a)
+    this.signoAlarmaFG.get('nombreSigno').setValue('')
   }
 
   eliminarFuncion(rowIndex: any) {
     this.listaFuncionesBiologicas.splice(rowIndex, 1)
   }
-
-  AgregarFuncion() {
-    let a:any = {
-      funcion: this.form_Funciones.value.funcion,
-      valor: this.form_Funciones.value.valor.toUpperCase(),
-      detalle: this.form_Funciones.value.detalle.toUpperCase()
-    }
-    console.log('a', a)
-    this.listaFuncionesBiologicas.push(a)
-    this.form_Funciones.get('funcion').setValue('')
-  }
-
   eliminarSigno(rowIndex: any) {
-    this.listaSignosAlarma.splice(rowIndex, 1)
-  }
-
-  recuperarDatosGeneralesBD(){
-    this.datosGeneralesService.searchConsultaDatosGenerales(this.data.idConsulta).subscribe((res: any) => {
-     console.log(res.object);
-      this.form_Acompaniante.get('tipoDocA').setValue(res.object.acompanante.tipoDoc);
-      this.form_Acompaniante.get('nroDocA').setValue(res.object.acompanante.nroDoc);
-      this.form_Acompaniante.get('nombreA').setValue(res.object.acompanante.nombre);
-      this.form_Acompaniante.get('apellidosA').setValue(res.object.acompanante.apellidos);
-      this.form_Acompaniante.get('parentesco').setValue(res.object.acompanante.lazoParentesco);
-      this.form_Acompaniante.get('edad').setValue(res.object.acompanante.edad);
-      this.form_Acompaniante.get('direccion').setValue(res.object.acompanante.direccion);
-      this.form_Acompaniante.get('telefono').setValue(res.object.acompanante.telefono);
-      this.formDatos_Generales.get('fecha').setValue(res.object.fecha);
-      this.listaSignosAlarma=res.object.listaSignosAlarma;
-      // this.listaFuncionesBiologicas=res.object.listaFuncionesBiologicas;
-      this.formDatos_Generales.get('docIndentidad').setValue(res.object.nroDoc);
-      this.formDatos_Generales.get('tipoDoc').setValue(res.object.tipoDoc);
-      this.formDatos_Generales.get('apePaterno').setValue(res.object.datosPaciente.apePaterno);
-      this.formDatos_Generales.get('apeMaterno').setValue(res.object.datosPaciente.apeMaterno);
-      this.formDatos_Generales.get('nombre').setValue(res.object.datosPaciente.primerNombre + " " +res.object.datosPaciente.otrosNombres);
-      this.formDatos_Generales.get('fechaNacimiento').setValue(res.object.datosPaciente.fechaNacimiento);
-      this.formDatos_Generales.get('hcl').setValue(res.object.nroHcl);
-      this.formDatos_Generales.get('edad').setValue(this.data.anio + " años " + this.data.mes + " meses " + this.data.dia + " dias");
-      this.formDatos_Generales.get('sexo').setValue(res.object.datosPaciente.sexo);
-      this.formDatos_Generales.get('cel').setValue(res.object.datosPaciente.celular);
-      this.formDatos_Generales.get('direccion').setValue(res.object.datosPaciente.domicilio.direccion);
-      this.formDatos_Generales.get('codSeguro').setValue(res.object.datosPaciente.codSeguro);
-    });
-  }
+    this.signoAlarmaList.splice(rowIndex, 1)
+    
+  } */
+  
+  
 }
