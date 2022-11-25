@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {dato} from "../../../../../cred/citas/models/data";
 import {TratamientosService} from "../../../../services/tratamientos/tratamientos.service";
 import {DiagnosticosService} from "../../../../services/diagnosticos/diagnosticos.service";
@@ -8,12 +8,17 @@ import {MedicamentosService} from "../../../../../mantenimientos/services/medica
 import {IpressService} from "../../../../../core/services/ipress/ipress.service";
 import Swal from "sweetalert2";
 import { PrestacionService } from 'src/app/mantenimientos/services/prestacion/prestacion.service';
+import { DatePipe } from '@angular/common';
+import { environment } from 'src/environments/environment';
+import { DiagnosticoConsultaService } from 'src/app/cred/citas/atencion-cred/consulta-principal/services/diagnostico-consulta.service';
+import { TratamientoConsultaService } from 'src/app/cred/citas/atencion-cred/consulta-principal/services/tratamiento-consulta.service';
 @Component({
   selector: 'app-tratamiento',
   templateUrl: './tratamiento.component.html',
   styleUrls: ['./tratamiento.component.css']
 })
 export class TratamientoComponent implements OnInit {
+  datePipe = new DatePipe('en-US');
   tratamientos: tratamiento[] = [];
   dialogTratamiento:boolean=false;
   formTratamiento:FormGroup;
@@ -24,10 +29,9 @@ export class TratamientoComponent implements OnInit {
   attributeLocalS = 'documento'
   data:dato;
 
-  estadoEditar:boolean=false;
-  estadoEditar2:boolean=false;
 
-  idConsulta:string=null
+  estadoEditar:boolean=false;
+
   intervaloList: any[];
   medicamentosConDatos: any[]=[];
   listaMedicamentos:any;
@@ -40,8 +44,10 @@ export class TratamientoComponent implements OnInit {
   aux:any[]=[];
   dialogIndicaciones: boolean=false;
   dialogObservaciones: boolean=false;
-  constructor(private tratamientoService: TratamientosService,
-              private DiagnosticoService: DiagnosticosService,
+  urlReporte
+
+  constructor(private tratamientoService: TratamientoConsultaService,
+              private DiagnosticoService: DiagnosticoConsultaService,
               private farmaciaService: IpressFarmaciaService,
               private medicamentosService:MedicamentosService,
               private ipressServices: IpressService,
@@ -74,60 +80,67 @@ export class TratamientoComponent implements OnInit {
       {label: 'TOPICO', value: 'TOPICO'},
       {label: 'VAGINAL', value: 'VAGINAL'},
     ];
+
   }
 
   ngOnInit(): void {
-    this.idConsulta = JSON.parse(localStorage.getItem('documento')).idConsulta;
-    // this.estadoEditar2 = JSON.parse(localStorage.getItem('idConsultaGeneral')).estadoEditar;
+
+    this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
     this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
+
     this.listarTratamientos();
     this.buscarCodigoIpress();
     this.listarDiagnosticos();
+    this.urlReporte=environment.base_urlTx+"/jasperserver/rest_v2/reports/Reports/RECETA/recetas.pdf?"
   }
+
   buildForm() {
     this.formTratamiento = this.formBuilder.group({
-      codPrestacion:new FormControl({value:'',disabled:false}),
-      prestacion:new FormControl({value:'',disabled:false}),
+      codPrestacion:new FormControl({value:'',disabled:true}),
+      prestacion:new FormControl({value:'',disabled:true}),
       medicamento: new FormControl(''),
-      id: new FormControl(''),
       codigoCIE: new FormControl({value:'',disabled:false}),
+      id: new FormControl({value:'',disable:false}),
+
+      stock:new FormControl({value:'',disabled:true}),
       codigo: new FormControl({value:'',disabled:true}),
       nombre: new FormControl({value:'',disabled:true}),
-      nombreComercial: new FormControl({value:'',disabled:true}),
-      ff: new FormControl({value:'',disabled:true}),
-      stock:new FormControl({value:'',disabled:true}),
-      concentracion: new FormControl({value:'',disabled:true}),
-      viaAdministracion: new FormControl({value:'',disabled:true}),
-      fechaVenc: new FormControl({value:'',disabled:true}),
+      ff: new FormControl({value:'',disabled:true}), /* presentacion */
+      concentracion: new FormControl({value:'',disabled:true},Validators.required),
+      viaAdministracion: new FormControl({value:'',disabled:true},Validators.required),
+      fechaVenc: new FormControl({value:'',disabled:true},Validators.required),
+      nombreComercial: new FormControl({value:'',disabled:true},Validators.required),
+
       cantidad:new FormControl({value:'',disabled:false}),
       dosis:new FormControl({value:'',disabled:false}),
       intervalo:new FormControl({value:'',disabled:false}),
       duracion:new FormControl({value:'',disabled:false}),
-      observaciones:new FormControl({value:'',disabled:false}),
+      
       efectosMedicamento:new FormControl({value:'',disabled:false}),
       instrucciones:new FormControl({value:'',disabled:false}),
       advertencias:new FormControl({value:'',disabled:false}),
       otrasIndicaciones:new FormControl({value:'',disabled:false}),
+      observaciones:new FormControl({value:'',disabled:false}),
+      
       cie10SIS:new FormControl({value:'',disabled:false}),
-
     }),
-        this.formIndicaciones = this.formBuilder.group({
-          observaciones:new FormControl({value:'',disabled:true}),
-          efectosMedicamento:new FormControl({value:'',disabled:true}),
-          instrucciones:new FormControl({value:'',disabled:true}),
-          advertencias:new FormControl({value:'',disabled:true}),
-          otrasIndicaciones:new FormControl({value:'',disabled:true}),
+    this.formIndicaciones = this.formBuilder.group({
+      efectosMedicamento:new FormControl({value:'',disabled:true}),
+      instrucciones:new FormControl({value:'',disabled:true}),
+      advertencias:new FormControl({value:'',disabled:true}),
+      otrasIndicaciones:new FormControl({value:'',disabled:true}),
+      observaciones:new FormControl({value:'',disabled:true}),
 
 
-        })
+    })
 
   }
   buscarCodigoIpress(){
-    console.log('codigo renipress'+ this.renipress);//// ejecuta
-    console.log('id Ipress:'+this.idIpress);
+    // console.log('codigo renipress'+ this.renipress);//// ejecuta
+    // console.log('id Ipress:'+this.idIpress);
     this.ipressServices.getIpressID(this.idIpress).subscribe((res: any) => {
       this.renipress = res.object.renipress;
-      console.log('codigo renipress'+ this.renipress);
+      // console.log('codigo renipress'+ this.renipress);
       this.listarMedicamentosFarmacia();
     })
   }
@@ -136,7 +149,7 @@ export class TratamientoComponent implements OnInit {
 
 
   listarMedicamentosFarmacia(){
-    console.log("entrando a recuperar medicamentos de la farmacia");
+    // console.log("entrando 0a recuperar medicamentos de la farmacia");
     this.farmaciaService.getListaMedicamentosFarmaciaXIpress(this.renipress).subscribe((data:any)=>{
       if(data!=undefined){
         // console.log(data.object);
@@ -167,9 +180,9 @@ export class TratamientoComponent implements OnInit {
   }
 
   listarDiagnosticos(){
-    this.DiagnosticoService.getDiagnostico(this.idConsulta).subscribe((data:any)=>{
+    this.DiagnosticoService.getDiagnostico(this.data.idConsulta).subscribe((data:any)=>{
       if(data.object!=undefined || data.object!=null){
-        console.log(data.object);
+        // console.log(data.object);
         this.listaDiagnosticos=data.object;
         // for(let i =0;i<data.object.length;i++){
         //   this.listaDiagnosticos.push(data.object[i].cie10SIS)
@@ -188,7 +201,7 @@ export class TratamientoComponent implements OnInit {
   private filterItems(event: any) {
     let filtered : any[] = [];
     let query = event.query;
-    console.log(this.medicamentosConDatos);
+    // console.log(this.medicamentosConDatos);
     this.aux = this.medicamentosConDatos;
     for(let i = 0; i < this.aux.length; i++) {
       let item = this.aux[i];
@@ -198,7 +211,7 @@ export class TratamientoComponent implements OnInit {
     }
 
     this.aux = filtered;
-    if(this.aux===[]){
+    if(this.aux.length==0){
       console.log('no encontrado');
       this.formTratamiento.patchValue({ medicamento: ""});
       this.aux = this.medicamentosConDatos;
@@ -221,7 +234,7 @@ export class TratamientoComponent implements OnInit {
     this.formTratamiento.patchValue({nombreComercial:event.medicamento.nombreComercial});
     let date: Date = new Date(event.fechaVenc);
     date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
-    console.log(date)
+    // console.log(date)
     this.formTratamiento.patchValue({fechaVenc:date});
     this.formTratamiento.patchValue({lote:event.lote});
     this.formTratamiento.patchValue({stock:event.stock});
@@ -229,14 +242,10 @@ export class TratamientoComponent implements OnInit {
   }
 
   listarTratamientos(){
-    this.tratamientoService.getTratamiento(this.idConsulta).subscribe((data:any)=>{
-      if(data.object!=null || data.object!=undefined){
+    this.tratamientoService.getTratamiento(this.data.idConsulta).subscribe((resp:any)=>{
+      if(resp.object!=null){
         this.hayDatos=true;
-        console.log(data.object);
-        this.tratamientos=(data.object);
-      }
-      else{
-        this.tratamientos=[];
+        this.tratamientos=resp.object
       }
     })
   }
@@ -245,7 +254,7 @@ export class TratamientoComponent implements OnInit {
   imprimirReceta(){
     console.log("imprimiendo receta");
     this.tratamientoService.evento = false;
-    this.tratamientoService.printReceta(this.idConsulta).subscribe((data:any)=>{
+    this.tratamientoService.printReceta(this.data.idConsulta).subscribe((data:any)=>{
     })
   }
 
@@ -257,56 +266,70 @@ export class TratamientoComponent implements OnInit {
   }
 
   closeDialogGuardar() {
-    let cadena = {
-      medicamento:{
-        id:this.formTratamiento.value.id,
-        // codigo:this.formTratamiento.value.codigo,
-        // nombre:this.formTratamiento.value.nombre,
-        // ff:this.formTratamiento.value.ff,
-        // concentracion:this.formTratamiento.value.concentracion,
-        // viaAdministracion:this.formTratamiento.value.viaAdministracion,
-        // nombreComercial:this.formTratamiento.value.nombreComercial
-      },
-      codPrestacion:this.formTratamiento.getRawValue().codPrestacion,
-      cie10SIS: this.formTratamiento.getRawValue().cie10SIS.cie10SIS,
-      cantidad:this.formTratamiento.getRawValue().cantidad,
-      dosis:this.formTratamiento.getRawValue().dosis,
-      intervalo:this.formTratamiento.getRawValue().intervalo,
-      duracion:this.formTratamiento.getRawValue().duracion,
-      fechaVenc: this.formTratamiento.getRawValue().fechaVenc,
-      observaciones:this.formTratamiento.value.observaciones,
-      indicaciones:{
-        efectosMedicamento:this.formTratamiento.value.efectosMedicamento,
-        instrucciones:this.formTratamiento.value.instrucciones,
-        advertencias:this.formTratamiento.value.advertencias,
-        otrasIndicaciones:this.formTratamiento.value.otrasIndicaciones,
-      }
-    }
-    console.log(this.tratamientos);
-    var duplicado = false;
-    if(this.tratamientos!=null){
-      duplicado=this.tratamientos.some(element=>element.medicamento.id===cadena.medicamento.id)
-    }
+     const inputRequest = {
+       medicamento:{
+         id:this.formTratamiento.get("id").value,
+         codigo:this.formTratamiento.get("codigo").value,
+         nombre:this.formTratamiento.get("nombre").value,
+         ff:this.formTratamiento.get("ff").value,
+         concentracion:this.formTratamiento.get("concentracion").value,
+         viaAdministracion:this.formTratamiento.get("viaAdministracion").value,
+         nombreComercial:this.formTratamiento.get("nombreComercial").value
+       },
+       codPrestacion:this.formTratamiento.get("codPrestacion").value,
+       cie10SIS: this.formTratamiento.value.cie10SIS.cie10SIS,
+       cantidad:this.formTratamiento.value.cantidad,
+       dosis:this.formTratamiento.value.dosis,
+       intervalo:this.formTratamiento.value.intervalo,
+       duracion:this.formTratamiento.value.duracion,
+       fechaVenc: this.datePipe.transform(this.formTratamiento.get('fechaVenc').value,'yyyy-MM-dd'),
+       observaciones:this.formTratamiento.value.observaciones,
+       indicaciones:{
+         efectosMedicamento:this.formTratamiento.value.efectosMedicamento,
+         instrucciones:this.formTratamiento.value.instrucciones,
+         advertencias:this.formTratamiento.value.advertencias,
+         otrasIndicaciones:this.formTratamiento.value.otrasIndicaciones,
+       }
+     }
+     var duplicado:boolean=this.tratamientos.some(element=>element.medicamento.id===inputRequest.medicamento.id)
     // var duplicado:boolean=this.tratamientos.includes(cadena)
-    console.log(duplicado);
-    console.log("cadena" , cadena)
-    if(!duplicado){
-      this.tratamientoService.addTratamientos(this.idConsulta,cadena).subscribe((data:any)=>{
-        this.listarTratamientos();
-        Swal.fire({
-          icon: 'success',
-          title: 'Tratamientos',
-          text: 'Se guardo un medicamento!',
-        })
-      },error => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Tratamientos',
-          text: 'Ocurrio un error al ingresar, vuelva a intentarlo!',
-        })
-      })
-    }
+     console.log(duplicado);
+     console.log("cadena" , inputRequest)
+      if(!duplicado){
+        this.tratamientos.push(inputRequest)
+        if(!this.hayDatos){
+          this.tratamientoService.addTratamiento(this.data.idConsulta,this.tratamientos).subscribe((data:any)=>{
+            Swal.fire({
+              icon: 'success',
+              title: 'Tratamientos',
+              text: 'Se guardo un medicamento!',
+            })
+          },error => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Tratamientos',
+              text: 'Ocurrio un error al ingresar, vuelva a intentarlo!',
+            })
+          })
+        }
+        else{
+          this.tratamientoService.updateTratamiento(this.data.idConsulta,this.tratamientos).subscribe((data:any)=>{
+            Swal.fire({
+              icon: 'success',
+              title: 'Tratamientos',
+              text: 'Se guardo un medicamento!',
+            })
+          },error => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Tratamientos',
+              text: 'Ocurrio un error al ingresar, vuelva a intentarlo!',
+            })
+          })
+        }
 
+
+    }
     else{
       Swal.fire({
         icon: 'error',
@@ -319,21 +342,23 @@ export class TratamientoComponent implements OnInit {
 
   closeEditar() {
     console.log(this.tratamientoEditar);
-    let cadena = {
+    let inputRequest = {
       medicamento:{
-        id:this.tratamientoEditar.medicamento.id,
-        // codigo:this.formTratamiento.value.codigo,
-        // nombre:this.formTratamiento.value.nombre,
-        // ff:this.formTratamiento.value.ff,
-        // concentracion:this.formTratamiento.value.concentracion,
-        // viaAdministracion:this.formTratamiento.value.viaAdministracion,
-        // nombreComercial:this.formTratamiento.value.nombreComercial,
+        id:this.formTratamiento.get('id').value,
+        codigo:this.formTratamiento.get('codigo').value,
+        nombre:this.formTratamiento.get('nombre').value,
+        ff:this.formTratamiento.get('ff').value,
+        concentracion:this.formTratamiento.get('concentracion').value,
+        viaAdministracion:this.formTratamiento.get('viaAdministracion').value,
+        nombreComercial:this.formTratamiento.get('nombreComercial').value,
       },
+      codPrestacion: this.formTratamiento.get("codPrestacion").value,
+      cie10SIS: this.formTratamiento.value.codigoCIE,
       cantidad:this.formTratamiento.value.cantidad,
       dosis:this.formTratamiento.value.dosis,
-      intervalo:this.formTratamiento.getRawValue().intervalo,
+      intervalo:this.formTratamiento.value.intervalo,
       duracion:this.formTratamiento.value.duracion,
-      fechaVenc: this.formTratamiento.getRawValue().fechaVenc,
+      fechaVenc: this.datePipe.transform(this.formTratamiento.get('fechaVenc').value,'yyyy-MM-dd'),
       observaciones:this.formTratamiento.value.observaciones,
       indicaciones:{
         efectosMedicamento:this.formTratamiento.value.efectosMedicamento,
@@ -341,11 +366,15 @@ export class TratamientoComponent implements OnInit {
         advertencias:this.formTratamiento.value.advertencias,
         otrasIndicaciones:this.formTratamiento.value.otrasIndicaciones,
       },
-      cie10SIS: this.formTratamiento.value.codigoCIE,
-      codPrestacion: this.formTratamiento.value.codPrestacion
     }
-    this.tratamientoService.updateTratamientos(this.idConsulta,cadena).subscribe((data:any)=>{
-      this.listarTratamientos();
+    var AuxItem = this.tratamientos.filter(element=>element!=this.tratamientoEditar);
+    // console.log(AuxItem);
+    this.tratamientos=AuxItem;
+    // console.log("cadena" , cadena)
+    this.tratamientos.push(inputRequest);
+    console.log('');
+    
+    this.tratamientoService.updateTratamiento(this.data.idConsulta,this.tratamientos).subscribe((data:any)=>{
       Swal.fire({
         icon: 'success',
         title: 'Tratamientos',
@@ -360,13 +389,14 @@ export class TratamientoComponent implements OnInit {
     })
     this.dialogTratamiento=false;
   }
-
+  codMedicamento:string=''
   editarTratamiento(rowData: any, rowIndex: any) {
     this.formTratamiento.reset();
     // console.log(rowData);
     this.estadoEditar=true;
     this.buildForm();
     this.dialogTratamiento=true;
+    this.formTratamiento.get("id").setValue(rowData.medicamento.id);
     this.formTratamiento.get("nombre").setValue(rowData.medicamento.nombre);
     this.formTratamiento.get("nombreComercial").setValue(rowData.medicamento.nombreComercial);
     this.formTratamiento.get("codigo").setValue(rowData.medicamento.codigo);
@@ -393,7 +423,7 @@ export class TratamientoComponent implements OnInit {
     this.tratamientoEditar=rowData;
   }
 
-  eliminarTratamiento(rowData:any,rowIndex: any) {
+  eliminarTratamiento(rowIndex: any) {
     // console.log("entrando a editar medicamentos",rowIndex,rowIndex);
     Swal.fire({
       showCancelButton: true,
@@ -404,9 +434,8 @@ export class TratamientoComponent implements OnInit {
       showConfirmButton: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        // this.tratamientos.splice(rowIndex, 1)
-        this.tratamientoService.deleteTratamiento(this.idConsulta,rowData.medicamento.id).subscribe((data:any)=>{
-          this.listarTratamientos();
+        this.tratamientos.splice(rowIndex, 1)
+        this.tratamientoService.updateTratamiento(this.data.idConsulta,this.tratamientos).subscribe((data:any)=>{
           Swal.fire({
             icon: 'success',
             title: 'Eliminado correctamente',
@@ -456,6 +485,7 @@ export class TratamientoComponent implements OnInit {
     })
   }
 }
+
 interface viaAdministracion{
   label?:string,
   value?:string,
