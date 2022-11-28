@@ -124,4 +124,11 @@ p-calendar >>> .p-button {
 p-toolbar >>> * {
     align-self: center;
 }
+.flotante{
+    position: fixed;
+    top:400px;
+    right:55px;
+    z-index: 999999;
+  } 
+  
 
