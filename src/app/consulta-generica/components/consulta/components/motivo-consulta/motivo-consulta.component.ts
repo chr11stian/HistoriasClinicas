@@ -32,15 +32,15 @@ export class MotivoConsultaComponent implements OnInit {
     let idCupo = JSON.parse(localStorage.getItem('documento')).idCupo;
     this.consultaGeneralService.searchConsultaDatosGenerales(this.idConsulta).subscribe((res: any) => {
       this.consultaGeneralService.searchConsultaDatosGenerales(this.idConsulta).subscribe((res: any) => {
-        console.log('datos de consulta motivo de consulta', res.object);
+        // console.log('datos de consulta motivo de consulta', res.object);
         this.dataResMotivoCons = res.object;
         if (this.dataResMotivoCons.signosVitales == null) {
           this.consultaGeneralService.getDatosTriajeByIdCupo(idCupo).subscribe((res: any) => {
-            console.log('datos de triaje ', res);
+            // console.log('datos de triaje ', res);
             this.setDataTriaje(res.object.funcionesVitales);
           })
         } else {
-          console.log('no es triaje');
+          // console.log('no es triaje');
           this.loadDataMotivoConsulta(this.dataResMotivoCons)
         }
 
@@ -221,7 +221,7 @@ export class MotivoConsultaComponent implements OnInit {
   
   save() {
     this.recoverData();
-    console.log({ir:this.dataMotivoConsulta});
+    // console.log({ir:this.dataMotivoConsulta});
     
     this.consultaGeneralService.putUpdateConsultaGeneralByIdConsulta(this.dataMotivoConsulta).subscribe((res: any) => {
       Swal.fire({
