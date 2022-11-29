@@ -59,7 +59,7 @@ export class DatosGeneralesComponent implements OnInit {
       edad:new FormControl({value:'',disabled:true},Validators.required),
       sexo:new FormControl({value:'',disabled:true},Validators.required),
       codSeguro:new FormControl({value:'',disabled:true},Validators.required),
-      fum:new FormControl({value:'',disabled:false},Validators.required),
+      // fum:new FormControl({value:'',disabled:false},Validators.required),
       cel:new FormControl({value:'',disabled:false},Validators.required),
       direccion:new FormControl({value:'',disabled:false},Validators.required),
     }),
@@ -152,7 +152,7 @@ export class DatosGeneralesComponent implements OnInit {
     let inputRequest = {
       fecha:this.datePipe.transform(this.datosGeneralesFG.get("fechaAtencion").value,'yyyy-MM-dd HH:mm:ss'),
       anioEdad:this.dataFromlocal.anio,
-      fum:this.datePipe.transform(this.datosGeneralesFG.get("fum").value,'yyyy-MM-dd'),
+      // fum:this.datePipe.transform(this.datosGeneralesFG.get("fum").value,'yyyy-MM-dd'),
       nroHcl:this.datosGeneralesFG.get("hcl").value,
       tipoDoc:this.datosGeneralesFG.get("tipoDoc").value,
       nroDoc:this.datosGeneralesFG.get("nroDoc").value,
@@ -204,7 +204,7 @@ export class DatosGeneralesComponent implements OnInit {
     let inputRequest = {
       id:this.idConsulta,
       anioEdad:this.dataFromlocal.anio,
-      fum:this.datePipe.transform(this.datosGeneralesFG.get("fum").value,'yyyy-MM-dd'),
+      // fum:this.datePipe.transform(this.datosGeneralesFG.get("fum").value,'yyyy-MM-dd'),
       nroHcl:this.datosGeneralesFG.get("hcl").value,
       direccion:this.datosGeneralesFG.get("direccion").value || '',
       acompanante:{
