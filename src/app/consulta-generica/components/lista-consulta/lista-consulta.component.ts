@@ -58,6 +58,7 @@ export class ListaConsultaComponent implements OnInit {
         idCupo: this.dataFromLocal.idCupo,
         ups:this.dataFromLocal.ups,
         fechaConsulta:this.dataFromLocal.fechaConsulta,
+        estadoAtencion:rowData.estadoAtencion
       }
       localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
       this.router.navigate(['/dashboard/consulta-generica/consulta'])
@@ -76,6 +77,7 @@ export class ListaConsultaComponent implements OnInit {
       tipoConsulta:this.dataFromLocal.tipoConsulta,
       idCupo: this.dataFromLocal.idCupo,
       ups:this.dataFromLocal.ups,
+      estadoAtencion:1
       // fechaConsulta:this.dataFromLocal.fechaConsulta,
     }
     localStorage.setItem(this.attributeLocalS, JSON.stringify(data));

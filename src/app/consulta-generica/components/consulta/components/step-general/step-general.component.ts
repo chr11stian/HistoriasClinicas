@@ -27,6 +27,7 @@ export class StepGeneralComponent implements OnInit {
     stepName = "datos";
     listaTitulo :any[]
     tooltipItems: MenuItem[];
+    estadoAtencion:number=1
     
     buscarTipoConsulta(codigo) {
         const aux = this.listaTitulo.find((element) => {
@@ -44,6 +45,7 @@ export class StepGeneralComponent implements OnInit {
 
     constructor(private dialogS: DialogService) {
         this.dataFromLocal = <any>JSON.parse(localStorage.getItem("documento"));
+        this.estadoAtencion= this.dataFromLocal.estadoAtencion;
         this.itemsStep = [
             { label: "Datos Generales", styleClass: "icon" },
             { label: "Motivo de Consulta", styleClass: "icon1" },
