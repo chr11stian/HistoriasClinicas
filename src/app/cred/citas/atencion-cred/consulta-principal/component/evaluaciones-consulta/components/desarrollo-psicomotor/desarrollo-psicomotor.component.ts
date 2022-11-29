@@ -41,39 +41,38 @@ export class DesarrolloPsicomotorComponent implements OnInit {
 
     this.evalPsicomotor.verifyConsultationsEvaluation(this.paciente.idConsulta).then((res: any) => {
       this.evaluations = res.object;
-      this.evaluations.evaluacionDesarrollo_0_30 == null ? this.evaluations.evaluacionDesarrollo_0_30 = [] : '';
-      this.evaluations.evaluacionEEDP == null ? this.evaluations.evaluacionEEDP = [] : '';
-      this.evaluations.evaluacionPautaBreve == null ? this.evaluations.evaluacionPautaBreve = [] : '';
-      this.evaluations.evaluacionTepsi == null ? this.evaluations.evaluacionTepsi = [] : '';
-      // console.log('arreglo para evaluar ', this.evaluations);
-      if (this.evaluations.evaluacionDesarrollo_0_30.length > 0) {
+      Object.keys(this.evaluations).forEach(key => {
+        if (this.evaluations[key] === null) delete this.evaluations[key];
+      });
+      if (this.evaluations.hasOwnProperty('testPeruano')) {
         this.disabledSelectedTab = this.selectedTab(0, this.disabledSelectedTab);
         this.isEvaluated = true;
         this.evaluationName = 'TEST PERUANO DEL DESARROLLO DEL NIÑO';
         // console.log('entro en 0');
       }
-      if (this.evaluations.evaluacionEEDP.length > 0) {
+      if (this.evaluations.hasOwnProperty('evaluacionTestEEDP')) {
         this.disabledSelectedTab = this.selectedTab(1, this.disabledSelectedTab);
         // console.log('entro en 1');
         this.isEvaluated = true;
         this.evaluationName = 'ESCALA DE EVALUACIÓN DEL DESARROLLO PSICOMOTOR (EEDP)';
-
       }
-      if (this.evaluations.evaluacionPautaBreve.length > 0) {
+      if (this.evaluations.hasOwnProperty('testPautaBreve')) {
         this.disabledSelectedTab = this.selectedTab(2, this.disabledSelectedTab);
         // console.log('entro en 2');
         this.isEvaluated = true;
         this.evaluationName = 'PAUTA BREVE';
       }
-      if (this.evaluations.evaluacionTepsi.length > 0) {
+      if (this.evaluations.hasOwnProperty('evaluacionTepsi')) {
         this.disabledSelectedTab = this.selectedTab(3, this.disabledSelectedTab);
         // console.log('entro en 3');
         this.isEvaluated = true;
         this.evaluationName = 'PROTOCOLO TEST DE DESARROLLO PSICOMOTOR TEPSI';
       }
       if (nroDeEvaluacion != undefined) {
+        // console.log('entro ahi ');
         return
       }
+      // console.log('evaluacion...', this.isEvaluated);
       if (this.isEvaluated) {
         Swal.fire({
           icon: 'info',

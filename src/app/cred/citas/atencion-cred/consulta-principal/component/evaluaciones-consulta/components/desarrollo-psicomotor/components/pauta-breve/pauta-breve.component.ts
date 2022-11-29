@@ -67,8 +67,7 @@ export class PautaBreveComponent implements OnInit {
   async getDatos() {
     await this.testService.getPautaBreveArray().then(data => {
       this.dataPautaBreve = data;
-      this.arrayEdadPautaBreveSelected = this.dataPautaBreve[this.indexSelected]
-
+      this.arrayEdadPautaBreveSelected = this.dataPautaBreve[this.indexSelected];
     });
   }
 
