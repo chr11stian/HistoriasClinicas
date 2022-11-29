@@ -9,6 +9,7 @@ import {DatePipe} from "@angular/common";
 import {MessageService} from "primeng/api";
 import {dato} from "../../../cred/citas/models/data";
 import Swal from 'sweetalert2';
+import { Documento } from '../../interfaces/consulta-generica.interface';
 
 @Component({
   selector: 'app-lista-citas',
@@ -101,22 +102,26 @@ export class ListaCitasComponent implements OnInit, OnChanges {
   
 
   enviarData(rowDataCupos) {
-    let data: any =
+    let data: Documento =
         {
-          ups:rowDataCupos.ipress.servicio,
-          tipoConsulta: rowDataCupos.tipoConsulta,
-          nroDocumento: rowDataCupos.paciente.nroDoc,
-          tipoDoc: rowDataCupos.paciente.tipoDoc,
+          idCupo: rowDataCupos.id,
           idConsulta: '',
-          sexo: rowDataCupos.paciente.sexo,
+          tipoDoc: rowDataCupos.paciente.tipoDoc,
+          nroDocumento: rowDataCupos.paciente.nroDoc,
           anio:rowDataCupos.paciente.edadAnio,
           mes:rowDataCupos.paciente.edadMes,
           dia:rowDataCupos.paciente.edadDia,
-          idCupo: rowDataCupos.id,
-          servicio:rowDataCupos.servicio ,/* no envia nada */
+          sexo: rowDataCupos.paciente.sexo,
+          ups:rowDataCupos.ipress.servicio,
+          tipoConsulta: rowDataCupos.tipoConsulta,
+          //servicio:rowDataCupos.servicio ,
           // fechaConsulta:rowDataCupos.fechaAtencion
         }
+      
     localStorage.setItem('documento', JSON.stringify(data));
+    console.log(data);
+    
+    
     this.router.navigate(['/dashboard/consulta-generica/lista-cita/lista-consulta'])
   }
 }
