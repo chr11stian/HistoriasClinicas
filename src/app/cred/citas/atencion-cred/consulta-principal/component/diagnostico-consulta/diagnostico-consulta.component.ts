@@ -11,17 +11,11 @@ import Swal from "sweetalert2";
 import { CieService } from "../../../../../../obstetricia-general/services/cie.service";
 import { DiagnosticoConsultaService } from "../../services/diagnostico-consulta.service";
 import { PrestacionService } from "src/app/mantenimientos/services/prestacion/prestacion.service";
-import { UpsAuxIpressService } from "../../../../../../mantenimientos/services/ups-aux-ipress/ups-aux-ipress.service";
-import { MotivosConsultaService } from "../../services/motivos-consulta.service";
 import {
   dato,
-  motivoConsultaInterface,
   proxCita,
 } from "../../../../models/data";
-import { SpinnerHandlerService } from "src/app/core/services/spinner-handler.service";
 import { DatePipe } from "@angular/common";
-import { RolGuardiaService } from "src/app/core/services/rol-guardia/rol-guardia.service";
-import { ConsultaGeneralService } from "../../services/consulta-general.service";
 import { MenuItem, MessageService } from "primeng/api";
 import { Patient } from "../../models/consultaGeneral";
 import { Diagnostic, DiagnosticFUA, DiagnosticHIS, DiagnosticSave, Prestation } from "../../models/FUAHIS";
