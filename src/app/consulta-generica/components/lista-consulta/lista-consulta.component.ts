@@ -74,6 +74,7 @@ export class ListaConsultaComponent implements OnInit {
       sexo: this.dataPaciente.sexo,
       fechaNacimiento: this.dataPaciente.nacimiento.fechaNacimiento,
       tipoConsulta:this.dataFromLocal.tipoConsulta,
+      idCupo: this.dataFromLocal.idCupo,
       ups:this.dataFromLocal.ups,
       // fechaConsulta:this.dataFromLocal.fechaConsulta,
     }

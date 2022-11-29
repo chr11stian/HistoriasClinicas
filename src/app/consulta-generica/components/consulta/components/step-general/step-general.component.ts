@@ -8,19 +8,26 @@ import { DiagnosticoComponent } from "../diagnostico/diagnostico.component";
 import { TratamientoComponent } from "../tratamiento/tratamiento.component";
 import { ProcedimientoComponent } from "../procedimiento/procedimiento.component";
 import { EvaluacionesComponent } from "../evaluaciones/evaluaciones.component";
+import { MenuItem } from "primeng/api";
+import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
+import { InteconsultaObstetriciaModalComponent } from "src/app/obstetricia-general/gestante/atencion/consultorio-obstetrico/component/inteconsulta-obstetricia-modal/inteconsulta-obstetricia-modal.component";
 
 @Component({
     selector: "app-step-general",
     templateUrl: "./step-general.component.html",
     styleUrls: ["./step-general.component.css"],
+    providers: [DialogService],
 })
 export class StepGeneralComponent implements OnInit {
+    ref: DynamicDialogRef;
     dataFromLocal:any
     itemsStep: any[];
     j: number = 100;
     indiceActivo: number = 0;
     stepName = "datos";
     listaTitulo :any[]
+    tooltipItems: MenuItem[];
+    
     buscarTipoConsulta(codigo) {
         const aux = this.listaTitulo.find((element) => {
             return element.code == codigo;
@@ -35,7 +42,7 @@ export class StepGeneralComponent implements OnInit {
     @ViewChild(ProcedimientoComponent) procedimientoConsulta: ProcedimientoComponent;
     @ViewChild(TratamientoComponent) tratamientoConsulta: TratamientoComponent;
 
-    constructor() {
+    constructor(private dialogS: DialogService) {
         this.dataFromLocal = <any>JSON.parse(localStorage.getItem("documento"));
         this.itemsStep = [
             { label: "Datos Generales", styleClass: "icon" },
@@ -57,6 +64,39 @@ export class StepGeneralComponent implements OnInit {
             { code: "NUTRICION", display: "NUTRICION" },
             { code: "CONSULTA GESTANTE EXTERNA", display: "CONSULTORIO OBSTETRICO"},
         ];
+        this.tooltipItems = [
+            {
+                tooltipOptions: {
+                    tooltipLabel: "Interconsulta",
+                    tooltipPosition: "left",
+                },
+                icon: "pi pi-reply",
+                command: (event: Event) => {
+                    this.openDialogInterconsultaObstetricia();
+                },
+            },
+            // {
+            //     tooltipOptions: {
+            //         tooltipLabel: "otras opciones",
+            //         tooltipPosition: "left",
+            //     },
+            //     icon: "pi pi-tablet",
+            //     command: (event: Event) => {
+            //         this.openDialogInterconsultaObstetricia();
+            //     },
+            // },
+        ];
+        
+    }
+    openDialogInterconsultaObstetricia() {
+        this.ref = this.dialogS.open(InteconsultaObstetriciaModalComponent, {
+            data: { idConsulta: this.dataFromLocal.idConsulta },
+            header: "INTERCONSULTA",
+            contentStyle: {},
+            style: {
+                width: "80%",
+            },
+        });
     }
     ngDoCheck() {
         this.saveStep();

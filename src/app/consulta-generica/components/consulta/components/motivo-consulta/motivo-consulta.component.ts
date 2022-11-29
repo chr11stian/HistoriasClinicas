@@ -32,15 +32,15 @@ export class MotivoConsultaComponent implements OnInit {
     let idCupo = JSON.parse(localStorage.getItem('documento')).idCupo;
     this.consultaGeneralService.searchConsultaDatosGenerales(this.idConsulta).subscribe((res: any) => {
       this.consultaGeneralService.searchConsultaDatosGenerales(this.idConsulta).subscribe((res: any) => {
-        console.log('datos de consulta motivo de consulta', res.object);
+        // console.log('datos de consulta motivo de consulta', res.object);
         this.dataResMotivoCons = res.object;
         if (this.dataResMotivoCons.signosVitales == null) {
           this.consultaGeneralService.getDatosTriajeByIdCupo(idCupo).subscribe((res: any) => {
-            console.log('datos de triaje ', res);
+            // console.log('datos de triaje ', res);
             this.setDataTriaje(res.object.funcionesVitales);
           })
         } else {
-          console.log('no es triaje');
+          // console.log('no es triaje');
           this.loadDataMotivoConsulta(this.dataResMotivoCons)
         }
 
@@ -143,6 +143,8 @@ export class MotivoConsultaComponent implements OnInit {
     this.formPhysicalExam.patchValue({ columnaVertDetalle: data.examenesFisicos[6].detalle });
     this.formPhysicalExam.patchValue({ extremidadesDetalle: data.examenesFisicos[7].detalle });
 
+    this.formPhysicalExam.patchValue({ obsExamenFisico: data.obsExamenFisico });
+
     this.formExtraData.patchValue({ anamnesis: data.anamnesis });
     this.formExtraData.patchValue({ tiempoEnfermedad: data.interMedicinaGeneral.tiempoEnfermedad });
     this.formExtraData.patchValue({ formaInicio: data.interMedicinaGeneral.formaInicio });
@@ -216,10 +218,11 @@ export class MotivoConsultaComponent implements OnInit {
     this.formVitalSigns.patchValue({ talla: data.talla });
     this.formVitalSigns.patchValue({ imc: data.imc.toFixed(2) });
   }
-
+  
   save() {
     this.recoverData();
-    // console.log('data to save ', this.dataMotivoConsulta);
+    // console.log({ir:this.dataMotivoConsulta});
+    
     this.consultaGeneralService.putUpdateConsultaGeneralByIdConsulta(this.dataMotivoConsulta).subscribe((res: any) => {
       Swal.fire({
         icon: 'success',
