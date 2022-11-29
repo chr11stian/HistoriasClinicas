@@ -110,7 +110,7 @@
                             <th style="text-align: center">HORA ATENCION</th>
                             <th style="text-align: center">FECHA ATENCION</th>
                             <th style="text-align: center">SERVICIO</th>
-                            <th style="text-align: center">ETAPA</th>
+                            <th *ngIf="servicio=='MEDICINA GENERAL'" style="text-align: center">ETAPA</th>
                             <th style="text-align: center">ACCION</th>
 
                         </tr>
@@ -124,7 +124,7 @@
                             <td style="text-align: center">{{ rowData.horaAtencion}}</td>
                             <td style="text-align: center">{{ rowData.fechaAtencion | date: 'dd-MM-yyyy'}}</td>
                             <td style="text-align: center">{{ rowData.ipress.servicio}}</td>
-                            <td style="text-align: center">{{ rowData.tipoConsulta}}</td>
+                            <td *ngIf="servicio=='MEDICINA GENERAL'" style="text-align: center">{{ rowData.tipoConsulta=='NIÑO_NIÑA'?'NIÑO NIÑA':rowData.tipoConsulta=='ADULTO_MAYOR'?'ADULTO MAYOR':rowData.tipoConsulta}}</td>
                             <td style="text-align: center">
                                 <button pButton pRipple type="button" label="Atención"
                                         class="p-button-secondary"
