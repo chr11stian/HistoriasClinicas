@@ -80,8 +80,8 @@ export class PorIpressComponent implements OnInit {
   }
 
   listaVisitas() {
-   // let ipress =this.servicioVisitas.getEscalaCodIpress();
-  let ipress="00002303";
+   let ipress =this.servicioVisitas.getEscalaCodIpress();
+  // let ipress="00002303";
     this.servicioVisitas.couch = true;
     this.servicioVisitaProfesionalIpress
       .getVisitasProfesionalesPorIpress(ipress)
@@ -162,8 +162,8 @@ export class PorIpressComponent implements OnInit {
   }
 
   async verVisitasPorAnio(event){
-    // let ipress =this.servicioVisitas.getEscalaCodIpress();
-    let ipress="00002303";
+    let ipress =this.servicioVisitas.getEscalaCodIpress();
+    // let ipress="00002303";
     this.servicioVisitas.couch = true;
     this.selectedAnio = event.value;
     this.dniProfesionalIpress=[];
@@ -233,8 +233,8 @@ export class PorIpressComponent implements OnInit {
   }
 
   async verVisitasPorMes(event){
-    // let ipress =this.servicioVisitas.getEscalaCodIpress();
-       let ipress="00002303";
+    let ipress =this.servicioVisitas.getEscalaCodIpress();
+      //  let ipress="00002303";
     if (this.selectedAnio != "") {
       this.servicioVisitas.couch = true;
       this.selectedMes = event.value;

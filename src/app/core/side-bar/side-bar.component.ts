@@ -543,6 +543,11 @@ const visitas = {
         //     label:"About",
         //     icon:"pi pi-angle-right",
         //     routerLink:"about/nosotros",
+        // },
+        // {
+        //     label:"profile",
+        //     icon:"pi pi-angle-right",
+        //     routerLink:"about/profile-detail",
         // }
     ],
 };
