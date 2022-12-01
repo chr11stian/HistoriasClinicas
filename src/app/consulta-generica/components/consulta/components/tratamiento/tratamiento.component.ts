@@ -645,7 +645,7 @@ export class TratamientoComponent implements OnInit {
             if (result.isConfirmed) {
                 this.dialogHIS = false;
                 this.finalizarConsultaService
-                    .putNextAppointment(this.data.idConsulta, this.nexDate)
+                    .getCerrarConsultaGeneral(this.data.idConsulta)
                     .then((res: any) => {
                         if (res.cod == "2126") {
                             this.router.navigate([

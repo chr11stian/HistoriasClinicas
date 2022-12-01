@@ -289,7 +289,13 @@
             </div>
         </p-tabPanel>
     </p-tabView>
-    <div class="col-12 footer">
-        <button pButton type="button" label="Cerrar Consulta" (click)="concludeConsultation()"></button>
+    <div class="col-12 footer flex justify-content-end">
+        <button
+            pButton
+            style="background-color: #0c3866"
+            type="button"
+            label="Cerrar Consulta"
+            (click)="concludeConsultation()"
+        ></button>
     </div>
 </p-dialog>

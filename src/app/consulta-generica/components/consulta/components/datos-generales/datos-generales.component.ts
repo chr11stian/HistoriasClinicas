@@ -5,6 +5,8 @@ import {DatosGeneralesService} from "../../../../services/datos-generales/datos-
 import {DatePipe} from "@angular/common";
 import {DocumentoIdentidadService} from "../../../../../mantenimientos/services/documento-identidad/documento-identidad.service";
 import Swal from "sweetalert2";
+import { upsAux } from '../../../../../mantenimientos/component/ups-aux-ipress/ups-aux-ipress.component';
+import { Documento } from 'src/app/consulta-generica/interfaces/consulta-generica.interface';
 
 @Component({
   selector: 'app-datos-generales',
@@ -59,7 +61,7 @@ export class DatosGeneralesComponent implements OnInit {
       edad:new FormControl({value:'',disabled:true},Validators.required),
       sexo:new FormControl({value:'',disabled:true},Validators.required),
       codSeguro:new FormControl({value:'',disabled:true},Validators.required),
-      fum:new FormControl({value:'',disabled:false},Validators.required),
+      // fum:new FormControl({value:'',disabled:false},Validators.required),
       cel:new FormControl({value:'',disabled:false},Validators.required),
       direccion:new FormControl({value:'',disabled:false},Validators.required),
     }),
@@ -152,7 +154,7 @@ export class DatosGeneralesComponent implements OnInit {
     let inputRequest = {
       fecha:this.datePipe.transform(this.datosGeneralesFG.get("fechaAtencion").value,'yyyy-MM-dd HH:mm:ss'),
       anioEdad:this.dataFromlocal.anio,
-      fum:this.datePipe.transform(this.datosGeneralesFG.get("fum").value,'yyyy-MM-dd'),
+      // fum:this.datePipe.transform(this.datosGeneralesFG.get("fum").value,'yyyy-MM-dd'),
       nroHcl:this.datosGeneralesFG.get("hcl").value,
       tipoDoc:this.datosGeneralesFG.get("tipoDoc").value,
       nroDoc:this.datosGeneralesFG.get("nroDoc").value,
@@ -185,17 +187,19 @@ export class DatosGeneralesComponent implements OnInit {
         timer: 2000
       })
       /* setteamos id consulta */
-      const  dataForLocal={
-        fechaNacimiento:this.dataFromlocal.fechaNacimiento,
+      const  dataForLocal:Documento={
+        idCupo:this.dataFromlocal.idCupo,
         idConsulta:this.idConsulta,
+        tipoDoc:this.dataFromlocal.tipoDoc,
+        nroDocumento:this.dataFromlocal.nroDocumento,
         anio:this.dataFromlocal.anio,
         dia:this.dataFromlocal.dia,
         mes:this.dataFromlocal.mes,
         sexo:this.dataFromlocal.sexo,
-        tipoDoc:this.dataFromlocal.tipoDoc,
-        nroDocumento:this.dataFromlocal.nroDocumento,
         ups:this.dataFromlocal.ups,
-        tipoConsulta:this.dataFromlocal.tipoConsulta
+        tipoConsulta:this.dataFromlocal.tipoConsulta,
+        fechaNacimiento:this.dataFromlocal.fechaNacimiento,
+        estadoAtencion:"1"
       }
       localStorage.setItem(this.attributeLocalS, JSON.stringify(dataForLocal));
     })
@@ -204,7 +208,7 @@ export class DatosGeneralesComponent implements OnInit {
     let inputRequest = {
       id:this.idConsulta,
       anioEdad:this.dataFromlocal.anio,
-      fum:this.datePipe.transform(this.datosGeneralesFG.get("fum").value,'yyyy-MM-dd'),
+      // fum:this.datePipe.transform(this.datosGeneralesFG.get("fum").value,'yyyy-MM-dd'),
       nroHcl:this.datosGeneralesFG.get("hcl").value,
       direccion:this.datosGeneralesFG.get("direccion").value || '',
       acompanante:{

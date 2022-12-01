@@ -134,14 +134,18 @@
                 label=" "
                 iconPos="right"
                 icon="pi pi-print"
-                class=" mr-2 p-button-secondary">
+                class="mr-2 p-button-secondary"
+            >
                 <a
-                    style="color: white; font-weight: bold;text-decoration: none"
+                    style="
+                        color: white;
+                        font-weight: bold;
+                        text-decoration: none;
+                    "
                     href="{{ urlReporte }}idConsulta={{ data.idConsulta }}"
                     target="_blank"
                     >Imprimir Receta
                 </a>
-
             </button>
         </ng-template>
     </p-toolbar>
@@ -211,7 +215,6 @@
                     formControlName="prestacion"
                     style="text-transform: uppercase"
                     value="descripcion"
-
                 />
             </div>
         </div>
@@ -388,7 +391,7 @@
                         </div>
                     </div>
                 </div>
-                <br>
+                <br />
                 <p-toolbar>
                     <h3 class="ml-2">INDICACIONES:</h3>
                 </p-toolbar>
@@ -440,7 +443,7 @@
                         </div>
                     </div>
                 </div>
-                <br>
+                <br />
                 <p-toolbar>
                     <h3 class="ml-2">OBSERVACIONES:</h3>
                 </p-toolbar>
@@ -928,13 +931,13 @@
             </div>
         </p-tabPanel>
     </p-tabView>
-    <div class="col-12 footer">
+    <div class="col-12 footer flex justify-content-end">
         <button
             pButton
+            style="background-color: #0c3866"
             type="button"
             label="Cerrar Consulta"
             (click)="concludeConsultation()"
         ></button>
     </div>
 </p-dialog>
-
