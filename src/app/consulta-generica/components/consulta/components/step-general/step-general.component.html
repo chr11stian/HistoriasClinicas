@@ -11,7 +11,7 @@
     <p-steps [readonly]="readonlyStepState" class="steps" [model]="itemsStep" styleClass="step-custom" [(activeIndex)]="indiceActivo" 
         >
     </p-steps>
-    <div class="flotante">
+    <div *ngIf="indiceActivo!=0" class="flotante">
         <div class="speeddial-circle-demo">
             <div class="speeddial-semi-circle">
                 <p-speedDial
@@ -213,7 +213,7 @@
         <ng-template pTemplate="header">
             <p-toolbar>
                 <ng-template pTemplate="left">
-                    <h3 class="mt-2">PROCEDIMIENTOS</h3>
+                    <h3 class="mt-2">Referencia</h3>
                 </ng-template>
                 <ng-template pTemplate="right" class="button">
                     <button pButton pRipple label="Atras" icon="pi pi-angle-left" class="p-button-secondary mr-2"

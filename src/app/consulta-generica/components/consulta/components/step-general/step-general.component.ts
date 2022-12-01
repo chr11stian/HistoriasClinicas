@@ -54,7 +54,7 @@ export class StepGeneralComponent implements OnInit {
             { label: "Diagnóstico", styleClass: "icon3" },
             { label: "Procedimientos", styleClass: "icon6" },
             { label: "Tratamiento", styleClass: "icon5" },
-            { label: "Interconsulta", styleClass: "icon7" },
+            { label: "Referencia", styleClass: "icon7" },
         ];
         this.listaTitulo = [
             { code: "NIÑO_NIÑA", display: "MEDICINA GENERAL NIÑO/NIÑA" },
