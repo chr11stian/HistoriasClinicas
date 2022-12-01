@@ -16,7 +16,6 @@ export class ProfileDetailComponent implements OnInit {
         JSON.parse(localStorage.getItem("profileLocalStorage")) === null
           ? {}
           : JSON.parse(localStorage.getItem("profileLocalStorage"));
-      console.log(this.profile);
     }, 600);
   }
 }
