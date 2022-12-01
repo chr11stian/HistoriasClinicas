@@ -1,29 +1,4 @@
-
-.imagen{
-width:250px;
-height:250px;
-background: white;
-border-radius: 50%;
-border: 1px solid  #af0017;
-width: 100%;
-max-width: 250px;
-margin: 0 auto;
-width: 50%;
-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
-}
-
-.product-item{
-
-}
-.product-item-content{
-border: 1px solid var(--surface-d);
-border-radius: 3px;
-margin: .3rem;
-text-align: center;
-padding: 2rem 0;    
-}
-
-.a{
-color: #af0017;
-text-decoration: none;
+.card-container{
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
 }

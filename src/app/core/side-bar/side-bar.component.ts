@@ -534,15 +534,20 @@ const visitas = {
             icon: "pi pi-book",
             routerLink: "padron-nominal-gestante/mantenimiento",
         },
+        {
+            label:"Visitas domiciliarias",
+            icon: "pi pi pi-home",
+            routerLink:"visitas-domiciliarias/ipress-ninios",
+        },
+        {
+            label:"About",
+            icon:"pi pi-angle-right",
+            routerLink:"about/nosotros",
+        },
         // {
-        //     label:"Visitas domiciliarias",
-        //     icon: "pi pi pi-home",
-        //     routerLink:"visitas-domiciliarias/ipress-ninios",
-        // },
-        // {
-        //     label:"About",
+        //     label:"profile",
         //     icon:"pi pi-angle-right",
-        //     routerLink:"about/nosotros",
+        //     routerLink:"about/profile-detail",
         // }
     ],
 };

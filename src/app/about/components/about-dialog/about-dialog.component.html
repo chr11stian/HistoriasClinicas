@@ -1,110 +1,93 @@
-<div style="background: #f8f9fa; height: 100%;">
-    <p-card>
-        <div class="col-12" style="text-align:center;">
-            <span style="font-size:1.5rem;font-style: italic;font-weight:bold;">
-                PROYECTO HISTORIAS CLINICAS DIGITALES
-        </span>
+<div style="background: #f8f9fa; height: 100%; width: 100%">
+  <p-card>
+    <div
+      class="grid"
+      style="background-color: #af0017; opacity: 0.9; display: inline-flex"
+    >
+      <div
+        class="col-12 md:col-10"
+        style="
+          color: #ffff;
+          font-size: small;
+          text-align: justify;
+          align-items: stretch;
+        "
+      >
+        <h1 style="text-align: center; vertical-align: top; font-size: x-large">
+          PROYECTO "MEJORAMIENTO DE LOS SERVICIOS INTEGRALES DE SALUD PARA LA
+          PREVENCIÓN DE LA DESNUTRICIÓN CRÓNICA Y ANEMIA EN NIÑOS MENORES DE 5
+          AÑOS Y MADRES GESTANTES EN LA REGIÓN CUSCO"
+        </h1>
+        <h3
+          style="
+            text-align: left;
+            font-size: large;
+            align-items: center;
+            margin-left: 100px;
+          "
+        >
+          Sobre el proyecto
+        </h3>
+        <p
+          style="
+            text-align: left;
+            align-items: center;
+            font-size: small;
+          "
+        >
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Autem quas
+          nobis assumenda quia, ipsam dolor, ipsa ab magnam ea veniam officiis.
+          Magni dicta, voluptatum aspernatur temporibus impedit ullam facere
+          perspiciatis.
+        </p>
+      </div>
+      <div
+        class="col-12 md:col-2"
+        style="
+          background-color: #af0017;
+          vertical-align: top;
+          text-align: right;
+        "
+      >
+        <img
+          src="../../../../assets/images/logo-about.jpg"
+          alt="imagen"
+          style="width: 100%; border-radius: 8px"
+        />
+      </div>
+    </div>
+  </p-card>
+  <p-card>
+    <div class="col-12">
+      <span style="text-align: center; font-size: medium">
+        <h2>Nuestro Equipo</h2>
+      </span>
+      <div class="col-12" style="text-align: center; background: #f8f9fa">
+        <span style="font-size: medium"> Jefes de Proyecto </span>
+      </div>
+      <div class="col-12" style="display: flex; flex-wrap: wrap;">
+        <div *ngFor="let profile of profiles">
+          <app-card [profile]="profile"></app-card>
         </div>
-    </p-card>
-    <p-card class="m-1 surface-200">
-        <p-carousel [value]="products" styleClass="custom-carousel" [numVisible]="3" [numScroll]="1" [circular]="true" [autoplayInterval]="3000" [responsiveOptions]="responsiveOptions">
-            <ng-template pTemplate="header">
-                <div class="col-12" style="text-align:center;">
-                    <span style="font-size:1.5rem;font-style: italic;font-weight:bold;">
-                        JEFE DE PROYECTO
-                </span>
-                </div>
-                </ng-template>
-                <ng-template let-product pTemplate="item">
-                    <div class="product-item">
-                        <div class="product-item-content">
-                            <div class="mb-3">
-                                <img  src="{{product.image}}" alt="image" class="imagen" />
-                            </div>
-                            <div>
-                                <h4 class="mb-1">{{product.title}}</h4>
-                                <h6 class="mt-0 mb-3">{{product.category}}</h6>
-                                <div class="car-buttons mt-5">
-                                    <p class="justify-content-center p-1 m-2">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus veniam magni impedit hic esse nulla rem totam? Quidem, nulla culpa incidunt, et, reprehenderit consectetur ratione dolor animi saepe voluptate omnis?
-                                    <a href="https://www.google.com/" target="_blank">Ver más</a>
-                                    </p>
-                                    <button pButton pRipple type="button" label="Linkedin" icon="pi pi-linkedin" class="p-button-rounded p-button-outlined mr-2"></button>
-                                    <button pButton pRipple type="button" label="Github" icon="pi pi-github" class="p-button-rounded p-button-secondary p-button-outlined mr-2"></button>
-                                    <button pButton pRipple type="button" label="Gmail" icon="pi pi-heart" class="p-button-rounded p-button-help p-button-outlined mr-2"></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </ng-template>
-            </p-carousel>
-       </p-card>
-       
-       <!--Equipo front end  -->
-       <p-card  class="m-1 surface-200">
-        <p-carousel [value]="products" styleClass="custom-carousel" [numVisible]="3" [numScroll]="1" [circular]="true" [autoplayInterval]="3000" [responsiveOptions]="responsiveOptions">
-            <ng-template pTemplate="header">
-                <div class="col-12" style="text-align:center;">
-                    <span style="font-size:1.5rem;font-style: italic;font-weight:bold;">
-                        EQUIPO FRONT END
-                </span>
-                </div>
-                </ng-template>
-                <ng-template let-product pTemplate="item">
-                    <div class="product-item">
-                        <div class="product-item-content">
-                            <div class="mb-3">
-                                <img  src="{{product.image}}" alt="image" class="imagen" />
-                            </div>
-                            <div>
-                                <h4 class="mb-1">{{product.title}}</h4>
-                                <h6 class="mt-0 mb-3">{{product.category}}</h6>
-                                <div class="car-buttons mt-5">
-                                    <p class="justify-content-center  p-1 m-2">
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus veniam magni impedit hic esse nulla rem totam? Quidem, nulla culpa incidunt, et, reprehenderit consectetur ratione dolor animi saepe voluptate omnis?
-                                        <a href="https://www.google.com/" target="_blank">Ver más</a>
-                                    </p>
-                                    <button pButton pRipple type="button" label="Linkedin" icon="pi pi-linkedin" class="p-button-rounded p-button-outlined mr-2"></button>
-                                    <button pButton pRipple type="button" label="Github" icon="pi pi-github" class="p-button-rounded p-button-secondary p-button-outlined mr-2"></button>
-                                    <button pButton pRipple type="button" label="Gmail" icon="pi pi-heart" class="p-button-rounded p-button-help p-button-outlined mr-2"></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </ng-template>
-            </p-carousel>
-       </p-card>
-       <p-card class="m-1 rface-200">
-         <!-- Equipo backend -->
-         <p-carousel [value]="products" styleClass="custom-carousel" [numVisible]="3" [numScroll]="1" [circular]="true" [autoplayInterval]="3000" [responsiveOptions]="responsiveOptions">
-            <ng-template pTemplate="header">
-                <div class="col-12" style="text-align:center;">
-                    <span style="font-size:1.5rem;font-style: italic;font-weight:bold;">
-                        EQUIPO BACK END
-                </span>
-                </div>
-            </ng-template>
-            <ng-template let-product pTemplate="item">
-                <div class="product-item">
-                    <div class="product-item-content">
-                        <div class="mb-3">
-                            <img  src="{{product.image}}" alt="image" class="imagen" />
-                        </div>
-                        <div>
-                            <h4 class="justify-content-center mb-1">Nombre y Apellidos</h4>
-                            <div class="car-buttons mt-5">
-                                <p class="justify-content-center p-1 m-2">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus veniam magni impedit hic esse nulla rem totam? Quidem, nulla culpa incidunt, et, reprehenderit consectetur ratione dolor animi saepe voluptate omnis?
-                                <a href="https://www.google.com/" target="_blank">Ver más</a>
-                                </p>
-                                <button pButton pRipple type="button" label="Linkedin" icon="pi pi-linkedin" class="p-button-rounded p-button-outlined mr-2"></button>
-                                <button pButton pRipple type="button" label="Github" icon="pi pi-github" class="p-button-rounded p-button-secondary p-button-outlined mr-2"></button>
-                                <button pButton pRipple type="button" label="Gmail"  icon="pi pi-heart" class="p-button-rounded p-button-help p-button-outlined mr-2"></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </ng-template>
-        </p-carousel>
-    </p-card>
+      </div>
+      <div class="col-12" style="text-align: center; background: #f8f9fa">
+        <span style="font-size: medium"> Equipo Front End </span>
+      </div>
+      <div class="col-12" style="display: flex; flex-wrap: wrap">
+        <div *ngFor="let profile of profiles">
+          <div>
+            <app-card [profile]="profile"></app-card>
+          </div>
+        </div>
+      </div>
+      <div class="col-12" style="text-align: center; background: #f8f9fa">
+        <span style="font-size: medium"> Equipo Back End </span>
+      </div>
+      <div class="col-12" style="display: flex; flex-wrap: wrap">
+        <div *ngFor="let profile of profiles">
+            <app-card [profile]="profile"></app-card>
+        </div>
+      </div>
+    </div>
+  </p-card>
 </div>

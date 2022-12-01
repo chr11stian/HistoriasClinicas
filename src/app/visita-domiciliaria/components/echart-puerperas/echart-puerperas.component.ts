@@ -1,28 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import { DynamicDialogConfig, DynamicDialogRef } from "primeng/dynamicdialog";
-import { VisitaDomiciliariaService } from '../../services/visita-domiciliaria.service';
-import { VisitaGestanteService } from '../../services/visita-gestante.service';
-import * as echarts from "echarts"; 
+import { VisitaDomiciliariaService } from "../../services/visita-domiciliaria.service";
+import { VisitaGestanteService } from "../../services/visita-gestante.service";
+import * as echarts from "echarts";
 
 @Component({
-  selector: 'app-echart-puerperas',
-  templateUrl: './echart-puerperas.component.html',
-  styleUrls: ['./echart-puerperas.component.css']
+  selector: "app-echart-puerperas",
+  templateUrl: "./echart-puerperas.component.html",
+  styleUrls: ["./echart-puerperas.component.css"],
 })
 export class EchartPuerperasComponent implements OnInit {
   data: string;
-  nro_puerperas_anemia=0;
-  nro_puerperas_snanemia=0;
-  nro_puerperas_snValor=0;
-  constructor( 
+  nro_puerperas_anemia = 0;
+  nro_puerperas_snanemia = 0;
+  nro_puerperas_snValor = 0;
+  constructor(
     private ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
     private servicioVisitas: VisitaDomiciliariaService,
-    private servicioVisitaProfesionalGestantes: VisitaGestanteService) { 
-      config.data.edit === undefined
+    private servicioVisitaProfesionalGestantes: VisitaGestanteService
+  ) {
+    config.data.edit === undefined
       ? (this.data = config.data)
       : (this.data = config.data.data);
-    }
+  }
 
   ngOnInit(): void {
     this.getVisitasPuerperasMeses();
@@ -32,10 +33,10 @@ export class EchartPuerperasComponent implements OnInit {
   }
 
   async getVisitasPuerperasMeses() {
-    this.nro_puerperas_anemia=0;
-    this.nro_puerperas_snanemia=0;
-    this.nro_puerperas_snValor=0;
-    let ipress=this.servicioVisitas.getIdIpress();
+    this.nro_puerperas_anemia = 0;
+    this.nro_puerperas_snanemia = 0;
+    this.nro_puerperas_snValor = 0;
+    let ipress = this.servicioVisitas.getIdIpress();
     let dni = `vp${this.data}`;
     console.log("dni ", dni);
     this.servicioVisitas.couch = true;
@@ -43,7 +44,7 @@ export class EchartPuerperasComponent implements OnInit {
       .getVisitasPuerperasAnio(ipress, dni, this.servicioVisitas.getAnio())
       .then((data_puerperas) => {
         data_puerperas["rows"].map((aux) => {
-          console.log(aux.value['hemoglobina']);
+          console.log(aux.value["hemoglobina"]);
           if (aux.value["hemoglobina"] == "") {
             this.nro_puerperas_snValor++;
           } else {
@@ -57,7 +58,7 @@ export class EchartPuerperasComponent implements OnInit {
         });
       });
   }
-  
+
   estadistica() {
     var app = {};
     var chartDom = document.getElementById("main");
@@ -91,11 +92,10 @@ export class EchartPuerperasComponent implements OnInit {
           top: "85%",
           textAlign: "center",
         },
-        
       ],
       legend: {
         bottom: 10,
-        left: 'center',
+        left: "center",
       },
       tooltip: {
         trigger: "item",
@@ -128,8 +128,8 @@ export class EchartPuerperasComponent implements OnInit {
             },
           },
           data: data1,
-          left:0,
-          right:0,
+          left: 0,
+          right: 0,
           top: -30,
           bottom: 0,
         },

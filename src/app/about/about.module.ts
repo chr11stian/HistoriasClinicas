@@ -5,11 +5,13 @@ import { AboutRoutingModule } from './about-routing.module';
 import { PrimeModule } from '../shared/prime/prime.module';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ProfileDetailComponent } from './components/profile-detail/profile-detail.component';
+import { CardComponent } from './components/card/card.component';
 
 @NgModule({
   declarations: [
     AboutDialogComponent,
-    ProfileDetailComponent
+    ProfileDetailComponent,
+    CardComponent
   ],
   imports: [
     CommonModule,

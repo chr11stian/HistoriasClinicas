@@ -1,0 +1,21 @@
+.product-item-content{
+border: 1px solid var(--surface-d);
+border-radius: 3px;
+margin: .3rem;
+text-align: center;
+padding: 2rem 0;    
+}
+
+.buttonAcciones1 {
+      color: #ffffff;
+      background:#af0017 !important;
+      border: 1px solid #af0017;
+      margin-right: 2px;
+}
+
+.buttonAcciones1:a {
+      color: #ffffff;
+      border: 1px solid #af0017;
+      background: #af0017;
+      text-decoration: none;
+}
