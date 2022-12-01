@@ -28,7 +28,7 @@ export class StepGeneralComponent implements OnInit {
     listaTitulo :any[]
     tooltipItems: MenuItem[];
     estadoAtencion:number=1
-    
+    readonlyStepState=true
     buscarTipoConsulta(codigo) {
         const aux = this.listaTitulo.find((element) => {
             return element.code == codigo;
@@ -46,6 +46,7 @@ export class StepGeneralComponent implements OnInit {
     constructor(private dialogS: DialogService) {
         this.dataFromLocal = <any>JSON.parse(localStorage.getItem("documento"));
         this.estadoAtencion= this.dataFromLocal.estadoAtencion;
+        this.readonlyStepState= this.dataFromLocal.idConsulta=='';
         this.itemsStep = [
             { label: "Datos Generales", styleClass: "icon" },
             { label: "Motivo de Consulta", styleClass: "icon1" },
@@ -77,16 +78,6 @@ export class StepGeneralComponent implements OnInit {
                     this.openDialogInterconsultaObstetricia();
                 },
             },
-            // {
-            //     tooltipOptions: {
-            //         tooltipLabel: "otras opciones",
-            //         tooltipPosition: "left",
-            //     },
-            //     icon: "pi pi-tablet",
-            //     command: (event: Event) => {
-            //         this.openDialogInterconsultaObstetricia();
-            //     },
-            // },
         ];
         
     }
@@ -100,13 +91,10 @@ export class StepGeneralComponent implements OnInit {
             },
         });
     }
-    ngDoCheck() {
-        this.saveStep();
-    }
      ngOnInit() {
     }
     //--cambia los nombres de los steps según el indice
-    name() {
+    /* name() {
         switch (this.indiceActivo) {
             case 6:
                 this.stepName = "finalizar";
@@ -130,49 +118,52 @@ export class StepGeneralComponent implements OnInit {
                 this.stepName = "datos";
                 break;
         }
-    }
+    } */
 
     //--cambia step
-    ChangeStep(event: number) {
+    /* ChangeStep(event: number) {
         this.indiceActivo = event;
         this.name();
-    }
+    } */
 
     // pasamos al siguiente step
     nextPage() {
-        switch (this.stepName) {
-            case "datos":
+        switch (this.indiceActivo) {
+            case 0:
                 this.datosGeneralesConsulta.guardarActualizar();
-                this.stepName = "motivo";
-                this.indiceActivo = 1;
+                // this.stepName = "motivo";
+                // this.indiceActivo = 1;
                 break;
-            case "motivo":
+            case 1:
                 this.motivoConsulta.save();
-                this.stepName = "evaluaciones";
-                this.indiceActivo = 2;
+                // this.stepName = "evaluaciones";
+                // this.indiceActivo = 2;
                 break;
-            case "evaluaciones":
+            case 2:
+                this.indiceActivo+=1
                 // this.motivoConsulta.save()
-                this.stepName = "diagnostico";
-                this.indiceActivo = 3;
+                // this.stepName = "diagnostico";
+                // this.indiceActivo = 3;
                 break;
-            case "diagnostico":
+            case 3:
+                this.indiceActivo+=1
                 // this.diagnosticoConsulta.saveDiagnostico();
-                this.stepName = "procedimiento";
-                this.indiceActivo = 4;
+                // this.stepName = "procedimiento";
+                // this.indiceActivo = 4;
                 break;
-            case "procedimiento":
+            case 4:
+                this.indiceActivo+=1
                 // this.procedimientoConsulta.saveProcedimiento();
-                this.stepName = "tratamiento";
-                this.indiceActivo = 5;
+                // this.stepName = "tratamiento";
+                // this.indiceActivo = 5;
                 break;
-            case "tratamiento":
+            case 5:
                 this.tratamientoConsulta.his()
                 /* this.stepName = "finalizar";
                 this.indiceActivo = 6; */
                 break;
 
-            case "finalizar":
+            case 6:
                 this.AcuerdosComponent.save();
                 // this.finalizarConsulta.save()
                 break;
@@ -181,33 +172,39 @@ export class StepGeneralComponent implements OnInit {
 
     // regresamos al anterior step
     prevPage() {
-        switch (this.stepName) {
-            case "finalizar":
-                console.log("fi ", this.stepName);
-                this.stepName = "tratamiento";
-                this.indiceActivo = 5;
+        switch (this.indiceActivo) {
+            case 6:
+                // console.log("fi ", this.stepName);
+                // this.stepName = "tratamiento";
+                // this.indiceActivo = 5;
+                this.indiceActivo-=1
                 break;
-            case "tratamiento":
-                this.stepName = "procedimiento";
-                this.indiceActivo = 4;
+            case 5:
+                // this.stepName = "procedimiento";
+                // this.indiceActivo = 4;
+                this.indiceActivo-=1
                 break;
-            case "procedimiento":
-                console.log("fi ", this.stepName);
-                this.stepName = "diagnostico";
-                this.indiceActivo = 3;
+            case 4:
+                // console.log("fi ", this.stepName);
+                // this.stepName = "diagnostico";
+                // this.indiceActivo = 3;
+                this.indiceActivo-=1
                 break;
 
-            case "diagnostico":
-                this.stepName = "evaluaciones";
-                this.indiceActivo = 2;
+            case 3:
+                // this.stepName = "evaluaciones";
+                // this.indiceActivo = 2;
+                this.indiceActivo-=1
                 break;
-            case "evaluaciones":
-                this.stepName = "motivo";
-                this.indiceActivo = 1;
+            case 2:
+                // this.stepName = "motivo";
+                // this.indiceActivo = 1;
+                this.indiceActivo-=1
                 break;
-            case "motivo":
-                this.stepName = "datos";
-                this.indiceActivo = 0;
+            case 1:
+                // this.stepName = "datos";
+                // this.indiceActivo = 0;
+                this.indiceActivo-=1
                 break;
             // case 'datos':
             //   this.stepName = 'datos';
@@ -215,36 +212,11 @@ export class StepGeneralComponent implements OnInit {
             //   break;
         }
     }
-
-    saveStep() {
-        if (this.indiceActivo !== this.j) {
-            // console.log("j ", this.indiceActivo, this.j);
-            switch (this.j) {
-                case 7:
-                    // this.finalizarConsulta.save()
-                    break;
-                case 6:
-                    // this.finalizarConsulta.save()
-                    break;
-                case 5:
-                    //this.tratamientoConsulta.save()
-                    break;
-                case 4:
-                    // this.diagnosticoConsulta.save()
-                    break;
-                case 3:
-                    break;
-                case 2:
-                    break;
-                case 1:
-                    // this.motivoConsulta.save()
-                    break;
-                case 0:
-                    // this.datosGeneralesConsulta.save()
-                    break;
-            }
-            this.j = this.indiceActivo;
+    nextStep(indiceActual){
+        if(this.indiceActivo==0){
+            this.readonlyStepState=false
         }
+        this.indiceActivo=indiceActual+1;
     }
 }
 interface data {

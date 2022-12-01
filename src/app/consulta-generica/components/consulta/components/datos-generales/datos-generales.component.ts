@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {dato} from "../../../../../cred/citas/models/data";
 import {DatosGeneralesService} from "../../../../services/datos-generales/datos-generales.service";
@@ -14,6 +14,7 @@ import { Documento } from 'src/app/consulta-generica/interfaces/consulta-generic
   styleUrls: ['./datos-generales.component.css']
 })
 export class DatosGeneralesComponent implements OnInit {
+  @Output() onChangeNextStep:EventEmitter<number>= new EventEmitter<number>();
   datosGeneralesFG:FormGroup;
   aconpanienteFG:FormGroup;
   signoAlarmaFG:FormGroup;
@@ -173,12 +174,11 @@ export class DatosGeneralesComponent implements OnInit {
       servicio:this.dataFromlocal.ups,
       tipoConsulta:this.dataFromlocal.tipoConsulta
     }
-    // console.log({inputRequest});
-    
-    
     this.datosGeneralesService.addConsultaDatosGenerales(inputRequest).subscribe((resp: any) => {
+      
       this.idConsulta=resp.object.id;
       this.isUpdate=true;
+      
       Swal.fire({
         icon: 'success',
         title: 'DATOS GENERALES',
@@ -186,7 +186,6 @@ export class DatosGeneralesComponent implements OnInit {
         showConfirmButton: false,
         timer: 2000
       })
-      /* setteamos id consulta */
       const  dataForLocal:Documento={
         idCupo:this.dataFromlocal.idCupo,
         idConsulta:this.idConsulta,
@@ -202,6 +201,9 @@ export class DatosGeneralesComponent implements OnInit {
         estadoAtencion:"1"
       }
       localStorage.setItem(this.attributeLocalS, JSON.stringify(dataForLocal));
+      setTimeout(() => {
+        this.onChangeNextStep.emit(0)
+      }, 2500);
     })
   }
   actualizarConsulta() {
@@ -231,6 +233,9 @@ export class DatosGeneralesComponent implements OnInit {
         showConfirmButton: false,
         timer: 2000
       })
+      setTimeout(() => {
+        this.onChangeNextStep.emit(0)
+      }, 2500);
     },error => {
     })
     // this.getDatoGenerales();

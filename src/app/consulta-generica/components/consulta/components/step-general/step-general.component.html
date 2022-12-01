@@ -6,9 +6,10 @@
                 <span style="font-size: 2em;">CONSULTA-{{  buscarTipoConsulta( dataFromLocal.tipoConsulta)}} </span>
                 </div>
             </div>
+            <!-- <div>{{indiceActivo}}</div> -->
     </div>
-    <p-steps class="steps" [model]="itemsStep" styleClass="step-custom" [readonly]="false" [(activeIndex)]="indiceActivo" 
-        (activeIndexChange)="ChangeStep($event)">
+    <p-steps [readonly]="readonlyStepState" class="steps" [model]="itemsStep" styleClass="step-custom" [(activeIndex)]="indiceActivo" 
+        >
     </p-steps>
     <div class="flotante">
         <div class="speeddial-circle-demo">
@@ -26,7 +27,7 @@
         </div>
     </div>
 </div>
-<div class="stepsdemo-content" *ngIf="stepName === 'datos'">
+<div class="stepsdemo-content" *ngIf="indiceActivo === 0">
     <p-card>
         <ng-template pTemplate="header">    
             <p-toolbar>
@@ -40,11 +41,11 @@
             </p-toolbar>
         </ng-template>
         <ng-template pTemplate="content">
-            <app-datos-generales></app-datos-generales>
+            <app-datos-generales (onChangeNextStep)="nextStep($event)"></app-datos-generales>
         </ng-template>
     </p-card>
 </div>
-<div class="stepsdemo-content" *ngIf="stepName === 'motivo'">
+<div class="stepsdemo-content" *ngIf="indiceActivo === 1">
     <p-card>
         <ng-template pTemplate="header">
             <p-toolbar>
@@ -60,11 +61,11 @@
             </p-toolbar>
         </ng-template>
         <ng-template pTemplate="content">
-            <app-motivo-consulta></app-motivo-consulta>
+            <app-motivo-consulta (onChangeNextStep)="nextStep($event)"></app-motivo-consulta>
         </ng-template>
     </p-card>
 </div>
-<div class="stepsdemo-content" *ngIf="stepName === 'evaluaciones'">
+<div class="stepsdemo-content" *ngIf="indiceActivo=== 2">
     <p-card>
         <ng-template pTemplate="header">
             <p-toolbar>
@@ -84,7 +85,7 @@
         </ng-template>
     </p-card>
 </div>
-<div class="stepsdemo-content" *ngIf="stepName === 'diagnostico'">
+<div class="stepsdemo-content" *ngIf="indiceActivo === 3">
     <p-card>
         <ng-template pTemplate="header">
             <p-toolbar>
@@ -106,7 +107,7 @@
 </div>
 
 
-<div class="stepsdemo-content" *ngIf="stepName === 'procedimiento'">
+<div class="stepsdemo-content" *ngIf="indiceActivo === 4">
     <p-card>
         <ng-template pTemplate="header">
             <p-toolbar>
@@ -127,7 +128,7 @@
     </p-card>
 </div>
 
-<div class="stepsdemo-content" *ngIf="stepName === 'tratamiento'">
+<div class="stepsdemo-content" *ngIf="indiceActivo === 5">
     <p-card>
         <ng-template pTemplate="header">
             <p-toolbar>
@@ -147,7 +148,7 @@
         </ng-template>
     </p-card>
 </div>
-<div class="stepsdemo-content" *ngIf="stepName === 'finalizar'">
+<div class="stepsdemo-content" *ngIf="indiceActivo === 6">
     <p-card>
         <ng-template pTemplate="header">
             <p-toolbar>
@@ -207,7 +208,7 @@
 <!--        </ng-template>-->
 <!--    </p-card>-->
 <!--</div>-->
-<div class="stepsdemo-content" *ngIf="stepName === 'procedimientos'">
+<div class="stepsdemo-content" *ngIf="indiceActivo === 7">
     <p-card>
         <ng-template pTemplate="header">
             <p-toolbar>
