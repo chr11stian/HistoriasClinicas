@@ -152,7 +152,7 @@ export class StepGeneralComponent implements OnInit, DoCheck {
             { label: "Diagnóstico", styleClass: "icon4" },
             { label: "Procedimientos", styleClass: "icon5" },
             { label: "Tratamiento", styleClass: "icon6" },
-            { label: "Referencia Calendario", styleClass: "icon7" },
+            /* { label: "Referencia Calendario", styleClass: "icon7" }, */
         ];
         this.getQueryParams();
         this.agenda();
