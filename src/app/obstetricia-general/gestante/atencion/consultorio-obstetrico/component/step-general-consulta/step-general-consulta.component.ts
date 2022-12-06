@@ -116,7 +116,7 @@ export class StepGeneral_consultaComponent implements OnInit {
             { label: "Diagnosticos" },
             { label: "Procedimientos" },
             { label: "Tratamientos" },
-            { label: "Referencia" },
+            /* { label: "Referencia" }, */
         ];
     }
 
