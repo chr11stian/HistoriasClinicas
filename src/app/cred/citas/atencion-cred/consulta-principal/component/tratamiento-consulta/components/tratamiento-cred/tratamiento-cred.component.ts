@@ -138,11 +138,8 @@ export class TratamientoCredComponent implements OnInit {
 
   }
   buscarCodigoIpress(){
-    // console.log('codigo renipress'+ this.renipress);//// ejecuta
-    // console.log('id Ipress:'+this.idIpress);
     this.ipressServices.getIpressID(this.idIpress).subscribe((res: any) => {
       this.renipress = res.object.renipress;
-      // console.log('codigo renipress'+ this.renipress);
       this.listarMedicamentosFarmacia();
     })
   }
@@ -151,10 +148,8 @@ export class TratamientoCredComponent implements OnInit {
 
 
   listarMedicamentosFarmacia(){
-    // console.log("entrando 0a recuperar medicamentos de la farmacia");
     this.farmaciaService.getListaMedicamentosFarmaciaXIpress(this.renipress).subscribe((data:any)=>{
       if(data!=undefined){
-        // console.log(data.object);
         this.listaMedicamentos=(data.object);
         let cadena
         for(let i= 0;i<this.listaMedicamentos.length;i++){
@@ -175,7 +170,6 @@ export class TratamientoCredComponent implements OnInit {
             stringMedicamento:this.listaMedicamentos[i].medicamento.nombre + " " + this.listaMedicamentos[i].medicamento.ff +" "+  this.listaMedicamentos[i].medicamento.concentracion +" "+  this.listaMedicamentos[i].medicamento.viaAdministracion + " Fecha Venc. " +this.listaMedicamentos[i].fechaVenc+" stock: " +this.listaMedicamentos[i].stock
           }
           this.medicamentosConDatos.push(cadena);
-          // console.log(this.medicamentosConDatos);
         }
       }
     })
@@ -184,7 +178,6 @@ export class TratamientoCredComponent implements OnInit {
   listarDiagnosticos(){
     this.DiagnosticoService.getDiagnostico(this.data.idConsulta).subscribe((data:any)=>{
       if(data.object!=undefined || data.object!=null){
-        // console.log(data.object);
         this.listaDiagnosticos=data.object;
         // for(let i =0;i<data.object.length;i++){
         //   this.listaDiagnosticos.push(data.object[i].cie10SIS)
@@ -203,7 +196,6 @@ export class TratamientoCredComponent implements OnInit {
   private filterItems(event: any) {
     let filtered : any[] = [];
     let query = event.query;
-    // console.log(this.medicamentosConDatos);
     this.aux = this.medicamentosConDatos;
     for(let i = 0; i < this.aux.length; i++) {
       let item = this.aux[i];
@@ -214,7 +206,6 @@ export class TratamientoCredComponent implements OnInit {
 
     this.aux = filtered;
     if(this.aux.length==0){
-      console.log('no encontrado');
       this.formTratamiento.patchValue({ medicamento: ""});
       this.aux = this.medicamentosConDatos;
 
@@ -223,8 +214,6 @@ export class TratamientoCredComponent implements OnInit {
   }
 
   selectedMedicamento(event: any) {
-    // console.log('lista de medicamentos ', this.medicamentosConDatos);
-    // console.log(event);
     this.tratamientoEditar = event;
     this.formTratamiento.patchValue({ medicamento: ""});
     this.formTratamiento.patchValue({ nombre: event.medicamento.nombre });
@@ -236,7 +225,6 @@ export class TratamientoCredComponent implements OnInit {
     this.formTratamiento.patchValue({nombreComercial:event.medicamento.nombreComercial});
     let date: Date = new Date(event.fechaVenc);
     date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
-    // console.log(date)
     this.formTratamiento.patchValue({fechaVenc:date});
     this.formTratamiento.patchValue({lote:event.lote});
     this.formTratamiento.patchValue({stock:event.stock});
@@ -254,7 +242,6 @@ export class TratamientoCredComponent implements OnInit {
 
   /*****************Imprimir Receta**************/
   imprimirReceta(){
-    console.log("imprimiendo receta");
     this.tratamientoService.evento = false;
     this.tratamientoService.printReceta(this.data.idConsulta).subscribe((data:any)=>{
     })
@@ -295,8 +282,6 @@ export class TratamientoCredComponent implements OnInit {
      }
      var duplicado:boolean=this.tratamientos.some(element=>element.medicamento.id===inputRequest.medicamento.id)
     // var duplicado:boolean=this.tratamientos.includes(cadena)
-     console.log(duplicado);
-     console.log("cadena" , inputRequest)
       if(!duplicado){
         this.tratamientos.push(inputRequest)
         if(!this.hayDatos){
@@ -343,7 +328,6 @@ export class TratamientoCredComponent implements OnInit {
   }
 
   closeEditar() {
-    console.log(this.tratamientoEditar);
     let inputRequest = {
       medicamento:{
         id:this.formTratamiento.get('id').value,
@@ -370,11 +354,8 @@ export class TratamientoCredComponent implements OnInit {
       },
     }
     var AuxItem = this.tratamientos.filter(element=>element!=this.tratamientoEditar);
-    // console.log(AuxItem);
     this.tratamientos=AuxItem;
-    // console.log("cadena" , cadena)
     this.tratamientos.push(inputRequest);
-    console.log('');
     
     this.tratamientoService.updateTratamiento(this.data.idConsulta,this.tratamientos).subscribe((data:any)=>{
       Swal.fire({
@@ -394,7 +375,6 @@ export class TratamientoCredComponent implements OnInit {
   codMedicamento:string=''
   editarTratamiento(rowData: any, rowIndex: any) {
     this.formTratamiento.reset();
-    // console.log(rowData);
     this.estadoEditar=true;
     this.buildForm();
     this.dialogTratamiento=true;
@@ -420,13 +400,11 @@ export class TratamientoCredComponent implements OnInit {
     this.formTratamiento.get("otrasIndicaciones").setValue(rowData.indicaciones.otrasIndicaciones);
     let date: Date = new Date(rowData.fechaVenc);
     date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
-    // console.log(date)
     this.formTratamiento.get("fechaVenc").setValue(date);
     this.tratamientoEditar=rowData;
   }
 
   eliminarTratamiento(rowIndex: any) {
-    // console.log("entrando a editar medicamentos",rowIndex,rowIndex);
     Swal.fire({
       showCancelButton: true,
       confirmButtonText: 'Eliminar',
@@ -479,7 +457,6 @@ export class TratamientoCredComponent implements OnInit {
 
   onChangeDiagnostico() {
     this.PrestacionService.getProcedimientoPorCodigo(this.formTratamiento.value.cie10SIS.codPrestacion).subscribe((res: any) => {
-      // console.log(res.object);
       this.listaPrestaciones = res.object;
       this.formTratamiento.patchValue({ prestacion: res.object.descripcion});
       this.formTratamiento.patchValue({ codPrestacion: res.object.codigo});

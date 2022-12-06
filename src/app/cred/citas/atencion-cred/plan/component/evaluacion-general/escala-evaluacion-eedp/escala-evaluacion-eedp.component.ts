@@ -33,7 +33,6 @@ export class EscalaEvaluacionEEDPComponent implements OnInit {
   ) {
     this.dataTableEEDP();
     this.dataEEDP = this.dialogData.data;
-    console.log('data del dialog eedp ', this.dataEEDP);
     this.arrayRptas = this.dataEEDP.listaUltimasPreguntas;
   }
 
@@ -43,7 +42,6 @@ export class EscalaEvaluacionEEDPComponent implements OnInit {
   dataTableEEDP() {
     this.eedpService.getDatosTablaEEDP().then(res => {
       this.dataTabla = res;
-      console.log('data de tabla res eedp ', this.dataTabla);
     });
   }
 }

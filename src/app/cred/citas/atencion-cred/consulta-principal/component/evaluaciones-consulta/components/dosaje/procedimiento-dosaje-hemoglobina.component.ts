@@ -53,7 +53,6 @@ export class ProcedimientoDosajeHemoglobinaComponent implements OnInit {
     this.suplementacionesMicronutrientesService.getDosajeHemoglobina(this.nroDni).subscribe((resp)=>{
       // const preventivo=resp.object
       // this.dataPreventivo=preventivo.filter(element=>element.edadMes==this.edadMes)
-      // console.log('respuesta del servidor->>>>',this.dataPreventivo)
       this.dataPreventivo=resp.object
       this.transform();
     })
@@ -67,9 +66,6 @@ export class ProcedimientoDosajeHemoglobinaComponent implements OnInit {
       else{
         this.dataTerapeutico=terapeutico
       }
-      // console.log('arreglo terapeutico',resp);
-      
-      // this.dataTerapeutico=terapeutico.filter(element=>element.edadMes==this.edadMes)
       this.transformTerapeutico();
     })
   }

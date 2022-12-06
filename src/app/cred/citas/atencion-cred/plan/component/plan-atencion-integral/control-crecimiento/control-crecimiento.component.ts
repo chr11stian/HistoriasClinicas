@@ -101,8 +101,6 @@ export class ControlCrecimientoComponent implements OnInit, DoCheck {
             this.returnDescription();
             this.datas();
             this.evaluacion();
-            console.log("aux", this.aux);
-            console.log("RN", this.RN);
         }, 1000);
     }
 
@@ -112,7 +110,6 @@ export class ControlCrecimientoComponent implements OnInit, DoCheck {
             .subscribe((r: any) => {
                 this.sv = r.object.signosVitales;
                 this.fc = r.object.fecha;
-                //console.log('consulta-general', this.sv)
             });
     }
 
@@ -137,18 +134,15 @@ export class ControlCrecimientoComponent implements OnInit, DoCheck {
                 this.auxEvaluacionH = aux[1];
                 if (this.sv.talla * 100 < this.auxEvaluacionH["-2"]) {
                     this.diagnosticoH = "Talla baja";
-                    console.log("talla baja");
                 }
                 if (
                     this.sv.talla * 100 >= this.auxEvaluacionH["-2"] &&
                     this.sv.talla * 100 <= this.auxEvaluacionH["2"]
                 ) {
                     this.diagnosticoH = "Normal";
-                    console.log("Normal");
                 }
                 if (this.sv.talla * 100 > this.auxEvaluacionH["2"]) {
                     this.diagnosticoH = "Alto";
-                    console.log("talla alta");
                 }
             });
         this.controlCrecimientoService
@@ -158,18 +152,15 @@ export class ControlCrecimientoComponent implements OnInit, DoCheck {
                 this.auxEvaluacionW = aux[1];
                 if (this.sv.peso < this.auxEvaluacionW["-2"]) {
                     this.diagnosticoW = "Desnutrición";
-                    console.log("talla baja");
                 }
                 if (
                     this.sv.peso >= this.auxEvaluacionW["-2"] &&
                     this.sv.peso <= this.auxEvaluacionW["2"]
                 ) {
                     this.diagnosticoW = "Normal";
-                    console.log("talla normal");
                 }
                 if (this.sv.peso > this.auxEvaluacionW["2"]) {
                     this.diagnosticoW = "Sobrepeso";
-                    console.log("talla alta");
                 }
             });
         this.controlCrecimientoService
@@ -186,23 +177,18 @@ export class ControlCrecimientoComponent implements OnInit, DoCheck {
                 let aux_b = b[1];
                 if (this.sv.peso < aux_b["-3"]) {
                     this.diagnosticoWH = "Desnutrición Severa";
-                    console.log("talla baja");
                 }
                 if (this.sv.peso >= aux_b["-3"] && this.sv.peso < aux_b["-2"]) {
                     this.diagnosticoWH = "Desnutricion Aguda";
-                    console.log("talla normal");
                 }
                 if (this.sv.peso >= aux_b["-2"] && this.sv.peso < aux_b["2"]) {
                     this.diagnosticoWH = "Normal";
-                    console.log("talla normal");
                 }
                 if (this.sv.peso >= aux_b["2"] && this.sv.peso < aux_b["3"]) {
                     this.diagnosticoWH = "Sobrepeso";
-                    console.log("talla normal");
                 }
                 if (this.sv.peso >= aux_b["3"]) {
                     this.diagnosticoWH = "Obesidad";
-                    console.log("talla alta");
                 }
             });
         this.controlCrecimientoService
@@ -212,18 +198,15 @@ export class ControlCrecimientoComponent implements OnInit, DoCheck {
                 this.auxEvaluacionC = aux[1];
                 if (this.sv.perimetroCefalico < this.auxEvaluacionC["3"]) {
                     this.diagnosticoC = "Riesgo microcefalia";
-                    console.log("talla baja");
                 }
                 if (
                     this.sv.perimetroCefalico >= this.auxEvaluacionC["3"] &&
                     this.sv.perimetroCefalico <= this.auxEvaluacionC["97"]
                 ) {
                     this.diagnosticoC = "Normal";
-                    console.log("talla normal");
                 }
                 if (this.sv.perimetroCefalico > this.auxEvaluacionC["97"]) {
                     this.diagnosticoC = "Riesgo macrocefalia";
-                    console.log("talla alta");
                 }
             });
     }
@@ -484,12 +467,10 @@ export class ControlCrecimientoComponent implements OnInit, DoCheck {
 
     dataGrafico(list: interfaceCrecimiento[]) {
         //-- agregar antecedentes unshift
-        console.log(this.data.nroDocumento);
         let antecedente;
         this.antecedentes
             .getAntecedentesPersonales(this.data.nroDocumento)
             .subscribe((r: any) => {
-                console.log(r.object);
                 antecedente = r.object.nacimientoperimetroCefalico;
                 list.unshift({
                     peso: r.object.nacimiento.pesoAlNacer,

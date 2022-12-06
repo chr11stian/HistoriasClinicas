@@ -114,7 +114,6 @@ export class TestTepsiComponent implements OnInit {
   }
   traerPuntaje(){
     const aux=this.resultadoA
-    // console.log('a imprimir',aux[0].puntajeT,aux[1].puntajeT,aux[2].puntajeT,aux[3].puntajeT)
     return [aux[0].puntajeT,aux[1].puntajeT,aux[2].puntajeT,aux[3].puntajeT]
   }
   ngOnInit(): void {
@@ -154,7 +153,7 @@ export class TestTepsiComponent implements OnInit {
         this.chart();
       }
       else{
-        this.messageService.add({key: 'myKey1', severity:'error', summary: 'Resultado', detail: 'No existe aun Evaluacion Tepsi Registrada'});
+        // this.messageService.add({key: 'myKey1', severity:'error', summary: 'Resultado', detail: 'No existe aun Evaluacion Tepsi Registrada'});
       }
     })
 

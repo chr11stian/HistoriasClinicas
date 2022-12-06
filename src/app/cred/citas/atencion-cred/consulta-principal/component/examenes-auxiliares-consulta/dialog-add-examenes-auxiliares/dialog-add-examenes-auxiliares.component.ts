@@ -97,7 +97,6 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
     }
 
     this.auxExamService.postPromiseAddServiciosLaboratorio(this.idConsulta, this.solicitudLaboratorio).then(res => {
-      console.log('res code ', res.cod);
       if (res.cod == '2006') {
         Swal.fire({
           icon: 'success',
@@ -136,7 +135,6 @@ export class DialogAddExamenesAuxiliaresComponent implements OnInit {
           }
         }
         await this.auxExamService.putAgregarExamenesConsulta(this.idConsulta, addExam).then(res => {
-          console.log('res code ', res.cod);
           if (res.cod == '2006') {
             
             Swal.fire({

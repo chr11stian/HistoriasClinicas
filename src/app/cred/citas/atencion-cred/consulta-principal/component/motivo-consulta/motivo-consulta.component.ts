@@ -307,7 +307,6 @@ export class MotivoConsultaComponent implements OnInit {
         this.motivosService.getMotivos(this.data.idConsulta).subscribe((r: any) => {
                 //-- recupera informacion de motivos
                 this.motivosConsulta = r.object;
-                // console.log("motivos", r);
                 this.motivoFG
                     .get("detailMotivoFC")
                     .setValue(
@@ -508,7 +507,6 @@ export class MotivoConsultaComponent implements OnInit {
             obsExamenNeurologico:
                 this.formExamNeurologico.value.obsExamenNeurologico,
         };
-        // console.log("req", req);
         if (req) {
             this.motivosService
                 .updateMotivos(this.data.idConsulta, req)
@@ -627,17 +625,14 @@ export class MotivoConsultaComponent implements OnInit {
             .getServiciosPorIpress(idIpress)
             .subscribe((res: any) => {
                 this.servicios = res.object;
-                // console.log("LISTA DE SERVICIOS DE IPRESSS", this.servicios);
             });
     }
 
     eliminarInterconsulta(id, index) {
         this.listInterconsulta.splice(index, 1);
-        console.log();
         this.consultaGeneralService
             .deleteInterconsulta(this.data.idConsulta, id)
             .subscribe((r: any) => {
-                console.log(r.object);
             });
     }
     listaInterconsulta() {

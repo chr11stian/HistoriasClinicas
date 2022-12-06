@@ -103,9 +103,7 @@ export class SuplementoComponent implements OnInit {
   getSuplementancion() {
     this.getFC("fechaTentativa").setValue(this.suplemento.fechaTentativa);
     this.getFC("fechaAplicacion").setValue(new Date());
-    this.getFC("lab").setValue(this.suplemento.dosis);
-    // console.log('dosis',this.suplemento.dosis);
-    
+    this.getFC("lab").setValue(this.suplemento.dosis);    
   }
   save() {
     let requestInput:any= {
@@ -147,7 +145,6 @@ export class SuplementoComponent implements OnInit {
         key:'claveDialog',
         accept: () => {
           if (this.suplemento.tipoSuplementacion=='PREVENTIVO'){
-            console.log('->>>>>>>>>>>>>>',this.isSuplementacion)
             if (this.isSuplementacion){
               this.SuplementacionService.PostSuplementacion(this.idConsulta,requestInput
               ).subscribe((resp) => {
@@ -179,7 +176,6 @@ export class SuplementoComponent implements OnInit {
 
         },
         reject: () => {
-          // console.log("no se borro");
         },
       });
     }

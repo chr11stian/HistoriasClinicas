@@ -120,7 +120,6 @@ export class TamizajesComponent implements OnInit {
     this.tamizajeService.getTamizajePlan(this.data.nroDocumento).subscribe((res: any) => {
       if(res.object!=null){
         res.object.fichasTamizaje.forEach(element=>this.listaTamizajes.push(element));
-        console.log(this.listaTamizajes)
       }
     });
   }
@@ -133,7 +132,6 @@ export class TamizajesComponent implements OnInit {
       this.formTamizajeAuditivo.disable();
       this.displayMaximizable=true;
       this.tamizajeService.searchTamizaje(id).subscribe((res: any) => {
-        console.log(res.object);
           let negligencia: any = res.object.negligencia;
           let auditivo: any = res.object.auditivo;
           let observacionesAuditivo: any = res.object.observacionesAuditivo;
