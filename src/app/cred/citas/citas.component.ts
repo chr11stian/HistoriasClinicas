@@ -89,12 +89,10 @@ export class CitasComponent implements OnInit {
             fecha: this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd'),
             servicio: 'ATENCION INTEGRAL DEL NINO'
         }
-        console.log("DATA DNI", data)
         await this.cuposService.buscarListaCuposPersonal(this.idIpressLapostaMedica, data)
             .then((result: any) => {
                 this.DataCupos = result.object
                 this.loading = false;
-                console.log('LISTA DE CUPO DEL PACIENTE', result)
             });
     }
     buildForm() {
@@ -112,11 +110,8 @@ export class CitasComponent implements OnInit {
             servicio: 'ATENCION INTEGRAL DEL NINO',
             fecha: this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd')
         }
-        console.log('DATAS ', data);
-
         this.cuposService.getCuposServicioFecha(this.idIpressLapostaMedica, data).subscribe((res: any) => {
             this.DataCupos = res.object;
-            console.log('LISTA DE CUPOS POR SERVICIO ', this.DataCupos);
         })
     }
 
@@ -124,7 +119,7 @@ export class CitasComponent implements OnInit {
     getDocumentosIdentidad() {
         this.documentoIdentidadService.getDocumentosIdentidad().subscribe((res: any) => {
             this.listaDocumentosIdentidad = res.object;
-            console.log('docs ', this.listaDocumentosIdentidad);
+
         })
     }
 
@@ -141,7 +136,6 @@ export class CitasComponent implements OnInit {
             } else {
                 this.showSuccess();
             }
-            console.log('paciente por doc ', this.dataPaciente);
         });
 
     }
@@ -153,12 +147,9 @@ export class CitasComponent implements OnInit {
             nroDoc: this.formCitas.value.nroDoc,
             fecha: this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd')
         }
-        console.log("DATA DNI", data)
-
         await this.cuposService.buscarCupoPorDniFechaIpress(this.idIpressLapostaMedica, data)
             .then(result => {
                 this.DataCuposPaciente = result
-                console.log('LISTA DE CUPO DEL PACIENTE', result)
                 if (this.DataCuposPaciente == undefined) {
                     this.showInfo();
                     this.getPacientesXnroDocumento();
@@ -173,7 +164,6 @@ export class CitasComponent implements OnInit {
 
     /**Modulo para hacer cosultas no gestantes**/
     irConsultaNoControl(row) {
-        console.log('pasando data ', row);
         this.obstetriciaService.data = row;
     }
 
@@ -181,7 +171,6 @@ export class CitasComponent implements OnInit {
     enviarData(event) {
         this.obstetriciaGeneralService.tipoDoc = null;
         this.obstetriciaGeneralService.nroDoc = null;
-        console.log("EVENTO", event);
         // this.obstetriciaGeneralService.observable$.emit(event.id);
         this.obstetriciaGeneralService.tipoDoc = event.paciente.tipoDoc;
         this.obstetriciaGeneralService.nroDoc = event.paciente.nroDoc;
