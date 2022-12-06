@@ -26,7 +26,7 @@ export class ListaConsultaComponent implements OnInit {
     this.dataFromLocal = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS))            
   }
   get apellidosNombres(){
-    // console.log({data:this.dataPaciente});
+    // //console.log({data:this.dataPaciente});
     return this.dataPaciente?this.dataPaciente.apePaterno + ' ' + this.dataPaciente.apeMaterno + ' ' + this.dataPaciente.primerNombre + ' ' + this.dataPaciente.otrosNombres:'';
   }
   ngOnInit(): void {
@@ -82,7 +82,7 @@ export class ListaConsultaComponent implements OnInit {
     this.router.navigate(['/dashboard/consulta-generica/consulta'])
   }
   irFUA(rowData) {
-    console.log('data', rowData);
+    //console.log('data', rowData);
     let message1 = "Esta Seguro de Generar FUA?, se dara como finalizado la consulta"
     let message2 = "Esta Seguro de Generar FUA?, Debe revisar el tipo de Seguro"
     if (rowData.estadoAtencion == 0) {

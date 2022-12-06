@@ -58,7 +58,7 @@ export class ProcedImagenesComponent implements OnInit {
     private pacienteService: PacienteService
   ) {
     this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
-    console.log("ipress", this.idIpress)
+    //console.log("ipress", this.idIpress)
 
     /*usando local storage*/
     this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
@@ -72,8 +72,8 @@ export class ProcedImagenesComponent implements OnInit {
     //estado para saber que estado usar en consultas
     this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
 
-    console.log("DATA PACIENTE 2 desde datos generales", this.dataPaciente2);
-    console.log("gestacion desde datos generales", this.Gestacion);
+    //console.log("DATA PACIENTE 2 desde datos generales", this.dataPaciente2);
+    //console.log("gestacion desde datos generales", this.Gestacion);
     this.recuperarEcografiasPendientes();
 
     // if (this.Gestacion == null) {
@@ -94,12 +94,12 @@ export class ProcedImagenesComponent implements OnInit {
     //   //guardar en el ls el nroAtencion
     //   let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaNueva'));
     //   this.nroAtencion = nroAtencion;
-    //   console.log("entre a nueva consulta", this.nroAtencion)
+    //   //console.log("entre a nueva consulta", this.nroAtencion)
     // }
     // else {
     //   let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaEditar'));
     //   this.nroAtencion = nroAtencion;
-    //   console.log("entre a edicion consulta", this.nroAtencion)
+    //   //console.log("entre a edicion consulta", this.nroAtencion)
     // }
   }
 
@@ -110,7 +110,7 @@ export class ProcedImagenesComponent implements OnInit {
     }
     await this.pacienteService.getPromisePacienteByNroDoc(auxPaciente).then(res => {
       this.dataPaciente2 = res
-      console.log('data paciente ', this.dataPaciente2);
+      //console.log('data paciente ', this.dataPaciente2);
     })
   }
 
@@ -176,7 +176,7 @@ export class ProcedImagenesComponent implements OnInit {
       },
     })
     this.ref.onClose.subscribe((data: any) => {
-      console.log("data de modal eco", data)
+      //console.log("data de modal eco", data)
       // this.recuperarEcografiasPendientes();
     })
   }
@@ -196,7 +196,7 @@ export class ProcedImagenesComponent implements OnInit {
       data: aux
     })
     this.ref.onClose.subscribe((data: any) => {
-      console.log("data de modal eco", data)
+      //console.log("data de modal eco", data)
       // this.recuperarEcografiasPendientes();
     })
   }
@@ -250,7 +250,7 @@ export class ProcedImagenesComponent implements OnInit {
       },
     })
     this.ref.onClose.subscribe((data: any) => {
-      console.log("data de modal eco", data)
+      //console.log("data de modal eco", data)
       // this.recuperarEcografiasConcluidos();
     })
   }
@@ -270,7 +270,7 @@ export class ProcedImagenesComponent implements OnInit {
       data: aux
     })
     this.ref.onClose.subscribe((data: any) => {
-      console.log("data de modal eco", data)
+      //console.log("data de modal eco", data)
       // this.recuperarEcografiasConcluidos();
     })
   }

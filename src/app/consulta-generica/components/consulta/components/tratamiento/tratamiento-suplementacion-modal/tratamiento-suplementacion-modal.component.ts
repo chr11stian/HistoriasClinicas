@@ -55,18 +55,18 @@ export class TratamientoSuplementacionModalComponent implements OnInit {
   //     sexo: this.sexoPaciente
   //   }
   //   this.tratamientoService.listaUpsHis(Data).then((res: any) => this.listaUpsHis = res.object);
-  //   console.log("DATA PARA UPS HIS", this.listaUpsHis)
+  //   //console.log("DATA PARA UPS HIS", this.listaUpsHis)
   // }
   recuperarUPS() {
     this.tratamientoService.listaUps(this.idIpress).then((res: any) => {
       this.listaUps = res.object
-      console.log(res.object)
+      // //console.log(res.object)
     });
 
   }
   selectedDxHIS(event: any) {
-    console.log('lista de cie ', this.listaDeCIEHIS);
-    console.log('evento desde diagnos ', event);
+    //console.log('lista de cie ', this.listaDeCIEHIS);
+    //console.log('evento desde diagnos ', event);
     this.getFC('procedimientoHIS').setValue(event.descripcionItem);
     this.getFC('codProcedimientoHIS').setValue('');
     this.getFC('codProcedimientoHISinput').setValue(event.codigoItem);
@@ -78,17 +78,17 @@ export class TratamientoSuplementacionModalComponent implements OnInit {
   recuperarPrestaciones() {
     this.prestacionService.getPrestacion().subscribe((res: any) => {
       this.ListaPrestacion = res.object;
-      console.log("prestaciones:", this.ListaPrestacion);
+      //console.log("prestaciones:", this.ListaPrestacion);
     })
   }
   onChangePrestacion(){
-    console.log(this.getFC('prestacion').value)
+    //console.log(this.getFC('prestacion').value)
 
   }
   filterCIE10(event: any) {
-    console.log('event->>>>>>>>>',event)
+    //console.log('event->>>>>>>>>',event)
     this.cieService.getCIEByDescripcion(event.query).subscribe((res: any) => {
-      console.log(res)
+      //console.log(res)
       this.listaDeCIEHIS = res.object
     })
   }
@@ -143,9 +143,9 @@ export class TratamientoSuplementacionModalComponent implements OnInit {
       fecha: this.obtenerFecha(this.getFC('fecha').value),
       estadoAdministrado: true
     }
-    console.log('input request',inputRequest)
+    //console.log('input request',inputRequest)
     this.tratamientosSuplementacionService.PostSuplementacion(this.idConsulta,inputRequest).subscribe((resp)=>{
-      console.log('respuesta del servidor',resp)
+      //console.log('respuesta del servidor',resp)
       this.ref.close('agregado')
     })
   }
@@ -157,8 +157,8 @@ export class TratamientoSuplementacionModalComponent implements OnInit {
   //FARMACIA MEDICAMENTOS
   codSISMED:string
   selectedOptionNameMedicamento(event, n) {
-    console.log('lista de medicamentos ', this.medicamentosConDatos);
-    console.log('seleccionado', event);
+    //console.log('lista de medicamentos ', this.medicamentosConDatos);
+    //console.log('seleccionado', event);
     if (n == 1) {
       this.getFC('codSISMED').setValue(event.medicamento.codigo);
       this.getFC('nombre').setValue(event.medicamento.nombre);
@@ -172,7 +172,7 @@ export class TratamientoSuplementacionModalComponent implements OnInit {
       // this.formRIEP.patchValue({ stock: event.stock });
     }
     // if (n == 2) {
-    //   console.log(event);
+    //   //console.log(event);
     //   this.codMedicamento2 = event.medicamento.codigo;
     //   this.formRIEP.patchValue({ calcioDescripcion: event.medicamento.nombreComercial });
     //   this.formRIEP.patchValue({ calcioNombre: event.medicamento.nombre });
@@ -180,12 +180,12 @@ export class TratamientoSuplementacionModalComponent implements OnInit {
     //   this.formRIEP.patchValue({ calcioViaAdministracion: event.medicamento.viaAdministracion });
     //   this.formRIEP.patchValue({ stock2: event.stock });
     // }
-    console.log(this.codSISMED)
+    //console.log(this.codSISMED)
   }
   filterItems(event: any) {
     let filtered: any[] = [];
     let query = event.query;
-    console.log(this.medicamentosConDatos);
+    //console.log(this.medicamentosConDatos);
     this.aux = this.medicamentosConDatos;
     for (let i = 0; i < this.aux.length; i++) {
       let item = this.aux[i];
@@ -195,7 +195,7 @@ export class TratamientoSuplementacionModalComponent implements OnInit {
     }
     this.aux = filtered;
     if (this.aux === []) {
-      console.log('no encontrado');
+      //console.log('no encontrado');
       this.aux = this.medicamentosConDatos;
 
     }
@@ -203,7 +203,7 @@ export class TratamientoSuplementacionModalComponent implements OnInit {
   filterItemsMed(str) {
     // let filtered: any[] = [];
     // let query = str;
-    // console.log(this.medicamentosConDatos);
+    // //console.log(this.medicamentosConDatos);
     // this.aux = this.medicamentosConDatos;
     // for (let i = 0; i < this.aux.length; i++) {
     //   let item = this.aux[i];
@@ -213,7 +213,7 @@ export class TratamientoSuplementacionModalComponent implements OnInit {
     // }
     // this.aux = filtered;
     // if (this.aux === []) {
-    //   console.log('no encontrado');
+    //   //console.log('no encontrado');
     //   this.aux = this.medicamentosConDatos;
     //
     // }
@@ -222,9 +222,9 @@ export class TratamientoSuplementacionModalComponent implements OnInit {
   medicamentosConDatos:any[]=[]
 
   listarMedicamentosFarmacia() {
-    console.log("entrando a recuperar medicamentos de la farmacia");
+    //console.log("entrando a recuperar medicamentos de la farmacia");
     this.farmaciaService.getListaMedicamentosFarmaciaXIpress(this.renIpress).subscribe((data: any) => {
-      console.log('lista medicamentos',data)
+      //console.log('lista medicamentos',data)
       if (data != undefined) {
         this.listaMedicamentos = (data.object);
         let cadena

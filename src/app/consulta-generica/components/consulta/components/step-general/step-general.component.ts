@@ -181,7 +181,7 @@ export class StepGeneralComponent implements OnInit {
     prevPage() {
         switch (this.stepName) {
             case "finalizar":
-                console.log("fi ", this.stepName);
+                //console.log("fi ", this.stepName);
                 this.stepName = "tratamiento";
                 this.indiceActivo = 5;
                 break;
@@ -190,7 +190,7 @@ export class StepGeneralComponent implements OnInit {
                 this.indiceActivo = 4;
                 break;
             case "procedimiento":
-                console.log("fi ", this.stepName);
+                //console.log("fi ", this.stepName);
                 this.stepName = "diagnostico";
                 this.indiceActivo = 3;
                 break;
@@ -216,7 +216,7 @@ export class StepGeneralComponent implements OnInit {
 
     saveStep() {
         if (this.indiceActivo !== this.j) {
-            // console.log("j ", this.indiceActivo, this.j);
+            // //console.log("j ", this.indiceActivo, this.j);
             switch (this.j) {
                 case 7:
                     // this.finalizarConsulta.save()

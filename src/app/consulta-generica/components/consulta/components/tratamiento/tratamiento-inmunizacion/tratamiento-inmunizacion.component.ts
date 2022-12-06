@@ -20,7 +20,7 @@ export class TratamientoInmunizacionComponent implements OnInit {
   // console.log("ipress", this.idIpress)
   constructor(private dialog: DialogService,
               private tratamientosInmunizacionService:TratamientosInmunizacionService) {
-    console.log('inmunizacione')
+   // console.log('inmunizacione')
   }
 
   ngOnInit(): void {

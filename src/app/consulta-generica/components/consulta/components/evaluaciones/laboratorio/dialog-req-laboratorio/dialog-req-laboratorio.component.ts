@@ -54,10 +54,10 @@ export class DialogReqLaboratorioComponent implements OnInit {
   ) {
     this.inicializarForm();
     this.dataDialog = this.config.data.auxExams;
-    // console.log('dialog data ', this.config.data);
-    console.log('dialog data ', this.dataDialog);
+    // //console.log('dialog data ', this.config.data);
+    //console.log('dialog data ', this.dataDialog);
     this.toEdit = this.dataDialog ? false : true;
-    console.log('to edit ', this.toEdit);
+    //console.log('to edit ', this.toEdit);
     // this.dataDialog.length == 0 ? this.toEdit = false : this.toEdit = true;
     this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
     this.dataPaciente = JSON.parse(localStorage.getItem('documento'));
@@ -90,7 +90,7 @@ export class DialogReqLaboratorioComponent implements OnInit {
       nroDoc: this.dataPaciente.nroDocumento
     }
     this.datosGralService.getPromisePacienteByDoc(paciente).then(res => {
-      // console.log('data de paciente ', res);
+      // //console.log('data de paciente ', res);
       this.formReqLabo.get('edad').setValue(this.dataPaciente.anio);
       this.formReqLabo.get('HCL').setValue(res.object.nroHcl);
       this.formReqLabo.get('servicio').setValue(this.dataPaciente.ups);
@@ -151,7 +151,7 @@ export class DialogReqLaboratorioComponent implements OnInit {
       nroCama: '',
       examenesAuxiliares: this.auxExamList
     }
-    // console.log('data to save ', this.solicitudLaboratorio);
+    // //console.log('data to save ', this.solicitudLaboratorio);
     this.examenAuxiliarService.postPromiseAddServiciosLaboratorio(this.dataPaciente.idConsulta, this.solicitudLaboratorio).then(res => {
       Swal.fire({
         icon: 'success',
@@ -187,7 +187,7 @@ export class DialogReqLaboratorioComponent implements OnInit {
   }
   listarSolicitudes() {
     this.examenAuxiliarService.getListarPeticiones(this.idConsulta).then(res => {
-      // console.log('lista de solicitudes ', res);
+      // //console.log('lista de solicitudes ', res);
     })
   }
 
