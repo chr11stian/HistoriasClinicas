@@ -67,7 +67,7 @@ export class DialogResultadoImgComponent implements OnInit {
     private pacienteService: PacienteService
   ) {
     this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
-    console.log("ipress", this.idIpress)
+    //console.log("ipress", this.idIpress)
 
     /*********RECUPERAR DATOS*********/
     /*usando local storage*/
@@ -84,8 +84,8 @@ export class DialogResultadoImgComponent implements OnInit {
     //estado para saber que estado usar en consultas
     this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
 
-    console.log("DATA PACIENTE 2 desde datos generales", this.dataPaciente2);
-    console.log("gestacion desde datos generales", this.Gestacion);
+    //console.log("DATA PACIENTE 2 desde datos generales", this.dataPaciente2);
+    //console.log("gestacion desde datos generales", this.Gestacion);
 
     if (this.Gestacion == null) {
       this.tipoDocRecuperado = this.dataPaciente2.tipoDoc;
@@ -105,12 +105,12 @@ export class DialogResultadoImgComponent implements OnInit {
       //guardar en el ls el nroAtencion
       let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaNueva'));
       this.nroAtencion = nroAtencion;
-      console.log("entre a nueva consulta", this.nroAtencion)
+      //console.log("entre a nueva consulta", this.nroAtencion)
     }
     else {
       let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaEditar'));
       this.nroAtencion = nroAtencion;
-      console.log("entre a edicion consulta", this.nroAtencion)
+      //console.log("entre a edicion consulta", this.nroAtencion)
     }
     /*LLENADO DE LISTAS - VALORES QUE PUEDEN TOMAR TIPO DX*/
     this.tipoList = [{ label: 'DEFINITIVO', value: 'D' },
@@ -122,7 +122,7 @@ export class DialogResultadoImgComponent implements OnInit {
       { name: 'NO', boleano: false }
     ];
 
-    console.log(config.data);
+    //console.log(config.data);
     this.buildForm();
 
     this.recuperarPrestaciones();
@@ -176,15 +176,15 @@ export class DialogResultadoImgComponent implements OnInit {
     }
     await this.pacienteService.getPromisePacienteByNroDoc(auxPaciente).then(res => {
       this.dataPaciente2 = res
-      console.log('data paciente ', this.dataPaciente2);
+      //console.log('data paciente ', this.dataPaciente2);
     })
   }
 
   async recuperarEcografiasId() {
-    console.log("id de la eco", this.config.data.row.idExamAux);
+    //console.log("id de la eco", this.config.data.row.idExamAux);
     await this.DxService.buscarEcografiaAbdominalId(this.config.data.row.idExamAux).then((res: any) => {
       this.ecoEdit = res.object;
-      console.log("resultados", res);
+      //console.log("resultados", res);
     })
   }
   recuperarConsulta() {
@@ -204,21 +204,21 @@ export class DialogResultadoImgComponent implements OnInit {
       edad: this.edadPaciente,
       sexo: this.sexoPaciente
     }
-    console.log("DATA PARA UPS HIS", Data)
+    //console.log("DATA PARA UPS HIS", Data)
     this.DxService.listaUpsHis(Data).then((res: any) => this.listaUpsHis = res.object);
   }
   recuperarUPS() {
     this.DxService.listaUps(this.idIpress).then((res: any) => this.listaUps = res.object);
-    console.log("DATA PARA UPS", this.listaUps)
+    //console.log("DATA PARA UPS", this.listaUps)
   }
   recuperarListaSubTipos() {
     this.DxService.listarSubTipoImagenes().then((res: any) => this.listaSubTipos = res.procImgSubtipos);
-    console.log("DATA SUBTIPOS", this.listaSubTipos)
+    //console.log("DATA SUBTIPOS", this.listaSubTipos)
   }
   traerDiagnosticosDeConsulta() {
     this.DxService.listarDiagnosticosDeUnaConsulta(this.nroHcl, this.nroEmbarazo, this.nroAtencion).then((res: any) => {
       this.diagnosticosList = res.object;
-      console.log("diagnosticos:", this.diagnosticosList);
+      //console.log("diagnosticos:", this.diagnosticosList);
     })
   }
   async enviarResultadoEcografia() {
@@ -258,7 +258,7 @@ export class DialogResultadoImgComponent implements OnInit {
         morfologiaFetal: this.formEcografiaResultado.value.morfologiaFetal,
         resultados: this.formEcografiaResultado.value.resultados,
       }
-      console.log(data);
+      //console.log(data);
       this.DxService.guardarResultadoEcografiasGestante(data).then((res: any) => {
         Swal.fire({
           icon: 'success',
@@ -361,7 +361,7 @@ export class DialogResultadoImgComponent implements OnInit {
   recuperarPrestaciones() {
     this.DxService.getPrestaciones().subscribe((res: any) => {
       this.prestacionList = res.object;
-      console.log("prestaciones:", this.prestacionList);
+      //console.log("prestaciones:", this.prestacionList);
     })
   }
   async closeDialogGuardar() {
@@ -396,13 +396,13 @@ export class DialogResultadoImgComponent implements OnInit {
     }
   }
   selectedOptionNameCIE(event, cieType) {
-    console.log('lista de cie ', this.listaDeCIE);
-    console.log('evento desde diagnos ', event);
+    //console.log('lista de cie ', this.listaDeCIE);
+    //console.log('evento desde diagnos ', event);
     if (cieType == 0) {
       this.formEcografiaResultado.patchValue({ diagnosticoSIS: event.value.procedimiento });
       this.formEcografiaResultado.patchValue({ autocompleteSIS: "" });
       this.formEcografiaResultado.patchValue({ SISCIE: event.value }, { emitEvent: false });
-      console.log(event.value)
+      //console.log(event.value)
     }
     if (cieType == 1) {
       this.formEcografiaResultado.patchValue({ diagnosticoHIS: event.descripcionItem });

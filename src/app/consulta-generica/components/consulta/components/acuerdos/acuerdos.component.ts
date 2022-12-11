@@ -143,7 +143,7 @@ export class AcuerdosComponent implements OnInit, DoCheck {
             },*/
             interconsultas: this.interconsulta
         }
-        console.log('aux', aux)
+        //console.log('aux', aux)
         this.servicio.updateConsultaDatosGenerales(aux).subscribe((r: any) => {
             Swal.fire({
                 icon: 'success',
@@ -196,13 +196,13 @@ export class AcuerdosComponent implements OnInit, DoCheck {
     listaAcuerdos() {
         this.acuerdosService.getListaAcuerdos().subscribe((r: any) => {
             this.listAcuerdos = r.object
-            console.log('acuerdos', this.listAcuerdos)
+            //console.log('acuerdos', this.listAcuerdos)
         })
     }
 
     recuperar() {
         this.servicio.searchConsultaDatosGenerales(this.data.idConsulta).subscribe((r: any) => {
-            console.log('object', r.object.interconsultas)
+            //console.log('object', r.object.interconsultas)
             this.interconsulta = r.object.interconsultas
         })
     }
@@ -276,7 +276,7 @@ export class AcuerdosComponent implements OnInit, DoCheck {
     }
 
     Agregar() {
-        console.log(this.FrmAcuerdo.value.acuerdo)
+        //console.log(this.FrmAcuerdo.value.acuerdo)
         let a: listaAcuerdosConMadre = {
             nroAcuerdo: this.FrmAcuerdo.value.acuerdo
         }
@@ -357,7 +357,7 @@ export class AcuerdosComponent implements OnInit, DoCheck {
         let idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
         this.rolGuardiaService.getServiciosPorIpress(idIpress).subscribe((res: any) => {
             this.servicios = res.object;
-            //console.log('LISTA DE SERVICIOS DE IPRESSS', this.servicios);
+            ////console.log('LISTA DE SERVICIOS DE IPRESSS', this.servicios);
         })
     }
 

@@ -67,7 +67,7 @@ export class DialogSolicitudImgComponent implements OnInit {
   ) {
     this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
 
-    console.log("ipress", this.idIpress)
+    //console.log("ipress", this.idIpress)
 
     /*********RECUPERAR DATOS*********/
     /*usando local storage*/
@@ -83,8 +83,8 @@ export class DialogSolicitudImgComponent implements OnInit {
     //estado para saber que estado usar en consultas
     this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
 
-    console.log("DATA PACIENTE 2 desde datos generales", this.dataPaciente2);
-    console.log("gestacion desde datos generales", this.Gestacion);
+    //console.log("DATA PACIENTE 2 desde datos generales", this.dataPaciente2);
+    //console.log("gestacion desde datos generales", this.Gestacion);
 
     // if (this.Gestacion == null) {
     //   this.tipoDocRecuperado = this.dataPaciente2.tipoDoc;
@@ -104,12 +104,12 @@ export class DialogSolicitudImgComponent implements OnInit {
     //   //guardar en el ls el nroAtencion
     //   let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaNueva'));
     //   this.nroAtencion = nroAtencion;
-    //   console.log("entre a nueva consulta", this.nroAtencion)
+    //   //console.log("entre a nueva consulta", this.nroAtencion)
     // }
     // else {
     //   let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaEditar'));
     //   this.nroAtencion = nroAtencion;
-    //   console.log("entre a edicion consulta", this.nroAtencion)
+    //   //console.log("entre a edicion consulta", this.nroAtencion)
     // }
     /*LLENADO DE LISTAS - VALORES QUE PUEDEN TOMAR TIPO DX*/
     this.tipoList = [
@@ -118,7 +118,7 @@ export class DialogSolicitudImgComponent implements OnInit {
       { label: 'REPETITIVO', value: 'R' },
     ];
 
-    console.log(config.data);
+    //console.log(config.data);
     this.buildForm();
 
     this.recuperarPrestaciones();
@@ -161,7 +161,7 @@ export class DialogSolicitudImgComponent implements OnInit {
     }
     await this.pacienteService.getPromisePacienteByNroDoc(auxPaciente).then(res => {
       this.dataPaciente2 = res
-      console.log('data paciente ', this.dataPaciente2);
+      //console.log('data paciente ', this.dataPaciente2);
     })
   }
 
@@ -182,25 +182,25 @@ export class DialogSolicitudImgComponent implements OnInit {
       edad: this.edadPaciente,
       sexo: this.sexoPaciente
     }
-    console.log("DATA PARA UPS HIS", Data)
+    //console.log("DATA PARA UPS HIS", Data)
     this.DxService.listaUpsHis(Data).then((res: any) => this.listaUpsHis = res.object);
   }
   recuperarUPS() {
     this.DxService.listaUps(this.idIpress).then((res: any) => this.listaUps = res.object);
-    console.log("DATA PARA UPS", this.listaUps)
+    //console.log("DATA PARA UPS", this.listaUps)
   }
   recuperarListaSubTipos() {
     this.DxService.listarSubTipoImagenes().then((res: any) => this.listaSubTipos = res.procImgSubtipos);
-    console.log("DATA SUBTIPOS", this.listaSubTipos)
+    //console.log("DATA SUBTIPOS", this.listaSubTipos)
   }
   // traerDiagnosticosDeConsulta() {
   //   this.DxService.listarDiagnosticosDeUnaConsulta(this.nroHcl, this.nroEmbarazo, this.nroAtencion).then((res: any) => {
   //     this.diagnosticosList = res.object;
-  //     console.log("diagnosticos:", this.diagnosticosList);
+  //     //console.log("diagnosticos:", this.diagnosticosList);
   //   })
   // }
   async enviarSolicitudEcografia() {
-    console.log('id consulta ', this.idConsulta);
+    //console.log('id consulta ', this.idConsulta);
     var data = {
       subTipo: this.formEcografiaSolicitud.value.subTipo,
       codPrestacion: this.formEcografiaSolicitud.value.prestacion.codigo,
@@ -217,7 +217,7 @@ export class DialogSolicitudImgComponent implements OnInit {
       estadoPago: "PAGADO"
     }
 
-    console.log(data);
+    //console.log(data);
     this.DxService.guardarSolicitudEcografiasGestante(this.idConsulta, data).then((res: any) => {
       Swal.fire({
         icon: 'success',
@@ -247,7 +247,7 @@ export class DialogSolicitudImgComponent implements OnInit {
   //     agregarafiliacion: true,
   //     cie10SIS: this.formEcografiaSolicitud.value.diagnostico.cie10SIS,
   //   }
-  //   console.log(data);
+  //   //console.log(data);
   //   let aux = {
   //     id: this.idConsulta,
   //     nroHcl: this.nroHcl,
@@ -309,7 +309,7 @@ export class DialogSolicitudImgComponent implements OnInit {
   recuperarPrestaciones() {
     this.DxService.getPrestaciones().subscribe((res: any) => {
       this.prestacionList = res.object;
-      console.log("prestaciones:", this.prestacionList);
+      //console.log("prestaciones:", this.prestacionList);
     })
   }
   async closeDialogGuardar() {
@@ -343,16 +343,16 @@ export class DialogSolicitudImgComponent implements OnInit {
     }
   }
   selectedOptionNameCIE(event, cieType) {
-    // console.log('lista de cie ', this.listaDeCIE);
-    // console.log('evento desde diagnos ', event);
+    // //console.log('lista de cie ', this.listaDeCIE);
+    // //console.log('evento desde diagnos ', event);
     if (cieType == 0) {
       this.formEcografiaSolicitud.patchValue({ diagnosticoSIS: event.value.procedimiento });
       this.formEcografiaSolicitud.patchValue({ autocompleteSIS: "" });
       this.formEcografiaSolicitud.patchValue({ SISCIE: event.value }, { emitEvent: false });
-      console.log(event.value)
+      //console.log(event.value)
     }
     if (cieType == 1) {
-      console.log('evento his ', event);
+      //console.log('evento his ', event);
       this.formEcografiaSolicitud.patchValue({ diagnosticoHIS: event.value.descripcionItem });
       this.formEcografiaSolicitud.patchValue({ autocompleteHIS: "" });
       this.formEcografiaSolicitud.patchValue({ HISCIE: event.value }, { emitEvent: false });
@@ -362,22 +362,22 @@ export class DialogSolicitudImgComponent implements OnInit {
   }
   changesubType() {
     this.cieService.getCIEByDescripcionTipo('EX', this.formEcografiaSolicitud.value.subTipo).subscribe((res: any) => {
-      // console.log('data tipo ', res);
+      // //console.log('data tipo ', res);
       this.listaProcedimientosHIS = res.object;
     })
   }
   selectedOptionNameHIS(event, index) {
-    console.log('event ', event);
+    //console.log('event ', event);
   }
 
   onChangeDiagnostico(event) {
-    console.log("Evento", event.value)
-    console.log('form control ', this.formEcografiaSolicitud.value.prestacion);
+    //console.log("Evento", event.value)
+    //console.log('form control ', this.formEcografiaSolicitud.value.prestacion);
     // this.procedimientos = event.value.procedimientos;
     // this.PrestacionLaboratorio = event.value;
     // this.formReqLabo.get('codPrestacion').setValue(event.value.codigo);
 
-    // console.log("procedimiento", this.procedimientos)
+    // //console.log("procedimiento", this.procedimientos)
     this.listaDeCIESIS = event.value.procedimientos;
   }
 

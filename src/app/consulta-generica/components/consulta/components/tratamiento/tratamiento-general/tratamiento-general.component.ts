@@ -125,11 +125,11 @@ export class TratamientoGeneralComponent implements OnInit {
 
   }
   buscarCodigoIpress(){
-    console.log('codigo renipress'+ this.renipress);//// ejecuta
-    console.log('id Ipress:'+this.idIpress);
+    //console.log('codigo renipress'+ this.renipress);//// ejecuta
+    //console.log('id Ipress:'+this.idIpress);
     this.ipressServices.getIpressID(this.idIpress).subscribe((res: any) => {
       this.renipress = res.object.renipress;
-      console.log('codigo renipress'+ this.renipress);
+      //console.log('codigo renipress'+ this.renipress);
       this.listarMedicamentosFarmacia();
     })
   }
@@ -138,10 +138,10 @@ export class TratamientoGeneralComponent implements OnInit {
 
 
   listarMedicamentosFarmacia(){
-    console.log("entrando a recuperar medicamentos de la farmacia");
+    //console.log("entrando a recuperar medicamentos de la farmacia");
     this.farmaciaService.getListaMedicamentosFarmaciaXIpress(this.renipress).subscribe((data:any)=>{
       if(data!=undefined){
-        // console.log(data.object);
+        // //console.log(data.object);
         this.listaMedicamentos=(data.object);
         let cadena
         for(let i= 0;i<this.listaMedicamentos.length;i++){
@@ -162,7 +162,7 @@ export class TratamientoGeneralComponent implements OnInit {
             stringMedicamento:this.listaMedicamentos[i].medicamento.nombre + " " + this.listaMedicamentos[i].medicamento.ff +" "+  this.listaMedicamentos[i].medicamento.concentracion +" "+  this.listaMedicamentos[i].medicamento.viaAdministracion + " Fecha Venc. " +this.listaMedicamentos[i].fechaVenc+" stock: " +this.listaMedicamentos[i].stock
           }
           this.medicamentosConDatos.push(cadena);
-          // console.log(this.medicamentosConDatos);
+          // //console.log(this.medicamentosConDatos);
         }
       }
     })
@@ -171,7 +171,7 @@ export class TratamientoGeneralComponent implements OnInit {
   listarDiagnosticos(){
     this.DiagnosticoService.getDiagnostico(this.idConsulta).subscribe((data:any)=>{
       if(data.object!=undefined || data.object!=null){
-        console.log(data.object);
+        //console.log(data.object);
         this.listaDiagnosticos=data.object;
         // for(let i =0;i<data.object.length;i++){
         //   this.listaDiagnosticos.push(data.object[i].cie10SIS)
@@ -190,7 +190,7 @@ export class TratamientoGeneralComponent implements OnInit {
   private filterItems(event: any) {
     let filtered : any[] = [];
     let query = event.query;
-    console.log(this.medicamentosConDatos);
+    //console.log(this.medicamentosConDatos);
     this.aux = this.medicamentosConDatos;
     for(let i = 0; i < this.aux.length; i++) {
       let item = this.aux[i];
@@ -201,7 +201,7 @@ export class TratamientoGeneralComponent implements OnInit {
 
     this.aux = filtered;
     if(this.aux===[]){
-      console.log('no encontrado');
+      //console.log('no encontrado');
       this.formTratamiento.patchValue({ medicamento: ""});
       this.aux = this.medicamentosConDatos;
 
@@ -210,8 +210,8 @@ export class TratamientoGeneralComponent implements OnInit {
   }
 
   selectedMedicamento(event: any) {
-    // console.log('lista de medicamentos ', this.medicamentosConDatos);
-    // console.log(event);
+    // //console.log('lista de medicamentos ', this.medicamentosConDatos);
+    // //console.log(event);
     this.tratamientoEditar = event;
     this.formTratamiento.patchValue({ medicamento: ""});
     this.formTratamiento.patchValue({ nombre: event.medicamento.nombre });
@@ -223,7 +223,7 @@ export class TratamientoGeneralComponent implements OnInit {
     this.formTratamiento.patchValue({nombreComercial:event.medicamento.nombreComercial});
     let date: Date = new Date(event.fechaVenc);
     date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
-    console.log(date)
+    //console.log(date)
     this.formTratamiento.patchValue({fechaVenc:date});
     this.formTratamiento.patchValue({lote:event.lote});
     this.formTratamiento.patchValue({stock:event.stock});
@@ -234,7 +234,7 @@ export class TratamientoGeneralComponent implements OnInit {
     this.tratamientoService.getTratamiento(this.idConsulta).subscribe((data:any)=>{
       if(data.object!=null || data.object!=undefined){
         this.hayDatos=true;
-        console.log(data.object);
+        //console.log(data.object);
         this.tratamientos=(data.object);
       }
       else{
@@ -245,7 +245,7 @@ export class TratamientoGeneralComponent implements OnInit {
 
   /*****************Imprimir Receta**************/
   imprimirReceta(){
-    console.log("imprimiendo receta");
+    //console.log("imprimiendo receta");
     this.tratamientoService.evento = false;
     this.tratamientoService.printReceta(this.idConsulta).subscribe((data:any)=>{
     })
@@ -284,14 +284,14 @@ export class TratamientoGeneralComponent implements OnInit {
         otrasIndicaciones:this.formTratamiento.value.otrasIndicaciones,
       }
     }
-    console.log(this.tratamientos);
+    //console.log(this.tratamientos);
     var duplicado = false;
     if(this.tratamientos!=null){
       duplicado=this.tratamientos.some(element=>element.medicamento.id===cadena.medicamento.id)
     }
     // var duplicado:boolean=this.tratamientos.includes(cadena)
-    console.log(duplicado);
-    console.log("cadena" , cadena)
+    //console.log(duplicado);
+    //console.log("cadena" , cadena)
     if(!duplicado){
         this.tratamientoService.addTratamientos(this.idConsulta,cadena).subscribe((data:any)=>{
           this.listarTratamientos();
@@ -320,7 +320,7 @@ export class TratamientoGeneralComponent implements OnInit {
   }
 
   closeEditar() {
-    console.log(this.tratamientoEditar);
+    //console.log(this.tratamientoEditar);
     let cadena = {
       medicamento:{
         id:this.tratamientoEditar.medicamento.id,
@@ -365,7 +365,7 @@ export class TratamientoGeneralComponent implements OnInit {
 
   editarTratamiento(rowData: any, rowIndex: any) {
     this.formTratamiento.reset();
-    // console.log(rowData);
+    // //console.log(rowData);
     this.estadoEditar=true;
     this.buildForm();
     this.dialogTratamiento=true;
@@ -390,13 +390,13 @@ export class TratamientoGeneralComponent implements OnInit {
     this.formTratamiento.get("otrasIndicaciones").setValue(rowData.indicaciones.otrasIndicaciones);
     let date: Date = new Date(rowData.fechaVenc);
     date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
-    // console.log(date)
+    // //console.log(date)
     this.formTratamiento.get("fechaVenc").setValue(date);
     this.tratamientoEditar=rowData;
   }
 
   eliminarTratamiento(rowData:any,rowIndex: any) {
-    // console.log("entrando a editar medicamentos",rowIndex,rowIndex);
+    // //console.log("entrando a editar medicamentos",rowIndex,rowIndex);
     Swal.fire({
       showCancelButton: true,
       confirmButtonText: 'Eliminar',
@@ -450,7 +450,7 @@ export class TratamientoGeneralComponent implements OnInit {
 
   onChangeDiagnostico() {
     this.PrestacionService.getProcedimientoPorCodigo(this.formTratamiento.value.cie10SIS.codPrestacion).subscribe((res: any) => {
-      // console.log(res.object);
+      // //console.log(res.object);
       this.listaPrestaciones = res.object;
       this.formTratamiento.patchValue({ prestacion: res.object.descripcion});
       this.formTratamiento.patchValue({ codPrestacion: res.object.codigo});
