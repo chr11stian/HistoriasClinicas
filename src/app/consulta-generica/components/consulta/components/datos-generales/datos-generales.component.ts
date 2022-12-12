@@ -97,7 +97,7 @@ export class DatosGeneralesComponent implements OnInit {
       nroDoc:this.dataFromlocal.nroDocumento
     } 
     this.datosGeneralesService.getPacientePorDoc(data).subscribe((resp: any) => {
-      console.log({resp});
+      //console.log({resp});
       this.datosGeneralesFG.get('fechaAtencion').setValue(new Date());
       this.datosGeneralesFG.get('tipoDoc').setValue(resp.object.tipoDoc);
       this.datosGeneralesFG.get('nroDoc').setValue(resp.object.nroDoc);
@@ -115,7 +115,7 @@ export class DatosGeneralesComponent implements OnInit {
   }
   getDatoGenerales(){
     this.datosGeneralesService.searchConsultaDatosGenerales(this.dataFromlocal.idConsulta).subscribe((resp: any) => {
-      // console.log({resp});
+      // //console.log({resp});
       this.datosGeneralesFG.get('fechaAtencion').setValue(new Date(resp.object.fecha));
       this.datosGeneralesFG.get('tipoDoc').setValue(resp.object.tipoDoc);
       this.datosGeneralesFG.get('nroDoc').setValue(resp.object.nroDoc);
@@ -174,6 +174,9 @@ export class DatosGeneralesComponent implements OnInit {
       servicio:this.dataFromlocal.ups,
       tipoConsulta:this.dataFromlocal.tipoConsulta
     }
+    // //console.log({inputRequest});
+    
+    
     this.datosGeneralesService.addConsultaDatosGenerales(inputRequest).subscribe((resp: any) => {
       
       this.idConsulta=resp.object.id;
@@ -242,7 +245,7 @@ export class DatosGeneralesComponent implements OnInit {
   }
   traerDataReniec() {
     this.datosGeneralesService.getDatosReniec(this.dataFromlocal.nroDocumento).subscribe((res: any) => {
-      // console.log(res);
+      // //console.log(res);
       if(res.foto==null){
         this.hayFoto=false;
       }
@@ -261,7 +264,7 @@ export class DatosGeneralesComponent implements OnInit {
       nombreSigno: this.signoAlarmaFG.value.nombreSigno.toUpperCase(),
       valorSigno: true
     }
-    console.log('a', a)
+    //console.log('a', a)
     this.signoAlarmaList.push(a)
     this.signoAlarmaFG.get('nombreSigno').setValue('')
   }

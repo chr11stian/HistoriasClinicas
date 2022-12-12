@@ -23,7 +23,7 @@ export class TratamientoSuplementacionComponent implements OnInit {
     dataConsulta=<any>JSON.parse(localStorage.getItem('documento'))
     constructor(private dialog: DialogService,
                 private TratamientosSuplementacionService:TratamientosSuplementacionService) {
-        console.log('inmunizacione')
+        // console.log('inmunizacione')
     }
 
     ngOnInit(): void {
@@ -49,7 +49,7 @@ export class TratamientoSuplementacionComponent implements OnInit {
                     timer: 1500,
                 })
             }
-            // console.log("data de modal tratamiento", data)
+            // // console.log("data de modal tratamiento", data)
             // this.recuperarInmunizaciones();
         })
     }

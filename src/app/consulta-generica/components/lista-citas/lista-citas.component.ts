@@ -47,19 +47,19 @@ export class ListaCitasComponent implements OnInit, OnChanges {
     return this.rutaActiva.snapshot.params.tipoConsulta
   }
   ngOnChanges(changes: SimpleChanges) {
-    console.log('ngOnChanges was called!');
-    console.log(changes);
+    //console.log('ngOnChanges was called!');
+    //console.log(changes);
   }
  /*  ngDoCheck() {
     // this.doSomething(this.myFirstInputParameter);
-    console.log('imprimimos algo',this.titulo)
+    //console.log('imprimimos algo',this.titulo)
     // this.getCuposXservicio()
   } */
   getTipoDocList() {
     this.documentoIdentidadService.getDocumentosIdentidad().subscribe((res: any) => {
       this.tipoDocList = res.object;
       this.formCitas.get('tipoDoc').setValue(this.tipoDocList[0].abreviatura)
-      // console.log({tipoDocList:this.tipoDocList});
+      // //console.log({tipoDocList:this.tipoDocList});
     })
   }
   buscarCupoXdniFecha() {
@@ -78,13 +78,13 @@ export class ListaCitasComponent implements OnInit, OnChanges {
       nroDoc: this.formCitas.get("nroDoc").value,
       fecha: this.datePipe.transform(this.formCitas.get("fechaBusqueda").value, 'yyyy-MM-dd')
     }
-    // console.log( {data})
+    // //console.log( {data})
     this.cuposService.buscarCupoPorDniFechaIpress(this.idIpress, data).then((resp:any) => {
-      console.log({resp})
+      //console.log({resp})
       this.cuposList=[]
       this.cuposList.push(resp.object)
     }).catch((error)=>{
-      // console.log(error);
+      // //console.log(error);
       
     });
   }
@@ -95,7 +95,7 @@ export class ListaCitasComponent implements OnInit, OnChanges {
     } 
     this.cuposService.getTriadosServicioFecha1(inputRequest).subscribe((res: any) => {
       this.cuposList = res.object;
-      //console.log({listaCupos:this.dataCupos});
+      ////console.log({listaCupos:this.dataCupos});
     })
   }
  

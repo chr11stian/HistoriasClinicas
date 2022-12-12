@@ -73,7 +73,7 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
     this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
     // this.dataConsulta = <any>JSON.parse(localStorage.getItem(this.attributeLocalS));
     this.dataConsulta=<any>JSON.parse(localStorage.getItem('documento'))
-    console.log("ipress", this.idIpress)
+    //console.log("ipress", this.idIpress)
 
     /*********RECUPERAR DATOS*********/
     /*usando local storage*/
@@ -86,8 +86,8 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
     //estado para saber que estado usar en consultas
     this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
 
-    console.log("DATA PACIENTE 2 desde datos generales", this.dataPaciente2);
-    console.log("gestacion desde datos generales", this.Gestacion);
+    //console.log("DATA PACIENTE 2 desde datos generales", this.dataPaciente2);
+    //console.log("gestacion desde datos generales", this.Gestacion);
 
     if (this.Gestacion == null) {
       // // this.tipoDocRecuperado = this.dataPaciente2.tipoDoc;
@@ -107,15 +107,15 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
       //guardar en el ls el nroAtencion
       let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaNueva'));
       this.nroAtencion = nroAtencion;
-      console.log("entre a nueva consulta", this.nroAtencion)
+      //console.log("entre a nueva consulta", this.nroAtencion)
     }
     else {
       let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaEditar'));
       this.nroAtencion = nroAtencion;
-      console.log("entre a edicion consulta", this.nroAtencion)
+      //console.log("entre a edicion consulta", this.nroAtencion)
     }
 
-    console.log(config.data);
+    //console.log(config.data);
     this.buildForm();
 
     this.recuperarPrestaciones();
@@ -172,7 +172,7 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
     this.PrestacionService.getDiagnosticoPorCodigo(codigoPrestacion).subscribe((res: any) => {
       this.listaDeCIESIS = res.object.procedimientos;
 
-      console.log(res.object);
+      //console.log(res.object);
       if(res.object.denominacion=='ANIOS')
       {
         if(this.dataConsulta.anio>=res.object.edadMin && this.dataConsulta.anio<=res.object.edadMax){
@@ -244,13 +244,13 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
       edad: this.edadPaciente,
       sexo: this.sexoPaciente
     }
-    console.log("DATA PARA UPS HIS", Data)
+    //console.log("DATA PARA UPS HIS", Data)
     this.DxService.listaUpsHis(Data).then((res: any) => this.listaUpsHis = res.object);
   }
   recuperarUPS() {
     this.DxService.listaUps(this.idIpress).then((res: any) => {
         this.listaUps = res.object;
-        console.log("DATA PARA UPS", this.listaUps);
+        //console.log("DATA PARA UPS", this.listaUps);
     });
   }
   openNew() {
@@ -260,7 +260,7 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
   // traerDiagnosticosDeConsulta() {
   //   this.DxService.listarDiagnosticosDeUnaConsulta(this.nroHcl, this.nroEmbarazo, this.nroAtencion).then((res: any) => {
   //     this.diagnosticosList = res.object;
-  //     console.log("diagnosticos:", this.diagnosticosList);
+  //     //console.log("diagnosticos:", this.diagnosticosList);
   //   })
   // }
   async enviarTratamientoInmunizaciones() {
@@ -285,7 +285,7 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
       idConsulta:this.dataConsulta.idConsulta,
       pertenecePAICRED: false,
     }
-    console.log(data);
+    //console.log(data);
     this.TratamientosInmunizacionService.postInmunizacion(data).subscribe((resp)=>{
       this.ref.close('agregado');
     })
@@ -329,7 +329,7 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
       }
     }
 
-    console.log(data);
+    //console.log(data);
 
     await this.DxService.editarInmunizacionGestante(this.nroHcl, this.nroEmbarazo, this.nroAtencion, data).then((res: any) => {
       this.dialogInmunizaciones = false;
@@ -397,7 +397,7 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
   recuperarPrestaciones() {
     this.DxService.getPrestaciones().subscribe((res: any) => {
       this.prestacionList = res.object;
-      console.log("prestaciones:---->", this.prestacionList);
+      //console.log("prestaciones:---->", this.prestacionList);
     })
   }
   onChangeDiagnostico() {
@@ -425,13 +425,13 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
   }
 
   selectedOptionNameCIE(event, cieType) {
-    console.log('lista de cie ', this.listaDeCIE);
-    console.log('evento desde diagnos ', event);
+    //console.log('lista de cie ', this.listaDeCIE);
+    //console.log('evento desde diagnos ', event);
     if (cieType == 0) {
       this.formInmunizaciones.patchValue({ diagnosticoSIS: event.value.procedimiento });
       this.formInmunizaciones.patchValue({ autocompleteSIS: "" });
       this.formInmunizaciones.patchValue({ SISCIE: event.value }, { emitEvent: false });
-      console.log(event.value)
+      //console.log(event.value)
     }
     if (cieType == 1) {
       this.formInmunizaciones.patchValue({ diagnosticoHIS: event.descripcionItem });
@@ -447,8 +447,8 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
   }
 
   selectedOptionNameMedicamento(event) {
-    console.log('lista de medicamentos ', this.listaMedicamentos);
-    console.log('evento desde medicamentos ', event);
+    //console.log('lista de medicamentos ', this.listaMedicamentos);
+    //console.log('evento desde medicamentos ', event);
     this.formInmunizaciones.patchValue({ nombreComercial: event.nombreComercial }, { emitEvent: false });
   }
 }
