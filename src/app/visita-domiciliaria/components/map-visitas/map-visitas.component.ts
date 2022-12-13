@@ -6,6 +6,7 @@ import {
   SimpleChanges,
 } from "@angular/core";
 import * as L from "leaflet";
+import { pipe } from "rxjs";
 import { VisitaDomiciliariaService } from "../../services/visita-domiciliaria.service";
 
 interface HtmlInputEvent extends Event {
@@ -98,8 +99,10 @@ export class MapVisitasComponent implements OnInit, OnChanges {
             .subscribe((res: any) => {
               auxImg = res["object"];
             });
+            console.log("aux img",auxImg);
           setTimeout(() => {
             let aux_ = "data:image/jpg;base64," + auxImg;
+            console.log("aux_",aux_);
             L.marker(
               [aux.value.validator.latitud, aux.value.validator.longitud],
               { icon: ninios_mayores_Icon },
@@ -109,9 +112,10 @@ export class MapVisitasComponent implements OnInit, OnChanges {
             )
               .addTo(this.maps)
               .bindPopup(
-                `<div style="width:200px;height:330px">
+                `<div style="width:200px;height:350px">
               <h3 style="font-style: italic;font-weight:bold;font-size:12px;color:#af0017;text-align:center;font-family: Times, "Times New Roman", Georgia, serif">VISITA DE NIÑOS,NIÑAS DE 4-24 MESES</h3>
               <h4 style="font-style: italic;font-weight:bold;font-size:10px;color:#000000;text-align:left;font-family: Times, "Times New Roman", Georgia, serif">VISITA NÚMERO :${aux.value.nroVisita}</h4>
+              <h4 style="font-style: italic;font-weight:bold;font-size:10px;color:#000000;text-align:left;font-family: Times, "Times New Roman", Georgia, serif">FECHA DE VISITA  :${aux.value.fecha_creacion_documento}</h4>
               <h4  style="font-style: italic;font-weight:bold;font-size:10px;color:#000000;text-align:left;font-family: Times, "Times New Roman", Georgia, serif">ALTITUD:${aux.value.validator.altitud}</h4>
               <h4  style="font-style: italic;font-weight:bold;font-size:10px;color:#000000;text-align:left;font-family: Times, "Times New Roman", Georgia, serif">DATOS NIÑO(A):${aux.value.apellidos_ninio} ${aux.value.nombres_ninio}</h4>
               <img style=" width: 180px; 
@@ -123,7 +127,7 @@ export class MapVisitasComponent implements OnInit, OnChanges {
               `,
                 { closeButton: false }
               );
-          }, 2000);
+          }, 4000);
         } 
         else if (aux.value.menor_cuatro_meses == "menor_cuatro_meses") {
           let auxImg;
@@ -144,7 +148,7 @@ export class MapVisitasComponent implements OnInit, OnChanges {
               .addTo(this.maps)
               .bindPopup(
                 `
-                <div style="width:200px;height:330px">
+                <div style="width:200px;height:350">
                 <h3  style="font-style: italic;font-weight:bold;font-size:12px;color:#af0017;text-align:center;font-family: Times, "Times New Roman", Georgia, serif">VISITA NIÑOS,NIÑAS DE 0-4 MESES</h3>
                 <h4 style="font-style: italic;font-weight:bold;font-size:10px;color:#000000;text-align:left;font-family: Times, "Times New Roman", Georgia, serif">VISITA NRO :${aux.value.nroVisita}</h4>
                 <h4 style="font-style: italic;font-weight:bold;font-size:10px;color:#000000;text-align:left;font-family: Times, "Times New Roman", Georgia, serif">ALTITUD:${aux.value.validator.altitud}</h4> 
@@ -183,7 +187,7 @@ export class MapVisitasComponent implements OnInit, OnChanges {
               .addTo(this.maps)
               .bindPopup(
                 `
-              <div style="width:200px;height:330px">
+              <div style="width:200px;height:350px">
               <h3 style="font-style: italic;font-weight:bold;font-size:12px;color:#af0017;text-align:center;font-family: Times, "Times New Roman", Georgia, serif">VISITA DOMICILIARIA DE LA GESTANTE</h3>
               <h4 style="font-style: italic;font-weight:bold;font-size:10px;color:#000000;text-align:left;font-family: Times, "Times New Roman", Georgia, serif">VISITA NRO :${aux.value.nroVisita}</h4>
               <h4 style="font-style: italic;font-weight:bold;font-size:10px;color:#000000;text-align:left;font-family: Times, "Times New Roman", Georgia, serif">ALTITUD:${aux.value.validator.altitud}</h4> 
@@ -217,7 +221,7 @@ export class MapVisitasComponent implements OnInit, OnChanges {
               .addTo(this.maps)
               .bindPopup(
                 `
-              <div style="width:200px;height:330px">
+              <div style="width:200px;height:350px">
               <h3 style="font-style: italic;font-weight:bold;font-size:12px;color:#af0017;text-align:center;font-family: Times, "Times New Roman", Georgia, serif">VISITA DOMICILIARIA DE LA PUERPERA</h3>
               <h4 style="font-style: italic;font-weight:bold;font-size:10px;color:#000000;text-align:left;font-family: Times, "Times New Roman", Georgia, serif">VISITA NRO :${aux.value.nroVisita}</h4>
               <h4 style="font-style: italic;font-weight:bold;font-size:10px;color:#000000;text-align:left;font-family: Times, "Times New Roman", Georgia, serif">ALTITUD:${aux.value.validator.altitud}</h4> 

@@ -80,14 +80,12 @@ export class PorIpressComponent implements OnInit {
   }
 
   listaVisitas() {
-   let ipress =this.servicioVisitas.getEscalaCodIpress();
-  // let ipress="00002303";
+  let ipress =this.servicioVisitas.getEscalaCodIpress();
     this.servicioVisitas.couch = true;
     this.servicioVisitaProfesionalIpress
       .getVisitasProfesionalesPorIpress(ipress)
       .subscribe((data) => {
         this.dataVisitas = data["rows"];
-        console.log("data", data);
         this.dataVisitas.map((aux, index) => {
           if (this.dniProfesionalIpress.indexOf(aux.value.responsable) === -1) {
             this.recuperarVisitasNiniosMayores4Meses(ipress,aux);
@@ -99,7 +97,6 @@ export class PorIpressComponent implements OnInit {
             this.profesionalesIpress.push(this.profesional);
           }
         });
-        console.log("data profesional", this.profesionalesIpress);
       });
   }
 
@@ -114,7 +111,6 @@ export class PorIpressComponent implements OnInit {
   }
 
   async recuperarVisitasNiniosMayores4Meses(ipress,aux) {
-    // console.log("arreglo ");
     this.servicioVisitas.couch = true;
     await this.servicioVisitaProfesionalNinios.getVisitasNiniosXProfesionalMayores_4_Meses(ipress,aux.value.responsable,this.servicioVisitas.getAnio())
       .then((data_ninios) => {
@@ -140,7 +136,6 @@ export class PorIpressComponent implements OnInit {
     this.servicioVisitas.couch = true;
     await this.servicioVisitaProfesionalGestantes.getVisitasGestantesXProfesionalAnio(ipress, aux.value.responsable,this.servicioVisitas.getAnio())
       .then((data_gestantes) => {
-        // console.log("data gestantess",data_gestantes);
         let auxIndex: number = this.dniProfesionalIpress.indexOf(aux.value.responsable);
         this.profesionalesIpress[auxIndex].visitas_gestantes=[];
         if (data_gestantes["rows"].length > 0){
@@ -152,7 +147,6 @@ export class PorIpressComponent implements OnInit {
     this.servicioVisitas.couch = true;
     await this.servicioVisitaProfesionalGestantes.getVisitasGestantesXProfesionalAnio(ipress, aux.value.responsable,this.servicioVisitas.getAnio())
       .then((data_puerperas) => {
-        // console.log("data puerperasss",data_puerperas);
         let auxIndex: number = this.dniProfesionalIpress.indexOf(aux.value.responsable);
         this.profesionalesIpress[auxIndex].visitas_puerperas=[];
         if (data_puerperas["rows"].length > 0){
@@ -163,7 +157,6 @@ export class PorIpressComponent implements OnInit {
 
   async verVisitasPorAnio(event){
     let ipress =this.servicioVisitas.getEscalaCodIpress();
-    // let ipress="00002303";
     this.servicioVisitas.couch = true;
     this.selectedAnio = event.value;
     this.dniProfesionalIpress=[];
@@ -172,7 +165,6 @@ export class PorIpressComponent implements OnInit {
       .getVisitasProfesionalesPorIpress(ipress)
       .subscribe((data) => {
         this.dataVisitas = data["rows"];
-        console.log("data", data);
         this.dataVisitas.map((aux, index) => {
           if (this.dniProfesionalIpress.indexOf(aux.value.responsable) === -1) {
             this.recuperarVisitasNiniosMayores4MesesAnio(ipress,aux,this.selectedAnio);
@@ -234,7 +226,6 @@ export class PorIpressComponent implements OnInit {
 
   async verVisitasPorMes(event){
     let ipress =this.servicioVisitas.getEscalaCodIpress();
-      //  let ipress="00002303";
     if (this.selectedAnio != "") {
       this.servicioVisitas.couch = true;
       this.selectedMes = event.value;
@@ -245,7 +236,6 @@ export class PorIpressComponent implements OnInit {
         .getVisitasProfesionalesPorIpress(ipress)
         .subscribe((data) => {
           this.dataVisitas = data["rows"];
-          console.log("data", data);
           this.dataVisitas.map((aux, index) => {
             if (this.dniProfesionalIpress.indexOf(aux.value.responsable) === -1) {
               this.recuperarVisitasNiniosMayores4MesesAnioMes(ipress,aux,fecha);
@@ -263,7 +253,6 @@ export class PorIpressComponent implements OnInit {
 
   async recuperarVisitasNiniosMayores4MesesAnioMes(ipress,aux,fecha) {
     this.servicioVisitas.couch = true;
-    console.log("el aniooo",fecha);
     await this.servicioVisitaProfesionalNinios.getVisitasNiniosXProfesionalMayores_4_MesesFecha(ipress,aux.value.responsable,fecha)
       .then((data_ninios) => {
         let auxIndex: number = this.dniProfesionalIpress.indexOf(aux.value.responsable);
@@ -288,7 +277,6 @@ export class PorIpressComponent implements OnInit {
     this.servicioVisitas.couch = true;
     await this.servicioVisitaProfesionalGestantes.getVisitasGestantesFecha(ipress, aux.value.responsable,fecha)
       .then((data_gestantes) => {
-        console.log("data gestantess",data_gestantes);
         let auxIndex: number = this.dniProfesionalIpress.indexOf(aux.value.responsable);
         this.profesionalesIpress[auxIndex].visitas_gestantes=[];
         if (data_gestantes["rows"].length > 0){
@@ -298,10 +286,8 @@ export class PorIpressComponent implements OnInit {
   }
   async recuperarPuerperasAnioMes(ipress,aux,fecha) {
     this.servicioVisitas.couch = true;
-    console.log("el aniooo",fecha);
     await this.servicioVisitaProfesionalGestantes.getVisitasPuerperasFecha(ipress, aux.value.responsable,fecha)
       .then((data_puerperas) => {
-        console.log("data puerperasss",data_puerperas);
         let auxIndex: number = this.dniProfesionalIpress.indexOf(aux.value.responsable);
         this.profesionalesIpress[auxIndex].visitas_puerperas=[];
         if (data_puerperas["rows"].length > 0){

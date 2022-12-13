@@ -70,11 +70,7 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.buildForm();
     this.listaVisitas();
-    // setTimeout(() => {
-    //   this.markersMapStreet();
-    // }, 500);
   }
 
   buildForm() {
@@ -94,13 +90,11 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
       .then((data: any) => {
         this.dataVisitas = data["rows"];
         this.dataVisitas.map((aux) => {
-         // console.log(aux.value);
           if (aux.value.hasOwnProperty("menor_cuatro_meses")){
             this.dataVisitas_Menores_4_meses.push(aux.value)
           };
         });
         this.dataVisitas.map((aux) => {
-          // console.log(aux.value);
           if (aux.value.hasOwnProperty("mayor_cuatro_meses")) {
             this.dataVisitas_Mayores_4_meses.push(aux.value)
           };
@@ -155,14 +149,12 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
         this.dataVisitas.map((aux) => {
           if (aux.value.hasOwnProperty("menor_cuatro_meses")){
             this.dataVisitas_Menores_4_meses.push(aux.value)
-            // return aux
           };
         });
 
         this.dataVisitas.map((aux) => {
           if (aux.value.hasOwnProperty("mayor_cuatro_meses")){
             this.dataVisitas_Mayores_4_meses.push(aux.value)
-            // return aux
           };
         });
       });
@@ -238,7 +230,6 @@ export class VisitasDomiciliariasNiniosComponent implements OnInit {
       width: "70%",
       height:"80%",
       contentStyle: {
-        //"max-height": "93%",
         overflow: "auto",
       },
       data:dni,

@@ -54,7 +54,7 @@ export class PnGestanteComponent implements OnInit {
         overflow: "auto",
       },
     });
-    // localStorage.removeItem("gestanteLocalStorage");
+    localStorage.removeItem("gestanteLocalStorage");
     this.ref.onClose.subscribe((data: any) => {
       this.mostrarPadronNominalGestantes();
     });
@@ -69,7 +69,7 @@ export class PnGestanteComponent implements OnInit {
         overflow: "auto",
       },
     });
-    // localStorage.removeItem("gestanteLocalStorage");
+    localStorage.removeItem("gestanteLocalStorage");
     this.ref.onClose.subscribe((data: any) => {
       this.mostrarPadronNominalGestantes();
     });
@@ -84,7 +84,7 @@ export class PnGestanteComponent implements OnInit {
         overflow: "auto",
       },
     });
-    // localStorage.removeItem("gestanteLocalStorage");
+     localStorage.removeItem("gestanteLocalStorage");
     this.ref.onClose.subscribe((data: any) => {
       this.mostrarPadronNominalGestantes();
     });
@@ -138,6 +138,5 @@ export class PnGestanteComponent implements OnInit {
 
     let auxBirth = newYear + "/" + newMonth + "/" + newDay;
     return auxBirth;
-    // this.formGestante.get('fpp').setValue(this.datePipe.transform(auxBirth,'yyyy-MM-dd'));
   }
 }

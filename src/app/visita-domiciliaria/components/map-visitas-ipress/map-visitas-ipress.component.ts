@@ -39,7 +39,6 @@ export class MapVisitasIpressComponent implements OnInit,OnChanges {
       this.initMap();
     }
   }
-  //./assets/svg-marker/marker-visita-domiciliaria.svg
   initMap() {
 
     var iconDefault = L.icon({
@@ -202,7 +201,6 @@ export class MapVisitasIpressComponent implements OnInit,OnChanges {
               .urlImagen(a.value.validator.imagen)
               .subscribe((res: any) => {
                 auxImg = res["object"];
-                // console.log("Aux Ims",auxImg)
               });
               setTimeout(() => {
                 let aux_ = "data:image/jpg;base64," + auxImg;
