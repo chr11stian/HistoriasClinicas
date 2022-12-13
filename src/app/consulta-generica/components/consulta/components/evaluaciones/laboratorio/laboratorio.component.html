@@ -4,30 +4,138 @@
             <h3 class="mt-2">LABORATORIO</h3>
         </ng-template>
         <ng-template pTemplate="right" class="button">
-            <button pButton pRipple label="Agregar Solicitud" icon="pi pi-plus" pButton type="button"
-                class="button-agregar" (click)="openDialogSolicitud()"></button>
+            <button
+                pButton
+                pRipple
+                label="Agregar Solicitud"
+                icon="pi pi-plus"
+                pButton
+                type="button"
+                class="button-agregar"
+                (click)="openDialogSolicitud()"
+            ></button>
         </ng-template>
     </p-toolbar>
     <p-accordion>
-        <p-accordionTab header="LISTA DE SOLICITUDES DE EXÁMENES DEL PACIENTE" [selected]="true">
-            <p-table class="table-over" [value]="listaSolicitudes" #dt styleClass="p-datatable-gridlines" [rows]="10"
-                [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
+        <p-accordionTab
+            header="LISTA DE SOLICITUDES DE EXÁMENES DEL PACIENTE"
+            [selected]="true"
+        >
+            <p-table
+                class="table-over"
+                [value]="listaSolicitudes"
+                #dt
+                styleClass="p-datatable-gridlines"
+                [rows]="10"
+                [rowsPerPageOptions]="[10, 25, 50]"
+                [paginator]="true"
+                [autoLayout]="true"
                 [showCurrentPageReport]="true"
-                currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
-                <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
+            >
+                <ng-template
+                    pTemplate="header"
+                    styleClass="p-datatable-gridlines"
+                >
                     <tr>
                         <th style="text-align: center" class="font-2">Nro</th>
-                        <th style="text-align: center" class="font-1">Nombre Examen SIS</th>
+                        <th style="text-align: center" class="font-1">
+                            Nombre Examen SIS
+                        </th>
                         <th style="text-align: center" class="font-1">Tipo</th>
-                        <th style="text-align: center" class="font-2">Lugar Examen</th>
+                        <th style="text-align: center" class="font-2">
+                            Lugar Examen
+                        </th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                <ng-template
+                    pTemplate="body"
+                    let-rowData
+                    let-rowIndex="rowIndex"
+                >
                     <tr>
-                        <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                        <td style="text-align: center">{{ rowData.nombreExamen }}</td>
-                        <td style="text-align: center">{{ rowData.subTipo }}</td>
-                        <td style="text-align: center">{{ rowData.lugarExamen }}</td>
+                        <td style="text-align: center" class="font-2">
+                            {{ rowIndex + 1 }}
+                        </td>
+                        <td style="text-align: center">
+                            {{ rowData.nombreExamen }}
+                        </td>
+                        <td style="text-align: center">
+                            {{ rowData.subTipo }}
+                        </td>
+                        <td style="text-align: center">
+                            {{ rowData.lugarExamen }}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-accordionTab>
+    </p-accordion>
+
+    <p-accordion>
+        <p-accordionTab
+            header="LISTA DE RESULTADO DE EXAMENES REALIZADOS AL PACIENTE"
+            [selected]="true"
+        >
+            <p-table
+                [value]="dataExamenesRealizados"
+                #dt
+                [globalFilterFields]="['fecha']"
+                styleClass="p-datatable-gridlines "
+                [rows]="5"
+                responsiveLayout="scroll"
+                class="CitasList"
+                [rowsPerPageOptions]="[5, 10, 15]"
+                [paginator]="true"
+                [autoLayout]="true"
+                currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
+            >
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="text-align: center; font-size: 11px">Nro</th>
+                        <th style="text-align: center; font-size: 11px">
+                            FECHA REGISTRO
+                        </th>
+                        <th style="text-align: center; font-size: 11px">
+                            TIPO DE EXAMEN
+                        </th>
+                        <th style="text-align: center; font-size: 11px">
+                            NOMBRE DEL EXAMEN
+                        </th>
+                        <th style="text-align: center; font-size: 11px">
+                            RESULTADOS
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template
+                    pTemplate="body"
+                    let-rowData
+                    let-rowIndex="rowIndex"
+                >
+                    <tr>
+                        <td style="text-align: center; font-size: 11px">
+                            {{ rowIndex + 1 }}
+                        </td>
+                        <td style="text-align: center; font-size: 11px">
+                            {{ rowData.fechaRegistro }}
+                        </td>
+                        <td style="text-align: center; font-size: 11px">
+                            {{ rowData.datosLaboratorio.subTipo }}
+                        </td>
+                        <td style="text-align: center; font-size: 11px">
+                            {{ rowData.datosLaboratorio.nombreExamen }}
+                        </td>
+                        <td style="text-align: center">
+                            <button
+                                pButton
+                                pRipple
+                                type="button"
+                                label="Ver"
+                                class="p-button-secondary"
+                                style="font-size: 11px"
+                                (click)="openDialogLab(rowData)"
+                            ></button>
+                        </td>
                     </tr>
                 </ng-template>
             </p-table>
