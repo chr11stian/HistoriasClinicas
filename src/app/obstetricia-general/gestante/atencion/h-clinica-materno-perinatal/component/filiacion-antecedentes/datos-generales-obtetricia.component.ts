@@ -117,7 +117,7 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
             this.tipoDocRecuperado = this.dataPaciente2.tipoDoc;
             this.nroDocRecuperado = this.dataPaciente2.nroDoc;
             this.idRecuperado = JSON.parse(localStorage.getItem('idGestacionRegistro'));
-            console.log("ID RESIEN", this.idRecuperado)
+            //console.log("ID RESIEN", this.idRecuperado)
 
         } else {
             this.tipoDocRecuperado = this.Gestacion.tipoDoc;
@@ -155,7 +155,7 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        console.log("ID RECUPERADo", this.idRecuperado);
+        //console.log("ID RECUPERADo", this.idRecuperado);
         // })
         this.buildForm2();
         this.getpacienteFiiacionByID();
@@ -192,7 +192,7 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
             // await Swal.fire(text)
             this.viven = text
             this.SumaNacidosVivos()
-            console.log(this.SumaNacidosVivos())
+            //console.log(this.SumaNacidosVivos())
 
         }
 
@@ -388,7 +388,7 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
 
         }
 
-        console.log("DETALLE PARTO", this.DetalleParto)
+        //console.log("DETALLE PARTO", this.DetalleParto)
     }
 
     inicializarAregloAntfamiliares(): void {
@@ -825,7 +825,7 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
                 this.DetalleParto4,
             ]
         }
-        // console.log("DATA ANTECEDENTES", req)
+        // //console.log("DATA ANTECEDENTES", req)
         this.filiancionService.UpdateAntecedentesFiliacion(this.tipoDocRecuperado, this.nroDocRecuperado, req).subscribe(
             result => {
                 Swal.fire({
@@ -864,7 +864,7 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
             vacunasPrevias: vacPrev
         }
         // this.datosBasalesService.postDatosBasalesById(this.idRecuperado, data).subscribe((res: any) => {
-        //     console.log('se guardo correctamente ', res.object);
+        //     //console.log('se guardo correctamente ', res.object);
         //     Swal.fire({
         //         icon: 'success',
         //         title: 'Registro',
@@ -880,7 +880,7 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
         let auxVac;
         this.datosBasalesService.getDatosBasalesById(this.idRecuperado).subscribe((res: any) => {
             let rptaDatosBasales = res.object;
-            console.log('datos de embarazo', rptaDatosBasales)
+            //console.log('datos de embarazo', rptaDatosBasales)
             if (rptaDatosBasales == null)
                 return
             auxVac = rptaDatosBasales.vacunasPrevias.find(item => item == "rubeola")
@@ -899,7 +899,7 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
     getpacienteFiiacionByID() {
         this.filiancionService.getAntecedentesFiliacion(this.idRecuperado).subscribe((res: any) => {
             this.dataAntecedentes = res.object;
-            console.log('Antecedentes por ID ', this.dataAntecedentes)
+            //console.log('Antecedentes por ID ', this.dataAntecedentes)
 
             if (this.dataAntecedentes == null) {
                 return
@@ -998,7 +998,7 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
 
 
                 this.Ninguno = [this.dataAntecedentes.antecedentesPersonales[0].nombre];
-                console.log("ERRRR", this.Ninguno);
+                //console.log("ERRRR", this.Ninguno);
                 this.Abortohabitualrecurrente = [this.dataAntecedentes.antecedentesPersonales[1].nombre];
                 this.Violencia = [this.dataAntecedentes.antecedentesPersonales[2].nombre];
                 this.Cardiopatia = [this.dataAntecedentes.antecedentesPersonales[3].nombre];
@@ -1053,6 +1053,6 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
     }
 
     fnCheckbox(value) {
-        console.log(value);
+        //console.log(value);
     }
 }

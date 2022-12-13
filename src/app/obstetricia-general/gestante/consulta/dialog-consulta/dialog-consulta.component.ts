@@ -224,9 +224,9 @@ export class DialogConsultaComponent implements OnInit {
         this.nroHcl = this.obstetriciaGeneralService.nroHcl;
         this.inicializarForm();
         this.consultaObstetriciaService.traerDatosParaConsultaNueva({ nroHcl: this.nroHcl }).subscribe((res: any) => {
-            console.log('datos ', res.object);
+            //console.log('datos ', res.object);
             this.datosNuevaConsulta = res.object;
-            console.log("este config", config.data);
+            //console.log("este config", config.data);
             this.form.get("edad").setValue(this.datosNuevaConsulta.edad ? this.datosNuevaConsulta.edad : "");
             this.form.get("nroAtencion").setValue(this.datosNuevaConsulta.nroUltimaAtencion ? this.datosNuevaConsulta.nroUltimaAtencion + 1 : "");
             this.form.get("nroControlSis").setValue(this.datosNuevaConsulta.nroMayorControlSis ? this.datosNuevaConsulta.nroMayorControlSis + 1 : "");
@@ -239,7 +239,7 @@ export class DialogConsultaComponent implements OnInit {
             if (config.data) {
                 this.llenarCamposEdicionConsulta();
                 this.estadoEdicion = true;
-                console.log("estadoEdicion", this.estadoEdicion);
+                //console.log("estadoEdicion", this.estadoEdicion);
             }
         });
 
@@ -256,7 +256,7 @@ export class DialogConsultaComponent implements OnInit {
             this.form.get("edadDias").setValue(edadGestacional % 7);
             this.form.get("ecografiaEdadSemanas").setValue(Math.trunc(edadGestacional / 7));
             this.form.get("ecografiaEdadDias").setValue(edadGestacional % 7);
-            console.log('edad gestacional ', edadGestacional);
+            //console.log('edad gestacional ', edadGestacional);
         }
     }
     onChangeEstadoVisita() {
@@ -530,7 +530,7 @@ export class DialogConsultaComponent implements OnInit {
         this.form.get("evalNutricionalValor").setValue(gananciaPeso);
         if (parseFloat(imc) < 18.5) {//bajo peso
             this.imcService.getGananciaBajoPeso(semanas).subscribe((res: any) => {
-                console.log('datos ', res.object);
+                //console.log('datos ', res.object);
                 let auxiliar = res.object.recomendacionGananciaBajoPeso[0]
 
                 if (parseFloat(this.form.value.talla) < 157) {
@@ -556,7 +556,7 @@ export class DialogConsultaComponent implements OnInit {
             if (parseFloat(imc) < 25) {//normal
                 this.imcService.getGananciaPesoRegular(semanas).subscribe((res: any) => {
                     let auxiliar = res.object.recomendacionGananciaPesoRegular[0];
-                    console.log('datos ', auxiliar);
+                    //console.log('datos ', auxiliar);
                     if (this.form.value.nroFetos < 2) {
                         if (parseFloat(this.form.value.talla) < 157) {
                             if (gananciaPeso < auxiliar.min) {
@@ -600,7 +600,7 @@ export class DialogConsultaComponent implements OnInit {
                 if (parseFloat(imc) < 30) {//sobrepeso
                     this.imcService.getGananciaSobrePeso(semanas).subscribe((res: any) => {
                         let auxiliar = res.object.recomendacionGananciaSobrePeso[0];
-                        console.log('datos ', res.object);
+                        //console.log('datos ', res.object);
                         if (parseFloat(this.form.value.talla) < 157) {
                             if (gananciaPeso < auxiliar.min) {
                                 indicador = "GIP"
@@ -622,7 +622,7 @@ export class DialogConsultaComponent implements OnInit {
                 }
                 else {//obesidad
                     this.imcService.getGananciaObesa(semanas).subscribe((res: any) => {
-                        console.log('datos ', res.object);
+                        //console.log('datos ', res.object);
                         let auxiliar = res.object.recomendacionGananciaObesa[0];
                         if (this.form.value.nroFetos < 2) {
                             if (parseFloat(this.form.value.talla) < 157) {
@@ -675,7 +675,7 @@ export class DialogConsultaComponent implements OnInit {
             funcion: this.formOtrosPruebas.value.nombre,
             valor: this.formOtrosPruebas.value.resultado,
         }
-        console.log(prueba);
+        //console.log(prueba);
         this.datosOtrosPruebasFisicas.push(prueba);
         this.datosOtrosPruebasFisicas = [...this.datosOtrosPruebasFisicas];
         this.otrosPruebasDialog = false;
@@ -704,7 +704,7 @@ export class DialogConsultaComponent implements OnInit {
             funcion: this.formOtrosPruebas.value.nombre,
             valor: this.formOtrosPruebas.value.resultado,
         }
-        console.log(prueba);
+        //console.log(prueba);
         this.datosOtrosPruebasFisicas.splice(this.indexEditarOtrosPruebasFisicasEditado, 1, prueba);
         this.otrosPruebasDialog = false;
         this.estadoEditarOtrosPruebasFisicas = false;
@@ -744,7 +744,7 @@ export class DialogConsultaComponent implements OnInit {
             posicion: this.formExamenFetal.value.selectPosicion,
             fcf: parseInt(this.formExamenFetal.value.latidosCardiacosFetales)
         }
-        console.log(examenFetal);
+        //console.log(examenFetal);
         this.datosExamenesFetales.push(examenFetal);
         this.datosExamenesFetales = [...this.datosExamenesFetales];
         this.examenFetalDialog = false;
@@ -779,7 +779,7 @@ export class DialogConsultaComponent implements OnInit {
             posicion: this.formExamenFetal.value.selectPosicion,
             fcf: parseInt(this.formExamenFetal.value.latidosCardiacosFetales)
         }
-        console.log(examenFetal);
+        //console.log(examenFetal);
         this.datosExamenesFetales.splice(this.indexExamenFetalEditado, 1, examenFetal);
         this.examenFetalDialog = false;
         this.estadoEditarExamenFetal = false;
@@ -817,7 +817,7 @@ export class DialogConsultaComponent implements OnInit {
             diagnostico: this.formDiagnostico.value.diagnostico,
             cie10: this.formDiagnostico.value.cie10 === '' ? '' : this.formDiagnostico.value.cie10.codigoItem,
         }
-        console.log(diagnostico);
+        //console.log(diagnostico);
         this.datosDiagnosticos.push(diagnostico);
         this.datosDiagnosticos = [...this.datosDiagnosticos];
         this.diagnosticoDialog = false;
@@ -850,7 +850,7 @@ export class DialogConsultaComponent implements OnInit {
             cie10: this.formDiagnostico.value.cie10 === '' ? '' : this.formDiagnostico.value.cie10.codigoItem,
             tipo: this.formDiagnostico.value.tipo,
         }
-        console.log(diagnostico);
+        //console.log(diagnostico);
         this.datosDiagnosticos.splice(this.indexDiagnosticoEditado, 1, diagnostico);
         this.diagnosticoDialog = false;
         this.estadoEditarDiagnosticos = false;
@@ -892,7 +892,7 @@ export class DialogConsultaComponent implements OnInit {
             duracion: this.formTratamiento.value.duracion,
             observaciones: this.formTratamiento.value.observaciones,
         }
-        console.log(tratamiento);
+        //console.log(tratamiento);
         this.datosTratamientos.push(tratamiento);
         this.datosTratamientos = [...this.datosTratamientos];
         this.tratamientoDialog = false;
@@ -931,7 +931,7 @@ export class DialogConsultaComponent implements OnInit {
             duracion: this.formTratamiento.value.duracion,
             observaciones: this.formTratamiento.value.observaciones,
         }
-        console.log(tratamiento);
+        //console.log(tratamiento);
         this.datosTratamientos.splice(this.indexTratamientoEditado, 1, tratamiento);
         this.tratamientoDialog = false;
         this.estadoEditarTratamientos = false;
@@ -969,7 +969,7 @@ export class DialogConsultaComponent implements OnInit {
             /*examen:*/ this.formExamenAuxiliar.value.examen;
         //codigo: this.formTratamiento.value.codigo,
         //}
-        console.log(examen);
+        //console.log(examen);
         this.datosExamenesAuxiliares.push(examen);
         this.datosExamenesAuxiliares = [...this.datosExamenesAuxiliares];
         this.examenAuxiliarDialog = false;
@@ -1000,7 +1000,7 @@ export class DialogConsultaComponent implements OnInit {
             /*examen:*/ this.formExamenAuxiliar.value.examen;
         //codigo: this.formTratamiento.value.codigo,
         //}
-        console.log(examen);
+        //console.log(examen);
         this.datosExamenesAuxiliares.splice(this.indexExamenAuxiliarEditado, 1, examen);
         this.examenAuxiliarDialog = false;
         this.estadoEditarExamenesAuxiliares = false;
@@ -1038,7 +1038,7 @@ export class DialogConsultaComponent implements OnInit {
             motivo: this.formInterconsulta.value.motivo,
             fecha: this.datePipe.transform(this.formInterconsulta.value.fecha, 'yyyy-MM-dd HH:mm:ss'),
         }
-        console.log(interconsulta);
+        //console.log(interconsulta);
         this.datosInterconsultas.push(interconsulta);
         this.datosInterconsultas = [...this.datosInterconsultas];
         this.interconsultaDialog = false;
@@ -1069,7 +1069,7 @@ export class DialogConsultaComponent implements OnInit {
             motivo: this.formInterconsulta.value.motivo,
             fecha: this.datePipe.transform(this.formInterconsulta.value.fecha, 'yyyy-MM-dd HH:mm:ss'),
         }
-        console.log(interconsulta);
+        //console.log(interconsulta);
         this.datosInterconsultas.splice(this.indexInterconsultaEditado, 1, interconsulta);
         this.interconsultaDialog = false;
         this.estadoEditarInterconsultas = false;
@@ -1102,7 +1102,7 @@ export class DialogConsultaComponent implements OnInit {
         this.recomendacionDialog = true;
     }
     guardarNuevoRecomendacion() {
-        console.log(this.formRecomendacion.value.recomendacion);
+        //console.log(this.formRecomendacion.value.recomendacion);
         this.datosRecomendaciones.push(this.formRecomendacion.value.recomendacion);
         this.datosRecomendaciones = [...this.datosRecomendaciones];
         this.recomendacionDialog = false;
@@ -1126,7 +1126,7 @@ export class DialogConsultaComponent implements OnInit {
         this.recomendacionDialog = true;
     }
     guardarEdicionRecomendacion() {
-        console.log(this.formRecomendacion.value.recomendacion);
+        //console.log(this.formRecomendacion.value.recomendacion);
         this.datosRecomendaciones.splice(this.indexRecomendacionEditado, 1, this.formRecomendacion.value.recomendacion);
         this.recomendacionDialog = false;
         this.estadoEditarRecomendaciones = false;
@@ -1168,7 +1168,7 @@ export class DialogConsultaComponent implements OnInit {
             lote: this.formInmunizacion.value.lote,
             fechaVenc: this.datePipe.transform(this.formInmunizacion.value.fechaVenc, 'yyyy-MM-dd HH:mm:ss'),
         }
-        console.log(inmunizacion);
+        //console.log(inmunizacion);
         this.datosInmunizaciones.push(inmunizacion);
         this.datosInmunizaciones = [...this.datosInmunizaciones];
         this.inmunizacionDialog = false;
@@ -1207,7 +1207,7 @@ export class DialogConsultaComponent implements OnInit {
             lote: this.formInmunizacion.value.lote,
             fechaVenc: this.datePipe.transform(this.formInmunizacion.value.fechaVenc, 'yyyy-MM-dd HH:mm:ss'),
         }
-        console.log(inmunizacion);
+        //console.log(inmunizacion);
         this.datosInmunizaciones.splice(this.indexInmunizacionEditado, 1, inmunizacion);
         this.inmunizacionDialog = false;
         this.estadoEditarInmunizaciones = false;
@@ -1633,17 +1633,17 @@ export class DialogConsultaComponent implements OnInit {
         for (let i = 0; i < this.datosOtrosPruebasFisicas.length; i++) {
             consulta.examenesFisicos.push(this.datosOtrosPruebasFisicas[i])
         }
-        console.log('data to save ', consulta);
-        console.log("estadoEdicion", this.estadoEdicion);
+        //console.log('data to save ', consulta);
+        //console.log("estadoEdicion", this.estadoEdicion);
         if (!this.estadoEdicion) {
             this.consultaObstetriciaService.postDatoConsultaObstetrica(consulta, this.form.value.nroFetos).subscribe((res: any) => {
-                console.log('rpta ', res.object);
+                //console.log('rpta ', res.object);
                 this.ref.close(res);
             });
         }
         else {
             this.consultaObstetriciaService.putDatoConsultaObstetrica(consulta, this.form.value.nroFetos).subscribe((res: any) => {
-                console.log('rpta ', res.object);
+                //console.log('rpta ', res.object);
                 this.ref.close(res);
             });
         }
@@ -1656,7 +1656,7 @@ export class DialogConsultaComponent implements OnInit {
     llenarCamposEdicionConsulta() {
         this.estadoEdicion = true;
         let configuracion = this.config.data.row;
-        console.log("Imprimiento objeto del dialog", configuracion);
+        //console.log("Imprimiento objeto del dialog", configuracion);
         this.form.get('fecha').setValue(configuracion.fecha ?
             this.datePipe.transform(new Date(configuracion.fecha), 'yyyy-MM-ddTHH:mm') : "");
         this.form.get('edad').setValue(configuracion.datosPerHist.edad);
@@ -1908,11 +1908,11 @@ export class DialogConsultaComponent implements OnInit {
         this.datosInmunizaciones = configuracion.inmunizaciones;
 
         if (configuracion.examenesFisicos.length > 9) {
-            console.log(configuracion.examenesFisicos.length);
+            //console.log(configuracion.examenesFisicos.length);
             for (let i = 0; i < configuracion.examenesFisicos.length - 9; i++) {
-                console.log("entre bucle");
+                //console.log("entre bucle");
                 this.datosOtrosPruebasFisicas.push(configuracion.examenesFisicos[9 + i]);
-                console.log(this.datosOtrosPruebasFisicas);
+                //console.log(this.datosOtrosPruebasFisicas);
             }
         }
     }
@@ -1929,7 +1929,7 @@ export class DialogConsultaComponent implements OnInit {
     }
 
     selectedOptionNameCIE(event, cieType) {
-        console.log('lista de cie ', this.listaDeCIE);
+        //console.log('lista de cie ', this.listaDeCIE);
         if (cieType == 0) {
             this.formDiagnostico.get("diagnostico").setValue(event.descripcionItem);
             this.formDiagnostico.get("autocompleteDiagnostico").setValue("");

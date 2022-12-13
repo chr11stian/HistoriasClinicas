@@ -745,7 +745,7 @@ export class InterrogatorioComponent implements OnInit {
   }
 
   calculateIMC(): void {
-    console.log('entro a imc');
+    // console.log('entro a imc');
     let gestationalWeek: number = this.form.value.semanas;
     let patientHeight: number = Math.round((this.form.value.talla + Number.EPSILON)) / 100;
     let patientWeigth: number = this.form.value.peso;
@@ -818,7 +818,7 @@ export class InterrogatorioComponent implements OnInit {
     let weightGain: number;
     height < 1.57 ? usualWeight = weight - min : usualWeight = weight - med
     imc = (usualWeight / Math.pow((height), 2));
-    console.log('usual weight ', usualWeight);
+    // console.log('usual weight ', usualWeight);
     this.form.patchValue({
       imc: imc.toFixed(2),
       pesoHabitual: usualWeight

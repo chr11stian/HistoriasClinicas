@@ -128,7 +128,7 @@ export class DatosGeneralesComponent implements OnInit {
         private filiancionService: FiliancionService,
         private messageService: MessageService,
     ) {
-        console.log('data de paciente ');
+        // console.log('data de paciente ');
         this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
         this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
         this.isEdit = JSON.parse(localStorage.getItem('consultaEditarEstado'));
@@ -136,7 +136,7 @@ export class DatosGeneralesComponent implements OnInit {
         this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
         this.actualConsultation = JSON.parse(localStorage.getItem('datosConsultaActual'));
         this.actualConsultation ? this.actualConsultation.estadoAtencion == 2 ? this.consultationFinished = true : this.consultationFinished = false : this.consultationFinished = false;
-        console.log('data de paciente ', this.dataPaciente2);
+        // console.log('data de paciente ', this.dataPaciente2);
         if (this.Gestacion == null) {
             this.tipoDocRecuperado = this.dataPaciente2.tipoDoc;
             this.nroDocRecuperado = this.dataPaciente2.nroDoc;
@@ -297,7 +297,7 @@ export class DatosGeneralesComponent implements OnInit {
     ngOnInit(): void {
         this.buildForm();
         this.obternerFechaActual();
-        console.log('data de paciente 2');
+        // console.log('data de paciente 2');
         /**Si la datos de consultorio esta en vacio recupera los datos del paciente***/
         /**Caso contrario recupera los datos de Consultorio***/
         if (this.dataConsultas == null) {
@@ -320,7 +320,7 @@ export class DatosGeneralesComponent implements OnInit {
 
     /***Recupera la consulta por HCL y Numero de embarazo***/
     getConsultas() {
-        console.log('console 3');
+        // console.log('console 3');
         let data = {
             nroHcl: this.dataPacientes.nroHcl,
             nroEmbarazo: this.nroEmbarazo,

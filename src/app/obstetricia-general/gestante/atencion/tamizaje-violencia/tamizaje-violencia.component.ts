@@ -86,10 +86,10 @@ export class TamizajeViolenciaComponent implements OnInit {
     ngOnInit(): void {
         this.buildForm();
         this.formDatos_Tamisaje.get('Fecha').setValue(this.datafecha);
-        console.log("TipoDocRecuperado", this.tipoDocRecuperado);
-        console.log("NroDocRecuparado", this.nroDocRecuperado);
-        console.log("Nro de embarazo", this.nroEmbarazo);
-        console.log("ESTADO", this.estadoEmbarazo);
+        //console.log("TipoDocRecuperado", this.tipoDocRecuperado);
+        //console.log("NroDocRecuparado", this.nroDocRecuperado);
+        //console.log("Nro de embarazo", this.nroEmbarazo);
+        //console.log("ESTADO", this.estadoEmbarazo);
         this.getpacienteByNroDoc();
         this.obternerFechaActual();
         this.getTamizajeNroDoc();
@@ -98,13 +98,13 @@ export class TamizajeViolenciaComponent implements OnInit {
 
     tab(event) {
         this.tabIndex = event.index;
-        console.log("evento tab", this.tabIndex)
+        //console.log("evento tab", this.tabIndex)
     }
 
     /**Recupera un solo tamizaje al hacer un clic en el event**/
     recuperarData(event) {
         this.Recupera_un_Tamizaje = event;
-        console.log("EVENT TAMIZAJE", this.Recupera_un_Tamizaje);
+        //console.log("EVENT TAMIZAJE", this.Recupera_un_Tamizaje);
 
         this.formDatos_Tamisaje.get('Fecha').setValue(this.Recupera_un_Tamizaje.fecha);
         this.formDatos_Tamisaje.get('apePaterno').setValue(this.Recupera_un_Tamizaje.apePaterno);
@@ -148,7 +148,7 @@ export class TamizajeViolenciaComponent implements OnInit {
         }
         this.tamizajeViolenciaService.GetTamizajeViolenciaNroDoc(data).subscribe((res: any) => {
             this.ListaTamizajes = res.object;
-            console.log('LISTA TAMIZAJES ', this.ListaTamizajes);
+            //console.log('LISTA TAMIZAJES ', this.ListaTamizajes);
         })
     }
 
@@ -162,7 +162,7 @@ export class TamizajeViolenciaComponent implements OnInit {
     getpacienteByNroDoc() {
         this.filiancionService.getPacienteNroDocFiliacion(this.tipoDocRecuperado, this.nroDocRecuperado).subscribe((res: any) => {
             this.dataPacientes = res.object
-            console.log('PACIENTES POR DOC ', this.dataPacientes)
+            //console.log('PACIENTES POR DOC ', this.dataPacientes)
             this.formDatos_Tamisaje.get('apePaterno').setValue(this.dataPacientes.apePaterno);
             this.formDatos_Tamisaje.get('apeMaterno').setValue(this.dataPacientes.apeMaterno);
             this.formDatos_Tamisaje.get('nombres').setValue(this.dataPacientes.primerNombre);
@@ -171,7 +171,7 @@ export class TamizajeViolenciaComponent implements OnInit {
             this.formDatos_Tamisaje.get('Telefono').setValue(this.dataPacientes.celular);
             this.formDatos_Tamisaje.get('Direccion').setValue(this.dataPacientes.domicilio.direccion + "," + this.dataPacientes.domicilio.departamento);
             this.fechaConvertido = this.dataPacientes.nacimiento.fechaNacimiento;
-            console.log("nacimiento", this.fechaConvertido)
+            //console.log("nacimiento", this.fechaConvertido)
             this.ageCalculator();//calcula la edad desde la fecha de nacimiento
             this.formDatos_Tamisaje.get('Edad').setValue(this.edad);
         });
@@ -183,7 +183,7 @@ export class TamizajeViolenciaComponent implements OnInit {
             const convertAge = new Date(this.fechaConvertido);
             const timeDiff = Math.abs(Date.now() - convertAge.getTime());
             this.edad = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365);
-            console.log("edad", this.edad);
+            //console.log("edad", this.edad);
         }
     }
 
@@ -194,7 +194,7 @@ export class TamizajeViolenciaComponent implements OnInit {
         let mm = this.fecha.getMonth() + 1;
         let yy = this.fecha.getFullYear();
         this.fechaConvertido = dd + '-' + mm + '-' + yy;
-        console.log("FECHAS ACTUAL", this.fechaConvertido);
+        //console.log("FECHAS ACTUAL", this.fechaConvertido);
     }
 
     buildForm() {
@@ -276,11 +276,11 @@ export class TamizajeViolenciaComponent implements OnInit {
 
         if ((Number(R12) == 2) || (Number(R12) == 3) || (Number(R15) == 2) || (Number(R15) == 3) || (this.PuntajeTotal > 15)) {
             this.resultadoTamizaje = "POSITIVO";
-            console.log("RESULTADO:", this.resultadoTamizaje)
+            //console.log("RESULTADO:", this.resultadoTamizaje)
         } else {
             if ((Number(R12 == 1)) || (Number(R15 == 1)) || (this.PuntajeTotal <= 15)) {
                 this.resultadoTamizaje = "NEGATIVO";
-                console.log("RESULTADO:", this.resultadoTamizaje)
+                //console.log("RESULTADO:", this.resultadoTamizaje)
             } else {
                 return
             }
@@ -319,7 +319,7 @@ export class TamizajeViolenciaComponent implements OnInit {
         } else {
             this.gestante = false;
         }
-        console.log("estado", this.gestante);
+        //console.log("estado", this.gestante);
         const data = {
             // idConsulta:
             tipoDoc: this.dataPacientes.tipoDoc,
@@ -377,10 +377,10 @@ export class TamizajeViolenciaComponent implements OnInit {
             nombreResponsableAtencion: this.formDatos_Tamisaje.value.ApellidosResponsable,
         }
 
-        console.log("DATA", data);
+        //console.log("DATA", data);
 
         this.tamizajeViolenciaService.addTamizajeViolencia(data).subscribe((result: any) => {
-                console.log("DATA", result);
+                //console.log("DATA", result);
                 this.getTamizajeNroDoc();
                 if (result.object == null) {
                     Swal.fire({
@@ -460,10 +460,10 @@ export class TamizajeViolenciaComponent implements OnInit {
             // nombreResponsableAtencion: this.formDatos_Tamisaje.value.ApellidosResponsable,
 
         }
-        console.log("DATA UPDATE", data2);
+        //console.log("DATA UPDATE", data2);
 
         this.tamizajeViolenciaService.UpdateTamizajeViolencia(this.Recupera_un_Tamizaje.id, data2).subscribe(result => {
-                console.log("DATA UPDATE", result);
+                //console.log("DATA UPDATE", result);
                 this.getTamizajeNroDoc();
                 Swal.fire({
                     icon: 'success',
@@ -518,11 +518,11 @@ export class TamizajeViolenciaComponent implements OnInit {
             diagnostico: this.resultadoTamizaje
 
         }
-        console.log("DATA UPDATE", data2);
-        console.log("ID", this.Recupera_un_Tamizaje.id);
+        //console.log("DATA UPDATE", data2);
+        //console.log("ID", this.Recupera_un_Tamizaje.id);
 
         this.tamizajeViolenciaService.UpdateTamizajeCuestionario(this.Recupera_un_Tamizaje.id, data2).subscribe(result => {
-                console.log("DATA UPDATE", result);
+                //console.log("DATA UPDATE", result);
                 this.getTamizajeNroDoc();
                 Swal.fire({
                     icon: 'success',
