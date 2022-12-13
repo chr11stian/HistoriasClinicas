@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {LaboratoriosService} from "../../services/laboratorios.service";
 import {DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
+import Swal from 'sweetalert2';
 
 @Component({
     selector: 'app-lab-microbiologico',
@@ -131,9 +132,15 @@ export class LabMicrobiologicoComponent implements OnInit {
         }
         console.log('aux', aux)
         this.laboratoriosService.guardarLaboratorioMicrobiologico(this.config.data.id, aux).subscribe((r: any) => {
-            console.log(r)
+            this.ref.close("confirmado"); //confirmado o cancelado
+            Swal.fire({
+              icon: "success",
+              title: "Exito!",
+              text: "Se guardo el laboratorio",
+              showConfirmButton: false,
+              timer: 2000,
+            });
         })
-        this.ref.close()
     }
 }
 
