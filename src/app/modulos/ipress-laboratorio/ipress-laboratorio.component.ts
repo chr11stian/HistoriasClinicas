@@ -38,7 +38,7 @@ export class IpressLaboratorioComponent implements OnInit {
   }
 
   makeObjExam(rptaExam) {
-    // console.log('input de examenes ', rptaExam);
+    // //console.log('input de examenes ', rptaExam);
     let table: any[] = [];
 
     rptaExam.filter((item, index) => {
@@ -48,7 +48,7 @@ export class IpressLaboratorioComponent implements OnInit {
     this.listaExamenes = table.filter((item, index) => {
       return table.indexOf(item) === index;
     })
-    console.log('input de examenes ', this.listaExamenes);
+    //console.log('input de examenes ', this.listaExamenes);
     for (let i = 0; i < this.listaExamenes.length; i++) {
       let auxData = {
         nombreGrupo: this.listaExamenes[i],
@@ -78,7 +78,7 @@ export class IpressLaboratorioComponent implements OnInit {
   async listarExamenesIpress() {
     await this.laboratorioService.getIpressExamListLaboratory().then(res => {
       let auxExams = res.object;
-      console.log('print todos ', auxExams);
+      //console.log('print todos ', auxExams);
       let table: any[] = [];
       auxExams.filter(item => {
         table.push(item.subTipo)
@@ -86,7 +86,7 @@ export class IpressLaboratorioComponent implements OnInit {
       this.listSubTipos = table.filter((item, index) => {
         return table.indexOf(item) === index;
       })
-      console.log('lista de subtipos ', this.listSubTipos);
+      //console.log('lista de subtipos ', this.listSubTipos);
       for (let i = 0; i < auxExams.length; i++) {
         let auxData = {
           tipoLaboratorio: auxExams[i].tipoLaboratorio,
@@ -98,17 +98,17 @@ export class IpressLaboratorioComponent implements OnInit {
         }
         this.examName.push(auxData)
       }
-      console.log('data de examens today ', this.examName);
+      //console.log('data de examens today ', this.examName);
     })
   }
   save() {
     this.recuperarData();
-    console.log('data to save ', this.dataLabo);
+    //console.log('data to save ', this.dataLabo);
     this.laboratorioService.putAddLaboratoryIpress(this.dataLabo).then(res => {
       // if (res.cod) {
         
       // }
-      console.log('se guardo correctamente');
+      //console.log('se guardo correctamente');
       this.examName = [];
       this.listarExamenesIpress();
       this.addExam = false;
@@ -128,14 +128,14 @@ export class IpressLaboratorioComponent implements OnInit {
   }
   changeTipe(event) {
     this.listExamsByTipe = [];
-    console.log('change value ', event);
+    //console.log('change value ', event);
     this.examGroup.filter(item => {
       if (item.nombreGrupo == event)
         item.listaExam.map(item => {
           this.listExamsByTipe.push(item);
         })
     })
-    console.log('lista de examenes ', this.listExamsByTipe);
+    //console.log('lista de examenes ', this.listExamsByTipe);
   }
   recuperarData() {
     let auxData = {

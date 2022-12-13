@@ -37,11 +37,11 @@ export class IpressAmbientesComponent implements OnInit {
   getUPS() {
     this.upsService.getUPS().subscribe((res: any) => {
       this.UPSList = res.object;
-      // console.log(this.UPSList[0].nombreUPS);
+      // //console.log(this.UPSList[0].nombreUPS);
       let aux:any[]
       aux = this.UPSList.sort((a, b) =>  {return a.nombreUPS - b.nombreUPS})
       //  = this.UPSList
-      console.log('lista de ups ', aux);
+      //console.log('lista de ups ', aux);
     })
   }
   buildForm() {
@@ -61,7 +61,7 @@ export class IpressAmbientesComponent implements OnInit {
   }
   editarAmbiente(rowData) {
     this.isUpdateAmbiente = true;
-    console.log(rowData);
+    //console.log(rowData);
     this.formAmbiente.get('codAmbiente').setValue(rowData.codAmbiente);
     this.formAmbiente.get('ambiente').setValue(rowData.ambiente);
     this.formAmbiente.get('nombreUPS').setValue(rowData.nombreUPS);

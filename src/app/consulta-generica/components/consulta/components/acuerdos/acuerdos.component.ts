@@ -153,7 +153,7 @@ export class AcuerdosComponent implements OnInit, DoCheck {
                 timer: 1500,
             })
         })
-    }
+    }null
 
     buildFG(): void {
         this.id = localStorage.getItem(this.attributeLocalS);
