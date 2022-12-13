@@ -151,6 +151,7 @@ export class MapVisitasComponent implements OnInit, OnChanges {
                 <div style="width:200px;height:350">
                 <h3  style="font-style: italic;font-weight:bold;font-size:12px;color:#af0017;text-align:center;font-family: Times, "Times New Roman", Georgia, serif">VISITA NIÑOS,NIÑAS DE 0-4 MESES</h3>
                 <h4 style="font-style: italic;font-weight:bold;font-size:10px;color:#000000;text-align:left;font-family: Times, "Times New Roman", Georgia, serif">VISITA NRO :${aux.value.nroVisita}</h4>
+                <h4 style="font-style: italic;font-weight:bold;font-size:10px;color:#000000;text-align:left;font-family: Times, "Times New Roman", Georgia, serif">FECHA DE VISITA  :${aux.value.fecha_creacion_documento}</h4>
                 <h4 style="font-style: italic;font-weight:bold;font-size:10px;color:#000000;text-align:left;font-family: Times, "Times New Roman", Georgia, serif">ALTITUD:${aux.value.validator.altitud}</h4> 
                 <h4  style="font-style: italic;font-weight:bold;font-size:10px;color:#000000;text-align:left;font-family: Times, "Times New Roman", Georgia, serif">DATOS NIÑO(A):${aux.value.apellidos_ninio} ${aux.value.nombres_ninio}</h4>
                 <img style=" width: 180px; 
@@ -190,6 +191,7 @@ export class MapVisitasComponent implements OnInit, OnChanges {
               <div style="width:200px;height:350px">
               <h3 style="font-style: italic;font-weight:bold;font-size:12px;color:#af0017;text-align:center;font-family: Times, "Times New Roman", Georgia, serif">VISITA DOMICILIARIA DE LA GESTANTE</h3>
               <h4 style="font-style: italic;font-weight:bold;font-size:10px;color:#000000;text-align:left;font-family: Times, "Times New Roman", Georgia, serif">VISITA NRO :${aux.value.nroVisita}</h4>
+              <h4 style="font-style: italic;font-weight:bold;font-size:10px;color:#000000;text-align:left;font-family: Times, "Times New Roman", Georgia, serif">FECHA DE VISITA  :${aux.value.fecha_creacion_documento}</h4>
               <h4 style="font-style: italic;font-weight:bold;font-size:10px;color:#000000;text-align:left;font-family: Times, "Times New Roman", Georgia, serif">ALTITUD:${aux.value.validator.altitud}</h4> 
               <h4  style="font-style: italic;font-weight:bold;font-size:10px;color:#000000;text-align:left;font-family: Times, "Times New Roman", Georgia, serif">DATOS DE LA GESTANTE:${aux.value.nombres_gestante} ${aux.value.apellidos_gestante}</h4>
               <img style=" width: 180px; 
@@ -224,6 +226,7 @@ export class MapVisitasComponent implements OnInit, OnChanges {
               <div style="width:200px;height:350px">
               <h3 style="font-style: italic;font-weight:bold;font-size:12px;color:#af0017;text-align:center;font-family: Times, "Times New Roman", Georgia, serif">VISITA DOMICILIARIA DE LA PUERPERA</h3>
               <h4 style="font-style: italic;font-weight:bold;font-size:10px;color:#000000;text-align:left;font-family: Times, "Times New Roman", Georgia, serif">VISITA NRO :${aux.value.nroVisita}</h4>
+              <h4 style="font-style: italic;font-weight:bold;font-size:10px;color:#000000;text-align:left;font-family: Times, "Times New Roman", Georgia, serif">FECHA DE VISITA  :${aux.value.fecha_creacion_documento}</h4>
               <h4 style="font-style: italic;font-weight:bold;font-size:10px;color:#000000;text-align:left;font-family: Times, "Times New Roman", Georgia, serif">ALTITUD:${aux.value.validator.altitud}</h4> 
               <h4  style="font-style: italic;font-weight:bold;font-size:10px;color:#000000;text-align:left;font-family: Times, "Times New Roman", Georgia, serif">DATOS DE LA PUERPERA:${aux.value.nombres_gestante} ${aux.value.apellidos_gestante}</h4>
               <img style=" width: 180px; 
