@@ -42,7 +42,7 @@ export class PartosModalComponent implements OnInit {
     constructor(public ref: DynamicDialogRef,
         public config: DynamicDialogConfig,) {
         this.medicamento = config.data;
-        console.log(this.medicamento)
+        // console.log(this.medicamento)
         // this.buildForm();
     }
 

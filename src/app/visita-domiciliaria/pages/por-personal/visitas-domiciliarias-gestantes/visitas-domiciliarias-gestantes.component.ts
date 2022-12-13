@@ -99,7 +99,6 @@ export class VisitasDomiciliariasGestantesComponent implements OnInit {
       header:
         ">>>PREGUNTAS>>RESPUESTAS DE LA VISITAS DOMICILIARIA EJECUTADA",
       width: "70%",
-      // height: "800px",
       contentStyle: {
         "max-height": "92%",
         overflow: "auto",
@@ -189,11 +188,10 @@ export class VisitasDomiciliariasGestantesComponent implements OnInit {
     let dni=this.servicioVisitas.getIdPersonal();
     this.ref = this.dialog.open(EchartGestantesComponent, {
       header:
-        ">>>GRAFICO VISITAS DOMICILIARIAS > GESTANTES ",
+        ">>GRAFICO VISITAS DOMICILIARIAS > GESTANTES ",
       width: "70%",
       height:"80%",
       contentStyle: {
-        //"max-height": "93%",
         overflow: "auto",
       },
       data:dni,

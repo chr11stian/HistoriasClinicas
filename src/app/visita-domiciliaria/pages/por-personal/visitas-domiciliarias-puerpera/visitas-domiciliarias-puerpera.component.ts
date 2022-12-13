@@ -66,7 +66,6 @@ export class VisitasDomiciliariasPuerperaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.buildForm();
     this.listaVisitas();
   }
 
@@ -98,7 +97,7 @@ export class VisitasDomiciliariasPuerperaComponent implements OnInit {
   openDialogRespuestas(data: any[]) {
     this.ref = this.dialog.open(DialogRespuestasComponent, {
       header:
-        "PREGUNTAS>RESPUESTAS DE LA VISITAS DOMICILIARIA EJECUTADA",
+        ">>PREGUNTAS>RESPUESTAS DE LA VISITAS DOMICILIARIA EJECUTADA",
       width: "70%",
       contentStyle: {
         "max-height": "92%",
@@ -190,11 +189,10 @@ export class VisitasDomiciliariasPuerperaComponent implements OnInit {
     let dni=this.servicioVisitas.getIdPersonal();
     this.ref = this.dialog.open(EchartPuerperasComponent, {
       header:
-        ">>>GRAFICO VISITAS DOMICILIARIAS > PUERPERAS ",
+        ">>GRAFICO VISITAS DOMICILIARIAS > PUERPERAS ",
       width: "70%",
       height:"80%",
       contentStyle: {
-        //"max-height": "93%",
         overflow: "auto",
       },
       data:dni,

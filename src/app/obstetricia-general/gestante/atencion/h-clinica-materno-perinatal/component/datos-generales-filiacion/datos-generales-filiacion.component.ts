@@ -57,7 +57,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
         this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
         this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
 
-        // console.log("DATA PACIENTE 2", this.dataPaciente2);
+        // //console.log("DATA PACIENTE 2", this.dataPaciente2);
 
         if (this.Gestacion == null) {
             this.tipoDocRecuperado = this.dataPaciente2.tipoDoc;
@@ -136,7 +136,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
     getDepartamentos() {
         this.ubicacionService.getDepartamentos().subscribe((resp: any) => {
             this.dataDepartamentos = resp.object;
-            // console.log("Departamento observer", this.dataDepartamentos);
+            // //console.log("Departamento observer", this.dataDepartamentos);
         });
     }
 
@@ -145,7 +145,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
         let depa = this.formDatos_Generales.value.departamento;
         this.dataDepartamentos.forEach(object => {
             if (object.departamento === depa) {
-                // console.log("Departamento:", object);
+                // //console.log("Departamento:", object);
                 this.DepartamentoIDSelct = object.iddd
             }
         });
@@ -166,7 +166,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
         let provinciaX = this.formDatos_Generales.value.provincia;
         this.dataProvincia.forEach(object => {
             if (object.provincia === provinciaX) {
-                // console.log("Provincia:", object);
+                // //console.log("Provincia:", object);
                 this.ProvinciaIDSelct = object.idpp
             }
         });
@@ -186,7 +186,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
         let distritoX = this.formDatos_Generales.value.distrito;
         this.dataDistrito.forEach(object => {
             if (object.distrito === distritoX) {
-                // console.log("Distrito:", object);
+                // //console.log("Distrito:", object);
                 this.DistritoIDSelct = object.iddis
             }
         });
@@ -207,13 +207,13 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
         } else {
             Departamento = this.dataPacientes.domicilio.departamento;
         }
-        // console.log("Departamento XXX", this.dataPacientes)
+        // //console.log("Departamento XXX", this.dataPacientes)
 
-        // console.log("Departamento:", this.dataDepartamentos);
+        // //console.log("Departamento:", this.dataDepartamentos);
         if (this.dataDepartamentos) {
             this.dataDepartamentos.forEach(object => {
                 if (object.departamento === Departamento) {
-                    // console.log("Departamento:", object);
+                    // //console.log("Departamento:", object);
                     this.DepartamentoIDSelct = object.iddd
                 }
             });
@@ -222,7 +222,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
             }
             this.ubicacionService.getProvincias(dpto).subscribe((res: any) => {
                 this.dataProvincia = res.object;
-                // console.log("PROVINCIA:", this.dataProvincia);
+                // //console.log("PROVINCIA:", this.dataProvincia);
                 this.listarUbicacionPacientedistritos();
             });
         }
@@ -239,7 +239,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
 
         this.dataProvincia.forEach(object => {
             if (object.provincia === Provincia) {
-                // console.log("Provincia:", object);
+                // //console.log("Provincia:", object);
                 this.ProvinciaIDSelct = object.idpp
             }
         });
@@ -264,7 +264,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
 
         this.dataDistrito.forEach(object => {
             if (object.distrito === Distrito) {
-                // console.log("Distrito:", object);
+                // //console.log("Distrito:", object);
                 this.DistritoIDSelct = object.iddis
             }
         });
@@ -284,7 +284,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
         let mm = this.fecha.getMonth() + 1;
         let yy = this.fecha.getFullYear();
         this.fechaConvertido = dd + '-' + mm + '-' + yy;
-        // console.log("FECHAS ACTUAL", this.fechaConvertido);
+        // //console.log("FECHAS ACTUAL", this.fechaConvertido);
     }
 
     ageCalculator() {
@@ -292,7 +292,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
             const convertAge = new Date(this.fechaConvertido);
             const timeDiff = Math.abs(Date.now() - convertAge.getTime());
             this.edad = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365);
-            // console.log("edad", this.edad);
+            // //console.log("edad", this.edad);
         }
     }
 
@@ -332,7 +332,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
             primerNombre: this.formDatos_Generales.getRawValue().primerNombre,
             otrosNombres: "",
         };
-        // console.log('data to res ', req);
+        // //console.log('data to res ', req);
         if (!this.Gestacion) {
             this.filiancionService.addPacienteFiliacion(this.tipoDocRecuperado, this.nroDocRecuperado, req).subscribe(
                 (result: any) => {
@@ -375,7 +375,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
             this.dataPacientes = res.object;
             // this.traerDataReniec();
             // this.listarUbicacionPacienteProvincias();
-            // console.log('paciente por doc ', this.dataPacientes)
+            // //console.log('paciente por doc ', this.dataPacientes)
             this.formDatos_Generales.get('apePaterno').setValue(this.dataPacientes.apePaterno);
             this.formDatos_Generales.get('apeMaterno').setValue(this.dataPacientes.apeMaterno);
             this.formDatos_Generales.get('primerNombre').setValue(`${this.dataPacientes.primerNombre} ${this.dataPacientes.otrosNombres}`);
@@ -407,18 +407,18 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
 
     convertiFecha() {
         let values = this.fechanacimiento.split('-');
-        // console.log('fecha de nac', this.fechanacimiento , values);
+        // //console.log('fecha de nac', this.fechanacimiento , values);
         let fecha = values[2];
 
         this.fechaConvertido = fecha;
-        // console.log("fecha Convertido", this.fechaConvertido);
+        // //console.log("fecha Convertido", this.fechaConvertido);
     }
 
 
     getpacienteFiiacionByID() {
         this.filiancionService.getPacienteFiliacionId(this.idRecuperado).subscribe((res: any) => {
             this.dataIDfiliacion = res.object;
-            // console.log('data del paciente de filiacon ', this.dataIDfiliacion);
+            // //console.log('data del paciente de filiacon ', this.dataIDfiliacion);
             this.listarUbicacionPacienteProvincias();
             this.traerDataReniec();
             this.formDatos_Generales.patchValue({
@@ -456,7 +456,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
     traerDataReniec() {
         this.filiancionService.getDatosReniec(this.nroDocRecuperado).subscribe((res: any) => {
             this.dataPacientesReniec = res;
-            // console.log(res);
+            // //console.log(res);
             this.imagePath ? res.foto : image;
         });
     }
@@ -464,12 +464,12 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
     getpacientesFiliadosGestacion() {
         this.obstetriciaGeneralService.getPacienteFiliacion(this.tipoDocRecuperado, this.nroDocRecuperado).subscribe((res: any) => {
             this.pacientesFiliacion = res.object
-            console.log('paciente con nro de gestacion ', this.pacientesFiliacion)
+            //console.log('paciente con nro de gestacion ', this.pacientesFiliacion)
             let index = this.pacientesFiliacion.length - 1;
             this.idRecuperado = this.pacientesFiliacion[index].id;
-            console.log('id de filiacion ', this.idRecuperado);
+            //console.log('id de filiacion ', this.idRecuperado);
             localStorage.setItem('idGestacionRegistro', JSON.stringify(this.idRecuperado));
-            // console.log('ARREGLO ULTIMA POSICION', this.idRecuperado);
+            // //console.log('ARREGLO ULTIMA POSICION', this.idRecuperado);
             this.getpacienteFiiacionByID();
         });
     }

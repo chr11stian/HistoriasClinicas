@@ -29,11 +29,11 @@ export class EchartNiniosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getVisitasMayoresMeses();
     this.getVisitasMenoresMeses();
+    this.getVisitasMayoresMeses();
     setTimeout(() => {
       this.estadistica();
-    }, 600);
+    },5500);
   }
   async getVisitasMayoresMeses() {
     this.nro_sinValor_mayores = 0;
@@ -49,9 +49,7 @@ export class EchartNiniosComponent implements OnInit {
         this.servicioVisitas.getAnio()
       )
       .then((data_ninios) => {
-        console.log("Data ninios mayores", data_ninios["rows"]);
         data_ninios["rows"].map((aux) => {
-          console.log(aux.value["hemoglobina"]);
           if (aux.value["hemoglobina"].toString() == "") {
             this.nro_sinValor_mayores++;
           } else {
@@ -63,11 +61,7 @@ export class EchartNiniosComponent implements OnInit {
             }
           }
         });
-        console.log("mayores",this.nro_anemia_mayores);
-        console.log("mayores",this.nro_snanemia_mayores);
-        console.log("mayores",this.nro_sinValor_mayores);
       });
-
   }
   async getVisitasMenoresMeses() {
     this.nro_sinValor_menores = 0;
@@ -75,8 +69,6 @@ export class EchartNiniosComponent implements OnInit {
     this.nro_snanemia_menores = 0;
     let ipress = this.servicioVisitas.getIdIpress();
     let dni = `vp${this.data}`;
-    console.log("ipress", ipress);
-    console.log("dni ", dni);
     this.servicioVisitas.couch = true;
     await this.servicioVisitaProfesionalNinios
       .getVisitasNiniosXProfesionalMenores_4_Meses(
@@ -85,9 +77,7 @@ export class EchartNiniosComponent implements OnInit {
         this.servicioVisitas.getAnio()
       )
       .then((data_ninios) => {
-        console.log("Data ninios menores", data_ninios["rows"]);
         data_ninios["rows"].map((aux) => {
-          console.log(aux.value["hemoglobina"]);
           if (aux.value["hemoglobina"] == "") {
             this.nro_sinValor_menores++;
           } else {
@@ -109,8 +99,23 @@ export class EchartNiniosComponent implements OnInit {
     var option;
     const data1 = [
       {
+        value: this.nro_anemia_menores,
+        name: "Con anemia",
+      },
+      {
+        value: this.nro_snanemia_menores,
+        name: "Sin anemia",
+      },
+      {
+        value: this.nro_sinValor_menores,
+        name: "No precisa",
+      },
+    ];
+
+    const data2 = [
+      {
         value: this.nro_anemia_mayores,
-        name: " Anemia",
+        name: "Con Anemia",
       },
       {
         value: this.nro_snanemia_mayores,
@@ -121,26 +126,11 @@ export class EchartNiniosComponent implements OnInit {
         name: "No precisa",
       },
     ];
-
-    const data2 = [
-      {
-        value: this.nro_anemia_menores,
-        name: "Anemia",
-      },
-      {
-        value: this.nro_snanemia_menores,
-        name: "Sin Anemia",
-      },
-      {
-        value: this.nro_sinValor_menores,
-        name: "No precisa",
-      },
-    ];
     option = {
       backgroundColor: "#f8f9fa",
       title: [
         {
-          text: "VISITAS DOMICILIARIAS DE NIÑOS Y NIÑAS",
+          text: "VISITA DOMICILIARIA DE NIÑOS Y NIÑAS ",
           left: "center",
         },
         {
@@ -176,31 +166,7 @@ export class EchartNiniosComponent implements OnInit {
           name: "niñas y niños de 0-4 meses",
           type: "pie",
           radius: "50%",
-          center: ["60%", "60%"],
-          label: {
-            show: false,
-          },
-          emphasis: {
-            itemStyle: {
-              shadowBlur: 10,
-              shadowOffsetX: 0,
-              shadowColor: "rgba(0, 0, 0, 0.5)",
-            },
-            label: {
-              show: true,
-            },
-          },
-          data: data2,
-          left: 0,
-          right: "50%",
-          top: -150,
-          bottom: 0,
-        },
-        {
-          name: "niñas y niños de 4-24 meses",
-          type: "pie",
-          radius: "50%",
-          center: ["60%", "60%"],
+          center: ["50%", "50%"],
           label: {
             show: false,
           },
@@ -215,6 +181,30 @@ export class EchartNiniosComponent implements OnInit {
             },
           },
           data: data1,
+          left: "0%",
+          right: "50%",
+          top: -150,
+          bottom: 0,
+        },
+        {
+          name: "niñas y niños de 4-24 meses",
+          type: "pie",
+          radius: "50%",
+          center: ["50%", "50%"],
+          label: {
+            show: false,
+          },
+          emphasis: {
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: "rgba(0, 0, 0, 0.5)",
+            },
+            label: {
+              show: true,
+            },
+          },
+          data: data2,
 
           left: "50%",
           right: "0%",

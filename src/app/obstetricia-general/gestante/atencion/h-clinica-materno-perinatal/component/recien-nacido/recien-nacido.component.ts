@@ -44,7 +44,7 @@ export class RecienNacidoComponent implements OnInit {
             },
         })
         this.ref.onClose.subscribe((data: any) => {
-            console.log('data de otro dialog ', data)
+            //console.log('data de otro dialog ', data)
             if (data !== undefined)
                 this.todosRN.push(data);
         })
@@ -65,7 +65,7 @@ export class RecienNacidoComponent implements OnInit {
             data: aux
         })
         this.ref.onClose.subscribe((data: any) => {
-            console.log('data de otro dialog ', data)
+            //console.log('data de otro dialog ', data)
             if (data !== undefined) {
                 this.todosRN.splice(data.index, 1, data.row);
             }
@@ -74,19 +74,19 @@ export class RecienNacidoComponent implements OnInit {
     }
 
     guardarRecienNacidos() {
-        console.log('data to save ', this.todosRN);
+        //console.log('data to save ', this.todosRN);
         this.recienNacidoService.postRecienNacido(this.idObstetricia, {
             recienNacido: this.todosRN,
             proceso: "RECIEN NACIDO"
         }).subscribe((res: any) => {
-            console.log('se guardo con exito ', res)
+            //console.log('se guardo con exito ', res)
         })
     }
 
     recuperarRecienNacidos() {
-        console.log('data to save ', this.todosRN);
+        //console.log('data to save ', this.todosRN);
         this.recienNacidoService.getRecienNacidoById(this.idObstetricia).subscribe((res: any) => {
-            console.log('trajo datos exito ', res)
+            //console.log('trajo datos exito ', res)
             this.todosRN = res.object === null ? [] : res.object.recienNacido;
         })
     }

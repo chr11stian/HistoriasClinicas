@@ -77,7 +77,7 @@ export class ConsultaComponent implements OnInit {
 
     ngOnInit(): void {
         this.obstetriciaGeneralService.actualConsultationStatus$.subscribe((res: number) => this.consultationStatus = res)
-        console.log('link to downnnnnnnnnnnnnnnnnnnn  ', this.downloadLink);
+        //console.log('link to downnnnnnnnnnnnnnnnnnnn  ', this.downloadLink);
     }
 
     inicializarForm() {
@@ -101,7 +101,7 @@ export class ConsultaComponent implements OnInit {
     //         autoZIndex: false,
     //     })
     //     this.ref.onClose.subscribe((data: any) => {
-    //         console.log('data de otro dialog ', data)
+    //         //console.log('data de otro dialog ', data)
     //         if (data !== undefined) this.recuperarConsultas();
     //     })
     // }
@@ -122,7 +122,7 @@ export class ConsultaComponent implements OnInit {
     //         data: aux
     //     })
     //     this.ref.onClose.subscribe((data: any) => {
-    //         console.log('data de otro dialog ', data)
+    //         //console.log('data de otro dialog ', data)
     //         if (data !== undefined) {
     //             this.recuperarConsultas();
     //         }
@@ -137,7 +137,7 @@ export class ConsultaComponent implements OnInit {
         //     "nroEmbarazo": this.nroEmbarazo
         // }
         // this.consultaObstetriciaService.getDatosConsultasObstetricasListar(data).subscribe((res: any) => {
-        //     console.log('trajo datos exito ', res)
+        //     //console.log('trajo datos exito ', res)
         //     this.consultas = res.object ? res.object : [];
         //     this.loading = false;
         // })
