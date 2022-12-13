@@ -121,10 +121,13 @@ export class DialogReqLaboratorioComponent implements OnInit {
       for (let j = 0; j < rptaExam.length; j++) {
         let isSaved: boolean = false;
         if (listaExamenes[i] == rptaExam[j].subTipo) {
-          // console.log('respuesta ', rptaExam[j]);
-          this.dataDialog.forEach(exam => {
-            isSaved = rptaExam[j].nombreExamen == exam.nombreExamen ? true : false;
-          });
+          if (this.dataDialog) {
+            // console.log('respuesta ', rptaExam[j]);
+            this.dataDialog.forEach(exam => {
+              isSaved = rptaExam[j].nombreExamen == exam.nombreExamen ? true : false;
+            });
+          }
+
           let auxExam: ExamLab = {
             subTipo: rptaExam[j].subTipo,
             saved: isSaved,
