@@ -79,6 +79,7 @@ export class LaboratorioComponent implements OnInit {
     //     data: data,
     //     ispruebaTomada:true
     //     };
+    // console.log('data de lab ', data);
     switch (data.datosLaboratorio.subTipo) {
       case "HEMATOLOGIA": {
         this.ref = this.dialog.open(LabHematologiaComponent, {
@@ -112,7 +113,7 @@ export class LaboratorioComponent implements OnInit {
       }
         break;
 
-      case "MICROBIOLOGICO": {
+      case "MICROBIOLOGIA": {
         this.ref = this.dialog.open(LabMicrobiologicoComponent, {
           header: "RESULTADO DEL LABORATORIO CLINICO - MICROBIOLOGICO",
           width: "60%",
