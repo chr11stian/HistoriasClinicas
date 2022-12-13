@@ -220,7 +220,7 @@ export class CitasComponent implements OnInit {
             width: '70%',
             data: dataAux,
         });
-        console.log("DATA TRIAJE", data)
+        // console.log("DATA TRIAJE", data)
         this.ref.onClose.subscribe((data: any) => {
             this.buscarCuposPorPersonal();
         });

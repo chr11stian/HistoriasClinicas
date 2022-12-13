@@ -22,7 +22,7 @@ export class AtencionesPrenatalesModalComponent implements OnInit {
     this.atencionesService.getAtencionService(this.idFiliacion.id).toPromise().then((res: any) => {
         if(res.object !=null){
             this.listaAtenciones = res.object;
-            console.log(this.listaAtenciones[1]);
+            // console.log(this.listaAtenciones[1]);
             
         }
     })

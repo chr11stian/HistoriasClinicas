@@ -54,7 +54,7 @@ export class PuerperioComponent implements OnInit {
             },
         })
         this.ref.onClose.subscribe((data: any) => {
-            console.log('datos de modal puerperio ', data)
+            //console.log('datos de modal puerperio ', data)
             if (data !== undefined)
                 this.puerperios.push(data);
         })
@@ -75,7 +75,7 @@ export class PuerperioComponent implements OnInit {
             data: aux
         })
         this.ref.onClose.subscribe((data: any) => {
-            console.log('datos de modal puerperio ', data)
+            //console.log('datos de modal puerperio ', data)
             if (data !== undefined) {
                 this.puerperios.splice(data.index, 1, data.row);
             }
@@ -98,7 +98,7 @@ export class PuerperioComponent implements OnInit {
             data: aux
         })
         this.ref.onClose.subscribe((data: any) => {
-            console.log('datos de modal puerperio ', data)
+            //console.log('datos de modal puerperio ', data)
             if (data !== undefined) {
                 this.puerperios.splice(data.index, 1, data.row);
             }
@@ -134,18 +134,18 @@ export class PuerperioComponent implements OnInit {
             puerperioInmediato: this.puerperios,
             proceso: "PUERPERIO"
         }
-        console.log('data to save ', this.puerperios);
+        //console.log('data to save ', this.puerperios);
         this.puerperioService.addPuerperioService2(this.idObstetricia, req).subscribe(
             (resp) => {
-                console.log(resp);
-                console.log(req);
+                //console.log(resp);
+                //console.log(req);
             })
     }
 
     cambiarProceso() {
         this.puerperioService.postFinalizarGestacion(this.idObstetricia, 'FINALIZADO').subscribe(
             (resp) => {
-                console.log(resp);
+                //console.log(resp);
             }
         )
     }
@@ -219,7 +219,7 @@ export class PuerperioComponent implements OnInit {
     }
 
     recuperar2() {
-        console.log(this.idObstetricia);
+        //console.log(this.idObstetricia);
         this.puerperioService.getPuerperioService2(this.idObstetricia).subscribe((res: any) => {
             this.dataPuerperio = res.object;
             if (this.dataPuerperio != null || this.dataPuerperio != undefined) {

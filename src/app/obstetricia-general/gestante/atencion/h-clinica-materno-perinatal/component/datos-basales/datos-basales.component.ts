@@ -84,7 +84,7 @@ export class DatosBasalesComponent implements OnInit {
                 },
                 icon: 'pi pi-book',
                 command: () => {
-                    console.log('data de labossss');
+                    // console.log('data de labossss');
                 }
             }
         ]
@@ -649,7 +649,7 @@ export class DatosBasalesComponent implements OnInit {
             this.form.patchValue({ 'ivaa': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[26].valor });
             this.form.patchValue({ 'dateIvaa': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[26].fecha });
             this.listaPatologiasMaternas = this.rptaDatosBasales.patologiaMaternoDiagnosticado;
-            console.log('hemoglobina ', this.rptaDatosBasales.examenLaboratorio.hemoglobina);
+            // console.log('hemoglobina ', this.rptaDatosBasales.examenLaboratorio.hemoglobina);
             this.loadDataHemoExams(this.rptaDatosBasales.examenLaboratorio.hemoglobina);
         });
     }
@@ -670,7 +670,7 @@ export class DatosBasalesComponent implements OnInit {
     }
 
     selectedOptionNameCIE(event, cieType) {
-        console.log('lista de cie ', this.listaDeCIE);
+        // console.log('lista de cie ', this.listaDeCIE);
         if (cieType == 0) {
             this.form.patchValue({ diagnosticoHosp: event.descripcionItem });
             this.form.patchValue({ autocompleteHosp: "" });
@@ -687,9 +687,9 @@ export class DatosBasalesComponent implements OnInit {
         // this.fecha = this.datePipe.transform(this.formCuposListar.value.fechaBusqueda, 'yyyy-MM-dd')
         let today = new Date().getTime();
         let auxFUM = new Date(this.form.value.dateFUM).getTime();
-        console.log("FECHA", auxFUM);
+        // console.log("FECHA", auxFUM);
         auxFUM = auxFUM + 0;
-        console.log('auxFUM ', auxFUM, 'today ', today);
+        // console.log('auxFUM ', auxFUM, 'today ', today);
         let auxWeek = today - auxFUM;
         this.edadGestacional = auxWeek / (1000 * 60 * 60 * 24);
         let semanasGestacional = Math.trunc(this.edadGestacional / 7);
@@ -701,7 +701,7 @@ export class DatosBasalesComponent implements OnInit {
         let rptaRecomendaciones: any;
         let pesoHabitual;
         let imcAux;
-        console.log("METROS", alturaMetros)
+        // console.log("METROS", alturaMetros)
         if (semanasGestacional < 13) {
             this.imcService.getClasificacionEstadoNutricionalByTalla(alturaMetros).subscribe((res: any) => {
                 // rptaClasific = res;
@@ -713,7 +713,7 @@ export class DatosBasalesComponent implements OnInit {
                             pesoHabitual = pesoActual - rptaRecomendaciones.min
                         else
                             pesoHabitual = pesoActual - rptaRecomendaciones.med
-                        console.log('peso Habitual ', pesoHabitual);
+                        // console.log('peso Habitual ', pesoHabitual);
                         imcAux = pesoHabitual / Math.pow(alturaMetros, 2);
                         this.tipoGananciaPeso = 'bajoPeso';
                         this.form.patchValue({ imc: imcAux.toFixed(2) });
@@ -731,10 +731,10 @@ export class DatosBasalesComponent implements OnInit {
                         this.tipoGananciaPeso = 'normal';
                         this.form.patchValue({ imc: imcAux.toFixed(2) });
                         this.form.patchValue({ pesoHabitual: pesoHabitual });
-                        console.log('imc ', imcAux);
+                        // console.log('imc ', imcAux);
                     });
 
-                    console.log('peso normal ');
+                    // console.log('peso normal ');
                 }
                 if (pesoActual >= rptaClasific.sobrePeso25 && pesoActual <= rptaClasific.sobrePeso30) {
                     this.imcService.getGananciaSobrePeso(semanasGestacional).subscribe((res: any) => {
@@ -747,8 +747,8 @@ export class DatosBasalesComponent implements OnInit {
                         this.tipoGananciaPeso = 'sobrePeso';
                         this.form.patchValue({ imc: imcAux.toFixed(2) });
                         this.form.patchValue({ pesoHabitual: pesoHabitual });
-                        console.log('imc ', imcAux);
-                        console.log('sobrepeso');
+                        // console.log('imc ', imcAux);
+                        // console.log('sobrepeso');
                     });
                 }
                 if (pesoActual >= rptaClasific.obesidad) {
@@ -760,7 +760,7 @@ export class DatosBasalesComponent implements OnInit {
                             pesoHabitual = pesoActual - rptaRecomendaciones.med
                         imcAux = pesoHabitual / Math.pow(alturaMetros, 2);
                         this.tipoGananciaPeso = 'obesidad';
-                        console.log('imc ', imcAux);
+                        // console.log('imc ', imcAux);
                         this.form.patchValue({ imc: imcAux.toFixed(2) });
                         this.form.patchValue({ pesoHabitual: pesoHabitual });
                     });
@@ -778,15 +778,15 @@ export class DatosBasalesComponent implements OnInit {
                             pesoHabitual = pesoActual - rptaRecomendaciones.min
                         else
                             pesoHabitual = pesoActual - rptaRecomendaciones.med
-                        console.log('peso Habitual ', pesoHabitual);
+                        // console.log('peso Habitual ', pesoHabitual);
                         imcAux = pesoHabitual / Math.pow(alturaMetros, 2);
                         this.tipoGananciaPeso = 'bajoPeso';
                         this.form.patchValue({ imc: imcAux.toFixed(2) });
                         this.form.patchValue({ pesoHabitual: pesoHabitual });
-                        console.log('imc ', imcAux);
+                        // console.log('imc ', imcAux);
                     });
                     this.tipoGananciaPeso = 'bajoPeso';
-                    console.log(this.tipoGananciaPeso);
+                    // console.log(this.tipoGananciaPeso);
                 }
                 if (pesoActual >= rptaClasific.p10 && pesoActual <= rptaClasific.p90) {
                     this.imcService.getGananciaPesoRegular(semanasGestacional).subscribe((res: any) => {
@@ -799,7 +799,7 @@ export class DatosBasalesComponent implements OnInit {
                         this.tipoGananciaPeso = 'normal';
                         this.form.patchValue({ imc: imcAux.toFixed(2) });
                         this.form.patchValue({ pesoHabitual: pesoHabitual });
-                        console.log('imc ', imcAux);
+                        // console.log('imc ', imcAux);
                     });
                 }
                 if (pesoActual > rptaClasific.p90) {
@@ -813,8 +813,8 @@ export class DatosBasalesComponent implements OnInit {
                         this.tipoGananciaPeso = 'sobrePeso';
                         this.form.patchValue({ imc: imcAux.toFixed(2) });
                         this.form.patchValue({ pesoHabitual: pesoHabitual });
-                        console.log('imc ', imcAux);
-                        console.log('sobrepeso');
+                        // console.log('imc ', imcAux);
+                        // console.log('sobrepeso');
                     });
                 }
                 if (pesoActual > rptaClasific.p90 + 10) {
@@ -826,7 +826,7 @@ export class DatosBasalesComponent implements OnInit {
                             pesoHabitual = pesoActual - rptaRecomendaciones.med
                         imcAux = pesoHabitual / Math.pow(alturaMetros, 2);
                         this.tipoGananciaPeso = 'obesidad';
-                        console.log('imc ', imcAux);
+                        // console.log('imc ', imcAux);
                         this.form.patchValue({ imc: imcAux.toFixed(2) });
                         this.form.patchValue({ pesoHabitual: pesoHabitual });
                     });
@@ -835,7 +835,7 @@ export class DatosBasalesComponent implements OnInit {
         }
 
         let fum: any = new DatePipe('en-CO').transform(this.form.value.dateFUM, 'yyyy/MM/dd').split("/");
-        console.log('split date ', fum);
+        // console.log('split date ', fum);
         let newDay: any = parseInt(fum[2]) + 7;
         let newMonth: any = parseInt(fum[1]) - 3;
         let newYear: any = parseInt(fum[0]);
@@ -852,7 +852,7 @@ export class DatosBasalesComponent implements OnInit {
             newYear = (newYear) + 1;
         }
         if (newDay > 30) {
-            console.log('actual day ', newDay);
+            // console.log('actual day ', newDay);
             newDay = newDay - 30;
             newMonth = newMonth + 1
         }

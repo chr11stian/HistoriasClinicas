@@ -73,13 +73,13 @@ export class StepGeneralComponent implements OnInit {
                 this.stepName = "datosgeneralesfiliacion"
                 break
         }
-        console.log(this.stepName);
+        //console.log(this.stepName);
     }
 
     ChangeStep(event: number) {
         this.indiceActivo = event;
         this.name()
-        console.log("aaa", event);
+        //console.log("aaa", event);
     }
 
     nextPage() {
@@ -123,7 +123,7 @@ export class StepGeneralComponent implements OnInit {
                 this.indiceActivo = 4;
                 break;
             case 'partos':
-                console.log('fi ', this.stepName)
+                //console.log('fi ', this.stepName)
                 this.stepName = 'atenciones';
                 this.indiceActivo = 3;
                 break;

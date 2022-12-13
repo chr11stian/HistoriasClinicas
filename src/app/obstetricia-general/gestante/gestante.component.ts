@@ -45,7 +45,7 @@ export class GestanteComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        console.log("evvvvvvvvv")
+        //console.log("evvvvvvvvv")
         this.DataCupos = JSON.parse(localStorage.getItem('datacupos'));
         this.DataCupos2 = JSON.parse(localStorage.getItem('PacienteSinCupo'));
         //this.dataGestante = '&idObstretaDatos='+JSON.parse(localStorage.getItem('gestacion')).id;
@@ -59,7 +59,7 @@ export class GestanteComponent implements OnInit {
         }
 
 
-        console.log("NRO DOC RECUPERADO", this.DataCupos)
+        //console.log("NRO DOC RECUPERADO", this.DataCupos)
         // this.buildForm();
         this.pacienteByNroDoc();
         this.traerDataReniec();
@@ -69,27 +69,27 @@ export class GestanteComponent implements OnInit {
     getpacientesFiliados(tipoDoc, nroDoc) {
         this.obstetriciaGeneralService.getPacienteFiliacion(tipoDoc, nroDoc).subscribe((res: any) => {
             this.pacientesFiliacion = res.object
-            console.log("pf", this.pacientesFiliacion)
-            console.log('paciente con nro de gestacion ', this.pacientesFiliacion)
+            //console.log("pf", this.pacientesFiliacion)
+            //console.log('paciente con nro de gestacion ', this.pacientesFiliacion)
             if (this.pacientesFiliacion == null) {
                 this.filiacionUltimaPosicion = 'FINALIZADO';
             } else {
                 let index = this.pacientesFiliacion.length - 1;
                 this.filiacionUltimaPosicion = this.pacientesFiliacion[index].estado;
-                console.log('ARREGLO ULTIMA POSICION', this.filiacionUltimaPosicion);
+                //console.log('ARREGLO ULTIMA POSICION', this.filiacionUltimaPosicion);
                 // this.dataGestante = '&idObstretaDatos=' + this.pacientesFiliacion[0].id;
             }
         });
     }
 
     gestacion(event) {
-        console.log('data to set ls ', event);
+        //console.log('data to set ls ', event);
         localStorage.setItem('gestacion', JSON.stringify(event));
         // localStorage.removeItem('dataPaciente');
         if (this.pacientesFiliacion.length == 0) {
-            console.log("Vacio",)
+            //console.log("Vacio",)
         } else {
-            console.log("Lleno",)
+            //console.log("Lleno",)
         }
     }
 
@@ -99,7 +99,7 @@ export class GestanteComponent implements OnInit {
         let nroDoc = this.nroDocRecuperado;
         this.filiancionService.getPacienteNroDocFiliacion(tipoDoc, nroDoc).subscribe((res: any) => {
             this.dataPaciente = res.object
-            console.log('paciente por doc ', this.dataPaciente)
+            //console.log('paciente por doc ', this.dataPaciente)
             this.tipoDoc = this.dataPaciente.tipoDoc
             this.nroDoc = this.dataPaciente.nroDoc;
             this.nroHcl = this.dataPaciente.nroHcl;
@@ -117,23 +117,23 @@ export class GestanteComponent implements OnInit {
     traerDataReniec() {
         this.filiancionService.getDatosReniec(this.nroDocRecuperado).subscribe((res: any) => {
             this.dataPacientesReniec = res;
-            console.log(res);
+            //console.log(res);
             this.imagePath = res.foto;
         });
     }
     imprimir(rowData) {
-        console.log('data de tabla ', rowData)
+        //console.log('data de tabla ', rowData)
         this.dataGestante = '&idObstretaDatos=' + rowData.id;
-        // console.log('link para imprimir ', this.downloadLink + this.dataGestante);
+        // //console.log('link para imprimir ', this.downloadLink + this.dataGestante);
         // let data = {
         //     tipoDoc: 'DNI',
         //     nroDoc: '73145986'
         // }
         // this.personalService.getPersonalTipoDocumento(data.tipoDoc, data.nroDoc).subscribe((res: any) => {
-        //     console.log('data personal ', res);
+        //     //console.log('data personal ', res);
         // })
         // this.filiancionService.getAntecedentesFiliacion(this.dataGestante.id).subscribe((res: any) =>{
-        //     console.log('imprimir res ', res);
+        //     //console.log('imprimir res ', res);
 
         // })
     }

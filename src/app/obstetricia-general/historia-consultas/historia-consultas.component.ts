@@ -109,7 +109,7 @@ export class HistoriaConsultasComponent implements OnInit {
         })
 
         this.ref.onClose.subscribe((data: any) => {
-            console.log('data de otro dialog ', data)
+            //console.log('data de otro dialog ', data)
         })
     }
 

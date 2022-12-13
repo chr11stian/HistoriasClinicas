@@ -50,7 +50,7 @@ export class PartosComponent implements OnInit {
         // this.idGestacion = obstetriciaGeneralService.idGestacion;
 
 
-        console.log('id paciente parto:', this.idGestacion);
+        //console.log('id paciente parto:', this.idGestacion);
         this.twoOptions = [
             {label: "Si", value: "si"},
             {label: "No", value: "no"},
@@ -257,7 +257,7 @@ export class PartosComponent implements OnInit {
             },
             proceso: 'parto'
         }
-        console.log("PARTOS o ABORTOS", partoAbortoInput)
+        //console.log("PARTOS o ABORTOS", partoAbortoInput)
         this.partoAbortoService.addUpdatePartoAborto(this.idGestacion, partoAbortoInput).subscribe((resp) => {
             if (resp['cod'] == '2007') {
                 this.messageService.add({
@@ -414,7 +414,7 @@ export class PartosComponent implements OnInit {
             width: "25%",
         });
         this.ref.onClose.subscribe((input?: any) => {
-            console.log('restornado', input)
+            //console.log('restornado', input)
             if (input != null) {
                 if (this.isUpdate2) {
                     this.medicamentoList.splice(index, 1, input)

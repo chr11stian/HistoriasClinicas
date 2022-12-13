@@ -40,7 +40,7 @@ export class PnGestanteComponent implements OnInit {
       .then(
         (data: any) => {
           this.listaGestantes = data["rows"];
-          console.log("gestantessss", this.listaGestantes);
+          //console.log("gestantessss", this.listaGestantes);
         }
       );
   }

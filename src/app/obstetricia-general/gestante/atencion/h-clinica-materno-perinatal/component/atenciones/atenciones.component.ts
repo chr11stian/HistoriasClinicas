@@ -152,9 +152,9 @@ export class AtencionesComponent implements OnInit {
                 break
         }
         /* data  tipo de dato:Array<number[]>; ejemplo: [[semana,peso],...] ejmpl2: [[1,1.45],[2,1.46]]*/
-        console.log('peso madre', this.datosGraficoPesoMadre);
+        // console.log('peso madre', this.datosGraficoPesoMadre);
         const arreglo = [[1, 1], [7, 0.7], [13, 1.3], [20, 2.7], [26, 4], [34, 5.3], [40, 7]]
-        console.log('ganancia', this.datosGraficoPesoMadre);
+        // console.log('ganancia', this.datosGraficoPesoMadre);
 
         this.ref = this.dialogService.open(PesoEmbarazoUnicoMultipleComponent, {
             data: {

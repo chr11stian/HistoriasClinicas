@@ -48,7 +48,7 @@ export class DialogPatologiasMaternasComponent implements OnInit {
   }
 
   selectedOption(event) {
-    console.log('value ', event);
+    // console.log('value ', event);
     this.formDiagnostico.patchValue({ diagnostico: event.descripcionItem });
   }
 

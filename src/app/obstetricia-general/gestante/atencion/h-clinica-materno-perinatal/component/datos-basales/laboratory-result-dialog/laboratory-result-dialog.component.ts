@@ -48,7 +48,7 @@ export class LaboratoryResultDialogComponent implements OnInit {
                     edit: true
                 },
             });
-            console.log("DATAS", data);
+            //console.log("DATAS", data);
             this.ref.onClose.subscribe((data: any) => {
                 // this.buscarCuposPorPersonal();
             });
@@ -64,7 +64,7 @@ export class LaboratoryResultDialogComponent implements OnInit {
                     edit: true
                 },
             });
-            console.log("DATA", data);
+            //console.log("DATA", data);
             this.ref.onClose.subscribe((data: any) => {
                 // this.buscarCuposPorPersonal();
             });
@@ -80,7 +80,7 @@ export class LaboratoryResultDialogComponent implements OnInit {
                     edit: true
                 },
             });
-            console.log("DATA", data);
+            // //console.log("DATA", data);
             this.ref.onClose.subscribe((data: any) => {
                 // this.buscarCuposPorPersonal();
             });
@@ -96,7 +96,7 @@ export class LaboratoryResultDialogComponent implements OnInit {
                     edit: true
                 },
             });
-            console.log("DATA", data);
+            // //console.log("DATA", data);
             this.ref.onClose.subscribe((data: any) => {
                 // this.buscarCuposPorPersonal();
             });
@@ -109,7 +109,7 @@ export class LaboratoryResultDialogComponent implements OnInit {
                 data: {dataEnviada:data,
                     isPruebaTomada:true}
             });
-            console.log("DATA", data);
+            // //console.log("DATA", data);
             this.ref.onClose.subscribe((data: any) => {
                 // this.buscarCuposPorPersonal();
             });
@@ -122,7 +122,7 @@ export class LaboratoryResultDialogComponent implements OnInit {
                 data: {dataEnviada:data,
                     isPruebaTomada:true}
             });
-            console.log("DATA", data);
+            // //console.log("DATA", data);
             this.ref.onClose.subscribe((data: any) => {
             });
         }

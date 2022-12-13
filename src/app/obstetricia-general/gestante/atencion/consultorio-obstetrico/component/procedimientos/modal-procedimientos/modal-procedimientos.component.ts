@@ -61,7 +61,7 @@ export class ModalProcedimientosComponent implements OnInit {
     private messageService: MessageService) {
 
     this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
-    console.log("ipress", this.idIpress)
+    // console.log("ipress", this.idIpress)
 
     /*********RECUPERAR DATOS*********/
     /*usando local storage*/
@@ -74,8 +74,8 @@ export class ModalProcedimientosComponent implements OnInit {
     //estado para saber que estado usar en consultas
     this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
 
-    console.log("DATA PACIENTE 2 desde datos generales", this.dataPaciente2);
-    console.log("gestacion desde datos generales", this.Gestacion);
+    // console.log("DATA PACIENTE 2 desde datos generales", this.dataPaciente2);
+    // console.log("gestacion desde datos generales", this.Gestacion);
 
     if (this.Gestacion == null) {
       this.tipoDocRecuperado = this.dataPaciente2.tipoDoc;
@@ -95,19 +95,19 @@ export class ModalProcedimientosComponent implements OnInit {
       //guardar en el ls el nroAtencion
       let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaNueva'));
       this.nroAtencion = nroAtencion;
-      console.log("entre a nueva consulta", this.nroAtencion)
+      // console.log("entre a nueva consulta", this.nroAtencion)
     }
     else {
       let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaEditar'));
       this.nroAtencion = nroAtencion;
-      console.log("entre a edicion consulta", this.nroAtencion)
+      // console.log("entre a edicion consulta", this.nroAtencion)
     }
     /*LLENADO DE LISTAS - VALORES QUE PUEDEN TOMAR TIPO DX*/
     this.tipoList = [{ label: 'DEFINITIVO', value: 'D' },
     { label: 'PRESUNTIVO', value: 'P' },
     { label: 'REPETITIVO', value: 'R' },
     ];
-    console.log("esto es lo q mandas a modal", config);
+    // console.log("esto es lo q mandas a modal", config);
     this.buildForm();
 
     this.recuperarPrestaciones();
@@ -115,20 +115,20 @@ export class ModalProcedimientosComponent implements OnInit {
 
     if (config.data && typeof (config.data) !== 'string') {
       this.consejeria = false;
-      console.log("consejeria", this.consejeria)
+      // console.log("consejeria", this.consejeria)
       this.llenarCamposTratamientoProcedimientos();
     }
     if (config.data && typeof (config.data) === 'string') {
       this.consejeria = true;
       this.valorConsejeria = config.data;
-      console.log("consejeria", this.consejeria);
+      // console.log("consejeria", this.consejeria);
       this.formProcedimientos.get('ups').setValue("OBSTETRICIA");
       this.formProcedimientos.get('subtitulo').setValue("MATERNO PERINATAL");
       this.formProcedimientos.get("tipo").setValue("D");
     }
     else {
       this.consejeria = false;
-      console.log("consejeria", this.consejeria)
+      // console.log("consejeria", this.consejeria)
       this.formProcedimientos.get('ups').setValue("OBSTETRICIA");
       this.formProcedimientos.get('subtitulo').setValue("MATERNO PERINATAL");
       this.formProcedimientos.get("tipo").setValue("D");
@@ -160,12 +160,12 @@ export class ModalProcedimientosComponent implements OnInit {
       edad: this.edadPaciente,
       sexo: this.sexoPaciente
     }
-    console.log("DATA PARA UPS HIS", Data)
+    // console.log("DATA PARA UPS HIS", Data)
     this.DxService.listaUpsHis(Data).then((res: any) => this.listaUpsHis = res.object);
   }
   recuperarUPS() {
     this.DxService.listaUps(this.idIpress).then((res: any) => this.listaUps = res.object);
-    console.log("DATA PARA UPS", this.listaUps)
+    // console.log("DATA PARA UPS", this.listaUps)
   }
   openNew() {
     this.formProcedimientos.reset();
@@ -175,7 +175,7 @@ export class ModalProcedimientosComponent implements OnInit {
   traerDiagnosticosDeConsulta() {
     this.DxService.listarDiagnosticosDeUnaConsulta(this.nroHcl, this.nroEmbarazo, this.nroAtencion).then((res: any) => {
       this.diagnosticosList = res.object;
-      console.log("diagnosticos:", this.diagnosticosList);
+      // console.log("diagnosticos:", this.diagnosticosList);
     })
   }
   async enviarProcedimientos() {
@@ -192,7 +192,7 @@ export class ModalProcedimientosComponent implements OnInit {
       tipo: this.formProcedimientos.value.tipo,
     }
 
-    console.log(data);
+    // console.log(data);
 
     await this.DxService.guardarProcedimientoGestante(this.nroHcl, this.nroEmbarazo, this.nroAtencion, data).then((res: any) => {
       Swal.fire({
@@ -218,7 +218,7 @@ export class ModalProcedimientosComponent implements OnInit {
       tipo: this.formProcedimientos.value.tipo,
     }
 
-    console.log(data);
+    // console.log(data);
 
     await this.DxService.guardarProcedimientoGestanteConsejeria(this.nroHcl, this.nroEmbarazo, this.nroAtencion, this.valorConsejeria, data).then((res: any) => {
       Swal.fire({
@@ -243,7 +243,7 @@ export class ModalProcedimientosComponent implements OnInit {
       lab: this.formProcedimientos.value.lab,
       tipo: this.formProcedimientos.value.tipo,
     }
-    console.log(data);
+    // console.log(data);
 
     await this.DxService.editarProcedimientoGestante(this.nroHcl, this.nroEmbarazo, this.nroAtencion, data).then((res: any) => {
       Swal.fire({
@@ -299,7 +299,7 @@ export class ModalProcedimientosComponent implements OnInit {
   recuperarPrestaciones() {
     this.DxService.getPrestaciones().subscribe((res: any) => {
       this.prestacionList = res.object;
-      console.log("prestaciones:", this.prestacionList);
+      // console.log("prestaciones:", this.prestacionList);
     })
   }
   onChangeDiagnostico() {
@@ -327,13 +327,13 @@ export class ModalProcedimientosComponent implements OnInit {
   }
 
   selectedOptionNameCIE(event, cieType) {
-    console.log('lista de cie ', this.listaDeCIE);
-    console.log('evento desde diagnos ', event);
+    // console.log('lista de cie ', this.listaDeCIE);
+    // console.log('evento desde diagnos ', event);
     if (cieType == 0) {
       this.formProcedimientos.patchValue({ diagnosticoSIS: event.value.procedimiento });
       this.formProcedimientos.patchValue({ autocompleteSIS: "" });
       this.formProcedimientos.patchValue({ SISCIE: event.value }, { emitEvent: false });
-      console.log(event.value)
+      // console.log(event.value)
     }
     if (cieType == 1) {
       this.formProcedimientos.patchValue({ diagnosticoHIS: event.descripcionItem });

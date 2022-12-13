@@ -68,7 +68,7 @@ export class AtencionComponent implements OnInit {
         this.filiancionService.getPacienteNroDocFiliacion(tipoDoc, nroDoc).subscribe((res: any) => {
             this.DataPaciente = res.object
             this.nombreDelGestante = this.DataPaciente.apePaterno + ' ' + this.DataPaciente.apeMaterno + ' ' + this.DataPaciente.primerNombre + ' ' + this.DataPaciente.otrosNombres
-            console.log('paciente por doc 2 ', this.nombreDelGestante)
+            //console.log('paciente por doc 2 ', this.nombreDelGestante)
         });
     }
 
@@ -81,12 +81,12 @@ export class AtencionComponent implements OnInit {
         this.obstetriciaGeneralService.getConsultorioObstetrico(this.idRecuperado, data).then((res: any) => {
             this.dataConsultorioObstetrico = res.object
             if (this.dataConsultorioObstetrico == null) {
-                console.log('no se encontro naa');
+                //console.log('no se encontro naa');
                 return
             }
-            console.log('Data Consultorio Obstetrico', this.dataConsultorioObstetrico)
+            //console.log('Data Consultorio Obstetrico', this.dataConsultorioObstetrico)
             this.obstetriciaGeneralService.idConsultoriObstetrico = this.dataConsultorioObstetrico.id;
-            // console.log('Data consultorio id', this.obstetriciaGeneralService.idConsultoriObstetrico);
+            // //console.log('Data consultorio id', this.obstetriciaGeneralService.idConsultoriObstetrico);
         });
 
     }

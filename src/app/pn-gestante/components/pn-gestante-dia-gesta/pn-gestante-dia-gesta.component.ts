@@ -353,8 +353,8 @@ export class PnGestanteDiaGestaComponent implements OnInit {
     this.formGestante
       .get("formFpp")
       .setValue(this.datePipe.transform(auxBirth, "yyyy-MM-dd"));
-    console.log(this.datePipe.transform(auxBirth, "yyyy-MM-dd"));
-    console.log("auxFpp", this.auxFPP);
+    //console.log(this.datePipe.transform(auxBirth, "yyyy-MM-dd"));
+    //console.log("auxFpp", this.auxFPP);
   }
 
   agregarGesta() {
@@ -368,7 +368,7 @@ export class PnGestanteDiaGestaComponent implements OnInit {
       this.formGestante.value.formFPP,
       "dd/MM/yyyy"
     );
-    console.log("fpp", fpp);
+    //console.log("fpp", fpp);
     this.nuevaGesta.codEessActual =
       this.pn_gestanteServicio.getauxCodeessActual();
     this.nuevaGesta.eessActual = this.pn_gestanteServicio.getaux_eessActual();

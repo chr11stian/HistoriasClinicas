@@ -40,7 +40,7 @@ export class RecienNacidoDialogoComponent implements OnInit {
         this.stateOptions = [{label: 'Si', value: true}, {label: 'No', value: false}];
         this.buildForm();
         this.idObstetricia = this.obstetriciaGeneralService.idGestacion;
-        console.log(config.data);
+        //console.log(config.data);
         if (config.data) {
             this.llenarCamposEdicionRN();
         }
@@ -186,13 +186,13 @@ export class RecienNacidoDialogoComponent implements OnInit {
             fechaContro: this.datePipe.transform(this.formEgresoRN.value.fechaContro, 'yyyy-MM-dd HH:mm:ss'),
             controlRecienNacido: this.formEgresoRN.value.controlRecienNacido
         }
-        console.log(recienNacidoEgreso);
+        //console.log(recienNacidoEgreso);
         this.todosEgresosDelRN.push(recienNacidoEgreso);
         this.egresoRNDialog = false;
     }
 
     enviarRecienNacidos() {
-        console.log("Datos de los egresos ", this.todosEgresosDelRN)
+        //console.log("Datos de los egresos ", this.todosEgresosDelRN)
         var recienNacido = {
             recienNacidoHcl: this.form.value.recienNacidoHcl,
             nombreRecienNacido: this.form.value.nombreRecienNacido,
@@ -270,7 +270,7 @@ export class RecienNacidoDialogoComponent implements OnInit {
                 rh: this.form.value.rh
             },
         }
-        console.log("Datos del recien nacido ", recienNacido);
+        //console.log("Datos del recien nacido ", recienNacido);
         this.datosRecienNacido.push(recienNacido);
     }
 
@@ -349,8 +349,8 @@ export class RecienNacidoDialogoComponent implements OnInit {
     }
 
     openDialogEditarRN(rowData, rowIndex) {
-        console.log("DATOS EDITAR", rowData)
-        console.log("DATOS index", rowIndex)
+        //console.log("DATOS EDITAR", rowData)
+        //console.log("DATOS index", rowIndex)
         this.estadoEditarRN = true;
         this.indexRNEditado = rowIndex;
         this.formEgresoRN.reset();
@@ -386,7 +386,7 @@ export class RecienNacidoDialogoComponent implements OnInit {
             fechaContro: this.datePipe.transform(this.formEgresoRN.value.fechaContro, 'yyyy-MM-dd HH:mm:ss'),
             controlRecienNacido: this.formEgresoRN.value.controlRecienNacido
         }
-        console.log(recienNacidoEgreso);
+        //console.log(recienNacidoEgreso);
         this.todosEgresosDelRN.splice(this.indexRNEditado, 1, recienNacidoEgreso);
         this.egresoRNDialog = false;
         this.estadoEditarRN = false;
@@ -427,7 +427,7 @@ export class RecienNacidoDialogoComponent implements OnInit {
             patologia: this.formPatologias.value.patologia,
             cie10: this.formPatologias.value.cie10 === '' ? '' : this.formPatologias.value.cie10.codigoItem,
         }
-        console.log(patologia);
+        //console.log(patologia);
         this.patologiasRN.push(patologia);
         this.patologiaDialog = false;
     }
@@ -451,7 +451,7 @@ export class RecienNacidoDialogoComponent implements OnInit {
             patologia: this.formPatologias.value.patologia,
             cie10: this.formPatologias.value.cie10 === '' ? '' : this.formPatologias.value.cie10.codigoItem,
         }
-        console.log(patologia);
+        //console.log(patologia);
         this.patologiasRN.splice(this.indexPatologiaEditado, 1, patologia);
         this.patologiaDialog = false;
         this.estadoEditarPatologia = false;
@@ -517,7 +517,7 @@ export class RecienNacidoDialogoComponent implements OnInit {
     }
 
     selectedOptionNameCIE(event, cieType) {
-        console.log('lista de cie ', this.listaDeCIE);
+        //console.log('lista de cie ', this.listaDeCIE);
         if (cieType == 0) {
             this.formPatologias.get("patologia").setValue(event.descripcionItem);
             this.formPatologias.get("autocomplete").setValue("");
@@ -546,8 +546,8 @@ export class RecienNacidoDialogoComponent implements OnInit {
     }
 
     selectNoAplicaDFallecimiento(tipoEgreso) {
-        console.log(this.form.value.dxFallecimientoNoAplica);
-        console.log(this.form.value.dxMfNoAplica);
+        //console.log(this.form.value.dxFallecimientoNoAplica);
+        //console.log(this.form.value.dxMfNoAplica);
         if (tipoEgreso == 0) {
             if (this.form.value.dxFallecimientoNoAplica[0] == 'true') {
                 this.form.get("dxFallecimiento").setValue("");
@@ -582,8 +582,8 @@ export class RecienNacidoDialogoComponent implements OnInit {
     }
 
     selectNoAplicaTraslado(tipoEgreso) {
-        console.log(this.form.value.dxTrasladoNoAplica);
-        console.log(this.form.value.dxMtNoAplica);
+        //console.log(this.form.value.dxTrasladoNoAplica);
+        //console.log(this.form.value.dxMtNoAplica);
         if (tipoEgreso == 0) {
             if (this.form.value.dxTrasladoNoAplica[0] == 'true') {
                 this.form.get("dxTraslado").setValue("");
