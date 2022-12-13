@@ -7,6 +7,7 @@ import {
   FiliancionService
 } from "../../../obstetricia-general/gestante/atencion/h-clinica-materno-perinatal/services/filiancion-atenciones/filiancion.service";
 import Swal from 'sweetalert2';
+import { Documento } from '../../interfaces/consulta-generica.interface';
 
 @Component({
   selector: 'app-lista-consulta',
@@ -45,37 +46,39 @@ export class ListaConsultaComponent implements OnInit {
   }
 
   oldConsulta(rowData) {
-      const data: any = {
-        nroDocumento: this.dataFromLocal.nroDocumento,
-        tipoDoc: this.dataFromLocal.tipoDoc,
+      const data: Documento = {
+        idCupo: this.dataFromLocal.idCupo,
         idConsulta: rowData.id,
+        tipoDoc: this.dataFromLocal.tipoDoc,
+        nroDocumento: this.dataFromLocal.nroDocumento,
         anio:this.dataFromLocal.anio,
         mes: this.dataFromLocal.mes,
         dia: this.dataFromLocal.dia,
         sexo: this.dataPaciente.sexo,
-        fechaNacimiento: this.dataPaciente.nacimiento.fechaNacimiento,
-        tipoConsulta:this.dataFromLocal.tipoConsulta,
-        idCupo: this.dataFromLocal.idCupo,
         ups:this.dataFromLocal.ups,
-        fechaConsulta:this.dataFromLocal.fechaConsulta,
+        tipoConsulta:this.dataFromLocal.tipoConsulta,
+        // fechaConsulta:this.dataFromLocal.fechaConsulta,
+        fechaNacimiento: this.dataPaciente.nacimiento.fechaNacimiento,
+        estadoAtencion:rowData.estadoAtencion
       }
       localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
       this.router.navigate(['/dashboard/consulta-generica/consulta'])
   }
 
   newConsulta() {
-    const data: any = {
-      nroDocumento: this.dataFromLocal.nroDocumento,
-      tipoDoc: this.dataFromLocal.tipoDoc,
+    const data: Documento = {
+      idCupo: this.dataFromLocal.idCupo,
       idConsulta: '',
+      tipoDoc: this.dataFromLocal.tipoDoc,
+      nroDocumento: this.dataFromLocal.nroDocumento,
       anio:this.dataFromLocal.anio,
       mes: this.dataFromLocal.mes,
       dia: this.dataFromLocal.dia,
       sexo: this.dataPaciente.sexo,
-      fechaNacimiento: this.dataPaciente.nacimiento.fechaNacimiento,
-      tipoConsulta:this.dataFromLocal.tipoConsulta,
-      idCupo: this.dataFromLocal.idCupo,
       ups:this.dataFromLocal.ups,
+      tipoConsulta:this.dataFromLocal.tipoConsulta,
+      fechaNacimiento: this.dataPaciente.nacimiento.fechaNacimiento,
+      estadoAtencion:"1"
       // fechaConsulta:this.dataFromLocal.fechaConsulta,
     }
     localStorage.setItem(this.attributeLocalS, JSON.stringify(data));

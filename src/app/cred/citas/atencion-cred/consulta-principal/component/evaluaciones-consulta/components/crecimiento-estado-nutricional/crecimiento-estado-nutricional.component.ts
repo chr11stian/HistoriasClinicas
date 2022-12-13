@@ -139,9 +139,7 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
     ];
 
     cambiamos(numero) {
-        console.log(numero.value);
         this.edad = numero.value;
-        console.log(this.edad);
     }
 
     builForm() {
@@ -205,14 +203,8 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
             codigoPrestacion: "",
             controlCrecimientoDesaMes: bodyControlCrecimiento,
         };
-        //console.log('He', this.diagnosticoH)
-        //console.log('We', this.diagnosticoW)
-        //console.log('Ce', this.diagnosticoC)
-        //console.log('WH', this.diagnosticoWH)
         this.controlCrecimientoService
-            .updateControlCrecimiento(this.data.idConsulta, body).toPromise().then((resp) => {
-                console.log(resp);
-                
+            .updateControlCrecimiento(this.data.idConsulta, body).toPromise().then((resp) => {                
                 /* Swal.fire({
                     icon: "success",
                     title: "Actualizado correctamente",
@@ -221,9 +213,7 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
                     timer: 1500,
                 }) */
                
-            }).catch((error)=>{
-                //  console.log('el error',error);
-                
+            }).catch((error)=>{                
             })
     }
 
@@ -236,18 +226,15 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
                 this.auxEvaluacionH = aux[1];    
                 if (this.sv.talla  < this.auxEvaluacionH["-2"]) {
                     this.diagnosticoH = "Talla baja";
-                    console.log("talla baja");
                 }
                 if (
                     this.sv.talla  >= this.auxEvaluacionH["-2"] &&
                     this.sv.talla  <= this.auxEvaluacionH["2"]
                 ) {
                     this.diagnosticoH = "Normal";
-                    console.log("Normal");
                 }
                 if (this.sv.talla  > this.auxEvaluacionH["2"]) {
                     this.diagnosticoH = "Alto";
-                    // console.log("talla alta");
                 }
             });
         this.controlCrecimientoService
@@ -257,18 +244,15 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
                 this.auxEvaluacionW = aux[1]; 
                 if (this.sv.peso/1000 < this.auxEvaluacionW["-2"]) {
                     this.diagnosticoW = "Desnutrición";
-                    console.log("talla baja");
                 }
                 if (
                     this.sv.peso/1000 >= this.auxEvaluacionW["-2"] &&
                     this.sv.peso/1000 <= this.auxEvaluacionW["2"]
                 ) {
                     this.diagnosticoW = "Normal";
-                    console.log("talla normal");
                 }
                 if (this.sv.peso/1000 > this.auxEvaluacionW["2"]) {
                     this.diagnosticoW = "Sobrepeso";
-                    // console.log("talla alta");
                 }
             });
 
@@ -285,23 +269,18 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
                 let aux_b = b[1];            
                 if (this.sv.peso/1000 < aux_b["-3"]) {
                     this.diagnosticoWH = "Desnutrición Severa";
-                    // console.log(this.diagnosticoWH);
                 }
                 if (this.sv.peso/1000 >= aux_b["-3"] && this.sv.peso/1000 < aux_b["-2"]) {
                     this.diagnosticoWH = "Desnutricion Aguda";
-                    // console.log(this.diagnosticoWH);
                 }
                 if (this.sv.peso/1000 >= aux_b["-2"] && this.sv.peso/1000 < aux_b["2"]) {
                     this.diagnosticoWH = "Normal";
-                    // console.log(this.diagnosticoWH);
                 }
                 if (this.sv.peso/1000 >= aux_b["2"] && this.sv.peso/1000 < aux_b["3"]) {
                     this.diagnosticoWH = "Sobrepeso";
-                    // console.log(this.diagnosticoWH);
                 }
                 if (this.sv.peso/1000 >= aux_b["3"]) {
                     this.diagnosticoWH = "Obesidad";
-                    // console.log(this.diagnosticoWH);
                 }
             });
         this.controlCrecimientoService
@@ -314,7 +293,6 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
                     this.auxEvaluacionC["3"]
                 ) {
                     this.diagnosticoC = "Riesgo microcefalia";
-                    console.log("talla baja");
                 }
                 if (
                     this.sv.perimetroCefalico  >=
@@ -322,14 +300,12 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
                     this.sv.perimetroCefalico  <= this.auxEvaluacionC["97"]
                 ) {
                     this.diagnosticoC = "Normal";
-                    console.log("talla normal");
                 }
                 if (
                     this.sv.perimetroCefalico >
                     this.auxEvaluacionC["97"]
                 ) {
                     this.diagnosticoC = "Riesgo macrocefalia";
-                    // console.log("talla alta");
                 }
             });
     }
@@ -351,7 +327,6 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
             .getControlCrecimiento(this.data.nroDocumento)
             .subscribe((r: any) => {
                 this.listaCrecimiento = r.object;
-                //console.log('listaCrecimiento ', this.listaCrecimiento)
                 this.aux = r.object;
                 this.dataGrafico(this.aux);
                 //this.data.anio = 0
@@ -359,25 +334,21 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
                 //this.data.dia = 8
                 //this.dias = 8
                 this.returnDescription();
-                //console.log('datas', this.nroControl, this.descripcionEdad)
                 this.listAux = this.aux.filter(
                     (item) => item.descripcionEdad === this.descripcionEdad
                 );
                 this.auxInterface = this.listAux.filter(
                     (item) => item.nroControl === this.nroControl
                 )[0];
-                //console.log('lista RN', this.auxInterface);
             });
     }
 
     dataGrafico(list: interfaceCrecimiento[]) {
         //-- agregar antecedentes unshift
-        // console.log(this.data.nroDocumento);
         let antecedente;
         this.antecedentes
             .getAntecedentesPersonales(this.data.nroDocumento)
             .subscribe((r: any) => {
-                // console.log(r.object);
                 antecedente = r.object.nacimientoperimetroCefalico;
                 list.unshift({
                     peso: r.object.nacimiento.pesoAlNacer,
@@ -415,7 +386,6 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
             .subscribe((r: any) => {
                 this.sv = r.object.signosVitales;
                 this.fc = r.object.fecha;
-                // console.log("consulta-general", this.sv);
             });
     }
 

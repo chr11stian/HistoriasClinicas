@@ -86,7 +86,6 @@ export class DosajeComponent implements OnInit {
     }
 
     valorCorrejido(valor: number) {
-        // console.log(valor)
         if (valor <= 0) {
             this.getFC('valorHbRestado').setValue(0);
         } else {
@@ -96,12 +95,6 @@ export class DosajeComponent implements OnInit {
     }
 
     cancel() {
-        // console.log(this.getFC('fechaTentativa').valid)
-        // console.log(this.getFC('fechaAdministrada').valid)
-        // console.log(this.getFC('valorHb').valid)
-        // console.log(this.getFC('valorHbFactor').valid)
-        // console.log(this.getFC('nivelAnemia').valid)
-        // console.log(this.getFC('positivoAnemia').valid)
         this.ref.close('cerrado')
     }
 
@@ -213,7 +206,6 @@ export class DosajeComponent implements OnInit {
                 })
             },
             reject: () => {
-                // console.log("no se borro");
             },
         });
     }

@@ -105,7 +105,7 @@ export class ListaLaboratorioComponent implements OnInit {
         }
         break;
 
-      case "MICROBIOLOGICO":
+      case "MICROBIOLOGIA":
       {
         this.ref = this.dialog.open(LabMicrobiologicoComponent, {
           header: "LABORATORIO CLINICO - MICROBIOLOGICO",

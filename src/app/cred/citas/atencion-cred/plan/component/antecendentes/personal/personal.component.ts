@@ -190,8 +190,6 @@ export class PersonalComponent implements OnInit {
             cie10: this.formAcuerdos.value.cie10
         }
         this.patologias.push(a)
-
-        //console.log("acuerdos", this.acuerdosComprimisos)
         Swal.fire({
             icon: 'success',
             title: 'Agregado correctamente',
@@ -295,7 +293,6 @@ export class PersonalComponent implements OnInit {
     }
 
     cambio(e, nombre: string) {
-        console.log(e.value, nombre);
         this.getFC(nombre).setValue(!e.value)
     }
 
@@ -457,9 +454,7 @@ export class PersonalComponent implements OnInit {
 
         
     }
-    guardarAntecendentesPersonales(){
-        console.log('entramos a guarda antecedentes');
-        
+    guardarAntecendentesPersonales(){  
         if (!this.isUpdateListaEnfermedades) {
             let auxp = {
                 tipoDoc: 'dni',
@@ -480,13 +475,10 @@ export class PersonalComponent implements OnInit {
 
             })
         } else {
-            console.log('entramos a actualizar');
-            
             let auxp = {
                 nroHcl: this.nroDoc,
                 antecedentesPersonales: this.listaEnfermedadesPersonales
             }
-            console.log('auxp', auxp)
             this.antecedentesService.addAntecedentesPersonalesPatologicos(auxp).subscribe((r) => {
                 // Swal.fire({
                 //     icon: 'success',
@@ -540,7 +532,6 @@ export class PersonalComponent implements OnInit {
 
         if (this.listaEnfermedadesPersonales.find((rol) => rol === this.personalFG.value.patologia.value) === undefined)
             this.listaEnfermedadesPersonales.push(this.personalFG.value.patologia.value);
-        console.log(this.listaEnfermedadesPersonales)
         //this.listPatologias.push(this.personalFG.value.patologia.value)
         this.personalFG.get('patologia').setValue('')
     }

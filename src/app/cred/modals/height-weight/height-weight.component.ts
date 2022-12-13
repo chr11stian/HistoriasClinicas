@@ -51,7 +51,6 @@ export class HeightWeightComponent implements OnInit {
         this.heightWeightChartService
             .getDataHeightWeightGirl()
             .subscribe((res) => {
-                console.log(res);
                 this.fillData(res["data"]);
             });
     }
@@ -60,7 +59,6 @@ export class HeightWeightComponent implements OnInit {
         this.heightWeightChartService
             .getDataHeightWeightBoy()
             .subscribe((res) => {
-                console.log(res);
                 this.fillData(res["data"]);
             });
     }

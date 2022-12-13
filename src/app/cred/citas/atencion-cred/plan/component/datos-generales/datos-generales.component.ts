@@ -140,9 +140,7 @@ export class DatosGeneralesComponent implements OnInit {
     recuperarInformacion() {
         this.DatosGeneralesService.getDatosGenerales(this.nroDoc).subscribe((r: any) => {
             this.respuestaDatosGenerales = r.object
-            console.log('respuestas---->>>>>>>', this.respuestaDatosGenerales)
             this.edad = this.respuestaDatosGenerales.edad.anio + ' años ' + this.respuestaDatosGenerales.edad.mes + ' meses ' + this.respuestaDatosGenerales.edad.dia + 'dias'
-            console.log('datos generales ', this.respuestaDatosGenerales)
             this.generalInfoFG.get('nombre').setValue(this.respuestaDatosGenerales.nombres)
             this.generalInfoFG.get('apellidos').setValue(this.respuestaDatosGenerales.apellidos)
             this.generalInfoFG.get('sexo').setValue(this.respuestaDatosGenerales.sexo)
@@ -230,9 +228,6 @@ export class DatosGeneralesComponent implements OnInit {
             centroEducativo: '',
             responsable: auxResponsable
         }
-
-        console.log('auxData ', auxDataGeneral)
-
         this.DatosGeneralesService.updateDataGeneral(this.nroDoc, auxDataGeneral)
             .subscribe(
                 (resp) => {

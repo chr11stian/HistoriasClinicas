@@ -1,0 +1,38 @@
+<p-card
+  header="{{ profile.nombre }}"
+  subheader="{{ profile.puesto }}"
+  [style]="{ width: '250px', margin: '1rem' }"
+  styleClass="p-card-shadow"
+>
+  <ng-template pTemplate="header">
+    <img alt="imagen" style="width: 100%" src="{{ profile.imagen }}" />
+  </ng-template>
+  <p>
+    {{ profile.descripcion }}
+    <a
+      style="color: #af0017; text-decoration-color: currentcolor;cursor: pointer;"
+      (click)="verPerfil(profile)"
+      ><u>Ver más</u></a
+    >
+  </p>
+  <ng-template pTemplate="footer">
+    <button pButton type="button" class="buttonAcciones1">
+      <a
+        class="link"
+        style="color: #fbfbfb; text-decoration: none"
+        href="{{ profile.linkedin }}"
+        target="_blank"
+        >Linkedin</a
+      >
+    </button>
+    <button pButton type="button" class="buttonAcciones1">
+      <a
+        class="link"
+        style="color: #fbfbfb; text-decoration: none"
+        href="{{ profile.github }}"
+        target="_blank"
+        >Github</a
+      >
+    </button>
+  </ng-template>
+</p-card>

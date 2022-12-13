@@ -138,7 +138,6 @@ export class EvaluacionAlimentacionComponent implements OnInit {
           
         }
         if(this.indexEdadMeses!=-1 && !this.fechas[this.indexEdadMeses]){/* hay evaluacion ese mes? */
-            //  console.log('---->entramos en el if');
              this.fechas[this.indexEdadMeses]=new Date(this.data.fechaConsulta)
              this.isAgregable=true
         }

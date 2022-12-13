@@ -47,7 +47,6 @@ export class AcuerdosCredComponent implements OnInit {
     listaAcuerdos() {
         this.acuerdosService.getListaAcuerdos().subscribe((r: any) => {
             this.listAcuerdos = r.object;
-            //console.log("acuerdos", this.listAcuerdos);
         });
     }
     buid() {

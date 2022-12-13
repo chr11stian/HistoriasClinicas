@@ -197,7 +197,6 @@ export class TamizajesComponent implements OnInit {
   }
   recuperarIdConsulta(){
       this.evalAlimenService.getConsultaPorId(this.data.idConsulta).subscribe((res: any) => {
-          // console.log('se recupero correctamente consulta', res.object);
           if(res.object.fichaTamizajeId==null || res.object.fichaTamizajeId==undefined)
           {
               this.estadoAgregar=true;
@@ -221,7 +220,6 @@ export class TamizajesComponent implements OnInit {
                   timer: 1500
               }) */
               this.idFichaTamizaje=res.object.fichaTamizajeId;
-              /* console.log(this.idFichaTamizaje) */
               this.recuperarTamizajesBD();
           }
       })
@@ -229,7 +227,6 @@ export class TamizajesComponent implements OnInit {
 
   recuperarTamizajesBD() {
     this.evalAlimenService.getTamizajeCred(this.idFichaTamizaje).subscribe((res: any) => {
-      // console.log('se recupero correctamente ', res.object);
       this.idFichaTamizaje = res.object.id;
       let negligencia: any = res.object.negligencia;
       let auditivo: any = res.object.auditivo;
@@ -1175,10 +1172,8 @@ export class TamizajesComponent implements OnInit {
     }
   }
   addTamizaje(){
-    // console.log("entrando a guardar data");
     this.getTamizaje();
     this.evalAlimenService.addTamizajeCred(this.data.idConsulta,this.tamizajes).subscribe((res: any) => {
-      // console.log('se guardo correctamente ', res.object);
       this.estadoAgregar=false
       Swal.fire({
         icon: 'success',
@@ -1190,10 +1185,8 @@ export class TamizajesComponent implements OnInit {
     });
   }
   updateTamizaje(){
-    // console.log("entrando a actualizar data");
     this.getTamizaje();
     this.evalAlimenService.updateTamizajeCred(this.tamizajesActualizar).subscribe((res: any) => {
-      // console.log('se guardo correctamente ', res.object);
       Swal.fire({
         icon: 'success',
         title: 'Tamizajes',
@@ -1205,7 +1198,6 @@ export class TamizajesComponent implements OnInit {
   }
   actualizarGuardar(){
     this.evalAlimenService.getTamizajeCred(this.idFichaTamizaje).subscribe((res: any) => {
-      // console.log('se recupero correctamente ', res.object);
       if(res.object==null || res.object==undefined)
       {this.addTamizaje();}
       else{this.updateTamizaje();}

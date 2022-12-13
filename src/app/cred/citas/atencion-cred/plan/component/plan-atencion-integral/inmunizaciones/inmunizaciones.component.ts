@@ -37,7 +37,6 @@ export class InmunizacionesComponent implements OnInit {
     this.data = <dato>JSON.parse(localStorage.getItem("documento"));
     // this.mesActual=this.data.anio*12+this.data.mes;
     this.mesActual = 18;
-    // console.log(this.mesActual)
   }
   ngOnInit() {
     this.nroDNI = this.data.nroDocumento;
@@ -62,7 +61,6 @@ export class InmunizacionesComponent implements OnInit {
   }
   edadMes: number[] = [];
   clasificamos() {
-    console.log("toda la lista ordenada", this.listaInmunizaciones);
     //['RN', 'Menor_1A', '1A', '4A'][0,1,2,4,6,7,12,15,18,96]
     this.listaInmunizaciones.forEach((element) => {
       let isInclude = this.edadMes.find((elemento) => {

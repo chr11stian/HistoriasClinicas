@@ -24,7 +24,6 @@ export class DesarrolloPsicomotorComponent implements OnInit {
     this.paciente = JSON.parse(localStorage.getItem('documento'));
     this.monthAge = this.overallAge(this.paciente.anio, this.paciente.mes);
     // let arrayAux = this.selectedTab(1, this.disabledSelectedTab);
-    // console.log('arreglo disabled ', arrayAux);
     this.searchMonthlyEvaluation();
   }
 
@@ -33,10 +32,7 @@ export class DesarrolloPsicomotorComponent implements OnInit {
   }
 
   async searchMonthlyEvaluation(nroDeEvaluacion?: number): Promise<void> {
-    console.log('----------------emitimos el evento-----------', nroDeEvaluacion);
-
     // this.evalPsicomotor.verifyConsultationsEvaluation(this.paciente.idConsulta).then((res: any) => {
-    //   console.log('datos de evaluaciones ', res);
     // })
 
     this.evalPsicomotor.verifyConsultationsEvaluation(this.paciente.idConsulta).then((res: any) => {
@@ -48,31 +44,25 @@ export class DesarrolloPsicomotorComponent implements OnInit {
         this.disabledSelectedTab = this.selectedTab(0, this.disabledSelectedTab);
         this.isEvaluated = true;
         this.evaluationName = 'TEST PERUANO DEL DESARROLLO DEL NIÑO';
-        // console.log('entro en 0');
       }
       if (this.evaluations.hasOwnProperty('evaluacionTestEEDP')) {
         this.disabledSelectedTab = this.selectedTab(1, this.disabledSelectedTab);
-        // console.log('entro en 1');
         this.isEvaluated = true;
         this.evaluationName = 'ESCALA DE EVALUACIÓN DEL DESARROLLO PSICOMOTOR (EEDP)';
       }
       if (this.evaluations.hasOwnProperty('testPautaBreve')) {
         this.disabledSelectedTab = this.selectedTab(2, this.disabledSelectedTab);
-        // console.log('entro en 2');
         this.isEvaluated = true;
         this.evaluationName = 'PAUTA BREVE';
       }
       if (this.evaluations.hasOwnProperty('evaluacionTepsi')) {
         this.disabledSelectedTab = this.selectedTab(3, this.disabledSelectedTab);
-        // console.log('entro en 3');
         this.isEvaluated = true;
         this.evaluationName = 'PROTOCOLO TEST DE DESARROLLO PSICOMOTOR TEPSI';
       }
       if (nroDeEvaluacion != undefined) {
-        // console.log('entro ahi ');
         return
       }
-      // console.log('evaluacion...', this.isEvaluated);
       if (this.isEvaluated) {
         Swal.fire({
           icon: 'info',

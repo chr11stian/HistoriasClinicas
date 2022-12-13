@@ -90,7 +90,6 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
       this.getFC('fechaAplicacion').setValue(new Date())
     }
 
-    // console.log('cambio',valor)
   }
 
   obtenerFecha(fecha: Date) {
@@ -120,8 +119,6 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
       idConsulta:this.dataDocumento.idConsulta,
       pertenecePAICRED : true
     }
-    /* console.log('request->>>',requestInput)
-    return */
     this.confirmationService.confirm({
       header: "Confirmación",
       message: "Esta Seguro que desea guardar inmunizacion",
@@ -135,7 +132,6 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
         });
       },
       reject: () => {
-        // console.log("no se borro");
       },
     });
 
@@ -143,10 +139,6 @@ export class TratamientoInmunizacionModalComponent implements OnInit {
 
   cancelar() {
     this.ref.close("cancelado");
-    // console.log('estado invalido',this.getFC('fechaTentativa').valid)
-    // console.log('estado invalido',this.getFC('fechaAplicacion').valid)
-    // console.log('estado invalido',this.getFC('lote').valid)
-    // console.log('estado invalido',this.getFC('administracion').valid)
 
   }
 

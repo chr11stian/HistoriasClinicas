@@ -35,7 +35,6 @@ export class SuplementacionesMicronutrientesComponent implements OnInit {
         this.arreglarFechas(this.listaPrincipal)
         this.separacion()
       }).catch((err) => {
-        console.log(err)
       })
     // recupera vitamina A
     this.servicio.getVitaminaA(this.nroDni).toPromise().then((result)=>{
@@ -48,7 +47,6 @@ export class SuplementacionesMicronutrientesComponent implements OnInit {
       this.listaTerapeutica = result.object
       this.arreglarFechas(this.listaTerapeutica)
     }).catch((err) => {
-      console.log(err)
     })
   }
   arreglarFechas(lista:SuplementacionMicronutrientes[]) {

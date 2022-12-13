@@ -157,7 +157,6 @@ export class ProcedimientosConsultaComponent implements OnInit {
             this.dataConsulta.idConsulta
         ).subscribe((data: any) => {
             if (data.object != undefined || data.object != null) {
-                // console.log(data.object);
                 this.listaDiagnosticos = data.object;
             } else {
                 Swal.fire({
@@ -380,7 +379,6 @@ export class ProcedimientosConsultaComponent implements OnInit {
     recuperarPrestaciones() {
         this.PrestacionService.getPrestacion().subscribe((res: any) => {
             this.ListaPrestacion = res.object;
-            // console.log("prestaciones:", this.ListaPrestacion);
         });
     }
 
@@ -412,7 +410,6 @@ export class ProcedimientosConsultaComponent implements OnInit {
     }
 
     selectDxSIS(event) {
-        // console.log(this.formProcedimiento.value.buscarPDxSIS);
         this.fuaForm.patchValue({
             procedimientoSIS: event.value.procedimiento,
             codProcedimientoSIS: event.value,
@@ -445,7 +442,6 @@ export class ProcedimientosConsultaComponent implements OnInit {
     onChangePrestacion() {
         let prestation = this.fuaForm.value.prestacion;
         this.listProcedures = prestation.procedimientos;
-        // console.log('lista de proced ', this.listProcedures);
     }
 
     /** Servicios para recuperar lista de ups Aux por ipress***/

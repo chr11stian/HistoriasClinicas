@@ -106,7 +106,7 @@ export class RolGuardiaComponent implements OnInit {
       mes:this.fechaPivot.getMonth()+1,
     }
     this.rolGuardiaService.getListaPrimeraPantalla(this.idIpressZarzuela,inputRequest).subscribe((resp)=>{
-      if (resp['cod']!='2004'){
+      if (resp['cod']=='2121'){
         this.listaPersonalEstado=resp['object']['personal']
       }
       else{

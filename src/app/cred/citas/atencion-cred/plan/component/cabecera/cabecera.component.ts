@@ -49,13 +49,10 @@ export class CabeceraComponent implements OnInit {
     getQueryParams(): void {
         this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
         this.getPlan(this.data.nroDocumento)
-        console.log('plan de atencion', this.data)
     }
     havePlan(){
         this.consultaGeneralService.tienePlan(this.data.nroDocumento).subscribe((resp:any)=>{
-            this.havenPlan=resp.object.planAtencion==null?false:true
-            console.log('haven plan',this.havenPlan);
-            
+            this.havenPlan=resp.object.planAtencion==null?false:true     
         })
     }
     ChangeStep(indice){
@@ -67,14 +64,11 @@ export class CabeceraComponent implements OnInit {
             result => {
                 if (result.cod === '2404') {
                     this.getNuevoPlan()
-                    console.log('2404', result)
                 }
                 if (result.cod === '2403') {
                     this.consulta = result
-                    console.log('2403', result)
                 }
             }, err => {
-                console.log(err)
             }
         )
     }
@@ -88,12 +82,10 @@ export class CabeceraComponent implements OnInit {
         ).toPromise().then((result) => {
             this.consulta = result
         }).catch((err) => {
-            console.log(err)
         })
     }
     stepActivado:number=0; //step por defecto
     nextPage() {
-        // console.log(this.stepName)
         switch (this.indiceActivo) {
             case 0:
                 this.indiceActivo=1

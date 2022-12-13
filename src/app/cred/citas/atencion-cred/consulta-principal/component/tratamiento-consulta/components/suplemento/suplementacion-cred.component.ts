@@ -104,8 +104,6 @@ export class SuplementacionCredComponent implements OnInit {
     }
 
     agregarSuplementacion(suplementacion: SuplementacionMicronutrientes) {
-        console.log('-->',suplementacion);
-        
         const ref = this.dialogService.open(SuplementoComponent, {
             data: {isSuplementacion: this.isSuplementacion, "suplementacion": suplementacion},
             header: `Agregar Suplementacion ${suplementacion.descripcion} Dosis numero (${suplementacion.dosis})`,

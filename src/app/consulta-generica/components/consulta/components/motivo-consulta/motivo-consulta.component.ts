@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DatosGeneralesService } from 'src/app/consulta-generica/services/datos-generales/datos-generales.service';
 import { MotivoConsulta } from 'src/app/core/models/consultaGenerica';
@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./motivo-consulta.component.css']
 })
 export class MotivoConsultaComponent implements OnInit {
-
+  @Output() onChangeNextStep:EventEmitter<number>= new EventEmitter<number>();
   formMotivoConsulta: FormGroup;
   formVitalSigns: FormGroup;
   formPhysicalExam: FormGroup;
@@ -229,8 +229,11 @@ export class MotivoConsultaComponent implements OnInit {
         title: 'Guardado',
         text: 'Datos guardados correctamente',
         showConfirmButton: false,
-        timer: 1500,
+        timer: 2000,
       });
     })
+    setTimeout(() => {
+      this.onChangeNextStep.emit(1)
+    }, 2500);
   }
 }

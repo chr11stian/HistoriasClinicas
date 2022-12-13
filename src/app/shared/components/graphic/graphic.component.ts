@@ -142,7 +142,6 @@ export class GraphicComponent implements OnInit, OnChanges {
                 }
                 xAxisGraph['nameGap'] = 2
             } else if (this.data.typeAxisX === 'trimestre') {
-                console.log('hola mundo trimestre')
                 tooltipGraph['axisPointer'] = {
                     show: true,
                     label: {
@@ -160,7 +159,6 @@ export class GraphicComponent implements OnInit, OnChanges {
                     }
                 }
                 yAxisGraph['min'] = -4
-                console.log('yAxisGraph ', yAxisGraph)
             } else if (this.data.typeAxisX === 'altura') {
                 tooltipGraph['axisPointer'] = {
                     show: true,
@@ -264,7 +262,6 @@ export class GraphicComponent implements OnInit, OnChanges {
                 //    hoverLayerThreshold:5
                 // },
             }
-            console.log('chartOption ',this.chartOption)
         }
     }
 
