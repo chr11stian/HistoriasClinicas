@@ -136,7 +136,7 @@ export class CitasComponent implements OnInit {
     }
     const inputRequest = {
       tipoDoc: this.citasFG.value.tipoDoc,
-      nroDoc: this.citasFG.value.nroDoc,
+      nroDoc: this.citasFG.value.nroDoc.trim(),
       fecha: this.datePipe.transform(this.citasFG.value.fechaBusqueda,"yyyy-MM-dd"),
     };
     this.cuposService
