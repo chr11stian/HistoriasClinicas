@@ -82,10 +82,9 @@ export class CuposService {
       .toPromise()
       .then((result) => {
         return result;
-        console.log("Exitosa", result);
       })
       .catch((error) => {
-        console.log("error en la en la lista", error);
+        return null
       });
   }
 
@@ -156,19 +155,14 @@ export class CuposService {
     );
   }
   buscarListaCuposPersonal(idIpres, data) {
-    return this.http
-      .post(
-        `${this.base_url}/${this.bd}/cupo/listar/cupos/por/personal/${idIpres}`,
-        data
-      )
+    return this.http.post(`${this.base_url}/${this.bd}/cupo/listar/cupos/por/personal/${idIpres}`,data )
       .toPromise()
       .then((result: any) => {
         return result;
       })
       .catch((error) => {
-        console.log("No se encotro personal de salud");
         return null;
-      });
+      })
   }
   buscarListaCuposPersonalObstetricia(data) {
     return this.http

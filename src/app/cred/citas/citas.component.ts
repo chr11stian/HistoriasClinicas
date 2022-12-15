@@ -1,216 +1,172 @@
-import {Component, OnInit} from '@angular/core'
-import {DialogService} from 'primeng/dynamicdialog'
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {DatePipe} from "@angular/common";
-import {ObstetriciaGeneralService} from "../../obstetricia-general/services/obstetricia-general.service";
-import {CitasService} from "../../obstetricia-general/services/citas.service";
-import {PacienteService} from "../../core/services/paciente/paciente.service";
-import {MessageService} from "primeng/api";
-import {CuposService} from "../../core/services/cupos.service";
-import {DocumentoIdentidadService} from "../../mantenimientos/services/documento-identidad/documento-identidad.service";
-import {dato} from "src/app/cred/citas/models/data"
+import { Component, OnInit } from "@angular/core";
+import { DialogService } from "primeng/dynamicdialog";
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from "@angular/forms";
+import { DatePipe } from "@angular/common";
+import { ObstetriciaGeneralService } from "../../obstetricia-general/services/obstetricia-general.service";
+import { CitasService } from "../../obstetricia-general/services/citas.service";
+import { PacienteService } from "../../core/services/paciente/paciente.service";
+import { MessageService } from "primeng/api";
+import { CuposService } from "../../core/services/cupos.service";
+import { DocumentoIdentidadService } from "../../mantenimientos/services/documento-identidad/documento-identidad.service";
+import { dato } from "src/app/cred/citas/models/data";
+import Swal from "sweetalert2";
 
 export interface userCita {
-    dni: string
-    tipoDoc: string
-    nroDoc: string
-    apellidos: string
-    nombres: string
-    consultorio: string
-    horario: string
-    fecha: string
+  dni: string;
+  tipoDoc: string;
+  nroDoc: string;
+  apellidos: string;
+  nombres: string;
+  consultorio: string;
+  horario: string;
+  fecha: string;
 }
 
 @Component({
-    selector: 'app-citas',
-    templateUrl: './citas.component.html',
-    styleUrls: ['./citas.component.css'],
-    providers: [DialogService]
+  selector: "app-citas",
+  templateUrl: "./citas.component.html",
+  styleUrls: ["./citas.component.css"],
+  providers: [DialogService],
 })
 export class CitasComponent implements OnInit {
-    attributeLocalS = 'documento'
-    idIpressLapostaMedica = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
-    iprees: string = JSON.parse(localStorage.getItem('usuario')).ipress.nombreEESS;
-    nroDocumento: string = JSON.parse(localStorage.getItem('usuario')).nroDocumento;
-    tipoDocumento: string = JSON.parse(localStorage.getItem('usuario')).tipoDocumento;
-    loading: boolean = true;
-    options: data[]
-    selectedOption: data
-    citas: any[]
+  attributeLocalS = "documento";
+  idIpress = JSON.parse(localStorage.getItem("usuario")).ipress.idIpress;
+  iprees: string = JSON.parse(localStorage.getItem("usuario")).ipress
+    .nombreEESS;
+  nroDocumento: string = JSON.parse(localStorage.getItem("usuario"))
+    .nroDocumento;
+  tipoDocumento: string = JSON.parse(localStorage.getItem("usuario"))
+    .tipoDocumento;
+  options: data[];
+  selectedOption: data;
+  citas: any[] = [];
+  //-->
+  citasFG: FormGroup;
+  loading: boolean = true;
+  cuposList: any[];
 
+  dataCitas: any;
+  datePipe = new DatePipe("en-US");
+  fechaActual = new Date();
+  tipoDocList: any;
+  TipoDoc: string = "DNI";
+  DataCuposPaciente: any;
 
-    dataCitas: any;
-    formCitas: FormGroup;
-    datePipe = new DatePipe('en-US');
-        fechaActual = new Date();
+  constructor(
+    private obstetriciaGeneralService: ObstetriciaGeneralService,
+    private obstetriciaService: ObstetriciaGeneralService,
+    private citasService: CitasService,
+    private fb: FormBuilder,
+    private pacienteService: PacienteService,
+    private messageService: MessageService,
+    private cuposService: CuposService,
+    private documentoIdentidadService: DocumentoIdentidadService
+  ) {
+    this.buildForm();
+  }
+  ngOnInit(): void {
+    this.getDocumentosIdentidad();
+    this.buscarCuposPorPersonal();
+  }
+  buscarCuposPorPersonal() {
+    const inputRequest = {
+      tipoDoc: this.tipoDocumento,
+      nroDoc: this.nroDocumento,
+      fecha: this.datePipe.transform(this.citasFG.value.fechaBusqueda,"yyyy-MM-dd"),
+      servicio: "ATENCION INTEGRAL DEL NINO",
+    };
+    this.cuposService
+      .buscarListaCuposPersonal(this.idIpress, inputRequest)
+      .then((resp: any) => {    
+            this.cuposList = resp.object;
+            this.loading = false;
+      }).catch((error)=>{
+        this.cuposList=[]
+      });
+  }
+  buildForm() {
+    this.citasFG = this.fb.group({
+        fechaBusqueda: new FormControl( { value: new Date(), disabled: false }, Validators.required),
+        tipoDoc: new FormControl({ value: "", disabled: false }, Validators.required),
+        nroDoc: new FormControl({ value: "", disabled: false },Validators.required),
+    });
+  }
+  /**Lista los tipos de documentos de Identidad de un paciente**/
+  getDocumentosIdentidad() {
+    this.documentoIdentidadService
+      .getDocumentosIdentidad()
+      .subscribe((res: any) => {
+        this.tipoDocList = res.object;
+        this.citasFG.get('tipoDoc').setValue(this.tipoDocList[0].abreviatura)
+      });
+  }
 
+  /**Busca un paciente por le numero de documento**/
+ /*  getPacientesXnroDocumento() {
+    let data = {
+      tipoDoc: this.citasFG.value.tipoDoc,
+      nroDoc: this.citasFG.value.nroDoc,
+    };
+    this.pacienteService.getPacienteByNroDoc(data).subscribe((res: any) => {
+      this.dataPaciente = [res.object];
+      if (this.dataPaciente == null) {
+        this.showInfoPaciente();
+      } else {
+        this.showSuccess();
+      }
+    });
+  } */
 
-    dataPaciente: any[];
-
-    DataCupos: any[];
-    listaDocumentosIdentidad: any;
-    TipoDoc: string = "DNI";
-    DataCuposPaciente: any;
-
-
-    constructor(private obstetriciaGeneralService: ObstetriciaGeneralService,
-                private obstetriciaService: ObstetriciaGeneralService,
-                private citasService: CitasService,
-                private fb: FormBuilder,
-                private pacienteService: PacienteService,
-                private messageService: MessageService,
-                private cuposService: CuposService,
-                private documentoIdentidadService: DocumentoIdentidadService,
-    ) {
-        this.options = [
-            {name: "DNI", code: 1},
-            {name: "CARNET RN", code: 2},
-            {name: "C EXTRANJERIA", code: 3},
-            {name: "OTROS", code: 4},
-        ]
-        this.citas = [
-        ]
-
+  /**Busca un cupo por el numero de dni de un paciente**/
+  buscarCupoXdniFecha() {
+    if (this.citasFG.get("nroDoc").value.length < 8) {
+      Swal.fire({
+        icon: "warning",
+        title: "Ingrese nro Documento",
+        text: "",
+        showConfirmButton: false,
+        timer: 3000,
+      });
+      return;
     }
+    const inputRequest = {
+      tipoDoc: this.citasFG.value.tipoDoc,
+      nroDoc: this.citasFG.value.nroDoc,
+      fecha: this.datePipe.transform(this.citasFG.value.fechaBusqueda,"yyyy-MM-dd"),
+    };
+    this.cuposService
+      .buscarCupoPorDniFechaIpress(this.idIpress, inputRequest)
+      .then((resp:any) => {
+        this.cuposList = [];
+        this.cuposList.push(resp.object);
+      })
+      .catch((error) => {
+      });
+  }
 
+  enviarData(event) {
+    this.obstetriciaGeneralService.tipoDoc = null;
+    this.obstetriciaGeneralService.nroDoc = null;
+    // this.obstetriciaGeneralService.observable$.emit(event.id);
+    this.obstetriciaGeneralService.tipoDoc = event.paciente.tipoDoc;
+    this.obstetriciaGeneralService.nroDoc = event.paciente.nroDoc;
 
-    ngOnInit(): void {
-        this.buildForm();
-        this.formCitas.get('tipoDoc').setValue(this.TipoDoc);
-        this.formCitas.get('fechaBusqueda').setValue(this.fechaActual);
-        this.getDocumentosIdentidad();
-        //this.getCuposXservicio();
-        this.buscarCuposPorPersonal();
-    }
-    async buscarCuposPorPersonal() {
-        let data = {
-            tipoDoc: this.tipoDocumento,
-            nroDoc: this.nroDocumento,
-            fecha: this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd'),
-            servicio: 'ATENCION INTEGRAL DEL NINO'
-        }
-        await this.cuposService.buscarListaCuposPersonal(this.idIpressLapostaMedica, data)
-            .then((result: any) => {
-                this.DataCupos = result.object
-                this.loading = false;
-            });
-    }
-    buildForm() {
-        this.formCitas = this.fb.group({
-            fechaInicio: new FormControl(''),
-            fechaBusqueda: new FormControl(''),
-            tipoDoc: new FormControl(''),
-            nroDoc: new FormControl(''),
-        })
-    }
-
-    /**Lista de Cupos y citas sin importar el estado reservados por servicio **/
-    getCuposXservicio() {
-        let data = {
-            servicio: 'ATENCION INTEGRAL DEL NINO',
-            fecha: this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd')
-        }
-        this.cuposService.getCuposServicioFecha(this.idIpressLapostaMedica, data).subscribe((res: any) => {
-            this.DataCupos = res.object;
-        })
-    }
-
-    /**Lista los tipos de documentos de Identidad de un paciente**/
-    getDocumentosIdentidad() {
-        this.documentoIdentidadService.getDocumentosIdentidad().subscribe((res: any) => {
-            this.listaDocumentosIdentidad = res.object;
-
-        })
-    }
-
-    /**Busca un paciente por le numero de documento**/
-    getPacientesXnroDocumento() {
-        let data = {
-            tipoDoc: this.formCitas.value.tipoDoc,
-            nroDoc: this.formCitas.value.nroDoc,
-        }
-        this.pacienteService.getPacienteByNroDoc(data).subscribe((res: any) => {
-            this.dataPaciente = [res.object];
-            if (this.dataPaciente == null) {
-                this.showInfoPaciente();
-            } else {
-                this.showSuccess();
-            }
-        });
-
-    }
-
-    /**Busca un cupo por el numero de dni de un paciente**/
-    async buscarCupoXdniFecha() {
-        let data = {
-            tipoDoc: this.formCitas.value.tipoDoc,
-            nroDoc: this.formCitas.value.nroDoc,
-            fecha: this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd')
-        }
-        await this.cuposService.buscarCupoPorDniFechaIpress(this.idIpressLapostaMedica, data)
-            .then(result => {
-                this.DataCuposPaciente = result
-                if (this.DataCuposPaciente == undefined) {
-                    this.showInfo();
-                    this.getPacientesXnroDocumento();
-                } else {
-                    this.showSuccess();
-                    this.dataPaciente = null;
-                    this.DataCupos = null;
-                    this.DataCupos = [this.DataCuposPaciente.object];
-                }
-            });
-    }
-
-    /**Modulo para hacer cosultas no gestantes**/
-    irConsultaNoControl(row) {
-        this.obstetriciaService.data = row;
-    }
-
-
-    enviarData(event) {
-        this.obstetriciaGeneralService.tipoDoc = null;
-        this.obstetriciaGeneralService.nroDoc = null;
-        // this.obstetriciaGeneralService.observable$.emit(event.id);
-        this.obstetriciaGeneralService.tipoDoc = event.paciente.tipoDoc;
-        this.obstetriciaGeneralService.nroDoc = event.paciente.nroDoc;
-
-        let data: dato =
-            {
-                nroDocumento: event.paciente.nroDoc,
-                tipoDoc: event.paciente.tipoDoc,
-                idConsulta: '',
-                sexo: ''
-            }
-        localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
-    }
-
-    showSuccess() {
-        this.messageService.add({
-            severity: 'success',
-            summary: 'Paciente',
-            detail: 'Recuperado con exito'
-        });
-    }
-
-    showInfoPaciente() {
-        this.messageService.add({
-            severity: 'info',
-            summary: 'Paciente',
-            detail: 'No existe en la Base de Datos'
-        });
-    }
-
-    showInfo() {
-        this.messageService.add({
-            severity: 'info',
-            summary: 'Paciente',
-            detail: 'No tiene un registro de cupo'
-        });
-    }
+    let data: dato = {
+      nroDocumento: event.paciente.nroDoc,
+      tipoDoc: event.paciente.tipoDoc,
+      idConsulta: "",
+      sexo: "",
+    };
+    localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
+  }
 }
 
 interface data {
-    name: string
-    code: number
+  name: string;
+  code: number;
 }
