@@ -42,7 +42,7 @@
                     <div class="grid">
                         <div class="col-12 md:col-12 lg:col-12 flex justify-content-center">
                             <div class="grid">
-                                <div class="col-12 md:col-6 lg:col-6 p-field ">
+                                <div class="col-12 p-field ">
                                     <span class="">Filtrar por Fecha:</span>
                                     <div class="p-inputgroup">
                                         <p-calendar dateFormat="yy-mm-dd"
@@ -52,11 +52,11 @@
                                         </p-calendar>
                                     </div>
                                 </div>
-                                <div class="col-12 md:col-6 lg:col-6 p-field">
+                                <!-- <div class="col-12 md:col-6 lg:col-6 p-field">
                                     <button style="margin-top:15px;" pButton pRipple label="Exportar"
                                             icon="pi pi-upload"
                                             class="p-button-success"></button>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -196,12 +196,12 @@
                             <td style="text-align: center">{{ rowData.consultorio }}</td>
                             <td style="text-align: center">{{ rowData.horario }}</td>
                             <td style="text-align: center">{{ rowData.fecha }}</td>
-                            <td style="text-align: center">}
+                            <td style="text-align: center">
                                 <span class="p-buttonset">
-                                <button pButton pRipple class="boton-azul" label="Reprogramar"
-                                        icon="pi pi-undo"></button>
-                                <button pButton pRipple class="boton-red" label="Eliminar" icon="pi pi-trash"></button>
-                            </span>
+                                    <button pButton pRipple class="boton-azul" label="Reprogramar"
+                                            icon="pi pi-undo"></button>
+                                    <button pButton pRipple class="boton-red" label="Eliminar" icon="pi pi-trash"></button>
+                                </span>
                             </td>
                         </tr>
                     </ng-template>
