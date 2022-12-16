@@ -62,22 +62,22 @@ export class IpressFarmaciaComponent implements OnInit {
   }
 
   buscarCodigoIpress(){
-    console.log('codigo renipress'+ this.renipress);//// ejecuta
-    console.log('id Ipress:'+this.idIpress);
+    //console.log('codigo renipress'+ this.renipress);//// ejecuta
+    //console.log('id Ipress:'+this.idIpress);
     this.ipressServices.getIpressID(this.idIpress).subscribe((res: any) => {
       this.renipress = res.object.renipress;
       this.nombreRenipress=res.object.nombreEESS;
-      console.log('codigo renipress'+ this.renipress);
+      //console.log('codigo renipress'+ this.renipress);
       this.recuperarMedicamentosFarmacia();
     })
 
   }
 
   recuperarMedicamentosFarmacia(){
-    console.log("entrando a recuperar medicamentos de la farmacia");
+    //console.log("entrando a recuperar medicamentos de la farmacia");
     this.farmaciaService.getListaMedicamentosFarmaciaXIpress(this.renipress).subscribe((data:any)=>{
       if(data!=undefined){
-        console.log(data.object);
+        //console.log(data.object);
         this.items=(data.object);
         this.hayMedicamento=true;
       }
@@ -90,10 +90,10 @@ export class IpressFarmaciaComponent implements OnInit {
   }
 
   llenarListaMedicamentos() {
-    console.log("entrando a recuperar medicamentos de la farmacia");
+    //console.log("entrando a recuperar medicamentos de la farmacia");
     this.medicamentosServices.getMedicamentosAll().subscribe((data:any)=>{
       if(data!=undefined){
-        console.log(data.object);
+        //console.log(data.object);
         this.listaMedicamentos=(data.object);
         let cadena
         for(let i = 0;i<this.listaMedicamentos.length;i++){
@@ -117,7 +117,7 @@ export class IpressFarmaciaComponent implements OnInit {
         }
       }
     })
-    console.log(this.medicamentosConDatos);
+    //console.log(this.medicamentosConDatos);
   }
 
   OpenFarmacia() {
@@ -162,7 +162,7 @@ export class IpressFarmaciaComponent implements OnInit {
       }
 
 
-      console.log(this.items);
+      //console.log(this.items);
       if(this.hayMedicamento==true){
         var duplicado:boolean=this.items.some(element=>element==cadena.items[0])
         if(!duplicado){
@@ -214,12 +214,12 @@ export class IpressFarmaciaComponent implements OnInit {
   filterItems(event: any) {
     let filtered : any[]=[];
     let query = event.query;
-    console.log(query);
+    //console.log(query);
     this.aux = this.medicamentosConDatos;
-    console.log(this.aux);
+    //console.log(this.aux);
       for(let i = 0; i < this.aux.length; i++) {
           let item = this.aux[i];
-          console.log(item)
+          //console.log(item)
           if (item.cadena.toLowerCase().indexOf(query.toLowerCase()) == 0) {
              filtered.push(item);
           }
@@ -227,7 +227,7 @@ export class IpressFarmaciaComponent implements OnInit {
 
       this.aux = filtered;
       if(this.aux.length==0){
-        console.log('no encontrado');
+        //console.log('no encontrado');
         this.formDatos.patchValue({ medicamento: ""});
         this.aux = this.medicamentosConDatos;
 
@@ -235,8 +235,8 @@ export class IpressFarmaciaComponent implements OnInit {
   }
 
   selectedMedicamento(event: any) {
-    console.log('lista de medicamentos ', this.medicamentosConDatos);
-    console.log(event);
+    //console.log('lista de medicamentos ', this.medicamentosConDatos);
+    //console.log(event);
     this.medicamento = event.medicamento;
     this.formDatos.patchValue({ medicamento: ""});
     this.formDatos.patchValue({ nombre: event.medicamento.nombre });
@@ -250,11 +250,11 @@ export class IpressFarmaciaComponent implements OnInit {
 
   editar(farmaciaMedicamento: any,rowIndex) {
     this.estadoEditar=true;
-    console.log("entrando a editar medicamentos",farmaciaMedicamento,rowIndex);
+    //console.log("entrando a editar medicamentos",farmaciaMedicamento,rowIndex);
     this.formDatos.reset();
     this.dialogFarmaciaAdd=true;
     this.llenarDatosForm(farmaciaMedicamento);
-    console.log(farmaciaMedicamento);
+    //console.log(farmaciaMedicamento);
     this.medicamento=farmaciaMedicamento;
   }
 
@@ -265,9 +265,9 @@ export class IpressFarmaciaComponent implements OnInit {
       fechaVenc:this.formDatos.value.fechaVenc,
       lote: this.formDatos.value.lote
     }
-    console.log(this.medicamento);
+    //console.log(this.medicamento);
     var AuxItem = this.items.filter(element=>element!=this.medicamento);
-    console.log(AuxItem);
+    //console.log(AuxItem);
     this.items=AuxItem;
     this.items.push(cadena);
     let items = {items:this.items}
@@ -290,7 +290,7 @@ export class IpressFarmaciaComponent implements OnInit {
   }
 
   llenarDatosForm(rowData){
-    console.log(rowData);
+    //console.log(rowData);
     this.formDatos.get("nombre").setValue(rowData.medicamento.nombre);
     this.formDatos.get("nombreComercial").setValue(rowData.medicamento.nombreComercial);
     this.formDatos.get("codigo").setValue(rowData.medicamento.codigo);
@@ -301,12 +301,12 @@ export class IpressFarmaciaComponent implements OnInit {
     this.formDatos.get("lote").setValue(rowData.lote);
     let date: Date = new Date(rowData.fechaVenc);
     date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
-    console.log(date)
+    //console.log(date)
     this.formDatos.get("fechaVenc").setValue(date);
   }
 
   eliminar(farmaciaMedicamento: any,rowIndex) {
-    console.log("entrando a editar medicamentos",farmaciaMedicamento,rowIndex);
+    //console.log("entrando a editar medicamentos",farmaciaMedicamento,rowIndex);
     Swal.fire({
       showCancelButton: true,
       confirmButtonText: 'Eliminar',
@@ -317,7 +317,7 @@ export class IpressFarmaciaComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         var AuxItem = this.items.filter(element=>element!=farmaciaMedicamento);
-        console.log(AuxItem);
+        //console.log(AuxItem);
         let items = {items:AuxItem}
         this.items=AuxItem;
         this.farmaciaService.addMedicamentoFarmaciaXIpress(this.renipress,items).subscribe((data:any)=>{

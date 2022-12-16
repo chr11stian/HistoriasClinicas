@@ -60,7 +60,7 @@ export class LaboratorioComponent implements OnInit {
   cargarExamenesRealizados() {
     this.laboratoriosService.getExamenesRealizados(this.usuario.nroDocumento).subscribe((r: any) => {
       this.dataExamenesRealizados = r.object
-      // console.log('object', r.object)
+     console.log('object', r.object)
     })
   }
 

@@ -1,94 +1,159 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 import { environment } from "../../../../../../environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { referencia } from "../../../models/data";
 
-
 interface event {
-    title: string,
-    start: string | Date
+    title: string;
+    start: string | Date;
 }
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: "root",
 })
 export class FinalizarConsultaService {
-    urlServer = environment.baseUrl
-    bd = environment.bd
-    list: event[] = []
-    referencia: referencia
-    proxCita = ''
+    urlServer = environment.baseUrl;
+    bd = environment.bd;
+    list: event[] = [];
+    referencia: referencia;
+    proxCita = "";
 
-    constructor(private http: HttpClient) {
-    }
+    constructor(private http: HttpClient) {}
 
     addAcuerdo(id, data) {
-        return this.http.post(`${this.urlServer}/${this.bd}/cred/consulta/acuerdos/${id}`, data)
+        return this.http.post(
+            `${this.urlServer}/${this.bd}/cred/consulta/acuerdos/${id}`,
+            data
+        );
     }
 
     getListaAcuerdos() {
-        return this.http.get(`${this.urlServer}/${this.bd}/cred/consulta/acuerdos`)
+        return this.http.get(
+            `${this.urlServer}/${this.bd}/cred/consulta/acuerdos`
+        );
     }
 
     buscarIprees(item: string) {
-        return this.http.get(`${this.urlServer}/${this.bd}/ipress/filtro/${item}`)
+        return this.http.get(
+            `${this.urlServer}/${this.bd}/ipress/filtro/${item}`
+        );
     }
 
     updateReferencia(data) {
-        return this.http.put(`${this.urlServer}/${this.bd}/referencia/`, data)
+        return this.http.put(`${this.urlServer}/${this.bd}/referencia/`, data);
     }
 
     consultaReferencia(idConsulta: string) {
-        return this.http.get(`${this.urlServer}/${this.bd}/referencia/datosConsulta/${idConsulta}`)
+        return this.http.get(
+            `${this.urlServer}/${this.bd}/referencia/datosConsulta/${idConsulta}`
+        );
     }
 
     listPlan(nroDoc: string) {
-        return this.http.get(`${this.urlServer}/${this.bd}/cred/recuperardatos/${nroDoc}`)
+        return this.http.get(
+            `${this.urlServer}/${this.bd}/cred/recuperardatos/${nroDoc}`
+        );
     }
 
     searchLaboratorio(idConsulta) {
-        return this.http.get(`${this.urlServer}/${this.bd}/examenesAuxiliares/buscar/id/consulta/${idConsulta}`)
+        return this.http.get(
+            `${this.urlServer}/${this.bd}/examenesAuxiliares/buscar/id/consulta/${idConsulta}`
+        );
     }
 
     addReference(id, data) {
-        return this.http.post(`${this.urlServer}/${this.bd}/referencia/${id}`, data)
+        return this.http.post(
+            `${this.urlServer}/${this.bd}/referencia/${id}`,
+            data
+        );
     }
 
     addFinalizar(id, data) {
-        return this.http.put(`${this.urlServer}/${this.bd}/cred/consulta/finconsulta/${id}`, data)
+        return this.http.put(
+            `${this.urlServer}/${this.bd}/cred/consulta/finconsulta/${id}`,
+            data
+        );
     }
 
     updateFinalizar(id, data) {
-        return this.http.post(`${this.urlServer}/${this.bd}/cred/consulta/finconsulta/${id}`, data)
+        return this.http.post(
+            `${this.urlServer}/${this.bd}/cred/consulta/finconsulta/${id}`,
+            data
+        );
     }
 
     getFinalizar(id) {
-        return this.http.get(`${this.urlServer}/${this.bd}/cred/consulta/finconsulta/${id}`)
+        return this.http.get(
+            `${this.urlServer}/${this.bd}/cred/consulta/finconsulta/${id}`
+        );
     }
     getPromiseListPlan(nroDoc: string) {
-        return this.http.get(`${this.urlServer}/${this.bd}/cred/recuperardatos/${nroDoc}`)
+        return this.http
+            .get(`${this.urlServer}/${this.bd}/cred/recuperardatos/${nroDoc}`)
             .toPromise()
-            .then(res => <any[]>res)
-            .then(data => { return data; });
+            .then((res) => <any[]>res)
+            .then((data) => {
+                return data;
+            });
+    }
+    getReferenciaDatos(idConsulta) {
+        return this.http.get(
+            `${this.urlServer}/${this.bd}/referencia/origen/datosConsulta/${idConsulta}`
+        );
+    }
+    postGuardarReferencia(idConsulta, body) {
+        return this.http.post(
+            `${this.urlServer}/${this.bd}/referencia/origen/${idConsulta}`,
+            body
+        );
     }
     putNextAppointment(idConsulta: string, data) {
-        return this.http.put(`${this.urlServer}/${this.bd}/cred/consulta/agregar/proxima/cita/${idConsulta}`, data)
+        return this.http
+            .put(
+                `${this.urlServer}/${this.bd}/cred/consulta/agregar/proxima/cita/${idConsulta}`,
+                data
+            )
             .toPromise()
-            .then(res => <any[]>res)
-            .then(data => { return data; });
+            .then((res) => <any[]>res)
+            .then((data) => {
+                return data;
+            });
     }
-    
-    getShowFuaData(idConsulta:string){
-        return this.http.get(`${this.urlServer}/${this.bd}/fua/obtener/all/fua/${idConsulta}`)
+
+    getShowFuaData(idConsulta: string) {
+        return this.http
+            .get(
+                `${this.urlServer}/${this.bd}/fua/obtener/all/fua/${idConsulta}`
+            )
             .toPromise()
-            .then(res => <any[]>res)
-            .then(data => { return data; });
+            .then((res) => <any[]>res)
+            .then((data) => {
+                return data;
+            });
     }
 
     getCerrarConsultaGeneral(idConsulta: string) {
-        return this.http.get(`${this.urlServer}/${this.bd}/consultageneral/cerrar/${idConsulta}`)
+        return this.http
+            .get(
+                `${this.urlServer}/${this.bd}/consultageneral/cerrar/${idConsulta}`
+            )
             .toPromise()
-            .then(res => <any[]>res)
-            .then(data => { return data; });
+            .then((res) => <any[]>res)
+            .then((data) => {
+                return data;
+            });
+    }
+
+    getListPersonal(idIpress) {
+        return this.http.get(
+            `${this.urlServer}/${this.bd}/personal/listarpersonal/${idIpress}`
+        );
+    }
+
+    postReferencia(idConsulta, body) {
+        return this.http.post(
+            `${this.urlServer}/${this.bd}/referencia/origen/${idConsulta}`,
+            body
+        );
     }
 }

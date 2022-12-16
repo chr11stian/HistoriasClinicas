@@ -1,4 +1,4 @@
-<form [formGroup]='formReferencia'>
+<form [formGroup]="formReferencia">
     <p-fieldset legend="Datos Generales" [toggleable]="true">
         <div class="col flex">
             <div class="col-4 flex">
@@ -7,8 +7,13 @@
                         <span>Fecha de Atención:</span>
                     </div>
                     <div class="col-12">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"
-                                    dateFormat="dd-mm-yy" formControlName="fecha" [ngModel]="fecha"
+                        <p-calendar
+                            [showIcon]="true"
+                            inputId="icon"
+                            placeholder="Fecha"
+                            dateFormat="dd-mm-yy"
+                            formControlName="fecha"
+                            [ngModel]="fecha"
                         ></p-calendar>
                     </div>
                 </div>
@@ -17,70 +22,114 @@
                         <span>Hora:</span>
                     </div>
                     <div class="col-12">
-                        <p-calendar [timeOnly]="true"
-                                    [ngModel]="fecha"
-                                    formControlName="hour"
-                                    inputId="timeonly">
+                        <p-calendar
+                            [timeOnly]="true"
+                            [ngModel]="fecha"
+                            formControlName="hour"
+                            inputId="timeonly"
+                        >
                         </p-calendar>
                     </div>
                 </div>
             </div>
             <div class="col-8 align-items-center justify-content-center">
-                <div class="flex align-items-center justify-content-center" style="padding:0;margin: 0">
+                <div
+                    class="flex align-items-center justify-content-center"
+                    style="padding: 0; margin: 0"
+                >
                     <span>Asegurado:</span>
                     <div class="col-2">
-                        <p-selectButton [options]="stateOptions"
-                                        class="inputfield w-full"
-                                        optionLabel="label"
-                                        formControlName="asegurado"
-                                        optionValue="value">
+                        <p-selectButton
+                            [options]="stateOptions"
+                            class="inputfield w-full"
+                            optionLabel="label"
+                            formControlName="asegurado"
+                            optionValue="value"
+                        >
                         </p-selectButton>
                     </div>
                 </div>
-                <div class="col-12 align-items-center justify-content-center flex" style="padding:0;margin: 0">
+                <div
+                    class="col-12 align-items-center justify-content-center flex"
+                    style="padding: 0; margin: 0"
+                >
                     <span>TIPO: </span>
                     <div class="col-2 flex align-items-center">
                         <div class="col-3">
-                            <p-radioButton formControlName="tipoSub" name="tipoSub" value="subsidiado"></p-radioButton>
+                            <p-radioButton
+                                formControlName="tipoSub"
+                                name="tipoSub"
+                                value="subsidiado"
+                            ></p-radioButton>
                         </div>
                         <span>SUBSIDIADO</span>
                     </div>
                     <div class="col-3 flex align-items-center">
                         <div class="col-3">
-                            <p-radioButton formControlName="tipoSub" name="tipoSub" value="semi"></p-radioButton>
+                            <p-radioButton
+                                formControlName="tipoSub"
+                                name="tipoSub"
+                                value="semi"
+                            ></p-radioButton>
                         </div>
                         <span>SEMI-SUBSIDIADO</span>
                     </div>
                     <div class="col-3 flex align-items-center">
                         <div class="col-3">
-                            <p-radioButton formControlName="tipoSub" name="tipoSub" value="otros"></p-radioButton>
+                            <p-radioButton
+                                formControlName="tipoSub"
+                                name="tipoSub"
+                                value="otros"
+                            ></p-radioButton>
                         </div>
                         <span>OTROS :</span>
                         <div class="col-3">
-                            <input formControlName="otros" pInputText type="text" placeholder="Otros">
+                            <input
+                                formControlName="otros"
+                                pInputText
+                                type="text"
+                                placeholder="Otros"
+                            />
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col">
-            <div class="flex col-12 align-items-center justify-content-left" style="padding:0; margin: 0">
+            <div
+                class="flex col-12 align-items-center justify-content-left"
+                style="padding: 0; margin: 0"
+            >
                 <div class="col-4">
                     <span>Establecimiento de Origen de la Referencia: </span>
                 </div>
                 <div class="col-8">
-                    <input class="w-full" formControlName="origen" type="text" pInputText placeholder="Origen">
+                    <input
+                        class="w-full"
+                        formControlName="origen"
+                        type="text"
+                        pInputText
+                        placeholder="Origen"
+                    />
                 </div>
             </div>
-            <div class="flex col-12 align-items-center justify-content-left" style="padding:0; margin: 0">
+            <div
+                class="flex col-12 align-items-center justify-content-left"
+                style="padding: 0; margin: 0"
+            >
                 <div class="col-4">
                     <span>Establecimiento Destino de la Referencia: </span>
                 </div>
                 <div class="col-8">
-                    <p-autoComplete [suggestions]="listIpress" (completeMethod)="filterIpress($event)"
-                                    field="nombreEESS" [dropdown]="true"
-                                    class="inputfield p-fluid w-full" formControlName="destino"
-                                    placeholder="Seleccionar Ipress">
+                    <p-autoComplete
+                        [suggestions]="listIpress"
+                        (completeMethod)="filterIpress($event)"
+                        field="nombreEESS"
+                        [dropdown]="true"
+                        class="inputfield p-fluid w-full"
+                        formControlName="destino"
+                        placeholder="Seleccionar Ipress"
+                    >
                     </p-autoComplete>
 
                     <!--<input class="w-full" formControlName="destino" type="text" pInputText placeholder="Destino">-->
@@ -89,65 +138,100 @@
         </div>
     </p-fieldset>
     <p-fieldset legend="Identificacion del Usuario" [toggleable]="true">
-        <div class="flex justify-content-center col" style="padding:0; margin: 0">
+        <div
+            class="flex justify-content-center col"
+            style="padding: 0; margin: 0"
+        >
             <div class="col-3">
-                <span>Codigo SIS: {{sis}}</span>
+                <span>Codigo SIS: {{ historia }}</span>
             </div>
             <div class="col-3">
-                <span>Historia Clinica: {{historia}}</span>
+                <span>Historia Clinica: {{ historia }}</span>
             </div>
             <div class="col-3">
-                <span>Edad: {{edad}}</span>
+                <span>Edad: {{ edad }}</span>
             </div>
         </div>
-        <div class="col flex align-items-center" style="padding:0; margin: 0">
+        <div class="col flex align-items-center" style="padding: 0; margin: 0">
             <div class="col-10 align-items-center flex">
                 <span>Nombres y Apellidos:</span>
                 <div class="col-10">
-                    <input type="text" class="w-full" pInputText formControlName="nombre">
+                    <input
+                        type="text"
+                        class="w-full text-center"
+                        pInputText
+                        formControlName="nombre"
+                    />
                 </div>
             </div>
             <div class="flex align-items-center col-2 justify-content-end">
                 <span>Sexo:</span>
-                <div class="col-7 ">
-                    <p-selectButton [options]="sexOptions"
-                                    class="inputfield w-full justify-content-end"
-                                    optionLabel="label"
-                                    formControlName="sex"
-                                    optionValue="value">
+                <div class="col-7">
+                    <p-selectButton
+                        [options]="sexOptions"
+                        class="inputfield w-full justify-content-end"
+                        optionLabel="label"
+                        formControlName="sex"
+                        optionValue="value"
+                    >
                     </p-selectButton>
                 </div>
             </div>
         </div>
-        <div class="col flex align-items-center" style="padding:0; margin: 0">
-            <div class="col-6 align-items-center flex">
-                <span>Dirección:</span>
-                <div class="col-10">
-                    <input type="text" class="w-full" pInputText formControlName="domicilio">
+        <div class="col flex align-items-center" style="padding: 0; margin: 0">
+            <div class="col-3 align-items-center flex">
+                <span>Departamento:</span>
+                <div class="col-8">
+                    <input
+                        type="text"
+                        class="w-full"
+                        pInputText
+                        formControlName="departamento"
+                    />
                 </div>
             </div>
             <div class="col-3 align-items-center flex">
                 <span>Distrito:</span>
                 <div class="col-8">
-                    <input type="text" class="w-full" pInputText formControlName="distrito">
+                    <input
+                        type="text"
+                        class="w-full"
+                        pInputText
+                        formControlName="distrito"
+                    />
                 </div>
             </div>
-            <div class="col-3 align-items-center flex">
-                <span>Departamento:</span>
-                <div class="col-8">
-                    <input type="text" class="w-full" pInputText formControlName="departamento">
+            <div class="col-6 align-items-center flex">
+                <div class="col-2">
+                    <span>Dirección:</span>
+                </div>
+                <div class="col-10">
+                    <input
+                        type="text"
+                        class="w-full"
+                        pInputText
+                        formControlName="domicilio"
+                    />
                 </div>
             </div>
         </div>
     </p-fieldset>
     <p-fieldset legend="Motivo de referencia" [toggleable]="true">
-        <textarea class="inputfield w-full" formControlName="motivo" pInputTextarea>
-                </textarea>
+        <textarea
+            class="inputfield w-full"
+            formControlName="motivo"
+            pInputTextarea
+        >
+        </textarea>
     </p-fieldset>
     <p-fieldset legend="Resumen de Historia Clinica" [toggleable]="true">
         <p-tabView>
             <p-tabPanel header="ANAMNESIS" leftIcon="pi pi-calendar">
-                <textarea class="inputfield w-full" formControlName="anamnesis" pInputTextarea>
+                <textarea
+                    class="inputfield w-full"
+                    formControlName="anamnesis"
+                    pInputTextarea
+                >
                 </textarea>
             </p-tabPanel>
             <p-tabPanel header="EXAMEN FISICO" leftIcon="pi pi-calendar">
@@ -155,22 +239,42 @@
                     <div class="grid">
                         <div class="col-12 md:col-12 justify-content-center">
                             <div class="grid align-items-center">
-                                <ng-container *ngFor="let controlFC of dataExamFisicos">
+                                <ng-container
+                                    *ngFor="let controlFC of dataExamFisicos"
+                                >
                                     <div class="col-6 md:col-1 text-right">
-                                        {{controlFC.label}}
+                                        {{ controlFC.label }}
                                     </div>
                                     <div class="col-6 md:col-3">
                                         <ng-container
-                                                *ngIf="(controlFC.nameFC === 'TallaFC' || controlFC.nameFC === 'PesoFC'); else otros">
-                                            <input (ngModelChange)="imc()" type="number" pInputText
-                                                   [formControlName]="controlFC.nameFC"
-                                                   class="inputfield w-full text-center"
+                                            *ngIf="
+                                                controlFC.nameFC ===
+                                                    'TallaFC' ||
+                                                    controlFC.nameFC ===
+                                                        'PesoFC';
+                                                else otros
+                                            "
+                                        >
+                                            <input
+                                                (ngModelChange)="imc()"
+                                                type="number"
+                                                pInputText
+                                                [formControlName]="
+                                                    controlFC.nameFC
+                                                "
+                                                class="inputfield w-full text-center"
                                             />
                                         </ng-container>
                                         <ng-template #otros>
-                                            <input maxlength="6" type="number" pInputText
-                                                   [formControlName]="controlFC.nameFC"
-                                                   class="inputfield w-full text-center"/>
+                                            <input
+                                                maxlength="6"
+                                                type="number"
+                                                pInputText
+                                                [formControlName]="
+                                                    controlFC.nameFC
+                                                "
+                                                class="inputfield w-full text-center"
+                                            />
                                         </ng-template>
                                     </div>
                                 </ng-container>
@@ -180,225 +284,498 @@
                     <p-divider></p-divider>
                     <!--<label>Observaciones de Signos Vitales:</label>
                     <textarea class="inputfield w-full mb-2" formControlName="detailFC" pInputTextarea></textarea>-->
-                    <p-table class="table-over" [value]="examenFisico" #dt
-                             styleClass="p-datatable-gridlines" [rows]="10"
-                             [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
-                             [showCurrentPageReport]="true"
-                             currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+                    <p-table
+                        class="table-over"
+                        [value]="examenFisico"
+                        #dt
+                        styleClass="p-datatable-gridlines"
+                        [rows]="10"
+                        [rowsPerPageOptions]="[10, 25, 50]"
+                        [paginator]="true"
+                        [autoLayout]="true"
+                        [showCurrentPageReport]="true"
+                        currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
+                    >
                         <ng-template pTemplate="header">
                             <tr>
-                                <th style="text-align: center" class="font-2">Nro</th>
-                                <th style="text-align: center" class="font-2">Examen</th>
-                                <th style="text-align: center" class="font-2">Tipo</th>
-                                <th style="text-align: center" class="font-2">Descripcion</th>
+                                <th style="text-align: center" class="font-2">
+                                    Nro
+                                </th>
+                                <th style="text-align: center" class="font-2">
+                                    Examen
+                                </th>
+                                <th style="text-align: center" class="font-2">
+                                    Tipo
+                                </th>
+                                <th style="text-align: center" class="font-2">
+                                    Descripcion
+                                </th>
                             </tr>
                         </ng-template>
-                        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                        <ng-template
+                            pTemplate="body"
+                            let-rowData
+                            let-rowIndex="rowIndex"
+                        >
                             <tr>
-                                <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                                <td style="text-align: center">{{ rowData.examen }}</td>
-                                <td style="text-align: center">{{ rowData.tipo }}</td>
-                                <td style="text-align: center">{{ rowData.descripcion }}</td>
+                                <td style="text-align: center" class="font-2">
+                                    {{ rowIndex + 1 }}
+                                </td>
+                                <td style="text-align: center">
+                                    {{ rowData.examen }}
+                                </td>
+                                <td style="text-align: center">
+                                    {{ rowData.tipo }}
+                                </td>
+                                <td style="text-align: center">
+                                    {{ rowData.descripcion }}
+                                </td>
                             </tr>
                         </ng-template>
                     </p-table>
                 </form>
             </p-tabPanel>
             <p-tabPanel header="EXAMENES AUXILIARES" leftIcon="pi pi-calendar">
-                <p-table class="table-over" [value]="examenAux" #dt
-                         styleClass="p-datatable-gridlines" [rows]="10"
-                         [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
-                         [showCurrentPageReport]="true"
-                         currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+                <p-table
+                    class="table-over"
+                    [value]="examenAux"
+                    #dt
+                    styleClass="p-datatable-gridlines"
+                    [rows]="10"
+                    [rowsPerPageOptions]="[10, 25, 50]"
+                    [paginator]="true"
+                    [autoLayout]="true"
+                    [showCurrentPageReport]="true"
+                    currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
+                >
                     <ng-template pTemplate="header">
                         <tr>
-                            <th style="text-align: center" class="font-2">Nro</th>
-                            <th style="text-align: center" class="font-2">Lugar</th>
-                            <th style="text-align: center" class="font-2">Tipo</th>
-                            <th style="text-align: center" class="font-2">Examen</th>
+                            <th style="text-align: center" class="font-2">
+                                Nro
+                            </th>
+                            <th style="text-align: center" class="font-2">
+                                Lugar
+                            </th>
+                            <th style="text-align: center" class="font-2">
+                                Tipo
+                            </th>
+                            <th style="text-align: center" class="font-2">
+                                Examen
+                            </th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                    <ng-template
+                        pTemplate="body"
+                        let-rowData
+                        let-rowIndex="rowIndex"
+                    >
                         <tr>
-                            <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                            <td *ngIf="rowData.tipoExamAux=='EXAMEN_LABORATORIO'; else otro" style="text-align: center">
+                            <td style="text-align: center" class="font-2">
+                                {{ rowIndex + 1 }}
+                            </td>
+                            <td
+                                *ngIf="
+                                    rowData.tipoExamAux == 'EXAMEN_LABORATORIO';
+                                    else otro
+                                "
+                                style="text-align: center"
+                            >
                                 LABORATORIO
                             </td>
                             <ng-template #otro>
-                                <td style="text-align: center">
-                                    CONSULTORIO
-                                </td>
+                                <td style="text-align: center">CONSULTORIO</td>
                             </ng-template>
-                            <td style="text-align: center">{{ rowData.subTipo }}</td>
-                            <td style="text-align: center">{{ rowData.nombreExamen }}</td>
+                            <td style="text-align: center">
+                                {{ rowData.subTipo }}
+                            </td>
+                            <td style="text-align: center">
+                                {{ rowData.nombreExamen }}
+                            </td>
                         </tr>
                     </ng-template>
                 </p-table>
             </p-tabPanel>
             <p-tabPanel header="DIAGNÓSTICO" leftIcon="pi pi-calendar">
-                <p-table [value]="diagnostico" [rowHover]="true" styleClass="p-datatable-gridlines"
-                         [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,15]"
-                         [paginator]="true"
-                         currentPageReportTemplate="Mostrando {first} al {last} de {totalRecords} entradas"
-                         [filterDelay]="0">
+                <p-table
+                    [value]="diagnostico"
+                    [rowHover]="true"
+                    styleClass="p-datatable-gridlines"
+                    [rows]="5"
+                    [showCurrentPageReport]="true"
+                    [rowsPerPageOptions]="[5, 10, 15]"
+                    [paginator]="true"
+                    currentPageReportTemplate="Mostrando {first} al {last} de {totalRecords} entradas"
+                    [filterDelay]="0"
+                >
                     <ng-template pTemplate="header">
                         <tr>
-                            <th style="text-align: center" class="font-2">Nro</th>
-                            <th style="text-align: center" class="font-2">CODIGO DE PRESTACION</th>
-                            <th style="text-align: center" class="font-2">NOMBRE UPS</th>
-                            <th style="text-align: center" class="font-1">DIAGNÓSTICO SIS</th>
-                            <th style="text-align: center" class="font-2">CIE 10 SIS</th>
-                            <th style="text-align: center" class="font-1">DIAGNÓSTICO HIS</th>
-                            <th style="text-align: center" class="font-2">CIE 10 HIS</th>
-                            <th style="text-align: center" class="font-2">TIPO</th>
-                            <th style="text-align: center" class="font-2">FACTOR CONDICIONAL</th>
+                            <th style="text-align: center" class="font-2">
+                                Nro
+                            </th>
+                            <th style="text-align: center" class="font-2">
+                                CODIGO DE PRESTACION
+                            </th>
+                            <th style="text-align: center" class="font-2">
+                                NOMBRE UPS
+                            </th>
+                            <th style="text-align: center" class="font-1">
+                                DIAGNÓSTICO SIS
+                            </th>
+                            <th style="text-align: center" class="font-2">
+                                CIE 10 SIS
+                            </th>
+                            <th style="text-align: center" class="font-1">
+                                DIAGNÓSTICO HIS
+                            </th>
+                            <th style="text-align: center" class="font-2">
+                                CIE 10 HIS
+                            </th>
+                            <th style="text-align: center" class="font-2">
+                                TIPO
+                            </th>
+                            <th style="text-align: center" class="font-2">
+                                FACTOR CONDICIONAL
+                            </th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                    <ng-template
+                        pTemplate="body"
+                        let-rowData
+                        let-rowIndex="rowIndex"
+                    >
                         <tr>
-                            <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                            <td style="text-align: center">{{ rowData.codPrestacion }}</td>
-                            <td style="text-align: center">{{ rowData.nombreUPS }}</td>
-                            <td style="text-align: center">{{ rowData.diagnosticoSIS }}</td>
-                            <td style="text-align: center">{{ rowData.cie10SIS }}</td>
-                            <td style="text-align: center">{{ rowData.diagnosticoHIS }}</td>
-                            <td style="text-align: center">{{ rowData.cie10HIS }}</td>
-                            <td style="text-align: center">{{ rowData.tipo }}</td>
-                            <td style="text-align: center">{{ rowData.factorCondicional }}</td>
+                            <td style="text-align: center" class="font-2">
+                                {{ rowIndex + 1 }}
+                            </td>
+                            <td style="text-align: center">
+                                {{ rowData.codPrestacion }}
+                            </td>
+                            <td style="text-align: center">
+                                {{ rowData.nombreUPS }}
+                            </td>
+                            <td style="text-align: center">
+                                {{ rowData.diagnosticoSIS }}
+                            </td>
+                            <td style="text-align: center">
+                                {{ rowData.cie10SIS }}
+                            </td>
+                            <td style="text-align: center">
+                                {{ rowData.diagnosticoHIS }}
+                            </td>
+                            <td style="text-align: center">
+                                {{ rowData.cie10HIS }}
+                            </td>
+                            <td style="text-align: center">
+                                {{ rowData.tipo }}
+                            </td>
+                            <td style="text-align: center">
+                                {{ rowData.factorCondicional }}
+                            </td>
                         </tr>
                     </ng-template>
                 </p-table>
             </p-tabPanel>
             <p-tabPanel header="TRATAMIENTO" leftIcon="pi pi-calendar">
-                <p-table class="table-over" [value]="tratamientos" #dt styleClass="p-datatable-gridlines" [rows]="10"
-                         [rowsPerPageOptions]="[10, 25, 50]"
-                         [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
-                         currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+                <p-table
+                    class="table-over"
+                    [value]="tratamientos"
+                    #dt
+                    styleClass="p-datatable-gridlines"
+                    [rows]="10"
+                    [rowsPerPageOptions]="[10, 25, 50]"
+                    [paginator]="true"
+                    [autoLayout]="true"
+                    [showCurrentPageReport]="true"
+                    currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
+                >
                     <ng-template pTemplate="header">
                         <tr>
-                            <th style="text-align: center" class="font-2">Nro</th>
-                            <th style="text-align: center" class="font-2">COD.</th>
-                            <th style="text-align: center" class="font-2">NOMBRE</th>
-                            <th style="text-align: center" class="font-2">FF</th>
-                            <th style="text-align: center" class="font-2">CONCENTRACION</th>
-                            <th style="text-align: center" class="font-2">VIA ADMINISTRACION</th>
-                            <th style="text-align: center" class="font-2">CANT.</th>
-                            <th style="text-align: center" class="font-2">DOSIS</th>
-                            <th style="text-align: center" class="font-2">INTERVALO</th>
-                            <th style="text-align: center" class="font-2">DURACION</th>
-                            <th style="text-align: center" class="font-2">FECHA VENCIMIENTO</th>
-                            <th style="text-align: center" class="font-2">COD. PRESTACIÓN</th>
-                            <th style="text-align: center" class="font-2">CIE 10 HIS</th>
+                            <th style="text-align: center" class="font-2">
+                                Nro
+                            </th>
+                            <th style="text-align: center" class="font-2">
+                                COD.
+                            </th>
+                            <th style="text-align: center" class="font-2">
+                                NOMBRE
+                            </th>
+                            <th style="text-align: center" class="font-2">
+                                FF
+                            </th>
+                            <th style="text-align: center" class="font-2">
+                                CONCENTRACION
+                            </th>
+                            <th style="text-align: center" class="font-2">
+                                VIA ADMINISTRACION
+                            </th>
+                            <th style="text-align: center" class="font-2">
+                                CANT.
+                            </th>
+                            <th style="text-align: center" class="font-2">
+                                DOSIS
+                            </th>
+                            <th style="text-align: center" class="font-2">
+                                INTERVALO
+                            </th>
+                            <th style="text-align: center" class="font-2">
+                                DURACION
+                            </th>
+                            <th style="text-align: center" class="font-2">
+                                FECHA VENCIMIENTO
+                            </th>
+                            <th style="text-align: center" class="font-2">
+                                COD. PRESTACIÓN
+                            </th>
+                            <th style="text-align: center" class="font-2">
+                                CIE 10 HIS
+                            </th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                    <ng-template
+                        pTemplate="body"
+                        let-rowData
+                        let-rowIndex="rowIndex"
+                    >
                         <tr>
-                            <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                            <td style="text-align: center">{{ rowData.medicamento.codigo }}</td>
-                            <td style="text-align: center">{{ rowData.medicamento.nombre }}</td>
-                            <td style="text-align: center">{{ rowData.medicamento.ff }}</td>
-                            <td style="text-align: center">{{ rowData.medicamento.concentracion  }}</td>
-                            <td style="text-align: center">{{ rowData.medicamento.viaAdministracion }}</td>
-                            <td style="text-align: center">{{ rowData.cantidad }}</td>
-                            <td style="text-align: center">{{ rowData.dosis }}</td>
-                            <td style="text-align: center">{{ rowData.intervalo }}</td>
-                            <td style="text-align: center">{{ rowData.duracion }}</td>
-                            <td style="text-align: center">{{ rowData.fechaVenc | date: 'dd-MM-yyy'}}</td>
-                            <td style="text-align: center">{{ rowData.codPrestacion}}</td>
-                            <td style="text-align: center">{{ rowData.cie10SIS}}</td>
+                            <td style="text-align: center" class="font-2">
+                                {{ rowIndex + 1 }}
+                            </td>
+                            <td style="text-align: center">
+                                {{ rowData.medicamento.codigo }}
+                            </td>
+                            <td style="text-align: center">
+                                {{ rowData.medicamento.nombre }}
+                            </td>
+                            <td style="text-align: center">
+                                {{ rowData.medicamento.ff }}
+                            </td>
+                            <td style="text-align: center">
+                                {{ rowData.medicamento.concentracion }}
+                            </td>
+                            <td style="text-align: center">
+                                {{ rowData.medicamento.viaAdministracion }}
+                            </td>
+                            <td style="text-align: center">
+                                {{ rowData.cantidad }}
+                            </td>
+                            <td style="text-align: center">
+                                {{ rowData.dosis }}
+                            </td>
+                            <td style="text-align: center">
+                                {{ rowData.intervalo }}
+                            </td>
+                            <td style="text-align: center">
+                                {{ rowData.duracion }}
+                            </td>
+                            <td style="text-align: center">
+                                {{ rowData.fechaVenc | date : "dd-MM-yyy" }}
+                            </td>
+                            <td style="text-align: center">
+                                {{ rowData.codPrestacion }}
+                            </td>
+                            <td style="text-align: center">
+                                {{ rowData.cie10SIS }}
+                            </td>
                         </tr>
                     </ng-template>
-
                 </p-table>
             </p-tabPanel>
         </p-tabView>
     </p-fieldset>
     <p-fieldset legend="Datos de Referencia" [toggleable]="true">
-        <div class="col flex align-items-center justify-content-center" style="padding:0; margin: 0">
+        <div
+            class="col flex align-items-center justify-content-center"
+            style="padding: 0; margin: 0"
+        >
             <span>Referencia:</span>
             <div class="col-3">
                 <p-dropdown
-                        [options]="destino"
-                        [(ngModel)]="selectedDestino"
-                        formControlName="referencia"
-                        optionLabel="name"
-                        optionValue="code"
+                    [options]="destino"
+                    [(ngModel)]="selectedDestino"
+                    formControlName="referencia"
+                    optionLabel="name"
+                    optionValue="code"
                 ></p-dropdown>
             </div>
         </div>
-        <div class="col flex" style="padding:0; margin: 0">
+        <div class="col flex" style="padding: 0; margin: 0">
             <div class="col-4 flex align-items-center">
-                <span>
-                    Fecha en que será atendido:
-                </span>
                 <div class="col-6">
-                    <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha" [ngModel]="fecha"
-                                dateFormat="dd-mm-yy" formControlName="fechaAtencion"
+                    <span> Fecha en que será atendido: </span>
+                </div>
+                <div class="col-6">
+                    <p-calendar
+                        [showIcon]="true"
+                        inputId="icon"
+                        placeholder="Fecha"
+                        [ngModel]="fecha"
+                        dateFormat="dd-mm-yy"
+                        formControlName="fechaAtencion"
                     ></p-calendar>
                 </div>
             </div>
             <div class="col-8 flex align-items-center">
-                <span>
-                    Nombre de quien lo atenderá:
-                </span>
-                <div class="col-8 ml-4">
-                    <input type="text" class="w-full" pInputText formControlName="nombreAtendera">
+                <div class="col-4">
+                    <span> Nombre de quien lo atenderá: </span>
+                </div>
+                <div class="col-8 flex">
+                    <p-autoComplete
+                        class="inputfield p-fluid w-full"
+                        formControlName="nombreAtendera"
+                        [dropdown]="true"
+                        [suggestions]="personalDestino"
+                        (completeMethod)="filterPersonalDestino($event)"
+                        field="nombreCompleto"
+                        [minLength]="1"
+                    ></p-autoComplete>
                 </div>
             </div>
         </div>
-        <div class="col flex" style="padding:0; margin: 0">
+        <div class="col flex" style="padding: 0; margin: 0">
             <div class="col-4 flex align-items-center">
-                <span>
-                    Hora en que será atendido:
-                </span>
                 <div class="col-6">
-                    <p-calendar [timeOnly]="true"
-                                class="text-center"
-                                [ngModel]="fecha"
-                                formControlName="hourAtencion"
-                                inputId="timeonly">
+                    <span> Hora en que será atendido: </span>
+                </div>
+                <div class="col-6 p-fluid text-center">
+                    <p-calendar
+                        [timeOnly]="true"
+                        class="text-center"
+                        [ngModel]="fecha"
+                        formControlName="hourAtencion"
+                        inputId="timeonly"
+                    >
                     </p-calendar>
                 </div>
             </div>
             <div class="col-8 flex align-items-center">
-                <span>
-                    Nombre con quien se coordino la atención:
-                </span>
+                <div class="col-5">
+                    <span> Nombre con quien se coordino la atención: </span>
+                </div>
                 <div class="col-7 justify-content-end">
-                    <input type="text" class="w-full" pInputText formControlName="nombreCoordino">
+                    <p-autoComplete
+                        class="inputfield p-fluid w-full"
+                        formControlName="nombreCoordino"
+                        [dropdown]="true"
+                        [suggestions]="personalDestino"
+                        (completeMethod)="filterPersonalDestino($event)"
+                        field="nombreCompleto"
+                        [minLength]="1"
+                    ></p-autoComplete>
                 </div>
             </div>
         </div>
-        <div class="col flex" style="padding:0; margin: 0">
+        <div class="col flex" style="padding: 0; margin: 0">
             <div class="col-7 flex align-items-center">
-                <span>Especialidad del destino:</span>
-                <div class="col-8">
+                <div class="col-3">
+                    <span>Especialidad del destino:</span>
+                </div>
+                <div class="col-9 p-fluid">
                     <p-dropdown
-                            [options]="especialidad"
-                            [(ngModel)]="selectedEspecialidad"
-                            formControlName="especialidad"
-                            optionLabel="name"
-                            optionValue="code"
+                        [options]="especialidad"
+                        [(ngModel)]="selectedEspecialidad"
+                        formControlName="especialidad"
+                        optionLabel="name"
+                        optionValue="code"
                     ></p-dropdown>
                 </div>
             </div>
-            <div class="col-5 flex align-items-center ">
-                <span>Condición del paciente al inicio del traslado:</span>
-                <div class="col-2">
+            <div class="col-5 flex align-items-center">
+                <div class="col-7">
+                    <span>Condición del paciente al inicio del traslado:</span>
+                </div>
+                <div class="col-5 p-fluid">
                     <p-dropdown
-                            class="w-full"
-                            [autoDisplayFirst]="false"
-                            [options]="condicion"
-                            formControlName="condicion"
-                            optionValue="code"
-                            optionLabel="name">
+                        class="w-full"
+                        [autoDisplayFirst]="false"
+                        [options]="condicion"
+                        formControlName="condicion"
+                        optionValue="code"
+                        optionLabel="name"
+                    >
                     </p-dropdown>
                 </div>
             </div>
         </div>
     </p-fieldset>
+    <p-fieldset legend="Datos de Referencia" [toggleable]="true">
+        <div class="col-12 flex" style="padding: 0; margin: 0">
+            <div class="col-6 flex align-items-center">
+                <div class="col-4">
+                    <span>Responsable de la RF:</span>
+                </div>
+                <div class="col-8 flex">
+                    <p-autoComplete
+                        class="inputfield p-fluid w-full"
+                        formControlName="nombreReferencia"
+                        [dropdown]="true"
+                        [suggestions]="personalOrigen"
+                        (completeMethod)="filterPersonalOrigen($event)"
+                        field="nombreCompleto"
+                        [minLength]="1"
+                    ></p-autoComplete>
+                </div>
+            </div>
+            <div class="col-6 flex align-items-center">
+                <div class="col-4">
+                    <span>Responsable del Establecimiento:</span>
+                </div>
+                <div class="col-8 flex">
+                    <p-autoComplete
+                        class="inputfield p-fluid w-full"
+                        formControlName="nombreResponsableEstablecimiento"
+                        [dropdown]="true"
+                        [suggestions]="personalOrigen"
+                        (completeMethod)="filterPersonalOrigen($event)"
+                        field="nombreCompleto"
+                        [minLength]="1"
+                    ></p-autoComplete>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 flex" style="padding: 0; margin: 0">
+            <div class="col-6 flex align-items-center">
+                <div class="col-4">
+                    <span>Personal que acompaña:</span>
+                </div>
+                <div class="col-8 flex">
+                    <p-autoComplete
+                        class="inputfield p-fluid w-full"
+                        formControlName="nombreAcompania"
+                        [dropdown]="true"
+                        [suggestions]="personalOrigen"
+                        (completeMethod)="filterPersonalOrigen($event)"
+                        field="nombreCompleto"
+                        [minLength]="1"
+                    ></p-autoComplete>
+                </div>
+            </div>
+            <div class="col-6 flex align-items-center">
+                <div class="col-4">
+                    <span>Personal que recibe:</span>
+                </div>
+                <div class="col-8 flex">
+                    <p-autoComplete
+                        class="inputfield p-fluid w-full"
+                        formControlName="nombreRecibe"
+                        [dropdown]="true"
+                        [suggestions]="personalDestino"
+                        (completeMethod)="filterPersonalDestino($event)"
+                        field="nombreCompleto"
+                        [minLength]="1"
+                    ></p-autoComplete>
+                </div>
+            </div>
+        </div>
+    </p-fieldset>
     <div class="col col-offset-11">
-        <button class="button-agregar" icon="pi pi-save" pButton type="button" label="Guardar"
-                style="background-color: #0c3866" (click)="save()"></button>
+        <button
+            class="button-agregar"
+            icon="pi pi-save"
+            pButton
+            type="button"
+            label="Guardar"
+            style="background-color: #0c3866"
+            (click)="save()"
+        ></button>
     </div>
 </form>

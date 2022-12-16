@@ -12,7 +12,7 @@ export interface dato {
     nroConsulta?: number;
     ups?: string;
     fechaConsulta?: string;
-    estadoAtencion?:number
+    estadoAtencion?: number;
 }
 
 export interface outputTriajeInterface {
@@ -169,7 +169,6 @@ export interface Nacimiento {
     tiempoHospitalizacion: number;
     // tieneAnemia:boolean,
     // fechaAnemia:Date,
-
 }
 
 export interface Parto {
@@ -307,4 +306,73 @@ export interface escala {
 export interface nombreRol {
     rol: string;
     nombreRol: string;
+}
+
+export interface ReferenciaOrigen {
+    fechaRegistro?: string;
+    horaRegistro?: string;
+    tipoSubsidio?: string;
+    nroHcl?: string;
+    tipoDoc?: string;
+    nroDoc?: string;
+    datosPaciente?: DatosPaciente;
+    anioEdad?: number;
+    mesEdad?: number;
+    diaEdad?: number;
+    anamnesis?: string;
+    motivoConsulta?: string;
+    ipressOrigen?: IpressOrigenOrIpressDestino;
+    ipressDestino?: IpressOrigenOrIpressDestino;
+    tipoReferencia?: string;
+    fechaAtendera?: string;
+    horaAtendera?: string;
+    personalAtendera?: PersonalR;
+    personalCoordino?: PersonalR;
+    especialidadDestino?: string;
+    condicionPacienteSalida?: string;
+    responsableReferencia?: PersonalR;
+    resposableEstablecimiento?: PersonalR;
+    personalQueAcompania?: PersonalR;
+    personalQueRecibe?: PersonalR;
+}
+export interface DatosPaciente {
+    primerNombre: string;
+    otrosNombres: string;
+    apePaterno: string;
+    apeMaterno: string;
+    celular: string;
+    sexo: string;
+    etnia: Etnia;
+    fechaNacimiento: string;
+    tipoSeguro: string;
+    codSeguro: string;
+}
+export interface Etnia {
+    tipoEtnia: string;
+    etnia: string;
+}
+export interface IpressOrigenOrIpressDestino {
+    nombreEESS: string;
+    idIpress: string;
+    disa: string;
+    renipress: string;
+    id?: string;
+    red?: Red;
+}
+
+export interface Red {
+    disa: string;
+    idIpress: string;
+    nombreEESS: string;
+    renipress: string;
+}
+export interface PersonalR {
+    idPersonal: string;
+    nroDoc: string;
+    tipoDoc: string;
+    colegiatura: string;
+    profesion: string;
+    nombres: string;
+    apellidos: string;
+    nombreCompleto?: string;
 }

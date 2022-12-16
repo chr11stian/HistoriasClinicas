@@ -129,33 +129,33 @@ export class IpressComponent implements OnInit {
   getCategorias() {
     this.categoriaservice.getCategoriaEstablecimiento().subscribe((res: any) => {
       this.categoriasList = res.object;
-      console.log('lista de categorias',this.categoriasList);
+      //console.log('lista de categorias',this.categoriasList);
       
     });
   }
   getDepartamentos() {
     this.ubicacionService.getDepartamentos().subscribe((resp: any) => {
       this.departamentosList = resp.object;
-      console.log('lista de departamentos',this.departamentosList);
+      //console.log('lista de departamentos',this.departamentosList);
       
     });
   }
   getCategorizaciones() {
     this.ipressservice.listarCategorizaciones().subscribe((res: any) => {
       this.categorizacionesList = res.tipoDocCategorizacion;
-      console.log("categorizacion", this.categorizacionesList);
+      //console.log("categorizacion", this.categorizacionesList);
     });
   }
   getClasificaciones() {
     this.ipressservice.listarClasificaciones().subscribe((res: any) => {
       this.clasificacionesTipoList = res.object;
-      console.log("clasificaciones tipo", this.clasificacionesTipoList);
+      //console.log("clasificaciones tipo", this.clasificacionesTipoList);
     });
   }
   getUnidadesEjecutoras() {
     this.unidadEjecutoraService.getUnidadesEjecutoras().subscribe((res: any) => {
       this.unidadesList = res.object;
-      console.log("unidades", this.unidadesList);
+      //console.log("unidades", this.unidadesList);
     });
   }
   getRedServiciosSalud() {
@@ -188,7 +188,7 @@ export class IpressComponent implements OnInit {
   }
   changeRedSelectedEditar(rowData) {
     this.redServiciosSaludService.getMicroRedServiciosSalud(this.ipressFG.value.red?.idRed).subscribe((res: any) => {
-      console.log('red',this.ipressFG.value.red?.idRed);
+      //console.log('red',this.ipressFG.value.red?.idRed);
       this.microRedesList = res.object;
       if (this.microRedesList[0].idMicroRed == null) {
         this.microRedesList = [];
@@ -198,7 +198,7 @@ export class IpressComponent implements OnInit {
   }
   changeClasificacionTipo() {
     this.clasificacionesNombreList = this.ipressFG.value.clasificacionTipo.clasificaciones;
-    console.log(this.ipressFG.value.clasificacionTipo.clasificaciones);
+    //console.log(this.ipressFG.value.clasificacionTipo.clasificaciones);
   }
   isInvalid(control: string): boolean {
     const formControl: AbstractControl = this.getFC(control);
@@ -477,7 +477,7 @@ export class IpressComponent implements OnInit {
       };
   
       this.ipressservice.createIpress(req).subscribe((resp:any) => {
-          console.log('respuesta guardar',resp);
+          //console.log('respuesta guardar',resp);
           if(resp.cod=="2405"){ 
             Swal.fire({
               icon: 'success',
@@ -517,10 +517,10 @@ export class IpressComponent implements OnInit {
     this.ipressDialog = true;
   }
   editar(rowData) {
-    console.log('data Ipress-->',rowData);
+    //console.log('data Ipress-->',rowData);
     this.isUpdate = true;
     this.ipressFG.reset();
-    console.log('lista de redes ', this.redesList);
+    //console.log('lista de redes ', this.redesList);
     this.ipressFG.get('renipress').setValue(rowData.renipress);
     this.ipressFG.get('nombreEESS').setValue(rowData.nombreEESS);
     this.ipressFG.get('ruc').setValue(rowData.ruc);
@@ -534,7 +534,7 @@ export class IpressComponent implements OnInit {
       this.changeRedSelectedEditar(rowData);
     }
     // const redSelected=rowData.red !== null ? this.redesList.find(red => red.nombreRed === (rowData.red.nombreRed).toUpperCase()) : ""
-    // console.log('red selected',rowData.red.nombreRed);
+    // //console.log('red selected',rowData.red.nombreRed);
     
     //agregar clasificacion, categorizacion y unidad ejecutora aqui usando find
     if (rowData.categorizacion != null) {
@@ -544,7 +544,7 @@ export class IpressComponent implements OnInit {
     if(rowData.clasificacion != null && (rowData.clasificacion.clasificacion!='')){
 
       const clasificacion=this.clasificacionesTipoList.find(clasi => clasi.tipo === rowData.clasificacion.tipo)
-      console.log('clasificacion',clasificacion);
+      //console.log('clasificacion',clasificacion);
       
       this.ipressFG.get('clasificacionTipo').setValue(clasificacion)
       this.clasificacionesNombreList=clasificacion.clasificaciones
@@ -552,7 +552,7 @@ export class IpressComponent implements OnInit {
 
     }
     else{
-      console.log('--------entranos else---------');
+      //console.log('--------entranos else---------');
 
        this.ipressFG.get('clasificacionTipo').setValue('')
     }
@@ -707,7 +707,7 @@ export class IpressComponent implements OnInit {
     this.encargadoDialog = true;
     this.isUpdateEncargado = false;
     
-    console.log('data ipress-->',rowData);
+    //console.log('data ipress-->',rowData);
     // this.idIpress = rowData.id;
     if (rowData.encargado) {
       this.isUpdateEncargado = true;
@@ -732,7 +732,7 @@ export class IpressComponent implements OnInit {
     return this.UPSList.find(ups => ups.codUPS === rowData).nombreUPS;
   }
   newJurisdiccion(rowData) {
-    console.log('nueva juridiccion:',rowData);
+    //console.log('nueva juridiccion:',rowData);
     
     this.jurisdicciones = rowData.jurisdiccion;
     this.idIpress = rowData.id;
@@ -784,7 +784,7 @@ export class IpressComponent implements OnInit {
     if (true) {
       this.loading = true;
       this.ubicacionService.buscarUbigeo(ubigeo).subscribe((res: any) => {
-        console.log('repuesta buscar ibigeo',res);
+        //console.log('repuesta buscar ibigeo',res);
         
         this.formJurisdiccion.get('departamento').setValue({ iddd: res.object[0].iddd, departamento: res.object[0].departamento });
         this.selectedDepartamentoJurisdiccion();
@@ -1180,7 +1180,7 @@ export class IpressComponent implements OnInit {
       else
         nombreCompleto = personal.apePaterno + " " + personal.apeMaterno + " " + personal.primerNombre;
 
-      console.log(nombreCompleto);
+      //console.log(nombreCompleto);
       this.formEncargado.get('nombre').setValue(nombreCompleto);
       this.idPersonalEncargado = personal.id;
       this.loadingEncargado = false;
@@ -1323,7 +1323,7 @@ export class IpressComponent implements OnInit {
     this.formHorario.reset();
     this.horarioDialog = true;
     this.isUpdateHorario = false;
-    console.log(rowData);
+    //console.log(rowData);
     if (rowData !== null) {
       this.formHorario.get('lunesInicioManiana').setValue(new Date(`2021-01-01 ${rowData[0].horas[0].horaInicio}`));
       this.formHorario.get('lunesFinManiana').setValue(new Date(`2021-01-01 ${rowData[0].horas[0].horaFin}`));
