@@ -4,6 +4,7 @@ import localeFr from '@angular/common/locales/fr';
 import {LaboratoriosService} from "../../services/laboratorios.service";
 import {DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import Swal from 'sweetalert2';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -99,9 +100,16 @@ export class LabBioquimicaComponent implements OnInit {
             nroMuestra: this.formBioquimica.value.nroMuestra,
         }
         this.laboratoriosService.guardarLaboratorioBioquimica(this.config.data.id, aux).subscribe((r: any) => {
-            console.log(r)
+            this.ref.close("confirmado"); //confirmado o cancelado
+            Swal.fire({
+              icon: "success",
+              title: "Exito!",
+              text: "Se guardo el laboratorio",
+              showConfirmButton: false,
+              timer: 2000,
+            });
         })
-        this.ref.close()
+        
     }
 }
 

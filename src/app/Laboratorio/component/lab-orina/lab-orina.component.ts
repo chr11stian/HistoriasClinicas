@@ -32,7 +32,7 @@ export class LabOrinaComponent implements OnInit {
     this.buildForm();
     this.buildForm2();
     this.cargarDatosCabecera();
-  }dw
+  }
   ngOnInit(): void {
     this.cargarDatosPruebaTomada();
   }

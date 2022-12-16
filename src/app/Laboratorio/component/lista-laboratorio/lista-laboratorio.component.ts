@@ -40,7 +40,7 @@ export class ListaLaboratorioComponent implements OnInit {
   ngOnInit(): void {
     this.buildForm();
     this.formListaLabo.get("fechaBusqueda").setValue(this.fechaActual);
-    this.listaLab();
+    this.getLaboratoriosList();
   }
 
   buildForm() {
@@ -52,7 +52,7 @@ export class ListaLaboratorioComponent implements OnInit {
     });
   }
 
-  listaLab() {
+  getLaboratoriosList() {
     let data = {
       fecha: this.datePipe.transform(
         this.formListaLabo.value.fechaBusqueda,
@@ -84,9 +84,8 @@ export class ListaLaboratorioComponent implements OnInit {
             width: "90%",
             data: data,
           });
-          console.log("DATAS", data);
           this.ref.onClose.subscribe((data: any) => {
-            // this.buscarCuposPorPersonal();
+            this.getLaboratoriosList()
           });
         }
         break;
@@ -98,9 +97,8 @@ export class ListaLaboratorioComponent implements OnInit {
             width: "90%",
             data: data,
           });
-          console.log("DATA", data);
           this.ref.onClose.subscribe((data: any) => {
-            // this.buscarCuposPorPersonal();
+            this.getLaboratoriosList()
           });
         }
         break;
@@ -112,9 +110,8 @@ export class ListaLaboratorioComponent implements OnInit {
           width: "60%",
           data: data,
         });
-        console.log("DATA", data);
         this.ref.onClose.subscribe((data: any) => {
-          // this.buscarCuposPorPersonal();
+          this.getLaboratoriosList()
         });
       }
         break;
@@ -126,9 +123,8 @@ export class ListaLaboratorioComponent implements OnInit {
           width: "90%",
           data: data,
         });
-        console.log("DATA", data);
         this.ref.onClose.subscribe((data: any) => {
-          // this.buscarCuposPorPersonal();
+          this.getLaboratoriosList()
         });
       }
         break;
@@ -141,10 +137,9 @@ export class ListaLaboratorioComponent implements OnInit {
             data: {dataEnviada:data,
               isPruebaTomada:false}
           });
-          console.log("DATA", data);
           this.ref.onClose.subscribe((data: string) => {//confirmado,cancelado and indefined
             if(data=='confirmado'){
-              this.listaLab()
+              this.getLaboratoriosList()
             }
           });
         }
@@ -157,10 +152,9 @@ export class ListaLaboratorioComponent implements OnInit {
             data: {dataEnviada:data,
               isPruebaTomada:false}
           });
-          // console.log("DATA", data);
           this.ref.onClose.subscribe((data: string) => {
             if(data=='confirmado'){
-              this.listaLab()
+              this.getLaboratoriosList()
             }
           });
         }

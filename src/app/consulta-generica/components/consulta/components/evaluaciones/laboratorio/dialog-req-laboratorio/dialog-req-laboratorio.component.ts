@@ -54,17 +54,14 @@ export class DialogReqLaboratorioComponent implements OnInit {
   ) {
     this.inicializarForm();
     this.dataDialog = this.config.data.auxExams;
-    // //console.log('dialog data ', this.config.data);
+    // console.log('dialog data ', this.config.data.auxExams);
     //console.log('dialog data ', this.dataDialog);
     this.toEdit = this.dataDialog ? false : true;
     //console.log('to edit ', this.toEdit);
     // this.dataDialog.length == 0 ? this.toEdit = false : this.toEdit = true;
     this.idIpress = JSON.parse(localStorage.getItem('usuario')).ipress.idIpress;
     this.dataPaciente = JSON.parse(localStorage.getItem('documento'));
-    // if (this.dataDialog) {
-    //   this.modelarData(this.dataDialog)
-    // this.reworkDialog(this.listaExamenes, this.reqLabo);
-    // }
+    this.toEdit = this.dataDialog ? true : false;
   }
 
   ngOnInit(): void {
@@ -114,6 +111,7 @@ export class DialogReqLaboratorioComponent implements OnInit {
     let listaExamenes = table.filter((item, index) => {
       return table.indexOf(item) === index;
     })
+    // console.log('lista de examenes ', listaExamenes);
     for (let i = 0; i < listaExamenes.length; i++) {
       let auxData = {
         nombreGrupo: listaExamenes[i],
@@ -121,15 +119,29 @@ export class DialogReqLaboratorioComponent implements OnInit {
       }
       this.examGroup.push(auxData);
       for (let j = 0; j < rptaExam.length; j++) {
+        let isSaved: boolean = false;
         if (listaExamenes[i] == rptaExam[j].subTipo) {
+          if (this.dataDialog) {
+            // console.log('respuesta ', rptaExam[j]);
+            this.dataDialog.forEach(exam => {
+              isSaved = rptaExam[j].nombreExamen == exam.nombreExamen ? true : false;
+            });
+          }
+
           let auxExam: ExamLab = {
             subTipo: rptaExam[j].subTipo,
+            saved: isSaved,
             nombreExamen: rptaExam[j].nombreExamen
           }
           this.examGroup[i].listaExam.push(auxExam)
         }
       }
     }
+    // console.log('grupo de examenes ', this.examGroup);
+  }
+
+  performedExams(exam): void {
+
   }
 
   save() {
@@ -174,7 +186,10 @@ export class DialogReqLaboratorioComponent implements OnInit {
       confirmButtonText: 'Guardar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.save();
+        if (this.toEdit)
+          this.addAuxiliarExam();
+        else
+          this.save();
       } else {
         Swal.fire({
           title: 'Cancelado.',
@@ -213,6 +228,32 @@ export class DialogReqLaboratorioComponent implements OnInit {
       }
     }
   }
+
+  async addAuxiliarExam(): Promise<void> {
+    for (let i = 0; i < this.examName.length; i++) {
+      let auxExam: AddLaboratorio = {
+        servicio: '',
+        nroCama: '',
+        examenAuxiliar: {
+          tipoLaboratorio: 'EXAMEN_LABORATORIO',
+          subTipo: this.examName[i].subTipo,
+          nombreExamen: this.examName[i].nombreExamen,
+          codPrestacion: '',
+          codigoSIS: '',
+          codigoHIS: '',
+          lugarExamen: 'LABORATORIO',
+          labExterno: ''
+        }
+      }
+      await this.examenAuxiliarService.putAgregarExamenesConsulta(this.dataPaciente.idConsulta, auxExam).then(res => {
+
+      })
+    }
+    this.closeDialog();
+  }
+  closeDialog(): void {
+    this.ref.close();
+  }
 }
 interface Laboratory {
   subTipe: string,
@@ -223,10 +264,11 @@ interface Group {
   listaExam: ExamLab[]
 }
 interface ExamLab {
-  subTipo: string,
-  nombreExamen: string,
-  codigoHIS?: string,
-  codigoSIS?: string,
+  subTipo: string;
+  nombreExamen: string;
+  saved?: boolean;
+  codigoHIS?: string;
+  codigoSIS?: string;
 }
 interface Examen {
   groupName: string;

@@ -66,7 +66,7 @@ export class IpressHorariosComponent implements OnInit {
     this.idIpress = id;
     this.formHorario.reset();
     this.isUpdateHorario = false;
-    console.log(rowData);
+    // console.log(rowData);
     if (rowData !== null) {
       this.formHorario.get('lunesInicioManiana').setValue(new Date(`2021-01-01 ${rowData[0].horas[0].horaInicio}`));
       this.formHorario.get('lunesFinManiana').setValue(new Date(`2021-01-01 ${rowData[0].horas[0].horaFin}`));
