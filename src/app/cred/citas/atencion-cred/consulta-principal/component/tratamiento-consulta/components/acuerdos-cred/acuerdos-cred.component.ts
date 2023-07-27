@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
-import { stringify } from "querystring";
 import {
     dato,
     listaAcuerdosConMadre,

@@ -3,7 +3,6 @@ import { FormControl, FormGroup, AbstractControl, Validators } from '@angular/fo
 import { DatePipe, formatDate } from '@angular/common';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { IntervaloPartoService } from '../../../plan-parto/services/intervalo-parto/intervalo-parto.service';
-import { stringify } from 'querystring';
 import Swal from 'sweetalert2';
 
 @Component({

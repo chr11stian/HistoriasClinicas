@@ -1,4 +1,3 @@
-import { stringify } from "querystring";
 import { TratamientoConsultaService } from "src/app/cred/citas/atencion-cred/consulta-principal/services/tratamiento-consulta.service";
 import { FormControl } from "@angular/forms";
 import { FormGroup } from "@angular/forms";
