@@ -21,6 +21,8 @@ export class LoginService {
   private currentUserSubject: BehaviorSubject<rootInterface | userInterface>;
   public currentUser: Observable<rootInterface | userInterface>;
 
+  url: string = "/assets/data/data.json";
+
   constructor(private http: HttpClient, private router: Router) {
     this.currentUserSubject = new BehaviorSubject<
       rootInterface | userInterface
@@ -75,8 +77,8 @@ export class LoginService {
     //         return user;
     //     })
     //     );
-    const url: string = "/assets/data/data.json";
-    return this.http.get(url).pipe(
+
+    return this.http.get(this.url).pipe(
       map((user: rootInterface | userInterface) => {
         if (user) {
           const token = {
@@ -96,13 +98,18 @@ export class LoginService {
   }
 
   getRol() {
-    http: return this.http.get(`${this.base_new}/permisos/hce/lista/rol`);
+    return this.http.get(`${this.base_new}/permisos/hce/lista/rol`);
   }
   getRoot(data) {
     return this.http.post(`${this.base_new}/login/root`, data);
   }
   getRoles(dni) {
-    return this.http.get(`${this.base_new}/accesos/user/hce/${dni}`);
+    // return this.http.get(`${this.base_new}/accesos/user/hce/${dni}`);
+    return this.http.get(this.url).pipe(
+      map((user: rootInterface | userInterface) => {
+        return user.usuario.roles;
+      })
+    );
   }
   createAdmin(data) {
     return this.http.post(`${this.base_new}/accesos/root/user`, data);

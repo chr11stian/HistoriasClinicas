@@ -15,6 +15,7 @@ import { CuposService } from "../../core/services/cupos.service";
 import { DocumentoIdentidadService } from "../../mantenimientos/services/documento-identidad/documento-identidad.service";
 import { dato } from "src/app/cred/citas/models/data";
 import Swal from "sweetalert2";
+import { nino } from "src/app/login/model/login.interface";
 
 export interface userCita {
   dni: string;
@@ -48,7 +49,9 @@ export class CitasComponent implements OnInit {
   //-->
   citasFG: FormGroup;
   loading: boolean = true;
-  cuposList: any[];
+  //   cuposList: any[];
+  cuposList: nino[]=[];
+  nino: nino;
 
   dataCitas: any;
   datePipe = new DatePipe("en-US");
@@ -56,6 +59,8 @@ export class CitasComponent implements OnInit {
   tipoDocList: any;
   TipoDoc: string = "DNI";
   DataCuposPaciente: any;
+  data = JSON.parse(localStorage.getItem("usuario")).nino;
+  fecha = new Date();
 
   constructor(
     private obstetriciaGeneralService: ObstetriciaGeneralService,
@@ -72,28 +77,41 @@ export class CitasComponent implements OnInit {
   ngOnInit(): void {
     this.getDocumentosIdentidad();
     this.buscarCuposPorPersonal();
+    this.cuposList.push(this.data);
   }
   buscarCuposPorPersonal() {
     const inputRequest = {
       tipoDoc: this.tipoDocumento,
       nroDoc: this.nroDocumento,
-      fecha: this.datePipe.transform(this.citasFG.value.fechaBusqueda,"yyyy-MM-dd"),
+      fecha: this.datePipe.transform(
+        this.citasFG.value.fechaBusqueda,
+        "yyyy-MM-dd"
+      ),
       servicio: "ATENCION INTEGRAL DEL NINO",
     };
-    this.cuposService
-      .buscarListaCuposPersonal(this.idIpress, inputRequest)
-      .then((resp: any) => {    
-            this.cuposList = resp.object;
-            this.loading = false;
-      }).catch((error)=>{
-        this.cuposList=[]
-      });
+    // this.cuposService
+    //   .buscarListaCuposPersonal(this.idIpress, inputRequest)
+    //   .then((resp: any) => {
+    //         this.cuposList = resp.object;
+    //         this.loading = false;
+    //   }).catch((error)=>{
+    //     this.cuposList=[]
+    //   });
   }
   buildForm() {
     this.citasFG = this.fb.group({
-        fechaBusqueda: new FormControl( { value: new Date(), disabled: false }, Validators.required),
-        tipoDoc: new FormControl({ value: "", disabled: false }, Validators.required),
-        nroDoc: new FormControl({ value: "", disabled: false },Validators.required),
+      fechaBusqueda: new FormControl(
+        { value: new Date(), disabled: false },
+        Validators.required
+      ),
+      tipoDoc: new FormControl(
+        { value: "", disabled: false },
+        Validators.required
+      ),
+      nroDoc: new FormControl(
+        { value: "", disabled: false },
+        Validators.required
+      ),
     });
   }
   /**Lista los tipos de documentos de Identidad de un paciente**/
@@ -102,12 +120,12 @@ export class CitasComponent implements OnInit {
       .getDocumentosIdentidad()
       .subscribe((res: any) => {
         this.tipoDocList = res.object;
-        this.citasFG.get('tipoDoc').setValue(this.tipoDocList[0].abreviatura)
+        this.citasFG.get("tipoDoc").setValue(this.tipoDocList[0].abreviatura);
       });
   }
 
   /**Busca un paciente por le numero de documento**/
- /*  getPacientesXnroDocumento() {
+  /*  getPacientesXnroDocumento() {
     let data = {
       tipoDoc: this.citasFG.value.tipoDoc,
       nroDoc: this.citasFG.value.nroDoc,
@@ -137,16 +155,18 @@ export class CitasComponent implements OnInit {
     const inputRequest = {
       tipoDoc: this.citasFG.value.tipoDoc,
       nroDoc: this.citasFG.value.nroDoc.trim(),
-      fecha: this.datePipe.transform(this.citasFG.value.fechaBusqueda,"yyyy-MM-dd"),
+      fecha: this.datePipe.transform(
+        this.citasFG.value.fechaBusqueda,
+        "yyyy-MM-dd"
+      ),
     };
-    this.cuposService
-      .buscarCupoPorDniFechaIpress(this.idIpress, inputRequest)
-      .then((resp:any) => {
-        this.cuposList = [];
-        this.cuposList.push(resp.object);
-      })
-      .catch((error) => {
-      });
+    // this.cuposService
+    //   .buscarCupoPorDniFechaIpress(this.idIpress, inputRequest)
+    //   .then((resp: any) => {
+    //     this.cuposList = [];
+    //     this.cuposList.push(resp.object);
+    //   })
+    //   .catch((error) => {});
   }
 
   enviarData(event) {

@@ -5,7 +5,8 @@ import { environment } from "../../../environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { DynamicDialogRef } from "primeng/dynamicdialog";
 import { escalaEval_EEDP_0_4_anios } from "../../cred/citas/atencion-cred/plan/component/evaluacion-general/models/EscalaEEDP";
-
+import { map } from "rxjs/operators";
+import { userInterface, rootInterface } from "../../../app/login/model/login.interface";
 @Injectable({
   providedIn: "root",
 })
@@ -155,13 +156,17 @@ export class CuposService {
     );
   }
   buscarListaCuposPersonal(idIpres, data) {
-    return this.http.post(`${this.base_url}/${this.bd}/cupo/listar/cupos/por/personal/${idIpres}`,data )
-      .toPromise()
-      .then((result: any) => {
-        return result;
-      })
-      .catch((error) => {
-        return null;
+    // return this.http.post(`${this.base_url}/${this.bd}/cupo/listar/cupos/por/personal/${idIpres}`,data )
+    //   .toPromise()
+    //   .then((result: any) => {
+    //     return result;
+    //   })
+    //   .catch((error) => {
+    //     return null;
+    //   })
+    let url: string = "/assets/data/data.json";
+    return this.http.get(url).toPromise().then((user: rootInterface | userInterface) => {
+        return user.usuario.nino;
       })
   }
   buscarListaCuposPersonalObstetricia(data) {

@@ -79,7 +79,7 @@ export class InterceptorService implements HttpInterceptor {
                 cloned = req.clone({
                     setHeaders: {
                         "Access-Control-Allow-Origin": "*",
-                        Authorization: portNum == "8200" ? basicAuth : jwtAuth,
+                        // Authorization: portNum == "8200" ? basicAuth : jwtAuth,
                         "Access-Control-Allow-Credentials": "true",
                         "Access-Control-Allow-Headers":
                             "origin, content-type, accept, authorization",
@@ -88,8 +88,8 @@ export class InterceptorService implements HttpInterceptor {
                     },
                 });
             }
-            this.spinnerHandler.show();
-            this.countRequest++;
+            // this.spinnerHandler.show();
+            // this.countRequest++;
         }
         return next
             .handle(cloned)

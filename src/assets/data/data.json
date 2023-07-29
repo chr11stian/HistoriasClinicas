@@ -1,5 +1,43 @@
 {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjoidXN1YXJpbyIsInBhc3N3b3JkIjoiMTIzNDU2In0.afas7vLREYAg34P_oKjVKed77rKMAMEvBjYy1pmezlg",
-    "usuario": "usuario",
-    "tokenCouch":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjoidXN1YXJpbyIsInBhc3N3b3JkIjoiMTIzNDU2In0.afas7vLREYAg34P_oKjVKed77rKMAMEvBjYy1pmezlg"
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjoidXN1YXJpbyIsInBhc3N3b3JkIjoiMTIzNDU2In0.afas7vLREYAg34P_oKjVKed77rKMAMEvBjYy1pmezlg",
+  "usuario": {
+    "apellidos": "lopez silva",
+    "apps": ["hce"],
+    "escalas": [{ "escala": "IPRESS" }],
+    "especialidad": [],
+    "estado": true,
+    "fechaNacimiento": "",
+    "ipress": {
+      "nombreIpress": "cusco",
+      "idIpress": "123456"
+    },
+    "nombres": "indira",
+    "nroDocumento": "31190523",
+    "roles": [
+      "ROLE_ADMININ_PERSONAL",
+      "ROLE_ADMIN",
+      "ROLE_ENF_PERSONAL",
+      "ROLE_TEC_ADMINI_PERSONAL"
+    ],
+    "sexo": "femenino",
+    "tipoDocumento": "DNI",
+    "tipoPersonal": "ENF",
+    "nroDoc": "31190523",
+    "tipoDoc": "DNI",
+    "rol": [{ "nombreUPS": "ATENCION INTEGRAL DEL NINO" }],
+    "nino": {
+        "paciente": {
+          "nroDoc": "70859532",
+          "nombre": "jose adrian",
+          "apellidos": "fernandez rios"
+        },
+        "horaAtencion": "10:15",
+        "fechaAtencion": "10:15",
+        "ipress": {
+          "servicio": "CRED NIÑO"
+        }
+      }
+  },
+  
+  "tokenCouch": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjoidXN1YXJpbyIsInBhc3N3b3JkIjoiMTIzNDU2In0.afas7vLREYAg34P_oKjVKed77rKMAMEvBjYy1pmezlg"
 }
